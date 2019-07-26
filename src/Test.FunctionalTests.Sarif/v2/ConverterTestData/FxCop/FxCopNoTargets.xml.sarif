@@ -1,10 +1,12 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-09-26",
-  "version": "2.0.0-csd.2.beta.2018-09-26",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.4.json",
+  "version": "2.1.0",
   "runs": [
     {
       "tool": {
-        "name": "FxCop"
+        "driver": {
+          "name": "FxCop"
+        }
       },
       "results": [
         {
@@ -31,7 +33,8 @@
             "UniqueId": "Microsoft.FxCop.Sdk.FxCopException"
           }
         }
-      ]
+      ],
+      "columnKind": "utf16CodeUnits"
     }
   ]
 }

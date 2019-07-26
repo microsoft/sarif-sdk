@@ -1,116 +1,220 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-09-26",
-  "version": "2.0.0-csd.2.beta.2018-09-26",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.4.json",
+  "version": "2.1.0",
   "runs": [
     {
       "tool": {
-        "name": "CppCheck",
-        "version": "1.66.0"
-      },
-      "files": {
-        "adler32.c": {
-          "mimeType": "text/x-cpp"
-        },
-        "crc32.c": {
-          "mimeType": "text/x-cpp"
-        },
-        "deflate.c": {
-          "mimeType": "text/x-cpp"
-        },
-        "gzlib.c": {
-          "mimeType": "text/x-cpp"
-        },
-        "gzread.c": {
-          "mimeType": "text/x-cpp"
-        },
-        "gzwrite.c": {
-          "mimeType": "text/x-cpp"
-        },
-        "inflate.c": {
-          "mimeType": "text/x-cpp"
-        },
-        "inftrees.c": {
-          "mimeType": "text/x-cpp"
-        },
-        "trees.c": {
-          "mimeType": "text/x-cpp"
-        },
-        "zutil.c": {
-          "mimeType": "text/x-cpp"
-        },
-        "contrib/infback9/inftree9.c": {
-          "mimeType": "text/x-cpp"
-        },
-        "contrib/inflate86/inffas86.c": {
-          "mimeType": "text/x-cpp"
-        },
-        "contrib/iostream2/zstream_test.cpp": {
-          "mimeType": "text/x-cpp"
-        },
-        "contrib/masmx64/inffas8664.c": {
-          "mimeType": "text/x-cpp"
-        },
-        "contrib/minizip/iowin32.c": {
-          "mimeType": "text/x-cpp"
-        },
-        "contrib/minizip/miniunz.c": {
-          "mimeType": "text/x-cpp"
-        },
-        "contrib/minizip/minizip.c": {
-          "mimeType": "text/x-cpp"
-        },
-        "contrib/minizip/mztools.c": {
-          "mimeType": "text/x-cpp"
-        },
-        "contrib/minizip/unzip.c": {
-          "mimeType": "text/x-cpp"
-        },
-        "contrib/minizip/zip.c": {
-          "mimeType": "text/x-cpp"
-        },
-        "contrib/minizip/crypt.h": {
-          "mimeType": "text/x-cpp"
-        },
-        "contrib/puff/puff.c": {
-          "mimeType": "text/x-cpp"
-        },
-        "contrib/puff/pufftest.c": {
-          "mimeType": "text/x-cpp"
-        },
-        "contrib/testzlib/testzlib.c": {
-          "mimeType": "text/x-cpp"
-        },
-        "contrib/untgz/untgz.c": {
-          "mimeType": "text/x-cpp"
-        },
-        "examples/enough.c": {
-          "mimeType": "text/x-cpp"
-        },
-        "examples/gun.c": {
-          "mimeType": "text/x-cpp"
-        },
-        "examples/gzappend.c": {
-          "mimeType": "text/x-cpp"
-        },
-        "examples/gzjoin.c": {
-          "mimeType": "text/x-cpp"
-        },
-        "examples/gzlog.c": {
-          "mimeType": "text/x-cpp"
-        },
-        "examples/zran.c": {
-          "mimeType": "text/x-cpp"
-        },
-        "test/example.c": {
-          "mimeType": "text/x-cpp"
-        },
-        "test/infcover.c": {
-          "mimeType": "text/x-cpp"
-        },
-        "test/minigzip.c": {
-          "mimeType": "text/x-cpp"
+        "driver": {
+          "name": "CppCheck",
+          "version": "1.66.0"
         }
       },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "adler32.c",
+            "index": 0
+          }
+        },
+        {
+          "location": {
+            "uri": "crc32.c",
+            "index": 1
+          }
+        },
+        {
+          "location": {
+            "uri": "deflate.c",
+            "index": 2
+          }
+        },
+        {
+          "location": {
+            "uri": "gzlib.c",
+            "index": 3
+          }
+        },
+        {
+          "location": {
+            "uri": "gzread.c",
+            "index": 4
+          }
+        },
+        {
+          "location": {
+            "uri": "gzwrite.c",
+            "index": 5
+          }
+        },
+        {
+          "location": {
+            "uri": "inflate.c",
+            "index": 6
+          }
+        },
+        {
+          "location": {
+            "uri": "inftrees.c",
+            "index": 7
+          }
+        },
+        {
+          "location": {
+            "uri": "trees.c",
+            "index": 8
+          }
+        },
+        {
+          "location": {
+            "uri": "zutil.c",
+            "index": 9
+          }
+        },
+        {
+          "location": {
+            "uri": "contrib/infback9/inftree9.c",
+            "index": 10
+          }
+        },
+        {
+          "location": {
+            "uri": "contrib/inflate86/inffas86.c",
+            "index": 11
+          }
+        },
+        {
+          "location": {
+            "uri": "contrib/iostream2/zstream_test.cpp",
+            "index": 12
+          }
+        },
+        {
+          "location": {
+            "uri": "contrib/masmx64/inffas8664.c",
+            "index": 13
+          }
+        },
+        {
+          "location": {
+            "uri": "contrib/minizip/iowin32.c",
+            "index": 14
+          }
+        },
+        {
+          "location": {
+            "uri": "contrib/minizip/miniunz.c",
+            "index": 15
+          }
+        },
+        {
+          "location": {
+            "uri": "contrib/minizip/minizip.c",
+            "index": 16
+          }
+        },
+        {
+          "location": {
+            "uri": "contrib/minizip/mztools.c",
+            "index": 17
+          }
+        },
+        {
+          "location": {
+            "uri": "contrib/minizip/unzip.c",
+            "index": 18
+          }
+        },
+        {
+          "location": {
+            "uri": "contrib/minizip/zip.c",
+            "index": 19
+          }
+        },
+        {
+          "location": {
+            "uri": "contrib/minizip/crypt.h",
+            "index": 20
+          }
+        },
+        {
+          "location": {
+            "uri": "contrib/puff/puff.c",
+            "index": 21
+          }
+        },
+        {
+          "location": {
+            "uri": "contrib/puff/pufftest.c",
+            "index": 22
+          }
+        },
+        {
+          "location": {
+            "uri": "contrib/testzlib/testzlib.c",
+            "index": 23
+          }
+        },
+        {
+          "location": {
+            "uri": "contrib/untgz/untgz.c",
+            "index": 24
+          }
+        },
+        {
+          "location": {
+            "uri": "examples/enough.c",
+            "index": 25
+          }
+        },
+        {
+          "location": {
+            "uri": "examples/gun.c",
+            "index": 26
+          }
+        },
+        {
+          "location": {
+            "uri": "examples/gzappend.c",
+            "index": 27
+          }
+        },
+        {
+          "location": {
+            "uri": "examples/gzjoin.c",
+            "index": 28
+          }
+        },
+        {
+          "location": {
+            "uri": "examples/gzlog.c",
+            "index": 29
+          }
+        },
+        {
+          "location": {
+            "uri": "examples/zran.c",
+            "index": 30
+          }
+        },
+        {
+          "location": {
+            "uri": "test/example.c",
+            "index": 31
+          }
+        },
+        {
+          "location": {
+            "uri": "test/infcover.c",
+            "index": 32
+          }
+        },
+        {
+          "location": {
+            "uri": "test/minigzip.c",
+            "index": 33
+          }
+        }
+      ],
       "results": [
         {
           "ruleId": "variableScope",
@@ -120,8 +224,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "adler32.c"
+                "artifactLocation": {
+                  "uri": "adler32.c",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 71
@@ -141,8 +246,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "crc32.c"
+                "artifactLocation": {
+                  "uri": "crc32.c",
+                  "index": 1
                 },
                 "region": {
                   "startLine": 92
@@ -162,8 +268,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "crc32.c"
+                "artifactLocation": {
+                  "uri": "crc32.c",
+                  "index": 1
                 },
                 "region": {
                   "startLine": 93
@@ -183,8 +290,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "crc32.c"
+                "artifactLocation": {
+                  "uri": "crc32.c",
+                  "index": 1
                 },
                 "region": {
                   "startLine": 93
@@ -204,8 +312,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "crc32.c"
+                "artifactLocation": {
+                  "uri": "crc32.c",
+                  "index": 1
                 },
                 "region": {
                   "startLine": 94
@@ -225,8 +334,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "crc32.c"
+                "artifactLocation": {
+                  "uri": "crc32.c",
+                  "index": 1
                 },
                 "region": {
                   "startLine": 97
@@ -246,8 +356,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "crc32.c"
+                "artifactLocation": {
+                  "uri": "crc32.c",
+                  "index": 1
                 },
                 "region": {
                   "startLine": 174
@@ -267,8 +378,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "deflate.c"
+                "artifactLocation": {
+                  "uri": "deflate.c",
+                  "index": 2
                 },
                 "region": {
                   "startLine": 329
@@ -288,8 +400,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "deflate.c"
+                "artifactLocation": {
+                  "uri": "deflate.c",
+                  "index": 2
                 },
                 "region": {
                   "startLine": 329
@@ -309,8 +422,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "deflate.c"
+                "artifactLocation": {
+                  "uri": "deflate.c",
+                  "index": 2
                 },
                 "region": {
                   "startLine": 470
@@ -330,8 +444,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "deflate.c"
+                "artifactLocation": {
+                  "uri": "deflate.c",
+                  "index": 2
                 },
                 "region": {
                   "startLine": 572
@@ -351,8 +466,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "deflate.c"
+                "artifactLocation": {
+                  "uri": "deflate.c",
+                  "index": 2
                 },
                 "region": {
                   "startLine": 1154
@@ -372,8 +488,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "deflate.c"
+                "artifactLocation": {
+                  "uri": "deflate.c",
+                  "index": 2
                 },
                 "region": {
                   "startLine": 1395
@@ -393,8 +510,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "deflate.c"
+                "artifactLocation": {
+                  "uri": "deflate.c",
+                  "index": 2
                 },
                 "region": {
                   "startLine": 1572
@@ -414,8 +532,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "deflate.c"
+                "artifactLocation": {
+                  "uri": "deflate.c",
+                  "index": 2
                 },
                 "region": {
                   "startLine": 155
@@ -435,8 +554,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "deflate.c"
+                "artifactLocation": {
+                  "uri": "deflate.c",
+                  "index": 2
                 },
                 "region": {
                   "startLine": 1842
@@ -456,8 +576,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "deflate.c"
+                "artifactLocation": {
+                  "uri": "deflate.c",
+                  "index": 2
                 },
                 "region": {
                   "startLine": 1938
@@ -477,8 +598,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "gzlib.c"
+                "artifactLocation": {
+                  "uri": "gzlib.c",
+                  "index": 3
                 },
                 "region": {
                   "startLine": 367
@@ -498,8 +620,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "gzlib.c"
+                "artifactLocation": {
+                  "uri": "gzlib.c",
+                  "index": 3
                 },
                 "region": {
                   "startLine": 368
@@ -519,8 +642,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "gzlib.c"
+                "artifactLocation": {
+                  "uri": "gzlib.c",
+                  "index": 3
                 },
                 "region": {
                   "startLine": 1
@@ -540,8 +664,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "gzlib.c"
+                "artifactLocation": {
+                  "uri": "gzlib.c",
+                  "index": 3
                 },
                 "region": {
                   "startLine": 1
@@ -561,8 +686,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "gzlib.c"
+                "artifactLocation": {
+                  "uri": "gzlib.c",
+                  "index": 3
                 },
                 "region": {
                   "startLine": 1
@@ -582,8 +708,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "gzlib.c"
+                "artifactLocation": {
+                  "uri": "gzlib.c",
+                  "index": 3
                 },
                 "region": {
                   "startLine": 1
@@ -603,8 +730,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "gzlib.c"
+                "artifactLocation": {
+                  "uri": "gzlib.c",
+                  "index": 3
                 },
                 "region": {
                   "startLine": 193
@@ -624,8 +752,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "gzread.c"
+                "artifactLocation": {
+                  "uri": "gzread.c",
+                  "index": 4
                 },
                 "region": {
                   "startLine": 488
@@ -645,8 +774,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "gzread.c"
+                "artifactLocation": {
+                  "uri": "gzread.c",
+                  "index": 4
                 },
                 "region": {
                   "startLine": 490
@@ -666,8 +796,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "gzread.c"
+                "artifactLocation": {
+                  "uri": "gzread.c",
+                  "index": 4
                 },
                 "region": {
                   "startLine": 271
@@ -687,8 +818,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "gzwrite.c"
+                "artifactLocation": {
+                  "uri": "gzwrite.c",
+                  "index": 5
                 },
                 "region": {
                   "startLine": 18
@@ -708,8 +840,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "gzwrite.c"
+                "artifactLocation": {
+                  "uri": "gzwrite.c",
+                  "index": 5
                 },
                 "region": {
                   "startLine": 138
@@ -729,8 +862,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "gzwrite.c"
+                "artifactLocation": {
+                  "uri": "gzwrite.c",
+                  "index": 5
                 },
                 "region": {
                   "startLine": 249
@@ -750,8 +884,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "inflate.c"
+                "artifactLocation": {
+                  "uri": "inflate.c",
+                  "index": 6
                 },
                 "region": {
                   "startLine": 385
@@ -771,8 +906,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "inflate.c"
+                "artifactLocation": {
+                  "uri": "inflate.c",
+                  "index": 6
                 },
                 "region": {
                   "startLine": 1297
@@ -792,8 +928,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "inflate.c"
+                "artifactLocation": {
+                  "uri": "inflate.c",
+                  "index": 6
                 },
                 "region": {
                   "startLine": 1382
@@ -813,8 +950,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "inflate.c"
+                "artifactLocation": {
+                  "uri": "inflate.c",
+                  "index": 6
                 },
                 "region": {
                   "startLine": 1445
@@ -834,8 +972,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "inftrees.c"
+                "artifactLocation": {
+                  "uri": "inftrees.c",
+                  "index": 7
                 },
                 "region": {
                   "startLine": 50
@@ -855,8 +994,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "trees.c"
+                "artifactLocation": {
+                  "uri": "trees.c",
+                  "index": 8
                 },
                 "region": {
                   "startLine": 712
@@ -876,8 +1016,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "trees.c"
+                "artifactLocation": {
+                  "uri": "trees.c",
+                  "index": 8
                 },
                 "region": {
                   "startLine": 757
@@ -897,8 +1038,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "trees.c"
+                "artifactLocation": {
+                  "uri": "trees.c",
+                  "index": 8
                 },
                 "region": {
                   "startLine": 1065
@@ -918,8 +1060,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "trees.c"
+                "artifactLocation": {
+                  "uri": "trees.c",
+                  "index": 8
                 },
                 "region": {
                   "startLine": 1066
@@ -939,8 +1082,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "trees.c"
+                "artifactLocation": {
+                  "uri": "trees.c",
+                  "index": 8
                 },
                 "region": {
                   "startLine": 1067
@@ -960,8 +1104,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "trees.c"
+                "artifactLocation": {
+                  "uri": "trees.c",
+                  "index": 8
                 },
                 "region": {
                   "startLine": 1068
@@ -981,8 +1126,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "trees.c"
+                "artifactLocation": {
+                  "uri": "trees.c",
+                  "index": 8
                 },
                 "region": {
                   "startLine": 1069
@@ -1002,8 +1148,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "trees.c"
+                "artifactLocation": {
+                  "uri": "trees.c",
+                  "index": 8
                 },
                 "region": {
                   "startLine": 826
@@ -1023,8 +1170,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "trees.c"
+                "artifactLocation": {
+                  "uri": "trees.c",
+                  "index": 8
                 },
                 "region": {
                   "startLine": 826
@@ -1044,8 +1192,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "trees.c"
+                "artifactLocation": {
+                  "uri": "trees.c",
+                  "index": 8
                 },
                 "region": {
                   "startLine": 853
@@ -1065,8 +1214,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "trees.c"
+                "artifactLocation": {
+                  "uri": "trees.c",
+                  "index": 8
                 },
                 "region": {
                   "startLine": 856
@@ -1086,8 +1236,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "trees.c"
+                "artifactLocation": {
+                  "uri": "trees.c",
+                  "index": 8
                 },
                 "region": {
                   "startLine": 859
@@ -1107,8 +1258,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "trees.c"
+                "artifactLocation": {
+                  "uri": "trees.c",
+                  "index": 8
                 },
                 "region": {
                   "startLine": 926
@@ -1128,8 +1280,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "trees.c"
+                "artifactLocation": {
+                  "uri": "trees.c",
+                  "index": 8
                 },
                 "region": {
                   "startLine": 926
@@ -1149,8 +1302,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "trees.c"
+                "artifactLocation": {
+                  "uri": "trees.c",
+                  "index": 8
                 },
                 "region": {
                   "startLine": 930
@@ -1170,8 +1324,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "trees.c"
+                "artifactLocation": {
+                  "uri": "trees.c",
+                  "index": 8
                 },
                 "region": {
                   "startLine": 930
@@ -1191,8 +1346,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "trees.c"
+                "artifactLocation": {
+                  "uri": "trees.c",
+                  "index": 8
                 },
                 "region": {
                   "startLine": 1090
@@ -1212,8 +1368,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "trees.c"
+                "artifactLocation": {
+                  "uri": "trees.c",
+                  "index": 8
                 },
                 "region": {
                   "startLine": 364
@@ -1233,8 +1390,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "trees.c"
+                "artifactLocation": {
+                  "uri": "trees.c",
+                  "index": 8
                 },
                 "region": {
                   "startLine": 370
@@ -1254,8 +1412,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "trees.c"
+                "artifactLocation": {
+                  "uri": "trees.c",
+                  "index": 8
                 },
                 "region": {
                   "startLine": 970
@@ -1275,8 +1434,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "zutil.c"
+                "artifactLocation": {
+                  "uri": "zutil.c",
+                  "index": 9
                 },
                 "region": {
                   "startLine": 309
@@ -1292,8 +1452,9 @@
                     {
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "zutil.c"
+                          "artifactLocation": {
+                            "uri": "zutil.c",
+                            "index": 9
                           },
                           "region": {
                             "startLine": 309
@@ -1305,8 +1466,9 @@
                     {
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "zutil.c"
+                          "artifactLocation": {
+                            "uri": "zutil.c",
+                            "index": 9
                           },
                           "region": {
                             "startLine": 309
@@ -1332,8 +1494,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "zutil.c"
+                "artifactLocation": {
+                  "uri": "zutil.c",
+                  "index": 9
                 },
                 "region": {
                   "startLine": 14
@@ -1353,8 +1516,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "zutil.c"
+                "artifactLocation": {
+                  "uri": "zutil.c",
+                  "index": 9
                 },
                 "region": {
                   "startLine": 14
@@ -1374,8 +1538,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/infback9/inftree9.c"
+                "artifactLocation": {
+                  "uri": "contrib/infback9/inftree9.c",
+                  "index": 10
                 },
                 "region": {
                   "startLine": 50
@@ -1395,8 +1560,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/inflate86/inffas86.c"
+                "artifactLocation": {
+                  "uri": "contrib/inflate86/inffas86.c",
+                  "index": 11
                 },
                 "region": {
                   "startLine": 79
@@ -1416,8 +1582,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/inflate86/inffas86.c"
+                "artifactLocation": {
+                  "uri": "contrib/inflate86/inffas86.c",
+                  "index": 11
                 },
                 "region": {
                   "startLine": 80
@@ -1437,8 +1604,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/inflate86/inffas86.c"
+                "artifactLocation": {
+                  "uri": "contrib/inflate86/inffas86.c",
+                  "index": 11
                 },
                 "region": {
                   "startLine": 96
@@ -1458,8 +1626,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/iostream2/zstream_test.cpp"
+                "artifactLocation": {
+                  "uri": "contrib/iostream2/zstream_test.cpp",
+                  "index": 12
                 },
                 "region": {
                   "startLine": 10
@@ -1479,8 +1648,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/iostream2/zstream_test.cpp"
+                "artifactLocation": {
+                  "uri": "contrib/iostream2/zstream_test.cpp",
+                  "index": 12
                 },
                 "region": {
                   "startLine": 15
@@ -1500,8 +1670,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/iostream2/zstream_test.cpp"
+                "artifactLocation": {
+                  "uri": "contrib/iostream2/zstream_test.cpp",
+                  "index": 12
                 },
                 "region": {
                   "startLine": 14
@@ -1521,8 +1692,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/masmx64/inffas8664.c"
+                "artifactLocation": {
+                  "uri": "contrib/masmx64/inffas8664.c",
+                  "index": 13
                 },
                 "region": {
                   "startLine": 84
@@ -1542,8 +1714,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/masmx64/inffas8664.c"
+                "artifactLocation": {
+                  "uri": "contrib/masmx64/inffas8664.c",
+                  "index": 13
                 },
                 "region": {
                   "startLine": 85
@@ -1563,8 +1736,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/masmx64/inffas8664.c"
+                "artifactLocation": {
+                  "uri": "contrib/masmx64/inffas8664.c",
+                  "index": 13
                 },
                 "region": {
                   "startLine": 86
@@ -1584,8 +1758,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/masmx64/inffas8664.c"
+                "artifactLocation": {
+                  "uri": "contrib/masmx64/inffas8664.c",
+                  "index": 13
                 },
                 "region": {
                   "startLine": 87
@@ -1605,8 +1780,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/masmx64/inffas8664.c"
+                "artifactLocation": {
+                  "uri": "contrib/masmx64/inffas8664.c",
+                  "index": 13
                 },
                 "region": {
                   "startLine": 88
@@ -1626,8 +1802,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/masmx64/inffas8664.c"
+                "artifactLocation": {
+                  "uri": "contrib/masmx64/inffas8664.c",
+                  "index": 13
                 },
                 "region": {
                   "startLine": 89
@@ -1647,8 +1824,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/masmx64/inffas8664.c"
+                "artifactLocation": {
+                  "uri": "contrib/masmx64/inffas8664.c",
+                  "index": 13
                 },
                 "region": {
                   "startLine": 90
@@ -1668,8 +1846,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/masmx64/inffas8664.c"
+                "artifactLocation": {
+                  "uri": "contrib/masmx64/inffas8664.c",
+                  "index": 13
                 },
                 "region": {
                   "startLine": 91
@@ -1689,8 +1868,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/masmx64/inffas8664.c"
+                "artifactLocation": {
+                  "uri": "contrib/masmx64/inffas8664.c",
+                  "index": 13
                 },
                 "region": {
                   "startLine": 94
@@ -1710,8 +1890,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/masmx64/inffas8664.c"
+                "artifactLocation": {
+                  "uri": "contrib/masmx64/inffas8664.c",
+                  "index": 13
                 },
                 "region": {
                   "startLine": 95
@@ -1731,8 +1912,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/masmx64/inffas8664.c"
+                "artifactLocation": {
+                  "uri": "contrib/masmx64/inffas8664.c",
+                  "index": 13
                 },
                 "region": {
                   "startLine": 96
@@ -1752,8 +1934,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/masmx64/inffas8664.c"
+                "artifactLocation": {
+                  "uri": "contrib/masmx64/inffas8664.c",
+                  "index": 13
                 },
                 "region": {
                   "startLine": 97
@@ -1773,8 +1956,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/masmx64/inffas8664.c"
+                "artifactLocation": {
+                  "uri": "contrib/masmx64/inffas8664.c",
+                  "index": 13
                 },
                 "region": {
                   "startLine": 98
@@ -1794,8 +1978,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/masmx64/inffas8664.c"
+                "artifactLocation": {
+                  "uri": "contrib/masmx64/inffas8664.c",
+                  "index": 13
                 },
                 "region": {
                   "startLine": 99
@@ -1815,8 +2000,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/masmx64/inffas8664.c"
+                "artifactLocation": {
+                  "uri": "contrib/masmx64/inffas8664.c",
+                  "index": 13
                 },
                 "region": {
                   "startLine": 100
@@ -1836,8 +2022,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/masmx64/inffas8664.c"
+                "artifactLocation": {
+                  "uri": "contrib/masmx64/inffas8664.c",
+                  "index": 13
                 },
                 "region": {
                   "startLine": 101
@@ -1857,8 +2044,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/masmx64/inffas8664.c"
+                "artifactLocation": {
+                  "uri": "contrib/masmx64/inffas8664.c",
+                  "index": 13
                 },
                 "region": {
                   "startLine": 102
@@ -1878,8 +2066,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/minizip/iowin32.c"
+                "artifactLocation": {
+                  "uri": "contrib/minizip/iowin32.c",
+                  "index": 14
                 },
                 "region": {
                   "startLine": 97
@@ -1899,8 +2088,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/minizip/iowin32.c"
+                "artifactLocation": {
+                  "uri": "contrib/minizip/iowin32.c",
+                  "index": 14
                 },
                 "region": {
                   "startLine": 126
@@ -1920,8 +2110,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/minizip/iowin32.c"
+                "artifactLocation": {
+                  "uri": "contrib/minizip/iowin32.c",
+                  "index": 14
                 },
                 "region": {
                   "startLine": 150
@@ -1941,8 +2132,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/minizip/iowin32.c"
+                "artifactLocation": {
+                  "uri": "contrib/minizip/iowin32.c",
+                  "index": 14
                 },
                 "region": {
                   "startLine": 170
@@ -1962,8 +2154,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/minizip/iowin32.c"
+                "artifactLocation": {
+                  "uri": "contrib/minizip/iowin32.c",
+                  "index": 14
                 },
                 "region": {
                   "startLine": 364
@@ -1983,8 +2176,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/minizip/miniunz.c"
+                "artifactLocation": {
+                  "uri": "contrib/minizip/miniunz.c",
+                  "index": 15
                 },
                 "region": {
                   "startLine": 602
@@ -2000,8 +2194,9 @@
                     {
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "contrib/minizip/miniunz.c"
+                          "artifactLocation": {
+                            "uri": "contrib/minizip/miniunz.c",
+                            "index": 15
                           },
                           "region": {
                             "startLine": 632
@@ -2013,8 +2208,9 @@
                     {
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "contrib/minizip/miniunz.c"
+                          "artifactLocation": {
+                            "uri": "contrib/minizip/miniunz.c",
+                            "index": 15
                           },
                           "region": {
                             "startLine": 602
@@ -2040,8 +2236,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/minizip/miniunz.c"
+                "artifactLocation": {
+                  "uri": "contrib/minizip/miniunz.c",
+                  "index": 15
                 },
                 "region": {
                   "startLine": 322
@@ -2061,8 +2258,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/minizip/miniunz.c"
+                "artifactLocation": {
+                  "uri": "contrib/minizip/miniunz.c",
+                  "index": 15
                 },
                 "region": {
                   "startLine": 542
@@ -2082,8 +2280,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/minizip/miniunz.c"
+                "artifactLocation": {
+                  "uri": "contrib/minizip/miniunz.c",
+                  "index": 15
                 },
                 "region": {
                   "startLine": 327
@@ -2103,8 +2302,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/minizip/miniunz.c"
+                "artifactLocation": {
+                  "uri": "contrib/minizip/miniunz.c",
+                  "index": 15
                 },
                 "region": {
                   "startLine": 484
@@ -2124,8 +2324,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/minizip/miniunz.c"
+                "artifactLocation": {
+                  "uri": "contrib/minizip/miniunz.c",
+                  "index": 15
                 },
                 "region": {
                   "startLine": 518
@@ -2145,8 +2346,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/minizip/minizip.c"
+                "artifactLocation": {
+                  "uri": "contrib/minizip/minizip.c",
+                  "index": 16
                 },
                 "region": {
                   "startLine": 235
@@ -2166,8 +2368,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/minizip/minizip.c"
+                "artifactLocation": {
+                  "uri": "contrib/minizip/minizip.c",
+                  "index": 16
                 },
                 "region": {
                   "startLine": 193
@@ -2183,8 +2386,9 @@
                     {
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "contrib/minizip/minizip.c"
+                          "artifactLocation": {
+                            "uri": "contrib/minizip/minizip.c",
+                            "index": 16
                           },
                           "region": {
                             "startLine": 204
@@ -2196,8 +2400,9 @@
                     {
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "contrib/minizip/minizip.c"
+                          "artifactLocation": {
+                            "uri": "contrib/minizip/minizip.c",
+                            "index": 16
                           },
                           "region": {
                             "startLine": 193
@@ -2223,8 +2428,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/minizip/minizip.c"
+                "artifactLocation": {
+                  "uri": "contrib/minizip/minizip.c",
+                  "index": 16
                 },
                 "region": {
                   "startLine": 191
@@ -2244,8 +2450,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/minizip/minizip.c"
+                "artifactLocation": {
+                  "uri": "contrib/minizip/minizip.c",
+                  "index": 16
                 },
                 "region": {
                   "startLine": 192
@@ -2265,8 +2472,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/minizip/minizip.c"
+                "artifactLocation": {
+                  "uri": "contrib/minizip/minizip.c",
+                  "index": 16
                 },
                 "region": {
                   "startLine": 227
@@ -2286,8 +2494,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/minizip/minizip.c"
+                "artifactLocation": {
+                  "uri": "contrib/minizip/minizip.c",
+                  "index": 16
                 },
                 "region": {
                   "startLine": 257
@@ -2307,8 +2516,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/minizip/minizip.c"
+                "artifactLocation": {
+                  "uri": "contrib/minizip/minizip.c",
+                  "index": 16
                 },
                 "region": {
                   "startLine": 399
@@ -2328,8 +2538,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/minizip/minizip.c"
+                "artifactLocation": {
+                  "uri": "contrib/minizip/minizip.c",
+                  "index": 16
                 },
                 "region": {
                   "startLine": 212
@@ -2349,8 +2560,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/minizip/minizip.c"
+                "artifactLocation": {
+                  "uri": "contrib/minizip/minizip.c",
+                  "index": 16
                 },
                 "region": {
                   "startLine": 232
@@ -2370,8 +2582,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/minizip/minizip.c"
+                "artifactLocation": {
+                  "uri": "contrib/minizip/minizip.c",
+                  "index": 16
                 },
                 "region": {
                   "startLine": 235
@@ -2391,8 +2604,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/minizip/mztools.c"
+                "artifactLocation": {
+                  "uri": "contrib/minizip/mztools.c",
+                  "index": 17
                 },
                 "region": {
                   "startLine": 290
@@ -2412,8 +2626,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/minizip/mztools.c"
+                "artifactLocation": {
+                  "uri": "contrib/minizip/mztools.c",
+                  "index": 17
                 },
                 "region": {
                   "startLine": 290
@@ -2433,8 +2648,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/minizip/mztools.c"
+                "artifactLocation": {
+                  "uri": "contrib/minizip/mztools.c",
+                  "index": 17
                 },
                 "region": {
                   "startLine": 290
@@ -2454,8 +2670,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/minizip/unzip.c"
+                "artifactLocation": {
+                  "uri": "contrib/minizip/unzip.c",
+                  "index": 18
                 },
                 "region": {
                   "startLine": 1663
@@ -2471,8 +2688,9 @@
                     {
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "contrib/minizip/unzip.c"
+                          "artifactLocation": {
+                            "uri": "contrib/minizip/unzip.c",
+                            "index": 18
                           },
                           "region": {
                             "startLine": 1665
@@ -2484,8 +2702,9 @@
                     {
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "contrib/minizip/unzip.c"
+                          "artifactLocation": {
+                            "uri": "contrib/minizip/unzip.c",
+                            "index": 18
                           },
                           "region": {
                             "startLine": 1663
@@ -2511,8 +2730,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/minizip/unzip.c"
+                "artifactLocation": {
+                  "uri": "contrib/minizip/unzip.c",
+                  "index": 18
                 },
                 "region": {
                   "startLine": 1105
@@ -2532,8 +2752,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/minizip/zip.c"
+                "artifactLocation": {
+                  "uri": "contrib/minizip/zip.c",
+                  "index": 19
                 },
                 "region": {
                   "startLine": 1038
@@ -2549,8 +2770,9 @@
                     {
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "contrib/minizip/zip.c"
+                          "artifactLocation": {
+                            "uri": "contrib/minizip/zip.c",
+                            "index": 19
                           },
                           "region": {
                             "startLine": 1037
@@ -2562,8 +2784,9 @@
                     {
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "contrib/minizip/zip.c"
+                          "artifactLocation": {
+                            "uri": "contrib/minizip/zip.c",
+                            "index": 19
                           },
                           "region": {
                             "startLine": 1038
@@ -2589,8 +2812,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/minizip/zip.c"
+                "artifactLocation": {
+                  "uri": "contrib/minizip/zip.c",
+                  "index": 19
                 },
                 "region": {
                   "startLine": 1040
@@ -2606,8 +2830,9 @@
                     {
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "contrib/minizip/zip.c"
+                          "artifactLocation": {
+                            "uri": "contrib/minizip/zip.c",
+                            "index": 19
                           },
                           "region": {
                             "startLine": 1038
@@ -2619,8 +2844,9 @@
                     {
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "contrib/minizip/zip.c"
+                          "artifactLocation": {
+                            "uri": "contrib/minizip/zip.c",
+                            "index": 19
                           },
                           "region": {
                             "startLine": 1040
@@ -2646,8 +2872,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/minizip/zip.c"
+                "artifactLocation": {
+                  "uri": "contrib/minizip/zip.c",
+                  "index": 19
                 },
                 "region": {
                   "startLine": 1041
@@ -2663,8 +2890,9 @@
                     {
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "contrib/minizip/zip.c"
+                          "artifactLocation": {
+                            "uri": "contrib/minizip/zip.c",
+                            "index": 19
                           },
                           "region": {
                             "startLine": 1040
@@ -2676,8 +2904,9 @@
                     {
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "contrib/minizip/zip.c"
+                          "artifactLocation": {
+                            "uri": "contrib/minizip/zip.c",
+                            "index": 19
                           },
                           "region": {
                             "startLine": 1041
@@ -2703,8 +2932,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/minizip/zip.c"
+                "artifactLocation": {
+                  "uri": "contrib/minizip/zip.c",
+                  "index": 19
                 },
                 "region": {
                   "startLine": 1957
@@ -2724,8 +2954,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/minizip/zip.c"
+                "artifactLocation": {
+                  "uri": "contrib/minizip/zip.c",
+                  "index": 19
                 },
                 "region": {
                   "startLine": 1958
@@ -2745,8 +2976,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/minizip/zip.c"
+                "artifactLocation": {
+                  "uri": "contrib/minizip/zip.c",
+                  "index": 19
                 },
                 "region": {
                   "startLine": 1683
@@ -2766,8 +2998,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/minizip/crypt.h"
+                "artifactLocation": {
+                  "uri": "contrib/minizip/crypt.h",
+                  "index": 20
                 },
                 "region": {
                   "startLine": 99
@@ -2787,8 +3020,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/puff/puff.c"
+                "artifactLocation": {
+                  "uri": "contrib/puff/puff.c",
+                  "index": 21
                 },
                 "region": {
                   "startLine": 705
@@ -2808,8 +3042,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/puff/puff.c"
+                "artifactLocation": {
+                  "uri": "contrib/puff/puff.c",
+                  "index": 21
                 },
                 "region": {
                   "startLine": 799
@@ -2829,8 +3064,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/puff/puff.c"
+                "artifactLocation": {
+                  "uri": "contrib/puff/puff.c",
+                  "index": 21
                 },
                 "region": {
                   "startLine": 799
@@ -2850,8 +3086,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/puff/puff.c"
+                "artifactLocation": {
+                  "uri": "contrib/puff/puff.c",
+                  "index": 21
                 },
                 "region": {
                   "startLine": 240
@@ -2871,8 +3108,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/puff/pufftest.c"
+                "artifactLocation": {
+                  "uri": "contrib/puff/pufftest.c",
+                  "index": 22
                 },
                 "region": {
                   "startLine": 129
@@ -2892,8 +3130,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/puff/pufftest.c"
+                "artifactLocation": {
+                  "uri": "contrib/puff/pufftest.c",
+                  "index": 22
                 },
                 "region": {
                   "startLine": 93
@@ -2913,8 +3152,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/testzlib/testzlib.c"
+                "artifactLocation": {
+                  "uri": "contrib/testzlib/testzlib.c",
+                  "index": 23
                 },
                 "region": {
                   "startLine": 172
@@ -2934,8 +3174,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/testzlib/testzlib.c"
+                "artifactLocation": {
+                  "uri": "contrib/testzlib/testzlib.c",
+                  "index": 23
                 },
                 "region": {
                   "startLine": 220
@@ -2955,8 +3196,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/testzlib/testzlib.c"
+                "artifactLocation": {
+                  "uri": "contrib/testzlib/testzlib.c",
+                  "index": 23
                 },
                 "region": {
                   "startLine": 220
@@ -2976,8 +3218,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/testzlib/testzlib.c"
+                "artifactLocation": {
+                  "uri": "contrib/testzlib/testzlib.c",
+                  "index": 23
                 },
                 "region": {
                   "startLine": 261
@@ -2997,8 +3240,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/testzlib/testzlib.c"
+                "artifactLocation": {
+                  "uri": "contrib/testzlib/testzlib.c",
+                  "index": 23
                 },
                 "region": {
                   "startLine": 261
@@ -3018,8 +3262,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/testzlib/testzlib.c"
+                "artifactLocation": {
+                  "uri": "contrib/testzlib/testzlib.c",
+                  "index": 23
                 },
                 "region": {
                   "startLine": 154
@@ -3039,8 +3284,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/testzlib/testzlib.c"
+                "artifactLocation": {
+                  "uri": "contrib/testzlib/testzlib.c",
+                  "index": 23
                 },
                 "region": {
                   "startLine": 210
@@ -3060,8 +3306,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/testzlib/testzlib.c"
+                "artifactLocation": {
+                  "uri": "contrib/testzlib/testzlib.c",
+                  "index": 23
                 },
                 "region": {
                   "startLine": 251
@@ -3081,8 +3328,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/untgz/untgz.c"
+                "artifactLocation": {
+                  "uri": "contrib/untgz/untgz.c",
+                  "index": 24
                 },
                 "region": {
                   "startLine": 171
@@ -3102,8 +3350,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/untgz/untgz.c"
+                "artifactLocation": {
+                  "uri": "contrib/untgz/untgz.c",
+                  "index": 24
                 },
                 "region": {
                   "startLine": 272
@@ -3123,8 +3372,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/untgz/untgz.c"
+                "artifactLocation": {
+                  "uri": "contrib/untgz/untgz.c",
+                  "index": 24
                 },
                 "region": {
                   "startLine": 389
@@ -3144,8 +3394,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/untgz/untgz.c"
+                "artifactLocation": {
+                  "uri": "contrib/untgz/untgz.c",
+                  "index": 24
                 },
                 "region": {
                   "startLine": 72
@@ -3165,8 +3416,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/untgz/untgz.c"
+                "artifactLocation": {
+                  "uri": "contrib/untgz/untgz.c",
+                  "index": 24
                 },
                 "region": {
                   "startLine": 73
@@ -3186,8 +3438,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/untgz/untgz.c"
+                "artifactLocation": {
+                  "uri": "contrib/untgz/untgz.c",
+                  "index": 24
                 },
                 "region": {
                   "startLine": 76
@@ -3207,8 +3460,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/untgz/untgz.c"
+                "artifactLocation": {
+                  "uri": "contrib/untgz/untgz.c",
+                  "index": 24
                 },
                 "region": {
                   "startLine": 78
@@ -3228,8 +3482,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/untgz/untgz.c"
+                "artifactLocation": {
+                  "uri": "contrib/untgz/untgz.c",
+                  "index": 24
                 },
                 "region": {
                   "startLine": 79
@@ -3249,8 +3504,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/untgz/untgz.c"
+                "artifactLocation": {
+                  "uri": "contrib/untgz/untgz.c",
+                  "index": 24
                 },
                 "region": {
                   "startLine": 80
@@ -3270,8 +3526,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/untgz/untgz.c"
+                "artifactLocation": {
+                  "uri": "contrib/untgz/untgz.c",
+                  "index": 24
                 },
                 "region": {
                   "startLine": 81
@@ -3291,8 +3548,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/untgz/untgz.c"
+                "artifactLocation": {
+                  "uri": "contrib/untgz/untgz.c",
+                  "index": 24
                 },
                 "region": {
                   "startLine": 82
@@ -3312,8 +3570,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/untgz/untgz.c"
+                "artifactLocation": {
+                  "uri": "contrib/untgz/untgz.c",
+                  "index": 24
                 },
                 "region": {
                   "startLine": 83
@@ -3333,8 +3592,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/untgz/untgz.c"
+                "artifactLocation": {
+                  "uri": "contrib/untgz/untgz.c",
+                  "index": 24
                 },
                 "region": {
                   "startLine": 84
@@ -3354,8 +3614,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/untgz/untgz.c"
+                "artifactLocation": {
+                  "uri": "contrib/untgz/untgz.c",
+                  "index": 24
                 },
                 "region": {
                   "startLine": 85
@@ -3375,8 +3636,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "contrib/untgz/untgz.c"
+                "artifactLocation": {
+                  "uri": "contrib/untgz/untgz.c",
+                  "index": 24
                 },
                 "region": {
                   "startLine": 91
@@ -3396,8 +3658,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "examples/enough.c"
+                "artifactLocation": {
+                  "uri": "examples/enough.c",
+                  "index": 25
                 },
                 "region": {
                   "startLine": 184
@@ -3417,8 +3680,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "examples/enough.c"
+                "artifactLocation": {
+                  "uri": "examples/enough.c",
+                  "index": 25
                 },
                 "region": {
                   "startLine": 406
@@ -3438,8 +3702,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "examples/enough.c"
+                "artifactLocation": {
+                  "uri": "examples/enough.c",
+                  "index": 25
                 },
                 "region": {
                   "startLine": 407
@@ -3459,8 +3724,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "examples/enough.c"
+                "artifactLocation": {
+                  "uri": "examples/enough.c",
+                  "index": 25
                 },
                 "region": {
                   "startLine": 462
@@ -3480,8 +3746,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "examples/gun.c"
+                "artifactLocation": {
+                  "uri": "examples/gun.c",
+                  "index": 26
                 },
                 "region": {
                   "startLine": 133
@@ -3501,8 +3768,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "examples/gun.c"
+                "artifactLocation": {
+                  "uri": "examples/gun.c",
+                  "index": 26
                 },
                 "region": {
                   "startLine": 208
@@ -3522,8 +3790,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "examples/gun.c"
+                "artifactLocation": {
+                  "uri": "examples/gun.c",
+                  "index": 26
                 },
                 "region": {
                   "startLine": 385
@@ -3543,8 +3812,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "examples/gun.c"
+                "artifactLocation": {
+                  "uri": "examples/gun.c",
+                  "index": 26
                 },
                 "region": {
                   "startLine": 386
@@ -3564,8 +3834,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "examples/gun.c"
+                "artifactLocation": {
+                  "uri": "examples/gun.c",
+                  "index": 26
                 },
                 "region": {
                   "startLine": 633
@@ -3585,8 +3856,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "examples/gun.c"
+                "artifactLocation": {
+                  "uri": "examples/gun.c",
+                  "index": 26
                 },
                 "region": {
                   "startLine": 634
@@ -3606,8 +3878,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "examples/gun.c"
+                "artifactLocation": {
+                  "uri": "examples/gun.c",
+                  "index": 26
                 },
                 "region": {
                   "startLine": 337
@@ -3627,8 +3900,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "examples/gzappend.c"
+                "artifactLocation": {
+                  "uri": "examples/gzappend.c",
+                  "index": 27
                 },
                 "region": {
                   "startLine": 396
@@ -3644,8 +3918,9 @@
                     {
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "examples/gzappend.c"
+                          "artifactLocation": {
+                            "uri": "examples/gzappend.c",
+                            "index": 27
                           },
                           "region": {
                             "startLine": 415
@@ -3657,8 +3932,9 @@
                     {
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "examples/gzappend.c"
+                          "artifactLocation": {
+                            "uri": "examples/gzappend.c",
+                            "index": 27
                           },
                           "region": {
                             "startLine": 396
@@ -3684,8 +3960,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "examples/gzappend.c"
+                "artifactLocation": {
+                  "uri": "examples/gzappend.c",
+                  "index": 27
                 },
                 "region": {
                   "startLine": 127
@@ -3705,8 +3982,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "examples/gzappend.c"
+                "artifactLocation": {
+                  "uri": "examples/gzappend.c",
+                  "index": 27
                 },
                 "region": {
                   "startLine": 127
@@ -3726,8 +4004,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "examples/gzappend.c"
+                "artifactLocation": {
+                  "uri": "examples/gzappend.c",
+                  "index": 27
                 },
                 "region": {
                   "startLine": 204
@@ -3747,8 +4026,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "examples/gzappend.c"
+                "artifactLocation": {
+                  "uri": "examples/gzappend.c",
+                  "index": 27
                 },
                 "region": {
                   "startLine": 238
@@ -3768,8 +4048,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "examples/gzjoin.c"
+                "artifactLocation": {
+                  "uri": "examples/gzjoin.c",
+                  "index": 28
                 },
                 "region": {
                   "startLine": 391
@@ -3789,8 +4070,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "examples/gzjoin.c"
+                "artifactLocation": {
+                  "uri": "examples/gzjoin.c",
+                  "index": 28
                 },
                 "region": {
                   "startLine": 405
@@ -3810,8 +4092,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "examples/gzlog.c"
+                "artifactLocation": {
+                  "uri": "examples/gzlog.c",
+                  "index": 29
                 },
                 "region": {
                   "startLine": 503
@@ -3831,8 +4114,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "examples/gzlog.c"
+                "artifactLocation": {
+                  "uri": "examples/gzlog.c",
+                  "index": 29
                 },
                 "region": {
                   "startLine": 610
@@ -3852,8 +4136,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "examples/gzlog.c"
+                "artifactLocation": {
+                  "uri": "examples/gzlog.c",
+                  "index": 29
                 },
                 "region": {
                   "startLine": 611
@@ -3873,8 +4158,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "examples/gzlog.c"
+                "artifactLocation": {
+                  "uri": "examples/gzlog.c",
+                  "index": 29
                 },
                 "region": {
                   "startLine": 611
@@ -3894,8 +4180,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "examples/gzlog.c"
+                "artifactLocation": {
+                  "uri": "examples/gzlog.c",
+                  "index": 29
                 },
                 "region": {
                   "startLine": 612
@@ -3915,8 +4202,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "examples/gzlog.c"
+                "artifactLocation": {
+                  "uri": "examples/gzlog.c",
+                  "index": 29
                 },
                 "region": {
                   "startLine": 740
@@ -3936,8 +4224,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "examples/gzlog.c"
+                "artifactLocation": {
+                  "uri": "examples/gzlog.c",
+                  "index": 29
                 },
                 "region": {
                   "startLine": 910
@@ -3957,8 +4246,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "examples/gzlog.c"
+                "artifactLocation": {
+                  "uri": "examples/gzlog.c",
+                  "index": 29
                 },
                 "region": {
                   "startLine": 910
@@ -3978,8 +4268,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "examples/gzlog.c"
+                "artifactLocation": {
+                  "uri": "examples/gzlog.c",
+                  "index": 29
                 },
                 "region": {
                   "startLine": 912
@@ -3999,8 +4290,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "examples/gzlog.c"
+                "artifactLocation": {
+                  "uri": "examples/gzlog.c",
+                  "index": 29
                 },
                 "region": {
                   "startLine": 1003
@@ -4020,8 +4312,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "examples/zran.c"
+                "artifactLocation": {
+                  "uri": "examples/zran.c",
+                  "index": 30
                 },
                 "region": {
                   "startLine": 229
@@ -4041,8 +4334,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "examples/zran.c"
+                "artifactLocation": {
+                  "uri": "examples/zran.c",
+                  "index": 30
                 },
                 "region": {
                   "startLine": 230
@@ -4062,8 +4356,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "examples/zran.c"
+                "artifactLocation": {
+                  "uri": "examples/zran.c",
+                  "index": 30
                 },
                 "region": {
                   "startLine": 232
@@ -4083,8 +4378,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test/example.c"
+                "artifactLocation": {
+                  "uri": "test/example.c",
+                  "index": 31
                 },
                 "region": {
                   "startLine": 62
@@ -4104,8 +4400,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test/example.c"
+                "artifactLocation": {
+                  "uri": "test/example.c",
+                  "index": 31
                 },
                 "region": {
                   "startLine": 68
@@ -4125,8 +4422,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test/example.c"
+                "artifactLocation": {
+                  "uri": "test/example.c",
+                  "index": 31
                 },
                 "region": {
                   "startLine": 576
@@ -4146,8 +4444,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test/infcover.c"
+                "artifactLocation": {
+                  "uri": "test/infcover.c",
+                  "index": 32
                 },
                 "region": {
                   "startLine": 465
@@ -4167,8 +4466,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test/infcover.c"
+                "artifactLocation": {
+                  "uri": "test/infcover.c",
+                  "index": 32
                 },
                 "region": {
                   "startLine": 188
@@ -4188,8 +4488,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test/infcover.c"
+                "artifactLocation": {
+                  "uri": "test/infcover.c",
+                  "index": 32
                 },
                 "region": {
                   "startLine": 196
@@ -4209,8 +4510,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test/infcover.c"
+                "artifactLocation": {
+                  "uri": "test/infcover.c",
+                  "index": 32
                 },
                 "region": {
                   "startLine": 221
@@ -4230,8 +4532,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test/minigzip.c"
+                "artifactLocation": {
+                  "uri": "test/minigzip.c",
+                  "index": 33
                 },
                 "region": {
                   "startLine": 367
@@ -4251,8 +4554,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test/minigzip.c"
+                "artifactLocation": {
+                  "uri": "test/minigzip.c",
+                  "index": 33
                 },
                 "region": {
                   "startLine": 435
@@ -4272,8 +4576,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test/minigzip.c"
+                "artifactLocation": {
+                  "uri": "test/minigzip.c",
+                  "index": 33
                 },
                 "region": {
                   "startLine": 159
@@ -4293,8 +4598,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test/minigzip.c"
+                "artifactLocation": {
+                  "uri": "test/minigzip.c",
+                  "index": 33
                 },
                 "region": {
                   "startLine": 166
@@ -4314,8 +4620,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test/minigzip.c"
+                "artifactLocation": {
+                  "uri": "test/minigzip.c",
+                  "index": 33
                 },
                 "region": {
                   "startLine": 265
@@ -4335,8 +4642,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test/minigzip.c"
+                "artifactLocation": {
+                  "uri": "test/minigzip.c",
+                  "index": 33
                 },
                 "region": {
                   "startLine": 266
@@ -4348,7 +4656,8 @@
             "Severity": "style"
           }
         }
-      ]
+      ],
+      "columnKind": "utf16CodeUnits"
     }
   ]
 }

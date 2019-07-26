@@ -11,7 +11,7 @@
         {
           "commandLine": "CodeScanner.exe *.dll end time before start time",
           "startTime": "2016-08-25T21:26:42.049Z",
-          "endTime": "2016-08-25T21:26:41.051Z"
+          "endTime": "2016-08-25T21:26:44.051Z"
         }
       ],
       "properties": {
