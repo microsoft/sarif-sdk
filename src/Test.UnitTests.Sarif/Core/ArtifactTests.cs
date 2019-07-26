@@ -126,7 +126,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             try
             {
                 File.WriteAllBytes(filePath, fileContents);
-                Artifact fileData = Artifact.Create(uri, OptionallyEmittedData.TextFiles, mimeType: null, encoding: encoding);
+                Artifact fileData = Artifact.Create(uri, OptionallyEmittedData.TextFiles, encoding: encoding);
                 fileData.Location.Should().Be(null);
                 fileData.MimeType.Should().Be(MimeType.CSharp);
                 fileData.Hashes.Should().BeNull();
@@ -238,7 +238,6 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             Artifact fileData = Artifact.Create(
                 uri,
                 OptionallyEmittedData.TextFiles,
-                mimeType: null,
                 encoding: null,
                 fileSystem: fileSystem);
 

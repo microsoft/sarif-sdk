@@ -85,12 +85,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     this.Artifacts = this.Artifacts ?? new List<Artifact>();
                     fileIndex = this.Artifacts.Count;
 
-                    string mimeType = Writers.MimeType.DetermineFromFileExtension(filesTableKey.Uri.ToString());
-
                     var fileData = Artifact.Create(
                         filesTableKey.Uri,
                         dataToInsert,
-                        mimeType: mimeType,
                         encoding);
 
                     fileData.Location = fileLocation;

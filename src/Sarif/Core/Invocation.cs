@@ -13,12 +13,16 @@ namespace Microsoft.CodeAnalysis.Sarif
     {
         private IEnumerable<string> PropertiesToLog {get; set; }
 
+        private bool _emitTimestamps;
+
         public static Invocation Create(
             bool emitMachineEnvironment = false,
+            bool emitTimestamps = true,
             IEnumerable<string> propertiesToLog = null)
         {
             var invocation = new Invocation
             {
+                _emitTimestamps = emitTimestamps,
                 PropertiesToLog = propertiesToLog?.Select(p => p.ToUpperInvariant()).ToList()
             };
 
@@ -89,6 +93,16 @@ namespace Microsoft.CodeAnalysis.Sarif
         public bool ShouldSerializeToolConfigurationNotifications()
         {
             return this.ToolConfigurationNotifications.HasAtLeastOneNonNullValue();
+        }
+
+        public bool ShouldSerializeStartTimeUtc()
+        {
+            return _emitTimestamps;
+        }
+
+        public bool ShouldSerializeEndTimeUtc()
+        {
+            return _emitTimestamps;
         }
     }
 }
