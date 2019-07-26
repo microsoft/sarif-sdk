@@ -77,7 +77,6 @@
         },
         {
           "ruleId": "CS2222",
-          "level": "warning",
           "message": {
             "text": "This is a warning."
           },
@@ -101,7 +100,6 @@
         },
         {
           "ruleId": "CS3333",
-          "level": "warning",
           "message": {
             "text": "This is another warning."
           },
@@ -173,36 +171,31 @@
           "location": {
             "uri": "VisualStudioBuildLogConverterTests.cs",
             "index": 0
-          },
-          "mimeType": "text/x-csharp"
+          }
         },
         {
           "location": {
             "uri": "StartLineOnlyRegion.cs",
             "index": 1
-          },
-          "mimeType": "text/x-csharp"
+          }
         },
         {
           "location": {
             "uri": "StartLineEndLineRegion.cs",
             "index": 2
-          },
-          "mimeType": "text/x-csharp"
+          }
         },
         {
           "location": {
             "uri": "StartLineStartColumnEndColumnRegion.cs",
             "index": 3
-          },
-          "mimeType": "text/x-csharp"
+          }
         },
         {
           "location": {
             "uri": "StartLineStartColumnEndLineEndColumnRegion.cs",
             "index": 4
-          },
-          "mimeType": "text/x-csharp"
+          }
         }
       ],
       "columnKind": "utf16CodeUnits"

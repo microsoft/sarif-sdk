@@ -1,22 +1,28 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-09-26",
-  "version": "2.0.0-csd.2.beta.2018-09-26",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.4.json",
+  "version": "2.1.0",
   "runs": [
     {
       "tool": {
-        "name": "PREfast",
-        "fullName": "PREfast Code Analysis"
-      },
-      "files": {
-        "file:///c:/somepath/test173.cpp": {
-          "mimeType": "text/x-cpp"
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis"
         }
       },
-      "logicalLocations": {
-        "Foo": {
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///c:/somepath/test173.cpp",
+            "index": 0
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "Foo",
           "decoratedName": "?Foo@@YAPAGPAG@Z"
         }
-      },
+      ],
       "results": [
         {
           "ruleId": "26018",
@@ -26,15 +32,21 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "file:///c:/somepath/test173.cpp"
+                "artifactLocation": {
+                  "uri": "file:///c:/somepath/test173.cpp",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 15,
                   "startColumn": 18
                 }
               },
-              "fullyQualifiedLogicalName": "Foo",
+              "logicalLocations": [
+                {
+                  "index": 0,
+                  "fullyQualifiedName": "Foo"
+                }
+              ],
               "properties": {
                 "funcline": "6"
               }
@@ -46,11 +58,11 @@
                 {
                   "locations": [
                     {
-                      "step": 1,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///c:/somepath/test173.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///c:/somepath/test173.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 6,
@@ -60,11 +72,11 @@
                       }
                     },
                     {
-                      "step": 2,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///c:/somepath/test173.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///c:/somepath/test173.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 8,
@@ -74,11 +86,11 @@
                       }
                     },
                     {
-                      "step": 3,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///c:/somepath/test173.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///c:/somepath/test173.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 8,
@@ -88,11 +100,11 @@
                       }
                     },
                     {
-                      "step": 4,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///c:/somepath/test173.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///c:/somepath/test173.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 11,
@@ -102,11 +114,11 @@
                       }
                     },
                     {
-                      "step": 5,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///c:/somepath/test173.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///c:/somepath/test173.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 11,
@@ -116,11 +128,11 @@
                       }
                     },
                     {
-                      "step": 6,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///c:/somepath/test173.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///c:/somepath/test173.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 12,
@@ -130,11 +142,11 @@
                       }
                     },
                     {
-                      "step": 7,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///c:/somepath/test173.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///c:/somepath/test173.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 12,
@@ -144,11 +156,11 @@
                       }
                     },
                     {
-                      "step": 8,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///c:/somepath/test173.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///c:/somepath/test173.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 14,
@@ -158,11 +170,11 @@
                       }
                     },
                     {
-                      "step": 9,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///c:/somepath/test173.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///c:/somepath/test173.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 14,
@@ -172,11 +184,11 @@
                       }
                     },
                     {
-                      "step": 10,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///c:/somepath/test173.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///c:/somepath/test173.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 14,
@@ -186,11 +198,11 @@
                       }
                     },
                     {
-                      "step": 11,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///c:/somepath/test173.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///c:/somepath/test173.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 15,
@@ -205,7 +217,8 @@
             }
           ]
         }
-      ]
+      ],
+      "columnKind": "utf16CodeUnits"
     }
   ]
 }

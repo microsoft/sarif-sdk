@@ -266,7 +266,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             string fileDataKey = new Uri(file).AbsoluteUri;
 
             var sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
-            sarifLog.Runs[0].Artifacts[0].MimeType.Should().Be(MimeType.Cpp);
             sarifLog.Runs[0].Artifacts[0].Hashes.Keys.Count.Should().Be(3);
             sarifLog.Runs[0].Artifacts[0].Hashes["md5"].Should().Be("4B9DC12934390387862CC4AB5E4A2159");
             sarifLog.Runs[0].Artifacts[0].Hashes["sha-1"].Should().Be("9B59B1C1E3F5F7013B10F6C6B7436293685BAACE");
@@ -305,7 +304,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             var sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
             Artifact fileData = sarifLog.Runs[0].Artifacts[0];
-            fileData.MimeType.Should().Be(MimeType.CSharp);
             fileData.Contents.Binary.Should().Be(Convert.ToBase64String(fileBytes));
             fileData.Contents.Text.Should().BeNull();
         }
