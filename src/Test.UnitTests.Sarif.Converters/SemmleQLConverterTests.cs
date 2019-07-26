@@ -25,7 +25,6 @@ namespace Microsoft.CodeAnalysis.Sarif
       ""columnKind"": ""utf16CodeUnits"",
       ""files"": {
         ""#$srcroot#RelativePath"": {
-          ""mimeType"": ""application/octet-stream""
         }
       },
       ""results"": [
@@ -75,16 +74,12 @@ namespace Microsoft.CodeAnalysis.Sarif
       ""columnKind"": ""utf16CodeUnits"",
       ""files"": {
         ""#$srcroot#ProjectOne/Microsoft.ResourceManagement.ObjectModel/ClientResource.cs"": {
-          ""mimeType"": ""text/x-csharp""
         },
         ""file:///C:/Windows/Company.NET/Framework/v2.0.50727/mscorlib.dll"": {
-          ""mimeType"": ""application/octet-stream""
         },
         ""#$srcroot#/ClientClient/Company.ResourceManagement.ObjectModel/ClientAttributeValue.cs"": {
-          ""mimeType"": ""text/x-csharp""
         },
         ""#$srcroot#/ClientClient/Company.ResourceManagement.ObjectModel/ClientAttributeValue_ISerializable.cs"": {
-          ""mimeType"": ""text/x-csharp""
         }
       },
       ""results"": [

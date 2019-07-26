@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     {
         private IEnumerable<string> PropertiesToLog {get; set; }
 
-        private bool _emitTimestamps;
+        private bool _suppressNonDeterministicProperties;
 
         public static Invocation Create(
             bool emitMachineEnvironment = false,
@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             var invocation = new Invocation
             {
-                _emitTimestamps = emitTimestamps,
+                _suppressNonDeterministicProperties = !emitTimestamps,
                 PropertiesToLog = propertiesToLog?.Select(p => p.ToUpperInvariant()).ToList()
             };
 
@@ -97,12 +97,12 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public bool ShouldSerializeStartTimeUtc()
         {
-            return _emitTimestamps;
+            return !_suppressNonDeterministicProperties;
         }
 
         public bool ShouldSerializeEndTimeUtc()
         {
-            return _emitTimestamps;
+            return !_suppressNonDeterministicProperties;
         }
     }
 }

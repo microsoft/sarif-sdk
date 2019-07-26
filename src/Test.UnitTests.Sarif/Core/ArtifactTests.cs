@@ -36,7 +36,6 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
                 Artifact fileData = Artifact.Create(uri, OptionallyEmittedData.Hashes);
                 fileData.Location.Should().Be(null);
                 HashData hashes = HashUtilities.ComputeHashes(filePath);
-                fileData.MimeType.Should().Be(MimeType.Binary);
                 fileData.Contents.Should().BeNull();
                 fileData.Hashes.Count.Should().Be(3);
 
@@ -128,7 +127,6 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
                 File.WriteAllBytes(filePath, fileContents);
                 Artifact fileData = Artifact.Create(uri, OptionallyEmittedData.TextFiles, encoding: encoding);
                 fileData.Location.Should().Be(null);
-                fileData.MimeType.Should().Be(MimeType.CSharp);
                 fileData.Hashes.Should().BeNull();
 
                 string encodedFileContents = encoding.GetString(fileContents);
@@ -149,7 +147,6 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             Uri uri = new Uri(filePath);
             Artifact fileData = Artifact.Create(uri, OptionallyEmittedData.TextFiles);
             fileData.Location.Should().Be(null);
-            fileData.MimeType.Should().Be(MimeType.Binary);
             fileData.Hashes.Should().BeNull();
             fileData.Contents.Should().BeNull();
         }
@@ -168,7 +165,6 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
                 {
                     Artifact fileData = Artifact.Create(uri, OptionallyEmittedData.TextFiles);
                     fileData.Location.Should().Be(null);
-                    fileData.MimeType.Should().Be(MimeType.Binary);
                     fileData.Hashes.Should().BeNull();
                     fileData.Contents.Should().BeNull();
                 }
@@ -199,7 +195,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
 
             string result = JsonConvert.SerializeObject(fileData);
 
-            result.Should().Be("{\"roles\":[\"analysisTarget\"],\"mimeType\":\"text/x-csharp\"}");
+            result.Should().Be("{\"roles\":[\"analysisTarget\"]}");
         }
 
         [Fact]
@@ -210,20 +206,20 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
 
             string actual = JsonConvert.SerializeObject(fileData);
 
-            actual.Should().Be("{\"roles\":[\"responseFile\",\"resultFile\"],\"mimeType\":\"text/x-csharp\"}");
+            actual.Should().Be("{\"roles\":[\"responseFile\",\"resultFile\"]}");
         }
 
         [Fact]
         public void Artifact_DeserializeSingleFileRole()
         {
-            Artifact actual = JsonConvert.DeserializeObject("{\"roles\":[\"analysisTarget\"],\"mimeType\":\"text/x-csharp\"}", typeof(Artifact)) as Artifact;
+            Artifact actual = JsonConvert.DeserializeObject("{\"roles\":[\"analysisTarget\"]}", typeof(Artifact)) as Artifact;
             actual.Roles.Should().Be(ArtifactRoles.AnalysisTarget);
         }
 
         [Fact]
         public void Artifact_DeserializeMultipleFileRoles()
         {
-            Artifact actual = JsonConvert.DeserializeObject("{\"roles\":[\"responseFile\",\"resultFile\"],\"mimeType\":\"text/x-csharp\"}", typeof(Artifact)) as Artifact;
+            Artifact actual = JsonConvert.DeserializeObject("{\"roles\":[\"responseFile\",\"resultFile\"]}", typeof(Artifact)) as Artifact;
             actual.Roles.Should().Be(ArtifactRoles.ResponseFile | ArtifactRoles.ResultFile);
         }
 
