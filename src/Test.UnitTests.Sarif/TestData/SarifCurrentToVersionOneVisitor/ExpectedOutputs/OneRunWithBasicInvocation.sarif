@@ -13,6 +13,8 @@
         "responseFiles": {
           "collections.rsp": "-input src/collections/*.cpp -log out/collections.sarif -rules all -disable C9999"
         },
+        "startTime": "2016-07-16T14:18:25.000Z",
+        "endTime": "2016-07-16T14:19:01.000Z",
         "machine": "BLD01",
         "account": "buildAgent",
         "processId": 1218,
