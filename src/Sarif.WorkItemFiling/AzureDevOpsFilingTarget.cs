@@ -21,18 +21,11 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
         private WorkItemTrackingHttpClient _witClient;
         private string _projectName;
 
-        // TEMPORARY: To demonstrate filing multiple bugs.
-        private int _bugNumber = 1;
-
         public override async Task Connect(Uri projectUri, string personalAccessToken)
         {
-            string projectUriString = projectUri.OriginalString;
-            int lastSlashIndex = projectUriString.LastIndexOf('/');
-            _projectName = lastSlashIndex > 0 && lastSlashIndex < projectUriString.Length - 1
-                ? projectUriString.Substring(lastSlashIndex + 1)
-                : throw new ArgumentException($"Cannot parse project name from URI {projectUriString}");
+            _projectName = projectUri.GetProjectName();
+            string accountUriString = projectUri.GetAccountUriString();
 
-            string accountUriString = projectUriString.Substring(0, lastSlashIndex);
             Uri accountUri = new Uri(accountUriString, UriKind.Absolute);
 
             VssConnection connection = new VssConnection(accountUri, new VssBasicCredential(string.Empty, personalAccessToken));
@@ -41,9 +34,9 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
             _witClient = await connection.GetClientAsync<WorkItemTrackingHttpClient>();
         }
 
-        public override async Task<IEnumerable<WorkItemFilingMetadata>> FileWorkItems(IEnumerable<WorkItemFilingMetadata> workItemMetadata)
+        public override async Task<IEnumerable<WorkItemFilingMetadata>> FileWorkItems(IEnumerable<WorkItemFilingMetadata> workItemFilingMetadata)
         {
-            foreach (WorkItemFilingMetadata metadata in workItemMetadata)
+            foreach (WorkItemFilingMetadata metadata in workItemFilingMetadata)
             {
                 var patchDocument = new JsonPatchDocument
                 {
@@ -51,29 +44,27 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
                     {
                         Operation = Operation.Add,
                         Path = $"/fields/{WorkItemFields.Title}",
-                        Value = $"Bug #{_bugNumber} was added programmatically!"
+                        Value = metadata.Title
                     },
                     new JsonPatchOperation
                     {
                         Operation = Operation.Add,
                         Path = $"/fields/{WorkItemFields.Description}",
-                        Value = $"This bug is very important. Let's fix it!"
+                        Value = metadata.Description
                     },
                     new JsonPatchOperation
                     {
                         Operation = Operation.Add,
                         Path = $"/fields/{WorkItemFields.AreaPath}",
-                        Value = $@"{_projectName}\TopLevel\SecondLevel\Leaf"
+                        Value = metadata.AreaPath
                     },
                     new JsonPatchOperation
                     {
                         Operation = Operation.Add,
                         Path = $"/fields/{WorkItemFields.Tags}",
-                        Value = "security,compliance"
+                        Value = string.Join(",", metadata.Tags)
                     },
                 };
-
-                ++_bugNumber;
 
                 WorkItem workItem = await _witClient.CreateWorkItemAsync(patchDocument, project: _projectName, "Issue");
                 foreach (Result result in metadata.Results)
@@ -82,7 +73,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
                 }
             }
 
-            return workItemMetadata;
+            return workItemFilingMetadata;
         }
     }
 }

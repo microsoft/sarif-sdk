@@ -38,6 +38,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 options.Force = true;
             }
 
+            string projectName = options.ProjectUri.GetProjectName();
+
             string logFileContents = fileSystem.ReadAllText(options.InputFilePath);
             EnsureValidSarifLogFile(logFileContents, options.InputFilePath);
 
@@ -53,8 +55,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             {
                 if (sarifLog.Runs[i]?.Results?.Count > 0)
                 {
+                    // TODO: THESE TWO LINES ARE REPLACED BY A CALL TO SarifSplitter.Split with the specified strategies (or predicates).
+                    // It would return a set of SarifLog objects, rather than a set of WorkItemFilingMetadata objects as I currently have it.
                     IList<Result> filteredResults = filteringStrategy.FilterResults(sarifLog.Runs[i].Results);
                     IList<WorkItemFilingMetadata> workItemMetadata = groupingStrategy.GroupResults(filteredResults);
+
+                    // TODO: AND THIS IS WHERE THE CALL TO SarifLog.CreateWorkItemFilingMetadata would transform the logs into metadata,
+                    // but here I'm just populating the metadata by hand.
+                    AddDummyMetadata(workItemMetadata, projectName);
 
                     try
                     {
@@ -68,6 +76,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
 
             return 0;
+        }
+
+        private void AddDummyMetadata(IList<WorkItemFilingMetadata> workItemFilingMetadata, string projectName)
+        {
+            int bugNumber = 1;
+            foreach (WorkItemFilingMetadata metadata in workItemFilingMetadata)
+            {
+                metadata.Title = $"Bug #{bugNumber} was added by a partially refactored work item filer.";
+                metadata.Description = "This bug is very important. Let's fix it!";
+                metadata.AreaPath = $@"{projectName}\TopLevel\SecondLevel\Leaf";
+                metadata.Tags = new List<string> { "security", "compliance" };
+            }
         }
 
         private bool ValidateOptions(FileWorkItemsOptions options)

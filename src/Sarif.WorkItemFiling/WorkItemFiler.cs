@@ -29,7 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
         /// <param name="projectUri">
         /// The URI of the project in which the work items are to be filed.
         /// </param>
-        /// <param name="workItemMetadata">
+        /// <param name="workItemFilingMetadata">
         /// Describes the work items to be filed.
         /// </param>
         /// <param name="personalAccessToken">
@@ -40,15 +40,15 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
         /// </returns>
         public async Task<IEnumerable<WorkItemFilingMetadata>> FileWorkItems(
             Uri projectUri,
-            IList<WorkItemFilingMetadata> workItemMetadata,
+            IList<WorkItemFilingMetadata> workItemFilingMetadata,
             string personalAccessToken = null)
         {
             if (projectUri == null) { throw new ArgumentNullException(nameof(projectUri)); }
-            if (workItemMetadata == null) { throw new ArgumentNullException(nameof(workItemMetadata)); }
+            if (workItemFilingMetadata == null) { throw new ArgumentNullException(nameof(workItemFilingMetadata)); }
 
             await _filingTarget.Connect(projectUri, personalAccessToken);
 
-            IEnumerable<WorkItemFilingMetadata> filedResults = await _filingTarget.FileWorkItems(workItemMetadata);
+            IEnumerable<WorkItemFilingMetadata> filedResults = await _filingTarget.FileWorkItems(workItemFilingMetadata);
 
             return filedResults;
         }
