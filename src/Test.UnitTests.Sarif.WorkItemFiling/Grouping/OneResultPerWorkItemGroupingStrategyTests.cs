@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.CodeAnalysis.Sarif.WorkItemFiling;
-using Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models;
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
@@ -28,9 +27,9 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
         {
             var strategy = new OneResultPerWorkItemGroupingStrategy();
 
-            IList<WorkItemFilingMetadata> resultGroups = strategy.GroupResults(new Result[0]);
+            IList<WorkItemFilingMetadata> metadata = strategy.GroupResults(new Result[0]);
 
-            resultGroups.Count.Should().Be(0);
+            metadata.Count.Should().Be(0);
         }
 
         [Fact]
@@ -50,13 +49,13 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
                 }
             };
 
-            IList<WorkItemFilingMetadata> resultGroups = strategy.GroupResults(results);
+            IList<WorkItemFilingMetadata> metadata = strategy.GroupResults(results);
 
-            resultGroups.Count.Should().Be(2);
-            resultGroups[0].Results.Count.Should().Be(1);
-            resultGroups[0].Results[0].RuleId.Should().Be("TST0001");
-            resultGroups[1].Results.Count.Should().Be(1);
-            resultGroups[1].Results[0].RuleId.Should().Be("TST0002");
+            metadata.Count.Should().Be(2);
+            metadata[0].Results.Count.Should().Be(1);
+            metadata[0].Results[0].RuleId.Should().Be("TST0001");
+            metadata[1].Results.Count.Should().Be(1);
+            metadata[1].Results[0].RuleId.Should().Be("TST0002");
         }
     }
 }
