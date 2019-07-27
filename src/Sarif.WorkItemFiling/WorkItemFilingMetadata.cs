@@ -8,7 +8,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
     /// <summary>
     /// Describes a work item to be filed.
     /// </summary>
-    public class WorkItemMetadata
+    public class WorkItemFilingMetadata
     {
         public string Title { get; set; }
         public string Description { get; set; }

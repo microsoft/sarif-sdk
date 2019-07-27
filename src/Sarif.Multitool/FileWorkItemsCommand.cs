@@ -54,7 +54,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 if (sarifLog.Runs[i]?.Results?.Count > 0)
                 {
                     IList<Result> filteredResults = filteringStrategy.FilterResults(sarifLog.Runs[i].Results);
-                    IList<WorkItemMetadata> workItemMetadata = groupingStrategy.GroupResults(filteredResults);
+                    IList<WorkItemFilingMetadata> workItemMetadata = groupingStrategy.GroupResults(filteredResults);
 
                     try
                     {

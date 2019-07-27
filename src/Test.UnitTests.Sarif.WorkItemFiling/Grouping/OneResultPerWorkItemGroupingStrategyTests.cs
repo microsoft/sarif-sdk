@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
         {
             var strategy = new OneResultPerWorkItemGroupingStrategy();
 
-            IList<WorkItemMetadata> resultGroups = strategy.GroupResults(new Result[0]);
+            IList<WorkItemFilingMetadata> resultGroups = strategy.GroupResults(new Result[0]);
 
             resultGroups.Count.Should().Be(0);
         }
@@ -50,7 +50,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
                 }
             };
 
-            IList<WorkItemMetadata> resultGroups = strategy.GroupResults(results);
+            IList<WorkItemFilingMetadata> resultGroups = strategy.GroupResults(results);
 
             resultGroups.Count.Should().Be(2);
             resultGroups[0].Results.Count.Should().Be(1);

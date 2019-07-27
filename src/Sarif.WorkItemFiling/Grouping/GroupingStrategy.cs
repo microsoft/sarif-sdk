@@ -11,6 +11,6 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
     /// </summary>
     public abstract class GroupingStrategy
     {
-        public abstract IList<WorkItemMetadata> GroupResults(IEnumerable<Result> results);
+        public abstract IList<WorkItemFilingMetadata> GroupResults(IEnumerable<Result> results);
     }
 }

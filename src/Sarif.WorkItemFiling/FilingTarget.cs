@@ -39,6 +39,6 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
         /// <returns>
         /// An object that can be awaited to see the result groups that were actually filed.
         /// </returns>
-        public abstract Task<IEnumerable<WorkItemMetadata>> FileWorkItems(IEnumerable<WorkItemMetadata> workItemMetadata);
+        public abstract Task<IEnumerable<WorkItemFilingMetadata>> FileWorkItems(IEnumerable<WorkItemFilingMetadata> workItemMetadata);
     }
 }

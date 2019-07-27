@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
     /// </summary>
     public class GitHubFilingTarget : FilingTarget
     {
-        public override Task<IEnumerable<WorkItemMetadata>> FileWorkItems(IEnumerable<WorkItemMetadata> workItemMetadata)
+        public override Task<IEnumerable<WorkItemFilingMetadata>> FileWorkItems(IEnumerable<WorkItemFilingMetadata> workItemMetadata)
         {
             throw new NotImplementedException();
         }
