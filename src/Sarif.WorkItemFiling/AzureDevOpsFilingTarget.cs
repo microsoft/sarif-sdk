@@ -41,9 +41,9 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
             _witClient = await connection.GetClientAsync<WorkItemTrackingHttpClient>();
         }
 
-        public override async Task<IEnumerable<ResultGroup>> FileWorkItems(IEnumerable<ResultGroup> resultGroups)
+        public override async Task<IEnumerable<ResultGroup>> FileWorkItems(IEnumerable<ResultGroup> workItemMetadata)
         {
-            foreach (ResultGroup resultGroup in resultGroups)
+            foreach (ResultGroup resultGroup in workItemMetadata)
             {
                 var patchDocument = new JsonPatchDocument
                 {
@@ -82,7 +82,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
                 }
             }
 
-            return resultGroups;
+            return workItemMetadata;
         }
     }
 }
