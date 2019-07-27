@@ -33,12 +33,12 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
         /// <summary>
         /// Asynchronously file work items for the specified results.
         /// </summary>
-        /// <param name="workItemMetadata">
+        /// <param name="workItemFilingMetadata">
         /// Describes the work items to be filed.
         /// </param>
         /// <returns>
         /// An object that can be awaited to see the result groups that were actually filed.
         /// </returns>
-        public abstract Task<IEnumerable<WorkItemFilingMetadata>> FileWorkItems(IEnumerable<WorkItemFilingMetadata> workItemMetadata);
+        public abstract Task<IEnumerable<WorkItemFilingMetadata>> FileWorkItems(IEnumerable<WorkItemFilingMetadata> workItemFilingMetadata);
     }
 }
