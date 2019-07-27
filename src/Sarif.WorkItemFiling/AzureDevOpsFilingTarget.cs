@@ -41,9 +41,9 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
             _witClient = await connection.GetClientAsync<WorkItemTrackingHttpClient>();
         }
 
-        public override async Task<IEnumerable<ResultGroup>> FileWorkItems(IEnumerable<ResultGroup> workItemMetadata)
+        public override async Task<IEnumerable<WorkItemMetadata>> FileWorkItems(IEnumerable<WorkItemMetadata> workItemMetadata)
         {
-            foreach (ResultGroup resultGroup in workItemMetadata)
+            foreach (WorkItemMetadata metadata in workItemMetadata)
             {
                 var patchDocument = new JsonPatchDocument
                 {
@@ -76,7 +76,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
                 ++_bugNumber;
 
                 WorkItem workItem = await _witClient.CreateWorkItemAsync(patchDocument, project: _projectName, "Issue");
-                foreach (Result result in resultGroup.Results)
+                foreach (Result result in metadata.Results)
                 {
                     result.WorkItemUris = new List<Uri> { new Uri(workItem.Url, UriKind.Absolute) };
                 }

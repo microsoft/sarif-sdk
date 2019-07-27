@@ -38,9 +38,9 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
         /// <returns>
         /// The set of results that were filed as work items.
         /// </returns>
-        public async Task<IEnumerable<ResultGroup>> FileWorkItems(
+        public async Task<IEnumerable<WorkItemMetadata>> FileWorkItems(
             Uri projectUri,
-            IList<ResultGroup> workItemMetadata,
+            IList<WorkItemMetadata> workItemMetadata,
             string personalAccessToken = null)
         {
             if (projectUri == null) { throw new ArgumentNullException(nameof(projectUri)); }
@@ -48,7 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
 
             await _filingTarget.Connect(projectUri, personalAccessToken);
 
-            IEnumerable<ResultGroup> filedResults = await _filingTarget.FileWorkItems(workItemMetadata);
+            IEnumerable<WorkItemMetadata> filedResults = await _filingTarget.FileWorkItems(workItemMetadata);
 
             return filedResults;
         }

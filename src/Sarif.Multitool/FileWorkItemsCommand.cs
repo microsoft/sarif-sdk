@@ -54,11 +54,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 if (sarifLog.Runs[i]?.Results?.Count > 0)
                 {
                     IList<Result> filteredResults = filteringStrategy.FilterResults(sarifLog.Runs[i].Results);
-                    IList<ResultGroup> resultGroups = groupingStrategy.GroupResults(filteredResults);
+                    IList<WorkItemMetadata> workItemMetadata = groupingStrategy.GroupResults(filteredResults);
 
                     try
                     {
-                        filer.FileWorkItems(options.ProjectUri, resultGroups, options.PersonalAccessToken).Wait();
+                        filer.FileWorkItems(options.ProjectUri, workItemMetadata, options.PersonalAccessToken).Wait();
                     }
                     catch (Exception ex)
                     {

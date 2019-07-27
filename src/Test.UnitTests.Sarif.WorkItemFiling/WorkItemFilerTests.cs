@@ -14,7 +14,6 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
 {
     public class WorkItemFilerTests
     {
-        private static readonly ResourceExtractor s_extractor = new ResourceExtractor(typeof(WorkItemFilerTests));
         private static readonly Uri s_testUri = new Uri("https://github.com/Microsoft/sarif-sdk");
 
         [Fact]
@@ -22,7 +21,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
         {
             var filer = CreateWorkItemFiler();
 
-            Func<Task> action = async () => await filer.FileWorkItems(projectUri: null, workItemMetadata: new List<ResultGroup>()); ;
+            Func<Task> action = async () => await filer.FileWorkItems(projectUri: null, workItemMetadata: new List<WorkItemMetadata>()); ;
 
             await action.ShouldThrowAsync<ArgumentNullException>();
         }
@@ -52,8 +51,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
             // a lambda (rather than a fixed value) to Returns or ReturnsAsync.
             // https://stackoverflow.com/questions/996602/returning-value-that-was-passed-into-a-method
             mockFilingTarget
-                .Setup(x => x.FileWorkItems(It.IsAny<IEnumerable<ResultGroup>>()))
-                .ReturnsAsync((IEnumerable<ResultGroup> resultGroups) => resultGroups);
+                .Setup(x => x.FileWorkItems(It.IsAny<IEnumerable<WorkItemMetadata>>()))
+                .ReturnsAsync((IEnumerable<WorkItemMetadata> resultGroups) => resultGroups);
 
             return mockFilingTarget.Object;
         }

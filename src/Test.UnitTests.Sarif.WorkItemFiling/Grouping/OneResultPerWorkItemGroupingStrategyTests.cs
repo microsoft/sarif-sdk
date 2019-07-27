@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.CodeAnalysis.Sarif.WorkItemFiling;
+using Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models;
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
@@ -27,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
         {
             var strategy = new OneResultPerWorkItemGroupingStrategy();
 
-            IList<ResultGroup> resultGroups = strategy.GroupResults(new Result[0]);
+            IList<WorkItemMetadata> resultGroups = strategy.GroupResults(new Result[0]);
 
             resultGroups.Count.Should().Be(0);
         }
@@ -49,7 +50,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
                 }
             };
 
-            IList<ResultGroup> resultGroups = strategy.GroupResults(results);
+            IList<WorkItemMetadata> resultGroups = strategy.GroupResults(results);
 
             resultGroups.Count.Should().Be(2);
             resultGroups[0].Results.Count.Should().Be(1);
