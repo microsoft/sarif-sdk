@@ -89,7 +89,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     var fileData = Artifact.Create(
                         filesTableKey.Uri,
                         dataToInsert,
-                        mimeType: null,
                         hashData: hashData,
                         encoding: null);
 
