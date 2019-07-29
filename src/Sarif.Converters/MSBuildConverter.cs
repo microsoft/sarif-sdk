@@ -8,11 +8,19 @@ using System.Text.RegularExpressions;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
-    public class VisualStudioBuildLogConverter : ToolFileConverterBase
+    public class MSBuildConverter : ToolFileConverterBase
     {
-        private readonly HashSet<string> fullMessageHashes = new HashSet<string>();
+        public MSBuildConverter() : this(false) { }
 
-        public override string ToolName => ToolFormat.VisualStudioBuildLog;
+        public MSBuildConverter(bool verbose)
+        {
+            _verbose = verbose;
+        }
+
+        private bool _verbose;
+        private readonly HashSet<string> _fullMessageHashes = new HashSet<string>();
+        
+        public override string ToolName => ToolFormat.MSBuild;
 
         public override void Convert(Stream input, IResultLogWriter output, OptionallyEmittedData dataToInsert)
         {
@@ -26,7 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 throw new ArgumentNullException(nameof(output));
             }
 
-            fullMessageHashes.Clear();
+            _fullMessageHashes.Clear();
             IList<Result> results = GetResults(input);
 
             PersistResults(output, results);
@@ -75,7 +83,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             \s*:\s*
             (?<qualifiedLevel>
               (?<levelQualification>.*)        # For example, 'fatal'.
-              (?<level>error|warning|info)
+              (?<level>error|warning|note|info|pass|review|open|notapplicable)
             )
             \s+
             (?<ruleId>[^\s:]+)
@@ -90,8 +98,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             if (!match.Success) { return null; }
 
             // MSBuild logs can contain duplicate error report lines. Take only one of them.
-            if (fullMessageHashes.Contains(fullMessage)) { return null; }
-            fullMessageHashes.Add(fullMessage);
+            if (!_verbose)
+            {
+                if (_fullMessageHashes.Contains(fullMessage)) { return null; }
+                _fullMessageHashes.Add(fullMessage);
+            }
 
             string fileName = match.Groups["fileName"].Value;
             string region = match.Groups["region"].Value;
@@ -104,7 +115,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var result = new Result
             {
                 RuleId = ruleId,
-                Level = GetFailureLevelFrom(level),
+                Level = GetFailureLevelFrom(level, out ResultKind resultKind),
+                Kind = resultKind,
                 Message = new Message
                 {
                     Text = message
@@ -134,36 +146,32 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     }
                 };
             }
-
-            SetProperty(result, fullMessage.Trim(), nameof(fullMessage));
-            SetPropertyIfPresent(result, buildTool, nameof(buildTool));
-            SetPropertyIfPresent(result, levelQualification, nameof(levelQualification));
-
             return result;
         }
 
-        private static void SetPropertyIfPresent(IPropertyBagHolder containingObject, string propertyValue, string propertyName)
+        private static FailureLevel GetFailureLevelFrom(string level, out ResultKind resultKind)
         {
-            if (!string.IsNullOrWhiteSpace(propertyValue))
-            {
-                SetProperty(containingObject, propertyValue, propertyName);
-            }
-        }
+            resultKind = ResultKind.Fail;
+            FailureLevel failureLevel = FailureLevel.None;
 
-        private static void SetProperty(IPropertyBagHolder containingObject, string propertyValue, string propertyName)
-        {
-            containingObject.SetProperty("microsoft/visualStudioBuildLogConverter/" + propertyName, propertyValue.Trim());
-        }
-
-        private static FailureLevel GetFailureLevelFrom(string level)
-        {
             switch (level)
             {
-                case "info": return FailureLevel.Note;
-                case "warning": return FailureLevel.Warning;
-                case "error": return FailureLevel.Error;
-                default: return FailureLevel.Warning;
+                // Failure cases. ResultKind.Fail + specific failure level
+                case "warning": { failureLevel = FailureLevel.Warning; break; }
+                case "error": { failureLevel = FailureLevel.Error; break; }
+                case "note": { failureLevel = FailureLevel.Note; break; }
+
+                // Non-failure cases. FailureLevel.None + specific result kind
+                case "notapplicable": { resultKind = ResultKind.NotApplicable; break; }
+                case "info": { resultKind = ResultKind.Informational; break; }
+                case "pass": { resultKind = ResultKind.Pass; break; }
+                case "review": { resultKind = ResultKind.Review; break; }
+                case "open": { resultKind = ResultKind.Open; break; }
+
+                default: { failureLevel = FailureLevel.Warning; break; }
             }
+
+            return failureLevel;
         }
 
         // VS supports the following region formatting options:

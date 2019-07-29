@@ -198,7 +198,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         CultureInfo.InvariantCulture, "{0}{1}: {2} {3}: {4}",
                         path,
                         location.PhysicalLocation.Region.FormatForVisualStudio(),
-                        result.Level.FormatForVisualStudio(),
+                        result.Kind == ResultKind.Fail ? result.Level.FormatForVisualStudio() : result.Kind.FormatForVisualStudio(),
                         result.RuleId,
                         result.GetMessageText(rule)
                         ));
@@ -217,6 +217,28 @@ namespace Microsoft.CodeAnalysis.Sarif
                 case FailureLevel.Warning:
                     return "warning";
 
+                case FailureLevel.Note:
+                    return "note";
+
+                default:
+                    throw new InvalidOperationException();
+            }
+        }
+
+        public static string FormatForVisualStudio(this ResultKind kind)
+        {
+            switch (kind)
+            {
+                case ResultKind.Informational:
+                    return "info";
+                case ResultKind.NotApplicable:
+                    return "notapplicable";
+                case ResultKind.Open:
+                    return "open";
+                case ResultKind.Pass:
+                    return "pass";
+                case ResultKind.Review:
+                    return "review";
                 default:
                     return "info";
             }

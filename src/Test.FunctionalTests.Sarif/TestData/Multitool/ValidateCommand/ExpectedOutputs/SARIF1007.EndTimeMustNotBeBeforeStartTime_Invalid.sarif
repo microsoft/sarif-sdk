@@ -5,7 +5,25 @@
     {
       "tool": {
         "driver": {
-          "name": "Sarif Functional Testing"
+          "name": "Sarif Functional Testing",
+          "rules": [
+            {
+              "id": "SARIF1007",
+              "name": "EndTimeMustNotBeBeforeStartTime",
+              "shortDescription": {
+                "text": "The end time of a run must not precede the start time."
+              },
+              "fullDescription": {
+                "text": "The end time of a run must not precede the start time. To allow for the possibility that the duration of the run is less than the resolution of the string representation of the time, the start time and the end time may be equal."
+              },
+              "messageStrings": {
+                "Default": {
+                  "text": "{0}: The end time \"{1}\" is before the start time \"{2}\"."
+                }
+              },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.0/csprd01/sarif-v2.0-csprd01.html"
+            }
+          ]
         }
       },
       "invocations": [
@@ -22,7 +40,36 @@
           }
         }
       ],
-      "results": [],
+      "results": [
+        {
+          "ruleId": "SARIF1007",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Default",
+            "arguments": [
+              "runs[0].invocations[0].endTimeUtc",
+              "2016-08-25T21:26:40.051Z",
+              "2016-08-25T21:26:42.049Z"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1007.EndTimeMustNotBeBeforeStartTime_Invalid.sarif",
+                  "uriBaseId": "TEST_DIR",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 15,
+                  "startColumn": 50
+                }
+              }
+            }
+          ]
+        }
+      ],
       "columnKind": "utf16CodeUnits"
     }
   ]

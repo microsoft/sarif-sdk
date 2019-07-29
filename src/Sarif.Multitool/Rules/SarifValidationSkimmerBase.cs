@@ -22,12 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         public override Uri HelpUri => _defaultHelpUri;
 
-        private readonly MultiformatMessageString _emptyHelpMessage = new MultiformatMessageString
-        {
-            Text = string.Empty
-        };
-
-        public override MultiformatMessageString Help => _emptyHelpMessage;
+        public override MultiformatMessageString Help => null;
 
         protected SarifValidationContext Context { get; private set; }
 

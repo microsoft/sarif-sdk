@@ -1,36 +1,28 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using System.Collections.Generic;
-using System.Resources;
+using System;
+using System.Linq;
 using FluentAssertions;
+using Microsoft.CodeAnalysis.Sarif;
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Driver.Sdk
 {
-    internal class TestSkimmer : TestSkimmerBase
-    {
-        public override string Id => "TST0001";
-
-        protected override ResourceManager ResourceManager => SkimmerBaseTestResources.ResourceManager;
-
-        protected override IEnumerable<string> MessageResourceNames => new List<string>
-        {
-            nameof(SkimmerBaseTestResources.TST0001_Pass),
-            nameof(SkimmerBaseTestResources.TST0001_Error)
-        };
-    }
-
     public class SkimmerBaseTests
     {
         [Fact]
         public void SkimmerBase_GetsPlainTextMessageStringsFromResources()
         {
-            var skimmer = new TestSkimmer();
+            var skimmer = new SimpleTestRule();
 
-            skimmer.MessageStrings.Count.Should().Be(2);
-            skimmer.MessageStrings["Pass"].Text.Should().Be(SkimmerBaseTestResources.TST0001_Pass);
-            skimmer.MessageStrings["Error"].Text.Should().Be(SkimmerBaseTestResources.TST0001_Error);
+            skimmer.MessageStrings.Count.Should().Be(new SimpleTestRule().MessageStrings.Count());
+            skimmer.MessageStrings["Failed"].Text.Should().Be(SkimmerBaseTestResources.TEST1001_Failed);
+            skimmer.MessageStrings["Note"].Text.Should().Be(SkimmerBaseTestResources.TEST1001_Note);
+            skimmer.MessageStrings["Pass"].Text.Should().Be(SkimmerBaseTestResources.TEST1001_Pass);
+            skimmer.MessageStrings["Open"].Text.Should().Be(SkimmerBaseTestResources.TEST1001_Open);
+            skimmer.MessageStrings["Review"].Text.Should().Be(SkimmerBaseTestResources.TEST1001_Review);
+            skimmer.MessageStrings["Information"].Text.Should().Be(SkimmerBaseTestResources.TEST1001_Information);
         }
     }
 }

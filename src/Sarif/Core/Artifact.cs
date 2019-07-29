@@ -18,6 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             Uri uri, 
             OptionallyEmittedData dataToInsert = OptionallyEmittedData.None, 
             Encoding encoding = null,
+            HashData hashData = null,
             IFileSystem fileSystem = null)
         {
             if (uri == null) { throw new ArgumentNullException(nameof(uri)); }
@@ -67,7 +68,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 if (dataToInsert.HasFlag(OptionallyEmittedData.Hashes))
                 {
-                    HashData hashes = HashUtilities.ComputeHashes(filePath);
+                    HashData hashes = hashData ?? HashUtilities.ComputeHashes(filePath);
                     artifact.Hashes = new Dictionary<string, string>
                     {
                         { "md5", hashes.MD5 },

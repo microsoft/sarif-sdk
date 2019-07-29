@@ -25,17 +25,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public override MultiformatMessageString ShortDescription { get { return new MultiformatMessageString { Text = this.GetType().Name + " short description." }; } }
 
-        public IDictionary<string, string> MessageFormats
-        {
-            get
-            {
-                return null;
-//                return new Dictionary<string, string> { { nameof(SdkResources.NotApplicable_InvalidMetadata), SdkResources.NotApplicable_InvalidMetadata } };
-            }
-        }
-
-        //internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
-
         public override ReportingConfiguration DefaultConfiguration
         {
             get
@@ -48,8 +37,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 return _reportingConfiguration;
             }
         }
-
-        public override IDictionary<string, MultiformatMessageString> MessageStrings { get { return new Dictionary<string, MultiformatMessageString>(); } }
 
         public override MultiformatMessageString Help { get { return new MultiformatMessageString() { Text = "[Empty]" }; } }
 

@@ -9,6 +9,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     public class TestAnalyzeCommand : AnalyzeCommandBase<TestAnalysisContext, TestAnalyzeOptions>
     {
+        public TestAnalyzeCommand(IFileSystem fileSystem = null) : base(fileSystem)
+        {
+        }
+
         public override IEnumerable<Assembly> DefaultPlugInAssemblies { get; set; }
 
         protected override TestAnalysisContext CreateContext(
