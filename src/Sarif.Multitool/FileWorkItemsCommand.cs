@@ -98,6 +98,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 metadata.Description = "This bug is very important. Let's fix it!";
                 metadata.AreaPath = $@"{projectName}\TopLevel\SecondLevel\Leaf";
                 metadata.Tags = new List<string> { "security", "compliance" };
+                bugNumber++;
             }
         }
 
