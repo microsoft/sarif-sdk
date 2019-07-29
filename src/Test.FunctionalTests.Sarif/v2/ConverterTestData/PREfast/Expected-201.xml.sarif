@@ -1,27 +1,34 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-09-26",
-  "version": "2.0.0-csd.2.beta.2018-09-26",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.4.json",
+  "version": "2.1.0",
   "runs": [
     {
       "tool": {
-        "name": "PREfast",
-        "fullName": "PREfast Code Analysis"
-      },
-      "files": {
-        "file:///c:/somepath/test201.cpp": {
-          "mimeType": "text/x-cpp"
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis"
         }
       },
-      "logicalLocations": {
-        "MyClass::GetValue": {
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///c:/somepath/test201.cpp",
+            "index": 0
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
           "name": "GetValue",
+          "fullyQualifiedName": "MyClass::GetValue",
           "decoratedName": "?GetValue@MyClass@@QAEHI@Z"
         },
-        "MyFixedSizeClass::GetValue": {
+        {
           "name": "GetValue",
+          "fullyQualifiedName": "MyFixedSizeClass::GetValue",
           "decoratedName": "?GetValue@MyFixedSizeClass@@QAEHI@Z"
         }
-      },
+      ],
       "results": [
         {
           "ruleId": "26020",
@@ -31,15 +38,21 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "file:///c:/somepath/test201.cpp"
+                "artifactLocation": {
+                  "uri": "file:///c:/somepath/test201.cpp",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 14,
                   "startColumn": 9
                 }
               },
-              "fullyQualifiedLogicalName": "MyClass::GetValue",
+              "logicalLocations": [
+                {
+                  "index": 0,
+                  "fullyQualifiedName": "MyClass::GetValue"
+                }
+              ],
               "properties": {
                 "funcline": "12"
               }
@@ -51,11 +64,11 @@
                 {
                   "locations": [
                     {
-                      "step": 1,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///c:/somepath/test201.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///c:/somepath/test201.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 12,
@@ -65,11 +78,11 @@
                       }
                     },
                     {
-                      "step": 2,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///c:/somepath/test201.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///c:/somepath/test201.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 14,
@@ -92,15 +105,21 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "file:///c:/somepath/test201.cpp"
+                "artifactLocation": {
+                  "uri": "file:///c:/somepath/test201.cpp",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 40,
                   "startColumn": 9
                 }
               },
-              "fullyQualifiedLogicalName": "MyFixedSizeClass::GetValue",
+              "logicalLocations": [
+                {
+                  "index": 1,
+                  "fullyQualifiedName": "MyFixedSizeClass::GetValue"
+                }
+              ],
               "properties": {
                 "funcline": "38"
               }
@@ -112,11 +131,11 @@
                 {
                   "locations": [
                     {
-                      "step": 1,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///c:/somepath/test201.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///c:/somepath/test201.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 38,
@@ -126,11 +145,11 @@
                       }
                     },
                     {
-                      "step": 2,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///c:/somepath/test201.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///c:/somepath/test201.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 40,
@@ -145,7 +164,8 @@
             }
           ]
         }
-      ]
+      ],
+      "columnKind": "utf16CodeUnits"
     }
   ]
 }

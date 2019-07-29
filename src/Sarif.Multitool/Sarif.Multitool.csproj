@@ -3,7 +3,6 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFrameworks>netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-    <LangVersion>7.3</LangVersion>
   </PropertyGroup>
 
   <!-- PackAsTool is supported/recommended for .NET Core >= 2.1 -->
@@ -20,14 +19,15 @@
 
   <ItemGroup>
     <PackageReference Include="CommandLineParser" Version="2.5.0" />
-    <PackageReference Include="Microsoft.Json.Pointer" Version="1.1.0" />
-    <PackageReference Include="Microsoft.Json.Schema" Version="1.1.0" />
-    <PackageReference Include="Microsoft.Json.Schema.Validation" Version="1.1.0" />
+    <PackageReference Include="Microsoft.Json.Pointer" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Json.Schema" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Json.Schema.Validation" Version="1.1.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Sarif.Converters\Sarif.Converters.csproj" />
     <ProjectReference Include="..\Sarif.Driver\Sarif.Driver.csproj" />
+    <ProjectReference Include="..\Sarif.WorkItemFiling\Sarif.WorkItemFiling.csproj" />
     <ProjectReference Include="..\Sarif\Sarif.csproj" />
   </ItemGroup>
 

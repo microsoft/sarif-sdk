@@ -21,6 +21,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         private LoggingOptions _loggingOptions;
         private JsonTextWriter _jsonTextWriter;
         private OptionallyEmittedData _dataToInsert;
+        private OptionallyEmittedData _dataToRemove;
         private ResultLogJsonWriter _issueLogJsonWriter;
         private IDictionary<ReportingDescriptor, int> _ruleToIndexMap;
 
@@ -29,6 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         private static Run CreateRun(
             IEnumerable<string> analysisTargets,
             OptionallyEmittedData dataToInsert,
+            OptionallyEmittedData dataToRemove,
             IEnumerable<string> invocationTokensToRedact,
             IEnumerable<string> invocationPropertiesToLog,
             string defaultFileEncoding = null,
@@ -76,7 +78,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 }
             }
 
-            var invocation = Invocation.Create(dataToInsert.HasFlag(OptionallyEmittedData.EnvironmentVariables), invocationPropertiesToLog);
+            var invocation = Invocation.Create(
+                emitMachineEnvironment: dataToInsert.HasFlag(OptionallyEmittedData.EnvironmentVariables),
+                emitTimestamps: !dataToRemove.HasFlag(OptionallyEmittedData.NondeterministicProperties),
+                invocationPropertiesToLog);
 
             // TODO we should actually redact across the complete log file context
             // by a dedicated rewriting visitor or some other approach.
@@ -136,6 +141,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             string outputFilePath,
             LoggingOptions loggingOptions = DefaultLoggingOptions,
             OptionallyEmittedData dataToInsert = OptionallyEmittedData.None,
+            OptionallyEmittedData dataToRemove = OptionallyEmittedData.None,
             Tool tool = null,
             Run run = null,
             IEnumerable<string> analysisTargets = null,
@@ -145,6 +151,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             : this(new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.None)),
                   loggingOptions: loggingOptions,
                   dataToInsert: dataToInsert,
+                  dataToRemove: dataToRemove,
                   tool: tool,
                   run: run,
                   analysisTargets: analysisTargets,
@@ -157,6 +164,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             TextWriter textWriter,
             LoggingOptions loggingOptions = DefaultLoggingOptions,
             OptionallyEmittedData dataToInsert = OptionallyEmittedData.None,
+            OptionallyEmittedData dataToRemove = OptionallyEmittedData.None,
             Tool tool = null,
             Run run = null,
             IEnumerable<string> analysisTargets = null,
@@ -172,6 +180,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _run = run ?? CreateRun(
                             analysisTargets,
                             dataToInsert,
+                            dataToRemove,
                             invocationTokensToRedact,
                             invocationPropertiesToLog,
                             defaultFileEncoding, 
@@ -181,6 +190,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             
             _run.Tool = tool;
             _dataToInsert = dataToInsert;
+            _dataToRemove = dataToRemove;
             _issueLogJsonWriter.Initialize(_run);
         }
 
@@ -235,7 +245,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 _issueLogJsonWriter.CloseResults();
 
-                if (_run?.Invocations?.Count > 0 && _run.Invocations[0].StartTimeUtc != new DateTime())
+                if (_run?.Invocations?.Count > 0 && _run.Invocations[0].StartTimeUtc != new DateTime() &&
+                    !_dataToRemove.HasFlag(OptionallyEmittedData.NondeterministicProperties))
                 {
                     _run.Invocations[0].EndTimeUtc = DateTime.UtcNow;
                 }
@@ -263,7 +274,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public void AnalysisStopped(RuntimeConditions runtimeConditions)
         {
-            if (_run.Invocations != null && _run.Invocations.Count > 0)
+            if (_run.Invocations != null && _run.Invocations.Count > 0 &&
+                !_dataToRemove.HasFlag(OptionallyEmittedData.NondeterministicProperties))
             {
                 _run.Invocations[0].EndTimeUtc = DateTime.UtcNow;
             }
@@ -422,48 +434,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public void AnalyzingTarget(IAnalysisContext context)
         {
-            if (!Verbose) { return; }
-
-            if (context == null)
-            {
-                throw new ArgumentNullException(nameof(context));
-            }
-
-            // This code doesn't call through a common helper, such as
-            // provided by the SDK Notes class, because we are in a specific
-            // logger. If we called through a helper, we'd re-enter
-            // through all aggregated loggers.
-
-            // Analyzing target '{0}'...
-
-            string message = string.Format(CultureInfo.InvariantCulture, 
-                SdkResources.MSG001_AnalyzingTarget,
-                context.TargetUri.GetFileName());
-
-            LogToolNotification(
-                new Notification
-                {
-                    Locations = new List<Location>()
-                    {
-                        new Location
-                        {
-                            PhysicalLocation = new PhysicalLocation
-                            {
-                                ArtifactLocation = new ArtifactLocation
-                                {
-                                    Uri = context.TargetUri
-                                }
-                            }
-                        }
-                    },
-                    Descriptor = new ReportingDescriptorReference
-                    {
-                        Id = Notes.Msg001AnalyzingTarget
-                    },
-                    Message = new Message { Text = message },
-                    Level = FailureLevel.None,
-                    TimeUtc = DateTime.UtcNow,
-                });
         }
 
         public void Log(FailureLevel level, IAnalysisContext context, Region region, string ruleMessageId, params string[] arguments)

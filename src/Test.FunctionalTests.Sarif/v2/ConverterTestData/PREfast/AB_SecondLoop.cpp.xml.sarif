@@ -1,45 +1,36 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-09-26",
-  "version": "2.0.0-csd.2.beta.2018-09-26",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.4.json",
+  "version": "2.1.0",
   "runs": [
     {
       "tool": {
-        "name": "PREfast",
-        "fullName": "PREfast Code Analysis"
-      },
-      "files": {
-        "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp": {
-          "mimeType": "text/x-cpp",
-          "contents": {
-            "binary": "Ly8gU29tZXRpbWVzIGEga2V5IGV2ZW50IGlzIHJlcGVhdGVkIGluIGRpZmZlcmVudCBzdGF0ZXMgYmVjYXVzZSBvZiBsb29wcy4NCi8vIE1haW50YWluIHN0YXRlIGZvciBlYWNoIGtleSBldmVudCBhbmQgcmVtZW1iZXIgd2hhdCBzdGF0ZSBpdCB3YXMgaW4gd2hlbiBmaXJlZC4NCi8vIEZvdXIgZGlmZmVyZW50IGtpbmRzIG9mIGxvb3Aga2V5IGV2ZW50czoNCi8vDQovLwkJRSAtIEVudGVyCQlYIC0gRXhpdA0KLy8JCUMgLSBDb250aW51ZQlTIC0gU2tpcA0KLy8NCnZvaWQgQzYwMTFfT25seU9uU2Vjb25kTG9vcCgpDQp7DQoJaW50ICogc291cmNlID0gMDsNCglib29sIGZsYWcgPSBmYWxzZTsNCg0KCWZvciAoaW50IGk9MDsgaTwzOyBpKyspDQoJew0KCQlpZiAoIWZsYWcpDQoJCQlmbGFnID0gdHJ1ZTsNCgkJZWxzZQ0KCQkJaW50IHRhcmdldCA9ICpzb3VyY2U7DQoJfQ0KfQ0KDQovLyBUaGlzIHNob3VsZCB3b3JrIGV2ZW4gaWYgUFJFZmFzdCByb2xscyBiYWNrIGJlY2F1c2UgbG9vcCBjb25kaXRpb24gaXMgYSBwYXJhbWV0ZXINCnZvaWQgQzYwMTFfT25seU9uU2Vjb25kTG9vcFdpdGhQYXJhbShpbnQgcGFyYW0pDQp7DQoJaW50ICogc291cmNlID0gMDsNCglib29sIGZsYWcgPSBmYWxzZTsNCg0KCWZvciAoaW50IGk9MDsgaTxwYXJhbTsgaSsrKQ0KCXsNCgkJaWYgKCFmbGFnKQ0KCQkJZmxhZyA9IHRydWU7DQoJCWVsc2UNCgkJCWludCB0YXJnZXQgPSAqc291cmNlOw0KCX0NCn0NCg0KLy8gVGVzdCBsb29wIHJvbGxiYWNrIHdoZW4gZGVmZWN0cyBvY2N1ciBiZWZvcmUgdGhlIHJvbGxiYWNrDQp2b2lkIEM2MDExX09ubHlPblNlY29uZExvb3BQbHVzUm9sbGJhY2tEZWZlY3QoaW50IHBhcmFtKQ0Kew0KCWludCAqIHNvdXJjZSA9IDA7DQoJYm9vbCBmbGFnID0gZmFsc2U7DQogICAgaW50IHhbMl0gPSB7MCwxfSwgeVsyXSA9IHsxLDJ9Ow0KDQoJZm9yIChpbnQgaT0wOyBpPHBhcmFtOyBpKyspDQoJew0KCQlpZiAoIWZsYWcpDQoJCQlmbGFnID0gdHJ1ZTsNCgkJZWxzZQ0KCQkJaW50IHRhcmdldCA9ICpzb3VyY2U7DQoJfQ0KDQogICAgaW50IGogPSB4W3BhcmFtXTsNCiAgICBpbnQgayA9IHlbcGFyYW0rMV07DQp9DQo="
-          },
-          "hashes": [
-            {
-              "value": "F4EAF339CA13C1048F7DC76539195F4E",
-              "algorithm": "md5"
-            },
-            {
-              "value": "A65A1C0968BD40D381B662CA2D2D221499512130",
-              "algorithm": "sha-1"
-            },
-            {
-              "value": "AACC8C77BCDADF11C89E52301B9A63BA8E1F9E0E83B6CC811BA2B2496D1D6EBF",
-              "algorithm": "sha-256"
-            }
-          ]
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis"
         }
       },
-      "logicalLocations": {
-        "C6011_OnlyOnSecondLoop": {
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+            "index": 0
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "C6011_OnlyOnSecondLoop",
           "decoratedName": "?C6011_OnlyOnSecondLoop@@YAXXZ"
         },
-        "C6011_OnlyOnSecondLoopWithParam": {
+        {
+          "fullyQualifiedName": "C6011_OnlyOnSecondLoopWithParam",
           "decoratedName": "?C6011_OnlyOnSecondLoopWithParam@@YAXH@Z"
         },
-        "C6011_OnlyOnSecondLoopPlusRollbackDefect": {
+        {
+          "fullyQualifiedName": "C6011_OnlyOnSecondLoopPlusRollbackDefect",
           "decoratedName": "?C6011_OnlyOnSecondLoopPlusRollbackDefect@@YAXH@Z"
         }
-      },
+      ],
       "results": [
         {
           "ruleId": "6011",
@@ -49,29 +40,21 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                "artifactLocation": {
+                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 18,
-                  "startColumn": 8,
-                  "snippet": {
-                    "text": "target = *source;"
-                  }
-                },
-                "contextRegion": {
-                  "startLine": 17,
-                  "startColumn": 1,
-                  "endLine": 19,
-                  "endColumn": 3,
-                  "charOffset": 403,
-                  "charLength": 36,
-                  "snippet": {
-                    "text": "\t\telse\r\n\t\t\tint target = *source;\r\n\t}"
-                  }
+                  "startColumn": 8
                 }
               },
-              "fullyQualifiedLogicalName": "C6011_OnlyOnSecondLoop",
+              "logicalLocations": [
+                {
+                  "index": 0,
+                  "fullyQualifiedName": "C6011_OnlyOnSecondLoop"
+                }
+              ],
               "properties": {
                 "funcline": "8"
               }
@@ -83,29 +66,15 @@
                 {
                   "locations": [
                     {
-                      "step": 1,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 10,
-                            "startColumn": 6,
-                            "snippet": {
-                              "text": "* source = 0;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 9,
-                            "startColumn": 1,
-                            "endLine": 11,
-                            "endColumn": 20,
-                            "charOffset": 296,
-                            "charLength": 42,
-                            "snippet": {
-                              "text": "{\r\n\tint * source = 0;\r\n\tbool flag = false;"
-                            }
+                            "startColumn": 6
                           }
                         }
                       },
@@ -115,87 +84,45 @@
                       }
                     },
                     {
-                      "step": 2,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 11,
-                            "startColumn": 7,
-                            "snippet": {
-                              "text": "flag = false;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 10,
-                            "startColumn": 1,
-                            "endLine": 12,
-                            "endColumn": 1,
-                            "charOffset": 299,
-                            "charLength": 41,
-                            "snippet": {
-                              "text": "\tint * source = 0;\r\n\tbool flag = false;\r\n"
-                            }
+                            "startColumn": 7
                           }
                         }
                       },
                       "importance": "unimportant"
                     },
                     {
-                      "step": 3,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 13,
-                            "startColumn": 11,
-                            "snippet": {
-                              "text": "i=0; i<3; i++)"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 12,
-                            "startColumn": 1,
-                            "endLine": 14,
-                            "endColumn": 3,
-                            "charOffset": 340,
-                            "charLength": 30,
-                            "snippet": {
-                              "text": "\r\n\tfor (int i=0; i<3; i++)\r\n\t{"
-                            }
+                            "startColumn": 11
                           }
                         }
                       },
                       "importance": "unimportant"
                     },
                     {
-                      "step": 4,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 13,
-                            "startColumn": 17,
-                            "snippet": {
-                              "text": "<3; i++)"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 12,
-                            "startColumn": 1,
-                            "endLine": 14,
-                            "endColumn": 3,
-                            "charOffset": 340,
-                            "charLength": 30,
-                            "snippet": {
-                              "text": "\r\n\tfor (int i=0; i<3; i++)\r\n\t{"
-                            }
+                            "startColumn": 17
                           }
                         }
                       },
@@ -204,29 +131,15 @@
                       }
                     },
                     {
-                      "step": 5,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 15,
-                            "startColumn": 7,
-                            "snippet": {
-                              "text": "!flag)"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 14,
-                            "startColumn": 1,
-                            "endLine": 16,
-                            "endColumn": 16,
-                            "charOffset": 368,
-                            "charLength": 33,
-                            "snippet": {
-                              "text": "\t{\r\n\t\tif (!flag)\r\n\t\t\tflag = true;"
-                            }
+                            "startColumn": 7
                           }
                         }
                       },
@@ -235,87 +148,45 @@
                       }
                     },
                     {
-                      "step": 6,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 16,
-                            "startColumn": 9,
-                            "snippet": {
-                              "text": "= true;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 15,
-                            "startColumn": 1,
-                            "endLine": 17,
-                            "endColumn": 7,
-                            "charOffset": 372,
-                            "charLength": 37,
-                            "snippet": {
-                              "text": "\t\tif (!flag)\r\n\t\t\tflag = true;\r\n\t\telse"
-                            }
+                            "startColumn": 9
                           }
                         }
                       },
                       "importance": "unimportant"
                     },
                     {
-                      "step": 7,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 13,
-                            "startColumn": 22,
-                            "snippet": {
-                              "text": "++)"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 12,
-                            "startColumn": 1,
-                            "endLine": 14,
-                            "endColumn": 3,
-                            "charOffset": 340,
-                            "charLength": 30,
-                            "snippet": {
-                              "text": "\r\n\tfor (int i=0; i<3; i++)\r\n\t{"
-                            }
+                            "startColumn": 22
                           }
                         }
                       },
                       "importance": "unimportant"
                     },
                     {
-                      "step": 8,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 13,
-                            "startColumn": 17,
-                            "snippet": {
-                              "text": "<3; i++)"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 12,
-                            "startColumn": 1,
-                            "endLine": 14,
-                            "endColumn": 3,
-                            "charOffset": 340,
-                            "charLength": 30,
-                            "snippet": {
-                              "text": "\r\n\tfor (int i=0; i<3; i++)\r\n\t{"
-                            }
+                            "startColumn": 17
                           }
                         }
                       },
@@ -324,29 +195,15 @@
                       }
                     },
                     {
-                      "step": 9,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 15,
-                            "startColumn": 7,
-                            "snippet": {
-                              "text": "!flag)"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 14,
-                            "startColumn": 1,
-                            "endLine": 16,
-                            "endColumn": 16,
-                            "charOffset": 368,
-                            "charLength": 33,
-                            "snippet": {
-                              "text": "\t{\r\n\t\tif (!flag)\r\n\t\t\tflag = true;"
-                            }
+                            "startColumn": 7
                           }
                         }
                       },
@@ -355,29 +212,15 @@
                       }
                     },
                     {
-                      "step": 10,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 18,
-                            "startColumn": 8,
-                            "snippet": {
-                              "text": "target = *source;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 17,
-                            "startColumn": 1,
-                            "endLine": 19,
-                            "endColumn": 3,
-                            "charOffset": 403,
-                            "charLength": 36,
-                            "snippet": {
-                              "text": "\t\telse\r\n\t\t\tint target = *source;\r\n\t}"
-                            }
+                            "startColumn": 8
                           }
                         }
                       },
@@ -405,29 +248,21 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                "artifactLocation": {
+                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 33,
-                  "startColumn": 8,
-                  "snippet": {
-                    "text": "target = *source;"
-                  }
-                },
-                "contextRegion": {
-                  "startLine": 32,
-                  "startColumn": 1,
-                  "endLine": 34,
-                  "endColumn": 3,
-                  "charOffset": 692,
-                  "charLength": 36,
-                  "snippet": {
-                    "text": "\t\telse\r\n\t\t\tint target = *source;\r\n\t}"
-                  }
+                  "startColumn": 8
                 }
               },
-              "fullyQualifiedLogicalName": "C6011_OnlyOnSecondLoopWithParam",
+              "logicalLocations": [
+                {
+                  "index": 1,
+                  "fullyQualifiedName": "C6011_OnlyOnSecondLoopWithParam"
+                }
+              ],
               "properties": {
                 "funcline": "23"
               }
@@ -439,29 +274,15 @@
                 {
                   "locations": [
                     {
-                      "step": 1,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 25,
-                            "startColumn": 6,
-                            "snippet": {
-                              "text": "* source = 0;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 24,
-                            "startColumn": 1,
-                            "endLine": 26,
-                            "endColumn": 20,
-                            "charOffset": 581,
-                            "charLength": 42,
-                            "snippet": {
-                              "text": "{\r\n\tint * source = 0;\r\n\tbool flag = false;"
-                            }
+                            "startColumn": 6
                           }
                         }
                       },
@@ -471,87 +292,45 @@
                       }
                     },
                     {
-                      "step": 2,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 26,
-                            "startColumn": 7,
-                            "snippet": {
-                              "text": "flag = false;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 25,
-                            "startColumn": 1,
-                            "endLine": 27,
-                            "endColumn": 1,
-                            "charOffset": 584,
-                            "charLength": 41,
-                            "snippet": {
-                              "text": "\tint * source = 0;\r\n\tbool flag = false;\r\n"
-                            }
+                            "startColumn": 7
                           }
                         }
                       },
                       "importance": "unimportant"
                     },
                     {
-                      "step": 3,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 28,
-                            "startColumn": 11,
-                            "snippet": {
-                              "text": "i=0; i<param; i++)"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 27,
-                            "startColumn": 1,
-                            "endLine": 29,
-                            "endColumn": 3,
-                            "charOffset": 625,
-                            "charLength": 34,
-                            "snippet": {
-                              "text": "\r\n\tfor (int i=0; i<param; i++)\r\n\t{"
-                            }
+                            "startColumn": 11
                           }
                         }
                       },
                       "importance": "unimportant"
                     },
                     {
-                      "step": 4,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 28,
-                            "startColumn": 17,
-                            "snippet": {
-                              "text": "<param; i++)"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 27,
-                            "startColumn": 1,
-                            "endLine": 29,
-                            "endColumn": 3,
-                            "charOffset": 625,
-                            "charLength": 34,
-                            "snippet": {
-                              "text": "\r\n\tfor (int i=0; i<param; i++)\r\n\t{"
-                            }
+                            "startColumn": 17
                           }
                         }
                       },
@@ -560,29 +339,15 @@
                       }
                     },
                     {
-                      "step": 5,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 30,
-                            "startColumn": 7,
-                            "snippet": {
-                              "text": "!flag)"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 29,
-                            "startColumn": 1,
-                            "endLine": 31,
-                            "endColumn": 16,
-                            "charOffset": 657,
-                            "charLength": 33,
-                            "snippet": {
-                              "text": "\t{\r\n\t\tif (!flag)\r\n\t\t\tflag = true;"
-                            }
+                            "startColumn": 7
                           }
                         }
                       },
@@ -591,87 +356,45 @@
                       }
                     },
                     {
-                      "step": 6,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 31,
-                            "startColumn": 9,
-                            "snippet": {
-                              "text": "= true;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 30,
-                            "startColumn": 1,
-                            "endLine": 32,
-                            "endColumn": 7,
-                            "charOffset": 661,
-                            "charLength": 37,
-                            "snippet": {
-                              "text": "\t\tif (!flag)\r\n\t\t\tflag = true;\r\n\t\telse"
-                            }
+                            "startColumn": 9
                           }
                         }
                       },
                       "importance": "unimportant"
                     },
                     {
-                      "step": 7,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 28,
-                            "startColumn": 26,
-                            "snippet": {
-                              "text": "++)"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 27,
-                            "startColumn": 1,
-                            "endLine": 29,
-                            "endColumn": 3,
-                            "charOffset": 625,
-                            "charLength": 34,
-                            "snippet": {
-                              "text": "\r\n\tfor (int i=0; i<param; i++)\r\n\t{"
-                            }
+                            "startColumn": 26
                           }
                         }
                       },
                       "importance": "unimportant"
                     },
                     {
-                      "step": 8,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 28,
-                            "startColumn": 17,
-                            "snippet": {
-                              "text": "<param; i++)"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 27,
-                            "startColumn": 1,
-                            "endLine": 29,
-                            "endColumn": 3,
-                            "charOffset": 625,
-                            "charLength": 34,
-                            "snippet": {
-                              "text": "\r\n\tfor (int i=0; i<param; i++)\r\n\t{"
-                            }
+                            "startColumn": 17
                           }
                         }
                       },
@@ -680,29 +403,15 @@
                       }
                     },
                     {
-                      "step": 9,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 30,
-                            "startColumn": 7,
-                            "snippet": {
-                              "text": "!flag)"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 29,
-                            "startColumn": 1,
-                            "endLine": 31,
-                            "endColumn": 16,
-                            "charOffset": 657,
-                            "charLength": 33,
-                            "snippet": {
-                              "text": "\t{\r\n\t\tif (!flag)\r\n\t\t\tflag = true;"
-                            }
+                            "startColumn": 7
                           }
                         }
                       },
@@ -711,29 +420,15 @@
                       }
                     },
                     {
-                      "step": 10,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 33,
-                            "startColumn": 8,
-                            "snippet": {
-                              "text": "target = *source;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 32,
-                            "startColumn": 1,
-                            "endLine": 34,
-                            "endColumn": 3,
-                            "charOffset": 692,
-                            "charLength": 36,
-                            "snippet": {
-                              "text": "\t\telse\r\n\t\t\tint target = *source;\r\n\t}"
-                            }
+                            "startColumn": 8
                           }
                         }
                       },
@@ -761,29 +456,21 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                "artifactLocation": {
+                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 52,
-                  "startColumn": 9,
-                  "snippet": {
-                    "text": "j = x[param];"
-                  }
-                },
-                "contextRegion": {
-                  "startLine": 51,
-                  "startColumn": 1,
-                  "endLine": 53,
-                  "endColumn": 24,
-                  "charOffset": 1041,
-                  "charLength": 48,
-                  "snippet": {
-                    "text": "\r\n    int j = x[param];\r\n    int k = y[param+1];"
-                  }
+                  "startColumn": 9
                 }
               },
-              "fullyQualifiedLogicalName": "C6011_OnlyOnSecondLoopPlusRollbackDefect",
+              "logicalLocations": [
+                {
+                  "index": 2,
+                  "fullyQualifiedName": "C6011_OnlyOnSecondLoopPlusRollbackDefect"
+                }
+              ],
               "properties": {
                 "funcline": "38"
               }
@@ -795,87 +482,45 @@
                 {
                   "locations": [
                     {
-                      "step": 1,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 40,
-                            "startColumn": 6,
-                            "snippet": {
-                              "text": "* source = 0;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 39,
-                            "startColumn": 1,
-                            "endLine": 41,
-                            "endColumn": 20,
-                            "charOffset": 855,
-                            "charLength": 42,
-                            "snippet": {
-                              "text": "{\r\n\tint * source = 0;\r\n\tbool flag = false;"
-                            }
+                            "startColumn": 6
                           }
                         }
                       },
                       "importance": "unimportant"
                     },
                     {
-                      "step": 2,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 41,
-                            "startColumn": 7,
-                            "snippet": {
-                              "text": "flag = false;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 40,
-                            "startColumn": 1,
-                            "endLine": 42,
-                            "endColumn": 36,
-                            "charOffset": 858,
-                            "charLength": 76,
-                            "snippet": {
-                              "text": "\tint * source = 0;\r\n\tbool flag = false;\r\n    int x[2] = {0,1}, y[2] = {1,2};"
-                            }
+                            "startColumn": 7
                           }
                         }
                       },
                       "importance": "unimportant"
                     },
                     {
-                      "step": 3,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 42,
-                            "startColumn": 9,
-                            "snippet": {
-                              "text": "x[2] = {0,1}, y[2] = {1,2};"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 41,
-                            "startColumn": 1,
-                            "endLine": 43,
-                            "endColumn": 1,
-                            "charOffset": 878,
-                            "charLength": 58,
-                            "snippet": {
-                              "text": "\tbool flag = false;\r\n    int x[2] = {0,1}, y[2] = {1,2};\r\n"
-                            }
+                            "startColumn": 9
                           }
                         }
                       },
@@ -885,87 +530,45 @@
                       }
                     },
                     {
-                      "step": 4,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 42,
-                            "startColumn": 23,
-                            "snippet": {
-                              "text": "y[2] = {1,2};"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 41,
-                            "startColumn": 1,
-                            "endLine": 43,
-                            "endColumn": 1,
-                            "charOffset": 878,
-                            "charLength": 58,
-                            "snippet": {
-                              "text": "\tbool flag = false;\r\n    int x[2] = {0,1}, y[2] = {1,2};\r\n"
-                            }
+                            "startColumn": 23
                           }
                         }
                       },
                       "importance": "unimportant"
                     },
                     {
-                      "step": 5,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 44,
-                            "startColumn": 11,
-                            "snippet": {
-                              "text": "i=0; i<param; i++)"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 43,
-                            "startColumn": 1,
-                            "endLine": 45,
-                            "endColumn": 3,
-                            "charOffset": 936,
-                            "charLength": 34,
-                            "snippet": {
-                              "text": "\r\n\tfor (int i=0; i<param; i++)\r\n\t{"
-                            }
+                            "startColumn": 11
                           }
                         }
                       },
                       "importance": "unimportant"
                     },
                     {
-                      "step": 6,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 44,
-                            "startColumn": 17,
-                            "snippet": {
-                              "text": "<param; i++)"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 43,
-                            "startColumn": 1,
-                            "endLine": 45,
-                            "endColumn": 3,
-                            "charOffset": 936,
-                            "charLength": 34,
-                            "snippet": {
-                              "text": "\r\n\tfor (int i=0; i<param; i++)\r\n\t{"
-                            }
+                            "startColumn": 17
                           }
                         }
                       },
@@ -974,29 +577,15 @@
                       }
                     },
                     {
-                      "step": 7,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 46,
-                            "startColumn": 7,
-                            "snippet": {
-                              "text": "!flag)"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 45,
-                            "startColumn": 1,
-                            "endLine": 47,
-                            "endColumn": 16,
-                            "charOffset": 968,
-                            "charLength": 33,
-                            "snippet": {
-                              "text": "\t{\r\n\t\tif (!flag)\r\n\t\t\tflag = true;"
-                            }
+                            "startColumn": 7
                           }
                         }
                       },
@@ -1005,87 +594,45 @@
                       }
                     },
                     {
-                      "step": 8,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 47,
-                            "startColumn": 9,
-                            "snippet": {
-                              "text": "= true;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 46,
-                            "startColumn": 1,
-                            "endLine": 48,
-                            "endColumn": 7,
-                            "charOffset": 972,
-                            "charLength": 37,
-                            "snippet": {
-                              "text": "\t\tif (!flag)\r\n\t\t\tflag = true;\r\n\t\telse"
-                            }
+                            "startColumn": 9
                           }
                         }
                       },
                       "importance": "unimportant"
                     },
                     {
-                      "step": 9,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 44,
-                            "startColumn": 26,
-                            "snippet": {
-                              "text": "++)"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 43,
-                            "startColumn": 1,
-                            "endLine": 45,
-                            "endColumn": 3,
-                            "charOffset": 936,
-                            "charLength": 34,
-                            "snippet": {
-                              "text": "\r\n\tfor (int i=0; i<param; i++)\r\n\t{"
-                            }
+                            "startColumn": 26
                           }
                         }
                       },
                       "importance": "unimportant"
                     },
                     {
-                      "step": 10,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 44,
-                            "startColumn": 17,
-                            "snippet": {
-                              "text": "<param; i++)"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 43,
-                            "startColumn": 1,
-                            "endLine": 45,
-                            "endColumn": 3,
-                            "charOffset": 936,
-                            "charLength": 34,
-                            "snippet": {
-                              "text": "\r\n\tfor (int i=0; i<param; i++)\r\n\t{"
-                            }
+                            "startColumn": 17
                           }
                         }
                       },
@@ -1094,29 +641,15 @@
                       }
                     },
                     {
-                      "step": 11,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 46,
-                            "startColumn": 7,
-                            "snippet": {
-                              "text": "!flag)"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 45,
-                            "startColumn": 1,
-                            "endLine": 47,
-                            "endColumn": 16,
-                            "charOffset": 968,
-                            "charLength": 33,
-                            "snippet": {
-                              "text": "\t{\r\n\t\tif (!flag)\r\n\t\t\tflag = true;"
-                            }
+                            "startColumn": 7
                           }
                         }
                       },
@@ -1125,87 +658,45 @@
                       }
                     },
                     {
-                      "step": 12,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 49,
-                            "startColumn": 8,
-                            "snippet": {
-                              "text": "target = *source;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 48,
-                            "startColumn": 1,
-                            "endLine": 50,
-                            "endColumn": 3,
-                            "charOffset": 1003,
-                            "charLength": 36,
-                            "snippet": {
-                              "text": "\t\telse\r\n\t\t\tint target = *source;\r\n\t}"
-                            }
+                            "startColumn": 8
                           }
                         }
                       },
                       "importance": "unimportant"
                     },
                     {
-                      "step": 13,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 44,
-                            "startColumn": 26,
-                            "snippet": {
-                              "text": "++)"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 43,
-                            "startColumn": 1,
-                            "endLine": 45,
-                            "endColumn": 3,
-                            "charOffset": 936,
-                            "charLength": 34,
-                            "snippet": {
-                              "text": "\r\n\tfor (int i=0; i<param; i++)\r\n\t{"
-                            }
+                            "startColumn": 26
                           }
                         }
                       },
                       "importance": "unimportant"
                     },
                     {
-                      "step": 14,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 44,
-                            "startColumn": 17,
-                            "snippet": {
-                              "text": "<param; i++)"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 43,
-                            "startColumn": 1,
-                            "endLine": 45,
-                            "endColumn": 3,
-                            "charOffset": 936,
-                            "charLength": 34,
-                            "snippet": {
-                              "text": "\r\n\tfor (int i=0; i<param; i++)\r\n\t{"
-                            }
+                            "startColumn": 17
                           }
                         }
                       },
@@ -1214,29 +705,15 @@
                       }
                     },
                     {
-                      "step": 15,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 52,
-                            "startColumn": 9,
-                            "snippet": {
-                              "text": "j = x[param];"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 51,
-                            "startColumn": 1,
-                            "endLine": 53,
-                            "endColumn": 24,
-                            "charOffset": 1041,
-                            "charLength": 48,
-                            "snippet": {
-                              "text": "\r\n    int j = x[param];\r\n    int k = y[param+1];"
-                            }
+                            "startColumn": 9
                           }
                         }
                       },
@@ -1264,29 +741,21 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                "artifactLocation": {
+                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 53,
-                  "startColumn": 9,
-                  "snippet": {
-                    "text": "k = y[param+1];"
-                  }
-                },
-                "contextRegion": {
-                  "startLine": 52,
-                  "startColumn": 1,
-                  "endLine": 54,
-                  "endColumn": 2,
-                  "charOffset": 1043,
-                  "charLength": 49,
-                  "snippet": {
-                    "text": "    int j = x[param];\r\n    int k = y[param+1];\r\n}"
-                  }
+                  "startColumn": 9
                 }
               },
-              "fullyQualifiedLogicalName": "C6011_OnlyOnSecondLoopPlusRollbackDefect",
+              "logicalLocations": [
+                {
+                  "index": 2,
+                  "fullyQualifiedName": "C6011_OnlyOnSecondLoopPlusRollbackDefect"
+                }
+              ],
               "properties": {
                 "funcline": "38"
               }
@@ -1298,116 +767,60 @@
                 {
                   "locations": [
                     {
-                      "step": 1,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 40,
-                            "startColumn": 6,
-                            "snippet": {
-                              "text": "* source = 0;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 39,
-                            "startColumn": 1,
-                            "endLine": 41,
-                            "endColumn": 20,
-                            "charOffset": 855,
-                            "charLength": 42,
-                            "snippet": {
-                              "text": "{\r\n\tint * source = 0;\r\n\tbool flag = false;"
-                            }
+                            "startColumn": 6
                           }
                         }
                       },
                       "importance": "unimportant"
                     },
                     {
-                      "step": 2,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 41,
-                            "startColumn": 7,
-                            "snippet": {
-                              "text": "flag = false;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 40,
-                            "startColumn": 1,
-                            "endLine": 42,
-                            "endColumn": 36,
-                            "charOffset": 858,
-                            "charLength": 76,
-                            "snippet": {
-                              "text": "\tint * source = 0;\r\n\tbool flag = false;\r\n    int x[2] = {0,1}, y[2] = {1,2};"
-                            }
+                            "startColumn": 7
                           }
                         }
                       },
                       "importance": "unimportant"
                     },
                     {
-                      "step": 3,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 42,
-                            "startColumn": 9,
-                            "snippet": {
-                              "text": "x[2] = {0,1}, y[2] = {1,2};"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 41,
-                            "startColumn": 1,
-                            "endLine": 43,
-                            "endColumn": 1,
-                            "charOffset": 878,
-                            "charLength": 58,
-                            "snippet": {
-                              "text": "\tbool flag = false;\r\n    int x[2] = {0,1}, y[2] = {1,2};\r\n"
-                            }
+                            "startColumn": 9
                           }
                         }
                       },
                       "importance": "unimportant"
                     },
                     {
-                      "step": 4,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 42,
-                            "startColumn": 23,
-                            "snippet": {
-                              "text": "y[2] = {1,2};"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 41,
-                            "startColumn": 1,
-                            "endLine": 43,
-                            "endColumn": 1,
-                            "charOffset": 878,
-                            "charLength": 58,
-                            "snippet": {
-                              "text": "\tbool flag = false;\r\n    int x[2] = {0,1}, y[2] = {1,2};\r\n"
-                            }
+                            "startColumn": 23
                           }
                         }
                       },
@@ -1417,58 +830,30 @@
                       }
                     },
                     {
-                      "step": 5,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 44,
-                            "startColumn": 11,
-                            "snippet": {
-                              "text": "i=0; i<param; i++)"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 43,
-                            "startColumn": 1,
-                            "endLine": 45,
-                            "endColumn": 3,
-                            "charOffset": 936,
-                            "charLength": 34,
-                            "snippet": {
-                              "text": "\r\n\tfor (int i=0; i<param; i++)\r\n\t{"
-                            }
+                            "startColumn": 11
                           }
                         }
                       },
                       "importance": "unimportant"
                     },
                     {
-                      "step": 6,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 44,
-                            "startColumn": 17,
-                            "snippet": {
-                              "text": "<param; i++)"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 43,
-                            "startColumn": 1,
-                            "endLine": 45,
-                            "endColumn": 3,
-                            "charOffset": 936,
-                            "charLength": 34,
-                            "snippet": {
-                              "text": "\r\n\tfor (int i=0; i<param; i++)\r\n\t{"
-                            }
+                            "startColumn": 17
                           }
                         }
                       },
@@ -1477,29 +862,15 @@
                       }
                     },
                     {
-                      "step": 7,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 46,
-                            "startColumn": 7,
-                            "snippet": {
-                              "text": "!flag)"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 45,
-                            "startColumn": 1,
-                            "endLine": 47,
-                            "endColumn": 16,
-                            "charOffset": 968,
-                            "charLength": 33,
-                            "snippet": {
-                              "text": "\t{\r\n\t\tif (!flag)\r\n\t\t\tflag = true;"
-                            }
+                            "startColumn": 7
                           }
                         }
                       },
@@ -1508,87 +879,45 @@
                       }
                     },
                     {
-                      "step": 8,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 47,
-                            "startColumn": 9,
-                            "snippet": {
-                              "text": "= true;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 46,
-                            "startColumn": 1,
-                            "endLine": 48,
-                            "endColumn": 7,
-                            "charOffset": 972,
-                            "charLength": 37,
-                            "snippet": {
-                              "text": "\t\tif (!flag)\r\n\t\t\tflag = true;\r\n\t\telse"
-                            }
+                            "startColumn": 9
                           }
                         }
                       },
                       "importance": "unimportant"
                     },
                     {
-                      "step": 9,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 44,
-                            "startColumn": 26,
-                            "snippet": {
-                              "text": "++)"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 43,
-                            "startColumn": 1,
-                            "endLine": 45,
-                            "endColumn": 3,
-                            "charOffset": 936,
-                            "charLength": 34,
-                            "snippet": {
-                              "text": "\r\n\tfor (int i=0; i<param; i++)\r\n\t{"
-                            }
+                            "startColumn": 26
                           }
                         }
                       },
                       "importance": "unimportant"
                     },
                     {
-                      "step": 10,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 44,
-                            "startColumn": 17,
-                            "snippet": {
-                              "text": "<param; i++)"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 43,
-                            "startColumn": 1,
-                            "endLine": 45,
-                            "endColumn": 3,
-                            "charOffset": 936,
-                            "charLength": 34,
-                            "snippet": {
-                              "text": "\r\n\tfor (int i=0; i<param; i++)\r\n\t{"
-                            }
+                            "startColumn": 17
                           }
                         }
                       },
@@ -1597,58 +926,30 @@
                       }
                     },
                     {
-                      "step": 11,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 52,
-                            "startColumn": 9,
-                            "snippet": {
-                              "text": "j = x[param];"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 51,
-                            "startColumn": 1,
-                            "endLine": 53,
-                            "endColumn": 24,
-                            "charOffset": 1041,
-                            "charLength": 48,
-                            "snippet": {
-                              "text": "\r\n    int j = x[param];\r\n    int k = y[param+1];"
-                            }
+                            "startColumn": 9
                           }
                         }
                       },
                       "importance": "unimportant"
                     },
                     {
-                      "step": 12,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 53,
-                            "startColumn": 9,
-                            "snippet": {
-                              "text": "k = y[param+1];"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 52,
-                            "startColumn": 1,
-                            "endLine": 54,
-                            "endColumn": 2,
-                            "charOffset": 1043,
-                            "charLength": 49,
-                            "snippet": {
-                              "text": "    int j = x[param];\r\n    int k = y[param+1];\r\n}"
-                            }
+                            "startColumn": 9
                           }
                         }
                       },
@@ -1676,29 +977,21 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                "artifactLocation": {
+                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 49,
-                  "startColumn": 8,
-                  "snippet": {
-                    "text": "target = *source;"
-                  }
-                },
-                "contextRegion": {
-                  "startLine": 48,
-                  "startColumn": 1,
-                  "endLine": 50,
-                  "endColumn": 3,
-                  "charOffset": 1003,
-                  "charLength": 36,
-                  "snippet": {
-                    "text": "\t\telse\r\n\t\t\tint target = *source;\r\n\t}"
-                  }
+                  "startColumn": 8
                 }
               },
-              "fullyQualifiedLogicalName": "C6011_OnlyOnSecondLoopPlusRollbackDefect",
+              "logicalLocations": [
+                {
+                  "index": 2,
+                  "fullyQualifiedName": "C6011_OnlyOnSecondLoopPlusRollbackDefect"
+                }
+              ],
               "properties": {
                 "funcline": "38"
               }
@@ -1710,29 +1003,15 @@
                 {
                   "locations": [
                     {
-                      "step": 1,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 40,
-                            "startColumn": 6,
-                            "snippet": {
-                              "text": "* source = 0;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 39,
-                            "startColumn": 1,
-                            "endLine": 41,
-                            "endColumn": 20,
-                            "charOffset": 855,
-                            "charLength": 42,
-                            "snippet": {
-                              "text": "{\r\n\tint * source = 0;\r\n\tbool flag = false;"
-                            }
+                            "startColumn": 6
                           }
                         }
                       },
@@ -1742,145 +1021,75 @@
                       }
                     },
                     {
-                      "step": 2,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 41,
-                            "startColumn": 7,
-                            "snippet": {
-                              "text": "flag = false;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 40,
-                            "startColumn": 1,
-                            "endLine": 42,
-                            "endColumn": 36,
-                            "charOffset": 858,
-                            "charLength": 76,
-                            "snippet": {
-                              "text": "\tint * source = 0;\r\n\tbool flag = false;\r\n    int x[2] = {0,1}, y[2] = {1,2};"
-                            }
+                            "startColumn": 7
                           }
                         }
                       },
                       "importance": "unimportant"
                     },
                     {
-                      "step": 3,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 42,
-                            "startColumn": 9,
-                            "snippet": {
-                              "text": "x[2] = {0,1}, y[2] = {1,2};"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 41,
-                            "startColumn": 1,
-                            "endLine": 43,
-                            "endColumn": 1,
-                            "charOffset": 878,
-                            "charLength": 58,
-                            "snippet": {
-                              "text": "\tbool flag = false;\r\n    int x[2] = {0,1}, y[2] = {1,2};\r\n"
-                            }
+                            "startColumn": 9
                           }
                         }
                       },
                       "importance": "unimportant"
                     },
                     {
-                      "step": 4,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 42,
-                            "startColumn": 23,
-                            "snippet": {
-                              "text": "y[2] = {1,2};"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 41,
-                            "startColumn": 1,
-                            "endLine": 43,
-                            "endColumn": 1,
-                            "charOffset": 878,
-                            "charLength": 58,
-                            "snippet": {
-                              "text": "\tbool flag = false;\r\n    int x[2] = {0,1}, y[2] = {1,2};\r\n"
-                            }
+                            "startColumn": 23
                           }
                         }
                       },
                       "importance": "unimportant"
                     },
                     {
-                      "step": 5,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 44,
-                            "startColumn": 11,
-                            "snippet": {
-                              "text": "i=0; i<param; i++)"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 43,
-                            "startColumn": 1,
-                            "endLine": 45,
-                            "endColumn": 3,
-                            "charOffset": 936,
-                            "charLength": 34,
-                            "snippet": {
-                              "text": "\r\n\tfor (int i=0; i<param; i++)\r\n\t{"
-                            }
+                            "startColumn": 11
                           }
                         }
                       },
                       "importance": "unimportant"
                     },
                     {
-                      "step": 6,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 44,
-                            "startColumn": 17,
-                            "snippet": {
-                              "text": "<param; i++)"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 43,
-                            "startColumn": 1,
-                            "endLine": 45,
-                            "endColumn": 3,
-                            "charOffset": 936,
-                            "charLength": 34,
-                            "snippet": {
-                              "text": "\r\n\tfor (int i=0; i<param; i++)\r\n\t{"
-                            }
+                            "startColumn": 17
                           }
                         }
                       },
@@ -1889,29 +1098,15 @@
                       }
                     },
                     {
-                      "step": 7,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 46,
-                            "startColumn": 7,
-                            "snippet": {
-                              "text": "!flag)"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 45,
-                            "startColumn": 1,
-                            "endLine": 47,
-                            "endColumn": 16,
-                            "charOffset": 968,
-                            "charLength": 33,
-                            "snippet": {
-                              "text": "\t{\r\n\t\tif (!flag)\r\n\t\t\tflag = true;"
-                            }
+                            "startColumn": 7
                           }
                         }
                       },
@@ -1920,87 +1115,45 @@
                       }
                     },
                     {
-                      "step": 8,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 47,
-                            "startColumn": 9,
-                            "snippet": {
-                              "text": "= true;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 46,
-                            "startColumn": 1,
-                            "endLine": 48,
-                            "endColumn": 7,
-                            "charOffset": 972,
-                            "charLength": 37,
-                            "snippet": {
-                              "text": "\t\tif (!flag)\r\n\t\t\tflag = true;\r\n\t\telse"
-                            }
+                            "startColumn": 9
                           }
                         }
                       },
                       "importance": "unimportant"
                     },
                     {
-                      "step": 9,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 44,
-                            "startColumn": 26,
-                            "snippet": {
-                              "text": "++)"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 43,
-                            "startColumn": 1,
-                            "endLine": 45,
-                            "endColumn": 3,
-                            "charOffset": 936,
-                            "charLength": 34,
-                            "snippet": {
-                              "text": "\r\n\tfor (int i=0; i<param; i++)\r\n\t{"
-                            }
+                            "startColumn": 26
                           }
                         }
                       },
                       "importance": "unimportant"
                     },
                     {
-                      "step": 10,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 44,
-                            "startColumn": 17,
-                            "snippet": {
-                              "text": "<param; i++)"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 43,
-                            "startColumn": 1,
-                            "endLine": 45,
-                            "endColumn": 3,
-                            "charOffset": 936,
-                            "charLength": 34,
-                            "snippet": {
-                              "text": "\r\n\tfor (int i=0; i<param; i++)\r\n\t{"
-                            }
+                            "startColumn": 17
                           }
                         }
                       },
@@ -2009,29 +1162,15 @@
                       }
                     },
                     {
-                      "step": 11,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 46,
-                            "startColumn": 7,
-                            "snippet": {
-                              "text": "!flag)"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 45,
-                            "startColumn": 1,
-                            "endLine": 47,
-                            "endColumn": 16,
-                            "charOffset": 968,
-                            "charLength": 33,
-                            "snippet": {
-                              "text": "\t{\r\n\t\tif (!flag)\r\n\t\t\tflag = true;"
-                            }
+                            "startColumn": 7
                           }
                         }
                       },
@@ -2040,29 +1179,15 @@
                       }
                     },
                     {
-                      "step": 12,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 49,
-                            "startColumn": 8,
-                            "snippet": {
-                              "text": "target = *source;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 48,
-                            "startColumn": 1,
-                            "endLine": 50,
-                            "endColumn": 3,
-                            "charOffset": 1003,
-                            "charLength": 36,
-                            "snippet": {
-                              "text": "\t\telse\r\n\t\t\tint target = *source;\r\n\t}"
-                            }
+                            "startColumn": 8
                           }
                         }
                       },
@@ -2082,7 +1207,8 @@
             "ruleCategory": "mspft"
           }
         }
-      ]
+      ],
+      "columnKind": "utf16CodeUnits"
     }
   ]
 }

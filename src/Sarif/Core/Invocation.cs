@@ -13,16 +13,23 @@ namespace Microsoft.CodeAnalysis.Sarif
     {
         private IEnumerable<string> PropertiesToLog {get; set; }
 
+        private bool _suppressNonDeterministicProperties;
+
         public static Invocation Create(
             bool emitMachineEnvironment = false,
+            bool emitTimestamps = true,
             IEnumerable<string> propertiesToLog = null)
         {
             var invocation = new Invocation
             {
+                _suppressNonDeterministicProperties = !emitTimestamps,
                 PropertiesToLog = propertiesToLog?.Select(p => p.ToUpperInvariant()).ToList()
             };
 
-            invocation.StartTimeUtc = DateTime.UtcNow;
+            if (emitTimestamps)
+            {
+                invocation.StartTimeUtc = DateTime.UtcNow;
+            }
 
             if (invocation.ShouldLog(nameof(ProcessId)))
             {
@@ -89,6 +96,16 @@ namespace Microsoft.CodeAnalysis.Sarif
         public bool ShouldSerializeToolConfigurationNotifications()
         {
             return this.ToolConfigurationNotifications.HasAtLeastOneNonNullValue();
+        }
+
+        public bool ShouldSerializeStartTimeUtc()
+        {
+            return !_suppressNonDeterministicProperties;
+        }
+
+        public bool ShouldSerializeEndTimeUtc()
+        {
+            return !_suppressNonDeterministicProperties;
         }
     }
 }

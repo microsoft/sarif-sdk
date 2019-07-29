@@ -1,39 +1,28 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-09-26",
-  "version": "2.0.0-csd.2.beta.2018-09-26",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.4.json",
+  "version": "2.1.0",
   "runs": [
     {
       "tool": {
-        "name": "PREfast",
-        "fullName": "PREfast Code Analysis"
-      },
-      "files": {
-        "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6385/c6385example3.cpp": {
-          "mimeType": "text/x-cpp",
-          "contents": {
-            "binary": "I3ByYWdtYSB3YXJuaW5nIChkaXNhYmxlIDogNjAwMSkNCnZvaWQgQzYzODVfRXhhbXBsZTMoaW50IGkpDQp7DQogICBpbnQgYVsyMF07CQkJCQ0KICAgaW50IGo7DQogICBpPTIwOw0KICAgaWYgKGkgPj0gMCAmJiBpIDw9IDIwKQkNCiAgIHsNCiAgICAgIGogPSBhW2ldOwkJCQ0KICAgfQ0KfQ=="
-          },
-          "hashes": [
-            {
-              "value": "EC30593DBB0AB90E29A7192B42827809",
-              "algorithm": "md5"
-            },
-            {
-              "value": "D84E884B47A2E70BBEA6EAEEF66155FC69962717",
-              "algorithm": "sha-1"
-            },
-            {
-              "value": "AF27061B4CD09169818AB0A409ECBC155ECB8831DD72F870098CF07187EF57A7",
-              "algorithm": "sha-256"
-            }
-          ]
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis"
         }
       },
-      "logicalLocations": {
-        "C6385_Example3": {
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6385/c6385example3.cpp",
+            "index": 0
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "C6385_Example3",
           "decoratedName": "?C6385_Example3@@YAXH@Z"
         }
-      },
+      ],
       "results": [
         {
           "ruleId": "6385",
@@ -43,29 +32,21 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6385/c6385example3.cpp"
+                "artifactLocation": {
+                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6385/c6385example3.cpp",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 9,
-                  "startColumn": 9,
-                  "snippet": {
-                    "text": "= a[i];\t\t\t"
-                  }
-                },
-                "contextRegion": {
-                  "startLine": 8,
-                  "startColumn": 1,
-                  "endLine": 10,
-                  "endColumn": 5,
-                  "charOffset": 133,
-                  "charLength": 30,
-                  "snippet": {
-                    "text": "   {\r\n      j = a[i];\t\t\t\r\n   }"
-                  }
+                  "startColumn": 9
                 }
               },
-              "fullyQualifiedLogicalName": "C6385_Example3",
+              "logicalLocations": [
+                {
+                  "index": 0,
+                  "fullyQualifiedName": "C6385_Example3"
+                }
+              ],
               "properties": {
                 "funcline": "2"
               }
@@ -77,29 +58,15 @@
                 {
                   "locations": [
                     {
-                      "step": 1,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6385/c6385example3.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6385/c6385example3.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 4,
-                            "startColumn": 8,
-                            "snippet": {
-                              "text": "a[20];\t\t\t\t"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 3,
-                            "startColumn": 1,
-                            "endLine": 5,
-                            "endColumn": 10,
-                            "charOffset": 62,
-                            "charLength": 31,
-                            "snippet": {
-                              "text": "{\r\n   int a[20];\t\t\t\t\r\n   int j;"
-                            }
+                            "startColumn": 8
                           }
                         }
                       },
@@ -109,58 +76,30 @@
                       }
                     },
                     {
-                      "step": 2,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6385/c6385example3.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6385/c6385example3.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 5,
-                            "startColumn": 8,
-                            "snippet": {
-                              "text": "j;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 4,
-                            "startColumn": 1,
-                            "endLine": 6,
-                            "endColumn": 9,
-                            "charOffset": 65,
-                            "charLength": 38,
-                            "snippet": {
-                              "text": "   int a[20];\t\t\t\t\r\n   int j;\r\n   i=20;"
-                            }
+                            "startColumn": 8
                           }
                         }
                       },
                       "importance": "unimportant"
                     },
                     {
-                      "step": 3,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6385/c6385example3.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6385/c6385example3.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 6,
-                            "startColumn": 5,
-                            "snippet": {
-                              "text": "=20;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 5,
-                            "startColumn": 1,
-                            "endLine": 7,
-                            "endColumn": 27,
-                            "charOffset": 84,
-                            "charLength": 47,
-                            "snippet": {
-                              "text": "   int j;\r\n   i=20;\r\n   if (i >= 0 && i <= 20)\t"
-                            }
+                            "startColumn": 5
                           }
                         }
                       },
@@ -170,29 +109,15 @@
                       }
                     },
                     {
-                      "step": 4,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6385/c6385example3.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6385/c6385example3.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 7,
-                            "startColumn": 15,
-                            "snippet": {
-                              "text": "&& i <= 20)\t"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 6,
-                            "startColumn": 1,
-                            "endLine": 8,
-                            "endColumn": 5,
-                            "charOffset": 95,
-                            "charLength": 42,
-                            "snippet": {
-                              "text": "   i=20;\r\n   if (i >= 0 && i <= 20)\t\r\n   {"
-                            }
+                            "startColumn": 15
                           }
                         }
                       },
@@ -201,29 +126,15 @@
                       }
                     },
                     {
-                      "step": 5,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6385/c6385example3.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6385/c6385example3.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 9,
-                            "startColumn": 9,
-                            "snippet": {
-                              "text": "= a[i];\t\t\t"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 8,
-                            "startColumn": 1,
-                            "endLine": 10,
-                            "endColumn": 5,
-                            "charOffset": 133,
-                            "charLength": 30,
-                            "snippet": {
-                              "text": "   {\r\n      j = a[i];\t\t\t\r\n   }"
-                            }
+                            "startColumn": 9
                           }
                         }
                       },
@@ -243,7 +154,8 @@
             "ruleCategory": "mspft"
           }
         }
-      ]
+      ],
+      "columnKind": "utf16CodeUnits"
     }
   ]
 }

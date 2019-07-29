@@ -1,21 +1,27 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-09-26",
-  "version": "2.0.0-csd.2.beta.2018-09-26",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.4.json",
+  "version": "2.1.0",
   "runs": [
     {
       "tool": {
-        "name": "AndroidStudio"
-      },
-      "files": {
-        "build/intermediates/exploded-aar/com.google.android.gms/play-services/4.4.52/res/values/wallet_styles.xml": {
-          "mimeType": "text/xml"
+        "driver": {
+          "name": "AndroidStudio"
         }
       },
-      "logicalLocations": {
-        "android20140909": {
+      "artifacts": [
+        {
+          "location": {
+            "uri": "build/intermediates/exploded-aar/com.google.android.gms/play-services/4.4.52/res/values/wallet_styles.xml",
+            "index": 0
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "android20140909",
           "kind": "module"
         }
-      },
+      ],
       "results": [
         {
           "ruleId": "Android Resources Validation",
@@ -25,14 +31,20 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "build/intermediates/exploded-aar/com.google.android.gms/play-services/4.4.52/res/values/wallet_styles.xml"
+                "artifactLocation": {
+                  "uri": "build/intermediates/exploded-aar/com.google.android.gms/play-services/4.4.52/res/values/wallet_styles.xml",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 6
                 }
               },
-              "fullyQualifiedLogicalName": "android20140909"
+              "logicalLocations": [
+                {
+                  "index": 0,
+                  "fullyQualifiedName": "android20140909"
+                }
+              ]
             }
           ],
           "properties": {
@@ -40,7 +52,8 @@
             "attributeKey": "WRONG_REFERENCES_ATTRIBUTES"
           }
         }
-      ]
+      ],
+      "columnKind": "utf16CodeUnits"
     }
   ]
 }

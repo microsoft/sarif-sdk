@@ -1,0 +1,44 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+  </PropertyGroup>
+
+  <PropertyGroup Label="AssemblyAttributes">
+    <AssemblyTitle>SARIF Work Item Filing Library</AssemblyTitle>
+    <Description>Classes for filing the results in a SARIF log file as work items in a system such as GitHub or AzureDevOps.</Description>
+  </PropertyGroup>
+
+  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
+
+  <ItemGroup>
+    <ProjectReference Include="..\Sarif\Sarif.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Json.Schema" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Json.Schema.Validation" Version="1.1.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Services.Client" Version="16.143.2" />
+    <PackageReference Include="Microsoft.TeamFoundationServer.Client" Version="16.143.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="..\Sarif\Schemata\sarif-2.1.0-rtm.4.json" Link="sarif-2.1.0.json" />
+  </ItemGroup>
+
+</Project>

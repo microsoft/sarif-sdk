@@ -1,39 +1,28 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-09-26",
-  "version": "2.0.0-csd.2.beta.2018-09-26",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.4.json",
+  "version": "2.1.0",
   "runs": [
     {
       "tool": {
-        "name": "PREfast",
-        "fullName": "PREfast Code Analysis"
-      },
-      "files": {
-        "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_indexalias.cpp": {
-          "mimeType": "text/x-cpp",
-          "contents": {
-            "binary": "Ly8gVHJhY2sgImludGVyZXN0aW5nIiB2YXJpYWJsZXMgYW5kIGRldGVjdCB3aGVuIHRoZXkgYXJlIGFsaWFzZWQuDQoNCnZvaWQgQzYzODVfSW5kZXhBbGlhcyhpbnQgaW5wdXRJbmRleCkNCnsNCglpbnQgKiBjb250ZW50U3RvcmVzID0gbmV3IGludCBbMl07DQoNCgljb250ZW50U3RvcmVzWzBdID0gMDsNCg0KCWNvbnRlbnRTdG9yZXNbMV0gPSAxOw0KDQoJd2hpbGUgKGlucHV0SW5kZXggPiAxKQ0KCXsNCgkJaW50IGluZGV4ID0gaW5wdXRJbmRleDsNCg0KCQljb250ZW50U3RvcmVzWzBdID0gY29udGVudFN0b3Jlc1tpbmRleF07DQoJfQ0KDQoJZGVsZXRlIFtdIGNvbnRlbnRTdG9yZXM7DQp9DQo="
-          },
-          "hashes": [
-            {
-              "value": "4B20EA20C0F04EF7473C090B9D234C1C",
-              "algorithm": "md5"
-            },
-            {
-              "value": "6727693E48A1C8ED14251D17BC8A16D162DF879C",
-              "algorithm": "sha-1"
-            },
-            {
-              "value": "B4B0A1F7894E935F34F0DE81407DF9676C4A894FBCB0AD2BF635BB09F430B5C4",
-              "algorithm": "sha-256"
-            }
-          ]
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis"
         }
       },
-      "logicalLocations": {
-        "C6385_IndexAlias": {
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_indexalias.cpp",
+            "index": 0
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "C6385_IndexAlias",
           "decoratedName": "?C6385_IndexAlias@@YAXH@Z"
         }
-      },
+      ],
       "results": [
         {
           "ruleId": "6385",
@@ -43,29 +32,21 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_indexalias.cpp"
+                "artifactLocation": {
+                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_indexalias.cpp",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 15,
-                  "startColumn": 20,
-                  "snippet": {
-                    "text": "= contentStores[index];"
-                  }
-                },
-                "contextRegion": {
-                  "startLine": 14,
-                  "startColumn": 1,
-                  "endLine": 16,
-                  "endColumn": 3,
-                  "charOffset": 259,
-                  "charLength": 48,
-                  "snippet": {
-                    "text": "\r\n\t\tcontentStores[0] = contentStores[index];\r\n\t}"
-                  }
+                  "startColumn": 20
                 }
               },
-              "fullyQualifiedLogicalName": "C6385_IndexAlias",
+              "logicalLocations": [
+                {
+                  "index": 0,
+                  "fullyQualifiedName": "C6385_IndexAlias"
+                }
+              ],
               "properties": {
                 "funcline": "3"
               }
@@ -77,7 +58,8 @@
             "ruleCategory": "mspft"
           }
         }
-      ]
+      ],
+      "columnKind": "utf16CodeUnits"
     }
   ]
 }

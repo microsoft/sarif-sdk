@@ -1,23 +1,29 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-09-26",
-  "version": "2.0.0-csd.2.beta.2018-09-26",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.4.json",
+  "version": "2.1.0",
   "runs": [
     {
       "tool": {
-        "name": "PREfast",
-        "fullName": "PREfast Code Analysis"
-      },
-      "files": {
-        "file:///c:/somepath/utility": {
-          "mimeType": "application/octet-stream"
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis"
         }
       },
-      "logicalLocations": {
-        "std::pair<int const ,uls_perf_counter_info>::{ctor}": {
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///c:/somepath/utility",
+            "index": 0
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
           "name": "{ctor}",
+          "fullyQualifiedName": "std::pair<int const ,uls_perf_counter_info>::{ctor}",
           "decoratedName": "??$?0HUuls_perf_counter_info@@X@?$pair@$$CBHUuls_perf_counter_info@@@std@@QAE@$$QAU?$pair@HUuls_perf_counter_info@@@1@@Z"
         }
-      },
+      ],
       "results": [
         {
           "ruleId": "26035",
@@ -27,15 +33,21 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "file:///c:/somepath/utility"
+                "artifactLocation": {
+                  "uri": "file:///c:/somepath/utility",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 156,
                   "startColumn": 32
                 }
               },
-              "fullyQualifiedLogicalName": "std::pair<int const ,uls_perf_counter_info>::{ctor}",
+              "logicalLocations": [
+                {
+                  "index": 0,
+                  "fullyQualifiedName": "std::pair<int const ,uls_perf_counter_info>::{ctor}"
+                }
+              ],
               "properties": {
                 "funcline": "152"
               }
@@ -47,11 +59,11 @@
                 {
                   "locations": [
                     {
-                      "step": 1,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///c:/somepath/utility"
+                          "artifactLocation": {
+                            "uri": "file:///c:/somepath/utility",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 152,
@@ -61,11 +73,11 @@
                       }
                     },
                     {
-                      "step": 2,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///c:/somepath/utility"
+                          "artifactLocation": {
+                            "uri": "file:///c:/somepath/utility",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 155,
@@ -75,11 +87,11 @@
                       }
                     },
                     {
-                      "step": 3,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///c:/somepath/utility"
+                          "artifactLocation": {
+                            "uri": "file:///c:/somepath/utility",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 155,
@@ -89,11 +101,11 @@
                       }
                     },
                     {
-                      "step": 4,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///c:/somepath/utility"
+                          "artifactLocation": {
+                            "uri": "file:///c:/somepath/utility",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 156,
@@ -108,7 +120,8 @@
             }
           ]
         }
-      ]
+      ],
+      "columnKind": "utf16CodeUnits"
     }
   ]
 }

@@ -556,7 +556,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             resultCount.Should().Be(1);
             run.Results[0].Kind.Should().Equals(ResultKind.NotApplicable);
 
-            toolNotificationCount.Should().Be(1);
+            toolNotificationCount.Should().Be(0);
             configurationNotificationCount.Should().Be(0);
         }
 
@@ -801,7 +801,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             resultCount.Should().Be(1);
             run.Results[0].Level.Should().Be(FailureLevel.Warning);
 
-            toolNotificationCount.Should().Be(1);
+            toolNotificationCount.Should().Be(0);
             configurationNotificationCount.Should().Be(0);
         }
 
@@ -839,7 +839,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 run.Results.Where((result) => result.Level == FailureLevel.Warning).Count().Should().Be(1);
                 run.Results.Where((result) => result.Kind == ResultKind.NotApplicable).Count().Should().Be(0);
 
-                toolNotificationCount.Should().Be(1);
+                toolNotificationCount.Should().Be(0);
                 configurationNotificationCount.Should().Be(0);
             }
             finally

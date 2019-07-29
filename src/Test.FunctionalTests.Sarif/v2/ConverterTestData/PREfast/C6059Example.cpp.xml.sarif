@@ -1,39 +1,28 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-09-26",
-  "version": "2.0.0-csd.2.beta.2018-09-26",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.4.json",
+  "version": "2.1.0",
   "runs": [
     {
       "tool": {
-        "name": "PREfast",
-        "fullName": "PREfast Code Analysis"
-      },
-      "files": {
-        "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6059/c6059example.cpp": {
-          "mimeType": "text/x-cpp",
-          "contents": {
-            "binary": "I2luY2x1ZGUgPHN0cmluZy5oPg0KI2RlZmluZSBNQVggMjUNCg0Kdm9pZCBmb28odm9pZCkNCnsNCiAgY2hhciBhWzM1XTsNCiAgY2hhciBiWzEwXSA9IHsnYScsJ2InLCdjJywnZCcsJ1wwJ307DQogIA0KICBzdHJjcHkoYSwgYik7CQkJCQkJCQkJCQ0KICBzdHJuY2F0KGEsICJ0aGlzIHN0cmluZyBpcyBsb25nIiwgc2l6ZW9mIChhKSk7CS8vQEBARXhwZWN0czogNjA1OQ0KfQ0KDQo="
-          },
-          "hashes": [
-            {
-              "value": "1E6ED854377BCC0EF2766079FD8DE75A",
-              "algorithm": "md5"
-            },
-            {
-              "value": "22832D659AFE1555790208648A36E4C65D5FF031",
-              "algorithm": "sha-1"
-            },
-            {
-              "value": "1F127EEDB66F259C8121DA860F0328327B20B6076595699595FEF1792EA7BE1F",
-              "algorithm": "sha-256"
-            }
-          ]
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis"
         }
       },
-      "logicalLocations": {
-        "foo": {
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6059/c6059example.cpp",
+            "index": 0
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "foo",
           "decoratedName": "?foo@@YAXXZ"
         }
-      },
+      ],
       "results": [
         {
           "ruleId": "6059",
@@ -43,29 +32,21 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6059/c6059example.cpp"
+                "artifactLocation": {
+                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6059/c6059example.cpp",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 10,
-                  "startColumn": 10,
-                  "snippet": {
-                    "text": "(a, \"this string is long\", sizeof (a));\t//@@@Expects: 6059"
-                  }
-                },
-                "contextRegion": {
-                  "startLine": 9,
-                  "startColumn": 1,
-                  "endLine": 11,
-                  "endColumn": 2,
-                  "charOffset": 117,
-                  "charLength": 97,
-                  "snippet": {
-                    "text": "  strcpy(a, b);\t\t\t\t\t\t\t\t\t\t\r\n  strncat(a, \"this string is long\", sizeof (a));\t//@@@Expects: 6059\r\n}"
-                  }
+                  "startColumn": 10
                 }
               },
-              "fullyQualifiedLogicalName": "foo",
+              "logicalLocations": [
+                {
+                  "index": 0,
+                  "fullyQualifiedName": "foo"
+                }
+              ],
               "properties": {
                 "funcline": "4"
               }
@@ -77,29 +58,15 @@
                 {
                   "locations": [
                     {
-                      "step": 1,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6059/c6059example.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6059/c6059example.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 6,
-                            "startColumn": 8,
-                            "snippet": {
-                              "text": "a[35];"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 5,
-                            "startColumn": 1,
-                            "endLine": 7,
-                            "endColumn": 39,
-                            "charOffset": 55,
-                            "charLength": 56,
-                            "snippet": {
-                              "text": "{\r\n  char a[35];\r\n  char b[10] = {'a','b','c','d','\\0'};"
-                            }
+                            "startColumn": 8
                           }
                         }
                       },
@@ -109,58 +76,30 @@
                       }
                     },
                     {
-                      "step": 2,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6059/c6059example.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6059/c6059example.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 7,
-                            "startColumn": 8,
-                            "snippet": {
-                              "text": "b[10] = {'a','b','c','d','\\0'};"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 6,
-                            "startColumn": 1,
-                            "endLine": 8,
-                            "endColumn": 3,
-                            "charOffset": 58,
-                            "charLength": 57,
-                            "snippet": {
-                              "text": "  char a[35];\r\n  char b[10] = {'a','b','c','d','\\0'};\r\n  "
-                            }
+                            "startColumn": 8
                           }
                         }
                       },
                       "importance": "unimportant"
                     },
                     {
-                      "step": 3,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6059/c6059example.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6059/c6059example.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 9,
-                            "startColumn": 9,
-                            "snippet": {
-                              "text": "(a, b);\t\t\t\t\t\t\t\t\t\t"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 8,
-                            "startColumn": 1,
-                            "endLine": 10,
-                            "endColumn": 68,
-                            "charOffset": 113,
-                            "charLength": 98,
-                            "snippet": {
-                              "text": "  \r\n  strcpy(a, b);\t\t\t\t\t\t\t\t\t\t\r\n  strncat(a, \"this string is long\", sizeof (a));\t//@@@Expects: 6059"
-                            }
+                            "startColumn": 9
                           }
                         }
                       },
@@ -169,29 +108,15 @@
                       }
                     },
                     {
-                      "step": 4,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6059/c6059example.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6059/c6059example.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 10,
-                            "startColumn": 10,
-                            "snippet": {
-                              "text": "(a, \"this string is long\", sizeof (a));\t//@@@Expects: 6059"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 9,
-                            "startColumn": 1,
-                            "endLine": 11,
-                            "endColumn": 2,
-                            "charOffset": 117,
-                            "charLength": 97,
-                            "snippet": {
-                              "text": "  strcpy(a, b);\t\t\t\t\t\t\t\t\t\t\r\n  strncat(a, \"this string is long\", sizeof (a));\t//@@@Expects: 6059\r\n}"
-                            }
+                            "startColumn": 10
                           }
                         }
                       },
@@ -200,29 +125,15 @@
                       }
                     },
                     {
-                      "step": 5,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6059/c6059example.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6059/c6059example.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 10,
-                            "startColumn": 10,
-                            "snippet": {
-                              "text": "(a, \"this string is long\", sizeof (a));\t//@@@Expects: 6059"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 9,
-                            "startColumn": 1,
-                            "endLine": 11,
-                            "endColumn": 2,
-                            "charOffset": 117,
-                            "charLength": 97,
-                            "snippet": {
-                              "text": "  strcpy(a, b);\t\t\t\t\t\t\t\t\t\t\r\n  strncat(a, \"this string is long\", sizeof (a));\t//@@@Expects: 6059\r\n}"
-                            }
+                            "startColumn": 10
                           }
                         }
                       },
@@ -242,7 +153,8 @@
             "ruleCategory": "mspft"
           }
         }
-      ]
+      ],
+      "columnKind": "utf16CodeUnits"
     }
   ]
 }

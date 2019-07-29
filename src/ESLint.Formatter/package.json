@@ -1,7 +1,7 @@
 {
   "name": "@microsoft/eslint-formatter-sarif",
-  "version": "2.1.1",
-  "description": "ESLint formatter for the SARIF v2.1 static analysis file format",
+  "version": "2.1.2",
+  "description": "ESLint formatter for the SARIF (Static Analysis Results Interchange Format) v2.1.0 file format",
   "main": "sarif.js",
   "directories": {
     "test": "test"
@@ -31,7 +31,7 @@
   "dependencies": {
     "chai": "^4.2.0",
     "jschardet": "latest",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.14",
     "mocha": "^5.2.0",
     "utf8": "^3.0.0"
   }
