@@ -40,7 +40,36 @@
           }
         }
       ],
-      "results": [],
+      "results": [
+        {
+          "ruleId": "SARIF1007",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Default",
+            "arguments": [
+              "runs[0].invocations[0].endTimeUtc",
+              "2016-08-25T21:26:40.051Z",
+              "2016-08-25T21:26:42.049Z"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1007.EndTimeMustNotBeBeforeStartTime_Invalid.sarif",
+                  "uriBaseId": "TEST_DIR",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 15,
+                  "startColumn": 50
+                }
+              }
+            }
+          ]
+        }
+      ],
       "columnKind": "utf16CodeUnits"
     }
   ]
