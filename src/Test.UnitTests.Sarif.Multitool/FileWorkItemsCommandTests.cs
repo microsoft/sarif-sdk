@@ -78,9 +78,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
                     ExpectedExitCode = 0
                 },
 
-                // All valid filtering strategies ("NewResults" was covered above).
                 new TestCase {
-                    Title = "AllResults strategy",
+                    Title = "Default strategy",
                     Args = new string[] {
                         "file-work-items",
                         "--test-option-validation",
@@ -123,19 +122,6 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
                         "--test-option-validation",
                        "--project-uri",
                         "dev.azure.com/my-org/my-project",
-                        "--inline",
-                        "test.sarif",
-                    },
-                    ExpectedExitCode = 1
-                },
-
-                new TestCase {
-                    Title = "Unknown filtering-strategy",
-                    Args = new string[] {
-                        "file-work-items",
-                        "--test-option-validation",
-                        "--project-uri",
-                        "https://dev.azure.com/my-org/my-project",
                         "--inline",
                         "test.sarif",
                     },
