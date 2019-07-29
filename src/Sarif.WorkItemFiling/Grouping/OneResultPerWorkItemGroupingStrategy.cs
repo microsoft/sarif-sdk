@@ -12,12 +12,12 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
     /// </summary>
     public class OneResultPerWorkItemGroupingStrategy : GroupingStrategy
     {
-        public override IList<ResultGroup> GroupResults(IEnumerable<Result> results)
+        public override IList<WorkItemFilingMetadata> GroupResults(IEnumerable<Result> results)
         {
             if (results == null) { throw new ArgumentNullException(nameof(results)); }
 
             return results
-                .Select(r => new ResultGroup { Results = new List<Result> { r } })
+                .Select(r => new WorkItemFilingMetadata { Results = new List<Result> { r } })
                 .ToList();
         }
     }
