@@ -14,14 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
         public string Description { get; set; }
         public string AreaPath { get; set; }
         public List<string> Tags { get; set; }
-        public List<Attachment> Attachments { get; set; }
-
-        /// <summary>
-        /// The results that should be filed as a single work item.
-        /// </summary>
-        /// <remarks>
-        /// TEMPORARY. WHAT WE REALLY WANT HERE IS AN ATTACHMENT, A SARIF FILE WITH THE RELEVANT RESULTS.
-        /// </remarks>
-        public IList<Result> Results { get; set; }
+        public Attachment Attachment { get; set; }
+        public object Tag { get; set; }
     }
 }

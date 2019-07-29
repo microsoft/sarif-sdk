@@ -67,7 +67,8 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
                 };
 
                 WorkItem workItem = await _witClient.CreateWorkItemAsync(patchDocument, project: _projectName, "Issue");
-                foreach (Result result in metadata.Results)
+                SarifLog sarifLog = (SarifLog)metadata.Tag;
+                foreach (Result result in sarifLog.Runs[0].Results)
                 {
                     result.WorkItemUris = new List<Uri> { new Uri(workItem.Url, UriKind.Absolute) };
                 }

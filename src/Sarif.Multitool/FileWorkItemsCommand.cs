@@ -8,6 +8,7 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using Microsoft.CodeAnalysis.Sarif.Driver;
+using Microsoft.CodeAnalysis.Sarif.Visitors;
 using Microsoft.CodeAnalysis.Sarif.WorkItemFiling;
 using Microsoft.Json.Schema;
 using Microsoft.Json.Schema.Validation;
@@ -48,17 +49,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(logFileContents);
 
-            FilteringStrategy filteringStrategy = FilteringStrategyFactory.CreateFilteringStrategy(options.FilteringStrategy);
-            GroupingStrategy groupingStrategy = GroupingStrategyFactory.CreateGroupingStrategy(options.GroupingStrategy);
-
-            for (int i = 0; i < sarifLog.Runs.Count; ++i)
+            for (int runIndex = 0; runIndex < sarifLog.Runs.Count; ++runIndex)
             {
-                if (sarifLog.Runs[i]?.Results?.Count > 0)
+                if (sarifLog.Runs[runIndex]?.Results?.Count > 0)
                 {
-                    // TODO: THESE TWO LINES ARE REPLACED BY A CALL TO SarifSplitter.Split with the specified strategies (or predicates).
-                    // It would return a set of SarifLog objects, rather than a set of WorkItemFilingMetadata objects as I currently have it.
-                    IList<Result> filteredResults = filteringStrategy.FilterResults(sarifLog.Runs[i].Results);
-                    IList<WorkItemFilingMetadata> workItemMetadata = groupingStrategy.GroupResults(filteredResults);
+                    var visitor = new PerRunPerRuleSplittingVisitor();
+                    visitor.VisitRun(sarifLog.Runs[runIndex]);
+
+                    IList<WorkItemFilingMetadata> workItemMetadata = new List<WorkItemFilingMetadata>(visitor.SplitSarifLogs.Count);
+
+                    for (int splitFileIndex = 0; splitFileIndex < visitor.SplitSarifLogs.Count; splitFileIndex++)
+                    {
+                        workItemMetadata.Add(new WorkItemFilingMetadata()
+                        {
+                            Tag = visitor.SplitSarifLogs[splitFileIndex],
+                            Attachment = new WorkItemFiling.Attachment
+                            {
+                                Name = "PipelineScanResults.sarif",
+                                Text = JsonConvert.SerializeObject(visitor.SplitSarifLogs[splitFileIndex])
+                            }
+                        });
+                    }
 
                     // TODO: AND THIS IS WHERE THE CALL TO SarifLog.CreateWorkItemFilingMetadata would transform the logs into metadata,
                     // but here I'm just populating the metadata by hand.
