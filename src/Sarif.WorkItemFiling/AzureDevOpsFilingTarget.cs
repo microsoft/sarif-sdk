@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using Microsoft.TeamFoundation.WorkItemTracking.WebApi;
 using Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models;
@@ -38,6 +39,28 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
         {
             foreach (WorkItemFilingMetadata metadata in workItemFilingMetadata)
             {
+                AttachmentReference attachmentReference = null;
+                string attachmentText = metadata.Attachment?.Text;
+                if (!string.IsNullOrEmpty(attachmentText))
+                {
+                    using (var stream = new MemoryStream())
+                    using (var writer = new StreamWriter(stream))
+                    {
+                        writer.Write(attachmentText);
+                        writer.Flush();
+                        stream.Position = 0;
+                        try
+                        {
+                            attachmentReference = await _witClient.CreateAttachmentAsync(stream, fileName: metadata.Attachment.Name);
+                        }
+                        catch
+                        {
+                            // TBD error handling
+                            throw;
+                        }
+                    }
+                }
+
                 var patchDocument = new JsonPatchDocument
                 {
                     new JsonPatchOperation
@@ -63,11 +86,38 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
                         Operation = Operation.Add,
                         Path = $"/fields/{WorkItemFields.Tags}",
                         Value = string.Join(",", metadata.Tags)
-                    },
+                    }
                 };
 
-                WorkItem workItem = await _witClient.CreateWorkItemAsync(patchDocument, project: _projectName, "Issue");
-                foreach (Result result in metadata.Results)
+                if (attachmentReference != null)
+                {
+                    patchDocument.Add(
+                        new JsonPatchOperation
+                        {
+                            Operation = Operation.Add,
+                            Path = $"/relations/-",
+                            Value = new
+                            {
+                                rel = "AttachedFile",
+                                attachmentReference.Url
+                            }
+                        });
+                }
+
+                WorkItem workItem = null;
+
+                try
+                {
+                    workItem = await _witClient.CreateWorkItemAsync(patchDocument, project: _projectName, "Issue");
+                }
+                catch (Exception)
+                {
+                    // TBD error handling
+                    throw;
+                }
+
+                SarifLog sarifLog = (SarifLog)metadata.Object;
+                foreach (Result result in sarifLog.Runs[0].Results)
                 {
                     result.WorkItemUris = new List<Uri> { new Uri(workItem.Url, UriKind.Absolute) };
                 }
