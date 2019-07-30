@@ -60,20 +60,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                     for (int splitFileIndex = 0; splitFileIndex < visitor.SplitSarifLogs.Count; splitFileIndex++)
                     {
-                        workItemMetadata.Add(new WorkItemFilingMetadata()
-                        {
-                            Object = visitor.SplitSarifLogs[splitFileIndex],
-                            Attachment = new WorkItemFiling.Attachment
-                            {
-                                Name = "PipelineScanResults.sarif",
-                                Text = JsonConvert.SerializeObject(visitor.SplitSarifLogs[splitFileIndex])
-                            }
-                        });
+                        SarifLog splitLog = visitor.SplitSarifLogs[splitFileIndex];
+                        workItemMetadata.Add(splitLog.CreateWorkItemFilingMetadata(projectName));
                     }
-
-                    // TODO: AND THIS IS WHERE THE CALL TO SarifLog.CreateWorkItemFilingMetadata would transform the logs into metadata,
-                    // but here I'm just populating the metadata by hand.
-                    AddDummyMetadata(workItemMetadata, projectName);
 
                     try
                     {
@@ -88,20 +77,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             return 0;
         }
-
-        private void AddDummyMetadata(IList<WorkItemFilingMetadata> workItemFilingMetadata, string projectName)
-        {
-            int bugNumber = 1;
-            foreach (WorkItemFilingMetadata metadata in workItemFilingMetadata)
-            {
-                metadata.Title = $"Bug #{bugNumber} was added by a partially refactored work item filer.";
-                metadata.Description = "This bug is very important. Let's fix it!";
-                metadata.AreaPath = $@"{projectName}\TopLevel\SecondLevel\Leaf";
-                metadata.Tags = new List<string> { "security", "compliance" };
-                bugNumber++;
-            }
-        }
-
         private bool ValidateOptions(FileWorkItemsOptions options)
         {
             bool valid = true;
