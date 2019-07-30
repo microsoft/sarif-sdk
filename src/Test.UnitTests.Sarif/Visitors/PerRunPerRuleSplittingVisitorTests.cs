@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         }
 
         [Fact]
-        public void PerRunPerRuleSplittingVisitor_Simple()
+        public void PerRunPerRuleSplittingVisitor_RetainsNewResultsOnly()
         {
             var sarifLog = new SarifLog
             {
@@ -39,6 +39,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                             {
                                 RuleId = TestConstants.RuleIds.Rule2,
                                 BaselineState = BaselineState.Updated
+                            },
+
+                            new Result
+                            {
+                                RuleId = TestConstants.RuleIds.Rule2,
+                                BaselineState = BaselineState.New
                             }
                         }
                     }
@@ -58,7 +64,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         }
 
         [Fact]
-        public void PerRunPerRuleSplittingVisitor_Default()
+        public void PerRunPerRuleSplittingVisitor_RetainsRulesForNewResultsOnly()
         {
             SarifLog sarifLog = GetTestSarifLog();
 
@@ -67,7 +73,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             for (int i = 0; i < sarifLog.Runs[0].Results.Count; i++)
             {
                 Result result = sarifLog.Runs[0].Results[i];
-                if (result.BaselineState == BaselineState.New || result.BaselineState == BaselineState.Updated)
+                if (result.BaselineState == BaselineState.New)
                 {
                     ruleIds.Add(result.RuleId);
                 }

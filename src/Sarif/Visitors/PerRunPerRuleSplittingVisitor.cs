@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
     {
         public PerRunPerRuleSplittingVisitor(Func<Result, bool> filteringStrategy = null)
         {
-            _filteringStrategy = filteringStrategy ?? FilteringStrategies.NewOrUpdatedResults;
+            _filteringStrategy = filteringStrategy ?? FilteringStrategies.NewResults;
         }
 
         private Run _currentRun;

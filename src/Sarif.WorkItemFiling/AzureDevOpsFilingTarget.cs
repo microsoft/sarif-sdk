@@ -116,7 +116,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
                     throw;
                 }
 
-                SarifLog sarifLog = (SarifLog)metadata.Tag;
+                SarifLog sarifLog = (SarifLog)metadata.Object;
                 foreach (Result result in sarifLog.Runs[0].Results)
                 {
                     result.WorkItemUris = new List<Uri> { new Uri(workItem.Url, UriKind.Absolute) };

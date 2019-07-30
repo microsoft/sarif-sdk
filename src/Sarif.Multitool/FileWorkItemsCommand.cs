@@ -62,7 +62,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     {
                         workItemMetadata.Add(new WorkItemFilingMetadata()
                         {
-                            Tag = visitor.SplitSarifLogs[splitFileIndex],
+                            Object = visitor.SplitSarifLogs[splitFileIndex],
                             Attachment = new WorkItemFiling.Attachment
                             {
                                 Name = "PipelineScanResults.sarif",
