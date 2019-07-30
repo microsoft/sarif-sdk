@@ -77,20 +77,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             return 0;
         }
-
-        private void AddDummyMetadata(IList<WorkItemFilingMetadata> workItemFilingMetadata, string projectName)
-        {
-            int bugNumber = 1;
-            foreach (WorkItemFilingMetadata metadata in workItemFilingMetadata)
-            {
-                metadata.Title = $"Bug #{bugNumber} was added by a partially refactored work item filer.";
-                metadata.Description = "This bug is very important. Let's fix it!";
-                metadata.AreaPath = $@"{projectName}\TopLevel\SecondLevel\Leaf";
-                metadata.Tags = new List<string> { "security", "compliance" };
-                bugNumber++;
-            }
-        }
-
         private bool ValidateOptions(FileWorkItemsOptions options)
         {
             bool valid = true;

@@ -21,12 +21,6 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
                 }
             };
 
-            HashSet<string> areaPaths = new HashSet<string>();
-            foreach (Artifact artifact in sarifLog.Runs[0].Artifacts)
-            {
-                areaPaths.Add(artifact.Location.GetProperty("AreaPath"));
-            }
-
             ArtifactLocation artifactLocation = sarifLog.Runs[0].Artifacts[0].Location;
 
             // BUG: GetProperty doesn't unencode string values
