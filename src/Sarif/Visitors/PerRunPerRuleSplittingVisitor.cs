@@ -60,11 +60,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             ArtifactLocation artifactLocation = node.Locations?[0].PhysicalLocation?.ArtifactLocation;
 
-            if (artifactLocation != null)
+            if (artifactLocation != null && artifactLocation.Index > -1)
             {
+                int originalIndex = artifactLocation.Index;
                 artifactLocation = artifactLocation.DeepClone();
                 artifactLocation.Index = sarifLog.Runs[0].GetFileIndex(artifactLocation);
                 node.Locations[0].PhysicalLocation.ArtifactLocation = artifactLocation;
+                sarifLog.Runs[0].Artifacts[artifactLocation.Index] = _currentRun.Artifacts[originalIndex];
             }
 
             sarifLog.Runs[0].Results.Add(node);

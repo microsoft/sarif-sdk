@@ -60,20 +60,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                     for (int splitFileIndex = 0; splitFileIndex < visitor.SplitSarifLogs.Count; splitFileIndex++)
                     {
-                        workItemMetadata.Add(new WorkItemFilingMetadata()
-                        {
-                            Object = visitor.SplitSarifLogs[splitFileIndex],
-                            Attachment = new WorkItemFiling.Attachment
-                            {
-                                Name = "PipelineScanResults.sarif",
-                                Text = JsonConvert.SerializeObject(visitor.SplitSarifLogs[splitFileIndex])
-                            }
-                        });
+                        SarifLog splitLog = visitor.SplitSarifLogs[splitFileIndex];
+                        workItemMetadata.Add(splitLog.CreateWorkItemFilingMetadata(projectName));
                     }
-
-                    // TODO: AND THIS IS WHERE THE CALL TO SarifLog.CreateWorkItemFilingMetadata would transform the logs into metadata,
-                    // but here I'm just populating the metadata by hand.
-                    AddDummyMetadata(workItemMetadata, projectName);
 
                     try
                     {
