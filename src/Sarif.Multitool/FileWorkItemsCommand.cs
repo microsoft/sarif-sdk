@@ -49,6 +49,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(logFileContents);
 
+            if (options.DataToRemove != null)
+            {
+                var dataRemovingVisitor = new RemoveOptionalDataVisitor(options.DataToRemove.ToFlags());
+                dataRemovingVisitor.Visit(sarifLog);
+            }
+
             for (int runIndex = 0; runIndex < sarifLog.Runs.Count; ++runIndex)
             {
                 if (sarifLog.Runs[runIndex]?.Results?.Count > 0)
