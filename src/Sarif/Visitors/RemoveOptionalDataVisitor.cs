@@ -33,5 +33,35 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             return base.VisitNotification(node);
         }
+
+        public override PhysicalLocation VisitPhysicalLocation(PhysicalLocation node)
+        {
+            if (_dataToRemove.HasFlag(OptionallyEmittedData.ContextRegionSnippets) && node.ContextRegion != null)
+            {
+                node.ContextRegion.Snippet = null;
+            }
+
+            if (_dataToRemove.HasFlag(OptionallyEmittedData.RegionSnippets) && node.Region != null)
+            {
+                node.Region.Snippet = null;
+            }
+
+            return base.VisitPhysicalLocation(node);
+        }
+
+        public override Artifact VisitArtifact(Artifact node)
+        {
+            if (_dataToRemove.HasFlag(OptionallyEmittedData.BinaryFiles) && node.Contents?.Binary != null)
+            {
+                node.Contents.Binary = null;
+            }
+
+            if (_dataToRemove.HasFlag(OptionallyEmittedData.TextFiles) && node.Contents?.Text != null)
+            {
+                node.Contents.Text = null;
+            }
+
+            return base.VisitArtifact(node);
+        }
     }
 }
