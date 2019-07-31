@@ -3,9 +3,7 @@
 
 using System;
 using CommandLine;
-using CommandLine.Text;
 using Microsoft.CodeAnalysis.Sarif.Driver;
-using Microsoft.CodeAnalysis.Sarif.WorkItemFiling;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
@@ -27,9 +25,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public string PersonalAccessToken { get; internal set; }
 
         [Option(
-            "test-option-validation",
-            HelpText = "For unit tests: allows us to just validate the options and return",
-            Hidden = true)]
-        public bool TestOptionValidation { get; internal set; }
+            "group",
+            HelpText = "Apply a grouping strategy to factor input log file to multiple bugs. Must be one of All, PerRunPerRule or PerRunPerTargetPerRule.",
+            Default = GroupingStrategy.All)]
+        public GroupingStrategy GroupingStrategy { get; internal set; }
     }
 }

@@ -14,19 +14,28 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
         [Fact]
         public void FileWorkItemsCommand_AcceptsOrRejectsCommandLinesAsAppropriate()
         {
-            var failedTestCases = new List<string>();
-
-            foreach (TestCase testCase in s_testCases)
+            try
             {
-                int exitCode = Program.Main(testCase.Args);
+                FileWorkItemsCommand.s_validateOptionsOnly = true;
 
-                if (exitCode != testCase.ExpectedExitCode)
+                var failedTestCases = new List<string>();
+
+                foreach (TestCase testCase in s_testCases)
                 {
-                    failedTestCases.Add(testCase.Title);
-                }
-            }
+                    int exitCode = Program.Main(testCase.Args);
 
-            failedTestCases.Should().BeEmpty();
+                    if (exitCode != testCase.ExpectedExitCode)
+                    {
+                        failedTestCases.Add(testCase.Title);
+                    }
+                }
+
+                failedTestCases.Should().BeEmpty();
+            }
+            finally
+            {
+                FileWorkItemsCommand.s_validateOptionsOnly = false;
+            }
         }
 
         private class TestCase
