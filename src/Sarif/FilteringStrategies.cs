@@ -6,10 +6,10 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class FilteringStrategies
     {
-        public static Func<Result, bool> NewResults =
+        public static Func<Result, bool> NewOrUnbaselined =
             (result) =>
             {
-                return result.BaselineState == BaselineState.New;
+                return result.BaselineState == BaselineState.New || result.BaselineState == BaselineState.None;
             };
     }
 }

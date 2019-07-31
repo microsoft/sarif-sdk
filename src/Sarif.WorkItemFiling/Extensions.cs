@@ -30,7 +30,13 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
             string areaPath = $@"{workItemProjectName}" + artifactLocation.GetProperty("AreaPath").Replace(@"\\", @"\");
             string buildDefinitionName = artifactLocation.GetProperty("BuildDefinitionName");
 
+            Result result = sarifLog.Runs[0].Results[0];
             string ruleName = sarifLog.Runs[0].Results[0].RuleId;
+
+            if (result.RuleIndex > -1)
+            {
+                ruleName = sarifLog.Runs[0].Tool.Driver.Rules[result.RuleIndex].Name + ":" + ruleName;
+            }
 
             metadata.Title = ruleName + 
                              ": Exposed credential(s) in '" + organization +

@@ -64,7 +64,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         }
 
         [Fact]
-        public void PerRunPerRuleSplittingVisitor_RetainsRulesForNewResultsOnly()
+        public void PerRunPerRuleSplittingVisitor_RetainsRulesForUnbaselinedAndNewResultsOnly()
         {
             SarifLog sarifLog = GetTestSarifLog();
 
@@ -73,7 +73,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             for (int i = 0; i < sarifLog.Runs[0].Results.Count; i++)
             {
                 Result result = sarifLog.Runs[0].Results[i];
-                if (result.BaselineState == BaselineState.New)
+                if (result.BaselineState == BaselineState.New ||
+                    result.BaselineState == BaselineState.None)
                 {
                     ruleIds.Add(result.RuleId);
                 }
