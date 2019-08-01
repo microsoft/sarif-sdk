@@ -14,19 +14,28 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
         [Fact]
         public void FileWorkItemsCommand_AcceptsOrRejectsCommandLinesAsAppropriate()
         {
-            var failedTestCases = new List<string>();
-
-            foreach (TestCase testCase in s_testCases)
+            try
             {
-                int exitCode = Program.Main(testCase.Args);
+                FileWorkItemsCommand.s_validateOptionsOnly = true;
 
-                if (exitCode != testCase.ExpectedExitCode)
+                var failedTestCases = new List<string>();
+
+                foreach (TestCase testCase in s_testCases)
                 {
-                    failedTestCases.Add(testCase.Title);
-                }
-            }
+                    int exitCode = Program.Main(testCase.Args);
 
-            failedTestCases.Should().BeEmpty();
+                    if (exitCode != testCase.ExpectedExitCode)
+                    {
+                        failedTestCases.Add(testCase.Title);
+                    }
+                }
+
+                failedTestCases.Should().BeEmpty();
+            }
+            finally
+            {
+                FileWorkItemsCommand.s_validateOptionsOnly = false;
+            }
         }
 
         private class TestCase
@@ -42,7 +51,6 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
                     Title = "AzureDevOps host",
                     Args = new string[] {
                         "file-work-items",
-                        "--test-option-validation",
                         "--project-uri",
                         "https://github.com/my-org/my-project",
                         "--inline",
@@ -55,7 +63,6 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
                     Title = "GitHub host",
                     Args = new string[] {
                         "file-work-items",
-                        "--test-option-validation",
                         "--project-uri",
                         "https://dev.azure.com/my-org/my-project",
                         "--inline",
@@ -68,7 +75,6 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
                     Title = "Output file",
                     Args = new string[] {
                         "file-work-items",
-                        "--test-option-validation",
                         "--project-uri",
                         "https://dev.azure.com/my-org/my-project",
                         "--output",
@@ -79,10 +85,9 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
                 },
 
                 new TestCase {
-                    Title = "Default strategy",
+                    Title = "Implicit grouping strategy",
                     Args = new string[] {
                         "file-work-items",
-                        "--test-option-validation",
                         "--project-uri",
                         "https://github.com/my-org/my-project",
                         "--inline",
@@ -91,12 +96,92 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
                     ExpectedExitCode = 0
                 },
 
+                new TestCase {
+                    Title = "Implicit grouping strategy",
+                    Args = new string[] {
+                        "file-work-items",
+                        "--project-uri",
+                        "https://github.com/my-org/my-project",
+                        "--inline",
+                        "test.sarif",
+                    },
+                    ExpectedExitCode = 0
+                },
+
+                new TestCase {
+                    Title = "Explicit 'All' grouping strategy",
+                    Args = new string[] {
+                        "file-work-items",
+                        "--project-uri",
+                        "https://github.com/my-org/my-project",
+                        "--inline",
+                        "test.sarif",
+                        "--group",
+                        "All"
+                    },
+                    ExpectedExitCode = 0
+                },
+
+                new TestCase {
+                    Title = "Explicit 'None' grouping strategy (equivalent to 'All')",
+                    Args = new string[] {
+                        "file-work-items",
+                        "--project-uri",
+                        "https://github.com/my-org/my-project",
+                        "--inline",
+                        "test.sarif",
+                        "--group",
+                        "None"
+                    },
+                    ExpectedExitCode = 0
+                },
+
+                new TestCase {
+                    Title = "PerRunPerRule grouping strategy",
+                    Args = new string[] {
+                        "file-work-items",
+                        "--project-uri",
+                        "https://github.com/my-org/my-project",
+                        "--inline",
+                        "test.sarif",
+                        "--group",
+                        "PerRunPerRule"
+                    },
+                    ExpectedExitCode = 0
+                },
+
+                new TestCase {
+                    Title = "PerRunPerTargetPerRun grouping strategy",
+                    Args = new string[] {
+                        "file-work-items",
+                        "--project-uri",
+                        "https://github.com/my-org/my-project",
+                        "--inline",
+                        "test.sarif",
+                        "--group",
+                        "PerRunPerTargetPerRule"
+                    },
+                    ExpectedExitCode = 0
+                },
+
+                new TestCase {
+                    Title = "Non-existent grouping strategy",
+                    Args = new string[] {
+                        "file-work-items",
+                        "--project-uri",
+                        "https://github.com/my-org/my-project",
+                        "--inline",
+                        "test.sarif",
+                        "--group",
+                        "PerRunPerRun"
+                    },
+                    ExpectedExitCode = 1
+                },
 
                 new TestCase {
                     Title = "Missing projectUri",
                     Args = new string[] {
                         "file-work-items",
-                        "--test-option-validation",
                         "--inline",
                         "test.sarif",
                     },
@@ -107,7 +192,6 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
                     Title = "Missing inputFile",
                     Args = new string[] {
                         "file-work-items",
-                        "--test-option-validation",
                         "--project-uri",
                         "https://dev.azure.com/my-org/my-project",
                         "--inline"
@@ -119,7 +203,6 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
                     Title = "Relative projectUri",
                     Args = new string[] {
                         "file-work-items",
-                        "--test-option-validation",
                        "--project-uri",
                         "dev.azure.com/my-org/my-project",
                         "--inline",
@@ -132,7 +215,6 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
                     Title = "Both output and inline",
                     Args = new string[] {
                         "file-work-items",
-                        "--test-option-validation",
                         "--project-uri",
                         "https://dev.azure.com/my-org/my-project",
                         "--output",
@@ -147,7 +229,6 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
                     Title = "Neither output nor inline",
                     Args = new string[] {
                         "file-work-items",
-                        "--test-option-validation",
                         "--project-uri",
                         "https://dev.azure.com/my-org/my-project",
                         "test.sarif",

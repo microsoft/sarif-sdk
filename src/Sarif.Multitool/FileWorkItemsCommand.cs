@@ -18,6 +18,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public class FileWorkItemsCommand : CommandBase
     {
+        [ThreadStatic]
+        internal static bool s_validateOptionsOnly;
+
         public int Run(FileWorkItemsOptions options)
             => Run(options, new FileSystem());
 
@@ -31,7 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
 
             // For unit tests: allow us to just validate the options and return.
-            if (options.TestOptionValidation) { return 0; }
+            if (s_validateOptionsOnly) { return 0; }
 
             if (options.Inline)
             {
@@ -59,14 +62,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             {
                 if (sarifLog.Runs[runIndex]?.Results?.Count > 0)
                 {
-                    var visitor = new PerRunPerRuleSplittingVisitor();
-                    visitor.VisitRun(sarifLog.Runs[runIndex]);
+                    IList<SarifLog> logsToProcess = new List<SarifLog>(new SarifLog[] { sarifLog });
 
-                    IList<WorkItemFilingMetadata> workItemMetadata = new List<WorkItemFilingMetadata>(visitor.SplitSarifLogs.Count);
-
-                    for (int splitFileIndex = 0; splitFileIndex < visitor.SplitSarifLogs.Count; splitFileIndex++)
+                    if (options.GroupingStrategy != GroupingStrategy.All)
                     {
-                        SarifLog splitLog = visitor.SplitSarifLogs[splitFileIndex];
+                        SplittingVisitor visitor = (options.GroupingStrategy == GroupingStrategy.PerRunPerRule 
+                            ? (SplittingVisitor)new PerRunPerRuleSplittingVisitor()
+                            : new PerRunPerTargetPerRuleSplittingVisitor());
+
+                        visitor.VisitRun(sarifLog.Runs[runIndex]);
+                        logsToProcess = visitor.SplitSarifLogs;
+                    }
+
+                    IList<WorkItemFilingMetadata> workItemMetadata = new List<WorkItemFilingMetadata>(logsToProcess.Count);
+
+                    for (int splitFileIndex = 0; splitFileIndex < logsToProcess.Count; splitFileIndex++)
+                    {
+                        SarifLog splitLog = logsToProcess[splitFileIndex];
                         workItemMetadata.Add(splitLog.CreateWorkItemFilingMetadata(projectName));
                     }
 
