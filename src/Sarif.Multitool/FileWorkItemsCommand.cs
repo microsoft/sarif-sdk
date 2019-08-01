@@ -79,7 +79,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     for (int splitFileIndex = 0; splitFileIndex < logsToProcess.Count; splitFileIndex++)
                     {
                         SarifLog splitLog = logsToProcess[splitFileIndex];
-                        workItemMetadata.Add(splitLog.CreateWorkItemFilingMetadata(projectName));
+                        workItemMetadata.Add(splitLog.CreateWorkItemFilingMetadata(projectName, options.TemplateFilePath));
                     }
 
                     try

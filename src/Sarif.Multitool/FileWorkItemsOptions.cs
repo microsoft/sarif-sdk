@@ -29,5 +29,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             HelpText = "Apply a grouping strategy to factor input log file to multiple bugs. Must be one of All, PerRunPerRule or PerRunPerTargetPerRule.",
             Default = GroupingStrategy.All)]
         public GroupingStrategy GroupingStrategy { get; internal set; }
+
+        [Option(
+            "template",
+            HelpText = "A bug template to use for creating work items.",
+            Required = true)]
+        public string TemplateFilePath { get; internal set; }
     }
 }
