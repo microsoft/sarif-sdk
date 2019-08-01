@@ -55,6 +55,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
                         "https://github.com/my-org/my-project",
                         "--inline",
                         "test.sarif",
+                        "--template",
+                        "TestBugTemplate.htm"
                     },
                     ExpectedExitCode = 0
                 },
@@ -67,6 +69,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
                         "https://dev.azure.com/my-org/my-project",
                         "--inline",
                         "test.sarif",
+                        "--template",
+                        "TestBugTemplate.htm"
                     },
                     ExpectedExitCode = 0
                 },
@@ -80,6 +84,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
                         "--output",
                         "test-output.sarif",
                         "test.sarif",
+                        "--template",
+                        "TestBugTemplate.htm"
                     },
                     ExpectedExitCode = 0
                 },
@@ -92,6 +98,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
                         "https://github.com/my-org/my-project",
                         "--inline",
                         "test.sarif",
+                        "--template",
+                        "TestBugTemplate.htm"
                     },
                     ExpectedExitCode = 0
                 },
@@ -104,6 +112,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
                         "https://github.com/my-org/my-project",
                         "--inline",
                         "test.sarif",
+                        "--template",
+                        "TestBugTemplate.htm"
                     },
                     ExpectedExitCode = 0
                 },
@@ -117,7 +127,9 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
                         "--inline",
                         "test.sarif",
                         "--group",
-                        "All"
+                        "All",
+                        "--template",
+                        "TestBugTemplate.htm"
                     },
                     ExpectedExitCode = 0
                 },
@@ -131,7 +143,9 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
                         "--inline",
                         "test.sarif",
                         "--group",
-                        "None"
+                        "None",
+                        "--template",
+                        "TestBugTemplate.htm"
                     },
                     ExpectedExitCode = 0
                 },
@@ -145,7 +159,9 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
                         "--inline",
                         "test.sarif",
                         "--group",
-                        "PerRunPerRule"
+                        "PerRunPerRule",
+                        "--template",
+                        "TestBugTemplate.htm"
                     },
                     ExpectedExitCode = 0
                 },
@@ -159,9 +175,25 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
                         "--inline",
                         "test.sarif",
                         "--group",
-                        "PerRunPerTargetPerRule"
+                        "PerRunPerTargetPerRule",
+                        "--template",
+                        "TestBugTemplate.htm"
                     },
                     ExpectedExitCode = 0
+                },
+
+                new TestCase {
+                    Title = "Missing required template argument",
+                    Args = new string[] {
+                        "file-work-items",
+                        "--project-uri",
+                        "https://github.com/my-org/my-project",
+                        "--inline",
+                        "test.sarif",
+                        "--group",
+                        "PerRunPerTargetPerRule"
+                    },
+                    ExpectedExitCode = 1
                 },
 
                 new TestCase {
@@ -173,7 +205,9 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
                         "--inline",
                         "test.sarif",
                         "--group",
-                        "PerRunPerRun"
+                        "PerRunPerRun",
+                        "--template",
+                        "TestBugTemplate.htm"
                     },
                     ExpectedExitCode = 1
                 },
@@ -184,6 +218,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
                         "file-work-items",
                         "--inline",
                         "test.sarif",
+                        "--template",
+                        "TestBugTemplate.htm"
                     },
                     ExpectedExitCode = 1
                 },
@@ -194,7 +230,9 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
                         "file-work-items",
                         "--project-uri",
                         "https://dev.azure.com/my-org/my-project",
-                        "--inline"
+                        "--inline",
+                        "--template",
+                        "TestBugTemplate.htm"
                     },
                     ExpectedExitCode = 1
                 },
@@ -207,6 +245,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
                         "dev.azure.com/my-org/my-project",
                         "--inline",
                         "test.sarif",
+                        "--template",
+                        "TestBugTemplate.htm"
                     },
                     ExpectedExitCode = 1
                 },
@@ -220,7 +260,9 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
                         "--output",
                         "test-output.sarif",
                         "--inline",
-                        "test.sarif"
+                        "test.sarif",
+                        "--template",
+                        "TestBugTemplate.htm"
                     },
                     ExpectedExitCode = 1
                 },
@@ -232,6 +274,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
                         "--project-uri",
                         "https://dev.azure.com/my-org/my-project",
                         "test.sarif",
+                        "--template",
+                        "TestBugTemplate.htm"
                     },
                     ExpectedExitCode = 1
                 }

@@ -3,13 +3,14 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
 {
     public static class Extensions
     {
-        public static WorkItemFilingMetadata CreateWorkItemFilingMetadata(this SarifLog sarifLog, string workItemProjectName)
+        public static WorkItemFilingMetadata CreateWorkItemFilingMetadata(this SarifLog sarifLog, string workItemProjectName, string templateFilePath)
         {
             WorkItemFilingMetadata metadata = new WorkItemFilingMetadata()
             {
@@ -47,7 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
                              buildDefinitionName + "'";
 
             metadata.AreaPath = areaPath;
-            metadata.Description = "test";
+            metadata.Description = File.ReadAllText(templateFilePath);
             metadata.Tags = new List<string>(new string[] { "security" });
 
             return metadata;
