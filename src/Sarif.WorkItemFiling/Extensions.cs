@@ -23,11 +23,13 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
 
             ArtifactLocation artifactLocation = sarifLog.Runs[0].Artifacts[0].Location;
 
-            // BUG: GetProperty doesn't unencode string values
             string organization = artifactLocation.GetProperty("OrganizationName");
             string buildDefinitionId = artifactLocation.GetProperty<int>("BuildDefinitionId").ToString();
             string projectName = artifactLocation.GetProperty("ProjectName");
+
+            // BUG: GetProperty doesn't unencode string values
             string areaPath = $@"{workItemProjectName}" + artifactLocation.GetProperty("AreaPath").Replace(@"\\", @"\");
+
             string buildDefinitionName = artifactLocation.GetProperty("BuildDefinitionName");
 
             Result result = sarifLog.Runs[0].Results[0];
@@ -45,7 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
                              buildDefinitionName + "'";
 
             metadata.AreaPath = areaPath;
-            metadata.Description = "Default description";
+            metadata.Description = "test";
             metadata.Tags = new List<string>(new string[] { "security" });
 
             return metadata;

@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         public override Run VisitRun(Run node)
         {
-            _targetToRuleMap = new Dictionary<ArtifactLocation, Dictionary<string, SarifLog>>();
+            _targetToRuleMap = new Dictionary<ArtifactLocation, Dictionary<string, SarifLog>>(ArtifactLocation.ValueComparer);
             return base.VisitRun(node);
         }
 
