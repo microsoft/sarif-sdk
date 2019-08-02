@@ -41,11 +41,9 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
                 ruleName = sarifLog.Runs[0].Tool.Driver.Rules[result.RuleIndex].Name + ":" + ruleName;
             }
 
-            metadata.Title = ruleName + 
-                             ": Exposed credential(s) in '" + organization +
-                             "/" + projectName + 
-                             "' build definition: '" + 
-                             buildDefinitionName + "'";
+            metadata.Title = "[" + organization + "/" + projectName + "] " +
+                            ruleName + ": Exposed credential(s) in " +
+                             "build definition: '" + buildDefinitionName + "'";
 
             metadata.AreaPath = areaPath;
             metadata.Description = File.ReadAllText(templateFilePath);
