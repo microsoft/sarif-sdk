@@ -119,7 +119,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
                 },
 
                 new TestCase {
-                    Title = "Explicit 'All' grouping strategy",
+                    Title = "Explicit 'PerRun' grouping strategy",
                     Args = new string[] {
                         "file-work-items",
                         "--project-uri",
@@ -127,7 +127,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
                         "--inline",
                         "test.sarif",
                         "--group",
-                        "All",
+                        "PerRun",
                         "--template",
                         "TestBugTemplate.htm"
                     },
@@ -135,7 +135,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
                 },
 
                 new TestCase {
-                    Title = "Explicit 'None' grouping strategy (equivalent to 'All')",
+                    Title = "Explicit 'None' grouping strategy (equivalent to 'PerRun')",
                     Args = new string[] {
                         "file-work-items",
                         "--project-uri",
