@@ -457,6 +457,5 @@ namespace Microsoft.CodeAnalysis.Sarif
                 xmlReader.Read();
             }
         }
-
     }
 }

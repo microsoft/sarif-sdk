@@ -15,10 +15,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         None = 0,
 
         /// <summary>
-        /// The default groupign strategy, which is to assume that all contents
-        /// within a log file should remain in a single log. 
+        /// The current default grouping strategy, which is to assume that all
+        /// contents within a run should be persisted to a single work item. 
         /// </summary>
-        All = 0,
+        PerRun = 0,
 
         /// <summary>
         /// A grouping strategy that splits SARIF log files into a single log per run, per rule.
