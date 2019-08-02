@@ -64,7 +64,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 {
                     IList<SarifLog> logsToProcess = new List<SarifLog>(new SarifLog[] { sarifLog });
 
-                    if (options.GroupingStrategy != GroupingStrategy.All)
+                    if (options.GroupingStrategy != GroupingStrategy.PerRun)
                     {
                         SplittingVisitor visitor = (options.GroupingStrategy == GroupingStrategy.PerRunPerRule 
                             ? (SplittingVisitor)new PerRunPerRuleSplittingVisitor()
@@ -95,6 +95,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             return 0;
         }
+
         private bool ValidateOptions(FileWorkItemsOptions options)
         {
             bool valid = true;
