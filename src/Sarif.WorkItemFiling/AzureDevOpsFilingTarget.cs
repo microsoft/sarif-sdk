@@ -37,8 +37,11 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
 
         public override async Task<IEnumerable<WorkItemFilingMetadata>> FileWorkItems(IEnumerable<WorkItemFilingMetadata> workItemFilingMetadata)
         {
+            bool filedOne = false;
             foreach (WorkItemFilingMetadata metadata in workItemFilingMetadata)
             {
+                if (filedOne) { continue; }
+                filedOne = true;
                 AttachmentReference attachmentReference = null;
                 string attachmentText = metadata.Attachment?.Text;
                 if (!string.IsNullOrEmpty(attachmentText))
