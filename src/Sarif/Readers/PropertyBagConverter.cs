@@ -78,7 +78,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                 }
                 else
                 {
-                    writer.WriteRawValue(propertyDictionary[key].SerializedValue ?? "null");
+                    writer.WriteRawValue(propertyDictionary[key].SerializedValue);
                 }
             }
 
