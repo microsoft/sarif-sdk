@@ -108,7 +108,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
 
                 try
                 {
-                    workItem = await _witClient.CreateWorkItemAsync(patchDocument, project: _projectName, "Issue");
+                    workItem = await _witClient.CreateWorkItemAsync(patchDocument, project: _projectName, "Bug");
                 }
                 catch (Exception)
                 {
