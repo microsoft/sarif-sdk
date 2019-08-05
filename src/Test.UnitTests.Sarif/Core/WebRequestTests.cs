@@ -3,6 +3,7 @@
 
 using System;
 using FluentAssertions;
+using FluentAssertions.Extensions;
 using Microsoft.CodeAnalysis.Sarif;
 using Xunit;
 
@@ -183,6 +184,28 @@ User-Agent: my-agent
 
             succeeded.Should().BeFalse();
             webRequest.Should().BeNull();
+        }
+
+        [Fact]
+        public void WebRequest_TryParse_HasAcceptablePerformance()
+        {
+            const string RequestString = @"GET /getSomethings?FirstName=test&LastName=test&AddressLine1=555%20110th%20Ave%20NE&City=Bellevue&Country=USA&PostalCode=98004&EmailAddress=test@somedomain.com&BusinessPhone=12345678901&MobilePhone=1234567890&AddressLine2=&AddressLine3 HTTP/1.1
+Host: kdkdkdkd.azurewebsites.net
+Connection: keep-alive
+Cache-Control: max-age=0
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.90 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3
+Referer: https://login.somedomain.com/77777777777777777777/oauth2/authorize?client_id=7777&response_mode=form_post&response_type=code+id_token&scope=openid+profile&state=somestate
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Cookie: ARRAffinity=somecode; .AspNet.Cookies=somecode
+
+";
+            Action action = () => WebRequest.TryParse(RequestString, out _);
+
+            // On my machine this takes about 7 msec. Leaving a 5x safety factor.
+            action.ExecutionTime().Should().BeLessOrEqualTo(35.Milliseconds());
         }
     }
 }

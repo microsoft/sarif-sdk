@@ -114,13 +114,13 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         const string QueryPattern =
             @"^
-              \?                              # A literal '?', followed by zero or more
+              \?                                # A literal '?', followed by zero or more
               (?<query>
                 (
-                  (?<name>[^=]+)                # parameter name (everything that's not an = sign),
+                  (?>(?<name>[^=]+))            # parameter name (everything that's not an = sign),
                   =                             # an equal sign, and
                   (
-                    (?<value>[^&]*)             # the value (everything that's not an '&')...
+                    (?>(?<value>[^&]*))         # the value (everything that's not an '&')...
                     &?                          # and an '&' (except after the last one).
                   )
                 )*
