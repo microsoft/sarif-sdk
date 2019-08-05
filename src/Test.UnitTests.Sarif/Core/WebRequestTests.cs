@@ -210,10 +210,10 @@ Cookie: ARRAffinity=somecode; .AspNet.Cookies=somecode
 ";
             Action action = () => WebRequest.TryParse(RequestString, out _);
 
-            // On my machine this takes about 7 msec. We leave a 5x safety factor. This is still
+            // On my machine this takes about 7 msec. We leave a 10x safety factor. This is still
             // too long, but it should provide acceptable performance, and we can pursue further
             // optimizations later if necessary.
-            action.ExecutionTime().Should().BeLessOrEqualTo(35.Milliseconds());
+            action.ExecutionTime().Should().BeLessOrEqualTo(70.Milliseconds());
         }
     }
 }
