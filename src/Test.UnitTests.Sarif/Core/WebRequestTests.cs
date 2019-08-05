@@ -3,6 +3,7 @@
 
 using System;
 using FluentAssertions;
+using FluentAssertions.Extensions;
 using Microsoft.CodeAnalysis.Sarif;
 using Xunit;
 
@@ -183,6 +184,36 @@ User-Agent: my-agent
 
             succeeded.Should().BeFalse();
             webRequest.Should().BeNull();
+        }
+
+        [Fact]
+        public void WebRequest_TryParse_HasAcceptablePerformance()
+        {
+            // This is a sanitized version of an actual customer's web request that exposed a perf
+            // problem (https://github.com/Microsoft/sarif-sdk/1608). Note the lack of a trailing
+            // '=' after the last query parameter "Address3". Given how our regex for parsing query
+            // parameters is defined, this causes the regex engine to backtrack to the beginning.
+            // Selective disabling of backtracking in portions of the regex improves the performance
+            // dramatically.
+            const string RequestString = @"GET /getSomethings?FirstName=test&LastName=test&AddressLine1=555%20110th%20Ave%20NE&City=Bellevue&Country=USA&PostalCode=98004&EmailAddress=test@somedomain.com&BusinessPhone=12345678901&MobilePhone=1234567890&AddressLine2=&AddressLine3 HTTP/1.1
+Host: kdkdkdkd.azurewebsites.net
+Connection: keep-alive
+Cache-Control: max-age=0
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.90 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3
+Referer: https://login.somedomain.com/77777777777777777777/oauth2/authorize?client_id=7777&response_mode=form_post&response_type=code+id_token&scope=openid+profile&state=somestate
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Cookie: ARRAffinity=somecode; .AspNet.Cookies=somecode
+
+";
+            Action action = () => WebRequest.TryParse(RequestString, out _);
+
+            // On my machine this takes about 7 msec. We leave a 10x safety factor. This is still
+            // too long, but it should provide acceptable performance, and we can pursue further
+            // optimizations later if necessary.
+            action.ExecutionTime().Should().BeLessOrEqualTo(70.Milliseconds());
         }
     }
 }
