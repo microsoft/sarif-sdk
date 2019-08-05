@@ -99,7 +99,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                         propertyName));
             }
 
-            return JsonConvert.DeserializeObject<T>(Properties[propertyName].SerializedValue);
+            SerializedPropertyInfo propValue = Properties[propertyName];
+
+            return propValue == null ? default : JsonConvert.DeserializeObject<T>(propValue.SerializedValue);
         }
 
         public bool TryGetSerializedPropertyValue(string propertyName, out string serializedValue)
