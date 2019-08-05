@@ -112,30 +112,37 @@ namespace Microsoft.CodeAnalysis.Sarif
             return uri;
         }
 
+        // In this query pattern, note how backtracking is disabled with (?>...) while parsing the
+        // parameter names and values. A parameter name can't contain a '=', and a parameter value
+        // can't contain a '&', so it's never necessary to backtrack over an individual parameter
+        // name or value.
         const string QueryPattern =
             @"^
-              \?                                # A literal '?', followed by zero or more
-              (?<query>
+              \?                        # A literal '?', followed by zero or more of...
+              (
+                (?>
+                  (?<name>[^=]+)        # a parameter name (everything that's not an = sign),
+                )
+                =                       # an equal sign, and
                 (
-                  (?>(?<name>[^=]+))            # parameter name (everything that's not an = sign),
-                  =                             # an equal sign, and
-                  (
-                    (?>(?<value>[^&]*))         # the value (everything that's not an '&')...
-                    &?                          # and an '&' (except after the last one).
+                  (?>
+                    (?<value>[^&]*)     # the value (everything that's not an '&')...
                   )
-                )*
-                |                               # RFC 3986 does _not_ require a URI's query to
-                (?<nonParameterizedQuery>.*)    # consist of key-value pairs. If it doesn't,
-                                                # don't fail.
-              )$";
+                  &?                    # and an '&' (except after the last one).
+                )
+              )*
+              $";
 
         private static readonly Regex s_queryRegex = SarifUtilities.RegexFromPattern(QueryPattern);
 
         private static IDictionary<string, string> ParseParametersFromQueryString(string query)
         {
-            Dictionary<string, string> parameterDictionary = null;
+            IDictionary<string, string> parameterDictionary = new Dictionary<string, string>();
 
             Match match = s_queryRegex.Match(query);
+
+            // RFC 3986 does _not_ require a URI's query to consist of key-value pairs. If it
+            // doesn't, don't fail; just return an empty parameter dictionary.
             if (match.Success)
             {
                 List<string> names = match.Groups["name"].Captures.Cast<Capture>().Select(c => c.Value).ToList();
