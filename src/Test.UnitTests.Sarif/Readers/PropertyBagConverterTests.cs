@@ -112,7 +112,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         }
 
         [Fact]
-        [Trait(TestTraits.Bug, "1487")]
+        [Trait(TestTraits.Bug, "1581")]
         public void PropertyBagConverter_RoundTripsNullValue()
         {
             _input = "{\"properties\":{\"a\":null}}";
