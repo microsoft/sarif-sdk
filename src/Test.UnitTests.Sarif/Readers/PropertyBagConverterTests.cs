@@ -113,7 +113,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
         [Fact]
         [Trait(TestTraits.Bug, "1581")]
-        public void PropertyBagConverter_RoundTripsNullValue()
+        public void PropertyBagConverter_RoundTripsNullValueForReferenceType()
         {
             _input = "{\"properties\":{\"a\":null}}";
 
@@ -121,6 +121,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
             _inputObject.GetProperty<string>("a").Should().BeNull();
             _roundTrippedObject.GetProperty<string>("a").Should().BeNull();
+        }
+
+        [Fact]
+        [Trait(TestTraits.Bug, "1581")]
+        public void PropertyBagConverter_RoundTripsNullValueForValueType()
+        {
+            _input = "{\"properties\":{\"a\":null}}";
+
+            PerformRoundTrip();
+
+            Assert.Throws<InvalidOperationException>(() => _inputObject.GetProperty<int>("a"));
+            Assert.Throws<InvalidOperationException>(() => _roundTrippedObject.GetProperty<int>("a"));
         }
 
         public class ObjectClass
