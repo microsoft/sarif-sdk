@@ -131,8 +131,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
             PerformRoundTrip();
 
-            Assert.Throws<InvalidOperationException>(() => _inputObject.GetProperty<int>("a"));
-            Assert.Throws<InvalidOperationException>(() => _roundTrippedObject.GetProperty<int>("a"));
+            Action action = () => _inputObject.GetProperty<int>("a");
+            action.Should().Throw<InvalidOperationException>();
+
+            action = () => _roundTrippedObject.GetProperty<int>("a");
+            action.Should().Throw <InvalidOperationException>();
         }
 
         public class ObjectClass
