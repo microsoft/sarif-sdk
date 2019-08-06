@@ -213,6 +213,9 @@
   <data name="PropertyDoesNotExist" xml:space="preserve">
     <value>Property '{0}' does not exist. Consider calling TryGetProperty instead.</value>
   </data>
+  <data name="PropertyOfValueTypeCannotBeNull" xml:space="preserve">
+    <value>The property bag contains a property {0} with the value null. It cannot be converted to the value type {1}.</value>
+  </data>
   <data name="ResultRuleIdDoesNotMatchRule" xml:space="preserve">
     <value>The rule id '{0}' specified by the result does not match the actual id of the rule '{1}'</value>
   </data>
