@@ -428,3 +428,6 @@
 
 ## **v2.1.10** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.10) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.10) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.10) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.10)
 * BUGFIX: Resolve a performance issue in web request parsing code. https://github.com/microsoft/sarif-sdk/issues/1608
+
+## **v2.1.11** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.11) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.11) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.11) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.11)
+* BUGFIX: Result matching should prefer the suppression info from the current run. https://github.com/microsoft/sarif-sdk/issues/1600
