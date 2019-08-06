@@ -129,7 +129,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             // Result exists.
             Result result = CurrentResult.Result.DeepClone();
             result.CorrelationGuid = PreviousResult.Result.CorrelationGuid;
-            result.Suppressions = CurrentResult.Result.Suppressions;
             result.BaselineState = BaselineState.Unchanged;
 
             if (!PreviousResult.Result.TryGetProperty(SarifLogResultMatcher.ResultMatchingResultPropertyName, out originalResultMatchingProperties))
