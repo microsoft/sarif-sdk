@@ -11,6 +11,7 @@ using Microsoft.VisualStudio.Services.Common;
 using Microsoft.VisualStudio.Services.WebApi;
 using Microsoft.VisualStudio.Services.WebApi.Patch;
 using Microsoft.VisualStudio.Services.WebApi.Patch.Json;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
 {
@@ -112,10 +113,17 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
                     workItem = await _witClient.CreateWorkItemAsync(patchDocument, project: _projectName, "Bug");
                     Console.WriteLine($": {workItem.Id}: DONE");
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
-                    // TBD error handling
-                    throw;
+                    Console.Error.WriteLine(e);
+
+                    if (patchDocument != null)
+                    {
+                        string patchJson = JsonConvert.SerializeObject(patchDocument, Formatting.Indented);
+                        Console.Error.WriteLine(patchJson);
+                    }
+
+                    continue;
                 }
 
                 const string HTML = "html";

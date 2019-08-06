@@ -27,20 +27,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             if (!FilteringStrategy(node)) { return node; }
 
             string ruleId;
-            if (node.RuleIndex > -1 && CurrentRun.Tool.Driver.Rules.Count > node.RuleIndex)
+            if (node.RuleIndex > -1 && CurrentRun.Tool?.Driver?.Rules?.Count > node.RuleIndex)
             {
                 ruleId = CurrentRun.Tool.Driver.Rules?[node.RuleIndex].Id;
             }
             else
             {
                 // Remove the rule pattern index from the rule id. e.g. CSCAN0230/5
-                ruleId = node.RuleId.Substring(0, node.RuleId.LastIndexOf('/'));
+                int lastIndexOf = node.RuleId.LastIndexOf('/');
+                ruleId = node.RuleId.Substring(0, lastIndexOf >= 0 ? lastIndexOf : node.RuleId.Length);
             }
 
             ArtifactLocation artifactLocation = s_emptyArtifactLocation;
             if (node.Locations[0].PhysicalLocation?.ArtifactLocation != null)
             {
                 artifactLocation = node.Locations[0].PhysicalLocation?.ArtifactLocation;
+            }
+
+            if (artifactLocation == null)
+            {
+                throw new InvalidOperationException("Result.Locations.PhysicalLocation.ArtifactLocation is null.");
             }
 
             if (!_targetToRuleMap.TryGetValue(artifactLocation.Uri.ToString(), out Dictionary<string, SarifLog> ruleToSarifLogMap))

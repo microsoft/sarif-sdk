@@ -47,6 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
                             ruleName + ": Exposed credential(s) in " +
                              "build definition: '" + buildDefinitionName + "'";
 
+            // TODO: This should come from the SARIF or command line arg in the future.
             metadata.Tags = new List<string>(new string[] { "Security" });
             metadata.AreaPath = areaPath;
 
