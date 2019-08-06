@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using Microsoft.CodeAnalysis.Sarif.Driver;
@@ -84,7 +85,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                     try
                     {
-                        filer.FileWorkItems(options.ProjectUri, workItemMetadata, options.PersonalAccessToken).Wait();
+                        IEnumerable<WorkItemFilingMetadata> filedWorkItems = filer.FileWorkItems(options.ProjectUri, workItemMetadata, options.PersonalAccessToken).Result;
+
+                        Console.WriteLine($"Created {filedWorkItems.Count()} work items for run {runIndex}.");
                     }
                     catch (Exception ex)
                     {
@@ -92,6 +95,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     }
                 }
             }
+
+            Console.WriteLine($"Writing log with work item Ids to {options.OutputFilePath}.");
+            CommandBase.WriteSarifFile<SarifLog>(fileSystem, sarifLog, options.OutputFilePath, (options.PrettyPrint ? Formatting.Indented : Formatting.None));
 
             return 0;
         }

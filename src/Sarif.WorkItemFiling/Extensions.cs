@@ -47,7 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
                             ruleName + ": Exposed credential(s) in " +
                              "build definition: '" + buildDefinitionName + "'";
 
-            metadata.Tags = new List<string>(new string[] { "security" });
+            metadata.Tags = new List<string>(new string[] { "Security" });
             metadata.AreaPath = areaPath;
 
             metadata.Description = InjectArguments(

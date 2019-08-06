@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
     {
         private static ArtifactLocation s_emptyArtifactLocation = new ArtifactLocation();
 
-        private Dictionary<ArtifactLocation, Dictionary<string, SarifLog>> _targetToRuleMap;
+        private Dictionary<string, Dictionary<string, SarifLog>> _targetToRuleMap;
 
         public PerRunPerTargetPerRuleSplittingVisitor(Func<Result, bool> filteringStrategy = null) : base(filteringStrategy)
         {
@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         public override Run VisitRun(Run node)
         {
-            _targetToRuleMap = new Dictionary<ArtifactLocation, Dictionary<string, SarifLog>>(ArtifactLocation.ValueComparer);
+            _targetToRuleMap = new Dictionary<string, Dictionary<string, SarifLog>>();
             return base.VisitRun(node);
         }
 
@@ -26,11 +26,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             if (!FilteringStrategy(node)) { return node; }
 
-            string ruleId = node.RuleId;
-
-            if (string.IsNullOrEmpty(ruleId) && node.RuleIndex > -1)
+            string ruleId;
+            if (node.RuleIndex > -1 && CurrentRun.Tool.Driver.Rules.Count > node.RuleIndex)
             {
                 ruleId = CurrentRun.Tool.Driver.Rules?[node.RuleIndex].Id;
+            }
+            else
+            {
+                // Remove the rule pattern index from the rule id. e.g. CSCAN0230/5
+                ruleId = node.RuleId.Substring(0, node.RuleId.LastIndexOf('/'));
             }
 
             ArtifactLocation artifactLocation = s_emptyArtifactLocation;
@@ -39,9 +43,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 artifactLocation = node.Locations[0].PhysicalLocation?.ArtifactLocation;
             }
 
-            if (!_targetToRuleMap.TryGetValue(artifactLocation, out Dictionary< string, SarifLog > ruleToSarifLogMap))
+            if (!_targetToRuleMap.TryGetValue(artifactLocation.Uri.ToString(), out Dictionary<string, SarifLog> ruleToSarifLogMap))
             {
-                ruleToSarifLogMap = _targetToRuleMap[artifactLocation] = new Dictionary<string, SarifLog>();
+                ruleToSarifLogMap = _targetToRuleMap[artifactLocation.Uri.ToString()] = new Dictionary<string, SarifLog>();
             }
 
             if (!ruleToSarifLogMap.TryGetValue(ruleId, out SarifLog sarifLog))
@@ -63,7 +67,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             if (artifactLocation != null && artifactLocation.Index > -1)
             {
-                int originalIndex = artifactLocation.Index;
+                int originalIndex = CurrentRun.GetFileIndex(artifactLocation);
                 artifactLocation = artifactLocation.DeepClone();
                 artifactLocation.Index = sarifLog.Runs[0].GetFileIndex(artifactLocation);
                 node.Locations[0].PhysicalLocation.ArtifactLocation = artifactLocation;

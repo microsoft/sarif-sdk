@@ -72,7 +72,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
                     new JsonPatchOperation
                     {
                         Operation = Operation.Add,
-                        Path = $"/fields/{WorkItemFields.Description}",
+                        Path = $"/fields/{WorkItemFields.ReproSteps}",
                         Value = metadata.Description
                     },
                     new JsonPatchOperation
@@ -108,7 +108,9 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
 
                 try
                 {
+                    Console.Write($"Creating work item: {metadata.Title}");
                     workItem = await _witClient.CreateWorkItemAsync(patchDocument, project: _projectName, "Bug");
+                    Console.WriteLine($": {workItem.Id}: DONE");
                 }
                 catch (Exception)
                 {
@@ -116,10 +118,18 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
                     throw;
                 }
 
+                const string HTML = "html";
                 SarifLog sarifLog = (SarifLog)metadata.Object;
                 foreach (Result result in sarifLog.Runs[0].Results)
                 {
-                    result.WorkItemUris = new List<Uri> { new Uri(workItem.Url, UriKind.Absolute) };
+                    if (workItem.Links?.Links?.ContainsKey(HTML) == true)
+                    {
+                        result.WorkItemUris = new List<Uri> { new Uri(((ReferenceLink)workItem.Links.Links[HTML]).Href, UriKind.Absolute) };
+                    }
+                    else
+                    {
+                        result.WorkItemUris = new List<Uri> { new Uri(workItem.Url, UriKind.Absolute) };
+                    }
                 }
             }
 

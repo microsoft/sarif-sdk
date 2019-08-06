@@ -24,5 +24,10 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
         /// Title field name.
         /// </summary>
         public const string Title = "System.Title";
+
+        /// <summary>
+        /// Repro Steps field name.
+        /// </summary>
+        public const string ReproSteps = "Microsoft.VSTS.TCM.ReproSteps";
     }
 }
