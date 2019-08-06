@@ -99,7 +99,26 @@ namespace Microsoft.CodeAnalysis.Sarif
                         propertyName));
             }
 
-            return JsonConvert.DeserializeObject<T>(Properties[propertyName].SerializedValue);
+            SerializedPropertyInfo propValue = Properties[propertyName];
+            if (propValue == null)
+            {
+                if (typeof(T).IsValueType)
+                {
+                    throw new InvalidOperationException(
+                        string.Format(
+                            CultureInfo.CurrentCulture,
+                            SdkResources.PropertyOfValueTypeCannotBeNull,
+                            propertyName,
+                            typeof(T).FullName));
+                }
+
+                // This will return null for reference types. Could not set null here b/c T could be a value type as well.
+                return default;
+            }
+            else
+            {
+                return JsonConvert.DeserializeObject<T>(propValue.SerializedValue);
+            }
         }
 
         public bool TryGetSerializedPropertyValue(string propertyName, out string serializedValue)

@@ -111,6 +111,33 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             _roundTrippedObject.GetProperty<Guid>("g").Should().Be(expectedGuid);
         }
 
+        [Fact]
+        [Trait(TestTraits.Bug, "1581")]
+        public void PropertyBagConverter_RoundTripsNullValueForReferenceType()
+        {
+            _input = "{\"properties\":{\"a\":null}}";
+
+            PerformRoundTrip();
+
+            _inputObject.GetProperty<string>("a").Should().BeNull();
+            _roundTrippedObject.GetProperty<string>("a").Should().BeNull();
+        }
+
+        [Fact]
+        [Trait(TestTraits.Bug, "1581")]
+        public void PropertyBagConverter_RoundTripsNullValueForValueType()
+        {
+            _input = "{\"properties\":{\"a\":null}}";
+
+            PerformRoundTrip();
+
+            Action action = () => _inputObject.GetProperty<int>("a");
+            action.Should().Throw<InvalidOperationException>();
+
+            action = () => _roundTrippedObject.GetProperty<int>("a");
+            action.Should().Throw <InvalidOperationException>();
+        }
+
         public class ObjectClass
         {
             public int One { get; set; }
