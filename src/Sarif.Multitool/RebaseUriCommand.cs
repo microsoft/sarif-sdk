@@ -39,7 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 if (!rebaseOptions.Inline)
                 {
-                    Directory.CreateDirectory(rebaseOptions.OutputFolderPath);
+                    _fileSystem.CreateDirectory(rebaseOptions.OutputFolderPath);
                 }
 
                 foreach (var sarifLog in sarifFiles)
@@ -48,7 +48,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                     // Write output to file.
                     string outputName = sarifLog.GetOutputFileName(rebaseOptions);
-                    var formatting = rebaseOptions.PrettyPrint
+
+                    // This isn't optimal. If there are several input files, and the first few output files
+                    // don't exist but the next one does, we will successfully process the first few files
+                    // and then fail. It's better than overwriting the existing file, though.
+                    DriverUtilities.VerifyOutputFileCanBeCreated(outputName, rebaseOptions.Force, _fileSystem);
+
+                        var formatting = rebaseOptions.PrettyPrint
                         ? Formatting.Indented
                         : Formatting.None;
                     
