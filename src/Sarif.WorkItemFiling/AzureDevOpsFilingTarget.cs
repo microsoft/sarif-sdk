@@ -22,15 +22,16 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
     {
         private WorkItemTrackingHttpClient _witClient;
         private string _projectName;
+        private Uri _accountUri;
 
         public override async Task Connect(Uri projectUri, string personalAccessToken)
         {
             _projectName = projectUri.GetProjectName();
             string accountUriString = projectUri.GetAccountUriString();
 
-            Uri accountUri = new Uri(accountUriString, UriKind.Absolute);
+            _accountUri = new Uri(accountUriString, UriKind.Absolute);
 
-            VssConnection connection = new VssConnection(accountUri, new VssBasicCredential(string.Empty, personalAccessToken));
+            VssConnection connection = new VssConnection(_accountUri, new VssBasicCredential(string.Empty, personalAccessToken));
             await connection.ConnectAsync();
 
             _witClient = await connection.GetClientAsync<WorkItemTrackingHttpClient>();
@@ -89,6 +90,9 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
                         Value = string.Join(",", metadata.Tags)
                     }
                 };
+
+                // Add any custom fields specific to the target account.
+                patchDocument.AddRange(metadata.GetCustomWorkItemFields(_accountUri));
 
                 if (attachmentReference != null)
                 {

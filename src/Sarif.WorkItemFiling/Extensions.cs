@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Microsoft.VisualStudio.Services.WebApi.Patch;
+using Microsoft.VisualStudio.Services.WebApi.Patch.Json;
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
@@ -177,6 +179,23 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
             string accountUriString = projectUriString.Substring(0, lastSlashIndex);
 
             return accountUriString;
+        }
+
+        public static IEnumerable<JsonPatchOperation> GetCustomWorkItemFields(this WorkItemFilingMetadata metadata, Uri accountUri)
+        {
+            List<JsonPatchOperation> customFields = new List<JsonPatchOperation>();
+
+            if (accountUri.AbsoluteUri.Equals("https://dev.azure.com/msazure", StringComparison.InvariantCultureIgnoreCase))
+            {
+                customFields.Add(new JsonPatchOperation
+                {
+                    Operation = Operation.Add,
+                    Path = $"/fields/{WorkItemFields.MsazureSecurityRating}",
+                    Value = "Important"
+                });
+            }
+
+            return customFields;
         }
     }
 }

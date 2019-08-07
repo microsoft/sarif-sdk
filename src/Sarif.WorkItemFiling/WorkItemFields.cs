@@ -29,5 +29,10 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
         /// Repro Steps field name.
         /// </summary>
         public const string ReproSteps = "Microsoft.VSTS.TCM.ReproSteps";
+
+        /// <summary>
+        /// Security Rating field name for the msazure account.
+        /// </summary>
+        public const string MsazureSecurityRating = "msazure.Scrum_custom.SecurityRating";
     }
 }
