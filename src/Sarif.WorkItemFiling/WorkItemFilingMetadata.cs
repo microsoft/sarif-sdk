@@ -15,7 +15,24 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
         public string AreaPath { get; set; }
         public List<string> Tags { get; set; }
         public Attachment Attachment { get; set; }
-        public IReadOnlyDictionary<string, string> CustomFields { get; set; } 
+        public IReadOnlyDictionary<string, string> CustomFields { get; set; }
+        public IReadOnlyList<string> CustomTags { get; set; }
         public object Object { get; set; }
+
+        public IEnumerable<string> GetAllTags()
+        {
+            List<string> allTags = new List<string>();
+            if (Tags != null)
+            {
+                allTags.AddRange(Tags);
+            }
+
+            if (CustomTags != null)
+            {
+                allTags.AddRange(CustomTags);
+            }
+
+            return allTags;
+        }
     }
 }

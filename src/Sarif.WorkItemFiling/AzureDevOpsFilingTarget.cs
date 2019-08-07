@@ -86,7 +86,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
                     {
                         Operation = Operation.Add,
                         Path = $"/fields/{WorkItemFields.Tags}",
-                        Value = string.Join(",", metadata.Tags)
+                        Value = string.Join(",", metadata.GetAllTags())
                     }
                 };
 
