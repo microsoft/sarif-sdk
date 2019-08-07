@@ -35,6 +35,24 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
 
             string buildDefinitionName = artifactLocation.GetProperty("BuildDefinitionName");
 
+            Dictionary<string, string> customFields = new Dictionary<string, string>();
+            if (artifactLocation.TryGetProperty("CustomFields", out string customFieldsString))
+            {
+                string[] fieldKvps = customFieldsString.Split(',');
+
+                foreach (string fieldKvp in fieldKvps)
+                {
+                    string[] kv = fieldKvp.Split(':');
+
+                    if (kv.Length == 2)
+                    {
+                        customFields.Add(kv[0].Trim(), kv[1].Trim());
+                    }
+                }
+            }
+
+            metadata.CustomFields = customFields;
+
             Result result = sarifLog.Runs[0].Results[0];
             string ruleName = sarifLog.Runs[0].Results[0].RuleId.Split('/')[0];
 
