@@ -8,6 +8,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching;
+using Microsoft.CodeAnalysis.Sarif.Driver;
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
@@ -29,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             Formatting formatting = options.PrettyPrint ? Formatting.Indented : Formatting.None;
 
             // Remove previous results.
-            if (_fileSystem.DirectoryExists(options.OutputFolderPath))
+            if (_fileSystem.DirectoryExists(options.OutputFolderPath) && options.Force)
             {
                 _fileSystem.DeleteDirectory(options.OutputFolderPath, true);
             }
@@ -64,6 +65,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         if (mergedLog.Runs[0].Results.Any(r => r.BaselineState != BaselineState.Unchanged))
                         {
                             string outputFilePath = Path.Combine(options.OutputFolderPath, fileName);
+
+                            DriverUtilities.VerifyOutputFileCanBeCreated(outputFilePath, options.Force, _fileSystem);
+
                             WriteSarifFile(_fileSystem, mergedLog, outputFilePath, formatting);
                         }
                     }
