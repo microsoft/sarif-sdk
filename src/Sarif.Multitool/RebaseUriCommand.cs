@@ -54,7 +54,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     // and then fail. It's better than overwriting the existing file, though.
                     DriverUtilities.VerifyOutputFileCanBeCreated(outputName, rebaseOptions.Force, _fileSystem);
 
-                        var formatting = rebaseOptions.PrettyPrint
+                    var formatting = rebaseOptions.PrettyPrint
                         ? Formatting.Indented
                         : Formatting.None;
                     

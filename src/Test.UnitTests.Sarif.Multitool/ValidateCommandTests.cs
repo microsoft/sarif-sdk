@@ -57,7 +57,6 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
         [Trait(TestTraits.Bug, "1340")]
         public void ValidateCommand_WhenOutputFileIsPresentAndForceOptionIsAbsent_DoesNotOverwriteOutputFile()
         {
-            const string LogFileName = "example.sarif";
             string logFilePath = Path.Combine(LogFileDirectory, LogFileName);
 
             var mockFileSystem = new Mock<IFileSystem>();

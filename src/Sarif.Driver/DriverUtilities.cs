@@ -9,7 +9,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
     public static class DriverUtilities
     {
         /// <summary>
-        /// Verifies that the output file either does not exist or is allowed to be overrwritten.
+        /// Verifies that the output file either does not exist or is allowed to be overwritten.
         /// </summary>
         /// <param name="outputFilePath">
         /// The path to the output file.
