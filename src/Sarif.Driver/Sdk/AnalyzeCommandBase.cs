@@ -2,7 +2,6 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -10,7 +9,6 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security;
-using System.Threading.Tasks;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
@@ -182,7 +180,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             try
             {
-                bool fileExists = File.Exists(filePath);
+                bool fileExists = FileSystem.FileExists(filePath);
 
                 if (fileExists || shouldExist == null || !shouldExist.Value)
                 {
@@ -331,7 +329,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (String.IsNullOrEmpty(options.ConfigurationFilePath))
             {
-                if (!File.Exists(DefaultConfigurationPath) && !unitTestFileExists)
+                if (!FileSystem.FileExists(DefaultConfigurationPath) && !unitTestFileExists)
                 {
                     return null;
                 }
@@ -388,8 +386,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         OptionallyEmittedData dataToInsert = analyzeOptions.DataToInsert.ToFlags();
                         OptionallyEmittedData dataToRemove = analyzeOptions.DataToRemove.ToFlags();
 
-                        // This code is required in order to support the obsoleted ComputeFileHashes argument
-                        // on the analyze command-line;
+                        if (FileSystem.FileExists(filePath) && !loggingOptions.HasFlag(LoggingOptions.OverwriteExistingOutputFile))
+                        {
+                            throw new ArgumentException(
+                                string.Format(
+                                    CultureInfo.CurrentCulture,
+                                    DriverResources.OutputFileAlreadyExists,
+                                    analyzeOptions.OutputFilePath));
+                        }
+
+                        // This code is required in order to support the obsolete ComputeFileHashes argument
+                        // on the analyze command-line.
                         if (analyzeOptions.ComputeFileHashes) { dataToInsert |= OptionallyEmittedData.Hashes; }
 
                         SarifLogger sarifLogger;

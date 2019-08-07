@@ -1,6 +1,7 @@
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using System.IO;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif;
@@ -12,33 +13,32 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
 {
     public class ValidateCommandTests
     {
-        // Regression test for Issue #1064, "ValidatorCommand fails when target file name contains a space"
-        [Fact]
-        public void ValidateCommand_AcceptsTargetFileWithSpaceInName()
-        {
-            // A minimal valid log file.
-            string logFileContents = TransformCommandTests.MinimalCurrentV2Text;
-
-            // A simple schema against which the log file successfully validates.
-            // This way, we don't have to read the SARIF schema from disk to run this test.
-            const string SchemaFileContents =
+        // A simple schema against which a SARIF log file successfully validates.
+        // This way, we don't have to read the SARIF schema from disk to run these tests.
+        private const string SchemaFileContents =
 @"{
   ""$schema"": ""http://json-schema.org/draft-04/schema#"",
   ""type"": ""object""
 }";
+        private const string SchemaFilePath = @"c:\schemas\SimpleSchemaForTest.json";
+        const string LogFileDirectory = @"C:\Users\John\logs";
+        const string LogFileName = "example.sarif";
+        const string OutputFilePath = @"C:\Users\John\output\example-validation.sarif";
+
+        [Fact]
+        [Trait(TestTraits.Bug, "1064")]
+        public void ValidateCommand_AcceptsTargetFileWithSpaceInName()
+        {
             // Here's the space:
-            const string LogFileDirectory = @"c:\Users\John Smith\logs";
+            const string LogFileDirectoryWithSpace = @"c:\Users\John Smith\logs";
 
-            const string LogFileName = "example.sarif";
-            string logFilePath = Path.Combine(LogFileDirectory, LogFileName);
-
-            const string SchemaFilePath = @"c:\schemas\SimpleSchemaForTest.json";
+            string logFilePath = Path.Combine(LogFileDirectoryWithSpace, LogFileName);
 
             var mockFileSystem = new Mock<IFileSystem>();
-            mockFileSystem.Setup(x => x.DirectoryExists(LogFileDirectory)).Returns(true);
+            mockFileSystem.Setup(x => x.DirectoryExists(LogFileDirectoryWithSpace)).Returns(true);
             mockFileSystem.Setup(x => x.GetDirectoriesInDirectory(It.IsAny<string>())).Returns(new string[0]);
-            mockFileSystem.Setup(x => x.GetFilesInDirectory(LogFileDirectory, LogFileName)).Returns(new string[] { logFilePath });
-            mockFileSystem.Setup(x => x.ReadAllText(logFilePath)).Returns(logFileContents);
+            mockFileSystem.Setup(x => x.GetFilesInDirectory(LogFileDirectoryWithSpace, LogFileName)).Returns(new string[] { logFilePath });
+            mockFileSystem.Setup(x => x.ReadAllText(logFilePath)).Returns(TransformCommandTests.MinimalCurrentV2Text);
             mockFileSystem.Setup(x => x.ReadAllText(SchemaFilePath)).Returns(SchemaFileContents);
 
             var validateCommand = new ValidateCommand(mockFileSystem.Object);
@@ -52,5 +52,48 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
             int returnCode = validateCommand.Run(options);
             returnCode.Should().Be(0);
         }
+
+        [Fact]
+        [Trait(TestTraits.Bug, "1340")]
+        public void ValidateCommand_WhenOutputFileIsPresentAndForceOptionIsAbsent_DoesNotOverwriteOutputFile()
+        {
+            const string LogFileName = "example.sarif";
+            string logFilePath = Path.Combine(LogFileDirectory, LogFileName);
+
+            var mockFileSystem = new Mock<IFileSystem>();
+            mockFileSystem.Setup(x => x.FileExists(OutputFilePath)).Returns(true);
+            mockFileSystem.Setup(x => x.DirectoryExists(LogFileDirectory)).Returns(true);
+            mockFileSystem.Setup(x => x.GetDirectoriesInDirectory(It.IsAny<string>())).Returns(new string[0]);
+            mockFileSystem.Setup(x => x.GetFilesInDirectory(LogFileDirectory, LogFileName)).Returns(new string[] { logFilePath });
+            mockFileSystem.Setup(x => x.ReadAllText(logFilePath)).Returns(TransformCommandTests.MinimalCurrentV2Text);
+            mockFileSystem.Setup(x => x.ReadAllText(SchemaFilePath)).Returns(SchemaFileContents);
+
+            var validateCommand = new ValidateCommand(mockFileSystem.Object);
+
+            var options = new ValidateOptions
+            {
+                SchemaFilePath = SchemaFilePath,
+                TargetFileSpecifiers = new string[] { logFilePath },
+                OutputFilePath = OutputFilePath
+            };
+
+            int returnCode = validateCommand.Run(options);
+            returnCode.Should().Be(1);
+            validateCommand.ExecutionException.Should().BeOfType<ArgumentException>();
+            validateCommand.ExecutionException.Message.Should().Contain(OutputFilePath);
+        }
+
+        // Note: I would have liked to provide tests for two other conditions:
+        //
+        // 1. When the output file is present and the force option is present.
+        // 2. When the output file is absent (regardless of force option).
+        //
+        // The problem is that in both cases, AnalyzeCommandBase creates a SarifLogger that
+        // creates the output file by way of a FileStream (see the SarifLogger ctor).
+        // The FileStream ctor uses the real file system under the covers; we don't get a
+        // chance to inject our mock file system.
+        //
+        // I could probably work around that by changing the way the SarifLogger creates
+        // its output file, but that seemed a bridge too far for this PR.
     }
 }

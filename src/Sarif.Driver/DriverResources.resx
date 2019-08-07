@@ -138,6 +138,9 @@
   <data name="NonOwningDisposableViewAccess" xml:space="preserve">
     <value>Attempted to access a DisposableEnumerable which is non-owning.</value>
   </data>
+  <data name="OutputFileAlreadyExists" xml:space="preserve">
+    <value>The output file '{0}' already exists. Use --force to overwrite.</value>
+  </data>
   <data name="PREfastDefectBuilderCannotFreeze" xml:space="preserve">
     <value>Invalid PREfast defect state.</value>
   </data>

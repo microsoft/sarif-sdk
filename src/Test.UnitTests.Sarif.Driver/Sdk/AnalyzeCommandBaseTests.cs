@@ -316,6 +316,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         TargetFileSpecifiers = new string[] { GetThisTestAssemblyFilePath() },
                         OutputFilePath = path,
                         Verbose = true,
+                        Force = true
                     };
 
                     ExceptionTestHelper(
@@ -345,6 +346,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     TargetFileSpecifiers = new string[] { GetThisTestAssemblyFilePath() },
                     OutputFilePath = path,
                     Verbose = true,
+                    Force = true
                 };
 
                 ExceptionTestHelper(
@@ -510,7 +512,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     ConfigurationFilePath = configFileName ?? TestAnalyzeCommand.DefaultPolicyName,
                     Recurse = true,
                     OutputFilePath = path,
-                    SarifOutputVersion = SarifVersion.Current
+                    SarifOutputVersion = SarifVersion.Current,
+                    Force = true
                 };
 
                 var command = new TestAnalyzeCommand();
@@ -754,6 +757,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     Recurse = true,
                     OutputFilePath = path,
                     PrettyPrint = true,
+                    Force = true,
                     SarifOutputVersion = SarifVersion.OneZeroZero
                 };
 

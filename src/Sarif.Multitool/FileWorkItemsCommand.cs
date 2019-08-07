@@ -31,7 +31,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             if (fileSystem.FileExists(options.OutputFilePath) && !options.Force)
             {
-                throw new ArgumentException($"The output file '{options.OutputFilePath}' already exists. Use --force to overrwrite.");
+                throw new ArgumentException(
+                    string.Format(
+                        CultureInfo.CurrentCulture,
+                        DriverResources.OutputFileAlreadyExists,
+                        options.OutputFilePath));
             }
 
             // For unit tests: allow us to just validate the options and return.
