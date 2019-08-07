@@ -2,8 +2,10 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.InteropServices;
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Processors;
 using Newtonsoft.Json;
@@ -23,30 +25,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             try
             {
-                var sarifFiles = GetSarifFiles(absoluteUriOptions);
+                IEnumerable<AbsoluteUriFile> absoluteUriFiles = GetAbsoluteUriFiles(absoluteUriOptions);
+                foreach (AbsoluteUriFile absoluteUriFile in absoluteUriFiles)
+                {
+                    DriverUtilities.VerifyOutputFileCanBeCreated(absoluteUriFile.OutputFilePath, absoluteUriOptions.Force, _fileSystem);
+                }
 
                 if (!absoluteUriOptions.Inline)
                 {
-                    Directory.CreateDirectory(absoluteUriOptions.OutputFolderPath);
+                    _fileSystem.CreateDirectory(absoluteUriOptions.OutputFolderPath);
                 }
 
-                foreach (var sarifLog in sarifFiles)
+                var formatting = absoluteUriOptions.PrettyPrint
+                    ? Formatting.Indented
+                    : Formatting.None;
+
+                foreach (var absoluteUriFile in absoluteUriFiles)
                 {
-                    sarifLog.Log = sarifLog.Log.MakeUrisAbsolute();
+                    absoluteUriFile.Log = absoluteUriFile.Log.MakeUrisAbsolute();
 
-                    // Write output to file.
-                    string outputName = sarifLog.GetOutputFileName(absoluteUriOptions);
-
-                    // This isn't optimal. If there are several input files, and the first few output files
-                    // don't exist but the next one does, we will successfully process the first few files
-                    // and then fail. It's better than overwriting the existing file, though.
-                    DriverUtilities.VerifyOutputFileCanBeCreated(outputName, absoluteUriOptions.Force, _fileSystem);
-
-                    var formatting = absoluteUriOptions.PrettyPrint
-                        ? Formatting.Indented
-                        : Formatting.None;
-
-                    WriteSarifFile(_fileSystem, sarifLog.Log, outputName, formatting);
+                    WriteSarifFile(_fileSystem, absoluteUriFile.Log, absoluteUriFile.OutputFilePath, formatting);
                 }
             }
             catch (Exception ex)
@@ -58,30 +56,35 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             return 0;
         }
 
-        private IEnumerable<AbsoluteUriFile> GetSarifFiles(AbsoluteUriOptions absoluteUriOptions)
+        private IEnumerable<AbsoluteUriFile> GetAbsoluteUriFiles(AbsoluteUriOptions absoluteUriOptions)
         {
             // Get files names first, as we may write more sarif logs to the same directory as we rebase them.
-            HashSet<string> fileNames = CreateTargetsSet(absoluteUriOptions.TargetFileSpecifiers, absoluteUriOptions.Recurse, _fileSystem);
-            foreach (var file in fileNames)
+            HashSet<string> inputFilePaths = CreateTargetsSet(absoluteUriOptions.TargetFileSpecifiers, absoluteUriOptions.Recurse, _fileSystem);
+            foreach (var inputFilePath in inputFilePaths)
             {
-                yield return new AbsoluteUriFile() { FileName = file, Log = ReadSarifFile<SarifLog>(_fileSystem, file) };
+                yield return new AbsoluteUriFile
+                {
+                    InputFilePath = inputFilePath,
+                    OutputFilePath = GetOutputFilePath(inputFilePath, absoluteUriOptions),
+                    Log = ReadSarifFile<SarifLog>(_fileSystem, inputFilePath) };
             }
+        }
+
+        internal string GetOutputFilePath(string inputFilePath, AbsoluteUriOptions absoluteUriOptions)
+        {
+            if (absoluteUriOptions.Inline) { return inputFilePath; }
+
+            return !string.IsNullOrEmpty(absoluteUriOptions.OutputFolderPath)
+                ? Path.GetFullPath(absoluteUriOptions.OutputFolderPath) + Path.DirectorySeparatorChar + Path.GetFileNameWithoutExtension(inputFilePath) + "-absolute.sarif"
+                : Path.GetDirectoryName(inputFilePath) + Path.DirectorySeparatorChar + Path.GetFileNameWithoutExtension(inputFilePath) + "-absolute.sarif";
         }
 
         private class AbsoluteUriFile
         {
-            public string FileName;
+            public string InputFilePath;
+            public string OutputFilePath;
 
             public SarifLog Log;
-
-            internal string GetOutputFileName(AbsoluteUriOptions absoluteUriOptions)
-            {
-                if (absoluteUriOptions.Inline) { return FileName; }
-
-                return !string.IsNullOrEmpty(absoluteUriOptions.OutputFolderPath)
-                    ? Path.GetFullPath(absoluteUriOptions.OutputFolderPath) + Path.DirectorySeparatorChar + Path.GetFileNameWithoutExtension(FileName) + "-absolute.sarif"
-                    : Path.GetDirectoryName(FileName) + Path.DirectorySeparatorChar + Path.GetFileNameWithoutExtension(FileName) + "-absolute.sarif";
-            }
         }
     }
 }
