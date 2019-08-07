@@ -386,14 +386,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         OptionallyEmittedData dataToInsert = analyzeOptions.DataToInsert.ToFlags();
                         OptionallyEmittedData dataToRemove = analyzeOptions.DataToRemove.ToFlags();
 
-                        if (FileSystem.FileExists(filePath) && !loggingOptions.HasFlag(LoggingOptions.OverwriteExistingOutputFile))
-                        {
-                            throw new ArgumentException(
-                                string.Format(
-                                    CultureInfo.CurrentCulture,
-                                    DriverResources.OutputFileAlreadyExists,
-                                    analyzeOptions.OutputFilePath));
-                        }
+                        DriverUtilities.VerifyOutputFileCanBeCreated(filePath, loggingOptions.HasFlag(LoggingOptions.OverwriteExistingOutputFile), FileSystem);
 
                         // This code is required in order to support the obsolete ComputeFileHashes argument
                         // on the analyze command-line.
@@ -480,7 +473,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             try
             {
-                skimmers = DriverUtilities.GetExports<Skimmer<TContext>>(DefaultPlugInAssemblies);
+                skimmers = CompositionUtilities.GetExports<Skimmer<TContext>>(DefaultPlugInAssemblies);
 
                 SupportedPlatform currentOS = GetCurrentRunningOS();
                 foreach (Skimmer<TContext> skimmer in skimmers)

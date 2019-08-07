@@ -29,14 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             if (!ValidateOptions(options)) { return 1; }
 
-            if (fileSystem.FileExists(options.OutputFilePath) && !options.Force)
-            {
-                throw new ArgumentException(
-                    string.Format(
-                        CultureInfo.CurrentCulture,
-                        DriverResources.OutputFileAlreadyExists,
-                        options.OutputFilePath));
-            }
+            DriverUtilities.VerifyOutputFileCanBeCreated(options.OutputFilePath, options.Force, fileSystem);
 
             // For unit tests: allow us to just validate the options and return.
             if (s_validateOptionsOnly) { return 0; }
