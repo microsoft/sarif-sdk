@@ -24,6 +24,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             try
             {
+                string outputDirectory = mergeOptions.OutputFolderPath ?? Environment.CurrentDirectory;
+                string outputName = Path.Combine(outputDirectory, GetOutputFileName(mergeOptions));
+
+                DriverUtilities.VerifyOutputFileCanBeCreated(outputName, mergeOptions.Force, _fileSystem);
+
                 var sarifFiles = CreateTargetsSet(mergeOptions.TargetFileSpecifiers, mergeOptions.Recurse, _fileSystem);
 
                 var allRuns = ParseFiles(sarifFiles);
@@ -40,16 +45,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     combinedLog = new InsertOptionalDataVisitor(dataToInsert).VisitSarifLog(combinedLog);
                 }
 
-                string outputDirectory = mergeOptions.OutputFolderPath ?? Environment.CurrentDirectory;
-
                 // Write output to file.
-                string outputName = Path.Combine(outputDirectory, GetOutputFileName(mergeOptions));
-                
                 var formatting = mergeOptions.PrettyPrint
                     ? Formatting.Indented
                     : Formatting.None;
 
-                Directory.CreateDirectory(outputDirectory);
+                _fileSystem.CreateDirectory(outputDirectory);
 
                 WriteSarifFile(_fileSystem, combinedLog, outputName, formatting);
             }
