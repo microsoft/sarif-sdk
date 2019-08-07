@@ -3,7 +3,7 @@
 
 using System;
 using System.IO;
-using System.Text;
+using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
@@ -36,6 +36,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 // NOTE: we don't actually utilize the dataToInsert command-line data yet...
 
                 string fileName = CommandUtilities.GetTransformedOutputFileName(transformOptions);
+
+                DriverUtilities.VerifyOutputFileCanBeCreated(transformOptions.OutputFilePath, transformOptions.Force, _fileSystem);
 
                 var formatting = transformOptions.PrettyPrint
                     ? Formatting.Indented
