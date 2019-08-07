@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Map;
 using Newtonsoft.Json;
 
@@ -42,11 +43,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             if (options.Count < 0) { throw new ArgumentOutOfRangeException("count"); }
             if (!_fileSystem.FileExists(options.InputFilePath)) { throw new FileNotFoundException($"Input file \"{options.InputFilePath}\" not found."); }
 
-            if (options.Force == false && _fileSystem.FileExists(options.OutputFilePath))
-            {
-                Console.WriteLine($"Output file \"{options.OutputFilePath}\" already exists. Stopping.");
-                return;
-            }
+            DriverUtilities.VerifyOutputFileCanBeCreated(options.OutputFilePath, options.Force, _fileSystem);
 
             // Load the JsonMap, if previously built and up-to-date, or rebuild it
             JsonMapNode root = LoadOrRebuildMap(options);
