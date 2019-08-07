@@ -15,6 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
         public string AreaPath { get; set; }
         public List<string> Tags { get; set; }
         public Attachment Attachment { get; set; }
+        public IReadOnlyDictionary<string, string> CustomFields { get; set; }
         public object Object { get; set; }
     }
 }
