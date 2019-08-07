@@ -35,6 +35,12 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
 
             string buildDefinitionName = artifactLocation.GetProperty("BuildDefinitionName");
 
+            List<string> customTags = new List<string>();
+            if (artifactLocation.TryGetProperty("CustomTags", out string customTagsString))
+            {
+                metadata.CustomTags = customTagsString.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(t => t.Trim()).ToList();
+            }
+
             Dictionary<string, string> customFields = new Dictionary<string, string>();
             if (artifactLocation.TryGetProperty("CustomFields", out string customFieldsString))
             {
