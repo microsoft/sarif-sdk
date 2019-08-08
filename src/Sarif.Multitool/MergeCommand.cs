@@ -25,9 +25,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             try
             {
                 string outputDirectory = mergeOptions.OutputFolderPath ?? Environment.CurrentDirectory;
-                string outputName = Path.Combine(outputDirectory, GetOutputFileName(mergeOptions));
+                string outputFilePath = Path.Combine(outputDirectory, GetOutputFileName(mergeOptions));
 
-                DriverUtilities.ReportWhetherOutputFileCanBeCreated(outputName, mergeOptions.Force, _fileSystem);
+                if (!DriverUtilities.ReportWhetherOutputFileCanBeCreated(outputFilePath, mergeOptions.Force, _fileSystem))
+                {
+                    return -1;
+                }
 
                 var sarifFiles = CreateTargetsSet(mergeOptions.TargetFileSpecifiers, mergeOptions.Recurse, _fileSystem);
 
@@ -52,7 +55,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 _fileSystem.CreateDirectory(outputDirectory);
 
-                WriteSarifFile(_fileSystem, combinedLog, outputName, formatting);
+                WriteSarifFile(_fileSystem, combinedLog, outputFilePath, formatting);
             }
             catch (Exception ex)
             {
