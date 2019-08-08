@@ -23,33 +23,39 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public int Run(PageOptions options)
         {
+            int returnCode;
+
             try
             {
-                RunWithoutCatch(options);
+                returnCode = RunWithoutCatch(options);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
-                return 1;
+                returnCode = 1;
             }
 
-            return 0;
+            return returnCode;
         }
 
-        public void RunWithoutCatch(PageOptions options)
+        public int RunWithoutCatch(PageOptions options)
         {
+            // TODO: Report these to the console instead of throwing.
             if (options.RunIndex < 0) { throw new ArgumentOutOfRangeException("runIndex"); }
             if (options.Index < 0) { throw new ArgumentOutOfRangeException("index"); }
             if (options.Count < 0) { throw new ArgumentOutOfRangeException("count"); }
             if (!_fileSystem.FileExists(options.InputFilePath)) { throw new FileNotFoundException($"Input file \"{options.InputFilePath}\" not found."); }
 
-            DriverUtilities.ReportWhetherOutputFileCanBeCreated(options.OutputFilePath, options.Force, _fileSystem);
+            bool valid = DriverUtilities.ReportWhetherOutputFileCanBeCreated(options.OutputFilePath, options.Force, _fileSystem);
+            if (!valid) { return 1; }
 
             // Load the JsonMap, if previously built and up-to-date, or rebuild it
             JsonMapNode root = LoadOrRebuildMap(options);
 
             // Write the desired page from the Sarif file
             ExtractPage(options, root);
+
+            return 1;
         }
 
         internal SarifLog PageViaOm(PageOptions options)
