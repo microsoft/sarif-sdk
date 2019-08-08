@@ -33,18 +33,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// written. This cannot be a directory.</param>
         /// <param name="conversionOptions">Options for controlling the conversion.</param>
         /// <param name="pluginAssemblyPath">Path to plugin assembly containing converter types.</param>
+        /// <param name="fileSystem">
+        /// An object that provides access to the file system.
+        /// </param>
         public void ConvertToStandardFormat(
             string toolFormat,
             string inputFileName,
             string outputFileName,
             LoggingOptions loggingOptions = LoggingOptions.None,
             OptionallyEmittedData dataToInsert = OptionallyEmittedData.None,
-            string pluginAssemblyPath = null)
+            string pluginAssemblyPath = null,
+            IFileSystem fileSystem = null)
         {
             if (inputFileName == null) { throw new ArgumentNullException(nameof(inputFileName)); }
             if (outputFileName == null) { throw new ArgumentNullException(nameof(outputFileName)); }
 
-            if (Directory.Exists(outputFileName))
+            if (fileSystem == null) { fileSystem = new FileSystem(); }
+
+            if (fileSystem.DirectoryExists(outputFileName))
             {
                 throw new ArgumentException("Specified file output path exists but is a directory.", nameof(outputFileName));
             }

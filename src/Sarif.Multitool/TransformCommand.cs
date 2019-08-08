@@ -37,7 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 string fileName = CommandUtilities.GetTransformedOutputFileName(transformOptions);
 
-                DriverUtilities.VerifyOutputFileCanBeCreated(transformOptions.OutputFilePath, transformOptions.Force, _fileSystem);
+                DriverUtilities.ReportWhetherOutputFileCanBeCreated(transformOptions.OutputFilePath, transformOptions.Force, _fileSystem);
 
                 var formatting = transformOptions.PrettyPrint
                     ? Formatting.Indented

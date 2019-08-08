@@ -5,6 +5,7 @@ using System;
 using System.IO;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif;
+using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Multitool;
 using Moq;
 using Xunit;
@@ -78,8 +79,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
 
             int returnCode = validateCommand.Run(options);
             returnCode.Should().Be(1);
-            validateCommand.ExecutionException.Should().BeOfType<ArgumentException>();
-            validateCommand.ExecutionException.Message.Should().Contain(OutputFilePath);
+            validateCommand.ExecutionException.Should().BeOfType<ExitApplicationException<ExitReason>>();
         }
 
         // Note: I would have liked to provide tests for two other conditions:

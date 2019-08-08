@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             {
                 rewriteOptions = ValidateOptions(rewriteOptions);
 
-                DriverUtilities.VerifyOutputFileCanBeCreated(rewriteOptions.OutputFilePath, rewriteOptions.Force, _fileSystem);
+                DriverUtilities.ReportWhetherOutputFileCanBeCreated(rewriteOptions.OutputFilePath, rewriteOptions.Force, _fileSystem);
 
                 SarifLog actualLog = ReadSarifFile<SarifLog>(_fileSystem, rewriteOptions.InputFilePath);
 

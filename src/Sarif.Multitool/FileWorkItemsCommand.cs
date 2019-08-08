@@ -27,9 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public int Run(FileWorkItemsOptions options, IFileSystem fileSystem)
         {
-            if (!ValidateOptions(options)) { return 1; }
-
-            DriverUtilities.VerifyOutputFileCanBeCreated(options.OutputFilePath, options.Force, fileSystem);
+            if (!ValidateOptions(options, fileSystem)) { return 1; }
 
             // For unit tests: allow us to just validate the options and return.
             if (s_validateOptionsOnly) { return 0; }
@@ -99,7 +97,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             return 0;
         }
 
-        private bool ValidateOptions(FileWorkItemsOptions options)
+        private bool ValidateOptions(FileWorkItemsOptions options, IFileSystem fileSystem)
         {
             bool valid = true;
 
@@ -136,6 +134,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
 
             valid = ValidateOutputFileOptions(options) && valid;
+
+            valid = DriverUtilities.ReportWhetherOutputFileCanBeCreated(options.OutputFilePath, options.Force, fileSystem) && valid;
 
             return valid;
         }

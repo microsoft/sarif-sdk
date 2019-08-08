@@ -52,7 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     // This isn't optimal. If there are several input files, and the first few output files
                     // don't exist but the next one does, we will successfully process the first few files
                     // and then fail. It's better than overwriting the existing file, though.
-                    DriverUtilities.VerifyOutputFileCanBeCreated(outputName, rebaseOptions.Force, _fileSystem);
+                    DriverUtilities.ReportWhetherOutputFileCanBeCreated(outputName, rebaseOptions.Force, _fileSystem);
 
                     var formatting = rebaseOptions.PrettyPrint
                         ? Formatting.Indented

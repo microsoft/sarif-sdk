@@ -2,10 +2,8 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.InteropServices;
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Processors;
 using Newtonsoft.Json;
@@ -26,10 +24,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             try
             {
                 IEnumerable<AbsoluteUriFile> absoluteUriFiles = GetAbsoluteUriFiles(absoluteUriOptions);
+
+                bool outputFilesCanBeCreated = true;
                 foreach (AbsoluteUriFile absoluteUriFile in absoluteUriFiles)
                 {
-                    DriverUtilities.VerifyOutputFileCanBeCreated(absoluteUriFile.OutputFilePath, absoluteUriOptions.Force, _fileSystem);
+                    outputFilesCanBeCreated &= DriverUtilities.ReportWhetherOutputFileCanBeCreated(absoluteUriFile.OutputFilePath, absoluteUriOptions.Force, _fileSystem);
                 }
+
+                if (!outputFilesCanBeCreated) { return 1; }
 
                 if (!absoluteUriOptions.Inline)
                 {

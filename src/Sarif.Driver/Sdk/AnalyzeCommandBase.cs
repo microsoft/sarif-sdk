@@ -151,6 +151,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             succeeded &= ValidateFile(context, analyzeOptions.ConfigurationFilePath, shouldExist: true);
             succeeded &= ValidateFiles(context, analyzeOptions.PluginFilePaths, shouldExist: true);
             succeeded &= ValidateInvocationPropertiesToLog(context, analyzeOptions.InvocationPropertiesToLog);
+            succeeded &= ValidateOutputFileCanBeCreated(context, analyzeOptions.OutputFilePath, analyzeOptions.Force);
 
             if (!succeeded)
             {
@@ -219,6 +220,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         succeeded = false;
                     }
                 }
+            }
+
+            return succeeded;
+        }
+
+        private bool ValidateOutputFileCanBeCreated(TContext context, string outputFilePath, bool force)
+        {
+            bool succeeded = true;
+
+            if (!DriverUtilities.CanCreateOutputFile(outputFilePath, force, FileSystem))
+            {
+                Errors.LogOutputFileAlreadyExists(context, outputFilePath);
+                succeeded = false;
             }
 
             return succeeded;
@@ -385,8 +399,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                         OptionallyEmittedData dataToInsert = analyzeOptions.DataToInsert.ToFlags();
                         OptionallyEmittedData dataToRemove = analyzeOptions.DataToRemove.ToFlags();
-
-                        DriverUtilities.VerifyOutputFileCanBeCreated(filePath, loggingOptions.HasFlag(LoggingOptions.OverwriteExistingOutputFile), FileSystem);
 
                         // This code is required in order to support the obsolete ComputeFileHashes argument
                         // on the analyze command-line.

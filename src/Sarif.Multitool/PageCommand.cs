@@ -43,7 +43,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             if (options.Count < 0) { throw new ArgumentOutOfRangeException("count"); }
             if (!_fileSystem.FileExists(options.InputFilePath)) { throw new FileNotFoundException($"Input file \"{options.InputFilePath}\" not found."); }
 
-            DriverUtilities.VerifyOutputFileCanBeCreated(options.OutputFilePath, options.Force, _fileSystem);
+            DriverUtilities.ReportWhetherOutputFileCanBeCreated(options.OutputFilePath, options.Force, _fileSystem);
 
             // Load the JsonMap, if previously built and up-to-date, or rebuild it
             JsonMapNode root = LoadOrRebuildMap(options);

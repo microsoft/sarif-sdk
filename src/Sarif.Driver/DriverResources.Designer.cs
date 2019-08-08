@@ -124,15 +124,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The output file &apos;{0}&apos; already exists. Use --force to overwrite..
-        /// </summary>
-        internal static string OutputFileAlreadyExists {
-            get {
-                return ResourceManager.GetString("OutputFileAlreadyExists", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Invalid PREfast defect state..
         /// </summary>
         internal static string PREfastDefectBuilderCannotFreeze {

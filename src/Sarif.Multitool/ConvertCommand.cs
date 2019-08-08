@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     internal static class ConvertCommand
     {
-        public static int Run(ConvertOptions convertOptions)
+        public static int Run(ConvertOptions convertOptions, IFileSystem fileSystem = null)
         {
             try
             {
@@ -39,7 +39,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                                                 convertOptions.OutputFilePath,
                                                 loggingOptions,
                                                 dataToInsert,
-                                                convertOptions.PluginAssemblyPath);
+                                                convertOptions.PluginAssemblyPath,
+                                                fileSystem);
             }
             catch (Exception ex) when (!Debugger.IsAttached)
             {

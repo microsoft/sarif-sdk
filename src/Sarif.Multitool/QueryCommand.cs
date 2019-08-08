@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public int Run(QueryOptions options)
         {
-            DriverUtilities.VerifyOutputFileCanBeCreated(options.OutputFilePath, options.Force, _fileSystem);
+            DriverUtilities.ReportWhetherOutputFileCanBeCreated(options.OutputFilePath, options.Force, _fileSystem);
 
             try
             {
