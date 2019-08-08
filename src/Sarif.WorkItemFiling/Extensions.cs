@@ -149,7 +149,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
                 string organization = artifactLocation.GetProperty("OrganizationName");
                 string buildDefinitionId = artifactLocation.GetProperty<int>("BuildDefinitionId").ToString();
                 string projectName = artifactLocation.GetProperty("ProjectName");
-                string pipelineName = organization + "/" + projectName + "." + buildDefinitionId + ": ";
+                string pipelineName = organization + "/" + projectName + "." + buildDefinitionId;
 
                 string anchorLink = GetLinkText(result.Message.Text);
                 string jsonPath = GetVariableName(result.Message.Text);
