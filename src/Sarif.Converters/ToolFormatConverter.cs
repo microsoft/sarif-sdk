@@ -33,32 +33,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// written. This cannot be a directory.</param>
         /// <param name="conversionOptions">Options for controlling the conversion.</param>
         /// <param name="pluginAssemblyPath">Path to plugin assembly containing converter types.</param>
-        /// <param name="fileSystem">
-        /// An object that provides access to the file system.
-        /// </param>
         public void ConvertToStandardFormat(
             string toolFormat,
             string inputFileName,
             string outputFileName,
             LoggingOptions loggingOptions = LoggingOptions.None,
             OptionallyEmittedData dataToInsert = OptionallyEmittedData.None,
-            string pluginAssemblyPath = null,
-            IFileSystem fileSystem = null)
+            string pluginAssemblyPath = null)
         {
             if (inputFileName == null) { throw new ArgumentNullException(nameof(inputFileName)); }
             if (outputFileName == null) { throw new ArgumentNullException(nameof(outputFileName)); }
-
-            if (fileSystem == null) { fileSystem = new FileSystem(); }
-
-            if (fileSystem.DirectoryExists(outputFileName))
-            {
-                throw new ArgumentException("Specified file output path exists but is a directory.", nameof(outputFileName));
-            }
-
-            if (!loggingOptions.HasFlag(LoggingOptions.OverwriteExistingOutputFile) && File.Exists(outputFileName))
-            {
-                throw new InvalidOperationException("Output file already exists and option to overwrite was not specified.");
-            }
 
             // FileMode settings here will results in an exception being raised if the input 
             // file does not exist, and that an existing output file will be overwritten

@@ -3,7 +3,9 @@
 
 using System;
 using System.Diagnostics;
+using System.Globalization;
 using Microsoft.CodeAnalysis.Sarif.Converters;
+using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
@@ -12,8 +14,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     {
         public static int Run(ConvertOptions convertOptions, IFileSystem fileSystem = null)
         {
+            if (fileSystem == null) { fileSystem = new FileSystem(); }
+
             try
             {
+                if (string.IsNullOrEmpty(convertOptions.OutputFilePath))
+                {
+                    convertOptions.OutputFilePath = convertOptions.InputFilePath + ".sarif";
+                }
+
+                if (fileSystem.DirectoryExists(convertOptions.OutputFilePath))
+                {
+                    Console.Error.WriteLine(
+                        string.Format(
+                            CultureInfo.CurrentCulture,
+                            "The output path '{0}' exists but is a directory.",
+                            convertOptions.OutputFilePath));
+                    return 1;
+                }
+
+                if (!DriverUtilities.ReportWhetherOutputFileCanBeCreated(convertOptions.OutputFilePath, convertOptions.Force, fileSystem))
+                {
+                    return 1;
+                }
+
                 LoggingOptions loggingOptions = LoggingOptions.None;
 
                 OptionallyEmittedData dataToInsert = convertOptions.DataToInsert.ToFlags();
@@ -28,19 +52,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     loggingOptions |= LoggingOptions.OverwriteExistingOutputFile;
                 };
 
-                if (string.IsNullOrEmpty(convertOptions.OutputFilePath))
-                {
-                    convertOptions.OutputFilePath = convertOptions.InputFilePath + ".sarif";
-                }
-
                 new ToolFormatConverter().ConvertToStandardFormat(
                                                 convertOptions.ToolFormat,
                                                 convertOptions.InputFilePath,
                                                 convertOptions.OutputFilePath,
                                                 loggingOptions,
                                                 dataToInsert,
-                                                convertOptions.PluginAssemblyPath,
-                                                fileSystem);
+                                                convertOptions.PluginAssemblyPath);
             }
             catch (Exception ex) when (!Debugger.IsAttached)
             {
