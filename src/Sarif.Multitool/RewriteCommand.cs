@@ -23,9 +23,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             try
             {
-                rewriteOptions = ValidateOptions(rewriteOptions);
-
-                DriverUtilities.ReportWhetherOutputFileCanBeCreated(rewriteOptions.OutputFilePath, rewriteOptions.Force, _fileSystem);
+                bool valid = ValidateOptions(rewriteOptions);
+                if (!valid) { return 1; }
 
                 SarifLog actualLog = ReadSarifFile<SarifLog>(_fileSystem, rewriteOptions.InputFilePath);
 
@@ -51,14 +50,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             return 0;
         }
 
-        private static RewriteOptions ValidateOptions(RewriteOptions rewriteOptions)
+        private bool ValidateOptions(RewriteOptions rewriteOptions)
         {
+            bool valid = true;
+
             if (rewriteOptions.Inline)
             {
                 rewriteOptions.Force = true;
             }
 
-            return rewriteOptions;
+            valid &= DriverUtilities.ReportWhetherOutputFileCanBeCreated(rewriteOptions.OutputFilePath, rewriteOptions.Force, _fileSystem);
+
+            return valid;
         }
     }
 }
