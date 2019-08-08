@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     Console.Error.WriteLine(
                         string.Format(
                             CultureInfo.CurrentCulture,
-                            "The output path '{0}' exists but is a directory.",
+                            "The output path '{0}' is a directory.",
                             convertOptions.OutputFilePath));
                     return 1;
                 }
