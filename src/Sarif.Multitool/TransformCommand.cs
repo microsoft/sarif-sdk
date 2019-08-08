@@ -25,19 +25,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             try
             {
-                if (transformOptions.SarifOutputVersion != SarifVersion.OneZeroZero && transformOptions.SarifOutputVersion != SarifVersion.Current)
-                {
-                    Console.WriteLine(MultitoolResources.ErrorInvalidTransformTargetVersion);
-                    return 1;
-                }
-
-                OptionallyEmittedData dataToInsert = transformOptions.DataToInsert.ToFlags();
+                bool valid = ValidateOptions(transformOptions);
+                if (!valid) { return 1; }
 
                 // NOTE: we don't actually utilize the dataToInsert command-line data yet...
+                OptionallyEmittedData dataToInsert = transformOptions.DataToInsert.ToFlags();
 
                 string fileName = CommandUtilities.GetTransformedOutputFileName(transformOptions);
-
-                DriverUtilities.ReportWhetherOutputFileCanBeCreated(transformOptions.OutputFilePath, transformOptions.Force, _fileSystem);
 
                 var formatting = transformOptions.PrettyPrint
                     ? Formatting.Indented
@@ -117,6 +111,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
 
             return 0;
+        }
+
+        private bool ValidateOptions(TransformOptions transformOptions)
+        {
+            bool valid = true;
+
+            if (transformOptions.SarifOutputVersion != SarifVersion.OneZeroZero && transformOptions.SarifOutputVersion != SarifVersion.Current)
+            {
+                Console.WriteLine(MultitoolResources.ErrorInvalidTransformTargetVersion);
+                valid = false;
+            }
+
+            valid &= DriverUtilities.ReportWhetherOutputFileCanBeCreated(transformOptions.OutputFilePath, transformOptions.Force, _fileSystem);
+
+            return valid;
         }
 
         private string SniffVersion(string sarifPath)
