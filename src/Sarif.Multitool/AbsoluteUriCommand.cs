@@ -28,7 +28,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 bool outputFilesCanBeCreated = true;
                 foreach (AbsoluteUriFile absoluteUriFile in absoluteUriFiles)
                 {
-                    outputFilesCanBeCreated &= DriverUtilities.ReportWhetherOutputFileCanBeCreated(absoluteUriFile.OutputFilePath, absoluteUriOptions.Force, _fileSystem);
+                    outputFilesCanBeCreated &=
+                        DriverUtilities.ReportWhetherOutputFileCanBeCreated(
+                            absoluteUriFile.OutputFilePath,
+                            absoluteUriOptions.Force,
+                            _fileSystem);
                 }
 
                 if (!outputFilesCanBeCreated) { return 1; }
@@ -68,7 +72,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 {
                     InputFilePath = inputFilePath,
                     OutputFilePath = GetOutputFilePath(inputFilePath, absoluteUriOptions),
-                    Log = ReadSarifFile<SarifLog>(_fileSystem, inputFilePath) };
+                    Log = ReadSarifFile<SarifLog>(_fileSystem, inputFilePath)
+                };
             }
         }
 
