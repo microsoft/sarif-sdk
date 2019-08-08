@@ -66,9 +66,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         {
                             string outputFilePath = Path.Combine(options.OutputFolderPath, fileName);
 
-                            DriverUtilities.ReportWhetherOutputFileCanBeCreated(outputFilePath, options.Force, _fileSystem);
-
-                            WriteSarifFile(_fileSystem, mergedLog, outputFilePath, formatting);
+                            if (DriverUtilities.ReportWhetherOutputFileCanBeCreated(outputFilePath, options.Force, _fileSystem))
+                            {
+                                WriteSarifFile(_fileSystem, mergedLog, outputFilePath, formatting);
+                            }
                         }
                     }
                 }
