@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Processors;
 using Newtonsoft.Json;
@@ -25,16 +26,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             {
                 IEnumerable<AbsoluteUriFile> absoluteUriFiles = GetAbsoluteUriFiles(absoluteUriOptions);
 
-                bool outputFilesCanBeCreated = true;
-                foreach (AbsoluteUriFile absoluteUriFile in absoluteUriFiles)
-                {
-                    outputFilesCanBeCreated &=
-                        DriverUtilities.ReportWhetherOutputFileCanBeCreated(
-                            absoluteUriFile.OutputFilePath,
-                            absoluteUriOptions.Force,
-                            _fileSystem);
-                }
 
+                bool outputFilesCanBeCreated = DriverUtilities.ReportWhetherOutputFilesCanBeCreated(absoluteUriFiles.Select(f => f.OutputFilePath), absoluteUriOptions.Force, _fileSystem);
                 if (!outputFilesCanBeCreated) { return 1; }
 
                 if (!absoluteUriOptions.Inline)

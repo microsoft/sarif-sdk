@@ -56,6 +56,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             if (rewriteOptions.Inline)
             {
+                rewriteOptions.OutputFilePath = rewriteOptions.InputFilePath;
                 rewriteOptions.Force = true;
             }
 

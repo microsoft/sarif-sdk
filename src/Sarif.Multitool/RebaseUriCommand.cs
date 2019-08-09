@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Processors;
 using Newtonsoft.Json;
@@ -37,16 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 var rebaseUriFiles = GetRebaseUriFiles(rebaseOptions);
 
-                bool outputFilesCanBeCreated = true;
-                foreach (RebaseUriFile rebaseUriFile in rebaseUriFiles)
-                {
-                    outputFilesCanBeCreated &=
-                        DriverUtilities.ReportWhetherOutputFileCanBeCreated(
-                            rebaseUriFile.OutputFilePath,
-                            rebaseOptions.Force,
-                            _fileSystem);
-                }
-
+                bool outputFilesCanBeCreated = DriverUtilities.ReportWhetherOutputFilesCanBeCreated(rebaseUriFiles.Select(f => f.OutputFilePath), rebaseOptions.Force, _fileSystem);
                 if (!outputFilesCanBeCreated) { return 1; }
 
                 if (!rebaseOptions.Inline)

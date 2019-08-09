@@ -24,6 +24,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public int Run(ResultMatchSetOptions options)
         {
+            int returnCode = 0;
+
             options.OutputFolderPath = options.OutputFolderPath ?? Path.Combine(options.FolderPath, "Out");
 
             ISarifLogMatcher matcher = ResultMatchingBaselinerFactory.GetDefaultResultMatchingBaseliner();
@@ -70,12 +72,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                             {
                                 WriteSarifFile(_fileSystem, mergedLog, outputFilePath, formatting);
                             }
+                            else
+                            {
+                                returnCode = 1;
+                            }
                         }
                     }
                 }
                 catch (Exception ex) when (!Debugger.IsAttached)
                 {
                     Console.WriteLine(ex.ToString());
+                    returnCode = 1;
                 }
 
                 previousFileName = fileName;
@@ -83,7 +90,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 previousLog = currentLog;
             }
 
-            return 0;
+            return returnCode;
         }
 
         private static string GetGroupName(string fileName)

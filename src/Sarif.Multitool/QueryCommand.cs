@@ -22,9 +22,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public int Run(QueryOptions options)
         {
-            bool valid = DriverUtilities.ReportWhetherOutputFileCanBeCreated(options.OutputFilePath, options.Force, _fileSystem);
-            if (!valid) { return 1; }
-
             try
             {
                 return RunWithoutCatch(options);
@@ -38,6 +35,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public int RunWithoutCatch(QueryOptions options)
         {
+            bool valid = DriverUtilities.ReportWhetherOutputFileCanBeCreated(options.OutputFilePath, options.Force, _fileSystem);
+            if (!valid) { return 1; }
+
             Stopwatch w = Stopwatch.StartNew();
             int originalTotal = 0;
             int matchCount = 0;

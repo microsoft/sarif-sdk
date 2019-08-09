@@ -25,13 +25,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             try
             {
+                transformOptions.OutputFilePath = CommandUtilities.GetTransformedOutputFileName(transformOptions);
+
                 bool valid = ValidateOptions(transformOptions);
                 if (!valid) { return 1; }
 
                 // NOTE: we don't actually utilize the dataToInsert command-line data yet...
                 OptionallyEmittedData dataToInsert = transformOptions.DataToInsert.ToFlags();
-
-                string fileName = CommandUtilities.GetTransformedOutputFileName(transformOptions);
 
                 var formatting = transformOptions.PrettyPrint
                     ? Formatting.Indented
@@ -55,7 +55,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         SarifLogVersionOne actualLog = ReadSarifFile<SarifLogVersionOne>(_fileSystem, transformOptions.InputFilePath, SarifContractResolverVersionOne.Instance);
                         var visitor = new SarifVersionOneToCurrentVisitor();
                         visitor.VisitSarifLogVersionOne(actualLog);
-                        WriteSarifFile(_fileSystem, visitor.SarifLog, fileName, formatting);
+                        WriteSarifFile(_fileSystem, visitor.SarifLog, transformOptions.OutputFilePath, formatting);
                     }
                     else
                     {
@@ -65,7 +65,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                             formatting: formatting,
                             out string sarifText);
 
-                        _fileSystem.WriteAllText(fileName, sarifText);
+                        _fileSystem.WriteAllText(transformOptions.OutputFilePath, sarifText);
                     }
                 }
                 else 
@@ -74,7 +74,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     {
                         SarifLogVersionOne logV1 = ReadSarifFile<SarifLogVersionOne>(_fileSystem, transformOptions.InputFilePath, SarifContractResolverVersionOne.Instance);
                         logV1.SchemaUri = SarifVersion.OneZeroZero.ConvertToSchemaUri();
-                        WriteSarifFile(_fileSystem, logV1, fileName, formatting, SarifContractResolverVersionOne.Instance);
+                        WriteSarifFile(_fileSystem, logV1, transformOptions.OutputFilePath, formatting, SarifContractResolverVersionOne.Instance);
                     }
                     else
                     {
@@ -100,7 +100,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         var visitor = new SarifCurrentToVersionOneVisitor();
                         visitor.VisitSarifLog(actualLog);
 
-                        WriteSarifFile(_fileSystem, visitor.SarifLogVersionOne, fileName, formatting, SarifContractResolverVersionOne.Instance);
+                        WriteSarifFile(_fileSystem, visitor.SarifLogVersionOne, transformOptions.OutputFilePath, formatting, SarifContractResolverVersionOne.Instance);
                     }
                 }
             }

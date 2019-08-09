@@ -32,12 +32,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             // For unit tests: allow us to just validate the options and return.
             if (s_validateOptionsOnly) { return 0; }
 
-            if (options.Inline)
-            {
-                options.OutputFilePath = options.InputFilePath;
-                options.Force = true;
-            }
-
             string projectName = options.ProjectUri.GetProjectName();
 
             string logFileContents = fileSystem.ReadAllText(options.InputFilePath);
@@ -134,6 +128,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
 
             valid = ValidateOutputFileOptions(options) && valid;
+
+            if (options.Inline)
+            {
+                options.OutputFilePath = options.InputFilePath;
+                options.Force = true;
+            }
 
             valid = DriverUtilities.ReportWhetherOutputFileCanBeCreated(options.OutputFilePath, options.Force, fileSystem) && valid;
 
