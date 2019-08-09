@@ -4,6 +4,7 @@
 using System;
 using System.Collections;
 using System.Diagnostics;
+using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Query;
 using Microsoft.CodeAnalysis.Sarif.Query.Evaluators;
 using Newtonsoft.Json;
@@ -25,7 +26,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             {
                 return RunWithoutCatch(options);
             }
-
             catch (Exception ex) when (!Debugger.IsAttached)
             {
                 Console.WriteLine(ex);
@@ -35,6 +35,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public int RunWithoutCatch(QueryOptions options)
         {
+            bool valid = DriverUtilities.ReportWhetherOutputFileCanBeCreated(options.OutputFilePath, options.Force, _fileSystem);
+            if (!valid) { return 1; }
+
             Stopwatch w = Stopwatch.StartNew();
             int originalTotal = 0;
             int matchCount = 0;

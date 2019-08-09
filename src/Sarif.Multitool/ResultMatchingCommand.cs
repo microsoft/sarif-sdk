@@ -35,6 +35,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     outputFilePath = Path.GetFileNameWithoutExtension(matchingOptions.PreviousFilePath) + "-annotated.sarif";
                 }
 
+                if (!DriverUtilities.ReportWhetherOutputFileCanBeCreated(outputFilePath, matchingOptions.Force, _fileSystem))
+                {
+                    return -1;
+                }
+
                 var currentSarifLogs = new List<SarifLog>();
 
                 foreach (string currentFilePath in matchingOptions.CurrentFilePaths)

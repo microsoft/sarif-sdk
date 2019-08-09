@@ -59,7 +59,7 @@
 
   <ItemGroup>
     <EmbeddedResource Update="SdkResources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <CustomToolNamespace>Microsoft.CodeAnalysis.Sarif</CustomToolNamespace>
       <LastGenOutput>SdkResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>

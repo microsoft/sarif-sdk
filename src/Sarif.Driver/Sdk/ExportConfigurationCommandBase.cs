@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 // The export command could be updated in the future to accept an arbitrary set
                 // of analyzers for which to build an options XML file suitable for configuring them.
-                ImmutableArray<IOptionsProvider> providers = DriverUtilities.GetExports<IOptionsProvider>(DefaultPlugInAssemblies);
+                ImmutableArray<IOptionsProvider> providers = CompositionUtilities.GetExports<IOptionsProvider>(DefaultPlugInAssemblies);
                 foreach (IOptionsProvider provider in providers)
                 {
                     IOption sampleOption = null;
@@ -34,7 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 }
 
                 IEnumerable<ReportingDescriptor> rules;
-                rules = DriverUtilities.GetExports<ReportingDescriptor>(DefaultPlugInAssemblies);
+                rules = CompositionUtilities.GetExports<ReportingDescriptor>(DefaultPlugInAssemblies);
 
                 // This code injects properties that are provided for every rule instance.
                 foreach (ReportingDescriptor rule in rules)

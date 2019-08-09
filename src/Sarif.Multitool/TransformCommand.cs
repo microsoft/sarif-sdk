@@ -3,7 +3,7 @@
 
 using System;
 using System.IO;
-using System.Text;
+using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
@@ -25,17 +25,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             try
             {
-                if (transformOptions.SarifOutputVersion != SarifVersion.OneZeroZero && transformOptions.SarifOutputVersion != SarifVersion.Current)
-                {
-                    Console.WriteLine(MultitoolResources.ErrorInvalidTransformTargetVersion);
-                    return 1;
-                }
+                transformOptions.OutputFilePath = CommandUtilities.GetTransformedOutputFileName(transformOptions);
 
-                OptionallyEmittedData dataToInsert = transformOptions.DataToInsert.ToFlags();
+                bool valid = ValidateOptions(transformOptions);
+                if (!valid) { return 1; }
 
                 // NOTE: we don't actually utilize the dataToInsert command-line data yet...
-
-                string fileName = CommandUtilities.GetTransformedOutputFileName(transformOptions);
+                OptionallyEmittedData dataToInsert = transformOptions.DataToInsert.ToFlags();
 
                 var formatting = transformOptions.PrettyPrint
                     ? Formatting.Indented
@@ -59,7 +55,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         SarifLogVersionOne actualLog = ReadSarifFile<SarifLogVersionOne>(_fileSystem, transformOptions.InputFilePath, SarifContractResolverVersionOne.Instance);
                         var visitor = new SarifVersionOneToCurrentVisitor();
                         visitor.VisitSarifLogVersionOne(actualLog);
-                        WriteSarifFile(_fileSystem, visitor.SarifLog, fileName, formatting);
+                        WriteSarifFile(_fileSystem, visitor.SarifLog, transformOptions.OutputFilePath, formatting);
                     }
                     else
                     {
@@ -69,7 +65,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                             formatting: formatting,
                             out string sarifText);
 
-                        _fileSystem.WriteAllText(fileName, sarifText);
+                        _fileSystem.WriteAllText(transformOptions.OutputFilePath, sarifText);
                     }
                 }
                 else 
@@ -78,7 +74,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     {
                         SarifLogVersionOne logV1 = ReadSarifFile<SarifLogVersionOne>(_fileSystem, transformOptions.InputFilePath, SarifContractResolverVersionOne.Instance);
                         logV1.SchemaUri = SarifVersion.OneZeroZero.ConvertToSchemaUri();
-                        WriteSarifFile(_fileSystem, logV1, fileName, formatting, SarifContractResolverVersionOne.Instance);
+                        WriteSarifFile(_fileSystem, logV1, transformOptions.OutputFilePath, formatting, SarifContractResolverVersionOne.Instance);
                     }
                     else
                     {
@@ -104,7 +100,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         var visitor = new SarifCurrentToVersionOneVisitor();
                         visitor.VisitSarifLog(actualLog);
 
-                        WriteSarifFile(_fileSystem, visitor.SarifLogVersionOne, fileName, formatting, SarifContractResolverVersionOne.Instance);
+                        WriteSarifFile(_fileSystem, visitor.SarifLogVersionOne, transformOptions.OutputFilePath, formatting, SarifContractResolverVersionOne.Instance);
                     }
                 }
             }
@@ -115,6 +111,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
 
             return 0;
+        }
+
+        private bool ValidateOptions(TransformOptions transformOptions)
+        {
+            bool valid = true;
+
+            if (transformOptions.SarifOutputVersion != SarifVersion.OneZeroZero && transformOptions.SarifOutputVersion != SarifVersion.Current)
+            {
+                Console.WriteLine(MultitoolResources.ErrorInvalidTransformTargetVersion);
+                valid = false;
+            }
+
+            valid &= DriverUtilities.ReportWhetherOutputFileCanBeCreated(transformOptions.OutputFilePath, transformOptions.Force, _fileSystem);
+
+            return valid;
         }
 
         private string SniffVersion(string sarifPath)

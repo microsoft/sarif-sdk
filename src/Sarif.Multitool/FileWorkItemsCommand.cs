@@ -27,21 +27,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public int Run(FileWorkItemsOptions options, IFileSystem fileSystem)
         {
-            if (!ValidateOptions(options)) { return 1; }
-
-            if (fileSystem.FileExists(options.OutputFilePath) && !options.Force)
-            {
-                throw new ArgumentException($"The output file '{options.OutputFilePath}' already exists. Use --force to overrwrite.");
-            }
+            if (!ValidateOptions(options, fileSystem)) { return 1; }
 
             // For unit tests: allow us to just validate the options and return.
             if (s_validateOptionsOnly) { return 0; }
-
-            if (options.Inline)
-            {
-                options.OutputFilePath = options.InputFilePath;
-                options.Force = true;
-            }
 
             string projectName = options.ProjectUri.GetProjectName();
 
@@ -102,7 +91,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             return 0;
         }
 
-        private bool ValidateOptions(FileWorkItemsOptions options)
+        private bool ValidateOptions(FileWorkItemsOptions options, IFileSystem fileSystem)
         {
             bool valid = true;
 
@@ -139,6 +128,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
 
             valid = ValidateOutputFileOptions(options) && valid;
+
+            if (options.Inline)
+            {
+                options.OutputFilePath = options.InputFilePath;
+                options.Force = true;
+            }
+
+            valid = DriverUtilities.ReportWhetherOutputFileCanBeCreated(options.OutputFilePath, options.Force, fileSystem) && valid;
 
             return valid;
         }

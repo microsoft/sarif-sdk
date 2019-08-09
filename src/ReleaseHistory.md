@@ -434,3 +434,6 @@
 
 ## **v2.1.12** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.12) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.12) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.12) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.12)
 * BUGFIX: Improve handling of `null` values in property bags. https://github.com/microsoft/sarif-sdk/issues/1581
+
+## **v2.1.13** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.13) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.13) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.13) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.13)
+* BUGFIX: Respect the --force option in Sarif.Multitool rather than overwriting the output file. https://github.com/microsoft/sarif-sdk/issues/1304

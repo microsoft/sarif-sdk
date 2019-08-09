@@ -246,4 +246,7 @@
   <data name="ERR997_AllRulesExplicitlyDisabled" xml:space="preserve">
     <value>All rules were explicitly disabled so there is no work to do.</value>
   </data>
+  <data name="ERR997_OutputFileAlreadyExists" xml:space="preserve">
+    <value>The output file '{0}' already exists. Use --force to overwrite.</value>
+  </data>
 </root>
