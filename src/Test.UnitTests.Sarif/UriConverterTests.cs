@@ -53,6 +53,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif
         }
 
         [Fact]
+        [Trait(TestTraits.Bug, "1632")]
         public void WriteJson_ConvertsUriObjectsToStrings()
         {
             var testObject = new TestClass
