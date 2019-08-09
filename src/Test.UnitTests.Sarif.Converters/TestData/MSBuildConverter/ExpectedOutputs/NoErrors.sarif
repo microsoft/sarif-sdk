@@ -6,7 +6,7 @@
       "results": [],
       "tool": {
         "driver": {
-          "name": "VisualStudioBuildLog"
+          "name": "MSBuild"
         }
       },
       "columnKind": "utf16CodeUnits"

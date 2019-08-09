@@ -23,13 +23,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        public string ExceptionRaisingRuleId = "TEST1001";
+        public string ExceptionRaisingRuleId = "TEST1002";
 
         public override SupportedPlatform SupportedPlatforms
         {
             get
             {
-                if(_exceptionCondition ==ExceptionCondition.InvalidPlatform)
+                if (_exceptionCondition == ExceptionCondition.InvalidPlatform)
                 {
                     return SupportedPlatform.Unknown;
                 }
@@ -98,7 +98,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                             RuleId = Id,
                             Level = FailureLevel.Warning,
                             Kind = ResultKind.Fail,
-                            Message = new Message { Text = "Default message from exception raising rule." }
+                            Message = new Message { Text = "Default location-free message from exception raising rule." }
                         });
 
                     break;

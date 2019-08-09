@@ -45,9 +45,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             return context;
         }
 
-        private static string s_CurrentSchemaLocation = 
-            Path.Combine(Path.GetDirectoryName(typeof(ValidateCommand).Assembly.Location), "sarif-schema-" + VersionConstants.SchemaVersionAsPublishedToSchemaStoreOrg + ".json");
-
         protected override void AnalyzeTarget(
             IEnumerable<Skimmer<SarifValidationContext>> skimmers,
             SarifValidationContext context,

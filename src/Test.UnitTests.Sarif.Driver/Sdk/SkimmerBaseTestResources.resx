@@ -117,16 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="TST0001_Error" xml:space="preserve">
-    <value>This test plainly failed.</value>
+  <data name="TEST1001_Failed" xml:space="preserve">
+    <value>This test plainly failed for '{0}'.</value>
   </data>
-  <data name="TST0001_Markdown_Error" xml:space="preserve">
-    <value>This test  _failed_ resulting in a quality **markdown**.</value>
+  <data name="TEST1001_Information" xml:space="preserve">
+    <value>Here's a piece of information for you re: '{0}'.</value>
   </data>
-  <data name="TST0001_Markdown_Pass" xml:space="preserve">
-    <value>This test  _passed_ resulting in a quality **markdown**.</value>
+  <data name="TEST1001_Markdown_Error" xml:space="preserve">
+    <value>This test  _failed_ for '{0}' resulting in a quality **markdown**.</value>
   </data>
-  <data name="TST0001_Pass" xml:space="preserve">
-    <value>This test plainly passed.</value>
+  <data name="TEST1001_Markdown_Pass" xml:space="preserve">
+    <value>This test  _passed_ for '{0}' resulting in a quality **markdown**.</value>
+  </data>
+  <data name="TEST1001_Note" xml:space="preserve">
+    <value>We note that there may be a low priority issues to address in '{0}'.</value>
+  </data>
+  <data name="TEST1001_Open" xml:space="preserve">
+    <value>The jury is still out on '{0}'; no verdict is returned.</value>
+  </data>
+  <data name="TEST1001_Pass" xml:space="preserve">
+    <value>This test plainly passed for '{0}'.</value>
+  </data>
+  <data name="TEST1001_Review" xml:space="preserve">
+    <value>'{0}' should be reviewed for possible issues.</value>
   </data>
 </root>

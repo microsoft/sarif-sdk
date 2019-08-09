@@ -11,6 +11,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         string MimeType { get; set; }
 
+        HashData Hashes { get; set; }
+
         Exception TargetLoadException { get; set;  }
 
         bool IsValidAnalysisTarget { get;  }

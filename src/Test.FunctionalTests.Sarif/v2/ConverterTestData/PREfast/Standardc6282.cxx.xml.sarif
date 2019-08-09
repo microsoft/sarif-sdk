@@ -1,39 +1,28 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-09-26",
-  "version": "2.0.0-csd.2.beta.2018-09-26",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.4.json",
+  "version": "2.1.0",
   "runs": [
     {
       "tool": {
-        "name": "PREfast",
-        "fullName": "PREfast Code Analysis"
-      },
-      "files": {
-        "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/standardux/standardc6282.cxx": {
-          "mimeType": "text/x-cpp",
-          "contents": {
-            "binary": "LyoqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioNCiAqIENvcHlyaWdodCAoYykgTWljcm9zb2Z0IENvcnBvcmF0aW9uLiAgQWxsIHJpZ2h0cyByZXNlcnZlZC4gDQogKgkNCiAqIERlc2NyaXB0aW9uIDogRG9jIFNhbXBsZToNCiAgIHdhcm5pbmcgQzYyODI6IEluY29ycmVjdCBvcGVyYXRvcjogYXNzaWdubWVudCBvZiBjb25zdGFudCBpbiBCb29sZWFuIGNvbnRleHQuIENvbnNpZGVyIHVzaW5nICc9PScgaW5zdGVhZCAgIA0KICAgDQogKiBDb21tYW5kIGxpbmUgOiBjbCAvVzQgL2FuYWx5emUgL2MgPGZpbGU+DQogKg0KICogQXV0aG9yIDogcmF2a2F1cg0KICoNCiAqIERhdGUgY3JlYXRlZCA6IDA0LTA0LTIwMDUNCiAqDQogKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKi8NCnZvaWQgZl9kKGludCBpKQ0Kew0KICAgd2hpbGUgKGkgPSA1KQkvL0BAQEV4cGVjdHM6NjI4Mg0KICAgew0KICAgLy8gY29kZSAgDQogICB9DQp9DQoNCnZvaWQgZihpbnQgaSkNCnsNCiAgIHdoaWxlIChpID09IDUpDQogICB7DQogICAvLyBjb2RlICANCiAgIH0NCn0NCg0K"
-          },
-          "hashes": [
-            {
-              "value": "ABF7B591C26026A65873688DC67F6354",
-              "algorithm": "md5"
-            },
-            {
-              "value": "026189B81AAC35D2A94198862207CE09ADB8F4DE",
-              "algorithm": "sha-1"
-            },
-            {
-              "value": "1DB8ECC5252B723E424B1C13370EA67C2D9902FD314224C9D1CDD43447E38AD6",
-              "algorithm": "sha-256"
-            }
-          ]
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis"
         }
       },
-      "logicalLocations": {
-        "f_d": {
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/standardux/standardc6282.cxx",
+            "index": 0
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "f_d",
           "decoratedName": "?f_d@@YAXH@Z"
         }
-      },
+      ],
       "results": [
         {
           "ruleId": "6282",
@@ -43,36 +32,29 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/standardux/standardc6282.cxx"
+                "artifactLocation": {
+                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/standardux/standardc6282.cxx",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 16,
-                  "startColumn": 13,
-                  "snippet": {
-                    "text": "= 5)\t//@@@Expects:6282"
-                  }
-                },
-                "contextRegion": {
-                  "startLine": 15,
-                  "startColumn": 1,
-                  "endLine": 17,
-                  "endColumn": 5,
-                  "charOffset": 519,
-                  "charLength": 43,
-                  "snippet": {
-                    "text": "{\r\n   while (i = 5)\t//@@@Expects:6282\r\n   {"
-                  }
+                  "startColumn": 13
                 }
               },
-              "fullyQualifiedLogicalName": "f_d",
+              "logicalLocations": [
+                {
+                  "index": 0,
+                  "fullyQualifiedName": "f_d"
+                }
+              ],
               "properties": {
                 "funcline": "14"
               }
             }
           ]
         }
-      ]
+      ],
+      "columnKind": "utf16CodeUnits"
     }
   ]
 }

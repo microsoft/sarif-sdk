@@ -79,6 +79,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos; is not a valid SARIF log file..
+        /// </summary>
+        internal static string ErrorInvalidSarifLogFile {
+            get {
+                return ResourceManager.GetString("ErrorInvalidSarifLogFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Target version must be 1 or 2.
         /// </summary>
         internal static string ErrorInvalidTransformTargetVersion {
@@ -88,11 +97,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error: No &quot;group&quot; (the part of the file name before the dash) found in &apos;{0}&apos;. All file names must be of the form [Group]-[RunID] and each adjacent pair in the same group is compared..
+        ///   Looks up a localized string similar to No &quot;group&quot; (the part of the file name before the dash) found in &apos;{0}&apos;. All file names must be of the form [Group]-[RunID] and each adjacent pair in the same group is compared..
         /// </summary>
         internal static string ErrorNoGroupInFileName {
             get {
                 return ResourceManager.GetString("ErrorNoGroupInFileName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exactly one of the &apos;{0}&apos; and &apos;{1}&apos; options must be present..
+        /// </summary>
+        internal static string ErrorOutputFilePathAndInline {
+            get {
+                return ResourceManager.GetString("ErrorOutputFilePathAndInline", resourceCulture);
             }
         }
         
@@ -102,6 +120,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool {
         internal static string ResultDifferenceSummary {
             get {
                 return ResourceManager.GetString("ResultDifferenceSummary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The value &apos;{0}&apos; of the &apos;{1}&apos; option is not an absolute URI..
+        /// </summary>
+        internal static string WorkItemFiling_ErrorUriIsNotAbsolute {
+            get {
+                return ResourceManager.GetString("WorkItemFiling_ErrorUriIsNotAbsolute", resourceCulture);
             }
         }
     }

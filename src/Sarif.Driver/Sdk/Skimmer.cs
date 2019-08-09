@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
         private IDictionary<string, MultiformatMessageString> multiformatMessageStrings;
 
-        virtual protected ResourceManager ResourceManager => throw new NotImplementedException();
+        virtual protected ResourceManager ResourceManager => null;
 
         virtual protected IEnumerable<string> MessageResourceNames => throw new NotImplementedException();
 
@@ -35,7 +35,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         private Dictionary<string, MultiformatMessageString> InitializeMultiformatMessageStrings()
         {
-            return RuleUtilities.BuildDictionary(ResourceManager, MessageResourceNames, ruleId: Id);
+            return (ResourceManager == null) ? null
+                : RuleUtilities.BuildDictionary(ResourceManager, MessageResourceNames, ruleId: Id);
         }
 
         public override string Id => throw new InvalidOperationException($"The {nameof(Id)} property must be overridden in the SkimmerBase-derived class.");

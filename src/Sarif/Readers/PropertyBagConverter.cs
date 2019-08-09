@@ -35,9 +35,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             foreach (string key in objectDictionary.Keys)
             {
                 object value = objectDictionary[key];
-                Type propertyType = value.GetType();
+                Type propertyType = value?.GetType();
 
-                string serializedValue = value.ToString();
+                string serializedValue = value?.ToString();
                 bool isString = false;
 
                 if (propertyType == typeof(bool))
@@ -50,9 +50,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                     isString = true;
                 }
 
-                propertyDictionary.Add(
-                    key,
-                    new SerializedPropertyInfo(serializedValue, isString));
+                SerializedPropertyInfo propInfo = value == null ? null : new SerializedPropertyInfo(serializedValue, isString);
+
+                propertyDictionary.Add(key, propInfo);
             }
 
             return propertyDictionary;
@@ -70,7 +70,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             foreach (string key in propertyDictionary.Keys)
             {
                 writer.WritePropertyName(key);
-                writer.WriteRawValue(propertyDictionary[key].SerializedValue);
+                string valueToSerialize = propertyDictionary[key]?.SerializedValue;
+
+                if (valueToSerialize == null)
+                {
+                    writer.WriteNull();
+                }
+                else
+                {
+                    writer.WriteRawValue(propertyDictionary[key].SerializedValue);
+                }
             }
 
             writer.WriteEndObject();

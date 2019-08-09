@@ -27,27 +27,6 @@
       },
       "invocations": [
         {
-          "toolExecutionNotifications": [
-            {
-              "locations": [
-                {
-                  "physicalLocation": {
-                    "artifactLocation": {
-                      "uri": "FunctionalTestOutput.ValidateCommand/Inputs.JSON1002.DeserializationError.sarif",
-                      "uriBaseId": "TEST_DIR"
-                    }
-                  }
-                }
-              ],
-              "message": {
-                "text": "Analyzing 'Inputs.JSON1002.DeserializationError.sarif'..."
-              },
-              "level": "none",
-              "descriptor": {
-                "id": "MSG001.AnalyzingTarget"
-              }
-            }
-          ],
           "executionSuccessful": true
         }
       ],
@@ -57,8 +36,7 @@
             "uri": "FunctionalTestOutput.ValidateCommand/Inputs.JSON1002.DeserializationError.sarif",
             "uriBaseId": "TEST_DIR",
             "index": 0
-          },
-          "mimeType": "application/sarif-json"
+          }
         }
       ],
       "results": [

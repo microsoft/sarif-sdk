@@ -2,6 +2,8 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.CodeAnalysis.Sarif.WorkItemFiling;
@@ -12,71 +14,47 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
 {
     public class WorkItemFilerTests
     {
-        private static readonly ResourceExtractor s_extractor = new ResourceExtractor(typeof(WorkItemFilerTests));
+        private static readonly Uri s_testUri = new Uri("https://github.com/Microsoft/sarif-sdk");
 
         [Fact]
-        public void WorkItemFiler_RequiresAFileSystem()
+        public async void WorkItemFiler_ChecksProjectUriArgument()
         {
-            WorkItemFiler filer;
-            Action action = () => filer = new WorkItemFiler(fileSystem: null);
+            var filer = CreateWorkItemFiler();
 
-            action.Should().Throw<ArgumentNullException>();
+            Func<Task> action = async () => await filer.FileWorkItems(projectUri: null, workItemFilingMetadata: new List<WorkItemFilingMetadata>()); ;
+
+            await action.ShouldThrowAsync<ArgumentNullException>();
         }
 
         [Fact]
-        public void WorkItemFiler_ChecksPathArgument()
+        public async void WorkItemFiler_ChecksWorkItemMetadataArgument()
         {
-            var mockFileSystem = new Mock<IFileSystem>();
-            IFileSystem fileSystem = mockFileSystem.Object;
-            var filer = new WorkItemFiler(fileSystem);
+            var filer = CreateWorkItemFiler();
 
-            Action action = () => filer.FileWorkItems(path: null);
+            Func<Task> action = async () => await filer.FileWorkItems(s_testUri, workItemFilingMetadata: null);
 
-            action.Should().Throw<ArgumentNullException>();
+            await action.ShouldThrowAsync<ArgumentNullException>();
         }
 
-        [Fact]
-        public void WorkItemFiler_RejectsInvalidSarifFile()
+        private static WorkItemFiler CreateWorkItemFiler()
+            => new WorkItemFiler(CreateMockFilingTarget());
+
+        private static FilingTarget CreateMockFilingTarget()
         {
-            const string LogFilePath = "Invalid.sarif";
-            WorkItemFiler filer = CreateWorkItemFilerForResource(LogFilePath);
+            var mockFilingTarget = new Mock<FilingTarget>();
 
-            Action action = () => filer.FileWorkItems(LogFilePath);
+            mockFilingTarget
+                .Setup(x => x.Connect(It.IsAny<Uri>(), It.IsAny<string>()))
+                .CallBase(); // The base class implementation does nothing, so this is safe.
 
-            action.Should().Throw<ArgumentException>();
-        }
+            // Moq magic: you can return whatever was passed to a method by providing
+            // a lambda (rather than a fixed value) to Returns or ReturnsAsync.
+            // https://stackoverflow.com/questions/996602/returning-value-that-was-passed-into-a-method
+            mockFilingTarget
+                .Setup(x => x.FileWorkItems(It.IsAny<IEnumerable<WorkItemFilingMetadata>>()))
+                .ReturnsAsync((IEnumerable<WorkItemFilingMetadata> resultGroups) => resultGroups);
 
-        [Fact]
-        public void WorkItemFiler_AcceptsSarifFileWithNullResults()
-        {
-            const string LogFilePath = "NullResults.sarif";
-            WorkItemFiler filer = CreateWorkItemFilerForResource(LogFilePath);
-
-            Action action = () => filer.FileWorkItems(LogFilePath);
-
-            action.Should().NotThrow();
-        }
-
-        [Fact]
-        public void WorkItemFiler_AcceptsSarifFileWithEmptyResults()
-        {
-            const string LogFilePath = "EmptyResults.sarif";
-            WorkItemFiler filer = CreateWorkItemFilerForResource(LogFilePath);
-
-            Action action = () => filer.FileWorkItems(LogFilePath);
-
-            action.Should().NotThrow();
-        }
-
-        private static WorkItemFiler CreateWorkItemFilerForResource(string resourceName)
-        {
-            string logFileContents = s_extractor.GetResourceText(resourceName);
-
-            var mockFileSystem = new Mock<IFileSystem>();
-            mockFileSystem.Setup(x => x.ReadAllText(resourceName)).Returns(logFileContents);
-
-            IFileSystem fileSystem = mockFileSystem.Object;
-            return new WorkItemFiler(fileSystem);
+            return mockFilingTarget.Object;
         }
     }
 }

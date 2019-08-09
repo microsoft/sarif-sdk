@@ -21,7 +21,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             HelpText = "A folder to output the transformed files to.")]
         public string OutputFolderPath { get; internal set; }
 
-
         [Option(
             'i',
             "inline",

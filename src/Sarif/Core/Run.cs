@@ -31,7 +31,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             ArtifactLocation fileLocation,
             bool addToFilesTableIfNotPresent = true,
             OptionallyEmittedData dataToInsert = OptionallyEmittedData.None,
-            Encoding encoding = null)
+            Encoding encoding = null,
+            HashData hashData = null)
         {
             if (fileLocation == null) { throw new ArgumentNullException(nameof(fileLocation)); }
 
@@ -85,13 +86,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                     this.Artifacts = this.Artifacts ?? new List<Artifact>();
                     fileIndex = this.Artifacts.Count;
 
-                    string mimeType = Writers.MimeType.DetermineFromFileExtension(filesTableKey.Uri.ToString());
-
                     var fileData = Artifact.Create(
                         filesTableKey.Uri,
                         dataToInsert,
-                        mimeType: mimeType,
-                        encoding);
+                        hashData: hashData,
+                        encoding: null);
 
                     fileData.Location = fileLocation;
 

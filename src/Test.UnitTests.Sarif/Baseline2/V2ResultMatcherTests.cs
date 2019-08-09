@@ -18,17 +18,30 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
         private const string SampleFilePath = "elfie-arriba.sarif";
         private Run SampleRun { get; }
 
+        private const string SuppressionTestPreviousFilePath = "SuppressionTestPrevious.sarif";
+        private SarifLog SuppressionTestPreviousLog { get; }
+
+        private const string SuppressionTestCurrentFilePath = "SuppressionTestCurrent.sarif";
+        private SarifLog SuppressionTestCurrentLog { get; }
+
         private static readonly IResultMatcher matcher = new V2ResultMatcher();
         private static readonly ResourceExtractor extractor = new ResourceExtractor(typeof(V2ResultMatcherTests));
 
         public V2ResultMatcherTests()
         {
-            string sampleFileContents = extractor.GetResourceText(SampleFilePath);
+            SampleRun = GetLogFromResource(SampleFilePath).Runs[0];
 
-            SampleRun = JsonConvert.DeserializeObject<SarifLog>(sampleFileContents).Runs[0];
+            SuppressionTestPreviousLog = GetLogFromResource(SuppressionTestPreviousFilePath);
+            SuppressionTestCurrentLog = GetLogFromResource(SuppressionTestCurrentFilePath);
         }
 
-        private static IEnumerable<MatchedResults> Match(Run previous, Run current)
+        private static SarifLog GetLogFromResource(string filePath)
+        {
+            string fileContents = extractor.GetResourceText(filePath);
+            return JsonConvert.DeserializeObject<SarifLog>(fileContents);
+        }
+
+        private static IEnumerable<MatchedResults> CreateMatchedResults(Run previous, Run current)
         {
             return matcher.Match(
                 previous.Results.Select(r => new ExtractedResult(r, previous)).ToList(),
@@ -36,10 +49,17 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
             );
         }
 
+        private static Run CreateMatchedRun(SarifLog previousLog, SarifLog currentLog)
+        {
+            ISarifLogMatcher baseliner = ResultMatchingBaselinerFactory.GetDefaultResultMatchingBaseliner();
+            SarifLog matchedLog = baseliner.Match(new[] { previousLog }, new[] { currentLog }).Single();
+            return matchedLog.Runs[0];
+        }
+
         [Fact]
         public void V2ResultMatcher_Identical()
         {
-            IEnumerable<MatchedResults> matches = Match(SampleRun, SampleRun);
+            IEnumerable<MatchedResults> matches = CreateMatchedResults(SampleRun, SampleRun);
             matches.Where(m => m.PreviousResult == null || m.CurrentResult == null).Should().BeEmpty();
         }
 
@@ -49,7 +69,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
             Run newRun = SampleRun.DeepClone();
             newRun.Results[2].Locations[0].PhysicalLocation.Region.StartLine += 1;
 
-            IEnumerable<MatchedResults> matches = Match(SampleRun, newRun);
+            IEnumerable<MatchedResults> matches = CreateMatchedResults(SampleRun, newRun);
             matches.Where(m => m.PreviousResult == null || m.CurrentResult == null).Should().BeEmpty();
         }
 
@@ -60,7 +80,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
             newRun.Results[2].Locations[0].PhysicalLocation.ArtifactLocation.Index = -1;
             newRun.Results[2].Locations[0].PhysicalLocation.ArtifactLocation.Uri = new Uri("file:///C:/Code/elfie-arriba/XForm/XForm.Web/node_modules/public-encrypt/test/test_rsa_privkey_NEW.pem");
 
-            IEnumerable<MatchedResults> matches = Match(SampleRun, newRun);
+            IEnumerable<MatchedResults> matches = CreateMatchedResults(SampleRun, newRun);
             matches.Where(m => m.PreviousResult == null || m.CurrentResult == null).Should().BeEmpty();
         }
 
@@ -75,7 +95,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
 
             newRun.Results.Add(newResult);
 
-            IEnumerable<MatchedResults> matches = Match(SampleRun, newRun);
+            IEnumerable<MatchedResults> matches = CreateMatchedResults(SampleRun, newRun);
             matches.Where(m => m.PreviousResult != null && m.CurrentResult != null).Should().HaveCount(5);
             matches.Where(m => m.PreviousResult == null || m.CurrentResult == null).Should().HaveCount(1);
 
@@ -89,7 +109,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
             Run newRun = SampleRun.DeepClone();
             newRun.Results.RemoveAt(2);
 
-            IEnumerable<MatchedResults> matches = Match(SampleRun, newRun);
+            IEnumerable<MatchedResults> matches = CreateMatchedResults(SampleRun, newRun);
             matches.Where(m => m.PreviousResult != null && m.CurrentResult != null).Should().HaveCount(4);
             matches.Where(m => m.PreviousResult == null || m.CurrentResult == null).Should().HaveCount(1);
 
@@ -109,7 +129,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
             newResult.Message.Text = "Different Message";
             newRun.Results.Add(newResult);
 
-            IEnumerable<MatchedResults> matches = Match(SampleRun, newRun);
+            IEnumerable<MatchedResults> matches = CreateMatchedResults(SampleRun, newRun);
             matches.Where(m => m.PreviousResult != null && m.CurrentResult != null).Should().HaveCount(4);
             matches.Where(m => m.PreviousResult == null || m.CurrentResult == null).Should().HaveCount(2);
 
@@ -135,9 +155,49 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
             newResult.Message.Text = "Different Message";
             newRun.Results.Add(newResult);
 
-            IEnumerable<MatchedResults> matches = Match(SampleRun, newRun);
+            IEnumerable<MatchedResults> matches = CreateMatchedResults(SampleRun, newRun);
             matches.Where(m => m.PreviousResult != null && m.CurrentResult != null).Should().HaveCount(5);
             matches.Where(m => m.PreviousResult == null || m.CurrentResult == null).Should().HaveCount(2);
+        }
+
+        [Fact]
+        public void V2ResultMatcher_WhenNewIssueIsSuppressed_SupressesTheResultInTheOutput()
+        {
+            Run matchedRun = CreateMatchedRun(SuppressionTestPreviousLog, SuppressionTestCurrentLog);
+
+            Result newSuppressedResult = matchedRun.Results.Single(r => r.Message.Text == "New suppressed result.");
+
+            newSuppressedResult.Suppressions.Count.Should().Be(1);
+        }
+
+        [Fact]
+        public void V2ResultMatcher_WhenExistingUnsuppressedIssueIsNewlySuppressed_SupressesTheResultInTheOutput()
+        {
+            Run matchedRun = CreateMatchedRun(SuppressionTestPreviousLog, SuppressionTestCurrentLog);
+
+            Result existingResultNewlySuppressed = matchedRun.Results.Single(r => r.Message.Text == "Existing, originally unsuppressed result.");
+
+            existingResultNewlySuppressed.Suppressions.Count.Should().Be(1);
+        }
+
+        [Fact]
+        public void V2ResultMatcher_WhenIssueIsSuppressedInBothRuns_SupressesTheResultInTheOutput()
+        {
+            Run matchedRun = CreateMatchedRun(SuppressionTestPreviousLog, SuppressionTestCurrentLog);
+
+            Result existingResultNewlySuppressed = matchedRun.Results.Single(r => r.Message.Text == "Result suppressed in both runs.");
+
+            existingResultNewlySuppressed.Suppressions.Count.Should().Be(1);
+        }
+
+        [Fact]
+        public void V2ResultMatcher_WhenExistingSuppressedIssueIsNewlyUnsuppressed_DoesNotSupressTheResultInTheOutput()
+        {
+            Run matchedRun = CreateMatchedRun(SuppressionTestPreviousLog, SuppressionTestCurrentLog);
+
+            Result existingResultNewlyUnsuppressed = matchedRun.Results.Single(r => r.Message.Text == "Existing, originally suppressed result.");
+
+            existingResultNewlyUnsuppressed.Suppressions.Should().BeNull();
         }
     }
 }

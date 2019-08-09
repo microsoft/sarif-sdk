@@ -21,6 +21,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public string MimeType { get; set; }
 
+        public HashData Hashes { get; set; }
+
         public RuntimeConditions RuntimeErrors { get; set; }
 
         public TestAnalyzeOptions Options { get; set; }

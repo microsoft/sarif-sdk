@@ -21,10 +21,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         private const string ERR997_ExceptionAccessingFile = "ERR997.ExceptionAccessingFile";
         private const string ERR997_MissingReportingConfiguration = "ERR997.MissingReportingConfiguration";
         private const string ERR997_ExceptionCreatingLogFile = "ERR997.ExceptionCreatingLogFile";
-        private const string ERR997_AllRulesExplicitlyDisabled = "ERR997.AllRulesExplicitlyDisabled";
+        internal const string ERR997_AllRulesExplicitlyDisabled = "ERR997.AllRulesExplicitlyDisabled";
         private const string ERR997_InvalidInvocationPropertyName = "ERR997.InvalidInvocationPropertyName";
         private const string ERR997_ExceptionLoadingAnalysisTarget = "ERR997.ExceptionLoadingAnalysisTarget";
         private const string ERR997_ExceptionInstantiatingSkimmers = "ERR997.ExceptionInstantiatingSkimmers";
+        private const string ERR997_OutputFileAlreadyExists = "ERR997.OutputFileAlreadyExists";
 
         // Rule disabling tool errors:
         private const string ERR998_ExceptionInCanAnalyze = "ERR998.ExceptionInCanAnalyze";
@@ -319,6 +320,25 @@ namespace Microsoft.CodeAnalysis.Sarif
             context.RuntimeErrors |= RuntimeConditions.ExceptionLoadingAnalysisPlugin;
         }
 
+        public static void LogOutputFileAlreadyExists(IAnalysisContext context, string outputFilePath)
+        {
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
+            context.Logger.LogConfigurationNotification(
+                CreateNotification(
+                    context.TargetUri,
+                    ERR997_OutputFileAlreadyExists,
+                    FailureLevel.Error,
+                    exception: null,
+                    persistExceptionStack: false,
+                    outputFilePath));
+
+            context.RuntimeErrors |= RuntimeConditions.OutputFileAlreadyExists;
+        }
+
         public static void LogTargetParseError(IAnalysisContext context, Region region, string message)
         {
             if (context == null)
@@ -528,7 +548,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             string resourceName = notificationId.Replace('.', '_');
 
             return (string)typeof(SdkResources)
-                            .GetProperty(resourceName, BindingFlags.NonPublic | BindingFlags.Static)
+                            .GetProperty(resourceName, BindingFlags.Public | BindingFlags.Static)
                             .GetValue(obj: null, index: null);
         }
     }

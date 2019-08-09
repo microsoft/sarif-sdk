@@ -15,6 +15,9 @@
 
   <ItemGroup>
     <None Remove="TestData\Baseline\elfie-arriba.sarif" />
+    <None Remove="TestData\Baseline\SuppressionTestCurrent.sarif" />
+    <None Remove="TestData\Baseline\SuppressionTestPrevious.sarif" />
+    <None Remove="TestData\JsonConverters\UriConverterTests.json" />
     <None Remove="TestData\Map\Sample.json" />
     <None Remove="TestData\Map\TinyArray.json" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\ArtifactsWithRoles.sarif" />
@@ -61,8 +64,11 @@
 
   <ItemGroup>
     <EmbeddedResource Include="TestData\Baseline\elfie-arriba.sarif" />
+    <EmbeddedResource Include="TestData\Baseline\SuppressionTestCurrent.sarif" />
+    <EmbeddedResource Include="TestData\Baseline\SuppressionTestPrevious.sarif" />
     <EmbeddedResource Include="TestData\InsertOptionalDataVisitor\ExpectedOutputs\TopLevelOriginalUriBaseIdUriMissing_ContextRegionSnippets.sarif" />
     <EmbeddedResource Include="TestData\InsertOptionalDataVisitor\Inputs\TopLevelOriginalUriBaseIdUriMissing.sarif" />
+    <EmbeddedResource Include="TestData\JsonConverters\UriConverterTests.json" />
     <EmbeddedResource Include="TestData\Map\TinyArray.json">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -75,7 +81,7 @@
 
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.4.1" />
-    <PackageReference Include="Microsoft.Json.Schema" Version="1.1.0" />
+    <PackageReference Include="Microsoft.Json.Schema" Version="1.1.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.5.0" />
     <PackageReference Include="Moq" Version="4.8.3" />
     <PackageReference Include="xunit" Version="2.3.1" />

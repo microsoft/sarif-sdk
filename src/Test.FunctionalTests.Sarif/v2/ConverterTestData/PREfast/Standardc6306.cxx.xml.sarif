@@ -1,39 +1,28 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-09-26",
-  "version": "2.0.0-csd.2.beta.2018-09-26",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.4.json",
+  "version": "2.1.0",
   "runs": [
     {
       "tool": {
-        "name": "PREfast",
-        "fullName": "PREfast Code Analysis"
-      },
-      "files": {
-        "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/standardux/standardc6306.cxx": {
-          "mimeType": "text/x-cpp",
-          "contents": {
-            "binary": "LyoqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioNCiAqIENvcHlyaWdodCAoYykgTWljcm9zb2Z0IENvcnBvcmF0aW9uLiAgQWxsIHJpZ2h0cyByZXNlcnZlZC4gDQogKgkNCiAqIERlc2NyaXB0aW9uIDogRG9jIFNhbXBsZToNCiAqIHdhcm5pbmcgQzYzMDY6IGluY29ycmVjdCBjYWxsIHRvIDxmdW5jdGlvbj46IGNvbnNpZGVyIHVzaW5nIDxmdW5jdGlvbj4gd2hpY2ggYWNjZXB0cyBhIHZhX2xpc3QgYXMgYW4gYXJndW1lbnQNCiAqIA0KICogQ29tbWFuZCBsaW5lIDogY2wgL1c0IC9hbmFseXplIC9jIDxmaWxlPg0KICoNCiAqIEF1dGhvciA6IHJhdmthdXINCiAqDQogKiBEYXRlIGNyZWF0ZWQgOiAwNC0wNC0yMDA1DQogKg0KICoqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKiovDQojcHJhZ21hIHdhcm5pbmcgKGRpc2FibGU6IDM2NTMwIDI4MjQ3IDI4MjUxKQ0KI2luY2x1ZGUgPHN0ZGlvLmg+DQojaW5jbHVkZSA8c3RkYXJnLmg+DQojcHJhZ21hIHdhcm5pbmcoZGVmYXVsdDogMzY1MzAgMjgyNDcgMjgyNTEpIA0KDQoNCnZvaWQgZmQoaW50IGksIC4uLikNCnsNCiAgICB2YV9saXN0IHY7DQogICAgICANCgl2YV9zdGFydCh2LCBpKTsNCgkvL2NvZGUuLi4NCiAgICBwcmludGYoIiVkIiwgdik7IC8vQEBARXhwZWN0czo2MzA2OyA2MjczDQogICAgdmFfZW5kKHYpOw0KfQ0KDQoNCnZvaWQgZihpbnQgaSwgLi4uKQ0Kew0KICAgIHZhX2xpc3QgdjsNCiAgDQoJdmFfc3RhcnQodiwgaSk7DQogICAgLy9jb2RlLi4uDQoJdnByaW50Zl9zKCIlZCIsdik7DQogICAgdmFfZW5kKHYpOw0KDQp9DQoNCg0KDQoNCg0K"
-          },
-          "hashes": [
-            {
-              "value": "BDD08EE9F7AD52D72D87A8194A794DC9",
-              "algorithm": "md5"
-            },
-            {
-              "value": "6CA86687BE2559D56D0C42A2FEC4CFC4BBBF4E7A",
-              "algorithm": "sha-1"
-            },
-            {
-              "value": "9DE8CFF1A88D506FC918A34741B7C8AF3BEAB9C06617BE5A9F2599002444B017",
-              "algorithm": "sha-256"
-            }
-          ]
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis"
         }
       },
-      "logicalLocations": {
-        "fd": {
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/standardux/standardc6306.cxx",
+            "index": 0
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "fd",
           "decoratedName": "?fd@@YAXHZZ"
         }
-      },
+      ],
       "results": [
         {
           "ruleId": "6273",
@@ -43,29 +32,21 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/standardux/standardc6306.cxx"
+                "artifactLocation": {
+                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/standardux/standardc6306.cxx",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 26,
-                  "startColumn": 11,
-                  "snippet": {
-                    "text": "(\"%d\", v); //@@@Expects:6306; 6273"
-                  }
-                },
-                "contextRegion": {
-                  "startLine": 25,
-                  "startColumn": 1,
-                  "endLine": 27,
-                  "endColumn": 15,
-                  "charOffset": 706,
-                  "charLength": 72,
-                  "snippet": {
-                    "text": "\t//code...\r\n    printf(\"%d\", v); //@@@Expects:6306; 6273\r\n    va_end(v);"
-                  }
+                  "startColumn": 11
                 }
               },
-              "fullyQualifiedLogicalName": "fd",
+              "logicalLocations": [
+                {
+                  "index": 0,
+                  "fullyQualifiedName": "fd"
+                }
+              ],
               "properties": {
                 "funcline": "20"
               }
@@ -80,36 +61,29 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/standardux/standardc6306.cxx"
+                "artifactLocation": {
+                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/standardux/standardc6306.cxx",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 26,
-                  "startColumn": 11,
-                  "snippet": {
-                    "text": "(\"%d\", v); //@@@Expects:6306; 6273"
-                  }
-                },
-                "contextRegion": {
-                  "startLine": 25,
-                  "startColumn": 1,
-                  "endLine": 27,
-                  "endColumn": 15,
-                  "charOffset": 706,
-                  "charLength": 72,
-                  "snippet": {
-                    "text": "\t//code...\r\n    printf(\"%d\", v); //@@@Expects:6306; 6273\r\n    va_end(v);"
-                  }
+                  "startColumn": 11
                 }
               },
-              "fullyQualifiedLogicalName": "fd",
+              "logicalLocations": [
+                {
+                  "index": 0,
+                  "fullyQualifiedName": "fd"
+                }
+              ],
               "properties": {
                 "funcline": "20"
               }
             }
           ]
         }
-      ]
+      ],
+      "columnKind": "utf16CodeUnits"
     }
   ]
 }

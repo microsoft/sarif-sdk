@@ -20,6 +20,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public string MimeType { get; set; }
 
+        public HashData Hashes { get; set; }
+
         public RuntimeConditions RuntimeErrors { get; set; }
 
         public Uri TargetUri { get; set; }

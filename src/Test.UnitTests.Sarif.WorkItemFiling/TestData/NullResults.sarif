@@ -5,7 +5,7 @@
     {
       "tool": {
         "driver": {
-          "name": "Sarif Functional Testing"
+          "name": "WorkItemFiler Testing"
         }
       },
       "columnKind": "utf16CodeUnits"

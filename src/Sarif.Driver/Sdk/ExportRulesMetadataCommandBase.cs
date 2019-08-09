@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             try
             {
-                ImmutableArray<ReportingDescriptor> skimmers = DriverUtilities.GetExports<ReportingDescriptor>(DefaultPlugInAssemblies);
+                ImmutableArray<ReportingDescriptor> skimmers = CompositionUtilities.GetExports<ReportingDescriptor>(DefaultPlugInAssemblies);
 
                 string format = "";
                 string outputFilePath = exportOptions.OutputFilePath;

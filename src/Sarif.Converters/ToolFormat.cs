@@ -45,7 +45,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <summary>TSLint's file format.</summary>
         public const string TSLint = nameof(TSLint);
 
-        /// <summary>Visual Studio's build log format, from which diagnostic messages can be parsed.</summary>
-        public const string VisualStudioBuildLog = nameof(VisualStudioBuildLog);
+        /// <summary>MSBuild's build log format, from which diagnostic messages can be parsed.</summary>
+        public const string MSBuild = nameof(MSBuild);
     }
 }

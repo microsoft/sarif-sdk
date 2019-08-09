@@ -19,14 +19,15 @@
 
   <ItemGroup>
     <PackageReference Include="CommandLineParser" Version="2.5.0" />
-    <PackageReference Include="Microsoft.Json.Pointer" Version="1.1.0" />
-    <PackageReference Include="Microsoft.Json.Schema" Version="1.1.0" />
-    <PackageReference Include="Microsoft.Json.Schema.Validation" Version="1.1.0" />
+    <PackageReference Include="Microsoft.Json.Pointer" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Json.Schema" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Json.Schema.Validation" Version="1.1.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Sarif.Converters\Sarif.Converters.csproj" />
     <ProjectReference Include="..\Sarif.Driver\Sarif.Driver.csproj" />
+    <ProjectReference Include="..\Sarif.WorkItemFiling\Sarif.WorkItemFiling.csproj" />
     <ProjectReference Include="..\Sarif\Sarif.csproj" />
   </ItemGroup>
 
@@ -57,6 +58,7 @@
   <ItemGroup>
     <EmbeddedResource Include="$(SolutionDir)\Sarif\Schemata\sarif-$(SchemaVersionAsPublishedToSchemaStoreOrg).json" CopyToOutputDirectory="PreserveNewest" />
     <EmbeddedResource Include=".\DotnetToolSettings.xml" CopyToOutputDirectory="PreserveNewest" />
+    <EmbeddedResource Include="..\Sarif\Schemata\sarif-2.1.0-rtm.4.json" Link="sarif-2.1.0.json" />
   </ItemGroup>
 
 </Project>

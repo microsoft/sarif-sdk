@@ -20,7 +20,7 @@ VisualStudioBuildLogConverterTests.cs(36,38): error CS1002: ; expected [c:\dev\s
 
 The second part of this test file shows that we parse all variations of the error line format.
 
-StartLineOnlyRegion.cs(83): info CS1111: This is a note.
+StartLineOnlyRegion.cs(83): note CS1111: This is a note.
 StartLineEndLineRegion.cs(42-54): warning CS2222: This is a warning.
 StartLineStartColumnEndColumnRegion.cs(17,42-54): warning CS3333: This is another warning.
 StartLineStartColumnEndLineEndColumnRegion.cs(12,26,14,36): error CS4444: This is another error.

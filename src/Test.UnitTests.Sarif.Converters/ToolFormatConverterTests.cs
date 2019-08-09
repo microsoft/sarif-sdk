@@ -19,16 +19,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         private readonly ToolFormatConverter _converter = new ToolFormatConverter();
 
         [Fact]
-        public void ToolFormatConverter_ConvertToStandardFormat_DirectorySpecifiedAsDestination()
-        {
-            string input = Path.GetTempFileName();
-            string directory = Environment.CurrentDirectory;
-            Action action = () => _converter.ConvertToStandardFormat(ToolFormat.AndroidStudio, input, directory);
-
-            action.Should().Throw<ArgumentException>();
-        }
-
-        [Fact]
         public void ToolFormatConverter_ConvertToStandardFormat_NullInputFile()
         {
             string file = Path.GetTempFileName();
@@ -86,15 +76,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             Action action = () =>_converter.ConvertToStandardFormat(ToolFormat.AndroidStudio, doesNotExist, file, LoggingOptions.OverwriteExistingOutputFile);
 
             action.Should().Throw<FileNotFoundException>();
-        }
-
-        [Fact]
-        public void ToolFormatConverter_ConvertToStandardFormat_OutputExistsAndOverwriteNotSpecified()
-        {
-            string exists = this.GetType().Assembly.Location;
-            Action action = () => _converter.ConvertToStandardFormat(ToolFormat.AndroidStudio, exists, exists);
-
-            action.Should().Throw<InvalidOperationException>();
         }
 
         [Fact]

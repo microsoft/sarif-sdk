@@ -423,5 +423,22 @@
 * BUGFIX: Add missing `"additionalProperties": false` constraints to schema; add missing object descriptions and improve other object descriptions in schema; update schema version to -rtm.4.
 
 ## **v2.1.9** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.9) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.9) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.9) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.9)
+* FEATURE: add --remove switch to eliminate certain properties (currently timestamps only) from log file output.
+* BUGFIX: remove verbose 'Analyzing file..' reporting for drivers.
+
+## **v2.1.10** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.10) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.10) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.10) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.10)
+* BUGFIX: Resolve a performance issue in web request parsing code. https://github.com/microsoft/sarif-sdk/issues/1608
+
+## **v2.1.11** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.11) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.11) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.11) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.11)
+* BUGFIX: Result matching should prefer the suppression info from the current run. https://github.com/microsoft/sarif-sdk/issues/1600
+
+## **v2.1.12** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.12) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.12) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.12) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.12)
+* BUGFIX: Improve handling of `null` values in property bags. https://github.com/microsoft/sarif-sdk/issues/1581
+
+## **v2.1.13** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.13) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.13) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.13) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.13)
+* BUGFIX: Respect the --force option in Sarif.Multitool rather than overwriting the output file. https://github.com/microsoft/sarif-sdk/issues/1304
+* BUGFIX: Accept URI-valued properties whose value is the empty string. https://github.com/microsoft/sarif-sdk/issues/1632
+
+## **v2.1.14** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.14) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.14) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.14) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.14)
 * BUGFIX: FxCop converter produced logicalLocation.index but did not produce the run.logicalLocations array. https://github.com/microsoft/sarif-sdk/issues/1571
-* FEATURE: Add validation rule to ensure that `logicalLocation.index` is not present unless `run.logicalLocations` is present.
+* FEATURE: Add validation rule to ensure that all array-index-valued properties are consistent with their respective arrays.
