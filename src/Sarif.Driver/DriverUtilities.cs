@@ -67,6 +67,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             return canBeCreated;
         }
+
         /// <summary>
         /// Returns a value indicating whether the output file can be created.
         /// </summary>
