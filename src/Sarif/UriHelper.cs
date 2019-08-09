@@ -49,7 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </remarks>
         public static string MakeValidUri(string path)
         {
-            if (string.IsNullOrEmpty(path))
+            if (path == null)
             {
                 throw new ArgumentNullException(nameof(path));
             }
