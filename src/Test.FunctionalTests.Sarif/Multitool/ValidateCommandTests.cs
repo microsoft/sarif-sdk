@@ -98,6 +98,13 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
         public void SARIF1016_ContextRegionRequiresRegion_Invalid()
             => RunTest(RuleId.ContextRegionRequiresRegion + "." + nameof(RuleId.ContextRegionRequiresRegion) + "_Invalid.sarif");
 
+        [Fact]
+        public void SARIF1017_InvalidIndex_Valid()
+            => RunTest(RuleId.InvalidIndex + "." + nameof(RuleId.InvalidIndex) + "_Valid.sarif");
+
+        [Fact]
+        public void SARIF1017_InvalidIndex_Invalid()
+            => RunTest(RuleId.InvalidIndex + "." + nameof(RuleId.InvalidIndex) + "_Invalid.sarif");
 
         protected override string ConstructTestOutputFromInputResource(string inputResourceName)
         {
@@ -171,12 +178,11 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
             // from within Visual Studio or at the command-line via xunit.exe. We elide these differences.
 
             ToolComponent driver = actualLog.Runs[0].Tool.Driver;
-            driver.Name = "Sarif Functional Testing";
+            driver.Name = "SARIF Functional Testing";
             driver.Version = null;
             driver.FullName = null;
             driver.SemanticVersion = null;
             driver.DottedQuadFileVersion = null;
-            driver.Name = "Sarif Functional Testing";
             driver.Properties.Clear();
             actualLog.Runs[0].OriginalUriBaseIds = null;
 

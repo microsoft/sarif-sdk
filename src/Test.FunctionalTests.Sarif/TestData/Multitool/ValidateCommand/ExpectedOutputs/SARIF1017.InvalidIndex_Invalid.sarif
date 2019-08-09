@@ -8,17 +8,17 @@
           "name": "SARIF Functional Testing",
           "rules": [
             {
-              "id": "SARIF1008",
-              "name": "MessagesShouldEndWithPeriod",
+              "id": "SARIF1017",
+              "name": "InvalidIndex",
               "shortDescription": {
-                "text": "Messages should consist of one or more complete sentences, ending with a period."
+                "text": "If an object contains a property that is used as an array index, then that array must be present and must contain at least \"index + 1\" elements."
               },
               "fullDescription": {
-                "text": "Messages should consist of one or more complete sentences, ending with a period."
+                "text": "If an object contains a property that is used as an array index, then that array must be present and must contain at least \"index + 1\" elements."
               },
               "messageStrings": {
                 "Default": {
-                  "text": "{0}: The message \"{1}\" does not end with a period."
+                  "text": "{0}: This \"{1}\" object contains a property \"{2}\" with value {3}, but either \"{4}\" is absent, or it has fewer than {5} elements."
                 }
               },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
@@ -34,7 +34,7 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1008.MessagesShouldEndWithPeriod_Invalid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
             "uriBaseId": "TEST_DIR",
             "index": 0
           }
@@ -42,832 +42,899 @@
       ],
       "results": [
         {
-          "ruleId": "SARIF1008",
+          "ruleId": "SARIF1017",
           "ruleIndex": 0,
+          "level": "error",
           "message": {
             "id": "Default",
             "arguments": [
-              "runs[0].results[0].attachments[0].description.text",
-              "attachment description without period"
+              "runs[0].results[0]",
+              "result",
+              "ruleIndex",
+              "3",
+              "runs[0].tool.driver.rules",
+              "4"
             ]
           },
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1008.MessagesShouldEndWithPeriod_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR",
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 136,
-                  "startColumn": 63
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF1008",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Default",
-            "arguments": [
-              "runs[0].results[0].attachments[0].description.markdown",
-              "_Rich_ attachment description without period"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1008.MessagesShouldEndWithPeriod_Invalid.sarif",
+                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
                   "uriBaseId": "TEST_DIR",
                   "index": 0
                 },
                 "region": {
                   "startLine": 137,
-                  "startColumn": 74
+                  "startColumn": 9
                 }
               }
             }
           ]
         },
         {
-          "ruleId": "SARIF1008",
+          "ruleId": "SARIF1017",
           "ruleIndex": 0,
+          "level": "error",
           "message": {
             "id": "Default",
             "arguments": [
-              "runs[0].results[0].attachments[0].rectangles[0].message.text",
-              "rectangle message without period"
+              "runs[0].results[0].locations[0].physicalLocation.address",
+              "address",
+              "index",
+              "1",
+              "runs[0].addresses",
+              "2"
             ]
           },
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1008.MessagesShouldEndWithPeriod_Invalid.sarif",
+                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
                   "uriBaseId": "TEST_DIR",
                   "index": 0
                 },
                 "region": {
-                  "startLine": 147,
-                  "startColumn": 62
+                  "startLine": 150,
+                  "startColumn": 28
                 }
               }
             }
           ]
         },
         {
-          "ruleId": "SARIF1008",
+          "ruleId": "SARIF1017",
           "ruleIndex": 0,
+          "level": "error",
           "message": {
             "id": "Default",
             "arguments": [
-              "runs[0].results[0].attachments[0].rectangles[0].message.markdown",
-              "_Rich_ rectangle message without period"
+              "runs[0].results[0].locations[0].physicalLocation.artifactLocation",
+              "artifactLocation",
+              "index",
+              "2",
+              "runs[0].artifacts",
+              "3"
             ]
           },
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1008.MessagesShouldEndWithPeriod_Invalid.sarif",
+                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
                   "uriBaseId": "TEST_DIR",
                   "index": 0
                 },
                 "region": {
-                  "startLine": 148,
-                  "startColumn": 73
+                  "startLine": 153,
+                  "startColumn": 37
                 }
               }
             }
           ]
         },
         {
-          "ruleId": "SARIF1008",
+          "ruleId": "SARIF1017",
           "ruleIndex": 0,
+          "level": "error",
           "message": {
             "id": "Default",
             "arguments": [
-              "runs[0].results[0].locations[0].message.text",
-              "location message without period"
+              "runs[0].results[0].locations[0].logicalLocations[0]",
+              "logicalLocation",
+              "index",
+              "0",
+              "runs[0].logicalLocations",
+              "1"
             ]
           },
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1008.MessagesShouldEndWithPeriod_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR",
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 75,
-                  "startColumn": 57
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF1008",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Default",
-            "arguments": [
-              "runs[0].results[0].locations[0].message.markdown",
-              "_Rich_ location message without period"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1008.MessagesShouldEndWithPeriod_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR",
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 76,
-                  "startColumn": 68
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF1008",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Default",
-            "arguments": [
-              "runs[0].results[0].locations[0].physicalLocation.region.message.text",
-              "region message without period"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1008.MessagesShouldEndWithPeriod_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR",
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 69,
-                  "startColumn": 59
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF1008",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Default",
-            "arguments": [
-              "runs[0].results[0].locations[0].physicalLocation.region.message.markdown",
-              "_Rich_ region message without period"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1008.MessagesShouldEndWithPeriod_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR",
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 70,
-                  "startColumn": 70
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF1008",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Default",
-            "arguments": [
-              "runs[0].results[0].codeFlows[0].message.text",
-              "codeFlow message without period"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1008.MessagesShouldEndWithPeriod_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR",
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 101,
-                  "startColumn": 57
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF1008",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Default",
-            "arguments": [
-              "runs[0].results[0].codeFlows[0].message.markdown",
-              "_Rich_ codeFlow message without period"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1008.MessagesShouldEndWithPeriod_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR",
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 102,
-                  "startColumn": 68
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF1008",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Default",
-            "arguments": [
-              "runs[0].results[0].codeFlows[0].threadFlows[0].message.text",
-              "threadFlow message without period"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1008.MessagesShouldEndWithPeriod_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR",
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 107,
-                  "startColumn": 63
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF1008",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Default",
-            "arguments": [
-              "runs[0].results[0].codeFlows[0].threadFlows[0].message.markdown",
-              "_Rich_ threadFlow message without period"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1008.MessagesShouldEndWithPeriod_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR",
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 108,
-                  "startColumn": 74
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF1008",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Default",
-            "arguments": [
-              "runs[0].results[0].codeFlows[0].threadFlows[0].locations[0].location.message.text",
-              "ThreadFlow location message without period"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1008.MessagesShouldEndWithPeriod_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR",
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 123,
-                  "startColumn": 78
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF1008",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Default",
-            "arguments": [
-              "runs[0].results[0].codeFlows[0].threadFlows[0].locations[0].location.message.markdown",
-              "_Rich_ ThreadFlow location message without period"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1008.MessagesShouldEndWithPeriod_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR",
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 124,
-                  "startColumn": 89
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF1008",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Default",
-            "arguments": [
-              "runs[0].results[0].message.text",
-              "result message without period"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1008.MessagesShouldEndWithPeriod_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR",
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 57,
-                  "startColumn": 51
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF1008",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Default",
-            "arguments": [
-              "runs[0].results[0].message.markdown",
-              "_Rich_ result message without period"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1008.MessagesShouldEndWithPeriod_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR",
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 58,
-                  "startColumn": 62
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF1008",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Default",
-            "arguments": [
-              "runs[0].results[0].stacks[0].frames[0].location.message.text",
-              "frame message without period"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1008.MessagesShouldEndWithPeriod_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR",
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 90,
-                  "startColumn": 60
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF1008",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Default",
-            "arguments": [
-              "runs[0].results[0].stacks[0].frames[0].location.message.markdown",
-              "_Rich_ frame message without period"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1008.MessagesShouldEndWithPeriod_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR",
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 91,
-                  "startColumn": 71
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF1008",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Default",
-            "arguments": [
-              "runs[0].results[0].stacks[0].message.text",
-              "stack message without period"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1008.MessagesShouldEndWithPeriod_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR",
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 83,
-                  "startColumn": 54
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF1008",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Default",
-            "arguments": [
-              "runs[0].results[0].stacks[0].message.markdown",
-              "_Rich_ stack message without period"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1008.MessagesShouldEndWithPeriod_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR",
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 84,
-                  "startColumn": 65
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF1008",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Default",
-            "arguments": [
-              "runs[0].results[0].fixes[0].description.text",
-              "fix description without period"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1008.MessagesShouldEndWithPeriod_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR",
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 157,
-                  "startColumn": 56
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF1008",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Default",
-            "arguments": [
-              "runs[0].results[0].fixes[0].description.markdown",
-              "_Rich_ fix description without period"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1008.MessagesShouldEndWithPeriod_Invalid.sarif",
+                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
                   "uriBaseId": "TEST_DIR",
                   "index": 0
                 },
                 "region": {
                   "startLine": 158,
-                  "startColumn": 67
+                  "startColumn": 17
                 }
               }
             }
           ]
         },
         {
-          "ruleId": "SARIF1008",
+          "ruleId": "SARIF1017",
           "ruleIndex": 0,
+          "level": "error",
           "message": {
             "id": "Default",
             "arguments": [
-              "runs[0].invocations[0].toolExecutionNotifications[0].message.text",
-              "toolNotification message without period"
+              "runs[0].results[0].locations[0].logicalLocations[0]",
+              "logicalLocation",
+              "parentIndex",
+              "1",
+              "runs[0].logicalLocations",
+              "2"
             ]
           },
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1008.MessagesShouldEndWithPeriod_Invalid.sarif",
+                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
                   "uriBaseId": "TEST_DIR",
                   "index": 0
                 },
                 "region": {
-                  "startLine": 35,
-                  "startColumn": 65
+                  "startLine": 158,
+                  "startColumn": 17
                 }
               }
             }
           ]
         },
         {
-          "ruleId": "SARIF1008",
+          "ruleId": "SARIF1017",
           "ruleIndex": 0,
+          "level": "error",
           "message": {
             "id": "Default",
             "arguments": [
-              "runs[0].invocations[0].toolExecutionNotifications[0].message.markdown",
-              "_Rich_ toolNotification message without period"
+              "runs[0].results[0].codeFlows[0].threadFlows[0].locations[0]",
+              "threadFlowLocation",
+              "index",
+              "0",
+              "runs[0].threadFlowLocations",
+              "1"
             ]
           },
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1008.MessagesShouldEndWithPeriod_Invalid.sarif",
+                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
                   "uriBaseId": "TEST_DIR",
                   "index": 0
                 },
                 "region": {
-                  "startLine": 36,
-                  "startColumn": 76
+                  "startLine": 170,
+                  "startColumn": 21
                 }
               }
             }
           ]
         },
         {
-          "ruleId": "SARIF1008",
+          "ruleId": "SARIF1017",
           "ruleIndex": 0,
+          "level": "error",
           "message": {
             "id": "Default",
             "arguments": [
-              "runs[0].invocations[0].toolConfigurationNotifications[0].message.text",
-              "configurationNotification message without period"
+              "runs[0].results[0].codeFlows[0].threadFlows[0].locations[0].taxa[0]",
+              "reportingDescriptorReference",
+              "index",
+              "3",
+              "runs[0].tool.driver.taxa",
+              "4"
             ]
           },
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1008.MessagesShouldEndWithPeriod_Invalid.sarif",
+                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
                   "uriBaseId": "TEST_DIR",
                   "index": 0
                 },
                 "region": {
-                  "startLine": 43,
-                  "startColumn": 74
+                  "startLine": 173,
+                  "startColumn": 25
                 }
               }
             }
           ]
         },
         {
-          "ruleId": "SARIF1008",
+          "ruleId": "SARIF1017",
           "ruleIndex": 0,
+          "level": "error",
           "message": {
             "id": "Default",
             "arguments": [
-              "runs[0].invocations[0].toolConfigurationNotifications[0].message.markdown",
-              "_Rich_ configuratioNotification message without period"
+              "runs[0].results[0].codeFlows[0].threadFlows[0].locations[0].webRequest",
+              "webRequest",
+              "index",
+              "0",
+              "runs[0].webRequests",
+              "1"
             ]
           },
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1008.MessagesShouldEndWithPeriod_Invalid.sarif",
+                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
                   "uriBaseId": "TEST_DIR",
                   "index": 0
                 },
                 "region": {
-                  "startLine": 44,
-                  "startColumn": 84
+                  "startLine": 177,
+                  "startColumn": 37
                 }
               }
             }
           ]
         },
         {
-          "ruleId": "SARIF1008",
+          "ruleId": "SARIF1017",
           "ruleIndex": 0,
+          "level": "error",
           "message": {
             "id": "Default",
             "arguments": [
-              "runs[0].tool.driver.rules[0].messageStrings.Default.text",
-              "rule message without period"
+              "runs[0].results[0].codeFlows[0].threadFlows[0].locations[0].webResponse",
+              "webResponse",
+              "index",
+              "0",
+              "runs[0].webResponses",
+              "1"
             ]
           },
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1008.MessagesShouldEndWithPeriod_Invalid.sarif",
+                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
+                  "uriBaseId": "TEST_DIR",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 180,
+                  "startColumn": 38
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1017",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Default",
+            "arguments": [
+              "runs[0].results[0].provenance",
+              "resultProvenance",
+              "invocationIndex",
+              "42",
+              "runs[0].invocations",
+              "43"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
+                  "uriBaseId": "TEST_DIR",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 205,
+                  "startColumn": 25
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1017",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Default",
+            "arguments": [
+              "runs[0].results[0].rule",
+              "reportingDescriptorReference",
+              "index",
+              "3",
+              "runs[0].tool.driver.rules",
+              "4"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
+                  "uriBaseId": "TEST_DIR",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 140,
+                  "startColumn": 19
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1017",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Default",
+            "arguments": [
+              "runs[0].results[0].graphTraversals[0]",
+              "graphTraversal",
+              "resultGraphIndex",
+              "1",
+              "runs[0].results[0].graphTraversals",
+              "2"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
+                  "uriBaseId": "TEST_DIR",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 196,
+                  "startColumn": 13
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1017",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Default",
+            "arguments": [
+              "runs[0].results[0].graphTraversals[1]",
+              "graphTraversal",
+              "runGraphIndex",
+              "0",
+              "runs[0].graphTraversals",
+              "1"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
+                  "uriBaseId": "TEST_DIR",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 200,
+                  "startColumn": 13
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1017",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Default",
+            "arguments": [
+              "runs[0].results[0].taxa[0]",
+              "reportingDescriptorReference",
+              "index",
+              "2",
+              "runs[0].tool.driver.taxa",
+              "3"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
+                  "uriBaseId": "TEST_DIR",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 209,
+                  "startColumn": 13
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1017",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Default",
+            "arguments": [
+              "runs[0].results[0].webRequest",
+              "webRequest",
+              "index",
+              "0",
+              "runs[0].webRequests",
+              "1"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
+                  "uriBaseId": "TEST_DIR",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 213,
+                  "startColumn": 25
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1017",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Default",
+            "arguments": [
+              "runs[0].results[0].webResponse",
+              "webResponse",
+              "index",
+              "0",
+              "runs[0].webResponses",
+              "1"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
+                  "uriBaseId": "TEST_DIR",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 216,
+                  "startColumn": 26
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1017",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Default",
+            "arguments": [
+              "runs[0].results[1].rule",
+              "reportingDescriptorReference",
+              "index",
+              "1",
+              "runs[0].tool.extensions[0].rules",
+              "2"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
+                  "uriBaseId": "TEST_DIR",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 221,
+                  "startColumn": 19
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1017",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Default",
+            "arguments": [
+              "runs[0].results[2].rule",
+              "reportingDescriptorReference",
+              "index",
+              "1",
+              "runs[0].tool.extensions[2].rules",
+              "2"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
+                  "uriBaseId": "TEST_DIR",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 233,
+                  "startColumn": 19
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1017",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Default",
+            "arguments": [
+              "runs[0].results[2].rule.toolComponent",
+              "toolComponentReference",
+              "index",
+              "2",
+              "runs[0].tool.extensions",
+              "3"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
+                  "uriBaseId": "TEST_DIR",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 236,
+                  "startColumn": 30
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1017",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Default",
+            "arguments": [
+              "runs[0].addresses[0]",
+              "address",
+              "parentIndex",
+              "1",
+              "runs[0].addresses",
+              "2"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
+                  "uriBaseId": "TEST_DIR",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 247,
+                  "startColumn": 9
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1017",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Default",
+            "arguments": [
+              "runs[0].artifacts[0]",
+              "artifact",
+              "parentIndex",
+              "4",
+              "runs[0].artifacts",
+              "5"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
+                  "uriBaseId": "TEST_DIR",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 129,
+                  "startColumn": 9
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1017",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Default",
+            "arguments": [
+              "runs[0].invocations[0].notificationConfigurationOverrides[0].descriptor",
+              "reportingDescriptorReference",
+              "index",
+              "2",
+              "runs[0].tool.driver.notifications",
+              "3"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
+                  "uriBaseId": "TEST_DIR",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 74,
+                  "startColumn": 29
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1017",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Default",
+            "arguments": [
+              "runs[0].invocations[0].ruleConfigurationOverrides[0].descriptor",
+              "reportingDescriptorReference",
+              "index",
+              "2",
+              "runs[0].tool.driver.rules",
+              "3"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
+                  "uriBaseId": "TEST_DIR",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 64,
+                  "startColumn": 29
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1017",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Default",
+            "arguments": [
+              "runs[0].invocations[0].toolExecutionNotifications[1].associatedRule",
+              "reportingDescriptorReference",
+              "index",
+              "1",
+              "runs[0].tool.driver.rules",
+              "2"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
+                  "uriBaseId": "TEST_DIR",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 97,
+                  "startColumn": 33
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1017",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Default",
+            "arguments": [
+              "runs[0].invocations[0].toolExecutionNotifications[1].descriptor",
+              "reportingDescriptorReference",
+              "index",
+              "2",
+              "runs[0].tool.driver.notifications",
+              "3"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
+                  "uriBaseId": "TEST_DIR",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 93,
+                  "startColumn": 29
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1017",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Default",
+            "arguments": [
+              "runs[0].invocations[0].toolConfigurationNotifications[1].associatedRule",
+              "reportingDescriptorReference",
+              "index",
+              "1",
+              "runs[0].tool.driver.rules",
+              "2"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
+                  "uriBaseId": "TEST_DIR",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 120,
+                  "startColumn": 33
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1017",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Default",
+            "arguments": [
+              "runs[0].invocations[0].toolConfigurationNotifications[1].descriptor",
+              "reportingDescriptorReference",
+              "index",
+              "3",
+              "runs[0].tool.driver.notifications",
+              "4"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
+                  "uriBaseId": "TEST_DIR",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 116,
+                  "startColumn": 29
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1017",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Default",
+            "arguments": [
+              "runs[0].tool.driver.rules[0].relationships[0].target",
+              "reportingDescriptorReference",
+              "index",
+              "2",
+              "runs[0].tool.driver.rules",
+              "3"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
                   "uriBaseId": "TEST_DIR",
                   "index": 0
                 },
                 "region": {
                   "startLine": 22,
-                  "startColumn": 55
+                  "startColumn": 29
                 }
               }
             }
           ]
         },
         {
-          "ruleId": "SARIF1008",
+          "ruleId": "SARIF1017",
           "ruleIndex": 0,
+          "level": "error",
           "message": {
             "id": "Default",
             "arguments": [
-              "runs[0].tool.driver.rules[0].messageStrings.Default.markdown",
-              "_Rich_ rule message without period"
+              "runs[0].tool.extensions[0].associatedComponent",
+              "toolComponentReference",
+              "index",
+              "2",
+              "runs[0].tool.extensions",
+              "3"
             ]
           },
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1008.MessagesShouldEndWithPeriod_Invalid.sarif",
+                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
                   "uriBaseId": "TEST_DIR",
                   "index": 0
                 },
                 "region": {
-                  "startLine": 23,
-                  "startColumn": 66
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF1008",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Default",
-            "arguments": [
-              "runs[0].tool.driver.rules[0].shortDescription.text",
-              "Short rule description without period"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1008.MessagesShouldEndWithPeriod_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR",
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 13,
-                  "startColumn": 63
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF1008",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Default",
-            "arguments": [
-              "runs[0].tool.driver.rules[0].shortDescription.markdown",
-              "_Rich_ short rule description without period"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1008.MessagesShouldEndWithPeriod_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR",
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 14,
-                  "startColumn": 74
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF1008",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Default",
-            "arguments": [
-              "runs[0].tool.driver.rules[0].fullDescription.text",
-              "Short full rule description without period"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1008.MessagesShouldEndWithPeriod_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR",
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 17,
-                  "startColumn": 68
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF1008",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Default",
-            "arguments": [
-              "runs[0].tool.driver.rules[0].fullDescription.markdown",
-              "_Rich_ full rule description without period"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1008.MessagesShouldEndWithPeriod_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR",
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 18,
-                  "startColumn": 73
+                  "startLine": 33,
+                  "startColumn": 36
                 }
               }
             }

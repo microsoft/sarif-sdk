@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class RuleResources {
@@ -259,11 +259,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This &quot;physicalLocation&quot; object contains a &quot;contextRegion&quot; property, but it does not contain a &quot;region&quot; property..
+        ///   Looks up a localized string similar to {0}: This &quot;physicalLocation&quot; object contains a &quot;contextRegion&quot; property, but it does not contain a &quot;region&quot; property..
         /// </summary>
         internal static string SARIF1016_Default {
             get {
                 return ResourceManager.GetString("SARIF1016_Default", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: This &quot;{1}&quot; object contains a property &quot;{2}&quot; with value {3}, but either &quot;{4}&quot; is absent, or it has fewer than {5} elements..
+        /// </summary>
+        internal static string SARIF1017_Default {
+            get {
+                return ResourceManager.GetString("SARIF1017_Default", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If an object contains a property that is used as an array index, then that array must be present and must contain at least &quot;index + 1&quot; elements..
+        /// </summary>
+        internal static string SARIF1017_InvalidIndex {
+            get {
+                return ResourceManager.GetString("SARIF1017_InvalidIndex", resourceCulture);
             }
         }
     }

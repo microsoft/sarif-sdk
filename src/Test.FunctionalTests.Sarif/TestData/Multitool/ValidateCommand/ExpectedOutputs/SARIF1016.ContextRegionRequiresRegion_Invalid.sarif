@@ -5,7 +5,7 @@
     {
       "tool": {
         "driver": {
-          "name": "Sarif Functional Testing",
+          "name": "SARIF Functional Testing",
           "rules": [
             {
               "id": "SARIF1016",
@@ -21,7 +21,7 @@
                   "text": "{0}: This \"physicalLocation\" object contains a \"contextRegion\" property, but it does not contain a \"region\" property."
                 }
               },
-              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.0/csprd01/sarif-v2.0-csprd01.html"
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
             }
           ]
         }

@@ -15,8 +15,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public abstract class SarifValidationSkimmerBase : Skimmer<SarifValidationContext>
     {
-        private const string SarifSpecUri =
-            "http://docs.oasis-open.org/sarif/sarif/v2.0/csprd01/sarif-v2.0-csprd01.html";
+        // OASIS defines this URI to always point to the latest revision (draft or approved) of the specified version
+        // of the SARIF specification.
+        private static readonly string SarifSpecUri =
+            $"http://docs.oasis-open.org/sarif/sarif/v{VersionConstants.StableSarifVersion}/sarif-v{VersionConstants.StableSarifVersion}.html";
 
         private readonly Uri _defaultHelpUri = new Uri(SarifSpecUri);
 
@@ -54,11 +56,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 RuleUtilities.BuildResult(DefaultLevel, Context, region, formatId, argsWithPointer));
         }
 
+        protected virtual void Analyze(Address address, string addressPointer)
+        {
+        }
+
+        protected virtual void Analyze(Artifact artifact, string artifactPointer)
+        {
+        }
+
+        protected virtual void Analyze(ArtifactChange artifactChange, string artifactChangePointer)
+        {
+        }
+
+        protected virtual void Analyze(ArtifactLocation artifactLocation, string artifactLocationPointer)
+        {
+        }
+
         protected virtual void Analyze(Attachment attachment, string attachmentPointer)
         {
         }
 
         protected virtual void Analyze(CodeFlow codeFlow, string codeFlowPointer)
+        {
+        }
+        protected virtual void Analyze(ConfigurationOverride configurationOverride, string configurationOverridePointer)
         {
         }
 
@@ -74,19 +95,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
         }
 
-        protected virtual void Analyze(ArtifactChange fileChange, string fileChangePointer)
-        {
-        }
-
-        protected virtual void Analyze(ArtifactLocation fileLocation, string fileLocationPointer)
-        {
-        }
-
-        protected virtual void Analyze(Artifact fileData, string filePointer)
-        {
-        }
-
         protected virtual void Analyze(Graph graph, string graphPointer)
+        {
+        }
+
+        protected virtual void Analyze(GraphTraversal graphTraversal, string graphTraversalPointer)
         {
         }
 
@@ -102,10 +115,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         }
 
         protected virtual void Analyze(MultiformatMessageString multiformatMessageString, string multiformatMessageStringPointer)
-        {
-        }
-
-        protected virtual void Analyze(ReportingDescriptor reportingDescriptor, string reportingDescriptorPointer)
         {
         }
 
@@ -126,6 +135,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         }
 
         protected virtual void Analyze(Region region, string regionPointer)
+        {
+        }
+
+        protected virtual void Analyze(ReportingConfiguration reportingConfiguration, string reportingConfigurationPointer)
+        {
+        }
+
+        protected virtual void Analyze(ReportingDescriptor reportingDescriptor, string reportingDescriptorPointer)
+        {
+        }
+
+        protected virtual void Analyze(ReportingDescriptorReference reportingDescriptorReference, string reportingDescriptorReferencePointer)
+        {
+        }
+
+        protected virtual void Analyze(ReportingDescriptorRelationship reportingDescriptorRelationship, string reportingDescriptionRelationshipPointer)
         {
         }
 
@@ -169,7 +194,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
         }
 
+        protected virtual void Analyze(ToolComponentReference toolComponentReference, string toolComponentReferencePointer)
+        {
+        }
+
         protected virtual void Analyze(VersionControlDetails versionControlDetails, string versionControlDetailsPointer)
+        {
+        }
+
+        protected virtual void Analyze(WebRequest webRequest, string webRequestPointer)
+        {
+        }
+
+        protected virtual void Analyze(WebResponse webResponse, string webResponsePointer)
         {
         }
 
@@ -181,7 +218,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             var pointer = new JsonPointer(pointerString);
             foreach (string token in pointer.ReferenceTokens)
             {
-                if (int.TryParse(token, out int index))
+                if (int.TryParse(token, out _))
                 {
                     sb.Append('[' + token + ']');
                 }
@@ -220,8 +257,50 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
                 for (int i = 0; i < log.Runs.Count; ++i)
                 {
-                    Visit(log.Runs[i], runsPointer.AtIndex(i));
+                    Run run = log.Runs[i];
+                    Context.CurrentRun = run;
+                    Context.CurrentRunIndex = i;
+
+                    try
+                    {
+                        Visit(run, runsPointer.AtIndex(i));
+                    }
+                    finally
+                    {
+                        Context.CurrentRun = null;
+                        Context.CurrentRunIndex = -1;
+                    }
                 }
+            }
+        }
+
+        private void Visit(Address address, string addressPointer)
+        {
+            Analyze(address, addressPointer);
+        }
+
+        private void Visit(Artifact artifact, string artifactPointer)
+        {
+            Analyze(artifact, artifactPointer);
+
+            if (artifact.Location != null)
+            {
+                Visit(artifact.Location, artifactPointer.AtProperty(SarifPropertyName.Location));
+            }
+        }
+
+        private void Visit(ArtifactLocation artifactLocation, string artifactLocationPointer)
+        {
+            Analyze(artifactLocation, artifactLocationPointer);
+        }
+
+        private void Visit(ArtifactChange artifactChange, string artifactChangePointer)
+        {
+            Analyze(artifactChange, artifactChangePointer);
+
+            if (artifactChange.ArtifactLocation != null)
+            {
+                Visit(artifactChange.ArtifactLocation, artifactChangePointer.AtProperty(SarifPropertyName.ArtifactLocation));
             }
         }
 
@@ -280,6 +359,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             }
         }
 
+        private void Visit(ConfigurationOverride configurationOverride, string configurationOverridePointer)
+        {
+            Analyze(configurationOverride, configurationOverridePointer);
+
+            if (configurationOverride.Descriptor != null)
+            {
+                Visit(configurationOverride.Descriptor, configurationOverridePointer.AtProperty(SarifPropertyName.Descriptor));
+            }
+
+            if (configurationOverride.Configuration != null)
+            {
+                Visit(configurationOverride.Configuration, configurationOverridePointer.AtProperty(SarifPropertyName.Configuration));
+            }
+        }
+
         private void Visit(Conversion conversion, string conversionPointer)
         {
             Analyze(conversion, conversionPointer);
@@ -310,20 +404,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             }
         }
 
-        private void Visit(Artifact fileData, string filePointer)
-        {
-            Analyze(fileData, filePointer);
-
-            if (fileData.Location != null)
-            {
-                Visit(fileData.Location, filePointer.AtProperty(SarifPropertyName.Location));
-            }
-        }
-
-        private void Visit(ArtifactLocation fileLocation, string fileLocationPointer)
-        {
-            Analyze(fileLocation, fileLocationPointer);
-        }
 
         private void Visit(Fix fix, string fixPointer)
         {
@@ -342,17 +422,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 }
             }
         }
-
-        private void Visit(ArtifactChange fileChange, string fileChangePointer)
-        {
-            Analyze(fileChange, fileChangePointer);
-
-            if (fileChange.ArtifactLocation != null)
-            {
-                Visit(fileChange.ArtifactLocation, fileChangePointer.AtProperty(SarifPropertyName.ArtifactLocation));
-            }
-        }
-
         private void Visit(Graph graph, string graphPointer)
         {
             Analyze(graph, graphPointer);
@@ -385,6 +454,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         private void Visit(GraphTraversal graphTraversal, string graphTraversalPointer)
         {
+            Analyze(graphTraversal, graphTraversalPointer);
+
             if (graphTraversal.Description != null)
             {
                 Visit(graphTraversal.Description, graphTraversalPointer.AtProperty(SarifPropertyName.Description));
@@ -410,6 +481,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 Visit(invocation.ExecutableLocation, invocationPointer.AtProperty(SarifPropertyName.ExecutableLocation));
             }
 
+            if (invocation.NotificationConfigurationOverrides != null)
+            {
+                string notificationConfigurationOverridesPointer = invocationPointer.AtProperty(SarifPropertyName.NotificationConfigurationOverrides);
+                Context.CurrentReportingDescriptorKind = SarifValidationContext.ReportingDescriptorKind.Notification;
+
+                try
+                {
+                    for (int i = 0; i < invocation.NotificationConfigurationOverrides.Count; ++i)
+                    {
+                        Visit(invocation.NotificationConfigurationOverrides[i], notificationConfigurationOverridesPointer.AtIndex(i));
+                    }
+                }
+                finally
+                {
+                    Context.CurrentReportingDescriptorKind = SarifValidationContext.ReportingDescriptorKind.None;
+                }
+            }
+
             if (invocation.ResponseFiles != null)
             {
                 string responseFilesPointer = invocationPointer.AtProperty(SarifPropertyName.ResponseFiles);
@@ -417,6 +506,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 for (int i = 0; i < invocation.ResponseFiles.Count; ++i)
                 {
                     Visit(invocation.ResponseFiles[i], responseFilesPointer.AtIndex(i));
+                }
+            }
+
+            if (invocation.RuleConfigurationOverrides != null)
+            {
+                string ruleConfigurationOverridesPointer = invocationPointer.AtProperty(SarifPropertyName.RuleConfigurationOverrides);
+                Context.CurrentReportingDescriptorKind = SarifValidationContext.ReportingDescriptorKind.Rule;
+
+                try
+                {
+                    for (int i = 0; i < invocation.RuleConfigurationOverrides.Count; ++i)
+                    {
+                        Visit(invocation.RuleConfigurationOverrides[i], ruleConfigurationOverridesPointer.AtIndex(i));
+                    }
+                }
+                finally
+                {
+                    Context.CurrentReportingDescriptorKind = SarifValidationContext.ReportingDescriptorKind.None;
                 }
             }
 
@@ -462,6 +569,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 Visit(location.PhysicalLocation, locationPointer.AtProperty(SarifPropertyName.PhysicalLocation));
             }
+
+            if (location.LogicalLocations != null)
+            {
+                string logicalLocationsPointer = locationPointer.AtProperty(SarifPropertyName.LogicalLocations);
+
+                for (int i = 0; i < location.LogicalLocations.Count; ++i)
+                {
+                    Visit(location.LogicalLocations[i], logicalLocationsPointer.AtIndex(i));
+                }
+            }
         }
 
         private void Visit(LogicalLocation logicalLocation, string logicalLocationPointer)
@@ -479,11 +596,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             Analyze(multiformatMessageString, multiformatMessageStringPointer);
         }
 
-        private void VisitReportingDescriptor(ReportingDescriptor reportingDescriptor, string reportingDescriptorPointer)
-        {
-            Analyze(reportingDescriptor, reportingDescriptorPointer);
-        }
-
         private void Visit(Node node, string nodePointer)
         {
             Analyze(node, nodePointer);
@@ -497,6 +609,32 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         private void Visit(Notification notification, string notificationPointer)
         {
             Analyze(notification, notificationPointer);
+
+            if (notification.AssociatedRule != null)
+            {
+                Context.CurrentReportingDescriptorKind = SarifValidationContext.ReportingDescriptorKind.Rule;
+                try
+                {
+                    Visit(notification.AssociatedRule, notificationPointer.AtProperty(SarifPropertyName.AssociatedRule));
+                }
+                finally
+                {
+                    Context.CurrentReportingDescriptorKind = SarifValidationContext.ReportingDescriptorKind.None;
+                }
+            }
+
+            if (notification.Descriptor != null)
+            {
+                Context.CurrentReportingDescriptorKind = SarifValidationContext.ReportingDescriptorKind.Notification;
+                try
+                {
+                    Visit(notification.Descriptor, notificationPointer.AtProperty(SarifPropertyName.Descriptor));
+                }
+                finally
+                {
+                    Context.CurrentReportingDescriptorKind = SarifValidationContext.ReportingDescriptorKind.None;
+                }
+            }
 
             if (notification.Message != null)
             {
@@ -517,6 +655,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         private void Visit(PhysicalLocation physicalLocation, string physicalLocationPointer)
         {
             Analyze(physicalLocation, physicalLocationPointer);
+
+            if (physicalLocation.Address != null)
+            {
+                Visit(physicalLocation.Address, physicalLocationPointer.AtProperty(SarifPropertyName.Address));
+            }
 
             if (physicalLocation.ArtifactLocation != null)
             {
@@ -547,6 +690,61 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             }
 
             Analyze(region, regionPointer);
+        }
+
+        private void Visit(ReportingConfiguration reportingConfiguration, string reportingConfigurationPointer)
+        {
+            Analyze(reportingConfiguration, reportingConfigurationPointer);
+        }
+
+        private void Visit(ReportingDescriptor reportingDescriptor, string reportingDescriptorPointer)
+        {
+            Analyze(reportingDescriptor, reportingDescriptorPointer);
+
+            if (reportingDescriptor.ShortDescription != null)
+            {
+                Visit(reportingDescriptor.ShortDescription, reportingDescriptorPointer.AtProperty(SarifPropertyName.ShortDescription));
+            }
+
+            if (reportingDescriptor.FullDescription != null)
+            {
+                Visit(reportingDescriptor.FullDescription, reportingDescriptorPointer.AtProperty(SarifPropertyName.FullDescription));
+            }
+
+            if (reportingDescriptor.Relationships != null)
+            {
+                string relationshipsPointer = reportingDescriptorPointer.AtProperty(SarifPropertyName.Relationships);
+
+                for (int i = 0; i < reportingDescriptor.Relationships.Count; ++i)
+                {
+                    Visit(reportingDescriptor.Relationships[i], relationshipsPointer.AtIndex(i));
+                }
+            }
+        }
+
+        private void Visit(ReportingDescriptorReference reportingDescriptorReference, string reportingDescriptorReferencePointer)
+        {
+            Analyze(reportingDescriptorReference, reportingDescriptorReferencePointer);
+
+            if (reportingDescriptorReference.ToolComponent != null)
+            {
+                Visit(reportingDescriptorReference.ToolComponent, reportingDescriptorReferencePointer.AtProperty(SarifPropertyName.ToolComponent));
+            }
+        }
+
+        private void Visit(ReportingDescriptorRelationship reportingDescriptorRelationship, string reportingDescriptorRelationshipPointer)
+        {
+            Analyze(reportingDescriptorRelationship, reportingDescriptorRelationshipPointer);
+
+            if (reportingDescriptorRelationship.Description != null)
+            {
+                Visit(reportingDescriptorRelationship.Description, reportingDescriptorRelationshipPointer.AtProperty(SarifPropertyName.Description));
+            }
+
+            if (reportingDescriptorRelationship.Target != null)
+            {
+                Visit(reportingDescriptorRelationship.Target, reportingDescriptorRelationshipPointer.AtProperty(SarifPropertyName.Target));
+            }
         }
 
         private void Visit(Result result, string resultPointer)
@@ -591,6 +789,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             if (result.Provenance != null)
             {
                 Visit(result.Provenance, resultPointer.AtProperty(SarifPropertyName.Provenance));
+            }
+
+            if (result.Rule != null)
+            {
+                Context.CurrentReportingDescriptorKind = SarifValidationContext.ReportingDescriptorKind.Rule;
+                try
+                {
+                    Visit(result.Rule, resultPointer.AtProperty(SarifPropertyName.Rule));
+                }
+                finally
+                {
+                    Context.CurrentReportingDescriptorKind = SarifValidationContext.ReportingDescriptorKind.None;
+                }
             }
 
             if (result.Graphs != null)
@@ -647,6 +858,34 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     Visit(result.Fixes[i], fixesPointer.AtIndex(i));
                 }
             }
+
+            if (result.Taxa != null)
+            {
+                string taxaPointer = resultPointer.AtProperty(SarifPropertyName.Taxa);
+
+                Context.CurrentReportingDescriptorKind = SarifValidationContext.ReportingDescriptorKind.Taxon;
+                try
+                {
+                    for (int i = 0; i < result.Taxa.Count; ++i)
+                    {
+                        Visit(result.Taxa[i], taxaPointer.AtIndex(i));
+                    }
+                }
+                finally
+                {
+                    Context.CurrentReportingDescriptorKind = SarifValidationContext.ReportingDescriptorKind.None;
+                }
+            }
+
+            if (result.WebRequest != null)
+            {
+                Visit(result.WebRequest, resultPointer.AtProperty(SarifPropertyName.WebRequest));
+            }
+
+            if (result.WebResponse != null)
+            {
+                Visit(result.WebResponse, resultPointer.AtProperty(SarifPropertyName.WebResponse));
+            }
         }
 
         private void Visit(IList<Notification> notifications, string parentPointer, string propertyName)
@@ -663,25 +902,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
             Analyze(resultProvenance, resultProvenancePointer);
 
-            string conversionSourcesPointer = resultProvenancePointer.AtProperty(SarifPropertyName.ConversionSources);
-            for (int i = 0; i < resultProvenance.ConversionSources.Count; ++i)
+            if (resultProvenance.ConversionSources != null)
             {
-                Visit(resultProvenance.ConversionSources[i], conversionSourcesPointer.AtIndex(i));
-            }
-        }
+                string conversionSourcesPointer = resultProvenancePointer.AtProperty(SarifPropertyName.ConversionSources);
 
-        private void Visit(ReportingDescriptor reportingDecriptor, string reportingDescriptorPointer)
-        {
-            Analyze(reportingDecriptor, reportingDescriptorPointer);
-
-            if (reportingDecriptor.ShortDescription != null)
-            {
-                Visit(reportingDecriptor.ShortDescription, reportingDescriptorPointer.AtProperty(SarifPropertyName.ShortDescription));
-            }
-
-            if (reportingDecriptor.FullDescription != null)
-            {
-                Visit(reportingDecriptor.FullDescription, reportingDescriptorPointer.AtProperty(SarifPropertyName.FullDescription));
+                for (int i = 0; i < resultProvenance.ConversionSources.Count; ++i)
+                {
+                    Visit(resultProvenance.ConversionSources[i], conversionSourcesPointer.AtIndex(i));
+                }
             }
         }
 
@@ -700,17 +928,39 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
                 for (int i = 0; i < run.Results.Count; ++i)
                 {
-                    Visit(run.Results[i], resultsPointer.AtIndex(i));
+                    Result result = run.Results[i];
+                    Context.CurrentResult = result;
+                    Context.CurrentResultIndex = i;
+
+                    try
+                    {
+                        Visit(result, resultsPointer.AtIndex(i));
+                    }
+                    finally
+                    {
+                        Context.CurrentResult = null;
+                        Context.CurrentResultIndex = -1;
+                    }
+                }
+            }
+
+            if (run.Addresses != null)
+            {
+                string addressesPointer = runPointer.AtProperty(SarifPropertyName.Addresses);
+
+                for (int i = 0; i < run.Addresses.Count; ++i)
+                {
+                    Visit(run.Addresses[i], addressesPointer.AtIndex(i));
                 }
             }
 
             if (run.Artifacts != null)
             {
-                string filesPointer = runPointer.AtProperty(SarifPropertyName.Artifacts);
+                string artifactsPointer = runPointer.AtProperty(SarifPropertyName.Artifacts);
 
                 for (int i = 0; i < run.Artifacts.Count; ++i)
                 {
-                    Visit(run.Artifacts[i], filesPointer.AtIndex(i));
+                    Visit(run.Artifacts[i], artifactsPointer.AtIndex(i));
                 }
             }
 
@@ -756,6 +1006,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 for (int i = 0; i < run.VersionControlProvenance.Count; ++i)
                 {
                     Visit(run.VersionControlProvenance[i], versionControlProvenancePointer.AtIndex(i));
+                }
+            }
+
+            if (run.WebRequests != null)
+            {
+                string webRequestsPointer = runPointer.AtProperty(SarifPropertyName.WebRequests);
+
+                for (int i = 0; i < run.WebRequests.Count; ++i)
+                {
+                    Visit(run.WebRequests[i], webRequestsPointer.AtIndex(i));
+                }
+            }
+
+            if (run.WebResponses != null)
+            {
+                string webResponsesPointer = runPointer.AtProperty(SarifPropertyName.WebResponses);
+
+                for (int i = 0; i < run.WebResponses.Count; ++i)
+                {
+                    Visit(run.WebResponses[i], webResponsesPointer.AtIndex(i));
                 }
             }
         }
@@ -818,6 +1088,34 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 Visit(threadFlowLocation.Location, threadFlowLocationPointer.AtProperty(SarifPropertyName.Location));
             }
+
+            if (threadFlowLocation.Taxa != null)
+            {
+                string taxaPointer = threadFlowLocationPointer.AtProperty(SarifPropertyName.Taxa);
+
+                Context.CurrentReportingDescriptorKind = SarifValidationContext.ReportingDescriptorKind.Taxon;
+                try
+                {
+                    for (int i = 0; i < threadFlowLocation.Taxa.Count; ++i)
+                    {
+                        Visit(threadFlowLocation.Taxa[i], taxaPointer.AtIndex(i));
+                    }
+                }
+                finally
+                {
+                    Context.CurrentReportingDescriptorKind = SarifValidationContext.ReportingDescriptorKind.None;
+                }
+            }
+
+            if (threadFlowLocation.WebRequest != null)
+            {
+                Visit(threadFlowLocation.WebRequest, threadFlowLocationPointer.AtProperty(SarifPropertyName.WebRequest));
+            }
+
+            if (threadFlowLocation.WebResponse != null)
+            {
+                Visit(threadFlowLocation.WebResponse, threadFlowLocationPointer.AtProperty(SarifPropertyName.WebResponse));
+            }
         }
 
         private void Visit(Tool tool, string toolPointer)
@@ -843,23 +1141,49 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
             Analyze(toolComponent, toolComponentPointer);
 
+            if (toolComponent.AssociatedComponent != null)
+            {
+                Visit(toolComponent.AssociatedComponent, toolComponentPointer.AtProperty(SarifPropertyName.AssociatedComponent));
+            }
+
             if (toolComponent.Notifications != null)
             {
-                string notificationsPointer = toolComponentPointer.AtProperty(SarifPropertyName.Notifications);
-                for (int i = 0; i < toolComponent.Notifications.Count; ++i)
+                Context.CurrentReportingDescriptorKind = SarifValidationContext.ReportingDescriptorKind.Notification;
+                try
                 {
-                    Visit(toolComponent.Notifications[i], notificationsPointer.AtIndex(i));
+                    string notificationsPointer = toolComponentPointer.AtProperty(SarifPropertyName.Notifications);
+                    for (int i = 0; i < toolComponent.Notifications.Count; ++i)
+                    {
+                        Visit(toolComponent.Notifications[i], notificationsPointer.AtIndex(i));
+                    }
+                }
+                finally
+                {
+                    Context.CurrentReportingDescriptorKind = SarifValidationContext.ReportingDescriptorKind.None;
                 }
             }
 
             if (toolComponent.Rules != null)
             {
-                string rulesPointer = toolComponentPointer.AtProperty(SarifPropertyName.Rules);
-                for (int i = 0; i < toolComponent.Rules.Count; ++i)
+                Context.CurrentReportingDescriptorKind = SarifValidationContext.ReportingDescriptorKind.Rule;
+                try
                 {
-                    Visit(toolComponent.Rules[i], rulesPointer.AtIndex(i));
+                    string rulesPointer = toolComponentPointer.AtProperty(SarifPropertyName.Rules);
+                    for (int i = 0; i < toolComponent.Rules.Count; ++i)
+                    {
+                        Visit(toolComponent.Rules[i], rulesPointer.AtIndex(i));
+                    }
+                }
+                finally
+                {
+                    Context.CurrentReportingDescriptorKind = SarifValidationContext.ReportingDescriptorKind.None;
                 }
             }
+        }
+
+        private void Visit(ToolComponentReference toolComponentReference, string toolComponentReferencePointer)
+        {
+            Analyze(toolComponentReference, toolComponentReferencePointer);
         }
 
         private void Visit(VersionControlDetails versionControlDetails, string versionControlDetailsPointer)
@@ -870,6 +1194,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 Visit(versionControlDetails.MappedTo, versionControlDetailsPointer.AtProperty(SarifPropertyName.MappedTo));
             }
+        }
+
+        private void Visit(WebRequest webRequest, string webRequestPointer)
+        {
+            Analyze(webRequest, webRequestPointer);
+        }
+
+        private void Visit(WebResponse webResponse, string webResponsePointer)
+        {
+            Analyze(webResponse, webResponsePointer);
         }
 
         private Region GetRegionFromJPointer(string jPointer)

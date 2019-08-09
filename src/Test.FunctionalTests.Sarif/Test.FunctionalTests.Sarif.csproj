@@ -55,6 +55,8 @@
     <None Remove="TestData\Multitool\ValidateCommand\ExpectedOutputs\SARIF1015.UriMustBeAbsolute_Valid.sarif" />
     <None Remove="TestData\Multitool\ValidateCommand\ExpectedOutputs\SARIF1016.ContextRegionRequiresRegion_Invalid.sarif" />
     <None Remove="TestData\Multitool\ValidateCommand\ExpectedOutputs\SARIF1016.ContextRegionRequiresRegion_Valid.sarif" />
+    <None Remove="TestData\Multitool\ValidateCommand\ExpectedOutputs\SARIF1017.InvalidIndex_Invalid.sarif" />
+    <None Remove="TestData\Multitool\ValidateCommand\ExpectedOutputs\SARIF1017.InvalidIndex_Valid.sarif" />
     <None Remove="TestData\Multitool\ValidateCommand\Inputs\JSON1001.SyntaxError.sarif" />
     <None Remove="TestData\Multitool\ValidateCommand\Inputs\JSON1002.DeserializationError.sarif" />
     <None Remove="TestData\Multitool\ValidateCommand\Inputs\SARIF1001.DoNotUseFriendlyNameAsRuleId_Invalid.sarif" />
@@ -75,6 +77,8 @@
     <None Remove="TestData\Multitool\ValidateCommand\Inputs\SARIF1015.UriMustBeAbsolute_Valid.sarif" />
     <None Remove="TestData\Multitool\ValidateCommand\Inputs\SARIF1016.ContextRegionRequiresRegion_Invalid.sarif" />
     <None Remove="TestData\Multitool\ValidateCommand\Inputs\SARIF1016.ContextRegionRequiresRegion_Valid.sarif" />
+    <None Remove="TestData\Multitool\ValidateCommand\Inputs\SARIF1017.InvalidIndex_Invalid.sarif" />
+    <None Remove="TestData\Multitool\ValidateCommand\Inputs\SARIF1017.InvalidIndex_Valid.sarif" />
     <None Remove="TestData\Multitool\ValidateCommand\Inputs\SimpleExample.sarif-external-properties.json" />
   </ItemGroup>
 
@@ -3041,6 +3045,8 @@
     <EmbeddedResource Include="TestData\Multitool\ValidateCommand\ExpectedOutputs\SARIF1015.UriMustBeAbsolute_Valid.sarif" />
     <EmbeddedResource Include="TestData\Multitool\ValidateCommand\ExpectedOutputs\SARIF1016.ContextRegionRequiresRegion_Invalid.sarif" />
     <EmbeddedResource Include="TestData\Multitool\ValidateCommand\ExpectedOutputs\SARIF1016.ContextRegionRequiresRegion_Valid.sarif" />
+    <EmbeddedResource Include="TestData\Multitool\ValidateCommand\ExpectedOutputs\SARIF1017.InvalidIndex_Invalid.sarif" />
+    <EmbeddedResource Include="TestData\Multitool\ValidateCommand\ExpectedOutputs\SARIF1017.InvalidIndex_Valid.sarif" />
     <EmbeddedResource Include="TestData\Multitool\ValidateCommand\Inputs\JSON1001.SyntaxError.sarif" />
     <EmbeddedResource Include="TestData\Multitool\ValidateCommand\Inputs\JSON1002.DeserializationError.sarif" />
     <EmbeddedResource Include="TestData\Multitool\ValidateCommand\Inputs\SARIF1001.DoNotUseFriendlyNameAsRuleId_Invalid.sarif" />
@@ -3062,6 +3068,8 @@
     <EmbeddedResource Include="TestData\Multitool\ValidateCommand\Inputs\SARIF1016.ContextRegionRequiresRegion_Invalid.sarif" />
     <EmbeddedResource Include="TestData\Multitool\ValidateCommand\Inputs\SARIF1016.ContextRegionRequiresRegion_Valid.sarif" />
     <EmbeddedResource Include="TestData\Multitool\ValidateCommand\Inputs\SimpleExample.sarif-external-properties.json" />
+    <EmbeddedResource Include="TestData\Multitool\ValidateCommand\Inputs\SARIF1017.InvalidIndex_Invalid.sarif" />
+    <EmbeddedResource Include="TestData\Multitool\ValidateCommand\Inputs\SARIF1017.InvalidIndex_Valid.sarif" />
     <None Include="v2\ConverterTestData\PREfast\Expected-001.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

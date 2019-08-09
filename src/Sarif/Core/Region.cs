@@ -18,5 +18,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                      this.CharOffset == 0;
             }
         }
+
+        public override string ToString()
+        {
+            return this.FormatForVisualStudio();
+        }
     }
 }
