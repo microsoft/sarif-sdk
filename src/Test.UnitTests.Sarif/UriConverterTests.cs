@@ -17,7 +17,6 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif
         private static readonly ResourceExtractor s_resourceExtractor = new ResourceExtractor(typeof(UriConverterTests));
         private static readonly string s_testFileText = s_resourceExtractor.GetResourceText("JsonConverters.UriConverterTests.json");
 
-
         [DataContract]
         private class TestClass
         {
