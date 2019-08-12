@@ -182,7 +182,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                             {
                                 Name = "CWE",
                                 Index = 0,
-                                Guid = "2B841697-D0DE-45DD-9F19-1EEE1312429"
+                                Guid = CweToolComponent.Guid
                             }
                         }
                     }
