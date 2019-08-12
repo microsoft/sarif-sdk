@@ -332,7 +332,7 @@
                     "id": "22",
                     "toolComponent": {
                       "name": "CWE",
-                      "guid": "2B841697-D0DE-45DD-9F19-1EEE1312429"
+                      "guid": "25F72D7E-8A92-459D-AD67-64853F788765"
                     }
                   },
                   "kinds": [
@@ -344,7 +344,7 @@
                     "id": "73",
                     "toolComponent": {
                       "name": "CWE",
-                      "guid": "2B841697-D0DE-45DD-9F19-1EEE1312429"
+                      "guid": "25F72D7E-8A92-459D-AD67-64853F788765"
                     }
                   },
                   "kinds": [
@@ -641,7 +641,7 @@
       ],
       "taxonomies": [
         {
-          "guid": "2B841697-D0DE-45DD-9F19-1EEE1312429",
+          "guid": "25F72D7E-8A92-459D-AD67-64853F788765",
           "name": "CWE",
           "organization": "MITRE",
           "shortDescription": {

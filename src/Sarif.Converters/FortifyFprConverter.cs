@@ -38,7 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private readonly ToolComponent CweToolComponent = new ToolComponent
         {
             Name = "CWE",
-            Guid = "2B841697-D0DE-45DD-9F19-1EEE1312429",
+            Guid = "25F72D7E-8A92-459D-AD67-64853F788765",
             Organization = "MITRE",
             ShortDescription = new MultiformatMessageString
             {
