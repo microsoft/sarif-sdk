@@ -436,7 +436,7 @@
 * BUGFIX: Improve handling of `null` values in property bags. https://github.com/microsoft/sarif-sdk/issues/1581
 
 ## **v2.1.13** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.13) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.13) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.13) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.13)
-* BUGFIX: Respect the --force option in Sarif.Multitool rather than overwriting the output file. https://github.com/microsoft/sarif-sdk/issues/1304
+* BUGFIX: Respect the --force option in Sarif.Multitool rather than overwriting the output file. https://github.com/microsoft/sarif-sdk/issues/1340
 * BUGFIX: Accept URI-valued properties whose value is the empty string. https://github.com/microsoft/sarif-sdk/issues/1632
 
 ## **v2.1.14** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.14) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.14) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.14) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.14)
@@ -446,3 +446,4 @@
 
 ** **v2.1.15** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.15) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.15) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.15) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.15)
 * BUGFIX: FortifyFpr converter produced invalid SARIF. https://github.com/microsoft/sarif-sdk/issues/1593
+* BUGFIX: FxCop converter produced empty `result.message` objects. https://github.com/microsoft/sarif-sdk/issues/1594

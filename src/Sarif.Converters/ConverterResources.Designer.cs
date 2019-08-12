@@ -313,6 +313,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to FxCop does not provide messages for suppressed results..
+        /// </summary>
+        internal static string FxCopNoMessage {
+            get {
+                return ResourceManager.GetString("FxCopNoMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The value &quot;{0}&quot; in the {1} field is not an integer..
         /// </summary>
         internal static string SemmleInvalidInteger {
