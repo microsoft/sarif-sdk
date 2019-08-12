@@ -210,4 +210,7 @@
   <data name="ContrastSecuritySiteRootDescription" xml:space="preserve">
     <value>The root URI of the web site that was analyzed.</value>
   </data>
+  <data name="FxCopNoMessage" xml:space="preserve">
+    <value>FxCop does not provide messages for suppressed results.</value>
+  </data>
 </root>
