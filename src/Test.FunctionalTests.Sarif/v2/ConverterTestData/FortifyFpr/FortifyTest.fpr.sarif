@@ -485,8 +485,7 @@
           "kinds": [
             "call",
             "function",
-            "return",
-            "function"
+            "return"
           ]
         },
         {
@@ -574,8 +573,7 @@
           "kinds": [
             "call",
             "function",
-            "return",
-            "function"
+            "return"
           ]
         },
         {
@@ -605,8 +603,7 @@
           "kinds": [
             "call",
             "function",
-            "return",
-            "function"
+            "return"
           ]
         },
         {

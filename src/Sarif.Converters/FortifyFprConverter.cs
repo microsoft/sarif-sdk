@@ -24,10 +24,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private readonly NameTable _nameTable;
         private readonly FortifyFprStrings _strings;
         private readonly string[] SupportedReplacementTokens = new[] { "PrimaryLocation.file", "PrimaryLocation.line" };
-        private readonly Dictionary<string, List<string>> ActionTypeToLocationKindMap = new Dictionary<string, List<string>>
+        private readonly Dictionary<string, List<string>> ActionTypeToLocationKindsMap = new Dictionary<string, List<string>>
         {
             { "InCall", new List<string> { "call", "function" } },
-            { "InOutCall", new List<string> { "call", "function", "return" , "function"} },
+            { "InOutCall", new List<string> { "call", "function", "return" } },
             { "BranchTaken", new List<string> { "branch", "true" } },
             { "BranchNotTaken", new List<string> { "branch", "false" } },
             { "Return", new List<string> { "return", "function" } },
@@ -1149,7 +1149,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             List<string> kinds;
 
-            if (actionType == null || !ActionTypeToLocationKindMap.TryGetValue(actionType, out kinds))
+            if (actionType == null || !ActionTypeToLocationKindsMap.TryGetValue(actionType, out kinds))
             {
                 kinds = new List<string> { "unknown" };
             }
