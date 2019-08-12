@@ -1135,7 +1135,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
             else
             {
-                ReportingDescriptor rule = new ReportingDescriptor() { Guid = ruleId };
+                ReportingDescriptor rule = new ReportingDescriptor
+                {
+                    Id = ruleId,
+                    Guid = ruleId
+                };
 
                 ruleIndex = _rules.Count;
                 _rules.Add(rule);

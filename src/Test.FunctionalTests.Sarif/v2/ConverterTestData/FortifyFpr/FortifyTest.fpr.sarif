@@ -291,6 +291,7 @@
           "name": "HP Fortify Static Code Analyzer",
           "rules": [
             {
+              "id": "D0ACE9F8-3C8F-42D4-BDB1-2FC9ECB0CDFB",
               "guid": "D0ACE9F8-3C8F-42D4-BDB1-2FC9ECB0CDFB",
               "shortDescription": {
                 "text": "The framework binder used for binding the HTTP request parameters to the model class in <Replace key=\"PrimaryCall.name\"/> on line <Replace key=\"PrimaryLocation.line\"/> has not been explicitly configured to allow, or disallow, certain attributes.\r\nThe framework binder used for binding the HTTP request parameters to the model class has not been explicitly configured to allow, or disallow, certain attributes."
@@ -305,6 +306,7 @@
               }
             },
             {
+              "id": "AC21F232-1D82-49B7-9AB1-46FE84CD6424",
               "guid": "AC21F232-1D82-49B7-9AB1-46FE84CD6424",
               "shortDescription": {
                 "text": "The method <Replace key=\"EnclosingFunction.name\"/> in <Replace key=\"PrimaryLocation.file\"/> is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
@@ -319,6 +321,7 @@
               }
             },
             {
+              "id": "6ED95DD1-4F81-44C6-A260-695DFD41B803",
               "guid": "6ED95DD1-4F81-44C6-A260-695DFD41B803",
               "shortDescription": {
                 "text": "Attackers are able to control the file system path argument to <Replace key=\"PrimaryCall.name\"/> at <Replace key=\"PrimaryLocation.file\"/> line <Replace key=\"PrimaryLocation.line\"/>, which allows them to access or modify otherwise protected files.\r\nAllowing user input to control paths used in file system operations could enable an attacker to access or modify otherwise protected system resources."
