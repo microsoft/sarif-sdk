@@ -478,6 +478,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 {
                     rule.SetProperty(_strings.Subtype, _reader.ReadElementContentAsString());
                 }
+                else if (AtStartOfNonEmpty(_strings.DefaultSeverity))
+                {
+                    rule.SetProperty(_strings.DefaultSeverity, _reader.ReadElementContentAsString());
+                }
                 else if (AtStartOfNonEmpty(_strings.ReplacementDefinitions))
                 {
                     ParseReplacementDefinitions(result);

@@ -126,7 +126,8 @@
               "properties": {
                 "Kingdom": "Input Validation and Representation",
                 "Type": "SQL Injection",
-                "Subtype": "Value Never Read"
+                "Subtype": "Value Never Read",
+                "DefaultSeverity": "2.0"
               }
             }
           ],
