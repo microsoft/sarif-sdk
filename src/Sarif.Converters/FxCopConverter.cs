@@ -121,7 +121,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
 
             result.RuleId = context.CheckId;
-            result.Message = new Message { Arguments = context.Items, Id = context.ResolutionName, Text = context.Message };
+            string messageText = context.Message ?? ConverterResources.FxCopNoMessage;
+            result.Message = new Message { Arguments = context.Items, Id = context.ResolutionName, Text = messageText };
             var location = new Location();
 
             string sourceFile = GetFilePath(context);
