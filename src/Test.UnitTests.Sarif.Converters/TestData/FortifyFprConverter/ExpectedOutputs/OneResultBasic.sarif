@@ -87,9 +87,10 @@
       ],
       "tool": {
         "driver": {
-          "name": "HP Fortify Static Code Analyzer",
+          "name": "Micro Focus Fortify Static Code Analyzer",
           "rules": [
             {
+              "id": "31D4607A-A3FF-447C-908A-CA2BBE4CE4B7",
               "guid": "31D4607A-A3FF-447C-908A-CA2BBE4CE4B7",
               "shortDescription": {
                 "text": "Sample abstract text. SQL injection vulnerability."
@@ -103,7 +104,7 @@
                     "id": "22",
                     "toolComponent": {
                       "name": "CWE",
-                      "guid": "2B841697-D0DE-45DD-9F19-1EEE1312429"
+                      "guid": "25F72D7E-8A92-459D-AD67-64853F788765"
                     }
                   },
                   "kinds": [
@@ -115,7 +116,7 @@
                     "id": "73",
                     "toolComponent": {
                       "name": "CWE",
-                      "guid": "2B841697-D0DE-45DD-9F19-1EEE1312429"
+                      "guid": "25F72D7E-8A92-459D-AD67-64853F788765"
                     }
                   },
                   "kinds": [
@@ -134,7 +135,7 @@
             {
               "name": "CWE",
               "index": 0,
-              "guid": "2B841697-D0DE-45DD-9F19-1EEE1312429"
+              "guid": "25F72D7E-8A92-459D-AD67-64853F788765"
             }
           ]
         }
@@ -151,7 +152,6 @@
           }
         }
       ],
-      "language": "en-US",
       "originalUriBaseIds": {
         "SRCROOT": {
           "uri": "file:///root/projects/myproject/src/"
@@ -174,7 +174,7 @@
       "columnKind": "utf16CodeUnits",
       "taxonomies": [
         {
-          "guid": "2B841697-D0DE-45DD-9F19-1EEE1312429",
+          "guid": "25F72D7E-8A92-459D-AD67-64853F788765",
           "name": "CWE",
           "organization": "MITRE",
           "shortDescription": {
