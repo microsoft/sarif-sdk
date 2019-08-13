@@ -559,7 +559,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                             {
                                 if (_nodeDictionary.TryGetValue(nodeId, out Node node))
                                 {
-                                    // Add a ThreadFlowLocation referencing the global set, mimicing the reuse within the Fortify format
                                     int index = _threadFlowLocationToIndexDictionary[node.ThreadFlowLocation];
                                     codeFlow.ThreadFlows[0].Locations.Add(new ThreadFlowLocation { Index = index });
                                 }
