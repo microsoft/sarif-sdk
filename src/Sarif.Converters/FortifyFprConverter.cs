@@ -1249,7 +1249,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             foreach (Node node in _nodeDictionary.Values)
             {
-                if (!_threadFlowLocationToIndexDictionary.TryGetValue(node.ThreadFlowLocation, out int index))
+                if (!_threadFlowLocationToIndexDictionary.TryGetValue(node.ThreadFlowLocation, out _))
                 {
                     _threadFlowLocationToIndexDictionary.Add(node.ThreadFlowLocation, _threadFlowLocationToIndexDictionary.Count);
                 }
