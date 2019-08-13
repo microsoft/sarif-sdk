@@ -199,7 +199,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 Invocations = new[] { _invocation },
             };
 
-            // Note: Serialize ThreadFlowLocations from the 'UnifiedNodePool' to maintain same reuse as Fortify log
             if (_nodeDictionary?.Count > 0 && IncludeThreadFlowLocations)
             {
                 run.ThreadFlowLocations = _threadFlowLocationToIndexDictionary
