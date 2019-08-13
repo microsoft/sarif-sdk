@@ -226,16 +226,16 @@
                 {
                   "locations": [
                     {
-                      "index": 3
+                      "index": 0
                     },
                     {
                       "index": 1
                     },
                     {
-                      "index": 4
+                      "index": 3
                     },
                     {
-                      "index": 5
+                      "index": 4
                     },
                     {
                       "location": {
@@ -288,7 +288,7 @@
       ],
       "tool": {
         "driver": {
-          "name": "HP Fortify Static Code Analyzer",
+          "name": "Micro Focus Fortify Static Code Analyzer",
           "rules": [
             {
               "id": "D0ACE9F8-3C8F-42D4-BDB1-2FC9ECB0CDFB",
@@ -518,35 +518,6 @@
           "kinds": [
             "acquire",
             "resource"
-          ]
-        },
-        {
-          "location": {
-            "physicalLocation": {
-              "artifactLocation": {
-                "uri": "src/Controllers/ContentFileHandlingController.cs"
-              },
-              "region": {
-                "startLine": 20,
-                "snippet": {
-                  "text": "        public ActionResult Download(ContentFileViewModel frmContent)"
-                }
-              },
-              "contextRegion": {
-                "startLine": 17,
-                "endLine": 23,
-                "snippet": {
-                  "text": "        /// <param name=\"frmContent\"> Download form input parameters </param>\n        /// <returns>Action Result object</returns>\n        [HttpPost, ValidateAntiForgeryToken]\n        public ActionResult Download(ContentFileViewModel frmContent)\n        {\n            try\n            {\n"
-                }
-              }
-            },
-            "message": {
-              "text": "Download(0)"
-            }
-          },
-          "kinds": [
-            "call",
-            "function"
           ]
         },
         {
