@@ -343,9 +343,10 @@
       ],
       "tool": {
         "driver": {
-          "name": "HP Fortify Static Code Analyzer",
+          "name": "Micro Focus Fortify Static Code Analyzer",
           "rules": [
             {
+              "id": "97A5F38F-524B-4A83-94FA-9387B5265825",
               "guid": "97A5F38F-524B-4A83-94FA-9387B5265825",
               "shortDescription": {
                 "text": "The function <Replace key=\"EnclosingFunction.name\"/> in <Replace key=\"PrimaryLocation.file\"/> sometimes fails to release a system resource allocated by <Replace key=\"FirstTransitionFunction\"/> on line <Replace key=\"FirstTraceLocation.line\"/>.\r\nThe program can potentially fail to release a system resource."
@@ -364,7 +365,7 @@
             {
               "name": "CWE",
               "index": 0,
-              "guid": "2B841697-D0DE-45DD-9F19-1EEE1312429"
+              "guid": "25F72D7E-8A92-459D-AD67-64853F788765"
             }
           ]
         }
@@ -381,7 +382,6 @@
           }
         }
       ],
-      "language": "en-US",
       "originalUriBaseIds": {
         "SRCROOT": {
           "uri": "file:///C:/projects/myproject/src/"
@@ -404,7 +404,7 @@
       "columnKind": "utf16CodeUnits",
       "taxonomies": [
         {
-          "guid": "2B841697-D0DE-45DD-9F19-1EEE1312429",
+          "guid": "25F72D7E-8A92-459D-AD67-64853F788765",
           "name": "CWE",
           "organization": "MITRE",
           "shortDescription": {

@@ -24,10 +24,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private readonly NameTable _nameTable;
         private readonly FortifyFprStrings _strings;
         private readonly string[] SupportedReplacementTokens = new[] { "PrimaryLocation.file", "PrimaryLocation.line" };
-        private readonly Dictionary<string, List<string>> ActionTypeToLocationKindMap = new Dictionary<string, List<string>>
+        private readonly Dictionary<string, List<string>> ActionTypeToLocationKindsMap = new Dictionary<string, List<string>>
         {
             { "InCall", new List<string> { "call", "function" } },
-            { "InOutCall", new List<string> { "call", "function", "return" , "function"} },
+            { "InOutCall", new List<string> { "call", "function", "return" } },
             { "BranchTaken", new List<string> { "branch", "true" } },
             { "BranchNotTaken", new List<string> { "branch", "false" } },
             { "Return", new List<string> { "return", "function" } },
@@ -38,7 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private readonly ToolComponent CweToolComponent = new ToolComponent
         {
             Name = "CWE",
-            Guid = "2B841697-D0DE-45DD-9F19-1EEE1312429",
+            Guid = "25F72D7E-8A92-459D-AD67-64853F788765",
             Organization = "MITRE",
             ShortDescription = new MultiformatMessageString
             {
@@ -63,6 +63,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private List<ReportingDescriptor> _rules;
         private Dictionary<string, int> _ruleIdToIndexMap;
         private Dictionary<string, Node> _nodeDictionary;
+        private IDictionary<ThreadFlowLocation, int> _threadFlowLocationToIndexDictionary;
         private Dictionary<string, Snippet> _snippetDictionary;
 
         // Output Configurability
@@ -82,6 +83,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             _ruleIdToIndexMap = new Dictionary<string, int>();
             _cweIds = new HashSet<string>();
             _nodeDictionary = new Dictionary<string, Node>();
+            _threadFlowLocationToIndexDictionary = new Dictionary<ThreadFlowLocation, int>(ThreadFlowLocation.ValueComparer);
             _snippetDictionary = new Dictionary<string, Snippet>();
 
             IncludeContextRegions = true;
@@ -89,7 +91,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             IncludeThreadFlowLocations = true;
         }
 
-        public override string ToolName => "HP Fortify Static Code Analyzer";
+        public override string ToolName => "Micro Focus Fortify Static Code Analyzer";
 
         /// <summary>
         /// Interface implementation for converting a stream in Fortify FPR format to a stream in
@@ -119,6 +121,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             _ruleIdToIndexMap.Clear();
             _cweIds.Clear();
             _nodeDictionary.Clear();
+            _threadFlowLocationToIndexDictionary.Clear();
             _snippetDictionary.Clear();
 
             // Uncomment following Line to fetch FVDL content from any FPR file. This is not needed for conversion.
@@ -131,7 +134,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             // Add Snippets to NodePool Nodes which referenced them (Snippets appear after the NodePool in Fortify files)
             AddSnippetsToNodes();
 
-            // Create the Sarif Run itself to report
+            // Now that the ThreadFlowLocation objects are fully constructed (including their code
+            // snippets), we can identify the set of distinct ThreadFlowLocations and associate
+            // each one with its array index in run.threadFlowLocations.
+            AssociateIndicesWithThreadFlowLocations();
+
             Run run = CreateSarifRun();
 
             // Write the Run itself
@@ -147,14 +154,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private string ExtractFvdl(XmlReader reader)
         {
-            string output;
             using (reader)
             {
                 // Moves the reader to the root element.
                 reader.MoveToContent();
-                output = reader.ReadOuterXml();
+                return reader.ReadOuterXml();
             }
-            return output;
         }
 
         private Run CreateSarifRun()
@@ -182,7 +187,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                             {
                                 Name = "CWE",
                                 Index = 0,
-                                Guid = "2B841697-D0DE-45DD-9F19-1EEE1312429"
+                                Guid = CweToolComponent.Guid
                             }
                         }
                     }
@@ -194,15 +199,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 Invocations = new[] { _invocation },
             };
 
-            // Note: Serialize ThreadFlowLocations from the 'UnifiedNodePool' to maintain same reuse as Fortify log
             if (_nodeDictionary?.Count > 0 && IncludeThreadFlowLocations)
             {
-                run.ThreadFlowLocations = new List<ThreadFlowLocation>();
-                foreach (Node node in _nodeDictionary.Values)
-                {
-                    node.Index = run.ThreadFlowLocations.Count;
-                    run.ThreadFlowLocations.Add(node.ThreadFlowLocation);
-                }
+                run.ThreadFlowLocations = _threadFlowLocationToIndexDictionary
+                    .OrderBy(entry => entry.Value)
+                    .Select(entry => entry.Key)
+                    .ToList();
             }
 
             if (_cweIds.Count > 0)
@@ -531,7 +533,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private void ParseLocationsFromTraces(Result result)
         {
-            CodeFlow codeFlow = null;
             string nodeLabel = null;
             string lastNodeId = null;
             bool? isDefault = null;
@@ -545,7 +546,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         result.CodeFlows = new List<CodeFlow>();
                     }
 
-                    codeFlow = SarifUtilities.CreateSingleThreadedCodeFlow();
+                    CodeFlow codeFlow = SarifUtilities.CreateSingleThreadedCodeFlow();
                     result.CodeFlows.Add(codeFlow);
 
                     while (!AtEndOf(_strings.Trace))
@@ -558,8 +559,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                             {
                                 if (_nodeDictionary.TryGetValue(nodeId, out Node node))
                                 {
-                                    // Add a ThreadFlowLocation referencing the global set, mimicing the reuse within the Fortify format
-                                    codeFlow.ThreadFlows[0].Locations.Add(new ThreadFlowLocation() { Index = node.Index });
+                                    int index = _threadFlowLocationToIndexDictionary[node.ThreadFlowLocation];
+                                    codeFlow.ThreadFlows[0].Locations.Add(new ThreadFlowLocation { Index = index });
                                 }
                             }
 
@@ -724,7 +725,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             string path = _reader.GetAttribute(_strings.PathAttribute);
 
-            PhysicalLocation location = new PhysicalLocation()
+            PhysicalLocation location = new PhysicalLocation
             {
                 Region = ParseRegion()
             };
@@ -732,11 +733,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var uri = new Uri(path, UriKind.RelativeOrAbsolute);
             if (_files.TryGetValue(uri, out var entry))
             {
-                location.ArtifactLocation = new ArtifactLocation() { Index = entry.Item2 };
+                location.ArtifactLocation = new ArtifactLocation { Index = entry.Item2 };
             }
             else
             {
-                location.ArtifactLocation = new ArtifactLocation() { Uri = uri };
+                location.ArtifactLocation = new ArtifactLocation { Uri = uri };
             }
 
             return location;
@@ -924,14 +925,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     string actionType = _reader.GetAttribute(_strings.TypeAttribute);
                     string nodeLabel = _reader.ReadElementContentAsString();
 
-                    // Convert to Sarif types
+                    // Convert to SARIF types.
                     Node node = new Node(
-                        new ThreadFlowLocation()
+                        new ThreadFlowLocation
                         {
                             Kinds = ConvertActionTypeToLocationKinds(actionType),
-                            Location = new Location()
+                            Location = new Location
                             {
-                                Message = new Message() { Text = nodeLabel },
+                                Message = new Message { Text = nodeLabel },
                                 PhysicalLocation = physicalLocation
                             }
                         },
@@ -969,13 +970,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string snippetId = _reader.GetAttribute(_strings.IdAttribute);
             int snippetStartLine = 0;
             int snippetEndLine = 0;
-            int regionStartLine = 0;
-            int regionEndLine = 0;
 
             string[] parts = snippetId.Split(':');
 
-            int.TryParse(parts[parts.Length - 2], out regionStartLine);
-            int.TryParse(parts[parts.Length - 1], out regionEndLine);
+            int.TryParse(parts[parts.Length - 2], out int regionStartLine);
+            int.TryParse(parts[parts.Length - 1], out int regionEndLine);
             string text = null;
 
             _reader.Read();
@@ -1135,7 +1134,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
             else
             {
-                ReportingDescriptor rule = new ReportingDescriptor() { Guid = ruleId };
+                ReportingDescriptor rule = new ReportingDescriptor
+                {
+                    Id = ruleId,
+                    Guid = ruleId
+                };
 
                 ruleIndex = _rules.Count;
                 _rules.Add(rule);
@@ -1149,7 +1152,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             List<string> kinds;
 
-            if (actionType == null || !ActionTypeToLocationKindMap.TryGetValue(actionType, out kinds))
+            if (actionType == null || !ActionTypeToLocationKindsMap.TryGetValue(actionType, out kinds))
             {
                 kinds = new List<string> { "unknown" };
             }
@@ -1233,15 +1236,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             foreach (Node node in _nodeDictionary.Values)
             {
-                if (!String.IsNullOrEmpty(node.SnippetId) && _snippetDictionary.TryGetValue(node.SnippetId, out Snippet snippet))
+                if (!string.IsNullOrEmpty(node.SnippetId) && _snippetDictionary.TryGetValue(node.SnippetId, out Snippet snippet))
                 {
                     snippet.ApplyTo(node.ThreadFlowLocation.Location.PhysicalLocation);
                 }
             }
         }
 
+        private void AssociateIndicesWithThreadFlowLocations()
+        {
+            foreach (Node node in _nodeDictionary.Values)
+            {
+                if (!_threadFlowLocationToIndexDictionary.TryGetValue(node.ThreadFlowLocation, out _))
+                {
+                    _threadFlowLocationToIndexDictionary.Add(node.ThreadFlowLocation, _threadFlowLocationToIndexDictionary.Count);
+                }
+            }
+        }
+
         /// <summary>
-        ///  Represents a Snippet in the Fortify format converted to Sarif types.
+        ///  Represents a Snippet in the Fortify format converted to SARIF types.
         /// </summary>
         private class Snippet
         {
@@ -1262,13 +1276,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         }
 
         /// <summary>
-        ///  Represents a Node in the Fortify format converted to Sarif types
+        ///  Represents a Node in the Fortify format converted to SARIF types.
         /// </summary>
         private class Node
         {
             public ThreadFlowLocation ThreadFlowLocation { get; set; }
             public string SnippetId { get; set; }
-            public int Index { get; set; }
 
             public Node(ThreadFlowLocation tfl, string snippetId)
             {
