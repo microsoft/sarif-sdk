@@ -284,5 +284,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
                 return ResourceManager.GetString("SARIF1017_InvalidIndex", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to In this artifactLocation object contained in run.originalUriBaseIds, uriBaseId is absent, but uri is &apos;{0}&apos;, which is a relative URI..
+        /// </summary>
+        internal static string SARIF1018_Default {
+            get {
+                return ResourceManager.GetString("SARIF1018_Default", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to In the artifactLocation objects contained in run.originalUriBaseIds, if uriBaseId is absent, then uri must either be an absolute URI or it must be absent..
+        /// </summary>
+        internal static string SARIF1018_InvalidUriInOriginalUriBaseIds {
+            get {
+                return ResourceManager.GetString("SARIF1018_InvalidUriInOriginalUriBaseIds", resourceCulture);
+            }
+        }
     }
 }

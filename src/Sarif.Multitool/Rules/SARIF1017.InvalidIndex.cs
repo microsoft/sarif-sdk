@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {

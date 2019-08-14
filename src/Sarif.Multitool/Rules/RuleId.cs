@@ -17,5 +17,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public const string UriMustBeAbsolute = "SARIF1015";
         public const string ContextRegionRequiresRegion = "SARIF1016";
         public const string InvalidIndex = "SARIF1017";
+        public const string InvalidUriInOriginalUriBaseIds = "SARIF1018";
     }
 }
