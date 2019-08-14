@@ -53,19 +53,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             AnalyzeUri(reportingDescriptor.HelpUri, reportingDescriptorPointer.AtProperty(SarifPropertyName.HelpUri));
         }
 
-        protected override void Analyze(Run run, string runPointer)
-        {
-            if (run.OriginalUriBaseIds != null)
-            {
-                string originalUriBaseIdsPointer = runPointer.AtProperty(SarifPropertyName.OriginalUriBaseIds);
-
-                foreach (string key in run.OriginalUriBaseIds.Keys)
-                {
-                    AnalyzeUri(run.OriginalUriBaseIds[key].Uri, originalUriBaseIdsPointer.AtProperty(key));
-                }
-            }
-        }
-
         protected override void Analyze(ToolComponent toolComponent, string toolComponentPointer)
         {
             AnalyzeUri(toolComponent.DownloadUri, toolComponentPointer.AtProperty(SarifPropertyName.DownloadUri));
