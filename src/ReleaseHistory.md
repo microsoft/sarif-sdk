@@ -444,6 +444,8 @@
 * BUGFIX: Include Sarif.WorkItemFiling.dll in the Sarif.Multitool NuGet package. https://github.com/microsoft/sarif-sdk/issues/1636
 * FEATURE: Add validation rule to ensure that all array-index-valued properties are consistent with their respective arrays.
 
-** **v2.1.15** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.15) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.15) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.15) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.15)
+## **v2.1.15** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.15) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.15) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.15) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.15)
+* BUGFIX: Validation rule `SARIF1015` incorrectly required `originalUriBaseIds` to be contain URIs. https://github.com/microsoft/sarif-sdk/issues/1485
 * BUGFIX: FortifyFpr converter produced invalid SARIF. https://github.com/microsoft/sarif-sdk/issues/1593
 * BUGFIX: FxCop converter produced empty `result.message` objects. https://github.com/microsoft/sarif-sdk/issues/1594
+* FEATURE: Add validation rule to ensure correctness of `originalUriBaseIds` entries.
