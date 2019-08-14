@@ -30,11 +30,6 @@
           "repositoryUri": "example.com/my-project"
         }
       ],
-      "originalUriBaseIds": {
-        "SRCROOT": {
-          "uri": "Code/sarif-sdk/src"
-        }
-      },
       "results": [
         {
           "ruleId": "TST0001",

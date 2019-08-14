@@ -20,11 +20,6 @@
           "repositoryUri": "https://example.com/my-project"
         }
       ],
-      "originalUriBaseIds": {
-        "SRCROOT": {
-          "uri": "file:///c:/Code/sarif-sdk/src"
-        }
-      },
       "results": [
         {
           "ruleId": "TST0001",
@@ -41,8 +36,8 @@
       "columnKind": "utf16CodeUnits",
       "properties": {
         "expectedResults": {
-  "resultLocationPointers": []
-}
+          "resultLocationPointers": []
+        }
       }
     }
   ]
