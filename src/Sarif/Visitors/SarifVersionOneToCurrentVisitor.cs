@@ -1231,7 +1231,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     driver.SetProperty("sarifv1/toolFileVersion", v1Tool.FileVersion);
                 }
 
-
                 tool = new Tool
                 {
                     Driver = driver
