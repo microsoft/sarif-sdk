@@ -14,7 +14,7 @@
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
 
   <ItemGroup>
-    <None Remove="TestData\MergeCommand\NoInputFiles.sarif" />
+    <None Remove="TestData\MergeCommand\ExpectedOutputs\NoInputFiles.sarif" />
     <None Remove="TestData\PageCommand\elfie-arriba - Copy.sarif" />
     <None Remove="TestData\PageCommand\elfie-arriba.sarif" />
     <None Remove="TestData\RebaseUriCommand\ExpectedOutputs\RunWithArtifacts.sarif" />
