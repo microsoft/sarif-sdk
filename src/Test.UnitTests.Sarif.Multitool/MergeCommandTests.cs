@@ -45,11 +45,16 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
             string outputFilePath = Path.Combine(OutputFolderPath, outputFileName);
 
             var mockFileSystem = new Mock<IFileSystem>();
+
+            // We mock the file system to fake out the read operations.
             mockFileSystem.Setup(x => x.FileExists(outputFilePath)).Returns(false);
             mockFileSystem.Setup(x => x.DirectoryExists(InputFolderPath)).Returns(true);
             mockFileSystem.Setup(x => x.GetFilesInDirectory(InputFolderPath, inputResourceName)).Returns(new string[0]); // <= The hard-coded return value in question.
-            mockFileSystem.Setup(x => x.CreateDirectory(OutputFolderPath)).Returns(new DirectoryInfo(OutputFolderPath));
+
+            // But we really do want to create the output file, so tell the mock to execute the actual write operations.
+            mockFileSystem.Setup(x => x.CreateDirectory(OutputFolderPath)).Returns((string path) => { return Directory.CreateDirectory(path); });
             mockFileSystem.Setup(x => x.Create(outputFilePath)).Returns((string path) => { return File.Create(path); });
+
             IFileSystem fileSystem = mockFileSystem.Object;
 
             var options = new MergeOptions
