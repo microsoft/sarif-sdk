@@ -448,6 +448,7 @@
 * BUGFIX: Validation rule `SARIF1015` incorrectly required `originalUriBaseIds` to be contain URIs. https://github.com/microsoft/sarif-sdk/issues/1485
 * BUGFIX: Multitool transform mishandled dottedQuadFileVersion. https://github.com/microsoft/sarif-sdk/issues/1532
 * BUGFIX: Restore missing FxCop converter unit test. https://github.com/microsoft/sarif-sdk/issues/1575
+* BUGFIX: Multitool merge command produced invalid SARIF if there were 0 input files. https://github.com/microsoft/sarif-sdk/issues/1592
 * BUGFIX: FortifyFpr converter produced invalid SARIF. https://github.com/microsoft/sarif-sdk/issues/1593
 * BUGFIX: FxCop converter produced empty `result.message` objects. https://github.com/microsoft/sarif-sdk/issues/1594
 * FEATURE: Add validation rule to ensure correctness of `originalUriBaseIds` entries.
