@@ -1,0 +1,75 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.4.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "SARIF Functional Testing",
+          "rules": [
+            {
+              "id": "SARIF1018",
+              "name": "InvalidUriInOriginalUriBaseIds",
+              "shortDescription": {
+                "text": "In the artifactLocation objects contained in run."
+              },
+              "fullDescription": {
+                "text": "In the artifactLocation objects contained in run.originalUriBaseIds, if uriBaseId is absent, then uri must either be an absolute URI or it must be absent."
+              },
+              "messageStrings": {
+                "Default": {
+                  "text": "In this artifactLocation object contained in run.originalUriBaseIds, uriBaseId is absent, but uri is '{0}', which is a relative URI."
+                }
+              },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+            }
+          ]
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1018.InvalidUriInOriginalUriBaseIds_Invalid.sarif",
+            "uriBaseId": "TEST_DIR",
+            "index": 0
+          }
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "SARIF1018",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Default",
+            "arguments": [
+              "runs[0].originalUriBaseIds.PROJECT_ROOT",
+              "project/"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1018.InvalidUriInOriginalUriBaseIds_Invalid.sarif",
+                  "uriBaseId": "TEST_DIR",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 12,
+                  "startColumn": 25
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}

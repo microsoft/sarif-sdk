@@ -75,33 +75,6 @@
           "message": {
             "id": "Default",
             "arguments": [
-              "runs[0].originalUriBaseIds.SRCROOT",
-              "Code/sarif-sdk/src"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1015.UriMustBeAbsolute_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR",
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 34,
-                  "startColumn": 20
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF1015",
-          "ruleIndex": 0,
-          "level": "error",
-          "message": {
-            "id": "Default",
-            "arguments": [
               "runs[0].results[0].workItemUris[0]",
               "example.com/my-project/issues/42"
             ]
@@ -115,7 +88,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 46,
+                  "startLine": 41,
                   "startColumn": 46
                 }
               }
