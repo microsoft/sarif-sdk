@@ -3647,7 +3647,7 @@
         {
           "ruleId": "CA1811",
           "message": {
-            "text": "FxCop results that have been suppressed do not contain a message string."
+            "text": "FxCop does not provide messages for suppressed results."
           },
           "locations": [
             {
@@ -4016,7 +4016,7 @@
         {
           "ruleId": "CA3053",
           "message": {
-            "text": "FxCop results that have been suppressed do not contain a message string."
+            "text": "FxCop does not provide messages for suppressed results."
           },
           "locations": [
             {
@@ -4530,7 +4530,7 @@
         {
           "ruleId": "CA3053",
           "message": {
-            "text": "FxCop results that have been suppressed do not contain a message string."
+            "text": "FxCop does not provide messages for suppressed results."
           },
           "locations": [
             {
@@ -5906,7 +5906,7 @@
         {
           "ruleId": "CA3053",
           "message": {
-            "text": "FxCop results that have been suppressed do not contain a message string."
+            "text": "FxCop does not provide messages for suppressed results."
           },
           "locations": [
             {
@@ -5975,7 +5975,7 @@
         {
           "ruleId": "CA1710",
           "message": {
-            "text": "FxCop results that have been suppressed do not contain a message string."
+            "text": "FxCop does not provide messages for suppressed results."
           },
           "locations": [
             {
@@ -6222,7 +6222,7 @@
         {
           "ruleId": "CA1801",
           "message": {
-            "text": "FxCop results that have been suppressed do not contain a message string."
+            "text": "FxCop does not provide messages for suppressed results."
           },
           "locations": [
             {
@@ -6257,7 +6257,7 @@
         {
           "ruleId": "CA1801",
           "message": {
-            "text": "FxCop results that have been suppressed do not contain a message string."
+            "text": "FxCop does not provide messages for suppressed results."
           },
           "locations": [
             {
@@ -9748,7 +9748,7 @@
         {
           "ruleId": "CA5350",
           "message": {
-            "text": "FxCop results that have been suppressed do not contain a message string."
+            "text": "FxCop does not provide messages for suppressed results."
           },
           "locations": [
             {
@@ -9780,7 +9780,7 @@
         {
           "ruleId": "CA5354",
           "message": {
-            "text": "FxCop results that have been suppressed do not contain a message string."
+            "text": "FxCop does not provide messages for suppressed results."
           },
           "locations": [
             {
@@ -9846,7 +9846,7 @@
         {
           "ruleId": "CA5350",
           "message": {
-            "text": "FxCop results that have been suppressed do not contain a message string."
+            "text": "FxCop does not provide messages for suppressed results."
           },
           "locations": [
             {
@@ -9951,7 +9951,7 @@
         {
           "ruleId": "CA5354",
           "message": {
-            "text": "FxCop results that have been suppressed do not contain a message string."
+            "text": "FxCop does not provide messages for suppressed results."
           },
           "locations": [
             {
@@ -10056,7 +10056,7 @@
         {
           "ruleId": "CA2227",
           "message": {
-            "text": "FxCop results that have been suppressed do not contain a message string."
+            "text": "FxCop does not provide messages for suppressed results."
           },
           "locations": [
             {
@@ -11015,7 +11015,7 @@
         {
           "ruleId": "CA1024",
           "message": {
-            "text": "FxCop results that have been suppressed do not contain a message string."
+            "text": "FxCop does not provide messages for suppressed results."
           },
           "locations": [
             {
@@ -11249,7 +11249,7 @@
         {
           "ruleId": "CA1062",
           "message": {
-            "text": "FxCop results that have been suppressed do not contain a message string."
+            "text": "FxCop does not provide messages for suppressed results."
           },
           "locations": [
             {
@@ -11284,7 +11284,7 @@
         {
           "ruleId": "CA1062",
           "message": {
-            "text": "FxCop results that have been suppressed do not contain a message string."
+            "text": "FxCop does not provide messages for suppressed results."
           },
           "locations": [
             {
@@ -11319,7 +11319,7 @@
         {
           "ruleId": "CA1062",
           "message": {
-            "text": "FxCop results that have been suppressed do not contain a message string."
+            "text": "FxCop does not provide messages for suppressed results."
           },
           "locations": [
             {
@@ -11354,7 +11354,7 @@
         {
           "ruleId": "CA1062",
           "message": {
-            "text": "FxCop results that have been suppressed do not contain a message string."
+            "text": "FxCop does not provide messages for suppressed results."
           },
           "locations": [
             {
@@ -11682,7 +11682,7 @@
         {
           "ruleId": "CA3053",
           "message": {
-            "text": "FxCop results that have been suppressed do not contain a message string."
+            "text": "FxCop does not provide messages for suppressed results."
           },
           "locations": [
             {
@@ -14672,7 +14672,7 @@
         {
           "ruleId": "CA1811",
           "message": {
-            "text": "FxCop results that have been suppressed do not contain a message string."
+            "text": "FxCop does not provide messages for suppressed results."
           },
           "locations": [
             {
@@ -15917,7 +15917,7 @@
         {
           "ruleId": "CA2227",
           "message": {
-            "text": "FxCop results that have been suppressed do not contain a message string."
+            "text": "FxCop does not provide messages for suppressed results."
           },
           "locations": [
             {
@@ -18300,7 +18300,7 @@
         {
           "ruleId": "CA1726",
           "message": {
-            "text": "FxCop results that have been suppressed do not contain a message string."
+            "text": "FxCop does not provide messages for suppressed results."
           },
           "locations": [
             {
@@ -18513,7 +18513,7 @@
         {
           "ruleId": "CA2227",
           "message": {
-            "text": "FxCop results that have been suppressed do not contain a message string."
+            "text": "FxCop does not provide messages for suppressed results."
           },
           "locations": [
             {
@@ -18545,7 +18545,7 @@
         {
           "ruleId": "CA2227",
           "message": {
-            "text": "FxCop results that have been suppressed do not contain a message string."
+            "text": "FxCop does not provide messages for suppressed results."
           },
           "locations": [
             {
@@ -18577,7 +18577,7 @@
         {
           "ruleId": "CA2227",
           "message": {
-            "text": "FxCop results that have been suppressed do not contain a message string."
+            "text": "FxCop does not provide messages for suppressed results."
           },
           "locations": [
             {
@@ -27071,7 +27071,7 @@
         {
           "ruleId": "CA1710",
           "message": {
-            "text": "FxCop results that have been suppressed do not contain a message string."
+            "text": "FxCop does not provide messages for suppressed results."
           },
           "locations": [
             {
@@ -27260,7 +27260,7 @@
         {
           "ruleId": "CA1811",
           "message": {
-            "text": "FxCop results that have been suppressed do not contain a message string."
+            "text": "FxCop does not provide messages for suppressed results."
           },
           "locations": [
             {
@@ -27497,7 +27497,7 @@
         {
           "ruleId": "CA1062",
           "message": {
-            "text": "FxCop results that have been suppressed do not contain a message string."
+            "text": "FxCop does not provide messages for suppressed results."
           },
           "locations": [
             {
@@ -27532,7 +27532,7 @@
         {
           "ruleId": "CA1062",
           "message": {
-            "text": "FxCop results that have been suppressed do not contain a message string."
+            "text": "FxCop does not provide messages for suppressed results."
           },
           "locations": [
             {
@@ -27567,7 +27567,7 @@
         {
           "ruleId": "CA1045",
           "message": {
-            "text": "FxCop results that have been suppressed do not contain a message string."
+            "text": "FxCop does not provide messages for suppressed results."
           },
           "locations": [
             {
@@ -27602,7 +27602,7 @@
         {
           "ruleId": "CA1062",
           "message": {
-            "text": "FxCop results that have been suppressed do not contain a message string."
+            "text": "FxCop does not provide messages for suppressed results."
           },
           "locations": [
             {
@@ -27637,7 +27637,7 @@
         {
           "ruleId": "CA1811",
           "message": {
-            "text": "FxCop results that have been suppressed do not contain a message string."
+            "text": "FxCop does not provide messages for suppressed results."
           },
           "locations": [
             {
@@ -28240,7 +28240,7 @@
         {
           "ruleId": "CA1062",
           "message": {
-            "text": "FxCop results that have been suppressed do not contain a message string."
+            "text": "FxCop does not provide messages for suppressed results."
           },
           "locations": [
             {
@@ -28275,7 +28275,7 @@
         {
           "ruleId": "CA1062",
           "message": {
-            "text": "FxCop results that have been suppressed do not contain a message string."
+            "text": "FxCop does not provide messages for suppressed results."
           },
           "locations": [
             {
@@ -28310,7 +28310,7 @@
         {
           "ruleId": "CA1062",
           "message": {
-            "text": "FxCop results that have been suppressed do not contain a message string."
+            "text": "FxCop does not provide messages for suppressed results."
           },
           "locations": [
             {
@@ -28416,7 +28416,7 @@
         {
           "ruleId": "CA2104",
           "message": {
-            "text": "FxCop results that have been suppressed do not contain a message string."
+            "text": "FxCop does not provide messages for suppressed results."
           },
           "locations": [
             {
@@ -28448,7 +28448,7 @@
         {
           "ruleId": "CA1000",
           "message": {
-            "text": "FxCop results that have been suppressed do not contain a message string."
+            "text": "FxCop does not provide messages for suppressed results."
           },
           "locations": [
             {
@@ -28480,7 +28480,7 @@
         {
           "ruleId": "CA2215",
           "message": {
-            "text": "FxCop results that have been suppressed do not contain a message string."
+            "text": "FxCop does not provide messages for suppressed results."
           },
           "locations": [
             {
@@ -28972,7 +28972,7 @@
         {
           "ruleId": "CA1062",
           "message": {
-            "text": "FxCop results that have been suppressed do not contain a message string."
+            "text": "FxCop does not provide messages for suppressed results."
           },
           "locations": [
             {
@@ -29007,7 +29007,7 @@
         {
           "ruleId": "CA1062",
           "message": {
-            "text": "FxCop results that have been suppressed do not contain a message string."
+            "text": "FxCop does not provide messages for suppressed results."
           },
           "locations": [
             {
@@ -29334,7 +29334,7 @@
         {
           "ruleId": "CA1811",
           "message": {
-            "text": "FxCop results that have been suppressed do not contain a message string."
+            "text": "FxCop does not provide messages for suppressed results."
           },
           "locations": [
             {
@@ -30239,7 +30239,7 @@
         {
           "ruleId": "CA1811",
           "message": {
-            "text": "FxCop results that have been suppressed do not contain a message string."
+            "text": "FxCop does not provide messages for suppressed results."
           },
           "locations": [
             {
@@ -30530,7 +30530,7 @@
         {
           "ruleId": "CA1811",
           "message": {
-            "text": "FxCop results that have been suppressed do not contain a message string."
+            "text": "FxCop does not provide messages for suppressed results."
           },
           "locations": [
             {
