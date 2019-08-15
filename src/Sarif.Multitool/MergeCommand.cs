@@ -38,6 +38,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 // Build one SarifLog with all the Runs.
                 SarifLog combinedLog = allRuns.Merge();
+
+                // If there were no input files, the Merge operation set combinedLog.Runs to null. Although
+                // null is valid in certain error cases, it is not valid here. Here, the correct value is
+                // an empty list. See the SARIF spec, §3.13.4, "runs property".
+                combinedLog.Runs = combinedLog.Runs ?? new List<Run>();
+
                 combinedLog.Version = SarifVersion.Current;
                 combinedLog.SchemaUri = combinedLog.Version.ConvertToSchemaUri();
 
