@@ -2820,6 +2820,12 @@
     <None Include="v2\ConverterTestData\FxCop\FxCopNoTargets.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="v2\ConverterTestData\FxCop\SarifSdkTest.fxcop.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="v2\ConverterTestData\FxCop\SarifSdkTest.xml.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="v2\SpecExamples\Comprehensive.sarif">
@@ -2908,6 +2914,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="v2\ConverterTestData\FxCop\FxCopNoTargets.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="v2\ConverterTestData\FxCop\SarifSdkTest.fxcop">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="v2\ConverterTestData\FxCop\SarifSdkTest.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
@@ -3559,21 +3571,6 @@
     <None Update="v2\ConverterTestData\Fortify\src\bannedAPIs.java">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>bannedAPIs.cs</LastGenOutput>
-    </None>
-    <None Update="v2\ConverterTestData\FxCop\SarifSdk.fxcop.sarif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="v2\ConverterTestData\FxCop\SarifSdk.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="v2\ConverterTestData\FxCop\SarifSdk.xml.sarif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="v2\ConverterTestData\FxCop\SarifSdkTest.fxcop.sarif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="v2\ConverterTestData\FxCop\SarifSdkTest.xml.sarif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="v2\ConverterTestData\PREfast\AB_IrrelevantBranch.cpp.xml">
       <Generator>TextTemplatingFileGenerator</Generator>
