@@ -103,5 +103,9 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
         [Fact]
         public void SarifTransformerTests_ToCurrent_ResultLocationsAsEmptyArray()
             => RunTest("ResultLocationsAsEmptyArray.sarif");
+
+        [Fact]
+        public void SarifTransformerTests_ToCurrent_NonDottedQuadFileVersion()
+            => RunTest("NonDottedQuadFileVersion.sarif");
     }
 }

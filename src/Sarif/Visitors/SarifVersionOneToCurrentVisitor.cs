@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Utilities = Microsoft.CodeAnalysis.Sarif.Visitors.SarifTransformerUtilities;
@@ -18,7 +19,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             Utilities.PropertyBagTransformerItemPrefixes[FromSarifVersion];
 
         private Run _currentRun;
-        private RunVersionOne _currentV1Run;
         private int _threadFlowLocationNestingLevel;
         private IDictionary<string, int> _v1FileKeytoV2IndexMap;
         private IDictionary<string, int> _v1RuleKeyToV2IndexMap;
@@ -931,8 +931,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 }
                 else
                 {
-                    _currentV1Run = v1Run;
-
                     _v1FileKeytoV2IndexMap = CreateFileKeyToIndexMapping(v1Run.Files);
                     _v1RuleKeyToV2IndexMap = CreateRuleKeyToIndexMapping(v1Run.Rules);
 
@@ -1194,23 +1192,49 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return stackFrame;
         }
 
+        private const string DottedQuadFileVersionPattern = @"[0-9]+(\.[0-9]+){3}";
+        private static readonly Regex s_dottedQuadFileVersionRegex = SarifUtilities.RegexFromPattern(DottedQuadFileVersionPattern);
+
         internal Tool CreateTool(ToolVersionOne v1Tool)
         {
             Tool tool = null;
 
             if (v1Tool != null)
             {
-                tool = new Tool()
+                // The SARIF v1 spec does not specify a format for tool.fileVersion (although on the
+                // Windows platform, the spec anticipated that it would be of the form n.n.n.n where
+                // each n is one or more decimal digits).
+                //
+                // The SARIF v2 spec is more prescriptive: it defines a property toolComponent.dottedQuadFileVersion
+                // with exactly that format. So if the v1 file contained a tool.fileVersion in any other
+                // format, the best we can do is put it in the property bag.
+                string dottedQuadFileVersion = null;
+
+                if (v1Tool.FileVersion != null &&
+                    s_dottedQuadFileVersionRegex.IsMatch(v1Tool.FileVersion))
                 {
-                    Driver = new ToolComponent
-                    {
-                        DottedQuadFileVersion = v1Tool.FileVersion,
-                        FullName = v1Tool.FullName,
-                        Name = v1Tool.Name,
-                        Properties = v1Tool.Properties,
-                        SemanticVersion = v1Tool.SemanticVersion,
-                        Version = v1Tool.Version
-                    }
+                     dottedQuadFileVersion = v1Tool.FileVersion;
+                }
+
+                var driver = new ToolComponent
+                {
+                    DottedQuadFileVersion = dottedQuadFileVersion,
+                    FullName = v1Tool.FullName,
+                    Name = v1Tool.Name,
+                    Properties = v1Tool.Properties,
+                    SemanticVersion = v1Tool.SemanticVersion,
+                    Version = v1Tool.Version
+                };
+
+                if (dottedQuadFileVersion == null && v1Tool.FileVersion != null)
+                {
+                    driver.SetProperty("sarifv1/toolFileVersion", v1Tool.FileVersion);
+                }
+
+
+                tool = new Tool
+                {
+                    Driver = driver
                 };
             }
 
