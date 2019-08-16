@@ -209,9 +209,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         // (which performs exactly such a round trip) when the file being upgraded contained a
         // date/time string in a property bag (see https://github.com/microsoft/sarif-sdk/issues/1577).
         //
-        // To avoid this problem, provide a settings object that instructs the deserializer
-        // not to attempt to recognize "date/time-like" strings. They will be treated as
-        // normal strings, and round-tripped correctly.
+        // To avoid this problem, provide a settings object and a utility method that instructs the
+        // deserializer not to attempt to recognize "date/time-like" strings. They will be treated
+        // as normal strings, and round-tripped correctly.
         //
         // Note that this does not affect the treatment of properties in the SARIF object
         // model classes that are decorated with an attribute specifying that they are date/times.
