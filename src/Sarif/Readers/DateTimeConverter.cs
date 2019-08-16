@@ -10,6 +10,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
     {
         public static readonly DateTimeConverter Instance = new DateTimeConverter();
 
+        // Note: this static property left mutable by design, in case SDK users
+        // would like to alter format in some way that still conforms to the 
+        // SARIF spec (e.g., a user might want more or less precision).
         public static string DateTimeFormat { get; set; } = SarifUtilities.SarifDateTimeFormatMillisecondsPrecision;
 
         public override bool CanConvert(Type objectType)
