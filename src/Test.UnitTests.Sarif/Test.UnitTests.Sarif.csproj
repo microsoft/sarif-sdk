@@ -23,6 +23,7 @@
     <None Remove="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\ArtifactsWithRoles.sarif" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\ComprehensiveToolProperties.01-24.sarif" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\ComprehensiveToolProperties.sarif" />
+    <None Remove="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\DateTimeInPropertyBag.sarif" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\LocationWithId.sarif" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\MultiformatMessageStrings.sarif" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\NestedInnerExceptionsInNotifications.sarif" />
@@ -38,6 +39,7 @@
     <None Remove="TestData\PrereleaseCompatibilityTransformer\Inputs\ArtifactsWithRoles.sarif" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\Inputs\ComprehensiveToolProperties.01-24.sarif" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\Inputs\ComprehensiveToolProperties.sarif" />
+    <None Remove="TestData\PrereleaseCompatibilityTransformer\Inputs\DateTimeInPropertyBag.sarif" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\Inputs\LocationWithId.sarif" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\Inputs\MultiformatMessageStrings.sarif" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\Inputs\NestedInnerExceptionsInNotifications.sarif" />
@@ -77,6 +79,8 @@
     <EmbeddedResource Include="TestData\Map\Sample.json">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\DateTimeInPropertyBag.sarif" />
+    <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\Inputs\DateTimeInPropertyBag.sarif" />
     <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\NonDottedQuadFileVersion.sarif" />
     <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\ResultLocationsAsEmptyArray.sarif" />
     <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\Inputs\NonDottedQuadFileVersion.sarif" />

@@ -143,6 +143,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         }
 
         [Fact]
+        [Trait(TestTraits.Bug, "1577")]
+        public void PrereleaseCompatibilityTransformer_DateTimeInPropertyBag()
+        {
+            RunTest("DateTimeInPropertyBag.sarif");
+        }
+
+        [Fact]
         public void PrereleaseCompatibilityTransformer_FromSarifV1()
         {
             // We only need one test for the SARIF v1 conversion because for this

@@ -1,0 +1,31 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/jsons/sarif-2.1.0-rtm.4.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "CodeScanner"
+        }
+      },
+      "invocations": [
+        {
+          "startTimeUtc": "2019-07-09T09:56:46.144Z",
+          "executionSuccessful": true
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "TST0001",
+          "message": {
+            "text": "Message."
+          },
+          "properties": {
+            "alertDiscoveryDate": "2019-06-22T19:06:31.209Z"
+          }
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}

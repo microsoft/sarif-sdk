@@ -34,7 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
             if (reader.Value is DateTime) { return reader.Value; }
 
-            return DateTime.Parse((string)reader.Value, CultureInfo.InvariantCulture);
+            return DateTime.Parse((string)reader.Value, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal);
         }
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)

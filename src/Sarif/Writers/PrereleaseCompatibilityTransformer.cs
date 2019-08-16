@@ -22,23 +22,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             bool modifiedLog = false;
             updatedLog = null;
-            var settings = new JsonSerializerSettings { Formatting = formatting, DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate };
+            var settings = new JsonSerializerSettings
+            {
+                Formatting = formatting,
+                DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate,
+                DateParseHandling = DateParseHandling.None
+            };
 
             if (string.IsNullOrEmpty(prereleaseSarifLog)) { return null; }
 
-            JObject sarifLog = JObject.Parse(prereleaseSarifLog);
+            JObject logObject = SarifUtilities.DeserializeObject<JObject>(prereleaseSarifLog);
 
-            string version = (string)sarifLog["version"];
+            string version = (string)logObject["version"];
             if (version == SarifUtilities.V1_0_0)
             {
                 // V1 is so different that we won't use the JToken-driven, piecemeal conversion that
                 // the PrereleaseCompatibilityTransformer uses for newer versions. Instead, we'll
                 // deserialize to the V1 OM, and transform to the V2 OM.
                 return ConvertV1ToCurrent(prereleaseSarifLog, settings, out updatedLog);
-
             }
 
-            string schemaSubVersion = (string)sarifLog["$schema"];
+            string schemaSubVersion = (string)logObject["$schema"];
 
             Dictionary<string, int> fullyQualifiedLogicalNameToIndexMap = null;
             Dictionary<string, int> fileLocationKeyToIndexMap = null;
@@ -53,17 +57,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         case "http://json.schemastore.org/sarif-2.1.0-beta.1":
                         case "http://json.schemastore.org/sarif-2.1.0-beta.0":
                         {
-                            modifiedLog |= ApplyChangesFromTC35(sarifLog);
+                            modifiedLog |= ApplyChangesFromTC35(logObject);
                             goto case "http://json.schemastore.org/sarif-2.1.0-beta.2";
                         }
                         case "http://json.schemastore.org/sarif-2.1.0-beta.2":
                         {
-                            modifiedLog |= ApplyRtm0Changes(sarifLog);
+                            modifiedLog |= ApplyRtm0Changes(logObject);
                             goto case "http://json.schemastore.org/sarif-2.1.0-rtm.0";
                         }
                         case "http://json.schemastore.org/sarif-2.1.0-rtm.0":
                         {
-                            modifiedLog |= ApplyRtm1Changes(sarifLog);
+                            modifiedLog |= ApplyRtm1Changes(logObject);
                             goto case "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.4.json";
                         }
                         case "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.4.json":
@@ -71,7 +75,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         case "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.2.json":
                         case "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.1.json":
                         {
-                            modifiedLog |= ApplyRtm2and3Changes(sarifLog);
+                            modifiedLog |= ApplyRtm2and3Changes(logObject);
                             break;
                         }
                         default:
@@ -84,48 +88,48 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
                 case "2.0.0-csd.2.beta.2019-04-03":
                 {
-                    modifiedLog |= ApplyChangesFromTC34(sarifLog);
-                    modifiedLog |= ApplyChangesFromTC35(sarifLog);
-                    modifiedLog |= ApplyRtm0Changes(sarifLog);
-                    modifiedLog |= ApplyRtm1Changes(sarifLog);
-                    modifiedLog |= ApplyRtm2and3Changes(sarifLog);
+                    modifiedLog |= ApplyChangesFromTC34(logObject);
+                    modifiedLog |= ApplyChangesFromTC35(logObject);
+                    modifiedLog |= ApplyRtm0Changes(logObject);
+                    modifiedLog |= ApplyRtm1Changes(logObject);
+                    modifiedLog |= ApplyRtm2and3Changes(logObject);
                     break;
                 }
 
                 case "2.0.0-csd.2.beta.2019-02-20":
                 {
-                    modifiedLog |= ApplyChangesFromTC33(sarifLog);
-                    modifiedLog |= ApplyChangesFromTC34(sarifLog);
-                    modifiedLog |= ApplyChangesFromTC35(sarifLog);
-                    modifiedLog |= ApplyRtm0Changes(sarifLog);
-                    modifiedLog |= ApplyRtm1Changes(sarifLog);
-                    modifiedLog |= ApplyRtm2and3Changes(sarifLog);
+                    modifiedLog |= ApplyChangesFromTC33(logObject);
+                    modifiedLog |= ApplyChangesFromTC34(logObject);
+                    modifiedLog |= ApplyChangesFromTC35(logObject);
+                    modifiedLog |= ApplyRtm0Changes(logObject);
+                    modifiedLog |= ApplyRtm1Changes(logObject);
+                    modifiedLog |= ApplyRtm2and3Changes(logObject);
                     break;
                 }
 
                 case "2.0.0-csd.2.beta.2019-01-24":
                 case "2.0.0-csd.2.beta.2019-01-24.1":
                 {
-                    modifiedLog |= ApplyChangesFromTC32(sarifLog);
-                    modifiedLog |= ApplyChangesFromTC33(sarifLog);
-                    modifiedLog |= ApplyChangesFromTC34(sarifLog);
-                    modifiedLog |= ApplyChangesFromTC35(sarifLog);
-                    modifiedLog |= ApplyRtm0Changes(sarifLog);
-                    modifiedLog |= ApplyRtm1Changes(sarifLog);
-                    modifiedLog |= ApplyRtm2and3Changes(sarifLog);
+                    modifiedLog |= ApplyChangesFromTC32(logObject);
+                    modifiedLog |= ApplyChangesFromTC33(logObject);
+                    modifiedLog |= ApplyChangesFromTC34(logObject);
+                    modifiedLog |= ApplyChangesFromTC35(logObject);
+                    modifiedLog |= ApplyRtm0Changes(logObject);
+                    modifiedLog |= ApplyRtm1Changes(logObject);
+                    modifiedLog |= ApplyRtm2and3Changes(logObject);
                     break;
                 }
 
                 case "2.0.0-csd.2.beta.2019-01-09":
                 {
-                    modifiedLog |= ApplyChangesFromTC31(sarifLog);
-                    modifiedLog |= ApplyChangesFromTC32(sarifLog);
-                    modifiedLog |= ApplyChangesFromTC33(sarifLog);
-                    modifiedLog |= ApplyChangesFromTC34(sarifLog);
-                    modifiedLog |= ApplyChangesFromTC35(sarifLog);
-                    modifiedLog |= ApplyRtm0Changes(sarifLog);
-                    modifiedLog |= ApplyRtm1Changes(sarifLog);
-                    modifiedLog |= ApplyRtm2and3Changes(sarifLog);
+                    modifiedLog |= ApplyChangesFromTC31(logObject);
+                    modifiedLog |= ApplyChangesFromTC32(logObject);
+                    modifiedLog |= ApplyChangesFromTC33(logObject);
+                    modifiedLog |= ApplyChangesFromTC34(logObject);
+                    modifiedLog |= ApplyChangesFromTC35(logObject);
+                    modifiedLog |= ApplyRtm0Changes(logObject);
+                    modifiedLog |= ApplyRtm1Changes(logObject);
+                    modifiedLog |= ApplyRtm2and3Changes(logObject);
                     break;
                 }
 
@@ -135,37 +139,37 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 {
                     // 2.0.0-csd.2.beta.2018-10-10 == changes through SARIF TC #25
                     modifiedLog |= ApplyChangesFromTC25ThroughTC30(
-                        sarifLog, 
+                        logObject, 
                         out fullyQualifiedLogicalNameToIndexMap,
                         out fileLocationKeyToIndexMap,
                         out ruleKeyToIndexMap);
-                    modifiedLog |= ApplyChangesFromTC31(sarifLog);
-                    modifiedLog |= ApplyChangesFromTC32(sarifLog);
-                    modifiedLog |= ApplyChangesFromTC33(sarifLog);
-                    modifiedLog |= ApplyChangesFromTC34(sarifLog);
-                    modifiedLog |= ApplyChangesFromTC35(sarifLog);
-                    modifiedLog |= ApplyRtm0Changes(sarifLog);
-                    modifiedLog |= ApplyRtm1Changes(sarifLog);
-                    modifiedLog |= ApplyRtm2and3Changes(sarifLog);
+                    modifiedLog |= ApplyChangesFromTC31(logObject);
+                    modifiedLog |= ApplyChangesFromTC32(logObject);
+                    modifiedLog |= ApplyChangesFromTC33(logObject);
+                    modifiedLog |= ApplyChangesFromTC34(logObject);
+                    modifiedLog |= ApplyChangesFromTC35(logObject);
+                    modifiedLog |= ApplyRtm0Changes(logObject);
+                    modifiedLog |= ApplyRtm1Changes(logObject);
+                    modifiedLog |= ApplyRtm2and3Changes(logObject);
                     break;
                 }
 
                 default:
                 {
-                    modifiedLog |= ApplyCoreTransformations(sarifLog);
+                    modifiedLog |= ApplyCoreTransformations(logObject);
                     modifiedLog |= ApplyChangesFromTC25ThroughTC30(
-                        sarifLog, 
+                        logObject, 
                         out fullyQualifiedLogicalNameToIndexMap,
                         out fileLocationKeyToIndexMap,
                         out ruleKeyToIndexMap);
-                    modifiedLog |= ApplyChangesFromTC31(sarifLog);
-                    modifiedLog |= ApplyChangesFromTC32(sarifLog);
-                    modifiedLog |= ApplyChangesFromTC33(sarifLog);
-                    modifiedLog |= ApplyChangesFromTC34(sarifLog);
-                    modifiedLog |= ApplyChangesFromTC35(sarifLog);
-                    modifiedLog |= ApplyRtm0Changes(sarifLog);
-                    modifiedLog |= ApplyRtm1Changes(sarifLog);
-                    modifiedLog |= ApplyRtm2and3Changes(sarifLog);
+                    modifiedLog |= ApplyChangesFromTC31(logObject);
+                    modifiedLog |= ApplyChangesFromTC32(logObject);
+                    modifiedLog |= ApplyChangesFromTC33(logObject);
+                    modifiedLog |= ApplyChangesFromTC34(logObject);
+                    modifiedLog |= ApplyChangesFromTC35(logObject);
+                    modifiedLog |= ApplyRtm0Changes(logObject);
+                    modifiedLog |= ApplyRtm1Changes(logObject);
+                    modifiedLog |= ApplyRtm2and3Changes(logObject);
                     break;
                 }
             }
@@ -174,7 +178,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             if (fullyQualifiedLogicalNameToIndexMap != null  || fileLocationKeyToIndexMap != null || ruleKeyToIndexMap != null)
             {
-                transformedSarifLog = JsonConvert.DeserializeObject<SarifLog>(sarifLog.ToString());
+                transformedSarifLog = JsonConvert.DeserializeObject<SarifLog>(logObject.ToString());
 
                 var indexUpdatingVisitor = new UpdateIndicesFromLegacyDataVisitor(
                     fullyQualifiedLogicalNameToIndexMap, 
@@ -186,7 +190,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
             else
             {
-                updatedLog = modifiedLog ? sarifLog.ToString(formatting) : prereleaseSarifLog;
+                updatedLog = modifiedLog ? logObject.ToString(formatting) : prereleaseSarifLog;
                 transformedSarifLog = JsonConvert.DeserializeObject<SarifLog>(updatedLog, settings);
                 updatedLog = JsonConvert.SerializeObject(transformedSarifLog, formatting);
             }
