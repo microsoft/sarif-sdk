@@ -212,10 +212,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         // To avoid this problem, provide a settings object and a utility method that instructs the
         // deserializer not to attempt to recognize "date/time-like" strings. They will be treated
         // as normal strings, and round-tripped correctly.
-        //
-        // Note that this does not affect the treatment of properties in the SARIF object
-        // model classes that are decorated with an attribute specifying that they are date/times.
-        // It only affects properties in property bags.
         private static readonly JsonSerializerSettings s_dateTimeSafeDeserializerSettings = new JsonSerializerSettings
         {
             DateParseHandling = DateParseHandling.None,
