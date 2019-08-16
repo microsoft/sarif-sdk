@@ -98,6 +98,11 @@
               "fullDescription": {
                 "text": "The quick brown fox jumps over the lazy dog.\nThis section explains the rule in detail."
               },
+              "defaultConfiguration": {
+                "properties": {
+                  "DeprecatedDefaultSeverity": "2.0"
+                }
+              },
               "relationships": [
                 {
                   "target": {
@@ -127,7 +132,9 @@
               "properties": {
                 "Kingdom": "Input Validation and Representation",
                 "Type": "SQL Injection",
-                "Subtype": "Value Never Read"
+                "Subtype": "Value Never Read",
+                "DeprecatedInstanceSeverity": "2.0",
+                "Confidence": "5.0"
               }
             }
           ],
