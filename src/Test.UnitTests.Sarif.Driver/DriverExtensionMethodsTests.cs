@@ -132,18 +132,6 @@ namespace Test.UnitTests.Sarif.Driver
                         OutputFilePath = "output.sarif"
                     },
                     ExpectedResult = false
-                },
-
-                new ValidateSingleFileOutputOptionsTestCase
-                {
-                    Title = "Output path without --force",
-                    Options = new SingleFileOptionsBase
-                    {
-                        Inline = false,
-                        OutputFilePath = "output.sarif",
-                    },
-                    ExpectedResult = true,
-                    ExpectedForce = true
                 }
             };
 
