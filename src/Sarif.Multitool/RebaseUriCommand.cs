@@ -84,9 +84,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             bool valid = true;
 
-            valid &= DriverUtilities.ReportWhetherOutputFilesCanBeCreated(rebaseUriFiles.Select(f => f.OutputFilePath), rebaseOptions.Force, _fileSystem);
-
             valid &= rebaseOptions.ValidateOutputOptions();
+
+            valid &= DriverUtilities.ReportWhetherOutputFilesCanBeCreated(rebaseUriFiles.Select(f => f.OutputFilePath), rebaseOptions.Force, _fileSystem);
 
             return valid;
         }
