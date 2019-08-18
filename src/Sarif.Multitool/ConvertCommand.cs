@@ -33,7 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     return 1;
                 }
 
-                if (!DriverUtilities.ReportWhetherOutputFileCanBeCreated(convertOptions.OutputFilePath, convertOptions.Force, fileSystem))
+                if (!ValidateOptions(convertOptions, fileSystem))
                 {
                     return 1;
                 }
@@ -67,6 +67,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
 
             return 0;
+        }
+
+        private static bool ValidateOptions(ConvertOptions convertOptions, IFileSystem fileSystem)
+        {
+            bool valid = true;
+
+            if (!DriverUtilities.ReportWhetherOutputFileCanBeCreated(convertOptions.OutputFilePath, convertOptions.Force, fileSystem))
+            {
+                valid = false;
+            }
+
+            valid &= convertOptions.ValidateOutputOptions();
+
+            return valid;
         }
     }
 }

@@ -25,7 +25,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             try
             {
-                transformOptions.OutputFilePath = CommandUtilities.GetTransformedOutputFileName(transformOptions);
+                if (!transformOptions.Inline)
+                {
+                    transformOptions.OutputFilePath = CommandUtilities.GetTransformedOutputFileName(transformOptions);
+                }
 
                 bool valid = ValidateOptions(transformOptions);
                 if (!valid) { return 1; }
@@ -122,6 +125,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 Console.WriteLine(MultitoolResources.ErrorInvalidTransformTargetVersion);
                 valid = false;
             }
+
+            valid &= transformOptions.ValidateOutputOptions();
 
             valid &= DriverUtilities.ReportWhetherOutputFileCanBeCreated(transformOptions.OutputFilePath, transformOptions.Force, _fileSystem);
 

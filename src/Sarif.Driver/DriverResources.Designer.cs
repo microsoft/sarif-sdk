@@ -61,6 +61,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Exactly one of the options --output-file and --inline must be specified..
+        /// </summary>
+        internal static string ExactlyOneOfOutputFilePathAndInlineOptions {
+            get {
+                return ResourceManager.GetString("ExactlyOneOfOutputFilePathAndInlineOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A binary was not analyzed as the it does not appear to be a valid portable executable..
         /// </summary>
         internal static string InvalidPE_Description {

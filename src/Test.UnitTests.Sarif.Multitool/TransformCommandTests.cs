@@ -156,15 +156,15 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
 
         private static string RunTransformationCore(string logFileContents, SarifVersion targetVersion)
         {
-            string logFilePath = @"c:\logs\mylog.sarif";
-            StringBuilder transformedContents = new StringBuilder();
+            const string LogFilePath = @"c:\logs\mylog.sarif";
+            var transformedContents = new StringBuilder();
 
-            // Complex: TransformCommand has codepaths that use Create and OpenRead, but also ReadAllText and WriteAllText
+            // Complex: TransformCommand has code paths that use Create and OpenRead, but also ReadAllText and WriteAllText.
             var mockFileSystem = new Mock<IFileSystem>();
-            mockFileSystem.Setup(x => x.ReadAllText(logFilePath)).Returns(logFileContents);
-            mockFileSystem.Setup(x => x.OpenRead(logFilePath)).Returns(() => new MemoryStream(Encoding.UTF8.GetBytes(logFileContents)));
-            mockFileSystem.Setup(x => x.Create(logFilePath)).Returns(() => new MemoryStreamToStringBuilder(transformedContents));
-            mockFileSystem.Setup(x => x.WriteAllText(logFilePath, It.IsAny<string>())).Callback<string, string>((path, contents) => { transformedContents.Append(contents); });
+            mockFileSystem.Setup(x => x.ReadAllText(LogFilePath)).Returns(logFileContents);
+            mockFileSystem.Setup(x => x.OpenRead(LogFilePath)).Returns(() => new MemoryStream(Encoding.UTF8.GetBytes(logFileContents)));
+            mockFileSystem.Setup(x => x.Create(LogFilePath)).Returns(() => new MemoryStreamToStringBuilder(transformedContents));
+            mockFileSystem.Setup(x => x.WriteAllText(LogFilePath, It.IsAny<string>())).Callback<string, string>((path, contents) => { transformedContents.Append(contents); });
 
             var transformCommand = new TransformCommand(mockFileSystem.Object);
 
@@ -172,7 +172,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
             {
                 Inline = true,
                 SarifOutputVersion = targetVersion,
-                InputFilePath = logFilePath
+                InputFilePath = LogFilePath
             };
 
             int returnCode = transformCommand.Run(options);
