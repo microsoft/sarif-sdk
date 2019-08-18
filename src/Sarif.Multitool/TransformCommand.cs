@@ -25,6 +25,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             try
             {
+                // Only set --output-file if --inline isn't specified. ValidateOptions will check
+                // to make sure that exactly one of those two options is set.
                 if (!transformOptions.Inline)
                 {
                     transformOptions.OutputFilePath = CommandUtilities.GetTransformedOutputFileName(transformOptions);
