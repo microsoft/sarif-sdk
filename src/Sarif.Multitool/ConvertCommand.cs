@@ -73,12 +73,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             bool valid = true;
 
-            if (!DriverUtilities.ReportWhetherOutputFileCanBeCreated(convertOptions.OutputFilePath, convertOptions.Force, fileSystem))
-            {
-                valid = false;
-            }
-
             valid &= convertOptions.ValidateOutputOptions();
+
+            valid &= DriverUtilities.ReportWhetherOutputFileCanBeCreated(convertOptions.OutputFilePath, convertOptions.Force, fileSystem);
 
             return valid;
         }
