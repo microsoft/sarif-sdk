@@ -7,7 +7,7 @@ using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Xunit;
 
-namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
+namespace Test.UnitTests.Sarif.Driver
 {
     public class DriverUtilitiesTests
     {
