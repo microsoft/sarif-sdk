@@ -38,8 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 var rebaseUriFiles = GetRebaseUriFiles(rebaseOptions);
 
-                bool outputFilesCanBeCreated = DriverUtilities.ReportWhetherOutputFilesCanBeCreated(rebaseUriFiles.Select(f => f.OutputFilePath), rebaseOptions.Force, _fileSystem);
-                if (!outputFilesCanBeCreated) { return 1; }
+                if (!ValidateOptions(rebaseOptions, rebaseUriFiles)) { return 1; }
 
                 if (!rebaseOptions.Inline)
                 {
@@ -65,7 +64,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             return 0;
         }
-        
+
         private IEnumerable<RebaseUriFile> GetRebaseUriFiles(RebaseUriOptions rebaseUriOptions)
         {
             // Get files names first, as we may write more sarif logs to the same directory as we rebase them.
@@ -79,6 +78,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     Log = ReadSarifFile<SarifLog>(_fileSystem, inputFilePath)
                 };
             }
+        }
+
+        private bool ValidateOptions(RebaseUriOptions rebaseOptions, IEnumerable<RebaseUriFile> rebaseUriFiles)
+        {
+            bool valid = true;
+
+            valid &= DriverUtilities.ReportWhetherOutputFilesCanBeCreated(rebaseUriFiles.Select(f => f.OutputFilePath), rebaseOptions.Force, _fileSystem);
+
+            valid &= rebaseOptions.ValidateOutputOptions();
+
+            return valid;
         }
 
         internal string GetOutputFilePath(string inputFilePath, RebaseUriOptions rebaseUriOptions)

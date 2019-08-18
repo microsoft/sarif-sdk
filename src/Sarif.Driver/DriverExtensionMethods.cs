@@ -20,14 +20,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         /// <summary>
-        /// Ensures the consistency of the command line options related to the location of the
-        /// output file, and adjusts the options for ease of use.
+        /// Ensures the consistency of the SingleFileOptionsBase command line options related to
+        /// the location of the output file, and adjusts the options for ease of use.
         /// </summary>
         /// <param name="options">
-        /// An object containing the relevant options.
+        /// A <see cref="SingleFileOptionsBase"/> object containing the relevant options.
         /// </param>
         /// <returns>
-        /// true if the options
+        /// true if the options are internally consistent; otherwise false.
         /// </returns>
         public static bool ValidateOutputOptions(this SingleFileOptionsBase options)
         {
@@ -53,6 +53,46 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     Console.Error.WriteLine(DriverResources.ExactlyOneOfOutputFilePathAndInlineOptions);
                     valid = false;
                 }
+            }
+
+            return valid;
+        }
+
+        /// <summary>
+        /// Ensures the consistency of the MultipleFilesOptionsBase command line options related to
+        /// the location of the output file, and adjusts the options for ease of use.
+        /// </summary>
+        /// <param name="options">
+        /// A <see cref="MultipleFilesOptionsBase"/> object containing the relevant options.
+        /// </param>
+        /// <returns>
+        /// true if the options are internally consistent; otherwise false.
+        /// </returns>
+        /// <remarks>
+        /// At this time, this method does not actually do any validation. Unlike the case of
+        /// SingleFileOptionsBase, where you have to specify exactly one of --inline and
+        /// --output-file, it is _not_ necessary to specify --output-folder-path if --inline is
+        /// absent, because by default each transformed file is written to the path containing
+        /// corresponding input file.
+        ///
+        /// However, similarly to the case of SingleFileOptionsBase, we _do_ want to set --force
+        /// whenever --inline is true, because there's no reason to force the user to type
+        /// "--force" when they've already said that they want to overwrite the input file
+        /// (see https://github.com/microsoft/sarif-sdk/issues/1642).
+        ///
+        /// So we introduce this method for three reasons:
+        /// 1) For symmetry with the SingleFileOptionsBase,
+        /// 2) To DRY out the logic for making --inline and --force consistent, and
+        /// 3) To leave an obvious place to put output file option consistency logic if it's
+        ///    needed in future.
+        /// </remarks>
+        public static bool ValidateOutputOptions(this MultipleFilesOptionsBase options)
+        {
+            bool valid = true;
+
+            if (options.Inline)
+            {
+                options.Force = true;
             }
 
             return valid;

@@ -26,9 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             {
                 IEnumerable<AbsoluteUriFile> absoluteUriFiles = GetAbsoluteUriFiles(absoluteUriOptions);
 
-
-                bool outputFilesCanBeCreated = DriverUtilities.ReportWhetherOutputFilesCanBeCreated(absoluteUriFiles.Select(f => f.OutputFilePath), absoluteUriOptions.Force, _fileSystem);
-                if (!outputFilesCanBeCreated) { return 1; }
+                if (!ValidateOptions(absoluteUriOptions, absoluteUriFiles)) { return 1; }
 
                 if (!absoluteUriOptions.Inline)
                 {
@@ -53,6 +51,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
 
             return 0;
+        }
+
+        private bool ValidateOptions(AbsoluteUriOptions absoluteUriOptions, IEnumerable<AbsoluteUriFile> absoluteUriFiles)
+        {
+            bool valid = true;
+
+            valid &= DriverUtilities.ReportWhetherOutputFilesCanBeCreated(absoluteUriFiles.Select(f => f.OutputFilePath), absoluteUriOptions.Force, _fileSystem);
+
+            valid &= absoluteUriOptions.ValidateOutputOptions();
+
+            return valid;
         }
 
         private IEnumerable<AbsoluteUriFile> GetAbsoluteUriFiles(AbsoluteUriOptions absoluteUriOptions)
