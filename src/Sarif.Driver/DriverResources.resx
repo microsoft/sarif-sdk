@@ -117,8 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ExactlyOneOfOutputFilePathAndInlineOptions" xml:space="preserve">
-    <value>Exactly one of the options --output-file and --inline must be specified.</value>
+  <data name="ExactlyOneOfTwoOptionsIsRequired" xml:space="preserve">
+    <value>Exactly one of the '{0}' and '{1}' options must be present.</value>
   </data>
   <data name="InvalidPE_Description" xml:space="preserve">
     <value>A binary was not analyzed as the it does not appear to be a valid portable executable.</value>

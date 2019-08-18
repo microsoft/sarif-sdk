@@ -3,10 +3,12 @@
 
 using System.Collections.Generic;
 using FluentAssertions;
+using Microsoft.CodeAnalysis.Sarif;
+using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Xunit;
 
-namespace Microsoft.CodeAnalysis.Sarif.Driver
+namespace Test.UnitTests.Sarif.Driver
 {
     public class DriverExtensionMethodsTests
     {

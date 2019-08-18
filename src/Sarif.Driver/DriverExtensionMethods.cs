@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.using System;
 
 using System;
+using System.Globalization;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
@@ -42,7 +43,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 }
                 else
                 {
-                    Console.Error.WriteLine(DriverResources.ExactlyOneOfOutputFilePathAndInlineOptions);
+                    ReportInvalidOutputOptions(options);
                     valid = false;
                 }
             }
@@ -50,12 +51,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 if (options.OutputFilePath == null)
                 {
-                    Console.Error.WriteLine(DriverResources.ExactlyOneOfOutputFilePathAndInlineOptions);
+                    ReportInvalidOutputOptions(options);
                     valid = false;
                 }
             }
 
             return valid;
+        }
+
+        private static void ReportInvalidOutputOptions(SingleFileOptionsBase options)
+        {
+            string inlineOptionsDescription = DriverUtilities.GetOptionDescription<SingleFileOptionsBase>(nameof(options.Inline));
+            string outputFilePathOptionDescription = DriverUtilities.GetOptionDescription<SingleFileOptionsBase>(nameof(options.OutputFilePath));
+
+            Console.Error.WriteLine(
+                string.Format(
+                    CultureInfo.CurrentCulture,
+                    DriverResources.ExactlyOneOfTwoOptionsIsRequired,
+                    inlineOptionsDescription,
+                    outputFilePathOptionDescription));
         }
 
         /// <summary>

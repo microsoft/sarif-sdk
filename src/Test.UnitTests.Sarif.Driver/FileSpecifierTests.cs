@@ -4,9 +4,10 @@
 using System;
 using System.IO;
 using FluentAssertions;
+using Microsoft.CodeAnalysis.Sarif.Driver;
 using Xunit;
 
-namespace Microsoft.CodeAnalysis.Sarif.Driver
+namespace Test.UnitTests.Sarif.Driver
 {
     public class FileSpecifierTestsFixture : IDisposable
     {
@@ -44,7 +45,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
     public class FileSpecifierTests : IClassFixture<FileSpecifierTestsFixture>
     {
-        private FileSpecifierTestsFixture _fixture;
+        private readonly FileSpecifierTestsFixture _fixture;
 
         public FileSpecifierTests(FileSpecifierTestsFixture fixture)
         {

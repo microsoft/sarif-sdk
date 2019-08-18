@@ -117,7 +117,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             if (!options.ProjectUri.IsAbsoluteUri)
             {
-                string optionDescription = CommandUtilities.GetOptionDescription<FileWorkItemsOptions>(nameof(options.ProjectUriString));
+                string optionDescription = DriverUtilities.GetOptionDescription<FileWorkItemsOptions>(nameof(options.ProjectUriString));
                 Console.Error.WriteLine(
                     string.Format(
                         CultureInfo.CurrentCulture,
@@ -127,37 +127,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 valid = false;
             }
 
-            valid = ValidateOutputFileOptions(options) && valid;
+            valid &= options.ValidateOutputOptions();
 
-            if (options.Inline)
-            {
-                options.OutputFilePath = options.InputFilePath;
-                options.Force = true;
-            }
-
-            valid = DriverUtilities.ReportWhetherOutputFileCanBeCreated(options.OutputFilePath, options.Force, fileSystem) && valid;
-
-            return valid;
-        }
-
-        private bool ValidateOutputFileOptions(SingleFileOptionsBase options)
-        {
-            bool valid = true;
-
-            if ((options.OutputFilePath != null && options.Inline) || (options.OutputFilePath == null && !options.Inline))
-            {
-                string inlineOptionsDescription = CommandUtilities.GetOptionDescription<SingleFileOptionsBase>(nameof(options.Inline));
-                string outputFilePathOptionDescription = CommandUtilities.GetOptionDescription<SingleFileOptionsBase>(nameof(options.OutputFilePath));
-
-                Console.Error.WriteLine(
-                    string.Format(
-                        CultureInfo.CurrentCulture,
-                        MultitoolResources.ErrorOutputFilePathAndInline,
-                        outputFilePathOptionDescription,
-                        inlineOptionsDescription));
-
-                valid = false;
-            }
+            valid &= DriverUtilities.ReportWhetherOutputFileCanBeCreated(options.OutputFilePath, options.Force, fileSystem);
 
             return valid;
         }

@@ -4,12 +4,12 @@
 using System;
 using CommandLine;
 using FluentAssertions;
-using Microsoft.CodeAnalysis.Sarif.Multitool;
+using Microsoft.CodeAnalysis.Sarif.Driver;
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
 {
-    public class CommandUtilitiesTests
+    public class DriverUtilitiesTests
     {
         private class TestOptions
         {
@@ -39,13 +39,13 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
         {
             if (expectedDescription == null)
             {
-                Action action = () => CommandUtilities.GetOptionDescription<TestOptions>(propertyName);
+                Action action = () => DriverUtilities.GetOptionDescription<TestOptions>(propertyName);
 
                 action.Should().Throw<ArgumentException>().WithMessage($"*{propertyName}*");
             }
             else
             {
-                string description = CommandUtilities.GetOptionDescription<TestOptions>(propertyName);
+                string description = DriverUtilities.GetOptionDescription<TestOptions>(propertyName);
 
                 description.Should().Be(expectedDescription);
             }

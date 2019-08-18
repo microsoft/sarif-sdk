@@ -61,11 +61,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Exactly one of the options --output-file and --inline must be specified..
+        ///   Looks up a localized string similar to Exactly one of the &apos;{0}&apos; and &apos;{1}&apos; options must be present..
         /// </summary>
-        internal static string ExactlyOneOfOutputFilePathAndInlineOptions {
+        internal static string ExactlyOneOfTwoOptionsIsRequired {
             get {
-                return ResourceManager.GetString("ExactlyOneOfOutputFilePathAndInlineOptions", resourceCulture);
+                return ResourceManager.GetString("ExactlyOneOfTwoOptionsIsRequired", resourceCulture);
             }
         }
         
