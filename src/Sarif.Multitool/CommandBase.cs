@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Newtonsoft.Json;
@@ -12,6 +13,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public abstract class CommandBase
     {
+        protected static bool ValidateNonNegativeCommandLineOption<T>(int optionValue, string optionName)
+        {
+            bool valid = true;
+
+            if (optionValue < 0)
+            {
+                string optionDescription = CommandUtilities.GetOptionDescription<T>(optionName);
+                Console.Error.WriteLine(
+                    string.Format(
+                        CultureInfo.CurrentCulture,
+                        MultitoolResources.OptionValueMustBeNonNegative,
+                        optionDescription));
+                valid = false;
+            }
+
+            return valid;
+        }
+
         public static T ReadSarifFile<T>(IFileSystem fileSystem, string filePath, IContractResolver contractResolver = null)
         {
             var serializer = new JsonSerializer() { ContractResolver = contractResolver };
