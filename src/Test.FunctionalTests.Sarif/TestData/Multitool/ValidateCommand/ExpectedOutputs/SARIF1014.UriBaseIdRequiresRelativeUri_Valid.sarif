@@ -19,8 +19,7 @@
             "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1014.UriBaseIdRequiresRelativeUri_Valid.sarif",
             "uriBaseId": "TEST_DIR",
             "index": 0
-          },
-          "mimeType": "application/sarif-json"
+          }
         }
       ],
       "results": [],

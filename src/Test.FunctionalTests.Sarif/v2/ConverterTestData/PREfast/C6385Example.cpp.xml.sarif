@@ -1,39 +1,28 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-09-26",
-  "version": "2.0.0-csd.2.beta.2018-09-26",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.4.json",
+  "version": "2.1.0",
   "runs": [
     {
       "tool": {
-        "name": "PREfast",
-        "fullName": "PREfast Code Analysis"
-      },
-      "files": {
-        "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6385example.cpp": {
-          "mimeType": "text/x-cpp",
-          "contents": {
-            "binary": "dm9pZCBDNjM4NV9FeGFtcGxlKGludCBpKQ0Kew0KICAgY2hhciBhWzVdOw0KICAgZm9yIChpbnQgaj0wOyBqPDU7IGorKykgYVtqXSA9IDU7DQogICBjaGFyIGs7DQogICBpZiAoaSA8PSA1KQ0KICAgew0KICAgICAgayA9IGFbaV07DQogICB9DQp9DQo="
-          },
-          "hashes": [
-            {
-              "value": "A413B8736582A8046C24651B0E884385",
-              "algorithm": "md5"
-            },
-            {
-              "value": "E57D977B6F5416C1F29C082B8CF9F8E12879C79A",
-              "algorithm": "sha-1"
-            },
-            {
-              "value": "43242EA8E242DC0EEE7D5855ECF04CEC49A14E9BD04E2E152610610D0302F79A",
-              "algorithm": "sha-256"
-            }
-          ]
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis"
         }
       },
-      "logicalLocations": {
-        "C6385_Example": {
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6385example.cpp",
+            "index": 0
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "C6385_Example",
           "decoratedName": "?C6385_Example@@YAXH@Z"
         }
-      },
+      ],
       "results": [
         {
           "ruleId": "6385",
@@ -43,29 +32,21 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6385example.cpp"
+                "artifactLocation": {
+                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6385example.cpp",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 8,
-                  "startColumn": 9,
-                  "snippet": {
-                    "text": "= a[i];"
-                  }
-                },
-                "contextRegion": {
-                  "startLine": 7,
-                  "startColumn": 1,
-                  "endLine": 9,
-                  "endColumn": 5,
-                  "charOffset": 111,
-                  "charLength": 27,
-                  "snippet": {
-                    "text": "   {\r\n      k = a[i];\r\n   }"
-                  }
+                  "startColumn": 9
                 }
               },
-              "fullyQualifiedLogicalName": "C6385_Example",
+              "logicalLocations": [
+                {
+                  "index": 0,
+                  "fullyQualifiedName": "C6385_Example"
+                }
+              ],
               "properties": {
                 "funcline": "1"
               }
@@ -77,29 +58,15 @@
                 {
                   "locations": [
                     {
-                      "step": 1,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6385example.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6385example.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 3,
-                            "startColumn": 9,
-                            "snippet": {
-                              "text": "a[5];"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 2,
-                            "startColumn": 1,
-                            "endLine": 4,
-                            "endColumn": 37,
-                            "charOffset": 27,
-                            "charLength": 54,
-                            "snippet": {
-                              "text": "{\r\n   char a[5];\r\n   for (int j=0; j<5; j++) a[j] = 5;"
-                            }
+                            "startColumn": 9
                           }
                         }
                       },
@@ -109,290 +76,150 @@
                       }
                     },
                     {
-                      "step": 2,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6385example.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6385example.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 4,
-                            "startColumn": 13,
-                            "snippet": {
-                              "text": "j=0; j<5; j++) a[j] = 5;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 3,
-                            "startColumn": 1,
-                            "endLine": 5,
-                            "endColumn": 11,
-                            "charOffset": 30,
-                            "charLength": 63,
-                            "snippet": {
-                              "text": "   char a[5];\r\n   for (int j=0; j<5; j++) a[j] = 5;\r\n   char k;"
-                            }
+                            "startColumn": 13
                           }
                         }
                       },
                       "importance": "unimportant"
                     },
                     {
-                      "step": 3,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6385example.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6385example.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 4,
-                            "startColumn": 19,
-                            "snippet": {
-                              "text": "<5; j++) a[j] = 5;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 3,
-                            "startColumn": 1,
-                            "endLine": 5,
-                            "endColumn": 11,
-                            "charOffset": 30,
-                            "charLength": 63,
-                            "snippet": {
-                              "text": "   char a[5];\r\n   for (int j=0; j<5; j++) a[j] = 5;\r\n   char k;"
-                            }
+                            "startColumn": 19
                           }
                         }
                       },
                       "importance": "unimportant"
                     },
                     {
-                      "step": 4,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6385example.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6385example.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 4,
-                            "startColumn": 33,
-                            "snippet": {
-                              "text": "= 5;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 3,
-                            "startColumn": 1,
-                            "endLine": 5,
-                            "endColumn": 11,
-                            "charOffset": 30,
-                            "charLength": 63,
-                            "snippet": {
-                              "text": "   char a[5];\r\n   for (int j=0; j<5; j++) a[j] = 5;\r\n   char k;"
-                            }
+                            "startColumn": 33
                           }
                         }
                       },
                       "importance": "unimportant"
                     },
                     {
-                      "step": 5,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6385example.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6385example.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 4,
-                            "startColumn": 24,
-                            "snippet": {
-                              "text": "++) a[j] = 5;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 3,
-                            "startColumn": 1,
-                            "endLine": 5,
-                            "endColumn": 11,
-                            "charOffset": 30,
-                            "charLength": 63,
-                            "snippet": {
-                              "text": "   char a[5];\r\n   for (int j=0; j<5; j++) a[j] = 5;\r\n   char k;"
-                            }
+                            "startColumn": 24
                           }
                         }
                       },
                       "importance": "unimportant"
                     },
                     {
-                      "step": 6,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6385example.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6385example.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 4,
-                            "startColumn": 19,
-                            "snippet": {
-                              "text": "<5; j++) a[j] = 5;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 3,
-                            "startColumn": 1,
-                            "endLine": 5,
-                            "endColumn": 11,
-                            "charOffset": 30,
-                            "charLength": 63,
-                            "snippet": {
-                              "text": "   char a[5];\r\n   for (int j=0; j<5; j++) a[j] = 5;\r\n   char k;"
-                            }
+                            "startColumn": 19
                           }
                         }
                       },
                       "importance": "unimportant"
                     },
                     {
-                      "step": 7,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6385example.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6385example.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 4,
-                            "startColumn": 33,
-                            "snippet": {
-                              "text": "= 5;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 3,
-                            "startColumn": 1,
-                            "endLine": 5,
-                            "endColumn": 11,
-                            "charOffset": 30,
-                            "charLength": 63,
-                            "snippet": {
-                              "text": "   char a[5];\r\n   for (int j=0; j<5; j++) a[j] = 5;\r\n   char k;"
-                            }
+                            "startColumn": 33
                           }
                         }
                       },
                       "importance": "unimportant"
                     },
                     {
-                      "step": 8,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6385example.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6385example.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 4,
-                            "startColumn": 24,
-                            "snippet": {
-                              "text": "++) a[j] = 5;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 3,
-                            "startColumn": 1,
-                            "endLine": 5,
-                            "endColumn": 11,
-                            "charOffset": 30,
-                            "charLength": 63,
-                            "snippet": {
-                              "text": "   char a[5];\r\n   for (int j=0; j<5; j++) a[j] = 5;\r\n   char k;"
-                            }
+                            "startColumn": 24
                           }
                         }
                       },
                       "importance": "unimportant"
                     },
                     {
-                      "step": 9,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6385example.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6385example.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 4,
-                            "startColumn": 19,
-                            "snippet": {
-                              "text": "<5; j++) a[j] = 5;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 3,
-                            "startColumn": 1,
-                            "endLine": 5,
-                            "endColumn": 11,
-                            "charOffset": 30,
-                            "charLength": 63,
-                            "snippet": {
-                              "text": "   char a[5];\r\n   for (int j=0; j<5; j++) a[j] = 5;\r\n   char k;"
-                            }
+                            "startColumn": 19
                           }
                         }
                       },
                       "importance": "unimportant"
                     },
                     {
-                      "step": 10,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6385example.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6385example.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 5,
-                            "startColumn": 9,
-                            "snippet": {
-                              "text": "k;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 4,
-                            "startColumn": 1,
-                            "endLine": 6,
-                            "endColumn": 15,
-                            "charOffset": 45,
-                            "charLength": 64,
-                            "snippet": {
-                              "text": "   for (int j=0; j<5; j++) a[j] = 5;\r\n   char k;\r\n   if (i <= 5)"
-                            }
+                            "startColumn": 9
                           }
                         }
                       },
                       "importance": "unimportant"
                     },
                     {
-                      "step": 11,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6385example.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6385example.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 6,
-                            "startColumn": 10,
-                            "snippet": {
-                              "text": "<= 5)"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 5,
-                            "startColumn": 1,
-                            "endLine": 7,
-                            "endColumn": 5,
-                            "charOffset": 83,
-                            "charLength": 32,
-                            "snippet": {
-                              "text": "   char k;\r\n   if (i <= 5)\r\n   {"
-                            }
+                            "startColumn": 10
                           }
                         }
                       },
@@ -401,29 +228,15 @@
                       }
                     },
                     {
-                      "step": 12,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6385example.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6385example.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 8,
-                            "startColumn": 9,
-                            "snippet": {
-                              "text": "= a[i];"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 7,
-                            "startColumn": 1,
-                            "endLine": 9,
-                            "endColumn": 5,
-                            "charOffset": 111,
-                            "charLength": 27,
-                            "snippet": {
-                              "text": "   {\r\n      k = a[i];\r\n   }"
-                            }
+                            "startColumn": 9
                           }
                         }
                       },
@@ -443,7 +256,8 @@
             "ruleCategory": "mspft"
           }
         }
-      ]
+      ],
+      "columnKind": "utf16CodeUnits"
     }
   ]
 }

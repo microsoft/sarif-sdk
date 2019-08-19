@@ -421,3 +421,7 @@
 
 ## **v2.1.8** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.8) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.8) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.8) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.8)
 * BUGFIX: Add missing `"additionalProperties": false` constraints to schema; add missing object descriptions and improve other object descriptions in schema; update schema version to -rtm.4.
+
+## **v2.1.9** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.9) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.9) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.9) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.9)
+* FEATURE: add --remove switch to eliminate certain properties (currently timestamps only) from log file output.
+* BUGFIX: remove verbose 'Analyzing file..' reporting for drivers.

@@ -19,8 +19,7 @@
             "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1016.ContextRegionRequiresRegion_Valid.sarif",
             "uriBaseId": "TEST_DIR",
             "index": 0
-          },
-          "mimeType": "application/sarif-json"
+          }
         }
       ],
       "results": [],

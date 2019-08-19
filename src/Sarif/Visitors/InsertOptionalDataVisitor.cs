@@ -150,7 +150,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         }
 
                         int length = node.Length;
-                        node = Artifact.Create(uri, _dataToInsert, node.MimeType, encoding: encoding);
+                        node = Artifact.Create(uri, _dataToInsert, encoding: encoding);
                         node.Length = length;
                         fileLocation.Index = -1;
                         node.Location = fileLocation;

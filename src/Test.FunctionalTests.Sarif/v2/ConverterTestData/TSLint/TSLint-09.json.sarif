@@ -1,46 +1,81 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-09-26",
-  "version": "2.0.0-csd.2.beta.2018-09-26",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.4.json",
+  "version": "2.1.0",
   "runs": [
     {
       "tool": {
-        "name": "TSLint"
-      },
-      "files": {
-        "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoCookies/NoCookiesFailingTestInput.ts": {
-          "mimeType": "text/typescript"
-        },
-        "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoCookies/NoCookiesTestInput-error.ts": {
-          "mimeType": "text/typescript"
-        },
-        "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoFunctionConstructorWithStringArgsTestInput.ts": {
-          "mimeType": "text/typescript"
-        },
-        "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-any-functions.ts": {
-          "mimeType": "text/typescript"
-        },
-        "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-any-variables.ts": {
-          "mimeType": "text/typescript"
-        },
-        "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-functions.ts": {
-          "mimeType": "text/typescript"
-        },
-        "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-literals.ts": {
-          "mimeType": "text/typescript"
-        },
-        "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-variables.ts": {
-          "mimeType": "text/typescript"
-        },
-        "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-walker-error.ts": {
-          "mimeType": "text/typescript"
-        },
-        "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutTestInput-error3.ts": {
-          "mimeType": "text/typescript"
-        },
-        "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutTestInput-error4.ts": {
-          "mimeType": "text/typescript"
+        "driver": {
+          "name": "TSLint"
         }
       },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoCookies/NoCookiesFailingTestInput.ts",
+            "index": 0
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoCookies/NoCookiesTestInput-error.ts",
+            "index": 1
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoFunctionConstructorWithStringArgsTestInput.ts",
+            "index": 2
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-any-functions.ts",
+            "index": 3
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-any-variables.ts",
+            "index": 4
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-functions.ts",
+            "index": 5
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-literals.ts",
+            "index": 6
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-variables.ts",
+            "index": 7
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-walker-error.ts",
+            "index": 8
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutTestInput-error3.ts",
+            "index": 9
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutTestInput-error4.ts",
+            "index": 10
+          }
+        }
+      ],
       "results": [
         {
           "ruleId": "no-cookies",
@@ -51,8 +86,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoCookies/NoCookiesFailingTestInput.ts"
+                "artifactLocation": {
+                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoCookies/NoCookiesFailingTestInput.ts",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 7,
@@ -75,8 +111,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoCookies/NoCookiesFailingTestInput.ts"
+                "artifactLocation": {
+                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoCookies/NoCookiesFailingTestInput.ts",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 8,
@@ -99,8 +136,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoCookies/NoCookiesFailingTestInput.ts"
+                "artifactLocation": {
+                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoCookies/NoCookiesFailingTestInput.ts",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 9,
@@ -123,8 +161,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoCookies/NoCookiesFailingTestInput.ts"
+                "artifactLocation": {
+                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoCookies/NoCookiesFailingTestInput.ts",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 11,
@@ -147,8 +186,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoCookies/NoCookiesFailingTestInput.ts"
+                "artifactLocation": {
+                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoCookies/NoCookiesFailingTestInput.ts",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 14,
@@ -171,8 +211,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoCookies/NoCookiesTestInput-error.ts"
+                "artifactLocation": {
+                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoCookies/NoCookiesTestInput-error.ts",
+                  "index": 1
                 },
                 "region": {
                   "startLine": 5,
@@ -195,8 +236,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoFunctionConstructorWithStringArgsTestInput.ts"
+                "artifactLocation": {
+                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoFunctionConstructorWithStringArgsTestInput.ts",
+                  "index": 2
                 },
                 "region": {
                   "startLine": 1,
@@ -219,8 +261,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-any-functions.ts"
+                "artifactLocation": {
+                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-any-functions.ts",
+                  "index": 3
                 },
                 "region": {
                   "startLine": 4,
@@ -243,8 +286,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-any-functions.ts"
+                "artifactLocation": {
+                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-any-functions.ts",
+                  "index": 3
                 },
                 "region": {
                   "startLine": 5,
@@ -267,8 +311,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-any-functions.ts"
+                "artifactLocation": {
+                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-any-functions.ts",
+                  "index": 3
                 },
                 "region": {
                   "startLine": 6,
@@ -291,8 +336,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-any-variables.ts"
+                "artifactLocation": {
+                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-any-variables.ts",
+                  "index": 4
                 },
                 "region": {
                   "startLine": 4,
@@ -315,8 +361,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-any-variables.ts"
+                "artifactLocation": {
+                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-any-variables.ts",
+                  "index": 4
                 },
                 "region": {
                   "startLine": 5,
@@ -339,8 +386,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-any-variables.ts"
+                "artifactLocation": {
+                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-any-variables.ts",
+                  "index": 4
                 },
                 "region": {
                   "startLine": 6,
@@ -363,8 +411,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-functions.ts"
+                "artifactLocation": {
+                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-functions.ts",
+                  "index": 5
                 },
                 "region": {
                   "startLine": 4,
@@ -387,8 +436,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-functions.ts"
+                "artifactLocation": {
+                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-functions.ts",
+                  "index": 5
                 },
                 "region": {
                   "startLine": 5,
@@ -411,8 +461,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-functions.ts"
+                "artifactLocation": {
+                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-functions.ts",
+                  "index": 5
                 },
                 "region": {
                   "startLine": 6,
@@ -435,8 +486,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-literals.ts"
+                "artifactLocation": {
+                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-literals.ts",
+                  "index": 6
                 },
                 "region": {
                   "startLine": 3,
@@ -459,8 +511,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-literals.ts"
+                "artifactLocation": {
+                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-literals.ts",
+                  "index": 6
                 },
                 "region": {
                   "startLine": 4,
@@ -483,8 +536,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-literals.ts"
+                "artifactLocation": {
+                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-literals.ts",
+                  "index": 6
                 },
                 "region": {
                   "startLine": 5,
@@ -507,8 +561,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-variables.ts"
+                "artifactLocation": {
+                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-variables.ts",
+                  "index": 7
                 },
                 "region": {
                   "startLine": 4,
@@ -531,8 +586,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-variables.ts"
+                "artifactLocation": {
+                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-variables.ts",
+                  "index": 7
                 },
                 "region": {
                   "startLine": 5,
@@ -555,8 +611,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-variables.ts"
+                "artifactLocation": {
+                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-variables.ts",
+                  "index": 7
                 },
                 "region": {
                   "startLine": 6,
@@ -579,8 +636,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-walker-error.ts"
+                "artifactLocation": {
+                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-walker-error.ts",
+                  "index": 8
                 },
                 "region": {
                   "startLine": 11,
@@ -603,8 +661,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutTestInput-error3.ts"
+                "artifactLocation": {
+                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutTestInput-error3.ts",
+                  "index": 9
                 },
                 "region": {
                   "startLine": 5,
@@ -627,8 +686,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutTestInput-error4.ts"
+                "artifactLocation": {
+                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutTestInput-error4.ts",
+                  "index": 10
                 },
                 "region": {
                   "startLine": 11,
@@ -642,7 +702,8 @@
             }
           ]
         }
-      ]
+      ],
+      "columnKind": "utf16CodeUnits"
     }
   ]
 }

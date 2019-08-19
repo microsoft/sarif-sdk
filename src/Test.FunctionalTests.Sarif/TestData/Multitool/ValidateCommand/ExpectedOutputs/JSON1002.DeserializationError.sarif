@@ -36,8 +36,7 @@
             "uri": "FunctionalTestOutput.ValidateCommand/Inputs.JSON1002.DeserializationError.sarif",
             "uriBaseId": "TEST_DIR",
             "index": 0
-          },
-          "mimeType": "application/sarif-json"
+          }
         }
       ],
       "results": [

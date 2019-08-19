@@ -1,28 +1,33 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-09-26",
-  "version": "2.0.0-csd.2.beta.2018-09-26",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.4.json",
+  "version": "2.1.0",
   "runs": [
     {
       "tool": {
-        "name": "Pylint"
-      },
-      "files": {
-        "test.py": {
-          "mimeType": "text/python"
+        "driver": {
+          "name": "Pylint"
         }
       },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "test.py",
+            "index": 0
+          }
+        }
+      ],
       "results": [
         {
           "ruleId": "C0301(line-too-long)",
-          "level": "warning",
           "message": {
             "text": "Line too long (110/100)"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 18
@@ -33,15 +38,15 @@
         },
         {
           "ruleId": "C0330(bad-continuation)",
-          "level": "warning",
           "message": {
             "text": "Wrong continued indentation (add 2 spaces).\n        'jason', \"oof\", 'png', 'jeff', 'wdg', 'ryley', 'yossi', 'faucon', 'christopher', 'scott', 'riese']\r\n        ^ |"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 19
@@ -52,15 +57,15 @@
         },
         {
           "ruleId": "C0301(line-too-long)",
-          "level": "warning",
           "message": {
             "text": "Line too long (106/100)"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 19
@@ -71,15 +76,15 @@
         },
         {
           "ruleId": "C0325(superfluous-parens)",
-          "level": "warning",
           "message": {
             "text": "Unnecessary parens after 'return' keyword"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 24
@@ -90,15 +95,15 @@
         },
         {
           "ruleId": "C0303(trailing-whitespace)",
-          "level": "warning",
           "message": {
             "text": "Trailing whitespace"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 69
@@ -109,15 +114,15 @@
         },
         {
           "ruleId": "C0303(trailing-whitespace)",
-          "level": "warning",
           "message": {
             "text": "Trailing whitespace"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 74
@@ -128,15 +133,15 @@
         },
         {
           "ruleId": "C0303(trailing-whitespace)",
-          "level": "warning",
           "message": {
             "text": "Trailing whitespace"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 76
@@ -147,15 +152,15 @@
         },
         {
           "ruleId": "C0325(superfluous-parens)",
-          "level": "warning",
           "message": {
             "text": "Unnecessary parens after 'if' keyword"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 79
@@ -166,15 +171,15 @@
         },
         {
           "ruleId": "C0303(trailing-whitespace)",
-          "level": "warning",
           "message": {
             "text": "Trailing whitespace"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 85
@@ -185,15 +190,15 @@
         },
         {
           "ruleId": "C0330(bad-continuation)",
-          "level": "warning",
           "message": {
             "text": "Wrong continued indentation (remove 4 spaces).\n                                 min_df=2, stop_words= swords,\r\n                             |   ^"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 102
@@ -204,15 +209,15 @@
         },
         {
           "ruleId": "C0326(bad-whitespace)",
-          "level": "warning",
           "message": {
             "text": "No space allowed after keyword argument assignment\n                                 min_df=2, stop_words= swords,\r\n                                                     ^"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 102
@@ -223,15 +228,15 @@
         },
         {
           "ruleId": "C0330(bad-continuation)",
-          "level": "warning",
           "message": {
             "text": "Wrong continued indentation (remove 4 spaces).\n                                 use_idf=True)\r\n                             |   ^"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 103
@@ -242,15 +247,15 @@
         },
         {
           "ruleId": "C0330(bad-continuation)",
-          "level": "warning",
           "message": {
             "text": "Wrong continued indentation (remove 4 spaces).\n                         init_size=1000, batch_size=1000, verbose=True)\r\n                     |   ^"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 107
@@ -261,15 +266,15 @@
         },
         {
           "ruleId": "C0304(missing-final-newline)",
-          "level": "warning",
           "message": {
             "text": "Final newline missing"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 114
@@ -280,15 +285,15 @@
         },
         {
           "ruleId": "C0111(missing-docstring)",
-          "level": "warning",
           "message": {
             "text": "Missing module docstring"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 1
@@ -299,15 +304,15 @@
         },
         {
           "ruleId": "W0402(deprecated-module)",
-          "level": "warning",
           "message": {
             "text": "Uses of a deprecated module 'optparse'"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 13
@@ -318,15 +323,15 @@
         },
         {
           "ruleId": "C0103(invalid-name)",
-          "level": "warning",
           "message": {
             "text": "Constant name \"today\" doesn't conform to UPPER_CASE naming style"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 16
@@ -337,15 +342,15 @@
         },
         {
           "ruleId": "C0103(invalid-name)",
-          "level": "warning",
           "message": {
             "text": "Constant name \"clusters\" doesn't conform to UPPER_CASE naming style"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 17
@@ -356,15 +361,15 @@
         },
         {
           "ruleId": "C0103(invalid-name)",
-          "level": "warning",
           "message": {
             "text": "Constant name \"swords\" doesn't conform to UPPER_CASE naming style"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 18
@@ -375,15 +380,15 @@
         },
         {
           "ruleId": "C0103(invalid-name)",
-          "level": "warning",
           "message": {
             "text": "Function name \"getLast30daysMails\" doesn't conform to snake_case naming style"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 21
@@ -394,15 +399,15 @@
         },
         {
           "ruleId": "C0111(missing-docstring)",
-          "level": "warning",
           "message": {
             "text": "Missing function docstring"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 21
@@ -413,15 +418,15 @@
         },
         {
           "ruleId": "C0103(invalid-name)",
-          "level": "warning",
           "message": {
             "text": "Variable name \"sentOn\" doesn't conform to snake_case naming style"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 22,
@@ -433,15 +438,15 @@
         },
         {
           "ruleId": "C0103(invalid-name)",
-          "level": "warning",
           "message": {
             "text": "Variable name \"mailTime\" doesn't conform to snake_case naming style"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 23,
@@ -453,15 +458,15 @@
         },
         {
           "ruleId": "C0103(invalid-name)",
-          "level": "warning",
           "message": {
             "text": "Argument name \"X\" doesn't conform to snake_case naming style"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 26
@@ -472,15 +477,15 @@
         },
         {
           "ruleId": "C0111(missing-docstring)",
-          "level": "warning",
           "message": {
             "text": "Missing function docstring"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 26
@@ -491,15 +496,15 @@
         },
         {
           "ruleId": "W0621(redefined-outer-name)",
-          "level": "warning",
           "message": {
             "text": "Redefining name 'X' from outer scope (line 104)"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 26,
@@ -511,15 +516,15 @@
         },
         {
           "ruleId": "W0621(redefined-outer-name)",
-          "level": "warning",
           "message": {
             "text": "Redefining name 't0' from outer scope (line 109)"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 28,
@@ -531,15 +536,15 @@
         },
         {
           "ruleId": "W0621(redefined-outer-name)",
-          "level": "warning",
           "message": {
             "text": "Redefining name 'svd' from outer scope (line 105)"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 32,
@@ -551,15 +556,15 @@
         },
         {
           "ruleId": "C0103(invalid-name)",
-          "level": "warning",
           "message": {
             "text": "Variable name \"t0\" doesn't conform to snake_case naming style"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 28,
@@ -571,15 +576,15 @@
         },
         {
           "ruleId": "C0103(invalid-name)",
-          "level": "warning",
           "message": {
             "text": "Constant name \"hcorpus\" doesn't conform to UPPER_CASE naming style"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 47
@@ -590,15 +595,15 @@
         },
         {
           "ruleId": "C0103(invalid-name)",
-          "level": "warning",
           "message": {
             "text": "Function name \"getHash\" doesn't conform to snake_case naming style"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 48
@@ -609,15 +614,15 @@
         },
         {
           "ruleId": "C0111(missing-docstring)",
-          "level": "warning",
           "message": {
             "text": "Missing function docstring"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 48
@@ -628,15 +633,15 @@
         },
         {
           "ruleId": "C0111(missing-docstring)",
-          "level": "warning",
           "message": {
             "text": "Missing function docstring"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 51
@@ -647,15 +652,15 @@
         },
         {
           "ruleId": "W0621(redefined-outer-name)",
-          "level": "warning",
           "message": {
             "text": "Redefining name 'corpus' from outer scope (line 99)"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 51,
@@ -667,15 +672,15 @@
         },
         {
           "ruleId": "C0103(invalid-name)",
-          "level": "warning",
           "message": {
             "text": "Constant name \"groups\" doesn't conform to UPPER_CASE naming style"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 55
@@ -686,15 +691,15 @@
         },
         {
           "ruleId": "C0103(invalid-name)",
-          "level": "warning",
           "message": {
             "text": "Function name \"getData\" doesn't conform to snake_case naming style"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 57
@@ -705,15 +710,15 @@
         },
         {
           "ruleId": "C0103(invalid-name)",
-          "level": "warning",
           "message": {
             "text": "Argument name \"km\" doesn't conform to snake_case naming style"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 57
@@ -724,15 +729,15 @@
         },
         {
           "ruleId": "C0111(missing-docstring)",
-          "level": "warning",
           "message": {
             "text": "Missing function docstring"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 57
@@ -743,15 +748,15 @@
         },
         {
           "ruleId": "W0621(redefined-outer-name)",
-          "level": "warning",
           "message": {
             "text": "Redefining name 'km' from outer scope (line 106)"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 57,
@@ -763,15 +768,15 @@
         },
         {
           "ruleId": "W0621(redefined-outer-name)",
-          "level": "warning",
           "message": {
             "text": "Redefining name 'svd' from outer scope (line 105)"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 57,
@@ -783,15 +788,15 @@
         },
         {
           "ruleId": "C0103(invalid-name)",
-          "level": "warning",
           "message": {
             "text": "Function name \"groupCluster\" doesn't conform to snake_case naming style"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 63
@@ -802,15 +807,15 @@
         },
         {
           "ruleId": "C0111(missing-docstring)",
-          "level": "warning",
           "message": {
             "text": "Missing function docstring"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 63
@@ -821,15 +826,15 @@
         },
         {
           "ruleId": "C0103(invalid-name)",
-          "level": "warning",
           "message": {
             "text": "Variable name \"hs\" doesn't conform to snake_case naming style"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 64,
@@ -841,15 +846,15 @@
         },
         {
           "ruleId": "C0103(invalid-name)",
-          "level": "warning",
           "message": {
             "text": "Function name \"mapCluster\" doesn't conform to snake_case naming style"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 73
@@ -860,15 +865,15 @@
         },
         {
           "ruleId": "C0111(missing-docstring)",
-          "level": "warning",
           "message": {
             "text": "Missing function docstring"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 73
@@ -879,15 +884,15 @@
         },
         {
           "ruleId": "C0103(invalid-name)",
-          "level": "warning",
           "message": {
             "text": "Variable name \"cd\" doesn't conform to snake_case naming style"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 74,
@@ -899,15 +904,15 @@
         },
         {
           "ruleId": "C0103(invalid-name)",
-          "level": "warning",
           "message": {
             "text": "Argument name \"km\" doesn't conform to snake_case naming style"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 82
@@ -918,15 +923,15 @@
         },
         {
           "ruleId": "C0111(missing-docstring)",
-          "level": "warning",
           "message": {
             "text": "Missing function docstring"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 82
@@ -937,15 +942,15 @@
         },
         {
           "ruleId": "W0621(redefined-outer-name)",
-          "level": "warning",
           "message": {
             "text": "Redefining name 'km' from outer scope (line 106)"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 82,
@@ -957,15 +962,15 @@
         },
         {
           "ruleId": "W0621(redefined-outer-name)",
-          "level": "warning",
           "message": {
             "text": "Redefining name 'svd' from outer scope (line 105)"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 82,
@@ -977,15 +982,15 @@
         },
         {
           "ruleId": "C0103(invalid-name)",
-          "level": "warning",
           "message": {
             "text": "Constant name \"outlook\" doesn't conform to UPPER_CASE naming style"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 93
@@ -996,15 +1001,15 @@
         },
         {
           "ruleId": "C0103(invalid-name)",
-          "level": "warning",
           "message": {
             "text": "Constant name \"inbox\" doesn't conform to UPPER_CASE naming style"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 94
@@ -1015,15 +1020,15 @@
         },
         {
           "ruleId": "C0103(invalid-name)",
-          "level": "warning",
           "message": {
             "text": "Constant name \"messages\" doesn't conform to UPPER_CASE naming style"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 97
@@ -1034,15 +1039,15 @@
         },
         {
           "ruleId": "C0103(invalid-name)",
-          "level": "warning",
           "message": {
             "text": "Constant name \"filter_messages\" doesn't conform to UPPER_CASE naming style"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 98
@@ -1053,15 +1058,15 @@
         },
         {
           "ruleId": "C0103(invalid-name)",
-          "level": "warning",
           "message": {
             "text": "Constant name \"corpus\" doesn't conform to UPPER_CASE naming style"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 99
@@ -1072,15 +1077,15 @@
         },
         {
           "ruleId": "C0103(invalid-name)",
-          "level": "warning",
           "message": {
             "text": "Constant name \"vectorizer\" doesn't conform to UPPER_CASE naming style"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 101
@@ -1091,15 +1096,15 @@
         },
         {
           "ruleId": "C0103(invalid-name)",
-          "level": "warning",
           "message": {
             "text": "Constant name \"dx\" doesn't conform to UPPER_CASE naming style"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 105,
@@ -1111,15 +1116,15 @@
         },
         {
           "ruleId": "C0103(invalid-name)",
-          "level": "warning",
           "message": {
             "text": "Constant name \"svd\" doesn't conform to UPPER_CASE naming style"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 105,
@@ -1131,15 +1136,15 @@
         },
         {
           "ruleId": "C0103(invalid-name)",
-          "level": "warning",
           "message": {
             "text": "Constant name \"km\" doesn't conform to UPPER_CASE naming style"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 106
@@ -1150,15 +1155,15 @@
         },
         {
           "ruleId": "C0103(invalid-name)",
-          "level": "warning",
           "message": {
             "text": "Constant name \"t0\" doesn't conform to UPPER_CASE naming style"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 109
@@ -1169,15 +1174,15 @@
         },
         {
           "ruleId": "W0104(pointless-statement)",
-          "level": "warning",
           "message": {
             "text": "Statement seems to have no effect"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 114
@@ -1188,15 +1193,15 @@
         },
         {
           "ruleId": "W0611(unused-import)",
-          "level": "warning",
           "message": {
             "text": "Unused timedelta imported from datetime as td"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 2
@@ -1207,15 +1212,15 @@
         },
         {
           "ruleId": "W0611(unused-import)",
-          "level": "warning",
           "message": {
             "text": "Unused HashingVectorizer imported from sklearn.feature_extraction.text"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 4
@@ -1226,15 +1231,15 @@
         },
         {
           "ruleId": "W0611(unused-import)",
-          "level": "warning",
           "message": {
             "text": "Unused TfidfTransformer imported from sklearn.feature_extraction.text"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 5
@@ -1245,15 +1250,15 @@
         },
         {
           "ruleId": "W0611(unused-import)",
-          "level": "warning",
           "message": {
             "text": "Unused import sys"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 11
@@ -1264,15 +1269,15 @@
         },
         {
           "ruleId": "W0611(unused-import)",
-          "level": "warning",
           "message": {
             "text": "Unused OptionParser imported from optparse"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 13
@@ -1283,15 +1288,15 @@
         },
         {
           "ruleId": "W0611(unused-import)",
-          "level": "warning",
           "message": {
             "text": "Unused KMeans imported from sklearn.cluster"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 14
@@ -1302,15 +1307,15 @@
         },
         {
           "ruleId": "C0411(wrong-import-order)",
-          "level": "warning",
           "message": {
             "text": "standard import \"from time import time\" should be placed before \"from sklearn.decomposition import TruncatedSVD\""
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 8
@@ -1321,15 +1326,15 @@
         },
         {
           "ruleId": "C0411(wrong-import-order)",
-          "level": "warning",
           "message": {
             "text": "standard import \"import sys\" should be placed before \"from sklearn.decomposition import TruncatedSVD\""
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 11
@@ -1340,15 +1345,15 @@
         },
         {
           "ruleId": "C0411(wrong-import-order)",
-          "level": "warning",
           "message": {
             "text": "standard import \"import hashlib\" should be placed before \"from sklearn.decomposition import TruncatedSVD\""
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 12
@@ -1359,15 +1364,15 @@
         },
         {
           "ruleId": "C0411(wrong-import-order)",
-          "level": "warning",
           "message": {
             "text": "standard import \"from optparse import OptionParser\" should be placed before \"from sklearn.decomposition import TruncatedSVD\""
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 13
@@ -1378,15 +1383,15 @@
         },
         {
           "ruleId": "C0412(ungrouped-imports)",
-          "level": "warning",
           "message": {
             "text": "Imports from package sklearn are not grouped"
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "test.py"
+                "artifactLocation": {
+                  "uri": "test.py",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 14
@@ -1395,7 +1400,8 @@
             }
           ]
         }
-      ]
+      ],
+      "columnKind": "utf16CodeUnits"
     }
   ]
 }

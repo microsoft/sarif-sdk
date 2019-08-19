@@ -15,23 +15,22 @@ namespace Microsoft.CodeAnalysis.Sarif
     public partial class Artifact : ISarifNode
     {
         public static Artifact Create(
-            Uri uri,
-            OptionallyEmittedData dataToInsert = OptionallyEmittedData.None,
-            string mimeType = null,
+            Uri uri, 
+            OptionallyEmittedData dataToInsert = OptionallyEmittedData.None, 
             Encoding encoding = null,
             HashData hashData = null,
             IFileSystem fileSystem = null)
         {
             if (uri == null) { throw new ArgumentNullException(nameof(uri)); }
 
-            mimeType = mimeType ?? SarifWriters.MimeType.DetermineFromFileExtension(uri);
             fileSystem = fileSystem ?? new FileSystem();
 
             var artifact = new Artifact()
             {
                 Encoding = encoding?.WebName,
-                MimeType = mimeType
             };
+
+            string mimeType = SarifWriters.MimeType.DetermineFromFileExtension(uri);
 
             // Attempt to persist file contents and/or compute file hash and persist
             // this information to the log file. In the event that there is some issue

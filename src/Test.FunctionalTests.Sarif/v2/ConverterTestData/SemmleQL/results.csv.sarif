@@ -1,5 +1,5 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.1.0-rtm.0",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.4.json",
   "version": "2.1.0",
   "runs": [
     {
@@ -14,400 +14,350 @@
             "uri": "src/main/java/org/apache/commons/io/FileCleaningTracker.java",
             "uriBaseId": "$srcroot",
             "index": 0
-          },
-          "mimeType": "text/x-java-source"
+          }
         },
         {
           "location": {
             "uri": "src/main/java/org/apache/commons/io/IOUtils.java",
             "uriBaseId": "$srcroot",
             "index": 1
-          },
-          "mimeType": "text/x-java-source"
+          }
         },
         {
           "location": {
             "uri": "/src/main/java/org/apache/commons/io/IOUtils.java",
             "uriBaseId": "$srcroot",
             "index": 2
-          },
-          "mimeType": "text/x-java-source"
+          }
         },
         {
           "location": {
             "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
             "uriBaseId": "$srcroot",
             "index": 3
-          },
-          "mimeType": "text/x-java-source"
+          }
         },
         {
           "location": {
             "uri": "src/main/java/org/apache/commons/io/input/Tailer.java",
             "uriBaseId": "$srcroot",
             "index": 4
-          },
-          "mimeType": "text/x-java-source"
+          }
         },
         {
           "location": {
             "uri": "src/main/java/org/apache/commons/io/monitor/FileAlterationMonitor.java",
             "uriBaseId": "$srcroot",
             "index": 5
-          },
-          "mimeType": "text/x-java-source"
+          }
         },
         {
           "location": {
             "uri": "/src/main/java/org/apache/commons/io/input/Tailer.java",
             "uriBaseId": "$srcroot",
             "index": 6
-          },
-          "mimeType": "text/x-java-source"
+          }
         },
         {
           "location": {
             "uri": "src/main/java/org/apache/commons/io/input/XmlStreamReader.java",
             "uriBaseId": "$srcroot",
             "index": 7
-          },
-          "mimeType": "text/x-java-source"
+          }
         },
         {
           "location": {
             "uri": "src/main/java/org/apache/commons/io/input/CharSequenceReader.java",
             "uriBaseId": "$srcroot",
             "index": 8
-          },
-          "mimeType": "text/x-java-source"
+          }
         },
         {
           "location": {
             "uri": "src/main/java/org/apache/commons/io/comparator/ReverseComparator.java",
             "uriBaseId": "$srcroot",
             "index": 9
-          },
-          "mimeType": "text/x-java-source"
+          }
         },
         {
           "location": {
             "uri": "src/main/java/org/apache/commons/io/monitor/FileAlterationObserver.java",
             "uriBaseId": "$srcroot",
             "index": 10
-          },
-          "mimeType": "text/x-java-source"
+          }
         },
         {
           "location": {
             "uri": "src/main/java/org/apache/commons/io/filefilter/AndFileFilter.java",
             "uriBaseId": "$srcroot",
             "index": 11
-          },
-          "mimeType": "text/x-java-source"
+          }
         },
         {
           "location": {
             "uri": "src/main/java/org/apache/commons/io/filefilter/OrFileFilter.java",
             "uriBaseId": "$srcroot",
             "index": 12
-          },
-          "mimeType": "text/x-java-source"
+          }
         },
         {
           "location": {
             "uri": "src/main/java/org/apache/commons/io/filefilter/NotFileFilter.java",
             "uriBaseId": "$srcroot",
             "index": 13
-          },
-          "mimeType": "text/x-java-source"
+          }
         },
         {
           "location": {
             "uri": "src/main/java/org/apache/commons/io/filefilter/DelegateFileFilter.java",
             "uriBaseId": "$srcroot",
             "index": 14
-          },
-          "mimeType": "text/x-java-source"
+          }
         },
         {
           "location": {
             "uri": "src/main/java/org/apache/commons/io/output/XmlStreamWriter.java",
             "uriBaseId": "$srcroot",
             "index": 15
-          },
-          "mimeType": "text/x-java-source"
+          }
         },
         {
           "location": {
             "uri": "src/main/java/org/apache/commons/io/ByteOrderMark.java",
             "uriBaseId": "$srcroot",
             "index": 16
-          },
-          "mimeType": "text/x-java-source"
+          }
         },
         {
           "location": {
             "uri": "src/main/java/org/apache/commons/io/output/ByteArrayOutputStream.java",
             "uriBaseId": "$srcroot",
             "index": 17
-          },
-          "mimeType": "text/x-java-source"
+          }
         },
         {
           "location": {
             "uri": "/src/main/java/org/apache/commons/io/filefilter/OrFileFilter.java",
             "uriBaseId": "$srcroot",
             "index": 18
-          },
-          "mimeType": "text/x-java-source"
+          }
         },
         {
           "location": {
             "uri": "src/main/java/org/apache/commons/io/input/CountingInputStream.java",
             "uriBaseId": "$srcroot",
             "index": 19
-          },
-          "mimeType": "text/x-java-source"
+          }
         },
         {
           "location": {
             "uri": "/src/main/java/org/apache/commons/io/output/CountingOutputStream.java",
             "uriBaseId": "$srcroot",
             "index": 20
-          },
-          "mimeType": "text/x-java-source"
+          }
         },
         {
           "location": {
             "uri": "src/main/java/org/apache/commons/io/input/NullReader.java",
             "uriBaseId": "$srcroot",
             "index": 21
-          },
-          "mimeType": "text/x-java-source"
+          }
         },
         {
           "location": {
             "uri": "/src/main/java/org/apache/commons/io/input/NullInputStream.java",
             "uriBaseId": "$srcroot",
             "index": 22
-          },
-          "mimeType": "text/x-java-source"
+          }
         },
         {
           "location": {
             "uri": "src/main/java/org/apache/commons/io/output/CountingOutputStream.java",
             "uriBaseId": "$srcroot",
             "index": 23
-          },
-          "mimeType": "text/x-java-source"
+          }
         },
         {
           "location": {
             "uri": "/src/main/java/org/apache/commons/io/input/CountingInputStream.java",
             "uriBaseId": "$srcroot",
             "index": 24
-          },
-          "mimeType": "text/x-java-source"
+          }
         },
         {
           "location": {
             "uri": "/src/main/java/org/apache/commons/io/filefilter/AndFileFilter.java",
             "uriBaseId": "$srcroot",
             "index": 25
-          },
-          "mimeType": "text/x-java-source"
+          }
         },
         {
           "location": {
             "uri": "src/main/java/org/apache/commons/io/output/ProxyOutputStream.java",
             "uriBaseId": "$srcroot",
             "index": 26
-          },
-          "mimeType": "text/x-java-source"
+          }
         },
         {
           "location": {
             "uri": "/src/main/java/org/apache/commons/io/output/ProxyWriter.java",
             "uriBaseId": "$srcroot",
             "index": 27
-          },
-          "mimeType": "text/x-java-source"
+          }
         },
         {
           "location": {
             "uri": "src/main/java/org/apache/commons/io/output/ProxyWriter.java",
             "uriBaseId": "$srcroot",
             "index": 28
-          },
-          "mimeType": "text/x-java-source"
+          }
         },
         {
           "location": {
             "uri": "/src/main/java/org/apache/commons/io/output/ProxyOutputStream.java",
             "uriBaseId": "$srcroot",
             "index": 29
-          },
-          "mimeType": "text/x-java-source"
+          }
         },
         {
           "location": {
             "uri": "src/main/java/org/apache/commons/io/input/NullInputStream.java",
             "uriBaseId": "$srcroot",
             "index": 30
-          },
-          "mimeType": "text/x-java-source"
+          }
         },
         {
           "location": {
             "uri": "/src/main/java/org/apache/commons/io/input/NullReader.java",
             "uriBaseId": "$srcroot",
             "index": 31
-          },
-          "mimeType": "text/x-java-source"
+          }
         },
         {
           "location": {
             "uri": "src/main/java/org/apache/commons/io/filefilter/SuffixFileFilter.java",
             "uriBaseId": "$srcroot",
             "index": 32
-          },
-          "mimeType": "text/x-java-source"
+          }
         },
         {
           "location": {
             "uri": "/src/main/java/org/apache/commons/io/filefilter/PrefixFileFilter.java",
             "uriBaseId": "$srcroot",
             "index": 33
-          },
-          "mimeType": "text/x-java-source"
+          }
         },
         {
           "location": {
             "uri": "src/main/java/org/apache/commons/io/output/TaggedOutputStream.java",
             "uriBaseId": "$srcroot",
             "index": 34
-          },
-          "mimeType": "text/x-java-source"
+          }
         },
         {
           "location": {
             "uri": "/src/main/java/org/apache/commons/io/input/TaggedInputStream.java",
             "uriBaseId": "$srcroot",
             "index": 35
-          },
-          "mimeType": "text/x-java-source"
+          }
         },
         {
           "location": {
             "uri": "src/main/java/org/apache/commons/io/input/TaggedInputStream.java",
             "uriBaseId": "$srcroot",
             "index": 36
-          },
-          "mimeType": "text/x-java-source"
+          }
         },
         {
           "location": {
             "uri": "/src/main/java/org/apache/commons/io/output/TaggedOutputStream.java",
             "uriBaseId": "$srcroot",
             "index": 37
-          },
-          "mimeType": "text/x-java-source"
+          }
         },
         {
           "location": {
             "uri": "src/main/java/org/apache/commons/io/input/ReversedLinesFileReader.java",
             "uriBaseId": "$srcroot",
             "index": 38
-          },
-          "mimeType": "text/x-java-source"
+          }
         },
         {
           "location": {
             "uri": "src/main/java/org/apache/commons/io/output/WriterOutputStream.java",
             "uriBaseId": "$srcroot",
             "index": 39
-          },
-          "mimeType": "text/x-java-source"
+          }
         },
         {
           "location": {
             "uri": "src/main/java/org/apache/commons/io/FilenameUtils.java",
             "uriBaseId": "$srcroot",
             "index": 40
-          },
-          "mimeType": "text/x-java-source"
+          }
         },
         {
           "location": {
             "uri": "src/main/java/org/apache/commons/io/output/FileWriterWithEncoding.java",
             "uriBaseId": "$srcroot",
             "index": 41
-          },
-          "mimeType": "text/x-java-source"
+          }
         },
         {
           "location": {
             "uri": "src/main/java/org/apache/commons/io/FileDeleteStrategy.java",
             "uriBaseId": "$srcroot",
             "index": 42
-          },
-          "mimeType": "text/x-java-source"
+          }
         },
         {
           "location": {
             "uri": "src/main/java/org/apache/commons/io/output/LockableFileWriter.java",
             "uriBaseId": "$srcroot",
             "index": 43
-          },
-          "mimeType": "text/x-java-source"
+          }
         },
         {
           "location": {
             "uri": "src/main/java/org/apache/commons/io/filefilter/MagicNumberFileFilter.java",
             "uriBaseId": "$srcroot",
             "index": 44
-          },
-          "mimeType": "text/x-java-source"
+          }
         },
         {
           "location": {
             "uri": "src/main/java/org/apache/commons/io/output/TeeOutputStream.java",
             "uriBaseId": "$srcroot",
             "index": 45
-          },
-          "mimeType": "text/x-java-source"
+          }
         },
         {
           "location": {
             "uri": "src/main/java/org/apache/commons/io/input/BOMInputStream.java",
             "uriBaseId": "$srcroot",
             "index": 46
-          },
-          "mimeType": "text/x-java-source"
+          }
         },
         {
           "location": {
             "uri": "src/main/java/org/apache/commons/io/filefilter/FileFilterUtils.java",
             "uriBaseId": "$srcroot",
             "index": 47
-          },
-          "mimeType": "text/x-java-source"
+          }
         },
         {
           "location": {
             "uri": "/src/main/java/org/apache/commons/io/filefilter/FileFilterUtils.java",
             "uriBaseId": "$srcroot",
             "index": 48
-          },
-          "mimeType": "text/x-java-source"
+          }
         },
         {
           "location": {
             "uri": "src/main/java/org/apache/commons/io/input/TeeInputStream.java",
             "uriBaseId": "$srcroot",
             "index": 49
-          },
-          "mimeType": "text/x-java-source"
+          }
         }
       ],
       "results": [

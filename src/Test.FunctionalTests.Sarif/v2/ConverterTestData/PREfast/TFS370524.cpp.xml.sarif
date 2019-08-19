@@ -1,48 +1,39 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-09-26",
-  "version": "2.0.0-csd.2.beta.2018-09-26",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.4.json",
+  "version": "2.1.0",
   "runs": [
     {
       "tool": {
-        "name": "PREfast",
-        "fullName": "PREfast Code Analysis"
-      },
-      "files": {
-        "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp": {
-          "mimeType": "text/x-cpp",
-          "contents": {
-            "binary": "DQovLyBLZXkgZXZlbnQgdGFyZ2V0IGluIHRoZSBwcmVzZW5jZSBvZiBjbGFzcyBtZW1iZXIgYWxpYXMNCi8vIExvb2sgZm9yICd0aGlzLT5zb3VyY2UnLCBub3QganVzdCAnc291cmNlJw0KDQpjbGFzcyBNaXNzZWRBbGlhc2VzDQp7DQoJaW50ICogc291cmNlOw0KDQoJaW50IE1pc3NlZEFsaWFzKCkNCgl7DQoJCWJvb2wgYXNzZXJ0ID0gc291cmNlICE9IDAgPyBmYWxzZSA6IHRydWU7IC8vIEV4cGVjdHM6ICdzb3VyY2UnIG1heSBiZSBOVUxMDQoJCWludCAqIHRhcmdldCA9IHNvdXJjZTsNCgkJaW50IHggPSAqc291cmNlOw0KDQoJCS8vIHN1cHByZXNzIDQxODkNCgkJaWYgKGFzc2VydCAmJiB0YXJnZXQpIHJldHVybiB4Ow0KCX0NCg0KCWludCBNaXNzZWRBbGlhczIoKQ0KCXsNCgkJYm9vbCBhc3NlcnQgPSBzb3VyY2UgIT0gMCA/IGZhbHNlIDogdHJ1ZTsgLy8gRXhwZWN0czogJ3RoaXMtPnNvdXJjZScgbWF5IGJlIE5VTEwNCgkJaW50ICogdGFyZ2V0ID0gc291cmNlOw0KCQlpbnQgeCA9ICp0YXJnZXQ7DQoNCgkJLy8gc3VwcHJlc3MgNDE4OQ0KCQlpZiAoYXNzZXJ0ICYmIHRhcmdldCkgcmV0dXJuIHg7DQoJfQ0KDQoJaW50IE1pc3NlZEFsaWFzMyhpbnQgKiB0YXJnZXQpDQoJew0KCQlib29sIGFzc2VydCA9IHRhcmdldCAhPSAwID8gZmFsc2UgOiB0cnVlOyAvLyBFeHBlY3RzOiAndGFyZ2V0JyBtYXkgYmUgTlVMTA0KCQlzb3VyY2UgPSB0YXJnZXQ7DQoJCWludCB4ID0gKnNvdXJjZTsNCg0KCQkvLyBzdXBwcmVzcyA0MTg5DQoJCWlmIChhc3NlcnQgJiYgdGFyZ2V0KSByZXR1cm4geDsNCgl9DQoNCn07DQoNCg=="
-          },
-          "hashes": [
-            {
-              "value": "9EB90F40ADA3B637A68517DDBCE913FA",
-              "algorithm": "md5"
-            },
-            {
-              "value": "FE4D86F0014CA0226372B5C9C1FB803CDC4E0AD7",
-              "algorithm": "sha-1"
-            },
-            {
-              "value": "4ED320350F0016E513FB10B5A3EFD3A63E5D2A2CACCC20A77EB244A1304A850D",
-              "algorithm": "sha-256"
-            }
-          ]
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis"
         }
       },
-      "logicalLocations": {
-        "MissedAliases::MissedAlias": {
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp",
+            "index": 0
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
           "name": "MissedAlias",
+          "fullyQualifiedName": "MissedAliases::MissedAlias",
           "decoratedName": "?MissedAlias@MissedAliases@@AEAAHXZ"
         },
-        "MissedAliases::MissedAlias2": {
+        {
           "name": "MissedAlias2",
+          "fullyQualifiedName": "MissedAliases::MissedAlias2",
           "decoratedName": "?MissedAlias2@MissedAliases@@AEAAHXZ"
         },
-        "MissedAliases::MissedAlias3": {
+        {
           "name": "MissedAlias3",
+          "fullyQualifiedName": "MissedAliases::MissedAlias3",
           "decoratedName": "?MissedAlias3@MissedAliases@@AEAAHPEAH@Z"
         }
-      },
+      ],
       "results": [
         {
           "ruleId": "6011",
@@ -52,29 +43,21 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp"
+                "artifactLocation": {
+                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 13,
-                  "startColumn": 7,
-                  "snippet": {
-                    "text": "x = *source;"
-                  }
-                },
-                "contextRegion": {
-                  "startLine": 12,
-                  "startColumn": 1,
-                  "endLine": 14,
-                  "endColumn": 1,
-                  "charOffset": 254,
-                  "charLength": 46,
-                  "snippet": {
-                    "text": "\t\tint * target = source;\r\n\t\tint x = *source;\r\n"
-                  }
+                  "startColumn": 7
                 }
               },
-              "fullyQualifiedLogicalName": "MissedAliases::MissedAlias",
+              "logicalLocations": [
+                {
+                  "index": 0,
+                  "fullyQualifiedName": "MissedAliases::MissedAlias"
+                }
+              ],
               "properties": {
                 "funcline": "9"
               }
@@ -86,58 +69,30 @@
                 {
                   "locations": [
                     {
-                      "step": 1,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 11,
-                            "startColumn": 8,
-                            "snippet": {
-                              "text": "assert = source != 0 ? false : true; // Expects: 'source' may be NULL"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 10,
-                            "startColumn": 1,
-                            "endLine": 12,
-                            "endColumn": 25,
-                            "charOffset": 172,
-                            "charLength": 106,
-                            "snippet": {
-                              "text": "\t{\r\n\t\tbool assert = source != 0 ? false : true; // Expects: 'source' may be NULL\r\n\t\tint * target = source;"
-                            }
+                            "startColumn": 8
                           }
                         }
                       },
                       "importance": "unimportant"
                     },
                     {
-                      "step": 2,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 12,
-                            "startColumn": 7,
-                            "snippet": {
-                              "text": "* target = source;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 11,
-                            "startColumn": 1,
-                            "endLine": 13,
-                            "endColumn": 19,
-                            "charOffset": 176,
-                            "charLength": 122,
-                            "snippet": {
-                              "text": "\t\tbool assert = source != 0 ? false : true; // Expects: 'source' may be NULL\r\n\t\tint * target = source;\r\n\t\tint x = *source;"
-                            }
+                            "startColumn": 7
                           }
                         }
                       },
@@ -147,29 +102,15 @@
                       }
                     },
                     {
-                      "step": 3,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 13,
-                            "startColumn": 7,
-                            "snippet": {
-                              "text": "x = *source;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 12,
-                            "startColumn": 1,
-                            "endLine": 14,
-                            "endColumn": 1,
-                            "charOffset": 254,
-                            "charLength": 46,
-                            "snippet": {
-                              "text": "\t\tint * target = source;\r\n\t\tint x = *source;\r\n"
-                            }
+                            "startColumn": 7
                           }
                         }
                       },
@@ -197,29 +138,21 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp"
+                "artifactLocation": {
+                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 23,
-                  "startColumn": 7,
-                  "snippet": {
-                    "text": "x = *target;"
-                  }
-                },
-                "contextRegion": {
-                  "startLine": 22,
-                  "startColumn": 1,
-                  "endLine": 24,
-                  "endColumn": 1,
-                  "charOffset": 472,
-                  "charLength": 46,
-                  "snippet": {
-                    "text": "\t\tint * target = source;\r\n\t\tint x = *target;\r\n"
-                  }
+                  "startColumn": 7
                 }
               },
-              "fullyQualifiedLogicalName": "MissedAliases::MissedAlias2",
+              "logicalLocations": [
+                {
+                  "index": 1,
+                  "fullyQualifiedName": "MissedAliases::MissedAlias2"
+                }
+              ],
               "properties": {
                 "funcline": "19"
               }
@@ -231,58 +164,30 @@
                 {
                   "locations": [
                     {
-                      "step": 1,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 21,
-                            "startColumn": 8,
-                            "snippet": {
-                              "text": "assert = source != 0 ? false : true; // Expects: 'this->source' may be NULL"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 20,
-                            "startColumn": 1,
-                            "endLine": 22,
-                            "endColumn": 25,
-                            "charOffset": 384,
-                            "charLength": 112,
-                            "snippet": {
-                              "text": "\t{\r\n\t\tbool assert = source != 0 ? false : true; // Expects: 'this->source' may be NULL\r\n\t\tint * target = source;"
-                            }
+                            "startColumn": 8
                           }
                         }
                       },
                       "importance": "unimportant"
                     },
                     {
-                      "step": 2,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 22,
-                            "startColumn": 7,
-                            "snippet": {
-                              "text": "* target = source;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 21,
-                            "startColumn": 1,
-                            "endLine": 23,
-                            "endColumn": 19,
-                            "charOffset": 388,
-                            "charLength": 128,
-                            "snippet": {
-                              "text": "\t\tbool assert = source != 0 ? false : true; // Expects: 'this->source' may be NULL\r\n\t\tint * target = source;\r\n\t\tint x = *target;"
-                            }
+                            "startColumn": 7
                           }
                         }
                       },
@@ -292,29 +197,15 @@
                       }
                     },
                     {
-                      "step": 3,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 23,
-                            "startColumn": 7,
-                            "snippet": {
-                              "text": "x = *target;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 22,
-                            "startColumn": 1,
-                            "endLine": 24,
-                            "endColumn": 1,
-                            "charOffset": 472,
-                            "charLength": 46,
-                            "snippet": {
-                              "text": "\t\tint * target = source;\r\n\t\tint x = *target;\r\n"
-                            }
+                            "startColumn": 7
                           }
                         }
                       },
@@ -342,29 +233,21 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp"
+                "artifactLocation": {
+                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 33,
-                  "startColumn": 7,
-                  "snippet": {
-                    "text": "x = *source;"
-                  }
-                },
-                "contextRegion": {
-                  "startLine": 32,
-                  "startColumn": 1,
-                  "endLine": 34,
-                  "endColumn": 1,
-                  "charOffset": 696,
-                  "charLength": 40,
-                  "snippet": {
-                    "text": "\t\tsource = target;\r\n\t\tint x = *source;\r\n"
-                  }
+                  "startColumn": 7
                 }
               },
-              "fullyQualifiedLogicalName": "MissedAliases::MissedAlias3",
+              "logicalLocations": [
+                {
+                  "index": 2,
+                  "fullyQualifiedName": "MissedAliases::MissedAlias3"
+                }
+              ],
               "properties": {
                 "funcline": "29"
               }
@@ -376,29 +259,15 @@
                 {
                   "locations": [
                     {
-                      "step": 1,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 31,
-                            "startColumn": 8,
-                            "snippet": {
-                              "text": "assert = target != 0 ? false : true; // Expects: 'target' may be NULL"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 30,
-                            "startColumn": 1,
-                            "endLine": 32,
-                            "endColumn": 19,
-                            "charOffset": 614,
-                            "charLength": 100,
-                            "snippet": {
-                              "text": "\t{\r\n\t\tbool assert = target != 0 ? false : true; // Expects: 'target' may be NULL\r\n\t\tsource = target;"
-                            }
+                            "startColumn": 8
                           }
                         }
                       },
@@ -408,58 +277,30 @@
                       }
                     },
                     {
-                      "step": 2,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 32,
-                            "startColumn": 10,
-                            "snippet": {
-                              "text": "= target;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 31,
-                            "startColumn": 1,
-                            "endLine": 33,
-                            "endColumn": 19,
-                            "charOffset": 618,
-                            "charLength": 116,
-                            "snippet": {
-                              "text": "\t\tbool assert = target != 0 ? false : true; // Expects: 'target' may be NULL\r\n\t\tsource = target;\r\n\t\tint x = *source;"
-                            }
+                            "startColumn": 10
                           }
                         }
                       },
                       "importance": "unimportant"
                     },
                     {
-                      "step": 3,
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp"
+                          "artifactLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp",
+                            "index": 0
                           },
                           "region": {
                             "startLine": 33,
-                            "startColumn": 7,
-                            "snippet": {
-                              "text": "x = *source;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 32,
-                            "startColumn": 1,
-                            "endLine": 34,
-                            "endColumn": 1,
-                            "charOffset": 696,
-                            "charLength": 40,
-                            "snippet": {
-                              "text": "\t\tsource = target;\r\n\t\tint x = *source;\r\n"
-                            }
+                            "startColumn": 7
                           }
                         }
                       },
@@ -479,7 +320,8 @@
             "ruleCategory": "mspft"
           }
         }
-      ]
+      ],
+      "columnKind": "utf16CodeUnits"
     }
   ]
 }

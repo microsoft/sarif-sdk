@@ -1,39 +1,51 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-09-26",
-  "version": "2.0.0-csd.2.beta.2018-09-26",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.4.json",
+  "version": "2.1.0",
   "runs": [
     {
       "tool": {
-        "name": "AndroidStudio"
-      },
-      "files": {
-        "app/src/androidTest/java/microsoft/androidstudioformatexample/ApplicationTest.java": {
-          "mimeType": "text/x-java-source"
-        },
-        "app/src/main/java/microsoft/androidstudioformatexample/MainActivity.java": {
-          "mimeType": "text/x-java-source"
+        "driver": {
+          "name": "AndroidStudio"
         }
       },
-      "logicalLocations": {
-        "app": {
+      "artifacts": [
+        {
+          "location": {
+            "uri": "app/src/androidTest/java/microsoft/androidstudioformatexample/ApplicationTest.java",
+            "index": 0
+          }
+        },
+        {
+          "location": {
+            "uri": "app/src/main/java/microsoft/androidstudioformatexample/MainActivity.java",
+            "index": 1
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "app",
           "kind": "module"
         },
-        "app\\microsoft.androidstudioformatexample": {
+        {
           "name": "microsoft.androidstudioformatexample",
-          "parentKey": "app",
+          "fullyQualifiedName": "app\\microsoft.androidstudioformatexample",
+          "parentIndex": 0,
           "kind": "package"
         },
-        "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.ApplicationTest ApplicationTest()": {
+        {
           "name": "microsoft.androidstudioformatexample.ApplicationTest ApplicationTest()",
-          "parentKey": "app\\microsoft.androidstudioformatexample",
+          "fullyQualifiedName": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.ApplicationTest ApplicationTest()",
+          "parentIndex": 1,
           "kind": "member"
         },
-        "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.MainActivity": {
+        {
           "name": "microsoft.androidstudioformatexample.MainActivity",
-          "parentKey": "app\\microsoft.androidstudioformatexample",
+          "fullyQualifiedName": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.MainActivity",
+          "parentIndex": 1,
           "kind": "type"
         }
-      },
+      ],
       "results": [
         {
           "ruleId": "unused declaration",
@@ -43,14 +55,20 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "app/src/androidTest/java/microsoft/androidstudioformatexample/ApplicationTest.java"
+                "artifactLocation": {
+                  "uri": "app/src/androidTest/java/microsoft/androidstudioformatexample/ApplicationTest.java",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 10
                 }
               },
-              "fullyQualifiedLogicalName": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.ApplicationTest ApplicationTest()"
+              "logicalLocations": [
+                {
+                  "index": 2,
+                  "fullyQualifiedName": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.ApplicationTest ApplicationTest()"
+                }
+              ]
             }
           ],
           "properties": {
@@ -66,14 +84,20 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "app/src/main/java/microsoft/androidstudioformatexample/MainActivity.java"
+                "artifactLocation": {
+                  "uri": "app/src/main/java/microsoft/androidstudioformatexample/MainActivity.java",
+                  "index": 1
                 },
                 "region": {
                   "startLine": 1
                 }
               },
-              "fullyQualifiedLogicalName": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.MainActivity"
+              "logicalLocations": [
+                {
+                  "index": 3,
+                  "fullyQualifiedName": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.MainActivity"
+                }
+              ]
             }
           ],
           "properties": {
@@ -81,7 +105,8 @@
             "attributeKey": "NOT_USED_ELEMENT_ATTRIBUTES"
           }
         }
-      ]
+      ],
+      "columnKind": "utf16CodeUnits"
     }
   ]
 }

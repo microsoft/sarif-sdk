@@ -386,6 +386,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         loggingOptions = analyzeOptions.ConvertToLoggingOptions();
 
                         OptionallyEmittedData dataToInsert = analyzeOptions.DataToInsert.ToFlags();
+                        OptionallyEmittedData dataToRemove = analyzeOptions.DataToRemove.ToFlags();
 
                         // This code is required in order to support the obsoleted ComputeFileHashes argument
                         // on the analyze command-line;
@@ -399,6 +400,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                     analyzeOptions.OutputFilePath,
                                     loggingOptions,
                                     dataToInsert,
+                                    dataToRemove,
                                     tool: _tool,
                                     run: null,
                                     analysisTargets: targets,
@@ -411,6 +413,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                     analyzeOptions.OutputFilePath,
                                     loggingOptions,
                                     dataToInsert,
+                                    dataToRemove,
                                     tool: _tool,
                                     run: null,
                                     analysisTargets: targets,

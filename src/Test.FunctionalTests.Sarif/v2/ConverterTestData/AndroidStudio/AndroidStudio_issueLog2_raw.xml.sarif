@@ -1,31 +1,39 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-09-26",
-  "version": "2.0.0-csd.2.beta.2018-09-26",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.4.json",
+  "version": "2.1.0",
   "runs": [
     {
       "tool": {
-        "name": "AndroidStudio"
-      },
-      "files": {
-        "app/src/main/java/microsoft/androidstudioformatexample/NamespaceTypo.java": {
-          "mimeType": "text/x-java-source"
+        "driver": {
+          "name": "AndroidStudio"
         }
       },
-      "logicalLocations": {
-        "app": {
+      "artifacts": [
+        {
+          "location": {
+            "uri": "app/src/main/java/microsoft/androidstudioformatexample/NamespaceTypo.java",
+            "index": 0
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "app",
           "kind": "module"
         },
-        "app\\microsoft.androidstudioformatexample": {
+        {
           "name": "microsoft.androidstudioformatexample",
-          "parentKey": "app",
+          "fullyQualifiedName": "app\\microsoft.androidstudioformatexample",
+          "parentIndex": 0,
           "kind": "package"
         },
-        "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.NamespaceTypo": {
+        {
           "name": "microsoft.androidstudioformatexample.NamespaceTypo",
-          "parentKey": "app\\microsoft.androidstudioformatexample",
+          "fullyQualifiedName": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.NamespaceTypo",
+          "parentIndex": 1,
           "kind": "type"
         }
-      },
+      ],
       "results": [
         {
           "ruleId": "Default File Template Usage",
@@ -35,14 +43,20 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "app/src/main/java/microsoft/androidstudioformatexample/NamespaceTypo.java"
+                "artifactLocation": {
+                  "uri": "app/src/main/java/microsoft/androidstudioformatexample/NamespaceTypo.java",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 3
                 }
               },
-              "fullyQualifiedLogicalName": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.NamespaceTypo"
+              "logicalLocations": [
+                {
+                  "index": 2,
+                  "fullyQualifiedName": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.NamespaceTypo"
+                }
+              ]
             }
           ],
           "properties": {
@@ -50,7 +64,8 @@
             "attributeKey": "WARNING_ATTRIBUTES"
           }
         }
-      ]
+      ],
+      "columnKind": "utf16CodeUnits"
     }
   ]
 }

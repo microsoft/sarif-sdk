@@ -120,5 +120,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 .Where(fmt => string.CompareOrdinal(fmt, ToolFormat.None) != 0)
                 .ToList();
         }
+
+        public static SarifLog GetSarifLogFromResource(ResourceExtractor extractor, string resourceName)
+        {
+            string logFileContents = extractor.GetResourceText(resourceName);
+            return JsonConvert.DeserializeObject<SarifLog>(logFileContents);
+        }
     }
 }

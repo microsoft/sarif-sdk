@@ -37,8 +37,7 @@
             "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1008.MessagesShouldEndWithPeriod_Invalid.sarif",
             "uriBaseId": "TEST_DIR",
             "index": 0
-          },
-          "mimeType": "application/sarif-json"
+          }
         }
       ],
       "results": [

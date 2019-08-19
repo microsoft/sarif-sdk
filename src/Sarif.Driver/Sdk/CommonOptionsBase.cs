@@ -32,6 +32,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public IEnumerable<OptionallyEmittedData> DataToInsert { get; set; }
 
         [Option(
+            "remove",
+            Separator = ';',
+            HelpText =
+            "Optionally present data, expressed as a semicolon-delimited list, that should be not be persisted to or which "  +
+            "should be removed from the log file. Valid values include Hashes, TextFiles, BinaryFiles, EnvironmentVariables, " + 
+            "CodeSnippets, SurroundingCodeSnippets and NondeterministicProperties.")]
+        public IEnumerable<OptionallyEmittedData> DataToRemove { get; set; }
+
+        [Option(
             'u',
             "uriBaseIds",
             Separator = ';',
