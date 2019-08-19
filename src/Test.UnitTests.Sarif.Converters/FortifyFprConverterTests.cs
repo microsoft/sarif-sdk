@@ -88,8 +88,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             foreach (KeyValuePair<string, FailureLevel> keyValuePair in expectedInputOutputs)
             {
                 ReportingDescriptor rule = new ReportingDescriptor();
-                rule.DefaultConfiguration = new ReportingConfiguration();
-                rule.DefaultConfiguration.SetProperty<string>("Impact", keyValuePair.Key);
+                rule.SetProperty<string>("Impact", keyValuePair.Key);
 
                 FailureLevel level = FortifyFprConverter.GetFailureLevelFromRuleMetadata(rule);
 

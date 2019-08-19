@@ -452,3 +452,4 @@
 * BUGFIX: FortifyFpr converter produced invalid SARIF. https://github.com/microsoft/sarif-sdk/issues/1593
 * BUGFIX: FxCop converter produced empty `result.message` objects. https://github.com/microsoft/sarif-sdk/issues/1594
 * FEATURE: Add validation rule to ensure correctness of `originalUriBaseIds` entries.
+* BUGFIX: Persist Fortify rule metadata properties. https://github.com/microsoft/sarif-sdk/issues/1490

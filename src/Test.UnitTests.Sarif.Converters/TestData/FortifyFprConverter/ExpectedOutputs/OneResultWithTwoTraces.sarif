@@ -338,7 +338,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "DeprecatedInstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         }
       ],
       "tool": {
@@ -362,9 +366,7 @@
               "properties": {
                 "Kingdom": "Code Quality",
                 "Type": "Unreleased Resource",
-                "Subtype": "Database",
-                "DeprecatedInstanceSeverity": "3.0",
-                "Confidence": "5.0"
+                "Subtype": "Database"
               }
             }
           ],

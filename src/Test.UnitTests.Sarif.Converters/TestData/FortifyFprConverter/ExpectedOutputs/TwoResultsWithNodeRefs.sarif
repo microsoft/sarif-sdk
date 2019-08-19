@@ -82,7 +82,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "DeprecatedInstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 1,
@@ -177,7 +181,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "DeprecatedInstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         }
       ],
       "tool": {
@@ -200,9 +208,7 @@
               },
               "properties": {
                 "Kingdom": "Input Validation and Representation",
-                "Type": "SQL Injection",
-                "DeprecatedInstanceSeverity": "2.0",
-                "Confidence": "5.0"
+                "Type": "SQL Injection"
               }
             },
             {
@@ -221,9 +227,7 @@
               },
               "properties": {
                 "Kingdom": "Encapsulation",
-                "Type": "System Information Leak",
-                "DeprecatedInstanceSeverity": "3.0",
-                "Confidence": "5.0"
+                "Type": "System Information Leak"
               }
             }
           ],

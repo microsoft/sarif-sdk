@@ -82,7 +82,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "DeprecatedInstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         }
       ],
       "tool": {
@@ -132,9 +136,7 @@
               "properties": {
                 "Kingdom": "Input Validation and Representation",
                 "Type": "SQL Injection",
-                "Subtype": "Value Never Read",
-                "DeprecatedInstanceSeverity": "2.0",
-                "Confidence": "5.0"
+                "Subtype": "Value Never Read"
               }
             }
           ],
