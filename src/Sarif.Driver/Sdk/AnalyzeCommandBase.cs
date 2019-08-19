@@ -586,18 +586,38 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     context.TargetUri.GetFileName()));
             }
 
-            if (options.ComputeFileHashes && _resultsCachingLogger.HashToResultsMap.TryGetValue(context.Hashes.Sha256, out List<Tuple<ReportingDescriptor, Result>> results))
+            if (options.ComputeFileHashes)
             {
-                context.Logger.AnalyzingTarget(context);
-                foreach (Tuple<ReportingDescriptor, Result> result in results)
+                _resultsCachingLogger.HashToResultsMap.TryGetValue(context.Hashes.Sha256, out List<Tuple<ReportingDescriptor, Result>> results);
+                _resultsCachingLogger.HashToNotificationsMap.TryGetValue(context.Hashes.Sha256, out List<Notification> notifications);
+
+                bool replayCachedData = (results != null || notifications != null);
+
+                if (replayCachedData)
                 {
-                    if (result.Item2.Locations?.Count > 0)
+                    context.Logger.AnalyzingTarget(context);
+
+                    if (results != null)
                     {
-                        result.Item2.Locations[0].PhysicalLocation.ArtifactLocation.Uri = context.TargetUri;
+                        foreach (Tuple<ReportingDescriptor, Result> result in results)
+                        {
+                            if (result.Item2.Locations?.Count > 0)
+                            {
+                                result.Item2.Locations[0].PhysicalLocation.ArtifactLocation.Uri = context.TargetUri;
+                            }
+                            context.Logger.Log(result.Item1, result.Item2);
+                        }
                     }
-                    context.Logger.Log(result.Item1, result.Item2);
+
+                    if (notifications != null)
+                    {
+                        foreach (Notification notification in notifications)
+                        {
+                            context.Logger.LogConfigurationNotification(notification);
+                        }
+                    }
+                    return context;
                 }
-                return context;
             }
 
             if (context.TargetLoadException != null)

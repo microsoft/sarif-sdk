@@ -10,7 +10,8 @@ namespace Microsoft.CodeAnalysis.Sarif
     {
         private bool cacheLoggingData;
         private string currentFileHash;
-        
+
+        public Dictionary<string, List<Notification>> HashToNotificationsMap { get; private set; }
         public Dictionary<string, List<Tuple<ReportingDescriptor, Result>>> HashToResultsMap { get; private set; }
 
         public ResultsCachingLogger(bool verbose)
@@ -20,6 +21,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public void AnalysisStarted()
         {
+            HashToNotificationsMap = new Dictionary<string, List<Notification>>();
             HashToResultsMap = new Dictionary<string, List<Tuple<ReportingDescriptor, Result>>>();
         }
 
@@ -43,6 +45,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             else
             {
                 cacheLoggingData = true;
+                HashToNotificationsMap[currentFileHash] = new List<Notification>();
                 HashToResultsMap[currentFileHash] = new List<Tuple<ReportingDescriptor, Result>>();
             }
         }
@@ -90,6 +93,14 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public void LogConfigurationNotification(Notification notification)
         {
+            if (!cacheLoggingData) { return; }
+
+            if (!HashToNotificationsMap.TryGetValue(currentFileHash, out List<Notification> notifications))
+            {
+                notifications = HashToNotificationsMap[currentFileHash] = new List<Notification>();
+            }
+            notifications.Add(notification);
+
         }
 
         public void LogMessage(bool verbose, string message)
