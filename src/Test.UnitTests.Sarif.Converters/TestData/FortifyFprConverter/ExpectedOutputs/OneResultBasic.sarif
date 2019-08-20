@@ -82,7 +82,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         }
       ],
       "tool": {
@@ -97,6 +101,11 @@
               },
               "fullDescription": {
                 "text": "The quick brown fox jumps over the lazy dog.\nThis section explains the rule in detail."
+              },
+              "defaultConfiguration": {
+                "properties": {
+                  "DefaultSeverity": "2.0"
+                }
               },
               "relationships": [
                 {
