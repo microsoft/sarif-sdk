@@ -492,11 +492,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 }
                 else if (AtStartOfNonEmpty(_strings.DefaultSeverity))
                 {
-                    rule.DefaultConfiguration.SetProperty("Deprecated"+ _strings.DefaultSeverity, _reader.ReadElementContentAsString());
+                    rule.DefaultConfiguration.SetProperty(_strings.DefaultSeverity, _reader.ReadElementContentAsString());
                 }
                 else if (AtStartOfNonEmpty(_strings.InstanceSeverity))
                 {
-                    result.SetProperty("Deprecated"+ _strings.InstanceSeverity, _reader.ReadElementContentAsString());
+                    result.SetProperty(_strings.InstanceSeverity, _reader.ReadElementContentAsString());
                 }
                 else if (AtStartOfNonEmpty(_strings.Confidence))
                 {

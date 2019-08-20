@@ -84,7 +84,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -183,7 +183,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         }
@@ -203,7 +203,7 @@
               },
               "defaultConfiguration": {
                 "properties": {
-                  "DeprecatedDefaultSeverity": "2.0"
+                  "DefaultSeverity": "2.0"
                 }
               },
               "properties": {
@@ -222,7 +222,7 @@
               },
               "defaultConfiguration": {
                 "properties": {
-                  "DeprecatedDefaultSeverity": "3.0"
+                  "DefaultSeverity": "3.0"
                 }
               },
               "properties": {

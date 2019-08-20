@@ -84,7 +84,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         }
@@ -104,7 +104,7 @@
               },
               "defaultConfiguration": {
                 "properties": {
-                  "DeprecatedDefaultSeverity": "2.0"
+                  "DefaultSeverity": "2.0"
                 }
               },
               "relationships": [

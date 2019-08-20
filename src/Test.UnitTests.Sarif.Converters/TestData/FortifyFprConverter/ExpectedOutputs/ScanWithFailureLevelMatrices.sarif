@@ -257,7 +257,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -343,7 +343,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -427,7 +427,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -511,7 +511,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -597,7 +597,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -683,7 +683,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -912,7 +912,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -998,7 +998,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -1084,7 +1084,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -1168,7 +1168,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -1252,7 +1252,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -1343,7 +1343,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -1430,7 +1430,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -1515,7 +1515,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -1600,7 +1600,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -1684,7 +1684,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -1770,7 +1770,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -1857,7 +1857,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -1947,7 +1947,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -2147,7 +2147,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -2233,7 +2233,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -2319,7 +2319,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -2404,7 +2404,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -2489,7 +2489,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -2573,7 +2573,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -2660,7 +2660,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -2765,7 +2765,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -2852,7 +2852,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -2936,7 +2936,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -3020,7 +3020,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -3104,7 +3104,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -3264,7 +3264,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "3.04"
           }
         },
@@ -3424,7 +3424,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "3.04"
           }
         },
@@ -3508,7 +3508,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -3592,7 +3592,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -3677,7 +3677,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -3762,7 +3762,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -3846,7 +3846,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -3930,7 +3930,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -4130,7 +4130,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -4244,7 +4244,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -4328,7 +4328,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -4415,7 +4415,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -4586,7 +4586,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -4670,7 +4670,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -4754,7 +4754,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -4841,7 +4841,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -5098,7 +5098,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -5182,7 +5182,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -5268,7 +5268,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -5354,7 +5354,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -5438,7 +5438,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -5522,7 +5522,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -5608,7 +5608,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -5695,7 +5695,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -5782,7 +5782,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -5869,7 +5869,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -5950,7 +5950,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "4.0",
+            "InstanceSeverity": "4.0",
             "Confidence": "5.0"
           }
         },
@@ -6031,7 +6031,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "4.0",
+            "InstanceSeverity": "4.0",
             "Confidence": "5.0"
           }
         },
@@ -6112,7 +6112,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "4.0",
+            "InstanceSeverity": "4.0",
             "Confidence": "5.0"
           }
         },
@@ -6193,7 +6193,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "4.0",
+            "InstanceSeverity": "4.0",
             "Confidence": "5.0"
           }
         },
@@ -6274,7 +6274,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "4.0",
+            "InstanceSeverity": "4.0",
             "Confidence": "5.0"
           }
         },
@@ -6355,7 +6355,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "4.0",
+            "InstanceSeverity": "4.0",
             "Confidence": "5.0"
           }
         },
@@ -6441,7 +6441,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -6526,7 +6526,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -6611,7 +6611,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -6695,7 +6695,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -6781,7 +6781,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -6867,7 +6867,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -6953,7 +6953,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -7124,7 +7124,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -7226,7 +7226,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -7310,7 +7310,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -7397,7 +7397,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -7654,7 +7654,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -7740,7 +7740,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -7826,7 +7826,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -7913,7 +7913,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -8170,7 +8170,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -8257,7 +8257,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -8340,7 +8340,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -8426,7 +8426,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -8512,7 +8512,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -8599,7 +8599,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -8683,7 +8683,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -8767,7 +8767,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -8851,7 +8851,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -8935,7 +8935,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -9019,7 +9019,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -9103,7 +9103,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -9187,7 +9187,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -9271,7 +9271,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -9355,7 +9355,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -9439,7 +9439,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -9523,7 +9523,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -9609,7 +9609,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -9695,7 +9695,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -9780,7 +9780,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -9865,7 +9865,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -9952,7 +9952,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -10036,7 +10036,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -10122,7 +10122,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -10208,7 +10208,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -10420,7 +10420,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "3.04"
           }
         },
@@ -10632,7 +10632,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "3.04"
           }
         },
@@ -10716,7 +10716,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -10803,7 +10803,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -10887,7 +10887,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -11099,7 +11099,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "3.04"
           }
         },
@@ -11311,7 +11311,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "3.04"
           }
         },
@@ -11397,7 +11397,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -11483,7 +11483,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -11570,7 +11570,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -11657,7 +11657,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -11744,7 +11744,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -11828,7 +11828,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -11912,7 +11912,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -11992,7 +11992,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -12072,7 +12072,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -12152,7 +12152,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -12232,7 +12232,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -12312,7 +12312,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -12392,7 +12392,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -12472,7 +12472,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -12552,7 +12552,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -12632,7 +12632,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -12712,7 +12712,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -12792,7 +12792,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -12872,7 +12872,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -12952,7 +12952,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -13032,7 +13032,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -13112,7 +13112,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -13192,7 +13192,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -13272,7 +13272,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -13443,7 +13443,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -13530,7 +13530,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -13614,7 +13614,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -13698,7 +13698,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -13898,7 +13898,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -13982,7 +13982,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -14066,7 +14066,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -14150,7 +14150,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -14234,7 +14234,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -14321,7 +14321,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -14408,7 +14408,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -14495,7 +14495,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -14581,7 +14581,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -14667,7 +14667,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -14754,7 +14754,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -14838,7 +14838,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -14925,7 +14925,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -15085,7 +15085,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "3.04"
           }
         },
@@ -15245,7 +15245,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "3.04"
           }
         },
@@ -15329,7 +15329,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -15415,7 +15415,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -15501,7 +15501,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -15584,7 +15584,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -15671,7 +15671,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -15755,7 +15755,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -15839,7 +15839,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -15926,7 +15926,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -16013,7 +16013,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -16100,7 +16100,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -16187,7 +16187,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -16273,7 +16273,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -16359,7 +16359,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -16443,7 +16443,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -16529,7 +16529,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -16616,7 +16616,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -16702,7 +16702,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -16788,7 +16788,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -16879,7 +16879,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -16965,7 +16965,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -17051,7 +17051,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -17135,7 +17135,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -17219,7 +17219,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -17303,7 +17303,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -17388,7 +17388,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -17473,7 +17473,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -17560,7 +17560,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -17646,7 +17646,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -17732,7 +17732,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -17819,7 +17819,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -17905,7 +17905,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -17991,7 +17991,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -18078,7 +18078,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -18191,7 +18191,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -18275,7 +18275,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -18361,7 +18361,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -18447,7 +18447,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -18531,7 +18531,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -18615,7 +18615,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -18702,7 +18702,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -18786,7 +18786,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -18871,7 +18871,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -18956,7 +18956,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -19043,7 +19043,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -19128,7 +19128,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -19213,7 +19213,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -19297,7 +19297,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -19384,7 +19384,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -19470,7 +19470,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -19556,7 +19556,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -19927,7 +19927,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -20041,7 +20041,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -20125,7 +20125,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -20209,7 +20209,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -20293,7 +20293,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -20380,7 +20380,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -20467,7 +20467,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -20553,7 +20553,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -20639,7 +20639,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -20724,7 +20724,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -20809,7 +20809,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -21190,7 +21190,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "4.7999997"
           }
         },
@@ -21277,7 +21277,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -21448,7 +21448,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -21687,7 +21687,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -21774,7 +21774,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -21861,7 +21861,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -22021,7 +22021,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "3.04"
           }
         },
@@ -22181,7 +22181,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "3.04"
           }
         },
@@ -22267,7 +22267,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -22353,7 +22353,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -22437,7 +22437,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -22521,7 +22521,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -22733,7 +22733,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "3.04"
           }
         },
@@ -22945,7 +22945,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "3.04"
           }
         },
@@ -23030,7 +23030,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -23115,7 +23115,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -23228,7 +23228,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -23312,7 +23312,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -23396,7 +23396,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -23480,7 +23480,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -23564,7 +23564,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -23654,7 +23654,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -23744,7 +23744,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -23956,7 +23956,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "3.04"
           }
         },
@@ -24168,7 +24168,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "3.04"
           }
         },
@@ -24254,7 +24254,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -24341,7 +24341,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -24425,7 +24425,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -24512,7 +24512,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -24596,7 +24596,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -24680,7 +24680,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -24909,7 +24909,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -25261,7 +25261,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -25374,7 +25374,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -25461,7 +25461,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -25548,7 +25548,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -25635,7 +25635,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -25740,7 +25740,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -25940,7 +25940,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -26152,7 +26152,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "3.04"
           }
         },
@@ -26364,7 +26364,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "3.04"
           }
         },
@@ -26451,7 +26451,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -26538,7 +26538,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -26625,7 +26625,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -26712,7 +26712,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -26796,7 +26796,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -26880,7 +26880,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -26964,7 +26964,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -27051,7 +27051,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -27222,7 +27222,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -27309,7 +27309,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -27394,7 +27394,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -27479,7 +27479,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -27563,7 +27563,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -27684,7 +27684,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -27771,7 +27771,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -28010,7 +28010,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -28222,7 +28222,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "3.04"
           }
         },
@@ -28434,7 +28434,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "3.04"
           }
         },
@@ -28520,7 +28520,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -28604,7 +28604,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -28688,7 +28688,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -28774,7 +28774,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -28916,7 +28916,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -29116,7 +29116,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -29202,7 +29202,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -29288,7 +29288,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -29488,7 +29488,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -29601,7 +29601,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -29688,7 +29688,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -29774,7 +29774,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -29860,7 +29860,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -30218,7 +30218,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -30305,7 +30305,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -30389,7 +30389,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -30475,7 +30475,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -30561,7 +30561,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -30648,7 +30648,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -30732,7 +30732,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -30817,7 +30817,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -30902,7 +30902,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -30987,7 +30987,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -31072,7 +31072,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -31156,7 +31156,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -31243,7 +31243,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -31455,7 +31455,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "3.04"
           }
         },
@@ -31667,7 +31667,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "3.04"
           }
         },
@@ -31751,7 +31751,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -31837,7 +31837,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -31923,7 +31923,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -32009,7 +32009,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -32221,7 +32221,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "3.04"
           }
         },
@@ -32433,7 +32433,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "3.04"
           }
         },
@@ -32517,7 +32517,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -32604,7 +32604,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -32688,7 +32688,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -32859,7 +32859,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -33088,7 +33088,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -33172,7 +33172,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -33495,7 +33495,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -33582,7 +33582,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -33668,7 +33668,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -33754,7 +33754,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -33838,7 +33838,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -33922,7 +33922,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -34082,7 +34082,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "3.04"
           }
         },
@@ -34242,7 +34242,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "3.04"
           }
         },
@@ -34326,7 +34326,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -34413,7 +34413,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -34525,7 +34525,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -34667,7 +34667,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -34753,7 +34753,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -34839,7 +34839,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -34923,7 +34923,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -35007,7 +35007,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -35094,7 +35094,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -35181,7 +35181,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -35265,7 +35265,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -35351,7 +35351,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -35437,7 +35437,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -35521,7 +35521,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -35605,7 +35605,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -35690,7 +35690,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -35775,7 +35775,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -35861,7 +35861,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -35947,7 +35947,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -36034,7 +36034,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -36120,7 +36120,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -36205,7 +36205,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -36290,7 +36290,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -36376,7 +36376,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -36462,7 +36462,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -36548,7 +36548,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -36635,7 +36635,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -36748,7 +36748,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -36835,7 +36835,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -37006,7 +37006,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -37090,7 +37090,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -37174,7 +37174,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -37270,7 +37270,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -37500,7 +37500,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "2.3769999"
           }
         },
@@ -37730,7 +37730,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "2.3769999"
           }
         },
@@ -37890,7 +37890,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "3.04"
           }
         },
@@ -38050,7 +38050,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "3.04"
           }
         },
@@ -38140,7 +38140,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -38224,7 +38224,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -38337,7 +38337,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -38497,7 +38497,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "3.04"
           }
         },
@@ -38657,7 +38657,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "3.04"
           }
         },
@@ -38744,7 +38744,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -38830,7 +38830,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -38916,7 +38916,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -39082,7 +39082,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "3.04"
           }
         },
@@ -39248,7 +39248,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "3.04"
           }
         },
@@ -39414,7 +39414,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "3.04"
           }
         },
@@ -39580,7 +39580,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "3.04"
           }
         },
@@ -39746,7 +39746,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "3.04"
           }
         },
@@ -39912,7 +39912,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "3.04"
           }
         },
@@ -39996,7 +39996,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -40083,7 +40083,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -40169,7 +40169,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -40256,7 +40256,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -40340,7 +40340,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -40425,7 +40425,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -40510,7 +40510,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -40633,7 +40633,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -40717,7 +40717,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -40953,7 +40953,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -41040,7 +41040,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -41270,7 +41270,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "2.3769999"
           }
         },
@@ -41500,7 +41500,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "2.3769999"
           }
         },
@@ -41587,7 +41587,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -41671,7 +41671,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -41755,7 +41755,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -41841,7 +41841,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -41927,7 +41927,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -42013,7 +42013,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -42225,7 +42225,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "3.04"
           }
         },
@@ -42437,7 +42437,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "3.04"
           }
         },
@@ -42523,7 +42523,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -42609,7 +42609,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -42696,7 +42696,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -42801,7 +42801,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "4.429499"
           }
         },
@@ -42885,7 +42885,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -42972,7 +42972,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -43056,7 +43056,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -43143,7 +43143,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -43314,7 +43314,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -43526,7 +43526,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "3.04"
           }
         },
@@ -43738,7 +43738,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "3.04"
           }
         },
@@ -43822,7 +43822,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -43915,7 +43915,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -44144,7 +44144,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "5.0"
           }
         },
@@ -44228,7 +44228,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -44565,7 +44565,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "3.04"
           }
         },
@@ -44902,7 +44902,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "3.04"
           }
         },
@@ -44986,7 +44986,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -45419,7 +45419,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "3.04"
           }
         },
@@ -45852,7 +45852,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "3.04"
           }
         },
@@ -45936,7 +45936,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -46020,7 +46020,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -46107,7 +46107,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -46191,7 +46191,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -46277,7 +46277,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -46363,7 +46363,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -46447,7 +46447,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -46534,7 +46534,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -46618,7 +46618,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -46702,7 +46702,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -46786,7 +46786,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -46946,7 +46946,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "3.04"
           }
         },
@@ -47106,7 +47106,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "3.0",
+            "InstanceSeverity": "3.0",
             "Confidence": "3.04"
           }
         },
@@ -47190,7 +47190,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -47274,7 +47274,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -47361,7 +47361,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -47445,7 +47445,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -47529,7 +47529,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -47616,7 +47616,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -47700,7 +47700,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -47785,7 +47785,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -47870,7 +47870,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -47957,7 +47957,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -48043,7 +48043,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -48129,7 +48129,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -48216,7 +48216,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -48303,7 +48303,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -48390,7 +48390,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -48474,7 +48474,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -48561,7 +48561,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -48647,7 +48647,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -48731,7 +48731,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -48815,7 +48815,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -48900,7 +48900,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -48984,7 +48984,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -49068,7 +49068,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -49152,7 +49152,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -49236,7 +49236,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         },
@@ -49320,7 +49320,7 @@
             }
           ],
           "properties": {
-            "DeprecatedInstanceSeverity": "2.0",
+            "InstanceSeverity": "2.0",
             "Confidence": "5.0"
           }
         }
@@ -49340,7 +49340,7 @@
               },
               "defaultConfiguration": {
                 "properties": {
-                  "DeprecatedDefaultSeverity": "2.0"
+                  "DefaultSeverity": "2.0"
                 }
               },
               "relationships": [
@@ -49378,7 +49378,7 @@
               "defaultConfiguration": {
                 "level": "error",
                 "properties": {
-                  "DeprecatedDefaultSeverity": "2.0"
+                  "DefaultSeverity": "2.0"
                 }
               },
               "relationships": [
@@ -49415,7 +49415,7 @@
               },
               "defaultConfiguration": {
                 "properties": {
-                  "DeprecatedDefaultSeverity": "3.0"
+                  "DefaultSeverity": "3.0"
                 }
               },
               "relationships": [
@@ -49463,7 +49463,7 @@
               },
               "defaultConfiguration": {
                 "properties": {
-                  "DeprecatedDefaultSeverity": "2.0"
+                  "DefaultSeverity": "2.0"
                 }
               },
               "relationships": [
@@ -49501,7 +49501,7 @@
               "defaultConfiguration": {
                 "level": "note",
                 "properties": {
-                  "DeprecatedDefaultSeverity": "2.0"
+                  "DefaultSeverity": "2.0"
                 }
               },
               "relationships": [
@@ -49551,7 +49551,7 @@
               "defaultConfiguration": {
                 "level": "note",
                 "properties": {
-                  "DeprecatedDefaultSeverity": "3.0"
+                  "DefaultSeverity": "3.0"
                 }
               },
               "relationships": [
@@ -49588,7 +49588,7 @@
               },
               "defaultConfiguration": {
                 "properties": {
-                  "DeprecatedDefaultSeverity": "3.0"
+                  "DefaultSeverity": "3.0"
                 }
               },
               "relationships": [
@@ -49637,7 +49637,7 @@
               },
               "defaultConfiguration": {
                 "properties": {
-                  "DeprecatedDefaultSeverity": "3.0"
+                  "DefaultSeverity": "3.0"
                 }
               },
               "relationships": [
@@ -49673,7 +49673,7 @@
               },
               "defaultConfiguration": {
                 "properties": {
-                  "DeprecatedDefaultSeverity": "3.0"
+                  "DefaultSeverity": "3.0"
                 }
               },
               "relationships": [
@@ -49711,7 +49711,7 @@
               "defaultConfiguration": {
                 "level": "note",
                 "properties": {
-                  "DeprecatedDefaultSeverity": "2.0"
+                  "DefaultSeverity": "2.0"
                 }
               },
               "relationships": [
@@ -49748,7 +49748,7 @@
               },
               "defaultConfiguration": {
                 "properties": {
-                  "DeprecatedDefaultSeverity": "2.0"
+                  "DefaultSeverity": "2.0"
                 }
               },
               "relationships": [
@@ -49785,7 +49785,7 @@
               },
               "defaultConfiguration": {
                 "properties": {
-                  "DeprecatedDefaultSeverity": "3.0"
+                  "DefaultSeverity": "3.0"
                 }
               },
               "relationships": [
@@ -49821,7 +49821,7 @@
               },
               "defaultConfiguration": {
                 "properties": {
-                  "DeprecatedDefaultSeverity": "3.0"
+                  "DefaultSeverity": "3.0"
                 }
               },
               "relationships": [
@@ -49858,7 +49858,7 @@
               },
               "defaultConfiguration": {
                 "properties": {
-                  "DeprecatedDefaultSeverity": "2.0"
+                  "DefaultSeverity": "2.0"
                 }
               },
               "relationships": [
@@ -49895,7 +49895,7 @@
               },
               "defaultConfiguration": {
                 "properties": {
-                  "DeprecatedDefaultSeverity": "3.0"
+                  "DefaultSeverity": "3.0"
                 }
               },
               "relationships": [
@@ -49944,7 +49944,7 @@
               "defaultConfiguration": {
                 "level": "error",
                 "properties": {
-                  "DeprecatedDefaultSeverity": "2.0"
+                  "DefaultSeverity": "2.0"
                 }
               },
               "relationships": [
@@ -49980,7 +49980,7 @@
               },
               "defaultConfiguration": {
                 "properties": {
-                  "DeprecatedDefaultSeverity": "3.0"
+                  "DefaultSeverity": "3.0"
                 }
               },
               "relationships": [
@@ -50028,7 +50028,7 @@
               },
               "defaultConfiguration": {
                 "properties": {
-                  "DeprecatedDefaultSeverity": "3.0"
+                  "DefaultSeverity": "3.0"
                 }
               },
               "relationships": [
@@ -50065,7 +50065,7 @@
               "defaultConfiguration": {
                 "level": "note",
                 "properties": {
-                  "DeprecatedDefaultSeverity": "2.0"
+                  "DefaultSeverity": "2.0"
                 }
               },
               "relationships": [
@@ -50103,7 +50103,7 @@
               "defaultConfiguration": {
                 "level": "note",
                 "properties": {
-                  "DeprecatedDefaultSeverity": "2.0"
+                  "DefaultSeverity": "2.0"
                 }
               },
               "relationships": [
@@ -50141,7 +50141,7 @@
               "defaultConfiguration": {
                 "level": "error",
                 "properties": {
-                  "DeprecatedDefaultSeverity": "4.0"
+                  "DefaultSeverity": "4.0"
                 }
               },
               "relationships": [
@@ -50203,7 +50203,7 @@
               "defaultConfiguration": {
                 "level": "note",
                 "properties": {
-                  "DeprecatedDefaultSeverity": "2.0"
+                  "DefaultSeverity": "2.0"
                 }
               },
               "relationships": [
@@ -50239,7 +50239,7 @@
               },
               "defaultConfiguration": {
                 "properties": {
-                  "DeprecatedDefaultSeverity": "3.0"
+                  "DefaultSeverity": "3.0"
                 }
               },
               "relationships": [
@@ -50275,7 +50275,7 @@
               },
               "defaultConfiguration": {
                 "properties": {
-                  "DeprecatedDefaultSeverity": "3.0"
+                  "DefaultSeverity": "3.0"
                 }
               },
               "relationships": [
@@ -50324,7 +50324,7 @@
               "defaultConfiguration": {
                 "level": "note",
                 "properties": {
-                  "DeprecatedDefaultSeverity": "2.0"
+                  "DefaultSeverity": "2.0"
                 }
               },
               "relationships": [
@@ -50361,7 +50361,7 @@
               },
               "defaultConfiguration": {
                 "properties": {
-                  "DeprecatedDefaultSeverity": "3.0"
+                  "DefaultSeverity": "3.0"
                 }
               },
               "relationships": [
@@ -50397,7 +50397,7 @@
               },
               "defaultConfiguration": {
                 "properties": {
-                  "DeprecatedDefaultSeverity": "2.0"
+                  "DefaultSeverity": "2.0"
                 }
               },
               "relationships": [
@@ -50434,7 +50434,7 @@
               },
               "defaultConfiguration": {
                 "properties": {
-                  "DeprecatedDefaultSeverity": "2.0"
+                  "DefaultSeverity": "2.0"
                 }
               },
               "relationships": [
@@ -50470,7 +50470,7 @@
               },
               "defaultConfiguration": {
                 "properties": {
-                  "DeprecatedDefaultSeverity": "3.0"
+                  "DefaultSeverity": "3.0"
                 }
               },
               "relationships": [
@@ -50518,7 +50518,7 @@
               },
               "defaultConfiguration": {
                 "properties": {
-                  "DeprecatedDefaultSeverity": "3.0"
+                  "DefaultSeverity": "3.0"
                 }
               },
               "relationships": [
@@ -50556,7 +50556,7 @@
               "defaultConfiguration": {
                 "level": "error",
                 "properties": {
-                  "DeprecatedDefaultSeverity": "2.0"
+                  "DefaultSeverity": "2.0"
                 }
               },
               "relationships": [
@@ -50592,7 +50592,7 @@
               },
               "defaultConfiguration": {
                 "properties": {
-                  "DeprecatedDefaultSeverity": "2.0"
+                  "DefaultSeverity": "2.0"
                 }
               },
               "relationships": [
@@ -50629,7 +50629,7 @@
               },
               "defaultConfiguration": {
                 "properties": {
-                  "DeprecatedDefaultSeverity": "2.0"
+                  "DefaultSeverity": "2.0"
                 }
               },
               "relationships": [
@@ -50666,7 +50666,7 @@
               },
               "defaultConfiguration": {
                 "properties": {
-                  "DeprecatedDefaultSeverity": "3.0"
+                  "DefaultSeverity": "3.0"
                 }
               },
               "relationships": [
@@ -50702,7 +50702,7 @@
               },
               "defaultConfiguration": {
                 "properties": {
-                  "DeprecatedDefaultSeverity": "2.0"
+                  "DefaultSeverity": "2.0"
                 }
               },
               "relationships": [
@@ -50750,7 +50750,7 @@
               },
               "defaultConfiguration": {
                 "properties": {
-                  "DeprecatedDefaultSeverity": "2.0"
+                  "DefaultSeverity": "2.0"
                 }
               },
               "relationships": [
@@ -50788,7 +50788,7 @@
               "defaultConfiguration": {
                 "level": "note",
                 "properties": {
-                  "DeprecatedDefaultSeverity": "2.0"
+                  "DefaultSeverity": "2.0"
                 }
               },
               "relationships": [
@@ -50825,7 +50825,7 @@
               },
               "defaultConfiguration": {
                 "properties": {
-                  "DeprecatedDefaultSeverity": "3.0"
+                  "DefaultSeverity": "3.0"
                 }
               },
               "relationships": [
@@ -50874,7 +50874,7 @@
               "defaultConfiguration": {
                 "level": "error",
                 "properties": {
-                  "DeprecatedDefaultSeverity": "2.0"
+                  "DefaultSeverity": "2.0"
                 }
               },
               "relationships": [
