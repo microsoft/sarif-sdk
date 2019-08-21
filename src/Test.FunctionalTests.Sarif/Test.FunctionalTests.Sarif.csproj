@@ -55,6 +55,10 @@
     <None Remove="TestData\Multitool\ValidateCommand\ExpectedOutputs\SARIF1015.UriMustBeAbsolute_Valid.sarif" />
     <None Remove="TestData\Multitool\ValidateCommand\ExpectedOutputs\SARIF1016.ContextRegionRequiresRegion_Invalid.sarif" />
     <None Remove="TestData\Multitool\ValidateCommand\ExpectedOutputs\SARIF1016.ContextRegionRequiresRegion_Valid.sarif" />
+    <None Remove="TestData\Multitool\ValidateCommand\ExpectedOutputs\SARIF1017.InvalidIndex_Invalid.sarif" />
+    <None Remove="TestData\Multitool\ValidateCommand\ExpectedOutputs\SARIF1017.InvalidIndex_Valid.sarif" />
+    <None Remove="TestData\Multitool\ValidateCommand\ExpectedOutputs\SARIF1018.InvalidUriInOriginalUriBaseIds_Invalid.sarif" />
+    <None Remove="TestData\Multitool\ValidateCommand\ExpectedOutputs\SARIF1018.InvalidUriInOriginalUriBaseIds_Valid.sarif" />
     <None Remove="TestData\Multitool\ValidateCommand\Inputs\JSON1001.SyntaxError.sarif" />
     <None Remove="TestData\Multitool\ValidateCommand\Inputs\JSON1002.DeserializationError.sarif" />
     <None Remove="TestData\Multitool\ValidateCommand\Inputs\SARIF1001.DoNotUseFriendlyNameAsRuleId_Invalid.sarif" />
@@ -75,6 +79,10 @@
     <None Remove="TestData\Multitool\ValidateCommand\Inputs\SARIF1015.UriMustBeAbsolute_Valid.sarif" />
     <None Remove="TestData\Multitool\ValidateCommand\Inputs\SARIF1016.ContextRegionRequiresRegion_Invalid.sarif" />
     <None Remove="TestData\Multitool\ValidateCommand\Inputs\SARIF1016.ContextRegionRequiresRegion_Valid.sarif" />
+    <None Remove="TestData\Multitool\ValidateCommand\Inputs\SARIF1017.InvalidIndex_Invalid.sarif" />
+    <None Remove="TestData\Multitool\ValidateCommand\Inputs\SARIF1017.InvalidIndex_Valid.sarif" />
+    <None Remove="TestData\Multitool\ValidateCommand\Inputs\SARIF1018.InvalidUriInOriginalUriBaseIds_Invalid.sarif" />
+    <None Remove="TestData\Multitool\ValidateCommand\Inputs\SARIF1018.InvalidUriInOriginalUriBaseIds_Valid.sarif" />
     <None Remove="TestData\Multitool\ValidateCommand\Inputs\SimpleExample.sarif-external-properties.json" />
   </ItemGroup>
 
@@ -2812,6 +2820,12 @@
     <None Include="v2\ConverterTestData\FxCop\FxCopNoTargets.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="v2\ConverterTestData\FxCop\SarifSdkTest.fxcop.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="v2\ConverterTestData\FxCop\SarifSdkTest.xml.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="v2\SpecExamples\Comprehensive.sarif">
@@ -2900,6 +2914,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="v2\ConverterTestData\FxCop\FxCopNoTargets.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="v2\ConverterTestData\FxCop\SarifSdkTest.fxcop">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="v2\ConverterTestData\FxCop\SarifSdkTest.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
@@ -3041,6 +3061,10 @@
     <EmbeddedResource Include="TestData\Multitool\ValidateCommand\ExpectedOutputs\SARIF1015.UriMustBeAbsolute_Valid.sarif" />
     <EmbeddedResource Include="TestData\Multitool\ValidateCommand\ExpectedOutputs\SARIF1016.ContextRegionRequiresRegion_Invalid.sarif" />
     <EmbeddedResource Include="TestData\Multitool\ValidateCommand\ExpectedOutputs\SARIF1016.ContextRegionRequiresRegion_Valid.sarif" />
+    <EmbeddedResource Include="TestData\Multitool\ValidateCommand\ExpectedOutputs\SARIF1017.InvalidIndex_Invalid.sarif" />
+    <EmbeddedResource Include="TestData\Multitool\ValidateCommand\ExpectedOutputs\SARIF1017.InvalidIndex_Valid.sarif" />
+    <EmbeddedResource Include="TestData\Multitool\ValidateCommand\ExpectedOutputs\SARIF1018.InvalidUriInOriginalUriBaseIds_Invalid.sarif" />
+    <EmbeddedResource Include="TestData\Multitool\ValidateCommand\ExpectedOutputs\SARIF1018.InvalidUriInOriginalUriBaseIds_Valid.sarif" />
     <EmbeddedResource Include="TestData\Multitool\ValidateCommand\Inputs\JSON1001.SyntaxError.sarif" />
     <EmbeddedResource Include="TestData\Multitool\ValidateCommand\Inputs\JSON1002.DeserializationError.sarif" />
     <EmbeddedResource Include="TestData\Multitool\ValidateCommand\Inputs\SARIF1001.DoNotUseFriendlyNameAsRuleId_Invalid.sarif" />
@@ -3061,7 +3085,11 @@
     <EmbeddedResource Include="TestData\Multitool\ValidateCommand\Inputs\SARIF1015.UriMustBeAbsolute_Valid.sarif" />
     <EmbeddedResource Include="TestData\Multitool\ValidateCommand\Inputs\SARIF1016.ContextRegionRequiresRegion_Invalid.sarif" />
     <EmbeddedResource Include="TestData\Multitool\ValidateCommand\Inputs\SARIF1016.ContextRegionRequiresRegion_Valid.sarif" />
+    <EmbeddedResource Include="TestData\Multitool\ValidateCommand\Inputs\SARIF1018.InvalidUriInOriginalUriBaseIds_Invalid.sarif" />
+    <EmbeddedResource Include="TestData\Multitool\ValidateCommand\Inputs\SARIF1018.InvalidUriInOriginalUriBaseIds_Valid.sarif" />
     <EmbeddedResource Include="TestData\Multitool\ValidateCommand\Inputs\SimpleExample.sarif-external-properties.json" />
+    <EmbeddedResource Include="TestData\Multitool\ValidateCommand\Inputs\SARIF1017.InvalidIndex_Invalid.sarif" />
+    <EmbeddedResource Include="TestData\Multitool\ValidateCommand\Inputs\SARIF1017.InvalidIndex_Valid.sarif" />
     <None Include="v2\ConverterTestData\PREfast\Expected-001.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -3543,21 +3571,6 @@
     <None Update="v2\ConverterTestData\Fortify\src\bannedAPIs.java">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>bannedAPIs.cs</LastGenOutput>
-    </None>
-    <None Update="v2\ConverterTestData\FxCop\SarifSdk.fxcop.sarif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="v2\ConverterTestData\FxCop\SarifSdk.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="v2\ConverterTestData\FxCop\SarifSdk.xml.sarif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="v2\ConverterTestData\FxCop\SarifSdkTest.fxcop.sarif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="v2\ConverterTestData\FxCop\SarifSdkTest.xml.sarif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="v2\ConverterTestData\PREfast\AB_IrrelevantBranch.cpp.xml">
       <Generator>TextTemplatingFileGenerator</Generator>

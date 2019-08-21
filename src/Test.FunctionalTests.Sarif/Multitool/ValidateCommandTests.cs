@@ -32,72 +32,96 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
 
         [Fact]
         public void SARIF1001_DoNotUseFriendlyNameAsRuleId_Valid()
-            => RunTest(RuleId.DoNotUseFriendlyNameAsRuleId + "." + nameof(RuleId.DoNotUseFriendlyNameAsRuleId) + "_Valid.sarif");
+            => RunTest(MakeValidTestFileName(RuleId.DoNotUseFriendlyNameAsRuleId, nameof(RuleId.DoNotUseFriendlyNameAsRuleId)));
 
         [Fact]
         public void SARIF1001_DoNotUseFriendlyNameAsRuleId_Invalid()
-            => RunTest(RuleId.DoNotUseFriendlyNameAsRuleId + "." + nameof(RuleId.DoNotUseFriendlyNameAsRuleId) + "_Invalid.sarif");
+            => RunTest(MakeInvalidTestFileName(RuleId.DoNotUseFriendlyNameAsRuleId, nameof(RuleId.DoNotUseFriendlyNameAsRuleId)));
 
         [Fact]
         public void SARIF1003_UrisMustBeValid_Valid()
-            => RunTest(RuleId.UrisMustBeValid + "." + nameof(RuleId.UrisMustBeValid) + "_Valid.sarif");
+            => RunTest(MakeValidTestFileName(RuleId.UrisMustBeValid, nameof(RuleId.UrisMustBeValid)));
 
         [Fact]
         public void SARIF1003_UrisMustBeValid_Invalid()
-            => RunTest(RuleId.UrisMustBeValid + "." + nameof(RuleId.UrisMustBeValid) + "_Invalid.sarif");
+            => RunTest(MakeInvalidTestFileName(RuleId.UrisMustBeValid, nameof(RuleId.UrisMustBeValid)));
 
         [Fact]
         public void SARIF1007_EndTimeMustNotBeBeforeStartTime_Valid()
-            => RunTest(RuleId.EndTimeMustNotBeBeforeStartTime + "." + nameof(RuleId.EndTimeMustNotBeBeforeStartTime) + "_Valid.sarif");
+            => RunTest(MakeValidTestFileName(RuleId.EndTimeMustNotBeBeforeStartTime, nameof(RuleId.EndTimeMustNotBeBeforeStartTime)));
 
         [Fact]
         public void SARIF1007_EndTimeMustNotBeBeforeStartTime_Invalid()
-            => RunTest(RuleId.EndTimeMustNotBeBeforeStartTime + "." + nameof(RuleId.EndTimeMustNotBeBeforeStartTime) + "_Invalid.sarif");
+            => RunTest(MakeInvalidTestFileName(RuleId.EndTimeMustNotBeBeforeStartTime, nameof(RuleId.EndTimeMustNotBeBeforeStartTime)));
         [Fact]
         public void SARIF1008_MessagesShouldEndWithPeriod_Valid()
-            => RunTest(RuleId.MessagesShouldEndWithPeriod + "." + nameof(RuleId.MessagesShouldEndWithPeriod) + "_Valid.sarif");
+            => RunTest(MakeValidTestFileName(RuleId.MessagesShouldEndWithPeriod, nameof(RuleId.MessagesShouldEndWithPeriod)));
 
         [Fact]
         public void SARIF1008_MessagesShouldEndWithPeriod_Invalid()
-            => RunTest(RuleId.MessagesShouldEndWithPeriod + "." + nameof(RuleId.MessagesShouldEndWithPeriod) + "_Invalid.sarif");
+            => RunTest(MakeInvalidTestFileName(RuleId.MessagesShouldEndWithPeriod, nameof(RuleId.MessagesShouldEndWithPeriod)));
         [Fact]
         public void SARIF1012_EndLineMustNotBeLessThanStartLine_Valid()
-            => RunTest(RuleId.EndLineMustNotBeLessThanStartLine + "." + nameof(RuleId.EndLineMustNotBeLessThanStartLine) + "_Valid.sarif");
+            => RunTest(MakeValidTestFileName(RuleId.EndLineMustNotBeLessThanStartLine, nameof(RuleId.EndLineMustNotBeLessThanStartLine)));
 
         [Fact]
         public void SARIF1012_EndLineMustNotBeLessThanStartLine_Invalid()
-            => RunTest(RuleId.EndLineMustNotBeLessThanStartLine + "." + nameof(RuleId.EndLineMustNotBeLessThanStartLine) + "_Invalid.sarif");
+            => RunTest(MakeInvalidTestFileName(RuleId.EndLineMustNotBeLessThanStartLine, nameof(RuleId.EndLineMustNotBeLessThanStartLine)));
         [Fact]
         public void SARIF1013_EndColumnMustNotBeLessThanStartColumn_Valid()
-            => RunTest(RuleId.EndColumnMustNotBeLessThanStartColumn + "." + nameof(RuleId.EndColumnMustNotBeLessThanStartColumn) + "_Valid.sarif");
+            => RunTest(MakeValidTestFileName(RuleId.EndColumnMustNotBeLessThanStartColumn, nameof(RuleId.EndColumnMustNotBeLessThanStartColumn)));
 
         [Fact]
         public void SARIF1013_EndColumnMustNotBeLessThanStartColumn_Invalid()
-            => RunTest(RuleId.EndColumnMustNotBeLessThanStartColumn + "." + nameof(RuleId.EndColumnMustNotBeLessThanStartColumn) + "_Invalid.sarif");
+            => RunTest(MakeInvalidTestFileName(RuleId.EndColumnMustNotBeLessThanStartColumn, nameof(RuleId.EndColumnMustNotBeLessThanStartColumn)));
         [Fact]
         public void SARIF1014_UriBaseIdRequiresRelativeUri_Valid()
-            => RunTest(RuleId.UriBaseIdRequiresRelativeUri + "." + nameof(RuleId.UriBaseIdRequiresRelativeUri) + "_Valid.sarif");
+            => RunTest(MakeValidTestFileName(RuleId.UriBaseIdRequiresRelativeUri, nameof(RuleId.UriBaseIdRequiresRelativeUri)));
 
         [Fact]
         public void SARIF1014_UriBaseIdRequiresRelativeUri_Invalid()
-            => RunTest(RuleId.UriBaseIdRequiresRelativeUri + "." + nameof(RuleId.UriBaseIdRequiresRelativeUri) + "_Invalid.sarif");
+            => RunTest(MakeInvalidTestFileName(RuleId.UriBaseIdRequiresRelativeUri, nameof(RuleId.UriBaseIdRequiresRelativeUri)));
 
         [Fact]
         public void SARIF1015_UriMustBeAbsolute_Valid()
-            => RunTest(RuleId.UriMustBeAbsolute + "." + nameof(RuleId.UriMustBeAbsolute) + "_Valid.sarif");
+            => RunTest(MakeValidTestFileName(RuleId.UriMustBeAbsolute, nameof(RuleId.UriMustBeAbsolute)));
 
         [Fact]
         public void SARIF1015_UriMustBeAbsolute_Invalid()
-            => RunTest(RuleId.UriMustBeAbsolute + "." + nameof(RuleId.UriMustBeAbsolute) + "_Invalid.sarif");
+            => RunTest(MakeInvalidTestFileName(RuleId.UriMustBeAbsolute, nameof(RuleId.UriMustBeAbsolute)));
 
         [Fact]
         public void SARIF1016_ContextRegionRequiresRegion_Valid()
-            => RunTest(RuleId.ContextRegionRequiresRegion + "." + nameof(RuleId.ContextRegionRequiresRegion) + "_Valid.sarif");
+            => RunTest(MakeValidTestFileName(RuleId.ContextRegionRequiresRegion, nameof(RuleId.ContextRegionRequiresRegion)));
 
         [Fact]
         public void SARIF1016_ContextRegionRequiresRegion_Invalid()
-            => RunTest(RuleId.ContextRegionRequiresRegion + "." + nameof(RuleId.ContextRegionRequiresRegion) + "_Invalid.sarif");
+            => RunTest(MakeInvalidTestFileName(RuleId.ContextRegionRequiresRegion, nameof(RuleId.ContextRegionRequiresRegion)));
 
+        [Fact]
+        public void SARIF1017_InvalidIndex_Valid()
+            => RunTest(MakeValidTestFileName(RuleId.InvalidIndex, nameof(RuleId.InvalidIndex)));
+
+        [Fact]
+        public void SARIF1017_InvalidIndex_Invalid()
+            => RunTest(MakeInvalidTestFileName(RuleId.InvalidIndex, nameof(RuleId.InvalidIndex)));
+
+        [Fact]
+        public void SARIF1018_InvalidUriInOriginalUriBaseIds_Valid()
+            => RunTest(MakeValidTestFileName(RuleId.InvalidUriInOriginalUriBaseIds, nameof(RuleId.InvalidUriInOriginalUriBaseIds)));
+
+        [Fact]
+        public void SARIF1018_InvalidUriInOriginalUriBaseIds_Invalid()
+            => RunTest(MakeInvalidTestFileName(RuleId.InvalidUriInOriginalUriBaseIds, nameof(RuleId.InvalidUriInOriginalUriBaseIds)));
+
+        private const string ValidTestFileNameSuffix = "_Valid.sarif";
+        private const string InvalidTestFileNameSuffix = "_Invalid.sarif";
+
+        private string MakeValidTestFileName(string ruleId, string ruleName)
+            => $"{ruleId}.{ruleName}{ValidTestFileNameSuffix}";
+
+        private string MakeInvalidTestFileName(string ruleId, string ruleName)
+            => $"{ruleId}.{ruleName}{InvalidTestFileNameSuffix}";
 
         protected override string ConstructTestOutputFromInputResource(string inputResourceName)
         {
@@ -171,12 +195,11 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
             // from within Visual Studio or at the command-line via xunit.exe. We elide these differences.
 
             ToolComponent driver = actualLog.Runs[0].Tool.Driver;
-            driver.Name = "Sarif Functional Testing";
+            driver.Name = "SARIF Functional Testing";
             driver.Version = null;
             driver.FullName = null;
             driver.SemanticVersion = null;
             driver.DottedQuadFileVersion = null;
-            driver.Name = "Sarif Functional Testing";
             driver.Properties.Clear();
             actualLog.Runs[0].OriginalUriBaseIds = null;
 

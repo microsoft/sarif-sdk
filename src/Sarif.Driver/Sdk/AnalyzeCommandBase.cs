@@ -153,6 +153,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             succeeded &= ValidateFile(context, analyzeOptions.ConfigurationFilePath, shouldExist: true);
             succeeded &= ValidateFiles(context, analyzeOptions.PluginFilePaths, shouldExist: true);
             succeeded &= ValidateInvocationPropertiesToLog(context, analyzeOptions.InvocationPropertiesToLog);
+            succeeded &= ValidateOutputFileCanBeCreated(context, analyzeOptions.OutputFilePath, analyzeOptions.Force);
 
             if (!succeeded)
             {
@@ -182,7 +183,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             try
             {
-                bool fileExists = File.Exists(filePath);
+                bool fileExists = FileSystem.FileExists(filePath);
 
                 if (fileExists || shouldExist == null || !shouldExist.Value)
                 {
@@ -221,6 +222,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         succeeded = false;
                     }
                 }
+            }
+
+            return succeeded;
+        }
+
+        private bool ValidateOutputFileCanBeCreated(TContext context, string outputFilePath, bool force)
+        {
+            bool succeeded = true;
+
+            if (!DriverUtilities.CanCreateOutputFile(outputFilePath, force, FileSystem))
+            {
+                Errors.LogOutputFileAlreadyExists(context, outputFilePath);
+                succeeded = false;
             }
 
             return succeeded;
@@ -331,7 +345,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (String.IsNullOrEmpty(options.ConfigurationFilePath))
             {
-                if (!File.Exists(DefaultConfigurationPath) && !unitTestFileExists)
+                if (!FileSystem.FileExists(DefaultConfigurationPath) && !unitTestFileExists)
                 {
                     return null;
                 }
@@ -388,8 +402,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         OptionallyEmittedData dataToInsert = analyzeOptions.DataToInsert.ToFlags();
                         OptionallyEmittedData dataToRemove = analyzeOptions.DataToRemove.ToFlags();
 
-                        // This code is required in order to support the obsoleted ComputeFileHashes argument
-                        // on the analyze command-line;
+                        // This code is required in order to support the obsolete ComputeFileHashes argument
+                        // on the analyze command-line.
                         if (analyzeOptions.ComputeFileHashes) { dataToInsert |= OptionallyEmittedData.Hashes; }
 
                         SarifLogger sarifLogger;
@@ -473,7 +487,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             try
             {
-                skimmers = DriverUtilities.GetExports<Skimmer<TContext>>(DefaultPlugInAssemblies);
+                skimmers = CompositionUtilities.GetExports<Skimmer<TContext>>(DefaultPlugInAssemblies);
 
                 SupportedPlatform currentOS = GetCurrentRunningOS();
                 foreach (Skimmer<TContext> skimmer in skimmers)

@@ -9,6 +9,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public class SarifValidationContext : IAnalysisContext
     {
+        public enum ReportingDescriptorKind
+        {
+            None,
+            Rule,
+            Notification,
+            Taxon
+        }
+
+        public SarifValidationContext()
+        {
+            CurrentRunIndex = -1;
+            CurrentResultIndex = -1;
+            CurrentReportingDescriptorKind = ReportingDescriptorKind.None;
+        }
+
         public bool IsValidAnalysisTarget
         {
             get
@@ -63,6 +78,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public string InputLogContents { get; internal set; }
 
         public SarifLog InputLog { get; internal set; }
+
+        public Run CurrentRun { get; internal set; }
+
+        public int CurrentRunIndex { get; internal set; }
+
+        public Result CurrentResult { get; internal set; }
+
+        public int CurrentResultIndex { get; internal set; }
+
+        public ReportingDescriptorKind CurrentReportingDescriptorKind { get; internal set; }
 
         public JToken InputLogToken { get; internal set; }
 

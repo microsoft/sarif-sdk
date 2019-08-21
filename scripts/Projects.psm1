@@ -22,11 +22,11 @@ $Frameworks.All = ($Frameworks.Library + $Frameworks.Application | Select -Uniqu
 
 $Projects = @{}
 
-# Projects built with the VS 2017 project system.
 $Projects.Libraries = @(
     "Sarif",
     "Sarif.Converters",
-    "Sarif.Driver"
+    "Sarif.Driver",
+    "Sarif.WorkItemFiling"
 )
 
 $Projects.Applications = @(

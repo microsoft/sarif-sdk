@@ -4,19 +4,22 @@
 namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
 {
     /// <summary>
-    /// Enumerates the grouping strategies provided out of the box by the WorkItemFiler.
+    /// Represents a file attached to a work item.
     /// </summary>
-    public enum GroupingStrategyKind
+    public class Attachment
     {
         /// <summary>
-        /// No grouping strategy was specified.
-        /// 
+        /// The textual contents of the attachment.
         /// </summary>
-        None = 0,
+        /// <remarks>
+        /// Binary attachments are not yet supported.
+        /// </remarks>
+        public string Text { get; set; }
+
 
         /// <summary>
-        /// A grouping strategy that creates one work item per SARIF result.
+        /// The name of the attachment.
         /// </summary>
-        PerResult = 1,
+        public string Name { get; set; }
     }
 }

@@ -2,7 +2,6 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
 using Newtonsoft.Json;
@@ -12,18 +11,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
     public static class PrereleaseCompatibilityTransformer
     {
-        // As the SARIF Technical Committee develops the SARIF specification, it
-        // releases incremental versions of the schema, with SemVer versions such as
-        // "2.0.0-csd.2.beta.2018-10-10". To avoid having to update the version strings
-        // in the test files every time this happens, we replace the version
-        // in the test file with the current version after reading the file
-        // into memory.
-        private const string VersionPropertyPattern = @"""version""\s*:\s*""[^""]+""";
-        private static readonly Regex s_VersionRegex = new Regex(VersionPropertyPattern, RegexOptions.Compiled);
-
-        private const string SchemaPropertyPattern = @"""\$schema""\s*:\s*""[^""]+""";
-        private static readonly Regex s_SchemaRegex = new Regex(SchemaPropertyPattern, RegexOptions.Compiled);
-
         private delegate bool ActionOnJObject(JObject jObject);
         private const string ArrayIndicatorSymbol = "[]";
         private const char NodeDelimiterSymbol = '.';
@@ -75,13 +62,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                             goto case "http://json.schemastore.org/sarif-2.1.0-rtm.0";
                         }
                         case "http://json.schemastore.org/sarif-2.1.0-rtm.0":
+                        case "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.0.json":
                         {
                             modifiedLog |= ApplyRtm1Changes(sarifLog);
                             goto case "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.4.json";
                         }
+                        case "http://json.schemastore.org/sarif-2.1.0-rtm.4":
                         case "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.4.json":
+                        case "http://json.schemastore.org/sarif-2.1.0-rtm.3":
                         case "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.3.json":
+                        case "http://json.schemastore.org/sarif-2.1.0-rtm.2":
                         case "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.2.json":
+                        case "http://json.schemastore.org/sarif-2.1.0-rtm.1":
                         case "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.1.json":
                         {
                             modifiedLog |= ApplyRtm2and3Changes(sarifLog);

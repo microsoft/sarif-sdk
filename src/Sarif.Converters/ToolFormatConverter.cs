@@ -44,16 +44,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             if (inputFileName == null) { throw new ArgumentNullException(nameof(inputFileName)); }
             if (outputFileName == null) { throw new ArgumentNullException(nameof(outputFileName)); }
 
-            if (Directory.Exists(outputFileName))
-            {
-                throw new ArgumentException("Specified file output path exists but is a directory.", nameof(outputFileName));
-            }
-
-            if (!loggingOptions.HasFlag(LoggingOptions.OverwriteExistingOutputFile) && File.Exists(outputFileName))
-            {
-                throw new InvalidOperationException("Output file already exists and option to overwrite was not specified.");
-            }
-
             // FileMode settings here will results in an exception being raised if the input 
             // file does not exist, and that an existing output file will be overwritten
             using (var input = File.OpenRead(inputFileName))

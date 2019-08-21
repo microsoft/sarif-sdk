@@ -2,46 +2,96 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Text;
 using Microsoft.CodeAnalysis.Sarif.Driver;
+using Microsoft.CodeAnalysis.Sarif.Visitors;
 using Microsoft.CodeAnalysis.Sarif.WorkItemFiling;
+using Microsoft.Json.Schema;
+using Microsoft.Json.Schema.Validation;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public class FileWorkItemsCommand : CommandBase
     {
+        [ThreadStatic]
+        internal static bool s_validateOptionsOnly;
+
         public int Run(FileWorkItemsOptions options)
+            => Run(options, new FileSystem());
+
+        public int Run(FileWorkItemsOptions options, IFileSystem fileSystem)
         {
-            if (!ValidateOptions(options)) { return 1; }
+            if (!ValidateOptions(options, fileSystem)) { return 1; }
 
             // For unit tests: allow us to just validate the options and return.
-            if (options.TestOptionValidation) { return 0; }
+            if (s_validateOptionsOnly) { return 0; }
 
-            if (options.Inline)
-            {
-                options.OutputFilePath = options.InputFilePath;
-                options.Force = true;
-            }
+            string projectName = options.ProjectUri.GetProjectName();
+
+            string logFileContents = fileSystem.ReadAllText(options.InputFilePath);
+            EnsureValidSarifLogFile(logFileContents, options.InputFilePath);
 
             FilingTarget filingTarget = FilingTargetFactory.CreateFilingTarget(options.ProjectUriString);
-            FilteringStrategy filteringStrategy = FilteringStrategyFactory.CreateFilteringStrategy(options.FilteringStrategy);
-            GroupingStrategy groupingStrategy = GroupingStrategyFactory.CreateGroupingStrategy(options.GroupingStrategy);
+            var filer = new WorkItemFiler(filingTarget);
 
-            var filer = new WorkItemFiler(filingTarget, filteringStrategy, groupingStrategy);
+            SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(logFileContents);
 
-            try
+            if (options.DataToRemove != null)
             {
-                filer.FileWorkItems(options.ProjectUri, options.InputFilePath, options.OutputFilePath, options.PersonalAccessToken, options.Force, options.PrettyPrint).Wait();
+                var dataRemovingVisitor = new RemoveOptionalDataVisitor(options.DataToRemove.ToFlags());
+                dataRemovingVisitor.Visit(sarifLog);
             }
-            catch (Exception ex)
+
+            for (int runIndex = 0; runIndex < sarifLog.Runs.Count; ++runIndex)
             {
-                Console.Error.WriteLine(ex);
+                if (sarifLog.Runs[runIndex]?.Results?.Count > 0)
+                {
+                    IList<SarifLog> logsToProcess = new List<SarifLog>(new SarifLog[] { sarifLog });
+
+                    if (options.GroupingStrategy != GroupingStrategy.PerRun)
+                    {
+                        SplittingVisitor visitor = (options.GroupingStrategy == GroupingStrategy.PerRunPerRule 
+                            ? (SplittingVisitor)new PerRunPerRuleSplittingVisitor()
+                            : new PerRunPerTargetPerRuleSplittingVisitor());
+
+                        visitor.VisitRun(sarifLog.Runs[runIndex]);
+                        logsToProcess = visitor.SplitSarifLogs;
+                    }
+
+                    IList<WorkItemFilingMetadata> workItemMetadata = new List<WorkItemFilingMetadata>(logsToProcess.Count);
+
+                    for (int splitFileIndex = 0; splitFileIndex < logsToProcess.Count; splitFileIndex++)
+                    {
+                        SarifLog splitLog = logsToProcess[splitFileIndex];
+                        workItemMetadata.Add(splitLog.CreateWorkItemFilingMetadata(projectName, options.TemplateFilePath));
+                    }
+
+                    try
+                    {
+                        IEnumerable<WorkItemFilingMetadata> filedWorkItems = filer.FileWorkItems(options.ProjectUri, workItemMetadata, options.PersonalAccessToken).Result;
+
+                        Console.WriteLine($"Created {filedWorkItems.Count()} work items for run {runIndex}.");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.Error.WriteLine(ex);
+                    }
+                }
             }
+
+            Console.WriteLine($"Writing log with work item Ids to {options.OutputFilePath}.");
+            CommandBase.WriteSarifFile<SarifLog>(fileSystem, sarifLog, options.OutputFilePath, (options.PrettyPrint ? Formatting.Indented : Formatting.None));
 
             return 0;
         }
 
-        private bool ValidateOptions(FileWorkItemsOptions options)
+        private bool ValidateOptions(FileWorkItemsOptions options, IFileSystem fileSystem)
         {
             bool valid = true;
 
@@ -79,6 +129,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             valid = ValidateOutputFileOptions(options) && valid;
 
+            if (options.Inline)
+            {
+                options.OutputFilePath = options.InputFilePath;
+                options.Force = true;
+            }
+
+            valid = DriverUtilities.ReportWhetherOutputFileCanBeCreated(options.OutputFilePath, options.Force, fileSystem) && valid;
+
             return valid;
         }
 
@@ -102,6 +160,60 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
 
             return valid;
+        }
+
+        private void EnsureValidSarifLogFile(string logFileContents, string logFilePath)
+        {
+            Validator validator = CreateLogFileValidator();
+
+            // The second argument is a file path that the Validator uses when reporting
+            // errors. The Validator does not attempt to access this file.
+            Result[] errors = validator.Validate(logFileContents, logFilePath);
+
+            if (errors?.Length > 0)
+            {
+                throw new ArgumentException(FormatSchemaErrors(logFilePath, errors), nameof(logFilePath));
+            }
+        }
+
+        private static Validator CreateLogFileValidator()
+        {
+            JsonSchema schema = GetSarifSchema();
+            return new Validator(schema);
+        }
+
+        private static JsonSchema GetSarifSchema()
+        {
+            const string SarifSchemaResource = "Microsoft.CodeAnalysis.Sarif.Multitool.sarif-2.1.0.json";
+            Assembly thisAssembly = typeof(FileWorkItemsCommand).Assembly;
+
+            string sarifSchemaText;
+            using (Stream sarifSchemaStream = thisAssembly.GetManifestResourceStream(SarifSchemaResource))
+            using (var reader = new StreamReader(sarifSchemaStream))
+            {
+                sarifSchemaText = reader.ReadToEnd();
+            }
+
+            // The second argument is a file path that the SchemaReader uses when reporting
+            // errors. The SchemaReader does not attempt to access this file. Since we obtained
+            // the schema from an embedded resource rather than from a file, we use the name
+            // of the resource.
+            return SchemaReader.ReadSchema(sarifSchemaText, SarifSchemaResource);
+        }
+
+        private string FormatSchemaErrors(string path, IEnumerable<Result> errors)
+        {
+            string firstMessageLine = string.Format(CultureInfo.CurrentCulture, MultitoolResources.ErrorInvalidSarifLogFile, path);
+
+            var sb = new StringBuilder(firstMessageLine);
+            sb.AppendLine();
+
+            foreach (var error in errors)
+            {
+                sb.AppendLine(error.FormatForVisualStudio(RuleFactory.GetRuleFromRuleId(error.RuleId)));
+            }
+
+            return sb.ToString();
         }
     }
 }

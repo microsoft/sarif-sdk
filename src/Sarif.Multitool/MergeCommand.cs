@@ -24,12 +24,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             try
             {
+                string outputDirectory = mergeOptions.OutputFolderPath ?? Environment.CurrentDirectory;
+                string outputFilePath = Path.Combine(outputDirectory, GetOutputFileName(mergeOptions));
+
+                if (!DriverUtilities.ReportWhetherOutputFileCanBeCreated(outputFilePath, mergeOptions.Force, _fileSystem))
+                {
+                    return 1;
+                }
+
                 var sarifFiles = CreateTargetsSet(mergeOptions.TargetFileSpecifiers, mergeOptions.Recurse, _fileSystem);
 
                 var allRuns = ParseFiles(sarifFiles);
 
                 // Build one SarifLog with all the Runs.
                 SarifLog combinedLog = allRuns.Merge();
+
+                // If there were no input files, the Merge operation set combinedLog.Runs to null. Although
+                // null is valid in certain error cases, it is not valid here. Here, the correct value is
+                // an empty list. See the SARIF spec, §3.13.4, "runs property".
+                combinedLog.Runs = combinedLog.Runs ?? new List<Run>();
+
                 combinedLog.Version = SarifVersion.Current;
                 combinedLog.SchemaUri = combinedLog.Version.ConvertToSchemaUri();
 
@@ -40,18 +54,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     combinedLog = new InsertOptionalDataVisitor(dataToInsert).VisitSarifLog(combinedLog);
                 }
 
-                string outputDirectory = mergeOptions.OutputFolderPath ?? Environment.CurrentDirectory;
-
                 // Write output to file.
-                string outputName = Path.Combine(outputDirectory, GetOutputFileName(mergeOptions));
-                
                 var formatting = mergeOptions.PrettyPrint
                     ? Formatting.Indented
                     : Formatting.None;
 
-                Directory.CreateDirectory(outputDirectory);
+                _fileSystem.CreateDirectory(outputDirectory);
 
-                WriteSarifFile(_fileSystem, combinedLog, outputName, formatting);
+                WriteSarifFile(_fileSystem, combinedLog, outputFilePath, formatting);
             }
             catch (Exception ex)
             {

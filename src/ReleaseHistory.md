@@ -425,3 +425,32 @@
 ## **v2.1.9** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.9) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.9) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.9) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.9)
 * FEATURE: add --remove switch to eliminate certain properties (currently timestamps only) from log file output.
 * BUGFIX: remove verbose 'Analyzing file..' reporting for drivers.
+
+## **v2.1.10** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.10) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.10) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.10) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.10)
+* BUGFIX: Resolve a performance issue in web request parsing code. https://github.com/microsoft/sarif-sdk/issues/1608
+
+## **v2.1.11** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.11) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.11) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.11) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.11)
+* BUGFIX: Result matching should prefer the suppression info from the current run. https://github.com/microsoft/sarif-sdk/issues/1600
+
+## **v2.1.12** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.12) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.12) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.12) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.12)
+* BUGFIX: Improve handling of `null` values in property bags. https://github.com/microsoft/sarif-sdk/issues/1581
+
+## **v2.1.13** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.13) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.13) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.13) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.13)
+* BUGFIX: Respect the --force option in Sarif.Multitool rather than overwriting the output file. https://github.com/microsoft/sarif-sdk/issues/1340
+* BUGFIX: Accept URI-valued properties whose value is the empty string. https://github.com/microsoft/sarif-sdk/issues/1632
+
+## **v2.1.14** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.14) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.14) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.14) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.14)
+* BUGFIX: FxCop converter produced logicalLocation.index but did not produce the run.logicalLocations array. https://github.com/microsoft/sarif-sdk/issues/1571
+* BUGFIX: Include Sarif.WorkItemFiling.dll in the Sarif.Multitool NuGet package. https://github.com/microsoft/sarif-sdk/issues/1636
+* FEATURE: Add validation rule to ensure that all array-index-valued properties are consistent with their respective arrays.
+
+## **v2.1.15** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.15) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.15) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.15) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.15)
+* BUGFIX: Validation rule `SARIF1015` incorrectly required `originalUriBaseIds` to be contain URIs. https://github.com/microsoft/sarif-sdk/issues/1485
+* BUGFIX: Multitool transform mishandled dottedQuadFileVersion. https://github.com/microsoft/sarif-sdk/issues/1532
+* BUGFIX: Restore missing FxCop converter unit test. https://github.com/microsoft/sarif-sdk/issues/1575
+* BUGFIX: Multitool transform could not upgrade SARIF files from the sarif-2.1.0-rtm.1 schema. https://github.com/microsoft/sarif-sdk/issues/1584
+* BUGFIX: Multitool merge command produced invalid SARIF if there were 0 input files. https://github.com/microsoft/sarif-sdk/issues/1592
+* BUGFIX: FortifyFpr converter produced invalid SARIF. https://github.com/microsoft/sarif-sdk/issues/1593
+* BUGFIX: FxCop converter produced empty `result.message` objects. https://github.com/microsoft/sarif-sdk/issues/1594
+* FEATURE: Add validation rule to ensure correctness of `originalUriBaseIds` entries.
+* BUGFIX: Persist Fortify rule metadata properties. https://github.com/microsoft/sarif-sdk/issues/1490

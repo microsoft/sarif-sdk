@@ -53,19 +53,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             AnalyzeUri(reportingDescriptor.HelpUri, reportingDescriptorPointer.AtProperty(SarifPropertyName.HelpUri));
         }
 
-        protected override void Analyze(Run run, string runPointer)
-        {
-            if (run.OriginalUriBaseIds != null)
-            {
-                string originalUriBaseIdsPointer = runPointer.AtProperty(SarifPropertyName.OriginalUriBaseIds);
-
-                foreach (string key in run.OriginalUriBaseIds.Keys)
-                {
-                    AnalyzeUri(run.OriginalUriBaseIds[key].Uri, originalUriBaseIdsPointer.AtProperty(key));
-                }
-            }
-        }
-
         protected override void Analyze(ToolComponent toolComponent, string toolComponentPointer)
         {
             AnalyzeUri(toolComponent.DownloadUri, toolComponentPointer.AtProperty(SarifPropertyName.DownloadUri));
@@ -90,7 +77,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             // even for a malformed URI string.
             if (uriString != null && Uri.IsWellFormedUriString(uriString, UriKind.RelativeOrAbsolute))
             {
-                // Ok, it's a well-formed URI of some kind. But if it's not absolute, _now_ we
+                // Ok, it's a well-formed URI of some kind. If it's not absolute, _now_ we
                 // can report it.
                 Uri uri = new Uri(uriString, UriKind.RelativeOrAbsolute);
                 if (!uri.IsAbsoluteUri)

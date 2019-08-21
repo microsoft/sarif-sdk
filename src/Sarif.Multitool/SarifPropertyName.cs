@@ -5,16 +5,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public static class SarifPropertyName
     {
+        public const string Address = "address";
+        public const string Addresses = "addresses";
         public const string AnalysisTarget = "analysisTarget";
         public const string AnalysisToolLogFiles = "analysisToolLogFiles";
+        public const string AssociatedComponent = "associatedComponent";
+        public const string AssociatedRule = "associatedRule";
         public const string ArtifactLocation = "artifactLocation";
         public const string Artifacts = "artifacts";
         public const string Attachments = "attachments";
         public const string ArtifactChanges = "artifactChanges";
         public const string CodeFlows = "codeFlows";
+        public const string Configuration = "configuration";
         public const string Conversion = "conversion";
         public const string ConversionSources = "conversionSources";
         public const string Description = "description";
+        public const string Descriptor = "descriptor";
         public const string DownloadUri = "downloadUri";
         public const string Driver = "driver";
         public const string Edges = "edges";
@@ -34,7 +40,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public const string HelpUri = "helpUri";
         public const string Id = "id";
         public const string Importance = "importance";
+        public const string Index = "index";
         public const string Invocation = "invocation";
+        public const string InvocationIndex = "invocationIndex";
         public const string Invocations = "invocations";
         public const string Location = "location";
         public const string Locations = "locations";
@@ -44,18 +52,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public const string Message = "message";
         public const string MessageStrings = "messageStrings";
         public const string Nodes = "nodes";
+        public const string NotificationConfigurationOverrides = "notificationConfigurationOverrides";
         public const string Notifications = "notifications";
         public const string OriginalUriBaseIds = "originalUriBaseIds";
+        public const string ParentIndex = "parentIndex";
         public const string PhysicalLocation = "physicalLocation";
         public const string Provenance = "provenance";
         public const string Rectangles = "rectangles";
         public const string Region = "region";
         public const string Regions = "regions";
         public const string RelatedLocations = "relatedLocations";
+        public const string Relationships = "relationships";
         public const string RepositoryUri = "repositoryUri";
         public const string ResponseFiles = "responseFiles";
+        public const string ResultGraphIndex = "resultGraphIndex";
         public const string Results = "results";
+        public const string Rule = "rule";
+        public const string RuleConfigurationOverrides = "ruleConfigurationOverrides";
+        public const string RuleIndex = "ruleIndex";
         public const string Rules = "rules";
+        public const string RunGraphIndex = "runGraphIndex";
         public const string Runs = "runs";
         public const string Schema = "$schema";
         public const string ShortDescription = "shortDescription";
@@ -65,6 +81,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public const string Stderr = "stderr";
         public const string StdoutStderr = "stdoutStderr";
         public const string Step = "step";
+        public const string Target = "target";
+        public const string Taxa = "taxa";
         public const string Text = "text";
         public const string ThreadFlows = "threadFlows";
         public const string Tool = "tool";
@@ -73,6 +91,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public const string ToolExecutionNotifications = "toolExecutionNotifications";
         public const string Uri = "uri";
         public const string VersionControlProvenance = "versionControlProvenance";
+        public const string WebRequest = "webRequest";
+        public const string WebRequests = "webRequests";
+        public const string WebResponse = "webResponse";
+        public const string WebResponses = "webResponses";
         public const string WorkItemUris = "workItemUris";
     }
 }

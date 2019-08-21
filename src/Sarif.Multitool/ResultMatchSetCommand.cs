@@ -8,6 +8,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching;
+using Microsoft.CodeAnalysis.Sarif.Driver;
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
@@ -23,13 +24,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public int Run(ResultMatchSetOptions options)
         {
+            int returnCode = 0;
+
             options.OutputFolderPath = options.OutputFolderPath ?? Path.Combine(options.FolderPath, "Out");
 
             ISarifLogMatcher matcher = ResultMatchingBaselinerFactory.GetDefaultResultMatchingBaseliner();
             Formatting formatting = options.PrettyPrint ? Formatting.Indented : Formatting.None;
 
             // Remove previous results.
-            if (_fileSystem.DirectoryExists(options.OutputFolderPath))
+            if (_fileSystem.DirectoryExists(options.OutputFolderPath) && options.Force)
             {
                 _fileSystem.DeleteDirectory(options.OutputFolderPath, true);
             }
@@ -64,13 +67,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         if (mergedLog.Runs[0].Results.Any(r => r.BaselineState != BaselineState.Unchanged))
                         {
                             string outputFilePath = Path.Combine(options.OutputFolderPath, fileName);
-                            WriteSarifFile(_fileSystem, mergedLog, outputFilePath, formatting);
+
+                            if (DriverUtilities.ReportWhetherOutputFileCanBeCreated(outputFilePath, options.Force, _fileSystem))
+                            {
+                                WriteSarifFile(_fileSystem, mergedLog, outputFilePath, formatting);
+                            }
+                            else
+                            {
+                                returnCode = 1;
+                            }
                         }
                     }
                 }
                 catch (Exception ex) when (!Debugger.IsAttached)
                 {
                     Console.WriteLine(ex.ToString());
+                    returnCode = 1;
                 }
 
                 previousFileName = fileName;
@@ -78,7 +90,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 previousLog = currentLog;
             }
 
-            return 0;
+            return returnCode;
         }
 
         private static string GetGroupName(string fileName)

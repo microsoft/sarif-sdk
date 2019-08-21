@@ -79,6 +79,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos; is not a valid SARIF log file..
+        /// </summary>
+        internal static string ErrorInvalidSarifLogFile {
+            get {
+                return ResourceManager.GetString("ErrorInvalidSarifLogFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Target version must be 1 or 2.
         /// </summary>
         internal static string ErrorInvalidTransformTargetVersion {
