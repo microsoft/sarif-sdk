@@ -106,6 +106,33 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Exactly one of the &apos;{0}&apos; and &apos;{1}&apos; options must be present..
+        /// </summary>
+        internal static string ErrorOutputFilePathAndInline {
+            get {
+                return ResourceManager.GetString("ErrorOutputFilePathAndInline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Input file &apos;{0}&apos; was not found..
+        /// </summary>
+        internal static string InputFileNotFound {
+            get {
+                return ResourceManager.GetString("InputFileNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The value of the &apos;{0}&apos; option must be greater than or equal to zero..
+        /// </summary>
+        internal static string OptionValueMustBeNonNegative {
+            get {
+                return ResourceManager.GetString("OptionValueMustBeNonNegative", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0:n0} identical, {1:n0} changed.
         /// </summary>
         internal static string ResultDifferenceSummary {
