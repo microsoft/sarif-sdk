@@ -4,13 +4,11 @@
 using System;
 using System.IO;
 using FluentAssertions;
-using Microsoft.CodeAnalysis.Sarif;
-using Microsoft.CodeAnalysis.Sarif.Multitool;
 using Moq;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
+namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     // WARNING: Because the merge command can accept zero, one, or many input files, it isn't well
     // suited to the FileDiffingUnitTests base class, which assumes you have exactly one input
