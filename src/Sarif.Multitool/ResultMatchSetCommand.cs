@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public int Run(ResultMatchSetOptions options)
         {
-            int returnCode = 0;
+            int returnCode = Success;
 
             options.OutputFolderPath = options.OutputFolderPath ?? Path.Combine(options.FolderPath, "Out");
 
@@ -74,7 +74,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                             }
                             else
                             {
-                                returnCode = 1;
+                                returnCode = Failure;
                             }
                         }
                     }
@@ -82,7 +82,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 catch (Exception ex) when (!Debugger.IsAttached)
                 {
                     Console.WriteLine(ex.ToString());
-                    returnCode = 1;
+                    returnCode = Failure;
                 }
 
                 previousFileName = fileName;

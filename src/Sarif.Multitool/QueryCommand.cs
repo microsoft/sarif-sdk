@@ -13,6 +13,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     internal class QueryCommand : CommandBase
     {
+        private const int TooManyResults = 2;
+
         private readonly IFileSystem _fileSystem;
 
         public QueryCommand(IFileSystem fileSystem = null)
@@ -29,14 +31,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             catch (Exception ex) when (!Debugger.IsAttached)
             {
                 Console.WriteLine(ex);
-                return 1;
+                return Failure;
             }
         }
 
         public int RunWithoutCatch(QueryOptions options)
         {
             bool valid = DriverUtilities.ReportWhetherOutputFileCanBeCreated(options.OutputFilePath, options.Force, _fileSystem);
-            if (!valid) { return 1; }
+            if (!valid) { return Failure; }
 
             Stopwatch w = Stopwatch.StartNew();
             int originalTotal = 0;
@@ -78,7 +80,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             Console.WriteLine($"Found {matchCount:n0} of {originalTotal:n0} results matched in {w.Elapsed.TotalSeconds:n1}s.");
 
             // Write to Output file, if caller requested
-            if (!String.IsNullOrEmpty(options.OutputFilePath) && (options.Force || !_fileSystem.FileExists(options.OutputFilePath)))
+            if (!string.IsNullOrEmpty(options.OutputFilePath) && (options.Force || !_fileSystem.FileExists(options.OutputFilePath)))
             {
                 Console.WriteLine($"Writing matches to {options.OutputFilePath}.");
                 WriteSarifFile<SarifLog>(_fileSystem, log, options.OutputFilePath, (options.PrettyPrint ? Formatting.Indented : Formatting.None));
@@ -91,11 +93,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
             else if (options.NonZeroExitCodeIfCountOver >= 0 && matchCount > options.NonZeroExitCodeIfCountOver)
             {
-                return 2;
+                return TooManyResults;
             }
             else
             {
-                return 0;
+                return Success;
             }
         }
     }

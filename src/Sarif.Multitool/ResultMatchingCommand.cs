@@ -37,7 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 if (!DriverUtilities.ReportWhetherOutputFileCanBeCreated(outputFilePath, matchingOptions.Force, _fileSystem))
                 {
-                    return -1;
+                    return Failure;
                 }
 
                 var currentSarifLogs = new List<SarifLog>();
@@ -61,10 +61,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
-                return 1;
+                return Failure;
             } 
 
-            return 0;
+            return Success;
         }
     }
 }

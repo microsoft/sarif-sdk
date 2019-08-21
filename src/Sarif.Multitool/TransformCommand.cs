@@ -33,7 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 }
 
                 bool valid = ValidateOptions(transformOptions);
-                if (!valid) { return 1; }
+                if (!valid) { return Failure; }
 
                 // NOTE: we don't actually utilize the dataToInsert command-line data yet...
                 OptionallyEmittedData dataToInsert = transformOptions.DataToInsert.ToFlags();
@@ -112,10 +112,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
-                return 1;
+                return Failure;
             }
 
-            return 0;
+            return Success;
         }
 
         private bool ValidateOptions(TransformOptions transformOptions)

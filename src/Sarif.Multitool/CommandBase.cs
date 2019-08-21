@@ -13,6 +13,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public abstract class CommandBase
     {
+        public const int Success = 0;
+        public const int Failure = 1;
+
         protected static bool ValidateNonNegativeCommandLineOption<T>(int optionValue, string optionName)
         {
             bool valid = true;

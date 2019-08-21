@@ -27,10 +27,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public int Run(FileWorkItemsOptions options, IFileSystem fileSystem)
         {
-            if (!ValidateOptions(options, fileSystem)) { return 1; }
+            if (!ValidateOptions(options, fileSystem)) { return Failure; }
 
             // For unit tests: allow us to just validate the options and return.
-            if (s_validateOptionsOnly) { return 0; }
+            if (s_validateOptionsOnly) { return Success; }
 
             string projectName = options.ProjectUri.GetProjectName();
 
@@ -86,9 +86,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
 
             Console.WriteLine($"Writing log with work item Ids to {options.OutputFilePath}.");
-            CommandBase.WriteSarifFile<SarifLog>(fileSystem, sarifLog, options.OutputFilePath, (options.PrettyPrint ? Formatting.Indented : Formatting.None));
+            WriteSarifFile<SarifLog>(fileSystem, sarifLog, options.OutputFilePath, (options.PrettyPrint ? Formatting.Indented : Formatting.None));
 
-            return 0;
+            return Success;
         }
 
         private bool ValidateOptions(FileWorkItemsOptions options, IFileSystem fileSystem)

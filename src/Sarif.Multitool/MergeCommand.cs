@@ -29,7 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 if (!DriverUtilities.ReportWhetherOutputFileCanBeCreated(outputFilePath, mergeOptions.Force, _fileSystem))
                 {
-                    return 1;
+                    return Failure;
                 }
 
                 var sarifFiles = CreateTargetsSet(mergeOptions.TargetFileSpecifiers, mergeOptions.Recurse, _fileSystem);
@@ -66,9 +66,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
-                return 1;
+                return Failure;
             }
-            return 0;
+            return Success;
         }
 
 	    private IEnumerable<SarifLog> ParseFiles(IEnumerable<string> sarifFiles)

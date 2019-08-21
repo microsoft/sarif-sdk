@@ -27,7 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 FileWorkItemsOptions>(args)
               .MapResult(
                 (ValidateOptions validateOptions) => new ValidateCommand().Run(validateOptions),
-                (ConvertOptions convertOptions) => ConvertCommand.Run(convertOptions),
+                (ConvertOptions convertOptions) => new ConvertCommand().Run(convertOptions),
                 (RewriteOptions rewriteOptions) => new RewriteCommand().Run(rewriteOptions),
                 (TransformOptions transformOptions) => new TransformCommand().Run(transformOptions),
                 (MergeOptions mergeOptions) => new MergeCommand().Run(mergeOptions),
@@ -38,7 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 (ResultMatchingOptions baselineOptions) => new ResultMatchingCommand().Run(baselineOptions),
                 (ResultMatchSetOptions options) => new ResultMatchSetCommand().Run(options),
                 (FileWorkItemsOptions fileWorkItemsOptions) => new FileWorkItemsCommand().Run(fileWorkItemsOptions),
-                errs => 1);
+                errs => CommandBase.Failure);
         }
     }
 }

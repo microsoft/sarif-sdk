@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 Force = true
             };
 
-            int returnCode = ConvertCommand.Run(options, fileSystem);
+            int returnCode = new ConvertCommand().Run(options, fileSystem);
 
             returnCode.Should().Be(1);
         }
@@ -51,7 +51,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 OutputFilePath = OutputFilePath
             };
 
-            int returnCode = ConvertCommand.Run(options, fileSystem);
+            int returnCode = new ConvertCommand().Run(options, fileSystem);
 
             returnCode.Should().Be(1);
         }
