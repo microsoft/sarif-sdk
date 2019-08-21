@@ -4,10 +4,9 @@
 using System;
 using CommandLine;
 using FluentAssertions;
-using Microsoft.CodeAnalysis.Sarif.Driver;
 using Xunit;
 
-namespace Test.UnitTests.Sarif.Driver
+namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     public class DriverUtilitiesTests
     {

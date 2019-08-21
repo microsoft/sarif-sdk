@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using Microsoft.CodeAnalysis.Sarif;
-using Microsoft.CodeAnalysis.Sarif.Multitool;
+using System.IO;
+using System.Text;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
 using FluentAssertions;
@@ -11,11 +11,8 @@ using Newtonsoft.Json;
 using Xunit;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
-using System;
-using System.IO;
-using System.Text;
 
-namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
+namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public class TransformCommandTests
     {

@@ -4,7 +4,7 @@
 using System.IO;
 using System.Text;
 
-namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
+namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     /// <summary>
     /// Represents a MemoryStream whose contents can be retrieved when it is disposed.
@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
     /// an instance of this class. After the product code executes, the test can find out what the
     /// product code wrote to the stream.
     /// </remarks>
-    class MemoryStreamToStringBuilder : MemoryStream
+    internal class MemoryStreamToStringBuilder : MemoryStream
     {
         private StringBuilder OutputTo { get; }
 
