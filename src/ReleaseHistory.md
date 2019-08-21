@@ -446,6 +446,7 @@
 
 ## **v2.1.15** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.15) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.15) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.15) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.15)
 * BUGFIX: Validation rule `SARIF1015` incorrectly required `originalUriBaseIds` to be contain URIs. https://github.com/microsoft/sarif-sdk/issues/1485
+* BUGFIX: Persist Fortify rule metadata properties. https://github.com/microsoft/sarif-sdk/issues/1490
 * BUGFIX: Multitool transform mishandled dottedQuadFileVersion. https://github.com/microsoft/sarif-sdk/issues/1532
 * BUGFIX: Restore missing FxCop converter unit test. https://github.com/microsoft/sarif-sdk/issues/1575
 * BUGFIX: Multitool transform could not upgrade SARIF files from the sarif-2.1.0-rtm.1 schema. https://github.com/microsoft/sarif-sdk/issues/1584

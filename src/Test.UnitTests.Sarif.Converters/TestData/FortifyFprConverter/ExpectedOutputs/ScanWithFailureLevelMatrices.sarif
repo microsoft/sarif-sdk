@@ -255,7 +255,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 38,
@@ -337,7 +341,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 9,
@@ -417,7 +425,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 25,
@@ -497,7 +509,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 38,
@@ -579,7 +595,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 38,
@@ -661,7 +681,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 33,
@@ -886,7 +910,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 38,
@@ -968,7 +996,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 38,
@@ -1050,7 +1082,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 18,
@@ -1130,7 +1166,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 18,
@@ -1210,7 +1250,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 5,
@@ -1297,7 +1341,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -1380,7 +1428,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 36,
@@ -1461,7 +1513,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 36,
@@ -1542,7 +1598,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 0,
@@ -1622,7 +1682,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 38,
@@ -1704,7 +1768,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -1787,7 +1855,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 17,
@@ -1873,7 +1945,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 33,
@@ -2069,7 +2145,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 38,
@@ -2151,7 +2231,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 38,
@@ -2233,7 +2317,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 7,
@@ -2314,7 +2402,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 7,
@@ -2395,7 +2487,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 18,
@@ -2475,7 +2571,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -2558,7 +2658,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 16,
@@ -2659,7 +2763,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -2742,7 +2850,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 19,
@@ -2822,7 +2934,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 27,
@@ -2902,7 +3018,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 19,
@@ -2982,7 +3102,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 17,
@@ -3138,7 +3262,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "3.04"
+          }
         },
         {
           "ruleIndex": 17,
@@ -3294,7 +3422,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "3.04"
+          }
         },
         {
           "ruleIndex": 18,
@@ -3374,7 +3506,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 19,
@@ -3454,7 +3590,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 36,
@@ -3535,7 +3675,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 36,
@@ -3616,7 +3760,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 9,
@@ -3696,7 +3844,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 9,
@@ -3776,7 +3928,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 33,
@@ -3972,7 +4128,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 22,
@@ -4082,7 +4242,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 19,
@@ -4162,7 +4326,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -4245,7 +4413,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 22,
@@ -4412,7 +4584,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 18,
@@ -4492,7 +4668,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 19,
@@ -4572,7 +4752,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -4655,7 +4839,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 16,
@@ -4908,7 +5096,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 19,
@@ -4988,7 +5180,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 1,
@@ -5070,7 +5266,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 1,
@@ -5152,7 +5352,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 27,
@@ -5232,7 +5436,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 9,
@@ -5312,7 +5520,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 32,
@@ -5394,7 +5606,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -5477,7 +5693,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -5560,7 +5780,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -5643,7 +5867,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 20,
@@ -5720,7 +5948,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "4.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 20,
@@ -5797,7 +6029,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "4.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 20,
@@ -5874,7 +6110,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "4.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 20,
@@ -5951,7 +6191,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "4.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 20,
@@ -6028,7 +6272,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "4.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 20,
@@ -6105,7 +6353,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "4.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 12,
@@ -6187,7 +6439,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 13,
@@ -6268,7 +6524,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 13,
@@ -6349,7 +6609,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 18,
@@ -6429,7 +6693,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 38,
@@ -6511,7 +6779,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 38,
@@ -6593,7 +6865,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 32,
@@ -6675,7 +6951,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 22,
@@ -6842,7 +7122,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 37,
@@ -6940,7 +7224,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 19,
@@ -7020,7 +7308,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -7103,7 +7395,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 33,
@@ -7356,7 +7652,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 38,
@@ -7438,7 +7738,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 38,
@@ -7520,7 +7824,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -7603,7 +7911,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 37,
@@ -7856,7 +8168,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -7939,7 +8255,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 12,
@@ -8018,7 +8338,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 1,
@@ -8100,7 +8424,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 1,
@@ -8182,7 +8510,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -8265,7 +8597,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 18,
@@ -8345,7 +8681,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 19,
@@ -8425,7 +8765,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 9,
@@ -8505,7 +8849,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 9,
@@ -8585,7 +8933,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 9,
@@ -8665,7 +9017,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 9,
@@ -8745,7 +9101,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 9,
@@ -8825,7 +9185,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 9,
@@ -8905,7 +9269,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 9,
@@ -8985,7 +9353,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 25,
@@ -9065,7 +9437,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 18,
@@ -9145,7 +9521,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 38,
@@ -9227,7 +9607,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 38,
@@ -9309,7 +9693,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 3,
@@ -9390,7 +9778,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 3,
@@ -9471,7 +9863,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -9554,7 +9950,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 18,
@@ -9634,7 +10034,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 38,
@@ -9716,7 +10120,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 38,
@@ -9798,7 +10206,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 17,
@@ -10006,7 +10418,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "3.04"
+          }
         },
         {
           "ruleIndex": 17,
@@ -10214,7 +10630,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "3.04"
+          }
         },
         {
           "ruleIndex": 18,
@@ -10294,7 +10714,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -10377,7 +10801,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 19,
@@ -10457,7 +10885,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 17,
@@ -10665,7 +11097,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "3.04"
+          }
         },
         {
           "ruleIndex": 17,
@@ -10873,7 +11309,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "3.04"
+          }
         },
         {
           "ruleIndex": 38,
@@ -10955,7 +11395,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 38,
@@ -11037,7 +11481,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -11120,7 +11568,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -11203,7 +11655,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -11286,7 +11742,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 18,
@@ -11366,7 +11826,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 19,
@@ -11446,7 +11910,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 6,
@@ -11522,7 +11990,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 6,
@@ -11598,7 +12070,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 6,
@@ -11674,7 +12150,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 6,
@@ -11750,7 +12230,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 6,
@@ -11826,7 +12310,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 6,
@@ -11902,7 +12390,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 6,
@@ -11978,7 +12470,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 6,
@@ -12054,7 +12550,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 6,
@@ -12130,7 +12630,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 6,
@@ -12206,7 +12710,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 6,
@@ -12282,7 +12790,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 6,
@@ -12358,7 +12870,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 6,
@@ -12434,7 +12950,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 6,
@@ -12510,7 +13030,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 6,
@@ -12586,7 +13110,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 6,
@@ -12662,7 +13190,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 6,
@@ -12738,7 +13270,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 33,
@@ -12905,7 +13441,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -12988,7 +13528,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 19,
@@ -13068,7 +13612,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 19,
@@ -13148,7 +13696,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 33,
@@ -13344,7 +13896,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 18,
@@ -13424,7 +13980,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 18,
@@ -13504,7 +14064,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 18,
@@ -13584,7 +14148,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 18,
@@ -13664,7 +14232,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -13747,7 +14319,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -13830,7 +14406,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -13913,7 +14493,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 38,
@@ -13995,7 +14579,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 38,
@@ -14077,7 +14665,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -14160,7 +14752,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 19,
@@ -14240,7 +14836,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -14323,7 +14923,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 17,
@@ -14479,7 +15083,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "3.04"
+          }
         },
         {
           "ruleIndex": 17,
@@ -14635,7 +15243,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "3.04"
+          }
         },
         {
           "ruleIndex": 19,
@@ -14715,7 +15327,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 38,
@@ -14797,7 +15413,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 38,
@@ -14879,7 +15499,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 12,
@@ -14958,7 +15582,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -15041,7 +15669,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 19,
@@ -15121,7 +15753,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 18,
@@ -15201,7 +15837,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -15284,7 +15924,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -15367,7 +16011,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -15450,7 +16098,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -15533,7 +16185,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 1,
@@ -15615,7 +16271,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 1,
@@ -15697,7 +16357,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 9,
@@ -15777,7 +16441,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 10,
@@ -15859,7 +16527,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -15942,7 +16614,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 10,
@@ -16024,7 +16700,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 26,
@@ -16106,7 +16786,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 5,
@@ -16193,7 +16877,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 38,
@@ -16275,7 +16963,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 38,
@@ -16357,7 +17049,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 27,
@@ -16437,7 +17133,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 18,
@@ -16517,7 +17217,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 18,
@@ -16597,7 +17301,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 36,
@@ -16678,7 +17386,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 36,
@@ -16759,7 +17471,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -16842,7 +17558,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 30,
@@ -16924,7 +17644,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 30,
@@ -17006,7 +17730,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -17089,7 +17817,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 38,
@@ -17171,7 +17903,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 38,
@@ -17253,7 +17989,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -17336,7 +18076,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 22,
@@ -17445,7 +18189,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 19,
@@ -17525,7 +18273,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 38,
@@ -17607,7 +18359,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 38,
@@ -17689,7 +18445,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 18,
@@ -17769,7 +18529,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 0,
@@ -17849,7 +18613,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -17932,7 +18700,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 19,
@@ -18012,7 +18784,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 36,
@@ -18093,7 +18869,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 36,
@@ -18174,7 +18954,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -18257,7 +19041,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 36,
@@ -18338,7 +19126,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 36,
@@ -18419,7 +19211,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 19,
@@ -18499,7 +19295,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -18582,7 +19382,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 38,
@@ -18664,7 +19468,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 38,
@@ -18746,7 +19554,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 33,
@@ -19113,7 +19925,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 22,
@@ -19223,7 +20039,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 19,
@@ -19303,7 +20123,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 19,
@@ -19383,7 +20207,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 19,
@@ -19463,7 +20291,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -19546,7 +20378,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -19629,7 +20465,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 1,
@@ -19711,7 +20551,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 1,
@@ -19793,7 +20637,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 7,
@@ -19874,7 +20722,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 7,
@@ -19955,7 +20807,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 11,
@@ -20332,7 +21188,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "4.7999997"
+          }
         },
         {
           "ruleIndex": 24,
@@ -20415,7 +21275,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 22,
@@ -20582,7 +21446,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 29,
@@ -20817,7 +21685,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -20900,7 +21772,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -20983,7 +21859,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 17,
@@ -21139,7 +22019,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "3.04"
+          }
         },
         {
           "ruleIndex": 17,
@@ -21295,7 +22179,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "3.04"
+          }
         },
         {
           "ruleIndex": 1,
@@ -21377,7 +22265,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 1,
@@ -21459,7 +22351,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 18,
@@ -21539,7 +22435,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 18,
@@ -21619,7 +22519,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 17,
@@ -21827,7 +22731,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "3.04"
+          }
         },
         {
           "ruleIndex": 17,
@@ -22035,7 +22943,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "3.04"
+          }
         },
         {
           "ruleIndex": 36,
@@ -22116,7 +23028,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 36,
@@ -22197,7 +23113,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 33,
@@ -22306,7 +23226,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 9,
@@ -22386,7 +23310,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 9,
@@ -22466,7 +23394,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 9,
@@ -22546,7 +23478,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 9,
@@ -22626,7 +23562,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 37,
@@ -22712,7 +23652,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 37,
@@ -22798,7 +23742,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 17,
@@ -23006,7 +23954,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "3.04"
+          }
         },
         {
           "ruleIndex": 17,
@@ -23214,7 +24166,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "3.04"
+          }
         },
         {
           "ruleIndex": 1,
@@ -23296,7 +24252,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -23379,7 +24339,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 25,
@@ -23459,7 +24423,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -23542,7 +24510,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 9,
@@ -23622,7 +24594,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 18,
@@ -23702,7 +24678,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 33,
@@ -23927,7 +24907,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 14,
@@ -24275,7 +25259,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 22,
@@ -24384,7 +25372,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -24467,7 +25459,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -24550,7 +25546,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -24633,7 +25633,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 29,
@@ -24734,7 +25738,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 33,
@@ -24930,7 +25938,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 17,
@@ -25138,7 +26150,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "3.04"
+          }
         },
         {
           "ruleIndex": 17,
@@ -25346,7 +26362,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "3.04"
+          }
         },
         {
           "ruleIndex": 24,
@@ -25429,7 +26449,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -25512,7 +26536,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -25595,7 +26623,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -25678,7 +26710,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 19,
@@ -25758,7 +26794,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 9,
@@ -25838,7 +26878,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 9,
@@ -25918,7 +26962,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -26001,7 +27049,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 22,
@@ -26168,7 +27220,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -26251,7 +27307,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 36,
@@ -26332,7 +27392,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 36,
@@ -26413,7 +27477,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 19,
@@ -26493,7 +27561,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 14,
@@ -26610,7 +27682,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -26693,7 +27769,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 29,
@@ -26928,7 +28008,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 17,
@@ -27136,7 +28220,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "3.04"
+          }
         },
         {
           "ruleIndex": 17,
@@ -27344,7 +28432,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "3.04"
+          }
         },
         {
           "ruleIndex": 26,
@@ -27426,7 +28518,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 19,
@@ -27506,7 +28602,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 19,
@@ -27586,7 +28686,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 10,
@@ -27668,7 +28772,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 33,
@@ -27806,7 +28914,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 33,
@@ -28002,7 +29114,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 38,
@@ -28084,7 +29200,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 38,
@@ -28166,7 +29286,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 33,
@@ -28362,7 +29486,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 22,
@@ -28471,7 +29599,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -28554,7 +29686,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 1,
@@ -28636,7 +29772,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 10,
@@ -28718,7 +29858,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 5,
@@ -29072,7 +30216,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -29155,7 +30303,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 19,
@@ -29235,7 +30387,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 38,
@@ -29317,7 +30473,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 38,
@@ -29399,7 +30559,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -29482,7 +30646,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 18,
@@ -29562,7 +30730,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 3,
@@ -29643,7 +30815,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 3,
@@ -29724,7 +30900,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 36,
@@ -29805,7 +30985,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 36,
@@ -29886,7 +31070,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 18,
@@ -29966,7 +31154,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -30049,7 +31241,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 17,
@@ -30257,7 +31453,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "3.04"
+          }
         },
         {
           "ruleIndex": 17,
@@ -30465,7 +31665,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "3.04"
+          }
         },
         {
           "ruleIndex": 18,
@@ -30545,7 +31749,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 38,
@@ -30627,7 +31835,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 38,
@@ -30709,7 +31921,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 12,
@@ -30791,7 +32007,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 17,
@@ -30999,7 +32219,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "3.04"
+          }
         },
         {
           "ruleIndex": 17,
@@ -31207,7 +32431,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "3.04"
+          }
         },
         {
           "ruleIndex": 27,
@@ -31287,7 +32515,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -31370,7 +32602,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 27,
@@ -31450,7 +32686,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 33,
@@ -31617,7 +32857,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 33,
@@ -31842,7 +33086,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 19,
@@ -31922,7 +33170,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 14,
@@ -32241,7 +33493,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -32324,7 +33580,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 1,
@@ -32406,7 +33666,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 1,
@@ -32488,7 +33752,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 19,
@@ -32568,7 +33836,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 25,
@@ -32648,7 +33920,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 17,
@@ -32804,7 +34080,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "3.04"
+          }
         },
         {
           "ruleIndex": 17,
@@ -32960,7 +34240,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "3.04"
+          }
         },
         {
           "ruleIndex": 19,
@@ -33040,7 +34324,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -33123,7 +34411,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 21,
@@ -33231,7 +34523,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 8,
@@ -33369,7 +34665,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 38,
@@ -33451,7 +34751,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 38,
@@ -33533,7 +34837,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 18,
@@ -33613,7 +34921,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 19,
@@ -33693,7 +35005,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 35,
@@ -33776,7 +35092,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 35,
@@ -33859,7 +35179,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 19,
@@ -33939,7 +35263,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 38,
@@ -34021,7 +35349,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 38,
@@ -34103,7 +35435,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 4,
@@ -34183,7 +35519,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 19,
@@ -34263,7 +35603,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 23,
@@ -34344,7 +35688,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 23,
@@ -34425,7 +35773,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 38,
@@ -34507,7 +35859,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 38,
@@ -34589,7 +35945,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -34672,7 +36032,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 10,
@@ -34754,7 +36118,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 36,
@@ -34835,7 +36203,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 36,
@@ -34916,7 +36288,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 26,
@@ -34998,7 +36374,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 38,
@@ -35080,7 +36460,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 38,
@@ -35162,7 +36546,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -35245,7 +36633,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 33,
@@ -35354,7 +36746,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -35437,7 +36833,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 33,
@@ -35604,7 +37004,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 9,
@@ -35684,7 +37088,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 9,
@@ -35764,7 +37172,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 2,
@@ -35856,7 +37268,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 17,
@@ -36082,7 +37498,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "2.3769999"
+          }
         },
         {
           "ruleIndex": 17,
@@ -36308,7 +37728,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "2.3769999"
+          }
         },
         {
           "ruleIndex": 17,
@@ -36464,7 +37888,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "3.04"
+          }
         },
         {
           "ruleIndex": 17,
@@ -36620,7 +38048,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "3.04"
+          }
         },
         {
           "ruleIndex": 16,
@@ -36706,7 +38138,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 19,
@@ -36786,7 +38222,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 22,
@@ -36895,7 +38335,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 17,
@@ -37051,7 +38495,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "3.04"
+          }
         },
         {
           "ruleIndex": 17,
@@ -37207,7 +38655,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "3.04"
+          }
         },
         {
           "ruleIndex": 24,
@@ -37290,7 +38742,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 38,
@@ -37372,7 +38828,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 38,
@@ -37454,7 +38914,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 17,
@@ -37616,7 +39080,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "3.04"
+          }
         },
         {
           "ruleIndex": 17,
@@ -37778,7 +39246,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "3.04"
+          }
         },
         {
           "ruleIndex": 17,
@@ -37940,7 +39412,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "3.04"
+          }
         },
         {
           "ruleIndex": 17,
@@ -38102,7 +39578,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "3.04"
+          }
         },
         {
           "ruleIndex": 17,
@@ -38264,7 +39744,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "3.04"
+          }
         },
         {
           "ruleIndex": 17,
@@ -38426,7 +39910,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "3.04"
+          }
         },
         {
           "ruleIndex": 19,
@@ -38506,7 +39994,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -38589,7 +40081,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 10,
@@ -38671,7 +40167,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -38754,7 +40254,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 19,
@@ -38834,7 +40338,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 36,
@@ -38915,7 +40423,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 36,
@@ -38996,7 +40508,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 11,
@@ -39115,7 +40631,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 19,
@@ -39195,7 +40715,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 8,
@@ -39427,7 +40951,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -39510,7 +41038,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 17,
@@ -39736,7 +41268,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "2.3769999"
+          }
         },
         {
           "ruleIndex": 17,
@@ -39962,7 +41498,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "2.3769999"
+          }
         },
         {
           "ruleIndex": 24,
@@ -40045,7 +41585,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 9,
@@ -40125,7 +41669,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 9,
@@ -40205,7 +41753,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 10,
@@ -40287,7 +41839,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 38,
@@ -40369,7 +41925,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 38,
@@ -40451,7 +42011,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 17,
@@ -40659,7 +42223,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "3.04"
+          }
         },
         {
           "ruleIndex": 17,
@@ -40867,7 +42435,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "3.04"
+          }
         },
         {
           "ruleIndex": 38,
@@ -40949,7 +42521,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 38,
@@ -41031,7 +42607,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -41114,7 +42694,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 28,
@@ -41215,7 +42799,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "4.429499"
+          }
         },
         {
           "ruleIndex": 19,
@@ -41295,7 +42883,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -41378,7 +42970,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 19,
@@ -41458,7 +43054,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -41541,7 +43141,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 22,
@@ -41708,7 +43312,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 17,
@@ -41916,7 +43524,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "3.04"
+          }
         },
         {
           "ruleIndex": 17,
@@ -42124,7 +43736,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "3.04"
+          }
         },
         {
           "ruleIndex": 19,
@@ -42204,7 +43820,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 31,
@@ -42293,7 +43913,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 33,
@@ -42518,7 +44142,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 18,
@@ -42598,7 +44226,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 17,
@@ -42931,7 +44563,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "3.04"
+          }
         },
         {
           "ruleIndex": 17,
@@ -43264,7 +44900,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "3.04"
+          }
         },
         {
           "ruleIndex": 9,
@@ -43344,7 +44984,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 17,
@@ -43773,7 +45417,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "3.04"
+          }
         },
         {
           "ruleIndex": 17,
@@ -44202,7 +45850,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "3.04"
+          }
         },
         {
           "ruleIndex": 34,
@@ -44282,7 +45934,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 34,
@@ -44362,7 +46018,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -44445,7 +46105,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 19,
@@ -44525,7 +46189,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 38,
@@ -44607,7 +46275,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 38,
@@ -44689,7 +46361,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 18,
@@ -44769,7 +46445,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -44852,7 +46532,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 18,
@@ -44932,7 +46616,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 34,
@@ -45012,7 +46700,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 19,
@@ -45092,7 +46784,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 17,
@@ -45248,7 +46944,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "3.04"
+          }
         },
         {
           "ruleIndex": 17,
@@ -45404,7 +47104,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "3.0",
+            "Confidence": "3.04"
+          }
         },
         {
           "ruleIndex": 18,
@@ -45484,7 +47188,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 18,
@@ -45564,7 +47272,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -45647,7 +47359,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 19,
@@ -45727,7 +47443,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 19,
@@ -45807,7 +47527,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -45890,7 +47614,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 19,
@@ -45970,7 +47698,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 13,
@@ -46051,7 +47783,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 13,
@@ -46132,7 +47868,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -46215,7 +47955,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 38,
@@ -46297,7 +48041,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 38,
@@ -46379,7 +48127,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -46462,7 +48214,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -46545,7 +48301,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -46628,7 +48388,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 27,
@@ -46708,7 +48472,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 24,
@@ -46791,7 +48559,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 26,
@@ -46873,7 +48645,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 18,
@@ -46953,7 +48729,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 0,
@@ -47033,7 +48813,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 15,
@@ -47114,7 +48898,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 18,
@@ -47194,7 +48982,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 18,
@@ -47274,7 +49066,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 9,
@@ -47354,7 +49150,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 9,
@@ -47434,7 +49234,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         },
         {
           "ruleIndex": 34,
@@ -47514,7 +49318,11 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
         }
       ],
       "tool": {
@@ -47529,6 +49337,11 @@
               },
               "fullDescription": {
                 "text": "It is never a good idea to hardcode a password. Storing password details within comments is equivalent to hardcoding passwords. Not only does it allow all of the project's developers to view the password, it also makes fixing the problem extremely difficult. Once the code is in production, the password is now leaked to the outside world and cannot be protected or changed without patching the software. If the account protected by the password is compromised, the owners of the system will be forced to choose between security and availability.\r\n\r\nIn this case the password details appear in the comment in <Replace key=\"PrimaryLocation.file\"/> at line <Replace key=\"PrimaryLocation.line\"/>.\r\n\r\n**Example:** The following comment specifies the default password to connect to a database:\r\n\r\n`\n...\n// Default username for database connection is \"scott\"\n// Default password for database connection is \"tiger\"\n...\n`\r\n\r\nThis code will run successfully, but anyone who has access to it will have access to the password. Once the program has shipped, there is likely no way to change the database user \"scott\" with a password of \"tiger\" unless the program is patched. An employee with access to this information could use it to break into the system."
+              },
+              "defaultConfiguration": {
+                "properties": {
+                  "DefaultSeverity": "2.0"
+                }
               },
               "relationships": [
                 {
@@ -47562,6 +49375,12 @@
               "fullDescription": {
                 "text": "Functions that generate random or pseudorandom values, which are passed a seed, should not be called with a constant argument. If a pseudorandom number generator (such as `Random`) is seeded with a specific value (using a function like `Random.setSeed()`), the values returned by `Random.nextInt()` and similar methods which return or assign values are predictable for an attacker that can collect a number of PRNG outputs.\r\n\r\n**Example 1:** Below, the values produced by the `Random` object `s` are predictable from the `Random` object `r`.\r\n\r\n`\n        Random r = new Random();\n        r.setSeed(12345);\n        int i = r.nextInt();\n        byte[] b = new byte[4];\n        r.nextBytes(b);\r\n\r\n        Random s = new Random();\n        s.setSeed(12345);\n        int j = s.nextInt();\n        byte[] c = new byte[4];\n        s.nextBytes(c);\n`\r\n\r\nIn this example, pseudorandom number generators: `r` and `s` were identically seeded, so `i == j`, and corresponding values of arrays `b[]` and `c[]` are equal.\r\n\r\nThis finding is from research found in \"An Empirical Study of Cryptographic Misuse in Android Applications\". http://www.cs.ucsb.edu/~chris/research/doc/ccs13_cryptolint.pdf"
               },
+              "defaultConfiguration": {
+                "level": "error",
+                "properties": {
+                  "DefaultSeverity": "2.0"
+                }
+              },
               "relationships": [
                 {
                   "target": {
@@ -47593,6 +49412,11 @@
               },
               "fullDescription": {
                 "text": "Path manipulation errors occur when the following two conditions are met:\r\n\r\n1. An attacker is able to specify a path used in an operation on the file system.\r\n\r\n2. By specifying the resource, the attacker gains a capability that would not otherwise be permitted.\r\n\r\nFor example, the program may give the attacker the ability to overwrite the specified file or run with a configuration controlled by the attacker.\r\n\r\nIn this case, the attacker may specify the value that enters the program at <Replace key=\"SourceFunction\" link=\"SourceLocation\"/> in <Replace key=\"SourceLocation.file\"/> at line <Replace key=\"SourceLocation.line\"/>, and this value is used to access a file system resource at <Replace key=\"SinkFunction\" link=\"SinkLocation\"/> in <Replace key=\"SinkLocation.file\"/> at line <Replace key=\"SinkLocation.line\"/>.\r\n\r\nEven though the data in this case is a number, it is unvalidated and thus still considered malicious, hence the vulnerability is still reported but with reduced priority values.\r\n\r\n**Example 1:** The following code uses input from an HTTP request to create a file name. The programmer has not considered the possibility that an attacker may provide a file name like \"`..\\\\..\\\\Windows\\\\System32\\\\krnl386.exe`\", which will cause the application to delete an important Windows system file.\r\n\r\n`\nString rName = Request.Item(\"reportName\");\n...\nFile.delete(\"C:\\\\users\\\\reports\\\\\" + rName);\n`\r\n\r\n**Example 2:** The following code uses input from a configuration file to determine which file to open and echo back to the user. If the program runs with adequate privileges and malicious users can change the configuration file, they can use the program to read any file on the system that ends with the extension \".txt\".\r\n\r\n`\nsr = new StreamReader(resmngr.GetString(\"sub\")+\".txt\");\nwhile ((line = sr.ReadLine()) != null) {\nConsole.WriteLine(line);\n}\n`"
+              },
+              "defaultConfiguration": {
+                "properties": {
+                  "DefaultSeverity": "3.0"
+                }
               },
               "relationships": [
                 {
@@ -47637,6 +49461,11 @@
               "fullDescription": {
                 "text": "Thread management in a web application is forbidden by the J2EE standard in some circumstances and is always highly error prone. Managing threads is difficult and is likely to interfere in unpredictable ways with the behavior of the application container. Even without interfering with the container, thread management usually leads to bugs that are hard to detect and diagnose like deadlock, race conditions, and other synchronization errors."
               },
+              "defaultConfiguration": {
+                "properties": {
+                  "DefaultSeverity": "2.0"
+                }
+              },
               "relationships": [
                 {
                   "target": {
@@ -47668,6 +49497,12 @@
               },
               "fullDescription": {
                 "text": "The program uses the `Equals()` method to compare an object with `null`. The contract of the `Equals()` method requires this comparison to always return false."
+              },
+              "defaultConfiguration": {
+                "level": "note",
+                "properties": {
+                  "DefaultSeverity": "2.0"
+                }
               },
               "relationships": [
                 {
@@ -47713,6 +49548,12 @@
               "fullDescription": {
                 "text": "An internal information leak occurs when system data or debugging information is sent to a local file, console, or screen via printing or logging.\r\n\r\nIn this case the data from <Replace key=\"SourceFunction\" link=\"SourceLocation\"/> in <Replace key=\"SourceLocation.file\"/> at line <Replace key=\"SourceLocation.line\"/> leaves the program through <Replace key=\"SinkFunction\" link=\"SinkLocation\"/> in <Replace key=\"SinkLocation.file\"/> at line <Replace key=\"SinkLocation.line\"/>.\r\n\r\n**Example:** The following code constructs a database connection string, uses it to create a new connection to the database, and prints it to the console.\r\n\r\n`\nstring cs=\"database=northwind;server=mySQLServer...\";\nSqlConnection conn=new SqlConnection(cs);\n...\nConsole.Writeline(cs);\n`\r\n\r\nDepending on the system configuration, this information can be dumped to a console, written to a log file, or exposed to a user. In some cases the error message tells the attacker precisely what sort of an attack the system is vulnerable to. For example, a database error message can reveal that the application is vulnerable to a SQL injection attack. Other error messages can reveal more oblique clues about the system. In the example above, the leaked information could imply information about the type of operating system, the applications installed on the system, and the amount of care that the administrators have put into configuring the program."
               },
+              "defaultConfiguration": {
+                "level": "note",
+                "properties": {
+                  "DefaultSeverity": "3.0"
+                }
+              },
               "relationships": [
                 {
                   "target": {
@@ -47744,6 +49585,11 @@
               },
               "fullDescription": {
                 "text": "Processing XML documents can be computationally expensive. Attackers may take advantage of schemas that allow unbounded elements by supplying an application with a very large number elements causing the application to exhaust system resources.\r\n\r\nThe following is an example of a schema that allows unbounded `bar` elements.\n`\n&lt;xs:schema xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; &gt;\n  &lt;xs:element name=&quot;foo&quot; &gt;\n    &lt;xs:complexType&gt;\n      &lt;xs:sequence&gt;\n\t&lt;xs:element name=&quot;bar&quot; maxOccurs=&quot;unbounded&quot; /&gt;\n      &lt;/xs:sequence&gt;\n    &lt;/xs:complexType&gt;\n  &lt;/xs:element&gt;\n&lt;/xs:schema&gt;\n`"
+              },
+              "defaultConfiguration": {
+                "properties": {
+                  "DefaultSeverity": "3.0"
+                }
               },
               "relationships": [
                 {
@@ -47789,6 +49635,11 @@
               "fullDescription": {
                 "text": "An information leak occurs when system data or debugging information leaves the program through an output stream or logging function.\r\n\r\nIn this case <Replace key=\"PrimaryCall.name\" link=\"PrimaryLocation\"/> is called in <Replace key=\"PrimaryLocation.file\"/> at line <Replace key=\"PrimaryLocation.line\"/>.\r\n\r\n**Example 1:** The following code prints an exception to the standard error stream:\r\n\r\n`\ntry {\n    ...\n} catch (Exception e) {\n    e.printStackTrace();\n}\n`\r\n\r\nDepending upon the system configuration, this information can be dumped to a console, written to a log file, or exposed to a remote user. For example, with scripting mechanisms it is trivial to redirect output information from &quot;Standard error&quot; or &quot;Standard output&quot; into a file or another program. Alternatively the system that the program runs on could have a remote logging mechanism such as a &quot;syslog&quot; server that will send the logs to a remote device. During development you will have no way of knowing where this information may end up being displayed.\r\n\r\nIn some cases the error message tells the attacker precisely what sort of an attack the system is vulnerable to. For example, a database error message can reveal that the application is vulnerable to a SQL injection attack. Other error messages can reveal more oblique clues about the system. In the example above, the leaked information could imply information about the type of operating system, the applications installed on the system, and the amount of care that the administrators have put into configuring the program.\r\n\r\nHere is another scenario, specific to the mobile world. Most mobile devices now implement a Near-Field Communication (NFC) protocol for quickly sharing information between devices using radio communication. It works by bringing devices to close proximity or simply having them touch each other. Even though the communication range of NFC is limited to just a few centimeters, eavesdropping, data modification and various other types of attacks are possible, since NFC alone does not ensure secure communication.\r\n\r\n**Example 2:** The Android platform provides support for NFC. The following code creates a message that gets pushed to the other device within the range.\n`\n...\npublic static final String TAG = \"NfcActivity\";\nprivate static final String DATA_SPLITTER = \"__:DATA:__\";\nprivate static final String MIME_TYPE = \"application/my.applications.mimetype\";\n...\npublic NdefMessage createNdefMessage(NfcEvent event) {\n    TelephonyManager tm = (TelephonyManager)Context.getSystemService(Context.TELEPHONY_SERVICE);\n    String VERSION = tm.getDeviceSoftwareVersion();\n    String text = TAG + DATA_SPLITTER + VERSION;\n    NdefRecord record = new NdefRecord(NdefRecord.TNF_MIME_MEDIA,\n            MIME_TYPE.getBytes(), new byte[0], text.getBytes());\n    NdefRecord[] records = { record };\n    NdefMessage msg = new NdefMessage(records);\n    return msg;\n}\n...\n`\r\n\r\nNFC Data Exchange Format (NDEF) message contains typed data, a URI, or a custom application payload. If the message contains information about the application, such as its name, MIME type, or device software version, this information could be leaked to an eavesdropper. In the example above, Fortify Static Code Analyzer reports a System Information Leak vulnerability on the return statement."
               },
+              "defaultConfiguration": {
+                "properties": {
+                  "DefaultSeverity": "3.0"
+                }
+              },
               "relationships": [
                 {
                   "target": {
@@ -47819,6 +49670,11 @@
               },
               "fullDescription": {
                 "text": "The program can potentially fail to release a system resource.\r\n\r\nResource leaks have at least two common causes:\r\n\r\n- Error conditions and other exceptional circumstances.\r\n\r\n- Confusion over which part of the program is responsible for releasing the resource.\r\n\r\nIn this case, there are program paths on which the resource allocated in <Replace key=\"FirstTraceLocation.file\"/> at line <Replace key=\"FirstTraceLocation.line\"/> is not released.\r\n\r\nMost unreleased resource issues result in general software reliability problems, but if an attacker can intentionally trigger a resource leak, the attacker may be able to launch a denial of service attack by depleting the resource pool.\r\n\r\n**Example:** The following method never closes the file handle it opens. The `Finalize()` method for `StreamReader` eventually calls `Close()`, but there is no guarantee as to how long it will take before the `Finalize()` method is invoked. In fact, there is no guarantee that `Finalize()` will ever be invoked. In a busy environment, this can result in the VM using up all of its available file handles.\r\n\r\n`\nprivate void processFile(string fName) {\n        StreamWriter sw = new StreamWriter(fName);\n        string line;\n        while ((line = sr.ReadLine()) != null)\n                processLine(line);\n}\n`"
+              },
+              "defaultConfiguration": {
+                "properties": {
+                  "DefaultSeverity": "3.0"
+                }
               },
               "relationships": [
                 {
@@ -47852,6 +49708,12 @@
               "fullDescription": {
                 "text": "Just about every serious attack on a software system begins with the violation of a programmer's assumptions. After the attack, the programmer's assumptions seem flimsy and poorly founded, but before an attack many programmers would defend their assumptions well past the end of their lunch break.\r\n\r\nTwo dubious assumptions that are easy to spot in code are \"this method call can never fail\" and \"it doesn't matter if this call fails\". When programmers ignore exceptions, they implicitly state that they are operating under one of these assumptions.\r\n\r\n**Example 1:** The following code excerpt ignores a rarely-thrown exception from `DoExchange()`.\r\n\r\n`\ntry {\n  DoExchange();\n}\ncatch (RareException e) {\n  // this can never happen\n}\n`\r\n\r\nIf a `RareException` were to ever be thrown, the program would continue to execute as though nothing unusual had occurred. The program records no evidence indicating the special situation, potentially frustrating any later attempt to explain the program's behavior."
               },
+              "defaultConfiguration": {
+                "level": "note",
+                "properties": {
+                  "DefaultSeverity": "2.0"
+                }
+              },
               "relationships": [
                 {
                   "target": {
@@ -47883,6 +49745,11 @@
               },
               "fullDescription": {
                 "text": "Multiple catch blocks can get ugly and repetitive, but \"condensing\" catch blocks by catching a high-level class like `Exception` can obscure exceptions that deserve special treatment or that should not be caught at this point in the program. Catching an overly broad exception essentially defeats the purpose of .NET's typed exceptions, and can become particularly dangerous if the program grows and begins to throw new types of exceptions. The new exception types will not receive any attention.\r\n\r\n**Example:** The following code excerpt handles three types of exceptions in an identical fashion.\r\n\r\n`\n  try {\n    DoExchange();\n  }\n  catch (IOException e) {\n    logger.Error(\"DoExchange failed\", e);\n  }\n  catch (FormatException e) {\n    logger.Error(\"DoExchange failed\", e);\n  }\n  catch (TimeoutException e) {\n    logger.Error(\"DoExchange failed\", e);\n  }\n`\r\n\r\nAt first blush, it may seem preferable to deal with these exceptions in a single catch block, as follows:\r\n\r\n`\n  try {\n    DoExchange();\n  }\n  catch (Exception e) {\n    logger.Error(\"DoExchange failed\", e);\n  }\n`\r\n\r\nHowever, if `DoExchange()` is modified to throw a new type of exception that should be handled in some different kind of way, the broad catch block will prevent the compiler from pointing out the situation. Further, the new catch block will now also handle exceptions of types `ApplicationException` and `NullReferenceException`, which is not the programmer's intent."
+              },
+              "defaultConfiguration": {
+                "properties": {
+                  "DefaultSeverity": "2.0"
+                }
               },
               "relationships": [
                 {
@@ -47916,6 +49783,11 @@
               "fullDescription": {
                 "text": "Setting manipulation vulnerabilities occur when an attacker may control values that govern the behavior of the system, manage specific resources, or in some way affect the functionality of the application.\r\n\r\nIn this case, potentially malicious data enters the program at <Replace key=\"SourceFunction\" link=\"SourceLocation\"/> in <Replace key=\"SourceLocation.file\"/> at line <Replace key=\"SourceLocation.line\"/> and is passed to <Replace key=\"SinkFunction\" link=\"SinkLocation\"/> in <Replace key=\"SinkLocation.file\"/> at line <Replace key=\"SinkLocation.line\"/>.\r\n\r\nBecause setting manipulation covers a diverse set of functions, any attempt at illustrating it will inevitably be incomplete. Rather than searching for a tight-knit relationship between the functions addressed in the setting manipulation category, take a step back and consider the sorts of system values that an attacker should not be allowed to control."
               },
+              "defaultConfiguration": {
+                "properties": {
+                  "DefaultSeverity": "3.0"
+                }
+              },
               "relationships": [
                 {
                   "target": {
@@ -47946,6 +49818,11 @@
               },
               "fullDescription": {
                 "text": "The .NET runtime will permit the serialization of any object that declares the `[Serializable]` attribute. If the class can be serialized using the default serialization methods defined by the .NET framework, this is both necessary and sufficient for the object to be correctly serialized. If the class requires custom serialization methods, it must also implement the `ISerializable` interface. However, the class must still declare the `[Serializable]` attribute.\r\n\r\n**Example 1:** The `CustomStorage` class implements the `ISerializable` interface. However, because it fails to declare the `[Serializable]` attribute, it will not be serialized.\r\n\r\n`\npublic class CustomStorage: ISerializable {\n\t...\n}\n`"
+              },
+              "defaultConfiguration": {
+                "properties": {
+                  "DefaultSeverity": "3.0"
+                }
               },
               "relationships": [
                 {
@@ -47979,6 +49856,11 @@
               "fullDescription": {
                 "text": "Thread management in a web application is forbidden by the J2EE standard in some circumstances and is always highly error prone. Managing threads is difficult and is likely to interfere in unpredictable ways with the behavior of the application container. Even without interfering with the container, thread management usually leads to bugs that are hard to detect and diagnose like deadlock, race conditions, and other synchronization errors."
               },
+              "defaultConfiguration": {
+                "properties": {
+                  "DefaultSeverity": "2.0"
+                }
+              },
               "relationships": [
                 {
                   "target": {
@@ -48010,6 +49892,11 @@
               },
               "fullDescription": {
                 "text": "Just about every serious attack on a software system begins with the violation of a programmer's assumptions. After the attack, the programmer's assumptions seem flimsy and poorly founded, but before an attack many programmers would defend their assumptions well past the end of their lunch break.\r\n\r\nTwo dubious assumptions that are easy to spot in code are \"this function call can never fail\" and \"it doesn't matter if this function call fails\". When a programmer ignores the return value from a function, they implicitly state that they are operating under one of these assumptions.\r\n\r\nIn this case, an earlier return value is used without being checked in <Replace key=\"PrimaryLocation.file\"/> at line <Replace key=\"PrimaryLocation.line\"/>.\r\n\r\n**Example 1:**  The following code does not check to see if the string returned by the `Item` property is null before calling the member function `Equals()`, potentially causing a null dereference.\r\n\r\n`\nstring itemName = request.Item(ITEM_NAME);\n\tif (itemName.Equals(IMPORTANT_ITEM)) {\n\t\t...\n\t}\n\t...\n`\r\n\r\nThe traditional defense of this coding error is:\r\n\r\n\"I know the requested value will always exist because.... If it does not exist, the program cannot perform the desired behavior so it doesn't matter whether I handle the error or simply allow the program to die dereferencing a null value.\"\r\n\r\nBut attackers are skilled at finding unexpected paths through programs, particularly when exceptions are involved."
+              },
+              "defaultConfiguration": {
+                "properties": {
+                  "DefaultSeverity": "3.0"
+                }
               },
               "relationships": [
                 {
@@ -48054,6 +49941,12 @@
               "fullDescription": {
                 "text": "Insecure randomness errors occur when a function that can produce predictable values is used as a source of randomness in a security-sensitive context.\r\n\r\nIn this case the function that generates weak random numbers is <Replace key=\"PrimaryCall.name\" link=\"PrimaryLocation\"/> in <Replace key=\"PrimaryLocation.file\"/> at line <Replace key=\"PrimaryLocation.line\"/>.\r\n\r\nComputers are deterministic machines, and as such are unable to produce true randomness. Pseudorandom Number Generators (PRNGs) approximate randomness algorithmically, starting with a seed from which subsequent values are calculated.\r\n\r\nThere are two types of PRNGs: statistical and cryptographic. Statistical PRNGs provide useful statistical properties, but their output is highly predictable and form an easy to reproduce numeric stream that is unsuitable for use in cases where security depends on generated values being unpredictable. Cryptographic PRNGs address this problem by generating output that is more difficult to predict. For a value to be cryptographically secure, it must be impossible or highly improbable for an attacker to distinguish between the generated random value and a truly random value. In general, if a PRNG algorithm is not advertised as being cryptographically secure, then it is probably a statistical PRNG and should not be used in security-sensitive contexts, where its use can lead to serious vulnerabilities such as easy-to-guess temporary passwords, predictable cryptographic keys, session hijacking, and DNS spoofing.\r\n\r\n**Example:** The following code uses a statistical PRNG to create a URL for a receipt that remains active for some period of time after a purchase.\r\n\r\n`\nstring GenerateReceiptURL(string baseUrl) {\n    Random Gen = new Random();\n    return (baseUrl + Gen.Next().toString() + &quot;.html&quot;);\n}\n`\r\n\r\nThis code uses the `Random.Next()` function to generate \"unique\" identifiers for the receipt pages it generates. Since `Random.Next()` is a statistical PRNG, it is easy for an attacker to guess the strings it generates. Although the underlying design of the receipt system is also faulty, it would be more secure if it used a random number generator that did not produce predictable receipt identifiers, such as a cryptographic PRNG."
               },
+              "defaultConfiguration": {
+                "level": "error",
+                "properties": {
+                  "DefaultSeverity": "2.0"
+                }
+              },
               "relationships": [
                 {
                   "target": {
@@ -48084,6 +49977,11 @@
               },
               "fullDescription": {
                 "text": "Path manipulation errors occur when the following two conditions are met:\r\n\r\n1. An attacker is able to specify a path used in an operation on the file system.\r\n\r\n2. By specifying the resource, the attacker gains a capability that would not otherwise be permitted.\r\n\r\nFor example, the program may give the attacker the ability to overwrite the specified file or run with a configuration controlled by the attacker.\r\n\r\nIn this case, the attacker may specify the value that enters the program at <Replace key=\"SourceFunction\" link=\"SourceLocation\"/> in <Replace key=\"SourceLocation.file\"/> at line <Replace key=\"SourceLocation.line\"/>, and this value is used to access a file system resource at <Replace key=\"SinkFunction\" link=\"SinkLocation\"/> in <Replace key=\"SinkLocation.file\"/> at line <Replace key=\"SinkLocation.line\"/>.\r\n\r\nEven though the data in this case is a number, it is unvalidated and thus still considered malicious, hence the vulnerability is still reported but with reduced priority values.\r\n\r\n**Example 1:** The following code uses input from an HTTP request to create a file name. The programmer has not considered the possibility that an attacker may provide a file name like \"`..\\\\..\\\\Windows\\\\System32\\\\krnl386.exe`\", which will cause the application to delete an important Windows system file.\r\n\r\n`\nString rName = Request.Item(\"reportName\");\n...\nFile.delete(\"C:\\\\users\\\\reports\\\\\" + rName);\n`\r\n\r\n**Example 2:** The following code uses input from a configuration file to determine which file to open and echo back to the user. If the program runs with adequate privileges and malicious users can change the configuration file, they can use the program to read any file on the system that ends with the extension \".txt\".\r\n\r\n`\nsr = new StreamReader(resmngr.GetString(\"sub\")+\".txt\");\nwhile ((line = sr.ReadLine()) != null) {\nConsole.WriteLine(line);\n}\n`"
+              },
+              "defaultConfiguration": {
+                "properties": {
+                  "DefaultSeverity": "3.0"
+                }
               },
               "relationships": [
                 {
@@ -48128,6 +50026,11 @@
               "fullDescription": {
                 "text": "An information leak occurs when system data or debugging information leaves the program through an output stream or logging function.\r\n\r\nIn this case the data from <Replace key=\"SourceFunction\" link=\"SourceLocation\"/> in <Replace key=\"SourceLocation.file\"/> at line <Replace key=\"SourceLocation.line\"/> leaves the program through <Replace key=\"SinkFunction\" link=\"SinkLocation\"/> in <Replace key=\"SinkLocation.file\"/> at line <Replace key=\"SinkLocation.line\"/>.\r\n\r\n**Example:** The following code constructs a database connection string, uses it to create a new connection to the database, and prints it to the console.\r\n\r\n`\nstring cs=\"database=northwind;server=mySQLServer...\";\nSqlConnection conn=new SqlConnection(cs);\n...\nConsole.Writeline(cs);\n`\r\n\r\nDepending on the system configuration, this information can be dumped to a console, written to a log file, or exposed to a remote user. For example, with scripting mechanisms it is trivial to redirect output information from &quot;Standard error&quot; or &quot;Standard output&quot; into a file or another program. Alternatively the system that the program runs on could have a remote logging mechanism such as a &quot;syslog&quot; server that will send the logs to a remote device. During development you will have no way of knowing where this information may end up being displayed.\r\n\r\nIn some cases the error message tells the attacker precisely what sort of an attack the system is vulnerable to. For example, a database error message can reveal that the application is vulnerable to a SQL injection attack. Other error messages can reveal more oblique clues about the system. In the example above, the leaked information could imply information about the type of operating system, the applications installed on the system, and the amount of care that the administrators have put into configuring the program."
               },
+              "defaultConfiguration": {
+                "properties": {
+                  "DefaultSeverity": "3.0"
+                }
+              },
               "relationships": [
                 {
                   "target": {
@@ -48158,6 +50061,12 @@
               },
               "fullDescription": {
                 "text": "**Example 1:** The first .NET program that a developer learns to write often looks like this:\r\n\r\n`\npublic class MyClass {\n  public static void Main(string[] args) {\n    Console.WriteLine(\"hello world\");\n  }\n}\n`\r\n\r\nWhile most programmers go on to learn many nuances and subtleties about .NET, a surprising number hang on to this first lesson and never give up on writing messages to standard output using `Console.WriteLine()`.\r\n\r\nThe problem is that writing directly to standard output or standard error is often used as an unstructured form of logging. Structured logging facilities provide features like logging levels, uniform formatting, a logger identifier, timestamps, and, perhaps most critically, the ability to direct the log messages to the right place. When the use of system output streams is jumbled together with the code that uses loggers properly, the result is often a well-kept log that is missing critical information.\r\n\r\nDevelopers widely accept the need for structured logging, but many continue to use system output streams in their \"pre-production\" development. If the code you are reviewing is past the initial phases of development, use of `Console.WriteLine` may indicate an oversight in the move to a structured logging system."
+              },
+              "defaultConfiguration": {
+                "level": "note",
+                "properties": {
+                  "DefaultSeverity": "2.0"
+                }
               },
               "relationships": [
                 {
@@ -48191,6 +50100,12 @@
               "fullDescription": {
                 "text": "This field is never accessed, except perhaps by dead code. Dead code is defined as code that is never directly or indirectly executed by a public method. It is likely that the field is simply vestigial, but it is also possible that the unused field points out a bug.\r\n\r\n**Example 1:** The field named `glue` is not used in the following class. The author of the class has accidentally put quotes around the field name, transforming it into a string constant.\r\n\r\n`\npublic class Dead {\r\n\r\n  string glue;\r\n\r\n  public string GetGlue() {\n    return \"glue\";\n  }\r\n\r\n}\n`\r\n\r\n**Example 2:** The field named `glue` is used in the following class, but only from a method that is never called by a public method.\r\n\r\n`\npublic class Dead {\r\n\r\n  string glue;\r\n\r\n  private string GetGlue() {\n    return glue;\n  }\r\n\r\n}\n`"
               },
+              "defaultConfiguration": {
+                "level": "note",
+                "properties": {
+                  "DefaultSeverity": "2.0"
+                }
+              },
               "relationships": [
                 {
                   "target": {
@@ -48222,6 +50137,12 @@
               },
               "fullDescription": {
                 "text": "Storing a plaintext password in a configuration file allows anyone who can read the file access to the password-protected resource. Developers sometimes believe that they cannot defend the application from someone who has access to the configuration, but this attitude makes an attacker's job easier. Good password management guidelines require that a password never be stored in plaintext.\r\n\r\nIn this case, a hardcoded password exists in <Replace key=\"PrimaryLocation.file\"/> at line <Replace key=\"PrimaryLocation.line\"/>."
+              },
+              "defaultConfiguration": {
+                "level": "error",
+                "properties": {
+                  "DefaultSeverity": "4.0"
+                }
               },
               "relationships": [
                 {
@@ -48279,6 +50200,12 @@
               "fullDescription": {
                 "text": "In .Net, static variables are initialized to its default values, however usage of those variables without initializing may lead to business logic based issues or may be used to execute a Denial of Service (DoS) attack. Programs should never use the default value of a variable.\r\n\r\nIn this case, the variable declared in <Replace key=\"FirstTraceLocation.file\"/> at line <Replace key=\"FirstTraceLocation.line\"/> can be used at line <Replace key=\"PrimaryLocation.line\"/> without being set first.\r\n\r\nIt is not uncommon for programmers to use an uninitialized variable in code that handles errors or other rare and exceptional circumstances. Uninitialized variable warnings can sometimes indicate the presence of a typographic error in the code.\r\n\r\n**Example 1:** The following code will get compiled by the .Net compiler without any error. However, the following statement `int a = (Int32)i + (Int32)j;` throws an unhandled exception and crashes the application at runtime.\n    `\n    class Program\n        {\n            static int? i = j;\n            static int? j;\n            static void Main(string[] args)\n            {\n                j = 100;\n                int a = (Int32)i + (Int32)j;\r\n\r\n                Console.WriteLine(i);\n                Console.WriteLine(j);\n                Console.WriteLine(a);\n            }\n        }\n    `\r\n\r\nMost uninitialized variable issues result in general software reliability problems, but if attackers can intentionally trigger the use of an uninitialized variable, they might be able to launch a denial of service attack by crashing the program."
               },
+              "defaultConfiguration": {
+                "level": "note",
+                "properties": {
+                  "DefaultSeverity": "2.0"
+                }
+              },
               "relationships": [
                 {
                   "target": {
@@ -48310,6 +50237,11 @@
               "fullDescription": {
                 "text": "Most successful attacks begin with a violation of the programmer's assumptions. By accepting an XML document without validating it against a DTD or XML schema, the programmer leaves a door open for attackers to provide unexpected, unreasonable, or malicious input. It is not possible for an XML parser to validate all aspects of a document's content; a parser cannot understand the complete semantics of the data. However, a parser can do a complete and thorough job of checking the document's structure and therefore guarantee to the code that processes the document that the content is well-formed.\r\n\r\nIn this case, schema validation is not enabled for the `XmlReaderSettings` object allocated in <Replace key=\"FirstTraceLocation.file\"/> at line <Replace key=\"FirstTraceLocation.line\"/>."
               },
+              "defaultConfiguration": {
+                "properties": {
+                  "DefaultSeverity": "3.0"
+                }
+              },
               "relationships": [
                 {
                   "target": {
@@ -48340,6 +50272,11 @@
               },
               "fullDescription": {
                 "text": "Command injection vulnerabilities take two forms:\r\n\r\n- An attacker can change the command that the program executes: the attacker explicitly controls what the command is.\r\n\r\n- An attacker can change the environment in which the command executes: the attacker implicitly controls what the command means.\r\n\r\nIn this case we are primarily concerned with the second scenario, the possibility that an attacker may be able to change the meaning of the command by changing an environment variable or by putting a malicious executable early in the search path. Command injection vulnerabilities of this type occur when:\r\n\r\n1. An attacker modifies an application's environment.\r\n\r\n2. The application executes a command without specifying an absolute path or verifying the binary being executed.\r\n\r\nIn this case the command is executed by <Replace key=\"PrimaryCall.name\" link=\"PrimaryLocation\"/> in <Replace key=\"PrimaryLocation.file\"/> at line <Replace key=\"PrimaryLocation.line\"/>.\r\n\r\n3. By executing the command, the application gives an attacker a privilege or capability that the attacker would not otherwise have.\r\n\r\n**Example:** The following code is from a web application that allows users access to an interface through which they can update their password on the system. Part of the process for updating passwords in certain network environments is to run a `make` command in the `/var/yp` directory, the code for which is shown below.\r\n\r\n`\n...\nSystem.Runtime.getRuntime().exec(\"make\");\n...\n`\r\n\r\nThe problem here is that the program does not specify an absolute path for make and fails to clean its environment prior to executing the call to `Runtime.exec()`. If an attacker can modify the `$PATH` variable to point to a malicious binary called `make` and then execute the application in their environment, the malicious binary will be loaded instead of the one intended. Because of the nature of the application, it runs with the privileges necessary to perform system operations, which means the attacker's `make` will now be run with these privileges, possibly giving them complete control of the system."
+              },
+              "defaultConfiguration": {
+                "properties": {
+                  "DefaultSeverity": "3.0"
+                }
               },
               "relationships": [
                 {
@@ -48384,6 +50321,12 @@
               "fullDescription": {
                 "text": "This method is never called or is only called from other dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\n\r\n**Example 1:** In the following class, the method `DoWork()` can never be called.\r\n\r\n`\npublic class Dead {\n  private void DoWork() {\n    Console.Write(\"doing work\");\n  }\n  public static void Main(string[] args) {\n    Console.Write(\"running Dead\");\n  }\n}\n`\r\n\r\n**Example 2:** In the following class, two private methods call each other, but since neither one is ever invoked from anywhere else, they are both dead code.\r\n\r\n`\npublic class DoubleDead {\n  private void DoTweedledee() {\n    DoTweedledumb();\n  }\n  private void DoTweedledumb() {\n    DoTweedledee();\n  }\n  public static void Main(string[] args) {\n    Console.Write(\"running DoubleDead\");\n  }\n}\n`\r\n\r\n(In this case it is a good thing that the methods are dead: invoking either one would cause an infinite loop.)"
               },
+              "defaultConfiguration": {
+                "level": "note",
+                "properties": {
+                  "DefaultSeverity": "2.0"
+                }
+              },
               "relationships": [
                 {
                   "target": {
@@ -48416,6 +50359,11 @@
               "fullDescription": {
                 "text": "MD2, MD4, MD5, RIPEMD-160, and SHA-1 are popular cryptographic hash algorithms often used to verify the integrity of messages and other data. However, as recent cryptanalysis research has revealed fundamental weaknesses in these algorithms, they should no longer be used within security-critical contexts.\r\n\r\nEffective techniques for breaking MD and RIPEMD hashes are widely available, so those algorithms should not be relied upon for security. In the case of SHA-1, current techniques still require a significant amount of computational power and are more difficult to implement. However, attackers have found the Achilles' heel for the algorithm, and techniques for breaking it will likely lead to the discovery of even faster attacks."
               },
+              "defaultConfiguration": {
+                "properties": {
+                  "DefaultSeverity": "3.0"
+                }
+              },
               "relationships": [
                 {
                   "target": {
@@ -48446,6 +50394,11 @@
               },
               "fullDescription": {
                 "text": "A common development practice is to add \"back door\" code specifically designed for debugging or testing purposes that is not intended to be shipped or deployed with the application. When this sort of debug code is accidentally left in the application, the application is open to unintended modes of interaction. These back door entry points create security risks because they are not considered during design or testing and fall outside of the expected operating conditions of the application.\r\n\r\nThe most common example of forgotten debug code is a `Main()` method appearing in a web application. Although this is an acceptable practice during product development, classes that are part of a production ASP.NET application should not define a `Main()`."
+              },
+              "defaultConfiguration": {
+                "properties": {
+                  "DefaultSeverity": "2.0"
+                }
               },
               "relationships": [
                 {
@@ -48479,6 +50432,11 @@
               "fullDescription": {
                 "text": "Attackers may be able to deny service to legitimate users by flooding the application with requests, but flooding attacks can often be defused at the network layer. More problematic are bugs that allow an attacker to overload the application using a small number of requests. Such bugs allow the attacker to specify the quantity of system resources their requests will consume or the duration for which they will use them.\r\n\r\n**Example 1:** The following code allows a user to specify the amount of time for which a thread will sleep. By specifying a large number, an attacker may tie up the thread indefinitely. With a small number of requests, the attacker may deplete the application's thread pool.\r\n\r\n`\n  int usrSleepTime = Int32.Parse(usrInput);\n  Thread.Sleep(usrSleepTime);\n`\r\n\r\n**Example 2:** The following code reads a String from a zip file. Because it uses the `ReadLine()` method, it will read an unbounded amount of input. An attacker may take advantage of this code to cause an `OutOfMemoryException` or to consume a large amount of memory so that the program spends more time performing garbage collection or runs out of memory during some subsequent operation.\r\n\r\n`\n   using (StreamReader sr = new StreamReader(\"file.zip\"))\n   {\n      String line;\n      line = sr.ReadLine();\n\t ...\n   }\n`"
               },
+              "defaultConfiguration": {
+                "properties": {
+                  "DefaultSeverity": "2.0"
+                }
+              },
               "relationships": [
                 {
                   "target": {
@@ -48509,6 +50467,11 @@
               },
               "fullDescription": {
                 "text": "Path manipulation errors occur when the following two conditions are met:\r\n\r\n1. An attacker is able to specify a path used in an operation on the file system.\r\n\r\n2. By specifying the resource, the attacker gains a capability that would not otherwise be permitted.\r\n\r\nFor example, the program may give the attacker the ability to overwrite the specified file or run with a configuration controlled by the attacker.\r\n\r\nIn this case, the attacker may specify the value that enters the program at <Replace key=\"SourceFunction\" link=\"SourceLocation\"/> in <Replace key=\"SourceLocation.file\"/> at line <Replace key=\"SourceLocation.line\"/>, and this value is used to access a file system resource at <Replace key=\"SinkFunction\" link=\"SinkLocation\"/> in <Replace key=\"SinkLocation.file\"/> at line <Replace key=\"SinkLocation.line\"/>.\r\n\r\nEven though the data in this case is a number, it is unvalidated and thus still considered malicious, hence the vulnerability is still reported but with reduced priority values.\r\n\r\n**Example 1:** The following code uses input from an HTTP request to create a file name. The programmer has not considered the possibility that an attacker may provide a file name like \"`..\\\\..\\\\Windows\\\\System32\\\\krnl386.exe`\", which will cause the application to delete an important Windows system file.\r\n\r\n`\nString rName = Request.Item(\"reportName\");\n...\nFile.delete(\"C:\\\\users\\\\reports\\\\\" + rName);\n`\r\n\r\n**Example 2:** The following code uses input from a configuration file to determine which file to open and echo back to the user. If the program runs with adequate privileges and malicious users can change the configuration file, they can use the program to read any file on the system that ends with the extension \".txt\".\r\n\r\n`\nsr = new StreamReader(resmngr.GetString(\"sub\")+\".txt\");\nwhile ((line = sr.ReadLine()) != null) {\nConsole.WriteLine(line);\n}\n`"
+              },
+              "defaultConfiguration": {
+                "properties": {
+                  "DefaultSeverity": "3.0"
+                }
               },
               "relationships": [
                 {
@@ -48553,6 +50516,11 @@
               "fullDescription": {
                 "text": "Different operating systems use different characters as file separators. For example, Microsoft Windows systems use \"\\\", while UNIX systems use \"/\". When applications have to run on different platforms, the use of hardcoded file separators can lead to incorrect execution of application logic and potentially a denial of service.\r\n\r\nIn this case a hardcoded file separator was used in the call to <Replace key=\"PrimaryCall.name\" link=\"PrimaryLocation\"/> in <Replace key=\"PrimaryLocation.file\"/> at line <Replace key=\"PrimaryLocation.line\"/>.\r\n\r\n**Example 1:** The following code uses a hardcoded file separator to open a file:\r\n\r\n`\n...\nFileStream f = File.Create(directoryName + \"\\\\\" + fileName);\n...\n`"
               },
+              "defaultConfiguration": {
+                "properties": {
+                  "DefaultSeverity": "3.0"
+                }
+              },
               "relationships": [
                 {
                   "target": {
@@ -48585,6 +50553,12 @@
               "fullDescription": {
                 "text": "Insecure randomness errors occur when a function that can produce predictable values is used as a source of randomness in a security-sensitive context.\r\n\r\nIn this case the function that generates weak random numbers is <Replace key=\"PrimaryCall.name\" link=\"PrimaryLocation\"/> in <Replace key=\"PrimaryLocation.file\"/> at line <Replace key=\"PrimaryLocation.line\"/>.\r\n\r\nComputers are deterministic machines, and as such are unable to produce true randomness. Pseudorandom Number Generators (PRNGs) approximate randomness algorithmically, starting with a seed from which subsequent values are calculated.\r\n\r\nThere are two types of PRNGs: statistical and cryptographic. Statistical PRNGs provide useful statistical properties, but their output is highly predictable and form an easy to reproduce numeric stream that is unsuitable for use in cases where security depends on generated values being unpredictable. Cryptographic PRNGs address this problem by generating output that is more difficult to predict. For a value to be cryptographically secure, it must be impossible or highly improbable for an attacker to distinguish between the generated random value and a truly random value. In general, if a PRNG algorithm is not advertised as being cryptographically secure, then it is probably a statistical PRNG and should not be used in security-sensitive contexts, where its use can lead to serious vulnerabilities such as easy-to-guess temporary passwords, predictable cryptographic keys, session hijacking, and DNS spoofing.\r\n\r\n**Example:** The following code uses a statistical PRNG to create a URL for a receipt that remains active for some period of time after a purchase.\r\n\r\n`\nString GenerateReceiptURL(String baseUrl) {\n    Random ranGen = new Random();\n    ranGen.setSeed((new Date()).getTime());\n    return (baseUrl + ranGen.nextInt(400000000) + \".html\");\n}\n`\r\n\r\nThis code uses the `Random.nextInt()` function to generate \"unique\" identifiers for the receipt pages it generates. Since `Random.nextInt()` is a statistical PRNG, it is easy for an attacker to guess the strings it generates. Although the underlying design of the receipt system is also faulty, it would be more secure if it used a random number generator that did not produce predictable receipt identifiers, such as a cryptographic PRNG."
               },
+              "defaultConfiguration": {
+                "level": "error",
+                "properties": {
+                  "DefaultSeverity": "2.0"
+                }
+              },
               "relationships": [
                 {
                   "target": {
@@ -48615,6 +50589,11 @@
               },
               "fullDescription": {
                 "text": "Attackers may deliberately duplicate class names in order to cause a program to execute malicious code. For this reason, class names are not good type identifiers and should not be used as the basis for granting trust to a given object.\r\n\r\nExample 1: The following code opts to trust or distrust input from an `inputReader` object based on its class name. If an attacker is able to supply an implementation of `inputReader` that executes malicious commands, this code will be unable to differentiate the benign and malicious versions of the object.\r\n\r\n`\nif (inputReader.GetType().FullName == \"CompanyX.Transaction.Monetary\")\n{\n   processTransaction(inputReader);\n}\n`"
+              },
+              "defaultConfiguration": {
+                "properties": {
+                  "DefaultSeverity": "2.0"
+                }
               },
               "relationships": [
                 {
@@ -48648,6 +50627,11 @@
               "fullDescription": {
                 "text": "This method's name is similar to a common .NET method name, but it is either spelled incorrectly or the argument list causes it to not override the intended method.\r\n\r\n**Example 1:** The following method is meant to override `System.Object.Equals()`:\r\n\r\n`\npublic boolean Equals(string obj) {\n  ...\n}\n`\r\n\r\nBut since `System.Object.Equals()` takes an argument of type `object`, the method above is never called."
               },
+              "defaultConfiguration": {
+                "properties": {
+                  "DefaultSeverity": "2.0"
+                }
+              },
               "relationships": [
                 {
                   "target": {
@@ -48680,6 +50664,11 @@
               "fullDescription": {
                 "text": "Null pointer errors are usually the result of one or more programmer assumptions being violated.\r\n\r\nIn this case the variable can be null when it is dereferenced at line <Replace key=\"PrimaryLocation.line\"/>, thereby raising a `NullException`.\r\n\r\nMost null pointer issues result in general software reliability problems, but if an attacker can intentionally trigger a null pointer dereference, the attacker may be able to use the resulting exception to bypass security logic or to cause the application to reveal debugging information that will be valuable in planning subsequent attacks.\r\n\r\n**Example 1:** In the following code, the programmer assumes that the system always has a property named \"`cmd`\" defined. If an attacker can control the program's environment so that \"`cmd`\" is not defined, the program throws a null pointer exception when it attempts to call the `Trim()` method.\r\n\r\n`\nstring cmd = null;\n...\ncmd = Environment.GetEnvironmentVariable(\"cmd\");\ncmd = cmd.Trim();\n`"
               },
+              "defaultConfiguration": {
+                "properties": {
+                  "DefaultSeverity": "3.0"
+                }
+              },
               "relationships": [
                 {
                   "target": {
@@ -48710,6 +50699,11 @@
               },
               "fullDescription": {
                 "text": "It is not uncommon for programmers to misunderstand `Read()` and related methods that are part of many `System.IO` classes. Most errors and unusual events in .NET result in an exception being thrown. (This is one of the advantages that .NET has over languages like C: Exceptions make it easier for programmers to think about what can go wrong.)  But the stream and reader classes do not consider it to be unusual or exceptional if only a small amount of data becomes available. These classes simply add the small amount of data to the return buffer, and set the return value to the number of bytes or characters read. There is no guarantee that the amount of data returned is equal to the amount of data requested.\r\n\r\nThis behavior makes it important for programmers to examine the return value from `Read()` and other IO methods and ensure that they receive the amount of data they expect.\r\n\r\nIn this case the value of <Replace key=\"PrimaryCall.name\" link=\"PrimaryLocation\"/> is unchecked in <Replace key=\"PrimaryLocation.file\"/> at line <Replace key=\"PrimaryLocation.line\"/>.\r\n\r\n**Example:** The following code loops through a set of users, reading a private data file for each user. The programmer assumes that the files are always 1 kilobyte in size and therefore ignores the return value from `Read()`. If an attacker can create a smaller file, the program will recycle the remainder of the data from the previous user and handle it as though it belongs to the attacker.\r\n\r\n`\nchar[] byteArray = new char[1024];\nfor (IEnumerator i=users.GetEnumerator(); i.MoveNext() ;i.Current()) {\n    string userName = (string) i.Current();\n    string pFileName = PFILE_ROOT + \"/\" + userName;\n    StreamReader sr = new StreamReader(pFileName);\n    sr.Read(byteArray,0,1024);//the file is always 1k bytes\n    sr.Close();\n    processPFile(userName, byteArray);\n}\n`"
+              },
+              "defaultConfiguration": {
+                "properties": {
+                  "DefaultSeverity": "2.0"
+                }
               },
               "relationships": [
                 {
@@ -48754,6 +50748,11 @@
               "fullDescription": {
                 "text": "A common development practice is to add \"back door\" code specifically designed for debugging or testing purposes that is not intended to be shipped or deployed with the application. When this sort of debug code is accidentally left in the application, the application is open to unintended modes of interaction. These back door entry points create security risks because they are not considered during design or testing and fall outside of the expected operating conditions of the application.\r\n\r\nThe most common example of forgotten debug code is a `main()` method appearing in a web application. Although this is an acceptable practice during product development, classes that are part of a production J2EE application should not define a `main()`."
               },
+              "defaultConfiguration": {
+                "properties": {
+                  "DefaultSeverity": "2.0"
+                }
+              },
               "relationships": [
                 {
                   "target": {
@@ -48786,6 +50785,12 @@
               "fullDescription": {
                 "text": "**Example 1:** The first Java program that a developer learns to write often looks like this:\r\n\r\n`\npublic class MyClass\n  public static void main(String[] args) {\n    System.out.println(\"hello world\");\n  }\n}\n`\r\n\r\nWhile most programmers go on to learn many nuances and subtleties about Java, a surprising number hang on to this first lesson and never give up on writing messages to standard output using `System.out.println()`.\r\n\r\nThe problem is that writing directly to standard output or standard error is often used as an unstructured form of logging. Structured logging facilities provide features like logging levels, uniform formatting, a logger identifier, timestamps, and, perhaps most critically, the ability to direct the log messages to the right place. When the use of system output streams is jumbled together with the code that uses loggers properly, the result is often a well-kept log that is missing critical information.\r\n\r\nDevelopers widely accept the need for structured logging, but many continue to use system output streams in their \"pre-production\" development. If the code you are reviewing is past the initial phases of development, use of `System.out` or `System.err` may indicate an oversight in the move to a structured logging system."
               },
+              "defaultConfiguration": {
+                "level": "note",
+                "properties": {
+                  "DefaultSeverity": "2.0"
+                }
+              },
               "relationships": [
                 {
                   "target": {
@@ -48817,6 +50822,11 @@
               },
               "fullDescription": {
                 "text": "Path manipulation errors occur when the following two conditions are met:\r\n\r\n1. An attacker is able to specify a path used in an operation on the file system.\r\n\r\n2. By specifying the resource, the attacker gains a capability that would not otherwise be permitted.\r\n\r\nFor example, the program may give the attacker the ability to overwrite the specified file or run with a configuration controlled by the attacker.\r\n\r\nIn this case, the attacker may specify the value that enters the program at <Replace key=\"SourceFunction\" link=\"SourceLocation\"/> in <Replace key=\"SourceLocation.file\"/> at line <Replace key=\"SourceLocation.line\"/>, and this value is used to access a file system resource at <Replace key=\"SinkFunction\" link=\"SinkLocation\"/> in <Replace key=\"SinkLocation.file\"/> at line <Replace key=\"SinkLocation.line\"/>.\r\n\r\nEven though the data in this case is a number, it is unvalidated and thus still considered malicious, hence the vulnerability is still reported but with reduced priority values.\r\n\r\n**Example 1:** The following code uses input from an HTTP request to create a file name. The programmer has not considered the possibility that an attacker may provide a file name like \"`..\\\\..\\\\Windows\\\\System32\\\\krnl386.exe`\", which will cause the application to delete an important Windows system file.\r\n\r\n`\nString rName = Request.Item(\"reportName\");\n...\nFile.delete(\"C:\\\\users\\\\reports\\\\\" + rName);\n`\r\n\r\n**Example 2:** The following code uses input from a configuration file to determine which file to open and echo back to the user. If the program runs with adequate privileges and malicious users can change the configuration file, they can use the program to read any file on the system that ends with the extension \".txt\".\r\n\r\n`\nsr = new StreamReader(resmngr.GetString(\"sub\")+\".txt\");\nwhile ((line = sr.ReadLine()) != null) {\nConsole.WriteLine(line);\n}\n`"
+              },
+              "defaultConfiguration": {
+                "properties": {
+                  "DefaultSeverity": "3.0"
+                }
               },
               "relationships": [
                 {
@@ -48860,6 +50870,12 @@
               },
               "fullDescription": {
                 "text": "Insecure randomness errors occur when a function that can produce predictable values is used as a source of randomness in a security-sensitive context.\r\n\r\nIn this case the function that generates weak random numbers is <Replace key=\"PrimaryCall.name\" link=\"PrimaryLocation\"/> in <Replace key=\"PrimaryLocation.file\"/> at line <Replace key=\"PrimaryLocation.line\"/>.\r\n\r\nComputers are deterministic machines, and as such are unable to produce true randomness. Pseudorandom Number Generators (PRNGs) approximate randomness algorithmically, starting with a seed from which subsequent values are calculated.\r\n\r\nThere are two types of PRNGs: statistical and cryptographic. Statistical PRNGs provide useful statistical properties, but their output is highly predictable and form an easy to reproduce numeric stream that is unsuitable for use in cases where security depends on generated values being unpredictable. Cryptographic PRNGs address this problem by generating output that is more difficult to predict. For a value to be cryptographically secure, it must be impossible or highly improbable for an attacker to distinguish between the generated random value and a truly random value. In general, if a PRNG algorithm is not advertised as being cryptographically secure, then it is probably a statistical PRNG and should not be used in security-sensitive contexts, where its use can lead to serious vulnerabilities such as easy-to-guess temporary passwords, predictable cryptographic keys, session hijacking, and DNS spoofing.\r\n\r\n**Example:** The following code uses a statistical PRNG to create a URL for a receipt that remains active for some period of time after a purchase.\r\n\r\n`\nString GenerateReceiptURL(String baseUrl) {\n    Random ranGen = new Random();\n    ranGen.setSeed((new Date()).getTime());\n    return (baseUrl + ranGen.nextInt(400000000) + \".html\");\n}\n`\r\n\r\nThis code uses the `Random.nextInt()` function to generate \"unique\" identifiers for the receipt pages it generates. Since `Random.nextInt()` is a statistical PRNG, it is easy for an attacker to guess the strings it generates. Although the underlying design of the receipt system is also faulty, it would be more secure if it used a random number generator that did not produce predictable receipt identifiers, such as a cryptographic PRNG."
+              },
+              "defaultConfiguration": {
+                "level": "error",
+                "properties": {
+                  "DefaultSeverity": "2.0"
+                }
               },
               "relationships": [
                 {

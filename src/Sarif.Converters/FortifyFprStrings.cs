@@ -64,8 +64,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <summary>The string constant "Subtype"</summary>
         public readonly string Subtype;
 
+        /// <summary>The string constant "DefaultSeverity"</summary>
+        public readonly string DefaultSeverity;
+
         /// <summary>The string constant "InstanceSeverity"</summary>
         public readonly string InstanceSeverity;
+
+        /// <summary>The string constant "Confidence"</summary>
+        public readonly string Confidence;
+
+        /// <summary>The string constant "Level"</summary>
+        public readonly string Level;
 
         /// <summary>The string constant "AnalysisInfo"</summary>
         public readonly string AnalysisInfo;
@@ -237,7 +246,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Kingdom = nameTable.Add("Kingdom");
             Type = nameTable.Add("Type");
             Subtype = nameTable.Add("Subtype");
+            DefaultSeverity = nameTable.Add("DefaultSeverity");
             InstanceSeverity = nameTable.Add("InstanceSeverity");
+            Confidence = nameTable.Add("Confidence");
+            Level = nameTable.Add("Level");
             AnalysisInfo = nameTable.Add("AnalysisInfo");
             ReplacementDefinitions = nameTable.Add("ReplacementDefinitions");
             Def = nameTable.Add("Def");
