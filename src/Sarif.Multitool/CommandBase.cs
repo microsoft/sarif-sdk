@@ -65,8 +65,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             {
                 string normalizedSpecifier = specifier;
 
-                Uri uri;
-                if (Uri.TryCreate(specifier, UriKind.RelativeOrAbsolute, out uri))
+                if (Uri.TryCreate(specifier, UriKind.RelativeOrAbsolute, out Uri uri))
                 {
                     if (uri.IsAbsoluteUri && (uri.IsFile || uri.IsUnc))
                     {

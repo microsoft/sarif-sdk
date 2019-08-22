@@ -134,7 +134,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             };
 
         [Fact]
-        [Trait(TestTraits.Bug, "1642")]
+        [Trait(TestTraits.Bug, "https://github.com/microsoft/sarif-sdk/issues/1642")]
         public void ValidatingSingleFileOutputOptions_ProducesExpectedResults()
         {
             var failedTestCases = new List<string>();
@@ -206,7 +206,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             };
 
         [Fact]
-        [Trait(TestTraits.Bug, "1642")]
+        [Trait(TestTraits.Bug, "https://github.com/microsoft/sarif-sdk/issues/1642")]
         public void ValidatingMultipleFilesOutputOptions_ProducesExpectedResults()
         {
             var failedTestCases = new List<string>();

@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-2.1.0-rtm.1",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "CodeScanner"
+        }
+      },
+      "invocations": [
+        {
+          "startTimeUtc": "2019-07-09T09:56:46.144Z",
+          "executionSuccessful": true
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "TST0001",
+          "message": {
+            "text": "Message."
+          },
+          "properties": {
+            "alertDiscoveryDate": "2019-06-22T19:06:31.209Z",
+            "comment": "Demonstrates fix for #1577: PrereleaseCompatibilityTransformer mishandles date/times in property bag."
+          }
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ],
+  "properties": {
+    "comment": "Demonstrates fix for #1584: Multitool Transform can't upgrade \"http: //json.schemastore.org/sarif-2.1.0-rtm.1\" schema"
+  }
+}

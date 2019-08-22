@@ -449,6 +449,7 @@
 * BUGFIX: Persist Fortify rule metadata properties. https://github.com/microsoft/sarif-sdk/issues/1490
 * BUGFIX: Multitool transform mishandled dottedQuadFileVersion. https://github.com/microsoft/sarif-sdk/issues/1532
 * BUGFIX: Restore missing FxCop converter unit test. https://github.com/microsoft/sarif-sdk/issues/1575
+* BUGFIX: Multitool transform mishandled date/time values in property bags. https://github.com/microsoft/sarif-sdk/issues/1577
 * BUGFIX: Multitool transform could not upgrade SARIF files from the sarif-2.1.0-rtm.1 schema. https://github.com/microsoft/sarif-sdk/issues/1584
 * BUGFIX: Multitool merge command produced invalid SARIF if there were 0 input files. https://github.com/microsoft/sarif-sdk/issues/1592
 * BUGFIX: FortifyFpr converter produced invalid SARIF. https://github.com/microsoft/sarif-sdk/issues/1593

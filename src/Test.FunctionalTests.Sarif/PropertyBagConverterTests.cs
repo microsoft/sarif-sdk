@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests
     public class PropertyBagConverterTests
     {
         [Fact]
-        [Trait(TestTraits.Bug, "1045")]
+        [Trait(TestTraits.Bug, "https://github.com/microsoft/sarif-sdk/issues/1045")]
         public void PropertyBagConverter_RoundTripsStringPropertyWithEscapedCharacters()
         {
             string intPropertyName = nameof(intPropertyName);

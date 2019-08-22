@@ -22,13 +22,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     // requires one or more input files, we'll have to address this. We will probably have to
     // factor the output file writing and comparison infrastructure out of FileDiffingUnitTests.
     // We might be able to push it into a lower base class.
-    public class MergeCommandTests : FileDiffingUnitTests
+    public class MergeCommandTests : FileDiffingUnitTests, IClassFixture<MergeCommandTests.MergeCommandTestsFixture>
     {
+        public class MergeCommandTestsFixture : DeletesOutputsDirectoryOnClassInitializationFixture { }
+
         protected override string TestLogResourceNameRoot => "Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool.TestData." + TypeUnderTest;
 
         public MergeCommandTests(ITestOutputHelper outputHelper) : base(outputHelper) { }
 
         [Fact]
+        [Trait(TestTraits.Bug, "https://github.com/microsoft/sarif-sdk/issues/1592")]
         public void MergeCommand_WhenThereAreNoInputFiles_ProducesEmptyRunsArray()
         {
             RunTest("NoInputFiles.sarif");

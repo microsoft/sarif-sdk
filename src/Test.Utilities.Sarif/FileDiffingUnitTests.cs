@@ -187,22 +187,23 @@ namespace Microsoft.CodeAnalysis.Sarif
         public static bool AreEquivalent<T>(string actualSarif, string expectedSarif, IContractResolver contractResolver = null)
         {
             expectedSarif = expectedSarif ?? "{}";
-            JToken expectedToken = JToken.Parse(expectedSarif);
+            var expectedToken = SarifUtilities.DeserializeObject<JToken>(expectedSarif);
 
-            JToken actualToken = JToken.Parse(actualSarif);
+            var actualToken = SarifUtilities.DeserializeObject<JToken>(actualSarif);
             if (!JToken.DeepEquals(actualToken, expectedToken)) { return false; }
 
-            // Make sure we can successfully roundtrip what was just generated
+            // Make sure we can successfully roundtrip what was just generated.
             JsonSerializerSettings settings = new JsonSerializerSettings()
             {
                 ContractResolver = contractResolver,
-                Formatting = Formatting.Indented
+                Formatting = Formatting.Indented,
+                DateParseHandling = DateParseHandling.None
             };
 
             T actualSarifObject = JsonConvert.DeserializeObject<T>(actualSarif, settings);
             string roundTrippedSarif = JsonConvert.SerializeObject(actualSarifObject, settings);
 
-            JToken roundTrippedToken = JToken.Parse(roundTrippedSarif);
+            var roundTrippedToken = SarifUtilities.DeserializeObject<JToken>(roundTrippedSarif);
             if (!JToken.DeepEquals(actualToken, roundTrippedToken)) { return false; }
 
             return true;
