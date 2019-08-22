@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         const string OutputFilePath = @"C:\Users\John\output\example-validation.sarif";
 
         [Fact]
-        [Trait(TestTraits.Bug, "https://github.com/microsoft/sarif-sdk/1064")]
+        [Trait(TestTraits.Bug, "https://github.com/microsoft/sarif-sdk/issues/1064")]
         public void ValidateCommand_AcceptsTargetFileWithSpaceInName()
         {
             // Here's the space:
@@ -52,7 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
-        [Trait(TestTraits.Bug, "https://github.com/microsoft/sarif-sdk/1340")]
+        [Trait(TestTraits.Bug, "https://github.com/microsoft/sarif-sdk/issues/1340")]
         public void ValidateCommand_WhenOutputFileIsPresentAndForceOptionIsAbsent_DoesNotOverwriteOutputFile()
         {
             string logFilePath = Path.Combine(LogFileDirectory, LogFileName);

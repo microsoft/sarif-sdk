@@ -112,7 +112,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         }
 
         [Fact]
-        [Trait(TestTraits.Bug, "https://github.com/microsoft/sarif-sdk/1581")]
+        [Trait(TestTraits.Bug, "https://github.com/microsoft/sarif-sdk/issues/1581")]
         public void PropertyBagConverter_RoundTripsNullValueForReferenceType()
         {
             _input = "{\"properties\":{\"a\":null}}";
@@ -124,7 +124,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         }
 
         [Fact]
-        [Trait(TestTraits.Bug, "https://github.com/microsoft/sarif-sdk/1581")]
+        [Trait(TestTraits.Bug, "https://github.com/microsoft/sarif-sdk/issues/1581")]
         public void PropertyBagConverter_RoundTripsNullValueForValueType()
         {
             _input = "{\"properties\":{\"a\":null}}";
