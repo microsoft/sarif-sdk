@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using Microsoft.CodeAnalysis.Sarif;
-using Microsoft.CodeAnalysis.Sarif.Multitool;
+using System.IO;
+using System.Text;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
 using FluentAssertions;
@@ -11,11 +11,8 @@ using Newtonsoft.Json;
 using Xunit;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
-using System;
-using System.IO;
-using System.Text;
 
-namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
+namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public class TransformCommandTests
     {
@@ -156,15 +153,15 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
 
         private static string RunTransformationCore(string logFileContents, SarifVersion targetVersion)
         {
-            string logFilePath = @"c:\logs\mylog.sarif";
-            StringBuilder transformedContents = new StringBuilder();
+            const string LogFilePath = @"c:\logs\mylog.sarif";
+            var transformedContents = new StringBuilder();
 
-            // Complex: TransformCommand has codepaths that use Create and OpenRead, but also ReadAllText and WriteAllText
+            // Complex: TransformCommand has code paths that use Create and OpenRead, but also ReadAllText and WriteAllText.
             var mockFileSystem = new Mock<IFileSystem>();
-            mockFileSystem.Setup(x => x.ReadAllText(logFilePath)).Returns(logFileContents);
-            mockFileSystem.Setup(x => x.OpenRead(logFilePath)).Returns(() => new MemoryStream(Encoding.UTF8.GetBytes(logFileContents)));
-            mockFileSystem.Setup(x => x.Create(logFilePath)).Returns(() => new MemoryStreamToStringBuilder(transformedContents));
-            mockFileSystem.Setup(x => x.WriteAllText(logFilePath, It.IsAny<string>())).Callback<string, string>((path, contents) => { transformedContents.Append(contents); });
+            mockFileSystem.Setup(x => x.ReadAllText(LogFilePath)).Returns(logFileContents);
+            mockFileSystem.Setup(x => x.OpenRead(LogFilePath)).Returns(() => new MemoryStream(Encoding.UTF8.GetBytes(logFileContents)));
+            mockFileSystem.Setup(x => x.Create(LogFilePath)).Returns(() => new MemoryStreamToStringBuilder(transformedContents));
+            mockFileSystem.Setup(x => x.WriteAllText(LogFilePath, It.IsAny<string>())).Callback<string, string>((path, contents) => { transformedContents.Append(contents); });
 
             var transformCommand = new TransformCommand(mockFileSystem.Object);
 
@@ -172,7 +169,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
             {
                 Inline = true,
                 SarifOutputVersion = targetVersion,
-                InputFilePath = logFilePath
+                InputFilePath = LogFilePath
             };
 
             int returnCode = transformCommand.Run(options);

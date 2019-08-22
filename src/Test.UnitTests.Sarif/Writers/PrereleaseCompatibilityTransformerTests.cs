@@ -150,6 +150,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         }
 
         [Fact]
+        [Trait(TestTraits.Bug, "1584")]
+        public void PrereleaseCompatibilityTransformer_Rtm1SchemaLocation()
+        {
+            RunTest("Rtm1SchemaLocation.sarif");
+        }
+
+        [Fact]
         public void PrereleaseCompatibilityTransformer_FromSarifV1()
         {
             // We only need one test for the SARIF v1 conversion because for this

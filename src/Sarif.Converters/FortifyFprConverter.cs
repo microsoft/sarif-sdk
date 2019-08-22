@@ -464,9 +464,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     // Get the rule GUID from the ClassId element.
                     string ruleId = _reader.ReadElementContentAsString();
                     rule = FindOrCreateRule(ruleId, out ruleIndex);
-
+                    
                     result.RuleIndex = ruleIndex;
-                    result.Level = GetFailureLevelFromRuleMetadata(rule);
+                    FailureLevel failureLevel = GetFailureLevelFromRuleMetadata(rule);
+                    result.Level = failureLevel;
+                    rule.DefaultConfiguration.Level = failureLevel;
                 }
                 else if (AtStartOfNonEmpty(_strings.Kingdom))
                 {
@@ -488,6 +490,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 {
                     ParseLocationsFromTraces(result);
                 }
+                else if (AtStartOfNonEmpty(_strings.DefaultSeverity))
+                {
+                    rule.DefaultConfiguration.SetProperty(_strings.DefaultSeverity, _reader.ReadElementContentAsString());
+                }
+                else if (AtStartOfNonEmpty(_strings.InstanceSeverity))
+                {
+                    result.SetProperty(_strings.InstanceSeverity, _reader.ReadElementContentAsString());
+                }
+                else if (AtStartOfNonEmpty(_strings.Confidence))
+                {
+                    result.SetProperty(_strings.Confidence, _reader.ReadElementContentAsString());
+                }
                 else
                 {
                     _reader.Read();
@@ -507,7 +521,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             // Medium impact - ["3.0", "1.0") => Warning
             // Low impact - ["1.0", "0,0"] => Note
             // Negative value or no value => Warning (i.e. treated as no value provided, SARIF defaults this to "Warning").
-
             if (rule.TryGetProperty("Impact", out string impactValue))
             {
                 if (float.TryParse(impactValue, out float impact))
@@ -528,7 +541,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     }
                 }
             }
-            return FailureLevel.Warning; // Default value for Result.Level.
+            return FailureLevel.Warning; // Default value for Result.DefaultConfiguration.Level.
         }
 
         private void ParseLocationsFromTraces(Result result)
@@ -1140,6 +1153,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     Guid = ruleId
                 };
 
+                rule.DefaultConfiguration = new ReportingConfiguration();
                 ruleIndex = _rules.Count;
                 _rules.Add(rule);
                 _ruleIdToIndexMap[ruleId] = ruleIndex;

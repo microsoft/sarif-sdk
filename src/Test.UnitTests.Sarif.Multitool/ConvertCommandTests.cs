@@ -2,13 +2,11 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using FluentAssertions;
-using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.CodeAnalysis.Sarif.Converters;
-using Microsoft.CodeAnalysis.Sarif.Multitool;
 using Moq;
 using Xunit;
 
-namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
+namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public class ConvertCommandTests
     {
@@ -30,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
                 Force = true
             };
 
-            int returnCode = ConvertCommand.Run(options, fileSystem);
+            int returnCode = new ConvertCommand().Run(options, fileSystem);
 
             returnCode.Should().Be(1);
         }
@@ -53,7 +51,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
                 OutputFilePath = OutputFilePath
             };
 
-            int returnCode = ConvertCommand.Run(options, fileSystem);
+            int returnCode = new ConvertCommand().Run(options, fileSystem);
 
             returnCode.Should().Be(1);
         }

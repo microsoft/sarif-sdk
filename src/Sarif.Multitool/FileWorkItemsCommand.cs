@@ -27,10 +27,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public int Run(FileWorkItemsOptions options, IFileSystem fileSystem)
         {
-            if (!ValidateOptions(options, fileSystem)) { return 1; }
+            if (!ValidateOptions(options, fileSystem)) { return Failure; }
 
             // For unit tests: allow us to just validate the options and return.
-            if (s_validateOptionsOnly) { return 0; }
+            if (s_validateOptionsOnly) { return Success; }
 
             string projectName = options.ProjectUri.GetProjectName();
 
@@ -86,9 +86,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
 
             Console.WriteLine($"Writing log with work item Ids to {options.OutputFilePath}.");
-            CommandBase.WriteSarifFile<SarifLog>(fileSystem, sarifLog, options.OutputFilePath, (options.PrettyPrint ? Formatting.Indented : Formatting.None));
+            WriteSarifFile<SarifLog>(fileSystem, sarifLog, options.OutputFilePath, (options.PrettyPrint ? Formatting.Indented : Formatting.None));
 
-            return 0;
+            return Success;
         }
 
         private bool ValidateOptions(FileWorkItemsOptions options, IFileSystem fileSystem)
@@ -117,7 +117,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             if (!options.ProjectUri.IsAbsoluteUri)
             {
-                string optionDescription = CommandUtilities.GetOptionDescription<FileWorkItemsOptions>(nameof(options.ProjectUriString));
+                string optionDescription = DriverUtilities.GetOptionDescription<FileWorkItemsOptions>(nameof(options.ProjectUriString));
                 Console.Error.WriteLine(
                     string.Format(
                         CultureInfo.CurrentCulture,
@@ -127,37 +127,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 valid = false;
             }
 
-            valid = ValidateOutputFileOptions(options) && valid;
+            valid &= options.ValidateOutputOptions();
 
-            if (options.Inline)
-            {
-                options.OutputFilePath = options.InputFilePath;
-                options.Force = true;
-            }
-
-            valid = DriverUtilities.ReportWhetherOutputFileCanBeCreated(options.OutputFilePath, options.Force, fileSystem) && valid;
-
-            return valid;
-        }
-
-        private bool ValidateOutputFileOptions(SingleFileOptionsBase options)
-        {
-            bool valid = true;
-
-            if ((options.OutputFilePath != null && options.Inline) || (options.OutputFilePath == null && !options.Inline))
-            {
-                string inlineOptionsDescription = CommandUtilities.GetOptionDescription<SingleFileOptionsBase>(nameof(options.Inline));
-                string outputFilePathOptionDescription = CommandUtilities.GetOptionDescription<SingleFileOptionsBase>(nameof(options.OutputFilePath));
-
-                Console.Error.WriteLine(
-                    string.Format(
-                        CultureInfo.CurrentCulture,
-                        MultitoolResources.ErrorOutputFilePathAndInline,
-                        outputFilePathOptionDescription,
-                        inlineOptionsDescription));
-
-                valid = false;
-            }
+            valid &= DriverUtilities.ReportWhetherOutputFileCanBeCreated(options.OutputFilePath, options.Force, fileSystem);
 
             return valid;
         }

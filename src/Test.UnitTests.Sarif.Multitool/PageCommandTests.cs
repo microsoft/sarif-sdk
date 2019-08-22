@@ -2,17 +2,18 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
-using Microsoft.CodeAnalysis.Sarif;
-using Microsoft.CodeAnalysis.Sarif.Multitool;
+using FluentAssertions;
+using Moq;
 using Newtonsoft.Json;
 using Xunit;
 
-namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
+namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public class PageCommandTests
     {
-        private static ResourceExtractor Extractor = new ResourceExtractor(typeof(PageCommandTests));
+        private static readonly ResourceExtractor Extractor = new ResourceExtractor(typeof(PageCommandTests));
 
         [Fact]
         public void PageCommand_Basics()
@@ -53,15 +54,126 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
             RunAndCompare(new PageOptions() { TargetMapSizeRatio = 0.050, Index = 1, Count = 2, InputFilePath = sampleFilePath, OutputFilePath = pagedSamplePath });
         }
 
+        // Some option validations (for example, "--index must be non-negative") can be performed
+        // without reading the input SARIF file. We refer to these as "static" validations. When a
+        // a static validation fails, we can simply print an error message and exit. By not
+        // throwing an exception in these cases, we save the user from having to dig the error
+        // message out of an exception dump.
+        //
+        // On the other hand, other option validations (for example, "--run-index must be less than
+        // the number of runs in the input SARIF file") can only be performed once we've started
+        // reading the input file. We refer to these as "dynamic" validations. When a dynamic
+        // validation fails, we have to throw an exception.
+        //
+        // We have separate unit tests for the static and dynamic validations, since they are set
+        // up and detected differently.
+        internal struct StaticValidationTestCase
+        {
+            public string Title;
+            public PageOptions Options;
+            public bool InputFileExists;
+            public bool OutputFileExists;
+            public bool ExpectedReturnValue;
+        }
+
+        private const string InputFilePath = "example.sarif";
+        private const string OutputFilePath = "example.paged.sarif";
+
+        private static readonly StaticValidationTestCase[] s_validationTestCases = new StaticValidationTestCase[]
+        {
+            new StaticValidationTestCase
+            {
+                Title = "Valid options",
+                Options = new PageOptions { RunIndex = 0, Index = 0, Count = 0, InputFilePath = InputFilePath, OutputFilePath = OutputFilePath },
+                InputFileExists = true,
+                OutputFileExists = false,
+                ExpectedReturnValue = true
+            },
+
+            new StaticValidationTestCase
+            {
+                Title = "RunIndex < 0",
+                Options = new PageOptions { RunIndex = -1, Index = 0, Count = 0, InputFilePath = InputFilePath, OutputFilePath = OutputFilePath },
+                InputFileExists = true,
+                OutputFileExists = false,
+                ExpectedReturnValue = false
+            },
+
+            new StaticValidationTestCase
+            {
+                Title = "Index < 0",
+                Options = new PageOptions { RunIndex = 0, Index = -1, Count = 0, InputFilePath = InputFilePath, OutputFilePath = OutputFilePath },
+                InputFileExists = true,
+                OutputFileExists = false,
+                ExpectedReturnValue = false
+            },
+
+            new StaticValidationTestCase
+            {
+                Title = "Count < 0",
+                Options = new PageOptions { RunIndex = 0, Index = 0, Count = -1, InputFilePath = InputFilePath, OutputFilePath = OutputFilePath },
+                InputFileExists = true,
+                OutputFileExists = false,
+                ExpectedReturnValue = false
+            },
+
+            new StaticValidationTestCase
+            {
+                Title = "Nonexistent input file",
+                Options = new PageOptions { RunIndex = 0, Index = 0, Count = 0, InputFilePath = InputFilePath, OutputFilePath = OutputFilePath },
+                InputFileExists = false,
+                OutputFileExists = false,
+                ExpectedReturnValue = false
+            },
+
+            new StaticValidationTestCase
+            {
+                Title = "Existing output file without force",
+                Options = new PageOptions { RunIndex = 0, Index = 0, Count = 0, InputFilePath = InputFilePath, OutputFilePath = OutputFilePath },
+                InputFileExists = true,
+                OutputFileExists = true,
+                ExpectedReturnValue = false
+            },
+
+            new StaticValidationTestCase
+            {
+                Title = "Existing output file with force",
+                Options = new PageOptions { RunIndex = 0, Index = 0, Count = 0, InputFilePath = InputFilePath, OutputFilePath = OutputFilePath, Force = true },
+                InputFileExists = true,
+                OutputFileExists = true,
+                ExpectedReturnValue = true
+            }
+        };
+
         [Fact]
-        public void PageCommand_Validation()
+        [Trait(TestTraits.Bug, "1629")]
+        public void PageCommand_StaticOptionValidation()
+        {
+            var failedTestCases = new List<string>();
+
+            foreach (StaticValidationTestCase testCase in s_validationTestCases)
+            {
+                var mockFileSystem = new Mock<IFileSystem>();
+                mockFileSystem.Setup(x => x.FileExists(InputFilePath)).Returns(testCase.InputFileExists);
+                mockFileSystem.Setup(x => x.FileExists(OutputFilePath)).Returns(testCase.OutputFileExists);
+                IFileSystem fileSystem = mockFileSystem.Object;
+
+                var command = new PageCommand();
+                if (command.ValidateOptions(testCase.Options, fileSystem) != testCase.ExpectedReturnValue)
+                {
+                    failedTestCases.Add(testCase.Title);
+                }
+            }
+
+            failedTestCases.Should().BeEmpty();
+        }
+
+        [Fact]
+        public void PageCommand_DynamicOptionValidation()
         {
             string sampleFilePath = "elfie-arriba.sarif";
             string pagedSamplePath = "elfie-arriba.paged.sarif";
             File.WriteAllText(sampleFilePath, Extractor.GetResourceText(@"PageCommand.elfie-arriba.sarif"));
-
-            // Index < 0
-            Assert.Throws<ArgumentOutOfRangeException>(() => RunAndCompare(new PageOptions() { Index = -1, Count = 1, InputFilePath = sampleFilePath, OutputFilePath = pagedSamplePath }));
 
             // Index >= Count
             Assert.Throws<ArgumentOutOfRangeException>(() => RunAndCompare(new PageOptions() { Index = 5, Count = 1, InputFilePath = sampleFilePath, OutputFilePath = pagedSamplePath }));
@@ -69,14 +181,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
             // Index + Count > Count
             Assert.Throws<ArgumentOutOfRangeException>(() => RunAndCompare(new PageOptions() { Index = 0, Count = 6, InputFilePath = sampleFilePath, OutputFilePath = pagedSamplePath }));
 
-            // RunIndex < 0
-            Assert.Throws<ArgumentOutOfRangeException>(() => RunAndCompare(new PageOptions() { RunIndex = -1, Index = 1, Count = 1, InputFilePath = sampleFilePath, OutputFilePath = pagedSamplePath }));
-
             // RunIndex >= RunCount
             Assert.Throws<ArgumentOutOfRangeException>(() => RunAndCompare(new PageOptions() { RunIndex = 1, Index = 1, Count = 1, InputFilePath = sampleFilePath, OutputFilePath = pagedSamplePath }));
-
-            // No input file
-            Assert.Throws<FileNotFoundException>(() => RunAndCompare(new PageOptions() { InputFilePath = "NotExists.sarif", OutputFilePath = "NotExists.out.sarif" }));
         }
 
         private static void RunAndCompare(PageOptions options)

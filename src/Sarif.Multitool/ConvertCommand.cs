@@ -10,9 +10,9 @@ using Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
-    internal static class ConvertCommand
+    internal class ConvertCommand : CommandBase
     {
-        public static int Run(ConvertOptions convertOptions, IFileSystem fileSystem = null)
+        public int Run(ConvertOptions convertOptions, IFileSystem fileSystem = null)
         {
             if (fileSystem == null) { fileSystem = new FileSystem(); }
 
@@ -30,13 +30,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                             CultureInfo.CurrentCulture,
                             "The output path '{0}' is a directory.",
                             convertOptions.OutputFilePath));
-                    return 1;
+                    return Failure;
                 }
 
-                if (!DriverUtilities.ReportWhetherOutputFileCanBeCreated(convertOptions.OutputFilePath, convertOptions.Force, fileSystem))
-                {
-                    return 1;
-                }
+                if (!ValidateOptions(convertOptions, fileSystem)) { return Failure; }
 
                 LoggingOptions loggingOptions = LoggingOptions.None;
 
@@ -63,10 +60,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             catch (Exception ex) when (!Debugger.IsAttached)
             {
                 Console.WriteLine(ex);
-                return 1;
+                return Failure;
             }
 
-            return 0;
+            return Success;
+        }
+
+        private static bool ValidateOptions(ConvertOptions convertOptions, IFileSystem fileSystem)
+        {
+            bool valid = true;
+
+            valid &= convertOptions.ValidateOutputOptions();
+
+            valid &= DriverUtilities.ReportWhetherOutputFileCanBeCreated(convertOptions.OutputFilePath, convertOptions.Force, fileSystem);
+
+            return valid;
         }
     }
 }

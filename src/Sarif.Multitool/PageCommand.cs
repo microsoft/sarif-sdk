@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.Driver;
@@ -32,7 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
-                returnCode = 1;
+                returnCode = Failure;
             }
 
             return returnCode;
@@ -40,14 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public int RunWithoutCatch(PageOptions options)
         {
-            // TODO: Report these to the console instead of throwing.
-            if (options.RunIndex < 0) { throw new ArgumentOutOfRangeException("runIndex"); }
-            if (options.Index < 0) { throw new ArgumentOutOfRangeException("index"); }
-            if (options.Count < 0) { throw new ArgumentOutOfRangeException("count"); }
-            if (!_fileSystem.FileExists(options.InputFilePath)) { throw new FileNotFoundException($"Input file \"{options.InputFilePath}\" not found."); }
-
-            bool valid = DriverUtilities.ReportWhetherOutputFileCanBeCreated(options.OutputFilePath, options.Force, _fileSystem);
-            if (!valid) { return 1; }
+            if (!ValidateOptions(options, _fileSystem)) { return 1; }
 
             // Load the JsonMap, if previously built and up-to-date, or rebuild it
             JsonMapNode root = LoadOrRebuildMap(options);
@@ -55,7 +49,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             // Write the desired page from the Sarif file
             ExtractPage(options, root);
 
-            return 1;
+            return Success;
+        }
+
+        internal bool ValidateOptions(PageOptions options, IFileSystem fileSystem)
+        {
+            bool valid = true;
+
+            valid &= ValidateNonNegativeCommandLineOption<PageOptions>(options.RunIndex, nameof(options.RunIndex));
+            valid &= ValidateNonNegativeCommandLineOption<PageOptions>(options.Index, nameof(options.Index));
+            valid &= ValidateNonNegativeCommandLineOption<PageOptions>(options.Count, nameof(options.Count));
+
+
+            if (!fileSystem.FileExists(options.InputFilePath))
+            {
+                Console.Error.WriteLine(
+                    string.Format(
+                        CultureInfo.CurrentCulture,
+                        MultitoolResources.InputFileNotFound,
+                        options.InputFilePath));
+                valid = false;
+            }
+
+            valid &= DriverUtilities.ReportWhetherOutputFileCanBeCreated(options.OutputFilePath, options.Force, fileSystem);
+
+            return valid;
         }
 
         internal SarifLog PageViaOm(PageOptions options)

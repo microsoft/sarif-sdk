@@ -66,13 +66,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                             goto case "http://json.schemastore.org/sarif-2.1.0-rtm.0";
                         }
                         case "http://json.schemastore.org/sarif-2.1.0-rtm.0":
+                        case "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.0.json":
                         {
                             modifiedLog |= ApplyRtm1Changes(logObject);
                             goto case "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.4.json";
                         }
+                        case "http://json.schemastore.org/sarif-2.1.0-rtm.4":
                         case "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.4.json":
+                        case "http://json.schemastore.org/sarif-2.1.0-rtm.3":
                         case "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.3.json":
+                        case "http://json.schemastore.org/sarif-2.1.0-rtm.2":
                         case "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.2.json":
+                        case "http://json.schemastore.org/sarif-2.1.0-rtm.1":
                         case "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.1.json":
                         {
                             modifiedLog |= ApplyRtm2and3Changes(logObject);
