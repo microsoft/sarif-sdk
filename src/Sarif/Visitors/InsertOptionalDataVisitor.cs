@@ -157,6 +157,37 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     }
                 }
             }
+            else if (fileLocation != null && _run.OriginalUriBaseIds == null && fileLocation.Uri!=null)
+            {
+                bool workToDo = false;
+                bool overwriteExistingData = _dataToInsert.HasFlag(OptionallyEmittedData.OverwriteExistingData);
+
+                workToDo |= (node.Hashes == null || overwriteExistingData) && _dataToInsert.HasFlag(OptionallyEmittedData.Hashes);
+                workToDo |= (node.Contents?.Text == null || overwriteExistingData) && _dataToInsert.HasFlag(OptionallyEmittedData.TextFiles);
+                workToDo |= (node.Contents?.Binary == null || overwriteExistingData) && _dataToInsert.HasFlag(OptionallyEmittedData.BinaryFiles);
+
+                if (workToDo)
+                {
+                    Encoding encoding = null;
+
+                    string encodingText = node.Encoding ?? _run.DefaultEncoding;
+
+                    if (!string.IsNullOrWhiteSpace(encodingText))
+                    {
+                        try
+                        {
+                            encoding = Encoding.GetEncoding(encodingText);
+                        }
+                        catch (ArgumentException) { }
+                    }
+
+                    int length = node.Length;
+                    node = Artifact.Create(fileLocation.Uri, _dataToInsert, encoding: encoding);
+                    node.Length = length;
+                    fileLocation.Index = -1;
+                    node.Location = fileLocation;
+                }
+            }
 
             return base.VisitArtifact(node);
         }
