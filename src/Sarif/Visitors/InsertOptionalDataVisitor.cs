@@ -123,7 +123,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         public override Artifact VisitArtifact(Artifact node)
         {
             ArtifactLocation fileLocation = node.Location;
-            if (fileLocation != null && _run.OriginalUriBaseIds != null)
+            if (fileLocation != null && (_run.OriginalUriBaseIds != null || fileLocation.Uri != null))
             {
                 bool workToDo = false;
                 bool overwriteExistingData = _dataToInsert.HasFlag(OptionallyEmittedData.OverwriteExistingData);
@@ -150,45 +150,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         }
 
                         int length = node.Length;
-                        node = Artifact.Create(uri, _dataToInsert, encoding: encoding);
+
+                        if(_run.OriginalUriBaseIds != null) node = Artifact.Create(uri, _dataToInsert, encoding: encoding);
+                        else node = Artifact.Create(fileLocation.Uri, _dataToInsert, encoding: encoding);
+
                         node.Length = length;
                         fileLocation.Index = -1;
                         node.Location = fileLocation;
                     }
                 }
             }
-            else if (fileLocation != null && _run.OriginalUriBaseIds == null && fileLocation.Uri!=null)
-            {
-                bool workToDo = false;
-                bool overwriteExistingData = _dataToInsert.HasFlag(OptionallyEmittedData.OverwriteExistingData);
-
-                workToDo |= (node.Hashes == null || overwriteExistingData) && _dataToInsert.HasFlag(OptionallyEmittedData.Hashes);
-                workToDo |= (node.Contents?.Text == null || overwriteExistingData) && _dataToInsert.HasFlag(OptionallyEmittedData.TextFiles);
-                workToDo |= (node.Contents?.Binary == null || overwriteExistingData) && _dataToInsert.HasFlag(OptionallyEmittedData.BinaryFiles);
-
-                if (workToDo)
-                {
-                    Encoding encoding = null;
-
-                    string encodingText = node.Encoding ?? _run.DefaultEncoding;
-
-                    if (!string.IsNullOrWhiteSpace(encodingText))
-                    {
-                        try
-                        {
-                            encoding = Encoding.GetEncoding(encodingText);
-                        }
-                        catch (ArgumentException) { }
-                    }
-
-                    int length = node.Length;
-                    node = Artifact.Create(fileLocation.Uri, _dataToInsert, encoding: encoding);
-                    node.Length = length;
-                    fileLocation.Index = -1;
-                    node.Location = fileLocation;
-                }
-            }
-
+           
             return base.VisitArtifact(node);
         }
 
