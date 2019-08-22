@@ -9,6 +9,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
     [Export(typeof(ReportingDescriptor)), Export(typeof(Skimmer<TestAnalysisContext>))]
     internal class ExceptionRaisingRule : TestRuleBase
     {
+        [ThreadStatic]
         internal static ExceptionCondition s_exceptionCondition;
 
         private ExceptionCondition _exceptionCondition;
