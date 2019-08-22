@@ -456,4 +456,3 @@
 * BUGFIX: Some Multitool commands required --force even if --inline was specified. https://github.com/microsoft/sarif-sdk/issues/1642
 * FEATURE: Add validation rule to ensure correctness of `originalUriBaseIds` entries. https://github.com/microsoft/sarif-sdk/issues/1485
 * FEATURE: Improve presentation of option validation messages from the Multitool `page` command. https://github.com/microsoft/sarif-sdk/issues/1629
-
