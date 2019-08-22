@@ -605,30 +605,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (options.ComputeFileHashes)
             {
-                _resultsCachingLogger.HashToResultsMap.TryGetValue(context.Hashes.Sha256, out List<Tuple<ReportingDescriptor, Result>> results);
-                _resultsCachingLogger.HashToNotificationsMap.TryGetValue(context.Hashes.Sha256, out List<Notification> notifications);
+                _resultsCachingLogger.HashToResultsMap.TryGetValue(context.Hashes.Sha256, out List<Tuple<ReportingDescriptor, Result>> cachedResults);
+                _resultsCachingLogger.HashToNotificationsMap.TryGetValue(context.Hashes.Sha256, out List<Notification> cachedNotifications);
 
-                bool replayCachedData = (results != null || notifications != null);
+                bool replayCachedData = (cachedResults != null || cachedNotifications != null);
 
                 if (replayCachedData)
                 {
                     context.Logger.AnalyzingTarget(context);
 
-                    if (results != null)
+                    if (cachedResults != null)
                     {
-                        foreach (Tuple<ReportingDescriptor, Result> result in results)
+                        foreach (Tuple<ReportingDescriptor, Result> cachedResult in cachedResults)
                         {
-                            if (result.Item2.Locations?.Count > 0)
+                            if (cachedResult.Item2.Locations?.Count > 0)
                             {
-                                result.Item2.Locations[0].PhysicalLocation.ArtifactLocation.Uri = context.TargetUri;
+                                cachedResult.Item2.Locations[0].PhysicalLocation.ArtifactLocation.Uri = context.TargetUri;
                             }
-                            context.Logger.Log(result.Item1, result.Item2);
+                            context.Logger.Log(cachedResult.Item1, cachedResult.Item2);
                         }
                     }
 
-                    if (notifications != null)
+                    if (cachedNotifications != null)
                     {
-                        foreach (Notification notification in notifications)
+                        foreach (Notification notification in cachedNotifications)
                         {
                             context.Logger.LogConfigurationNotification(notification);
                         }

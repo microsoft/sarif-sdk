@@ -6,6 +6,15 @@ using System.Collections.Generic;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
+    /// <summary>
+    /// This class caches analysis results for unique files (by hash). Consumers can retrieve and use these cached
+    /// results in preference of repeating the analysis. A binary drop point, for example, may contain multiple 
+    /// copies of a common dependency that has been copied to the output directory of every component that
+    /// references it. During analysis, this logger will capture and retain results produced for a single copy
+    /// of the file. A consumer can consult this cache and retrieve the results for a file copy, in preference
+    /// of simply repeating the analysis. This can result in significant performance gains, when that analysis
+    /// is expensive (such as in the case of a binary analysis that retrieves and crawls binary PDBs).
+    /// </summary>
     public class ResultsCachingLogger : IAnalysisLogger
     {
         private bool cacheLoggingData;

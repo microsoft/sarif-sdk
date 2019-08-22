@@ -326,15 +326,15 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (!string.IsNullOrEmpty(notification.Descriptor?.Id))
             {
-                sb.Append(notification.Descriptor.Id + " : ");
+                sb.Append(notification.Descriptor.Id + " ");
             }
 
             if (!string.IsNullOrEmpty(notification.AssociatedRule?.Id))
             {
-                sb.Append(notification.AssociatedRule.Id + " : ");
+                sb.Append(notification.AssociatedRule.Id + " ");
             }
 
-            sb.Append(notification.Message.Text);
+            sb.Append(": " + notification.Message.Text);
 
             return sb.ToString();
         }

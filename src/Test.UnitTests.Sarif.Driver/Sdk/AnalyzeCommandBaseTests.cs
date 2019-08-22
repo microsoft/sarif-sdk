@@ -20,6 +20,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     public class AnalyzeCommandBaseTests
     {
+        private const int FAILURE = AnalyzeCommandBase<TestAnalysisContext, AnalyzeOptionsBase>.FAILURE;
+        private const int SUCCESS = AnalyzeCommandBase<TestAnalysisContext, AnalyzeOptionsBase>.SUCCESS;
+
         private void ExceptionTestHelper(
             ExceptionCondition exceptionCondition,
             RuntimeConditions runtimeConditions,
@@ -573,7 +576,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 // TODO: even though this test raises an exception per binary, we are not persisting
                 // the results to a log file. We therefore validate against the console output. 
                 // The MSBuildConverter we use for this converts all console notifications to results.
-                RunTests(persistLogFileToDisk: false, raiseNotificationPerBinary: false, expectedReturnCode: 1);
+                RunTests(persistLogFileToDisk: false, raiseNotificationPerBinary: false, expectedReturnCode: FAILURE);
             }
             finally
             {
@@ -587,7 +590,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             try
             {
                 ExceptionRaisingRule.s_exceptionCondition = ExceptionCondition.LoadingPdb;
-                RunTests(persistLogFileToDisk: true, raiseNotificationPerBinary: true, expectedReturnCode: 1);
+                RunTests(persistLogFileToDisk: true, raiseNotificationPerBinary: true, expectedReturnCode: FAILURE);
             }
             finally
             {
@@ -608,11 +611,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             RunTests(persistLogFileToDisk: true);
         }
 
-        private static void RunTests(bool persistLogFileToDisk, bool raiseNotificationPerBinary = false, int expectedReturnCode = 0)
+        private static void RunTests(bool persistLogFileToDisk, bool raiseNotificationPerBinary = false, int expectedReturnCode = SUCCESS)
         {
             // TODO: we require a special case here currently because in cases where we are not persisting to a log file and we
             // are raising an exception per binary, these notifications are converted to results by the MSBuildConverter. In 
-            // future, we should fix the converter to 
+            // future, we should fix the converter to distinguish tool notifications somehow.
             bool specialCase = !raiseNotificationPerBinary && expectedReturnCode == 1;
 
             const string specifier = "*.dll";
@@ -638,7 +641,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 "Review.txt"
             };
 
-            IFileSystem mockFileSystem = CreateMockFileSystem(files, specifier, logFileContents, logFileDirectory);
+            IFileSystem fileSystem = CreateMockFileSystem(files, specifier, logFileContents, logFileDirectory);
 
             // TEST ONE: analyze, non-verbose, no hashing
             var options = new TestAnalyzeOptions
@@ -659,7 +662,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             // every file that produces a failure level of some kind (error & warning only since not running verbose).
             int expectedResultsCount = GetNonVerboseFailuresCount(files) + baseWarningsCount;
 
-            Run run = RunTest(mockFileSystem, options, expectedResultsCount, expectedReturnCode);
+            Run run = RunTest(fileSystem, options, expectedResultsCount, expectedReturnCode);
             IList<Result> results = run.Results;
             IList<Notification> notifications = run.Invocations?[0].ToolConfigurationNotifications;
 
@@ -670,7 +673,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             options.ComputeFileHashes = true;
             expectedResultsCount = files.Count() + baseWarningsCount;
 
-            run = RunTest(mockFileSystem, options, expectedResultsCount, expectedReturnCode);
+            run = RunTest(fileSystem, options, expectedResultsCount, expectedReturnCode);
             results = run.Results;
             notifications = run.Invocations?[0].ToolConfigurationNotifications;
 
@@ -682,7 +685,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             options.ComputeFileHashes = false;
 
             expectedResultsCount = files.Count() + baseWarningsCount;
-            results = RunTest(mockFileSystem, options, expectedResultsCount, expectedReturnCode).Results;
+            results = RunTest(fileSystem, options, expectedResultsCount, expectedReturnCode).Results;
 
             results.Where(r => r.Level == FailureLevel.Note).Count().Should().Be(files.Where(f => f.Contains("Note")).Count());
             results.Where(r => r.Level == FailureLevel.Error).Count().Should().Be(files.Where(f => f.Contains("Error")).Count() + (specialCase ? files.Count() : 0));
@@ -724,7 +727,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             for (int i = 0; i < files.Length; i++)
             {
                 mockFileSystem.Setup(x => x.ReadAllText(files[i])).Returns(logFileContents);
-                mockFileSystem.Setup(x => x.OpenRead(Environment.CurrentDirectory + @"\" + files[i])).Returns(new MemoryStream(Encoding.UTF8.GetBytes(logFileContents)));
+                mockFileSystem.Setup(x => x.OpenRead(Path.Combine(Environment.CurrentDirectory,files[i]))).Returns(new MemoryStream(Encoding.UTF8.GetBytes(logFileContents)));
             }
             return mockFileSystem.Object;
         }
