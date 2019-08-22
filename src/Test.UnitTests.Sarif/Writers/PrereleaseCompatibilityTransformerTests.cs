@@ -144,16 +144,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         [Fact]
         [Trait(TestTraits.Bug, "https://github.com/microsoft/sarif-sdk/issues/1577")]
-        public void PrereleaseCompatibilityTransformer_DateTimeInPropertyBag()
-        {
-            RunTest("DateTimeInPropertyBag.sarif");
-        }
-
-        [Fact]
         [Trait(TestTraits.Bug, "https://github.com/microsoft/sarif-sdk/issues/1584")]
-        public void PrereleaseCompatibilityTransformer_Rtm1SchemaLocation()
+        public void PrereleaseCompatibilityTransformer_PassesRegressionTests()
         {
-            RunTest("Rtm1SchemaLocation.sarif");
+            RunTest("RegressionTests.sarif");
         }
 
         [Fact]
