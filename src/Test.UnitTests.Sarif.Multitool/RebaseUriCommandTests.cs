@@ -4,13 +4,11 @@
 using System.IO;
 using System.Text;
 using FluentAssertions;
-using Microsoft.CodeAnalysis.Sarif;
-using Microsoft.CodeAnalysis.Sarif.Multitool;
 using Moq;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
+namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public class RebaseUriCommandTests : FileDiffingUnitTests
     {

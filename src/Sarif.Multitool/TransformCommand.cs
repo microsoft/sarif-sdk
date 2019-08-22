@@ -25,10 +25,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             try
             {
-                transformOptions.OutputFilePath = CommandUtilities.GetTransformedOutputFileName(transformOptions);
+                // Only set --output-file if --inline isn't specified. ValidateOptions will check
+                // to make sure that exactly one of those two options is set.
+                if (!transformOptions.Inline)
+                {
+                    transformOptions.OutputFilePath = CommandUtilities.GetTransformedOutputFileName(transformOptions);
+                }
 
                 bool valid = ValidateOptions(transformOptions);
-                if (!valid) { return 1; }
+                if (!valid) { return Failure; }
 
                 // NOTE: we don't actually utilize the dataToInsert command-line data yet...
                 OptionallyEmittedData dataToInsert = transformOptions.DataToInsert.ToFlags();
@@ -107,10 +112,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
-                return 1;
+                return Failure;
             }
 
-            return 0;
+            return Success;
         }
 
         private bool ValidateOptions(TransformOptions transformOptions)
@@ -122,6 +127,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 Console.WriteLine(MultitoolResources.ErrorInvalidTransformTargetVersion);
                 valid = false;
             }
+
+            valid &= transformOptions.ValidateOutputOptions();
 
             valid &= DriverUtilities.ReportWhetherOutputFileCanBeCreated(transformOptions.OutputFilePath, transformOptions.Force, _fileSystem);
 

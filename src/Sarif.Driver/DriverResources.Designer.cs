@@ -61,6 +61,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Exactly one of the &apos;{0}&apos; and &apos;{1}&apos; options must be present..
+        /// </summary>
+        internal static string ExactlyOneOfTwoOptionsIsRequired {
+            get {
+                return ResourceManager.GetString("ExactlyOneOfTwoOptionsIsRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A binary was not analyzed as the it does not appear to be a valid portable executable..
         /// </summary>
         internal static string InvalidPE_Description {

@@ -44,7 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
     public class FileSpecifierTests : IClassFixture<FileSpecifierTestsFixture>
     {
-        private FileSpecifierTestsFixture _fixture;
+        private readonly FileSpecifierTestsFixture _fixture;
 
         public FileSpecifierTests(FileSpecifierTestsFixture fixture)
         {

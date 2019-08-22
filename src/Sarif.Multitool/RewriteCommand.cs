@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             try
             {
                 bool valid = ValidateOptions(rewriteOptions);
-                if (!valid) { return 1; }
+                if (!valid) { return Failure; }
 
                 SarifLog actualLog = ReadSarifFile<SarifLog>(_fileSystem, rewriteOptions.InputFilePath);
 
@@ -44,21 +44,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             catch(Exception ex)
             {
                 Console.WriteLine(ex);
-                return 1;
+                return Failure;
             }
 
-            return 0;
+            return Success;
         }
 
         private bool ValidateOptions(RewriteOptions rewriteOptions)
         {
             bool valid = true;
 
-            if (rewriteOptions.Inline)
-            {
-                rewriteOptions.OutputFilePath = rewriteOptions.InputFilePath;
-                rewriteOptions.Force = true;
-            }
+            valid &= rewriteOptions.ValidateOutputOptions();
 
             valid &= DriverUtilities.ReportWhetherOutputFileCanBeCreated(rewriteOptions.OutputFilePath, rewriteOptions.Force, _fileSystem);
 

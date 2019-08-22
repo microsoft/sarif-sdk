@@ -6,7 +6,7 @@ using CommandLine;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
-    internal class MultipleFilesOptionsBase : CommonOptionsBase
+    public class MultipleFilesOptionsBase : CommonOptionsBase
     {
         [Option(
             'r',
@@ -18,14 +18,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         [Option(
             'o',
             "output-folder",
-            HelpText = "A folder to output the transformed files to.")]
+            HelpText = "A folder to output the transformed files to. If absent, each transformed file is written to the same directory as the corresponding input file.")]
         public string OutputFolderPath { get; internal set; }
 
         [Option(
             'i',
             "inline",
             Default = false,
-            HelpText = "Write all newly generated content to the input file.")]
+            HelpText = "Overwrite each input file with the corresponding transformed file.")]
         public bool Inline { get; set; }
 
 

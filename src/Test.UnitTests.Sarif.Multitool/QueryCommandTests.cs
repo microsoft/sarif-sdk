@@ -1,15 +1,11 @@
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using System;
 using System.IO;
-using Microsoft.CodeAnalysis.Sarif;
-using Microsoft.CodeAnalysis.Sarif.Multitool;
 using Microsoft.CodeAnalysis.Sarif.Query;
-using Newtonsoft.Json;
 using Xunit;
 
-namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
+namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public class QueryCommandTests
     {

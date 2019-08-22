@@ -27,7 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 if (!Uri.TryCreate(rebaseOptions.BasePath, UriKind.Absolute, out Uri baseUri))
                 {
                     Console.Error.WriteLine($"The value '{rebaseOptions.BasePath}' of the --base-path-value option is not an absolute URI.");
-                    return 1;
+                    return Failure;
                 }
 
                 // In case someone accidentally passes C:\bld\src and meant C:\bld\src\--the base path should always be a folder, not something that points to a file.
@@ -38,8 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 var rebaseUriFiles = GetRebaseUriFiles(rebaseOptions);
 
-                bool outputFilesCanBeCreated = DriverUtilities.ReportWhetherOutputFilesCanBeCreated(rebaseUriFiles.Select(f => f.OutputFilePath), rebaseOptions.Force, _fileSystem);
-                if (!outputFilesCanBeCreated) { return 1; }
+                if (!ValidateOptions(rebaseOptions, rebaseUriFiles)) { return Failure; }
 
                 if (!rebaseOptions.Inline)
                 {
@@ -60,12 +59,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
-                return 1;
+                return Failure;
             }
 
-            return 0;
+            return Success;
         }
-        
+
         private IEnumerable<RebaseUriFile> GetRebaseUriFiles(RebaseUriOptions rebaseUriOptions)
         {
             // Get files names first, as we may write more sarif logs to the same directory as we rebase them.
@@ -79,6 +78,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     Log = ReadSarifFile<SarifLog>(_fileSystem, inputFilePath)
                 };
             }
+        }
+
+        private bool ValidateOptions(RebaseUriOptions rebaseOptions, IEnumerable<RebaseUriFile> rebaseUriFiles)
+        {
+            bool valid = true;
+
+            valid &= rebaseOptions.ValidateOutputOptions();
+
+            valid &= DriverUtilities.ReportWhetherOutputFilesCanBeCreated(rebaseUriFiles.Select(f => f.OutputFilePath), rebaseOptions.Force, _fileSystem);
+
+            return valid;
         }
 
         internal string GetOutputFilePath(string inputFilePath, RebaseUriOptions rebaseUriOptions)

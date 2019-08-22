@@ -13,13 +13,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public abstract class CommandBase
     {
+        public const int Success = 0;
+        public const int Failure = 1;
+
         protected static bool ValidateNonNegativeCommandLineOption<T>(int optionValue, string optionName)
         {
             bool valid = true;
 
             if (optionValue < 0)
             {
-                string optionDescription = CommandUtilities.GetOptionDescription<T>(optionName);
+                string optionDescription = DriverUtilities.GetOptionDescription<T>(optionName);
                 Console.Error.WriteLine(
                     string.Format(
                         CultureInfo.CurrentCulture,

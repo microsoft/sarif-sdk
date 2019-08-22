@@ -453,5 +453,6 @@
 * BUGFIX: Multitool merge command produced invalid SARIF if there were 0 input files. https://github.com/microsoft/sarif-sdk/issues/1592
 * BUGFIX: FortifyFpr converter produced invalid SARIF. https://github.com/microsoft/sarif-sdk/issues/1593
 * BUGFIX: FxCop converter produced empty `result.message` objects. https://github.com/microsoft/sarif-sdk/issues/1594
+* BUGFIX: Some Multitool commands required --force even if --inline was specified. https://github.com/microsoft/sarif-sdk/issues/1642
 * FEATURE: Add validation rule to ensure correctness of `originalUriBaseIds` entries. https://github.com/microsoft/sarif-sdk/issues/1485
 * FEATURE: Improve presentation of option validation messages from the Multitool `page` command. https://github.com/microsoft/sarif-sdk/issues/1629

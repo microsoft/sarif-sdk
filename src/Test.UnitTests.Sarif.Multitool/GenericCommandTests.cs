@@ -7,7 +7,7 @@ using System.Linq;
 using System.Reflection;
 using Xunit;
 
-namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
+namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public class GenericCommandTests
     {
