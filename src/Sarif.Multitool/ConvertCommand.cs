@@ -30,10 +30,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                             CultureInfo.CurrentCulture,
                             "The output path '{0}' is a directory.",
                             convertOptions.OutputFilePath));
-                    return Failure;
+                    return FAILURE;
                 }
 
-                if (!ValidateOptions(convertOptions, fileSystem)) { return Failure; }
+                if (!ValidateOptions(convertOptions, fileSystem)) { return FAILURE; }
 
                 LoggingOptions loggingOptions = LoggingOptions.None;
 
@@ -60,10 +60,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             catch (Exception ex) when (!Debugger.IsAttached)
             {
                 Console.WriteLine(ex);
-                return Failure;
+                return FAILURE;
             }
 
-            return Success;
+            return SUCCESS;
         }
 
         private static bool ValidateOptions(ConvertOptions convertOptions, IFileSystem fileSystem)

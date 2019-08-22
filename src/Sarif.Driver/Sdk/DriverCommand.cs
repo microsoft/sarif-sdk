@@ -8,7 +8,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
     {
         abstract public int Run(T options);
 
-        public const int FAILURE = 1;
-        public const int SUCCESS = 0;
+        internal const int FAILURE = 1;
+        internal const int SUCCESS = 0;
     }
 }

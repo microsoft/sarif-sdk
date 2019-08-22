@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             {
                 IEnumerable<AbsoluteUriFile> absoluteUriFiles = GetAbsoluteUriFiles(absoluteUriOptions);
 
-                if (!ValidateOptions(absoluteUriOptions, absoluteUriFiles)) { return Failure; }
+                if (!ValidateOptions(absoluteUriOptions, absoluteUriFiles)) { return FAILURE; }
 
                 if (!absoluteUriOptions.Inline)
                 {
@@ -47,10 +47,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
-                return Failure;
+                return FAILURE;
             }
 
-            return Success;
+            return SUCCESS;
         }
 
         private bool ValidateOptions(AbsoluteUriOptions absoluteUriOptions, IEnumerable<AbsoluteUriFile> absoluteUriFiles)

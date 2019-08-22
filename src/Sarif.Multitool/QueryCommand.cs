@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     internal class QueryCommand : CommandBase
     {
-        private const int TooManyResults = 2;
+        private const int TOO_MANY_RESULTS = 2;
 
         private readonly IFileSystem _fileSystem;
 
@@ -31,14 +31,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             catch (Exception ex) when (!Debugger.IsAttached)
             {
                 Console.WriteLine(ex);
-                return Failure;
+                return FAILURE;
             }
         }
 
         public int RunWithoutCatch(QueryOptions options)
         {
             bool valid = DriverUtilities.ReportWhetherOutputFileCanBeCreated(options.OutputFilePath, options.Force, _fileSystem);
-            if (!valid) { return Failure; }
+            if (!valid) { return FAILURE; }
 
             Stopwatch w = Stopwatch.StartNew();
             int originalTotal = 0;
@@ -93,11 +93,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
             else if (options.NonZeroExitCodeIfCountOver >= 0 && matchCount > options.NonZeroExitCodeIfCountOver)
             {
-                return TooManyResults;
+                return TOO_MANY_RESULTS;
             }
             else
             {
-                return Success;
+                return SUCCESS;
             }
         }
     }
