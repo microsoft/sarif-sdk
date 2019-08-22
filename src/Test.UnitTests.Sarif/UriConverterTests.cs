@@ -38,7 +38,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif
         }
 
         [Fact]
-        [Trait(TestTraits.Bug, "1632")]
+        [Trait(TestTraits.Bug, "https://github.com/microsoft/sarif-sdk/1632")]
         public void ReadJson_ConvertsStringsToUriObjects()
         {
             TestClass testObject = JsonConvert.DeserializeObject<TestClass>(s_testFileText);
@@ -53,7 +53,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif
         }
 
         [Fact]
-        [Trait(TestTraits.Bug, "1632")]
+        [Trait(TestTraits.Bug, "https://github.com/microsoft/sarif-sdk/1632")]
         public void WriteJson_ConvertsUriObjectsToStrings()
         {
             var testObject = new TestClass

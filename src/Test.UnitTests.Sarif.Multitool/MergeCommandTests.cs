@@ -31,7 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public MergeCommandTests(ITestOutputHelper outputHelper) : base(outputHelper) { }
 
         [Fact]
-        [Trait(TestTraits.Bug, "1592")]
+        [Trait(TestTraits.Bug, "https://github.com/microsoft/sarif-sdk/1592")]
         public void MergeCommand_WhenThereAreNoInputFiles_ProducesEmptyRunsArray()
         {
             RunTest("NoInputFiles.sarif");

@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Test.FunctionalTests.Sarif
     public class MultitoolCommandLineTests
     {
         [Fact]
-        [Trait(TestTraits.Bug, "1487")]
+        [Trait(TestTraits.Bug, "https://github.com/microsoft/sarif-sdk/1487")]
         public void Multitool_LaunchesAndRunsSuccessfully()
         {
             string multitoolPath = Path.GetFullPath(

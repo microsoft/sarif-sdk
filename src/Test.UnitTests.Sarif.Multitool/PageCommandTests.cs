@@ -146,7 +146,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         };
 
         [Fact]
-        [Trait(TestTraits.Bug, "1629")]
+        [Trait(TestTraits.Bug, "https://github.com/microsoft/sarif-sdk/1629")]
         public void PageCommand_StaticOptionValidation()
         {
             var failedTestCases = new List<string>();
