@@ -3,10 +3,8 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.Processors;
-using Microsoft.CodeAnalysis.Sarif.Readers;
 using System.Diagnostics;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
 
@@ -228,7 +226,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
             var reportingDescriptors = new Dictionary<ReportingDescriptor, int>(ReportingDescriptor.ValueComparer);
 
-            var indexRemappingVisitor = new RemapIndicesVisitor(currentFiles: null);
+            var indexRemappingVisitor = new RemapIndicesVisitor(currentArtifacts: null, currentLogicalLocations: null);
 
             properties = properties ?? new Dictionary<string, SerializedPropertyInfo>();
 
@@ -237,9 +235,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             {
                 Result result = resultPair.CalculateBasedlinedResult(PropertyBagMergeBehavior);
 
-                IList<Artifact> files = 
+                // TODO Shouldn't this just be HistoricalFiles = resultPair.Run.Artifacts?
+                IList<Artifact> files =
                     (PropertyBagMergeBehavior.HasFlag(DictionaryMergeBehavior.InitializeFromOldest) &&
-                    (result.BaselineState == BaselineState.Unchanged || result.BaselineState == BaselineState.Updated)) 
+                    (result.BaselineState == BaselineState.Unchanged || result.BaselineState == BaselineState.Updated))
                     ? resultPair.PreviousResult.OriginalRun.Artifacts
                     : resultPair.Run.Artifacts;
 
@@ -262,7 +261,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             }
 
             run.Results = newRunResults;
-            run.Artifacts = indexRemappingVisitor.CurrentFiles;
+            run.Artifacts = indexRemappingVisitor.CurrentArtifacts;
+            run.LogicalLocations = indexRemappingVisitor.CurrentLogicalLocations;
             
             var graphs = new List<Graph>();
             //var ruleData = new Dictionary<string, ReportingDescriptor>();
@@ -290,8 +290,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             }
 
             run.Graphs = graphs;
-            run.LogicalLocations = new List<LogicalLocation>(indexRemappingVisitor.RemappedLogicalLocationIndices.Keys);
-            //run.Resources = new Resources() { MessageStrings = messageData, Rules = ruleData }; TODO
             run.Invocations = invocations;
 
             if (properties != null && properties.Count > 0)

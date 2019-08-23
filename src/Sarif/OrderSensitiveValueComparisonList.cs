@@ -1,15 +1,13 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
     public class OrderSensitiveValueComparisonList<T> : List<T>, IEqualityComparer<List<T>>
     {
-        private IEqualityComparer<T> _equalityComparer;
+        private readonly IEqualityComparer<T> _equalityComparer;
 
         public OrderSensitiveValueComparisonList(IEqualityComparer<T> equalityComparer)
         {

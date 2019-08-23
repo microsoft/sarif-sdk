@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -13,34 +12,54 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
     /// </summary>
     public class RemapIndicesVisitor : SarifRewritingVisitor
     {
-        public RemapIndicesVisitor(IList<Artifact> currentFiles)
+        public RemapIndicesVisitor(
+            IList<Artifact> currentArtifacts,
+            IList<LogicalLocation> currentLogicalLocations)
         {
-            BuildRemappedFiles(currentFiles);
-            RemappedLogicalLocationIndices = new Dictionary<LogicalLocation, int>(LogicalLocation.ValueComparer);
+            CurrentArtifacts = new List<Artifact>();
+            CurrentLogicalLocations = new List<LogicalLocation>();
+
+            RemapCurrentArtifacts(currentArtifacts);
+            RemapCurrentLogicalLocations(currentLogicalLocations);
         }
 
-        private void BuildRemappedFiles(IList<Artifact> currentFiles)
+        private void RemapCurrentArtifacts(IList<Artifact> currentArtifacts)
         {
-            RemappedFiles = new Dictionary<OrderSensitiveValueComparisonList<Artifact>, int>();
+            RemappedArtifacts = new Dictionary<OrderSensitiveValueComparisonList<Artifact>, int>();
 
-            if (currentFiles != null)
+            if (currentArtifacts != null)
             {
-                foreach (Artifact fileData in currentFiles)
+                foreach (Artifact artifact in currentArtifacts)
                 {
-                    CacheFileData(fileData);
+                    CacheArtifact(artifact, currentArtifacts);
                 }
             }
         }
 
-        public IList<Artifact> CurrentFiles { get; set; }
+        private void RemapCurrentLogicalLocations(IList<LogicalLocation> currentLogicalLocations)
+        {
+            RemappedLogicalLocations = new Dictionary<OrderSensitiveValueComparisonList<LogicalLocation>, int>();
+
+            if (currentLogicalLocations != null)
+            {
+                foreach (LogicalLocation logicalLocation in currentLogicalLocations)
+                {
+                    CacheLogicalLocation(logicalLocation, currentLogicalLocations);
+                }
+            }
+        }
+
+        public IList<Artifact> CurrentArtifacts { get; set; }
+
+        public IList<LogicalLocation> CurrentLogicalLocations { get; set; }
 
         public IList<Artifact> HistoricalFiles { get; set; }
 
         public IList<LogicalLocation> HistoricalLogicalLocations { get; set; }
 
-        public IDictionary<LogicalLocation, int> RemappedLogicalLocationIndices { get; private set; }
+        public IDictionary<OrderSensitiveValueComparisonList<LogicalLocation>, int> RemappedLogicalLocations { get; private set; }
 
-        public IDictionary<OrderSensitiveValueComparisonList<Artifact>, int> RemappedFiles { get; private set; }
+        public IDictionary<OrderSensitiveValueComparisonList<Artifact>, int> RemappedArtifacts { get; private set; }
 
         public override Result VisitResult(Result node)
         {
@@ -53,104 +72,148 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return base.VisitResult(node);
         }
 
-        public override Location VisitLocation(Location node)
+        public override LogicalLocation VisitLogicalLocation(LogicalLocation node)
         {
-            if (node.LogicalLocation != null && node.LogicalLocation.Index != -1 && HistoricalLogicalLocations != null)
+            if (node.Index != -1 && HistoricalLogicalLocations != null)
             {
-                LogicalLocation logicalLocation = HistoricalLogicalLocations[node.LogicalLocation.Index];
-
-                if (!RemappedLogicalLocationIndices.TryGetValue(logicalLocation, out int remappedIndex))
-                {
-                    remappedIndex = RemappedLogicalLocationIndices.Count;
-                    RemappedLogicalLocationIndices[logicalLocation] = remappedIndex;
-                }
-
-                node.LogicalLocation.Index = remappedIndex;
+                node.Index = CacheLogicalLocation(HistoricalLogicalLocations[node.Index], HistoricalLogicalLocations);
             }
-            return base.VisitLocation(node);
+
+            return base.VisitLogicalLocation(node);
         }
 
-        public override Artifact VisitArtifact(Artifact node)
+        private int CacheLogicalLocation(LogicalLocation logicalLocation, IList<LogicalLocation> currentLogicalLocations)
         {
-            return base.VisitArtifact(node);
+            logicalLocation = logicalLocation.DeepClone();
+
+            // Ensure all parent nodes are remapped.
+            int parentIndex = logicalLocation.ParentIndex;
+            if (parentIndex != -1)
+            {
+                logicalLocation.ParentIndex = CacheLogicalLocation(currentLogicalLocations[parentIndex], currentLogicalLocations);
+            }
+
+            OrderSensitiveValueComparisonList<LogicalLocation> logicalLocationChain = ConstructLogicalLocationsChain(CurrentLogicalLocations, logicalLocation);
+
+            if (!RemappedLogicalLocations.TryGetValue(logicalLocationChain, out int remappedIndex))
+            {
+                remappedIndex = RemappedLogicalLocations.Count;
+                logicalLocation.Index = remappedIndex;
+
+                this.CurrentLogicalLocations.Add(logicalLocation);
+                RemappedLogicalLocations[logicalLocationChain] = remappedIndex;
+            }
+
+            return remappedIndex;
         }
 
         public override ArtifactLocation VisitArtifactLocation(ArtifactLocation node)
         {
             if (node.Index != -1 && HistoricalFiles != null)
             {
-                node.Index = CacheFileData(HistoricalFiles[node.Index]);
+                node.Index = CacheArtifact(HistoricalFiles[node.Index], HistoricalFiles);
             }
-            return node;
+
+            return base.VisitArtifactLocation(node);
         }
-        
-        private int CacheFileData(Artifact fileData)
+
+        private int CacheArtifact(Artifact artifact, IList<Artifact> currentArtifacts)
         {
-            this.CurrentFiles = this.CurrentFiles ?? new List<Artifact>();
+            artifact = artifact.DeepClone();
 
-            int parentIndex = fileData.ParentIndex;
+            int parentIndex = artifact.ParentIndex;
 
-            // Ensure all parent nodes are already remapped
+            // Ensure all parent nodes are remapped.
             if (parentIndex != -1)
             {
                 // Important: the input results we are rewriting need to refer
-                // to the historical files index in order to understand parenting
-                fileData.ParentIndex = CacheFileData(HistoricalFiles[parentIndex]);
+                // to the historical files index in order to understand parenting.
+                artifact.ParentIndex = CacheArtifact(currentArtifacts[parentIndex], currentArtifacts);
             }
 
-            OrderSensitiveValueComparisonList<Artifact> fileChain;
+            // Equally important, the artifact chain is a specially constructed key that
+            // operates against the newly constructed files array in CurrentArtifacts.
+            OrderSensitiveValueComparisonList<Artifact> artifactChain = ConstructArtifactsChain(CurrentArtifacts, artifact);
 
-            // Equally important, the file chain is a specially constructed key that
-            // operates against the newly constructed files array in CurrentFiles
-            fileChain = ConstructFilesChain(CurrentFiles, fileData);
-
-            if (!RemappedFiles.TryGetValue(fileChain, out int remappedIndex))
+            if (!RemappedArtifacts.TryGetValue(artifactChain, out int remappedIndex))
             {
-                remappedIndex = RemappedFiles.Count;
+                remappedIndex = RemappedArtifacts.Count;
 
-                this.CurrentFiles.Add(fileData);
-                RemappedFiles[fileChain] = remappedIndex;
+                this.CurrentArtifacts.Add(artifact);
+                RemappedArtifacts[artifactChain] = remappedIndex;
 
-                Debug.Assert(RemappedFiles.Count == this.CurrentFiles.Count);
+                Debug.Assert(RemappedArtifacts.Count == this.CurrentArtifacts.Count);
 
-                if (fileData.Location != null)
+                if (artifact.Location != null)
                 {
-                    fileData.Location.Index = remappedIndex;
+                    artifact.Location.Index = remappedIndex;
                 }
             }
+
             return remappedIndex;
         }
 
-        private static OrderSensitiveValueComparisonList<Artifact> ConstructFilesChain(IList<Artifact> existingFiles, Artifact currentFile)
+        private static OrderSensitiveValueComparisonList<Artifact> ConstructArtifactsChain(IList<Artifact> existingArtifacts, Artifact currentArtifact)
         {
-            var fileChain = new OrderSensitiveValueComparisonList<Artifact>(Artifact.ValueComparer);
+            var artifactChain = new OrderSensitiveValueComparisonList<Artifact>(Artifact.ValueComparer);
 
             int parentIndex;
 
             do
             {
-                currentFile = currentFile.DeepClone();
-                parentIndex = currentFile.ParentIndex;
+                currentArtifact = currentArtifact.DeepClone();
+                parentIndex = currentArtifact.ParentIndex;
 
-                // Index information is entirely irrelevant for the identity of nested files,
+                // Index information is entirely irrelevant for the identity of nested artifacts,
                 // as each element of the chain could be stored at arbitrary locations in
-                // the run.files table. And so we elide this information.
-                currentFile.ParentIndex = -1;
-                if (currentFile.Location != null)
+                // the run.artifacts table. And so we elide this information.
+                currentArtifact.ParentIndex = -1;
+                if (currentArtifact.Location != null)
                 {
-                    currentFile.Location.Index = -1;
+                    currentArtifact.Location.Index = -1;
                 }
 
-                fileChain.Add(currentFile);
+                artifactChain.Add(currentArtifact);
 
                 if (parentIndex != -1)
                 {
-                    currentFile = existingFiles[parentIndex];
+                    currentArtifact = existingArtifacts[parentIndex];
                 }
 
             } while (parentIndex != -1);
 
-            return fileChain;
+            return artifactChain;
+        }
+
+        private static OrderSensitiveValueComparisonList<LogicalLocation> ConstructLogicalLocationsChain(
+            IList<LogicalLocation> existingLogicalLocations,
+            LogicalLocation currentLogicalLocation)
+        {
+            var logicalLocationChain = new OrderSensitiveValueComparisonList<LogicalLocation>(LogicalLocation.ValueComparer);
+
+            int parentIndex;
+
+            do
+            {
+                currentLogicalLocation = currentLogicalLocation.DeepClone();
+                parentIndex = currentLogicalLocation.ParentIndex;
+
+                // Index information is entirely irrelevant for the identity of nested logical locations,
+                // as each element of the chain could be stored at arbitrary locations in the
+                // run.logicalLocations table. And so we elide this information.
+                currentLogicalLocation.ParentIndex = -1;
+                currentLogicalLocation.Index = -1;
+
+                logicalLocationChain.Add(currentLogicalLocation);
+
+                if (parentIndex != -1)
+                {
+                    currentLogicalLocation = existingLogicalLocations[parentIndex];
+                }
+
+            } while (parentIndex != -1);
+
+            return logicalLocationChain;
         }
     }
 }
