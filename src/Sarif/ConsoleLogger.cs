@@ -320,7 +320,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new InvalidOperationException("Unknown notification level: " + notification.Level);
             }
 
-            var sb = new StringBuilder(issueType + " ");
+            var sb = new StringBuilder(_toolName + " : ");
+
+            sb.Append(issueType + " ");
 
             if (!string.IsNullOrEmpty(notification.Descriptor?.Id))
             {

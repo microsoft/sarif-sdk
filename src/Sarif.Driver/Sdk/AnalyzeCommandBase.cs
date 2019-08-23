@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -9,6 +10,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security;
+using System.Threading.Tasks;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
@@ -601,18 +603,38 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     context.TargetUri.GetFileName()));
             }
 
-            if (options.ComputeFileHashes && _resultsCachingLogger.HashToResultsMap.TryGetValue(context.Hashes.Sha256, out List<Tuple<ReportingDescriptor, Result>> results))
+            if (options.ComputeFileHashes)
             {
-                context.Logger.AnalyzingTarget(context);
-                foreach (Tuple<ReportingDescriptor, Result> result in results)
+                _resultsCachingLogger.HashToResultsMap.TryGetValue(context.Hashes.Sha256, out List<Tuple<ReportingDescriptor, Result>> cachedResults);
+                _resultsCachingLogger.HashToNotificationsMap.TryGetValue(context.Hashes.Sha256, out List<Notification> cachedNotifications);
+
+                bool replayCachedData = (cachedResults != null || cachedNotifications != null);
+
+                if (replayCachedData)
                 {
-                    if (result.Item2.Locations?.Count > 0)
+                    context.Logger.AnalyzingTarget(context);
+
+                    if (cachedResults != null)
                     {
-                        result.Item2.Locations[0].PhysicalLocation.ArtifactLocation.Uri = context.TargetUri;
+                        foreach (Tuple<ReportingDescriptor, Result> cachedResult in cachedResults)
+                        {
+                            if (cachedResult.Item2.Locations?.Count > 0)
+                            {
+                                cachedResult.Item2.Locations[0].PhysicalLocation.ArtifactLocation.Uri = context.TargetUri;
+                            }
+                            context.Logger.Log(cachedResult.Item1, cachedResult.Item2);
+                        }
                     }
-                    context.Logger.Log(result.Item1, result.Item2);
+
+                    if (cachedNotifications != null)
+                    {
+                        foreach (Notification notification in cachedNotifications)
+                        {
+                            context.Logger.LogConfigurationNotification(notification);
+                        }
+                    }
+                    return context;
                 }
-                return context;
             }
 
             if (context.TargetLoadException != null)
