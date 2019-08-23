@@ -727,8 +727,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             for (int i = 0; i < files.Length; i++)
             {
                 mockFileSystem.Setup(x => x.ReadAllText(files[i])).Returns(logFileContents);
-                mockFileSystem.Setup(x => x.OpenRead(Path.Combine(Environment.CurrentDirectory,files[i]))).Returns(new MemoryStream(Encoding.UTF8.GetBytes(logFileContents)));
-            }
+                mockFileSystem.Setup(x => x.OpenRead(Environment.CurrentDirectory + @"\" + files[i])).Returns(new MemoryStream(Encoding.UTF8.GetBytes(logFileContents)));
+//                mockFileSystem.Setup(x => x.OpenRead(Path.Combine(Environment.CurrentDirectory, files[i]))).Returns(new MemoryStream(Encoding.UTF8.GetBytes(logFileContents)));
+        }
             return mockFileSystem.Object;
         }
 
