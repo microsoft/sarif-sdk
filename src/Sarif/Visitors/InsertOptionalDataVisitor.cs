@@ -157,6 +157,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     }
                 }
             }
+
             return base.VisitArtifact(node);
         }
 
