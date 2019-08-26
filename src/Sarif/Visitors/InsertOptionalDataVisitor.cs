@@ -123,7 +123,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         public override Artifact VisitArtifact(Artifact node)
         {
             ArtifactLocation fileLocation = node.Location;
-            if (fileLocation != null && (_run.OriginalUriBaseIds != null || fileLocation.Uri != null))
+            if (fileLocation != null)
             {
                 bool workToDo = false;
                 bool overwriteExistingData = _dataToInsert.HasFlag(OptionallyEmittedData.OverwriteExistingData);
@@ -150,17 +150,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         }
 
                         int length = node.Length;
-
-                        if(_run.OriginalUriBaseIds != null) node = Artifact.Create(uri, _dataToInsert, encoding: encoding);
-                        else node = Artifact.Create(fileLocation.Uri, _dataToInsert, encoding: encoding);
-
+                        node = Artifact.Create(uri, _dataToInsert, encoding: encoding);
                         node.Length = length;
                         fileLocation.Index = -1;
                         node.Location = fileLocation;
                     }
                 }
             }
-           
             return base.VisitArtifact(node);
         }
 

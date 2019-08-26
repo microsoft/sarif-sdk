@@ -51,6 +51,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 // Restore the remanufactured URI so that file diffing matches
                 actualLog.Runs[0].OriginalUriBaseIds["TESTROOT"] = new ArtifactLocation { Uri = originalUri };
             }
+           else if (inputResourceName == "Inputs.CoreTests2.sarif")
+            {
+                Uri originalUri = actualLog.Runs[0].Artifacts[0].Location.Uri;
+                string uriString = originalUri.ToString();
+
+                string currentDirectory = Environment.CurrentDirectory;
+                currentDirectory = currentDirectory.Substring(0, currentDirectory.IndexOf(@"\bld\"));                
+                uriString = uriString.Replace("REPLACED_AT_TEST_RUNTIME", currentDirectory);
+
+                actualLog.Runs[0].Artifacts[0].Location = new ArtifactLocation { Uri = new Uri(uriString, UriKind.Absolute) };
+               
+                var visitor = new InsertOptionalDataVisitor(_currentOptionallyEmittedData);
+                visitor.Visit(actualLog.Runs[0]);
+
+                // Restore the remanufactured URI so that file diffing matches
+                actualLog.Runs[0].Artifacts[0].Location = new ArtifactLocation { Uri = originalUri };
+            }
             else
             {
                 var visitor = new InsertOptionalDataVisitor(_currentOptionallyEmittedData);
@@ -80,6 +97,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             RunTest("CoreTests.sarif", OptionallyEmittedData.TextFiles);
         }
+
+        [Fact]
+        public void InsertOptionalDataVisitor_PersistsTextFilesWithoutOriginalUriBaseIds()
+        {
+            RunTest("CoreTests2.sarif", OptionallyEmittedData.TextFiles);
+        }
+
 
         [Fact]
         public void InsertOptionalDataVisitor_PersistsRegionSnippets()

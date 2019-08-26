@@ -17,6 +17,8 @@
     <None Remove="TestData\Baseline\elfie-arriba.sarif" />
     <None Remove="TestData\Baseline\SuppressionTestCurrent.sarif" />
     <None Remove="TestData\Baseline\SuppressionTestPrevious.sarif" />
+    <None Remove="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests2_TextFiles.sarif" />
+    <None Remove="TestData\InsertOptionalDataVisitor\Inputs\CoreTests2.sarif" />
     <None Remove="TestData\JsonConverters\UriConverterTests.json" />
     <None Remove="TestData\Map\Sample.json" />
     <None Remove="TestData\Map\TinyArray.json" />
@@ -68,7 +70,9 @@
     <EmbeddedResource Include="TestData\Baseline\elfie-arriba.sarif" />
     <EmbeddedResource Include="TestData\Baseline\SuppressionTestCurrent.sarif" />
     <EmbeddedResource Include="TestData\Baseline\SuppressionTestPrevious.sarif" />
+    <EmbeddedResource Include="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests2_TextFiles.sarif" />
     <EmbeddedResource Include="TestData\InsertOptionalDataVisitor\ExpectedOutputs\TopLevelOriginalUriBaseIdUriMissing_ContextRegionSnippets.sarif" />
+    <EmbeddedResource Include="TestData\InsertOptionalDataVisitor\Inputs\CoreTests2.sarif" />
     <EmbeddedResource Include="TestData\InsertOptionalDataVisitor\Inputs\TopLevelOriginalUriBaseIdUriMissing.sarif" />
     <EmbeddedResource Include="TestData\JsonConverters\UriConverterTests.json" />
     <EmbeddedResource Include="TestData\Map\TinyArray.json">
