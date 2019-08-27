@@ -93,7 +93,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 logicalLocation.ParentIndex = CacheLogicalLocation(currentLogicalLocations[parentIndex], currentLogicalLocations);
             }
 
-            OrderSensitiveValueComparisonList<LogicalLocation> logicalLocationChain = ConstructLogicalLocationsChain(CurrentLogicalLocations, logicalLocation);
+            OrderSensitiveValueComparisonList<LogicalLocation> logicalLocationChain = ConstructLogicalLocationsChain(logicalLocation, CurrentLogicalLocations);
 
             if (!RemappedLogicalLocations.TryGetValue(logicalLocationChain, out int remappedIndex))
             {
@@ -133,7 +133,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             // Equally important, the artifact chain is a specially constructed key that
             // operates against the newly constructed files array in CurrentArtifacts.
-            OrderSensitiveValueComparisonList<Artifact> artifactChain = ConstructArtifactsChain(CurrentArtifacts, artifact);
+            OrderSensitiveValueComparisonList<Artifact> artifactChain = ConstructArtifactsChain(artifact, CurrentArtifacts);
 
             if (!RemappedArtifacts.TryGetValue(artifactChain, out int remappedIndex))
             {
@@ -153,7 +153,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return remappedIndex;
         }
 
-        private static OrderSensitiveValueComparisonList<Artifact> ConstructArtifactsChain(IList<Artifact> existingArtifacts, Artifact currentArtifact)
+        private static OrderSensitiveValueComparisonList<Artifact> ConstructArtifactsChain(Artifact currentArtifact, IList<Artifact> existingArtifacts)
         {
             var artifactChain = new OrderSensitiveValueComparisonList<Artifact>(Artifact.ValueComparer);
 
@@ -186,8 +186,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         }
 
         private static OrderSensitiveValueComparisonList<LogicalLocation> ConstructLogicalLocationsChain(
-            IList<LogicalLocation> existingLogicalLocations,
-            LogicalLocation currentLogicalLocation)
+            LogicalLocation currentLogicalLocation,
+            IList<LogicalLocation> existingLogicalLocations)
         {
             var logicalLocationChain = new OrderSensitiveValueComparisonList<LogicalLocation>(LogicalLocation.ValueComparer);
 
