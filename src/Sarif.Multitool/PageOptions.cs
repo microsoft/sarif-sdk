@@ -43,12 +43,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             Required = true)]
         public int Count { get; set; }
 
-        // Force defaults to true, so users creating many large pages to the same output file name
-        // won't actually be getting the same page repeatedly without knowing it.
         [Option(
             'f',
             "force",
-            Default = true,
+            Default = false,
             HelpText = "Force overwrite of output file if it exists.")]
         public bool Force { get; set; }
 

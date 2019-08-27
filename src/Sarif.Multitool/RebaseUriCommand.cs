@@ -27,7 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 if (!Uri.TryCreate(rebaseOptions.BasePath, UriKind.Absolute, out Uri baseUri))
                 {
                     Console.Error.WriteLine($"The value '{rebaseOptions.BasePath}' of the --base-path-value option is not an absolute URI.");
-                    return Failure;
+                    return FAILURE;
                 }
 
                 // In case someone accidentally passes C:\bld\src and meant C:\bld\src\--the base path should always be a folder, not something that points to a file.
@@ -38,7 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 var rebaseUriFiles = GetRebaseUriFiles(rebaseOptions);
 
-                if (!ValidateOptions(rebaseOptions, rebaseUriFiles)) { return Failure; }
+                if (!ValidateOptions(rebaseOptions, rebaseUriFiles)) { return FAILURE; }
 
                 if (!rebaseOptions.Inline)
                 {
@@ -59,10 +59,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
-                return Failure;
+                return FAILURE;
             }
 
-            return Success;
+            return SUCCESS;
         }
 
         private IEnumerable<RebaseUriFile> GetRebaseUriFiles(RebaseUriOptions rebaseUriOptions)

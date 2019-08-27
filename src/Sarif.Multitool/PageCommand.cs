@@ -33,7 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
-                returnCode = Failure;
+                returnCode = FAILURE;
             }
 
             return returnCode;
@@ -49,7 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             // Write the desired page from the Sarif file
             ExtractPage(options, root);
 
-            return Success;
+            return SUCCESS;
         }
 
         internal bool ValidateOptions(PageOptions options, IFileSystem fileSystem)

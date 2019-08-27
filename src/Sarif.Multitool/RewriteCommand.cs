@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             try
             {
                 bool valid = ValidateOptions(rewriteOptions);
-                if (!valid) { return Failure; }
+                if (!valid) { return FAILURE; }
 
                 SarifLog actualLog = ReadSarifFile<SarifLog>(_fileSystem, rewriteOptions.InputFilePath);
 
@@ -44,10 +44,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             catch(Exception ex)
             {
                 Console.WriteLine(ex);
-                return Failure;
+                return FAILURE;
             }
 
-            return Success;
+            return SUCCESS;
         }
 
         private bool ValidateOptions(RewriteOptions rewriteOptions)
