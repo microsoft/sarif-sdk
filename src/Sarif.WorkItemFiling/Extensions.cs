@@ -29,7 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
             string organization = artifactLocation.GetProperty("OrganizationName");
             string artifactId = artifactLocation.GetProperty<int>("ArtifactId").ToString();
             string projectName = artifactLocation.GetProperty("ProjectName");
-            string artifactType = artifactLocation.GetProperty("EntityType");
+            string artifactType = artifactLocation.GetProperty("ArtifactType");
 
             // BUG: GetProperty doesn't unencode string values
             string areaPath = $@"{workItemProjectName}" + artifactLocation.GetProperty("AreaPath").Replace(@"\\", @"\");
