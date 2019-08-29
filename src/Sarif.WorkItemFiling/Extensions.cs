@@ -27,13 +27,14 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
             ArtifactLocation artifactLocation = sarifLog.Runs[0].Artifacts[0].Location;
 
             string organization = artifactLocation.GetProperty("OrganizationName");
-            string buildDefinitionId = artifactLocation.GetProperty<int>("BuildDefinitionId").ToString();
+            string artifactId = artifactLocation.GetProperty<int>("ArtifactId").ToString();
             string projectName = artifactLocation.GetProperty("ProjectName");
+            string artifactType = artifactLocation.GetProperty("EntityType");
 
             // BUG: GetProperty doesn't unencode string values
             string areaPath = $@"{workItemProjectName}" + artifactLocation.GetProperty("AreaPath").Replace(@"\\", @"\");
 
-            string buildDefinitionName = artifactLocation.GetProperty("BuildDefinitionName");
+            string artifactName = artifactLocation.GetProperty("ArtifactName");
 
             List<string> customTags = new List<string>();
             if (artifactLocation.TryGetProperty("CustomTags", out string customTagsString))
@@ -67,9 +68,21 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
                 ruleName = sarifLog.Runs[0].Tool.Driver.Rules[result.RuleIndex].Name + ":" + ruleName;
             }
 
-            metadata.Title = "[" + organization + "/" + projectName + "] " +
-                            ruleName + ": Exposed credential(s) in " +
-                             "build definition: '" + buildDefinitionName + "'";
+            string titleEntity;
+            switch (artifactType)
+            {
+                case "builddefinitions":
+                    titleEntity = "build definition";
+                    break;
+                case "releasedefinitions":
+                    titleEntity = "release definition";
+                    break;
+                default:
+                    titleEntity = string.Empty;
+                    break;
+            }
+
+            metadata.Title = $"[{organization}/{projectName}] {ruleName}: Exposed credential(s) in {titleEntity}: '{artifactName}'";
 
             // TODO: This should come from the SARIF or command line arg in the future.
             metadata.Tags = new List<string>(new string[] { "Security" });
@@ -79,8 +92,8 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
                 File.ReadAllText(templateFilePath),
                 organization,
                 projectName,
-                buildDefinitionId,
-                buildDefinitionName,
+                artifactId,
+                artifactName,
                 ruleName,
                 sarifLog.Runs[0]
                 );
@@ -98,7 +111,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
             string organization, 
             string projectName, 
             string pipelineId,
-            string buildDefinitionName, 
+            string artifactName,
             string ruleName, 
             Run run)
         {
@@ -115,7 +128,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
             // Inject text from the first result
             Result sampleResult = run.Results[0];
             string anchorLink = GetLinkText(sampleResult.Message.Text);
-            templateText = templateText.Replace(SCAN_TARGET_LINK, BuildAnchorElement(anchorLink, buildDefinitionName));
+            templateText = templateText.Replace(SCAN_TARGET_LINK, BuildAnchorElement(anchorLink, artifactName));
 
             string jsonPath = GetVariableName(sampleResult.Message.Text);
             string locationsText = BuildLocationsText(run);
@@ -147,9 +160,9 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
                 ArtifactLocation artifactLocation = run.Artifacts[result.Locations[0].PhysicalLocation.ArtifactLocation.Index].Location;
 
                 string organization = artifactLocation.GetProperty("OrganizationName");
-                string buildDefinitionId = artifactLocation.GetProperty<int>("BuildDefinitionId").ToString();
+                string artifactId = artifactLocation.GetProperty<int>("ArtifactId").ToString();
                 string projectName = artifactLocation.GetProperty("ProjectName");
-                string pipelineName = organization + "/" + projectName + "." + buildDefinitionId;
+                string pipelineName = organization + "/" + projectName + "." + artifactId;
 
                 string anchorLink = GetLinkText(result.Message.Text);
                 string jsonPath = GetVariableName(result.Message.Text);
