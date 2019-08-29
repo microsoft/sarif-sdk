@@ -34,7 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             SarifLog actualLog = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(transformedLog, formatting: Formatting.None, out transformedLog);
 
             // For CoreTests only - this code rewrites the log persisted URI to match the test environment
-            if (inputResourceName == "Inputs.CoreTests.sarif")
+            if (inputResourceName == "Inputs.CoreTests-Relative.sarif")
             {
                 Uri originalUri = actualLog.Runs[0].OriginalUriBaseIds["TESTROOT"].Uri;
                 string uriString = originalUri.ToString();
@@ -50,6 +50,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 // Restore the remanufactured URI so that file diffing matches
                 actualLog.Runs[0].OriginalUriBaseIds["TESTROOT"] = new ArtifactLocation { Uri = originalUri };
+            }
+           else if (inputResourceName == "Inputs.CoreTests-Absolute.sarif")
+            {
+                Uri originalUri = actualLog.Runs[0].Artifacts[0].Location.Uri;
+                string uriString = originalUri.ToString();
+
+                string currentDirectory = Environment.CurrentDirectory;
+                currentDirectory = currentDirectory.Substring(0, currentDirectory.IndexOf(@"\bld\"));                
+                uriString = uriString.Replace("REPLACED_AT_TEST_RUNTIME", currentDirectory);
+
+                actualLog.Runs[0].Artifacts[0].Location = new ArtifactLocation { Uri = new Uri(uriString, UriKind.Absolute) };
+               
+                var visitor = new InsertOptionalDataVisitor(_currentOptionallyEmittedData);
+                visitor.Visit(actualLog.Runs[0]);
+
+                // Restore the remanufactured URI so that file diffing matches
+                actualLog.Runs[0].Artifacts[0].Location = new ArtifactLocation { Uri = originalUri };
             }
             else
             {
@@ -72,49 +89,56 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         [Fact]
         public void InsertOptionalDataVisitor_PersistsHashes()
         {
-            RunTest("CoreTests.sarif", OptionallyEmittedData.Hashes);
+            RunTest("CoreTests-Relative.sarif", OptionallyEmittedData.Hashes);
         }
 
         [Fact]
-        public void InsertOptionalDataVisitor_PersistsTextFiles()
+        public void InsertOptionalDataVisitor_PersistsTextFilesWithRelativeUris()
         {
-            RunTest("CoreTests.sarif", OptionallyEmittedData.TextFiles);
+            RunTest("CoreTests-Relative.sarif", OptionallyEmittedData.TextFiles);
         }
+
+        [Fact]
+        public void InsertOptionalDataVisitor_PersistsTextFilesWithAbsoluteUris()
+        {
+            RunTest("CoreTests-Absolute.sarif", OptionallyEmittedData.TextFiles);
+        }
+
 
         [Fact]
         public void InsertOptionalDataVisitor_PersistsRegionSnippets()
         {
-            RunTest("CoreTests.sarif", OptionallyEmittedData.RegionSnippets);
+            RunTest("CoreTests-Relative.sarif", OptionallyEmittedData.RegionSnippets);
         }
 
         [Fact]
         public void InsertOptionalDataVisitor_PersistsFlattenedMessages()
         {
-            RunTest("CoreTests.sarif", OptionallyEmittedData.FlattenedMessages);
+            RunTest("CoreTests-Relative.sarif", OptionallyEmittedData.FlattenedMessages);
         }
 
         [Fact]
         public void InsertOptionalDataVisitor_PersistsContextRegionSnippets()
         {
-            RunTest("CoreTests.sarif", OptionallyEmittedData.ContextRegionSnippets);
+            RunTest("CoreTests-Relative.sarif", OptionallyEmittedData.ContextRegionSnippets);
         }
 
         [Fact]
         public void InsertOptionalDataVisitor_PersistsComprehensiveRegionProperties()
         {
-            RunTest("CoreTests.sarif", OptionallyEmittedData.ComprehensiveRegionProperties);
+            RunTest("CoreTests-Relative.sarif", OptionallyEmittedData.ComprehensiveRegionProperties);
         }
 
         [Fact]
         public void InsertOptionalDataVisitor_PersistsNone()
         {
-            RunTest("CoreTests.sarif");
+            RunTest("CoreTests-Relative.sarif");
         }
 
         [Fact]
         public void InsertOptionalDataVisitor_PersistsHashesAndTextFiles()
         {
-            RunTest("CoreTests.sarif",
+            RunTest("CoreTests-Relative.sarif",
                 OptionallyEmittedData.TextFiles |
                 OptionallyEmittedData.Hashes);
         }
@@ -122,7 +146,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         [Fact]
         public void InsertOptionalDataVisitor_PersistsAll()
         {
-            RunTest("CoreTests.sarif", 
+            RunTest("CoreTests-Relative.sarif", 
                 OptionallyEmittedData.ComprehensiveRegionProperties | 
                 OptionallyEmittedData.RegionSnippets | 
                 OptionallyEmittedData.TextFiles | 

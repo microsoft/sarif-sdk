@@ -123,7 +123,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         public override Artifact VisitArtifact(Artifact node)
         {
             ArtifactLocation fileLocation = node.Location;
-            if (fileLocation != null && _run.OriginalUriBaseIds != null)
+            if (fileLocation != null)
             {
                 bool workToDo = false;
                 bool overwriteExistingData = _dataToInsert.HasFlag(OptionallyEmittedData.OverwriteExistingData);
