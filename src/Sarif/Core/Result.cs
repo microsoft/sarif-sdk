@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -83,5 +84,35 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             return rules[ruleIndex];
         }
+
+#if DEBUG
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+
+            sb.Append(this.Locations?[0].PhysicalLocation?.ArtifactLocation?.Uri);
+            sb.Append(" : " + this.RuleId);
+            sb.Append(" : " + this.Level);
+            sb.Append(" : " + this.Kind);
+
+            if (!string.IsNullOrEmpty(this.Message.Text))
+            {
+                sb.Append(" : " + this.Message.Text);
+            }
+            else
+            {
+                sb.Append(" : {");
+                foreach(string argument in this.Message.Arguments)
+                {
+                    sb.Append(argument + ",");
+                }
+                sb.Length = sb.Length - 1;
+                sb.Append("}");
+
+            }
+
+            return sb.ToString();
+        }
+#endif
     }
 }

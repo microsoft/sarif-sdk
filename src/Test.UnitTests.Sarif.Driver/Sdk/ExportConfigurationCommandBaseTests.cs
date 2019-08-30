@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 using System.IO;
+using System.Linq;
 using System.Reflection;
 
 using FluentAssertions;
@@ -62,12 +63,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             configuration.Should().NotBeNull();
 
-            // We only have a single rule that provides options. Every rule
-            // provides a default setting, however, that controls whether 
-            // a rule is enabled or forced to a particular warning level.
-            // We therefore expect two top-level items in the configuration,
-            // each of which is a properties collection for a rule.
-            configuration.Keys.Count.Should().Be(3);
+            // We export two rules, FunctionlessTestRule and TestRule
+            configuration.Keys.Count.Should().Be(2);
         }
 
         [Fact]
@@ -76,7 +73,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             PropertiesDictionary configuration = CreateAllRulesDisabledConfiguration();
 
             configuration.Should().NotBeNull();
-            configuration.Keys.Count.Should().Be(3);
+
+            // We export two rules, FunctionlessTestRule and TestRule
+            configuration.Keys.Count.Should().Be(2);
 
             foreach (PropertiesDictionary ruleProperties in configuration.Values)
             {

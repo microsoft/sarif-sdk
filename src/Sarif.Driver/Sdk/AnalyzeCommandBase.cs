@@ -480,7 +480,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        private HashSet<Skimmer<TContext>> CreateSkimmers(TContext context)
+        protected virtual HashSet<Skimmer<TContext>> CreateSkimmers(TContext context)
         {
             IEnumerable<Skimmer<TContext>> skimmers;
             HashSet<Skimmer<TContext>> result = new HashSet<Skimmer<TContext>>();
@@ -620,7 +620,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         {
                             if (cachedResult.Item2.Locations?.Count > 0)
                             {
-                                cachedResult.Item2.Locations[0].PhysicalLocation.ArtifactLocation.Uri = context.TargetUri;
+                                ArtifactLocation artifactLocation = cachedResult.Item2.Locations[0].PhysicalLocation?.ArtifactLocation;
+                                if (artifactLocation != null)
+                                {
+                                    string fileName = Path.GetFileName(artifactLocation.Uri.ToString());
+                                    string newFileName = Path.GetFileName(context.TargetUri.ToString());
+                                    {
+                                        Message message = cachedResult.Item2.Message;
+
+                                        for (int i = 0; i < message?.Arguments.Count; i++)
+                                        {
+                                            if (message.Arguments[i] == fileName)
+                                            {
+                                                message.Arguments[i] = newFileName;
+                                            }
+                                        }
+
+                                    }
+                                    artifactLocation.Uri = context.TargetUri;
+                                }
                             }
                             context.Logger.Log(cachedResult.Item1, cachedResult.Item2);
                         }
