@@ -430,7 +430,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public void AnalyzeCommand_ReportsErrorOnInvalidInvocationPropertyName()
+        public void AnalyzeCommandBase_ReportsErrorOnInvalidInvocationPropertyName()
         {
             var options = new TestAnalyzeOptions()
             {
@@ -445,7 +445,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public void AnalyzeCommand_ReportsWarningOnUnsupportedPlatformForRule()
+        public void AnalyzeCommandBase_ReportsWarningOnUnsupportedPlatformForRule()
         {
             var options = new TestAnalyzeOptions()
             {
@@ -463,7 +463,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
 
         [Fact]
-        public void AnalyzeCommand_ReportsWarningOnUnsupportedPlatformForRuleAndNoRulesLoaded()
+        public void AnalyzeCommandBase_ReportsWarningOnUnsupportedPlatformForRuleAndNoRulesLoaded()
         {
             PropertiesDictionary allRulesDisabledConfiguration = ExportConfigurationCommandBaseTests.s_allRulesDisabledConfiguration;
             string path = Path.GetTempFileName() + ".xml";
@@ -542,7 +542,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public void AnalyzeCommand_DefaultEndToEndAnalysis()
+        public void AnalyzeCommandBase_DefaultEndToEndAnalysis()
         {
             string location = GetThisTestAssemblyFilePath();
 
@@ -577,7 +577,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public void AnalyzeCommand_PersistsSarifOneZeroZero()
+        public void AnalyzeCommandBase_PersistsSarifOneZeroZero()
         {
             string fileName = GetThisTestAssemblyFilePath();
             string path = Path.GetTempFileName();
@@ -623,7 +623,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public void AnalyzeCommand_RunDefaultRules()
+        public void AnalyzeCommandBase_RunDefaultRules()
         {
             string location = GetThisTestAssemblyFilePath();
 
@@ -658,7 +658,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public void AnalyzeCommand_FireAllRules()
+        public void AnalyzeCommandBase_FireAllRules()
         {
             PropertiesDictionary configuration = ExportConfigurationCommandBaseTests.s_defaultConfiguration;
 
@@ -698,7 +698,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public void AnalyzeCommand_EndToEndAnalysisWithExplicitlyDisabledRules()
+        public void AnalyzeCommandBase_EndToEndAnalysisWithExplicitlyDisabledRules()
         {
             PropertiesDictionary allRulesDisabledConfiguration = ExportConfigurationCommandBaseTests.s_allRulesDisabledConfiguration;
             string path = Path.GetTempFileName() + ".xml";
@@ -764,7 +764,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         [InlineData("default", true, null)]
         [InlineData("test-newconfig.xml", false, "test-newconfig.xml")]
         [InlineData("test-newconfig.xml", true, "test-newconfig.xml")]
-        public void AnalyzeCommand_LoadConfigurationFile(string configValue, bool defaultFileExists, string expectedFileName)
+        public void AnalyzeCommandBase_LoadConfigurationFile(string configValue, bool defaultFileExists, string expectedFileName)
         {
             var options = new TestAnalyzeOptions
             {
@@ -798,7 +798,83 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public void AnalyzeCommand_CachesErrors()
+        public void AnalyzeCommandBase_UpdateLocationsAndMessageWithCurrentUri()
+        {
+            Uri uri = new Uri(@"c:\directory\test.txt", UriKind.RelativeOrAbsolute);
+            Notification actualNotification = BuildTestNotification(uri);
+
+            Uri updatedUri = new Uri(@"c:\updated\directory\newFileName.txt", UriKind.RelativeOrAbsolute);
+            Notification expectedNotification = BuildTestNotification(updatedUri);
+
+            AnalyzeCommandBase<TestAnalysisContext, AnalyzeOptionsBase>
+                .UpdateLocationsAndMessageWithCurrentUri(actualNotification.Locations, actualNotification.Message, updatedUri);
+
+            actualNotification.Should().BeEquivalentTo(expectedNotification);
+        }
+
+        private Notification BuildTestNotification(Uri uri)
+        {
+            string filePath = uri.OriginalString;
+            string fileName = Path.GetFileName(uri.OriginalString);
+            return new Notification
+            {
+                Locations = new List<Location>
+                {
+                    new Location
+                    {
+                        PhysicalLocation = new PhysicalLocation
+                        {
+                            ArtifactLocation = new ArtifactLocation
+                            {
+                                Uri = uri
+                            }
+                        }
+                    }
+                },
+                Message = new Message
+                {
+                    Arguments = new List<string> { filePath, fileName },
+                    Text = string.Format(@"Found an issue in {0} (full path is {1}", filePath, fileName)
+                }
+            };
+        }
+
+        [Fact]
+        public void AnalyzeCommandBase_GetFileNameFromUriWorks()
+        {
+            var sb = new StringBuilder();
+
+            var testCases = new Tuple<string, string>[]
+            {
+                new Tuple<string, string>(null, null),
+                new Tuple<string, string>(@"file.txt", "file.txt"),
+                new Tuple<string, string>(@".\file.txt", "file.txt"),
+                new Tuple<string, string>(@"c:\directory\file.txt", "file.txt"),
+                new Tuple<string, string>(@"\\computer\computer\file.txt", "file.txt"),
+                new Tuple<string, string>(@"file://directory/file.txt", "file.txt"),
+                new Tuple<string, string>(@"/file.txt", "file.txt"),
+                new Tuple<string, string>(@"directory/file.txt", "file.txt"),
+            };
+
+            foreach (Tuple<string, string> testCase in testCases)
+            {
+                Uri uri = testCase.Item1 != null ? new Uri(testCase.Item1, UriKind.RelativeOrAbsolute) : null;
+                string expectedFileName = testCase.Item2;
+
+                string actualFileName = AnalyzeCommandBase<TestAnalysisContext, AnalyzeOptionsBase>.GetFileNameFromUri(uri);
+
+                if (!object.Equals(actualFileName, expectedFileName))
+                {
+                    sb.AppendLine(string.Format("Bad file name returned for uri '{0}'. Expected '{1}' but saw '{2}'.", uri, expectedFileName, actualFileName));
+                }
+            }
+            sb.Length.Should().Be(0, because: "all URI to file name conversions should succeed but the following cases failed." + Environment.NewLine + sb.ToString());
+        }
+
+        #region ResultsCachingTestsAndHelpers
+
+        [Fact]
+        public void AnalyzeCommandBase_CachesErrors()
         {
             // Produce two errors results
             var testCase = new ResultsCachingTestCase()
@@ -814,9 +890,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
 
         [Fact]
-        public void AnalyzeCommand_CachesNotes()
+        public void AnalyzeCommandBase_CachesNotes()
         {
-            // Produce two errors results
+            // Produce three results in verbose runs only
             var testCase = new ResultsCachingTestCase()
             {
                 Files = new List<string>(new string[] { "Note.dll", "Note.exe", "Note.sys" })
@@ -837,7 +913,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public void AnalyzeCommand_CachesNotificationsWithoutPersistingToLogFile()
+        public void AnalyzeCommandBase_CachesNotificationsWithoutPersistingToLogFile()
         {
             var testCase = new ResultsCachingTestCase
             {
@@ -853,7 +929,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public void AnalyzeCommand_CachesNotificationsWhenPersistingToLogFile()
+        public void AnalyzeCommandBase_CachesNotificationsWhenPersistingToLogFile()
         {
             var testCase = new ResultsCachingTestCase
             {
@@ -869,52 +945,35 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             RunResultsCachingTestCase(testCase);
         }
 
-        /*
-                [Fact]
-                public void AnalyzeCommand_CachesNotificationsWhenComputingTargetHashesWithoutPersistingToLogFile()
-                {
-                    try
-                    {
-                        SimpleTestRule.s_testRuleBehaviors = TestRuleBehaviors.LoadingPdb;
+        [Fact]
+        public void AnalyzeCommandBase_CachesResultsWithoutPersistingToLogFile()
+        {
+            var testCase = new ResultsCachingTestCase
+            {
+                Files = ComprehensiveKindAndLevelsByFileName,
+                PersistLogFileToDisk = false,
+            };
 
-                        // TODO: even though this test raises an exception per binary, we are not persisting
-                        // the results to a log file. We therefore validate against the console output. 
-                        // The MSBuildConverter we use for this converts all console notifications to results.
-                        RunTests(persistLogFileToDisk: false, raiseNotificationPerBinary: false, expectedReturnCode: FAILURE);
-                    }
-                    finally
-                    {
-                        SimpleTestRule.s_testRuleBehaviors = TestRuleBehaviors.None;
-                    }
-                }
+            RunResultsCachingTestCase(testCase);
 
-                [Fact]
-                public void AnalyzeCommand_CachesNotificationsWhenComputingTargetHashesAndPersistingToLogFile()
-                {
-                    try
-                    {
-                        SimpleTestRule.s_testRuleBehaviors = TestRuleBehaviors.LoadingPdb;
-                        RunTests(persistLogFileToDisk: true, raiseNotificationPerBinary: true, expectedReturnCode: FAILURE);
-                    }
-                    finally
-                    {
-                        SimpleTestRule.s_testRuleBehaviors = TestRuleBehaviors.None;
-                    }
-                }
+            testCase.Verbose = true;
+            RunResultsCachingTestCase(testCase);
+        }
 
+        [Fact]
+        public void AnalyzeCommandBase_CachesResultsWhenPersistingToLogFile()
+        {
+            var testCase = new ResultsCachingTestCase
+            {
+                Files = ComprehensiveKindAndLevelsByFileName,
+                PersistLogFileToDisk = true,
+            };
 
-                [Fact]
-                public void AnalyzeCommand_CachesResultsWhenComputingTargetHashesWithoutPersistingToLogFile()
-                {
-                    RunTests(persistLogFileToDisk: false);
-                }
+            RunResultsCachingTestCase(testCase);
 
-                [Fact]
-                public void AnalyzeCommand_CachesResultsWhenComputingTargetHashesAndPersistingToLogFile()
-                {
-                    RunTests(persistLogFileToDisk: true);
-                }
-                */
+            testCase.Verbose = true;
+            RunResultsCachingTestCase(testCase);
+        }
 
         private static readonly IList<string> ComprehensiveKindAndLevelsByFileName = new List<string>(new string[20]
             {
@@ -970,7 +1029,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             options.ComputeFileHashes = true;
             Run runWithCaching = RunAnalyzeCommand(options, testCase);
 
+            // Core static analysis results
             runWithCaching.Results.Should().BeEquivalentTo(runWithoutCaching.Results);
+
+            // Tool configuration errors, such as 'Could not locate scan target PDB.'
+            runWithoutCaching.Invocations?[0].ToolConfigurationNotifications?.Should()
+                .BeEquivalentTo(runWithCaching.Invocations?[0].ToolConfigurationNotifications);
+
+            // Not yet explicitly tested
+            runWithoutCaching.Invocations?[0].ToolExecutionNotifications?.Should()
+                .BeEquivalentTo(runWithCaching.Invocations?[0].ToolExecutionNotifications);
         }
 
         private static IFileSystem CreateDefaultFileSystemForResultsCaching(IList<string> files)
@@ -1017,7 +1085,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return run;
         }
 
-        private static SarifLog RunAnalyzeCommand(TestAnalyzeOptions options, IFileSystem fileSystem = null, int expectedReturnCode = 0)
+        private static SarifLog RunAnalyzeCommand(TestAnalyzeOptions options, IFileSystem fileSystem, int expectedReturnCode)
         {
             // If no log file is specified, we will convert the console output into a log file
             bool captureConsoleOutput = string.IsNullOrEmpty(options.OutputFilePath);
@@ -1035,29 +1103,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 HashUtilities.FileSystem = null;
             }
 
-            SarifLog sarifLog = null;
+            return captureConsoleOutput 
+                ? ConvertConsoleOutputToSarifLog(command._consoleLogger.CapturedOutput)
+                : JsonConvert.DeserializeObject<SarifLog>(File.ReadAllText(options.OutputFilePath));
+        }
 
-            if (captureConsoleOutput)
+        private static SarifLog ConvertConsoleOutputToSarifLog(string consoleOutput)
+        {
+            var sb = new StringBuilder();
+            var converter = new MSBuildConverter(verbose: true);
+
+            using (var input = new MemoryStream(Encoding.UTF8.GetBytes(consoleOutput)))
+            using (var outputTextWriter = new StringWriter(sb))
+            using (var outputJson = new JsonTextWriter(outputTextWriter))
+            using (var output = new ResultLogJsonWriter(outputJson))
             {
-                var converter = new MSBuildConverter(verbose: true);
-
-                var sb = new StringBuilder();
-
-                using (var input = new MemoryStream(Encoding.UTF8.GetBytes(command._consoleLogger.CapturedOutput)))
-                using (var outputTextWriter = new StringWriter(sb))
-                using (var outputJson = new JsonTextWriter(outputTextWriter))
-                using (var output = new ResultLogJsonWriter(outputJson))
-                {
-                    converter.Convert(input, output, OptionallyEmittedData.None);
-                }
-                sarifLog = JsonConvert.DeserializeObject<SarifLog>(sb.ToString());
+                converter.Convert(input, output, OptionallyEmittedData.None);
             }
-            else
-            {
-                sarifLog = JsonConvert.DeserializeObject<SarifLog>(File.ReadAllText(options.OutputFilePath));
-            }
-
-            return sarifLog;
+            return JsonConvert.DeserializeObject<SarifLog>(sb.ToString());
         }
 
         private class ResultsCachingTestCase
@@ -1150,5 +1213,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 }
             }
         }
+        #endregion ResultsCachingTestsAndHelpers
     }
 }
