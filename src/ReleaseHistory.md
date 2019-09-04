@@ -461,3 +461,4 @@
 ## **v2.1.16** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.16) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.16) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.16) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.16)
 * BUGFIX, BREAKING: In the Multitool `page` command, the default for `--force` was `true` and it could not be changed. https://github.com/microsoft/sarif-sdk/issues/1630
 * BUGFIX: The Multitool `match-results-forward` command failed if results included logical locations. https://github.com/microsoft/sarif-sdk/issues/1656
+* BUGFIX: `SarifLogger(ReportingDescriptor rule, Result result)` failed if it tried to log a result whose `ruleId` was a sub-rule; for example, `rule.Id == "TEST0001"` but `result.ruleId == "TEST0001/1"`. https://github.com/microsoft/sarif-sdk/issues/1668

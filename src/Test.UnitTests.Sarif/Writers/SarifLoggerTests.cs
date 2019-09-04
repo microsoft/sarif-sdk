@@ -638,6 +638,24 @@ namespace Microsoft.CodeAnalysis.Sarif
             invocation.ProcessId.Should().NotBe(0);
         }
 
+        [Fact]
+        public void SarifLogger_AcceptsSubrulesInResultRuleId()
+        {
+            var sb = new StringBuilder();
+
+            using (var textWriter = new StringWriter(sb))
+            {
+                using (var sarifLogger = new SarifLogger(textWriter))
+                {
+                    var rule = new ReportingDescriptor { Id = "RuleId" };
+                    var result = new Result { RuleId = "RuleId/1" };
+
+                    Action action = () => sarifLogger.Log(rule, result);
+                    action.Should().NotThrow();
+                }
+            }
+        }
+
         private void LogSimpleResult(SarifLogger sarifLogger)
         {
             ReportingDescriptor rule = new ReportingDescriptor { Id = "RuleId" };

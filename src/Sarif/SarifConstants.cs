@@ -6,5 +6,6 @@ namespace Microsoft.CodeAnalysis.Sarif
     public static class SarifConstants
     {
         public const string RedactedMarker = "[REDACTED]";
+        public const char HierarchicalComponentSeparator = '/';
     }
 }

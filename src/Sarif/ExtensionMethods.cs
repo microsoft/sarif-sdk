@@ -80,6 +80,23 @@ namespace Microsoft.CodeAnalysis.Sarif
             return instanceId.Substring(0, instanceId.LastIndexOf('/'));
         }
 
+        public static bool IsEqualToOrHierarchicalDescendantOf(this string child, string parent)
+        {
+            if (child == parent) { return true; }
+
+            string[] childComponents = child.Split(new[] { SarifConstants.HierarchicalComponentSeparator });
+            string[] parentComponents = parent.Split(new[] { SarifConstants.HierarchicalComponentSeparator });
+
+            if (childComponents.Length < parentComponents.Length) { return false; }
+
+            for (int i = 0; i < parentComponents.Length; ++i)
+            {
+                if (childComponents[i] != parentComponents[i]) { return false; }
+            }
+
+            return true;
+        }
+
         public static Message ToMessage(this string text)
         {
             return new Message { Text = text };
