@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Web;
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
@@ -122,7 +123,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
             List<ReportingDescriptor> rules = run.Tool.Driver.Rules as List<ReportingDescriptor>;
             ReportingDescriptor reportingDescriptor = rules.Where(r => r.Id == run.Results[0].GetRule(run).Id).FirstOrDefault();
             string exampleText = run.Results[0].GetMessageText(reportingDescriptor);
-            exampleText = NormalizeExampleText(exampleText);
+            exampleText = NormalizeExampleText(run.Results[0], exampleText);
             templateText = templateText.Replace(SCAN_EXAMPLE_PLACEHOLDER, exampleText);
 
             // Inject text from the first result
@@ -130,16 +131,21 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
             string anchorLink = GetLinkText(sampleResult.Message.Text);
             templateText = templateText.Replace(SCAN_TARGET_LINK, BuildAnchorElement(anchorLink, artifactName));
 
-            string jsonPath = GetVariableName(sampleResult.Message.Text);
             string locationsText = BuildLocationsText(run);
             templateText = templateText.Replace(SCAN_LOCATIONS, locationsText);
 
             return templateText;
         }
 
-        private static string NormalizeExampleText(string exampleText)
+        private static string NormalizeExampleText(Result result, string exampleText)
         {
             // [pipeline](https://dev.azure.com/msazure/One/_apps/hub/ms.vss-ciworkflow.build-ci-hub?_a=edit-build-definition&id=87109&view=Tab_Variables);
+
+            if (!string.IsNullOrWhiteSpace(result.Locations?[0].LogicalLocations?[0]?.DecoratedName))
+            {
+                exampleText = exampleText.Replace(result.Locations?[0].LogicalLocations?[0]?.DecoratedName, result.Locations?[0].LogicalLocations?[0]?.FullyQualifiedName);
+            }
+
             int pipelineIndex = exampleText.IndexOf("[pipeline]");
             int lastParenIndex = exampleText.LastIndexOf(')') + 1;
 
@@ -165,21 +171,12 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
                 string pipelineName = organization + "/" + projectName + "." + artifactId;
 
                 string anchorLink = GetLinkText(result.Message.Text);
-                string jsonPath = GetVariableName(result.Message.Text);
+                string jsonPath = result.Locations?[0].LogicalLocations?[0]?.FullyQualifiedName ?? string.Empty;
                 string anchorElement = BuildAnchorElement(anchorLink, jsonPath);
-                sb.AppendLine(pipelineName + ": " + anchorElement + "<br/>");
+                sb.AppendLine($"{HttpUtility.HtmlEncode(anchorElement)}<br/>");
             }
 
             return sb.ToString();
-        }
-
-        private static string GetVariableName(string resultText)
-        {
-            // An apparent problem was found in 'jsonPath.variable' in the following 'account' [pipeline](https://example.com).
-
-            int firstIndex = resultText.IndexOf('\'');
-            int lastIndex = resultText.LastIndexOf("in the");
-            return resultText.Substring(firstIndex + 1, lastIndex - firstIndex - 2);
         }
 
         private static string GetLinkText(string resultText)
@@ -191,7 +188,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
 
         private static string BuildAnchorElement(string uri, string anchorText)
         {
-            return $@"<a href=""{uri}"">{anchorText}</a>";
+            return $@"<a href=""{uri}"">{HttpUtility.HtmlEncode(anchorText)}</a>";
         }
 
         public static string GetProjectName(this Uri projectUri)
