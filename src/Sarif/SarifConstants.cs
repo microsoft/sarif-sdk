@@ -8,6 +8,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         // <summary>
         // When used with Guid.ToString(string format), this format produces the
         // GUID format required by SARIF: 32 digits separated by hyphens.
+        // </summary>
         public const string GuidFormat = "D";
 
         public const string RedactedMarker = "[REDACTED]";
