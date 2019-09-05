@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Web;
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
@@ -27,13 +28,14 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
             ArtifactLocation artifactLocation = sarifLog.Runs[0].Artifacts[0].Location;
 
             string organization = artifactLocation.GetProperty("OrganizationName");
-            string buildDefinitionId = artifactLocation.GetProperty<int>("BuildDefinitionId").ToString();
+            string artifactId = artifactLocation.GetProperty<int>("ArtifactId").ToString();
             string projectName = artifactLocation.GetProperty("ProjectName");
+            string artifactType = artifactLocation.GetProperty("ArtifactType");
 
             // BUG: GetProperty doesn't unencode string values
             string areaPath = $@"{workItemProjectName}" + artifactLocation.GetProperty("AreaPath").Replace(@"\\", @"\");
 
-            string buildDefinitionName = artifactLocation.GetProperty("BuildDefinitionName");
+            string artifactName = artifactLocation.GetProperty("ArtifactName");
 
             List<string> customTags = new List<string>();
             if (artifactLocation.TryGetProperty("CustomTags", out string customTagsString))
@@ -67,9 +69,9 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
                 ruleName = sarifLog.Runs[0].Tool.Driver.Rules[result.RuleIndex].Name + ":" + ruleName;
             }
 
-            metadata.Title = "[" + organization + "/" + projectName + "] " +
-                            ruleName + ": Exposed credential(s) in " +
-                             "build definition: '" + buildDefinitionName + "'";
+            string titleEntity = GetArtifactTypeDisplayName(artifactType);
+
+            metadata.Title = $"[{organization}/{projectName}] {ruleName}: Exposed credential(s) in {titleEntity}: '{artifactName}'";
 
             // TODO: This should come from the SARIF or command line arg in the future.
             metadata.Tags = new List<string>(new string[] { "Security" });
@@ -79,8 +81,9 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
                 File.ReadAllText(templateFilePath),
                 organization,
                 projectName,
-                buildDefinitionId,
-                buildDefinitionName,
+                artifactId,
+                artifactType,
+                artifactName,
                 ruleName,
                 sarifLog.Runs[0]
                 );
@@ -98,7 +101,8 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
             string organization, 
             string projectName, 
             string pipelineId,
-            string buildDefinitionName, 
+            string artifactType,
+            string artifactName,
             string ruleName, 
             Run run)
         {
@@ -109,31 +113,54 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
             List<ReportingDescriptor> rules = run.Tool.Driver.Rules as List<ReportingDescriptor>;
             ReportingDescriptor reportingDescriptor = rules.Where(r => r.Id == run.Results[0].GetRule(run).Id).FirstOrDefault();
             string exampleText = run.Results[0].GetMessageText(reportingDescriptor);
-            exampleText = NormalizeExampleText(exampleText);
+            exampleText = NormalizeExampleText(run.Results[0], artifactType, exampleText);
             templateText = templateText.Replace(SCAN_EXAMPLE_PLACEHOLDER, exampleText);
 
             // Inject text from the first result
             Result sampleResult = run.Results[0];
             string anchorLink = GetLinkText(sampleResult.Message.Text);
-            templateText = templateText.Replace(SCAN_TARGET_LINK, BuildAnchorElement(anchorLink, buildDefinitionName));
+            templateText = templateText.Replace(SCAN_TARGET_LINK, BuildAnchorElement(anchorLink, artifactName));
 
-            string jsonPath = GetVariableName(sampleResult.Message.Text);
             string locationsText = BuildLocationsText(run);
             templateText = templateText.Replace(SCAN_LOCATIONS, locationsText);
 
             return templateText;
         }
 
-        private static string NormalizeExampleText(string exampleText)
+        private static string NormalizeExampleText(Result result, string artifactType, string exampleText)
         {
             // [pipeline](https://dev.azure.com/msazure/One/_apps/hub/ms.vss-ciworkflow.build-ci-hub?_a=edit-build-definition&id=87109&view=Tab_Variables);
-            int pipelineIndex = exampleText.IndexOf("[pipeline]");
+
+            if (!string.IsNullOrWhiteSpace(result.Locations?[0].LogicalLocations?[0]?.DecoratedName))
+            {
+                exampleText = exampleText.Replace(result.Locations?[0].LogicalLocations?[0]?.DecoratedName, result.Locations?[0].LogicalLocations?[0]?.FullyQualifiedName);
+            }
+
+            string artifactTypeDisplayName = GetArtifactTypeDisplayName(artifactType);
+            string linkText = $"[{artifactTypeDisplayName}]";
+            int pipelineIndex = exampleText.IndexOf(linkText);
             int lastParenIndex = exampleText.LastIndexOf(')') + 1;
 
             string toReplace = exampleText.Substring(pipelineIndex, lastParenIndex - pipelineIndex);
-            string link = toReplace.Substring("[pipeline]".Length + 1, toReplace.Length - "[pipeline]".Length - 2);
-            string anchor = BuildAnchorElement(link, "pipeline");
+            string link = toReplace.Substring(linkText.Length + 1, toReplace.Length - linkText.Length - 2);
+            string anchor = BuildAnchorElement(link, linkText);
             return exampleText.Replace(toReplace, anchor);
+        }
+
+        private static string GetArtifactTypeDisplayName(string artifactType)
+        {
+            switch (artifactType)
+            {
+                case "builddefinitions":
+                    return "build definition";
+                case "releasedefinitions":
+                    return "release definition";
+                case "workitems":
+                case "workitemrevisions":
+                    return "work item";
+                default:
+                    return string.Empty;
+            }
         }
 
         private static string BuildLocationsText(Run run)
@@ -147,26 +174,17 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
                 ArtifactLocation artifactLocation = run.Artifacts[result.Locations[0].PhysicalLocation.ArtifactLocation.Index].Location;
 
                 string organization = artifactLocation.GetProperty("OrganizationName");
-                string buildDefinitionId = artifactLocation.GetProperty<int>("BuildDefinitionId").ToString();
+                string artifactId = artifactLocation.GetProperty<int>("ArtifactId").ToString();
                 string projectName = artifactLocation.GetProperty("ProjectName");
-                string pipelineName = organization + "/" + projectName + "." + buildDefinitionId;
+                string pipelineName = organization + "/" + projectName + "." + artifactId;
 
                 string anchorLink = GetLinkText(result.Message.Text);
-                string jsonPath = GetVariableName(result.Message.Text);
+                string jsonPath = result.Locations?[0].LogicalLocations?[0]?.FullyQualifiedName ?? string.Empty;
                 string anchorElement = BuildAnchorElement(anchorLink, jsonPath);
-                sb.AppendLine(pipelineName + ": " + anchorElement + "<br/>");
+                sb.AppendLine($"{pipelineName}: {anchorElement}<br/>");
             }
 
             return sb.ToString();
-        }
-
-        private static string GetVariableName(string resultText)
-        {
-            // An apparent problem was found in 'jsonPath.variable' in the following 'account' [pipeline](https://example.com).
-
-            int firstIndex = resultText.IndexOf('\'');
-            int lastIndex = resultText.LastIndexOf("in the");
-            return resultText.Substring(firstIndex + 1, lastIndex - firstIndex - 2);
         }
 
         private static string GetLinkText(string resultText)
