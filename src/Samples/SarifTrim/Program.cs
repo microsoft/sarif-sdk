@@ -71,7 +71,7 @@ namespace SarifTrim
                 {
                     foreach (Result result in run.Results)
                     {
-                        //Trim(result);
+                        Trim(result);
                         logger.Log(result.GetRule(run), result);
                     }
                 }
