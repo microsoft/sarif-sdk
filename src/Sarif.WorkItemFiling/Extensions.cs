@@ -69,19 +69,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
                 ruleName = sarifLog.Runs[0].Tool.Driver.Rules[result.RuleIndex].Name + ":" + ruleName;
             }
 
-            string titleEntity;
-            switch (artifactType)
-            {
-                case "builddefinitions":
-                    titleEntity = "build definition";
-                    break;
-                case "releasedefinitions":
-                    titleEntity = "release definition";
-                    break;
-                default:
-                    titleEntity = string.Empty;
-                    break;
-            }
+            string titleEntity = GetArtifactTypeDisplayName(artifactType);
 
             metadata.Title = $"[{organization}/{projectName}] {ruleName}: Exposed credential(s) in {titleEntity}: '{artifactName}'";
 
@@ -94,6 +82,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
                 organization,
                 projectName,
                 artifactId,
+                artifactType,
                 artifactName,
                 ruleName,
                 sarifLog.Runs[0]
@@ -112,6 +101,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
             string organization, 
             string projectName, 
             string pipelineId,
+            string artifactType,
             string artifactName,
             string ruleName, 
             Run run)
@@ -123,7 +113,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
             List<ReportingDescriptor> rules = run.Tool.Driver.Rules as List<ReportingDescriptor>;
             ReportingDescriptor reportingDescriptor = rules.Where(r => r.Id == run.Results[0].GetRule(run).Id).FirstOrDefault();
             string exampleText = run.Results[0].GetMessageText(reportingDescriptor);
-            exampleText = NormalizeExampleText(run.Results[0], exampleText);
+            exampleText = NormalizeExampleText(run.Results[0], artifactType, exampleText);
             templateText = templateText.Replace(SCAN_EXAMPLE_PLACEHOLDER, exampleText);
 
             // Inject text from the first result
@@ -137,7 +127,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
             return templateText;
         }
 
-        private static string NormalizeExampleText(Result result, string exampleText)
+        private static string NormalizeExampleText(Result result, string artifactType, string exampleText)
         {
             // [pipeline](https://dev.azure.com/msazure/One/_apps/hub/ms.vss-ciworkflow.build-ci-hub?_a=edit-build-definition&id=87109&view=Tab_Variables);
 
@@ -146,13 +136,31 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
                 exampleText = exampleText.Replace(result.Locations?[0].LogicalLocations?[0]?.DecoratedName, result.Locations?[0].LogicalLocations?[0]?.FullyQualifiedName);
             }
 
-            int pipelineIndex = exampleText.IndexOf("[pipeline]");
+            string artifactTypeDisplayName = GetArtifactTypeDisplayName(artifactType);
+            string linkText = $"[{artifactTypeDisplayName}]";
+            int pipelineIndex = exampleText.IndexOf(linkText);
             int lastParenIndex = exampleText.LastIndexOf(')') + 1;
 
             string toReplace = exampleText.Substring(pipelineIndex, lastParenIndex - pipelineIndex);
-            string link = toReplace.Substring("[pipeline]".Length + 1, toReplace.Length - "[pipeline]".Length - 2);
-            string anchor = BuildAnchorElement(link, "pipeline");
+            string link = toReplace.Substring(linkText.Length + 1, toReplace.Length - linkText.Length - 2);
+            string anchor = BuildAnchorElement(link, linkText);
             return exampleText.Replace(toReplace, anchor);
+        }
+
+        private static string GetArtifactTypeDisplayName(string artifactType)
+        {
+            switch (artifactType)
+            {
+                case "builddefinitions":
+                    return "build definition";
+                case "releasedefinitions":
+                    return "release definition";
+                case "workitems":
+                case "workitemrevisions":
+                    return "work item";
+                default:
+                    return string.Empty;
+            }
         }
 
         private static string BuildLocationsText(Run run)
@@ -173,7 +181,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
                 string anchorLink = GetLinkText(result.Message.Text);
                 string jsonPath = result.Locations?[0].LogicalLocations?[0]?.FullyQualifiedName ?? string.Empty;
                 string anchorElement = BuildAnchorElement(anchorLink, jsonPath);
-                sb.AppendLine($"{HttpUtility.HtmlEncode(anchorElement)}<br/>");
+                sb.AppendLine($"{pipelineName}: {anchorElement}<br/>");
             }
 
             return sb.ToString();
@@ -188,7 +196,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
 
         private static string BuildAnchorElement(string uri, string anchorText)
         {
-            return $@"<a href=""{uri}"">{HttpUtility.HtmlEncode(anchorText)}</a>";
+            return $@"<a href=""{uri}"">{anchorText}</a>";
         }
 
         public static string GetProjectName(this Uri projectUri)
