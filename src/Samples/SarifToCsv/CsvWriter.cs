@@ -72,6 +72,8 @@ namespace AzureDevOpsCrawlers.Common.IO
 
         public int RowCountWritten => _rowCountWritten;
 
+        public bool RemoveNewlines { get; set; }
+
         public void SetColumns(IEnumerable<string> columnNames)
         {
             _columnCount = columnNames.Count();
@@ -140,6 +142,7 @@ namespace AzureDevOpsCrawlers.Common.IO
         private void WriteEscaped(string value)
         {
             if (String.IsNullOrEmpty(value)) { return; }
+            bool removeNewlines = this.RemoveNewlines;
             int nextWriteIndex = 0;
 
             _writer.Write('"');
@@ -151,6 +154,11 @@ namespace AzureDevOpsCrawlers.Common.IO
                 {
                     WriteStringPart(value, nextWriteIndex, (i + 1) - nextWriteIndex);
                     nextWriteIndex = i;
+                }
+                else if (removeNewlines && (c == '\r' || c == '\n'))
+                {
+                    WriteStringPart(value, nextWriteIndex, i - nextWriteIndex);
+                    nextWriteIndex = i + 1;
                 }
             }
 

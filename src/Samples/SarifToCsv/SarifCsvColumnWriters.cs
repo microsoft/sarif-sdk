@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.CodeAnalysis.Sarif;
 
 namespace SarifToCsv
 {
@@ -70,6 +71,9 @@ namespace SarifToCsv
             writers["Suppressions"] = (c) => { c.Writer.Write(String.Join("; ", c.Result.Suppressions?.Select(s => $"{s.Kind}|{s.Location}" ?? "") ?? Array.Empty<string>())); };
             writers["Tags"] = (c) => { c.Writer.Write(String.Join("; ", ((IEnumerable<string>)c.Result.Tags) ?? Array.Empty<string>())); };
             writers["WorkItemUris"] = (c) => { c.Writer.Write(String.Join("; ", c.Result.WorkItemUris?.Select((uri) => uri.ToString()) ?? Array.Empty<string>())); };
+
+            // Formatted Message
+            writers["FormattedMessage"] = (c) => { c.Writer.Write(c.Result.GetMessageText(c.Result.GetRule(c.Run))); };
 
             // PhysicalLocation Properties
             writers["Location.Tags"] = (c) => { c.Writer.Write(String.Join("; ", ((IEnumerable<string>)c.PLoc?.Tags) ?? Array.Empty<string>())); };

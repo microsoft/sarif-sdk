@@ -39,6 +39,8 @@ namespace SarifToCsv
                 string sarifFilePath = args[0];
                 string csvFilePath = args[1];
                 IEnumerable<string> columnNames = (args.Length > 2 ? args[2] : ConfigurationManager.AppSettings["ColumnNames"]).Split(',').Select((value) => value.Trim());
+                bool removeNewlines = bool.Parse(ConfigurationManager.AppSettings["RemoveNewlines"] ?? "false");
+
                 IEnumerable<Action<WriteContext>> selectedWriters = columnNames.Select((name) => SarifCsvColumnWriters.GetWriter(name)).ToArray();
 
                 Console.WriteLine($"Converting \"{sarifFilePath}\" to \"{csvFilePath}\"...");
@@ -49,6 +51,7 @@ namespace SarifToCsv
 
                 using (CsvWriter writer = new CsvWriter(csvFilePath))
                 {
+                    writer.RemoveNewlines = removeNewlines;
                     writer.SetColumns(columnNames);
 
                     // Read the Sarif file (or all Sarif files in the folder) and write to the CSV
