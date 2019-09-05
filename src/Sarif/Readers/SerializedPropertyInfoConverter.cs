@@ -34,7 +34,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             }
 
             string serializedValue = ((SerializedPropertyInfo)value).SerializedValue;
-            writer.WriteRawValue(serializedValue);
+            //writer.WriteRawValue(serializedValue);
+            writer.WriteRawValue(@"""" + serializedValue + @"""");
         }
     }
 }

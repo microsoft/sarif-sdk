@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.Writers;
@@ -24,9 +25,6 @@ namespace SarifTrim
             string inputFilePath = args[0];
             string outputFilePath = args[1];
 
-
-            Stopwatch w = Stopwatch.StartNew();
-
             JsonSerializer serializer = new JsonSerializer();
             serializer.ContractResolver = new SarifDeferredContractResolver();
 
@@ -44,7 +42,7 @@ namespace SarifTrim
                 Run run = log.Runs[0];
 
                 // Workaround if string properties not rewriting properly (doubled quotes)
-                run.RemoveProperty("semmle.sourceLanguage");
+                //run.RemoveProperty("semmle.sourceLanguage");
 
                 // Trim duplicate Rule properties
                 foreach (ReportingDescriptor rule in run.Tool.Driver.Rules)
@@ -56,24 +54,25 @@ namespace SarifTrim
                     rule.DefaultConfiguration = null;
                 }
 
+                // Realize Deferred Artifact list
+                run.Artifacts = run.Artifacts.ToList();
+                
                 // Trim Artifact indices
                 foreach (Artifact a in run.Artifacts)
                 {
                     a.Location.Index = -1;
+
+                    // TEMP: Clear Uri base to fix viewer loading.
+                    a.Location.UriBaseId = null;
                 }
 
                 // Trim Result CodeFlowLocations, long Messages, and redundant Region properties
                 using (SarifLogger logger = new SarifLogger(outputFilePath, LoggingOptions.OverwriteExistingOutputFile, tool: run.Tool, run: run))
                 {
-                    int resultCount = 0;
-
                     foreach (Result result in run.Results)
                     {
-                        Trim(result);
+                        //Trim(result);
                         logger.Log(result.GetRule(run), result);
-
-                        resultCount++;
-                        //if (resultCount == 10) { break; }
                     }
                 }
             }
