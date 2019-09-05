@@ -24,6 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests
             var run = new Run();
             run.SetProperty(intPropertyName, 42);
             run.SetProperty(stringPropertyName, stringPropertyValue);
+            run.SetProperty("source.language", "csharp");
 
             var originalLog = new SarifLog
             {
@@ -51,9 +52,13 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests
 
             int integerProperty = run.GetProperty<int>(intPropertyName);
             integerProperty.Should().Be(intPropertyValue);
+            run.GetSerializedPropertyValue(intPropertyName).Should().Be("42");
 
             string stringProperty = run.GetProperty<string>(stringPropertyName);
             stringProperty.Should().Be(stringPropertyValue);
+            run.GetSerializedPropertyValue(stringPropertyName).Should().Be("\"'\\\"\\\\'\"");
+
+            run.GetProperty<string>("source.language").Should().Be("csharp");
 
             string reserializedLog = JsonConvert.SerializeObject(deserializedLog, settings);
 
