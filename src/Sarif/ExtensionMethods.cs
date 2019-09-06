@@ -84,8 +84,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (child == parent) { return true; }
 
-            string[] childComponents = child.Split(new[] { SarifConstants.HierarchicalComponentSeparator });
-            string[] parentComponents = parent.Split(new[] { SarifConstants.HierarchicalComponentSeparator });
+            string[] childComponents = child.Split(SarifConstants.HierarchicalComponentSeparator);
+            string[] parentComponents = parent.Split(SarifConstants.HierarchicalComponentSeparator);
 
             if (childComponents.Length < parentComponents.Length) { return false; }
 
