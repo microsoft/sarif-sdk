@@ -5,6 +5,17 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class SarifConstants
     {
+        // <summary>
+        // When used with Guid.ToString(string format), this format produces the
+        // GUID format required by SARIF: 32 digits separated by hyphens.
+        // </summary>
+        public const string GuidFormat = "D";
+
         public const string RedactedMarker = "[REDACTED]";
+
+        // <summary>
+        // The character that separates the components of a SARIF hierarchical string.
+        // </summary>
+        public const char HierarchicalComponentSeparator = '/';
     }
 }
