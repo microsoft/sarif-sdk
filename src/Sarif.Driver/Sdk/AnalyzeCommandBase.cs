@@ -613,6 +613,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 {
                     context.Logger.AnalyzingTarget(context);
 
+                    IList<Location> updatedLocations = null;
+
                     if (cachedResultTuples != null)
                     {
                         foreach (Tuple<ReportingDescriptor, Result> cachedResultTuple in cachedResultTuples)
@@ -620,7 +622,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                             Result cachedResult = cachedResultTuple.Item2;
                             ReportingDescriptor cachedReportingDescriptor = cachedResultTuple.Item1;
 
-                            UpdateLocationsAndMessageWithCurrentUri(cachedResult.Locations, cachedResult.Message, context.TargetUri);
+                            updatedLocations = CloneLocations(cachedResult.Locations);
+                            UpdateLocationsAndMessageWithCurrentUri(updatedLocations, cachedResult.Message, context.TargetUri);
+                            cachedResult.Locations = updatedLocations;
                             context.Logger.Log(cachedReportingDescriptor, cachedResult);
                         }
                     }
@@ -629,8 +633,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     {
                         foreach (Notification cachedNotification in cachedNotifications)
                         {
-                            UpdateLocationsAndMessageWithCurrentUri(cachedNotification.Locations, cachedNotification.Message, context.TargetUri);
-                            context.Logger.LogConfigurationNotification(cachedNotification);
+                            Notification clonedNotification = cachedNotification.DeepClone();
+                            UpdateLocationsAndMessageWithCurrentUri(clonedNotification.Locations, cachedNotification.Message, context.TargetUri);
+                            context.Logger.LogConfigurationNotification(clonedNotification);
                         }
                     }
                     return context;
@@ -655,6 +660,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             AnalyzeTarget(applicableSkimmers, context, disabledSkimmers);
 
             return context;
+        }
+
+        private IList<Location> CloneLocations(IList<Location> locations)
+        {
+            if (locations == null) { return null; }
+
+            List<Location> clonedLocations = new List<Location>(locations.Count);
+
+            for (int i = 0; i < locations.Count; i++)
+            {
+                clonedLocations.Add(locations[i].DeepClone());
+            }
+            return clonedLocations;
         }
 
         internal static void UpdateLocationsAndMessageWithCurrentUri(IList<Location> locations, Message message, Uri updatedUri)
