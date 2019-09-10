@@ -462,3 +462,4 @@
 * BUGFIX, BREAKING: In the Multitool `page` command, the default for `--force` was `true` and it could not be changed. https://github.com/microsoft/sarif-sdk/issues/1630
 * BUGFIX: The Multitool `match-results-forward` command failed if results included logical locations. https://github.com/microsoft/sarif-sdk/issues/1656
 * BUGFIX: `SarifLogger(ReportingDescriptor rule, Result result)` failed if it tried to log a result whose `ruleId` was a sub-rule; for example, `rule.Id == "TEST0001"` but `result.ruleId == "TEST0001/1"`. https://github.com/microsoft/sarif-sdk/issues/1668
+* FEATURE: Implement results and notifications caching when --hashes is enabled on the SARIF driver command-line.
