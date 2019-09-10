@@ -1,10 +1,11 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Linq;
+using System.IO;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Newtonsoft.Json;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace SarifTrim
 {
@@ -16,53 +17,35 @@ namespace SarifTrim
     {
         static void Main(string[] args)
         {
-            if (args.Length < 2)
+            if (args.Length < 1)
             {
-                Console.WriteLine("Usage: SarifTrim [inputFilePath] [outputFilePath] [itemsToRemove?]");
+                Console.WriteLine(@"Usage: SarifTrim [inputFilePath] [outputFilePath?] [removeParts?]
+    removeParts: Comma-separated sections to remove. Options: CodeFlows,RelatedLocations");
                 return;
             }
 
             string inputFilePath = args[0];
-            string outputFilePath = args[1];
+            string outputFilePath = (args.Length > 1 ? args[1] : Path.ChangeExtension(inputFilePath, $"trim{Path.GetExtension(inputFilePath)}"));
+            HashSet<string> removeParts = new HashSet<string>((args.Length > 2 ? args[2] : "").Split(',').Select(entry => entry.Trim()), StringComparer.OrdinalIgnoreCase);
 
-            JsonSerializer serializer = new JsonSerializer();
-            serializer.ContractResolver = new SarifDeferredContractResolver();
-
-            SarifLog log;
-
-            // Read the SarifLog with the deferred reader
+            SarifLog log = null;
             using (new ConsoleWatch($"Loading \"{inputFilePath}\"..."))
-            using (JsonPositionedTextReader jtr = new JsonPositionedTextReader(inputFilePath))
             {
-                log = serializer.Deserialize<SarifLog>(jtr);
+                log = SarifLog.LoadDeferred(inputFilePath);
             }
 
             using (new ConsoleWatch($"Trimming \"{inputFilePath}\" into \"{outputFilePath}\"..."))
             {
                 Run run = log.Runs[0];
 
-                // Workaround if string properties not rewriting properly (doubled quotes)
-                //run.RemoveProperty("semmle.sourceLanguage");
+                SarifConsolidator consolidator = new SarifConsolidator(run);
+                consolidator.MessageLengthLimitBytes = 1024;
+                consolidator.RemoveCodeFlows = (removeParts.Contains("CodeFlows"));
+                consolidator.RemoveRelatedLocations = (removeParts.Contains("RelatedLocations"));
 
-                // Trim duplicate Rule properties
-                foreach (ReportingDescriptor rule in run.Tool.Driver.Rules)
-                {
-                    rule.RemoveProperty("name");
-                    rule.RemoveProperty("description");
-                    rule.RemoveProperty("opaque-id");
-                    rule.RemoveProperty("id");
-                    rule.DefaultConfiguration = null;
-                }
-
-                // Realize Deferred Artifact list
-                run.Artifacts = run.Artifacts.ToList();
-                
-                // Trim Artifact indices
+                // Remove Artifact UriBaseIds
                 foreach (Artifact a in run.Artifacts)
                 {
-                    a.Location.Index = -1;
-
-                    // TEMP: Clear Uri base to fix viewer loading.
                     a.Location.UriBaseId = null;
                 }
 
@@ -71,110 +54,12 @@ namespace SarifTrim
                 {
                     foreach (Result result in run.Results)
                     {
-                        Trim(result);
+                        consolidator.Trim(result);
                         logger.Log(result.GetRule(run), result);
                     }
                 }
-            }
-        }
 
-        static void Trim(Result result)
-        {
-            // Remove CodeFlows
-            result.CodeFlows = null;
-            //foreach (CodeFlow codeFlow in result.CodeFlows)
-            //{
-            //    foreach (ThreadFlow threadFlow in codeFlow.ThreadFlows)
-            //    {
-            //        Trim(threadFlow);
-            //    }
-            //}
-
-            // Trim Messages over 1KB
-            if (result?.Message?.Text?.Length > 1024)
-            {
-                result.Message.Text = result.Message.Text.Substring(0, 1024);
-            }
-
-            // Trim Location redundancy
-            if (result.Locations != null)
-            {
-                foreach (Location loc in result.Locations)
-                {
-                    Trim(loc);
-                }
-            }
-
-            if (result.RelatedLocations != null)
-            {
-                foreach (Location loc in result.RelatedLocations)
-                {
-                    Trim(loc);
-                }
-            }
-        }
-
-        static void Trim(ThreadFlow tFlow)
-        {
-            if (tFlow?.Locations != null)
-            {
-                for (int i = 0; i < tFlow.Locations.Count; ++i)
-                {
-                    ThreadFlowLocation tfl = tFlow.Locations[i];
-                    if (tfl.Index != -1)
-                    {
-                        tFlow.Locations[i] = new ThreadFlowLocation() { Index = tfl.Index };
-                    }
-                    else
-                    {
-                        Trim(tfl.Location);
-                    }
-                }
-            }
-        }
-
-        static void Trim(Location loc)
-        {
-            if (loc != null)
-            {
-                Trim(loc.PhysicalLocation);
-            }
-        }
-
-        static void Trim(PhysicalLocation loc)
-        {
-            if (loc != null)
-            {
-                Trim(loc.ArtifactLocation);
-                Trim(loc.Region);
-                Trim(loc.ContextRegion);
-            }
-        }
-
-        static void Trim(ArtifactLocation a)
-        {
-            if (a != null)
-            {
-                // Leave only index if index is present
-                if (a.Index != -1)
-                {
-                    a.Uri = null;
-                    a.UriBaseId = null;
-                }
-            }
-        }
-
-        static void Trim(Region r)
-        {
-            if (r != null)
-            {
-                if (r.EndLine == r.StartLine)
-                {
-                    r.EndLine = 0;
-                }
-
-                r.CharOffset = -1;
-                r.CharLength = 0;
+                Console.WriteLine($"Done. Consolidated {consolidator.TotalThreadFlowLocations:n0} TFLs into {consolidator.UniqueThreadFlowLocations:n0} unique entries.");
             }
         }
     }

@@ -23,7 +23,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         private OptionallyEmittedData _dataToInsert;
         private OptionallyEmittedData _dataToRemove;
         private ResultLogJsonWriter _issueLogJsonWriter;
-        private IDictionary<ReportingDescriptor, int> _ruleToIndexMap;
 
         protected const LoggingOptions DefaultLoggingOptions = LoggingOptions.PrettyPrint;
 
@@ -192,6 +191,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _dataToInsert = dataToInsert;
             _dataToRemove = dataToRemove;
             _issueLogJsonWriter.Initialize(_run);
+
+            if(_run.Tool.Driver?.Rules != null)
+            { 
+                for(int i = 0; i < _run.Tool.Driver.Rules.Count; ++i)
+                {
+                    RuleToIndexMap[_run.Tool.Driver.Rules[i]] = i;
+                }
+            }
         }
 
         private SarifLogger(TextWriter textWriter, LoggingOptions loggingOptions)
@@ -210,18 +217,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _jsonTextWriter.DateFormatString = DateTimeConverter.DateTimeFormat;
 
             _issueLogJsonWriter = new ResultLogJsonWriter(_jsonTextWriter);
+            RuleToIndexMap = new Dictionary<ReportingDescriptor, int>(ReportingDescriptor.ValueComparer);
         }
 
         public IDictionary<string, HashData> AnalysisTargetToHashDataMap { get; private set; }
-
-        public IDictionary<ReportingDescriptor, int> RuleToIndexMap
-        {
-            get
-            {
-                _ruleToIndexMap = _ruleToIndexMap ?? new Dictionary<ReportingDescriptor, int>(ReportingDescriptor.ValueComparer);
-                return _ruleToIndexMap;
-            }
-        }
+        public IDictionary<ReportingDescriptor, int> RuleToIndexMap { get; private set; }
 
         public bool ComputeFileHashes { get { return _dataToInsert.HasFlag(OptionallyEmittedData.Hashes); } }
 
@@ -316,11 +316,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         private int LogRule(ReportingDescriptor rule)
         {
-
             if (!RuleToIndexMap.TryGetValue(rule, out int ruleIndex))
             {
-                ruleIndex = _ruleToIndexMap.Count;
-                _ruleToIndexMap[rule] = ruleIndex;
+                ruleIndex = RuleToIndexMap.Count;
+                RuleToIndexMap[rule] = ruleIndex;
                 _run.Tool.Driver.Rules = _run.Tool.Driver.Rules ?? new OrderSensitiveValueComparisonList<ReportingDescriptor>(ReportingDescriptor.ValueComparer);
                 _run.Tool.Driver.Rules.Add(rule);
             }
@@ -425,11 +424,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 catch (ArgumentException) { } // Unrecognized encoding name
             }
 
+            // Ensure Artifact is in Run.Artifacts and ArtifactLocation.Index is set to point to it
             _run.GetFileIndex(
                 fileLocation, 
                 addToFilesTableIfNotPresent: true,
                 _dataToInsert,
                 encoding);
+
+            // Remove redundant Uri and UriBaseId once index has been set
+            fileLocation.Uri = null;
+            fileLocation.UriBaseId = null;
         }
 
         public void AnalyzingTarget(IAnalysisContext context)
