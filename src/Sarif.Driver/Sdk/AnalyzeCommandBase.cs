@@ -613,19 +613,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 {
                     context.Logger.AnalyzingTarget(context);
 
-                    IList<Location> updatedLocations = null;
-
                     if (cachedResultTuples != null)
                     {
                         foreach (Tuple<ReportingDescriptor, Result> cachedResultTuple in cachedResultTuples)
                         {
-                            Result cachedResult = cachedResultTuple.Item2;
+                            Result clonedResult = cachedResultTuple.Item2.DeepClone();
                             ReportingDescriptor cachedReportingDescriptor = cachedResultTuple.Item1;
 
-                            updatedLocations = CloneLocations(cachedResult.Locations);
-                            UpdateLocationsAndMessageWithCurrentUri(updatedLocations, cachedResult.Message, context.TargetUri);
-                            cachedResult.Locations = updatedLocations;
-                            context.Logger.Log(cachedReportingDescriptor, cachedResult);
+                            UpdateLocationsAndMessageWithCurrentUri(clonedResult.Locations, clonedResult.Message, context.TargetUri);
+                            context.Logger.Log(cachedReportingDescriptor, clonedResult);
                         }
                     }
 
@@ -660,19 +656,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             AnalyzeTarget(applicableSkimmers, context, disabledSkimmers);
 
             return context;
-        }
-
-        private IList<Location> CloneLocations(IList<Location> locations)
-        {
-            if (locations == null) { return null; }
-
-            List<Location> clonedLocations = new List<Location>(locations.Count);
-
-            for (int i = 0; i < locations.Count; i++)
-            {
-                clonedLocations.Add(locations[i].DeepClone());
-            }
-            return clonedLocations;
         }
 
         internal static void UpdateLocationsAndMessageWithCurrentUri(IList<Location> locations, Message message, Uri updatedUri)
