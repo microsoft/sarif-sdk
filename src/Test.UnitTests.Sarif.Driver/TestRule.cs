@@ -12,6 +12,9 @@ using Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Driver.Sdk;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
+    // Test rule for provoking various behaviors designed to provoke code coverage. This rule can be configured
+    // via explicitly passed configuration, by injecting test behaviors into a thread static variable, or
+    // implicitly via the name of the scan targets.
     [Export(typeof(ReportingDescriptor)), Export(typeof(IOptionsProvider)), Export(typeof(Skimmer<TestAnalysisContext>))]
     internal class TestRule : TestRuleBase, IOptionsProvider
     {
@@ -155,15 +158,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 default:
                 {
-                    //context.Logger.Log(this,
-                    //    new Result()
-                    //    {
-                    //        RuleId = Id,
-                    //        Level = FailureLevel.Warning,
-                    //        Kind = ResultKind.Fail,
-                    //        Message = new Message { Text = "Default location-free message from exception raising rule." }
-                    //    });
-
                     break;
                 }
             }

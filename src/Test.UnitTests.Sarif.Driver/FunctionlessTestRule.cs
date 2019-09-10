@@ -12,7 +12,7 @@ using Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Driver.Sdk;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// This test class exists to provide an additional check that can be disabled via context, etc. It has no configurable behavior
+    /// This test class exists to provide an additional check that can be disabled via context, etc. It has no configurable behavior.
     /// </summary>
     [Export(typeof(ReportingDescriptor)), Export(typeof(IOptionsProvider)), Export(typeof(Skimmer<TestAnalysisContext>))]
     internal class FunctionlessTestRule : TestRuleBase, IOptionsProvider

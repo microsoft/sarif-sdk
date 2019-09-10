@@ -2,7 +2,6 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Linq;
-using System.Text;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -13,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 #if DEBUG
         public override string ToString()
         {
-            var sb = new StringBuilder();
+            var sb = new System.Text.StringBuilder();
 
             sb.Append(this.Locations?[0].PhysicalLocation?.ArtifactLocation?.Uri);
             sb.Append(" : " + this.Descriptor.Id);
@@ -33,9 +32,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
                 sb.Length = sb.Length - 1;
                 sb.Append("}");
-
             }
-
             return sb.ToString();
         }
 #endif
