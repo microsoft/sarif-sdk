@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.CodeAnalysis.Sarif;
 
@@ -17,9 +18,17 @@ namespace SarifTrim
         public int TotalThreadFlowLocations { get; private set; }
         public int UniqueThreadFlowLocations => _uniqueThreadFlows.Count;
 
+        public int TotalLocations { get; private set; }
+        public int UniqueLocations { get; private set; }
+
         public int? MessageLengthLimitBytes { get; set; }
         public bool RemoveCodeFlows { get; set; }
         public bool RemoveRelatedLocations { get; set; }
+        public bool RemoveGraphs { get; set; }
+        public bool RemoveGraphTraversals { get; set; }
+        public bool RemoveStacks { get; set; }
+        public bool RemoveWebRequests { get; set; }
+        public bool RemoveWebResponses { get; set; }
 
         public SarifConsolidator(Run run)
         {
@@ -32,7 +41,10 @@ namespace SarifTrim
             // Remove indices from Run.Artifact array (redundant)
             foreach (Artifact a in _run.Artifacts)
             {
-                a.Location.Index = -1;
+                if (a.Location != null)
+                {
+                    a.Location.Index = -1;
+                }
             }
 
             // Ensure Run TFL list is ready for consolidating TFLs
@@ -49,16 +61,16 @@ namespace SarifTrim
 
         public void Trim(Result result)
         {
-            if (this.RemoveCodeFlows)
-            {
-                result.CodeFlows = null;
-            }
+            // Remove Result components if configured to
+            result.CodeFlows = (this.RemoveCodeFlows ? null : result.CodeFlows);
+            result.RelatedLocations = (this.RemoveRelatedLocations ? null : result.RelatedLocations);
+            result.Graphs = (this.RemoveGraphs ? null : result.Graphs);
+            result.GraphTraversals = (this.RemoveGraphTraversals ? null : result.GraphTraversals);
+            result.Stacks = (this.RemoveStacks ? null : result.Stacks);
+            result.WebRequest = (this.RemoveWebRequests ? null : result.WebRequest);
+            result.WebResponse = (this.RemoveWebResponses ? null : result.WebResponse);
 
-            if (this.RemoveRelatedLocations)
-            {
-                result.RelatedLocations = null;
-            }
-
+            // Truncate long Messages if configured
             if (this.MessageLengthLimitBytes > 0)
             {
                 if (result?.Message?.Text?.Length > this.MessageLengthLimitBytes)
@@ -139,6 +151,7 @@ namespace SarifTrim
             HashSet<Location> uniqueLocations = new HashSet<Location>(Location.ValueComparer);
             List<Location> newLocations = new List<Location>();
 
+            this.TotalLocations += locations.Count;
             for (int i = 0; i < locations.Count; ++i)
             {
                 Location loc = locations[i];
@@ -149,6 +162,7 @@ namespace SarifTrim
                 // Keep only one copy of each unique location
                 if (uniqueLocations.Add(loc))
                 {
+                    this.UniqueLocations++;
                     newLocations.Add(loc);
                 }
             }
