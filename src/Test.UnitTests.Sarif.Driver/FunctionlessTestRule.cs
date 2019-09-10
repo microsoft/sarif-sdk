@@ -27,7 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
         };
 
-        public override MultiformatMessageString FullDescription { get { return new MultiformatMessageString { Text = "This is the full description for TEST1002" }; } }
+        public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = "This is the full description for TEST1002" }; 
 
         public override void Analyze(TestAnalysisContext context)
         {
@@ -42,10 +42,10 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static PerLanguageOption<TestRuleBehaviors> Behaviors { get; } =
             new PerLanguageOption<TestRuleBehaviors>(
-                AnalyzerName, nameof(TestRuleBehaviors), defaultValue: () => { return TestRuleBehaviors.None; });
+                AnalyzerName, nameof(TestRuleBehaviors), defaultValue: () => TestRuleBehaviors.None);
 
         public static PerLanguageOption<bool> UnusedOption { get; } =
             new PerLanguageOption<bool>(
-                AnalyzerName, nameof(TestRuleBehaviors), defaultValue: () => { return true; });
+                AnalyzerName, nameof(TestRuleBehaviors), () => true);
     }
 }

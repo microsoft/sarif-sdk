@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
+using System.Composition;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -64,7 +65,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             configuration.Should().NotBeNull();
 
             // We export two rules, FunctionlessTestRule and TestRule
-            configuration.Keys.Count.Should().Be(2);
+            configuration.Keys.Count.Should().Be(NumberOfExportedRules());
         }
 
         [Fact]
@@ -75,12 +76,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             configuration.Should().NotBeNull();
 
             // We export two rules, FunctionlessTestRule and TestRule
-            configuration.Keys.Count.Should().Be(2);
+            configuration.Keys.Count.Should().Be(NumberOfExportedRules());
 
             foreach (PropertiesDictionary ruleProperties in configuration.Values)
             {
                 ((RuleEnabledState)ruleProperties[DefaultDriverOptions.RuleEnabled.Name]).Should().Be(RuleEnabledState.Disabled);
             }
+        }
+
+        private static int NumberOfExportedRules()
+        {
+            return typeof(ExportConfigurationCommandBaseTests).Assembly.GetTypes()
+                .Count(t => t.GetCustomAttributes(typeof(ExportAttribute)).Count() > 0);
         }
     }
 }

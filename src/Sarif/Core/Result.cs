@@ -94,20 +94,21 @@ namespace Microsoft.CodeAnalysis.Sarif
             sb.Append(" : " + this.Level);
             sb.Append(" : " + this.Kind);
 
-            if (!string.IsNullOrEmpty(this.Message.Text))
+            if (!string.IsNullOrEmpty(this.Message?.Text))
             {
                 sb.Append(" : " + this.Message.Text);
             }
-            else
+            else if (this.Message?.Arguments != null)
             {
                 sb.Append(" : {");
-                foreach(string argument in this.Message.Arguments)
+                foreach (string argument in this.Message.Arguments)
                 {
                     sb.Append(argument + ",");
                 }
                 sb.Length = sb.Length - 1;
                 sb.Append("}");
             }
+
             return sb.ToString();
         }
 #endif

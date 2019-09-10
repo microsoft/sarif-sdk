@@ -599,9 +599,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             if (options.Verbose)
             {
                 Console.WriteLine(string.Format(CultureInfo.CurrentCulture,
-                    @"Analyzing '{0}'..",
+                    @"Analyzing '{0}'...",
                     context.TargetUri.GetFileName()));
             }
+
             if (options.ComputeFileHashes)
             {
                 _resultsCachingLogger.HashToResultsMap.TryGetValue(context.Hashes.Sha256, out List<Tuple<ReportingDescriptor, Result>> cachedResultTuples);
@@ -665,35 +666,40 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             foreach (Location location in locations)
             {
                 ArtifactLocation artifactLocation = location.PhysicalLocation?.ArtifactLocation;
+                if (artifactLocation == null) { continue; }
 
-                if (message != null)
+                if (message == null)
                 {
-                    string oldFilePath = artifactLocation.Uri.OriginalString;
-                    string newFilePath = updatedUri.OriginalString;
+                    artifactLocation.Uri = updatedUri;
+                    continue;
+                }
 
-                    string oldFileName = GetFileNameFromUri(artifactLocation.Uri);
-                    string newFileName = GetFileNameFromUri(updatedUri);
 
-                    if (!string.IsNullOrEmpty(oldFileName) && !string.IsNullOrEmpty(newFileName))
+                string oldFilePath = artifactLocation.Uri.OriginalString;
+                string newFilePath = updatedUri.OriginalString;
+
+                string oldFileName = GetFileNameFromUri(artifactLocation.Uri);
+                string newFileName = GetFileNameFromUri(updatedUri);
+
+                if (!string.IsNullOrEmpty(oldFileName) && !string.IsNullOrEmpty(newFileName))
+                {
+                    for (int i = 0; i < message?.Arguments?.Count; i++)
                     {
-                        for (int i = 0; i < message?.Arguments?.Count; i++)
+                        if (message.Arguments[i] == oldFileName)
                         {
-                            if (message.Arguments[i] == oldFileName)
-                            {
-                                message.Arguments[i] = newFileName;
-                            }
-
-                            if (message.Arguments[i] == oldFilePath)
-                            {
-                                message.Arguments[i] = newFilePath;
-                            }
+                            message.Arguments[i] = newFileName;
                         }
 
-                        if (message.Text != null)
+                        if (message.Arguments[i] == oldFilePath)
                         {
-                            message.Text = message.Text.Replace(oldFilePath, newFilePath);
-                            message.Text = message.Text.Replace(oldFileName, newFileName);
+                            message.Arguments[i] = newFilePath;
                         }
+                    }
+
+                    if (message.Text != null)
+                    {
+                        message.Text = message.Text.Replace(oldFilePath, newFilePath);
+                        message.Text = message.Text.Replace(oldFileName, newFileName);
                     }
                 }
 
@@ -703,7 +709,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         internal static string GetFileNameFromUri(Uri uri)
         {
-            if (uri == null) return null;
+            if (uri == null) { return null; }
 
             return Path.GetFileName(uri.OriginalString);
         }

@@ -570,7 +570,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             // As configured by injected TestRuleBehaviors, we should
             // see an error per scan target (one file in this case).
             resultCount.Should().Be(1);
-            run.Results[0].Kind.Should().Equals(ResultKind.NotApplicable);
+            run.Results[0].Kind.Should().Be(ResultKind.Fail);
 
             toolNotificationCount.Should().Be(0);
             configurationNotificationCount.Should().Be(0);
@@ -812,7 +812,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             actualNotification.Should().BeEquivalentTo(expectedNotification);
         }
 
-        private Notification BuildTestNotification(Uri uri)
+        private static Notification BuildTestNotification(Uri uri)
         {
             string filePath = uri.OriginalString;
             string fileName = Path.GetFileName(uri.OriginalString);
@@ -865,7 +865,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 if (!object.Equals(actualFileName, expectedFileName))
                 {
-                    sb.AppendLine(string.Format("Bad file name returned for uri '{0}'. Expected '{1}' but saw '{2}'.", uri, expectedFileName, actualFileName));
+                    sb.AppendLine(string.Format("Incorrect file name returned for uri '{0}'. Expected '{1}' but saw '{2}'.", uri, expectedFileName, actualFileName));
                 }
             }
             sb.Length.Should().Be(0, because: "all URI to file name conversions should succeed but the following cases failed." + Environment.NewLine + sb.ToString());
@@ -879,7 +879,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             // Produce two errors results
             var testCase = new ResultsCachingTestCase()
             {
-                Files = new List<string>(new string[] { "Error.dll", "Error.exe" })
+                Files = new List<string> { "Error.dll", "Error.exe" }
             };
 
             RunResultsCachingTestCase(testCase);
@@ -895,7 +895,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             // Produce three results in verbose runs only
             var testCase = new ResultsCachingTestCase()
             {
-                Files = new List<string>(new string[] { "Note.dll", "Note.exe", "Note.sys" })
+                Files = new List<string> { "Note.dll", "Note.exe", "Note.sys" }
             };
 
             // Notes are verbose only results
@@ -1162,7 +1162,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     : 0);
 
             public int ExpectedErrorCount =>
-                Files.Where((f) => f.Contains("Error")).Count() +
+                Files.Count((f) => f.Contains("Error")) +
                 // For our special case, all files except for those that are marked as 'not applicable' will
                 // produce a 'pdb load' notification that will be converted to an error. The not applicable
                 // cases will not do this, because the return of 'not applicable' from the CanAnalyze
@@ -1202,16 +1202,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             public TestRuleBehaviors TestRuleBehaviors;
 
-            // TODO: this is an special knob that that accounts for a current SDK behavior.
+            // This is a special knob that that accounts for a current SDK behavior.
             // Specifically, the MSBuildConverter currently transforms all notifications
-            // to results. This will require us 
-            bool NotificationsWillBeConvertedToErrorResults
-            {
-                get
-                {
-                    return (TestRuleBehaviors == TestRuleBehaviors.RaiseLoadingPdbError && !PersistLogFileToDisk);
-                }
-            }
+            // to results. This will require us to recompute expected notification vs.
+            // results counts depending on whether we are examining the console output
+            // or an actual persisted log file to validate outcomes.
+            bool NotificationsWillBeConvertedToErrorResults => TestRuleBehaviors == TestRuleBehaviors.RaiseLoadingPdbError && !PersistLogFileToDisk;
         }
         #endregion ResultsCachingTestsAndHelpers
     }

@@ -19,11 +19,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             sb.Append(" : " + this.AssociatedRule?.Id);
             sb.Append(" : " + this.Level);
 
-            if (!string.IsNullOrEmpty(this.Message.Text))
+            if (!string.IsNullOrEmpty(this.Message?.Text))
             {
                 sb.Append(" : " + this.Message.Text);
             }
-            else
+            else if (this.Message?.Arguments != null)
             {
                 sb.Append(" : {");
                 foreach (string argument in this.Message.Arguments)

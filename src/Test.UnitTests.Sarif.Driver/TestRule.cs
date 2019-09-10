@@ -12,7 +12,7 @@ using Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Driver.Sdk;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
-    // Test rule for provoking various behaviors designed to provoke code coverage. This rule can be configured
+    // Test rule for provoking various behaviors designed to increase code coverage. This rule can be configured
     // via explicitly passed configuration, by injecting test behaviors into a thread static variable, or
     // implicitly via the name of the scan targets.
     [Export(typeof(ReportingDescriptor)), Export(typeof(IOptionsProvider)), Export(typeof(Skimmer<TestAnalysisContext>))]
@@ -29,7 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        private const string SimpleTestRuleId = "TEST1001";
+        private const string TestRuleId = "TEST1001";
 
         protected override ResourceManager ResourceManager => SkimmerBaseTestResources.ResourceManager;
 
@@ -64,7 +64,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     throw new InvalidOperationException(nameof(TestRuleBehaviors.RaiseExceptionAccessingId));
                 }
-                return SimpleTestRuleId;
+                return TestRuleId;
             }
         }
 
@@ -147,7 +147,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 case TestRuleBehaviors.LogError:
                 {
                     context.Logger.Log(this,
-                        new Result()
+                        new Result
                         {
                             RuleId = this.Id,
                             Level = FailureLevel.Error,
@@ -221,7 +221,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new IOption[] { Behaviors, UnusedOption };
         }
 
-        private const string AnalyzerName = SimpleTestRuleId + "." + nameof(TestRule);
+        private const string AnalyzerName = TestRuleId + "." + nameof(TestRule);
 
         public static PerLanguageOption<TestRuleBehaviors> Behaviors { get; } =
             new PerLanguageOption<TestRuleBehaviors>(
