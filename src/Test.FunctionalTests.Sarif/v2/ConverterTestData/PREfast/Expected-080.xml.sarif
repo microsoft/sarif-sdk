@@ -3,46 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "PREfast",
-          "fullName": "PREfast Code Analysis"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "file:///c:/somepath/test080.cpp",
-            "index": 0
-          }
-        }
-      ],
-      "logicalLocations": [
-        {
-          "fullyQualifiedName": "g",
-          "decoratedName": "?g@@YAXHH@Z"
-        },
-        {
-          "fullyQualifiedName": "nested",
-          "decoratedName": "?nested@@YAXXZ"
-        },
-        {
-          "fullyQualifiedName": "call",
-          "decoratedName": "?call@@YADPADID@Z"
-        },
-        {
-          "fullyQualifiedName": "call1",
-          "decoratedName": "?call1@@YADPADID@Z"
-        },
-        {
-          "fullyQualifiedName": "TestRelopBad",
-          "decoratedName": "?TestRelopBad@@YAXII@Z"
-        },
-        {
-          "fullyQualifiedName": "TestRelopGood",
-          "decoratedName": "?TestRelopGood@@YAXII@Z"
-        }
-      ],
       "results": [
         {
           "ruleId": "26000",
@@ -960,6 +920,45 @@
               ]
             }
           ]
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///c:/somepath/test080.cpp"
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "g",
+          "decoratedName": "?g@@YAXHH@Z"
+        },
+        {
+          "fullyQualifiedName": "nested",
+          "decoratedName": "?nested@@YAXXZ"
+        },
+        {
+          "fullyQualifiedName": "call",
+          "decoratedName": "?call@@YADPADID@Z"
+        },
+        {
+          "fullyQualifiedName": "call1",
+          "decoratedName": "?call1@@YADPADID@Z"
+        },
+        {
+          "fullyQualifiedName": "TestRelopBad",
+          "decoratedName": "?TestRelopBad@@YAXII@Z"
+        },
+        {
+          "fullyQualifiedName": "TestRelopGood",
+          "decoratedName": "?TestRelopGood@@YAXII@Z"
         }
       ],
       "columnKind": "utf16CodeUnits"

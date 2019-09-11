@@ -3,218 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "CppCheck",
-          "version": "1.66.0"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "adler32.c",
-            "index": 0
-          }
-        },
-        {
-          "location": {
-            "uri": "crc32.c",
-            "index": 1
-          }
-        },
-        {
-          "location": {
-            "uri": "deflate.c",
-            "index": 2
-          }
-        },
-        {
-          "location": {
-            "uri": "gzlib.c",
-            "index": 3
-          }
-        },
-        {
-          "location": {
-            "uri": "gzread.c",
-            "index": 4
-          }
-        },
-        {
-          "location": {
-            "uri": "gzwrite.c",
-            "index": 5
-          }
-        },
-        {
-          "location": {
-            "uri": "inflate.c",
-            "index": 6
-          }
-        },
-        {
-          "location": {
-            "uri": "inftrees.c",
-            "index": 7
-          }
-        },
-        {
-          "location": {
-            "uri": "trees.c",
-            "index": 8
-          }
-        },
-        {
-          "location": {
-            "uri": "zutil.c",
-            "index": 9
-          }
-        },
-        {
-          "location": {
-            "uri": "contrib/infback9/inftree9.c",
-            "index": 10
-          }
-        },
-        {
-          "location": {
-            "uri": "contrib/inflate86/inffas86.c",
-            "index": 11
-          }
-        },
-        {
-          "location": {
-            "uri": "contrib/iostream2/zstream_test.cpp",
-            "index": 12
-          }
-        },
-        {
-          "location": {
-            "uri": "contrib/masmx64/inffas8664.c",
-            "index": 13
-          }
-        },
-        {
-          "location": {
-            "uri": "contrib/minizip/iowin32.c",
-            "index": 14
-          }
-        },
-        {
-          "location": {
-            "uri": "contrib/minizip/miniunz.c",
-            "index": 15
-          }
-        },
-        {
-          "location": {
-            "uri": "contrib/minizip/minizip.c",
-            "index": 16
-          }
-        },
-        {
-          "location": {
-            "uri": "contrib/minizip/mztools.c",
-            "index": 17
-          }
-        },
-        {
-          "location": {
-            "uri": "contrib/minizip/unzip.c",
-            "index": 18
-          }
-        },
-        {
-          "location": {
-            "uri": "contrib/minizip/zip.c",
-            "index": 19
-          }
-        },
-        {
-          "location": {
-            "uri": "contrib/minizip/crypt.h",
-            "index": 20
-          }
-        },
-        {
-          "location": {
-            "uri": "contrib/puff/puff.c",
-            "index": 21
-          }
-        },
-        {
-          "location": {
-            "uri": "contrib/puff/pufftest.c",
-            "index": 22
-          }
-        },
-        {
-          "location": {
-            "uri": "contrib/testzlib/testzlib.c",
-            "index": 23
-          }
-        },
-        {
-          "location": {
-            "uri": "contrib/untgz/untgz.c",
-            "index": 24
-          }
-        },
-        {
-          "location": {
-            "uri": "examples/enough.c",
-            "index": 25
-          }
-        },
-        {
-          "location": {
-            "uri": "examples/gun.c",
-            "index": 26
-          }
-        },
-        {
-          "location": {
-            "uri": "examples/gzappend.c",
-            "index": 27
-          }
-        },
-        {
-          "location": {
-            "uri": "examples/gzjoin.c",
-            "index": 28
-          }
-        },
-        {
-          "location": {
-            "uri": "examples/gzlog.c",
-            "index": 29
-          }
-        },
-        {
-          "location": {
-            "uri": "examples/zran.c",
-            "index": 30
-          }
-        },
-        {
-          "location": {
-            "uri": "test/example.c",
-            "index": 31
-          }
-        },
-        {
-          "location": {
-            "uri": "test/infcover.c",
-            "index": 32
-          }
-        },
-        {
-          "location": {
-            "uri": "test/minigzip.c",
-            "index": 33
-          }
-        }
-      ],
       "results": [
         {
           "ruleId": "variableScope",
@@ -4654,6 +4442,184 @@
           ],
           "properties": {
             "Severity": "style"
+          }
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "CppCheck",
+          "version": "1.66.0"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "adler32.c"
+          }
+        },
+        {
+          "location": {
+            "uri": "crc32.c"
+          }
+        },
+        {
+          "location": {
+            "uri": "deflate.c"
+          }
+        },
+        {
+          "location": {
+            "uri": "gzlib.c"
+          }
+        },
+        {
+          "location": {
+            "uri": "gzread.c"
+          }
+        },
+        {
+          "location": {
+            "uri": "gzwrite.c"
+          }
+        },
+        {
+          "location": {
+            "uri": "inflate.c"
+          }
+        },
+        {
+          "location": {
+            "uri": "inftrees.c"
+          }
+        },
+        {
+          "location": {
+            "uri": "trees.c"
+          }
+        },
+        {
+          "location": {
+            "uri": "zutil.c"
+          }
+        },
+        {
+          "location": {
+            "uri": "contrib/infback9/inftree9.c"
+          }
+        },
+        {
+          "location": {
+            "uri": "contrib/inflate86/inffas86.c"
+          }
+        },
+        {
+          "location": {
+            "uri": "contrib/iostream2/zstream_test.cpp"
+          }
+        },
+        {
+          "location": {
+            "uri": "contrib/masmx64/inffas8664.c"
+          }
+        },
+        {
+          "location": {
+            "uri": "contrib/minizip/iowin32.c"
+          }
+        },
+        {
+          "location": {
+            "uri": "contrib/minizip/miniunz.c"
+          }
+        },
+        {
+          "location": {
+            "uri": "contrib/minizip/minizip.c"
+          }
+        },
+        {
+          "location": {
+            "uri": "contrib/minizip/mztools.c"
+          }
+        },
+        {
+          "location": {
+            "uri": "contrib/minizip/unzip.c"
+          }
+        },
+        {
+          "location": {
+            "uri": "contrib/minizip/zip.c"
+          }
+        },
+        {
+          "location": {
+            "uri": "contrib/minizip/crypt.h"
+          }
+        },
+        {
+          "location": {
+            "uri": "contrib/puff/puff.c"
+          }
+        },
+        {
+          "location": {
+            "uri": "contrib/puff/pufftest.c"
+          }
+        },
+        {
+          "location": {
+            "uri": "contrib/testzlib/testzlib.c"
+          }
+        },
+        {
+          "location": {
+            "uri": "contrib/untgz/untgz.c"
+          }
+        },
+        {
+          "location": {
+            "uri": "examples/enough.c"
+          }
+        },
+        {
+          "location": {
+            "uri": "examples/gun.c"
+          }
+        },
+        {
+          "location": {
+            "uri": "examples/gzappend.c"
+          }
+        },
+        {
+          "location": {
+            "uri": "examples/gzjoin.c"
+          }
+        },
+        {
+          "location": {
+            "uri": "examples/gzlog.c"
+          }
+        },
+        {
+          "location": {
+            "uri": "examples/zran.c"
+          }
+        },
+        {
+          "location": {
+            "uri": "test/example.c"
+          }
+        },
+        {
+          "location": {
+            "uri": "test/infcover.c"
+          }
+        },
+        {
+          "location": {
+            "uri": "test/minigzip.c"
           }
         }
       ],

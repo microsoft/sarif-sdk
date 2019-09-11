@@ -3,50 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "PREfast",
-          "fullName": "PREfast Code Analysis"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "file:///c:/somepath/test054.cpp",
-            "index": 0
-          }
-        }
-      ],
-      "logicalLocations": [
-        {
-          "fullyQualifiedName": "f",
-          "decoratedName": "?f@@YAXH@Z"
-        },
-        {
-          "fullyQualifiedName": "find",
-          "decoratedName": "?find@@YAHPAHHH@Z"
-        },
-        {
-          "fullyQualifiedName": "h",
-          "decoratedName": "?h@@YAXPAHH@Z"
-        },
-        {
-          "fullyQualifiedName": "h1",
-          "decoratedName": "?h1@@YAXPAHH@Z"
-        },
-        {
-          "fullyQualifiedName": "search",
-          "decoratedName": "?search@@YAXPAHABH0@Z"
-        },
-        {
-          "fullyQualifiedName": "baz",
-          "decoratedName": "?baz@@YAXXZ"
-        },
-        {
-          "fullyQualifiedName": "main",
-          "decoratedName": "main"
-        }
-      ],
       "results": [
         {
           "ruleId": "26017",
@@ -1417,6 +1373,49 @@
               ]
             }
           ]
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///c:/somepath/test054.cpp"
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "f",
+          "decoratedName": "?f@@YAXH@Z"
+        },
+        {
+          "fullyQualifiedName": "find",
+          "decoratedName": "?find@@YAHPAHHH@Z"
+        },
+        {
+          "fullyQualifiedName": "h",
+          "decoratedName": "?h@@YAXPAHH@Z"
+        },
+        {
+          "fullyQualifiedName": "h1",
+          "decoratedName": "?h1@@YAXPAHH@Z"
+        },
+        {
+          "fullyQualifiedName": "search",
+          "decoratedName": "?search@@YAXPAHABH0@Z"
+        },
+        {
+          "fullyQualifiedName": "baz",
+          "decoratedName": "?baz@@YAXXZ"
+        },
+        {
+          "fullyQualifiedName": "main",
+          "decoratedName": "main"
         }
       ],
       "columnKind": "utf16CodeUnits"

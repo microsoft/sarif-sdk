@@ -3,42 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "PREfast",
-          "fullName": "PREfast Code Analysis"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "file:///c:/somepath/test097.cpp",
-            "index": 0
-          }
-        }
-      ],
-      "logicalLocations": [
-        {
-          "fullyQualifiedName": "MyFunction1",
-          "decoratedName": "?MyFunction1@@YAJK@Z"
-        },
-        {
-          "fullyQualifiedName": "MyFunction2",
-          "decoratedName": "?MyFunction2@@YAXK@Z"
-        },
-        {
-          "fullyQualifiedName": "MyFunction3",
-          "decoratedName": "?MyFunction3@@YAXK@Z"
-        },
-        {
-          "fullyQualifiedName": "MyFunction4",
-          "decoratedName": "?MyFunction4@@YAXK@Z"
-        },
-        {
-          "fullyQualifiedName": "MyFunction5",
-          "decoratedName": "?MyFunction5@@YAXK@Z"
-        }
-      ],
       "results": [
         {
           "ruleId": "26001",
@@ -1264,6 +1228,41 @@
               ]
             }
           ]
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///c:/somepath/test097.cpp"
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "MyFunction1",
+          "decoratedName": "?MyFunction1@@YAJK@Z"
+        },
+        {
+          "fullyQualifiedName": "MyFunction2",
+          "decoratedName": "?MyFunction2@@YAXK@Z"
+        },
+        {
+          "fullyQualifiedName": "MyFunction3",
+          "decoratedName": "?MyFunction3@@YAXK@Z"
+        },
+        {
+          "fullyQualifiedName": "MyFunction4",
+          "decoratedName": "?MyFunction4@@YAXK@Z"
+        },
+        {
+          "fullyQualifiedName": "MyFunction5",
+          "decoratedName": "?MyFunction5@@YAXK@Z"
         }
       ],
       "columnKind": "utf16CodeUnits"

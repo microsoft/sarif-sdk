@@ -3,42 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "PREfast",
-          "fullName": "PREfast Code Analysis"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "file:///c:/somepath/test089.cpp",
-            "index": 0
-          }
-        }
-      ],
-      "logicalLocations": [
-        {
-          "fullyQualifiedName": "congruent1",
-          "decoratedName": "?congruent1@@YAXPEAPEAD_K@Z"
-        },
-        {
-          "fullyQualifiedName": "congruent2",
-          "decoratedName": "?congruent2@@YAXPEAUEnum@@@Z"
-        },
-        {
-          "fullyQualifiedName": "congruent3",
-          "decoratedName": "?congruent3@@YA_NPEAUEnum@@PEAH_K@Z"
-        },
-        {
-          "fullyQualifiedName": "notcongruent1",
-          "decoratedName": "?notcongruent1@@YAXPEAUEnum@@@Z"
-        },
-        {
-          "fullyQualifiedName": "notcongruent2",
-          "decoratedName": "?notcongruent2@@YAXPEAUEnum@@@Z"
-        }
-      ],
       "results": [
         {
           "ruleId": "26035",
@@ -4632,6 +4596,41 @@
               ]
             }
           ]
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///c:/somepath/test089.cpp"
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "congruent1",
+          "decoratedName": "?congruent1@@YAXPEAPEAD_K@Z"
+        },
+        {
+          "fullyQualifiedName": "congruent2",
+          "decoratedName": "?congruent2@@YAXPEAUEnum@@@Z"
+        },
+        {
+          "fullyQualifiedName": "congruent3",
+          "decoratedName": "?congruent3@@YA_NPEAUEnum@@PEAH_K@Z"
+        },
+        {
+          "fullyQualifiedName": "notcongruent1",
+          "decoratedName": "?notcongruent1@@YAXPEAUEnum@@@Z"
+        },
+        {
+          "fullyQualifiedName": "notcongruent2",
+          "decoratedName": "?notcongruent2@@YAXPEAUEnum@@@Z"
         }
       ],
       "columnKind": "utf16CodeUnits"

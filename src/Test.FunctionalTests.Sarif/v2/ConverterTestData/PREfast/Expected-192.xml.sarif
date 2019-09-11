@@ -3,228 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "PREfast",
-          "fullName": "PREfast Code Analysis"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "file:///c:/somepath/stralign.h",
-            "index": 0
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///c:/somepath/crt/tchar.h",
-            "index": 1
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///c:/somepath/strsafe.h",
-            "index": 2
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///c:/somepath/crt/stl70/iosfwd",
-            "index": 3
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///c:/somepath/crt/stl70/xlocale",
-            "index": 4
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///d:/dev/win8/drivers/tablet/recognition/ink/core/inferno/src/loadtdnnbin.cpp",
-            "index": 5
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///c:/somepath/crt/stl70/streambuf",
-            "index": 6
-          }
-        }
-      ],
-      "logicalLocations": [
-        {
-          "fullyQualifiedName": "ua_wcscpy",
-          "decoratedName": "ua_wcscpy"
-        },
-        {
-          "fullyQualifiedName": "_wcsspnp",
-          "decoratedName": "_wcsspnp"
-        },
-        {
-          "fullyQualifiedName": "_wcsncat_l",
-          "decoratedName": "_wcsncat_l"
-        },
-        {
-          "fullyQualifiedName": "StringCbCopyExW",
-          "decoratedName": "?StringCbCopyExW@@YGJPAGIPBGPAPAGPAIK@Z"
-        },
-        {
-          "fullyQualifiedName": "StringCbCopyNExW",
-          "decoratedName": "?StringCbCopyNExW@@YGJPAGIPBGIPAPAGPAIK@Z"
-        },
-        {
-          "fullyQualifiedName": "StringCbCatNExW",
-          "decoratedName": "?StringCbCatNExW@@YGJPAGIPBGIPAPAGPAIK@Z"
-        },
-        {
-          "fullyQualifiedName": "StringCbPrintfExW",
-          "decoratedName": "?StringCbPrintfExW@@YAJPAGIPAPAGPAIKPBGZZ"
-        },
-        {
-          "fullyQualifiedName": "StringCbGetsExW",
-          "decoratedName": "?StringCbGetsExW@@YGJPAGIPAPAGPAIK@Z"
-        },
-        {
-          "fullyQualifiedName": "StringCchLengthA",
-          "decoratedName": "?StringCchLengthA@@YGJPBDIPAI@Z"
-        },
-        {
-          "fullyQualifiedName": "StringCchLengthW",
-          "decoratedName": "?StringCchLengthW@@YGJPBGIPAI@Z"
-        },
-        {
-          "fullyQualifiedName": "StringValidateDestAndLengthA",
-          "decoratedName": "?StringValidateDestAndLengthA@@YGJPBDIPAII@Z"
-        },
-        {
-          "fullyQualifiedName": "StringValidateDestAndLengthW",
-          "decoratedName": "?StringValidateDestAndLengthW@@YGJPBGIPAII@Z"
-        },
-        {
-          "fullyQualifiedName": "StringExHandleOtherFlagsA",
-          "decoratedName": "?StringExHandleOtherFlagsA@@YGJPADIIPAPADPAIK@Z"
-        },
-        {
-          "fullyQualifiedName": "StringExHandleOtherFlagsW",
-          "decoratedName": "?StringExHandleOtherFlagsW@@YGJPAGIIPAPAGPAIK@Z"
-        },
-        {
-          "name": "length",
-          "fullyQualifiedName": "std::char_traits<unsigned short>::length",
-          "decoratedName": "?length@?$char_traits@G@std@@SAIPBG@Z"
-        },
-        {
-          "name": "_Copy_s",
-          "fullyQualifiedName": "std::char_traits<unsigned short>::_Copy_s",
-          "decoratedName": "?_Copy_s@?$char_traits@G@std@@SAPAGPAGIPBGI@Z"
-        },
-        {
-          "name": "_Move_s",
-          "fullyQualifiedName": "std::char_traits<unsigned short>::_Move_s",
-          "decoratedName": "?_Move_s@?$char_traits@G@std@@SAPAGPAGIPBGI@Z"
-        },
-        {
-          "name": "length",
-          "fullyQualifiedName": "std::char_traits<char>::length",
-          "decoratedName": "?length@?$char_traits@D@std@@SAIPBD@Z"
-        },
-        {
-          "name": "_Copy_s",
-          "fullyQualifiedName": "std::char_traits<char>::_Copy_s",
-          "decoratedName": "?_Copy_s@?$char_traits@D@std@@SAPADPADIPBDI@Z"
-        },
-        {
-          "name": "_Move_s",
-          "fullyQualifiedName": "std::char_traits<char>::_Move_s",
-          "decoratedName": "?_Move_s@?$char_traits@D@std@@SAPADPADIPBDI@Z"
-        },
-        {
-          "name": "_Maklocstr",
-          "fullyQualifiedName": "std::_Maklocstr",
-          "decoratedName": "??$_Maklocstr@G@std@@YAPAGPBDPAGABU_Cvtvec@@@Z"
-        },
-        {
-          "name": "do_in",
-          "fullyQualifiedName": "std::codecvt<unsigned short,char,int>::do_in",
-          "decoratedName": "?do_in@?$codecvt@GDH@std@@MBEHAAHPBD1AAPBDPAG3AAPAG@Z"
-        },
-        {
-          "name": "do_out",
-          "fullyQualifiedName": "std::codecvt<unsigned short,char,int>::do_out",
-          "decoratedName": "?do_out@?$codecvt@GDH@std@@MBEHAAHPBG1AAPBGPAD3AAPAD@Z"
-        },
-        {
-          "name": "do_length",
-          "fullyQualifiedName": "std::codecvt<unsigned short,char,int>::do_length",
-          "decoratedName": "?do_length@?$codecvt@GDH@std@@MBEHABHPBD1I@Z"
-        },
-        {
-          "name": "do_tolower",
-          "fullyQualifiedName": "std::ctype<char>::do_tolower",
-          "decoratedName": "?do_tolower@?$ctype@D@std@@MBEPBDPADPBD@Z"
-        },
-        {
-          "name": "do_toupper",
-          "fullyQualifiedName": "std::ctype<char>::do_toupper",
-          "decoratedName": "?do_toupper@?$ctype@D@std@@MBEPBDPADPBD@Z"
-        },
-        {
-          "name": "_Do_widen_s",
-          "fullyQualifiedName": "std::ctype<char>::_Do_widen_s",
-          "decoratedName": "?_Do_widen_s@?$ctype@D@std@@IBEPBDPBD0PADI@Z"
-        },
-        {
-          "name": "_Do_narrow_s",
-          "fullyQualifiedName": "std::ctype<char>::_Do_narrow_s",
-          "decoratedName": "?_Do_narrow_s@?$ctype@D@std@@IBEPBDPBD0DPADI@Z"
-        },
-        {
-          "name": "do_scan_is",
-          "fullyQualifiedName": "std::ctype<unsigned short>::do_scan_is",
-          "decoratedName": "?do_scan_is@?$ctype@G@std@@MBEPBGFPBG0@Z"
-        },
-        {
-          "name": "do_scan_not",
-          "fullyQualifiedName": "std::ctype<unsigned short>::do_scan_not",
-          "decoratedName": "?do_scan_not@?$ctype@G@std@@MBEPBGFPBG0@Z"
-        },
-        {
-          "name": "do_tolower",
-          "fullyQualifiedName": "std::ctype<unsigned short>::do_tolower",
-          "decoratedName": "?do_tolower@?$ctype@G@std@@MBEPBGPAGPBG@Z"
-        },
-        {
-          "name": "do_toupper",
-          "fullyQualifiedName": "std::ctype<unsigned short>::do_toupper",
-          "decoratedName": "?do_toupper@?$ctype@G@std@@MBEPBGPAGPBG@Z"
-        },
-        {
-          "name": "_Do_widen_s",
-          "fullyQualifiedName": "std::ctype<unsigned short>::_Do_widen_s",
-          "decoratedName": "?_Do_widen_s@?$ctype@G@std@@IBEPBDPBD0PAGI@Z"
-        },
-        {
-          "name": "_Do_narrow_s",
-          "fullyQualifiedName": "std::ctype<unsigned short>::_Do_narrow_s",
-          "decoratedName": "?_Do_narrow_s@?$ctype@G@std@@IBEPBGPBG0DPADI@Z"
-        },
-        {
-          "fullyQualifiedName": "ReadBinHeader",
-          "decoratedName": "?ReadBinHeader@@YAPBEPAUtagNET_DESC@@PBEH@Z"
-        },
-        {
-          "name": "_Xsgetn_s",
-          "fullyQualifiedName": "std::basic_streambuf<unsigned short,std::char_traits<unsigned short> >::_Xsgetn_s",
-          "decoratedName": "?_Xsgetn_s@?$basic_streambuf@GU?$char_traits@G@std@@@std@@IAEHPAGIH@Z"
-        },
-        {
-          "name": "_Xsgetn_s",
-          "fullyQualifiedName": "std::basic_streambuf<char,std::char_traits<char> >::_Xsgetn_s",
-          "decoratedName": "?_Xsgetn_s@?$basic_streambuf@DU?$char_traits@D@std@@@std@@IAEHPADIH@Z"
-        }
-      ],
       "results": [
         {
           "ruleId": "26036",
@@ -9741,6 +9519,221 @@
               ]
             }
           ]
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///c:/somepath/stralign.h"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/somepath/crt/tchar.h"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/somepath/strsafe.h"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/somepath/crt/stl70/iosfwd"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/somepath/crt/stl70/xlocale"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/dev/win8/drivers/tablet/recognition/ink/core/inferno/src/loadtdnnbin.cpp"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/somepath/crt/stl70/streambuf"
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "ua_wcscpy",
+          "decoratedName": "ua_wcscpy"
+        },
+        {
+          "fullyQualifiedName": "_wcsspnp",
+          "decoratedName": "_wcsspnp"
+        },
+        {
+          "fullyQualifiedName": "_wcsncat_l",
+          "decoratedName": "_wcsncat_l"
+        },
+        {
+          "fullyQualifiedName": "StringCbCopyExW",
+          "decoratedName": "?StringCbCopyExW@@YGJPAGIPBGPAPAGPAIK@Z"
+        },
+        {
+          "fullyQualifiedName": "StringCbCopyNExW",
+          "decoratedName": "?StringCbCopyNExW@@YGJPAGIPBGIPAPAGPAIK@Z"
+        },
+        {
+          "fullyQualifiedName": "StringCbCatNExW",
+          "decoratedName": "?StringCbCatNExW@@YGJPAGIPBGIPAPAGPAIK@Z"
+        },
+        {
+          "fullyQualifiedName": "StringCbPrintfExW",
+          "decoratedName": "?StringCbPrintfExW@@YAJPAGIPAPAGPAIKPBGZZ"
+        },
+        {
+          "fullyQualifiedName": "StringCbGetsExW",
+          "decoratedName": "?StringCbGetsExW@@YGJPAGIPAPAGPAIK@Z"
+        },
+        {
+          "fullyQualifiedName": "StringCchLengthA",
+          "decoratedName": "?StringCchLengthA@@YGJPBDIPAI@Z"
+        },
+        {
+          "fullyQualifiedName": "StringCchLengthW",
+          "decoratedName": "?StringCchLengthW@@YGJPBGIPAI@Z"
+        },
+        {
+          "fullyQualifiedName": "StringValidateDestAndLengthA",
+          "decoratedName": "?StringValidateDestAndLengthA@@YGJPBDIPAII@Z"
+        },
+        {
+          "fullyQualifiedName": "StringValidateDestAndLengthW",
+          "decoratedName": "?StringValidateDestAndLengthW@@YGJPBGIPAII@Z"
+        },
+        {
+          "fullyQualifiedName": "StringExHandleOtherFlagsA",
+          "decoratedName": "?StringExHandleOtherFlagsA@@YGJPADIIPAPADPAIK@Z"
+        },
+        {
+          "fullyQualifiedName": "StringExHandleOtherFlagsW",
+          "decoratedName": "?StringExHandleOtherFlagsW@@YGJPAGIIPAPAGPAIK@Z"
+        },
+        {
+          "name": "length",
+          "fullyQualifiedName": "std::char_traits<unsigned short>::length",
+          "decoratedName": "?length@?$char_traits@G@std@@SAIPBG@Z"
+        },
+        {
+          "name": "_Copy_s",
+          "fullyQualifiedName": "std::char_traits<unsigned short>::_Copy_s",
+          "decoratedName": "?_Copy_s@?$char_traits@G@std@@SAPAGPAGIPBGI@Z"
+        },
+        {
+          "name": "_Move_s",
+          "fullyQualifiedName": "std::char_traits<unsigned short>::_Move_s",
+          "decoratedName": "?_Move_s@?$char_traits@G@std@@SAPAGPAGIPBGI@Z"
+        },
+        {
+          "name": "length",
+          "fullyQualifiedName": "std::char_traits<char>::length",
+          "decoratedName": "?length@?$char_traits@D@std@@SAIPBD@Z"
+        },
+        {
+          "name": "_Copy_s",
+          "fullyQualifiedName": "std::char_traits<char>::_Copy_s",
+          "decoratedName": "?_Copy_s@?$char_traits@D@std@@SAPADPADIPBDI@Z"
+        },
+        {
+          "name": "_Move_s",
+          "fullyQualifiedName": "std::char_traits<char>::_Move_s",
+          "decoratedName": "?_Move_s@?$char_traits@D@std@@SAPADPADIPBDI@Z"
+        },
+        {
+          "name": "_Maklocstr",
+          "fullyQualifiedName": "std::_Maklocstr",
+          "decoratedName": "??$_Maklocstr@G@std@@YAPAGPBDPAGABU_Cvtvec@@@Z"
+        },
+        {
+          "name": "do_in",
+          "fullyQualifiedName": "std::codecvt<unsigned short,char,int>::do_in",
+          "decoratedName": "?do_in@?$codecvt@GDH@std@@MBEHAAHPBD1AAPBDPAG3AAPAG@Z"
+        },
+        {
+          "name": "do_out",
+          "fullyQualifiedName": "std::codecvt<unsigned short,char,int>::do_out",
+          "decoratedName": "?do_out@?$codecvt@GDH@std@@MBEHAAHPBG1AAPBGPAD3AAPAD@Z"
+        },
+        {
+          "name": "do_length",
+          "fullyQualifiedName": "std::codecvt<unsigned short,char,int>::do_length",
+          "decoratedName": "?do_length@?$codecvt@GDH@std@@MBEHABHPBD1I@Z"
+        },
+        {
+          "name": "do_tolower",
+          "fullyQualifiedName": "std::ctype<char>::do_tolower",
+          "decoratedName": "?do_tolower@?$ctype@D@std@@MBEPBDPADPBD@Z"
+        },
+        {
+          "name": "do_toupper",
+          "fullyQualifiedName": "std::ctype<char>::do_toupper",
+          "decoratedName": "?do_toupper@?$ctype@D@std@@MBEPBDPADPBD@Z"
+        },
+        {
+          "name": "_Do_widen_s",
+          "fullyQualifiedName": "std::ctype<char>::_Do_widen_s",
+          "decoratedName": "?_Do_widen_s@?$ctype@D@std@@IBEPBDPBD0PADI@Z"
+        },
+        {
+          "name": "_Do_narrow_s",
+          "fullyQualifiedName": "std::ctype<char>::_Do_narrow_s",
+          "decoratedName": "?_Do_narrow_s@?$ctype@D@std@@IBEPBDPBD0DPADI@Z"
+        },
+        {
+          "name": "do_scan_is",
+          "fullyQualifiedName": "std::ctype<unsigned short>::do_scan_is",
+          "decoratedName": "?do_scan_is@?$ctype@G@std@@MBEPBGFPBG0@Z"
+        },
+        {
+          "name": "do_scan_not",
+          "fullyQualifiedName": "std::ctype<unsigned short>::do_scan_not",
+          "decoratedName": "?do_scan_not@?$ctype@G@std@@MBEPBGFPBG0@Z"
+        },
+        {
+          "name": "do_tolower",
+          "fullyQualifiedName": "std::ctype<unsigned short>::do_tolower",
+          "decoratedName": "?do_tolower@?$ctype@G@std@@MBEPBGPAGPBG@Z"
+        },
+        {
+          "name": "do_toupper",
+          "fullyQualifiedName": "std::ctype<unsigned short>::do_toupper",
+          "decoratedName": "?do_toupper@?$ctype@G@std@@MBEPBGPAGPBG@Z"
+        },
+        {
+          "name": "_Do_widen_s",
+          "fullyQualifiedName": "std::ctype<unsigned short>::_Do_widen_s",
+          "decoratedName": "?_Do_widen_s@?$ctype@G@std@@IBEPBDPBD0PAGI@Z"
+        },
+        {
+          "name": "_Do_narrow_s",
+          "fullyQualifiedName": "std::ctype<unsigned short>::_Do_narrow_s",
+          "decoratedName": "?_Do_narrow_s@?$ctype@G@std@@IBEPBGPBG0DPADI@Z"
+        },
+        {
+          "fullyQualifiedName": "ReadBinHeader",
+          "decoratedName": "?ReadBinHeader@@YAPBEPAUtagNET_DESC@@PBEH@Z"
+        },
+        {
+          "name": "_Xsgetn_s",
+          "fullyQualifiedName": "std::basic_streambuf<unsigned short,std::char_traits<unsigned short> >::_Xsgetn_s",
+          "decoratedName": "?_Xsgetn_s@?$basic_streambuf@GU?$char_traits@G@std@@@std@@IAEHPAGIH@Z"
+        },
+        {
+          "name": "_Xsgetn_s",
+          "fullyQualifiedName": "std::basic_streambuf<char,std::char_traits<char> >::_Xsgetn_s",
+          "decoratedName": "?_Xsgetn_s@?$basic_streambuf@DU?$char_traits@D@std@@@std@@IAEHPADIH@Z"
         }
       ],
       "columnKind": "utf16CodeUnits"

@@ -3,70 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "PREfast",
-          "fullName": "PREfast Code Analysis"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "file:///c:/somepath/test090.cpp",
-            "index": 0
-          }
-        }
-      ],
-      "logicalLocations": [
-        {
-          "fullyQualifiedName": "g",
-          "decoratedName": "?g@@YAXH@Z"
-        },
-        {
-          "fullyQualifiedName": "calladd9",
-          "decoratedName": "?calladd9@@YAXXZ"
-        },
-        {
-          "fullyQualifiedName": "calladd1deref",
-          "decoratedName": "?calladd1deref@@YAXXZ"
-        },
-        {
-          "fullyQualifiedName": "CallAccessor",
-          "decoratedName": "?CallAccessor@@YAXPAUC@@@Z"
-        },
-        {
-          "fullyQualifiedName": "foo",
-          "decoratedName": "?foo@@YAXXZ"
-        },
-        {
-          "fullyQualifiedName": "callAlloc",
-          "decoratedName": "?callAlloc@@YAXXZ"
-        },
-        {
-          "fullyQualifiedName": "callRecursive",
-          "decoratedName": "?callRecursive@@YAXH@Z"
-        },
-        {
-          "fullyQualifiedName": "repeated",
-          "decoratedName": "?repeated@@YAXXZ"
-        },
-        {
-          "fullyQualifiedName": "CallAccess",
-          "decoratedName": "?CallAccess@@YAXPADI@Z"
-        },
-        {
-          "fullyQualifiedName": "callLoop",
-          "decoratedName": "?callLoop@@YAXI@Z"
-        },
-        {
-          "fullyQualifiedName": "callAdd",
-          "decoratedName": "?callAdd@@YAXPAUS@@@Z"
-        },
-        {
-          "fullyQualifiedName": "callSet",
-          "decoratedName": "?callSet@@YAXPAUS@@@Z"
-        }
-      ],
       "results": [
         {
           "ruleId": "26000",
@@ -1691,6 +1627,69 @@
               ]
             }
           ]
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///c:/somepath/test090.cpp"
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "g",
+          "decoratedName": "?g@@YAXH@Z"
+        },
+        {
+          "fullyQualifiedName": "calladd9",
+          "decoratedName": "?calladd9@@YAXXZ"
+        },
+        {
+          "fullyQualifiedName": "calladd1deref",
+          "decoratedName": "?calladd1deref@@YAXXZ"
+        },
+        {
+          "fullyQualifiedName": "CallAccessor",
+          "decoratedName": "?CallAccessor@@YAXPAUC@@@Z"
+        },
+        {
+          "fullyQualifiedName": "foo",
+          "decoratedName": "?foo@@YAXXZ"
+        },
+        {
+          "fullyQualifiedName": "callAlloc",
+          "decoratedName": "?callAlloc@@YAXXZ"
+        },
+        {
+          "fullyQualifiedName": "callRecursive",
+          "decoratedName": "?callRecursive@@YAXH@Z"
+        },
+        {
+          "fullyQualifiedName": "repeated",
+          "decoratedName": "?repeated@@YAXXZ"
+        },
+        {
+          "fullyQualifiedName": "CallAccess",
+          "decoratedName": "?CallAccess@@YAXPADI@Z"
+        },
+        {
+          "fullyQualifiedName": "callLoop",
+          "decoratedName": "?callLoop@@YAXI@Z"
+        },
+        {
+          "fullyQualifiedName": "callAdd",
+          "decoratedName": "?callAdd@@YAXPAUS@@@Z"
+        },
+        {
+          "fullyQualifiedName": "callSet",
+          "decoratedName": "?callSet@@YAXPAUS@@@Z"
         }
       ],
       "columnKind": "utf16CodeUnits"

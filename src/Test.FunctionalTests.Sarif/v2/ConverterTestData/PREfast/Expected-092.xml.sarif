@@ -3,46 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "PREfast",
-          "fullName": "PREfast Code Analysis"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "file:///c:/somepath/test092.cpp",
-            "index": 0
-          }
-        }
-      ],
-      "logicalLocations": [
-        {
-          "fullyQualifiedName": "test2t",
-          "decoratedName": "?test2t@@YAXXZ"
-        },
-        {
-          "fullyQualifiedName": "test2k",
-          "decoratedName": "?test2k@@YAXXZ"
-        },
-        {
-          "fullyQualifiedName": "test2x",
-          "decoratedName": "?test2x@@YAXXZ"
-        },
-        {
-          "fullyQualifiedName": "test2tu",
-          "decoratedName": "?test2tu@@YAXXZ"
-        },
-        {
-          "fullyQualifiedName": "test2ku",
-          "decoratedName": "?test2ku@@YAXXZ"
-        },
-        {
-          "fullyQualifiedName": "test2xu",
-          "decoratedName": "?test2xu@@YAXXZ"
-        }
-      ],
       "results": [
         {
           "ruleId": "26014",
@@ -3451,6 +3411,45 @@
               ]
             }
           ]
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///c:/somepath/test092.cpp"
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "test2t",
+          "decoratedName": "?test2t@@YAXXZ"
+        },
+        {
+          "fullyQualifiedName": "test2k",
+          "decoratedName": "?test2k@@YAXXZ"
+        },
+        {
+          "fullyQualifiedName": "test2x",
+          "decoratedName": "?test2x@@YAXXZ"
+        },
+        {
+          "fullyQualifiedName": "test2tu",
+          "decoratedName": "?test2tu@@YAXXZ"
+        },
+        {
+          "fullyQualifiedName": "test2ku",
+          "decoratedName": "?test2ku@@YAXXZ"
+        },
+        {
+          "fullyQualifiedName": "test2xu",
+          "decoratedName": "?test2xu@@YAXXZ"
         }
       ],
       "columnKind": "utf16CodeUnits"

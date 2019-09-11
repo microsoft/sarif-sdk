@@ -3,58 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "PREfast",
-          "fullName": "PREfast Code Analysis"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "file:///c:/somepath/test127.cpp",
-            "index": 0
-          }
-        }
-      ],
-      "logicalLocations": [
-        {
-          "fullyQualifiedName": "VariableWorker",
-          "decoratedName": "?VariableWorker@@YAXHPAD@Z"
-        },
-        {
-          "fullyQualifiedName": "Bad1",
-          "decoratedName": "?Bad1@@YAXXZ"
-        },
-        {
-          "fullyQualifiedName": "Bad2",
-          "decoratedName": "?Bad2@@YAXH@Z"
-        },
-        {
-          "fullyQualifiedName": "RangeWhen1",
-          "decoratedName": "?RangeWhen1@@YAXHI@Z"
-        },
-        {
-          "fullyQualifiedName": "Bad3",
-          "decoratedName": "?Bad3@@YAXXZ"
-        },
-        {
-          "fullyQualifiedName": "WinHttpTestINT",
-          "decoratedName": "?WinHttpTestINT@@YAXPBGH@Z"
-        },
-        {
-          "fullyQualifiedName": "myWcsCpy",
-          "decoratedName": "?myWcsCpy@@YAXPAGPBG@Z"
-        },
-        {
-          "fullyQualifiedName": "CallWinHttpDWORD",
-          "decoratedName": "?CallWinHttpDWORD@@YAXPBG@Z"
-        },
-        {
-          "fullyQualifiedName": "CallWinHttpINT",
-          "decoratedName": "?CallWinHttpINT@@YAXPBG@Z"
-        }
-      ],
       "results": [
         {
           "ruleId": "26000",
@@ -1078,6 +1026,57 @@
               ]
             }
           ]
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///c:/somepath/test127.cpp"
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "VariableWorker",
+          "decoratedName": "?VariableWorker@@YAXHPAD@Z"
+        },
+        {
+          "fullyQualifiedName": "Bad1",
+          "decoratedName": "?Bad1@@YAXXZ"
+        },
+        {
+          "fullyQualifiedName": "Bad2",
+          "decoratedName": "?Bad2@@YAXH@Z"
+        },
+        {
+          "fullyQualifiedName": "RangeWhen1",
+          "decoratedName": "?RangeWhen1@@YAXHI@Z"
+        },
+        {
+          "fullyQualifiedName": "Bad3",
+          "decoratedName": "?Bad3@@YAXXZ"
+        },
+        {
+          "fullyQualifiedName": "WinHttpTestINT",
+          "decoratedName": "?WinHttpTestINT@@YAXPBGH@Z"
+        },
+        {
+          "fullyQualifiedName": "myWcsCpy",
+          "decoratedName": "?myWcsCpy@@YAXPAGPBG@Z"
+        },
+        {
+          "fullyQualifiedName": "CallWinHttpDWORD",
+          "decoratedName": "?CallWinHttpDWORD@@YAXPBG@Z"
+        },
+        {
+          "fullyQualifiedName": "CallWinHttpINT",
+          "decoratedName": "?CallWinHttpINT@@YAXPBG@Z"
         }
       ],
       "columnKind": "utf16CodeUnits"

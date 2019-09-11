@@ -54,7 +54,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void FxCopConverter_EndToEnd()
         {
-            BatchRunConverter(ToolFormat.FxCop, enrichConvertedSarif: true);
+            BatchRunConverter(ToolFormat.FxCop);
         }
 
         [Fact]
@@ -143,7 +143,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private string RunConverter(StringBuilder sb, string toolFormat, string inputFileName)
         {
             string expectedFileName = inputFileName + ".sarif";
-            string generatedFileName = inputFileName + ".actual.sarif";
+            string generatedFileName = Path.Combine("Actual", expectedFileName);
+            Directory.CreateDirectory(Path.GetDirectoryName(generatedFileName));
 
             try
             {

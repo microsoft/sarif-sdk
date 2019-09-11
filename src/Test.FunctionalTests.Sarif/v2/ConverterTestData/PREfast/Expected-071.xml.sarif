@@ -3,54 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "PREfast",
-          "fullName": "PREfast Code Analysis"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "file:///c:/somepath/test071.cpp",
-            "index": 0
-          }
-        }
-      ],
-      "logicalLocations": [
-        {
-          "fullyQualifiedName": "f",
-          "decoratedName": "?f@@YAXPADIPBD@Z"
-        },
-        {
-          "fullyQualifiedName": "f1",
-          "decoratedName": "?f1@@YAXPADIPBD@Z"
-        },
-        {
-          "fullyQualifiedName": "f2",
-          "decoratedName": "?f2@@YAXPADIPBD@Z"
-        },
-        {
-          "fullyQualifiedName": "foo",
-          "decoratedName": "?foo@@YAXPAGI@Z"
-        },
-        {
-          "fullyQualifiedName": "GetComputerName",
-          "decoratedName": "?GetComputerName@@YAXPADPAI@Z"
-        },
-        {
-          "fullyQualifiedName": "TestFields",
-          "decoratedName": "?TestFields@@YAXPADHH@Z"
-        },
-        {
-          "fullyQualifiedName": "f",
-          "decoratedName": "?f@@YAXPADPAI@Z"
-        },
-        {
-          "fullyQualifiedName": "Division",
-          "decoratedName": "?Division@@YAXXZ"
-        }
-      ],
       "results": [
         {
           "ruleId": "26007",
@@ -1225,6 +1177,53 @@
               ]
             }
           ]
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///c:/somepath/test071.cpp"
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "f",
+          "decoratedName": "?f@@YAXPADIPBD@Z"
+        },
+        {
+          "fullyQualifiedName": "f1",
+          "decoratedName": "?f1@@YAXPADIPBD@Z"
+        },
+        {
+          "fullyQualifiedName": "f2",
+          "decoratedName": "?f2@@YAXPADIPBD@Z"
+        },
+        {
+          "fullyQualifiedName": "foo",
+          "decoratedName": "?foo@@YAXPAGI@Z"
+        },
+        {
+          "fullyQualifiedName": "GetComputerName",
+          "decoratedName": "?GetComputerName@@YAXPADPAI@Z"
+        },
+        {
+          "fullyQualifiedName": "TestFields",
+          "decoratedName": "?TestFields@@YAXPADHH@Z"
+        },
+        {
+          "fullyQualifiedName": "f",
+          "decoratedName": "?f@@YAXPADPAI@Z"
+        },
+        {
+          "fullyQualifiedName": "Division",
+          "decoratedName": "?Division@@YAXXZ"
         }
       ],
       "columnKind": "utf16CodeUnits"

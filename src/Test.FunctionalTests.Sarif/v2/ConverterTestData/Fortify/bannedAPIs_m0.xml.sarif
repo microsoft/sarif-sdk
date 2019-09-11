@@ -3,19 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "Fortify"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "bannedAPIs.m",
-            "index": 0
-          }
-        }
-      ],
       "results": [
         {
           "ruleId": "Null Dereference",
@@ -6843,6 +6830,18 @@
             "priority": "Critical",
             "cwe": "120, 129, 131, 787",
             "fortifyRuleId": "9F54C54B-F523-49C4-8808-1996AB220315"
+          }
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "Fortify"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "bannedAPIs.m"
           }
         }
       ],

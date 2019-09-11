@@ -3,34 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "PREfast",
-          "fullName": "PREfast Code Analysis"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "file:///c:/somepath/test077.cpp",
-            "index": 0
-          }
-        }
-      ],
-      "logicalLocations": [
-        {
-          "fullyQualifiedName": "TxfConvertTxfFileIdToMungedName",
-          "decoratedName": "?TxfConvertTxfFileIdToMungedName@@YAEPAHPAG@Z"
-        },
-        {
-          "fullyQualifiedName": "g",
-          "decoratedName": "?g@@YAXXZ"
-        },
-        {
-          "fullyQualifiedName": "foo",
-          "decoratedName": "?foo@@YAXPAHH@Z"
-        }
-      ],
       "results": [
         {
           "ruleId": "26001",
@@ -2080,6 +2052,33 @@
               ]
             }
           ]
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///c:/somepath/test077.cpp"
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "TxfConvertTxfFileIdToMungedName",
+          "decoratedName": "?TxfConvertTxfFileIdToMungedName@@YAEPAHPAG@Z"
+        },
+        {
+          "fullyQualifiedName": "g",
+          "decoratedName": "?g@@YAXXZ"
+        },
+        {
+          "fullyQualifiedName": "foo",
+          "decoratedName": "?foo@@YAXPAHH@Z"
         }
       ],
       "columnKind": "utf16CodeUnits"

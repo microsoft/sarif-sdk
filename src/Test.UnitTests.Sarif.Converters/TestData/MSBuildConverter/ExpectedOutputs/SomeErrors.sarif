@@ -146,32 +146,27 @@
       "artifacts": [
         {
           "location": {
-            "uri": "VisualStudioBuildLogConverterTests.cs",
-            "index": 0
+            "uri": "VisualStudioBuildLogConverterTests.cs"
           }
         },
         {
           "location": {
-            "uri": "StartLineOnlyRegion.cs",
-            "index": 1
+            "uri": "StartLineOnlyRegion.cs"
           }
         },
         {
           "location": {
-            "uri": "StartLineEndLineRegion.cs",
-            "index": 2
+            "uri": "StartLineEndLineRegion.cs"
           }
         },
         {
           "location": {
-            "uri": "StartLineStartColumnEndColumnRegion.cs",
-            "index": 3
+            "uri": "StartLineStartColumnEndColumnRegion.cs"
           }
         },
         {
           "location": {
-            "uri": "StartLineStartColumnEndLineEndColumnRegion.cs",
-            "index": 4
+            "uri": "StartLineStartColumnEndLineEndColumnRegion.cs"
           }
         }
       ],

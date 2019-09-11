@@ -3,19 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "Fortify"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "bannedAPIs.java",
-            "index": 0
-          }
-        }
-      ],
       "results": [
         {
           "ruleId": "Insecure Randomness",
@@ -906,6 +893,18 @@
             "kingdom": "Security Features",
             "priority": "High",
             "fortifyRuleId": "FEAD26B5-C753-4A64-8DD1-C542E684E7E1"
+          }
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "Fortify"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "bannedAPIs.java"
           }
         }
       ],

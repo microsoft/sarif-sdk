@@ -3,37 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "AndroidStudio"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "yammer-droid-2/src/test/java/com/yammer/droid/AdditionOperationTest.java",
-            "index": 0
-          }
-        }
-      ],
-      "logicalLocations": [
-        {
-          "fullyQualifiedName": "yammer-droid-2",
-          "kind": "module"
-        },
-        {
-          "name": "com.yammer.droid",
-          "fullyQualifiedName": "yammer-droid-2\\com.yammer.droid",
-          "parentIndex": 0,
-          "kind": "package"
-        },
-        {
-          "name": "com.yammer.droid.AdditionOperationTest void testStuff()",
-          "fullyQualifiedName": "yammer-droid-2\\com.yammer.droid\\com.yammer.droid.AdditionOperationTest void testStuff()",
-          "parentIndex": 1,
-          "kind": "member"
-        }
-      ],
       "results": [
         {
           "ruleId": "unused declaration",
@@ -63,6 +32,36 @@
             "severity": "WARNING",
             "attributeKey": "NOT_USED_ELEMENT_ATTRIBUTES"
           }
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "AndroidStudio"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "yammer-droid-2/src/test/java/com/yammer/droid/AdditionOperationTest.java"
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "yammer-droid-2",
+          "kind": "module"
+        },
+        {
+          "name": "com.yammer.droid",
+          "fullyQualifiedName": "yammer-droid-2\\com.yammer.droid",
+          "parentIndex": 0,
+          "kind": "package"
+        },
+        {
+          "name": "com.yammer.droid.AdditionOperationTest void testStuff()",
+          "fullyQualifiedName": "yammer-droid-2\\com.yammer.droid\\com.yammer.droid.AdditionOperationTest void testStuff()",
+          "parentIndex": 1,
+          "kind": "member"
         }
       ],
       "columnKind": "utf16CodeUnits"

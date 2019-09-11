@@ -3,54 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "PREfast",
-          "fullName": "PREfast Code Analysis"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "file:///c:/somepath/test043.cpp",
-            "index": 0
-          }
-        }
-      ],
-      "logicalLocations": [
-        {
-          "fullyQualifiedName": "g",
-          "decoratedName": "?g@@YAXXZ"
-        },
-        {
-          "fullyQualifiedName": "f1",
-          "decoratedName": "?f1@@YAHPAPAH@Z"
-        },
-        {
-          "fullyQualifiedName": "foo",
-          "decoratedName": "?foo@@YA_NPAH0PAD@Z"
-        },
-        {
-          "fullyQualifiedName": "bar",
-          "decoratedName": "?bar@@YADPAD@Z"
-        },
-        {
-          "fullyQualifiedName": "SuccessSatisfied",
-          "decoratedName": "?SuccessSatisfied@@YAJPAPADI@Z"
-        },
-        {
-          "fullyQualifiedName": "NoSuccess",
-          "decoratedName": "?NoSuccess@@YAHPAPADI@Z"
-        },
-        {
-          "fullyQualifiedName": "SuccessMaybeSatisified",
-          "decoratedName": "?SuccessMaybeSatisified@@YAJPAPADI@Z"
-        },
-        {
-          "fullyQualifiedName": "GetStreamData",
-          "decoratedName": "?GetStreamData@@YAJPAVStream@@@Z"
-        }
-      ],
       "results": [
         {
           "ruleId": "26003",
@@ -2658,6 +2610,53 @@
               ]
             }
           ]
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///c:/somepath/test043.cpp"
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "g",
+          "decoratedName": "?g@@YAXXZ"
+        },
+        {
+          "fullyQualifiedName": "f1",
+          "decoratedName": "?f1@@YAHPAPAH@Z"
+        },
+        {
+          "fullyQualifiedName": "foo",
+          "decoratedName": "?foo@@YA_NPAH0PAD@Z"
+        },
+        {
+          "fullyQualifiedName": "bar",
+          "decoratedName": "?bar@@YADPAD@Z"
+        },
+        {
+          "fullyQualifiedName": "SuccessSatisfied",
+          "decoratedName": "?SuccessSatisfied@@YAJPAPADI@Z"
+        },
+        {
+          "fullyQualifiedName": "NoSuccess",
+          "decoratedName": "?NoSuccess@@YAHPAPADI@Z"
+        },
+        {
+          "fullyQualifiedName": "SuccessMaybeSatisified",
+          "decoratedName": "?SuccessMaybeSatisified@@YAJPAPADI@Z"
+        },
+        {
+          "fullyQualifiedName": "GetStreamData",
+          "decoratedName": "?GetStreamData@@YAJPAVStream@@@Z"
         }
       ],
       "columnKind": "utf16CodeUnits"

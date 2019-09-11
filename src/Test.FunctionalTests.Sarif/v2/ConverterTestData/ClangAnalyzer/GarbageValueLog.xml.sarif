@@ -3,19 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "Clang Analyzer"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "jcmaster.c",
-            "index": 0
-          }
-        }
-      ],
       "results": [
         {
           "ruleId": "Result of operation is garbage or undefined",
@@ -41,6 +28,18 @@
             "issue_context_kind": "function",
             "issueContext": "validate_script",
             "issueHash": "117"
+          }
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "Clang Analyzer"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "jcmaster.c"
           }
         }
       ],

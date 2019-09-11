@@ -17,6 +17,9 @@
     <None Remove="TestData\FortifyFprConverter\ExpectedOutputs\ScanWithFailureLevelMatrices.sarif" />
     <None Remove="TestData\FortifyFprConverter\Inputs\ScanWithFailureLevelMatrices.fpr" />
     <None Remove="TestData\FortifyFprConverter\Inputs\ScanWithFailureLevelMatrices.fvdl" />
+    <None Remove="TestData\SemmleQLConverter\ExpectedOutputs\EmbeddedLocations.sarif" />
+    <None Remove="TestData\SemmleQLConverter\ExpectedOutputs\Simple.sarif" />
+    <None Remove="TestData\SemmleQLConverter\ExpectedOutputs\SimpleCsv.sarif" />
   </ItemGroup>
 
   <ItemGroup>
@@ -43,6 +46,8 @@
     <EmbeddedResource Include="TestData\MSBuildConverter\Inputs\NoErrors.txt" />
     <EmbeddedResource Include="TestData\MSBuildConverter\ExpectedOutputs\SomeErrors.sarif" />
     <EmbeddedResource Include="TestData\MSBuildConverter\Inputs\SomeErrors.txt" />
+    <EmbeddedResource Include="TestData\SemmleQLConverter\ExpectedOutputs\EmbeddedLocations.sarif" />
+    <EmbeddedResource Include="TestData\SemmleQLConverter\ExpectedOutputs\Simple.sarif" />
   </ItemGroup>
 
   <ItemGroup>

@@ -3,36 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "PREfast",
-          "fullName": "PREfast Code Analysis"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "file:///c:/somepath/test016.cpp",
-            "index": 0
-          }
-        }
-      ],
-      "logicalLocations": [
-        {
-          "name": "Bad1",
-          "fullyQualifiedName": "C::Bad1",
-          "decoratedName": "?Bad1@C@@QAEHXZ"
-        },
-        {
-          "name": "Bad2",
-          "fullyQualifiedName": "C::Bad2",
-          "decoratedName": "?Bad2@C@@QAEHXZ"
-        },
-        {
-          "fullyQualifiedName": "Bad3",
-          "decoratedName": "?Bad3@@YAHPAUC@@@Z"
-        }
-      ],
       "results": [
         {
           "ruleId": "26014",
@@ -906,6 +876,35 @@
               ]
             }
           ]
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///c:/somepath/test016.cpp"
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "name": "Bad1",
+          "fullyQualifiedName": "C::Bad1",
+          "decoratedName": "?Bad1@C@@QAEHXZ"
+        },
+        {
+          "name": "Bad2",
+          "fullyQualifiedName": "C::Bad2",
+          "decoratedName": "?Bad2@C@@QAEHXZ"
+        },
+        {
+          "fullyQualifiedName": "Bad3",
+          "decoratedName": "?Bad3@@YAHPAUC@@@Z"
         }
       ],
       "columnKind": "utf16CodeUnits"

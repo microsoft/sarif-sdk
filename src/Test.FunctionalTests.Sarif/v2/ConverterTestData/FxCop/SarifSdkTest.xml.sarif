@@ -37736,1088 +37736,908 @@
         {
           "location": {
             "uri": "../../../../../../sarif-sdk-test/bld/bin/AnyCPU_Debug/Sarif.Multitool/net461/Microsoft.Json.Pointer.dll",
-            "uriBaseId": "$(ProjectDir)",
-            "index": 0
+            "uriBaseId": "$(ProjectDir)"
           }
         },
         {
           "location": {
             "uri": "../../../../../../sarif-sdk-test/bld/bin/AnyCPU_Debug/Sarif.Multitool/net461/Microsoft.Json.Schema.dll",
-            "uriBaseId": "$(ProjectDir)",
-            "index": 1
+            "uriBaseId": "$(ProjectDir)"
           }
         },
         {
           "location": {
             "uri": "../../../../../../sarif-sdk-test/bld/bin/AnyCPU_Debug/Sarif.Multitool/net461/Microsoft.Json.Schema.Validation.dll",
-            "uriBaseId": "$(ProjectDir)",
-            "index": 2
+            "uriBaseId": "$(ProjectDir)"
           }
         },
         {
           "location": {
             "uri": "../../../../../../sarif-sdk-test/bld/bin/AnyCPU_Debug/Sarif.Multitool/net461/Sarif.Converters.dll",
-            "uriBaseId": "$(ProjectDir)",
-            "index": 3
+            "uriBaseId": "$(ProjectDir)"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Converters/AndroidStudioConverter.cs",
-            "index": 4
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Converters/AndroidStudioConverter.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Converters/ClangAnalyzerConverter.cs",
-            "index": 5
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Converters/ClangAnalyzerConverter.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Converters/CppCheckConverter.cs",
-            "index": 6
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Converters/CppCheckConverter.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Converters/Extensions.cs",
-            "index": 7
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Converters/Extensions.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Converters/FortifyConverter.cs",
-            "index": 8
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Converters/FortifyConverter.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Converters/FortifyFprConverter.cs",
-            "index": 9
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Converters/FortifyFprConverter.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Converters/FxCopConverter.cs",
-            "index": 10
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Converters/FxCopConverter.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Converters/LogReader.cs",
-            "index": 11
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Converters/LogReader.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Converters/PluginConverterFactory.cs",
-            "index": 12
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Converters/PluginConverterFactory.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Converters/PREFastConverter.cs",
-            "index": 13
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Converters/PREFastConverter.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Converters/PylintConverter.cs",
-            "index": 14
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Converters/PylintConverter.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Converters/SemmleQlConverter.cs",
-            "index": 15
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Converters/SemmleQlConverter.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Converters/SparseReader.cs",
-            "index": 16
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Converters/SparseReader.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Converters/StaticDriverVerifierConverter.cs",
-            "index": 17
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Converters/StaticDriverVerifierConverter.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Converters/ToolFileConverterBase.cs",
-            "index": 18
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Converters/ToolFileConverterBase.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Converters/ToolFormatConverter.cs",
-            "index": 19
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Converters/ToolFormatConverter.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Converters/TSLintConverter.cs",
-            "index": 20
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Converters/TSLintConverter.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Converters/TSLintLogReader.cs",
-            "index": 21
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Converters/TSLintLogReader.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Converters/PREFastObjectModel/Category.cs",
-            "index": 22
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Converters/PREFastObjectModel/Category.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Converters/PREFastObjectModel/Defect.cs",
-            "index": 23
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Converters/PREFastObjectModel/Defect.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Converters/PREFastObjectModel/DefectList.cs",
-            "index": 24
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Converters/PREFastObjectModel/DefectList.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Converters/PREFastObjectModel/PREFastPath.cs",
-            "index": 25
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Converters/PREFastObjectModel/PREFastPath.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Converters/PylintObjectModel/PylintLogEntry.cs",
-            "index": 26
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Converters/PylintObjectModel/PylintLogEntry.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Converters/PylintObjectModel/PylintLogReader.cs",
-            "index": 27
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Converters/PylintObjectModel/PylintLogReader.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Converters/TSLintObjectModel/TSLintLogEntry.cs",
-            "index": 28
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Converters/TSLintObjectModel/TSLintLogEntry.cs"
           }
         },
         {
           "location": {
             "uri": "../../../../../../sarif-sdk-test/bld/bin/AnyCPU_Debug/Sarif.Multitool/net461/Sarif.dll",
-            "uriBaseId": "$(ProjectDir)",
-            "index": 29
+            "uriBaseId": "$(ProjectDir)"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/Attachment.cs",
-            "index": 30
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/Attachment.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/CodeFlow.cs",
-            "index": 31
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/CodeFlow.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/ConsoleLogger.cs",
-            "index": 32
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/ConsoleLogger.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/Conversion.cs",
-            "index": 33
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/Conversion.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/Edge.cs",
-            "index": 34
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/Edge.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/EdgeTraversal.cs",
-            "index": 35
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/EdgeTraversal.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Core/ExceptionData.cs",
-            "index": 36
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Core/ExceptionData.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/ExceptionData.cs",
-            "index": 37
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/ExceptionData.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/ExtensionMethods.cs",
-            "index": 38
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/ExtensionMethods.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/FileChange.cs",
-            "index": 39
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/FileChange.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/FileData.cs",
-            "index": 40
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/FileData.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Core/FileData.cs",
-            "index": 41
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Core/FileData.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/FileDataEqualityComparer.cs",
-            "index": 42
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/FileDataEqualityComparer.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/FileLocation.cs",
-            "index": 43
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/FileLocation.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Core/FileLocation.cs",
-            "index": 44
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Core/FileLocation.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/FileRegionsCache.cs",
-            "index": 45
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/FileRegionsCache.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/Fix.cs",
-            "index": 46
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/Fix.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/Graph.cs",
-            "index": 47
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/Graph.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/GraphEqualityComparer.cs",
-            "index": 48
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/GraphEqualityComparer.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/GraphTraversal.cs",
-            "index": 49
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/GraphTraversal.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/GraphTraversalEqualityComparer.cs",
-            "index": 50
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/GraphTraversalEqualityComparer.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/HashData.cs",
-            "index": 51
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/HashData.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/HashUtilities.cs",
-            "index": 52
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/HashUtilities.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/Invocation.cs",
-            "index": 53
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/Invocation.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Core/Invocation.cs",
-            "index": 54
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Core/Invocation.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/InvocationEqualityComparer.cs",
-            "index": 55
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/InvocationEqualityComparer.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/Location.cs",
-            "index": 56
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/Location.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/Message.cs",
-            "index": 57
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/Message.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/Node.cs",
-            "index": 58
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/Node.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/Notification.cs",
-            "index": 59
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/Notification.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/PropertiesDictionary.cs",
-            "index": 60
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/PropertiesDictionary.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Core/PropertyBagHolder.cs",
-            "index": 61
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Core/PropertyBagHolder.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/Region.cs",
-            "index": 62
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/Region.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/Resources.cs",
-            "index": 63
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/Resources.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/Result.cs",
-            "index": 64
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/Result.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/ResultEqualityComparer.cs",
-            "index": 65
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/ResultEqualityComparer.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/Rule.cs",
-            "index": 66
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/Rule.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/ReportingConfiguration.cs",
-            "index": 67
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/ReportingConfiguration.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/RuleEqualityComparer.cs",
-            "index": 68
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/RuleEqualityComparer.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/RuleUtilities.cs",
-            "index": 69
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/RuleUtilities.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/Run.cs",
-            "index": 70
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/Run.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/RunEqualityComparer.cs",
-            "index": 71
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/RunEqualityComparer.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/SarifLog.cs",
-            "index": 72
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/SarifLog.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/SarifRewritingVisitor.cs",
-            "index": 73
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/SarifRewritingVisitor.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/SarifUtilities.cs",
-            "index": 74
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/SarifUtilities.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/VersionOne/SarifUtilitiesVersionOne.cs",
-            "index": 75
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/VersionOne/SarifUtilitiesVersionOne.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/Stack.cs",
-            "index": 76
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/Stack.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Core/Stack.cs",
-            "index": 77
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Core/Stack.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/StackFrame.cs",
-            "index": 78
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/StackFrame.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Core/StackFrame.cs",
-            "index": 79
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Core/StackFrame.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/ThreadFlow.cs",
-            "index": 80
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/ThreadFlow.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/ThreadFlowLocation.cs",
-            "index": 81
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/ThreadFlowLocation.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/ThreadFlowLocationEqualityComparer.cs",
-            "index": 82
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/ThreadFlowLocationEqualityComparer.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/Tool.cs",
-            "index": 83
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/Tool.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Core/Tool.cs",
-            "index": 84
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Core/Tool.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/TypedPropertiesDictionaryConverter.cs",
-            "index": 85
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/TypedPropertiesDictionaryConverter.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/UriHelper.cs",
-            "index": 86
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/UriHelper.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/VersionControlDetails.cs",
-            "index": 87
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Autogenerated/VersionControlDetails.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Baseline/SarifLogBaseliner.cs",
-            "index": 88
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Baseline/SarifLogBaseliner.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Baseline/SarifLogBaselinerFactory.cs",
-            "index": 89
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Baseline/SarifLogBaselinerFactory.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Baseline/DefaultBaseline/CodeFlowBaselineEquals.cs",
-            "index": 90
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Baseline/DefaultBaseline/CodeFlowBaselineEquals.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Baseline/DefaultBaseline/DefaultBaselineExtensions.cs",
-            "index": 91
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Baseline/DefaultBaseline/DefaultBaselineExtensions.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Baseline/DefaultBaseline/LocationBaselineEquals.cs",
-            "index": 92
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Baseline/DefaultBaseline/LocationBaselineEquals.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Baseline/DefaultBaseline/ResultBaselineEquals.cs",
-            "index": 93
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Baseline/DefaultBaseline/ResultBaselineEquals.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Baseline/DefaultBaseline/StackBaselineEquals.cs",
-            "index": 94
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Baseline/DefaultBaseline/StackBaselineEquals.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Baseline/DefaultBaseline/StackFrameBaselineEquals.cs",
-            "index": 95
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Baseline/DefaultBaseline/StackFrameBaselineEquals.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Baseline/DefaultBaseline/ThreadFlowBaselineEquals.cs",
-            "index": 96
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Baseline/DefaultBaseline/ThreadFlowBaselineEquals.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Baseline/DefaultBaseline/ThreadFlowLocationBaselineEquals.cs",
-            "index": 97
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Baseline/DefaultBaseline/ThreadFlowLocationBaselineEquals.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Processors/Generic/GenericActionPipeline.cs",
-            "index": 98
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Processors/Generic/GenericActionPipeline.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Processors/Generic/GenericMappingAction.cs",
-            "index": 99
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Processors/Generic/GenericMappingAction.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Processors/Log/SarifLogExtensionMethods.cs",
-            "index": 100
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Processors/Log/SarifLogExtensionMethods.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Processors/Log/SarifLogPipeline.cs",
-            "index": 101
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Processors/Log/SarifLogPipeline.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Processors/Log/SarifLogStageFactory.cs",
-            "index": 102
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Processors/Log/SarifLogStageFactory.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Readers/EnumConverter.cs",
-            "index": 103
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Readers/EnumConverter.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Readers/FlagsEnumConverter.cs",
-            "index": 104
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Readers/FlagsEnumConverter.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Readers/PropertyBagConverter.cs",
-            "index": 105
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Readers/PropertyBagConverter.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Readers/ResultDiffingVisitor.cs",
-            "index": 106
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Readers/ResultDiffingVisitor.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/VersionOne/Autogenerated/AnnotatedCodeLocationVersionOne.cs",
-            "index": 107
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/VersionOne/Autogenerated/AnnotatedCodeLocationVersionOne.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/VersionOne/Autogenerated/AnnotatedCodeLocationVersionOneEqualityComparer.cs",
-            "index": 108
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/VersionOne/Autogenerated/AnnotatedCodeLocationVersionOneEqualityComparer.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/VersionOne/Autogenerated/AnnotationVersionOne.cs",
-            "index": 109
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/VersionOne/Autogenerated/AnnotationVersionOne.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/VersionOne/Autogenerated/CodeFlowVersionOne.cs",
-            "index": 110
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/VersionOne/Autogenerated/CodeFlowVersionOne.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/VersionOne/Autogenerated/ExceptionDataVersionOne.cs",
-            "index": 111
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/VersionOne/Autogenerated/ExceptionDataVersionOne.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/VersionOne/Autogenerated/FileChangeVersionOne.cs",
-            "index": 112
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/VersionOne/Autogenerated/FileChangeVersionOne.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/VersionOne/Autogenerated/FileDataVersionOne.cs",
-            "index": 113
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/VersionOne/Autogenerated/FileDataVersionOne.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/VersionOne/Autogenerated/FixVersionOne.cs",
-            "index": 114
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/VersionOne/Autogenerated/FixVersionOne.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/VersionOne/Autogenerated/FormattedRuleMessageVersionOne.cs",
-            "index": 115
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/VersionOne/Autogenerated/FormattedRuleMessageVersionOne.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/VersionOne/Autogenerated/InvocationVersionOne.cs",
-            "index": 116
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/VersionOne/Autogenerated/InvocationVersionOne.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/VersionOne/Autogenerated/InvocationVersionOneEqualityComparer.cs",
-            "index": 117
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/VersionOne/Autogenerated/InvocationVersionOneEqualityComparer.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/VersionOne/Autogenerated/LocationVersionOne.cs",
-            "index": 118
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/VersionOne/Autogenerated/LocationVersionOne.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/VersionOne/Autogenerated/NotificationVersionOne.cs",
-            "index": 119
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/VersionOne/Autogenerated/NotificationVersionOne.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/VersionOne/Autogenerated/PhysicalLocationVersionOne.cs",
-            "index": 120
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/VersionOne/Autogenerated/PhysicalLocationVersionOne.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/VersionOne/Autogenerated/ResultVersionOne.cs",
-            "index": 121
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/VersionOne/Autogenerated/ResultVersionOne.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/VersionOne/Autogenerated/ResultVersionOneEqualityComparer.cs",
-            "index": 122
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/VersionOne/Autogenerated/ResultVersionOneEqualityComparer.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/VersionOne/Autogenerated/RuleVersionOne.cs",
-            "index": 123
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/VersionOne/Autogenerated/RuleVersionOne.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/VersionOne/Autogenerated/RuleVersionOneEqualityComparer.cs",
-            "index": 124
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/VersionOne/Autogenerated/RuleVersionOneEqualityComparer.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/VersionOne/Autogenerated/RunVersionOne.cs",
-            "index": 125
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/VersionOne/Autogenerated/RunVersionOne.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/VersionOne/Autogenerated/RunVersionOneEqualityComparer.cs",
-            "index": 126
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/VersionOne/Autogenerated/RunVersionOneEqualityComparer.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/VersionOne/Autogenerated/SarifLogVersionOne.cs",
-            "index": 127
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/VersionOne/Autogenerated/SarifLogVersionOne.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/VersionOne/Autogenerated/SarifRewritingVisitorVersionOne.cs",
-            "index": 128
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/VersionOne/Autogenerated/SarifRewritingVisitorVersionOne.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/VersionOne/Autogenerated/StackFrameVersionOne.cs",
-            "index": 129
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/VersionOne/Autogenerated/StackFrameVersionOne.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/VersionOne/Autogenerated/StackFrameVersionOneEqualityComparer.cs",
-            "index": 130
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/VersionOne/Autogenerated/StackFrameVersionOneEqualityComparer.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/VersionOne/Autogenerated/StackVersionOne.cs",
-            "index": 131
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/VersionOne/Autogenerated/StackVersionOne.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/VersionOne/Autogenerated/ToolVersionOne.cs",
-            "index": 132
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/VersionOne/Autogenerated/ToolVersionOne.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Visitors/AbsoluteUrisVisitor.cs",
-            "index": 133
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Visitors/AbsoluteUrisVisitor.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Visitors/AddFileReferencesVisitor.cs",
-            "index": 134
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Visitors/AddFileReferencesVisitor.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Visitors/InsertOptionalDataVisitor.cs",
-            "index": 135
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Visitors/InsertOptionalDataVisitor.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Visitors/RebaseUriVisitor.cs",
-            "index": 136
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Visitors/RebaseUriVisitor.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Visitors/SarifCurrentToVersionOneVisitor.cs",
-            "index": 137
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Visitors/SarifCurrentToVersionOneVisitor.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Visitors/SarifTransformerUtilities.cs",
-            "index": 138
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Visitors/SarifTransformerUtilities.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Visitors/SarifVersionOneToCurrentVisitor.cs",
-            "index": 139
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Visitors/SarifVersionOneToCurrentVisitor.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Writers/MimeType.cs",
-            "index": 140
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Writers/MimeType.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Writers/ResultLogJsonWriter.cs",
-            "index": 141
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Writers/ResultLogJsonWriter.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Writers/SarifLogger.cs",
-            "index": 142
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif/Writers/SarifLogger.cs"
           }
         },
         {
           "location": {
             "uri": "../../../../../../sarif-sdk-test/bld/bin/AnyCPU_Debug/Sarif.Multitool/net461/Sarif.Driver.dll",
-            "uriBaseId": "$(ProjectDir)",
-            "index": 143
+            "uriBaseId": "$(ProjectDir)"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Driver/Sdk/AggregatingLogger.cs",
-            "index": 144
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Driver/Sdk/AggregatingLogger.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Driver/Sdk/AnalysisContext.cs",
-            "index": 145
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Driver/Sdk/AnalysisContext.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Driver/Sdk/AnalyzeCommandBase.cs",
-            "index": 146
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Driver/Sdk/AnalyzeCommandBase.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Driver/ArgumentSplitter.cs",
-            "index": 147
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Driver/ArgumentSplitter.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Driver/Sdk/DefaultDriverOptions.cs",
-            "index": 148
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Driver/Sdk/DefaultDriverOptions.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Driver/DriverExtensionMethods.cs",
-            "index": 149
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Driver/DriverExtensionMethods.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Driver/Sdk/CompositionUtilities.cs",
-            "index": 150
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Driver/Sdk/CompositionUtilities.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Driver/Sdk/EntryPointUtilities.cs",
-            "index": 151
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Driver/Sdk/EntryPointUtilities.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Driver/Sdk/ExportConfigurationCommandBase.cs",
-            "index": 152
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Driver/Sdk/ExportConfigurationCommandBase.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Driver/Sdk/ExportRulesMetadataCommandBase.cs",
-            "index": 153
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Driver/Sdk/ExportRulesMetadataCommandBase.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Driver/FileSpecifier.cs",
-            "index": 154
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Driver/FileSpecifier.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Driver/Sdk/PlugInDriverCommand.cs",
-            "index": 155
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Driver/Sdk/PlugInDriverCommand.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Driver/Sdk/StatisticsLogger.cs",
-            "index": 156
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Driver/Sdk/StatisticsLogger.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Driver/FileStreamExtensionMethods.cs",
-            "index": 157
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Driver/FileStreamExtensionMethods.cs"
           }
         },
         {
           "location": {
             "uri": "../../../../../../sarif-sdk-test/bld/bin/AnyCPU_Debug/Sarif.Multitool/net461/Sarif.Multitool.exe",
-            "uriBaseId": "$(ProjectDir)",
-            "index": 158
+            "uriBaseId": "$(ProjectDir)"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Multitool/AbsoluteUriCommand.cs",
-            "index": 159
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Multitool/AbsoluteUriCommand.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Multitool/BaselineCommand.cs",
-            "index": 160
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Multitool/BaselineCommand.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Multitool/ConvertCommand.cs",
-            "index": 161
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Multitool/ConvertCommand.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Multitool/JTokenExtensions.cs",
-            "index": 162
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Multitool/JTokenExtensions.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Multitool/MergeCommand.cs",
-            "index": 163
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Multitool/MergeCommand.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Multitool/RebaseUriCommand.cs",
-            "index": 164
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Multitool/RebaseUriCommand.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Multitool/RewriteCommand.cs",
-            "index": 165
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Multitool/RewriteCommand.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Multitool/SarifValidationContext.cs",
-            "index": 166
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Multitool/SarifValidationContext.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Multitool/TransformCommand.cs",
-            "index": 167
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Multitool/TransformCommand.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Multitool/ValidateCommand.cs",
-            "index": 168
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Multitool/ValidateCommand.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Multitool/Rules/DoNotUseFriendlyNameAsRuleId.cs",
-            "index": 169
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Multitool/Rules/DoNotUseFriendlyNameAsRuleId.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Multitool/Rules/EndColumnMustNotBeLessThanStartColumn.cs",
-            "index": 170
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Multitool/Rules/EndColumnMustNotBeLessThanStartColumn.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Multitool/Rules/EndLineMustNotBeLessThanStartLine.cs",
-            "index": 171
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Multitool/Rules/EndLineMustNotBeLessThanStartLine.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Multitool/Rules/EndTimeMustBeAfterStartTime.cs",
-            "index": 172
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Multitool/Rules/EndTimeMustBeAfterStartTime.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Multitool/Rules/HashAlgorithmsMustBeUnique.cs",
-            "index": 173
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Multitool/Rules/HashAlgorithmsMustBeUnique.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Multitool/Rules/MessagesShouldEndWithPeriod.cs",
-            "index": 174
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Multitool/Rules/MessagesShouldEndWithPeriod.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Multitool/Rules/SarifValidationSkimmerBase.cs",
-            "index": 175
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Multitool/Rules/SarifValidationSkimmerBase.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Multitool/Rules/StepValuesMustFormOneBasedSequence.cs",
-            "index": 176
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Multitool/Rules/StepValuesMustFormOneBasedSequence.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Multitool/Rules/UriBaseIdRequiresRelativeUri.cs",
-            "index": 177
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Multitool/Rules/UriBaseIdRequiresRelativeUri.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Multitool/Rules/UrisMustBeValid.cs",
-            "index": 178
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Multitool/Rules/UrisMustBeValid.cs"
           }
         },
         {
           "location": {
-            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Multitool/Rules/UseAbsolutePathsForNestedFileUriFragments.cs",
-            "index": 179
+            "uri": "file:///E:/src/sarif-sdk-test/src/Sarif.Multitool/Rules/UseAbsolutePathsForNestedFileUriFragments.cs"
           }
         }
       ],

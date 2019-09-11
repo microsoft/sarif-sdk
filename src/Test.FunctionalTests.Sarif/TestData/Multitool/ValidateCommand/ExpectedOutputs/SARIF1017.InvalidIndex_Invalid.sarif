@@ -35,8 +35,7 @@
         {
           "location": {
             "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
-            "uriBaseId": "TEST_DIR",
-            "index": 0
+            "uriBaseId": "TEST_DIR"
           }
         }
       ],
@@ -60,8 +59,6 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR",
                   "index": 0
                 },
                 "region": {
@@ -91,8 +88,6 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR",
                   "index": 0
                 },
                 "region": {
@@ -122,8 +117,6 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR",
                   "index": 0
                 },
                 "region": {
@@ -153,8 +146,6 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR",
                   "index": 0
                 },
                 "region": {
@@ -184,8 +175,6 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR",
                   "index": 0
                 },
                 "region": {
@@ -215,8 +204,6 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR",
                   "index": 0
                 },
                 "region": {
@@ -246,8 +233,6 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR",
                   "index": 0
                 },
                 "region": {
@@ -277,8 +262,6 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR",
                   "index": 0
                 },
                 "region": {
@@ -308,8 +291,6 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR",
                   "index": 0
                 },
                 "region": {
@@ -339,8 +320,6 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR",
                   "index": 0
                 },
                 "region": {
@@ -370,8 +349,6 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR",
                   "index": 0
                 },
                 "region": {
@@ -401,8 +378,6 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR",
                   "index": 0
                 },
                 "region": {
@@ -432,8 +407,6 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR",
                   "index": 0
                 },
                 "region": {
@@ -463,8 +436,6 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR",
                   "index": 0
                 },
                 "region": {
@@ -494,8 +465,6 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR",
                   "index": 0
                 },
                 "region": {
@@ -525,8 +494,6 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR",
                   "index": 0
                 },
                 "region": {
@@ -556,8 +523,6 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR",
                   "index": 0
                 },
                 "region": {
@@ -587,8 +552,6 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR",
                   "index": 0
                 },
                 "region": {
@@ -618,8 +581,6 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR",
                   "index": 0
                 },
                 "region": {
@@ -649,8 +610,6 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR",
                   "index": 0
                 },
                 "region": {
@@ -680,8 +639,6 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR",
                   "index": 0
                 },
                 "region": {
@@ -711,8 +668,6 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR",
                   "index": 0
                 },
                 "region": {
@@ -742,8 +697,6 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR",
                   "index": 0
                 },
                 "region": {
@@ -773,8 +726,6 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR",
                   "index": 0
                 },
                 "region": {
@@ -804,8 +755,6 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR",
                   "index": 0
                 },
                 "region": {
@@ -835,8 +784,6 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR",
                   "index": 0
                 },
                 "region": {
@@ -866,8 +813,6 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR",
                   "index": 0
                 },
                 "region": {
@@ -897,8 +842,6 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR",
                   "index": 0
                 },
                 "region": {
@@ -928,8 +871,6 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR",
                   "index": 0
                 },
                 "region": {

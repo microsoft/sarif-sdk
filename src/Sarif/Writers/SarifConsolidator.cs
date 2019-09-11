@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using Microsoft.CodeAnalysis.Sarif;
 
-namespace SarifTrim
+namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
     /// <summary>
     ///  SarifConsolidator is used to reduce the size of Sarif objects and the serialized log.
@@ -35,15 +33,19 @@ namespace SarifTrim
             _run = run;
             _uniqueThreadFlows = new Dictionary<ThreadFlowLocation, int>(ThreadFlowLocation.ValueComparer);
 
-            // Realize Deferred Artifact list
-            _run.Artifacts = _run.Artifacts.ToList();
-
-            // Remove indices from Run.Artifact array (redundant)
-            foreach (Artifact a in _run.Artifacts)
+            
+            if (_run.Artifacts != null)
             {
-                if (a.Location != null)
+                // Realize Deferred Artifact list
+                _run.Artifacts = _run.Artifacts?.ToList();
+
+                // Remove indices from Run.Artifact array (redundant)
+                foreach (Artifact a in _run.Artifacts)
                 {
-                    a.Location.Index = -1;
+                    if (a.Location != null)
+                    {
+                        a.Location.Index = -1;
+                    }
                 }
             }
 
@@ -51,7 +53,7 @@ namespace SarifTrim
             _run.ThreadFlowLocations = _run.ThreadFlowLocations ?? new List<ThreadFlowLocation>();
 
             // Add existing TFLs to map (can't consolidate; there may be existing references to them)
-            for(int i = 0; i < _run.ThreadFlowLocations.Count; ++i)
+            for (int i = 0; i < _run.ThreadFlowLocations.Count; ++i)
             {
                 ThreadFlowLocation tfl = _run.ThreadFlowLocations[i];
                 Trim(tfl.Location);
@@ -61,6 +63,8 @@ namespace SarifTrim
 
         public void Trim(Result result)
         {
+            if (result == null) { return; }
+
             // Remove Result components if configured to
             result.CodeFlows = (this.RemoveCodeFlows ? null : result.CodeFlows);
             result.RelatedLocations = (this.RemoveRelatedLocations ? null : result.RelatedLocations);
@@ -95,50 +99,33 @@ namespace SarifTrim
                 {
                     foreach (ThreadFlow tFlow in cFlow.ThreadFlows)
                     {
-                        if (tFlow.Locations != null)
-                        {
-                            TotalThreadFlowLocations += tFlow.Locations.Count;
-
-                            for (int i = 0; i < tFlow.Locations.Count; ++i)
-                            {
-                                ThreadFlowLocation tfl = tFlow.Locations[i];
-                                Trim(tfl.Location);
-
-                                int tflIndex;
-                                if (tfl.Index == -1)
-                                {
-                                    if (!_uniqueThreadFlows.TryGetValue(tfl, out tflIndex))
-                                    {
-                                        tflIndex = _run.ThreadFlowLocations.Count;
-                                        _run.ThreadFlowLocations.Add(tfl);
-                                        _uniqueThreadFlows[tfl] = tflIndex;
-                                    }
-
-                                    tFlow.Locations[i] = new ThreadFlowLocation() { Index = tflIndex };
-                                }
-                            }
-                        }
+                        Consolidate(tFlow);
                     }
                 }
             }
         }
 
-        public void Trim(ThreadFlow tFlow)
+        public void Consolidate(ThreadFlow tFlow)
         {
-            if (tFlow?.Locations != null)
+            if (tFlow.Locations != null)
             {
+                TotalThreadFlowLocations += tFlow.Locations.Count;
+
                 for (int i = 0; i < tFlow.Locations.Count; ++i)
                 {
                     ThreadFlowLocation tfl = tFlow.Locations[i];
+                    Trim(tfl.Location);
 
-                    if (tfl.Index != -1)
+                    if (tfl.Index == -1)
                     {
-                        // Include only Index if TFL has an Index
-                        tFlow.Locations[i] = new ThreadFlowLocation() { Index = tfl.Index };
-                    }
-                    else
-                    {
-                        Trim(tfl.Location);
+                        if (!_uniqueThreadFlows.TryGetValue(tfl, out int tflIndex))
+                        {
+                            tflIndex = _run.ThreadFlowLocations.Count;
+                            _run.ThreadFlowLocations.Add(tfl);
+                            _uniqueThreadFlows[tfl] = tflIndex;
+                        }
+
+                        tFlow.Locations[i] = new ThreadFlowLocation() { Index = tflIndex };
                     }
                 }
             }
@@ -178,6 +165,51 @@ namespace SarifTrim
                 loc.Id = -1;
 
                 Trim(loc.PhysicalLocation);
+                Trim(loc.LogicalLocation);
+                Trim(loc.LogicalLocations);
+            }
+        }
+
+        public IList<LogicalLocation> Trim(IList<LogicalLocation> locations)
+        {
+            if (locations == null || locations.Count == 0) { return locations; }
+
+            HashSet<LogicalLocation> uniqueLocations = new HashSet<LogicalLocation>(LogicalLocation.ValueComparer);
+            List<LogicalLocation> newLocations = new List<LogicalLocation>();
+
+            this.TotalLocations += locations.Count;
+            for (int i = 0; i < locations.Count; ++i)
+            {
+                LogicalLocation loc = locations[i];
+
+                // Trim Locations themselves
+                Trim(loc);
+
+                // Keep only one copy of each unique location
+                if (uniqueLocations.Add(loc))
+                {
+                    this.UniqueLocations++;
+                    newLocations.Add(loc);
+                }
+            }
+
+            return newLocations;
+        }
+
+        public void Trim(LogicalLocation loc)
+        {
+            if (loc != null)
+            {
+                // Leave only index if index is present
+                if (loc.Index != -1)
+                {
+                    loc.DecoratedName = null;
+                    loc.FullyQualifiedName = null;
+                    loc.Name = null;
+                    loc.ParentIndex = -1;
+                    loc.Properties?.Clear();
+                    loc.Tags?.Clear();
+                }
             }
         }
 
@@ -200,6 +232,9 @@ namespace SarifTrim
                 {
                     a.Uri = null;
                     a.UriBaseId = null;
+                    a.Description = null;
+                    a.Tags?.Clear();
+                    a.Properties?.Clear();
                 }
             }
         }
@@ -217,6 +252,8 @@ namespace SarifTrim
                 // Remove Offset/Length if Line/Column available
                 r.CharOffset = -1;
                 r.CharLength = 0;
+                r.ByteOffset = -1;
+                r.ByteLength = 0;
             }
         }
     }

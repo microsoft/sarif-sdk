@@ -92,7 +92,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         hashData: hashData,
                         encoding: null);
 
-                    fileData.Location = fileLocation;
+                    fileData.Location = new ArtifactLocation(fileLocation);
 
                     this.Artifacts.Add(fileData);
 
