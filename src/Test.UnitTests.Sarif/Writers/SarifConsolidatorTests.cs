@@ -70,28 +70,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         private ThreadFlowLocation SampleThreadFlowLocation => new ThreadFlowLocation() { ExecutionOrder = 3, Module = "Loader" };
 
         [Fact]
-        public void SarifConsolidator_EndToEnd()
-        {
-            string inputFilePath = "elfie-arriba.sarif";
-            File.WriteAllText(inputFilePath, Extractor.GetResourceText("Baseline.elfie-arriba.sarif"));
-
-            SarifLog log = SarifLog.LoadDeferred(inputFilePath);
-            Run run = log.Runs[0];
-
-            SarifConsolidator consolidator = new SarifConsolidator(run);
-
-            string outputFilePath = Path.GetFullPath("elfie-arriba.trim.sarif");
-            using (SarifLogger logger = new SarifLogger(outputFilePath, LoggingOptions.PrettyPrint, run: run))
-            {
-                foreach (Result result in run.Results)
-                {
-                    consolidator.Trim(result);
-                    logger.Log(result.GetRule(run), result);
-                }
-            }
-        }
-
-        [Fact]
         public void SarifConsolidator_Nulls()
         {
             SarifConsolidator consolidator = new SarifConsolidator(new Run());

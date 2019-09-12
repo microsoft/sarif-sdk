@@ -398,6 +398,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Expected-036.xml.cs</LastGenOutput>
+    </None>
     <None Include="v2\ConverterTestData\PREfast\Expected-038-amd64.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Generator>TextTemplatingFileGenerator</Generator>
