@@ -2,13 +2,11 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Newtonsoft.Json;
 
@@ -25,116 +23,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         private ResultLogJsonWriter _issueLogJsonWriter;
 
         protected const LoggingOptions DefaultLoggingOptions = LoggingOptions.PrettyPrint;
-
-        private static Run CreateRun(
-            IEnumerable<string> analysisTargets,
-            OptionallyEmittedData dataToInsert,
-            OptionallyEmittedData dataToRemove,
-            IEnumerable<string> invocationTokensToRedact,
-            IEnumerable<string> invocationPropertiesToLog,
-            string defaultFileEncoding = null,
-            IDictionary<string, HashData> filePathToHashDataMap = null)
-        {
-            var run = new Run
-            {
-                Invocations = new List<Invocation>(),
-                DefaultEncoding = defaultFileEncoding
-            };
-
-            if (analysisTargets != null)
-            {
-                run.Artifacts = new List<Artifact>();
-
-                foreach (string target in analysisTargets)
-                {
-                    Uri uri = new Uri(UriHelper.MakeValidUri(target), UriKind.RelativeOrAbsolute);
-
-                    HashData hashData = null;
-                    if (dataToInsert.HasFlag(OptionallyEmittedData.Hashes))
-                    {
-                        filePathToHashDataMap?.TryGetValue(target, out hashData);
-                    }
-
-                    var fileData = Artifact.Create(
-                        new Uri(target, UriKind.RelativeOrAbsolute),                         
-                        dataToInsert,
-                        hashData: hashData);
-
-                    var fileLocation = new ArtifactLocation
-                    {
-                        Uri = uri
-                    };
-
-                    fileData.Location = fileLocation;
-
-                    // This call will insert the file object into run.Files if not already present
-                    fileData.Location.Index = run.GetFileIndex(
-                        fileData.Location, 
-                        addToFilesTableIfNotPresent: true,                         
-                        dataToInsert : dataToInsert,
-                        encoding: null,
-                        hashData: hashData);
-                }
-            }
-
-            var invocation = Invocation.Create(
-                emitMachineEnvironment: dataToInsert.HasFlag(OptionallyEmittedData.EnvironmentVariables),
-                emitTimestamps: !dataToRemove.HasFlag(OptionallyEmittedData.NondeterministicProperties),
-                invocationPropertiesToLog);
-
-            // TODO we should actually redact across the complete log file context
-            // by a dedicated rewriting visitor or some other approach.
-
-            if (invocationTokensToRedact != null)
-            {
-                invocation.CommandLine = Redact(invocation.CommandLine, invocationTokensToRedact);
-                invocation.Machine = Redact(invocation.Machine, invocationTokensToRedact);
-                invocation.Account = Redact(invocation.Account, invocationTokensToRedact);
-
-                if (invocation.WorkingDirectory != null)
-                {
-                    invocation.WorkingDirectory.Uri = Redact(invocation.WorkingDirectory.Uri, invocationTokensToRedact);
-                }
-
-                if (invocation.EnvironmentVariables != null)
-                {
-                    string[] keys = invocation.EnvironmentVariables.Keys.ToArray();
-
-                    foreach (string key in keys)
-                    {
-                        string value = invocation.EnvironmentVariables[key];
-                        invocation.EnvironmentVariables[key] = Redact(value, invocationTokensToRedact);
-                    }
-                }
-            }
-
-            run.Invocations.Add(invocation);
-            return run;
-        }
-
-        private static string Redact(string text, IEnumerable<string> tokensToRedact)
-        {
-            if (text == null) { return text; }
-
-            foreach (string tokenToRedact in tokensToRedact)
-            {
-                text = text.Replace(tokenToRedact, SarifConstants.RedactedMarker);
-            }
-            return text;
-        }
-
-        private static Uri Redact(Uri uri, IEnumerable<string> tokensToRedact)
-        {
-            if (uri == null) { return uri; }
-
-            string uriText = uri.OriginalString;
-
-            foreach (string tokenToRedact in tokensToRedact)
-            {
-                uriText = uriText.Replace(tokenToRedact, SarifConstants.RedactedMarker);
-            }
-            return new Uri(uriText, UriKind.RelativeOrAbsolute);
-        }
 
         public SarifLogger(
             string outputFilePath,
@@ -173,7 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             if (dataToInsert.HasFlag(OptionallyEmittedData.Hashes))
             {
-                AnalysisTargetToHashDataMap =  HashUtilities.MultithreadedComputeTargetFileHashes(analysisTargets);
+                AnalysisTargetToHashDataMap = HashUtilities.MultithreadedComputeTargetFileHashes(analysisTargets);
             }
 
             _run = run ?? CreateRun(
@@ -182,19 +70,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                             dataToRemove,
                             invocationTokensToRedact,
                             invocationPropertiesToLog,
-                            defaultFileEncoding, 
+                            defaultFileEncoding,
                             AnalysisTargetToHashDataMap);
 
             tool = tool ?? Tool.CreateFromAssemblyData();
-            
+
             _run.Tool = tool;
             _dataToInsert = dataToInsert;
             _dataToRemove = dataToRemove;
             _issueLogJsonWriter.Initialize(_run);
 
-            if(_run.Tool.Driver?.Rules != null)
-            { 
-                for(int i = 0; i < _run.Tool.Driver.Rules.Count; ++i)
+            // Map existing Rules to ensure duplicates aren't created
+            if (_run.Tool.Driver?.Rules != null)
+            {
+                for (int i = 0; i < _run.Tool.Driver.Rules.Count; ++i)
                 {
                     RuleToIndexMap[_run.Tool.Driver.Rules[i]] = i;
                 }
@@ -212,12 +101,98 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 // Indented output is preferable for debugging
                 _jsonTextWriter.Formatting = Newtonsoft.Json.Formatting.Indented;
-            }        
+            }
 
             _jsonTextWriter.DateFormatString = DateTimeConverter.DateTimeFormat;
 
             _issueLogJsonWriter = new ResultLogJsonWriter(_jsonTextWriter);
             RuleToIndexMap = new Dictionary<ReportingDescriptor, int>(ReportingDescriptor.ValueComparer);
+        }
+
+        private static Run CreateRun(
+            IEnumerable<string> analysisTargets,
+            OptionallyEmittedData dataToInsert,
+            OptionallyEmittedData dataToRemove,
+            IEnumerable<string> invocationTokensToRedact,
+            IEnumerable<string> invocationPropertiesToLog,
+            string defaultFileEncoding = null,
+            IDictionary<string, HashData> filePathToHashDataMap = null)
+        {
+            var run = new Run
+            {
+                Invocations = new List<Invocation>(),
+                DefaultEncoding = defaultFileEncoding
+            };
+
+            if (analysisTargets != null)
+            {
+                run.Artifacts = new List<Artifact>();
+
+                foreach (string target in analysisTargets)
+                {
+                    Uri uri = new Uri(UriHelper.MakeValidUri(target), UriKind.RelativeOrAbsolute);
+
+                    HashData hashData = null;
+                    if (dataToInsert.HasFlag(OptionallyEmittedData.Hashes))
+                    {
+                        filePathToHashDataMap?.TryGetValue(target, out hashData);
+                    }
+
+                    var fileData = Artifact.Create(
+                        new Uri(target, UriKind.RelativeOrAbsolute),
+                        dataToInsert,
+                        hashData: hashData);
+
+                    var fileLocation = new ArtifactLocation
+                    {
+                        Uri = uri
+                    };
+
+                    fileData.Location = fileLocation;
+
+                    // This call will insert the file object into run.Files if not already present
+                    fileData.Location.Index = run.GetFileIndex(
+                        fileData.Location,
+                        addToFilesTableIfNotPresent: true,
+                        dataToInsert: dataToInsert,
+                        encoding: null,
+                        hashData: hashData);
+                }
+            }
+
+            var invocation = Invocation.Create(
+                emitMachineEnvironment: dataToInsert.HasFlag(OptionallyEmittedData.EnvironmentVariables),
+                emitTimestamps: !dataToRemove.HasFlag(OptionallyEmittedData.NondeterministicProperties),
+                invocationPropertiesToLog);
+
+            // TODO we should actually redact across the complete log file context
+            // by a dedicated rewriting visitor or some other approach.
+
+            if (invocationTokensToRedact != null)
+            {
+                invocation.CommandLine = Redact(invocation.CommandLine, invocationTokensToRedact);
+                invocation.Machine = Redact(invocation.Machine, invocationTokensToRedact);
+                invocation.Account = Redact(invocation.Account, invocationTokensToRedact);
+
+                if (invocation.WorkingDirectory != null)
+                {
+                    invocation.WorkingDirectory.Uri = Redact(invocation.WorkingDirectory.Uri, invocationTokensToRedact);
+                }
+
+                if (invocation.EnvironmentVariables != null)
+                {
+                    string[] keys = invocation.EnvironmentVariables.Keys.ToArray();
+
+                    foreach (string key in keys)
+                    {
+                        string value = invocation.EnvironmentVariables[key];
+                        invocation.EnvironmentVariables[key] = Redact(value, invocationTokensToRedact);
+                    }
+                }
+            }
+
+            run.Invocations.Add(invocation);
+            return run;
         }
 
         public IDictionary<string, HashData> AnalysisTargetToHashDataMap { get; private set; }
@@ -407,7 +382,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         }
 
         private void CaptureFile(ArtifactLocation fileLocation)
-        {             
+        {
             if (fileLocation == null || fileLocation.Uri == null)
             {
                 return;
@@ -426,7 +401,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             // Ensure Artifact is in Run.Artifacts and ArtifactLocation.Index is set to point to it
             _run.GetFileIndex(
-                fileLocation, 
+                fileLocation,
                 addToFilesTableIfNotPresent: true,
                 _dataToInsert,
                 encoding);
@@ -501,24 +476,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 case FailureLevel.None:
                 case FailureLevel.Note:
-                {
-                    if (!Verbose)
                     {
-                        return false;
+                        if (!Verbose)
+                        {
+                            return false;
+                        }
+                        break;
                     }
-                    break;
-                }
 
                 case FailureLevel.Error:
                 case FailureLevel.Warning:
-                {
-                    break;
-                }
+                    {
+                        break;
+                    }
 
                 default:
-                {
-                    throw new InvalidOperationException();
-                }
+                    {
+                        throw new InvalidOperationException();
+                    }
             }
             return true;
         }
@@ -545,6 +520,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _run.Invocations[0].ToolConfigurationNotifications = _run.Invocations[0].ToolConfigurationNotifications ?? new List<Notification>();
             _run.Invocations[0].ToolConfigurationNotifications.Add(notification);
             _run.Invocations[0].ExecutionSuccessful &= notification.Level != FailureLevel.Error;
+        }
+
+        private static string Redact(string text, IEnumerable<string> tokensToRedact)
+        {
+            if (text == null) { return text; }
+
+            foreach (string tokenToRedact in tokensToRedact)
+            {
+                text = text.Replace(tokenToRedact, SarifConstants.RedactedMarker);
+            }
+            return text;
+        }
+
+        private static Uri Redact(Uri uri, IEnumerable<string> tokensToRedact)
+        {
+            if (uri == null) { return uri; }
+
+            string uriText = uri.OriginalString;
+
+            foreach (string tokenToRedact in tokensToRedact)
+            {
+                uriText = uriText.Replace(tokenToRedact, SarifConstants.RedactedMarker);
+            }
+            return new Uri(uriText, UriKind.RelativeOrAbsolute);
         }
     }
 }

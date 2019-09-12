@@ -33,7 +33,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _run = run;
             _uniqueThreadFlows = new Dictionary<ThreadFlowLocation, int>(ThreadFlowLocation.ValueComparer);
 
-            
             if (_run.Artifacts != null)
             {
                 // Realize Deferred Artifact list

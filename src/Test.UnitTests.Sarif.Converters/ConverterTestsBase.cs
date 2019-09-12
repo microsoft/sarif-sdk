@@ -8,8 +8,6 @@ using Microsoft.CodeAnalysis.Sarif.Converters;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Newtonsoft.Json;
-using System.IO;
-using System.Diagnostics;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {

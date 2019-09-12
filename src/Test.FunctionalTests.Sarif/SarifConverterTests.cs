@@ -138,7 +138,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             sb.Insert(0, "the converted tool file should have matched the supplied SARIF file. ");
 
-            string rebaselineMessage = $"Update baselines by copying \"{Path.GetFullPath("Actual\\V2")}\" over src\Test.FunctionalTests.Sarif\V2 and reviewing diffs.";
+            string rebaselineMessage = $"Update baselines by copying \"{Path.GetFullPath("Actual\\V2")}\" over \"src\\Test.FunctionalTests.Sarif\\V2\" and reviewing diffs.";
             sb.AppendLine(string.Format(CultureInfo.CurrentCulture, rebaselineMessage, toolName));
             return sb.ToString();
         }

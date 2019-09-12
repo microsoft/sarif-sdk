@@ -92,6 +92,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         hashData: hashData,
                         encoding: null);
 
+                    // Copy ArtifactLocation to ensure changes to Result copy don't affect new Run.Artifacts copy
                     fileData.Location = new ArtifactLocation(fileLocation);
 
                     this.Artifacts.Add(fileData);

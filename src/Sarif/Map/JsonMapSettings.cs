@@ -13,6 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
     {
         public const long NodeSizeEstimateBytes = 90;         // Bytes for one Node with containing property but not including children
         public const long ArrayStartSizeEstimateBytes = 5;    // Bytes for one ArrayStart location, if under 10KB.
+        public const long Megabyte = 1024 * 1024;
 
         public double CurrentSizeRatio { get; set; }
         public int MinimumSizeForNode { get; set; }
@@ -23,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
         /// <summary>
         ///  Default Settings: Map is 1% of size of file mapped; up to a limit of 10 MB.
         /// </summary>
-        public static JsonMapSettings DefaultSettings => new JsonMapSettings(0.01, 10 * 1024 * 1024);
+        public static JsonMapSettings DefaultSettings => new JsonMapSettings(0.01, 10 * Megabyte);
 
         /// <summary>
         ///  Construct JsonMapSettings for a given target size ratio and size limit.
@@ -43,6 +44,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
         internal void AdjustForFileSize(double fileSizeBytes)
         {
             double expectedSize = fileSizeBytes * MapDesiredSizeRatio;
+
+            // Set ratio down to keep to size limit if necessary, otherwise use desired ratio
             if (MapMaximumSizeBytes > 0 && expectedSize > MapMaximumSizeBytes)
             {
                 CurrentSizeRatio = MapMaximumSizeBytes / fileSizeBytes;
