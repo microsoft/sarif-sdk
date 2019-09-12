@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FVDL xmlns="xmlns://www.fortifysoftware.com/schema/fvdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.12" xsi:type="FVDL">
+<CreatedTS date="2018-01-01" time="12:00:00"/>
+<UUID>5a7d0e15-42ed-46ec-a156-de4b5a63052a</UUID>
+<Build>
+  <BuildID>The_Build_ID</BuildID>
+  <NumberFiles>1</NumberFiles>
+  <LOC type="Fortify">393</LOC>
+  <LOC type="Line Count">530</LOC>
+  <LOC type="Function Declarations">314</LOC>
+  <LOC type="Function Definitions">202</LOC>
+  <SourceBasePath>C:/projects/myproject/src/</SourceBasePath>
+  <SourceFiles>
+    <File size="8297" timestamp="1538391807572" loc="82" type="csharp" encoding="windows-1252">
+      <Name>Helpers/InvoiceHelper.cs</Name>
+      <LOC type="Fortify">82</LOC>
+      <LOC type="Line Count">208</LOC>
+    </File>
+    <File size="3645" timestamp="1538391807588" loc="24" type="csharp" encoding="windows-1252">
+      <Name>Helpers/Logger.cs</Name>
+      <LOC type="Fortify">24</LOC>
+      <LOC type="Line Count">53</LOC>
+    </File>
+    <File size="5009" timestamp="1538391807604" loc="42" type="csharp" encoding="windows-1252">
+      <Name>Program.cs</Name>
+      <LOC type="Fortify">42</LOC>
+      <LOC type="Line Count">55</LOC>
+    </File>
+  </SourceFiles>
+  <ScanTime value="22"/>
+</Build>
+<Vulnerabilities>
+<Vulnerability>
+  <ClassInfo>
+    <ClassID>31D4607A-A3FF-447C-908A-CA2BBE4CE4B7</ClassID>
+    <Kingdom>Input Validation and Representation</Kingdom>
+    <Type>SQL Injection</Type>
+    <AnalyzerName>semantic</AnalyzerName>
+    <DefaultSeverity>2.0</DefaultSeverity>
+  </ClassInfo>
+  <InstanceInfo>
+    <InstanceID>7b579c00-a994-45f3-814c-3bacca74b251</InstanceID>
+    <InstanceSeverity>2.0</InstanceSeverity>
+    <Confidence>5.0</Confidence>
+  </InstanceInfo>
+  <AnalysisInfo>
+    <Unified>
+      <Context>
+        <Function name="GetInvoice" namespace="Helpers" enclosingClass="InvoiceHelper"/>
+        <FunctionDeclarationSourceLocation path="Helpers/InvoiceHelper.cs" line="22" lineEnd="84" colStart="0" colEnd="0"/>
+      </Context>
+      <ReplacementDefinitions>
+        <Def key="EnclosingFunction.name" value="GetInvoice(Invoice invoice)"/>
+        <Def key="PrimaryCall.name" value="SqlCommand.ctor()"/>
+        <Def key="PrimaryLocation.file" value="InvoiceHelper.cs"/>
+        <Def key="PrimaryLocation.line" value="57"/>
+        <Def key="SourceLocation.file" value="InvoiceHelper.cs"/>
+        <Def key="SourceLocation.line" value="57"/>
+        <LocationDef path="Helpers/InvoiceHelper.cs" line="57" lineEnd="57" colStart="0" colEnd="0" key="SourceLocation"/>
+      </ReplacementDefinitions>
+      <Trace>
+        <Primary>
+          <Entry>
+            <Node isDefault="true">
+              <SourceLocation path="Helpers/InvoiceHelper.cs" line="57" lineEnd="57" colStart="0" colEnd="0" contextId="1" snippet="B695BCC04E4FCAF322C96B67ABC5AA02#Helpers/InvoiceHelper.cs:57:57"/>
+              <Action type="InCall">SqlCommand.ctor()</Action>
+              <Reason>
+                <Rule ruleID="F7A2423A-1927-40A3-920E-17ADB5430412"/>
+              </Reason>
+            </Node>
+          </Entry>
+        </Primary>
+      </Trace>
+    </Unified>
+  </AnalysisInfo>
+</Vulnerability>
+<Vulnerability>
+  <ClassInfo>
+    <ClassID>F7A2423A-1927-40A3-920E-17ADB5430412</ClassID>
+    <Kingdom>Encapsulation</Kingdom>
+    <Type>System Information Leak</Type>
+    <AnalyzerName>dataflow</AnalyzerName>
+    <DefaultSeverity>3.0</DefaultSeverity>
+  </ClassInfo>
+  <InstanceInfo>
+    <InstanceID>f73f6cc7-fa54-4936-8105-7d2804d308cf</InstanceID>
+    <InstanceSeverity>3.0</InstanceSeverity>
+    <Confidence>5.0</Confidence>
+  </InstanceInfo>
+  <AnalysisInfo>
+    <Unified>
+      <Context>
+        <Function name="WriteLog" namespace="Helpers" enclosingClass="Logger"/>
+        <FunctionDeclarationSourceLocation path="Helpers/Logger.cs" line="50" lineEnd="73" colStart="0" colEnd="0"/>
+      </Context>
+      <ReplacementDefinitions>
+        <Def key="EnclosingFunction.name" value="WriteLog()"/>
+        <Def key="PrimaryCall.name" value="WriteLine()"/>
+        <Def key="PrimaryLocation.file" value="Logger.cs"/>
+        <Def key="PrimaryLocation.line" value="65"/>
+        <Def key="SinkFunction" value="WriteLine()"/>
+        <Def key="SinkLocation.file" value="Logger.cs"/>
+        <Def key="SinkLocation.line" value="65"/>
+        <Def key="SourceLocation.file" value="Program.cs"/>
+        <Def key="SourceLocation.line" value="82"/>
+        <LocationDef path="Helpers/Logger.cs" line="65" lineEnd="65" colStart="0" colEnd="0" key="SinkLocation"/>
+        <LocationDef path="Program.cs" line="82" lineEnd="82" colStart="0" colEnd="0" key="SourceLocation"/>
+      </ReplacementDefinitions>
+      <Trace>
+        <Primary>
+          <Entry>
+            <NodeRef id="39"/>
+          </Entry>
+          <Entry>
+            <NodeRef id="40"/>
+          </Entry>
+          <Entry>
+            <NodeRef id="4"/>
+          </Entry>
+          <Entry>
+            <NodeRef id="5"/>
+          </Entry>
+          <Entry>
+            <NodeRef id="7"/>
+          </Entry>
+          <Entry>
+            <Node isDefault="true">
+              <SourceLocation path="Helpers/Logger.cs" line="65" lineEnd="65" colStart="0" colEnd="0" contextId="5" snippet="C0EF526FF2CDD9E6A940759C100A2D25#Helpers/Logger.cs:65:65"/>
+              <Action type="InCall">WriteLine(0)</Action>
+              <Reason>
+                <Rule ruleID="F7A2423A-1927-40A3-920E-17ADB5430412"/>
+              </Reason>
+            </Node>
+          </Entry>
+        </Primary>
+      </Trace>
+    </Unified>
+  </AnalysisInfo>
+</Vulnerability>
+</Vulnerabilities>
+<ContextPool>
+  <Context id="1">
+    <Function name="GetInvoice" namespace="Helpers" enclosingClass="InvoiceHelper"/>
+    <FunctionDeclarationSourceLocation path="Helpers/InvoiceHelper.cs" line="22" lineEnd="84" colStart="0" colEnd="0"/>
+  </Context>
+  <Context id="5">
+    <Function name="WriteLog" namespace="Helpers" enclosingClass="Logger"/>
+    <FunctionDeclarationSourceLocation path="Helpers/Logger.cs" line="50" lineEnd="73" colStart="0" colEnd="0"/>
+  </Context>
+</ContextPool>
+<UnifiedNodePool>
+  <Node id="4">
+    <SourceLocation path="Program.cs" line="82" lineEnd="82" colStart="0" colEnd="0" contextId="2" snippet="F64E01C1BF6395D7221768BE7CC7BBB9#Program.cs:82:82"/>
+    <Action type="InCall">Error(0)</Action>
+    <Knowledge>
+      <Fact primary="false" type="Call">Direct : Helpers.Logger.Error</Fact>
+    </Knowledge>
+  </Node>
+  <Node id="5">
+    <SourceLocation path="Helpers/Logger.cs" line="101" lineEnd="101" colStart="0" colEnd="0" contextId="4"/>
+    <Action type="InCall">WriteLog(1)</Action>
+    <Knowledge>
+      <Fact primary="false" type="Call">Direct : Helpers.Logger.WriteLog</Fact>
+    </Knowledge>
+  </Node>
+  <Node id="7">
+    <SourceLocation path="Helpers/Logger.cs" line="65" lineEnd="65" colStart="0" colEnd="0" contextId="5" snippet="C0EF526FF2CDD9E6A940759C100A2D25#Helpers/Logger.cs:65:65"/>
+    <Action type="InOutCall">Concat(1 : return)</Action>
+    <Reason>
+      <Rule ruleID="2481BF8F-B054-44A9-B782-B4863117C053"/>
+    </Reason>
+    <Knowledge>
+      <Fact primary="false" type="Call">Direct : System.String.Concat</Fact>
+    </Knowledge>
+  </Node>
+  <Node id="39">
+    <SourceLocation path="Program.cs" line="82" lineEnd="82" colStart="0" colEnd="0" contextId="2" snippet="F64E01C1BF6395D7221768BE7CC7BBB9#Program.cs:82:82"/>
+    <Action type="Read">Read ex</Action>
+    <Reason>
+      <Rule ruleID="F8E7B91F-3761-4A25-BE51-78AE78FF9B950"/>
+    </Reason>
+  </Node>
+  <Node id="40">
+    <SourceLocation path="Program.cs" line="82" lineEnd="82" colStart="0" colEnd="0" contextId="2" snippet="F64E01C1BF6395D7221768BE7CC7BBB9#Program.cs:82:82"/>
+    <Action type="InOutCall">ToString(this : return)</Action>
+    <Reason>
+      <Rule ruleID="C2FC10A2-D1A7-402C-9A89-949B6F156A49"/>
+    </Reason>
+    <Knowledge>
+      <Fact primary="false" type="Call">Direct : System.Exception.ToString</Fact>
+    </Knowledge>
+  </Node>
+</UnifiedNodePool>
+<Description contentType="preformatted" classID="31D4607A-A3FF-447C-908A-CA2BBE4CE4B7">
+  <Abstract>Sample abstract text. SQL injection vulnerability.</Abstract>
+  <Explanation>The quick brown fox jumps over the lazy dog.
+This section explains the rule in detail.
+  </Explanation>
+  <Recommendations>Here we find the recommended remediation for the defect.</Recommendations>
+  <References>
+    <Reference>
+      <Title>SQL Injection Attacks by Example</Title>
+      <Author>J. Q. Sample</Author>
+      <Source>http://www.software.com/techtips/sql-injection.html</Source>
+    </Reference>
+  </References>
+</Description>
+<Description contentType="preformatted" classID="F7A2423A-1927-40A3-920E-17ADB5430412">
+  <Abstract>&lt;Content&gt;&lt;Paragraph&gt;The function &lt;Replace key="EnclosingFunction.name"/&gt; in &lt;Replace key="PrimaryLocation.file"/&gt; reveals system data or debugging information by calling &lt;Replace key="PrimaryCall.name"/&gt; on line &lt;Replace key="PrimaryLocation.line"/&gt;. The information revealed by &lt;Replace key="PrimaryCall.name"/&gt; could help an adversary form a plan of attack.&lt;AltParagraph&gt;Revealing system data or debugging information helps an adversary learn about the system and form a plan of attack.&lt;/AltParagraph&gt;&lt;/Paragraph&gt;&lt;/Content&gt;</Abstract>
+  <Explanation>&lt;Content&gt;An information leak occurs when system data or debugging information leaves the program through an output stream or logging function.
+&lt;Paragraph&gt;
+In this case the data from &lt;Replace key="SourceFunction" link="SourceLocation"/&gt; in &lt;Replace key="SourceLocation.file"/&gt; at line &lt;Replace key="SourceLocation.line"/&gt; leaves the program through &lt;Replace key="SinkFunction" link="SinkLocation"/&gt; in &lt;Replace key="SinkLocation.file"/&gt; at line &lt;Replace key="SinkLocation.line"/&gt;.
+&lt;/Paragraph&gt;
+&lt;b&gt;Example:&lt;/b&gt; The following code constructs a database connection string, uses it to create a new connection to the database, and prints it to the console.
+
+&lt;pre&gt;
+string cs="database=northwind;server=mySQLServer...";
+SqlConnection conn=new SqlConnection(cs);
+...
+Console.Writeline(cs);
+&lt;/pre&gt;
+
+Depending on the system configuration, this information can be dumped to a console, written to a log file, or exposed to a remote user. For example, with scripting mechanisms it is trivial to redirect output information from &amp;quot;Standard error&amp;quot; or &amp;quot;Standard output&amp;quot; into a file or another program. Alternatively the system that the program runs on could have a remote logging mechanism such as a &amp;quot;syslog&amp;quot; server that will send the logs to a remote device. During development you will have no way of knowing where this information may end up being displayed.
+
+In some cases the error message tells the attacker precisely what sort of an attack the system is vulnerable to. For example, a database error message can reveal that the application is vulnerable to a SQL injection attack. Other error messages can reveal more oblique clues about the system. In the example above, the leaked information could imply information about the type of operating system, the applications installed on the system, and the amount of care that the administrators have put into configuring the program.&lt;/Content&gt;</Explanation>
+  <Recommendations>&lt;Content&gt;Write error messages with security in mind. In production environments, turn off detailed error information in favor of brief messages. Restrict the generation and storage of detailed output that can help administrators and programmers diagnose problems. Be careful, debugging traces can sometimes appear in non-obvious places (embedded in comments in the HTML for an error page, for example).
+
+Even brief error messages that do not reveal stack traces or database dumps can potentially aid an attacker. For example, an "Access Denied" message can reveal that a file or user exists on the system.&lt;/Content&gt;</Recommendations>
+  <Tips>
+    <Tip>Do not rely on wrapper scripts, corporate IT policy, or quick-thinking system administrators to prevent system information leaks. Write software that is secure on its own.</Tip>
+    <Tip>This category of vulnerability does not apply to all types of programs. For example, if your application executes on a client machine where system information is already available to an attacker, or if you print system information only to a trusted log file, you can use AuditGuide to filter out this category.</Tip>
+    <Tip>A number of modern web frameworks provide mechanisms for performing validation of user input. ASP.NET Request Validation and WCF are among them. To highlight the unvalidated sources of input, the HPE Security Fortify Secure Coding Rulepacks dynamically re-prioritize the issues reported by HPE Security Fortify Static Code Analyzer by lowering their probability of exploit and providing pointers to the supporting evidence whenever the framework validation mechanism is in use. In case of ASP.NET Request Validation, we also provide evidence for when validation is explicitly disabled. We refer to this feature as Context-Sensitive Ranking. To further assist the HPE Security Fortify user with the auditing process, the HPE Security Fortify Software Security Research group makes available the Data Validation project template that groups the issues into folders based on the validation mechanism applied to their source of input.</Tip>
+    <Tip>Fortify RTA adds protection against this category.</Tip>
+  </Tips>
+  <References>
+    <Reference>
+      <Title>CWE ID 497</Title>
+      <Author>Standards Mapping - Common Weakness Enumeration</Author>
+    </Reference>
+    <Reference>
+      <Title>M2 Insecure Data Storage</Title>
+      <Author>Standards Mapping - OWASP Mobile Top 10 Risks 2014</Author>
+    </Reference>
+    <Reference>
+      <Title>A6 Information Leakage and Improper Error Handling</Title>
+      <Author>Standards Mapping - OWASP Top 10 2007</Author>
+    </Reference>
+    <Reference>
+      <Title>Requirement 6.5.6</Title>
+      <Author>Standards Mapping - Payment Card Industry Data Security Standard Version 1.2</Author>
+    </Reference>
+    <Reference>
+      <Title>Requirement 6.5.5</Title>
+      <Author>Standards Mapping - Payment Card Industry Data Security Standard Version 2.0</Author>
+    </Reference>
+    <Reference>
+      <Title>Requirement 6.5.5</Title>
+      <Author>Standards Mapping - Payment Card Industry Data Security Standard Version 3.0</Author>
+    </Reference>
+    <Reference>
+      <Title>Requirement 6.5.5</Title>
+      <Author>Standards Mapping - Payment Card Industry Data Security Standard Version 3.1</Author>
+    </Reference>
+    <Reference>
+      <Title>Requirement 6.5.5</Title>
+      <Author>Standards Mapping - Payment Card Industry Data Security Standard Version 3.2</Author>
+    </Reference>
+    <Reference>
+      <Title>APP3620 CAT II</Title>
+      <Author>Standards Mapping - Security Technical Implementation Guide Version 3.1</Author>
+    </Reference>
+    <Reference>
+      <Title>APP3620 CAT II</Title>
+      <Author>Standards Mapping - Security Technical Implementation Guide Version 3.10</Author>
+    </Reference>
+    <Reference>
+      <Title>APP3620 CAT II</Title>
+      <Author>Standards Mapping - Security Technical Implementation Guide Version 3.4</Author>
+    </Reference>
+    <Reference>
+      <Title>APP3620 CAT II</Title>
+      <Author>Standards Mapping - Security Technical Implementation Guide Version 3.5</Author>
+    </Reference>
+    <Reference>
+      <Title>APP3620 CAT II</Title>
+      <Author>Standards Mapping - Security Technical Implementation Guide Version 3.6</Author>
+    </Reference>
+    <Reference>
+      <Title>APP3620 CAT II</Title>
+      <Author>Standards Mapping - Security Technical Implementation Guide Version 3.7</Author>
+    </Reference>
+    <Reference>
+      <Title>APP3620 CAT II</Title>
+      <Author>Standards Mapping - Security Technical Implementation Guide Version 3.9</Author>
+    </Reference>
+    <Reference>
+      <Title>APSC-DV-002480 CAT II, APSC-DV-002570 CAT II, APSC-DV-002580 CAT II</Title>
+      <Author>Standards Mapping - Security Technical Implementation Guide Version 4.1</Author>
+    </Reference>
+    <Reference>
+      <Title>APSC-DV-002480 CAT II, APSC-DV-002570 CAT II, APSC-DV-002580 CAT II</Title>
+      <Author>Standards Mapping - Security Technical Implementation Guide Version 4.2</Author>
+    </Reference>
+    <Reference>
+      <Title>Information Leakage</Title>
+      <Author>Standards Mapping - Web Application Security Consortium 24 + 2</Author>
+    </Reference>
+    <Reference>
+      <Title>Information Leakage (WASC-13)</Title>
+      <Author>Standards Mapping - Web Application Security Consortium Version 2.00</Author>
+    </Reference>
+  </References>
+</Description>
+<Snippets>
+  <Snippet id="B695BCC04E4FCAF322C96B67ABC5AA02#Helpers/InvoiceHelper.cs:57:57">
+    <File>Helpers/InvoiceHelper.cs</File>
+    <StartLine>54</StartLine>
+    <EndLine>60</EndLine>
+    <Text>string str = null;
+int16 id = System.Convert.ToInt16(invoiceID.Text);
+SqlCommand query = new SqlCommand(
+            "SELECT * FROM invoices WHERE id = @id", conn);
+query.Parameters.AddWithValue("@id", id);
+
+SqlDataReader objReader = query.ExecuteReader();</Text>
+  </Snippet>
+  <Snippet id="F64E01C1BF6395D7221768BE7CC7BBB9#Program.cs:82:82">
+    <File>Program.cs</File>
+    <StartLine>79</StartLine>
+    <EndLine>85</EndLine>
+    <Text><![CDATA[                                Logger.Error(LogMessage.RETRY_ATTEMPTS_EXCEEDED, new object[] { tool, server});
+                                continue;
+                            }
+                            Logger.Error(ex.ToString());
+                        }
+                    }
+
+]]></Text>
+  </Snippet>
+  <Snippet id="C0EF526FF2CDD9E6A940759C100A2D25#Helpers/Logger.cs:65:65">
+    <File>Helpers/Logger.cs</File>
+    <StartLine>62</StartLine>
+    <EndLine>68</EndLine>
+    <Text><![CDATA[                using (System.IO.StreamWriter writer = new System.IO.StreamWriter(filePath, true))
+                {
+                    writer.WriteLine(type + " : " +message);
+                    Console.WriteLine(type + " : " + message);
+                    //writer.Close();
+                }
+            }
+]]></Text>
+  </Snippet>
+</Snippets>
+<EngineData>
+  <CommandLine>
+    <Argument>-scan</Argument>
+    <Argument>-b</Argument>
+    <Argument>The_Build_ID</Argument>
+    <Argument>-machine-output</Argument>
+    <Argument>-f</Argument>
+    <Argument>C:\projects\myproject\scans\2018-01-01_12:00:00\Scan.fpr</Argument>
+    <Argument>-format</Argument>
+    <Argument>fpr</Argument>
+  </CommandLine>
+  <Errors/>
+  <MachineInfo>
+    <Hostname>SCANMACHINE</Hostname>
+    <Username>johndoe</Username>
+    <Platform>Windows 10</Platform>
+  </MachineInfo>
+</EngineData>
+</FVDL>

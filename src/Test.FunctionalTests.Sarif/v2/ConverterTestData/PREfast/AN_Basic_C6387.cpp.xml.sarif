@@ -3,42 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "PREfast",
-          "fullName": "PREfast Code Analysis"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6387.cpp",
-            "index": 0
-          }
-        }
-      ],
-      "logicalLocations": [
-        {
-          "fullyQualifiedName": "BasicC6387",
-          "decoratedName": "?BasicC6387@@YAXXZ"
-        },
-        {
-          "fullyQualifiedName": "BasicC6387_Opt",
-          "decoratedName": "?BasicC6387_Opt@@YAXPEAH@Z"
-        },
-        {
-          "fullyQualifiedName": "BasicC6387_PostNull",
-          "decoratedName": "?BasicC6387_PostNull@@YAXXZ"
-        },
-        {
-          "fullyQualifiedName": "BasicC6387_Out",
-          "decoratedName": "?BasicC6387_Out@@YAXXZ"
-        },
-        {
-          "fullyQualifiedName": "BasicC6387_OutNotNull",
-          "decoratedName": "?BasicC6387_OutNotNull@@YAXPEAPEAH@Z"
-        }
-      ],
       "results": [
         {
           "ruleId": "6387",
@@ -537,6 +501,41 @@
             "rank": "4",
             "ruleCategory": "mspft"
           }
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6387.cpp"
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "BasicC6387",
+          "decoratedName": "?BasicC6387@@YAXXZ"
+        },
+        {
+          "fullyQualifiedName": "BasicC6387_Opt",
+          "decoratedName": "?BasicC6387_Opt@@YAXPEAH@Z"
+        },
+        {
+          "fullyQualifiedName": "BasicC6387_PostNull",
+          "decoratedName": "?BasicC6387_PostNull@@YAXXZ"
+        },
+        {
+          "fullyQualifiedName": "BasicC6387_Out",
+          "decoratedName": "?BasicC6387_Out@@YAXXZ"
+        },
+        {
+          "fullyQualifiedName": "BasicC6387_OutNotNull",
+          "decoratedName": "?BasicC6387_OutNotNull@@YAXPEAPEAH@Z"
         }
       ],
       "columnKind": "utf16CodeUnits"

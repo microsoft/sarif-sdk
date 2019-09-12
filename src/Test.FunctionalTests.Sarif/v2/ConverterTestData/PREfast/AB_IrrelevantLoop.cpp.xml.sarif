@@ -3,26 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "PREfast",
-          "fullName": "PREfast Code Analysis"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantloop.cpp",
-            "index": 0
-          }
-        }
-      ],
-      "logicalLocations": [
-        {
-          "fullyQualifiedName": "C6385_IrrelevantLoop",
-          "decoratedName": "?C6385_IrrelevantLoop@@YAXXZ"
-        }
-      ],
       "results": [
         {
           "ruleId": "6385",
@@ -241,6 +221,25 @@
             "rank": "4",
             "ruleCategory": "mspft"
           }
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantloop.cpp"
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "C6385_IrrelevantLoop",
+          "decoratedName": "?C6385_IrrelevantLoop@@YAXXZ"
         }
       ],
       "columnKind": "utf16CodeUnits"

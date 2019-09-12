@@ -3,26 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "PREfast",
-          "fullName": "PREfast Code Analysis"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6385/c6385example3.cpp",
-            "index": 0
-          }
-        }
-      ],
-      "logicalLocations": [
-        {
-          "fullyQualifiedName": "C6385_Example3",
-          "decoratedName": "?C6385_Example3@@YAXH@Z"
-        }
-      ],
       "results": [
         {
           "ruleId": "6385",
@@ -153,6 +133,25 @@
             "rank": "4",
             "ruleCategory": "mspft"
           }
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6385/c6385example3.cpp"
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "C6385_Example3",
+          "decoratedName": "?C6385_Example3@@YAXH@Z"
         }
       ],
       "columnKind": "utf16CodeUnits"

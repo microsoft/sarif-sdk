@@ -14,15 +14,6 @@
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
 
   <ItemGroup>
-    <None Remove="TestData\FortifyFprConverter\ExpectedOutputs\ScanWithFailureLevelMatrices.sarif" />
-    <None Remove="TestData\FortifyFprConverter\Inputs\ScanWithFailureLevelMatrices.fpr" />
-    <None Remove="TestData\FortifyFprConverter\Inputs\ScanWithFailureLevelMatrices.fvdl" />
-    <None Remove="TestData\SemmleQLConverter\ExpectedOutputs\EmbeddedLocations.sarif" />
-    <None Remove="TestData\SemmleQLConverter\ExpectedOutputs\Simple.sarif" />
-    <None Remove="TestData\SemmleQLConverter\ExpectedOutputs\SimpleCsv.sarif" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.4.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.5.0" />
     <PackageReference Include="Moq" Version="4.8.3" />
@@ -30,24 +21,6 @@
     <PackageReference Include="xunit.runner.console" Version="2.3.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.3.1" />
     <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="TestData\FortifyFprConverter\ExpectedOutputs\OneResultBasic.sarif" />
-    <EmbeddedResource Include="TestData\FortifyFprConverter\ExpectedOutputs\OneResultWithTwoTraces.sarif" />
-    <EmbeddedResource Include="TestData\FortifyFprConverter\ExpectedOutputs\ScanWithFailureLevelMatrices.sarif" />
-    <EmbeddedResource Include="TestData\FortifyFprConverter\ExpectedOutputs\TwoResultsWithNodeRefs.sarif" />
-    <EmbeddedResource Include="TestData\FortifyFprConverter\Inputs\OneResultBasic.fpr" />
-    <EmbeddedResource Include="TestData\FortifyFprConverter\Inputs\OneResultWithTwoTraces.fpr" />
-    <EmbeddedResource Include="TestData\FortifyFprConverter\Inputs\ScanWithFailureLevelMatrices.fpr" />
-    <EmbeddedResource Include="TestData\FortifyFprConverter\Inputs\ScanWithFailureLevelMatrices.fvdl" />
-    <EmbeddedResource Include="TestData\FortifyFprConverter\Inputs\TwoResultsWithNodeRefs.fpr" />
-    <EmbeddedResource Include="TestData\MSBuildConverter\ExpectedOutputs\NoErrors.sarif" />
-    <EmbeddedResource Include="TestData\MSBuildConverter\Inputs\NoErrors.txt" />
-    <EmbeddedResource Include="TestData\MSBuildConverter\ExpectedOutputs\SomeErrors.sarif" />
-    <EmbeddedResource Include="TestData\MSBuildConverter\Inputs\SomeErrors.txt" />
-    <EmbeddedResource Include="TestData\SemmleQLConverter\ExpectedOutputs\EmbeddedLocations.sarif" />
-    <EmbeddedResource Include="TestData\SemmleQLConverter\ExpectedOutputs\Simple.sarif" />
   </ItemGroup>
 
   <ItemGroup>

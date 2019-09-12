@@ -3,34 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "PREfast",
-          "fullName": "PREfast Code Analysis"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
-            "index": 0
-          }
-        }
-      ],
-      "logicalLocations": [
-        {
-          "fullyQualifiedName": "C6011_OnlyOnSecondLoop",
-          "decoratedName": "?C6011_OnlyOnSecondLoop@@YAXXZ"
-        },
-        {
-          "fullyQualifiedName": "C6011_OnlyOnSecondLoopWithParam",
-          "decoratedName": "?C6011_OnlyOnSecondLoopWithParam@@YAXH@Z"
-        },
-        {
-          "fullyQualifiedName": "C6011_OnlyOnSecondLoopPlusRollbackDefect",
-          "decoratedName": "?C6011_OnlyOnSecondLoopPlusRollbackDefect@@YAXH@Z"
-        }
-      ],
       "results": [
         {
           "ruleId": "6011",
@@ -1206,6 +1178,33 @@
             "rank": "4",
             "ruleCategory": "mspft"
           }
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "C6011_OnlyOnSecondLoop",
+          "decoratedName": "?C6011_OnlyOnSecondLoop@@YAXXZ"
+        },
+        {
+          "fullyQualifiedName": "C6011_OnlyOnSecondLoopWithParam",
+          "decoratedName": "?C6011_OnlyOnSecondLoopWithParam@@YAXH@Z"
+        },
+        {
+          "fullyQualifiedName": "C6011_OnlyOnSecondLoopPlusRollbackDefect",
+          "decoratedName": "?C6011_OnlyOnSecondLoopPlusRollbackDefect@@YAXH@Z"
         }
       ],
       "columnKind": "utf16CodeUnits"

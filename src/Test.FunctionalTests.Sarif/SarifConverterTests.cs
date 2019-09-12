@@ -11,15 +11,12 @@ using Microsoft.CodeAnalysis.Sarif.Visitors;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Newtonsoft.Json;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
-    public class SarifConverterTests : FileDiffingUnitTests
+    public class SarifConverterTests
     {
         public const string TestDirectory = @"v2\ConverterTestData";
-
-        public SarifConverterTests(ITestOutputHelper outputHelper) : base(outputHelper) { }
 
         [Fact]
         public void AndroidStudioConverter_EndToEnd()
@@ -55,6 +52,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         public void FxCopConverter_EndToEnd()
         {
             BatchRunConverter(ToolFormat.FxCop);
+        }
+
+        [Fact]
+        public void MSBuildConverter_EndToEnd()
+        {
+            BatchRunConverter(ToolFormat.MSBuild);
         }
 
         [Fact]
@@ -162,7 +165,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             string actualSarif = File.ReadAllText(generatedFileName);
 
-            if (!AreEquivalent<SarifLog>(actualSarif, expectedSarif))
+            if (!FileDiffingUnitTests.AreEquivalent<SarifLog>(actualSarif, expectedSarif))
             {
                 File.WriteAllText(expectedFileName, expectedSarif);
                 File.WriteAllText(generatedFileName, actualSarif);
@@ -170,7 +173,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 string errorMessage = "The output of the {0} converter did not match for input {1}.";
                 sb.AppendLine(string.Format(CultureInfo.CurrentCulture, errorMessage, toolFormat, inputFileName));
                 sb.AppendLine("Check differences with:");
-                sb.AppendLine(GenerateDiffCommand(toolFormat, expectedFileName, generatedFileName));
+                sb.AppendLine(FileDiffingUnitTests.GenerateDiffCommand(toolFormat, expectedFileName, generatedFileName));
             }
             return generatedFileName;
         }

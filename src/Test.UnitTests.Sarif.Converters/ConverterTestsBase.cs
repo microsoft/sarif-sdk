@@ -38,16 +38,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             // so we'll provide an option to collapse into minimal form
             actualJson = prettyPrint ? actualJson : JsonConvert.SerializeObject(log, Formatting.None);
 
-            string actualPath = Path.Combine("Actual", "Actual.sarif");
-            Directory.CreateDirectory(Path.GetDirectoryName(actualPath));
-            File.WriteAllText(actualPath, actualJson);
-
-            string expectedPath = Path.Combine("Expected", "Expected.sarif");
-            Directory.CreateDirectory(Path.GetDirectoryName(expectedPath));
-            File.WriteAllText(expectedPath, expectedResult);
-            Trace.WriteLine($"See \"{Path.GetFullPath(expectedPath)}\"\r\n\"{Path.GetFullPath(actualPath)}\"");
-
-            File.WriteAllText(Path.Combine("Expected", "Input.txt"), inputData);
             // Hard-coded JSON comparisons are useful for sniffing out small unexpected changes but
             // are fragile. It would be better for our testing to have a dedicated set of data-driven
             // tests that flag changes and for the unit-tests to work exclusively against the 

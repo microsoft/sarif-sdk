@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FVDL xmlns="xmlns://www.fortifysoftware.com/schema/fvdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.12" xsi:type="FVDL">
+<CreatedTS date="2018-01-01" time="12:00:00"/>
+<UUID>5a7d0e15-42ed-46ec-a156-de4b5a63052a</UUID>
+<Build>
+  <BuildID>The_Build_ID</BuildID>
+  <NumberFiles>1</NumberFiles>
+  <LOC type="Fortify">393</LOC>
+  <LOC type="Line Count">530</LOC>
+  <LOC type="Function Declarations">314</LOC>
+  <LOC type="Function Definitions">202</LOC>
+  <SourceBasePath>/root/projects/myproject/src/</SourceBasePath>
+  <SourceFiles>
+    <File size="8297" timestamp="1538391807572" loc="82" type="csharp" encoding="windows-1252">
+      <Name>Helpers/InvoiceHelper.cs</Name>
+      <LOC type="Fortify">82</LOC>
+      <LOC type="Line Count">208</LOC>
+    </File>
+  </SourceFiles>
+  <ScanTime value="22"/>
+</Build>
+<Vulnerabilities>
+<Vulnerability>
+  <ClassInfo>
+    <ClassID>31D4607A-A3FF-447C-908A-CA2BBE4CE4B7</ClassID>
+    <Kingdom>Input Validation and Representation</Kingdom>
+    <Type>SQL Injection</Type>
+    <Subtype>Value Never Read</Subtype>
+    <AnalyzerName>semantic</AnalyzerName>
+    <DefaultSeverity>2.0</DefaultSeverity>
+  </ClassInfo>
+  <InstanceInfo>
+    <InstanceID>7b579c00-a994-45f3-814c-3bacca74b251</InstanceID>
+    <InstanceSeverity>2.0</InstanceSeverity>
+    <Confidence>5.0</Confidence>
+  </InstanceInfo>
+  <AnalysisInfo>
+    <Unified>
+      <Context>
+        <Function name="GetInvoice" namespace="Helpers" enclosingClass="InvoiceHelper"/>
+        <FunctionDeclarationSourceLocation path="Helpers/InvoiceHelper.cs" line="22" lineEnd="84" colStart="0" colEnd="0"/>
+      </Context>
+      <ReplacementDefinitions>
+        <Def key="EnclosingFunction.name" value="GetInvoice(Invoice invoice)"/>
+        <Def key="PrimaryCall.name" value="SqlCommand.ctor()"/>
+        <Def key="PrimaryLocation.file" value="InvoiceHelper.cs"/>
+        <Def key="PrimaryLocation.line" value="57"/>
+        <Def key="SourceLocation.file" value="InvoiceHelper.cs"/>
+        <Def key="SourceLocation.line" value="57"/>
+        <LocationDef path="Helpers/InvoiceHelper.cs" line="57" lineEnd="57" colStart="0" colEnd="0" key="SourceLocation"/>
+      </ReplacementDefinitions>
+      <Trace>
+        <Primary>
+          <Entry>
+            <Node isDefault="true">
+              <SourceLocation path="Helpers/InvoiceHelper.cs" line="57" lineEnd="57" colStart="0" colEnd="0" contextId="1" snippet="B695BCC04E4FCAF322C96B67ABC5AA02#Helpers/InvoiceHelper.cs:57:57"/>
+              <Action type="InCall">SqlCommand.ctor()</Action>
+              <Reason>
+                <Rule ruleID="F7A2423A-1927-40A3-920E-17ADB5430412"/>
+              </Reason>
+            </Node>
+          </Entry>
+        </Primary>
+      </Trace>
+    </Unified>
+  </AnalysisInfo>
+</Vulnerability>
+</Vulnerabilities>
+<ContextPool>
+  <Context id="1">
+    <Function name="GetInvoice" namespace="Helpers" enclosingClass="InvoiceHelper"/>
+    <FunctionDeclarationSourceLocation path="Helpers/InvoiceHelper.cs" line="22" lineEnd="84" colStart="0" colEnd="0"/>
+  </Context>
+</ContextPool>
+<Description contentType="preformatted" classID="31D4607A-A3FF-447C-908A-CA2BBE4CE4B7">
+  <Abstract>Sample abstract text. SQL injection vulnerability.</Abstract>
+  <Explanation>The quick brown fox jumps over the lazy dog.
+This section explains the rule in detail.
+  </Explanation>
+  <Recommendations>Here we find the recommended remediation for the defect.</Recommendations>
+  <References>
+    <Reference>
+      <Title>SQL Injection Attacks by Example</Title>
+      <Author>J. Q. Sample</Author>
+      <Source>http://www.software.com/techtips/sql-injection.html</Source>
+    </Reference>
+  </References>
+</Description>
+<Snippets>
+  <Snippet id="B695BCC04E4FCAF322C96B67ABC5AA02#Helpers/InvoiceHelper.cs:57:57">
+    <File>Helpers/InvoiceHelper.cs</File>
+    <StartLine>54</StartLine>
+    <EndLine>60</EndLine>
+    <Text>string str = null;
+int16 id = System.Convert.ToInt16(invoiceID.Text);
+SqlCommand query = new SqlCommand(
+            "SELECT * FROM invoices WHERE id = @id", conn);
+query.Parameters.AddWithValue("@id", id);
+
+SqlDataReader objReader = query.ExecuteReader();</Text>
+  </Snippet>
+</Snippets>
+<EngineData>
+  <CommandLine>
+    <Argument>-scan</Argument>
+    <Argument>-b</Argument>
+    <Argument>The_Build_ID</Argument>
+    <Argument>-machine-output</Argument>
+    <Argument>-f</Argument>
+    <Argument>C:\projects\myproject\scans\2018-01-01_12:00:00\Scan.fpr</Argument>
+    <Argument>-format</Argument>
+    <Argument>fpr</Argument>
+  </CommandLine>
+  <Errors/>
+  <MachineInfo>
+    <Hostname>SCANMACHINE</Hostname>
+    <Username>johndoe</Username>
+    <Platform>Linux</Platform>
+  </MachineInfo>
+  <RuleInfo>
+    <Rule id="31D4607A-A3FF-447C-908A-CA2BBE4CE4B7">
+      <MetaInfo>
+        <Group name="package">C Core</Group>
+        <Group name="altcategorySTIG4.8">APSC-DV-002560 CAT I</Group>
+        <Group name="altcategoryDISACCI2">CCI-002754</Group>
+        <Group name="altcategoryCWE">CWE ID 22, CWE ID 73</Group>
+        <Group name="altcategoryMISRAC2012">Rule 1.3</Group>
+        <Group name="altcategoryMISRAC++2008">Rule 0-3-1</Group>
+      </MetaInfo>
+    </Rule>
+  </RuleInfo>
+</EngineData>
+</FVDL>

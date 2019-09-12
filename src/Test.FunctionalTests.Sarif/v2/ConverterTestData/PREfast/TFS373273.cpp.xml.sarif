@@ -3,30 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "PREfast",
-          "fullName": "PREfast Code Analysis"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs373273.cpp",
-            "index": 0
-          }
-        }
-      ],
-      "logicalLocations": [
-        {
-          "fullyQualifiedName": "BadFunctionKvtInNewArray",
-          "decoratedName": "?BadFunctionKvtInNewArray@@YAHXZ"
-        },
-        {
-          "fullyQualifiedName": "BadFunctionKvtInConstructor",
-          "decoratedName": "?BadFunctionKvtInConstructor@@YAHXZ"
-        }
-      ],
       "results": [
         {
           "ruleId": "6385",
@@ -287,6 +263,29 @@
             "rank": "4",
             "ruleCategory": "mspft"
           }
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs373273.cpp"
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "BadFunctionKvtInNewArray",
+          "decoratedName": "?BadFunctionKvtInNewArray@@YAHXZ"
+        },
+        {
+          "fullyQualifiedName": "BadFunctionKvtInConstructor",
+          "decoratedName": "?BadFunctionKvtInConstructor@@YAHXZ"
         }
       ],
       "columnKind": "utf16CodeUnits"
