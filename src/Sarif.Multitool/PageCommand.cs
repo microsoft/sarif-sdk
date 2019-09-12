@@ -120,8 +120,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             {
                 // Otherwise, build the map and save it
                 Console.WriteLine($"Building Json Map of \"{options.InputFilePath}\" into \"{mapPath}\"...");
-                JsonMapBuilder builder = new JsonMapBuilder(options.TargetMapSizeRatio);
-                root = builder.Build(() => _fileSystem.OpenRead(options.InputFilePath));
+                root = JsonMapBuilder.Build(() => _fileSystem.OpenRead(options.InputFilePath), new JsonMapSettings(options.TargetMapSizeRatio, options.MapSizeLimitBytes));
 
                 if (root != null)
                 {
