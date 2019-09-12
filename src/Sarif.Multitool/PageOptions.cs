@@ -62,11 +62,5 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             Required = false,
             Default = 0.01)]
         public double TargetMapSizeRatio { get; set; } = 0.01;
-
-        [Option("map-limit-bytes",
-            HelpText = "Maximum map size in bytes",
-            Required = false,
-            Default = 10 * 1024 * 1024)]
-        public double MapSizeLimitBytes { get; set; } = 10 * 1024 * 1024;
     }
 }
