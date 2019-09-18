@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests
     {
         [Fact]
         [Trait(TestTraits.Bug, "https://github.com/microsoft/sarif-sdk/issues/1045")]
-        public void PropertyBagConverter_RoundTripsStringPropertyWithEscapedCharacters()
+        public void PropertyBagConverter_RoundTrip()
         {
             string intPropertyName = nameof(intPropertyName);
             int intPropertyValue = 42;
@@ -25,14 +25,14 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests
             string normalStringPropertyName = "source.language";
             string normalStringPropertyValue = "csharp";
 
-            string dateTimePropertyName = "runStart";
-            DateTime dateTimePropertyValue = DateTime.UtcNow.AddHours(-1.43);
+            string longPropertyName = "hugeFileSizeBytes";
+            long longPropertyValue = (long)10 * int.MaxValue;
 
             var run = new Run();
             run.SetProperty(intPropertyName, 42);
             run.SetProperty(stringPropertyName, stringPropertyValue);
             run.SetProperty(normalStringPropertyName, normalStringPropertyValue);
-            run.SetProperty<DateTime>(dateTimePropertyName, dateTimePropertyValue);
+            run.SetProperty<long>(longPropertyName, longPropertyValue);
 
             var originalLog = new SarifLog
             {
@@ -52,9 +52,9 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests
                 }
             };
 
-            string originalLogText = JsonConvert.SerializeObject(originalLog, Formatting.Indented);
-
             var settings = new JsonSerializerSettings { Formatting = Formatting.Indented };
+            string originalLogText = JsonConvert.SerializeObject(originalLog, settings);
+
             SarifLog deserializedLog = JsonConvert.DeserializeObject<SarifLog>(originalLogText);
             run = deserializedLog.Runs[0];
 
@@ -68,7 +68,7 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests
 
             run.GetProperty<string>(normalStringPropertyName).Should().Be(normalStringPropertyValue);
 
-            run.GetProperty<DateTime>(dateTimePropertyName).Should().Be(dateTimePropertyValue);
+            run.GetProperty<long>(longPropertyName).Should().Be(longPropertyValue);
 
             string reserializedLog = JsonConvert.SerializeObject(deserializedLog, settings);
 

@@ -1,29 +1,36 @@
-﻿using System.Collections.Generic;
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License.
+
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
     /// <summary>
-    ///  SarifConsolidator is used to reduce the size of Sarif objects and the serialized log.
+    ///  SarifConsolidator is used to reduce the size of SARIF objects and the serialized log.
     ///  It removes common redundant properties, uses Run-wide collections to avoid writing duplicate
     ///  values, and can remove portions of Results entirely.
     /// </summary>
+    /// <remarks>
+    ///  NOTE: Removing some log portions may leave abandoned references elsewhere.
+    ///   For example, removing RelatedLocations may break references from Result Locations or Message.
+    /// </remarks>
     public class SarifConsolidator
     {
-        private Run _run;
-        private Dictionary<ThreadFlowLocation, int> _uniqueThreadFlows;
+        private readonly Run _run;
+        private readonly Dictionary<ThreadFlowLocation, int> _uniqueThreadFlowLocations;
 
         public int TotalThreadFlowLocations { get; private set; }
-        public int UniqueThreadFlowLocations => _uniqueThreadFlows.Count;
+        public int UniqueThreadFlowLocations => _uniqueThreadFlowLocations.Count;
 
         public int TotalLocations { get; private set; }
         public int UniqueLocations { get; private set; }
 
-        public int? MessageLengthLimitBytes { get; set; }
+        public int? MessageLengthLimitChars { get; set; }
+        public bool RemoveUriBaseIds { get; set; }
         public bool RemoveCodeFlows { get; set; }
         public bool RemoveRelatedLocations { get; set; }
         public bool RemoveGraphs { get; set; }
-        public bool RemoveGraphTraversals { get; set; }
         public bool RemoveStacks { get; set; }
         public bool RemoveWebRequests { get; set; }
         public bool RemoveWebResponses { get; set; }
@@ -31,19 +38,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         public SarifConsolidator(Run run)
         {
             _run = run;
-            _uniqueThreadFlows = new Dictionary<ThreadFlowLocation, int>(ThreadFlowLocation.ValueComparer);
+            _uniqueThreadFlowLocations = new Dictionary<ThreadFlowLocation, int>(ThreadFlowLocation.ValueComparer);
+
+            if (this.RemoveUriBaseIds)
+            {
+                run?.OriginalUriBaseIds.Clear();
+            }
 
             if (_run.Artifacts != null)
             {
                 // Realize Deferred Artifact list
                 _run.Artifacts = _run.Artifacts?.ToList();
 
-                // Remove indices from Run.Artifact array (redundant)
                 foreach (Artifact a in _run.Artifacts)
                 {
+                    // Remove indices from Run.Artifact array (redundant)
+                    // Remove UriBaseIds if requested
                     if (a.Location != null)
                     {
                         a.Location.Index = -1;
+                        a.Location.UriBaseId = (this.RemoveUriBaseIds ? null : a.Location.UriBaseId);
                     }
                 }
             }
@@ -56,7 +70,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 ThreadFlowLocation tfl = _run.ThreadFlowLocations[i];
                 Trim(tfl.Location);
-                _uniqueThreadFlows[tfl] = i;
+                _uniqueThreadFlowLocations[tfl] = i;
             }
         }
 
@@ -68,17 +82,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             result.CodeFlows = (this.RemoveCodeFlows ? null : result.CodeFlows);
             result.RelatedLocations = (this.RemoveRelatedLocations ? null : result.RelatedLocations);
             result.Graphs = (this.RemoveGraphs ? null : result.Graphs);
-            result.GraphTraversals = (this.RemoveGraphTraversals ? null : result.GraphTraversals);
+            result.GraphTraversals = (this.RemoveGraphs ? null : result.GraphTraversals);
             result.Stacks = (this.RemoveStacks ? null : result.Stacks);
             result.WebRequest = (this.RemoveWebRequests ? null : result.WebRequest);
             result.WebResponse = (this.RemoveWebResponses ? null : result.WebResponse);
 
             // Truncate long Messages if configured
-            if (this.MessageLengthLimitBytes > 0)
+            if (this.MessageLengthLimitChars > 0)
             {
-                if (result?.Message?.Text?.Length > this.MessageLengthLimitBytes)
+                if (result.Message?.Text?.Length > this.MessageLengthLimitChars)
                 {
-                    result.Message.Text = result.Message.Text.Substring(0, this.MessageLengthLimitBytes.Value);
+                    result.Message.Text = result.Message.Text.Substring(0, this.MessageLengthLimitChars.Value) + "...";
+                }
+
+                if (result.Message?.Markdown?.Length > this.MessageLengthLimitChars)
+                {
+                    result.Message.Markdown = result.Message.Markdown.Substring(0, this.MessageLengthLimitChars.Value) + "...";
                 }
             }
 
@@ -104,27 +123,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
         }
 
-        public void Consolidate(ThreadFlow tFlow)
+        public void Consolidate(ThreadFlow threadFlow)
         {
-            if (tFlow.Locations != null)
+            if (threadFlow.Locations != null)
             {
-                TotalThreadFlowLocations += tFlow.Locations.Count;
+                TotalThreadFlowLocations += threadFlow.Locations.Count;
 
-                for (int i = 0; i < tFlow.Locations.Count; ++i)
+                for (int i = 0; i < threadFlow.Locations.Count; ++i)
                 {
-                    ThreadFlowLocation tfl = tFlow.Locations[i];
+                    ThreadFlowLocation tfl = threadFlow.Locations[i];
                     Trim(tfl.Location);
 
-                    if (tfl.Index == -1)
+                    if (tfl != null && tfl.Index == -1)
                     {
-                        if (!_uniqueThreadFlows.TryGetValue(tfl, out int tflIndex))
+                        if (!_uniqueThreadFlowLocations.TryGetValue(tfl, out int tflIndex))
                         {
                             tflIndex = _run.ThreadFlowLocations.Count;
                             _run.ThreadFlowLocations.Add(tfl);
-                            _uniqueThreadFlows[tfl] = tflIndex;
+                            _uniqueThreadFlowLocations[tfl] = tflIndex;
                         }
 
-                        tFlow.Locations[i] = new ThreadFlowLocation() { Index = tflIndex };
+                        threadFlow.Locations[i] = new ThreadFlowLocation() { Index = tflIndex };
                     }
                 }
             }
@@ -137,122 +156,120 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             HashSet<Location> uniqueLocations = new HashSet<Location>(Location.ValueComparer);
             List<Location> newLocations = new List<Location>();
 
-            this.TotalLocations += locations.Count;
-            for (int i = 0; i < locations.Count; ++i)
+            foreach (Location location in locations)
             {
-                Location loc = locations[i];
-
-                // Trim Locations themselves
-                Trim(loc);
+                Trim(location);
 
                 // Keep only one copy of each unique location
-                if (uniqueLocations.Add(loc))
+                if (location != null && uniqueLocations.Add(location))
                 {
-                    this.UniqueLocations++;
-                    newLocations.Add(loc);
+                    newLocations.Add(location);
                 }
             }
+
+            this.TotalLocations += locations.Count;
+            this.UniqueLocations += uniqueLocations.Count;
 
             return newLocations;
         }
 
-        public void Trim(Location loc)
+        public void Trim(Location location)
         {
-            if (loc != null)
+            if (location != null)
             {
-                // Remove Ids
-                loc.Id = -1;
-
-                Trim(loc.PhysicalLocation);
-                Trim(loc.LogicalLocation);
-                Trim(loc.LogicalLocations);
+                Trim(location.PhysicalLocation);
+                Trim(location.LogicalLocations);
             }
         }
 
-        public IList<LogicalLocation> Trim(IList<LogicalLocation> locations)
+        public IList<LogicalLocation> Trim(IList<LogicalLocation> logicalLocations)
         {
-            if (locations == null || locations.Count == 0) { return locations; }
+            if (logicalLocations == null || logicalLocations.Count == 0) { return logicalLocations; }
 
             HashSet<LogicalLocation> uniqueLocations = new HashSet<LogicalLocation>(LogicalLocation.ValueComparer);
             List<LogicalLocation> newLocations = new List<LogicalLocation>();
 
-            this.TotalLocations += locations.Count;
-            for (int i = 0; i < locations.Count; ++i)
+            foreach (LogicalLocation logicalLocation in logicalLocations)
             {
-                LogicalLocation loc = locations[i];
-
-                // Trim Locations themselves
-                Trim(loc);
+                Trim(logicalLocation);
 
                 // Keep only one copy of each unique location
-                if (uniqueLocations.Add(loc))
+                if (logicalLocation != null && uniqueLocations.Add(logicalLocation))
                 {
-                    this.UniqueLocations++;
-                    newLocations.Add(loc);
+                    newLocations.Add(logicalLocation);
                 }
             }
+
+            this.TotalLocations += logicalLocations.Count;
+            this.UniqueLocations += uniqueLocations.Count;
 
             return newLocations;
         }
 
-        public void Trim(LogicalLocation loc)
+        public void Trim(LogicalLocation logicalLocation)
         {
-            if (loc != null)
+            if (logicalLocation != null)
             {
                 // Leave only index if index is present
-                if (loc.Index != -1)
+                if (logicalLocation.Index != -1)
                 {
-                    loc.DecoratedName = null;
-                    loc.FullyQualifiedName = null;
-                    loc.Name = null;
-                    loc.ParentIndex = -1;
-                    loc.Properties?.Clear();
-                    loc.Tags?.Clear();
+                    logicalLocation.DecoratedName = null;
+                    logicalLocation.FullyQualifiedName = null;
+                    logicalLocation.Name = null;
+                    logicalLocation.ParentIndex = -1;
+                    logicalLocation.Properties?.Clear();
+                    logicalLocation.Tags?.Clear();
                 }
             }
         }
 
-        public void Trim(PhysicalLocation loc)
+        public void Trim(PhysicalLocation physicalLocation)
         {
-            if (loc != null)
+            if (physicalLocation != null)
             {
-                Trim(loc.ArtifactLocation);
-                Trim(loc.Region);
-                Trim(loc.ContextRegion);
+                Trim(physicalLocation.ArtifactLocation);
+                Trim(physicalLocation.Region);
+                Trim(physicalLocation.ContextRegion);
             }
         }
 
-        public void Trim(ArtifactLocation a)
+        public void Trim(ArtifactLocation artifactLocation)
         {
-            if (a != null)
+            if (artifactLocation != null)
             {
                 // Leave only index if index is present
-                if (a.Index != -1)
+                if (artifactLocation.Index != -1)
                 {
-                    a.Uri = null;
-                    a.UriBaseId = null;
-                    a.Description = null;
-                    a.Tags?.Clear();
-                    a.Properties?.Clear();
+                    artifactLocation.Uri = null;
+                    artifactLocation.UriBaseId = null;
+                    artifactLocation.Description = null;
+                    artifactLocation.Tags?.Clear();
+                    artifactLocation.Properties?.Clear();
                 }
             }
         }
 
-        public void Trim(Region r)
+        public void Trim(Region region)
         {
-            if (r != null && r.StartLine > 0)
+            if (region != null && region.StartLine > 0)
             {
                 // Remove EndLine if the same as StartLine
-                if (r.EndLine == r.StartLine)
+                if (region.EndLine == region.StartLine)
                 {
-                    r.EndLine = 0;
+                    region.EndLine = 0;
+                }
+
+                // Remove StartColumn if it's the default (1)
+                if (region.StartColumn == 1)
+                {
+                    region.StartColumn = 0;
                 }
 
                 // Remove Offset/Length if Line/Column available
-                r.CharOffset = -1;
-                r.CharLength = 0;
-                r.ByteOffset = -1;
-                r.ByteLength = 0;
+                region.CharOffset = -1;
+                region.CharLength = 0;
+                region.ByteOffset = -1;
+                region.ByteLength = 0;
             }
         }
     }

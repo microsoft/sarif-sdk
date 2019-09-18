@@ -39,7 +39,7 @@ namespace SarifToCsv
                 string sarifFilePath = args[0];
                 string csvFilePath = args[1];
                 IEnumerable<string> columnNames = (args.Length > 2 ? args[2] : ConfigurationManager.AppSettings["ColumnNames"]).Split(',').Select((value) => value.Trim());
-                bool removeNewlines = bool.Parse(ConfigurationManager.AppSettings["RemoveNewlines"] ?? "false");
+                bool removeNewlines = bool.Parse(ValueOrDefault(ConfigurationManager.AppSettings["RemoveNewlines"], "false"));
 
                 IEnumerable<Action<WriteContext>> selectedWriters = columnNames.Select((name) => SarifCsvColumnWriters.GetWriter(name)).ToArray();
 
@@ -139,6 +139,11 @@ namespace SarifToCsv
 
             context.Writer.NextRow();
             if (context.Writer.RowCountWritten % 1000 == 0) { Console.Write("."); }
+        }
+
+        private static string ValueOrDefault(string value, string defaultValue)
+        {
+            return String.IsNullOrEmpty(value) ? defaultValue : value;
         }
     }
 }

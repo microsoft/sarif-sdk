@@ -195,8 +195,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             return run;
         }
 
-        public IDictionary<string, HashData> AnalysisTargetToHashDataMap { get; private set; }
-        public IDictionary<ReportingDescriptor, int> RuleToIndexMap { get; private set; }
+        public IDictionary<string, HashData> AnalysisTargetToHashDataMap { get; }
+        public IDictionary<ReportingDescriptor, int> RuleToIndexMap { get; }
 
         public bool ComputeFileHashes { get { return _dataToInsert.HasFlag(OptionallyEmittedData.Hashes); } }
 

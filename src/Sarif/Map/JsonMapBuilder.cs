@@ -38,23 +38,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
         /// <returns>JsonMap for file or null if file too small for map</returns>
         public static JsonMapNode Build(Func<Stream> streamProvider, JsonMapSettings settings = null)
         {
-            if (settings == null) { settings = JsonMapSettings.DefaultSettings; }
+            JsonMapRunSettings runSettings = null;
 
             using (Stream stream = streamProvider())
             {
                 long length = stream.Length;
-                if (length <= settings.MinimumSizeForNode) { return null; }
-                settings.AdjustForFileSize(length);
+
+                // Compute JsonMapSettings for this specific file
+                runSettings = new JsonMapRunSettings(length, settings ?? JsonMapRunSettings.DefaultSettings);
+
+                // Don't build the map at all if the file is too small for anything to be mapped
+                if (length <= runSettings.MinimumSizeForNode) { return null; }
             }
 
+            // Parse file using JsonPositionedTextReader so map can get byte locations of elements
             using (JsonPositionedTextReader reader = new JsonPositionedTextReader(streamProvider))
             {
                 if (!reader.Read()) { return null; }
-                return Build(reader, settings, 0, out long unused);
+                return Build(reader, runSettings, startPosition: 0, out long _);
             }
         }
 
-        private static JsonMapNode Build(JsonPositionedTextReader reader, JsonMapSettings settings, long startPosition, out long endPosition)
+        private static JsonMapNode Build(JsonPositionedTextReader reader, JsonMapRunSettings settings, long startPosition, out long endPosition)
         {
             // For tiny types, we know we won't create a node
             switch (reader.TokenType)
@@ -179,7 +184,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
             }
         }
 
-        private static void FilterArrayStarts(JsonMapNode node, JsonMapSettings settings)
+        private static void FilterArrayStarts(JsonMapNode node, JsonMapRunSettings settings)
         {
             long arraySizeBytes = node.End - node.Start;
             double sizeBudget = arraySizeBytes * settings.CurrentSizeRatio;

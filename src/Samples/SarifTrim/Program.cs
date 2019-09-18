@@ -1,15 +1,19 @@
-﻿using System;
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License.
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace SarifTrim
 {
     /// <summary>
-    ///  SarifTrim is a one-off sample removing some redundant and some excessively large parts of a Sarif log
-    ///  for handling of a huge log.
+    ///  SarifTrim demonstrates how to remove redundant and excessively large parts of a 
+    ///  SARIF log file for handling of a huge log.
     /// </summary>
     class Program
     {
@@ -18,15 +22,15 @@ namespace SarifTrim
             if (args.Length < 1)
             {
                 Console.WriteLine(@"Usage: SarifTrim [inputFilePath] [outputFilePath?] [removeParts?]
-    removeParts: Comma-separated sections to remove. Options: UriBaseIds,CodeFlows,RelatedLocations,Graphs,GraphTraversals,Stacks,WebRequests,WebResponses");
+    removeParts: Semicolon-separated sections to remove. Options: UriBaseIds;CodeFlows;RelatedLocations;Graphs;GraphTraversals;Stacks;WebRequests;WebResponses");
                 return;
             }
 
             string inputFilePath = args[0];
-            string outputFilePath = (args.Length > 1 ? args[1] : Path.ChangeExtension(inputFilePath, $"trim{Path.GetExtension(inputFilePath)}"));
+            string outputFilePath = (args.Length > 1 ? args[1] : Path.ChangeExtension(inputFilePath, $"trimmed{Path.GetExtension(inputFilePath)}"));
 
             // Split on comma, remove whitespace, and put in case-insensitive HashSet
-            HashSet<string> removeParts = new HashSet<string>((args.Length > 2 ? args[2] : "").Split(',').Select(entry => entry.Trim()), StringComparer.OrdinalIgnoreCase);
+            HashSet<string> removeParts = new HashSet<string>((args.Length > 2 ? args[2] : "").Split(';').Select(entry => entry.Trim()), StringComparer.OrdinalIgnoreCase);
 
             SarifLog log = null;
             using (new ConsoleWatch($"Loading \"{inputFilePath}\"..."))
@@ -39,30 +43,22 @@ namespace SarifTrim
                 Run run = log.Runs[0];
 
                 SarifConsolidator consolidator = new SarifConsolidator(run);
-                consolidator.MessageLengthLimitBytes = 1024;
+                consolidator.MessageLengthLimitChars = 1024;
+                consolidator.RemoveUriBaseIds = (removeParts.Contains("UriBaseIds"));
                 consolidator.RemoveCodeFlows = (removeParts.Contains("CodeFlows"));
                 consolidator.RemoveRelatedLocations = (removeParts.Contains("RelatedLocations"));
                 consolidator.RemoveGraphs = (removeParts.Contains("Graphs"));
-                consolidator.RemoveGraphTraversals = (removeParts.Contains("GraphTraversals"));
                 consolidator.RemoveStacks = (removeParts.Contains("Stacks"));
                 consolidator.RemoveWebRequests = (removeParts.Contains("WebRequests"));
                 consolidator.RemoveWebResponses = (removeParts.Contains("WebResponses"));
 
-                // Trim Result CodeFlowLocations, long Messages, and redundant Region properties
+                // Consolidate the SarifLog per settings
                 using (SarifLogger logger = new SarifLogger(outputFilePath, LoggingOptions.OverwriteExistingOutputFile, tool: run.Tool, run: run))
                 {
                     foreach (Result result in run.Results)
                     {
                         consolidator.Trim(result);
                         logger.Log(result.GetRule(run), result);
-                    }
-
-                    if (removeParts.Contains("UriBaseIds"))
-                    {
-                        foreach (Artifact a in run.Artifacts)
-                        {
-                            a.Location.UriBaseId = null;
-                        }
                     }
                 }
 

@@ -62,6 +62,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private Location SampleLocationTrimmed => new Location()
         {
+            Id = 5,
             PhysicalLocation = new PhysicalLocation(SamplePhysicalLocationTrimmed),
             LogicalLocation = new LogicalLocation(SampleLogicalLocationTrimmed)
         };
@@ -270,17 +271,16 @@ namespace Microsoft.CodeAnalysis.Sarif
             Assert.True(Result.ValueComparer.Equals(expected, result));
             Assert.NotNull(result.CodeFlows);
 
-            consolidator.MessageLengthLimitBytes = 128;
+            consolidator.MessageLengthLimitChars = 128;
             consolidator.RemoveCodeFlows = true;
             consolidator.RemoveGraphs = true;
-            consolidator.RemoveGraphTraversals = true;
             consolidator.RemoveRelatedLocations = true;
             consolidator.RemoveStacks = true;
             consolidator.RemoveWebRequests = true;
             consolidator.RemoveWebResponses = true;
 
             consolidator.Trim(result);
-            Assert.Equal(128, result.Message.Text.Length);
+            Assert.Equal(128 + 3, result.Message.Text.Length);  // Truncated + ellipse
             Assert.Null(result.CodeFlows);
             Assert.Null(result.Graphs);
             Assert.Null(result.GraphTraversals);

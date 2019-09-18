@@ -6,8 +6,8 @@ using System.Diagnostics;
 
 public class ConsoleWatch : IDisposable
 {
-    private Stopwatch _watch;
-    private Func<string> _doneMessage;
+    private readonly Stopwatch _watch;
+    private readonly Func<string> _doneMessage;
 
     public ConsoleWatch(string message, Func<string> doneMessage = null)
     {

@@ -1,5 +1,8 @@
 # Sarif Driver and SDK Release History
 
+## **v2.1.17** [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.17) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/2.1.17)
+* Fix #1698: Introduce SarifConsolidator to shrink large log files.
+
 ## **v2.1.0** [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.0) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/2.1.0)
 * Add support for converting TSLint logs to SARIF
 * Add support for converting Pylint logs to SARIF

@@ -15,11 +15,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
         public const long ArrayStartSizeEstimateBytes = 5;    // Bytes for one ArrayStart location, if under 10KB.
         public const long Megabyte = 1024 * 1024;
 
-        public double CurrentSizeRatio { get; set; }
-        public int MinimumSizeForNode { get; set; }
-
-        public double MapDesiredSizeRatio { get; set; }
-        public double MapMaximumSizeBytes { get; set; }
+        public double MapDesiredSizeRatio { get; private set; }
+        public double MapMaximumSizeBytes { get; private set; }
 
         /// <summary>
         ///  Default Settings: Map is 1% of size of file mapped; up to a limit of 10 MB.
@@ -29,23 +26,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
         /// <summary>
         ///  Construct JsonMapSettings for a given target size ratio and size limit.
         /// </summary>
-        /// <param name="mapSizeRatio">Target Map size (0.01 means map should be 1% of file size or JSON being mapped)</param>
-        /// <param name="mapMaximumSizeBytes">Map size limit, in bytes (10 * 1024 * 1024 means 10 MB), 0 for no limit</param>
+        /// <param name="mapSizeRatio">Target Map size (0.01 means map should be 1% of file size of JSON being mapped)</param>
+        /// <param name="mapMaximumSizeBytes">Map size limit, in bytes (ex: 10 * JsonMapSettings.Megabyte), 0 for no limit</param>
         public JsonMapSettings(double mapSizeRatio, double mapMaximumSizeBytes = 0)
         {
-            if (mapSizeRatio <= 0 || mapSizeRatio >= 100) { throw new ArgumentOutOfRangeException("maxFileSizePercentage must be between 0 and 100."); }
+            if (mapSizeRatio <= 0 || mapSizeRatio > 100) { throw new ArgumentOutOfRangeException("maxFileSizePercentage must be > 0 and <= 100."); }
             MapDesiredSizeRatio = mapSizeRatio;
             MapMaximumSizeBytes = mapMaximumSizeBytes;
-
-            CurrentSizeRatio = mapSizeRatio;
-            Recalculate();
         }
+    }
 
-        internal void AdjustForFileSize(double fileSizeBytes)
+    /// <summary>
+    ///  JsonMapRunSettings combines user-provided JsonMapSettings with calculated values
+    ///  based on the specific file being analyzed.
+    /// </summary>
+    internal class JsonMapRunSettings : JsonMapSettings
+    {
+        public double CurrentSizeRatio { get; private set; }
+        public int MinimumSizeForNode { get; private set; }
+
+        public JsonMapRunSettings(double fileSizeBytes, JsonMapSettings userSettings) 
+            : base(userSettings.MapDesiredSizeRatio, userSettings.MapMaximumSizeBytes)
         {
             double expectedSize = fileSizeBytes * MapDesiredSizeRatio;
 
-            // Set ratio down to keep to size limit if necessary, otherwise use desired ratio
+            // Calculate real ratio to use for this file (desired if file size permits)
             if (MapMaximumSizeBytes > 0 && expectedSize > MapMaximumSizeBytes)
             {
                 CurrentSizeRatio = MapMaximumSizeBytes / fileSizeBytes;
@@ -55,12 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
                 CurrentSizeRatio = MapDesiredSizeRatio;
             }
 
-            Recalculate();
-        }
-
-        private void Recalculate()
-        {
-            // Recalculate node size limit (cache; used constantly)
+            // Calculate the minimum node size which can fit into the map given the specific ratio
             MinimumSizeForNode = (int)(NodeSizeEstimateBytes / CurrentSizeRatio);
         }
     }
