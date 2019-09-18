@@ -118,6 +118,30 @@ namespace Microsoft.CodeAnalysis.Sarif
             consolidator.Trim(r);
             Assert.Equal(1024, r.ByteOffset);
             Assert.True(Region.ValueComparer.Equals(rExpected, r));
+
+            Region everythingRegion = new Region() { StartLine = 10, StartColumn = 12, EndLine = 13, EndColumn = 15, ByteOffset = 100, ByteLength = 10, CharOffset = 100, CharLength = 10 };
+
+            // Trim to ByteOffset only
+            r = new Region(everythingRegion);
+            consolidator.RegionComponentsToKeep = RegionComponents.ByteOffsetAndLength;
+            consolidator.Trim(r);
+            Assert.Equal(0, r.StartLine);
+            Assert.Equal(-1, r.CharOffset);
+            Assert.Equal(100, r.ByteOffset);
+
+            // Trim to CharOffset only
+            r = new Region(everythingRegion);
+            consolidator.RegionComponentsToKeep = RegionComponents.CharOffsetAndLength;
+            consolidator.Trim(r);
+            Assert.Equal(0, r.StartLine);
+            Assert.Equal(-1, r.ByteOffset);
+            Assert.Equal(100, r.CharOffset);
+
+            // Keep everything
+            r = new Region(everythingRegion);
+            consolidator.RegionComponentsToKeep = RegionComponents.Full;
+            consolidator.Trim(r);
+            Assert.True(Region.ValueComparer.Equals(r, everythingRegion));
         }
 
         [Fact]

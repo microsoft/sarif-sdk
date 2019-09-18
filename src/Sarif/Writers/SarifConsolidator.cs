@@ -26,6 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         public int TotalLocations { get; private set; }
         public int UniqueLocations { get; private set; }
 
+        public RegionComponents RegionComponentsToKeep { get; set; } = RegionComponents.LineAndColumn;
         public int? MessageLengthLimitChars { get; set; }
         public bool RemoveUriBaseIds { get; set; }
         public bool RemoveCodeFlows { get; set; }
@@ -251,7 +252,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public void Trim(Region region)
         {
-            if (region != null && region.StartLine > 0)
+            if (region == null) { return; }
+
+            if (region.StartLine > 0)
             {
                 // Remove EndLine if the same as StartLine
                 if (region.EndLine == region.StartLine)
@@ -264,12 +267,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 {
                     region.StartColumn = 0;
                 }
+            }
 
-                // Remove Offset/Length if Line/Column available
+            // Remove Region components if requested and if other components are also present
+            if (!this.RegionComponentsToKeep.HasFlag(RegionComponents.LineAndColumn)
+                && (region.CharOffset >= 0 || region.ByteOffset >= 0))
+            {
+                region.StartLine = 0;
+                region.StartColumn = 0;
+                region.EndLine = 0;
+                region.EndColumn = 0;
+            }
+
+            if (!this.RegionComponentsToKeep.HasFlag(RegionComponents.ByteOffsetAndLength)
+                && (region.CharOffset >= 0 || region.StartLine > 0))
+            {
                 region.CharOffset = -1;
                 region.CharLength = 0;
-                region.ByteOffset = -1;
-                region.ByteLength = 0;
+            }
+
+            if (!this.RegionComponentsToKeep.HasFlag(RegionComponents.CharOffsetAndLength)
+                && (region.ByteOffset >= 0 || region.StartLine > 0))
+            {
+                region.CharOffset = -1;
+                region.CharLength = 0;
             }
         }
     }
