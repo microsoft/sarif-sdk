@@ -4,7 +4,7 @@
 using System;
 using System.IO;
 
-namespace Microsoft.CodeAnalysisDriver
+namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     public static class FileStreamExtensionMethods
     {

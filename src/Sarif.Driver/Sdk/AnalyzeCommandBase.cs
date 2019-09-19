@@ -480,7 +480,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        private HashSet<Skimmer<TContext>> CreateSkimmers(TContext context)
+        protected virtual HashSet<Skimmer<TContext>> CreateSkimmers(TContext context)
         {
             IEnumerable<Skimmer<TContext>> skimmers;
             HashSet<Skimmer<TContext>> result = new HashSet<Skimmer<TContext>>();
@@ -599,38 +599,40 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             if (options.Verbose)
             {
                 Console.WriteLine(string.Format(CultureInfo.CurrentCulture,
-                    @"Analyzing '{0}'..",
+                    @"Analyzing '{0}'...",
                     context.TargetUri.GetFileName()));
             }
 
             if (options.ComputeFileHashes)
             {
-                _resultsCachingLogger.HashToResultsMap.TryGetValue(context.Hashes.Sha256, out List<Tuple<ReportingDescriptor, Result>> cachedResults);
+                _resultsCachingLogger.HashToResultsMap.TryGetValue(context.Hashes.Sha256, out List<Tuple<ReportingDescriptor, Result>> cachedResultTuples);
                 _resultsCachingLogger.HashToNotificationsMap.TryGetValue(context.Hashes.Sha256, out List<Notification> cachedNotifications);
 
-                bool replayCachedData = (cachedResults != null || cachedNotifications != null);
+                bool replayCachedData = (cachedResultTuples != null || cachedNotifications != null);
 
                 if (replayCachedData)
                 {
                     context.Logger.AnalyzingTarget(context);
 
-                    if (cachedResults != null)
+                    if (cachedResultTuples != null)
                     {
-                        foreach (Tuple<ReportingDescriptor, Result> cachedResult in cachedResults)
+                        foreach (Tuple<ReportingDescriptor, Result> cachedResultTuple in cachedResultTuples)
                         {
-                            if (cachedResult.Item2.Locations?.Count > 0)
-                            {
-                                cachedResult.Item2.Locations[0].PhysicalLocation.ArtifactLocation.Uri = context.TargetUri;
-                            }
-                            context.Logger.Log(cachedResult.Item1, cachedResult.Item2);
+                            Result clonedResult = cachedResultTuple.Item2.DeepClone();
+                            ReportingDescriptor cachedReportingDescriptor = cachedResultTuple.Item1;
+
+                            UpdateLocationsAndMessageWithCurrentUri(clonedResult.Locations, clonedResult.Message, context.TargetUri);
+                            context.Logger.Log(cachedReportingDescriptor, clonedResult);
                         }
                     }
 
                     if (cachedNotifications != null)
                     {
-                        foreach (Notification notification in cachedNotifications)
+                        foreach (Notification cachedNotification in cachedNotifications)
                         {
-                            context.Logger.LogConfigurationNotification(notification);
+                            Notification clonedNotification = cachedNotification.DeepClone();
+                            UpdateLocationsAndMessageWithCurrentUri(clonedNotification.Locations, cachedNotification.Message, context.TargetUri);
+                            context.Logger.LogConfigurationNotification(clonedNotification);
                         }
                     }
                     return context;
@@ -655,6 +657,61 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             AnalyzeTarget(applicableSkimmers, context, disabledSkimmers);
 
             return context;
+        }
+
+        internal static void UpdateLocationsAndMessageWithCurrentUri(IList<Location> locations, Message message, Uri updatedUri)
+        {
+            if (locations == null) { return; }
+
+            foreach (Location location in locations)
+            {
+                ArtifactLocation artifactLocation = location.PhysicalLocation?.ArtifactLocation;
+                if (artifactLocation == null) { continue; }
+
+                if (message == null)
+                {
+                    artifactLocation.Uri = updatedUri;
+                    continue;
+                }
+
+
+                string oldFilePath = artifactLocation.Uri.OriginalString;
+                string newFilePath = updatedUri.OriginalString;
+
+                string oldFileName = GetFileNameFromUri(artifactLocation.Uri);
+                string newFileName = GetFileNameFromUri(updatedUri);
+
+                if (!string.IsNullOrEmpty(oldFileName) && !string.IsNullOrEmpty(newFileName))
+                {
+                    for (int i = 0; i < message?.Arguments?.Count; i++)
+                    {
+                        if (message.Arguments[i] == oldFileName)
+                        {
+                            message.Arguments[i] = newFileName;
+                        }
+
+                        if (message.Arguments[i] == oldFilePath)
+                        {
+                            message.Arguments[i] = newFilePath;
+                        }
+                    }
+
+                    if (message.Text != null)
+                    {
+                        message.Text = message.Text.Replace(oldFilePath, newFilePath);
+                        message.Text = message.Text.Replace(oldFileName, newFileName);
+                    }
+                }
+
+                artifactLocation.Uri = updatedUri;
+            }
+        }
+
+        internal static string GetFileNameFromUri(Uri uri)
+        {
+            if (uri == null) { return null; }
+
+            return Path.GetFileName(uri.OriginalString);
         }
 
         protected virtual void AnalyzeTarget(IEnumerable<Skimmer<TContext>> skimmers, TContext context, HashSet<string> disabledSkimmers)

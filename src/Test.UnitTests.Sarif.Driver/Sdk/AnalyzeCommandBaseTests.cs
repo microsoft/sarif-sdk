@@ -24,12 +24,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         private const int SUCCESS = AnalyzeCommandBase<TestAnalysisContext, AnalyzeOptionsBase>.SUCCESS;
 
         private void ExceptionTestHelper(
-            ExceptionCondition exceptionCondition,
+            TestRuleBehaviors testRuleBehaviors,
             RuntimeConditions runtimeConditions,
             ExitReason expectedExitReason = ExitReason.None,
             TestAnalyzeOptions analyzeOptions = null)
         {
-            ExceptionRaisingRule.s_exceptionCondition = exceptionCondition;
+            TestRule.s_testRuleBehaviors = testRuleBehaviors;
             analyzeOptions = analyzeOptions ?? new TestAnalyzeOptions()
             {
                 TargetFileSpecifiers = new string[0]
@@ -53,7 +53,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
             else
             {
-                plugInAssemblies = new Assembly[] { typeof(ExceptionRaisingRule).Assembly };
+                plugInAssemblies = new Assembly[] { typeof(TestRule).Assembly };
             }
 
             command.DefaultPlugInAssemblies = plugInAssemblies;
@@ -82,7 +82,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 command.ExecutionException.Should().BeNull();
             }
-            ExceptionRaisingRule.s_exceptionCondition = ExceptionCondition.None;
+            TestRule.s_testRuleBehaviors = TestRuleBehaviors.None;
         }
 
 
@@ -95,7 +95,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             };
 
             ExceptionTestHelper(
-                ExceptionCondition.ValidatingOptions,
+                TestRuleBehaviors.RaiseExceptionValidatingOptions,
                 RuntimeConditions.InvalidCommandLineOption,
                 ExitReason.InvalidCommandLineOption,
                 options);
@@ -111,7 +111,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             };
 
             ExceptionTestHelper(
-                ExceptionCondition.None,
+                TestRuleBehaviors.None,
                 RuntimeConditions.RuleNotApplicableToTarget,
                 analyzeOptions: options);
         }
@@ -127,7 +127,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             };
 
             ExceptionTestHelper(
-                ExceptionCondition.None,
+                TestRuleBehaviors.None,
                 RuntimeConditions.TargetNotValidToAnalyze,
                 analyzeOptions: options);
         }
@@ -142,7 +142,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             };
 
             ExceptionTestHelper(
-                ExceptionCondition.None,
+                TestRuleBehaviors.None,
                 RuntimeConditions.ExceptionLoadingTargetFile,
                 analyzeOptions: options);
         }
@@ -156,7 +156,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             };
 
             ExceptionTestHelper(
-                ExceptionCondition.InvokingConstructor,
+                TestRuleBehaviors.RaiseExceptionInvokingConstructor,
                 RuntimeConditions.ExceptionInstantiatingSkimmers,
                 ExitReason.UnhandledExceptionInstantiatingSkimmers,
                 analyzeOptions: options);
@@ -174,7 +174,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             };
 
             ExceptionTestHelper(
-                ExceptionCondition.None,
+                TestRuleBehaviors.None,
                 RuntimeConditions.NoRulesLoaded,
                 ExitReason.NoRulesLoaded,
                 analyzeOptions: options
@@ -185,7 +185,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public void NoValidAnalysisTargets()
         {
             ExceptionTestHelper(
-                ExceptionCondition.None,
+                TestRuleBehaviors.None,
                 RuntimeConditions.NoValidAnalysisTargets,
                 ExitReason.NoValidAnalysisTargets
             );
@@ -200,7 +200,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             };
 
             ExceptionTestHelper(
-                ExceptionCondition.InvokingInitialize,
+                TestRuleBehaviors.RaiseExceptionInvokingInitialize,
                 RuntimeConditions.ExceptionInSkimmerInitialize,
                 analyzeOptions: options
             );
@@ -215,7 +215,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             };
 
             ExceptionTestHelper(
-                ExceptionCondition.LoadingPdb,
+                TestRuleBehaviors.RaiseLoadingPdbError,
                 RuntimeConditions.ExceptionLoadingPdb,
                 analyzeOptions: options
             );
@@ -232,7 +232,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             };
 
             ExceptionTestHelper(
-                ExceptionCondition.None,
+                TestRuleBehaviors.None,
                 RuntimeConditions.None,
                 analyzeOptions: options
             );
@@ -247,7 +247,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             };
 
             ExceptionTestHelper(
-                ExceptionCondition.ParsingTarget,
+                TestRuleBehaviors.RaiseTargetParseError,
                 RuntimeConditions.TargetParseError,
                 analyzeOptions: options
             );
@@ -262,7 +262,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             };
 
             ExceptionTestHelper(
-                ExceptionCondition.InvokingCanAnalyze,
+                TestRuleBehaviors.RaiseExceptionInvokingCanAnalyze,
                 RuntimeConditions.ExceptionRaisedInSkimmerCanAnalyze,
                 analyzeOptions: options
             );
@@ -277,7 +277,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             };
 
             ExceptionTestHelper(
-                ExceptionCondition.InvokingAnalyze,
+                TestRuleBehaviors.RaiseExceptionInvokingAnalyze,
                 RuntimeConditions.ExceptionInSkimmerAnalyze,
                 analyzeOptions: options
             );
@@ -294,7 +294,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             };
 
             ExceptionTestHelper(
-                ExceptionCondition.None,
+                TestRuleBehaviors.None,
                 RuntimeConditions.ExceptionInEngine,
                 ExitReason.UnhandledExceptionInEngine,
                 analyzeOptions: options);
@@ -311,8 +311,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 using (var stream = File.OpenWrite(path))
                 {
-                    // our log file is locked for write
-                    // causing exceptions at analysis time
+                    // Our log file is locked for write
+                    // causing exceptions at analysis time.
 
                     var options = new TestAnalyzeOptions()
                     {
@@ -323,7 +323,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     };
 
                     ExceptionTestHelper(
-                        ExceptionCondition.None,
+                        TestRuleBehaviors.None,
                         RuntimeConditions.ExceptionCreatingLogFile,
                         expectedExitReason: ExitReason.ExceptionCreatingLogFile,
                         analyzeOptions: options);
@@ -343,7 +343,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             using (var stream = File.Create(path, 1, FileOptions.DeleteOnClose))
             {
-                // attempt to persist to unauthorized location will raise exception
+                // Attempt to persist to unauthorized location will raise exception.
                 var options = new TestAnalyzeOptions()
                 {
                     TargetFileSpecifiers = new string[] { GetThisTestAssemblyFilePath() },
@@ -353,7 +353,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 };
 
                 ExceptionTestHelper(
-                    ExceptionCondition.None,
+                    TestRuleBehaviors.None,
                     RuntimeConditions.ExceptionCreatingLogFile,
                     expectedExitReason: ExitReason.ExceptionCreatingLogFile,
                     analyzeOptions: options);
@@ -374,7 +374,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             };
 
             ExceptionTestHelper(
-                ExceptionCondition.None,
+                TestRuleBehaviors.None,
                 RuntimeConditions.MissingFile,
                 expectedExitReason: ExitReason.InvalidCommandLineOption,
                 analyzeOptions: options);
@@ -394,7 +394,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             };
 
             ExceptionTestHelper(
-                ExceptionCondition.None,
+                TestRuleBehaviors.None,
                 RuntimeConditions.MissingFile,
                 expectedExitReason: ExitReason.InvalidCommandLineOption,
                 analyzeOptions: options);
@@ -417,7 +417,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 // A missing output file is a good condition. :)
                 ExceptionTestHelper(
-                    ExceptionCondition.None,
+                    TestRuleBehaviors.None,
                     RuntimeConditions.None,
                     expectedExitReason: ExitReason.None,
                     analyzeOptions: options);
@@ -430,7 +430,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public void AnalyzeCommand_ReportsErrorOnInvalidInvocationPropertyName()
+        public void AnalyzeCommandBase_ReportsErrorOnInvalidInvocationPropertyName()
         {
             var options = new TestAnalyzeOptions()
             {
@@ -438,14 +438,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             };
 
             ExceptionTestHelper(
-                ExceptionCondition.None,
+                TestRuleBehaviors.None,
                 RuntimeConditions.InvalidCommandLineOption,
                 expectedExitReason: ExitReason.InvalidCommandLineOption,
                 analyzeOptions: options);
         }
 
         [Fact]
-        public void AnalyzeCommand_ReportsWarningOnUnsupportedPlatformForRule()
+        public void AnalyzeCommandBase_ReportsWarningOnUnsupportedPlatformForRule()
         {
             var options = new TestAnalyzeOptions()
             {
@@ -455,7 +455,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             // There are two default rules, so when this check is not on a supported platform, 
             // a single rule will still be loaded.
             ExceptionTestHelper(
-                ExceptionCondition.InvalidPlatform,
+                TestRuleBehaviors.TreatPlatformAsInvalid,
                 RuntimeConditions.RuleCannotRunOnPlatform,
                 expectedExitReason: ExitReason.None,
                 analyzeOptions: options);
@@ -463,7 +463,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
 
         [Fact]
-        public void AnalyzeCommand_ReportsWarningOnUnsupportedPlatformForRuleAndNoRulesLoaded()
+        public void AnalyzeCommandBase_ReportsWarningOnUnsupportedPlatformForRuleAndNoRulesLoaded()
         {
             PropertiesDictionary allRulesDisabledConfiguration = ExportConfigurationCommandBaseTests.s_allRulesDisabledConfiguration;
             string path = Path.GetTempFileName() + ".xml";
@@ -477,10 +477,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     ConfigurationFilePath = path
                 };
 
-                // There are two default rules.One of which is disabled by configuration,
+                // There are two default rules. One of which is disabled by configuration,
                 // the other is disabled as unsupported on current platform.
                 ExceptionTestHelper(
-                    ExceptionCondition.InvalidPlatform,
+                    TestRuleBehaviors.TreatPlatformAsInvalid,
                     RuntimeConditions.NoRulesLoaded | RuntimeConditions.RuleWasExplicitlyDisabled | RuntimeConditions.RuleCannotRunOnPlatform,
                     expectedExitReason: ExitReason.NoRulesLoaded,
                     analyzeOptions: options);
@@ -542,10 +542,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public void AnalyzeCommand_DefaultEndToEndAnalysis()
+        public void AnalyzeCommandBase_DefaultEndToEndAnalysis()
         {
             string location = GetThisTestAssemblyFilePath();
-            Run run = AnalyzeFile(location);
+
+            Run run = null;
+            try
+            {
+                TestRule.s_testRuleBehaviors = TestRuleBehaviors.LogError;
+                run = AnalyzeFile(location);
+            }
+            finally
+            {
+                TestRule.s_testRuleBehaviors = TestRuleBehaviors.None;
+            }
 
             int resultCount = 0;
             int toolNotificationCount = 0;
@@ -557,241 +567,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 (toolNotification) => { toolNotificationCount++; },
                 (configurationNotification) => { configurationNotificationCount++; });
 
-            // By default, the exception raising rule produces a single error.
-            // The simple test rule doesn't raise anything without add'l configuration
+            // As configured by injected TestRuleBehaviors, we should
+            // see an error per scan target (one file in this case).
             resultCount.Should().Be(1);
-            run.Results[0].Kind.Should().Equals(ResultKind.NotApplicable);
+            run.Results[0].Kind.Should().Be(ResultKind.Fail);
 
             toolNotificationCount.Should().Be(0);
             configurationNotificationCount.Should().Be(0);
         }
 
         [Fact]
-        public void AnalyzeCommand_CachesNotificationsWhenComputingTargetHashesWithoutPersistingToLogFile()
-        {
-            try
-            {
-                ExceptionRaisingRule.s_exceptionCondition = ExceptionCondition.LoadingPdb;
-
-                // TODO: even though this test raises an exception per binary, we are not persisting
-                // the results to a log file. We therefore validate against the console output. 
-                // The MSBuildConverter we use for this converts all console notifications to results.
-                RunTests(persistLogFileToDisk: false, raiseNotificationPerBinary: false, expectedReturnCode: FAILURE);
-            }
-            finally
-            {
-                ExceptionRaisingRule.s_exceptionCondition = ExceptionCondition.None;
-            }
-        }
-
-        [Fact]
-        public void AnalyzeCommand_CachesNotificationsWhenComputingTargetHashesAndPersistingToLogFile()
-        {
-            try
-            {
-                ExceptionRaisingRule.s_exceptionCondition = ExceptionCondition.LoadingPdb;
-                RunTests(persistLogFileToDisk: true, raiseNotificationPerBinary: true, expectedReturnCode: FAILURE);
-            }
-            finally
-            {
-                ExceptionRaisingRule.s_exceptionCondition = ExceptionCondition.None;
-            }
-        }
-
-
-        [Fact]
-        public void AnalyzeCommand_CachesResultsWhenComputingTargetHashesWithoutPersistingToLogFile()
-        {
-            RunTests(persistLogFileToDisk: false);
-        }
-
-        [Fact]
-        public void AnalyzeCommand_CachesResultsWhenComputingTargetHashesAndPersistingToLogFile()
-        {
-            RunTests(persistLogFileToDisk: true);
-        }
-
-        private static void RunTests(bool persistLogFileToDisk, bool raiseNotificationPerBinary = false, int expectedReturnCode = SUCCESS)
-        {
-            // TODO: we require a special case here currently because in cases where we are not persisting to a log file and we
-            // are raising an exception per binary, these notifications are converted to results by the MSBuildConverter. In 
-            // future, we should fix the converter to distinguish tool notifications somehow.
-            bool specialCase = !raiseNotificationPerBinary && expectedReturnCode == 1;
-
-            const string specifier = "*.dll";
-            const string myOutputFilePath = "output.sarif";
-            const string logFileContents = "Some testing occurred.";
-
-            string logFileDirectory = Path.Combine(".\\Users\\", Guid.NewGuid().ToString());
-            string logFilePath = Path.Combine(logFileDirectory, specifier);
-
-            // By convention, the simple test skimmer examines the file name in order
-            // to make a call on what level/kind classification to use when firing 
-            // against the file. 
-            var files = new string[9]
-            {
-                "Error.cpp",
-                "Note.dll",
-                "Warning.java",
-                "Pass.cs",
-                "NotApplicable.js",
-                "Error.exe",
-                "Informational.sys",
-                "Open.cab",
-                "Review.txt"
-            };
-
-            IFileSystem fileSystem = CreateMockFileSystem(files, specifier, logFileContents, logFileDirectory);
-
-            // TEST ONE: analyze, non-verbose, no hashing
-            var options = new TestAnalyzeOptions
-            {
-                OutputFilePath = persistLogFileToDisk ? myOutputFilePath : null,
-                TargetFileSpecifiers = new string[] { logFilePath },
-                ComputeFileHashes = false,
-                Verbose = false,
-            };
-
-            // The exception raising rule produces a location free warning for every analysis target in cases
-            // where the exception raising rule is not, in fact, raising exceptions. Otherwise, the exception
-            // raising rule will produce one of a range of notifications. For notifications like 'pdb load 
-            // error', there will still be a notification raised for each scan target (but no per-file result).
-            int baseWarningsCount = raiseNotificationPerBinary ? 0 : files.Count();
-
-            // When we run without caching results by hash, we should have a result for 
-            // every file that produces a failure level of some kind (error & warning only since not running verbose).
-            int expectedResultsCount = GetNonVerboseFailuresCount(files) + baseWarningsCount;
-
-            Run run = RunTest(fileSystem, options, expectedResultsCount, expectedReturnCode);
-            IList<Result> results = run.Results;
-            IList<Notification> notifications = run.Invocations?[0].ToolConfigurationNotifications;
-
-            // TEST TWO: Now we will repeat the test but specify file hash computation. As a result, we
-            // should produce cached results that are duplicated across every file (because
-            // our mocking framework produces an identical hash for every file). 
-            options.Verbose = false;
-            options.ComputeFileHashes = true;
-            expectedResultsCount = files.Count() + baseWarningsCount;
-
-            run = RunTest(fileSystem, options, expectedResultsCount, expectedReturnCode);
-            results = run.Results;
-            notifications = run.Invocations?[0].ToolConfigurationNotifications;
-
-            results.Where(r => r.Level == FailureLevel.Error).Count().Should().Be(files.Count() + (specialCase ? files.Count() : 0));
-            results.Where(r => r.Level == FailureLevel.Warning).Count().Should().Be(specialCase ? 0 : baseWarningsCount);
-
-            // TEST THREE: Enable verbose mode and eliminate hashing/results caching
-            options.Verbose = true;
-            options.ComputeFileHashes = false;
-
-            expectedResultsCount = files.Count() + baseWarningsCount;
-            results = RunTest(fileSystem, options, expectedResultsCount, expectedReturnCode).Results;
-
-            results.Where(r => r.Level == FailureLevel.Note).Count().Should().Be(files.Where(f => f.Contains("Note")).Count());
-            results.Where(r => r.Level == FailureLevel.Error).Count().Should().Be(files.Where(f => f.Contains("Error")).Count() + (specialCase ? files.Count() : 0));
-            results.Where(r => r.Level == FailureLevel.Warning).Count().Should().Be(files.Where(f => f.Contains("Warning")).Count() + (specialCase ? 0 : baseWarningsCount));
-
-            results.Where(r => r.Level == FailureLevel.None).Count().Should().Be(GetNonFailingFilesCount(files));
-            results.Where(r => r.Kind == ResultKind.Pass).Count().Should().Be(files.Where(f => f.Contains("Pass")).Count());
-            results.Where(r => r.Kind == ResultKind.Open).Count().Should().Be(files.Where(f => f.Contains("Open")).Count());
-            results.Where(r => r.Kind == ResultKind.Review).Count().Should().Be(files.Where(f => f.Contains("Review")).Count());
-            results.Where(r => r.Kind == ResultKind.Informational).Count().Should().Be(files.Where(f => f.Contains("Informational")).Count());
-            results.Where(r => r.Kind == ResultKind.NotApplicable).Count().Should().Be(files.Where(f => f.Contains("NotApplicable")).Count());
-        }
-
-        private static int GetNonVerboseFailuresCount(string[] files)
-        {
-            return files.Where(f =>
-                f.Contains("Error") ||
-                f.Contains("Warning")).Count();
-        }
-
-        private static int GetNonFailingFilesCount(string[] files)
-        {
-            return files.Where(f =>
-                f.Contains("Informational") ||
-                f.Contains("Review") ||
-                f.Contains("Open") ||
-                f.Contains("NotApplicable") ||
-                f.Contains("Pass")).Count();
-        }
-
-        private static IFileSystem CreateMockFileSystem(string[] files, string specifier, string logFileContents, string logFileDirectory)
-        {
-            var mockFileSystem = new Mock<IFileSystem>();
-
-            mockFileSystem.Setup(x => x.DirectoryExists(logFileDirectory)).Returns(true);
-            mockFileSystem.Setup(x => x.GetDirectoriesInDirectory(It.IsAny<string>())).Returns(new string[0]);
-            mockFileSystem.Setup(x => x.GetFilesInDirectory(logFileDirectory, specifier)).Returns(files);
-
-            for (int i = 0; i < files.Length; i++)
-            {
-                mockFileSystem.Setup(x => x.ReadAllText(files[i])).Returns(logFileContents);
-                mockFileSystem.Setup(x => x.OpenRead(Environment.CurrentDirectory + @"\" + files[i])).Returns(new MemoryStream(Encoding.UTF8.GetBytes(logFileContents)));
-//                mockFileSystem.Setup(x => x.OpenRead(Path.Combine(Environment.CurrentDirectory, files[i]))).Returns(new MemoryStream(Encoding.UTF8.GetBytes(logFileContents)));
-        }
-            return mockFileSystem.Object;
-        }
-
-        private static Run RunTest(IFileSystem fileSystem, TestAnalyzeOptions options, int expectedResultsCount, int expectedReturnCode = 0)
-        {
-            SarifLog sarifLog = RunAnalyzeCommand(options, fileSystem, expectedReturnCode);
-            Run run = sarifLog.Runs[0];
-            IList<Result> results = run.Results;
-            results.Count.Should().Be(expectedResultsCount);
-            return run;
-        }
-
-        private static SarifLog RunAnalyzeCommand(TestAnalyzeOptions options, IFileSystem fileSystem = null, int expectedReturnCode = 0)
-        {
-            // If no log file is specified, we will convert the console output into a log file
-            bool captureConsoleOutput = string.IsNullOrEmpty(options.OutputFilePath); 
-
-            var command = new TestAnalyzeCommand(fileSystem) { _captureConsoleOutput = captureConsoleOutput };
-            command.DefaultPlugInAssemblies = new Assembly[] { typeof(AnalyzeCommandBaseTests).Assembly };
-
-            try
-            {
-                HashUtilities.FileSystem = fileSystem;
-                command.Run(options).Should().Be(expectedReturnCode);
-            }
-            finally
-            {
-                HashUtilities.FileSystem = null;
-            }
-
-            SarifLog sarifLog = null;
-
-            if (captureConsoleOutput)
-            {
-                var converter = new MSBuildConverter(verbose: true);
-
-                var sb = new StringBuilder();
-
-                using (var input = new MemoryStream(Encoding.UTF8.GetBytes(command._consoleLogger.CapturedOutput)))
-                using (var outputTextWriter = new StringWriter(sb))
-                using (var outputJson = new JsonTextWriter(outputTextWriter))
-                using (var output = new ResultLogJsonWriter(outputJson))
-                {
-                    converter.Convert(input, output, OptionallyEmittedData.None);
-                }
-                sarifLog = JsonConvert.DeserializeObject<SarifLog>(sb.ToString());
-            }
-            else
-            {
-                sarifLog = JsonConvert.DeserializeObject<SarifLog>(File.ReadAllText(options.OutputFilePath));
-            }
-
-            return sarifLog;
-        }
-
-        Stream CreateStreamAgainstString(string text)
-        {
-            return new MemoryStream(Encoding.UTF8.GetBytes(text));
-        }
-
-        [Fact]
-        public void AnalyzeCommand_PersistsSarifOneZeroZero()
+        public void AnalyzeCommandBase_PersistsSarifOneZeroZero()
         {
             string fileName = GetThisTestAssemblyFilePath();
             string path = Path.GetTempFileName();
@@ -837,10 +623,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public void AnalyzeCommand_FireDefaultRule()
+        public void AnalyzeCommandBase_RunDefaultRules()
         {
             string location = GetThisTestAssemblyFilePath();
-            Run run = AnalyzeFile(location);
+
+            Run run = null;
+            try
+            {
+                TestRule.s_testRuleBehaviors = TestRuleBehaviors.LogError;
+                run = AnalyzeFile(location);
+            }
+            finally
+            {
+                TestRule.s_testRuleBehaviors = TestRuleBehaviors.None;
+            }
 
             int resultCount = 0;
             int toolNotificationCount = 0;
@@ -852,23 +648,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 (toolNotification) => { toolNotificationCount++; },
                 (configurationNotification) => { configurationNotificationCount++; });
 
-            // By default, the exception raising rule produces a single error.
-            // The simple test rule doesn't raise anything without add'l configuration
+            // As configured by the inject TestRuleBehaviors value, we should see 
+            // an error for every scan target (of which there is one file in this test).
             resultCount.Should().Be(1);
-            run.Results[0].Level.Should().Be(FailureLevel.Warning);
+            run.Results[0].Level.Should().Be(FailureLevel.Error);
 
             toolNotificationCount.Should().Be(0);
             configurationNotificationCount.Should().Be(0);
         }
 
         [Fact]
-        public void AnalyzeCommand_FireAllRules()
+        public void AnalyzeCommandBase_FireAllRules()
         {
             PropertiesDictionary configuration = ExportConfigurationCommandBaseTests.s_defaultConfiguration;
 
             string path = Path.GetTempFileName() + ".xml";
 
-            configuration.SetProperty(SimpleTestRule.Behaviors, TestRuleBehaviors.LogError);
+            configuration.SetProperty(TestRule.Behaviors, TestRuleBehaviors.LogError);
 
             try
             {
@@ -888,12 +684,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     (toolNotification) => { toolNotificationCount++; },
                     (configurationNotification) => { configurationNotificationCount++; });
 
-                // By default, the exception raising rule produces a single error.
-                // The simple test rule doesn't raise anything without add'l configuration
-                resultCount.Should().Be(2);
+                // As configured by context, we should see a single error raised. 
+                resultCount.Should().Be(1);
                 run.Results.Where((result) => result.Level == FailureLevel.Error).Count().Should().Be(1);
-                run.Results.Where((result) => result.Level == FailureLevel.Warning).Count().Should().Be(1);
-                run.Results.Where((result) => result.Kind == ResultKind.NotApplicable).Count().Should().Be(0);
 
                 toolNotificationCount.Should().Be(0);
                 configurationNotificationCount.Should().Be(0);
@@ -905,7 +698,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public void AnalyzeCommand_EndToEndAnalysisWithExplicitlyDisabledRules()
+        public void AnalyzeCommandBase_EndToEndAnalysisWithExplicitlyDisabledRules()
         {
             PropertiesDictionary allRulesDisabledConfiguration = ExportConfigurationCommandBaseTests.s_allRulesDisabledConfiguration;
             string path = Path.GetTempFileName() + ".xml";
@@ -936,7 +729,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 // disabled check that documents it was turned off for the analysis.
                 resultCount.Should().Be(0);
 
-                // Three notifications. One for each disabled rule, i.e. ExceptionRaisingRule
+                // Three notifications. One for each disabled rule, i.e. SimpleTestRule
                 // and SimpleTestRule + an error notification that all rules have been disabled
                 configurationNotificationCount.Should().Be(3);
 
@@ -971,7 +764,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         [InlineData("default", true, null)]
         [InlineData("test-newconfig.xml", false, "test-newconfig.xml")]
         [InlineData("test-newconfig.xml", true, "test-newconfig.xml")]
-        public void AnalyzeCommand_LoadConfigurationFile(string configValue, bool defaultFileExists, string expectedFileName)
+        public void AnalyzeCommandBase_LoadConfigurationFile(string configValue, bool defaultFileExists, string expectedFileName)
         {
             var options = new TestAnalyzeOptions
             {
@@ -986,22 +779,436 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             };
 
             var command = new TestAnalyzeCommand();
-            
+
             string fileName = command.GetConfigurationFileName(options, defaultFileExists);
-            if(string.IsNullOrEmpty(expectedFileName))
+            if (string.IsNullOrEmpty(expectedFileName))
             {
                 fileName.Should().BeNull();
-            } else
+            }
+            else
             {
                 fileName.Should().EndWith(expectedFileName);
             }
         }
-
 
         private static string GetThisTestAssemblyFilePath()
         {
             string filePath = typeof(AnalyzeCommandBaseTests).Assembly.Location;
             return filePath;
         }
+
+        [Fact]
+        public void AnalyzeCommandBase_UpdateLocationsAndMessageWithCurrentUri()
+        {
+            Uri uri = new Uri(@"c:\directory\test.txt", UriKind.RelativeOrAbsolute);
+            Notification actualNotification = BuildTestNotification(uri);
+
+            Uri updatedUri = new Uri(@"c:\updated\directory\newFileName.txt", UriKind.RelativeOrAbsolute);
+            Notification expectedNotification = BuildTestNotification(updatedUri);
+
+            AnalyzeCommandBase<TestAnalysisContext, AnalyzeOptionsBase>
+                .UpdateLocationsAndMessageWithCurrentUri(actualNotification.Locations, actualNotification.Message, updatedUri);
+
+            actualNotification.Should().BeEquivalentTo(expectedNotification);
+        }
+
+        private static Notification BuildTestNotification(Uri uri)
+        {
+            string filePath = uri.OriginalString;
+            string fileName = Path.GetFileName(uri.OriginalString);
+            return new Notification
+            {
+                Locations = new List<Location>
+                {
+                    new Location
+                    {
+                        PhysicalLocation = new PhysicalLocation
+                        {
+                            ArtifactLocation = new ArtifactLocation
+                            {
+                                Uri = uri
+                            }
+                        }
+                    }
+                },
+                Message = new Message
+                {
+                    Arguments = new List<string> { filePath, fileName },
+                    Text = string.Format(@"Found an issue in {0} (full path is {1}", filePath, fileName)
+                }
+            };
+        }
+
+        [Fact]
+        public void AnalyzeCommandBase_GetFileNameFromUriWorks()
+        {
+            var sb = new StringBuilder();
+
+            var testCases = new Tuple<string, string>[]
+            {
+                new Tuple<string, string>(null, null),
+                new Tuple<string, string>(@"file.txt", "file.txt"),
+                new Tuple<string, string>(@".\file.txt", "file.txt"),
+                new Tuple<string, string>(@"c:\directory\file.txt", "file.txt"),
+                new Tuple<string, string>(@"\\computer\computer\file.txt", "file.txt"),
+                new Tuple<string, string>(@"file://directory/file.txt", "file.txt"),
+                new Tuple<string, string>(@"/file.txt", "file.txt"),
+                new Tuple<string, string>(@"directory/file.txt", "file.txt"),
+            };
+
+            foreach (Tuple<string, string> testCase in testCases)
+            {
+                Uri uri = testCase.Item1 != null ? new Uri(testCase.Item1, UriKind.RelativeOrAbsolute) : null;
+                string expectedFileName = testCase.Item2;
+
+                string actualFileName = AnalyzeCommandBase<TestAnalysisContext, AnalyzeOptionsBase>.GetFileNameFromUri(uri);
+
+                if (!object.Equals(actualFileName, expectedFileName))
+                {
+                    sb.AppendLine(string.Format("Incorrect file name returned for uri '{0}'. Expected '{1}' but saw '{2}'.", uri, expectedFileName, actualFileName));
+                }
+            }
+            sb.Length.Should().Be(0, because: "all URI to file name conversions should succeed but the following cases failed." + Environment.NewLine + sb.ToString());
+        }
+
+        #region ResultsCachingTestsAndHelpers
+
+        [Fact]
+        public void AnalyzeCommandBase_CachesErrors()
+        {
+            // Produce two errors results
+            var testCase = new ResultsCachingTestCase()
+            {
+                Files = new List<string> { "Error.dll", "Error.exe" }
+            };
+
+            RunResultsCachingTestCase(testCase);
+
+            testCase.Verbose = true;
+            RunResultsCachingTestCase(testCase);
+        }
+
+
+        [Fact]
+        public void AnalyzeCommandBase_CachesNotes()
+        {
+            // Produce three results in verbose runs only
+            var testCase = new ResultsCachingTestCase()
+            {
+                Files = new List<string> { "Note.dll", "Note.exe", "Note.sys" }
+            };
+
+            // Notes are verbose only results
+            testCase.ExpectedResultsCount.Should().Be(0);
+            testCase.ExpectedNoteCount.Should().Be(0);
+
+            RunResultsCachingTestCase(testCase);
+
+            testCase.Verbose = true;
+
+            testCase.ExpectedResultsCount.Should().Be(testCase.Files.Count);
+            testCase.ExpectedNoteCount.Should().Be(testCase.Files.Count);
+
+            RunResultsCachingTestCase(testCase);
+        }
+
+        [Fact]
+        public void AnalyzeCommandBase_CachesNotificationsWithoutPersistingToLogFile()
+        {
+            var testCase = new ResultsCachingTestCase
+            {
+                Files = ComprehensiveKindAndLevelsByFileName,
+                TestRuleBehaviors = TestRuleBehaviors.RaiseLoadingPdbError,
+                ExpectedReturnCode = FAILURE,
+            };
+
+            RunResultsCachingTestCase(testCase);
+
+            testCase.Verbose = true;
+            RunResultsCachingTestCase(testCase);
+        }
+
+        [Fact]
+        public void AnalyzeCommandBase_CachesNotificationsWhenPersistingToLogFile()
+        {
+            var testCase = new ResultsCachingTestCase
+            {
+                Files = ComprehensiveKindAndLevelsByFileName,
+                PersistLogFileToDisk = true,
+                TestRuleBehaviors = TestRuleBehaviors.RaiseLoadingPdbError,
+                ExpectedReturnCode = FAILURE,
+            };
+
+            RunResultsCachingTestCase(testCase);
+
+            testCase.Verbose = true;
+            RunResultsCachingTestCase(testCase);
+        }
+
+        [Fact]
+        public void AnalyzeCommandBase_CachesResultsWithoutPersistingToLogFile()
+        {
+            var testCase = new ResultsCachingTestCase
+            {
+                Files = ComprehensiveKindAndLevelsByFileName,
+                PersistLogFileToDisk = false,
+            };
+
+            RunResultsCachingTestCase(testCase);
+
+            testCase.Verbose = true;
+            RunResultsCachingTestCase(testCase);
+        }
+
+        [Fact]
+        public void AnalyzeCommandBase_CachesResultsWhenPersistingToLogFile()
+        {
+            var testCase = new ResultsCachingTestCase
+            {
+                Files = ComprehensiveKindAndLevelsByFileName,
+                PersistLogFileToDisk = true,
+            };
+
+            RunResultsCachingTestCase(testCase);
+
+            testCase.Verbose = true;
+            RunResultsCachingTestCase(testCase);
+        }
+
+        private static readonly IList<string> ComprehensiveKindAndLevelsByFileName = new List<string>(new string[20]
+            {
+                // Every one of these files will be regarded as identical in content by level/kind. So every file
+                // with 'Error' as a prefix should produce an error result, whether using results caching or not.
+                // We distinguish file names as this is required in the actual scenario, i.e., when 'replaying'
+                // cached results we must retain the unique fully qualified directory + file name for each copy.
+                // In actual production systems, this differentiation mostly occurs by directory name (i.e., copies
+                // of files tend to have the same name but appear in different directories). For a source code scanner, 
+                // however, two files in the same directory may hash the same (an empty file that produces no scan
+                // results is an obvious case).
+                "Error.1.of.5.cpp",
+                "Error.2.of.5.cs",
+                "Error.3.of.5.exe",
+                "Error.4.of.5.h",
+                "Error.5.of.5.sys",
+                "Warning.1.of.2.java",
+                "Warning.2.of.2.cs",
+                "Note.1.of.3.dll",
+                "Note.2.of.3.exe",
+                "Note.3.of.3jar",
+                "Pass.1.of.4.cs",
+                "Pass.2.of.4.cpp",
+                "Pass.3.of.4.exe",
+                "Pass.4.of.4.dll",
+                "NotApplicable.1.of.2.js",
+                "NotApplicable.2.of.2.exe",
+                "Informational.1.of.1.sys",
+                "Open.1.of.1.cab",
+                "Review.1.of.2.txt",
+                "Review.2.of.2.dll"
+            });
+
+        private static void RunResultsCachingTestCase(ResultsCachingTestCase testCase)
+        {
+            // This makes sure that we will reinitialize the mock file system. This
+            // allows callers to reuse test case instances, by adjusting specific 
+            // property values. The mock file system cannot be reused in this way, once
+            // a test executes, it must be reset.
+            testCase.FileSystem = null;
+
+            var options = new TestAnalyzeOptions
+            {
+                OutputFilePath = testCase.PersistLogFileToDisk ? Guid.NewGuid().ToString() : null,
+                TargetFileSpecifiers = new string[] { Guid.NewGuid().ToString() },
+                Verbose = testCase.Verbose,
+                ComputeFileHashes = false,
+            };
+
+            int expectedResultsCount = testCase.ExpectedWarningCount + testCase.ExpectedErrorCount;
+            Run runWithoutCaching = RunAnalyzeCommand(options, testCase);
+
+            options.ComputeFileHashes = true;
+            Run runWithCaching = RunAnalyzeCommand(options, testCase);
+
+            // Core static analysis results
+            runWithCaching.Results.Should().BeEquivalentTo(runWithoutCaching.Results);
+
+            // Tool configuration errors, such as 'Could not locate scan target PDB.'
+            runWithoutCaching.Invocations?[0].ToolConfigurationNotifications?.Should()
+                .BeEquivalentTo(runWithCaching.Invocations?[0].ToolConfigurationNotifications);
+
+            // Not yet explicitly tested
+            runWithoutCaching.Invocations?[0].ToolExecutionNotifications?.Should()
+                .BeEquivalentTo(runWithCaching.Invocations?[0].ToolExecutionNotifications);
+        }
+
+        private static IFileSystem CreateDefaultFileSystemForResultsCaching(IList<string> files)
+        {
+            // This helper creates a file system that returns the same file contents for
+            // every file passed in the 'files' argument.
+
+            string logFileContents = Guid.NewGuid().ToString();
+
+            var mockFileSystem = new Mock<IFileSystem>();
+
+            mockFileSystem.Setup(x => x.DirectoryExists(It.IsAny<string>())).Returns(true);
+            mockFileSystem.Setup(x => x.GetDirectoriesInDirectory(It.IsAny<string>())).Returns(new string[0]);
+            mockFileSystem.Setup(x => x.GetFilesInDirectory(It.IsAny<string>(), It.IsAny<string>())).Returns(files);
+
+            for (int i = 0; i < files.Count; i++)
+            {
+                string fullyQualifiedName = Environment.CurrentDirectory + @"\" + files[i];
+                string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fullyQualifiedName);
+                mockFileSystem.Setup(x => x.ReadAllText(It.Is<string>(f => f == fullyQualifiedName))).Returns(logFileContents);
+
+                mockFileSystem.Setup(x => x.OpenRead(It.Is<string>(f => f == fullyQualifiedName)))
+                    .Returns(new MemoryStream(Encoding.UTF8.GetBytes(fileNameWithoutExtension)));
+            }
+            return mockFileSystem.Object;
+        }
+
+        private static Run RunAnalyzeCommand(TestAnalyzeOptions options, ResultsCachingTestCase testCase)
+        {
+            Run run = null;
+            SarifLog sarifLog;
+            try
+            {
+                TestRule.s_testRuleBehaviors = testCase.TestRuleBehaviors;
+                sarifLog = RunAnalyzeCommand(options, testCase.FileSystem, testCase.ExpectedReturnCode);
+                run = sarifLog.Runs[0];
+
+                run.Results.Count.Should().Be(testCase.ExpectedResultsCount);
+            }
+            finally
+            {
+                TestRule.s_testRuleBehaviors = TestRuleBehaviors.None;
+            }
+            return run;
+        }
+
+        private static SarifLog RunAnalyzeCommand(TestAnalyzeOptions options, IFileSystem fileSystem, int expectedReturnCode)
+        {
+            // If no log file is specified, we will convert the console output into a log file
+            bool captureConsoleOutput = string.IsNullOrEmpty(options.OutputFilePath);
+
+            var command = new TestAnalyzeCommand(fileSystem) { _captureConsoleOutput = captureConsoleOutput };
+            command.DefaultPlugInAssemblies = new Assembly[] { typeof(AnalyzeCommandBaseTests).Assembly };
+
+            try
+            {
+                HashUtilities.FileSystem = fileSystem;
+                command.Run(options).Should().Be(expectedReturnCode);
+            }
+            finally
+            {
+                HashUtilities.FileSystem = null;
+            }
+
+            return captureConsoleOutput 
+                ? ConvertConsoleOutputToSarifLog(command._consoleLogger.CapturedOutput)
+                : JsonConvert.DeserializeObject<SarifLog>(File.ReadAllText(options.OutputFilePath));
+        }
+
+        private static SarifLog ConvertConsoleOutputToSarifLog(string consoleOutput)
+        {
+            var sb = new StringBuilder();
+            var converter = new MSBuildConverter(verbose: true);
+
+            using (var input = new MemoryStream(Encoding.UTF8.GetBytes(consoleOutput)))
+            using (var outputTextWriter = new StringWriter(sb))
+            using (var outputJson = new JsonTextWriter(outputTextWriter))
+            using (var output = new ResultLogJsonWriter(outputJson))
+            {
+                converter.Convert(input, output, OptionallyEmittedData.None);
+            }
+            return JsonConvert.DeserializeObject<SarifLog>(sb.ToString());
+        }
+
+        private class ResultsCachingTestCase
+        {
+            private IFileSystem _fileSystem;
+
+            public ResultsCachingTestCase()
+            {
+                ExpectedReturnCode = SUCCESS;
+            }
+
+            public bool Verbose;
+
+            public IList<string> Files;
+
+            public IFileSystem FileSystem
+            {
+                get
+                {
+                    if (_fileSystem == null)
+                    {
+                        _fileSystem = CreateDefaultFileSystemForResultsCaching(Files);
+                    }
+                    return _fileSystem;
+                }
+
+                set => _fileSystem = value;
+            }
+
+            public int ExpectedReturnCode;
+
+            public int ExpectedResultsCount =>
+                // Non-verbose results
+                (ExpectedErrorCount + ExpectedWarningCount) +
+                // Verbose results
+                (Verbose
+                    ? ExpectedNoteCount + ExpectedPassCount + ExpectedInformationalCount +
+                      ExpectedOpenCount + ExpectedReviewCount + ExpectedNotApplicableCount
+                    : 0);
+
+            public int ExpectedErrorCount =>
+                Files.Count((f) => f.Contains("Error")) +
+                // For our special case, all files except for those that are marked as 'not applicable' will
+                // produce a 'pdb load' notification that will be converted to an error. The not applicable
+                // cases will not do this, because the return of 'not applicable' from the CanAnalyze
+                // method will result in Analyze not getting called subsequently for those scan targets.
+                (NotificationsWillBeConvertedToErrorResults 
+                    ? Files.Count() - Files.Where((f) => f.Contains("NotApplicable")).Count()
+                    : 0);
+
+            public int ExpectedWarningCount =>
+                Files.Where((f) => f.Contains("Warning")).Count();
+
+            public int ExpectedNoteCount => Verbose
+                ? Files.Where((f) => f.Contains("Note")).Count()
+                : 0;
+
+            public int ExpectedPassCount => Verbose
+                ? Files.Where((f) => f.Contains("Pass")).Count()
+                : 0;
+
+            public int ExpectedInformationalCount => Verbose
+                ? Files.Where((f) => f.Contains("Informational")).Count()
+                : 0;
+
+            public int ExpectedReviewCount => Verbose
+                ? Files.Where((f) => f.Contains("Review")).Count()
+                : 0;
+
+            public int ExpectedOpenCount => Verbose
+                ? Files.Where((f) => f.Contains("Open")).Count()
+                : 0;
+
+            public int ExpectedNotApplicableCount => Verbose
+                ? Files.Where((f) => f.Contains("NotApplicable")).Count()
+                : 0;
+
+            public bool PersistLogFileToDisk;
+
+            public TestRuleBehaviors TestRuleBehaviors;
+
+            // This is a special knob that that accounts for a current SDK behavior.
+            // Specifically, the MSBuildConverter currently transforms all notifications
+            // to results. This will require us to recompute expected notification vs.
+            // results counts depending on whether we are examining the console output
+            // or an actual persisted log file to validate outcomes.
+            bool NotificationsWillBeConvertedToErrorResults => TestRuleBehaviors == TestRuleBehaviors.RaiseLoadingPdbError && !PersistLogFileToDisk;
+        }
+        #endregion ResultsCachingTestsAndHelpers
     }
 }
