@@ -212,6 +212,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public bool Verbose { get { return _loggingOptions.HasFlag(LoggingOptions.Verbose); } }
 
+        // Whether to omit redundant properties; log become non-human-readable but much smaller.
+        // We haven't decided how to expose this, so I'm putting the property to control the relevant code without an external way to set it yet.
+        public bool Optimized { get; internal set; } = true;
+
         public virtual void Dispose()
         {
             // Disposing the json writer closes the stream but the textwriter 
@@ -407,8 +411,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 encoding);
 
             // Remove redundant Uri and UriBaseId once index has been set
-            fileLocation.Uri = null;
-            fileLocation.UriBaseId = null;
+            if (this.Optimized)
+            {
+                fileLocation.Uri = null;
+                fileLocation.UriBaseId = null;
+            }
         }
 
         public void AnalyzingTarget(IAnalysisContext context)

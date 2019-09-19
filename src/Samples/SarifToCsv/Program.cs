@@ -25,9 +25,9 @@ namespace SarifToCsv
     {
         public static void Main(string[] args)
         {
-            if (args.Length < 2)
+            if (args.Length < 1)
             {
-                Console.WriteLine("Usage: SarifToCsv [sarifFileOrFolderPath] [csvFilePath] [columnNamesCommaDelimited?]");
+                Console.WriteLine("Usage: SarifToCsv [sarifFileOrFolderPath] [csvFilePath?] [columnNamesCommaDelimited?]");
                 Console.WriteLine("  Column Names are configured in SarifToCsv.exe.config, in the 'ColumnNames' property.");
                 Console.WriteLine($"  Available Column Names:\r\n\t{String.Join("\r\n\t", SarifCsvColumnWriters.SupportedColumns)}");
 
@@ -37,7 +37,7 @@ namespace SarifToCsv
             try
             {
                 string sarifFilePath = args[0];
-                string csvFilePath = args[1];
+                string csvFilePath = (args.Length > 1 ? args[1] : Path.ChangeExtension(args[0], ".csv"));
                 IEnumerable<string> columnNames = (args.Length > 2 ? args[2] : ConfigurationManager.AppSettings["ColumnNames"]).Split(',').Select((value) => value.Trim());
                 bool removeNewlines = bool.Parse(ValueOrDefault(ConfigurationManager.AppSettings["RemoveNewlines"], "false"));
 

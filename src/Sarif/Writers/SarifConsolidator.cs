@@ -282,8 +282,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             if (!this.RegionComponentsToKeep.HasFlag(RegionComponents.ByteOffsetAndLength)
                 && (region.CharOffset >= 0 || region.StartLine > 0))
             {
-                region.CharOffset = -1;
-                region.CharLength = 0;
+                region.ByteOffset = -1;
+                region.ByteLength = 0;
             }
 
             if (!this.RegionComponentsToKeep.HasFlag(RegionComponents.CharOffsetAndLength)
