@@ -3,70 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "PREfast",
-          "fullName": "PREfast Code Analysis"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
-            "index": 0
-          }
-        }
-      ],
-      "logicalLocations": [
-        {
-          "fullyQualifiedName": "HResultSucceeded",
-          "decoratedName": "?HResultSucceeded@@YAXJ@Z"
-        },
-        {
-          "fullyQualifiedName": "HResultSucceeded2",
-          "decoratedName": "?HResultSucceeded2@@YAXJ_N@Z"
-        },
-        {
-          "fullyQualifiedName": "HResultSucceeded3",
-          "decoratedName": "?HResultSucceeded3@@YAXJ_N0@Z"
-        },
-        {
-          "fullyQualifiedName": "HResultSucceeded4",
-          "decoratedName": "?HResultSucceeded4@@YAXJ@Z"
-        },
-        {
-          "fullyQualifiedName": "HResultFailed",
-          "decoratedName": "?HResultFailed@@YAXJ@Z"
-        },
-        {
-          "fullyQualifiedName": "HResultFailed2",
-          "decoratedName": "?HResultFailed2@@YAXJ_N@Z"
-        },
-        {
-          "fullyQualifiedName": "HResultFailed3",
-          "decoratedName": "?HResultFailed3@@YAXJ_N0@Z"
-        },
-        {
-          "fullyQualifiedName": "HResultFailed4",
-          "decoratedName": "?HResultFailed4@@YAXJ@Z"
-        },
-        {
-          "fullyQualifiedName": "HResultSFalse",
-          "decoratedName": "?HResultSFalse@@YAXJ@Z"
-        },
-        {
-          "fullyQualifiedName": "HResultSFalse2",
-          "decoratedName": "?HResultSFalse2@@YAXJ_N0@Z"
-        },
-        {
-          "fullyQualifiedName": "HResultSOk",
-          "decoratedName": "?HResultSOk@@YAXJ@Z"
-        },
-        {
-          "fullyQualifiedName": "HResultSOk2",
-          "decoratedName": "?HResultSOk2@@YAXJ@Z"
-        }
-      ],
       "results": [
         {
           "ruleId": "6011",
@@ -1231,6 +1167,69 @@
             "rank": "4",
             "ruleCategory": "mspft"
           }
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp"
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "HResultSucceeded",
+          "decoratedName": "?HResultSucceeded@@YAXJ@Z"
+        },
+        {
+          "fullyQualifiedName": "HResultSucceeded2",
+          "decoratedName": "?HResultSucceeded2@@YAXJ_N@Z"
+        },
+        {
+          "fullyQualifiedName": "HResultSucceeded3",
+          "decoratedName": "?HResultSucceeded3@@YAXJ_N0@Z"
+        },
+        {
+          "fullyQualifiedName": "HResultSucceeded4",
+          "decoratedName": "?HResultSucceeded4@@YAXJ@Z"
+        },
+        {
+          "fullyQualifiedName": "HResultFailed",
+          "decoratedName": "?HResultFailed@@YAXJ@Z"
+        },
+        {
+          "fullyQualifiedName": "HResultFailed2",
+          "decoratedName": "?HResultFailed2@@YAXJ_N@Z"
+        },
+        {
+          "fullyQualifiedName": "HResultFailed3",
+          "decoratedName": "?HResultFailed3@@YAXJ_N0@Z"
+        },
+        {
+          "fullyQualifiedName": "HResultFailed4",
+          "decoratedName": "?HResultFailed4@@YAXJ@Z"
+        },
+        {
+          "fullyQualifiedName": "HResultSFalse",
+          "decoratedName": "?HResultSFalse@@YAXJ@Z"
+        },
+        {
+          "fullyQualifiedName": "HResultSFalse2",
+          "decoratedName": "?HResultSFalse2@@YAXJ_N0@Z"
+        },
+        {
+          "fullyQualifiedName": "HResultSOk",
+          "decoratedName": "?HResultSOk@@YAXJ@Z"
+        },
+        {
+          "fullyQualifiedName": "HResultSOk2",
+          "decoratedName": "?HResultSOk2@@YAXJ@Z"
         }
       ],
       "columnKind": "utf16CodeUnits"

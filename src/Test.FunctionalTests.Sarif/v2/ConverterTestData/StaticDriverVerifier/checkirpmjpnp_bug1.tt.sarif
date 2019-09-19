@@ -3,25 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "StaticDriverVerifier"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "../../../rules/WDM/CheckIrpMjPnp.slic",
-            "index": 0
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
-            "index": 1
-          }
-        }
-      ],
       "results": [
         {
           "kind": "pass",
@@ -2554,6 +2535,23 @@
               ]
             }
           ]
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "StaticDriverVerifier"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "../../../rules/WDM/CheckIrpMjPnp.slic"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+          }
         }
       ],
       "columnKind": "utf16CodeUnits"

@@ -11,6 +11,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
     ///  the byte offset in the stream where the current token begins. It is used to
     ///  enable deferred collections, which look like other collections but are deserialized
     ///  only when enumerated, saving memory.
+    ///  
+    ///  JsonPositionedTextReader requires a *streamProvider* function which can
+    ///  open the desired stream multiple times. This is so that deferred collections
+    ///  made from the reader pass know how to open another copy of the file to
+    ///  read individual elements when the calling code enumerates them later.
     /// </summary>
     public class JsonPositionedTextReader : JsonTextReader
     {

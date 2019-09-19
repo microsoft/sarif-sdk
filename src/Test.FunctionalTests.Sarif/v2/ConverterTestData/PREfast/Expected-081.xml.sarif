@@ -3,38 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "PREfast",
-          "fullName": "PREfast Code Analysis"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "file:///c:/somepath/test081.cpp",
-            "index": 0
-          }
-        }
-      ],
-      "logicalLocations": [
-        {
-          "fullyQualifiedName": "f",
-          "decoratedName": "?f@@YAXII@Z"
-        },
-        {
-          "fullyQualifiedName": "TestSafeInt",
-          "decoratedName": "?TestSafeInt@@YAXII@Z"
-        },
-        {
-          "fullyQualifiedName": "R16_c",
-          "decoratedName": "?R16_c@@YAXG@Z"
-        },
-        {
-          "fullyQualifiedName": "R16_f",
-          "decoratedName": "?R16_f@@YAXF@Z"
-        }
-      ],
       "results": [
         {
           "ruleId": "26000",
@@ -485,6 +453,37 @@
               ]
             }
           ]
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///c:/somepath/test081.cpp"
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "f",
+          "decoratedName": "?f@@YAXII@Z"
+        },
+        {
+          "fullyQualifiedName": "TestSafeInt",
+          "decoratedName": "?TestSafeInt@@YAXII@Z"
+        },
+        {
+          "fullyQualifiedName": "R16_c",
+          "decoratedName": "?R16_c@@YAXG@Z"
+        },
+        {
+          "fullyQualifiedName": "R16_f",
+          "decoratedName": "?R16_f@@YAXF@Z"
         }
       ],
       "columnKind": "utf16CodeUnits"

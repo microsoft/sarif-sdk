@@ -3,30 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "PREfast",
-          "fullName": "PREfast Code Analysis"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantbranch.cpp",
-            "index": 0
-          }
-        }
-      ],
-      "logicalLocations": [
-        {
-          "fullyQualifiedName": "IrrelevantBranch_6011",
-          "decoratedName": "?IrrelevantBranch_6011@@YAH_NH@Z"
-        },
-        {
-          "fullyQualifiedName": "C6385_MaybeRelevantBranch",
-          "decoratedName": "?C6385_MaybeRelevantBranch@@YAXH@Z"
-        }
-      ],
       "results": [
         {
           "ruleId": "6011",
@@ -380,6 +356,29 @@
             "rank": "4",
             "ruleCategory": "mspft"
           }
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantbranch.cpp"
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "IrrelevantBranch_6011",
+          "decoratedName": "?IrrelevantBranch_6011@@YAH_NH@Z"
+        },
+        {
+          "fullyQualifiedName": "C6385_MaybeRelevantBranch",
+          "decoratedName": "?C6385_MaybeRelevantBranch@@YAXH@Z"
         }
       ],
       "columnKind": "utf16CodeUnits"

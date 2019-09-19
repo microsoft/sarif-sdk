@@ -15,35 +15,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
     ///  JsonMapBuilder constructs a JsonMap for input Json files. It is passed
     ///  a size percentage target which controls how much detail it includes.
     /// </summary>
-    public class JsonMapBuilder
+    public static class JsonMapBuilder
     {
-        private const long NodeSizeEstimateBytes = 90;         // Bytes for one Node with containing property but not including children
-        private const long ArrayStartSizeEstimateBytes = 5;    // Bytes for one ArrayStart location, if under 10KB.
-
-        public double MaxFileSizePercentage { get; private set; }
-        public int MinimumSizeForNode { get; private set; }
-
-        /// <summary>
-        ///  Construct a JsonMapBuilder for the given target output size.
-        ///  (ex: 0.01 means 1% of the input file size)
-        /// </summary>
-        /// <param name="maxFileSizePercentage">Maximum size of the map relative to the source file (0.10 means 10%)</param>
-        public JsonMapBuilder(double maxFileSizePercentage)
-        {
-            if (maxFileSizePercentage <= 0 || maxFileSizePercentage >= 100) { throw new ArgumentOutOfRangeException("maxFileSizePercentage must be between 0 and 100."); }
-            MaxFileSizePercentage = maxFileSizePercentage;
-            MinimumSizeForNode = (int)(NodeSizeEstimateBytes / maxFileSizePercentage);
-        }
-
         /// <summary>
         ///  Build the JsonMap for a given Json file, by path.
         ///  Returns null if the source file was too small for any map nodes to fit the size budget.
         /// </summary>
         /// <param name="filePath">File Path to the Json file to build a map from</param>
+        /// <param name="settings">JsonMapSettings for map; null for defaults</param>
         /// <returns>JsonMap for file or null if file too small for map</returns>
-        public JsonMapNode Build(string filePath)
+        public static JsonMapNode Build(string filePath, JsonMapSettings settings = null)
         {
-            return Build(() => File.OpenRead(filePath));
+            return Build(() => File.OpenRead(filePath), settings);
         }
 
         /// <summary>
@@ -51,22 +34,32 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
         ///  Returns null if the source file was too small for any map nodes to fit the size budget.
         /// </summary>
         /// <param name="streamProvider">A function which will open the stream for the desired file</param>
+        /// <param name="settings">JsonMapSettings for map; null for defaults</param>
         /// <returns>JsonMap for file or null if file too small for map</returns>
-        public JsonMapNode Build(Func<Stream> streamProvider)
+        public static JsonMapNode Build(Func<Stream> streamProvider, JsonMapSettings settings = null)
         {
+            JsonMapRunSettings runSettings = null;
+
             using (Stream stream = streamProvider())
             {
-                if (stream.Length <= MinimumSizeForNode) { return null; }
+                long length = stream.Length;
+
+                // Compute JsonMapSettings for this specific file
+                runSettings = new JsonMapRunSettings(length, settings ?? JsonMapRunSettings.DefaultSettings);
+
+                // Don't build the map at all if the file is too small for anything to be mapped
+                if (length <= runSettings.MinimumSizeForNode) { return null; }
             }
 
+            // Parse file using JsonPositionedTextReader so map can get byte locations of elements
             using (JsonPositionedTextReader reader = new JsonPositionedTextReader(streamProvider))
             {
                 if (!reader.Read()) { return null; }
-                return Build(reader, 0, out long unused);
+                return Build(reader, runSettings, startPosition: 0, out long _);
             }
         }
 
-        private JsonMapNode Build(JsonPositionedTextReader reader, long startPosition, out long endPosition)
+        private static JsonMapNode Build(JsonPositionedTextReader reader, JsonMapRunSettings settings, long startPosition, out long endPosition)
         {
             // For tiny types, we know we won't create a node
             switch (reader.TokenType)
@@ -89,7 +82,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
                 JsonMapNode result = null;
                 endPosition = reader.TokenPosition;
 
-                if (reader.Value.ToString().Length >= MinimumSizeForNode)
+                if (reader.Value.ToString().Length >= settings.MinimumSizeForNode)
                 {
                     result = new JsonMapNode() { Start = startPosition, End = endPosition };
                 }
@@ -116,7 +109,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
                     string propertyName = reader.Value.ToString();
                     reader.Read();
 
-                    JsonMapNode child = Build(reader, valueStartPosition, out long unused);
+                    JsonMapNode child = Build(reader, settings, valueStartPosition, out long unused);
 
                     if (child != null)
                     {
@@ -142,7 +135,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
                 while (reader.TokenType != JsonToken.EndArray)
                 {
                     // Consider building children if nodes are large enough
-                    JsonMapNode child = Build(reader, absoluteNextItemStart, out long itemEnd);
+                    JsonMapNode child = Build(reader, settings, absoluteNextItemStart, out long itemEnd);
 
                     if (child != null)
                     {
@@ -165,7 +158,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
                 node.End = endPosition;
                 reader.Read();
 
-                FilterArrayStarts(node);
+                FilterArrayStarts(node, settings);
             }
             else
             {
@@ -173,7 +166,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
             }
 
             // Return the node if it was big enough
-            if (node.Length >= MinimumSizeForNode)
+            if (node.Length >= settings.MinimumSizeForNode)
             {
                 return node;
             }
@@ -191,12 +184,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
             }
         }
 
-        private void FilterArrayStarts(JsonMapNode node)
+        private static void FilterArrayStarts(JsonMapNode node, JsonMapRunSettings settings)
         {
             long arraySizeBytes = node.End - node.Start;
-            double countBudget = (double)(arraySizeBytes * MaxFileSizePercentage / ArrayStartSizeEstimateBytes);
+            double sizeBudget = arraySizeBytes * settings.CurrentSizeRatio;
+            double countBudget = (double)((sizeBudget - JsonMapSettings.NodeSizeEstimateBytes) / JsonMapSettings.ArrayStartSizeEstimateBytes);
 
-            if (arraySizeBytes < MinimumSizeForNode || node.Count < 2 || countBudget < 2)
+            if (arraySizeBytes < settings.MinimumSizeForNode || node.Count < 2 || countBudget < 2)
             {
                 // Overall object too small: Keep nothing.
                 node.ArrayStarts = null;

@@ -34,8 +34,7 @@
         {
           "location": {
             "uri": "FunctionalTestOutput.ValidateCommand/Inputs.JSON1002.DeserializationError.sarif",
-            "uriBaseId": "TEST_DIR",
-            "index": 0
+            "uriBaseId": "TEST_DIR"
           }
         }
       ],
@@ -55,8 +54,6 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.JSON1002.DeserializationError.sarif",
-                  "uriBaseId": "TEST_DIR",
                   "index": 0
                 },
                 "region": {

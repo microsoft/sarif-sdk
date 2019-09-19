@@ -3,23 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "AndroidStudio"
-        }
-      },
-      "logicalLocations": [
-        {
-          "fullyQualifiedName": "northwindtraders-droid-2",
-          "kind": "module"
-        },
-        {
-          "name": "com.northwindtraders.droid.model",
-          "fullyQualifiedName": "northwindtraders-droid-2\\com.northwindtraders.droid.model",
-          "parentIndex": 0,
-          "kind": "package"
-        }
-      ],
       "results": [
         {
           "ruleId": "Assertions",
@@ -40,6 +23,23 @@
             "severity": "WARNING",
             "attributeKey": "WARNING_ATTRIBUTES"
           }
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "AndroidStudio"
+        }
+      },
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "northwindtraders-droid-2",
+          "kind": "module"
+        },
+        {
+          "name": "com.northwindtraders.droid.model",
+          "fullyQualifiedName": "northwindtraders-droid-2\\com.northwindtraders.droid.model",
+          "parentIndex": 0,
+          "kind": "package"
         }
       ],
       "columnKind": "utf16CodeUnits"

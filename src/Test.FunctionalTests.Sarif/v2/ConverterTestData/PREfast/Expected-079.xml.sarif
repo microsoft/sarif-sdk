@@ -3,47 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "PREfast",
-          "fullName": "PREfast Code Analysis"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "file:///c:/somepath/test079.cpp",
-            "index": 0
-          }
-        }
-      ],
-      "logicalLocations": [
-        {
-          "fullyQualifiedName": "f",
-          "decoratedName": "?f@@YAXPAUS@@@Z"
-        },
-        {
-          "fullyQualifiedName": "foo",
-          "decoratedName": "?foo@@YAXPAD000US1@@@Z"
-        },
-        {
-          "fullyQualifiedName": "bar",
-          "decoratedName": "?bar@@YAXPAD000ABUS1@@@Z"
-        },
-        {
-          "name": "f",
-          "fullyQualifiedName": "C::f",
-          "decoratedName": "?f@C@@QAGXPAD@Z"
-        },
-        {
-          "fullyQualifiedName": "fieldSameAsParam1",
-          "decoratedName": "?fieldSameAsParam1@@YAXPADAAUS@@H@Z"
-        },
-        {
-          "fullyQualifiedName": "main",
-          "decoratedName": "main"
-        }
-      ],
       "results": [
         {
           "ruleId": "26000",
@@ -891,6 +850,46 @@
               ]
             }
           ]
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///c:/somepath/test079.cpp"
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "f",
+          "decoratedName": "?f@@YAXPAUS@@@Z"
+        },
+        {
+          "fullyQualifiedName": "foo",
+          "decoratedName": "?foo@@YAXPAD000US1@@@Z"
+        },
+        {
+          "fullyQualifiedName": "bar",
+          "decoratedName": "?bar@@YAXPAD000ABUS1@@@Z"
+        },
+        {
+          "name": "f",
+          "fullyQualifiedName": "C::f",
+          "decoratedName": "?f@C@@QAGXPAD@Z"
+        },
+        {
+          "fullyQualifiedName": "fieldSameAsParam1",
+          "decoratedName": "?fieldSameAsParam1@@YAXPADAAUS@@H@Z"
+        },
+        {
+          "fullyQualifiedName": "main",
+          "decoratedName": "main"
         }
       ],
       "columnKind": "utf16CodeUnits"

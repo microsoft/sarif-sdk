@@ -3,19 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "Clang Analyzer"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "jmemmgr.c",
-            "index": 0
-          }
-        }
-      ],
       "results": [
         {
           "ruleId": "Dereference of null pointer",
@@ -119,6 +106,18 @@
             "issue_context_kind": "function",
             "issueContext": "jinit_memory_mgr",
             "issueHash": "38"
+          }
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "Clang Analyzer"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "jmemmgr.c"
           }
         }
       ],

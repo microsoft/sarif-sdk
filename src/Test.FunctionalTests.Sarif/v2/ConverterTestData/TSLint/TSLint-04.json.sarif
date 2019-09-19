@@ -3,463 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "TSLint"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoCookies/NoCookiesFailingTestInput.ts",
-            "index": 0
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoCookies/NoCookiesTestInput-error.ts",
-            "index": 1
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoFunctionConstructorWithStringArgsTestInput.ts",
-            "index": 2
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoOctalLiteral/NoOctalLiteralTestInput-passing.ts",
-            "index": 3
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-any.ts",
-            "index": 4
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-as.ts",
-            "index": 5
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-boolean.ts",
-            "index": 6
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-break.ts",
-            "index": 7
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-case.ts",
-            "index": 8
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-catch.ts",
-            "index": 9
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-class.ts",
-            "index": 10
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-const.ts",
-            "index": 11
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-constructor.ts",
-            "index": 12
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-continue.ts",
-            "index": 13
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-debugger.ts",
-            "index": 14
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-declare.ts",
-            "index": 15
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-default.ts",
-            "index": 16
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-delete.ts",
-            "index": 17
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-do.ts",
-            "index": 18
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-else.ts",
-            "index": 19
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-enum.ts",
-            "index": 20
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-export.ts",
-            "index": 21
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-extends.ts",
-            "index": 22
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-false.ts",
-            "index": 23
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-finally.ts",
-            "index": 24
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-for.ts",
-            "index": 25
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-from.ts",
-            "index": 26
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-function.ts",
-            "index": 27
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-get.ts",
-            "index": 28
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-if.ts",
-            "index": 29
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-implements.ts",
-            "index": 30
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-import.ts",
-            "index": 31
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-in.ts",
-            "index": 32
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-instanceof.ts",
-            "index": 33
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-interface.ts",
-            "index": 34
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-let.ts",
-            "index": 35
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-module.ts",
-            "index": 36
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-new.ts",
-            "index": 37
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-null.ts",
-            "index": 38
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-number.ts",
-            "index": 39
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-of.ts",
-            "index": 40
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-package.ts",
-            "index": 41
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-private.ts",
-            "index": 42
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-protected.ts",
-            "index": 43
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-public.ts",
-            "index": 44
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-require.ts",
-            "index": 45
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-return.ts",
-            "index": 46
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-set.ts",
-            "index": 47
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-static.ts",
-            "index": 48
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-string.ts",
-            "index": 49
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-super.ts",
-            "index": 50
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-switch.ts",
-            "index": 51
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-symbol.ts",
-            "index": 52
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-this.ts",
-            "index": 53
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-throw.ts",
-            "index": 54
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-true.ts",
-            "index": 55
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-try.ts",
-            "index": 56
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-type.ts",
-            "index": 57
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-typeof.ts",
-            "index": 58
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-var.ts",
-            "index": 59
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-void.ts",
-            "index": 60
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-while.ts",
-            "index": 61
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-with.ts",
-            "index": 62
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-yield.ts",
-            "index": 63
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-any-functions.ts",
-            "index": 64
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-any-variables.ts",
-            "index": 65
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-functions.ts",
-            "index": 66
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-variables.ts",
-            "index": 67
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-walker-error.ts",
-            "index": 68
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutTestInput-error.ts",
-            "index": 69
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutTestInput-error3.ts",
-            "index": 70
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutTestInput-error4.ts",
-            "index": 71
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutTestInput-error5.ts",
-            "index": 72
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/NoUnnecessarySemicolonsTestInput.ts",
-            "index": 73
-          }
-        },
-        {
-          "location": {
-            "uri": "SecureApp/ts/test-data/references.ts",
-            "index": 74
-          }
-        }
-      ],
       "results": [
         {
           "ruleId": "no-consecutive-blank-lines",
@@ -34465,6 +34008,388 @@
               }
             }
           ]
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "TSLint"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoCookies/NoCookiesFailingTestInput.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoCookies/NoCookiesTestInput-error.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoFunctionConstructorWithStringArgsTestInput.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoOctalLiteral/NoOctalLiteralTestInput-passing.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-any.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-as.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-boolean.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-break.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-case.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-catch.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-class.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-const.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-constructor.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-continue.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-debugger.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-declare.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-default.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-delete.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-do.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-else.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-enum.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-export.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-extends.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-false.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-finally.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-for.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-from.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-function.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-get.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-if.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-implements.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-import.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-in.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-instanceof.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-interface.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-let.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-module.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-new.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-null.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-number.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-of.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-package.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-private.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-protected.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-public.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-require.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-return.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-set.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-static.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-string.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-super.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-switch.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-symbol.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-this.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-throw.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-true.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-try.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-type.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-typeof.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-var.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-void.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-while.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-with.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-yield.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-any-functions.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-any-variables.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-functions.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-variables.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-walker-error.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutTestInput-error.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutTestInput-error3.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutTestInput-error4.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutTestInput-error5.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/NoUnnecessarySemicolonsTestInput.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "SecureApp/ts/test-data/references.ts"
+          }
         }
       ],
       "columnKind": "utf16CodeUnits"

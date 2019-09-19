@@ -3,50 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "PREfast",
-          "fullName": "PREfast Code Analysis"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp",
-            "index": 0
-          }
-        }
-      ],
-      "logicalLocations": [
-        {
-          "fullyQualifiedName": "C6305FromAnnotation",
-          "decoratedName": "?C6305FromAnnotation@@YAXPEAHH_N@Z"
-        },
-        {
-          "fullyQualifiedName": "RemoveRedundantKeyEvents1",
-          "decoratedName": "?RemoveRedundantKeyEvents1@@YAHPEA_W@Z"
-        },
-        {
-          "fullyQualifiedName": "RemoveRedundantKeyEvents2",
-          "decoratedName": "?RemoveRedundantKeyEvents2@@YAHPEA_W@Z"
-        },
-        {
-          "fullyQualifiedName": "CorrectAliasing",
-          "decoratedName": "?CorrectAliasing@@YAHPEA_W@Z"
-        },
-        {
-          "fullyQualifiedName": "ShowKeyEventsWhenNoLocation",
-          "decoratedName": "?ShowKeyEventsWhenNoLocation@@YAHXZ"
-        },
-        {
-          "fullyQualifiedName": "ShowKeyEventsWhenNoLocation2",
-          "decoratedName": "?ShowKeyEventsWhenNoLocation2@@YAXXZ"
-        },
-        {
-          "fullyQualifiedName": "ShowKeyEventsForPointerArithmetic",
-          "decoratedName": "?ShowKeyEventsForPointerArithmetic@@YAXPEAH@Z"
-        }
-      ],
       "results": [
         {
           "ruleId": "6305",
@@ -1241,6 +1197,49 @@
             "rank": "2",
             "ruleCategory": "mspft"
           }
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "C6305FromAnnotation",
+          "decoratedName": "?C6305FromAnnotation@@YAXPEAHH_N@Z"
+        },
+        {
+          "fullyQualifiedName": "RemoveRedundantKeyEvents1",
+          "decoratedName": "?RemoveRedundantKeyEvents1@@YAHPEA_W@Z"
+        },
+        {
+          "fullyQualifiedName": "RemoveRedundantKeyEvents2",
+          "decoratedName": "?RemoveRedundantKeyEvents2@@YAHPEA_W@Z"
+        },
+        {
+          "fullyQualifiedName": "CorrectAliasing",
+          "decoratedName": "?CorrectAliasing@@YAHPEA_W@Z"
+        },
+        {
+          "fullyQualifiedName": "ShowKeyEventsWhenNoLocation",
+          "decoratedName": "?ShowKeyEventsWhenNoLocation@@YAHXZ"
+        },
+        {
+          "fullyQualifiedName": "ShowKeyEventsWhenNoLocation2",
+          "decoratedName": "?ShowKeyEventsWhenNoLocation2@@YAXXZ"
+        },
+        {
+          "fullyQualifiedName": "ShowKeyEventsForPointerArithmetic",
+          "decoratedName": "?ShowKeyEventsForPointerArithmetic@@YAXPEAH@Z"
         }
       ],
       "columnKind": "utf16CodeUnits"

@@ -1,0 +1,28 @@
+The first part of this test file shows that we parse a genuine build log.
+
+Microsoft (R) Build Engine version 16.1.76+g14b0a930a7 for .NET Framework
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+  Sarif -> c:\dev\sarif\sarif-sdk\bld\bin\AnyCPU_Debug\Sarif\netstandard2.0\Sarif.dll
+  Sarif.Driver -> c:\dev\sarif\sarif-sdk\bld\bin\AnyCPU_Debug\Sarif.Driver\netstandard2.0\Sarif.Driver.dll
+  Sarif.Converters -> c:\dev\sarif\sarif-sdk\bld\bin\AnyCPU_Debug\Sarif.Converters\netstandard2.0\Sarif.Converters.dll
+  Test.Utilities.Sarif -> c:\dev\sarif\sarif-sdk\bld\bin\AnyCPU_Debug\Test.Utilities.Sarif\netstandard2.0\Test.Utilities.Sarif.dll
+VisualStudioBuildLogConverterTests.cs(30,35): error CS1026: ) expected [c:\dev\sarif\sarif-sdk\src\Test.UnitTests.Sarif.Converters\Test.UnitTests.Sarif.Converters.csproj]
+VisualStudioBuildLogConverterTests.cs(36,38): error CS1002: ; expected [c:\dev\sarif\sarif-sdk\src\Test.UnitTests.Sarif.Converters\Test.UnitTests.Sarif.Converters.csproj]
+VisualStudioBuildLogConverterTests.cs(30,35): error CS1026: ) expected [c:\dev\sarif\sarif-sdk\src\Test.UnitTests.Sarif.Converters\Test.UnitTests.Sarif.Converters.csproj]
+VisualStudioBuildLogConverterTests.cs(36,38): error CS1002: ; expected [c:\dev\sarif\sarif-sdk\src\Test.UnitTests.Sarif.Converters\Test.UnitTests.Sarif.Converters.csproj]
+  Sarif -> c:\dev\sarif\sarif-sdk\bld\bin\AnyCPU_Debug\Sarif\net461\Sarif.dll
+  Sarif.Driver -> c:\dev\sarif\sarif-sdk\bld\bin\AnyCPU_Debug\Sarif.Driver\net461\Sarif.Driver.dll
+  Sarif.Converters -> c:\dev\sarif\sarif-sdk\bld\bin\AnyCPU_Debug\Sarif.Converters\net461\Sarif.Converters.dll
+  Test.Utilities.Sarif -> c:\dev\sarif\sarif-sdk\bld\bin\AnyCPU_Debug\Test.Utilities.Sarif\net461\Test.Utilities.Sarif.dll
+VisualStudioBuildLogConverterTests.cs(30,35): error CS1026: ) expected [c:\dev\sarif\sarif-sdk\src\Test.UnitTests.Sarif.Converters\Test.UnitTests.Sarif.Converters.csproj]
+VisualStudioBuildLogConverterTests.cs(36,38): error CS1002: ; expected [c:\dev\sarif\sarif-sdk\src\Test.UnitTests.Sarif.Converters\Test.UnitTests.Sarif.Converters.csproj]
+
+The second part of this test file shows that we parse all variations of the error line format.
+
+StartLineOnlyRegion.cs(83): note CS1111: This is a note.
+StartLineEndLineRegion.cs(42-54): warning CS2222: This is a warning.
+StartLineStartColumnEndColumnRegion.cs(17,42-54): warning CS3333: This is another warning.
+StartLineStartColumnEndLineEndColumnRegion.cs(12,26,14,36): error CS4444: This is another error.
+
+LINK : fatal error LNK1104: cannot open file 'somelib.lib'

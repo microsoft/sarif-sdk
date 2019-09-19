@@ -3,34 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "PREfast",
-          "fullName": "PREfast Code Analysis"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "file:///c:/somepath/test049.cpp",
-            "index": 0
-          }
-        }
-      ],
-      "logicalLocations": [
-        {
-          "fullyQualifiedName": "test_b_a",
-          "decoratedName": "?test_b_a@@YAXPADPBVBase@@@Z"
-        },
-        {
-          "fullyQualifiedName": "test_d_b",
-          "decoratedName": "?test_d_b@@YAXPADPBVDerived@@@Z"
-        },
-        {
-          "fullyQualifiedName": "test_d_a",
-          "decoratedName": "?test_d_a@@YAXPADPBVDerived@@@Z"
-        }
-      ],
       "results": [
         {
           "ruleId": "28204",
@@ -260,6 +232,33 @@
               ]
             }
           ]
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///c:/somepath/test049.cpp"
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "test_b_a",
+          "decoratedName": "?test_b_a@@YAXPADPBVBase@@@Z"
+        },
+        {
+          "fullyQualifiedName": "test_d_b",
+          "decoratedName": "?test_d_b@@YAXPADPBVDerived@@@Z"
+        },
+        {
+          "fullyQualifiedName": "test_d_a",
+          "decoratedName": "?test_d_a@@YAXPADPBVDerived@@@Z"
         }
       ],
       "columnKind": "utf16CodeUnits"

@@ -3,62 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "PREfast",
-          "fullName": "PREfast Code Analysis"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
-            "index": 0
-          }
-        }
-      ],
-      "logicalLocations": [
-        {
-          "name": "MissedAlias",
-          "fullyQualifiedName": "Missed6305::MissedAlias",
-          "decoratedName": "?MissedAlias@Missed6305@@AEAAHPEA_W@Z"
-        },
-        {
-          "name": "MissedAlias2",
-          "fullyQualifiedName": "Missed6305::MissedAlias2",
-          "decoratedName": "?MissedAlias2@Missed6305@@AEAAHPEA_W@Z"
-        },
-        {
-          "name": "MissedAliasPlusAssign",
-          "fullyQualifiedName": "Missed6305::MissedAliasPlusAssign",
-          "decoratedName": "?MissedAliasPlusAssign@Missed6305@@AEAAHPEA_W@Z"
-        },
-        {
-          "name": "MissedAliasPlusAssign2",
-          "fullyQualifiedName": "Missed6305::MissedAliasPlusAssign2",
-          "decoratedName": "?MissedAliasPlusAssign2@Missed6305@@AEAAHPEA_W@Z"
-        },
-        {
-          "name": "MissedAlias_LocalIsCorrect",
-          "fullyQualifiedName": "Missed6305::MissedAlias_LocalIsCorrect",
-          "decoratedName": "?MissedAlias_LocalIsCorrect@Missed6305@@AEAAHPEA_W@Z"
-        },
-        {
-          "name": "MissedAliasPlusAssign_LocalIsCorrect",
-          "fullyQualifiedName": "Missed6305::MissedAliasPlusAssign_LocalIsCorrect",
-          "decoratedName": "?MissedAliasPlusAssign_LocalIsCorrect@Missed6305@@AEAAHPEA_W@Z"
-        },
-        {
-          "name": "SizeOfMissedForMember",
-          "fullyQualifiedName": "Missed6305::SizeOfMissedForMember",
-          "decoratedName": "?SizeOfMissedForMember@Missed6305@@AEAAHPEAH@Z"
-        },
-        {
-          "name": "SizeOfMissedForMember_LocalIsCorrect",
-          "fullyQualifiedName": "Missed6305::SizeOfMissedForMember_LocalIsCorrect",
-          "decoratedName": "?SizeOfMissedForMember_LocalIsCorrect@Missed6305@@AEAAHPEAH@Z"
-        }
-      ],
       "results": [
         {
           "ruleId": "6305",
@@ -915,6 +859,61 @@
             "rank": "2",
             "ruleCategory": "mspft"
           }
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp"
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "name": "MissedAlias",
+          "fullyQualifiedName": "Missed6305::MissedAlias",
+          "decoratedName": "?MissedAlias@Missed6305@@AEAAHPEA_W@Z"
+        },
+        {
+          "name": "MissedAlias2",
+          "fullyQualifiedName": "Missed6305::MissedAlias2",
+          "decoratedName": "?MissedAlias2@Missed6305@@AEAAHPEA_W@Z"
+        },
+        {
+          "name": "MissedAliasPlusAssign",
+          "fullyQualifiedName": "Missed6305::MissedAliasPlusAssign",
+          "decoratedName": "?MissedAliasPlusAssign@Missed6305@@AEAAHPEA_W@Z"
+        },
+        {
+          "name": "MissedAliasPlusAssign2",
+          "fullyQualifiedName": "Missed6305::MissedAliasPlusAssign2",
+          "decoratedName": "?MissedAliasPlusAssign2@Missed6305@@AEAAHPEA_W@Z"
+        },
+        {
+          "name": "MissedAlias_LocalIsCorrect",
+          "fullyQualifiedName": "Missed6305::MissedAlias_LocalIsCorrect",
+          "decoratedName": "?MissedAlias_LocalIsCorrect@Missed6305@@AEAAHPEA_W@Z"
+        },
+        {
+          "name": "MissedAliasPlusAssign_LocalIsCorrect",
+          "fullyQualifiedName": "Missed6305::MissedAliasPlusAssign_LocalIsCorrect",
+          "decoratedName": "?MissedAliasPlusAssign_LocalIsCorrect@Missed6305@@AEAAHPEA_W@Z"
+        },
+        {
+          "name": "SizeOfMissedForMember",
+          "fullyQualifiedName": "Missed6305::SizeOfMissedForMember",
+          "decoratedName": "?SizeOfMissedForMember@Missed6305@@AEAAHPEAH@Z"
+        },
+        {
+          "name": "SizeOfMissedForMember_LocalIsCorrect",
+          "fullyQualifiedName": "Missed6305::SizeOfMissedForMember_LocalIsCorrect",
+          "decoratedName": "?SizeOfMissedForMember_LocalIsCorrect@Missed6305@@AEAAHPEAH@Z"
         }
       ],
       "columnKind": "utf16CodeUnits"

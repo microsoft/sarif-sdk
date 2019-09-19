@@ -3,55 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "AndroidStudio"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "yammer-droid-2/src/test/java/com/yammer/droid/AdditionOperationTest.java",
-            "index": 0
-          }
-        },
-        {
-          "location": {
-            "uri": "yammer-droid-2/src/main/java/com/yammer/droid/ui/MessageUIBean.java",
-            "index": 1
-          }
-        }
-      ],
-      "logicalLocations": [
-        {
-          "fullyQualifiedName": "yammer-droid-2",
-          "kind": "module"
-        },
-        {
-          "name": "com.yammer.droid",
-          "fullyQualifiedName": "yammer-droid-2\\com.yammer.droid",
-          "parentIndex": 0,
-          "kind": "package"
-        },
-        {
-          "name": "com.yammer.droid.AdditionOperationTest void testStuff()",
-          "fullyQualifiedName": "yammer-droid-2\\com.yammer.droid\\com.yammer.droid.AdditionOperationTest void testStuff()",
-          "parentIndex": 1,
-          "kind": "member"
-        },
-        {
-          "name": "com.yammer.droid.ui",
-          "fullyQualifiedName": "yammer-droid-2\\com.yammer.droid.ui",
-          "parentIndex": 0,
-          "kind": "package"
-        },
-        {
-          "name": "com.yammer.droid.ui.MessageUIBean.TYPE TYPE(int position)",
-          "fullyQualifiedName": "yammer-droid-2\\com.yammer.droid.ui\\com.yammer.droid.ui.MessageUIBean.TYPE TYPE(int position)",
-          "parentIndex": 3,
-          "kind": "member"
-        }
-      ],
       "results": [
         {
           "ruleId": "unused declaration",
@@ -110,6 +61,53 @@
             "severity": "WARNING",
             "attributeKey": "NOT_USED_ELEMENT_ATTRIBUTES"
           }
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "AndroidStudio"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "yammer-droid-2/src/test/java/com/yammer/droid/AdditionOperationTest.java"
+          }
+        },
+        {
+          "location": {
+            "uri": "yammer-droid-2/src/main/java/com/yammer/droid/ui/MessageUIBean.java"
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "yammer-droid-2",
+          "kind": "module"
+        },
+        {
+          "name": "com.yammer.droid",
+          "fullyQualifiedName": "yammer-droid-2\\com.yammer.droid",
+          "parentIndex": 0,
+          "kind": "package"
+        },
+        {
+          "name": "com.yammer.droid.AdditionOperationTest void testStuff()",
+          "fullyQualifiedName": "yammer-droid-2\\com.yammer.droid\\com.yammer.droid.AdditionOperationTest void testStuff()",
+          "parentIndex": 1,
+          "kind": "member"
+        },
+        {
+          "name": "com.yammer.droid.ui",
+          "fullyQualifiedName": "yammer-droid-2\\com.yammer.droid.ui",
+          "parentIndex": 0,
+          "kind": "package"
+        },
+        {
+          "name": "com.yammer.droid.ui.MessageUIBean.TYPE TYPE(int position)",
+          "fullyQualifiedName": "yammer-droid-2\\com.yammer.droid.ui\\com.yammer.droid.ui.MessageUIBean.TYPE TYPE(int position)",
+          "parentIndex": 3,
+          "kind": "member"
         }
       ],
       "columnKind": "utf16CodeUnits"

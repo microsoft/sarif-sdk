@@ -2,13 +2,11 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Newtonsoft.Json;
 
@@ -23,9 +21,93 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         private OptionallyEmittedData _dataToInsert;
         private OptionallyEmittedData _dataToRemove;
         private ResultLogJsonWriter _issueLogJsonWriter;
-        private IDictionary<ReportingDescriptor, int> _ruleToIndexMap;
 
         protected const LoggingOptions DefaultLoggingOptions = LoggingOptions.PrettyPrint;
+
+        public SarifLogger(
+            string outputFilePath,
+            LoggingOptions loggingOptions = DefaultLoggingOptions,
+            OptionallyEmittedData dataToInsert = OptionallyEmittedData.None,
+            OptionallyEmittedData dataToRemove = OptionallyEmittedData.None,
+            Tool tool = null,
+            Run run = null,
+            IEnumerable<string> analysisTargets = null,
+            IEnumerable<string> invocationTokensToRedact = null,
+            IEnumerable<string> invocationPropertiesToLog = null,
+            string defaultFileEncoding = null)
+            : this(new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.None)),
+                  loggingOptions: loggingOptions,
+                  dataToInsert: dataToInsert,
+                  dataToRemove: dataToRemove,
+                  tool: tool,
+                  run: run,
+                  analysisTargets: analysisTargets,
+                  invocationTokensToRedact: invocationTokensToRedact,
+                  invocationPropertiesToLog: invocationPropertiesToLog)
+        {
+        }
+
+        public SarifLogger(
+            TextWriter textWriter,
+            LoggingOptions loggingOptions = DefaultLoggingOptions,
+            OptionallyEmittedData dataToInsert = OptionallyEmittedData.None,
+            OptionallyEmittedData dataToRemove = OptionallyEmittedData.None,
+            Tool tool = null,
+            Run run = null,
+            IEnumerable<string> analysisTargets = null,
+            IEnumerable<string> invocationTokensToRedact = null,
+            IEnumerable<string> invocationPropertiesToLog = null,
+            string defaultFileEncoding = null) : this(textWriter, loggingOptions)
+        {
+            if (dataToInsert.HasFlag(OptionallyEmittedData.Hashes))
+            {
+                AnalysisTargetToHashDataMap = HashUtilities.MultithreadedComputeTargetFileHashes(analysisTargets);
+            }
+
+            _run = run ?? CreateRun(
+                            analysisTargets,
+                            dataToInsert,
+                            dataToRemove,
+                            invocationTokensToRedact,
+                            invocationPropertiesToLog,
+                            defaultFileEncoding,
+                            AnalysisTargetToHashDataMap);
+
+            tool = tool ?? Tool.CreateFromAssemblyData();
+
+            _run.Tool = tool;
+            _dataToInsert = dataToInsert;
+            _dataToRemove = dataToRemove;
+            _issueLogJsonWriter.Initialize(_run);
+
+            // Map existing Rules to ensure duplicates aren't created
+            if (_run.Tool.Driver?.Rules != null)
+            {
+                for (int i = 0; i < _run.Tool.Driver.Rules.Count; ++i)
+                {
+                    RuleToIndexMap[_run.Tool.Driver.Rules[i]] = i;
+                }
+            }
+        }
+
+        private SarifLogger(TextWriter textWriter, LoggingOptions loggingOptions)
+        {
+            _textWriter = textWriter;
+            _jsonTextWriter = new JsonTextWriter(_textWriter);
+
+            _loggingOptions = loggingOptions;
+
+            if (PrettyPrint)
+            {
+                // Indented output is preferable for debugging
+                _jsonTextWriter.Formatting = Newtonsoft.Json.Formatting.Indented;
+            }
+
+            _jsonTextWriter.DateFormatString = DateTimeConverter.DateTimeFormat;
+
+            _issueLogJsonWriter = new ResultLogJsonWriter(_jsonTextWriter);
+            RuleToIndexMap = new Dictionary<ReportingDescriptor, int>(ReportingDescriptor.ValueComparer);
+        }
 
         private static Run CreateRun(
             IEnumerable<string> analysisTargets,
@@ -57,7 +139,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     }
 
                     var fileData = Artifact.Create(
-                        new Uri(target, UriKind.RelativeOrAbsolute),                         
+                        new Uri(target, UriKind.RelativeOrAbsolute),
                         dataToInsert,
                         hashData: hashData);
 
@@ -70,9 +152,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
                     // This call will insert the file object into run.Files if not already present
                     fileData.Location.Index = run.GetFileIndex(
-                        fileData.Location, 
-                        addToFilesTableIfNotPresent: true,                         
-                        dataToInsert : dataToInsert,
+                        fileData.Location,
+                        addToFilesTableIfNotPresent: true,
+                        dataToInsert: dataToInsert,
                         encoding: null,
                         hashData: hashData);
                 }
@@ -113,115 +195,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             return run;
         }
 
-        private static string Redact(string text, IEnumerable<string> tokensToRedact)
-        {
-            if (text == null) { return text; }
-
-            foreach (string tokenToRedact in tokensToRedact)
-            {
-                text = text.Replace(tokenToRedact, SarifConstants.RedactedMarker);
-            }
-            return text;
-        }
-
-        private static Uri Redact(Uri uri, IEnumerable<string> tokensToRedact)
-        {
-            if (uri == null) { return uri; }
-
-            string uriText = uri.OriginalString;
-
-            foreach (string tokenToRedact in tokensToRedact)
-            {
-                uriText = uriText.Replace(tokenToRedact, SarifConstants.RedactedMarker);
-            }
-            return new Uri(uriText, UriKind.RelativeOrAbsolute);
-        }
-
-        public SarifLogger(
-            string outputFilePath,
-            LoggingOptions loggingOptions = DefaultLoggingOptions,
-            OptionallyEmittedData dataToInsert = OptionallyEmittedData.None,
-            OptionallyEmittedData dataToRemove = OptionallyEmittedData.None,
-            Tool tool = null,
-            Run run = null,
-            IEnumerable<string> analysisTargets = null,
-            IEnumerable<string> invocationTokensToRedact = null,
-            IEnumerable<string> invocationPropertiesToLog = null,
-            string defaultFileEncoding = null)
-            : this(new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.None)),
-                  loggingOptions: loggingOptions,
-                  dataToInsert: dataToInsert,
-                  dataToRemove: dataToRemove,
-                  tool: tool,
-                  run: run,
-                  analysisTargets: analysisTargets,
-                  invocationTokensToRedact: invocationTokensToRedact,
-                  invocationPropertiesToLog: invocationPropertiesToLog)
-        {
-        }
-
-        public SarifLogger(
-            TextWriter textWriter,
-            LoggingOptions loggingOptions = DefaultLoggingOptions,
-            OptionallyEmittedData dataToInsert = OptionallyEmittedData.None,
-            OptionallyEmittedData dataToRemove = OptionallyEmittedData.None,
-            Tool tool = null,
-            Run run = null,
-            IEnumerable<string> analysisTargets = null,
-            IEnumerable<string> invocationTokensToRedact = null,
-            IEnumerable<string> invocationPropertiesToLog = null,
-            string defaultFileEncoding = null) : this(textWriter, loggingOptions)
-        {
-            if (dataToInsert.HasFlag(OptionallyEmittedData.Hashes))
-            {
-                AnalysisTargetToHashDataMap =  HashUtilities.MultithreadedComputeTargetFileHashes(analysisTargets);
-            }
-
-            _run = run ?? CreateRun(
-                            analysisTargets,
-                            dataToInsert,
-                            dataToRemove,
-                            invocationTokensToRedact,
-                            invocationPropertiesToLog,
-                            defaultFileEncoding, 
-                            AnalysisTargetToHashDataMap);
-
-            tool = tool ?? Tool.CreateFromAssemblyData();
-            
-            _run.Tool = tool;
-            _dataToInsert = dataToInsert;
-            _dataToRemove = dataToRemove;
-            _issueLogJsonWriter.Initialize(_run);
-        }
-
-        private SarifLogger(TextWriter textWriter, LoggingOptions loggingOptions)
-        {
-            _textWriter = textWriter;
-            _jsonTextWriter = new JsonTextWriter(_textWriter);
-
-            _loggingOptions = loggingOptions;
-
-            if (PrettyPrint)
-            {
-                // Indented output is preferable for debugging
-                _jsonTextWriter.Formatting = Newtonsoft.Json.Formatting.Indented;
-            }        
-
-            _jsonTextWriter.DateFormatString = DateTimeConverter.DateTimeFormat;
-
-            _issueLogJsonWriter = new ResultLogJsonWriter(_jsonTextWriter);
-        }
-
-        public IDictionary<string, HashData> AnalysisTargetToHashDataMap { get; private set; }
-
-        public IDictionary<ReportingDescriptor, int> RuleToIndexMap
-        {
-            get
-            {
-                _ruleToIndexMap = _ruleToIndexMap ?? new Dictionary<ReportingDescriptor, int>(ReportingDescriptor.ValueComparer);
-                return _ruleToIndexMap;
-            }
-        }
+        public IDictionary<string, HashData> AnalysisTargetToHashDataMap { get; }
+        public IDictionary<ReportingDescriptor, int> RuleToIndexMap { get; }
 
         public bool ComputeFileHashes { get { return _dataToInsert.HasFlag(OptionallyEmittedData.Hashes); } }
 
@@ -236,6 +211,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         public bool PrettyPrint { get { return _loggingOptions.HasFlag(LoggingOptions.PrettyPrint); } }
 
         public bool Verbose { get { return _loggingOptions.HasFlag(LoggingOptions.Verbose); } }
+
+        // Whether to omit redundant properties; log become non-human-readable but much smaller.
+        // We haven't decided how to expose this, so I'm putting the property to control the relevant code without an external way to set it yet.
+        public bool Optimized { get; internal set; } = true;
 
         public virtual void Dispose()
         {
@@ -316,11 +295,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         private int LogRule(ReportingDescriptor rule)
         {
-
             if (!RuleToIndexMap.TryGetValue(rule, out int ruleIndex))
             {
-                ruleIndex = _ruleToIndexMap.Count;
-                _ruleToIndexMap[rule] = ruleIndex;
+                ruleIndex = RuleToIndexMap.Count;
+                RuleToIndexMap[rule] = ruleIndex;
                 _run.Tool.Driver.Rules = _run.Tool.Driver.Rules ?? new OrderSensitiveValueComparisonList<ReportingDescriptor>(ReportingDescriptor.ValueComparer);
                 _run.Tool.Driver.Rules.Add(rule);
             }
@@ -408,7 +386,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         }
 
         private void CaptureFile(ArtifactLocation fileLocation)
-        {             
+        {
             if (fileLocation == null || fileLocation.Uri == null)
             {
                 return;
@@ -425,11 +403,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 catch (ArgumentException) { } // Unrecognized encoding name
             }
 
+            // Ensure Artifact is in Run.Artifacts and ArtifactLocation.Index is set to point to it
             _run.GetFileIndex(
-                fileLocation, 
+                fileLocation,
                 addToFilesTableIfNotPresent: true,
                 _dataToInsert,
                 encoding);
+
+            // Remove redundant Uri and UriBaseId once index has been set
+            if (this.Optimized)
+            {
+                fileLocation.Uri = null;
+                fileLocation.UriBaseId = null;
+            }
         }
 
         public void AnalyzingTarget(IAnalysisContext context)
@@ -497,24 +483,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 case FailureLevel.None:
                 case FailureLevel.Note:
-                {
-                    if (!Verbose)
                     {
-                        return false;
+                        if (!Verbose)
+                        {
+                            return false;
+                        }
+                        break;
                     }
-                    break;
-                }
 
                 case FailureLevel.Error:
                 case FailureLevel.Warning:
-                {
-                    break;
-                }
+                    {
+                        break;
+                    }
 
                 default:
-                {
-                    throw new InvalidOperationException();
-                }
+                    {
+                        throw new InvalidOperationException();
+                    }
             }
             return true;
         }
@@ -541,6 +527,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _run.Invocations[0].ToolConfigurationNotifications = _run.Invocations[0].ToolConfigurationNotifications ?? new List<Notification>();
             _run.Invocations[0].ToolConfigurationNotifications.Add(notification);
             _run.Invocations[0].ExecutionSuccessful &= notification.Level != FailureLevel.Error;
+        }
+
+        private static string Redact(string text, IEnumerable<string> tokensToRedact)
+        {
+            if (text == null) { return text; }
+
+            foreach (string tokenToRedact in tokensToRedact)
+            {
+                text = text.Replace(tokenToRedact, SarifConstants.RedactedMarker);
+            }
+            return text;
+        }
+
+        private static Uri Redact(Uri uri, IEnumerable<string> tokensToRedact)
+        {
+            if (uri == null) { return uri; }
+
+            string uriText = uri.OriginalString;
+
+            foreach (string tokenToRedact in tokensToRedact)
+            {
+                uriText = uriText.Replace(tokenToRedact, SarifConstants.RedactedMarker);
+            }
+            return new Uri(uriText, UriKind.RelativeOrAbsolute);
         }
     }
 }

@@ -3,50 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "PREfast",
-          "fullName": "PREfast Code Analysis"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "file:///c:/somepath/test088.cpp",
-            "index": 0
-          }
-        }
-      ],
-      "logicalLocations": [
-        {
-          "fullyQualifiedName": "g",
-          "decoratedName": "?g@@YAXPAD@Z"
-        },
-        {
-          "fullyQualifiedName": "Bad",
-          "decoratedName": "?Bad@@YAXPADI@Z"
-        },
-        {
-          "fullyQualifiedName": "ExplicitChar",
-          "decoratedName": "?ExplicitChar@@YAXXZ"
-        },
-        {
-          "fullyQualifiedName": "GetItem",
-          "decoratedName": "?GetItem@@YA_NHPAUItem@@@Z"
-        },
-        {
-          "fullyQualifiedName": "ArrInit4",
-          "decoratedName": "?ArrInit4@@YAXXZ"
-        },
-        {
-          "fullyQualifiedName": "NotZeroMemroy",
-          "decoratedName": "?NotZeroMemroy@@YAXXZ"
-        },
-        {
-          "fullyQualifiedName": "BadMemset",
-          "decoratedName": "?BadMemset@@YAXPAGI@Z"
-        }
-      ],
       "results": [
         {
           "ruleId": "26006",
@@ -810,6 +766,49 @@
               ]
             }
           ]
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///c:/somepath/test088.cpp"
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "g",
+          "decoratedName": "?g@@YAXPAD@Z"
+        },
+        {
+          "fullyQualifiedName": "Bad",
+          "decoratedName": "?Bad@@YAXPADI@Z"
+        },
+        {
+          "fullyQualifiedName": "ExplicitChar",
+          "decoratedName": "?ExplicitChar@@YAXXZ"
+        },
+        {
+          "fullyQualifiedName": "GetItem",
+          "decoratedName": "?GetItem@@YA_NHPAUItem@@@Z"
+        },
+        {
+          "fullyQualifiedName": "ArrInit4",
+          "decoratedName": "?ArrInit4@@YAXXZ"
+        },
+        {
+          "fullyQualifiedName": "NotZeroMemroy",
+          "decoratedName": "?NotZeroMemroy@@YAXXZ"
+        },
+        {
+          "fullyQualifiedName": "BadMemset",
+          "decoratedName": "?BadMemset@@YAXPAGI@Z"
         }
       ],
       "columnKind": "utf16CodeUnits"

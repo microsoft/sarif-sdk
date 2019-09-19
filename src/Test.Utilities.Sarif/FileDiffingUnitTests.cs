@@ -60,7 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         protected virtual string TestLogResourceNameRoot => "Microsoft.CodeAnalysis.Test.UnitTests.Sarif.TestData." + TypeUnderTest;
 
-        protected virtual string ConstructTestOutputFromInputResource(string inputResourceName) { return string.Empty; }
+        protected abstract string ConstructTestOutputFromInputResource(string inputResourceName);
 
         protected virtual void RunTest(string inputResourceName, string expectedOutputResourceName = null)
         {
@@ -163,7 +163,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             output.Length.Should().Be(0, because: output);
         }
 
-        protected static string GenerateDiffCommand(string suiteName, string expected, string actual)
+        public static string GenerateDiffCommand(string suiteName, string expected, string actual)
         {
             actual = Path.GetFullPath(actual);
             expected = Path.GetFullPath(expected);

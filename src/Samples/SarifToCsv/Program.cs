@@ -25,9 +25,9 @@ namespace SarifToCsv
     {
         public static void Main(string[] args)
         {
-            if (args.Length < 2)
+            if (args.Length < 1)
             {
-                Console.WriteLine("Usage: SarifToCsv [sarifFileOrFolderPath] [csvFilePath] [columnNamesCommaDelimited?]");
+                Console.WriteLine("Usage: SarifToCsv [sarifFileOrFolderPath] [csvFilePath?] [columnNamesCommaDelimited?]");
                 Console.WriteLine("  Column Names are configured in SarifToCsv.exe.config, in the 'ColumnNames' property.");
                 Console.WriteLine($"  Available Column Names:\r\n\t{String.Join("\r\n\t", SarifCsvColumnWriters.SupportedColumns)}");
 
@@ -37,8 +37,10 @@ namespace SarifToCsv
             try
             {
                 string sarifFilePath = args[0];
-                string csvFilePath = args[1];
+                string csvFilePath = (args.Length > 1 ? args[1] : Path.ChangeExtension(args[0], ".csv"));
                 IEnumerable<string> columnNames = (args.Length > 2 ? args[2] : ConfigurationManager.AppSettings["ColumnNames"]).Split(',').Select((value) => value.Trim());
+                bool removeNewlines = bool.Parse(ValueOrDefault(ConfigurationManager.AppSettings["RemoveNewlines"], "false"));
+
                 IEnumerable<Action<WriteContext>> selectedWriters = columnNames.Select((name) => SarifCsvColumnWriters.GetWriter(name)).ToArray();
 
                 Console.WriteLine($"Converting \"{sarifFilePath}\" to \"{csvFilePath}\"...");
@@ -49,6 +51,7 @@ namespace SarifToCsv
 
                 using (CsvWriter writer = new CsvWriter(csvFilePath))
                 {
+                    writer.RemoveNewlines = removeNewlines;
                     writer.SetColumns(columnNames);
 
                     // Read the Sarif file (or all Sarif files in the folder) and write to the CSV
@@ -136,6 +139,11 @@ namespace SarifToCsv
 
             context.Writer.NextRow();
             if (context.Writer.RowCountWritten % 1000 == 0) { Console.Write("."); }
+        }
+
+        private static string ValueOrDefault(string value, string defaultValue)
+        {
+            return String.IsNullOrEmpty(value) ? defaultValue : value;
         }
     }
 }

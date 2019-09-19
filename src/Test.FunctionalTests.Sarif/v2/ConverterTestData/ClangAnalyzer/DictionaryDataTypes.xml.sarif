@@ -3,19 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "Clang Analyzer"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "jcparam.c",
-            "index": 0
-          }
-        }
-      ],
       "results": [
         {
           "ruleId": "Dead assignment",
@@ -41,6 +28,18 @@
             "issue_context_kind": "function",
             "issueContext": "jpeg_simple_progression",
             "issueHash": "57"
+          }
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "Clang Analyzer"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "jcparam.c"
           }
         }
       ],

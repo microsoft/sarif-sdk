@@ -3,31 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "AndroidStudio"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "gradle/wrapper/gradle-wrapper.properties",
-            "index": 0
-          }
-        },
-        {
-          "location": {
-            "uri": "local.properties",
-            "index": 1
-          }
-        }
-      ],
-      "logicalLocations": [
-        {
-          "fullyQualifiedName": "AndroidStudioFormatExample",
-          "kind": "module"
-        }
-      ],
       "results": [
         {
           "ruleId": "Unused Property",
@@ -202,6 +177,29 @@
             "severity": "WARNING",
             "attributeKey": "NOT_USED_ELEMENT_ATTRIBUTES"
           }
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "AndroidStudio"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "gradle/wrapper/gradle-wrapper.properties"
+          }
+        },
+        {
+          "location": {
+            "uri": "local.properties"
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
         }
       ],
       "columnKind": "utf16CodeUnits"

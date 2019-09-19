@@ -3,427 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "TSLint"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoFunctionConstructorWithStringArgsTestInput.ts",
-            "index": 0
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-any.ts",
-            "index": 1
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-as.ts",
-            "index": 2
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-boolean.ts",
-            "index": 3
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-break.ts",
-            "index": 4
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-case.ts",
-            "index": 5
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-catch.ts",
-            "index": 6
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-class.ts",
-            "index": 7
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-const.ts",
-            "index": 8
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-constructor.ts",
-            "index": 9
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-continue.ts",
-            "index": 10
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-debugger.ts",
-            "index": 11
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-declare.ts",
-            "index": 12
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-default.ts",
-            "index": 13
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-delete.ts",
-            "index": 14
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-do.ts",
-            "index": 15
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-else.ts",
-            "index": 16
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-enum.ts",
-            "index": 17
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-export.ts",
-            "index": 18
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-extends.ts",
-            "index": 19
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-false.ts",
-            "index": 20
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-finally.ts",
-            "index": 21
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-for.ts",
-            "index": 22
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-from.ts",
-            "index": 23
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-function.ts",
-            "index": 24
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-get.ts",
-            "index": 25
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-if.ts",
-            "index": 26
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-implements.ts",
-            "index": 27
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-import.ts",
-            "index": 28
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-in.ts",
-            "index": 29
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-instanceof.ts",
-            "index": 30
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-interface.ts",
-            "index": 31
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-let.ts",
-            "index": 32
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-module.ts",
-            "index": 33
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-new.ts",
-            "index": 34
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-null.ts",
-            "index": 35
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-number.ts",
-            "index": 36
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-of.ts",
-            "index": 37
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-package.ts",
-            "index": 38
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-private.ts",
-            "index": 39
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-protected.ts",
-            "index": 40
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-public.ts",
-            "index": 41
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-require.ts",
-            "index": 42
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-return.ts",
-            "index": 43
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-set.ts",
-            "index": 44
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-static.ts",
-            "index": 45
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-string.ts",
-            "index": 46
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-super.ts",
-            "index": 47
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-switch.ts",
-            "index": 48
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-symbol.ts",
-            "index": 49
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-this.ts",
-            "index": 50
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-throw.ts",
-            "index": 51
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-true.ts",
-            "index": 52
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-try.ts",
-            "index": 53
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-type.ts",
-            "index": 54
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-typeof.ts",
-            "index": 55
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-var.ts",
-            "index": 56
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-void.ts",
-            "index": 57
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-while.ts",
-            "index": 58
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-with.ts",
-            "index": 59
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-yield.ts",
-            "index": 60
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-any-functions.ts",
-            "index": 61
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-any-variables.ts",
-            "index": 62
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-functions.ts",
-            "index": 63
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-literals.ts",
-            "index": 64
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-variables.ts",
-            "index": 65
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-walker-error.ts",
-            "index": 66
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutTestInput-error3.ts",
-            "index": 67
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutTestInput-error4.ts",
-            "index": 68
-          }
-        }
-      ],
       "results": [
         {
           "ruleId": "no-function-constructor-with-string-args",
@@ -12949,6 +12528,358 @@
               }
             }
           ]
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "TSLint"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoFunctionConstructorWithStringArgsTestInput.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-any.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-as.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-boolean.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-break.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-case.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-catch.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-class.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-const.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-constructor.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-continue.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-debugger.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-declare.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-default.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-delete.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-do.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-else.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-enum.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-export.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-extends.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-false.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-finally.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-for.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-from.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-function.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-get.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-if.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-implements.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-import.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-in.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-instanceof.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-interface.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-let.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-module.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-new.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-null.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-number.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-of.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-package.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-private.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-protected.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-public.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-require.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-return.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-set.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-static.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-string.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-super.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-switch.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-symbol.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-this.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-throw.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-true.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-try.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-type.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-typeof.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-var.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-void.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-while.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-with.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoReservedKeywords/NoReservedKeywordsTestInput-yield.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-any-functions.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-any-variables.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-functions.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-literals.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-variables.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-walker-error.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutTestInput-error3.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutTestInput-error4.ts"
+          }
         }
       ],
       "columnKind": "utf16CodeUnits"

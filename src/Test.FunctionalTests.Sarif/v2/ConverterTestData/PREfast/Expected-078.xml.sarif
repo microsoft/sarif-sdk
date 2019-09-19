@@ -3,50 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "PREfast",
-          "fullName": "PREfast Code Analysis"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "file:///c:/somepath/test078.cpp",
-            "index": 0
-          }
-        }
-      ],
-      "logicalLocations": [
-        {
-          "fullyQualifiedName": "f",
-          "decoratedName": "?f@@YAXPAH0@Z"
-        },
-        {
-          "fullyQualifiedName": "g",
-          "decoratedName": "?g@@YAXXZ"
-        },
-        {
-          "fullyQualifiedName": "DoSomethingBad",
-          "decoratedName": "?DoSomethingBad@@YAHPADPAI@Z"
-        },
-        {
-          "fullyQualifiedName": "foo",
-          "decoratedName": "?foo@@YAPAXPAH@Z"
-        },
-        {
-          "fullyQualifiedName": "bar",
-          "decoratedName": "?bar@@YAXXZ"
-        },
-        {
-          "fullyQualifiedName": "baz",
-          "decoratedName": "?baz@@YAXPAHH@Z"
-        },
-        {
-          "fullyQualifiedName": "main",
-          "decoratedName": "main"
-        }
-      ],
       "results": [
         {
           "ruleId": "26061",
@@ -1112,6 +1068,49 @@
               ]
             }
           ]
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///c:/somepath/test078.cpp"
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "f",
+          "decoratedName": "?f@@YAXPAH0@Z"
+        },
+        {
+          "fullyQualifiedName": "g",
+          "decoratedName": "?g@@YAXXZ"
+        },
+        {
+          "fullyQualifiedName": "DoSomethingBad",
+          "decoratedName": "?DoSomethingBad@@YAHPADPAI@Z"
+        },
+        {
+          "fullyQualifiedName": "foo",
+          "decoratedName": "?foo@@YAPAXPAH@Z"
+        },
+        {
+          "fullyQualifiedName": "bar",
+          "decoratedName": "?bar@@YAXXZ"
+        },
+        {
+          "fullyQualifiedName": "baz",
+          "decoratedName": "?baz@@YAXPAHH@Z"
+        },
+        {
+          "fullyQualifiedName": "main",
+          "decoratedName": "main"
         }
       ],
       "columnKind": "utf16CodeUnits"

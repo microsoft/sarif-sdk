@@ -3,54 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "PREfast",
-          "fullName": "PREfast Code Analysis"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "file:///c:/somepath/test055.cpp",
-            "index": 0
-          }
-        }
-      ],
-      "logicalLocations": [
-        {
-          "fullyQualifiedName": "f",
-          "decoratedName": "?f@@YAXH@Z"
-        },
-        {
-          "fullyQualifiedName": "foo",
-          "decoratedName": "?foo@@YAXH@Z"
-        },
-        {
-          "fullyQualifiedName": "bar",
-          "decoratedName": "?bar@@YAXXZ"
-        },
-        {
-          "fullyQualifiedName": "testAlloca",
-          "decoratedName": "?testAlloca@@YAXXZ"
-        },
-        {
-          "fullyQualifiedName": "testChar",
-          "decoratedName": "?testChar@@YAXH@Z"
-        },
-        {
-          "fullyQualifiedName": "TestNull",
-          "decoratedName": "?TestNull@@YAXPBD@Z"
-        },
-        {
-          "fullyQualifiedName": "`dynamic initializer for 's5''",
-          "decoratedName": "??__Es5@@YAXXZ"
-        },
-        {
-          "fullyQualifiedName": "main",
-          "decoratedName": "main"
-        }
-      ],
       "results": [
         {
           "ruleId": "26015",
@@ -1544,6 +1496,53 @@
               ]
             }
           ]
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///c:/somepath/test055.cpp"
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "f",
+          "decoratedName": "?f@@YAXH@Z"
+        },
+        {
+          "fullyQualifiedName": "foo",
+          "decoratedName": "?foo@@YAXH@Z"
+        },
+        {
+          "fullyQualifiedName": "bar",
+          "decoratedName": "?bar@@YAXXZ"
+        },
+        {
+          "fullyQualifiedName": "testAlloca",
+          "decoratedName": "?testAlloca@@YAXXZ"
+        },
+        {
+          "fullyQualifiedName": "testChar",
+          "decoratedName": "?testChar@@YAXH@Z"
+        },
+        {
+          "fullyQualifiedName": "TestNull",
+          "decoratedName": "?TestNull@@YAXPBD@Z"
+        },
+        {
+          "fullyQualifiedName": "`dynamic initializer for 's5''",
+          "decoratedName": "??__Es5@@YAXXZ"
+        },
+        {
+          "fullyQualifiedName": "main",
+          "decoratedName": "main"
         }
       ],
       "columnKind": "utf16CodeUnits"

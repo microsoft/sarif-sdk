@@ -3,31 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "StaticDriverVerifier"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "../../../rules/WDM/CancelSpinLock.slic",
-            "index": 0
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
-            "index": 1
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/fail_driver1.c",
-            "index": 2
-          }
-        }
-      ],
       "results": [
         {
           "level": "error",
@@ -4847,6 +4822,28 @@
               ]
             }
           ]
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "StaticDriverVerifier"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "../../../rules/WDM/CancelSpinLock.slic"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/fail_driver1.c"
+          }
         }
       ],
       "columnKind": "utf16CodeUnits"

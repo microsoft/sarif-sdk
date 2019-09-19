@@ -11,15 +11,12 @@ using Microsoft.CodeAnalysis.Sarif.Visitors;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Newtonsoft.Json;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
-    public class SarifConverterTests : FileDiffingUnitTests
+    public class SarifConverterTests
     {
         public const string TestDirectory = @"v2\ConverterTestData";
-
-        public SarifConverterTests(ITestOutputHelper outputHelper) : base(outputHelper) { }
 
         [Fact]
         public void AndroidStudioConverter_EndToEnd()
@@ -54,7 +51,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void FxCopConverter_EndToEnd()
         {
-            BatchRunConverter(ToolFormat.FxCop, enrichConvertedSarif: true);
+            BatchRunConverter(ToolFormat.FxCop);
+        }
+
+        [Fact]
+        public void MSBuildConverter_EndToEnd()
+        {
+            BatchRunConverter(ToolFormat.MSBuild);
         }
 
         [Fact]
@@ -135,7 +138,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             sb.Insert(0, "the converted tool file should have matched the supplied SARIF file. ");
 
-            string rebaselineMessage = "If the actual output is expected, generate new baselines for {0} by executing `UpdateBaselines.ps1 {0}` from a developer command prompt, or `UpdateBaselines.ps1` to update baselines for all tools.";
+            string rebaselineMessage = $"Update baselines by copying \"{Path.GetFullPath("Actual\\V2")}\" over \"src\\Test.FunctionalTests.Sarif\\V2\" and reviewing diffs.";
             sb.AppendLine(string.Format(CultureInfo.CurrentCulture, rebaselineMessage, toolName));
             return sb.ToString();
         }
@@ -143,7 +146,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private string RunConverter(StringBuilder sb, string toolFormat, string inputFileName)
         {
             string expectedFileName = inputFileName + ".sarif";
-            string generatedFileName = inputFileName + ".actual.sarif";
+            string generatedFileName = Path.Combine("Actual", expectedFileName);
+            Directory.CreateDirectory(Path.GetDirectoryName(generatedFileName));
 
             try
             {
@@ -161,7 +165,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             string actualSarif = File.ReadAllText(generatedFileName);
 
-            if (!AreEquivalent<SarifLog>(actualSarif, expectedSarif))
+            if (!FileDiffingUnitTests.AreEquivalent<SarifLog>(actualSarif, expectedSarif))
             {
                 File.WriteAllText(expectedFileName, expectedSarif);
                 File.WriteAllText(generatedFileName, actualSarif);
@@ -169,7 +173,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 string errorMessage = "The output of the {0} converter did not match for input {1}.";
                 sb.AppendLine(string.Format(CultureInfo.CurrentCulture, errorMessage, toolFormat, inputFileName));
                 sb.AppendLine("Check differences with:");
-                sb.AppendLine(GenerateDiffCommand(toolFormat, expectedFileName, generatedFileName));
+                sb.AppendLine(FileDiffingUnitTests.GenerateDiffCommand(toolFormat, expectedFileName, generatedFileName));
             }
             return generatedFileName;
         }

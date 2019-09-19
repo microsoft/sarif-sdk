@@ -3,30 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "PREfast",
-          "fullName": "PREfast Code Analysis"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "file:///c:/somepath/test047.cpp",
-            "index": 0
-          }
-        }
-      ],
-      "logicalLocations": [
-        {
-          "fullyQualifiedName": "SortList",
-          "decoratedName": "?SortList@@YAXXZ"
-        },
-        {
-          "fullyQualifiedName": "SortListUnroll",
-          "decoratedName": "?SortListUnroll@@YAXXZ"
-        }
-      ],
       "results": [
         {
           "ruleId": "26015",
@@ -567,6 +543,29 @@
               ]
             }
           ]
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///c:/somepath/test047.cpp"
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "SortList",
+          "decoratedName": "?SortList@@YAXXZ"
+        },
+        {
+          "fullyQualifiedName": "SortListUnroll",
+          "decoratedName": "?SortListUnroll@@YAXXZ"
         }
       ],
       "columnKind": "utf16CodeUnits"

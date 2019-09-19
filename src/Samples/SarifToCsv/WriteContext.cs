@@ -1,4 +1,8 @@
-﻿using AzureDevOpsCrawlers.Common.IO;
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License.
+
+using AzureDevOpsCrawlers.Common.IO;
+
 using Microsoft.CodeAnalysis.Sarif;
 
 namespace SarifToCsv
