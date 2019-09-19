@@ -1,0 +1,204 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.4.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "results": [
+        {
+          "ruleIndex": 0,
+          "message": {
+            "text": "Sample abstract text. SQL injection vulnerability."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 57,
+                  "snippet": {
+                    "text": "            \"SELECT * FROM invoices WHERE id = @id\", conn);"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 54,
+                  "endLine": 60,
+                  "snippet": {
+                    "text": "string str = null;\nint16 id = System.Convert.ToInt16(invoiceID.Text);\nSqlCommand query = new SqlCommand(\n            \"SELECT * FROM invoices WHERE id = @id\", conn);\nquery.Parameters.AddWithValue(\"@id\", id);\n\nSqlDataReader objReader = query.ExecuteReader();"
+                  }
+                }
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "index": 0
+                          },
+                          "region": {
+                            "startLine": 57,
+                            "snippet": {
+                              "text": "            \"SELECT * FROM invoices WHERE id = @id\", conn);"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 54,
+                            "endLine": 60,
+                            "snippet": {
+                              "text": "string str = null;\nint16 id = System.Convert.ToInt16(invoiceID.Text);\nSqlCommand query = new SqlCommand(\n            \"SELECT * FROM invoices WHERE id = @id\", conn);\nquery.Parameters.AddWithValue(\"@id\", id);\n\nSqlDataReader objReader = query.ExecuteReader();"
+                            }
+                          }
+                        },
+                        "message": {
+                          "text": "SqlCommand.ctor()"
+                        }
+                      },
+                      "kinds": [
+                        "call",
+                        "function"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "relatedLocations": [
+            {
+              "id": 1,
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 57
+                }
+              }
+            }
+          ],
+          "properties": {
+            "InstanceSeverity": "2.0",
+            "Confidence": "5.0"
+          }
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "Micro Focus Fortify Static Code Analyzer",
+          "rules": [
+            {
+              "id": "31D4607A-A3FF-447C-908A-CA2BBE4CE4B7",
+              "guid": "31D4607A-A3FF-447C-908A-CA2BBE4CE4B7",
+              "shortDescription": {
+                "text": "Sample abstract text. SQL injection vulnerability."
+              },
+              "fullDescription": {
+                "text": "The quick brown fox jumps over the lazy dog.\nThis section explains the rule in detail."
+              },
+              "defaultConfiguration": {
+                "properties": {
+                  "DefaultSeverity": "2.0"
+                }
+              },
+              "relationships": [
+                {
+                  "target": {
+                    "id": "22",
+                    "toolComponent": {
+                      "name": "CWE",
+                      "guid": "25F72D7E-8A92-459D-AD67-64853F788765"
+                    }
+                  },
+                  "kinds": [
+                    "relevant"
+                  ]
+                },
+                {
+                  "target": {
+                    "id": "73",
+                    "toolComponent": {
+                      "name": "CWE",
+                      "guid": "25F72D7E-8A92-459D-AD67-64853F788765"
+                    }
+                  },
+                  "kinds": [
+                    "relevant"
+                  ]
+                }
+              ],
+              "properties": {
+                "Kingdom": "Input Validation and Representation",
+                "Type": "SQL Injection",
+                "Subtype": "Value Never Read"
+              }
+            }
+          ],
+          "supportedTaxonomies": [
+            {
+              "name": "CWE",
+              "index": 0,
+              "guid": "25F72D7E-8A92-459D-AD67-64853F788765"
+            }
+          ]
+        }
+      },
+      "invocations": [
+        {
+          "commandLine": "[REMOVED]insourceanalyzer.exe -scan -b The_Build_ID -machine-output -f C:\\projects\\myproject\\scans\\2018-01-01_12:00:00\\Scan.fpr -format fpr",
+          "startTimeUtc": "2018-01-01T12:00:00.000Z",
+          "executionSuccessful": true,
+          "machine": "SCANMACHINE",
+          "account": "johndoe",
+          "properties": {
+            "Platform": "Linux"
+          }
+        }
+      ],
+      "originalUriBaseIds": {
+        "SRCROOT": {
+          "uri": "file:///root/projects/myproject/src/"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "Helpers/InvoiceHelper.cs",
+            "uriBaseId": "SRCROOT"
+          },
+          "length": 8297,
+          "mimeType": "text/x-csharp",
+          "encoding": "windows-1252"
+        }
+      ],
+      "automationDetails": {
+        "id": "The_Build_ID/"
+      },
+      "columnKind": "utf16CodeUnits",
+      "taxonomies": [
+        {
+          "guid": "25F72D7E-8A92-459D-AD67-64853F788765",
+          "name": "CWE",
+          "organization": "MITRE",
+          "shortDescription": {
+            "text": "The MITRE Common Weakness Enumeration"
+          },
+          "taxa": [
+            {
+              "id": "22"
+            },
+            {
+              "id": "73"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

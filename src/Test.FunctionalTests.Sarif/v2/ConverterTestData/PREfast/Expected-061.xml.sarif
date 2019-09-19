@@ -3,30 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "PREfast",
-          "fullName": "PREfast Code Analysis"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "file:///c:/somepath/test061.cpp",
-            "index": 0
-          }
-        }
-      ],
-      "logicalLocations": [
-        {
-          "fullyQualifiedName": "strchr",
-          "decoratedName": "?strchr@@YAPADPBDH@Z"
-        },
-        {
-          "fullyQualifiedName": "AddExtensionControlBlock",
-          "decoratedName": "?AddExtensionControlBlock@@YAXPAEK@Z"
-        }
-      ],
       "results": [
         {
           "ruleId": "26007",
@@ -1432,6 +1408,29 @@
               ]
             }
           ]
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///c:/somepath/test061.cpp"
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "strchr",
+          "decoratedName": "?strchr@@YAPADPBDH@Z"
+        },
+        {
+          "fullyQualifiedName": "AddExtensionControlBlock",
+          "decoratedName": "?AddExtensionControlBlock@@YAXPAEK@Z"
         }
       ],
       "columnKind": "utf16CodeUnits"

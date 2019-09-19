@@ -3,54 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "PREfast",
-          "fullName": "PREfast Code Analysis"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "file:///c:/somepath/test041.cpp",
-            "index": 0
-          }
-        }
-      ],
-      "logicalLocations": [
-        {
-          "fullyQualifiedName": "baz",
-          "decoratedName": "?baz@@YAXPAD@Z"
-        },
-        {
-          "fullyQualifiedName": "ref1",
-          "decoratedName": "?ref1@@YAXPADAAH@Z"
-        },
-        {
-          "fullyQualifiedName": "ref2",
-          "decoratedName": "?ref2@@YAXPADAAH@Z"
-        },
-        {
-          "fullyQualifiedName": "ref5",
-          "decoratedName": "?ref5@@YAXAAPAH0@Z"
-        },
-        {
-          "fullyQualifiedName": "g",
-          "decoratedName": "?g@@YAXP6APAXPAHH@Z@Z"
-        },
-        {
-          "fullyQualifiedName": "callDriver",
-          "decoratedName": "?callDriver@@YAXXZ"
-        },
-        {
-          "fullyQualifiedName": "driverFn1",
-          "decoratedName": "?driverFn1@@YAXPAHH@Z"
-        },
-        {
-          "fullyQualifiedName": "main",
-          "decoratedName": "main"
-        }
-      ],
       "results": [
         {
           "ruleId": "26000",
@@ -1102,6 +1054,53 @@
               ]
             }
           ]
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///c:/somepath/test041.cpp"
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "baz",
+          "decoratedName": "?baz@@YAXPAD@Z"
+        },
+        {
+          "fullyQualifiedName": "ref1",
+          "decoratedName": "?ref1@@YAXPADAAH@Z"
+        },
+        {
+          "fullyQualifiedName": "ref2",
+          "decoratedName": "?ref2@@YAXPADAAH@Z"
+        },
+        {
+          "fullyQualifiedName": "ref5",
+          "decoratedName": "?ref5@@YAXAAPAH0@Z"
+        },
+        {
+          "fullyQualifiedName": "g",
+          "decoratedName": "?g@@YAXP6APAXPAHH@Z@Z"
+        },
+        {
+          "fullyQualifiedName": "callDriver",
+          "decoratedName": "?callDriver@@YAXXZ"
+        },
+        {
+          "fullyQualifiedName": "driverFn1",
+          "decoratedName": "?driverFn1@@YAXPAHH@Z"
+        },
+        {
+          "fullyQualifiedName": "main",
+          "decoratedName": "main"
         }
       ],
       "columnKind": "utf16CodeUnits"

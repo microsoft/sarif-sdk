@@ -3,48 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "PREfast",
-          "fullName": "PREfast Code Analysis"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "file:///c:/somepath/test100.cpp",
-            "index": 0
-          }
-        }
-      ],
-      "logicalLocations": [
-        {
-          "fullyQualifiedName": "bad1",
-          "decoratedName": "?bad1@@YAXPAXIPAU_BUFFER@@@Z"
-        },
-        {
-          "fullyQualifiedName": "bad2",
-          "decoratedName": "?bad2@@YAXPAXIPAU_BUFFER@@@Z"
-        },
-        {
-          "name": "{ctor}",
-          "fullyQualifiedName": "Buffer::{ctor}",
-          "decoratedName": "??0Buffer@@QAE@PAH@Z"
-        },
-        {
-          "name": "badfetch",
-          "fullyQualifiedName": "Buffer::badfetch",
-          "decoratedName": "?badfetch@Buffer@@QAEHH@Z"
-        },
-        {
-          "fullyQualifiedName": "Bad1",
-          "decoratedName": "?Bad1@@YAHPAUBuffer@@@Z"
-        },
-        {
-          "fullyQualifiedName": "Bad2",
-          "decoratedName": "?Bad2@@YAXXZ"
-        }
-      ],
       "results": [
         {
           "ruleId": "26015",
@@ -735,6 +693,47 @@
               ]
             }
           ]
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///c:/somepath/test100.cpp"
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "bad1",
+          "decoratedName": "?bad1@@YAXPAXIPAU_BUFFER@@@Z"
+        },
+        {
+          "fullyQualifiedName": "bad2",
+          "decoratedName": "?bad2@@YAXPAXIPAU_BUFFER@@@Z"
+        },
+        {
+          "name": "{ctor}",
+          "fullyQualifiedName": "Buffer::{ctor}",
+          "decoratedName": "??0Buffer@@QAE@PAH@Z"
+        },
+        {
+          "name": "badfetch",
+          "fullyQualifiedName": "Buffer::badfetch",
+          "decoratedName": "?badfetch@Buffer@@QAEHH@Z"
+        },
+        {
+          "fullyQualifiedName": "Bad1",
+          "decoratedName": "?Bad1@@YAHPAUBuffer@@@Z"
+        },
+        {
+          "fullyQualifiedName": "Bad2",
+          "decoratedName": "?Bad2@@YAXXZ"
         }
       ],
       "columnKind": "utf16CodeUnits"

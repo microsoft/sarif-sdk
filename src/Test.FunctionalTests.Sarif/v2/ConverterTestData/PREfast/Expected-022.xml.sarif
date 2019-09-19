@@ -3,69 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "PREfast",
-          "fullName": "PREfast Code Analysis"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "file:///c:/somepath/test022.cpp",
-            "index": 0
-          }
-        }
-      ],
-      "logicalLocations": [
-        {
-          "fullyQualifiedName": "f",
-          "decoratedName": "?f@@YAXXZ"
-        },
-        {
-          "fullyQualifiedName": "h",
-          "decoratedName": "?h@@YAXPAHH@Z"
-        },
-        {
-          "fullyQualifiedName": "foo",
-          "decoratedName": "?foo@@YAXPAHI@Z"
-        },
-        {
-          "fullyQualifiedName": "StrLen",
-          "decoratedName": "?StrLen@@YAIPBD@Z"
-        },
-        {
-          "fullyQualifiedName": "BugLast",
-          "decoratedName": "?BugLast@@YADPBD@Z"
-        },
-        {
-          "fullyQualifiedName": "g1",
-          "decoratedName": "?g1@@YAXPAH@Z"
-        },
-        {
-          "fullyQualifiedName": "foo",
-          "decoratedName": "?foo@@YADXZ"
-        },
-        {
-          "fullyQualifiedName": "bar",
-          "decoratedName": "?bar@@YAXPAHII@Z"
-        },
-        {
-          "name": "f",
-          "fullyQualifiedName": "ShiftTest::f",
-          "decoratedName": "?f@ShiftTest@@YAXPAHH@Z"
-        },
-        {
-          "name": "foo",
-          "fullyQualifiedName": "ShiftTest::foo",
-          "decoratedName": "?foo@ShiftTest@@YAXXZ"
-        },
-        {
-          "name": "bar",
-          "fullyQualifiedName": "ShiftTest::bar",
-          "decoratedName": "?bar@ShiftTest@@YAXXZ"
-        }
-      ],
       "results": [
         {
           "ruleId": "26000",
@@ -1265,6 +1202,68 @@
               ]
             }
           ]
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///c:/somepath/test022.cpp"
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "f",
+          "decoratedName": "?f@@YAXXZ"
+        },
+        {
+          "fullyQualifiedName": "h",
+          "decoratedName": "?h@@YAXPAHH@Z"
+        },
+        {
+          "fullyQualifiedName": "foo",
+          "decoratedName": "?foo@@YAXPAHI@Z"
+        },
+        {
+          "fullyQualifiedName": "StrLen",
+          "decoratedName": "?StrLen@@YAIPBD@Z"
+        },
+        {
+          "fullyQualifiedName": "BugLast",
+          "decoratedName": "?BugLast@@YADPBD@Z"
+        },
+        {
+          "fullyQualifiedName": "g1",
+          "decoratedName": "?g1@@YAXPAH@Z"
+        },
+        {
+          "fullyQualifiedName": "foo",
+          "decoratedName": "?foo@@YADXZ"
+        },
+        {
+          "fullyQualifiedName": "bar",
+          "decoratedName": "?bar@@YAXPAHII@Z"
+        },
+        {
+          "name": "f",
+          "fullyQualifiedName": "ShiftTest::f",
+          "decoratedName": "?f@ShiftTest@@YAXPAHH@Z"
+        },
+        {
+          "name": "foo",
+          "fullyQualifiedName": "ShiftTest::foo",
+          "decoratedName": "?foo@ShiftTest@@YAXXZ"
+        },
+        {
+          "name": "bar",
+          "fullyQualifiedName": "ShiftTest::bar",
+          "decoratedName": "?bar@ShiftTest@@YAXXZ"
         }
       ],
       "columnKind": "utf16CodeUnits"

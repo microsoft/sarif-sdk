@@ -3,34 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "PREfast",
-          "fullName": "PREfast Code Analysis"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "file:///c:/somepath/test132.cpp",
-            "index": 0
-          }
-        }
-      ],
-      "logicalLocations": [
-        {
-          "fullyQualifiedName": "TestStrLenPrimOp1",
-          "decoratedName": "?TestStrLenPrimOp1@@YAXXZ"
-        },
-        {
-          "fullyQualifiedName": "TestWcsLenPrimOp1",
-          "decoratedName": "?TestWcsLenPrimOp1@@YAXXZ"
-        },
-        {
-          "fullyQualifiedName": "TestCountedString",
-          "decoratedName": "?TestCountedString@@YAXPAG@Z"
-        }
-      ],
       "results": [
         {
           "ruleId": "26000",
@@ -470,6 +442,33 @@
               ]
             }
           ]
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///c:/somepath/test132.cpp"
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "TestStrLenPrimOp1",
+          "decoratedName": "?TestStrLenPrimOp1@@YAXXZ"
+        },
+        {
+          "fullyQualifiedName": "TestWcsLenPrimOp1",
+          "decoratedName": "?TestWcsLenPrimOp1@@YAXXZ"
+        },
+        {
+          "fullyQualifiedName": "TestCountedString",
+          "decoratedName": "?TestCountedString@@YAXPAG@Z"
         }
       ],
       "columnKind": "utf16CodeUnits"

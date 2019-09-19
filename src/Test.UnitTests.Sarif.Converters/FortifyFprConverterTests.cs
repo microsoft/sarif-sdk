@@ -9,46 +9,8 @@ using Xunit.Abstractions;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
-    public class FortifyFprConverterTests : FileDiffingUnitTests, IClassFixture<FortifyFprConverterTests.FortifyFprConverterTestsFixture>
+    public class FortifyFprConverterTests
     {
-        public class FortifyFprConverterTestsFixture : DeletesOutputsDirectoryOnClassInitializationFixture { }
-
-        protected override string TestLogResourceNameRoot => "Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Converters.TestData." + TypeUnderTest;
-
-        public FortifyFprConverterTests(ITestOutputHelper outputHelper) : base(outputHelper) { }
-
-        protected override string ConstructTestOutputFromInputResource(string inputResource)
-        {
-            byte[] fprData = GetResourceBytes(inputResource);
-
-            var converter = new FortifyFprConverter();
-            return Utilities.GetConverterJson(converter, fprData);
-        }
-
-        [Fact]
-        public void FortifyFprConverter_Convert_OneResultBasic()
-        {
-            RunTest("OneResultBasic.fpr");
-        }
-
-        [Fact]
-        public void FortifyFprConverter_Convert_OneResultWithTwoTraces()
-        {
-            RunTest("OneResultWithTwoTraces.fpr");
-        }
-
-        [Fact]
-        public void FortifyFprConverter_Convert_TwoResultsWithNodeRefs()
-        {
-            RunTest("TwoResultsWithNodeRefs.fpr");
-        }
-
-        [Fact]
-        public void FortifyFprConverter_Convert_ScanWithFailureLevelMatrices()
-        {
-            RunTest("ScanWithFailureLevelMatrices.fpr");
-        }
-
         [Fact]
         public void FortifyFprConverter_GetFailureLevelFromRuleMetadata_MissingImpactProperty_ReturnsWarning()
         {

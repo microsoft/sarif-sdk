@@ -3,12 +3,12 @@
   "version": "2.1.0",
   "runs": [
     {
+      "results": [],
       "tool": {
         "driver": {
           "name": "TSLint"
         }
       },
-      "results": [],
       "columnKind": "utf16CodeUnits"
     }
   ]

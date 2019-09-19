@@ -3,66 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "PREfast",
-          "fullName": "PREfast Code Analysis"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "file:///c:/somepath/test087.cpp",
-            "index": 0
-          }
-        }
-      ],
-      "logicalLocations": [
-        {
-          "fullyQualifiedName": "qcolon",
-          "decoratedName": "?qcolon@@YAXPADIHH@Z"
-        },
-        {
-          "fullyQualifiedName": "callqcolon",
-          "decoratedName": "?callqcolon@@YAXXZ"
-        },
-        {
-          "fullyQualifiedName": "TestAnd",
-          "decoratedName": "?TestAnd@@YAXPADI_N1@Z"
-        },
-        {
-          "fullyQualifiedName": "TestOr",
-          "decoratedName": "?TestOr@@YAXPADI_N1@Z"
-        },
-        {
-          "fullyQualifiedName": "CallAnd",
-          "decoratedName": "?CallAnd@@YAXXZ"
-        },
-        {
-          "fullyQualifiedName": "CallOr",
-          "decoratedName": "?CallOr@@YAXXZ"
-        },
-        {
-          "fullyQualifiedName": "CallDual",
-          "decoratedName": "?CallDual@@YAXXZ"
-        },
-        {
-          "fullyQualifiedName": "BadDualBit",
-          "decoratedName": "?BadDualBit@@YAXPADII@Z"
-        },
-        {
-          "fullyQualifiedName": "CallDualBit",
-          "decoratedName": "?CallDualBit@@YAXXZ"
-        },
-        {
-          "fullyQualifiedName": "callcleveraw",
-          "decoratedName": "?callcleveraw@@YAXXZ"
-        },
-        {
-          "fullyQualifiedName": "callfoo",
-          "decoratedName": "?callfoo@@YAXXZ"
-        }
-      ],
       "results": [
         {
           "ruleId": "26015",
@@ -1847,6 +1787,65 @@
               ]
             }
           ]
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///c:/somepath/test087.cpp"
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "qcolon",
+          "decoratedName": "?qcolon@@YAXPADIHH@Z"
+        },
+        {
+          "fullyQualifiedName": "callqcolon",
+          "decoratedName": "?callqcolon@@YAXXZ"
+        },
+        {
+          "fullyQualifiedName": "TestAnd",
+          "decoratedName": "?TestAnd@@YAXPADI_N1@Z"
+        },
+        {
+          "fullyQualifiedName": "TestOr",
+          "decoratedName": "?TestOr@@YAXPADI_N1@Z"
+        },
+        {
+          "fullyQualifiedName": "CallAnd",
+          "decoratedName": "?CallAnd@@YAXXZ"
+        },
+        {
+          "fullyQualifiedName": "CallOr",
+          "decoratedName": "?CallOr@@YAXXZ"
+        },
+        {
+          "fullyQualifiedName": "CallDual",
+          "decoratedName": "?CallDual@@YAXXZ"
+        },
+        {
+          "fullyQualifiedName": "BadDualBit",
+          "decoratedName": "?BadDualBit@@YAXPADII@Z"
+        },
+        {
+          "fullyQualifiedName": "CallDualBit",
+          "decoratedName": "?CallDualBit@@YAXXZ"
+        },
+        {
+          "fullyQualifiedName": "callcleveraw",
+          "decoratedName": "?callcleveraw@@YAXXZ"
+        },
+        {
+          "fullyQualifiedName": "callfoo",
+          "decoratedName": "?callfoo@@YAXXZ"
         }
       ],
       "columnKind": "utf16CodeUnits"

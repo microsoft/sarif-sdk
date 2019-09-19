@@ -3,26 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "PREfast",
-          "fullName": "PREfast Code Analysis"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "file:///c:/somepath/test170.cpp",
-            "index": 0
-          }
-        }
-      ],
-      "logicalLocations": [
-        {
-          "fullyQualifiedName": "CopyNullTerminatedBufferToOffset",
-          "decoratedName": "?CopyNullTerminatedBufferToOffset@@YAXXZ"
-        }
-      ],
       "results": [
         {
           "ruleId": "26000",
@@ -216,6 +196,25 @@
               ]
             }
           ]
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///c:/somepath/test170.cpp"
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "CopyNullTerminatedBufferToOffset",
+          "decoratedName": "?CopyNullTerminatedBufferToOffset@@YAXXZ"
         }
       ],
       "columnKind": "utf16CodeUnits"

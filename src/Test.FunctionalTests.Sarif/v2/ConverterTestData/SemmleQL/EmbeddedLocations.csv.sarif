@@ -1,0 +1,105 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.4.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "results": [
+        {
+          "message": {
+            "text": "Call to Equals() comparing incomparable types[IComparable](1) and [ClientAttributeValue](2)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "ProjectOne/Microsoft.ResourceManagement.ObjectModel/ClientResource.cs",
+                  "uriBaseId": "$srcroot",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 865,
+                  "startColumn": 15,
+                  "endLine": 900,
+                  "endColumn": 100
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "id": 1,
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Windows/Company.NET/Framework/v2.0.50727/mscorlib.dll",
+                  "index": 1
+                },
+                "region": {}
+              }
+            },
+            {
+              "id": 2,
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/ClientClient/Company.ResourceManagement.ObjectModel/ClientAttributeValue.cs",
+                  "uriBaseId": "$srcroot",
+                  "index": 2
+                },
+                "region": {
+                  "startLine": 7,
+                  "byteOffset": 152,
+                  "byteLength": 16
+                }
+              }
+            },
+            {
+              "id": 3,
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/ClientClient/Company.ResourceManagement.ObjectModel/ClientAttributeValue_ISerializable.cs",
+                  "uriBaseId": "$srcroot",
+                  "index": 3
+                },
+                "region": {
+                  "startLine": 14,
+                  "byteOffset": 333,
+                  "byteLength": 16
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "Semmle QL"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "ProjectOne/Microsoft.ResourceManagement.ObjectModel/ClientResource.cs",
+            "uriBaseId": "$srcroot"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/Windows/Company.NET/Framework/v2.0.50727/mscorlib.dll"
+          }
+        },
+        {
+          "location": {
+            "uri": "/ClientClient/Company.ResourceManagement.ObjectModel/ClientAttributeValue.cs",
+            "uriBaseId": "$srcroot"
+          }
+        },
+        {
+          "location": {
+            "uri": "/ClientClient/Company.ResourceManagement.ObjectModel/ClientAttributeValue_ISerializable.cs",
+            "uriBaseId": "$srcroot"
+          }
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}

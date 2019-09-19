@@ -17,8 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
             File.WriteAllText(sampleFilePath, Extractor.GetResourceText("Map.Sample.json"));
 
             // Allow a map 20x the size of the original file
-            JsonMapBuilder builder = new JsonMapBuilder(20);
-            JsonMapNode root = builder.Build(sampleFilePath);
+            JsonMapNode root = JsonMapBuilder.Build(sampleFilePath, new JsonMapSettings(20));
 
             Assert.NotNull(root);
             Assert.Equal(0, root.Start);         // Index of root '{'
@@ -64,9 +63,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
             string sampleFilePath = "Map.Sample.json";
             File.WriteAllText(sampleFilePath, Extractor.GetResourceText("Map.Sample.json"));
 
-            // Allow a map 1x the size of the original file
-            JsonMapBuilder builder = new JsonMapBuilder(2);
-            JsonMapNode root = builder.Build(sampleFilePath);
+            // Allow a map 2x the size of the original file
+            JsonMapNode root = JsonMapBuilder.Build(sampleFilePath, new JsonMapSettings(2));
 
             // Verify three properties but only one big enough for a node
             Assert.Equal(3, root.Count);
@@ -86,9 +84,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
             string sampleFilePath = "Map.TinyArray.json";
             File.WriteAllText(sampleFilePath, Extractor.GetResourceText("Map.TinyArray.json"));
 
-            // Allow a map 1x the size of the original file
-            JsonMapBuilder builder = new JsonMapBuilder(1);
-            JsonMapNode root = builder.Build(sampleFilePath);
+            // File: 300b.
+            // Map: Root (90b) + Array (5b x 50 (Count 100 / Every 2)) = 340b
+            JsonMapNode root = JsonMapBuilder.Build(sampleFilePath, new JsonMapSettings(350.0 / 300.0));
 
             // 100 array elements, only 50 starts, every = 2
             Assert.Equal(100, root.Count);
@@ -114,9 +112,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
             string sampleFilePath = "Map.TinyArray.json";
             File.WriteAllText(sampleFilePath, Extractor.GetResourceText("Map.TinyArray.json"));
 
-            // Allow a map 50% the size of the original file
-            JsonMapBuilder builder = new JsonMapBuilder(0.5);
-            JsonMapNode root = builder.Build(sampleFilePath);
+            // File: 300b.
+            // Map: Root (90b) + Array (5b x 25 (Count 100 / Every 4)) = 215b
+            JsonMapNode root = JsonMapBuilder.Build(sampleFilePath, new JsonMapSettings(220.0 / 300.0));
 
             // 100 array elements, only 25 starts, every = 4
             Assert.Equal(100, root.Count);

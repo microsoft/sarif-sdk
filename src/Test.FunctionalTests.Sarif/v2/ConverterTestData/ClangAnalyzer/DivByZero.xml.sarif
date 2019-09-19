@@ -3,19 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "Clang Analyzer"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "jquant1.c",
-            "index": 0
-          }
-        }
-      ],
       "results": [
         {
           "ruleId": "Division by zero",
@@ -41,6 +28,18 @@
             "issue_context_kind": "function",
             "issueContext": "output_value",
             "issueHash": "6"
+          }
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "Clang Analyzer"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "jquant1.c"
           }
         }
       ],

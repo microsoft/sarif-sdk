@@ -3,30 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "PREfast",
-          "fullName": "PREfast Code Analysis"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "file:///c:/somepath/test074.cpp",
-            "index": 0
-          }
-        }
-      ],
-      "logicalLocations": [
-        {
-          "fullyQualifiedName": "StrCchCopy",
-          "decoratedName": "?StrCchCopy@@YAJPADPBDI@Z"
-        },
-        {
-          "fullyQualifiedName": "buggy",
-          "decoratedName": "?buggy@@YAXPBD@Z"
-        }
-      ],
       "results": [
         {
           "ruleId": "26007",
@@ -469,6 +445,29 @@
               ]
             }
           ]
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///c:/somepath/test074.cpp"
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "StrCchCopy",
+          "decoratedName": "?StrCchCopy@@YAJPADPBDI@Z"
+        },
+        {
+          "fullyQualifiedName": "buggy",
+          "decoratedName": "?buggy@@YAXPBD@Z"
         }
       ],
       "columnKind": "utf16CodeUnits"

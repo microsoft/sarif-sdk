@@ -3,77 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "AndroidStudio"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "gradle.properties",
-            "index": 0
-          }
-        },
-        {
-          "location": {
-            "uri": "gradle/wrapper/gradle-wrapper.properties",
-            "index": 1
-          }
-        },
-        {
-          "location": {
-            "uri": "gradlew",
-            "index": 2
-          }
-        },
-        {
-          "location": {
-            "uri": "gradlew.bat",
-            "index": 3
-          }
-        },
-        {
-          "location": {
-            "uri": "app/build.gradle",
-            "index": 4
-          }
-        },
-        {
-          "location": {
-            "uri": "app/src/main/AndroidManifest.xml",
-            "index": 5
-          }
-        },
-        {
-          "location": {
-            "uri": "app/src/main/res/values-w820dp/dimens.xml",
-            "index": 6
-          }
-        },
-        {
-          "location": {
-            "uri": "app/src/main/java/microsoft/androidstudioformatexample/NamespaceTypo.java",
-            "index": 7
-          }
-        }
-      ],
-      "logicalLocations": [
-        {
-          "fullyQualifiedName": "AndroidStudioFormatExample",
-          "kind": "module"
-        },
-        {
-          "fullyQualifiedName": "app",
-          "kind": "module"
-        },
-        {
-          "name": "microsoft.androidstudioformatexample",
-          "fullyQualifiedName": "app\\microsoft.androidstudioformatexample",
-          "parentIndex": 1,
-          "kind": "package"
-        }
-      ],
       "results": [
         {
           "ruleId": "Typo",
@@ -2423,6 +2352,69 @@
             "severity": "TYPO",
             "attributeKey": "TYPO"
           }
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "AndroidStudio"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "gradle.properties"
+          }
+        },
+        {
+          "location": {
+            "uri": "gradle/wrapper/gradle-wrapper.properties"
+          }
+        },
+        {
+          "location": {
+            "uri": "gradlew"
+          }
+        },
+        {
+          "location": {
+            "uri": "gradlew.bat"
+          }
+        },
+        {
+          "location": {
+            "uri": "app/build.gradle"
+          }
+        },
+        {
+          "location": {
+            "uri": "app/src/main/AndroidManifest.xml"
+          }
+        },
+        {
+          "location": {
+            "uri": "app/src/main/res/values-w820dp/dimens.xml"
+          }
+        },
+        {
+          "location": {
+            "uri": "app/src/main/java/microsoft/androidstudioformatexample/NamespaceTypo.java"
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        {
+          "fullyQualifiedName": "app",
+          "kind": "module"
+        },
+        {
+          "name": "microsoft.androidstudioformatexample",
+          "fullyQualifiedName": "app\\microsoft.androidstudioformatexample",
+          "parentIndex": 1,
+          "kind": "package"
         }
       ],
       "columnKind": "utf16CodeUnits"

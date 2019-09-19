@@ -3,27 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "PREfast",
-          "fullName": "PREfast Code Analysis"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "file:///c:/somepath/utility",
-            "index": 0
-          }
-        }
-      ],
-      "logicalLocations": [
-        {
-          "name": "{ctor}",
-          "fullyQualifiedName": "std::pair<int const ,uls_perf_counter_info>::{ctor}",
-          "decoratedName": "??$?0HUuls_perf_counter_info@@X@?$pair@$$CBHUuls_perf_counter_info@@@std@@QAE@$$QAU?$pair@HUuls_perf_counter_info@@@1@@Z"
-        }
-      ],
       "results": [
         {
           "ruleId": "26035",
@@ -119,6 +98,26 @@
               ]
             }
           ]
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///c:/somepath/utility"
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "name": "{ctor}",
+          "fullyQualifiedName": "std::pair<int const ,uls_perf_counter_info>::{ctor}",
+          "decoratedName": "??$?0HUuls_perf_counter_info@@X@?$pair@$$CBHUuls_perf_counter_info@@@std@@QAE@$$QAU?$pair@HUuls_perf_counter_info@@@1@@Z"
         }
       ],
       "columnKind": "utf16CodeUnits"

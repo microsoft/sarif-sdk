@@ -3,34 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "PREfast",
-          "fullName": "PREfast Code Analysis"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "file:///c:/somepath/test139.cpp",
-            "index": 0
-          }
-        }
-      ],
-      "logicalLocations": [
-        {
-          "fullyQualifiedName": "TestFailOnImpl",
-          "decoratedName": "?TestFailOnImpl@@YAHPBD@Z"
-        },
-        {
-          "fullyQualifiedName": "TestFailOnCaller",
-          "decoratedName": "?TestFailOnCaller@@YAXXZ"
-        },
-        {
-          "fullyQualifiedName": "TestWeirdAlloc",
-          "decoratedName": "?TestWeirdAlloc@@YAXXZ"
-        }
-      ],
       "results": [
         {
           "ruleId": "26061",
@@ -442,6 +414,33 @@
               ]
             }
           ]
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///c:/somepath/test139.cpp"
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "TestFailOnImpl",
+          "decoratedName": "?TestFailOnImpl@@YAHPBD@Z"
+        },
+        {
+          "fullyQualifiedName": "TestFailOnCaller",
+          "decoratedName": "?TestFailOnCaller@@YAXXZ"
+        },
+        {
+          "fullyQualifiedName": "TestWeirdAlloc",
+          "decoratedName": "?TestWeirdAlloc@@YAXXZ"
         }
       ],
       "columnKind": "utf16CodeUnits"

@@ -3,27 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "PREfast",
-          "fullName": "PREfast Code Analysis"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "file:///c:/somepath/test163.cpp",
-            "index": 0
-          }
-        }
-      ],
-      "logicalLocations": [
-        {
-          "name": "MemberFunc",
-          "fullyQualifiedName": "Class::MemberFunc",
-          "decoratedName": "?MemberFunc@Class@@QAEJXZ"
-        }
-      ],
       "results": [
         {
           "ruleId": "26035",
@@ -1272,6 +1251,26 @@
               ]
             }
           ]
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///c:/somepath/test163.cpp"
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "name": "MemberFunc",
+          "fullyQualifiedName": "Class::MemberFunc",
+          "decoratedName": "?MemberFunc@Class@@QAEJXZ"
         }
       ],
       "columnKind": "utf16CodeUnits"

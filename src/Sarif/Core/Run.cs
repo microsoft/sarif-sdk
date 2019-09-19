@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (fileLocation == null) { throw new ArgumentNullException(nameof(fileLocation)); }
 
-            if (this.Artifacts?.Count == 0)
+            if (this.Artifacts == null || this.Artifacts.Count == 0)
             {
                 if (!addToFilesTableIfNotPresent)
                 {
@@ -92,7 +92,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                         hashData: hashData,
                         encoding: null);
 
-                    fileData.Location = fileLocation;
+                    // Copy ArtifactLocation to ensure changes to Result copy don't affect new Run.Artifacts copy
+                    fileData.Location = new ArtifactLocation(fileLocation);
 
                     this.Artifacts.Add(fileData);
 

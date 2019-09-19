@@ -3,30 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "PREfast",
-          "fullName": "PREfast Code Analysis"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6053_4.cpp",
-            "index": 0
-          }
-        }
-      ],
-      "logicalLocations": [
-        {
-          "fullyQualifiedName": "BasicC6053",
-          "decoratedName": "?BasicC6053@@YAXPEAD@Z"
-        },
-        {
-          "fullyQualifiedName": "BasicC6054",
-          "decoratedName": "?BasicC6054@@YAXXZ"
-        }
-      ],
       "results": [
         {
           "ruleId": "6053",
@@ -221,6 +197,29 @@
             "rank": "3",
             "ruleCategory": "mspft"
           }
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6053_4.cpp"
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "BasicC6053",
+          "decoratedName": "?BasicC6053@@YAXPEAD@Z"
+        },
+        {
+          "fullyQualifiedName": "BasicC6054",
+          "decoratedName": "?BasicC6054@@YAXXZ"
         }
       ],
       "columnKind": "utf16CodeUnits"

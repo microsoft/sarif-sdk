@@ -3,62 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "PREfast",
-          "fullName": "PREfast Code Analysis"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "file:///c:/somepath/test086.cpp",
-            "index": 0
-          }
-        }
-      ],
-      "logicalLocations": [
-        {
-          "fullyQualifiedName": "SimpleOverflow",
-          "decoratedName": "?SimpleOverflow@@YAXPAUS@@@Z"
-        },
-        {
-          "fullyQualifiedName": "OffByOne",
-          "decoratedName": "?OffByOne@@YAXPAUS@@@Z"
-        },
-        {
-          "fullyQualifiedName": "TestFlexArray",
-          "decoratedName": "?TestFlexArray@@YAXPAUFlex@@@Z"
-        },
-        {
-          "fullyQualifiedName": "bar",
-          "decoratedName": "?bar@@YAXPAUS@@@Z"
-        },
-        {
-          "fullyQualifiedName": "TestLocal",
-          "decoratedName": "?TestLocal@@YAXXZ"
-        },
-        {
-          "fullyQualifiedName": "TestPointedTo",
-          "decoratedName": "?TestPointedTo@@YAXPAUS1@@@Z"
-        },
-        {
-          "fullyQualifiedName": "TestNestedStructArrays",
-          "decoratedName": "?TestNestedStructArrays@@YAXPAUComplex@@@Z"
-        },
-        {
-          "fullyQualifiedName": "TestArrayOfStructs1",
-          "decoratedName": "?TestArrayOfStructs1@@YAXPAUS@@H@Z"
-        },
-        {
-          "fullyQualifiedName": "TestArrayOfStructs2",
-          "decoratedName": "?TestArrayOfStructs2@@YAXPAUS@@H@Z"
-        },
-        {
-          "fullyQualifiedName": "TestArrayOfStructs3",
-          "decoratedName": "?TestArrayOfStructs3@@YAXPAUS@@H@Z"
-        }
-      ],
       "results": [
         {
           "ruleId": "26000",
@@ -1815,6 +1759,61 @@
               ]
             }
           ]
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///c:/somepath/test086.cpp"
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "SimpleOverflow",
+          "decoratedName": "?SimpleOverflow@@YAXPAUS@@@Z"
+        },
+        {
+          "fullyQualifiedName": "OffByOne",
+          "decoratedName": "?OffByOne@@YAXPAUS@@@Z"
+        },
+        {
+          "fullyQualifiedName": "TestFlexArray",
+          "decoratedName": "?TestFlexArray@@YAXPAUFlex@@@Z"
+        },
+        {
+          "fullyQualifiedName": "bar",
+          "decoratedName": "?bar@@YAXPAUS@@@Z"
+        },
+        {
+          "fullyQualifiedName": "TestLocal",
+          "decoratedName": "?TestLocal@@YAXXZ"
+        },
+        {
+          "fullyQualifiedName": "TestPointedTo",
+          "decoratedName": "?TestPointedTo@@YAXPAUS1@@@Z"
+        },
+        {
+          "fullyQualifiedName": "TestNestedStructArrays",
+          "decoratedName": "?TestNestedStructArrays@@YAXPAUComplex@@@Z"
+        },
+        {
+          "fullyQualifiedName": "TestArrayOfStructs1",
+          "decoratedName": "?TestArrayOfStructs1@@YAXPAUS@@H@Z"
+        },
+        {
+          "fullyQualifiedName": "TestArrayOfStructs2",
+          "decoratedName": "?TestArrayOfStructs2@@YAXPAUS@@H@Z"
+        },
+        {
+          "fullyQualifiedName": "TestArrayOfStructs3",
+          "decoratedName": "?TestArrayOfStructs3@@YAXPAUS@@H@Z"
         }
       ],
       "columnKind": "utf16CodeUnits"

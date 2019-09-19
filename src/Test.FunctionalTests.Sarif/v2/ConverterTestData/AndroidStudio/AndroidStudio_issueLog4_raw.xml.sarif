@@ -3,37 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "AndroidStudio"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "app/src/main/java/microsoft/androidstudioformatexample/MainActivity.java",
-            "index": 0
-          }
-        }
-      ],
-      "logicalLocations": [
-        {
-          "fullyQualifiedName": "app",
-          "kind": "module"
-        },
-        {
-          "name": "microsoft.androidstudioformatexample",
-          "fullyQualifiedName": "app\\microsoft.androidstudioformatexample",
-          "parentIndex": 0,
-          "kind": "package"
-        },
-        {
-          "name": "microsoft.androidstudioformatexample.MainActivity boolean onOptionsItemSelected(android.view.MenuItem item)",
-          "fullyQualifiedName": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.MainActivity boolean onOptionsItemSelected(android.view.MenuItem item)",
-          "parentIndex": 1,
-          "kind": "member"
-        }
-      ],
       "results": [
         {
           "ruleId": "'if' statement may be replaced with && or || expression",
@@ -63,6 +32,36 @@
             "severity": "WARNING",
             "attributeKey": "WARNING_ATTRIBUTES"
           }
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "AndroidStudio"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "app/src/main/java/microsoft/androidstudioformatexample/MainActivity.java"
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "app",
+          "kind": "module"
+        },
+        {
+          "name": "microsoft.androidstudioformatexample",
+          "fullyQualifiedName": "app\\microsoft.androidstudioformatexample",
+          "parentIndex": 0,
+          "kind": "package"
+        },
+        {
+          "name": "microsoft.androidstudioformatexample.MainActivity boolean onOptionsItemSelected(android.view.MenuItem item)",
+          "fullyQualifiedName": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.MainActivity boolean onOptionsItemSelected(android.view.MenuItem item)",
+          "parentIndex": 1,
+          "kind": "member"
         }
       ],
       "columnKind": "utf16CodeUnits"

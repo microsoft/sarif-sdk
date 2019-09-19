@@ -3,54 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "PREfast",
-          "fullName": "PREfast Code Analysis"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "file:///c:/somepath/test103.cpp",
-            "index": 0
-          }
-        }
-      ],
-      "logicalLocations": [
-        {
-          "fullyQualifiedName": "f",
-          "decoratedName": "?f@@YAXXZ"
-        },
-        {
-          "fullyQualifiedName": "f1",
-          "decoratedName": "?f1@@YAXXZ"
-        },
-        {
-          "fullyQualifiedName": "g",
-          "decoratedName": "?g@@YAXPAUUS@@@Z"
-        },
-        {
-          "fullyQualifiedName": "g",
-          "decoratedName": "?g@@YAXXZ"
-        },
-        {
-          "fullyQualifiedName": "bar",
-          "decoratedName": "?bar@@YAXPAUUS@@@Z"
-        },
-        {
-          "fullyQualifiedName": "bad",
-          "decoratedName": "?bad@@YAXXZ"
-        },
-        {
-          "fullyQualifiedName": "InferredIn",
-          "decoratedName": "?InferredIn@@YAXPBUUS@@@Z"
-        },
-        {
-          "fullyQualifiedName": "TestInferredIn",
-          "decoratedName": "?TestInferredIn@@YAXPAUUS@@@Z"
-        }
-      ],
       "results": [
         {
           "ruleId": "26000",
@@ -990,6 +942,53 @@
               ]
             }
           ]
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///c:/somepath/test103.cpp"
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "f",
+          "decoratedName": "?f@@YAXXZ"
+        },
+        {
+          "fullyQualifiedName": "f1",
+          "decoratedName": "?f1@@YAXXZ"
+        },
+        {
+          "fullyQualifiedName": "g",
+          "decoratedName": "?g@@YAXPAUUS@@@Z"
+        },
+        {
+          "fullyQualifiedName": "g",
+          "decoratedName": "?g@@YAXXZ"
+        },
+        {
+          "fullyQualifiedName": "bar",
+          "decoratedName": "?bar@@YAXPAUUS@@@Z"
+        },
+        {
+          "fullyQualifiedName": "bad",
+          "decoratedName": "?bad@@YAXXZ"
+        },
+        {
+          "fullyQualifiedName": "InferredIn",
+          "decoratedName": "?InferredIn@@YAXPBUUS@@@Z"
+        },
+        {
+          "fullyQualifiedName": "TestInferredIn",
+          "decoratedName": "?TestInferredIn@@YAXPAUUS@@@Z"
         }
       ],
       "columnKind": "utf16CodeUnits"

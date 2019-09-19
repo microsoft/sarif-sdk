@@ -3,49 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "AndroidStudio"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "app/src/androidTest/java/microsoft/androidstudioformatexample/ApplicationTest.java",
-            "index": 0
-          }
-        },
-        {
-          "location": {
-            "uri": "app/src/main/java/microsoft/androidstudioformatexample/MainActivity.java",
-            "index": 1
-          }
-        }
-      ],
-      "logicalLocations": [
-        {
-          "fullyQualifiedName": "app",
-          "kind": "module"
-        },
-        {
-          "name": "microsoft.androidstudioformatexample",
-          "fullyQualifiedName": "app\\microsoft.androidstudioformatexample",
-          "parentIndex": 0,
-          "kind": "package"
-        },
-        {
-          "name": "microsoft.androidstudioformatexample.ApplicationTest ApplicationTest()",
-          "fullyQualifiedName": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.ApplicationTest ApplicationTest()",
-          "parentIndex": 1,
-          "kind": "member"
-        },
-        {
-          "name": "microsoft.androidstudioformatexample.MainActivity",
-          "fullyQualifiedName": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.MainActivity",
-          "parentIndex": 1,
-          "kind": "type"
-        }
-      ],
       "results": [
         {
           "ruleId": "unused declaration",
@@ -104,6 +61,47 @@
             "severity": "WARNING",
             "attributeKey": "NOT_USED_ELEMENT_ATTRIBUTES"
           }
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "AndroidStudio"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "app/src/androidTest/java/microsoft/androidstudioformatexample/ApplicationTest.java"
+          }
+        },
+        {
+          "location": {
+            "uri": "app/src/main/java/microsoft/androidstudioformatexample/MainActivity.java"
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "app",
+          "kind": "module"
+        },
+        {
+          "name": "microsoft.androidstudioformatexample",
+          "fullyQualifiedName": "app\\microsoft.androidstudioformatexample",
+          "parentIndex": 0,
+          "kind": "package"
+        },
+        {
+          "name": "microsoft.androidstudioformatexample.ApplicationTest ApplicationTest()",
+          "fullyQualifiedName": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.ApplicationTest ApplicationTest()",
+          "parentIndex": 1,
+          "kind": "member"
+        },
+        {
+          "name": "microsoft.androidstudioformatexample.MainActivity",
+          "fullyQualifiedName": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.MainActivity",
+          "parentIndex": 1,
+          "kind": "type"
         }
       ],
       "columnKind": "utf16CodeUnits"

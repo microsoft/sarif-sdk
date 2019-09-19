@@ -3,38 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "PREfast",
-          "fullName": "PREfast Code Analysis"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "file:///c:/somepath/test150.cpp",
-            "index": 0
-          }
-        }
-      ],
-      "logicalLocations": [
-        {
-          "fullyQualifiedName": "foo3",
-          "decoratedName": "?foo3@@YAXPAPAPAH0H@Z"
-        },
-        {
-          "fullyQualifiedName": "SatFunc",
-          "decoratedName": "?SatFunc@@YAHHHPAD@Z"
-        },
-        {
-          "fullyQualifiedName": "TestSat1",
-          "decoratedName": "?TestSat1@@YAXXZ"
-        },
-        {
-          "fullyQualifiedName": "TestPresatBad",
-          "decoratedName": "?TestPresatBad@@YADHHPAD@Z"
-        }
-      ],
       "results": [
         {
           "ruleId": "26061",
@@ -303,6 +271,37 @@
               ]
             }
           ]
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///c:/somepath/test150.cpp"
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "foo3",
+          "decoratedName": "?foo3@@YAXPAPAPAH0H@Z"
+        },
+        {
+          "fullyQualifiedName": "SatFunc",
+          "decoratedName": "?SatFunc@@YAHHHPAD@Z"
+        },
+        {
+          "fullyQualifiedName": "TestSat1",
+          "decoratedName": "?TestSat1@@YAXXZ"
+        },
+        {
+          "fullyQualifiedName": "TestPresatBad",
+          "decoratedName": "?TestPresatBad@@YADHHPAD@Z"
         }
       ],
       "columnKind": "utf16CodeUnits"

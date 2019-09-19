@@ -3,42 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "PREfast",
-          "fullName": "PREfast Code Analysis"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "file:///c:/somepath/test156.cpp",
-            "index": 0
-          }
-        }
-      ],
-      "logicalLocations": [
-        {
-          "fullyQualifiedName": "SimpleBadCalls",
-          "decoratedName": "?SimpleBadCalls@@YAXPAX@Z"
-        },
-        {
-          "fullyQualifiedName": "MadePAGAndBad",
-          "decoratedName": "?MadePAGAndBad@@YAXPAU_MyStruct@@@Z"
-        },
-        {
-          "fullyQualifiedName": "NeverMadePAGAndBad",
-          "decoratedName": "?NeverMadePAGAndBad@@YAXPAU_MyStruct@@@Z"
-        },
-        {
-          "fullyQualifiedName": "EnsureIndexingWorksBad",
-          "decoratedName": "?EnsureIndexingWorksBad@@YAXPAU_MyStruct@@@Z"
-        },
-        {
-          "fullyQualifiedName": "BadUnicodeStringCall",
-          "decoratedName": "?BadUnicodeStringCall@@YAXU_UNICODE_STRING@@@Z"
-        }
-      ],
       "results": [
         {
           "ruleId": "26000",
@@ -637,6 +601,41 @@
               ]
             }
           ]
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///c:/somepath/test156.cpp"
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "SimpleBadCalls",
+          "decoratedName": "?SimpleBadCalls@@YAXPAX@Z"
+        },
+        {
+          "fullyQualifiedName": "MadePAGAndBad",
+          "decoratedName": "?MadePAGAndBad@@YAXPAU_MyStruct@@@Z"
+        },
+        {
+          "fullyQualifiedName": "NeverMadePAGAndBad",
+          "decoratedName": "?NeverMadePAGAndBad@@YAXPAU_MyStruct@@@Z"
+        },
+        {
+          "fullyQualifiedName": "EnsureIndexingWorksBad",
+          "decoratedName": "?EnsureIndexingWorksBad@@YAXPAU_MyStruct@@@Z"
+        },
+        {
+          "fullyQualifiedName": "BadUnicodeStringCall",
+          "decoratedName": "?BadUnicodeStringCall@@YAXU_UNICODE_STRING@@@Z"
         }
       ],
       "columnKind": "utf16CodeUnits"

@@ -3,58 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "PREfast",
-          "fullName": "PREfast Code Analysis"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "file:///c:/somepath/test042.cpp",
-            "index": 0
-          }
-        }
-      ],
-      "logicalLocations": [
-        {
-          "fullyQualifiedName": "f",
-          "decoratedName": "?f@@YAPAHH@Z"
-        },
-        {
-          "fullyQualifiedName": "g",
-          "decoratedName": "?g@@YAXPAPAHH@Z"
-        },
-        {
-          "fullyQualifiedName": "h",
-          "decoratedName": "?h@@YAXPAPAHPAHH@Z"
-        },
-        {
-          "fullyQualifiedName": "g1",
-          "decoratedName": "?g1@@YAPAXH@Z"
-        },
-        {
-          "fullyQualifiedName": "g2",
-          "decoratedName": "?g2@@YAPAHH@Z"
-        },
-        {
-          "fullyQualifiedName": "bar",
-          "decoratedName": "?bar@@YAXPAH0@Z"
-        },
-        {
-          "fullyQualifiedName": "Next",
-          "decoratedName": "?Next@@YAXPAHIPAI@Z"
-        },
-        {
-          "fullyQualifiedName": "NextUnannotated",
-          "decoratedName": "?NextUnannotated@@YAXPAHIPAI@Z"
-        },
-        {
-          "fullyQualifiedName": "main",
-          "decoratedName": "main"
-        }
-      ],
       "results": [
         {
           "ruleId": "26030",
@@ -2083,6 +2031,57 @@
               ]
             }
           ]
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///c:/somepath/test042.cpp"
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "f",
+          "decoratedName": "?f@@YAPAHH@Z"
+        },
+        {
+          "fullyQualifiedName": "g",
+          "decoratedName": "?g@@YAXPAPAHH@Z"
+        },
+        {
+          "fullyQualifiedName": "h",
+          "decoratedName": "?h@@YAXPAPAHPAHH@Z"
+        },
+        {
+          "fullyQualifiedName": "g1",
+          "decoratedName": "?g1@@YAPAXH@Z"
+        },
+        {
+          "fullyQualifiedName": "g2",
+          "decoratedName": "?g2@@YAPAHH@Z"
+        },
+        {
+          "fullyQualifiedName": "bar",
+          "decoratedName": "?bar@@YAXPAH0@Z"
+        },
+        {
+          "fullyQualifiedName": "Next",
+          "decoratedName": "?Next@@YAXPAHIPAI@Z"
+        },
+        {
+          "fullyQualifiedName": "NextUnannotated",
+          "decoratedName": "?NextUnannotated@@YAXPAHIPAI@Z"
+        },
+        {
+          "fullyQualifiedName": "main",
+          "decoratedName": "main"
         }
       ],
       "columnKind": "utf16CodeUnits"

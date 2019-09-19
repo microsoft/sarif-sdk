@@ -3,30 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "PREfast",
-          "fullName": "PREfast Code Analysis"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "file:///c:/somepath/test082.cpp",
-            "index": 0
-          }
-        }
-      ],
-      "logicalLocations": [
-        {
-          "fullyQualifiedName": "EncodeBinary",
-          "decoratedName": "?EncodeBinary@@YAKPAGPAEK@Z"
-        },
-        {
-          "fullyQualifiedName": "EncodeBinaryBad",
-          "decoratedName": "?EncodeBinaryBad@@YAKPAGPAEK@Z"
-        }
-      ],
       "results": [
         {
           "ruleId": "26005",
@@ -1485,6 +1461,29 @@
               ]
             }
           ]
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///c:/somepath/test082.cpp"
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "EncodeBinary",
+          "decoratedName": "?EncodeBinary@@YAKPAGPAEK@Z"
+        },
+        {
+          "fullyQualifiedName": "EncodeBinaryBad",
+          "decoratedName": "?EncodeBinaryBad@@YAKPAGPAEK@Z"
         }
       ],
       "columnKind": "utf16CodeUnits"

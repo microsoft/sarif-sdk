@@ -3,30 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "PREfast",
-          "fullName": "PREfast Code Analysis"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp",
-            "index": 0
-          }
-        }
-      ],
-      "logicalLocations": [
-        {
-          "fullyQualifiedName": "DontRememberOldAlias",
-          "decoratedName": "?DontRememberOldAlias@@YAXPEAH@Z"
-        },
-        {
-          "fullyQualifiedName": "RememberOldAlias",
-          "decoratedName": "?RememberOldAlias@@YAXHHPEAH@Z"
-        }
-      ],
       "results": [
         {
           "ruleId": "6001",
@@ -584,6 +560,29 @@
             "rank": "4",
             "ruleCategory": "mspft"
           }
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp"
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "DontRememberOldAlias",
+          "decoratedName": "?DontRememberOldAlias@@YAXPEAH@Z"
+        },
+        {
+          "fullyQualifiedName": "RememberOldAlias",
+          "decoratedName": "?RememberOldAlias@@YAXHHPEAH@Z"
         }
       ],
       "columnKind": "utf16CodeUnits"

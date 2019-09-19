@@ -3,32 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "PREfast",
-          "fullName": "PREfast Code Analysis"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "file:///c:/somepath/test201.cpp",
-            "index": 0
-          }
-        }
-      ],
-      "logicalLocations": [
-        {
-          "name": "GetValue",
-          "fullyQualifiedName": "MyClass::GetValue",
-          "decoratedName": "?GetValue@MyClass@@QAEHI@Z"
-        },
-        {
-          "name": "GetValue",
-          "fullyQualifiedName": "MyFixedSizeClass::GetValue",
-          "decoratedName": "?GetValue@MyFixedSizeClass@@QAEHI@Z"
-        }
-      ],
       "results": [
         {
           "ruleId": "26020",
@@ -163,6 +137,31 @@
               ]
             }
           ]
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///c:/somepath/test201.cpp"
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "name": "GetValue",
+          "fullyQualifiedName": "MyClass::GetValue",
+          "decoratedName": "?GetValue@MyClass@@QAEHI@Z"
+        },
+        {
+          "name": "GetValue",
+          "fullyQualifiedName": "MyFixedSizeClass::GetValue",
+          "decoratedName": "?GetValue@MyFixedSizeClass@@QAEHI@Z"
         }
       ],
       "columnKind": "utf16CodeUnits"

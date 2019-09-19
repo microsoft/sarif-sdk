@@ -17,8 +17,7 @@
         {
           "location": {
             "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Valid.sarif",
-            "uriBaseId": "TEST_DIR",
-            "index": 0
+            "uriBaseId": "TEST_DIR"
           }
         }
       ],

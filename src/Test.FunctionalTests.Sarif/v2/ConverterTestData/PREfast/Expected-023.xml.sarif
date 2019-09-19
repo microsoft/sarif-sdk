@@ -3,46 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "PREfast",
-          "fullName": "PREfast Code Analysis"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "file:///c:/somepath/test023.cpp",
-            "index": 0
-          }
-        }
-      ],
-      "logicalLocations": [
-        {
-          "fullyQualifiedName": "bar",
-          "decoratedName": "?bar@@YAXPBD@Z"
-        },
-        {
-          "fullyQualifiedName": "g",
-          "decoratedName": "?g@@YADPAX@Z"
-        },
-        {
-          "fullyQualifiedName": "g1",
-          "decoratedName": "?g1@@YAXXZ"
-        },
-        {
-          "fullyQualifiedName": "blah",
-          "decoratedName": "?blah@@YAXPAUS@@I@Z"
-        },
-        {
-          "fullyQualifiedName": "foo",
-          "decoratedName": "?foo@@YAXPADI@Z"
-        },
-        {
-          "fullyQualifiedName": "main",
-          "decoratedName": "main"
-        }
-      ],
       "results": [
         {
           "ruleId": "26007",
@@ -627,6 +587,45 @@
               ]
             }
           ]
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///c:/somepath/test023.cpp"
+          }
+        }
+      ],
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "bar",
+          "decoratedName": "?bar@@YAXPBD@Z"
+        },
+        {
+          "fullyQualifiedName": "g",
+          "decoratedName": "?g@@YADPAX@Z"
+        },
+        {
+          "fullyQualifiedName": "g1",
+          "decoratedName": "?g1@@YAXXZ"
+        },
+        {
+          "fullyQualifiedName": "blah",
+          "decoratedName": "?blah@@YAXPAUS@@I@Z"
+        },
+        {
+          "fullyQualifiedName": "foo",
+          "decoratedName": "?foo@@YAXPADI@Z"
+        },
+        {
+          "fullyQualifiedName": "main",
+          "decoratedName": "main"
         }
       ],
       "columnKind": "utf16CodeUnits"
