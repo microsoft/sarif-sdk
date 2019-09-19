@@ -108,29 +108,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override void Analyze(ReportingDescriptorReference reportingDescriptorReference, string reportingDescriptorReferencePointer)
         {
-            Tool tool = Context.CurrentRun.Tool;
-
             // Does this reporting descriptor reference refer to a reporting descriptor defined by
-            // the driver or by one of the extensions?
-            ToolComponent toolComponent;
-            string toolComponentPathSegment;
-
-            int? toolComponentIndex = reportingDescriptorReference.ToolComponent?.Index;
-            if (toolComponentIndex >= 0)
-            {
-                // This reporting descriptor reference refers to an extension, but does that
-                // extension exist?
-                toolComponent = tool.Extensions?.Count > toolComponentIndex.Value
-                    ? tool.Extensions[toolComponentIndex.Value]
-                    : null;
-
-                toolComponentPathSegment = $"{SarifPropertyName.Extensions}[{toolComponentIndex}]";
-            }
-            else
-            {
-                toolComponent = tool.Driver;
-                toolComponentPathSegment = SarifPropertyName.Driver;
-            }
+            // the driver, one of the extensions, or a taxonomy?
+            ToolComponent toolComponent = GetReferencedToolComponent(reportingDescriptorReference, out string objectPath);
 
             // Does this reporting descriptor reference refer to a rule, a notification, or a taxon?
             string arrayPropertyName;
@@ -163,7 +143,34 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 reportingDescriptorReferencePointer,
                 "reportingDescriptorReference",
                 SarifPropertyName.Index,
-                $"runs[{Context.CurrentRunIndex}].tool.{toolComponentPathSegment}.{arrayPropertyName}");
+                $"{objectPath}.{arrayPropertyName}");
+        }
+
+        private ToolComponent GetReferencedToolComponent(ReportingDescriptorReference reportingDescriptorReference, out string objectPath)
+        {
+            Tool tool = Context.CurrentRun.Tool;
+
+            ToolComponent toolComponent = null;
+            int? toolComponentIndex = reportingDescriptorReference.ToolComponent?.Index;
+            if (toolComponentIndex >= 0)
+            {
+                // This reporting descriptor reference refers to an extension, but does that
+                // extension exist?
+                toolComponent = tool.Extensions?.Count > toolComponentIndex.Value
+                    ? tool.Extensions[toolComponentIndex.Value]
+                    : null;
+
+                objectPath = $"{SarifPropertyName.Extensions}[{toolComponentIndex}]";
+            }
+            else
+            {
+                toolComponent = tool.Driver;
+                objectPath = SarifPropertyName.Driver;
+            }
+
+            objectPath = $"runs[{Context.CurrentRunIndex}].tool.{objectPath}";
+
+            return toolComponent;
         }
 
         protected override void Analyze(Result result, string resultPointer)

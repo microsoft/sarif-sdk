@@ -5,15 +5,44 @@
       {
         "tool": {
           "driver": {
-            "name": "Sarif Functional Testing"
+            "name": "Sarif Functional Testing",
+            "supportedTaxonomies": [
+              {
+                "name": "WCAG",
+                "index": 0,
+                "guid": "ca34e0e1-5faf-4f55-a989-cdae42a98f18"
+              }
+            ],
+            "rules": [
+              {
+                "id": "document-title",
+                "name": "Documents must have <title> element.",
+                "relationships": [
+                  {
+                    "target": {
+                      "id": "wcag242",
+                      "index": 0,
+                      "toolComponent": {
+                        "name": "WCAG",
+                        "index": 0,
+                        "guid": "ca34e0e1-5faf-4f55-a989-cdae42a98f18"
+                      }
+                    },
+                    "kinds": [
+                      "superset"
+                    ]
+                  }
+                ]
+              }
+            ]
           }
         },
         "logicalLocations": [
           {
-              "name": "A"
+            "name": "A"
           },
           {
-              "name": "B"
+            "name": "B"
           }
         ],
         "results": [
@@ -29,6 +58,24 @@
                     "index": 1
                   }
                 ]
+              }
+            ]
+          }
+        ],
+        "taxonomies": [
+          {
+            "name": "WCAG",
+            "fullName": "Web Content Accessibility Guidelines (WCAG) 2.1",
+            "guid": "ca34e0e1-5faf-4f55-a989-cdae42a98f18",
+            "isComprehensive": false,
+            "taxa": [
+              {
+                "id": "wcag242",
+                "name": "WCAG 2.4.2",
+                "shortDescription": {
+                  "text": "Page Titled"
+                },
+                "helpUri": "https://www.w3.org/WAI/WCAG21/Understanding/page-titled"
               }
             ]
           }
