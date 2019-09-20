@@ -1,7 +1,8 @@
-# Sarif Driver and SDK Release History
+# SARIF NuGet Package Release History: SDK, Driver, Converters, and Multitool
 
-## **v2.1.17** [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.17) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/2.1.17)
-* Fix #1698: Introduce SarifConsolidator to shrink large log files.
+## **v2.1.17** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.17) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.17) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.17) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.17)
+* BUGFIX: Analysis rule SARIF1017 incorrectly rejected index-valued properties that referred to taxonomies. https://github.com/microsoft/sarif-sdk/issues/1678
+* FEATURE: Introduce SarifConsolidator to shrink large log files. https://github.com/microsoft/sarif-sdk/issues/1675
 
 ## **v2.1.16** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.16) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.16) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.16) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.16)
 * BUGFIX, BREAKING: In the Multitool `page` command, the default for `--force` was `true` and it could not be changed. https://github.com/microsoft/sarif-sdk/issues/1630
