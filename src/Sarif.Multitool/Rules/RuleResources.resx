@@ -189,6 +189,9 @@
   <data name="SARIF1017_Default" xml:space="preserve">
     <value>{0}: This "{1}" object contains a property "{2}" with value {3}, but either "{4}" is absent, or it has fewer than {5} elements.</value>
   </data>
+  <data name="SARIF1017_InvalidGuid" xml:space="preserve">
+    <value>{0}: This reportingDescriptorReference object refers to a toolComponent object whose guid property is "{1}", but neither tool.driver, nor any element of tool.extensions[], nor any element of run.taxonomies[] has that guid.</value>
+  </data>
   <data name="SARIF1017_InvalidIndex" xml:space="preserve">
     <value>If an object contains a property that is used as an array index, then that array must be present and must contain at least "index + 1" elements.</value>
   </data>

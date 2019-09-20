@@ -24,7 +24,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override IEnumerable<string> MessageResourceNames => new string[]
         {
-            nameof(RuleResources.SARIF1017_Default)
+            nameof(RuleResources.SARIF1017_Default),
+            nameof(RuleResources.SARIF1017_InvalidGuid)
         };
 
         protected override void Analyze(Address address, string addressPointer)
@@ -110,13 +111,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
             // Does this reporting descriptor reference refer to a reporting descriptor defined by
             // the driver, one of the extensions, or a taxonomy?
-            ToolComponent toolComponent = GetReferencedToolComponent(reportingDescriptorReference, out string objectPath);
+            ToolComponent toolComponent = GetReferencedToolComponent(reportingDescriptorReference, out string guid, out string objectPath, out SarifValidationContext.ReportingDescriptorKind reportingDescriptorKind);
+
+            if (toolComponent == null && objectPath == null)
+            {
+                LogResult(
+                    reportingDescriptorReferencePointer,
+                    nameof(RuleResources.SARIF1017_InvalidGuid),
+                    guid);
+            }
+
+            // We use reportingDescriptorKind to decide which array to validate the index against
+            // (rules, notifications, or taxa). If GetReferencedToolComponent identified the reportingDescriptor by way of
+            // a GUID, then we know which array the descriptor was found in
+            if (guid == null)
+            {
+                reportingDescriptorKind = Context.CurrentReportingDescriptorKind;
+            }
 
             // Does this reporting descriptor reference refer to a rule, a notification, or a taxon?
             string arrayPropertyName;
             IList<ReportingDescriptor> reportingDescriptors;
 
-            switch (Context.CurrentReportingDescriptorKind)
+            switch (reportingDescriptorKind)
             {
                 case SarifValidationContext.ReportingDescriptorKind.Rule:
                     arrayPropertyName = SarifPropertyName.Rules;
@@ -146,32 +163,107 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 $"{objectPath}.{arrayPropertyName}");
         }
 
-        private ToolComponent GetReferencedToolComponent(ReportingDescriptorReference reportingDescriptorReference, out string objectPath)
+        // The relative JSON path from the current run to the tool driver.
+        private const string DriverRelativePath = "tool.driver";
+
+        private ToolComponent GetReferencedToolComponent(
+            ReportingDescriptorReference reportingDescriptorReference,
+            out string guid,
+            out string objectPath,
+            out SarifValidationContext.ReportingDescriptorKind reportingDescriptorKind)
         {
+            guid = null;
+            reportingDescriptorKind = SarifValidationContext.ReportingDescriptorKind.None;
+
             Tool tool = Context.CurrentRun.Tool;
+            string objectPathBase = $"runs[{Context.CurrentRunIndex}]";
 
-            ToolComponent toolComponent = null;
-            int? toolComponentIndex = reportingDescriptorReference.ToolComponent?.Index;
-            if (toolComponentIndex >= 0)
+            // The default, unless the reportingDescriptorReference specifies otherwise:
+            ToolComponent toolComponent = tool.Driver;
+            string relativeObjectPath = DriverRelativePath;
+
+            ToolComponentReference toolComponentReference = reportingDescriptorReference.ToolComponent;
+            if (toolComponentReference != null)
             {
-                // This reporting descriptor reference refers to an extension, but does that
-                // extension exist?
-                toolComponent = tool.Extensions?.Count > toolComponentIndex.Value
-                    ? tool.Extensions[toolComponentIndex.Value]
-                    : null;
+                // If there is a GUID, it wins.
+                guid = toolComponentReference.Guid;
+                if (guid != null)
+                {
+                    toolComponent = GetToolComponentByGuid(guid, out relativeObjectPath);
+                    if (toolComponent == null)
+                    {
+                        // There is no component with the specified GUID.
+                        objectPath = null;
+                        return null;
+                    }
+                }
+                else
+                {
+                    // If there's no GUID, then the index, if present, refers to an element of tool.extensions.
+                    int? toolComponentIndex = toolComponentReference.Index;
+                    if (toolComponentIndex >= 0)
+                    {
+                        // This reporting descriptor reference refers to an extension, but does that
+                        // extension exist?
+                        toolComponent = tool.Extensions?.Count > toolComponentIndex.Value
+                            ? tool.Extensions[toolComponentIndex.Value]
+                            : null;
 
-                objectPath = $"{SarifPropertyName.Extensions}[{toolComponentIndex}]";
-            }
-            else
-            {
-                toolComponent = tool.Driver;
-                objectPath = SarifPropertyName.Driver;
+                        relativeObjectPath = $"tool.extensions[{toolComponentIndex}]";
+                    }
+                }
             }
 
-            objectPath = $"runs[{Context.CurrentRunIndex}].tool.{objectPath}";
+            objectPath = $"{objectPathBase}.{relativeObjectPath}";
 
             return toolComponent;
         }
+
+        private ToolComponent GetToolComponentByGuid(string guid, out string relativeObjectPath)
+        {
+            Run run = Context.CurrentRun;
+            Tool tool = run.Tool;
+
+            if (ToolComponentHasGuid(tool.Driver, guid))
+            {
+                relativeObjectPath = DriverRelativePath;
+                return tool.Driver;
+            }
+
+            if (tool.Extensions != null)
+            {
+                for (int i = 0; i < tool.Extensions.Count; ++i)
+                {
+                    if (ToolComponentHasGuid(tool.Extensions[i], guid))
+                    {
+                        relativeObjectPath = $"tool.extensions[{i}]";
+                        return tool.Extensions[i];
+                    }
+                }
+            }
+
+            if (run.Taxonomies != null)
+            {
+                for (int i = 0; i < run.Taxonomies.Count; ++i)
+                {
+                    if (ToolComponentHasGuid(run.Taxonomies[i], guid))
+                    {
+                        relativeObjectPath = $"taxonomies[{i}]";
+                        return run.Taxonomies[i];
+                    }
+                }
+            }
+
+            // In SARIF v2.1.0, there is no valid scenario where a tool component refers to a translation
+            // or to a policy, so there's no need to search there. We don't care if the specified GUID
+            // refers to a translation or a policy, or whether it refers to no tool component at all.
+            // Either way, it's an error.
+            relativeObjectPath = null;
+            return null;
+        }
+
+        private bool ToolComponentHasGuid(ToolComponent toolComponent, string guid)
+            => toolComponent?.Guid != null && toolComponent.Guid.Equals(guid, StringComparison.OrdinalIgnoreCase);
 
         protected override void Analyze(Result result, string resultPointer)
         {
@@ -208,6 +300,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override void Analyze(ToolComponentReference toolComponentReference, string toolComponentReferencePointer)
         {
+            // BUGBUG: If the ToolComponentReference has a Guid, it might point to a Taxonomy.
+            // (There are no valid cases for a ToolComponentReference to point to a Translation
+            // or a Policy.
             ValidateArrayIndex(
                 toolComponentReference.Index,
                 Context.CurrentRun.Tool.Extensions,

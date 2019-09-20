@@ -13,6 +13,31 @@ using Newtonsoft.Json.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
+    /// <summary>
+    /// This class keeps track of whether, at the current point in the object model visit, the
+    /// index property of the reportingDescriptorReference we are examining (if any) refers to the
+    /// rules, notification, or taxa array of the toolComponent to which this reference refers.
+    /// This is necessary so that the validator (specifically, rule SARIF1017) can tell if the
+    /// index is valid with respect to that array.
+    /// </summary>
+    internal class ReportingDescriptorReferenceContext : IDisposable
+    {
+        // Should this be thread-static? Should the whole context be thread-static?
+        private readonly SarifValidationContext.ReportingDescriptorKind _previousReportingDescriptorKind;
+        private readonly SarifValidationContext _context;
+
+        internal ReportingDescriptorReferenceContext(SarifValidationContext context, SarifValidationContext.ReportingDescriptorKind newReportingDescriptorKind)
+        {
+            _previousReportingDescriptorKind = context.CurrentReportingDescriptorKind;
+            _context = context;
+            _context.CurrentReportingDescriptorKind = newReportingDescriptorKind;
+        }
+
+        public void Dispose()
+        {
+            _context.CurrentReportingDescriptorKind = _previousReportingDescriptorKind;
+        }
+    }
     public abstract class SarifValidationSkimmerBase : Skimmer<SarifValidationContext>
     {
         // OASIS defines this URI to always point to the latest revision (draft or approved) of the specified version
@@ -484,18 +509,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             if (invocation.NotificationConfigurationOverrides != null)
             {
                 string notificationConfigurationOverridesPointer = invocationPointer.AtProperty(SarifPropertyName.NotificationConfigurationOverrides);
-                Context.CurrentReportingDescriptorKind = SarifValidationContext.ReportingDescriptorKind.Notification;
 
-                try
+                using (new ReportingDescriptorReferenceContext(Context, SarifValidationContext.ReportingDescriptorKind.Notification))
                 {
                     for (int i = 0; i < invocation.NotificationConfigurationOverrides.Count; ++i)
                     {
                         Visit(invocation.NotificationConfigurationOverrides[i], notificationConfigurationOverridesPointer.AtIndex(i));
                     }
-                }
-                finally
-                {
-                    Context.CurrentReportingDescriptorKind = SarifValidationContext.ReportingDescriptorKind.None;
                 }
             }
 
@@ -512,18 +532,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             if (invocation.RuleConfigurationOverrides != null)
             {
                 string ruleConfigurationOverridesPointer = invocationPointer.AtProperty(SarifPropertyName.RuleConfigurationOverrides);
-                Context.CurrentReportingDescriptorKind = SarifValidationContext.ReportingDescriptorKind.Rule;
 
-                try
+                using (new ReportingDescriptorReferenceContext(Context, SarifValidationContext.ReportingDescriptorKind.Rule))
                 {
                     for (int i = 0; i < invocation.RuleConfigurationOverrides.Count; ++i)
                     {
                         Visit(invocation.RuleConfigurationOverrides[i], ruleConfigurationOverridesPointer.AtIndex(i));
                     }
-                }
-                finally
-                {
-                    Context.CurrentReportingDescriptorKind = SarifValidationContext.ReportingDescriptorKind.None;
                 }
             }
 
@@ -612,27 +627,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
             if (notification.AssociatedRule != null)
             {
-                Context.CurrentReportingDescriptorKind = SarifValidationContext.ReportingDescriptorKind.Rule;
-                try
+                using (new ReportingDescriptorReferenceContext(Context, SarifValidationContext.ReportingDescriptorKind.Rule))
                 {
                     Visit(notification.AssociatedRule, notificationPointer.AtProperty(SarifPropertyName.AssociatedRule));
-                }
-                finally
-                {
-                    Context.CurrentReportingDescriptorKind = SarifValidationContext.ReportingDescriptorKind.None;
                 }
             }
 
             if (notification.Descriptor != null)
             {
-                Context.CurrentReportingDescriptorKind = SarifValidationContext.ReportingDescriptorKind.Notification;
-                try
+                using (new ReportingDescriptorReferenceContext(Context, SarifValidationContext.ReportingDescriptorKind.Notification))
                 {
                     Visit(notification.Descriptor, notificationPointer.AtProperty(SarifPropertyName.Descriptor));
-                }
-                finally
-                {
-                    Context.CurrentReportingDescriptorKind = SarifValidationContext.ReportingDescriptorKind.None;
                 }
             }
 
@@ -793,14 +798,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
             if (result.Rule != null)
             {
-                Context.CurrentReportingDescriptorKind = SarifValidationContext.ReportingDescriptorKind.Rule;
-                try
+                using (new ReportingDescriptorReferenceContext(Context, SarifValidationContext.ReportingDescriptorKind.Rule))
                 {
                     Visit(result.Rule, resultPointer.AtProperty(SarifPropertyName.Rule));
-                }
-                finally
-                {
-                    Context.CurrentReportingDescriptorKind = SarifValidationContext.ReportingDescriptorKind.None;
                 }
             }
 
@@ -863,17 +863,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 string taxaPointer = resultPointer.AtProperty(SarifPropertyName.Taxa);
 
-                Context.CurrentReportingDescriptorKind = SarifValidationContext.ReportingDescriptorKind.Taxon;
-                try
+                using (new ReportingDescriptorReferenceContext(Context, SarifValidationContext.ReportingDescriptorKind.Taxon))
                 {
                     for (int i = 0; i < result.Taxa.Count; ++i)
                     {
                         Visit(result.Taxa[i], taxaPointer.AtIndex(i));
                     }
-                }
-                finally
-                {
-                    Context.CurrentReportingDescriptorKind = SarifValidationContext.ReportingDescriptorKind.None;
                 }
             }
 
@@ -1093,17 +1088,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 string taxaPointer = threadFlowLocationPointer.AtProperty(SarifPropertyName.Taxa);
 
-                Context.CurrentReportingDescriptorKind = SarifValidationContext.ReportingDescriptorKind.Taxon;
-                try
+                using (new ReportingDescriptorReferenceContext(Context, SarifValidationContext.ReportingDescriptorKind.Taxon))
                 {
                     for (int i = 0; i < threadFlowLocation.Taxa.Count; ++i)
                     {
                         Visit(threadFlowLocation.Taxa[i], taxaPointer.AtIndex(i));
                     }
-                }
-                finally
-                {
-                    Context.CurrentReportingDescriptorKind = SarifValidationContext.ReportingDescriptorKind.None;
                 }
             }
 
@@ -1148,8 +1138,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
             if (toolComponent.Notifications != null)
             {
-                Context.CurrentReportingDescriptorKind = SarifValidationContext.ReportingDescriptorKind.Notification;
-                try
+                using (new ReportingDescriptorReferenceContext(Context, SarifValidationContext.ReportingDescriptorKind.Notification))
                 {
                     string notificationsPointer = toolComponentPointer.AtProperty(SarifPropertyName.Notifications);
                     for (int i = 0; i < toolComponent.Notifications.Count; ++i)
@@ -1157,26 +1146,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                         Visit(toolComponent.Notifications[i], notificationsPointer.AtIndex(i));
                     }
                 }
-                finally
-                {
-                    Context.CurrentReportingDescriptorKind = SarifValidationContext.ReportingDescriptorKind.None;
-                }
             }
 
             if (toolComponent.Rules != null)
             {
-                Context.CurrentReportingDescriptorKind = SarifValidationContext.ReportingDescriptorKind.Rule;
-                try
+                using (new ReportingDescriptorReferenceContext(Context, SarifValidationContext.ReportingDescriptorKind.Rule))
                 {
                     string rulesPointer = toolComponentPointer.AtProperty(SarifPropertyName.Rules);
                     for (int i = 0; i < toolComponent.Rules.Count; ++i)
                     {
                         Visit(toolComponent.Rules[i], rulesPointer.AtIndex(i));
                     }
-                }
-                finally
-                {
-                    Context.CurrentReportingDescriptorKind = SarifValidationContext.ReportingDescriptorKind.None;
                 }
             }
         }

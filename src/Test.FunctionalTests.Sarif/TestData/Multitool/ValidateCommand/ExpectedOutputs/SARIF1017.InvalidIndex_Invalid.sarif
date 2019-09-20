@@ -19,6 +19,9 @@
               "messageStrings": {
                 "Default": {
                   "text": "{0}: This \"{1}\" object contains a property \"{2}\" with value {3}, but either \"{4}\" is absent, or it has fewer than {5} elements."
+                },
+                "InvalidGuid": {
+                  "text": "{0}: This reportingDescriptorReference object refers to a toolComponent object whose guid property is \"{1}\", but neither tool.driver, nor any element of tool.extensions[], nor any element of run.taxonomies[] has that guid."
                 }
               },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
