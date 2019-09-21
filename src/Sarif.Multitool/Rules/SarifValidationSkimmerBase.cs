@@ -723,7 +723,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
             if (reportingDescriptorRelationship.Target != null)
             {
-                Visit(reportingDescriptorRelationship.Target, reportingDescriptorRelationshipPointer.AtProperty(SarifPropertyName.Target));
+                using (new ReportingDescriptorReferenceContext(Context, ReportingDescriptorReferenceKinds.Rule | ReportingDescriptorReferenceKinds.Taxon))
+                {
+                    Visit(reportingDescriptorRelationship.Target, reportingDescriptorRelationshipPointer.AtProperty(SarifPropertyName.Target));
+                }
             }
         }
 
