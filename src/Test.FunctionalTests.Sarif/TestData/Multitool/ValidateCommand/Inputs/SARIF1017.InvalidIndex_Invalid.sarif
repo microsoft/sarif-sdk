@@ -13,18 +13,6 @@
             {
               "id": "ENOT0001"
             }
-          ],
-          "rules": [
-            {
-              "id": "TST0001",
-              "relationships": [
-                {
-                  "target": {
-                    "index": 2
-                  }
-                }
-              ]
-            }
           ]
         },
         "extensions": [

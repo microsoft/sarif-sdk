@@ -1148,35 +1148,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
             if (toolComponent.Notifications != null)
             {
-                Context.CurrentReportingDescriptorKind = SarifValidationContext.ReportingDescriptorKind.Notification;
-                try
+                string notificationsPointer = toolComponentPointer.AtProperty(SarifPropertyName.Notifications);
+                for (int i = 0; i < toolComponent.Notifications.Count; ++i)
                 {
-                    string notificationsPointer = toolComponentPointer.AtProperty(SarifPropertyName.Notifications);
-                    for (int i = 0; i < toolComponent.Notifications.Count; ++i)
-                    {
-                        Visit(toolComponent.Notifications[i], notificationsPointer.AtIndex(i));
-                    }
-                }
-                finally
-                {
-                    Context.CurrentReportingDescriptorKind = SarifValidationContext.ReportingDescriptorKind.None;
+                    Visit(toolComponent.Notifications[i], notificationsPointer.AtIndex(i));
                 }
             }
 
             if (toolComponent.Rules != null)
             {
-                Context.CurrentReportingDescriptorKind = SarifValidationContext.ReportingDescriptorKind.Rule;
-                try
+                string rulesPointer = toolComponentPointer.AtProperty(SarifPropertyName.Rules);
+                for (int i = 0; i < toolComponent.Rules.Count; ++i)
                 {
-                    string rulesPointer = toolComponentPointer.AtProperty(SarifPropertyName.Rules);
-                    for (int i = 0; i < toolComponent.Rules.Count; ++i)
-                    {
-                        Visit(toolComponent.Rules[i], rulesPointer.AtIndex(i));
-                    }
-                }
-                finally
-                {
-                    Context.CurrentReportingDescriptorKind = SarifValidationContext.ReportingDescriptorKind.None;
+                    Visit(toolComponent.Rules[i], rulesPointer.AtIndex(i));
                 }
             }
         }
