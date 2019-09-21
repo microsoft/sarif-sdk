@@ -3,7 +3,7 @@
 
 using System;
 
-namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
+namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     /// <summary>
     /// Contains the information needed to resolve a reportingDescriptorReference to the
