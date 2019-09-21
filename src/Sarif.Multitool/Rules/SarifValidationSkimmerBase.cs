@@ -485,7 +485,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 string notificationConfigurationOverridesPointer = invocationPointer.AtProperty(SarifPropertyName.NotificationConfigurationOverrides);
 
-                using (new ReportingDescriptorReferenceContext(Context, ReportingDescriptorReferenceKinds.Notification))
+                using (new ReportingDescriptorReferenceContext(ReportingDescriptorReferenceKinds.Notification))
                 {
                     for (int i = 0; i < invocation.NotificationConfigurationOverrides.Count; ++i)
                     {
@@ -508,7 +508,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 string ruleConfigurationOverridesPointer = invocationPointer.AtProperty(SarifPropertyName.RuleConfigurationOverrides);
 
-                using (new ReportingDescriptorReferenceContext(Context, ReportingDescriptorReferenceKinds.Rule))
+                using (new ReportingDescriptorReferenceContext(ReportingDescriptorReferenceKinds.Rule))
                 {
                     for (int i = 0; i < invocation.RuleConfigurationOverrides.Count; ++i)
                     {
@@ -602,7 +602,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
             if (notification.AssociatedRule != null)
             {
-                using (new ReportingDescriptorReferenceContext(Context, ReportingDescriptorReferenceKinds.Rule))
+                using (new ReportingDescriptorReferenceContext(ReportingDescriptorReferenceKinds.Rule))
                 {
                     Visit(notification.AssociatedRule, notificationPointer.AtProperty(SarifPropertyName.AssociatedRule));
                 }
@@ -610,7 +610,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
             if (notification.Descriptor != null)
             {
-                using (new ReportingDescriptorReferenceContext(Context, ReportingDescriptorReferenceKinds.Notification))
+                using (new ReportingDescriptorReferenceContext(ReportingDescriptorReferenceKinds.Notification))
                 {
                     Visit(notification.Descriptor, notificationPointer.AtProperty(SarifPropertyName.Descriptor));
                 }
@@ -723,7 +723,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
             if (reportingDescriptorRelationship.Target != null)
             {
-                using (new ReportingDescriptorReferenceContext(Context, ReportingDescriptorReferenceKinds.Rule | ReportingDescriptorReferenceKinds.Taxon))
+                using (new ReportingDescriptorReferenceContext(ReportingDescriptorReferenceKinds.Rule | ReportingDescriptorReferenceKinds.Taxon))
                 {
                     Visit(reportingDescriptorRelationship.Target, reportingDescriptorRelationshipPointer.AtProperty(SarifPropertyName.Target));
                 }
@@ -776,7 +776,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
             if (result.Rule != null)
             {
-                using (new ReportingDescriptorReferenceContext(Context, ReportingDescriptorReferenceKinds.Rule))
+                using (new ReportingDescriptorReferenceContext(ReportingDescriptorReferenceKinds.Rule))
                 {
                     Visit(result.Rule, resultPointer.AtProperty(SarifPropertyName.Rule));
                 }
@@ -841,7 +841,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 string taxaPointer = resultPointer.AtProperty(SarifPropertyName.Taxa);
 
-                using (new ReportingDescriptorReferenceContext(Context, ReportingDescriptorReferenceKinds.Taxon))
+                using (new ReportingDescriptorReferenceContext(ReportingDescriptorReferenceKinds.Taxon))
                 {
                     for (int i = 0; i < result.Taxa.Count; ++i)
                     {
@@ -1066,7 +1066,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 string taxaPointer = threadFlowLocationPointer.AtProperty(SarifPropertyName.Taxa);
 
-                using (new ReportingDescriptorReferenceContext(Context, ReportingDescriptorReferenceKinds.Taxon))
+                using (new ReportingDescriptorReferenceContext(ReportingDescriptorReferenceKinds.Taxon))
                 {
                     for (int i = 0; i < threadFlowLocation.Taxa.Count; ++i)
                     {

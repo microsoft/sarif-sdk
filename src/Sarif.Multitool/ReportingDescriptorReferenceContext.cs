@@ -33,18 +33,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     internal class ReportingDescriptorReferenceContext : IDisposable
     {
         private readonly ReportingDescriptorReferenceKinds _previousReportingDescriptorReferenceKinds;
-        private readonly SarifValidationContext _context;
+        internal static SarifValidationContext SarifValidationContext { get; set; }
 
-        internal ReportingDescriptorReferenceContext(SarifValidationContext context, ReportingDescriptorReferenceKinds currentReportingDescriptorReferenceKinds)
+        internal ReportingDescriptorReferenceContext(ReportingDescriptorReferenceKinds currentReportingDescriptorReferenceKinds)
         {
-            _previousReportingDescriptorReferenceKinds = context.CurrentReportingDescriptorReferenceKinds;
-            _context = context;
-            _context.CurrentReportingDescriptorReferenceKinds = currentReportingDescriptorReferenceKinds;
+            if (SarifValidationContext == null)
+            {
+                throw new InvalidOperationException($"Cannot create a {nameof(ReportingDescriptorReferenceContext)} object before setting the static {nameof(SarifValidationContext)} property.");
+            }
+
+            _previousReportingDescriptorReferenceKinds = SarifValidationContext.CurrentReportingDescriptorReferenceKinds;
+            SarifValidationContext.CurrentReportingDescriptorReferenceKinds = currentReportingDescriptorReferenceKinds;
         }
 
         public void Dispose()
         {
-            _context.CurrentReportingDescriptorReferenceKinds = _previousReportingDescriptorReferenceKinds;
+            SarifValidationContext.CurrentReportingDescriptorReferenceKinds = _previousReportingDescriptorReferenceKinds;
         }
     }
 }

@@ -14,6 +14,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             CurrentRunIndex = -1;
             CurrentResultIndex = -1;
             CurrentReportingDescriptorReferenceKinds = ReportingDescriptorReferenceKinds.None;
+
+            ReportingDescriptorReferenceContext.SarifValidationContext = this;
         }
 
         public bool IsValidAnalysisTarget
