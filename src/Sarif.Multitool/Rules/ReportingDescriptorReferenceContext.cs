@@ -32,19 +32,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
     /// </para>
     internal class ReportingDescriptorReferenceContext : IDisposable
     {
-        private readonly SarifValidationContext.ReportingDescriptorKind _previousReportingDescriptorKind;
+        private readonly ReportingDescriptorReferenceKinds _previousReportingDescriptorReferenceKinds;
         private readonly SarifValidationContext _context;
 
-        internal ReportingDescriptorReferenceContext(SarifValidationContext context, SarifValidationContext.ReportingDescriptorKind newReportingDescriptorKind)
+        internal ReportingDescriptorReferenceContext(SarifValidationContext context, ReportingDescriptorReferenceKinds currentReportingDescriptorReferenceKinds)
         {
-            _previousReportingDescriptorKind = context.CurrentReportingDescriptorKind;
+            _previousReportingDescriptorReferenceKinds = context.CurrentReportingDescriptorReferenceKinds;
             _context = context;
-            _context.CurrentReportingDescriptorKind = newReportingDescriptorKind;
+            _context.CurrentReportingDescriptorReferenceKinds = currentReportingDescriptorReferenceKinds;
         }
 
         public void Dispose()
         {
-            _context.CurrentReportingDescriptorKind = _previousReportingDescriptorKind;
+            _context.CurrentReportingDescriptorReferenceKinds = _previousReportingDescriptorReferenceKinds;
         }
     }
 }

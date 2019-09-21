@@ -136,19 +136,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             string arrayPropertyName;
             IList<ReportingDescriptor> reportingDescriptors;
 
-            switch (Context.CurrentReportingDescriptorKind)
+            switch (Context.CurrentReportingDescriptorReferenceKinds)
             {
-                case SarifValidationContext.ReportingDescriptorKind.Rule:
+                case ReportingDescriptorReferenceKinds.Rule:
                     arrayPropertyName = SarifPropertyName.Rules;
                     reportingDescriptors = toolComponent?.Rules;
                     break;
 
-                case SarifValidationContext.ReportingDescriptorKind.Notification:
+                case ReportingDescriptorReferenceKinds.Notification:
                     arrayPropertyName = SarifPropertyName.Notifications;
                     reportingDescriptors = toolComponent?.Notifications;
                     break;
 
-                case SarifValidationContext.ReportingDescriptorKind.Taxon:
+                case ReportingDescriptorReferenceKinds.Taxon:
                     arrayPropertyName = SarifPropertyName.Taxa;
                     reportingDescriptors = toolComponent?.Taxa;
                     break;
