@@ -596,13 +596,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var context = CreateContext(options, rootContext.Logger, rootContext.RuntimeErrors, target);
             context.Policy = rootContext.Policy;
 
-            if (options.Verbose)
-            {
-                Console.WriteLine(string.Format(CultureInfo.CurrentCulture,
-                    @"Analyzing '{0}'...",
-                    context.TargetUri.GetFileName()));
-            }
-
             if (options.ComputeFileHashes)
             {
                 _resultsCachingLogger.HashToResultsMap.TryGetValue(context.Hashes.Sha256, out List<Tuple<ReportingDescriptor, Result>> cachedResultTuples);
@@ -766,16 +759,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 switch (applicability)
                 {
                     case AnalysisApplicability.NotApplicableToSpecifiedTarget:
-                        {
-                            Notes.LogNotApplicableToSpecifiedTarget(context, reasonForNotAnalyzing);
-                            break;
-                        }
+                    {
+                        Notes.LogNotApplicableToSpecifiedTarget(context, reasonForNotAnalyzing);
+                        break;
+                    }
 
                     case AnalysisApplicability.ApplicableToSpecifiedTarget:
-                        {
-                            candidateSkimmers.Add(skimmer);
-                            break;
-                        }
+                    {
+                        candidateSkimmers.Add(skimmer);
+                        break;
+                    }
                 }
             }
             return candidateSkimmers;

@@ -38,7 +38,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public void AnalysisStarted()
         {
-            WriteLineToConsole(SdkResources.MSG_Analyzing);
         }
 
         public void AnalysisStopped(RuntimeConditions runtimeConditions)
