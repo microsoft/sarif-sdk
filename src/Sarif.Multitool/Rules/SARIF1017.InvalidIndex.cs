@@ -108,29 +108,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override void Analyze(ReportingDescriptorReference reportingDescriptorReference, string reportingDescriptorReferencePointer)
         {
-            Tool tool = Context.CurrentRun.Tool;
-
             // Does this reporting descriptor reference refer to a reporting descriptor defined by
-            // the driver or by one of the extensions?
-            ToolComponent toolComponent;
-            string toolComponentPathSegment;
-
-            int? toolComponentIndex = reportingDescriptorReference.ToolComponent?.Index;
-            if (toolComponentIndex >= 0)
-            {
-                // This reporting descriptor reference refers to an extension, but does that
-                // extension exist?
-                toolComponent = tool.Extensions?.Count > toolComponentIndex.Value
-                    ? tool.Extensions[toolComponentIndex.Value]
-                    : null;
-
-                toolComponentPathSegment = $"{SarifPropertyName.Extensions}[{toolComponentIndex}]";
-            }
-            else
-            {
-                toolComponent = tool.Driver;
-                toolComponentPathSegment = SarifPropertyName.Driver;
-            }
+            // the driver, by one of the extensions, or by a taxonomy?
+            ToolComponent toolComponent = GetReferencedToolComponent(reportingDescriptorReference, out string toolComponentPath);
 
             // Does this reporting descriptor reference refer to a rule, a notification, or a taxon?
             string arrayPropertyName;
@@ -163,7 +143,54 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 reportingDescriptorReferencePointer,
                 "reportingDescriptorReference",
                 SarifPropertyName.Index,
-                $"runs[{Context.CurrentRunIndex}].tool.{toolComponentPathSegment}.{arrayPropertyName}");
+                $"{toolComponentPath}.{arrayPropertyName}");
+        }
+
+        private ToolComponent GetReferencedToolComponent(ReportingDescriptorReference reportingDescriptorReference, out string toolComponentPath)
+        {
+            Tool tool = Context.CurrentRun.Tool;
+            string toolComponentBasePath = $"runs[{Context.CurrentRunIndex}]";
+            toolComponentPath = null;
+
+            ToolComponentReference toolComponentReference = reportingDescriptorReference.ToolComponent;
+            if (toolComponentReference?.Index == null && toolComponentReference?.Guid == null)
+            {
+                // Either this ReportingDescriptorReference object lacks a ToolComponentReference,
+                // or it has a ToolComponentReference that lacks both Index and Guid properties.
+                // Either way, this ReportingDescriptorReference must refer to tool.Driver.
+                toolComponentPath = $"{toolComponentBasePath}.tool.driver";
+                return tool.Driver;
+            }
+
+            if (toolComponentReference?.Index >= 0 && toolComponentReference?.Guid == null)
+            {
+                // This ReportingDescriptorReferenceObject has a ToolComponentReference with an
+                // Index property but no Guid property. The Index must refer to an element of
+                // tool.Extensions.
+                toolComponentPath = $"{toolComponentBasePath}.tool.extensions[{toolComponentReference.Index}]";
+
+                IList<ToolComponent> toolComponents = tool.Extensions;
+                if (tool.Extensions != null && tool.Extensions.Count > toolComponentReference.Index)
+                {
+                    return tool.Extensions[toolComponentReference.Index];
+                }
+                else
+                {
+                    return null;
+                }
+            }
+
+            if (toolComponentReference?.Index == -1 && toolComponentReference?.Guid != null)
+            {
+                // TODO:
+                // This ReportingDescriptorReferenceObject has a ToolComponentReference with
+                // both Index and Guid properties. Depending on the context, the ToolComponent
+                // might be an extension or a taxonomy.
+                return null;
+            }
+
+            // Is this right? What condition are we in here, and should we report it?
+            return null;
         }
 
         protected override void Analyze(Result result, string resultPointer)
