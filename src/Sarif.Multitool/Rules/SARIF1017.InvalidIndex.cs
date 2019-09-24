@@ -106,66 +106,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 $"runs[{Context.CurrentRunIndex}].logicalLocations");
         }
 
-        protected override void Analyze(ReportingDescriptorReference reportingDescriptorReference, string reportingDescriptorReferencePointer)
-        {
-            Tool tool = Context.CurrentRun.Tool;
-
-            // Does this reporting descriptor reference refer to a reporting descriptor defined by
-            // the driver or by one of the extensions?
-            ToolComponent toolComponent;
-            string toolComponentPathSegment;
-
-            int? toolComponentIndex = reportingDescriptorReference.ToolComponent?.Index;
-            if (toolComponentIndex >= 0)
-            {
-                // This reporting descriptor reference refers to an extension, but does that
-                // extension exist?
-                toolComponent = tool.Extensions?.Count > toolComponentIndex.Value
-                    ? tool.Extensions[toolComponentIndex.Value]
-                    : null;
-
-                toolComponentPathSegment = $"{SarifPropertyName.Extensions}[{toolComponentIndex}]";
-            }
-            else
-            {
-                toolComponent = tool.Driver;
-                toolComponentPathSegment = SarifPropertyName.Driver;
-            }
-
-            // Does this reporting descriptor reference refer to a rule, a notification, or a taxon?
-            string arrayPropertyName;
-            IList<ReportingDescriptor> reportingDescriptors;
-
-            switch (Context.CurrentReportingDescriptorKind)
-            {
-                case SarifValidationContext.ReportingDescriptorKind.Rule:
-                    arrayPropertyName = SarifPropertyName.Rules;
-                    reportingDescriptors = toolComponent?.Rules;
-                    break;
-
-                case SarifValidationContext.ReportingDescriptorKind.Notification:
-                    arrayPropertyName = SarifPropertyName.Notifications;
-                    reportingDescriptors = toolComponent?.Notifications;
-                    break;
-
-                case SarifValidationContext.ReportingDescriptorKind.Taxon:
-                    arrayPropertyName = SarifPropertyName.Taxa;
-                    reportingDescriptors = toolComponent?.Taxa;
-                    break;
-
-                default:
-                    throw new InvalidOperationException("Unexpected call to Analyze(ReportingDescriptorReference)");
-            }
-
-            ValidateArrayIndex(
-                reportingDescriptorReference.Index,
-                reportingDescriptors,
-                reportingDescriptorReferencePointer,
-                "reportingDescriptorReference",
-                SarifPropertyName.Index,
-                $"runs[{Context.CurrentRunIndex}].tool.{toolComponentPathSegment}.{arrayPropertyName}");
-        }
-
         protected override void Analyze(Result result, string resultPointer)
         {
             ValidateArrayIndex(
@@ -197,17 +137,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 "threadFlowLocation",
                 SarifPropertyName.Index,
                 $"runs[{Context.CurrentRunIndex}].threadFlowLocations");
-        }
-
-        protected override void Analyze(ToolComponentReference toolComponentReference, string toolComponentReferencePointer)
-        {
-            ValidateArrayIndex(
-                toolComponentReference.Index,
-                Context.CurrentRun.Tool.Extensions,
-                toolComponentReferencePointer,
-                "toolComponentReference",
-                SarifPropertyName.Index,
-                $"runs[{Context.CurrentRunIndex}].tool.extensions");
         }
 
         protected override void Analyze(WebRequest webRequest, string webRequestPointer)
