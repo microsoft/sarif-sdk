@@ -13,21 +13,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         [Option(
             'r',
             "previous",
-            HelpText = "Path to a sarif log containing the previous set of results with result matching annotations on a target (or empty if no previous log exists)",
+            HelpText = "Path to a SARIF log containing the previous set of results with result matching annotations on a target (or empty if no previous log exists)",
             Required = false,
             Default = null)]
         public string PreviousFilePath { get; internal set; }
 
         [Value(0,
-            MetaName = "<currentFile>",
-            HelpText = "Path(s) to sarif log(s) comprising the current set of results, without result matching information",
+            MetaName = "<currentFiles>",
+            HelpText = "Path(s) to SARIF log(s) comprising the current set of results, without result matching information",
             Required = true)]
         public IEnumerable<string> CurrentFilePaths { get; internal set; }
         
 
         [Option('o', 
             "output-file-path", 
-            HelpText = "File Path to output the annotated sarif log with result matching information.  Defaults to <currentFile>-annotated.sarif")]
+            HelpText = "File path to output the annotated SARIF log with result matching information.  Defaults to <currentFile>-annotated.sarif")]
         public string OutputFilePath { get; internal set; }
     }
 }
