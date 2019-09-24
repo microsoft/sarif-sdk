@@ -56,6 +56,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
                     return EvaluateGreaterThan;
                 case CompareOperator.GreaterThanOrEquals:
                     return EvaluateGreaterThanOrEquals;
+                case CompareOperator.StartsWith:
+                    return EvaluateStartsWith;
+                case CompareOperator.Contains:
+                    return EvaluateContains;
+                case CompareOperator.EndsWith:
+                    return EvaluateEndsWith;
+
                 default:
                     throw new QueryParseException($"{term} does not support operator {term.Operator}");
             }
@@ -106,6 +113,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
             for (int i = 0; i < list.Count; ++i)
             {
                 matches.Set(i, String.Compare(Getter(list[i]) ?? "", Value, StringComparison) >= 0);
+            }
+        }
+
+        private void EvaluateStartsWith(IList<T> list, BitArray matches)
+        {
+            for (int i = 0; i < list.Count; ++i)
+            {
+                matches.Set(i, (Getter(list[i]) ?? "").StartsWith(Value, StringComparison));
+            }
+        }
+
+        private void EvaluateContains(IList<T> list, BitArray matches)
+        {
+            for (int i = 0; i < list.Count; ++i)
+            {
+                matches.Set(i, (Getter(list[i]) ?? "").IndexOf(Value, StringComparison) != -1);
+            }
+        }
+
+        private void EvaluateEndsWith(IList<T> list, BitArray matches)
+        {
+            for (int i = 0; i < list.Count; ++i)
+            {
+                matches.Set(i, (Getter(list[i]) ?? "").EndsWith(Value, StringComparison));
             }
         }
     }

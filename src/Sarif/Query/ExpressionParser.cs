@@ -37,6 +37,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Query
 
             CompareOperators = new List<Literal<CompareOperator>>()
             {
+                new Literal<CompareOperator>("|>", CompareOperator.StartsWith),
+                new Literal<CompareOperator>(">|", CompareOperator.EndsWith),
+                new Literal<CompareOperator>(":", CompareOperator.Contains),
                 new Literal<CompareOperator>("==", CompareOperator.Equals),
                 new Literal<CompareOperator>("=", CompareOperator.Equals),
                 new Literal<CompareOperator>("!=", CompareOperator.NotEquals),
@@ -113,6 +116,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Query
                     return ">";
                 case CompareOperator.GreaterThanOrEquals:
                     return ">=";
+                case CompareOperator.StartsWith:
+                    return "|>";
+                case CompareOperator.Contains:
+                    return ":";
+                case CompareOperator.EndsWith:
+                    return ">|";
                 default:
                     throw new NotImplementedException(op.ToString());
             }

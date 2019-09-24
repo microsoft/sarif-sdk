@@ -10,6 +10,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Query
         GreaterThan,
         GreaterThanOrEquals,
         LessThan,
-        LessThanOrEquals
+        LessThanOrEquals,
+
+        StartsWith,
+        Contains,
+        EndsWith
     }
 }

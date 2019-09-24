@@ -64,6 +64,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Query
             Run(0, "ID > 50 && Uri > 'Z' && State != Completed", set);
             Run(25, "ID < 50 && InProgress = true", set);
 
+            // StartsWith, Contains, EndsWith
+            Run(11, "Uri |> 9", set);           // StartsWith 9: 9, 9x
+            Run(10, "Uri >| 9", set);           // EndsWith 9: x9
+            Run(19, "Uri : 9", set);            // Contains 9: x9, 9x
+
             // Unknown Property Name
             Assert.Throws<QueryParseException>(() => Run(0, "Unknown != true", set));
 
