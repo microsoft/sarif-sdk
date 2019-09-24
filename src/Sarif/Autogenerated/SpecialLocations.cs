@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
         /// </summary>
-        public SarifNodeKind SarifNodeKind
+        public virtual SarifNodeKind SarifNodeKind
         {
             get
             {
@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Provides a suggestion to SARIF consumers to display file paths relative to the specified location.
         /// </summary>
         [DataMember(Name = "displayBase", IsRequired = false, EmitDefaultValue = false)]
-        public ArtifactLocation DisplayBase { get; set; }
+        public virtual ArtifactLocation DisplayBase { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the special locations.
@@ -92,7 +92,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Creates a deep copy of this instance.
         /// </summary>
-        public SpecialLocations DeepClone()
+        public virtual SpecialLocations DeepClone()
         {
             return (SpecialLocations)DeepCloneCore();
         }

@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
         /// </summary>
-        public SarifNodeKind SarifNodeKind
+        public virtual SarifNodeKind SarifNodeKind
         {
             get
             {
@@ -38,13 +38,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A short description of the artifact.
         /// </summary>
         [DataMember(Name = "description", IsRequired = false, EmitDefaultValue = false)]
-        public Message Description { get; set; }
+        public virtual Message Description { get; set; }
 
         /// <summary>
         /// The location of the artifact.
         /// </summary>
         [DataMember(Name = "location", IsRequired = false, EmitDefaultValue = false)]
-        public ArtifactLocation Location { get; set; }
+        public virtual ArtifactLocation Location { get; set; }
 
         /// <summary>
         /// Identifies the index of the immediate parent of the artifact, if this artifact is nested.
@@ -52,13 +52,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         [DataMember(Name = "parentIndex", IsRequired = false, EmitDefaultValue = false)]
         [DefaultValue(-1)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public int ParentIndex { get; set; }
+        public virtual int ParentIndex { get; set; }
 
         /// <summary>
         /// The offset in bytes of the artifact within its containing artifact.
         /// </summary>
         [DataMember(Name = "offset", IsRequired = false, EmitDefaultValue = false)]
-        public int Offset { get; set; }
+        public virtual int Offset { get; set; }
 
         /// <summary>
         /// The length of the artifact in bytes.
@@ -66,7 +66,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [DataMember(Name = "length", IsRequired = false, EmitDefaultValue = false)]
         [DefaultValue(-1)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public int Length { get; set; }
+        public virtual int Length { get; set; }
 
         /// <summary>
         /// The role or roles played by the artifact in the analysis.
@@ -74,44 +74,44 @@ namespace Microsoft.CodeAnalysis.Sarif
         [DataMember(Name = "roles", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         [JsonConverter(typeof(FlagsEnumConverter))]
-        public ArtifactRoles Roles { get; set; }
+        public virtual ArtifactRoles Roles { get; set; }
 
         /// <summary>
         /// The MIME type (RFC 2045) of the artifact.
         /// </summary>
         [DataMember(Name = "mimeType", IsRequired = false, EmitDefaultValue = false)]
-        public string MimeType { get; set; }
+        public virtual string MimeType { get; set; }
 
         /// <summary>
         /// The contents of the artifact.
         /// </summary>
         [DataMember(Name = "contents", IsRequired = false, EmitDefaultValue = false)]
-        public ArtifactContent Contents { get; set; }
+        public virtual ArtifactContent Contents { get; set; }
 
         /// <summary>
         /// Specifies the encoding for an artifact object that refers to a text file.
         /// </summary>
         [DataMember(Name = "encoding", IsRequired = false, EmitDefaultValue = false)]
-        public string Encoding { get; set; }
+        public virtual string Encoding { get; set; }
 
         /// <summary>
         /// Specifies the source language for any artifact object that refers to a text file that contains source code.
         /// </summary>
         [DataMember(Name = "sourceLanguage", IsRequired = false, EmitDefaultValue = false)]
-        public string SourceLanguage { get; set; }
+        public virtual string SourceLanguage { get; set; }
 
         /// <summary>
         /// A dictionary, each of whose keys is the name of a hash function and each of whose values is the hashed value of the artifact produced by the specified hash function.
         /// </summary>
         [DataMember(Name = "hashes", IsRequired = false, EmitDefaultValue = false)]
-        public IDictionary<string, string> Hashes { get; set; }
+        public virtual IDictionary<string, string> Hashes { get; set; }
 
         /// <summary>
         /// The Coordinated Universal Time (UTC) date and time at which the artifact was most recently modified. See "Date/time properties" in the SARIF spec for the required format.
         /// </summary>
         [DataMember(Name = "lastModifiedTimeUtc", IsRequired = false, EmitDefaultValue = false)]
         [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.DateTimeConverter))]
-        public DateTime LastModifiedTimeUtc { get; set; }
+        public virtual DateTime LastModifiedTimeUtc { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the artifact.
@@ -202,7 +202,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Creates a deep copy of this instance.
         /// </summary>
-        public Artifact DeepClone()
+        public virtual Artifact DeepClone()
         {
             return (Artifact)DeepCloneCore();
         }

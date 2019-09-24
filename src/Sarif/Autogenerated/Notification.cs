@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
         /// </summary>
-        public SarifNodeKind SarifNodeKind
+        public virtual SarifNodeKind SarifNodeKind
         {
             get
             {
@@ -39,13 +39,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         [DataMember(Name = "locations", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<Location> Locations { get; set; }
+        public virtual IList<Location> Locations { get; set; }
 
         /// <summary>
         /// A message that describes the condition that was encountered.
         /// </summary>
         [DataMember(Name = "message", IsRequired = true)]
-        public Message Message { get; set; }
+        public virtual Message Message { get; set; }
 
         /// <summary>
         /// A value specifying the severity level of the notification.
@@ -54,38 +54,38 @@ namespace Microsoft.CodeAnalysis.Sarif
         [DefaultValue(FailureLevel.Warning)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter))]
-        public FailureLevel Level { get; set; }
+        public virtual FailureLevel Level { get; set; }
 
         /// <summary>
         /// The thread identifier of the code that generated the notification.
         /// </summary>
         [DataMember(Name = "threadId", IsRequired = false, EmitDefaultValue = false)]
-        public int ThreadId { get; set; }
+        public virtual int ThreadId { get; set; }
 
         /// <summary>
         /// The Coordinated Universal Time (UTC) date and time at which the analysis tool generated the notification.
         /// </summary>
         [DataMember(Name = "timeUtc", IsRequired = false, EmitDefaultValue = false)]
         [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.DateTimeConverter))]
-        public DateTime TimeUtc { get; set; }
+        public virtual DateTime TimeUtc { get; set; }
 
         /// <summary>
         /// The runtime exception, if any, relevant to this notification.
         /// </summary>
         [DataMember(Name = "exception", IsRequired = false, EmitDefaultValue = false)]
-        public ExceptionData Exception { get; set; }
+        public virtual ExceptionData Exception { get; set; }
 
         /// <summary>
         /// A reference used to locate the descriptor relevant to this notification.
         /// </summary>
         [DataMember(Name = "descriptor", IsRequired = false, EmitDefaultValue = false)]
-        public ReportingDescriptorReference Descriptor { get; set; }
+        public virtual ReportingDescriptorReference Descriptor { get; set; }
 
         /// <summary>
         /// A reference used to locate the rule descriptor associated with this notification.
         /// </summary>
         [DataMember(Name = "associatedRule", IsRequired = false, EmitDefaultValue = false)]
-        public ReportingDescriptorReference AssociatedRule { get; set; }
+        public virtual ReportingDescriptorReference AssociatedRule { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the notification.
@@ -163,7 +163,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Creates a deep copy of this instance.
         /// </summary>
-        public Notification DeepClone()
+        public virtual Notification DeepClone()
         {
             return (Notification)DeepCloneCore();
         }

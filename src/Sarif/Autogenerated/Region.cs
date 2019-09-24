@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
         /// </summary>
-        public SarifNodeKind SarifNodeKind
+        public virtual SarifNodeKind SarifNodeKind
         {
             get
             {
@@ -38,25 +38,25 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The line number of the first character in the region.
         /// </summary>
         [DataMember(Name = "startLine", IsRequired = false, EmitDefaultValue = false)]
-        public int StartLine { get; set; }
+        public virtual int StartLine { get; set; }
 
         /// <summary>
         /// The column number of the first character in the region.
         /// </summary>
         [DataMember(Name = "startColumn", IsRequired = false, EmitDefaultValue = false)]
-        public int StartColumn { get; set; }
+        public virtual int StartColumn { get; set; }
 
         /// <summary>
         /// The line number of the last character in the region.
         /// </summary>
         [DataMember(Name = "endLine", IsRequired = false, EmitDefaultValue = false)]
-        public int EndLine { get; set; }
+        public virtual int EndLine { get; set; }
 
         /// <summary>
         /// The column number of the character following the end of the region.
         /// </summary>
         [DataMember(Name = "endColumn", IsRequired = false, EmitDefaultValue = false)]
-        public int EndColumn { get; set; }
+        public virtual int EndColumn { get; set; }
 
         /// <summary>
         /// The zero-based offset from the beginning of the artifact of the first character in the region.
@@ -64,13 +64,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         [DataMember(Name = "charOffset", IsRequired = false, EmitDefaultValue = false)]
         [DefaultValue(-1)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public int CharOffset { get; set; }
+        public virtual int CharOffset { get; set; }
 
         /// <summary>
         /// The length of the region in characters.
         /// </summary>
         [DataMember(Name = "charLength", IsRequired = false, EmitDefaultValue = false)]
-        public int CharLength { get; set; }
+        public virtual int CharLength { get; set; }
 
         /// <summary>
         /// The zero-based offset from the beginning of the artifact of the first byte in the region.
@@ -78,31 +78,31 @@ namespace Microsoft.CodeAnalysis.Sarif
         [DataMember(Name = "byteOffset", IsRequired = false, EmitDefaultValue = false)]
         [DefaultValue(-1)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public int ByteOffset { get; set; }
+        public virtual int ByteOffset { get; set; }
 
         /// <summary>
         /// The length of the region in bytes.
         /// </summary>
         [DataMember(Name = "byteLength", IsRequired = false, EmitDefaultValue = false)]
-        public int ByteLength { get; set; }
+        public virtual int ByteLength { get; set; }
 
         /// <summary>
         /// The portion of the artifact contents within the specified region.
         /// </summary>
         [DataMember(Name = "snippet", IsRequired = false, EmitDefaultValue = false)]
-        public ArtifactContent Snippet { get; set; }
+        public virtual ArtifactContent Snippet { get; set; }
 
         /// <summary>
         /// A message relevant to the region.
         /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
-        public Message Message { get; set; }
+        public virtual Message Message { get; set; }
 
         /// <summary>
         /// Specifies the source language, if any, of the portion of the artifact specified by the region object.
         /// </summary>
         [DataMember(Name = "sourceLanguage", IsRequired = false, EmitDefaultValue = false)]
-        public string SourceLanguage { get; set; }
+        public virtual string SourceLanguage { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the region.
@@ -190,7 +190,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Creates a deep copy of this instance.
         /// </summary>
-        public Region DeepClone()
+        public virtual Region DeepClone()
         {
             return (Region)DeepCloneCore();
         }
