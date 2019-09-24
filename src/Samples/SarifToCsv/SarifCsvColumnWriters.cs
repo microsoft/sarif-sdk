@@ -70,7 +70,7 @@ namespace SarifToCsv
             writers["PartialFingerprints"] = (c) => { c.Writer.Write(String.Join("; ", c.Result.PartialFingerprints?.Values ?? Array.Empty<string>())); };
             writers["Provenance"] = (c) => { c.Writer.Write(c.Result.Provenance?.ToString() ?? ""); };
             writers["Rank"] = (c) => { c.Writer.Write(c.Result.Rank.ToString()); };
-            writers["RuleId"] = (c) => { c.Writer.Write(c.Result.RuleId ?? ""); };
+            writers["RuleId"] = (c) => { c.Writer.Write(c.Result.GetRule(c.Run).Id ?? ""); };
             writers["RuleIndex"] = (c) => { c.Writer.Write(c.Result.RuleIndex); };
             writers["Suppressions"] = (c) => { c.Writer.Write(String.Join("; ", c.Result.Suppressions?.Select(s => $"{s.Kind}|{s.Location}" ?? "") ?? Array.Empty<string>())); };
             writers["Tags"] = (c) => { c.Writer.Write(String.Join("; ", ((IEnumerable<string>)c.Result.Tags) ?? Array.Empty<string>())); };
@@ -103,6 +103,9 @@ namespace SarifToCsv
             writers["Run.AutomationDetails.CorrelationGuid"] = (c) => { c.Writer.Write(c.Run?.AutomationDetails?.CorrelationGuid ?? ""); };
             writers["Run.AutomationDetails.Id"] = (c) => { c.Writer.Write(c.Run?.AutomationDetails?.Id ?? ""); };
             writers["Run.AutomationDetails.Guid"] = (c) => { c.Writer.Write(c.Run?.AutomationDetails?.Guid ?? ""); };
+
+            // Run Basics
+            writers["Run.Tool.Name"] = (c) => { c.Writer.Write(c.Run?.Tool?.Driver?.Name ?? ""); };
 
             // Run and Result Index (alternate identity if Guids not provided)
             writers["RunIndex"] = (c) => { c.Writer.Write(c.RunIndex); };
