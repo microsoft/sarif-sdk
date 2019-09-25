@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
         /// </summary>
-        public SarifNodeKind SarifNodeKind
+        public virtual SarifNodeKind SarifNodeKind
         {
             get
             {
@@ -36,25 +36,25 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The address of the location.
         /// </summary>
         [DataMember(Name = "address", IsRequired = false, EmitDefaultValue = false)]
-        public Address Address { get; set; }
+        public virtual Address Address { get; set; }
 
         /// <summary>
         /// The location of the artifact.
         /// </summary>
         [DataMember(Name = "artifactLocation", IsRequired = false, EmitDefaultValue = false)]
-        public ArtifactLocation ArtifactLocation { get; set; }
+        public virtual ArtifactLocation ArtifactLocation { get; set; }
 
         /// <summary>
         /// Specifies a portion of the artifact.
         /// </summary>
         [DataMember(Name = "region", IsRequired = false, EmitDefaultValue = false)]
-        public Region Region { get; set; }
+        public virtual Region Region { get; set; }
 
         /// <summary>
         /// Specifies a portion of the artifact that encloses the region. Allows a viewer to display additional context around the region.
         /// </summary>
         [DataMember(Name = "contextRegion", IsRequired = false, EmitDefaultValue = false)]
-        public Region ContextRegion { get; set; }
+        public virtual Region ContextRegion { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the physical location.
@@ -119,7 +119,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Creates a deep copy of this instance.
         /// </summary>
-        public PhysicalLocation DeepClone()
+        public virtual PhysicalLocation DeepClone()
         {
             return (PhysicalLocation)DeepCloneCore();
         }

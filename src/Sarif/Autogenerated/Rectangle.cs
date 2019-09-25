@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
         /// </summary>
-        public SarifNodeKind SarifNodeKind
+        public virtual SarifNodeKind SarifNodeKind
         {
             get
             {
@@ -36,31 +36,31 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The Y coordinate of the top edge of the rectangle, measured in the image's natural units.
         /// </summary>
         [DataMember(Name = "top", IsRequired = false, EmitDefaultValue = false)]
-        public double Top { get; set; }
+        public virtual double Top { get; set; }
 
         /// <summary>
         /// The X coordinate of the left edge of the rectangle, measured in the image's natural units.
         /// </summary>
         [DataMember(Name = "left", IsRequired = false, EmitDefaultValue = false)]
-        public double Left { get; set; }
+        public virtual double Left { get; set; }
 
         /// <summary>
         /// The Y coordinate of the bottom edge of the rectangle, measured in the image's natural units.
         /// </summary>
         [DataMember(Name = "bottom", IsRequired = false, EmitDefaultValue = false)]
-        public double Bottom { get; set; }
+        public virtual double Bottom { get; set; }
 
         /// <summary>
         /// The X coordinate of the right edge of the rectangle, measured in the image's natural units.
         /// </summary>
         [DataMember(Name = "right", IsRequired = false, EmitDefaultValue = false)]
-        public double Right { get; set; }
+        public virtual double Right { get; set; }
 
         /// <summary>
         /// A message relevant to the rectangle.
         /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
-        public Message Message { get; set; }
+        public virtual Message Message { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the rectangle.
@@ -128,7 +128,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Creates a deep copy of this instance.
         /// </summary>
-        public Rectangle DeepClone()
+        public virtual Rectangle DeepClone()
         {
             return (Rectangle)DeepCloneCore();
         }

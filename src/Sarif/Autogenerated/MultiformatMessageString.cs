@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
         /// </summary>
-        public SarifNodeKind SarifNodeKind
+        public virtual SarifNodeKind SarifNodeKind
         {
             get
             {
@@ -36,13 +36,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A plain text message string or format string.
         /// </summary>
         [DataMember(Name = "text", IsRequired = true)]
-        public string Text { get; set; }
+        public virtual string Text { get; set; }
 
         /// <summary>
         /// A Markdown message string or format string.
         /// </summary>
         [DataMember(Name = "markdown", IsRequired = false, EmitDefaultValue = false)]
-        public string Markdown { get; set; }
+        public virtual string Markdown { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the message.
@@ -101,7 +101,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Creates a deep copy of this instance.
         /// </summary>
-        public MultiformatMessageString DeepClone()
+        public virtual MultiformatMessageString DeepClone()
         {
             return (MultiformatMessageString)DeepCloneCore();
         }

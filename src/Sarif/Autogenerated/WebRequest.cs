@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
         /// </summary>
-        public SarifNodeKind SarifNodeKind
+        public virtual SarifNodeKind SarifNodeKind
         {
             get
             {
@@ -40,49 +40,49 @@ namespace Microsoft.CodeAnalysis.Sarif
         [DataMember(Name = "index", IsRequired = false, EmitDefaultValue = false)]
         [DefaultValue(-1)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public int Index { get; set; }
+        public virtual int Index { get; set; }
 
         /// <summary>
         /// The request protocol. Example: 'http'.
         /// </summary>
         [DataMember(Name = "protocol", IsRequired = false, EmitDefaultValue = false)]
-        public string Protocol { get; set; }
+        public virtual string Protocol { get; set; }
 
         /// <summary>
         /// The request version. Example: '1.1'.
         /// </summary>
         [DataMember(Name = "version", IsRequired = false, EmitDefaultValue = false)]
-        public string Version { get; set; }
+        public virtual string Version { get; set; }
 
         /// <summary>
         /// The target of the request.
         /// </summary>
         [DataMember(Name = "target", IsRequired = false, EmitDefaultValue = false)]
-        public string Target { get; set; }
+        public virtual string Target { get; set; }
 
         /// <summary>
         /// The HTTP method. Well-known values are 'GET', 'PUT', 'POST', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS', 'TRACE', 'CONNECT'.
         /// </summary>
         [DataMember(Name = "method", IsRequired = false, EmitDefaultValue = false)]
-        public string Method { get; set; }
+        public virtual string Method { get; set; }
 
         /// <summary>
         /// The request headers.
         /// </summary>
         [DataMember(Name = "headers", IsRequired = false, EmitDefaultValue = false)]
-        public IDictionary<string, string> Headers { get; set; }
+        public virtual IDictionary<string, string> Headers { get; set; }
 
         /// <summary>
         /// The request parameters.
         /// </summary>
         [DataMember(Name = "parameters", IsRequired = false, EmitDefaultValue = false)]
-        public IDictionary<string, string> Parameters { get; set; }
+        public virtual IDictionary<string, string> Parameters { get; set; }
 
         /// <summary>
         /// The body of the request.
         /// </summary>
         [DataMember(Name = "body", IsRequired = false, EmitDefaultValue = false)]
-        public ArtifactContent Body { get; set; }
+        public virtual ArtifactContent Body { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the request.
@@ -160,7 +160,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Creates a deep copy of this instance.
         /// </summary>
-        public WebRequest DeepClone()
+        public virtual WebRequest DeepClone()
         {
             return (WebRequest)DeepCloneCore();
         }

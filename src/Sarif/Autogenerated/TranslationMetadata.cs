@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
         /// </summary>
-        public SarifNodeKind SarifNodeKind
+        public virtual SarifNodeKind SarifNodeKind
         {
             get
             {
@@ -36,37 +36,37 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The name associated with the translation metadata.
         /// </summary>
         [DataMember(Name = "name", IsRequired = true)]
-        public string Name { get; set; }
+        public virtual string Name { get; set; }
 
         /// <summary>
         /// The full name associated with the translation metadata.
         /// </summary>
         [DataMember(Name = "fullName", IsRequired = false, EmitDefaultValue = false)]
-        public string FullName { get; set; }
+        public virtual string FullName { get; set; }
 
         /// <summary>
         /// A brief description of the translation metadata.
         /// </summary>
         [DataMember(Name = "shortDescription", IsRequired = false, EmitDefaultValue = false)]
-        public MultiformatMessageString ShortDescription { get; set; }
+        public virtual MultiformatMessageString ShortDescription { get; set; }
 
         /// <summary>
         /// A comprehensive description of the translation metadata.
         /// </summary>
         [DataMember(Name = "fullDescription", IsRequired = false, EmitDefaultValue = false)]
-        public MultiformatMessageString FullDescription { get; set; }
+        public virtual MultiformatMessageString FullDescription { get; set; }
 
         /// <summary>
         /// The absolute URI from which the translation metadata can be downloaded.
         /// </summary>
         [DataMember(Name = "downloadUri", IsRequired = false, EmitDefaultValue = false)]
-        public Uri DownloadUri { get; set; }
+        public virtual Uri DownloadUri { get; set; }
 
         /// <summary>
         /// The absolute URI from which information related to the translation metadata can be downloaded.
         /// </summary>
         [DataMember(Name = "informationUri", IsRequired = false, EmitDefaultValue = false)]
-        public Uri InformationUri { get; set; }
+        public virtual Uri InformationUri { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the translation metadata.
@@ -137,7 +137,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Creates a deep copy of this instance.
         /// </summary>
-        public TranslationMetadata DeepClone()
+        public virtual TranslationMetadata DeepClone()
         {
             return (TranslationMetadata)DeepCloneCore();
         }

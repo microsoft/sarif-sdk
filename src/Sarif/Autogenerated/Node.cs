@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
         /// </summary>
-        public SarifNodeKind SarifNodeKind
+        public virtual SarifNodeKind SarifNodeKind
         {
             get
             {
@@ -37,26 +37,26 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A string that uniquely identifies the node within its graph.
         /// </summary>
         [DataMember(Name = "id", IsRequired = true)]
-        public string Id { get; set; }
+        public virtual string Id { get; set; }
 
         /// <summary>
         /// A short description of the node.
         /// </summary>
         [DataMember(Name = "label", IsRequired = false, EmitDefaultValue = false)]
-        public Message Label { get; set; }
+        public virtual Message Label { get; set; }
 
         /// <summary>
         /// A code location associated with the node.
         /// </summary>
         [DataMember(Name = "location", IsRequired = false, EmitDefaultValue = false)]
-        public Location Location { get; set; }
+        public virtual Location Location { get; set; }
 
         /// <summary>
         /// Array of child nodes.
         /// </summary>
         [DataMember(Name = "children", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<Node> Children { get; set; }
+        public virtual IList<Node> Children { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the node.
@@ -121,7 +121,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Creates a deep copy of this instance.
         /// </summary>
-        public Node DeepClone()
+        public virtual Node DeepClone()
         {
             return (Node)DeepCloneCore();
         }

@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
         /// </summary>
-        public SarifNodeKind SarifNodeKind
+        public virtual SarifNodeKind SarifNodeKind
         {
             get
             {
@@ -37,26 +37,26 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The location to which this stack frame refers.
         /// </summary>
         [DataMember(Name = "location", IsRequired = false, EmitDefaultValue = false)]
-        public Location Location { get; set; }
+        public virtual Location Location { get; set; }
 
         /// <summary>
         /// The name of the module that contains the code of this stack frame.
         /// </summary>
         [DataMember(Name = "module", IsRequired = false, EmitDefaultValue = false)]
-        public string Module { get; set; }
+        public virtual string Module { get; set; }
 
         /// <summary>
         /// The thread identifier of the stack frame.
         /// </summary>
         [DataMember(Name = "threadId", IsRequired = false, EmitDefaultValue = false)]
-        public int ThreadId { get; set; }
+        public virtual int ThreadId { get; set; }
 
         /// <summary>
         /// The parameters of the call that is executing.
         /// </summary>
         [DataMember(Name = "parameters", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<string> Parameters { get; set; }
+        public virtual IList<string> Parameters { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the stack frame.
@@ -121,7 +121,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Creates a deep copy of this instance.
         /// </summary>
-        public StackFrame DeepClone()
+        public virtual StackFrame DeepClone()
         {
             return (StackFrame)DeepCloneCore();
         }

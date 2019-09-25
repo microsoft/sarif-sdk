@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
         /// </summary>
-        public SarifNodeKind SarifNodeKind
+        public virtual SarifNodeKind SarifNodeKind
         {
             get
             {
@@ -37,33 +37,33 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A stable, unique identifer for the suprression in the form of a GUID.
         /// </summary>
         [DataMember(Name = "guid", IsRequired = false, EmitDefaultValue = false)]
-        public string Guid { get; set; }
+        public virtual string Guid { get; set; }
 
         /// <summary>
         /// A string that indicates where the suppression is persisted.
         /// </summary>
         [DataMember(Name = "kind", IsRequired = true)]
         [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter))]
-        public SuppressionKind Kind { get; set; }
+        public virtual SuppressionKind Kind { get; set; }
 
         /// <summary>
         /// A string that indicates the state of the suppression.
         /// </summary>
         [DataMember(Name = "state", IsRequired = false, EmitDefaultValue = false)]
         [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter))]
-        public SuppressionState State { get; set; }
+        public virtual SuppressionState State { get; set; }
 
         /// <summary>
         /// A string representing the justification for the suppression.
         /// </summary>
         [DataMember(Name = "justification", IsRequired = false, EmitDefaultValue = false)]
-        public string Justification { get; set; }
+        public virtual string Justification { get; set; }
 
         /// <summary>
         /// Identifies the location associated with the suppression.
         /// </summary>
         [DataMember(Name = "location", IsRequired = false, EmitDefaultValue = false)]
-        public Location Location { get; set; }
+        public virtual Location Location { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the suppression.
@@ -131,7 +131,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Creates a deep copy of this instance.
         /// </summary>
-        public Suppression DeepClone()
+        public virtual Suppression DeepClone()
         {
             return (Suppression)DeepCloneCore();
         }

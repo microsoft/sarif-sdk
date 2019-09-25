@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
         /// </summary>
-        public SarifNodeKind SarifNodeKind
+        public virtual SarifNodeKind SarifNodeKind
         {
             get
             {
@@ -39,13 +39,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         [DataMember(Name = "uri", IsRequired = false, EmitDefaultValue = false)]
         [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.UriConverter))]
-        public Uri Uri { get; set; }
+        public virtual Uri Uri { get; set; }
 
         /// <summary>
         /// A string which indirectly specifies the absolute URI with respect to which a relative URI in the "uri" property is interpreted.
         /// </summary>
         [DataMember(Name = "uriBaseId", IsRequired = false, EmitDefaultValue = false)]
-        public string UriBaseId { get; set; }
+        public virtual string UriBaseId { get; set; }
 
         /// <summary>
         /// The index within the run artifacts array of the artifact object associated with the artifact location.
@@ -53,13 +53,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         [DataMember(Name = "index", IsRequired = false, EmitDefaultValue = false)]
         [DefaultValue(-1)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public int Index { get; set; }
+        public virtual int Index { get; set; }
 
         /// <summary>
         /// A short description of the artifact location.
         /// </summary>
         [DataMember(Name = "description", IsRequired = false, EmitDefaultValue = false)]
-        public Message Description { get; set; }
+        public virtual Message Description { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the artifact location.
@@ -125,7 +125,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Creates a deep copy of this instance.
         /// </summary>
-        public ArtifactLocation DeepClone()
+        public virtual ArtifactLocation DeepClone()
         {
             return (ArtifactLocation)DeepCloneCore();
         }

@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
         /// </summary>
-        public SarifNodeKind SarifNodeKind
+        public virtual SarifNodeKind SarifNodeKind
         {
             get
             {
@@ -40,40 +40,40 @@ namespace Microsoft.CodeAnalysis.Sarif
         [DataMember(Name = "id", IsRequired = false, EmitDefaultValue = false)]
         [DefaultValue(-1)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public int Id { get; set; }
+        public virtual int Id { get; set; }
 
         /// <summary>
         /// Identifies the artifact and region.
         /// </summary>
         [DataMember(Name = "physicalLocation", IsRequired = false, EmitDefaultValue = false)]
-        public PhysicalLocation PhysicalLocation { get; set; }
+        public virtual PhysicalLocation PhysicalLocation { get; set; }
 
         /// <summary>
         /// The logical locations associated with the result.
         /// </summary>
         [DataMember(Name = "logicalLocations", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<LogicalLocation> LogicalLocations { get; set; }
+        public virtual IList<LogicalLocation> LogicalLocations { get; set; }
 
         /// <summary>
         /// A message relevant to the location.
         /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
-        public Message Message { get; set; }
+        public virtual Message Message { get; set; }
 
         /// <summary>
         /// A set of regions relevant to the location.
         /// </summary>
         [DataMember(Name = "annotations", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<Region> Annotations { get; set; }
+        public virtual IList<Region> Annotations { get; set; }
 
         /// <summary>
         /// An array of objects that describe relationships between this location and others.
         /// </summary>
         [DataMember(Name = "relationships", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<LocationRelationship> Relationships { get; set; }
+        public virtual IList<LocationRelationship> Relationships { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the location.
@@ -145,7 +145,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Creates a deep copy of this instance.
         /// </summary>
-        public Location DeepClone()
+        public virtual Location DeepClone()
         {
             return (Location)DeepCloneCore();
         }
