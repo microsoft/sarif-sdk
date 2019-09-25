@@ -195,6 +195,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             Run firstRun = currentRuns.First();
             Tool tool = firstRun.Tool.DeepClone();
 
+            // Only include the rules corresponding to matched results.
+            tool.Driver.Rules = null;
+
             var run = new Run
             {
                 Tool = tool
@@ -259,15 +262,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 indexRemappingVisitor.HistoricalLogicalLocations = resultPair.Run.LogicalLocations;
                 indexRemappingVisitor.VisitResult(result);
 
+                // This logic is incomplete. It doesn't account for the possibility that result.rule
+                // is present (in which case the rule might come from an extension rather than from
+                // the driver).
                 if (result.RuleIndex != -1)
                 {
-                    ReportingDescriptor rule = resultPair.Run.Tool.Driver.Rules[0];
-                    if (!reportingDescriptors.TryGetValue(rule, out int ruleIndex))
+                    ReportingDescriptor rule = resultPair.Run.Tool.Driver.Rules.FirstOrDefault(r => r.Id.Equals(result.RuleId, StringComparison.Ordinal));
+                    if (rule != null)
                     {
-                        reportingDescriptors[rule] = run.Tool.Driver.Rules.Count;
-                        run.Tool.Driver.Rules.Add(rule);
+                        if (reportingDescriptors.TryGetValue(rule, out int ruleIndex))
+                        {
+                            result.RuleIndex = ruleIndex;
+                        }
+                        else
+                        {
+                            result.RuleIndex = reportingDescriptors.Count;
+                            reportingDescriptors[rule] = reportingDescriptors.Count;
+
+                            run.Tool.Driver.Rules = run.Tool.Driver.Rules ?? new List<ReportingDescriptor>();
+                            run.Tool.Driver.Rules.Add(rule);
+                        }
                     }
-                    result.RuleIndex = ruleIndex;
                 }
 
                 newRunResults.Add(result);
