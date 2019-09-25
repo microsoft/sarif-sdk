@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
         /// </summary>
-        public SarifNodeKind SarifNodeKind
+        public virtual SarifNodeKind SarifNodeKind
         {
             get
             {
@@ -40,43 +40,43 @@ namespace Microsoft.CodeAnalysis.Sarif
         [DataMember(Name = "index", IsRequired = false, EmitDefaultValue = false)]
         [DefaultValue(-1)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public int Index { get; set; }
+        public virtual int Index { get; set; }
 
         /// <summary>
         /// The response protocol. Example: 'http'.
         /// </summary>
         [DataMember(Name = "protocol", IsRequired = false, EmitDefaultValue = false)]
-        public string Protocol { get; set; }
+        public virtual string Protocol { get; set; }
 
         /// <summary>
         /// The response version. Example: '1.1'.
         /// </summary>
         [DataMember(Name = "version", IsRequired = false, EmitDefaultValue = false)]
-        public string Version { get; set; }
+        public virtual string Version { get; set; }
 
         /// <summary>
         /// The response status code. Example: 451.
         /// </summary>
         [DataMember(Name = "statusCode", IsRequired = false, EmitDefaultValue = false)]
-        public int StatusCode { get; set; }
+        public virtual int StatusCode { get; set; }
 
         /// <summary>
         /// The response reason. Example: 'Not found'.
         /// </summary>
         [DataMember(Name = "reasonPhrase", IsRequired = false, EmitDefaultValue = false)]
-        public string ReasonPhrase { get; set; }
+        public virtual string ReasonPhrase { get; set; }
 
         /// <summary>
         /// The response headers.
         /// </summary>
         [DataMember(Name = "headers", IsRequired = false, EmitDefaultValue = false)]
-        public IDictionary<string, string> Headers { get; set; }
+        public virtual IDictionary<string, string> Headers { get; set; }
 
         /// <summary>
         /// The body of the response.
         /// </summary>
         [DataMember(Name = "body", IsRequired = false, EmitDefaultValue = false)]
-        public ArtifactContent Body { get; set; }
+        public virtual ArtifactContent Body { get; set; }
 
         /// <summary>
         /// Specifies whether a response was received from the server.
@@ -84,7 +84,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [DataMember(Name = "noResponseReceived", IsRequired = false, EmitDefaultValue = false)]
         [DefaultValue(false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public bool NoResponseReceived { get; set; }
+        public virtual bool NoResponseReceived { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the response.
@@ -163,7 +163,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Creates a deep copy of this instance.
         /// </summary>
-        public WebResponse DeepClone()
+        public virtual WebResponse DeepClone()
         {
             return (WebResponse)DeepCloneCore();
         }

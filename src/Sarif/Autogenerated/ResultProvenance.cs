@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
         /// </summary>
-        public SarifNodeKind SarifNodeKind
+        public virtual SarifNodeKind SarifNodeKind
         {
             get
             {
@@ -38,25 +38,25 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The Coordinated Universal Time (UTC) date and time at which the result was first detected. See "Date/time properties" in the SARIF spec for the required format.
         /// </summary>
         [DataMember(Name = "firstDetectionTimeUtc", IsRequired = false, EmitDefaultValue = false)]
-        public DateTime FirstDetectionTimeUtc { get; set; }
+        public virtual DateTime FirstDetectionTimeUtc { get; set; }
 
         /// <summary>
         /// The Coordinated Universal Time (UTC) date and time at which the result was most recently detected. See "Date/time properties" in the SARIF spec for the required format.
         /// </summary>
         [DataMember(Name = "lastDetectionTimeUtc", IsRequired = false, EmitDefaultValue = false)]
-        public DateTime LastDetectionTimeUtc { get; set; }
+        public virtual DateTime LastDetectionTimeUtc { get; set; }
 
         /// <summary>
         /// A GUID-valued string equal to the automationDetails.guid property of the run in which the result was first detected.
         /// </summary>
         [DataMember(Name = "firstDetectionRunGuid", IsRequired = false, EmitDefaultValue = false)]
-        public string FirstDetectionRunGuid { get; set; }
+        public virtual string FirstDetectionRunGuid { get; set; }
 
         /// <summary>
         /// A GUID-valued string equal to the automationDetails.guid property of the run in which the result was most recently detected.
         /// </summary>
         [DataMember(Name = "lastDetectionRunGuid", IsRequired = false, EmitDefaultValue = false)]
-        public string LastDetectionRunGuid { get; set; }
+        public virtual string LastDetectionRunGuid { get; set; }
 
         /// <summary>
         /// The index within the run.invocations array of the invocation object which describes the tool invocation that detected the result.
@@ -64,14 +64,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         [DataMember(Name = "invocationIndex", IsRequired = false, EmitDefaultValue = false)]
         [DefaultValue(-1)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public int InvocationIndex { get; set; }
+        public virtual int InvocationIndex { get; set; }
 
         /// <summary>
         /// An array of physicalLocation objects which specify the portions of an analysis tool's output that a converter transformed into the result.
         /// </summary>
         [DataMember(Name = "conversionSources", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<PhysicalLocation> ConversionSources { get; set; }
+        public virtual IList<PhysicalLocation> ConversionSources { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the result.
@@ -143,7 +143,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Creates a deep copy of this instance.
         /// </summary>
-        public ResultProvenance DeepClone()
+        public virtual ResultProvenance DeepClone()
         {
             return (ResultProvenance)DeepCloneCore();
         }

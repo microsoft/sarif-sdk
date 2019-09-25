@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
         /// </summary>
-        public SarifNodeKind SarifNodeKind
+        public virtual SarifNodeKind SarifNodeKind
         {
             get
             {
@@ -36,25 +36,25 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Identifies the edge being traversed.
         /// </summary>
         [DataMember(Name = "edgeId", IsRequired = true)]
-        public string EdgeId { get; set; }
+        public virtual string EdgeId { get; set; }
 
         /// <summary>
         /// A message to display to the user as the edge is traversed.
         /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
-        public Message Message { get; set; }
+        public virtual Message Message { get; set; }
 
         /// <summary>
         /// The values of relevant expressions after the edge has been traversed.
         /// </summary>
         [DataMember(Name = "finalState", IsRequired = false, EmitDefaultValue = false)]
-        public IDictionary<string, MultiformatMessageString> FinalState { get; set; }
+        public virtual IDictionary<string, MultiformatMessageString> FinalState { get; set; }
 
         /// <summary>
         /// The number of edge traversals necessary to return from a nested graph.
         /// </summary>
         [DataMember(Name = "stepOverEdgeCount", IsRequired = false, EmitDefaultValue = false)]
-        public int StepOverEdgeCount { get; set; }
+        public virtual int StepOverEdgeCount { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the edge traversal.
@@ -119,7 +119,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Creates a deep copy of this instance.
         /// </summary>
-        public EdgeTraversal DeepClone()
+        public virtual EdgeTraversal DeepClone()
         {
             return (EdgeTraversal)DeepCloneCore();
         }

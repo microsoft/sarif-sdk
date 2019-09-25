@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
         /// </summary>
-        public SarifNodeKind SarifNodeKind
+        public virtual SarifNodeKind SarifNodeKind
         {
             get
             {
@@ -40,7 +40,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [DataMember(Name = "runGraphIndex", IsRequired = false, EmitDefaultValue = false)]
         [DefaultValue(-1)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public int RunGraphIndex { get; set; }
+        public virtual int RunGraphIndex { get; set; }
 
         /// <summary>
         /// The index within the result.graphs to be associated with the result.
@@ -48,32 +48,32 @@ namespace Microsoft.CodeAnalysis.Sarif
         [DataMember(Name = "resultGraphIndex", IsRequired = false, EmitDefaultValue = false)]
         [DefaultValue(-1)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public int ResultGraphIndex { get; set; }
+        public virtual int ResultGraphIndex { get; set; }
 
         /// <summary>
         /// A description of this graph traversal.
         /// </summary>
         [DataMember(Name = "description", IsRequired = false, EmitDefaultValue = false)]
-        public Message Description { get; set; }
+        public virtual Message Description { get; set; }
 
         /// <summary>
         /// Values of relevant expressions at the start of the graph traversal that may change during graph traversal.
         /// </summary>
         [DataMember(Name = "initialState", IsRequired = false, EmitDefaultValue = false)]
-        public IDictionary<string, MultiformatMessageString> InitialState { get; set; }
+        public virtual IDictionary<string, MultiformatMessageString> InitialState { get; set; }
 
         /// <summary>
         /// Values of relevant expressions at the start of the graph traversal that remain constant for the graph traversal.
         /// </summary>
         [DataMember(Name = "immutableState", IsRequired = false, EmitDefaultValue = false)]
-        public object ImmutableState { get; set; }
+        public virtual object ImmutableState { get; set; }
 
         /// <summary>
         /// The sequences of edges traversed by this graph traversal.
         /// </summary>
         [DataMember(Name = "edgeTraversals", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<EdgeTraversal> EdgeTraversals { get; set; }
+        public virtual IList<EdgeTraversal> EdgeTraversals { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the graph traversal.
@@ -146,7 +146,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Creates a deep copy of this instance.
         /// </summary>
-        public GraphTraversal DeepClone()
+        public virtual GraphTraversal DeepClone()
         {
             return (GraphTraversal)DeepCloneCore();
         }

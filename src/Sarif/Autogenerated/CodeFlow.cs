@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
         /// </summary>
-        public SarifNodeKind SarifNodeKind
+        public virtual SarifNodeKind SarifNodeKind
         {
             get
             {
@@ -36,13 +36,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A message relevant to the code flow.
         /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
-        public Message Message { get; set; }
+        public virtual Message Message { get; set; }
 
         /// <summary>
         /// An array of one or more unique threadFlow objects, each of which describes the progress of a program through a thread of execution.
         /// </summary>
         [DataMember(Name = "threadFlows", IsRequired = true)]
-        public IList<ThreadFlow> ThreadFlows { get; set; }
+        public virtual IList<ThreadFlow> ThreadFlows { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the code flow.
@@ -101,7 +101,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Creates a deep copy of this instance.
         /// </summary>
-        public CodeFlow DeepClone()
+        public virtual CodeFlow DeepClone()
         {
             return (CodeFlow)DeepCloneCore();
         }

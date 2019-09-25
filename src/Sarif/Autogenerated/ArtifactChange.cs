@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
         /// </summary>
-        public SarifNodeKind SarifNodeKind
+        public virtual SarifNodeKind SarifNodeKind
         {
             get
             {
@@ -36,13 +36,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The location of the artifact to change.
         /// </summary>
         [DataMember(Name = "artifactLocation", IsRequired = true)]
-        public ArtifactLocation ArtifactLocation { get; set; }
+        public virtual ArtifactLocation ArtifactLocation { get; set; }
 
         /// <summary>
         /// An array of replacement objects, each of which represents the replacement of a single region in a single artifact specified by 'artifactLocation'.
         /// </summary>
         [DataMember(Name = "replacements", IsRequired = true)]
-        public IList<Replacement> Replacements { get; set; }
+        public virtual IList<Replacement> Replacements { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the change.
@@ -101,7 +101,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Creates a deep copy of this instance.
         /// </summary>
-        public ArtifactChange DeepClone()
+        public virtual ArtifactChange DeepClone()
         {
             return (ArtifactChange)DeepCloneCore();
         }

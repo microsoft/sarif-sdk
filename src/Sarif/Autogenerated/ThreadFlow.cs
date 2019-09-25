@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
         /// </summary>
-        public SarifNodeKind SarifNodeKind
+        public virtual SarifNodeKind SarifNodeKind
         {
             get
             {
@@ -36,31 +36,31 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// An string that uniquely identifies the threadFlow within the codeFlow in which it occurs.
         /// </summary>
         [DataMember(Name = "id", IsRequired = false, EmitDefaultValue = false)]
-        public string Id { get; set; }
+        public virtual string Id { get; set; }
 
         /// <summary>
         /// A message relevant to the thread flow.
         /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
-        public Message Message { get; set; }
+        public virtual Message Message { get; set; }
 
         /// <summary>
         /// Values of relevant expressions at the start of the thread flow that may change during thread flow execution.
         /// </summary>
         [DataMember(Name = "initialState", IsRequired = false, EmitDefaultValue = false)]
-        public object InitialState { get; set; }
+        public virtual object InitialState { get; set; }
 
         /// <summary>
         /// Values of relevant expressions at the start of the thread flow that remain constant.
         /// </summary>
         [DataMember(Name = "immutableState", IsRequired = false, EmitDefaultValue = false)]
-        public object ImmutableState { get; set; }
+        public virtual object ImmutableState { get; set; }
 
         /// <summary>
         /// A temporally ordered array of 'threadFlowLocation' objects, each of which describes a location visited by the tool while producing the result.
         /// </summary>
         [DataMember(Name = "locations", IsRequired = true)]
-        public IList<ThreadFlowLocation> Locations { get; set; }
+        public virtual IList<ThreadFlowLocation> Locations { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the thread flow.
@@ -128,7 +128,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Creates a deep copy of this instance.
         /// </summary>
-        public ThreadFlow DeepClone()
+        public virtual ThreadFlow DeepClone()
         {
             return (ThreadFlow)DeepCloneCore();
         }

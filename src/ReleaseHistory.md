@@ -1,6 +1,7 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
 ## **v2.1.17** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.17) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.17) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.17) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.17)
+* API NON-BREAKING: emit all core object model members as 'virtual'.
 * FEATURE: Introduce SarifConsolidator to shrink large log files. [#1675](https://github.com/microsoft/sarif-sdk/issues/1675)
 * BUGFIX: Analysis rule SARIF1017 incorrectly rejected index-valued properties that referred to taxonomies. [#1678](https://github.com/microsoft/sarif-sdk/issues/1678)
 * BUGFIX: `match-results-forward-command` dropped log contents and mishandled `rules` array. [#1684](https://github.com/microsoft/sarif-sdk/issues/1684)

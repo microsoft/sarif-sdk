@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
         /// </summary>
-        public SarifNodeKind SarifNodeKind
+        public virtual SarifNodeKind SarifNodeKind
         {
             get
             {
@@ -36,13 +36,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The region of the artifact to delete.
         /// </summary>
         [DataMember(Name = "deletedRegion", IsRequired = true)]
-        public Region DeletedRegion { get; set; }
+        public virtual Region DeletedRegion { get; set; }
 
         /// <summary>
         /// The content to insert at the location specified by the 'deletedRegion' property.
         /// </summary>
         [DataMember(Name = "insertedContent", IsRequired = false, EmitDefaultValue = false)]
-        public ArtifactContent InsertedContent { get; set; }
+        public virtual ArtifactContent InsertedContent { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the replacement.
@@ -101,7 +101,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Creates a deep copy of this instance.
         /// </summary>
-        public Replacement DeepClone()
+        public virtual Replacement DeepClone()
         {
             return (Replacement)DeepCloneCore();
         }

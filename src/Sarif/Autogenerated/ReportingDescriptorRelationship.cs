@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
         /// </summary>
-        public SarifNodeKind SarifNodeKind
+        public virtual SarifNodeKind SarifNodeKind
         {
             get
             {
@@ -37,20 +37,20 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A reference to the related reporting descriptor.
         /// </summary>
         [DataMember(Name = "target", IsRequired = true)]
-        public ReportingDescriptorReference Target { get; set; }
+        public virtual ReportingDescriptorReference Target { get; set; }
 
         /// <summary>
         /// A set of distinct strings that categorize the relationship. Well-known kinds include 'canPrecede', 'canFollow', 'willPrecede', 'willFollow', 'superset', 'subset', 'equal', 'disjoint', 'relevant', and 'incomparable'.
         /// </summary>
         [DataMember(Name = "kinds", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<string> Kinds { get; set; }
+        public virtual IList<string> Kinds { get; set; }
 
         /// <summary>
         /// A description of the reporting descriptor relationship.
         /// </summary>
         [DataMember(Name = "description", IsRequired = false, EmitDefaultValue = false)]
-        public Message Description { get; set; }
+        public virtual Message Description { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the reporting descriptor reference.
@@ -112,7 +112,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Creates a deep copy of this instance.
         /// </summary>
-        public ReportingDescriptorRelationship DeepClone()
+        public virtual ReportingDescriptorRelationship DeepClone()
         {
             return (ReportingDescriptorRelationship)DeepCloneCore();
         }

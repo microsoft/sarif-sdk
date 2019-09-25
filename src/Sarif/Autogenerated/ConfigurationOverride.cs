@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
         /// </summary>
-        public SarifNodeKind SarifNodeKind
+        public virtual SarifNodeKind SarifNodeKind
         {
             get
             {
@@ -36,13 +36,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Specifies how the rule or notification was configured during the scan.
         /// </summary>
         [DataMember(Name = "configuration", IsRequired = true)]
-        public ReportingConfiguration Configuration { get; set; }
+        public virtual ReportingConfiguration Configuration { get; set; }
 
         /// <summary>
         /// A reference used to locate the descriptor whose configuration was overridden.
         /// </summary>
         [DataMember(Name = "descriptor", IsRequired = true)]
-        public ReportingDescriptorReference Descriptor { get; set; }
+        public virtual ReportingDescriptorReference Descriptor { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the configuration override.
@@ -101,7 +101,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Creates a deep copy of this instance.
         /// </summary>
-        public ConfigurationOverride DeepClone()
+        public virtual ConfigurationOverride DeepClone()
         {
             return (ConfigurationOverride)DeepCloneCore();
         }

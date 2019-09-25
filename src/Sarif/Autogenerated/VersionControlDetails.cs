@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
         /// </summary>
-        public SarifNodeKind SarifNodeKind
+        public virtual SarifNodeKind SarifNodeKind
         {
             get
             {
@@ -38,38 +38,38 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         [DataMember(Name = "repositoryUri", IsRequired = true)]
         [JsonConverter(typeof(UriConverter))]
-        public Uri RepositoryUri { get; set; }
+        public virtual Uri RepositoryUri { get; set; }
 
         /// <summary>
         /// A string that uniquely and permanently identifies the revision within the repository.
         /// </summary>
         [DataMember(Name = "revisionId", IsRequired = false, EmitDefaultValue = false)]
-        public string RevisionId { get; set; }
+        public virtual string RevisionId { get; set; }
 
         /// <summary>
         /// The name of a branch containing the revision.
         /// </summary>
         [DataMember(Name = "branch", IsRequired = false, EmitDefaultValue = false)]
-        public string Branch { get; set; }
+        public virtual string Branch { get; set; }
 
         /// <summary>
         /// A tag that has been applied to the revision.
         /// </summary>
         [DataMember(Name = "revisionTag", IsRequired = false, EmitDefaultValue = false)]
-        public string RevisionTag { get; set; }
+        public virtual string RevisionTag { get; set; }
 
         /// <summary>
         /// A Coordinated Universal Time (UTC) date and time that can be used to synchronize an enlistment to the state of the repository at that time.
         /// </summary>
         [DataMember(Name = "asOfTimeUtc", IsRequired = false, EmitDefaultValue = false)]
         [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.DateTimeConverter))]
-        public DateTime AsOfTimeUtc { get; set; }
+        public virtual DateTime AsOfTimeUtc { get; set; }
 
         /// <summary>
         /// The location in the local file system to which the root of the repository was mapped at the time of the analysis.
         /// </summary>
         [DataMember(Name = "mappedTo", IsRequired = false, EmitDefaultValue = false)]
-        public ArtifactLocation MappedTo { get; set; }
+        public virtual ArtifactLocation MappedTo { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the version control details.
@@ -140,7 +140,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Creates a deep copy of this instance.
         /// </summary>
-        public VersionControlDetails DeepClone()
+        public virtual VersionControlDetails DeepClone()
         {
             return (VersionControlDetails)DeepCloneCore();
         }

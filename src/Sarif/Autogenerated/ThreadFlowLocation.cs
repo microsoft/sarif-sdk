@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
         /// </summary>
-        public SarifNodeKind SarifNodeKind
+        public virtual SarifNodeKind SarifNodeKind
         {
             get
             {
@@ -40,51 +40,51 @@ namespace Microsoft.CodeAnalysis.Sarif
         [DataMember(Name = "index", IsRequired = false, EmitDefaultValue = false)]
         [DefaultValue(-1)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public int Index { get; set; }
+        public virtual int Index { get; set; }
 
         /// <summary>
         /// The code location.
         /// </summary>
         [DataMember(Name = "location", IsRequired = false, EmitDefaultValue = false)]
-        public Location Location { get; set; }
+        public virtual Location Location { get; set; }
 
         /// <summary>
         /// The call stack leading to this location.
         /// </summary>
         [DataMember(Name = "stack", IsRequired = false, EmitDefaultValue = false)]
-        public Stack Stack { get; set; }
+        public virtual Stack Stack { get; set; }
 
         /// <summary>
         /// A set of distinct strings that categorize the thread flow location. Well-known kinds include 'acquire', 'release', 'enter', 'exit', 'call', 'return', 'branch', 'implicit', 'false', 'true', 'caution', 'danger', 'unknown', 'unreachable', 'taint', 'function', 'handler', 'lock', 'memory', 'resource', 'scope' and 'value'.
         /// </summary>
         [DataMember(Name = "kinds", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<string> Kinds { get; set; }
+        public virtual IList<string> Kinds { get; set; }
 
         /// <summary>
         /// An array of references to rule or taxonomy reporting descriptors that are applicable to the thread flow location.
         /// </summary>
         [DataMember(Name = "taxa", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<ReportingDescriptorReference> Taxa { get; set; }
+        public virtual IList<ReportingDescriptorReference> Taxa { get; set; }
 
         /// <summary>
         /// The name of the module that contains the code that is executing.
         /// </summary>
         [DataMember(Name = "module", IsRequired = false, EmitDefaultValue = false)]
-        public string Module { get; set; }
+        public virtual string Module { get; set; }
 
         /// <summary>
         /// A dictionary, each of whose keys specifies a variable or expression, the associated value of which represents the variable or expression value. For an annotation of kind 'continuation', for example, this dictionary might hold the current assumed values of a set of global variables.
         /// </summary>
         [DataMember(Name = "state", IsRequired = false, EmitDefaultValue = false)]
-        public IDictionary<string, MultiformatMessageString> State { get; set; }
+        public virtual IDictionary<string, MultiformatMessageString> State { get; set; }
 
         /// <summary>
         /// An integer representing a containment hierarchy within the thread flow.
         /// </summary>
         [DataMember(Name = "nestingLevel", IsRequired = false, EmitDefaultValue = false)]
-        public int NestingLevel { get; set; }
+        public virtual int NestingLevel { get; set; }
 
         /// <summary>
         /// An integer representing the temporal order in which execution reached this location.
@@ -92,13 +92,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         [DataMember(Name = "executionOrder", IsRequired = false, EmitDefaultValue = false)]
         [DefaultValue(-1)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public int ExecutionOrder { get; set; }
+        public virtual int ExecutionOrder { get; set; }
 
         /// <summary>
         /// The Coordinated Universal Time (UTC) date and time at which this location was executed.
         /// </summary>
         [DataMember(Name = "executionTimeUtc", IsRequired = false, EmitDefaultValue = false)]
-        public DateTime ExecutionTimeUtc { get; set; }
+        public virtual DateTime ExecutionTimeUtc { get; set; }
 
         /// <summary>
         /// Specifies the importance of this location in understanding the code flow in which it occurs. The order from most to least important is "essential", "important", "unimportant". Default: "important".
@@ -107,19 +107,19 @@ namespace Microsoft.CodeAnalysis.Sarif
         [DefaultValue(ThreadFlowLocationImportance.Important)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter))]
-        public ThreadFlowLocationImportance Importance { get; set; }
+        public virtual ThreadFlowLocationImportance Importance { get; set; }
 
         /// <summary>
         /// A web request associated with this thread flow location.
         /// </summary>
         [DataMember(Name = "webRequest", IsRequired = false, EmitDefaultValue = false)]
-        public WebRequest WebRequest { get; set; }
+        public virtual WebRequest WebRequest { get; set; }
 
         /// <summary>
         /// A web response associated with this thread flow location.
         /// </summary>
         [DataMember(Name = "webResponse", IsRequired = false, EmitDefaultValue = false)]
-        public WebResponse WebResponse { get; set; }
+        public virtual WebResponse WebResponse { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the threadflow location.
@@ -214,7 +214,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Creates a deep copy of this instance.
         /// </summary>
-        public ThreadFlowLocation DeepClone()
+        public virtual ThreadFlowLocation DeepClone()
         {
             return (ThreadFlowLocation)DeepCloneCore();
         }

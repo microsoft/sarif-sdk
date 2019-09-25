@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
         /// </summary>
-        public SarifNodeKind SarifNodeKind
+        public virtual SarifNodeKind SarifNodeKind
         {
             get
             {
@@ -37,14 +37,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The analysis tool that was run.
         /// </summary>
         [DataMember(Name = "driver", IsRequired = true)]
-        public ToolComponent Driver { get; set; }
+        public virtual ToolComponent Driver { get; set; }
 
         /// <summary>
         /// Tool extensions that contributed to or reconfigured the analysis tool that was run.
         /// </summary>
         [DataMember(Name = "extensions", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<ToolComponent> Extensions { get; set; }
+        public virtual IList<ToolComponent> Extensions { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the tool.
@@ -103,7 +103,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Creates a deep copy of this instance.
         /// </summary>
-        public Tool DeepClone()
+        public virtual Tool DeepClone()
         {
             return (Tool)DeepCloneCore();
         }

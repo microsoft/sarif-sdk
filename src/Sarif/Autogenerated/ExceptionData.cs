@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
         /// </summary>
-        public SarifNodeKind SarifNodeKind
+        public virtual SarifNodeKind SarifNodeKind
         {
             get
             {
@@ -37,26 +37,26 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A string that identifies the kind of exception, for example, the fully qualified type name of an object that was thrown, or the symbolic name of a signal.
         /// </summary>
         [DataMember(Name = "kind", IsRequired = false, EmitDefaultValue = false)]
-        public string Kind { get; set; }
+        public virtual string Kind { get; set; }
 
         /// <summary>
         /// A message that describes the exception.
         /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
-        public string Message { get; set; }
+        public virtual string Message { get; set; }
 
         /// <summary>
         /// The sequence of function calls leading to the exception.
         /// </summary>
         [DataMember(Name = "stack", IsRequired = false, EmitDefaultValue = false)]
-        public Stack Stack { get; set; }
+        public virtual Stack Stack { get; set; }
 
         /// <summary>
         /// An array of exception objects each of which is considered a cause of this exception.
         /// </summary>
         [DataMember(Name = "innerExceptions", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<ExceptionData> InnerExceptions { get; set; }
+        public virtual IList<ExceptionData> InnerExceptions { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the exception.
@@ -121,7 +121,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Creates a deep copy of this instance.
         /// </summary>
-        public ExceptionData DeepClone()
+        public virtual ExceptionData DeepClone()
         {
             return (ExceptionData)DeepCloneCore();
         }
