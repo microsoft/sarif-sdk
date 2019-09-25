@@ -190,37 +190,50 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             {
                 throw new ArgumentException(nameof(currentRuns));
             }
-            
+
             // Results should all be from the same tool, so we'll pull the log from the first run.
-            Tool tool = currentRuns.First().Tool.DeepClone();
+            Run firstRun = currentRuns.First();
+            Tool tool = firstRun.Tool.DeepClone();
 
             var run = new Run
             {
-                Tool = tool,
-                AutomationDetails = currentRuns.First().AutomationDetails,
+                Tool = tool
             };
+
+            // If there was only one run, we can fill in more information because we don't need to
+            // worry about it being different from run to run.
+            if (currentRuns.Count() == 1)
+            {
+                run.AutomationDetails = firstRun.AutomationDetails;
+                run.Conversion = firstRun.Conversion;
+                run.Taxonomies = firstRun.Taxonomies;
+                run.Translations = firstRun.Translations;
+                run.Policies = firstRun.Policies;
+                run.RedactionTokens = firstRun.RedactionTokens;
+                run.Language = firstRun.Language;
+            }
 
             IDictionary<string, SerializedPropertyInfo> properties = null;
 
             if (previousRuns != null && previousRuns.Count() != 0)
             {
                 // We flow the baseline instance id forward (which becomes the 
-                // baseline guid for the merged log)
+                // baseline guid for the merged log).
                 run.BaselineGuid = previousRuns.First().AutomationDetails?.Guid;
             }
 
             bool initializeFromOldest = PropertyBagMergeBehavior.HasFlag(DictionaryMergeBehavior.InitializeFromOldest);
             if (initializeFromOldest)
             {
-                // Find the 'oldest' log file and initialize properties from that log property bag
+                // Find the 'oldest' log file and initialize properties from that log property bag.
                 properties = previousRuns.FirstOrDefault() != null
                     ? previousRuns.First().Properties
                     : currentRuns.First().Properties;
             }
             else
             {
-                // Find the most recent log file instance and retain its property bag
-                // Find the 'oldest' log file and initialize properties from that log property bag
+                // Find the most recent log file instance and retain its property bag.
+                // Find the 'oldest' log file and initialize properties from that log property bag.
                 properties = currentRuns.Last().Properties;
             }
 
