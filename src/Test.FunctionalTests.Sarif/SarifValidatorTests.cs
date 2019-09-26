@@ -97,7 +97,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             public override Run VisitRun(Run node)
             {
-                node.RedactionTokens[0] = "[REDACTED]";
+                node.RedactionTokens[0] = SarifConstants.RedactedMarker;
                 return base.VisitRun(node);
             }
 

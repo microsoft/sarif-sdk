@@ -289,7 +289,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
                 Language = TestConstants.LanguageIdentifier,
                 RedactionTokens = new string[]
                 {
-                    TestConstants.RedactionToken
+                    SarifConstants.RedactedMarker
                 }
             };
 

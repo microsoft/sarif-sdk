@@ -262,12 +262,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 indexRemappingVisitor.HistoricalLogicalLocations = resultPair.Run.LogicalLocations;
                 indexRemappingVisitor.VisitResult(result);
 
-                // This logic is incomplete. It doesn't account for the possibility that result.rule
-                // is present (in which case the rule might come from an extension rather than from
-                // the driver).
                 if (result.RuleIndex != -1)
                 {
-                    ReportingDescriptor rule = resultPair.Run.Tool.Driver.Rules.FirstOrDefault(r => r.Id.Equals(result.RuleId, StringComparison.Ordinal));
+                    ReportingDescriptor rule = result.GetRule(resultPair.Run);
                     if (rule != null)
                     {
                         if (reportingDescriptors.TryGetValue(rule, out int ruleIndex))
@@ -293,7 +290,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             run.LogicalLocations = indexRemappingVisitor.CurrentLogicalLocations;
             
             var graphs = new List<Graph>();
-            //var ruleData = new Dictionary<string, ReportingDescriptor>();
             var invocations = new List<Invocation>();
 
             // TODO tool message strings are not currently handled

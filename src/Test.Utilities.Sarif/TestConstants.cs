@@ -9,7 +9,6 @@ namespace Microsoft.CodeAnalysis.Test.Utilities.Sarif
         public const string ConverterName = "TestConverter";
         public const string LanguageIdentifier = "xx-XX";
         public const string PolicyName = "TestPolicy";
-        public const string RedactionToken = "REDACTED";
         public const string TaxonomyName = "TestTaxonomy";
         public const string ToolName = "TestTool";
         public const string TranslationName = "TestTranslation";
