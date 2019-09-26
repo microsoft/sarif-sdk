@@ -8,6 +8,7 @@ using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.CodeAnalysis.Sarif.Baseline;
 using Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching;
+using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
 using Newtonsoft.Json;
 using Xunit;
 
@@ -198,6 +199,152 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
             Result existingResultNewlyUnsuppressed = matchedRun.Results.Single(r => r.Message.Text == "Existing, originally suppressed result.");
 
             existingResultNewlyUnsuppressed.Suppressions.Should().BeNull();
+        }
+
+        /// <summary>
+        /// Regression test for https://github.com/microsoft/sarif-sdk/issues/1684.
+        /// </summary>
+        [Fact]
+        public void ResultMatchingBaseliner_WhenThereIsOnlyOneCurrentRun_CopiesSelectedRunData()
+        {
+            Run originalRun = new Run
+            {
+                Tool = new Tool
+                {
+                    Driver = new ToolComponent
+                    {
+                        Name = TestConstants.ToolName,
+                        Rules = new ReportingDescriptor[]
+                        {
+                            new ReportingDescriptor { Id = TestConstants.RuleIds.Rule1 },
+                            new ReportingDescriptor { Id = TestConstants.RuleIds.Rule2 },
+                        }
+                    }
+                },
+                AutomationDetails = new RunAutomationDetails
+                {
+                    Guid = TestConstants.AutomationDetailsGuid
+                },
+                Results = new Result[]
+                {
+                    new Result
+                    {
+                        RuleId = TestConstants.RuleIds.Rule1,
+                        RuleIndex = 0
+                    },
+                    new Result
+                    {
+                        RuleId = TestConstants.RuleIds.Rule2,
+                        RuleIndex = 1
+                    }
+                },
+                Conversion = new Conversion
+                {
+                    Tool = new Tool
+                    {
+                        Driver = new ToolComponent
+                        {
+                            Name = TestConstants.ConverterName
+                        }
+                    }
+                },
+                Taxonomies = new ToolComponent[]
+                {
+                    new ToolComponent
+                    {
+                        Name = TestConstants.TaxonomyName,
+                        Taxa = new ReportingDescriptor[]
+                        {
+                            new ReportingDescriptor { Id = TestConstants.TaxonIds.Taxon1 },
+                            new ReportingDescriptor { Id = TestConstants.TaxonIds.Taxon2 },
+                        }
+                    }
+                },
+                Policies = new ToolComponent[]
+                {
+                    new ToolComponent
+                    {
+                        Name = TestConstants.PolicyName,
+                        Rules = new ReportingDescriptor[]
+                        {
+                            new ReportingDescriptor
+                            {
+                                Id = TestConstants.RuleIds.Rule2,
+                                DefaultConfiguration = new ReportingConfiguration { Level = FailureLevel.Error }
+                            }
+                        }
+                    }
+                },
+                Translations = new ToolComponent[]
+                {
+                    new ToolComponent
+                    {
+                        Name = TestConstants.TranslationName,
+                        TranslationMetadata = new TranslationMetadata
+                        {
+                            Name = TestConstants.TranslationMetadataName
+                        }
+                    }
+                },
+                Language = TestConstants.LanguageIdentifier,
+                RedactionTokens = new string[]
+                {
+                    TestConstants.RedactionToken
+                }
+            };
+
+            var sarifLog = new SarifLog
+            {
+                Version = SarifVersion.Current,
+                Runs = new Run[] { originalRun }
+            };
+
+            Run matchedRun = CreateMatchedRun(sarifLog, sarifLog);
+
+            matchedRun.AutomationDetails.ValueEquals(originalRun.AutomationDetails).Should().BeTrue();
+
+            matchedRun.Conversion.ValueEquals(originalRun.Conversion).Should().BeTrue();
+
+            matchedRun.Taxonomies.Count.Should().Be(originalRun.Taxonomies.Count);
+            for (int i = 0; i < originalRun.Taxonomies.Count; ++i)
+            {
+                matchedRun.Taxonomies[i].ValueEquals(originalRun.Taxonomies[i]).Should().BeTrue();
+            }
+
+            matchedRun.Translations.Count.Should().Be(originalRun.Translations.Count);
+            for (int i = 0; i < originalRun.Translations.Count; ++i)
+            {
+                matchedRun.Translations[i].ValueEquals(originalRun.Translations[i]).Should().BeTrue();
+            }
+
+            matchedRun.Policies.Count.Should().Be(originalRun.Policies.Count);
+            for (int i = 0; i < originalRun.Policies.Count; ++i)
+            {
+                matchedRun.Policies[i].ValueEquals(originalRun.Policies[i]).Should().BeTrue();
+            }
+
+            matchedRun.Language.Should().Be(originalRun.Language);
+            matchedRun.RedactionTokens.Count.Should().Be(originalRun.RedactionTokens.Count);
+            for (int i = 0; i < originalRun.RedactionTokens.Count; ++i)
+            {
+                matchedRun.RedactionTokens[i].Should().Be(originalRun.RedactionTokens[i]);
+            }
+
+            matchedRun.Results.Count.Should().Be(originalRun.Results.Count);
+            for (int i = 0; i < originalRun.Results.Count; ++i)
+            {
+                // The Result objects won't be identical because the results in the matched run
+                // will have their baseline state set, and they have a "ResultMatching" property
+                // bag property.
+                matchedRun.Results[i].BaselineState.Should().Be(BaselineState.Unchanged);
+                matchedRun.Results[i].Properties.Should().ContainKey("ResultMatching");
+
+                // But aside from that they should be the same:
+                matchedRun.Results[i].BaselineState = originalRun.Results[i].BaselineState;
+                matchedRun.Results[i].Properties = originalRun.Results[i].Properties;
+
+                matchedRun.Results[i].ValueEquals(originalRun.Results[i]).Should().BeTrue();
+            }
         }
     }
 }
