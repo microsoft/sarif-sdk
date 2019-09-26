@@ -5,6 +5,15 @@ namespace Microsoft.CodeAnalysis.Test.Utilities.Sarif
 {
     public static class TestConstants
     {
+        public const string AutomationDetailsGuid = "D41BF9F2-225D-4254-984E-DFD659702E4D";
+        public const string ConverterName = "TestConverter";
+        public const string LanguageIdentifier = "xx-XX";
+        public const string PolicyName = "TestPolicy";
+        public const string TaxonomyName = "TestTaxonomy";
+        public const string ToolName = "TestTool";
+        public const string TranslationName = "TestTranslation";
+        public const string TranslationMetadataName = "TestTranslationMetadata";
+
         public static class RuleIds
         {
             public const string Rule1  = "TST0001";
@@ -17,6 +26,12 @@ namespace Microsoft.CodeAnalysis.Test.Utilities.Sarif
             public const string Rule8  = "TST0008";
             public const string Rule9  = "TST0009";
             public const string Rule10 = "TST0010";
+        }
+
+        public static class TaxonIds
+        {
+            public const string Taxon1 = "TAX0001";
+            public const string Taxon2 = "TAX0002";
         }
     }
 }
