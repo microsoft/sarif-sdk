@@ -1,0 +1,42 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.4.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "Bug1673Tester"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "TST0001",
+          "message": {
+            "text": "Hello."
+          },
+          "properties": {
+            "date": "2019-09-25T15:07Z",
+            "string": "Hello, string!",
+            "integer": 42,
+            "bigInteger": 5000000000,
+            "true": true,
+            "false": false,
+            "dateArray": [
+  "2019-09-26T15:52Z",
+  "2019-09-26T15:54Z"
+],
+            "stringArray": [
+  "Thing One",
+  "Thing Two"
+],
+            "customObject": {
+  "date": "1776-07-04T12:00Z",
+  "string": "The 4th"
+}
+          }
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}
