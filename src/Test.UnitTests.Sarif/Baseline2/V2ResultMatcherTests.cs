@@ -299,7 +299,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
                 Runs = new Run[] { originalRun }
             };
 
-            Run matchedRun = CreateMatchedRun(sarifLog, sarifLog);
+            Run matchedRun = CreateMatchedRun(previousLog: sarifLog, currentLog: sarifLog);
 
             matchedRun.AutomationDetails.ValueEquals(originalRun.AutomationDetails).Should().BeTrue();
 
