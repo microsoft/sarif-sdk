@@ -21,6 +21,7 @@
             "bigInteger": 5000000000,
             "true": true,
             "false": false,
+            "null": null,
             "dateArray": [
   "2019-09-26T15:52Z",
   "2019-09-26T15:54Z"
@@ -28,6 +29,18 @@
             "stringArray": [
   "Thing One",
   "Thing Two"
+],
+            "integerArray": [
+  54,
+  -54
+],
+            "booleanArray": [
+  true,
+  false
+],
+            "nullArray": [
+  null,
+  null
 ],
             "customObject": {
   "date": "1776-07-04T12:00Z",
