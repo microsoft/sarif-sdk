@@ -63,6 +63,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                         propertyName));
             }
 
+            if (Properties[propertyName] == null) { return null; }
+
             if (!Properties[propertyName].IsString)
             {
                 throw new InvalidOperationException(SdkResources.CallGenericGetProperty);
@@ -84,7 +86,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return true;
             }
 
-            value = default(T);
+            value = default;
             return false;
         }
 
@@ -155,10 +157,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public void SetProperty<T>(string propertyName, T value)
         {
-            if (Properties == null)
-            {
-                Properties = new Dictionary<string, SerializedPropertyInfo>();
-            }
+            Properties = Properties ?? new Dictionary<string, SerializedPropertyInfo>();
 
             bool isString = typeof(T) == typeof(string);
 
@@ -217,10 +216,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public void RemoveProperty(string propertyName)
         {
-            if (Properties != null)
-            {
-                Properties.Remove(propertyName);
-            }
+                Properties?.Remove(propertyName);
         }
 
         [JsonIgnore]
