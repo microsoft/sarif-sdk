@@ -61,8 +61,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                         propertyName));
             }
 
-            // Avoid a crash if the string-valued property we are attempting to retrieve has
-            // a null value in the JSON file.
             if (Properties[propertyName] == null) { return null; }
 
             if (!Properties[propertyName].IsString)
