@@ -161,6 +161,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (value == null)
             {
+                // This is consistent with what the PropertyBagConverter does when it encounters
+                // a null-valued property. Whether we create a property bag dictionary entry
+                // by deserializing a null from the log file or by calling SetProperty("aProp", null),
+                // the internal representation is the same: a null value in the Properties
+                // dictionary.
                 Properties[propertyName] = null;
             }
             else
