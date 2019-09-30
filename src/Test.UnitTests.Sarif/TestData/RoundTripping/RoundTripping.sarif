@@ -15,7 +15,7 @@
             "text": "Hello."
           },
           "properties": {
-            "dateTime": "2019-09-25T15:07:01Z",
+            "dateTime": "2019-09-25T15:07:01",
             "string": "Hello, string!",
             "int": 42,
             "long": 5000000000,
@@ -23,8 +23,9 @@
             "false": false,
             "null": null,
             "dateTimeArray": [
-  "2019-09-26T15:52:02Z",
-  "2019-09-26T15:54Z"
+  "2019-09-26T15:52:02",
+  "2019-09-26T15:54",
+  "2019-09-26T15:55:05.123456789"
 ],
             "stringArray": [
   "Thing One",
@@ -43,7 +44,7 @@
   null
 ],
             "customObject": {
-  "DateTime": "1776-07-04T12:00Z",
+  "DateTime": "1776-07-04T12:00",
   "String": "The 4th"
 }
           }

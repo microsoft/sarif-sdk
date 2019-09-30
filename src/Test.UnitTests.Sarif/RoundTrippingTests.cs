@@ -66,9 +66,15 @@ namespace Microsoft.CodeAnalysis.Sarif
             nullProperty.Should().BeNull();
 
             DateTime[] dateTimeArray = holder.GetProperty<DateTime[]>("dateTimeArray");
-            dateTimeArray.Length.Should().Be(2);
+            dateTimeArray.Length.Should().Be(3);
             dateTimeArray[0].Should().Be(ParseUtcDateTime("2019-09-26T15:52:02Z"));
             dateTimeArray[1].Should().Be(ParseUtcDateTime("2019-09-26T15:54Z"));
+            // Round-tripping works exactly with up to 7 decimal digits after the seconds. This
+            // is because Newtonsoft.Json's default DateTime serialization places the first seven
+            // decimal digits at the end of the Ticks count (for example, 637051101051234567).
+            // If the next digit is less than 5, the comparison will work precisely no matter
+            // how many additional digits there are; otherwise, the comparison will fail).
+            dateTimeArray[2].Should().Be(ParseUtcDateTime("2019-09-26T15:55:05.12345673"));
 
             string[] stringArray = holder.GetProperty<string[]>("stringArray");
             stringArray.Length.Should().Be(2);

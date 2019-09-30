@@ -56,9 +56,9 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests
             };
 
             var settings = new JsonSerializerSettings { Formatting = Formatting.Indented };
-            string originalLogText = JsonConvert.SerializeObject(originalLog, settings);
+            string originalLogContents = JsonConvert.SerializeObject(originalLog, settings);
 
-            SarifLog deserializedLog = SarifUtilities.DeserializeObject<SarifLog>(originalLogText);
+            SarifLog deserializedLog = SarifUtilities.DeserializeObject<SarifLog>(originalLogContents);
             run = deserializedLog.Runs[0];
 
             int integerProperty = run.GetProperty<int>(intPropertyName);
@@ -75,9 +75,15 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests
 
             run.GetProperty<DateTime>(dateTimePropertyName).Should().Be(dateTimePropertyValue);
 
-            string reserializedLog = JsonConvert.SerializeObject(deserializedLog, settings);
+            // In addition to checking the individual properties (which is nice for explicitness),
+            // we redundantly check that the entire SarifLog objects match.
+            // THIS ASSERTION IS COMMENTED OUT BECAUSE OF https://github.com/microsoft/sarif-sdk/issues/1689,
+            // "Generated code for property bag comparison is incorrect."
+            //originalLog.ValueEquals(deserializedLog).Should().BeTrue();
 
-            reserializedLog.Should().Be(originalLogText);
+            string reserializedLogContents = JsonConvert.SerializeObject(deserializedLog, settings);
+
+            reserializedLogContents.Should().Be(originalLogContents);
         }
     }
 }
