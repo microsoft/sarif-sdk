@@ -56,6 +56,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             Action action = () => holder.GetProperty<int>("long");
             action.Should().Throw<JsonReaderException>();
 
+            double doubleProperty = holder.GetProperty<double>("double");
+            doubleProperty.Should().Be(3.14159265);
+
             bool trueProperty = holder.GetProperty<bool>("true");
             trueProperty.Should().BeTrue();
 

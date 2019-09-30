@@ -19,6 +19,7 @@
             "string": "Hello, string!",
             "int": 42,
             "long": 5000000000,
+            "double": 3.14159265,
             "true": true,
             "false": false,
             "null": null,
