@@ -4,7 +4,6 @@
 using System;
 using System.Collections.Generic;
 using FluentAssertions;
-using Microsoft.CodeAnalysis.Sarif;
 using Newtonsoft.Json;
 using Xunit;
 
@@ -28,34 +27,38 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests
             string longPropertyName = "hugeFileSizeBytes";
             long longPropertyValue = (long)10 * int.MaxValue;
 
-            var run = new Run();
+            string dateTimePropertyName = nameof(dateTimePropertyName);
+            DateTime dateTimePropertyValue = new DateTime(2019, 9, 27, 13, 52, 0);
+
+            var run = new Run
+            {
+                Tool = new Tool
+                {
+                    Driver = new ToolComponent
+                    {
+                        Name = "CodeScanner"
+                    }
+                }
+            };
+
             run.SetProperty(intPropertyName, 42);
             run.SetProperty(stringPropertyName, stringPropertyValue);
             run.SetProperty(normalStringPropertyName, normalStringPropertyValue);
-            run.SetProperty<long>(longPropertyName, longPropertyValue);
+            run.SetProperty(longPropertyName, longPropertyValue);
+            run.SetProperty(dateTimePropertyName, dateTimePropertyValue);
 
             var originalLog = new SarifLog
             {
                 Runs = new List<Run>
                 {
-                    new Run
-                    {
-                        Tool = new Tool
-                        {
-                            Driver = new ToolComponent
-                            {
-                                Name = "CodeScanner"
-                            }
-                        },
-                        Properties = run.Properties
-                    }
+                    run
                 }
             };
 
             var settings = new JsonSerializerSettings { Formatting = Formatting.Indented };
-            string originalLogText = JsonConvert.SerializeObject(originalLog, settings);
+            string originalLogContents = JsonConvert.SerializeObject(originalLog, settings);
 
-            SarifLog deserializedLog = JsonConvert.DeserializeObject<SarifLog>(originalLogText);
+            SarifLog deserializedLog = SarifUtilities.DeserializeObject<SarifLog>(originalLogContents);
             run = deserializedLog.Runs[0];
 
             int integerProperty = run.GetProperty<int>(intPropertyName);
@@ -70,9 +73,17 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests
 
             run.GetProperty<long>(longPropertyName).Should().Be(longPropertyValue);
 
-            string reserializedLog = JsonConvert.SerializeObject(deserializedLog, settings);
+            run.GetProperty<DateTime>(dateTimePropertyName).Should().Be(dateTimePropertyValue);
 
-            reserializedLog.Should().Be(originalLogText);
+            // In addition to checking the individual properties (which is nice for explicitness),
+            // we redundantly check that the entire SarifLog objects match.
+            // THIS ASSERTION IS COMMENTED OUT BECAUSE OF https://github.com/microsoft/sarif-sdk/issues/1689,
+            // "Generated code for property bag comparison is incorrect."
+            //originalLog.ValueEquals(deserializedLog).Should().BeTrue();
+
+            string reserializedLogContents = JsonConvert.SerializeObject(deserializedLog, settings);
+
+            reserializedLogContents.Should().Be(originalLogContents);
         }
     }
 }

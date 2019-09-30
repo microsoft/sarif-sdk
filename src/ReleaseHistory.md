@@ -1,5 +1,9 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
+## **v2.1.18** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.18) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.18) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.18) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.18)
+* FEATURE: Enhanced property bag serialization unit testing. [#1673](https://github.com/microsoft/sarif-sdk/issues/1673)
+* BUGFIX: Fix packaging warning NU5048 during build. [#1687](https://github.com/microsoft/sarif-sdk/issues/1687)
+
 ## **v2.1.17** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.17) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.17) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.17) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.17)
 * API NON-BREAKING: emit all core object model members as 'virtual'.
 * FEATURE: Introduce SarifConsolidator to shrink large log files. [#1675](https://github.com/microsoft/sarif-sdk/issues/1675)
@@ -106,16 +110,16 @@
 * API BREAKING: Improve `address` object design. [oasis-tcs/sarif-spec#401](https://github.com/oasis-tcs/sarif-spec/issues/401)
 
 ## **v2.1.0-beta.2** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.0-beta.2) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.0-beta.2) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.0-beta.2)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.0-beta.2)
-* API NON-BREAKING: Change `request.target` type to string. https://github.com/oasis-tcs/sarif-spec/issues/362
-* API BREAKING: anyOf `physicalLocation.artifactLocation` and `physicalLocation.address` is required. https://github.com/oasis-tcs/sarif-spec/issues/353
+* API NON-BREAKING: Change `request.target` type to string. [oasis-tcs/sarif-spec#362](https://github.com/oasis-tcs/sarif-spec/issues/362)
+* API BREAKING: anyOf `physicalLocation.artifactLocation` and `physicalLocation.address` is required. [oasis-tcs/sarif-spec#353](https://github.com/oasis-tcs/sarif-spec/issues/353)
 * API BREAKING: Rename `run.defaultFileEncoding` to `run.defaultEncoding`.
-* API NON-BREAKING: Add `threadFlowLocation.taxa`. https://github.com/oasis-tcs/sarif-spec/issues/381
+* API NON-BREAKING: Add `threadFlowLocation.taxa`. [oasis-tcs/sarif-spec#381](https://github.com/oasis-tcs/sarif-spec/issues/381)
 * API BREAKING: anyOf `message.id` and `message.text` is required.
-* API NON-BREAKING: Add `request.noResponseReceived` and `request.failureReason`. https://github.com/oasis-tcs/sarif-spec/issues/378
+* API NON-BREAKING: Add `request.noResponseReceived` and `request.failureReason`. [oasis-tcs/sarif-spec#378](https://github.com/oasis-tcs/sarif-spec/issues/378)
 * API BREAKING: anyOf `externalPropertyFileReference.guid` and `externalPropertyFileReference.location` is required.
 * API BREAKING: `artifact.length` should have `default: -1, minimum: -1` values.
 * API BREAKING: Rename `fix.changes` to `fix.artifactChanges`.
-* API BREAKING: Each redaction token in an originalUriBaseId represents a unique location. https://github.com/oasis-tcs/sarif-spec/issues/377
+* API BREAKING: Each redaction token in an originalUriBaseId represents a unique location. [oasis-tcs/sarif-spec#377](https://github.com/oasis-tcs/sarif-spec/issues/377)
 * API BREAKING: Rename file related enums in `artifact.roles`.
 * API BREAKING: anyOf `artifactLocation.uri` and `artifactLocation.index` is required.
 * API BREAKING: `multiformatMessageString.text` is required.
@@ -136,17 +140,17 @@
 * API BREAKING: `request.index` should have default: -1, minimum: -1.
 * API BREAKING: `response.index` should have default: -1, minimum: -1.
 * API NON-BREAKING: `externalProperties.version` is not a required property if it is not root element.
-* API NON-BREAKING: Add artifact roles for configuration files. https://github.com/oasis-tcs/sarif-spec/issues/372
-* API NON-BREAKING: Add suppression.justification. https://github.com/oasis-tcs/sarif-spec/issues/373
-* API NON-BREAKING: Associate descriptor metadata with thread flow locations. https://github.com/oasis-tcs/sarif-spec/issues/381
-* API BREAKING: Move `location.physicalLocation.id` to `location.id`. https://github.com/oasis-tcs/sarif-spec/issues/375
+* API NON-BREAKING: Add artifact roles for configuration files. [oasis-tcs/sarif-spec#372](https://github.com/oasis-tcs/sarif-spec/issues/372)
+* API NON-BREAKING: Add suppression.justification. [oasis-tcs/sarif-spec#373](https://github.com/oasis-tcs/sarif-spec/issues/373)
+* API NON-BREAKING: Associate descriptor metadata with thread flow locations. [oasis-tcs/sarif-spec#381](https://github.com/oasis-tcs/sarif-spec/issues/381)
+* API BREAKING: Move `location.physicalLocation.id` to `location.id`. [oasis-tcs/sarif-spec#375](https://github.com/oasis-tcs/sarif-spec/issues/375)
 * API BREAKING: `result.stacks` array should have unique items.
 * API BREAKING: `result.relatedLocations` array should have unique items.
-* API BREAKING: Separate `suppression` `status` from `kind`. https://github.com/oasis-tcs/sarif-spec/issues/371
+* API BREAKING: Separate `suppression` `status` from `kind`. [oasis-tcs/sarif-spec#371](https://github.com/oasis-tcs/sarif-spec/issues/371)
 * API BREAKING: `reportingDescriptorReference` requires anyOf (`index`, `guid`, `id`).
 * API BREAKING: Rename `request` object and related properties to `webRequest`.
 * API BREAKING: Rename `response` object and related properties to `webResponse`.
-* API NON-BREAKING: Add `locationRelationship` object. https://github.com/oasis-tcs/sarif-spec/issues/375
+* API NON-BREAKING: Add `locationRelationship` object. [oasis-tcs/sarif-spec#375](https://github.com/oasis-tcs/sarif-spec/issues/375)
 * API BREAKING: `externalPropertyFileReference.itemCount` can be 0 and defaults to minimum: -1, default: -1.
 * API BREAKING: `threadFlowLocation.executionOrder` can be 0 and defaults to -1, so minimum: -1, default: -1
 * API BREAKING: Rename artifact role `traceFile` to `tracedFile`.
@@ -161,21 +165,21 @@
 * API BREAKING: Change `notification.physicalLocation` of type `physicalLocation` to `notification.locations` of type `locations`.
 
 ## **v2.1.0-beta.1** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.0-beta.1) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.0-beta.1) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.0-beta.1)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.0-beta.1))
-* API BREAKING: Change `request.uri` to `request.target`. https://github.com/oasis-tcs/sarif-spec/issues/362
+* API BREAKING: Change `request.uri` to `request.target`. [oasis-tcs/sarif-spec#362](https://github.com/oasis-tcs/sarif-spec/issues/362)
 
 ## **v2.1.0-beta.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.0-beta.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.0-beta.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.0-beta.0)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.0-beta.0))
-* API BREAKING: All SARIF state dictionaries now contains multiformat strings as values. https://github.com/oasis-tcs/sarif-spec/issues/361
-* API NON-BREAKING: Define `request` and `response` objects. https://github.com/oasis-tcs/sarif-spec/issues/362
+* API BREAKING: All SARIF state dictionaries now contains multiformat strings as values. [oasis-tcs/sarif-spec#361](https://github.com/oasis-tcs/sarif-spec/issues/361)
+* API NON-BREAKING: Define `request` and `response` objects. [oasis-tcs/sarif-spec#362](https://github.com/oasis-tcs/sarif-spec/issues/362)
 
 ## **v2.0.0-csd.2.beta.2019.04-03.3** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.2.beta.2019.04-03.3) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.2.beta.2019.04-03.3) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.2.beta.2019.04-03.3)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.2.beta.2019.04-03.3))
-* API BREAKING: Rename `reportingDescriptor.descriptor` to `reportingDescriptor.target`. https://github.com/oasis-tcs/sarif-spec/issues/356
-* API NON-BREAKING: Remove `canPrecedeOrFollow` from relationship kind list. https://github.com/oasis-tcs/sarif-spec/issues/356
+* API BREAKING: Rename `reportingDescriptor.descriptor` to `reportingDescriptor.target`. [oasis-tcs/sarif-spec#356](https://github.com/oasis-tcs/sarif-spec/issues/356)
+* API NON-BREAKING: Remove `canPrecedeOrFollow` from relationship kind list. [oasis-tcs/sarif-spec#356](https://github.com/oasis-tcs/sarif-spec/issues/356)
 
 ## **v2.0.0-csd.2.beta.2019.04-03.2** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.2.beta.2019.04-03.2) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.2.beta.2019.04-03.2) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.2.beta.2019.04-03.2)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.2.beta.2019.04-03.2))
-* API NON-BREAKING: Add `module` to `address.kind`. https://github.com/oasis-tcs/sarif-spec/issues/353
-* API BREAKING: `address.baseAddress` & `address.offset` to int. https://github.com/oasis-tcs/sarif-spec/issues/353
-* API BREAKING: Update how reporting descriptors describe their taxonomic relationships. https://github.com/oasis-tcs/sarif-spec/issues/356
-* API NON-BREAKING: Add `initialState` and `immutableState` properties to thread flow object. Add `immutableState` to `graphTraversal` object. https://github.com/oasis-tcs/sarif-spec/issues/168
+* API NON-BREAKING: Add `module` to `address.kind`. [oasis-tcs/sarif-spec#353](https://github.com/oasis-tcs/sarif-spec/issues/353)
+* API BREAKING: `address.baseAddress` & `address.offset` to int. [oasis-tcs/sarif-spec#353](https://github.com/oasis-tcs/sarif-spec/issues/353)
+* API BREAKING: Update how reporting descriptors describe their taxonomic relationships. [oasis-tcs/sarif-spec#356](https://github.com/oasis-tcs/sarif-spec/issues/356)
+* API NON-BREAKING: Add `initialState` and `immutableState` properties to thread flow object. Add `immutableState` to `graphTraversal` object. [oasis-tcs/sarif-spec#168](https://github.com/oasis-tcs/sarif-spec/issues/168)
 
 ## **v2.0.0-csd.2.beta.2019.04-03.1** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.2.beta.2019.04-03.1) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.2.beta.2019.04-03.1) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.2.beta.2019.04-03.1)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.2.beta.2019.04-03.1))
 * API BREAKING: Rename `message.messageId` property to `message.id`. https://github.com/oasis-tcs/sarif-spec/issues/352

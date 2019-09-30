@@ -17,8 +17,6 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// </summary>
     public class PropertyBagHolder : IPropertyBagHolder
     {
-        private const string NullValue = "null";
-
         protected PropertyBagHolder()
         {
             Tags = new TagsCollection(this);
@@ -63,6 +61,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                         propertyName));
             }
 
+            if (Properties[propertyName] == null) { return null; }
+
             if (!Properties[propertyName].IsString)
             {
                 throw new InvalidOperationException(SdkResources.CallGenericGetProperty);
@@ -70,10 +70,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             string value = Properties[propertyName].SerializedValue;
 
-            // Remove the quotes around the serialized value ("x" => x) -- unless it's null.
-            return value.Equals(NullValue, StringComparison.Ordinal)
-                ? null
-                : value.Substring(1, value.Length - 2);
+            // Remove the quotes around the serialized value ("x" => x).
+            return value.Substring(1, value.Length - 2);
         }
 
         public bool TryGetProperty<T>(string propertyName, out T value)
@@ -84,7 +82,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return true;
             }
 
-            value = default(T);
+            value = default;
             return false;
         }
 
@@ -155,20 +153,23 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public void SetProperty<T>(string propertyName, T value)
         {
-            if (Properties == null)
-            {
-                Properties = new Dictionary<string, SerializedPropertyInfo>();
-            }
+            Properties = Properties ?? new Dictionary<string, SerializedPropertyInfo>();
 
             bool isString = typeof(T) == typeof(string);
 
-            string serializedValue;
             if (value == null)
             {
-                serializedValue = NullValue;
+                // This is consistent with what the PropertyBagConverter does when it encounters
+                // a null-valued property. Whether we create a property bag dictionary entry
+                // by deserializing a null from the log file or by calling SetProperty("aProp", null),
+                // the internal representation is the same: a null value in the Properties
+                // dictionary.
+                Properties[propertyName] = null;
             }
             else
             {
+                string serializedValue;
+
                 if (isString)
                 {
                     serializedValue = JsonConvert.ToString(value);
@@ -189,9 +190,9 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                     serializedValue = JsonConvert.SerializeObject(value, settings);
                 }
-            }
 
-            Properties[propertyName] = new SerializedPropertyInfo(serializedValue, isString);
+                Properties[propertyName] = new SerializedPropertyInfo(serializedValue, isString);
+            }
         }
 
         public void SetPropertiesFrom(IPropertyBagHolder other)
@@ -217,10 +218,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public void RemoveProperty(string propertyName)
         {
-            if (Properties != null)
-            {
-                Properties.Remove(propertyName);
-            }
+                Properties?.Remove(propertyName);
         }
 
         [JsonIgnore]
