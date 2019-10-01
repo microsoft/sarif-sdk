@@ -32,7 +32,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
         {
             Getter = getter;
 
-            object innerEvaluator = PrimitiveEvaluatorFactory.BuildPrimitiveEvaluator(typeof(U), term);
+            object innerEvaluator = EvaluatorFactory.BuildPrimitiveEvaluator(typeof(U), term);
             InnerEvaluator = (IExpressionEvaluator<U>)innerEvaluator;
         }
 

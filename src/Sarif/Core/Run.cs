@@ -155,7 +155,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 if (deferredResults != null)
                 {
-                    // On deferred object model, must add logic to change Results as they're read.
+                    // On deferred object model, must change Results as they're read, since they are discarded after each enumeration
                     deferredResults.AddTransformer((result) =>
                     {
                         result.Run = this;

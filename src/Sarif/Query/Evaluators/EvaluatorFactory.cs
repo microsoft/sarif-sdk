@@ -2,8 +2,27 @@
 
 namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
 {
-    public static class PrimitiveEvaluatorFactory
+    /// <summary>
+    ///  EvaluatorFactory contains methods to dynamically construct IExpressionEvaluators in
+    ///  various contexts.
+    /// </summary>
+    public static class EvaluatorFactory
     {
+        /// <summary>
+        ///  BuildPrimitiveEvaluator will build an IExpressionEvaluator for supported primitive
+        ///  types, set up to work directly on an array of primitives. you can use BuildPrimitiveEvaluator(typeof(int), 
+        /// </summary>
+        /// <example>
+        ///  TermExpression term = ExpressionParser.Parse("value > 5");
+        ///  IExpressionEvaluator&lt;int&gt; evaluator = BuildPrimitiveEvaluator(typeof(int), term);
+        ///  
+        ///  int[] set;
+        /// BitArray matches = new BitArray(set.Length);
+        //  evaluator.Evaluate(set, matches);
+        /// </example>
+        /// <param name="fieldType">Primitive type of array to build evaluator for</param>
+        /// <param name="term">Query term with comparison and constant to evaluate against array</param>
+        /// <returns>IExpressionEvaluator for appropriate type</returns>
         public static object BuildPrimitiveEvaluator(Type fieldType, TermExpression term)
         {
             if (fieldType == typeof(bool))

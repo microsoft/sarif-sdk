@@ -34,6 +34,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
                     return new StringEvaluator<Result>(r => r.RuleId ?? r.Rule?.Id, term, StringComparison.OrdinalIgnoreCase);
 
                 case "uri":
+                    // Ensure the Run is provided, to look up Uri from Run.Artifacts when needed.
+                    // Uri : "/Core/" will match all Results with any Uri which contains "/Core/"
                     return new SetEvaluator<Result, string>(r =>
                     {
                         r.EnsureRunProvided();
