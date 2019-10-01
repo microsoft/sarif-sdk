@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 
 using System.Collections.Generic;
+using System.Linq;
 
 using Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching;
 
@@ -166,8 +167,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             }
 
             // At this point, no high confidence properties matched or failed to match
-            string leftMessage = left.Result.GetMessageText(left.Result.GetRule(left.OriginalRun));
-            string rightMessage = right.Result.GetMessageText(right.Result.GetRule(right.OriginalRun));
+            string leftMessage = GetCanonicalizedMessage(left);
+            string rightMessage = GetCanonicalizedMessage(right);
 
             string leftSnippet = GetFirstSnippet(left);
             string rightSnippet = GetFirstSnippet(right);
@@ -187,6 +188,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             }
 
             return null;
+        }
+
+        private static string GetCanonicalizedMessage(ExtractedResult result)
+        {
+            string rawMessage = result.Result.GetMessageText(result.Result.GetRule(result.OriginalRun));
+
+            // Canonicalize the message by replacing any line numbers in it with consistent markers
+            Region firstRegion = result.Result?.Locations?.FirstOrDefault()?.PhysicalLocation?.Region;
+            if (firstRegion != null)
+            {
+                rawMessage = rawMessage
+                    .Replace(firstRegion.StartLine.ToString(), "~SL~")
+                    .Replace(firstRegion.StartColumn.ToString(), "~SC~")
+                    .Replace(firstRegion.EndLine.ToString(), "~EL~")
+                    .Replace(firstRegion.EndColumn.ToString(), "~EC~");
+            }
+
+            return rawMessage;
+        }
+
+        private static bool IsNonEmptyAndEquals(string left, string right)
+        {
+            return (string.IsNullOrEmpty(left) == false)
+                && string.Equals(left, right);
         }
     }
 }

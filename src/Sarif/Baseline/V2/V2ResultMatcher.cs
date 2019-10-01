@@ -43,12 +43,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
 
         public StatefulResultMatcher(IList<ExtractedResult> before, IList<ExtractedResult> after)
         {
-            // Sort results by 'Where' for matching
+            // Sort results by 'Where', then 'RuleId' for matching
             Before = new List<ExtractedResult>(before);
-            Before.Sort(WhereComparer.Instance);
+            Before.Sort(ResultMatchingComparer.Instance);
 
             After = new List<ExtractedResult>(after);
-            After.Sort(WhereComparer.Instance);
+            After.Sort(ResultMatchingComparer.Instance);
 
             // Set all match indices to -1 initially (no Results matched).
             MatchingIndexFromBefore = new int[Before.Count];

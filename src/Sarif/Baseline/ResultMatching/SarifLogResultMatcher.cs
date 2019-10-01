@@ -136,9 +136,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
         private static void AddUnmatchedResults(List<ExtractedResult> baselineResults, List<ExtractedResult> currentResults, List<MatchedResults> matchedResults)
         {
+            // Add unmatched results from Baseline log which weren't already Absent in previous run
             foreach (ExtractedResult result in baselineResults)
             {
-                matchedResults.Add(new MatchedResults(result, null));
+                if (result.Result.BaselineState != BaselineState.Absent)
+                {
+                    matchedResults.Add(new MatchedResults(result, null));
+                }
             }
 
             foreach (ExtractedResult result in currentResults)
