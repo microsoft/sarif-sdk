@@ -38,6 +38,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         private Stream _stream;
         private long[] _itemPositions;
 
+        private Func<T, T> _transformer;
+
         public DeferredList(JsonSerializer jsonSerializer, JsonPositionedTextReader reader, bool buildPositionsNow = true)
         {
             _jsonSerializer = jsonSerializer;
@@ -109,6 +111,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             _count = positions.Count;
         }
 
+        /// <summary>
+        ///  Add a just-in-time method to transform Results after deserialization but before getter returns them.
+        /// </summary>
+        /// <param name="transformer">Method to change Result instance and return updated Result</param>
+        public void AddTransformer(Func<T, T> transformer)
+        {
+            if (_transformer == null)
+            {
+                _transformer = transformer;
+            }
+            else
+            {
+                _transformer = (item) => transformer(_transformer(item));
+            }
+        }
+
         public int Count
         {
             get
@@ -139,7 +157,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                     reader.CloseInput = false;
                     reader.Read();
 
-                    return _jsonSerializer.Deserialize<T>(reader);
+                    // Deserialize and transform the item, if required
+                    T item = _jsonSerializer.Deserialize<T>(reader);
+                    if (_transformer != null) { item = _transformer(item); }
+                    return item;
+
                 }
             }
 

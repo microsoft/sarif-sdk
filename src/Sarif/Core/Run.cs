@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
+using Microsoft.CodeAnalysis.Sarif.Readers;
+
 namespace Microsoft.CodeAnalysis.Sarif
 {
     public partial class Run
@@ -139,6 +141,36 @@ namespace Microsoft.CodeAnalysis.Sarif
         public ToolComponent GetToolComponentFromReference(ToolComponentReference reference)
         {
             return this.Tool.GetToolComponentFromReference(reference);
+        }
+
+        /// <summary>
+        ///  Set the Run property on each Result to this Run, so that Result methods
+        ///  and properties which may need to look up Run collections can do so.
+        /// </summary>
+        public void SetRunOnResults()
+        {
+            if (this.Results != null)
+            {
+                DeferredList<Result> deferredResults = this.Results as DeferredList<Result>;
+
+                if (deferredResults != null)
+                {
+                    // On deferred object model, must add logic to change Results as they're read.
+                    deferredResults.AddTransformer((result) =>
+                    {
+                        result.Run = this;
+                        return result;
+                    });
+                }
+                else
+                {
+                    // Otherwise, just set the Result.Run property on each Result now
+                    foreach (Result result in this.Results)
+                    {
+                        result.Run = this;
+                    }
+                }
+            }
         }
 
         public bool ShouldSerializeColumnKind()

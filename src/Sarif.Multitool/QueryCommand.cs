@@ -4,9 +4,11 @@
 using System;
 using System.Collections;
 using System.Diagnostics;
+using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Query;
 using Microsoft.CodeAnalysis.Sarif.Query.Evaluators;
+
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
@@ -54,6 +56,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             foreach (Run run in log.Runs)
             {
                 if (run.Results == null) { continue; }
+                run.SetRunOnResults();
+
                 originalTotal += run.Results.Count;
 
                 // Find matches for Results in the Run
@@ -71,10 +75,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 {
                     foreach (Result result in run.Results)
                     {
-                        Console.WriteLine(result.FormatForVisualStudio(result.GetRule(run)));
+                        Console.WriteLine(result.FormatForVisualStudio());
                     }
                 }
             }
+
+            // Remove any Runs with no remaining matches
+            log.Runs = log.Runs.Where(r => (r?.Results?.Count ?? 0) > 0).ToList();
 
             w.Stop();
             Console.WriteLine($"Found {matchCount:n0} of {originalTotal:n0} results matched in {w.Elapsed.TotalSeconds:n1}s.");
