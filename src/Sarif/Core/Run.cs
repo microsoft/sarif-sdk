@@ -140,7 +140,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <returns>ToolComponent for reference</returns>
         public ToolComponent GetToolComponentFromReference(ToolComponentReference reference)
         {
-            return this.Tool.GetToolComponentFromReference(reference);
+            return this.Tool?.GetToolComponentFromReference(reference);
         }
 
         /// <summary>

@@ -37,8 +37,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
                     return new SetEvaluator<Result, string>(r =>
                     {
                         r.EnsureRunProvided();
-                        return r.Locations?.Select(l => l?.PhysicalLocation?.ArtifactLocation.Resolve(r.Run)?.Uri?.ToString() ?? "").ToList();
-                    }, new StringEvaluator<string>(value => value, term, StringComparison.OrdinalIgnoreCase));
+                        return r.Locations?.Select(l => l?.PhysicalLocation?.ArtifactLocation.Resolve(r.Run)?.Uri?.ToString() ?? "");
+                    }, term);
 
                 default:
                     throw new QueryParseException($"Property Name {term.PropertyName} unrecognized. Known Names: baselineState, correlationGuid, guid, hostedViewerUri, kind, level, message.text, occurrenceCount, rank, ruleId");

@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
         /// <typeparam name="T">Type of Item Evaluator will match</typeparam>
         /// <param name="expression">Parsed IExpression for overall query</param>
         /// <param name="termEvaluatorBuilder">Method which builds an evaluator for single terms</param>
-        /// <returns>IExpressionEvaluator to run query against any IList or the item type</returns>
+        /// <returns>IExpressionEvaluator to run query against any ICollection or the item type</returns>
         public static IExpressionEvaluator<T> ToEvaluator<T>(this IExpression expression, Func<TermExpression, IExpressionEvaluator<T>> termEvaluatorBuilder)
         {
             if (expression is TermExpression termExpression)
@@ -57,14 +57,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
 
     public class TermEvaluator<T> : IExpressionEvaluator<T>
     {
-        private Action<IList<T>, BitArray> Action { get; set; }
+        private Action<ICollection<T>, BitArray> Action { get; set; }
 
-        public TermEvaluator(Action<IList<T>, BitArray> action)
+        public TermEvaluator(Action<ICollection<T>, BitArray> action)
         {
             Action = action;
         }
 
-        public void Evaluate(IList<T> list, BitArray matches)
+        public void Evaluate(ICollection<T> list, BitArray matches)
         {
             Action(list, matches);
         }
@@ -79,7 +79,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
             Terms = terms.ToList();
         }
 
-        public void Evaluate(IList<T> list, BitArray matches)
+        public void Evaluate(ICollection<T> list, BitArray matches)
         {
             BitArray termMatches = new BitArray(list.Count);
 
@@ -116,7 +116,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
             Terms = terms.ToList();
         }
 
-        public void Evaluate(IList<T> list, BitArray matches)
+        public void Evaluate(ICollection<T> list, BitArray matches)
         {
             foreach (IExpressionEvaluator<T> term in Terms)
             {
@@ -138,7 +138,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
             Inner = inner;
         }
 
-        public void Evaluate(IList<T> list, BitArray matches)
+        public void Evaluate(ICollection<T> list, BitArray matches)
         {
             Inner.Evaluate(list, matches);
             matches.Not();
@@ -147,7 +147,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
 
     public class AllEvaluator<T> : IExpressionEvaluator<T>
     {
-        public void Evaluate(IList<T> list, BitArray matches)
+        public void Evaluate(ICollection<T> list, BitArray matches)
         {
             matches.SetAll(true);
         }
@@ -155,7 +155,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
 
     public class NoneEvaluator<T> : IExpressionEvaluator<T>
     {
-        public void Evaluate(IList<T> list, BitArray matches)
+        public void Evaluate(ICollection<T> list, BitArray matches)
         {
             // matches is empty by default
         }

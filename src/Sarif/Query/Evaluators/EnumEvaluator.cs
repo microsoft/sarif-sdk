@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
         private Func<T, EnumType> Getter { get; set; }
         private EnumType Value { get; set; }
 
-        private Action<IList<T>, BitArray> EvaluateSet { get; set; }
+        private Action<ICollection<T>, BitArray> EvaluateSet { get; set; }
 
         public EnumEvaluator(Func<T, EnumType> getter, TermExpression term)
         {
@@ -37,12 +37,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
             EvaluateSet = Comparer(term);
         }
 
-        public void Evaluate(IList<T> list, BitArray matches)
+        public void Evaluate(ICollection<T> list, BitArray matches)
         {
             EvaluateSet(list, matches);
         }
 
-        private Action<IList<T>, BitArray> Comparer(TermExpression term)
+        private Action<ICollection<T>, BitArray> Comparer(TermExpression term)
         {
             switch (term.Operator)
             {
@@ -55,19 +55,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
             }
         }
 
-        private void EvaluateEquals(IList<T> list, BitArray matches)
+        private void EvaluateEquals(ICollection<T> list, BitArray matches)
         {
-            for (int i = 0; i < list.Count; ++i)
+            int i = 0;
+            foreach (T item in list)
             {
-                matches.Set(i, Getter(list[i]).Equals(Value));
+                matches.Set(i, Getter(item).Equals(Value));
+                i++;
             }
         }
 
-        private void EvaluateNotEquals(IList<T> list, BitArray matches)
+        private void EvaluateNotEquals(ICollection<T> list, BitArray matches)
         {
-            for (int i = 0; i < list.Count; ++i)
+            int i = 0;
+            foreach (T item in list)
             {
-                matches.Set(i, !Getter(list[i]).Equals(Value));
+                matches.Set(i, !Getter(item).Equals(Value));
+                i++;
             }
         }
     }

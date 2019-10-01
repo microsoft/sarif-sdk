@@ -4,54 +4,73 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
 {
     /// <summary>
-    ///  SetEvaluator implements IExpressionEvaluator given a getter which returns
-    ///  multiple values. It includes an item if any of the values matches the expression.
-    /// 
-    ///  Usage: 
-    ///    if (String.Equals(term.PropertyName, "Location.Id", StringComparison.OrdinalIgnoreCase))
-    ///    {
-    ///        return new SetEvaluator&lt;Result&gt;(result => return r.Locations?.Select(l => l?.Id ?? "").ToList(), new StringEvaluator&lt;string&gt;(value => value, term, StringComparison.OrdinalIgnoreCase);
-    ///    }
+    ///  SetEvaluator implements IExpressionEvaluator for sets rather than single values.
+    ///  If any of the values matches the term, the item matches.
+    ///  
+    ///  For example, a SetEvaluator for Result.Urls[] and the term 'contains /inner/'
+    ///  would return true for Results which have any Url containing '/inner/'.
     /// </summary>
     /// <typeparam name="T">Type of Item Evaluator will evaluate.</typeparam>
     public class SetEvaluator<T, U> : IExpressionEvaluator<T>
     {
-        private Func<T, IList<U>> Getter { get; set; }
+        private Func<T, IEnumerable<U>> Getter { get; set; }
         private IExpressionEvaluator<U> InnerEvaluator { get; set; }
-        private Action<IList<T>, BitArray> EvaluateSet { get; set; }
+        private Action<ICollection<T>, BitArray> EvaluateSet { get; set; }
 
         /// <summary>
-        ///  Build a SetEvaluator given a method to get a List&lt;U&gt; and an
-        ///  Evaluator for type U. The inner evaluator's getter should just return
-        ///  the argument itself.
+        ///  Build a SetEvaluator given a method to get an IEnumerable&lt;U&gt; of a primitive type
+        ///  and the term showing the operator and value to compare against.
         /// </summary>
-        /// <param name="getter"></param>
-        /// <param name="innerEvaluator"></param>
-        public SetEvaluator(Func<T, IList<U>> getter, IExpressionEvaluator<U> innerEvaluator)
+        /// <param name="getter">Getter to return a set of U given a T</param>
+        /// <param name="term">TermExpression for how to match each T</param>
+        public SetEvaluator(Func<T, IEnumerable<U>> getter, TermExpression term)
+        {
+            Getter = getter;
+
+            object innerEvaluator = PrimitiveEvaluatorFactory.BuildPrimitiveEvaluator(typeof(U), term);
+            InnerEvaluator = (IExpressionEvaluator<U>)innerEvaluator;
+        }
+
+        /// <summary>
+        ///  Build a SetEvaluator given a method to get an IEnumerable&lt;U&gt; and an
+        ///  IExpressionEvaluator for type U.
+        /// </summary>
+        /// <example>
+        ///  new SetEvaluator&lt;Result, string&gt;(result => result.Locations.Select(loc => loc.Id), new StringEvaluator&lt;string&gt;(value => value, StringComparison.OrdinalIgnoreCase)
+        /// </example>
+        /// <param name="getter">Getter to return a set of U given a T</param>
+        /// <param name="innerEvaluator">IExpressionEvaluator&lt;U&gt; for which the getter returns just the item itself</param>
+        public SetEvaluator(Func<T, IEnumerable<U>> getter, IExpressionEvaluator<U> innerEvaluator)
         {
             Getter = getter;
             InnerEvaluator = innerEvaluator;
         }
 
-        public void Evaluate(IList<T> list, BitArray matches)
+        public void Evaluate(ICollection<T> list, BitArray matches)
         {
             BitArray perItemResult = null;
 
-            for (int i = 0; i < list.Count; ++i)
+            int i = 0;
+            foreach (T item in list)
             {
-                IList<U> values = Getter(list[i]);
+                // Convert the set of values for this item to a List
+                ICollection<U> values = Getter(item).ToList();
 
+                // Build a BitArray to match each of those value
                 if (perItemResult == null || perItemResult.Length < values.Count)
                 {
                     perItemResult = new BitArray(values.Count);
                 }
 
+                // Ask the inner evaluator to check each value as if the values were the set of rows
                 InnerEvaluator.Evaluate(values, perItemResult);
 
+                // Make this item included if any of the values matched
                 bool isAnySet = false;
                 for (int j = 0; j < values.Count; ++j)
                 {
@@ -63,6 +82,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
                 }
 
                 matches.Set(i, isAnySet);
+                i++;
             }
         }
     }
