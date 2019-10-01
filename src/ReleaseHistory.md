@@ -3,6 +3,7 @@
 ## **v2.1.18** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.18) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.18) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.18) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.18)
 * FEATURE: Enhanced property bag serialization unit testing. [#1673](https://github.com/microsoft/sarif-sdk/issues/1673)
 * BUGFIX: Fix packaging warning NU5048 during build. [#1687](https://github.com/microsoft/sarif-sdk/issues/1687)
+* BUGFIX: Improve Result Matching sort and comparison.
 
 ## **v2.1.17** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.17) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.17) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.17) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.17)
 * API NON-BREAKING: emit all core object model members as 'virtual'.
