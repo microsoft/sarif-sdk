@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 using Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching;
@@ -199,19 +200,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             if (firstRegion != null)
             {
                 rawMessage = rawMessage
-                    .Replace(firstRegion.StartLine.ToString(), "~SL~")
-                    .Replace(firstRegion.StartColumn.ToString(), "~SC~")
-                    .Replace(firstRegion.EndLine.ToString(), "~EL~")
-                    .Replace(firstRegion.EndColumn.ToString(), "~EC~");
+                    .Replace(firstRegion.StartLine.ToString(CultureInfo.InvariantCulture), "~SL~")
+                    .Replace(firstRegion.StartColumn.ToString(CultureInfo.InvariantCulture), "~SC~")
+                    .Replace(firstRegion.EndLine.ToString(CultureInfo.InvariantCulture), "~EL~")
+                    .Replace(firstRegion.EndColumn.ToString(CultureInfo.InvariantCulture), "~EC~");
             }
 
             return rawMessage;
-        }
-
-        private static bool IsNonEmptyAndEquals(string left, string right)
-        {
-            return (string.IsNullOrEmpty(left) == false)
-                && string.Equals(left, right);
         }
     }
 }

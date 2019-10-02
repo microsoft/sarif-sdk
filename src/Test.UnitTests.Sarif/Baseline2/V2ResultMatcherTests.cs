@@ -197,6 +197,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
             //  - Unique identical what, so there must be other unmatched results which share every trait with the ones we're checking
 
             Run firstRun = SampleRun.DeepClone();
+            int countBeforeAdd = firstRun.Results.Count;
 
             // Copy the first Result and change the Rule only (they'll have same Message, Fingerprints, Location)
             firstRun.Results[1] = firstRun.Results[0].DeepClone();
@@ -205,8 +206,9 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
             // Make another copy of each result and move them so that the results won't have any per-rule unique traits
             firstRun.Results.Add(firstRun.Results[0].DeepClone());
             firstRun.Results.Add(firstRun.Results[1].DeepClone());
-            firstRun.Results[5].Locations[0].PhysicalLocation.Region.StartLine += 1;
-            firstRun.Results[6].Locations[0].PhysicalLocation.Region.StartLine += 1;
+
+            firstRun.Results[countBeforeAdd].Locations[0].PhysicalLocation.Region.StartLine += 1;
+            firstRun.Results[countBeforeAdd + 1].Locations[0].PhysicalLocation.Region.StartLine += 1;
 
             Run secondRun = firstRun.DeepClone();
 
@@ -214,8 +216,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
             secondRun.Results[0].Locations[0].PhysicalLocation.Region.StartLine += 4;
             secondRun.Results[1].Locations[0].PhysicalLocation.Region.StartLine += 4;
 
-            secondRun.Results[5].Locations[0].PhysicalLocation.Region.StartLine += 1;
-            secondRun.Results[6].Locations[0].PhysicalLocation.Region.StartLine += 1;
+            secondRun.Results[countBeforeAdd].Locations[0].PhysicalLocation.Region.StartLine += 1;
+            secondRun.Results[countBeforeAdd + 1].Locations[0].PhysicalLocation.Region.StartLine += 1;
 
             // Swap the order of them to reduce the chance they'll sort the same
             Result swap = secondRun.Results[0];
