@@ -4,12 +4,16 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using FluentAssertions;
+
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.CodeAnalysis.Sarif.Baseline;
 using Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching;
 using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
+
 using Newtonsoft.Json;
+
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
@@ -82,6 +86,27 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
             newRun.Results[2].Locations[0].PhysicalLocation.ArtifactLocation.Uri = new Uri("file:///C:/Code/elfie-arriba/XForm/XForm.Web/node_modules/public-encrypt/test/test_rsa_privkey_NEW.pem");
 
             IEnumerable<MatchedResults> matches = CreateMatchedResults(SampleRun, newRun);
+            matches.Where(m => m.PreviousResult == null || m.CurrentResult == null).Should().BeEmpty();
+        }
+
+        [Fact]
+        public void V2ResultMatcher_MessageContainsLineNumbers()
+        {
+            // Messages have line and column numbers removed before comparison, so results will still be "sufficiently similar"
+            // if the message references them and the results move to a different line.
+
+            Run firstRun = SampleRun.DeepClone();
+
+            Result result = firstRun.Results[2];
+            result.PartialFingerprints = null;
+            result.Message = new Message() { Text = $"Found issue on line {result.Locations[0].PhysicalLocation.Region.StartLine}" };
+
+            Run secondRun = firstRun.DeepClone();
+            result = secondRun.Results[2];
+            result.Locations[0].PhysicalLocation.Region.StartLine += 5;
+            result.Message = new Message() { Text = $"Found issue on line {result.Locations[0].PhysicalLocation.Region.StartLine}" };
+
+            IEnumerable<MatchedResults> matches = CreateMatchedResults(firstRun, secondRun);
             matches.Where(m => m.PreviousResult == null || m.CurrentResult == null).Should().BeEmpty();
         }
 
@@ -159,6 +184,49 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
             IEnumerable<MatchedResults> matches = CreateMatchedResults(SampleRun, newRun);
             matches.Where(m => m.PreviousResult != null && m.CurrentResult != null).Should().HaveCount(5);
             matches.Where(m => m.PreviousResult == null || m.CurrentResult == null).Should().HaveCount(2);
+        }
+
+        [Fact]
+        public void V2ResultMatcher_TwoRulesSameLine()
+        {
+            // Verify that two Results with identical locations but different RuleIDs sort in a consistent order
+            // so that they will be matched with each other.
+
+            // COMPLEX: Getting to the "sufficiently similar" check requires that they don't match beforehand due to:
+            //  - Identical where, so the results must move
+            //  - Unique identical what, so there must be other unmatched results which share every trait with the ones we're checking
+
+            Run firstRun = SampleRun.DeepClone();
+            int countBeforeAdd = firstRun.Results.Count;
+
+            // Copy the first Result and change the Rule only (they'll have same Message, Fingerprints, Location)
+            firstRun.Results[1] = firstRun.Results[0].DeepClone();
+            firstRun.Results[1].RuleId = "NewRuleId";
+
+            // Make another copy of each result and move them so that the results won't have any per-rule unique traits
+            firstRun.Results.Add(firstRun.Results[0].DeepClone());
+            firstRun.Results.Add(firstRun.Results[1].DeepClone());
+
+            firstRun.Results[countBeforeAdd].Locations[0].PhysicalLocation.Region.StartLine += 1;
+            firstRun.Results[countBeforeAdd + 1].Locations[0].PhysicalLocation.Region.StartLine += 1;
+
+            Run secondRun = firstRun.DeepClone();
+
+            // Move all Results down
+            secondRun.Results[0].Locations[0].PhysicalLocation.Region.StartLine += 4;
+            secondRun.Results[1].Locations[0].PhysicalLocation.Region.StartLine += 4;
+
+            secondRun.Results[countBeforeAdd].Locations[0].PhysicalLocation.Region.StartLine += 1;
+            secondRun.Results[countBeforeAdd + 1].Locations[0].PhysicalLocation.Region.StartLine += 1;
+
+            // Swap the order of them to reduce the chance they'll sort the same
+            Result swap = secondRun.Results[0];
+            secondRun.Results[0] = secondRun.Results[1];
+            secondRun.Results[1] = swap;
+
+            // Verify all Results match
+            IEnumerable<MatchedResults> matches = CreateMatchedResults(firstRun, secondRun);
+            matches.Where(m => m.PreviousResult == null || m.CurrentResult == null).Should().BeEmpty();
         }
 
         [Fact]
