@@ -31,7 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
                 case "rank":
                     return new DoubleEvaluator<Result>(r => r.Rank, term);
                 case "ruleid":
-                    return new StringEvaluator<Result>(r => r.RuleId ?? r.Rule?.Id, term, StringComparison.OrdinalIgnoreCase);
+                    return new StringEvaluator<Result>(r => r.GetRule(r.Run).Id, term, StringComparison.OrdinalIgnoreCase);
 
                 case "uri":
                     // Ensure the Run is provided, to look up Uri from Run.Artifacts when needed.
