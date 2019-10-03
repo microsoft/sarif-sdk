@@ -78,7 +78,7 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests
             // In addition to checking the individual properties (which is nice for explicitness),
             // we redundantly check that the entire SarifLog objects match.
             // THIS ASSERTION IS COMMENTED OUT BECAUSE OF https://github.com/microsoft/sarif-sdk/issues/1689,
-            // "Generated code for property bag comparison is incorrect."
+            // "Round-tripped log comparison fails if property bag contains DateTime."
             //originalLog.ValueEquals(deserializedLog).Should().BeTrue();
 
             string reserializedLogContents = JsonConvert.SerializeObject(deserializedLog, settings);
