@@ -1,5 +1,10 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
+## **v2.1.19** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.19) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.19) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.19) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.19)
+* FEATURE: Expanding Sarif SDK query mode to support Result.Uri, string StartsWith/EndsWith/Contains.
+* FEATURE: Adding Result.Run and a populating method, so that methods which need the Run context
+for a given Result have an integrated way to retrieve it.
+
 ## **v2.1.18** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.18) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.18) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.18) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.18)
 * FEATURE: Enhanced property bag serialization unit testing. [#1673](https://github.com/microsoft/sarif-sdk/issues/1673)
 * BUGFIX: Fix packaging warning NU5048 during build. [#1687](https://github.com/microsoft/sarif-sdk/issues/1687)
