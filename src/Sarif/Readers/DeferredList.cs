@@ -123,6 +123,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             }
             else
             {
+                // Run the new transformer after all previous transformers.
+                //  [Deseralized Result] -> Transformers in order added -> Result returned from enumeration
                 _transformer = (item) => transformer(_transformer(item));
             }
         }
