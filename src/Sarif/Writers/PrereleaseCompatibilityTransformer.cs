@@ -25,13 +25,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             var settings = new JsonSerializerSettings
             {
                 Formatting = formatting,
-                DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate,
-                DateParseHandling = DateParseHandling.None
+                DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate
             };
 
             if (string.IsNullOrEmpty(prereleaseSarifLog)) { return null; }
 
-            JObject logObject = SarifUtilities.DeserializeObject<JObject>(prereleaseSarifLog);
+            JObject logObject = JObject.Parse(prereleaseSarifLog);
 
             string version = (string)logObject["version"];
             if (version == SarifUtilities.V1_0_0)

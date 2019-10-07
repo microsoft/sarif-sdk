@@ -1,5 +1,9 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
+## **v2.1.19** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.19) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.19) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.19) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.19)
+API BREAKING: Remove helper method `SarifUtilities.DeserializeObject` introduced in 2.1.15 to fix [#1577](https://github.com/microsoft/sarif-sdk/issues/1577).
+Now that an underlying bug in `PropertyBagConverter` has been fixed, there is no need to work around it with this helper method. `JsonConvert.DeserializeObject` works fine.
+
 ## **v2.1.18** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.18) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.18) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.18) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.18)
 * FEATURE: Enhanced property bag serialization unit testing. [#1673](https://github.com/microsoft/sarif-sdk/issues/1673)
 * BUGFIX: Fix packaging warning NU5048 during build. [#1687](https://github.com/microsoft/sarif-sdk/issues/1687)

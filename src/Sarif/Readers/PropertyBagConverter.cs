@@ -49,6 +49,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                     serializedValue = JsonConvert.ToString(serializedValue);
                     isString = true;
                 }
+                else if (propertyType == typeof(DateTime))
+                {
+                    // There's no need to worry about value being null here, because we know that
+                    // Newtonsoft.Json recognized the value as a string that looks like a DateTime.
+                    serializedValue = JsonConvert.SerializeObject(value);
+                }
 
                 SerializedPropertyInfo propInfo = value == null ? null : new SerializedPropertyInfo(serializedValue, isString);
 
