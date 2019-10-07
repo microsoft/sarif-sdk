@@ -16,10 +16,11 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
         [Fact]
         public void WhatComparer_Basics()
         {
-            Result left = new Result { RuleId = "Rule1", Message = new Message() { Text = "One" } };
-            Result right = new Result { RuleId = "Rule1", Message = new Message() { Text = "Two" } };
-            ExtractedResult eLeft = new ExtractedResult(left, null);
-            ExtractedResult eRight = new ExtractedResult(right, null);
+            Run run = new Run();
+            Result left = new Result { RuleId = "Rule1", Message = new Message() { Text = "One" }, Run = run };
+            Result right = new Result { RuleId = "Rule1", Message = new Message() { Text = "Two" }, Run = run };
+            ExtractedResult eLeft = new ExtractedResult(left, run);
+            ExtractedResult eRight = new ExtractedResult(right, run);
 
             // GUIDs
             // =====

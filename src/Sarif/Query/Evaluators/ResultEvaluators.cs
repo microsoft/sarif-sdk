@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 
 using System;
+using System.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
 {
@@ -30,7 +31,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
                 case "rank":
                     return new DoubleEvaluator<Result>(r => r.Rank, term);
                 case "ruleid":
-                    return new StringEvaluator<Result>(r => r.RuleId ?? r.Rule?.Id, term, StringComparison.OrdinalIgnoreCase);
+                    return new StringEvaluator<Result>(r => r.GetRule(r.Run).Id, term, StringComparison.OrdinalIgnoreCase);
+
+                case "uri":
+                    // Ensure the Run is provided, to look up Uri from Run.Artifacts when needed.
+                    // Uri : "/Core/" will match all Results with any Uri which contains "/Core/"
+                    return new SetEvaluator<Result, string>(r =>
+                    {
+                        r.EnsureRunProvided();
+                        return r.Locations?.Select(l => l?.PhysicalLocation?.ArtifactLocation.Resolve(r.Run)?.Uri?.ToString() ?? "");
+                    }, term);
+
                 default:
                     throw new QueryParseException($"Property Name {term.PropertyName} unrecognized. Known Names: baselineState, correlationGuid, guid, hostedViewerUri, kind, level, message.text, occurrenceCount, rank, ruleId");
             }

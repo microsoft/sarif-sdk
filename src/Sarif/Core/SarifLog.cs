@@ -44,5 +44,31 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return serializer.Deserialize<SarifLog>(jtr);
             }
         }
+
+        /// <summary>
+        ///  Write a SARIF log to disk as a file.
+        /// </summary>
+        /// <param name="sarifFilePath">File Path to Sarif file to write to</param>
+        public void Save(string sarifFilePath)
+        {
+            using (StreamWriter writer = File.CreateText(sarifFilePath))
+            {
+                this.Save(writer);
+            }
+        }
+
+        /// <summary>
+        ///  Write a SARIF log to disk as a file.
+        /// </summary>
+        /// <param name="destination">StreamWriter to write SARIF to</param>
+        public void Save(StreamWriter destination)
+        {
+            JsonSerializer serializer = new JsonSerializer();
+
+            using (JsonTextWriter writer = new JsonTextWriter(destination))
+            {
+                serializer.Serialize(writer, this);
+            }
+        }
     }
 }

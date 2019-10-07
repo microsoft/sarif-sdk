@@ -191,7 +191,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                  ")";
         }
 
-        public static string FormatForVisualStudio(this Result result, ReportingDescriptor rule)
+        public static string FormatForVisualStudio(this Result result, ReportingDescriptor rule = null)
         {
             if (result == null)
             {
@@ -200,7 +200,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (rule == null)
             {
-                throw new ArgumentNullException(nameof(rule));
+                rule = result.GetRule();
             }
 
             var messageLines = new List<string>();
@@ -276,6 +276,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (string.IsNullOrEmpty(text))
             {
                 text = string.Empty;    // Ensure that it's not null.
+
+                if (rule == null)
+                {
+                    rule = result.GetRule();
+                }
 
                 if (rule != null)
                 {

@@ -46,11 +46,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
 
         }
 
-        public void Evaluate(IList<T> list, BitArray matches)
+        public void Evaluate(ICollection<T> list, BitArray matches)
         {
-            for (int i = 0; i < list.Count; ++i)
+            int i = 0;
+            foreach (T item in list)
             {
-                matches.Set(i, Getter(list[i]) == MustEqual);
+                matches.Set(i, Getter(item) == MustEqual);
+                i++;
             }
         }
     }
