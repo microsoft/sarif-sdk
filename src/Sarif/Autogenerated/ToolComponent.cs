@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
         /// </summary>
-        public SarifNodeKind SarifNodeKind
+        public virtual SarifNodeKind SarifNodeKind
         {
             get
             {
@@ -38,119 +38,119 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A unique identifer for the tool component in the form of a GUID.
         /// </summary>
         [DataMember(Name = "guid", IsRequired = false, EmitDefaultValue = false)]
-        public string Guid { get; set; }
+        public virtual string Guid { get; set; }
 
         /// <summary>
         /// The name of the tool component.
         /// </summary>
         [DataMember(Name = "name", IsRequired = true)]
-        public string Name { get; set; }
+        public virtual string Name { get; set; }
 
         /// <summary>
         /// The organization or company that produced the tool component.
         /// </summary>
         [DataMember(Name = "organization", IsRequired = false, EmitDefaultValue = false)]
-        public string Organization { get; set; }
+        public virtual string Organization { get; set; }
 
         /// <summary>
         /// A product suite to which the tool component belongs.
         /// </summary>
         [DataMember(Name = "product", IsRequired = false, EmitDefaultValue = false)]
-        public string Product { get; set; }
+        public virtual string Product { get; set; }
 
         /// <summary>
         /// A localizable string containing the name of the suite of products to which the tool component belongs.
         /// </summary>
         [DataMember(Name = "productSuite", IsRequired = false, EmitDefaultValue = false)]
-        public string ProductSuite { get; set; }
+        public virtual string ProductSuite { get; set; }
 
         /// <summary>
         /// A brief description of the tool component.
         /// </summary>
         [DataMember(Name = "shortDescription", IsRequired = false, EmitDefaultValue = false)]
-        public MultiformatMessageString ShortDescription { get; set; }
+        public virtual MultiformatMessageString ShortDescription { get; set; }
 
         /// <summary>
         /// A comprehensive description of the tool component.
         /// </summary>
         [DataMember(Name = "fullDescription", IsRequired = false, EmitDefaultValue = false)]
-        public MultiformatMessageString FullDescription { get; set; }
+        public virtual MultiformatMessageString FullDescription { get; set; }
 
         /// <summary>
         /// The name of the tool component along with its version and any other useful identifying information, such as its locale.
         /// </summary>
         [DataMember(Name = "fullName", IsRequired = false, EmitDefaultValue = false)]
-        public string FullName { get; set; }
+        public virtual string FullName { get; set; }
 
         /// <summary>
         /// The tool component version, in whatever format the component natively provides.
         /// </summary>
         [DataMember(Name = "version", IsRequired = false, EmitDefaultValue = false)]
-        public string Version { get; set; }
+        public virtual string Version { get; set; }
 
         /// <summary>
         /// The tool component version in the format specified by Semantic Versioning 2.0.
         /// </summary>
         [DataMember(Name = "semanticVersion", IsRequired = false, EmitDefaultValue = false)]
-        public string SemanticVersion { get; set; }
+        public virtual string SemanticVersion { get; set; }
 
         /// <summary>
         /// The binary version of the tool component's primary executable file expressed as four non-negative integers separated by a period (for operating systems that express file versions in this way).
         /// </summary>
         [DataMember(Name = "dottedQuadFileVersion", IsRequired = false, EmitDefaultValue = false)]
-        public string DottedQuadFileVersion { get; set; }
+        public virtual string DottedQuadFileVersion { get; set; }
 
         /// <summary>
         /// A string specifying the UTC date (and optionally, the time) of the component's release.
         /// </summary>
         [DataMember(Name = "releaseDateUtc", IsRequired = false, EmitDefaultValue = false)]
-        public string ReleaseDateUtc { get; set; }
+        public virtual string ReleaseDateUtc { get; set; }
 
         /// <summary>
         /// The absolute URI from which the tool component can be downloaded.
         /// </summary>
         [DataMember(Name = "downloadUri", IsRequired = false, EmitDefaultValue = false)]
-        public Uri DownloadUri { get; set; }
+        public virtual Uri DownloadUri { get; set; }
 
         /// <summary>
         /// The absolute URI at which information about this version of the tool component can be found.
         /// </summary>
         [DataMember(Name = "informationUri", IsRequired = false, EmitDefaultValue = false)]
-        public Uri InformationUri { get; set; }
+        public virtual Uri InformationUri { get; set; }
 
         /// <summary>
         /// A dictionary, each of whose keys is a resource identifier and each of whose values is a multiformatMessageString object, which holds message strings in plain text and (optionally) Markdown format. The strings can include placeholders, which can be used to construct a message in combination with an arbitrary number of additional string arguments.
         /// </summary>
         [DataMember(Name = "globalMessageStrings", IsRequired = false, EmitDefaultValue = false)]
-        public IDictionary<string, MultiformatMessageString> GlobalMessageStrings { get; set; }
+        public virtual IDictionary<string, MultiformatMessageString> GlobalMessageStrings { get; set; }
 
         /// <summary>
         /// An array of reportingDescriptor objects relevant to the notifications related to the configuration and runtime execution of the tool component.
         /// </summary>
         [DataMember(Name = "notifications", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<ReportingDescriptor> Notifications { get; set; }
+        public virtual IList<ReportingDescriptor> Notifications { get; set; }
 
         /// <summary>
         /// An array of reportingDescriptor objects relevant to the analysis performed by the tool component.
         /// </summary>
         [DataMember(Name = "rules", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<ReportingDescriptor> Rules { get; set; }
+        public virtual IList<ReportingDescriptor> Rules { get; set; }
 
         /// <summary>
         /// An array of reportingDescriptor objects relevant to the definitions of both standalone and tool-defined taxonomies.
         /// </summary>
         [DataMember(Name = "taxa", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<ReportingDescriptor> Taxa { get; set; }
+        public virtual IList<ReportingDescriptor> Taxa { get; set; }
 
         /// <summary>
         /// An array of the artifactLocation objects associated with the tool component.
         /// </summary>
         [DataMember(Name = "locations", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<ArtifactLocation> Locations { get; set; }
+        public virtual IList<ArtifactLocation> Locations { get; set; }
 
         /// <summary>
         /// The language of the messages emitted into the log file during this run (expressed as an ISO 639-1 two-letter lowercase language code) and an optional region (expressed as an ISO 3166-1 two-letter uppercase subculture code associated with a country or region). The casing is recommended but not required (in order for this data to conform to RFC5646).
@@ -158,7 +158,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [DataMember(Name = "language", IsRequired = false, EmitDefaultValue = false)]
         [DefaultValue("en-US")]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public string Language { get; set; }
+        public virtual string Language { get; set; }
 
         /// <summary>
         /// The kinds of data contained in this object.
@@ -166,7 +166,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [DataMember(Name = "contents", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         [JsonConverter(typeof(FlagsEnumConverter))]
-        public ToolComponentContents Contents { get; set; }
+        public virtual ToolComponentContents Contents { get; set; }
 
         /// <summary>
         /// Specifies whether this object contains a complete definition of the localizable and/or non-localizable data for this component, as opposed to including only data that is relevant to the results persisted to this log file.
@@ -174,38 +174,38 @@ namespace Microsoft.CodeAnalysis.Sarif
         [DataMember(Name = "isComprehensive", IsRequired = false, EmitDefaultValue = false)]
         [DefaultValue(false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public bool IsComprehensive { get; set; }
+        public virtual bool IsComprehensive { get; set; }
 
         /// <summary>
         /// The semantic version of the localized strings defined in this component; maintained by components that provide translations.
         /// </summary>
         [DataMember(Name = "localizedDataSemanticVersion", IsRequired = false, EmitDefaultValue = false)]
-        public string LocalizedDataSemanticVersion { get; set; }
+        public virtual string LocalizedDataSemanticVersion { get; set; }
 
         /// <summary>
         /// The minimum value of localizedDataSemanticVersion required in translations consumed by this component; used by components that consume translations.
         /// </summary>
         [DataMember(Name = "minimumRequiredLocalizedDataSemanticVersion", IsRequired = false, EmitDefaultValue = false)]
-        public string MinimumRequiredLocalizedDataSemanticVersion { get; set; }
+        public virtual string MinimumRequiredLocalizedDataSemanticVersion { get; set; }
 
         /// <summary>
         /// The component which is strongly associated with this component. For a translation, this refers to the component which has been translated. For an extension, this is the driver that provides the extension's plugin model.
         /// </summary>
         [DataMember(Name = "associatedComponent", IsRequired = false, EmitDefaultValue = false)]
-        public ToolComponentReference AssociatedComponent { get; set; }
+        public virtual ToolComponentReference AssociatedComponent { get; set; }
 
         /// <summary>
         /// Translation metadata, required for a translation, not populated by other component types.
         /// </summary>
         [DataMember(Name = "translationMetadata", IsRequired = false, EmitDefaultValue = false)]
-        public TranslationMetadata TranslationMetadata { get; set; }
+        public virtual TranslationMetadata TranslationMetadata { get; set; }
 
         /// <summary>
         /// An array of toolComponentReference objects to declare the taxonomies supported by the tool component.
         /// </summary>
         [DataMember(Name = "supportedTaxonomies", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<ToolComponentReference> SupportedTaxonomies { get; set; }
+        public virtual IList<ToolComponentReference> SupportedTaxonomies { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the tool component.
@@ -341,7 +341,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Creates a deep copy of this instance.
         /// </summary>
-        public ToolComponent DeepClone()
+        public virtual ToolComponent DeepClone()
         {
             return (ToolComponent)DeepCloneCore();
         }

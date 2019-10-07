@@ -54,6 +54,7 @@
     <None Remove="TestData\PrereleaseCompatibilityTransformer\Inputs\V1.sarif" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\Inputs\WithExternalPropertyFiles.01-24.sarif" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\Inputs\WithSuppressions.sarif" />
+    <None Remove="TestData\RoundTripping\RoundTripping.sarif" />
     <None Remove="TestData\SarifCurrentToVersionOneVisitor\ExpectedOutputs\OneRunWithNotificationTime.sarif" />
     <None Remove="TestData\SarifCurrentToVersionOneVisitor\Inputs\OneRunWithNotificationTime.sarif" />
     <None Remove="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\MinimumWithLanguage.sarif" />
@@ -85,6 +86,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\RegressionTests.sarif" />
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\Inputs\RegressionTests.sarif" />
+    <EmbeddedResource Include="TestData\RoundTripping\RoundTripping.sarif" />
     <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\NonDottedQuadFileVersion.sarif" />
     <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\ResultLocationsAsEmptyArray.sarif" />
     <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\Inputs\NonDottedQuadFileVersion.sarif" />

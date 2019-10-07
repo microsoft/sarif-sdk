@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
         /// </summary>
-        public SarifNodeKind SarifNodeKind
+        public virtual SarifNodeKind SarifNodeKind
         {
             get
             {
@@ -37,26 +37,26 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A plain text message string.
         /// </summary>
         [DataMember(Name = "text", IsRequired = false, EmitDefaultValue = false)]
-        public string Text { get; set; }
+        public virtual string Text { get; set; }
 
         /// <summary>
         /// A Markdown message string.
         /// </summary>
         [DataMember(Name = "markdown", IsRequired = false, EmitDefaultValue = false)]
-        public string Markdown { get; set; }
+        public virtual string Markdown { get; set; }
 
         /// <summary>
         /// The identifier for this message.
         /// </summary>
         [DataMember(Name = "id", IsRequired = false, EmitDefaultValue = false)]
-        public string Id { get; set; }
+        public virtual string Id { get; set; }
 
         /// <summary>
         /// An array of strings to substitute into the message string.
         /// </summary>
         [DataMember(Name = "arguments", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<string> Arguments { get; set; }
+        public virtual IList<string> Arguments { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the message.
@@ -121,7 +121,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Creates a deep copy of this instance.
         /// </summary>
-        public Message DeepClone()
+        public virtual Message DeepClone()
         {
             return (Message)DeepCloneCore();
         }

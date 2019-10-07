@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
         /// </summary>
-        public SarifNodeKind SarifNodeKind
+        public virtual SarifNodeKind SarifNodeKind
         {
             get
             {
@@ -38,7 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The id of the descriptor.
         /// </summary>
         [DataMember(Name = "id", IsRequired = false, EmitDefaultValue = false)]
-        public string Id { get; set; }
+        public virtual string Id { get; set; }
 
         /// <summary>
         /// The index into an array of descriptors in toolComponent.ruleDescriptors, toolComponent.notificationDescriptors, or toolComponent.taxonomyDescriptors, depending on context.
@@ -46,19 +46,19 @@ namespace Microsoft.CodeAnalysis.Sarif
         [DataMember(Name = "index", IsRequired = false, EmitDefaultValue = false)]
         [DefaultValue(-1)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public int Index { get; set; }
+        public virtual int Index { get; set; }
 
         /// <summary>
         /// A guid that uniquely identifies the descriptor.
         /// </summary>
         [DataMember(Name = "guid", IsRequired = false, EmitDefaultValue = false)]
-        public string Guid { get; set; }
+        public virtual string Guid { get; set; }
 
         /// <summary>
         /// A reference used to locate the toolComponent associated with the descriptor.
         /// </summary>
         [DataMember(Name = "toolComponent", IsRequired = false, EmitDefaultValue = false)]
-        public ToolComponentReference ToolComponent { get; set; }
+        public virtual ToolComponentReference ToolComponent { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the reporting descriptor reference.
@@ -124,7 +124,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Creates a deep copy of this instance.
         /// </summary>
-        public ReportingDescriptorReference DeepClone()
+        public virtual ReportingDescriptorReference DeepClone()
         {
             return (ReportingDescriptorReference)DeepCloneCore();
         }

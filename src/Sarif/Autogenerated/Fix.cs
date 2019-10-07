@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
         /// </summary>
-        public SarifNodeKind SarifNodeKind
+        public virtual SarifNodeKind SarifNodeKind
         {
             get
             {
@@ -36,13 +36,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A message that describes the proposed fix, enabling viewers to present the proposed change to an end user.
         /// </summary>
         [DataMember(Name = "description", IsRequired = false, EmitDefaultValue = false)]
-        public Message Description { get; set; }
+        public virtual Message Description { get; set; }
 
         /// <summary>
         /// One or more artifact changes that comprise a fix for a result.
         /// </summary>
         [DataMember(Name = "artifactChanges", IsRequired = true)]
-        public IList<ArtifactChange> ArtifactChanges { get; set; }
+        public virtual IList<ArtifactChange> ArtifactChanges { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the fix.
@@ -101,7 +101,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Creates a deep copy of this instance.
         /// </summary>
-        public Fix DeepClone()
+        public virtual Fix DeepClone()
         {
             return (Fix)DeepCloneCore();
         }

@@ -273,8 +273,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 string normalizedSpecifier = specifier;
 
-                Uri uri;
-                if (Uri.TryCreate(specifier, UriKind.RelativeOrAbsolute, out uri))
+                if (Uri.TryCreate(specifier, UriKind.RelativeOrAbsolute, out Uri uri))
                 {
                     if (uri.IsAbsoluteUri && (uri.IsFile || uri.IsUnc))
                     {
@@ -305,9 +304,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             RuntimeConditions runtimeErrors,
             string filePath = null)
         {
-            var context = new TContext();
-            context.Logger = logger;
-            context.RuntimeErrors = runtimeErrors;
+            var context = new TContext
+            {
+                Logger = logger,
+                RuntimeErrors = runtimeErrors
+            };
 
             if (filePath != null)
             {
@@ -449,11 +450,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         private IEnumerable<string> GenerateSensitiveTokensList()
         {
-            var result = new List<String>();
-
-            result.Add(Environment.MachineName);
-            result.Add(Environment.UserName);
-            result.Add(Environment.UserDomainName);
+            var result = new List<string>
+            {
+                Environment.MachineName,
+                Environment.UserName,
+                Environment.UserDomainName
+            };
 
             string userDnsDomain = Environment.GetEnvironmentVariable("USERDNSDOMAIN");
             string logonServer = Environment.GetEnvironmentVariable("LOGONSERVER");
@@ -595,13 +597,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             var context = CreateContext(options, rootContext.Logger, rootContext.RuntimeErrors, target);
             context.Policy = rootContext.Policy;
-
-            if (options.Verbose)
-            {
-                Console.WriteLine(string.Format(CultureInfo.CurrentCulture,
-                    @"Analyzing '{0}'...",
-                    context.TargetUri.GetFileName()));
-            }
 
             if (options.ComputeFileHashes)
             {
@@ -766,16 +761,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 switch (applicability)
                 {
                     case AnalysisApplicability.NotApplicableToSpecifiedTarget:
-                        {
-                            Notes.LogNotApplicableToSpecifiedTarget(context, reasonForNotAnalyzing);
-                            break;
-                        }
+                    {
+                        Notes.LogNotApplicableToSpecifiedTarget(context, reasonForNotAnalyzing);
+                        break;
+                    }
 
                     case AnalysisApplicability.ApplicableToSpecifiedTarget:
-                        {
-                            candidateSkimmers.Add(skimmer);
-                            break;
-                        }
+                    {
+                        candidateSkimmers.Add(skimmer);
+                        break;
+                    }
                 }
             }
             return candidateSkimmers;

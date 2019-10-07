@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
         /// </summary>
-        public SarifNodeKind SarifNodeKind
+        public virtual SarifNodeKind SarifNodeKind
         {
             get
             {
@@ -36,25 +36,25 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A description of the identity and role played within the engineering system by this object's containing run object.
         /// </summary>
         [DataMember(Name = "description", IsRequired = false, EmitDefaultValue = false)]
-        public Message Description { get; set; }
+        public virtual Message Description { get; set; }
 
         /// <summary>
         /// A hierarchical string that uniquely identifies this object's containing run object.
         /// </summary>
         [DataMember(Name = "id", IsRequired = false, EmitDefaultValue = false)]
-        public string Id { get; set; }
+        public virtual string Id { get; set; }
 
         /// <summary>
         /// A stable, unique identifer for this object's containing run object in the form of a GUID.
         /// </summary>
         [DataMember(Name = "guid", IsRequired = false, EmitDefaultValue = false)]
-        public string Guid { get; set; }
+        public virtual string Guid { get; set; }
 
         /// <summary>
         /// A stable, unique identifier for the equivalence class of runs to which this object's containing run object belongs in the form of a GUID.
         /// </summary>
         [DataMember(Name = "correlationGuid", IsRequired = false, EmitDefaultValue = false)]
-        public string CorrelationGuid { get; set; }
+        public virtual string CorrelationGuid { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the run automation details.
@@ -119,7 +119,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Creates a deep copy of this instance.
         /// </summary>
-        public RunAutomationDetails DeepClone()
+        public virtual RunAutomationDetails DeepClone()
         {
             return (RunAutomationDetails)DeepCloneCore();
         }

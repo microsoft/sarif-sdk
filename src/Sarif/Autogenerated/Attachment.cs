@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
         /// </summary>
-        public SarifNodeKind SarifNodeKind
+        public virtual SarifNodeKind SarifNodeKind
         {
             get
             {
@@ -37,27 +37,27 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A message describing the role played by the attachment.
         /// </summary>
         [DataMember(Name = "description", IsRequired = false, EmitDefaultValue = false)]
-        public Message Description { get; set; }
+        public virtual Message Description { get; set; }
 
         /// <summary>
         /// The location of the attachment.
         /// </summary>
         [DataMember(Name = "artifactLocation", IsRequired = true)]
-        public ArtifactLocation ArtifactLocation { get; set; }
+        public virtual ArtifactLocation ArtifactLocation { get; set; }
 
         /// <summary>
         /// An array of regions of interest within the attachment.
         /// </summary>
         [DataMember(Name = "regions", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<Region> Regions { get; set; }
+        public virtual IList<Region> Regions { get; set; }
 
         /// <summary>
         /// An array of rectangles specifying areas of interest within the image.
         /// </summary>
         [DataMember(Name = "rectangles", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<Rectangle> Rectangles { get; set; }
+        public virtual IList<Rectangle> Rectangles { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the attachment.
@@ -122,7 +122,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Creates a deep copy of this instance.
         /// </summary>
-        public Attachment DeepClone()
+        public virtual Attachment DeepClone()
         {
             return (Attachment)DeepCloneCore();
         }

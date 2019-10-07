@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
         /// </summary>
-        public SarifNodeKind SarifNodeKind
+        public virtual SarifNodeKind SarifNodeKind
         {
             get
             {
@@ -38,13 +38,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The location of the external property file.
         /// </summary>
         [DataMember(Name = "location", IsRequired = false, EmitDefaultValue = false)]
-        public ArtifactLocation Location { get; set; }
+        public virtual ArtifactLocation Location { get; set; }
 
         /// <summary>
         /// A stable, unique identifer for the external property file in the form of a GUID.
         /// </summary>
         [DataMember(Name = "guid", IsRequired = false, EmitDefaultValue = false)]
-        public string Guid { get; set; }
+        public virtual string Guid { get; set; }
 
         /// <summary>
         /// A non-negative integer specifying the number of items contained in the external property file.
@@ -52,7 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [DataMember(Name = "itemCount", IsRequired = false, EmitDefaultValue = false)]
         [DefaultValue(-1)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public int ItemCount { get; set; }
+        public virtual int ItemCount { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the external property file.
@@ -115,7 +115,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Creates a deep copy of this instance.
         /// </summary>
-        public ExternalPropertyFileReference DeepClone()
+        public virtual ExternalPropertyFileReference DeepClone()
         {
             return (ExternalPropertyFileReference)DeepCloneCore();
         }

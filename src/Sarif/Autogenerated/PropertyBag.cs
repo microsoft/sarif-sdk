@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
         /// </summary>
-        public SarifNodeKind SarifNodeKind
+        public virtual SarifNodeKind SarifNodeKind
         {
             get
             {
@@ -37,7 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         [DataMember(Name = "tags", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<string> Tags { get; set; }
+        public virtual IList<string> Tags { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PropertyBag" /> class.
@@ -84,7 +84,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Creates a deep copy of this instance.
         /// </summary>
-        public PropertyBag DeepClone()
+        public virtual PropertyBag DeepClone()
         {
             return (PropertyBag)DeepCloneCore();
         }

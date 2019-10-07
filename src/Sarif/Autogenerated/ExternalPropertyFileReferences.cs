@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
         /// </summary>
-        public SarifNodeKind SarifNodeKind
+        public virtual SarifNodeKind SarifNodeKind
         {
             get
             {
@@ -37,110 +37,110 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// An external property file containing a run.conversion object to be merged with the root log file.
         /// </summary>
         [DataMember(Name = "conversion", IsRequired = false, EmitDefaultValue = false)]
-        public ExternalPropertyFileReference Conversion { get; set; }
+        public virtual ExternalPropertyFileReference Conversion { get; set; }
 
         /// <summary>
         /// An array of external property files containing a run.graphs object to be merged with the root log file.
         /// </summary>
         [DataMember(Name = "graphs", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<ExternalPropertyFileReference> Graphs { get; set; }
+        public virtual IList<ExternalPropertyFileReference> Graphs { get; set; }
 
         /// <summary>
         /// An external property file containing a run.properties object to be merged with the root log file.
         /// </summary>
         [DataMember(Name = "externalizedProperties", IsRequired = false, EmitDefaultValue = false)]
-        public ExternalPropertyFileReference ExternalizedProperties { get; set; }
+        public virtual ExternalPropertyFileReference ExternalizedProperties { get; set; }
 
         /// <summary>
         /// An array of external property files containing run.artifacts arrays to be merged with the root log file.
         /// </summary>
         [DataMember(Name = "artifacts", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<ExternalPropertyFileReference> Artifacts { get; set; }
+        public virtual IList<ExternalPropertyFileReference> Artifacts { get; set; }
 
         /// <summary>
         /// An array of external property files containing run.invocations arrays to be merged with the root log file.
         /// </summary>
         [DataMember(Name = "invocations", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<ExternalPropertyFileReference> Invocations { get; set; }
+        public virtual IList<ExternalPropertyFileReference> Invocations { get; set; }
 
         /// <summary>
         /// An array of external property files containing run.logicalLocations arrays to be merged with the root log file.
         /// </summary>
         [DataMember(Name = "logicalLocations", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<ExternalPropertyFileReference> LogicalLocations { get; set; }
+        public virtual IList<ExternalPropertyFileReference> LogicalLocations { get; set; }
 
         /// <summary>
         /// An array of external property files containing run.threadFlowLocations arrays to be merged with the root log file.
         /// </summary>
         [DataMember(Name = "threadFlowLocations", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<ExternalPropertyFileReference> ThreadFlowLocations { get; set; }
+        public virtual IList<ExternalPropertyFileReference> ThreadFlowLocations { get; set; }
 
         /// <summary>
         /// An array of external property files containing run.results arrays to be merged with the root log file.
         /// </summary>
         [DataMember(Name = "results", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<ExternalPropertyFileReference> Results { get; set; }
+        public virtual IList<ExternalPropertyFileReference> Results { get; set; }
 
         /// <summary>
         /// An array of external property files containing run.taxonomies arrays to be merged with the root log file.
         /// </summary>
         [DataMember(Name = "taxonomies", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<ExternalPropertyFileReference> Taxonomies { get; set; }
+        public virtual IList<ExternalPropertyFileReference> Taxonomies { get; set; }
 
         /// <summary>
         /// An array of external property files containing run.addresses arrays to be merged with the root log file.
         /// </summary>
         [DataMember(Name = "addresses", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<ExternalPropertyFileReference> Addresses { get; set; }
+        public virtual IList<ExternalPropertyFileReference> Addresses { get; set; }
 
         /// <summary>
         /// An external property file containing a run.driver object to be merged with the root log file.
         /// </summary>
         [DataMember(Name = "driver", IsRequired = false, EmitDefaultValue = false)]
-        public ExternalPropertyFileReference Driver { get; set; }
+        public virtual ExternalPropertyFileReference Driver { get; set; }
 
         /// <summary>
         /// An array of external property files containing run.extensions arrays to be merged with the root log file.
         /// </summary>
         [DataMember(Name = "extensions", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<ExternalPropertyFileReference> Extensions { get; set; }
+        public virtual IList<ExternalPropertyFileReference> Extensions { get; set; }
 
         /// <summary>
         /// An array of external property files containing run.policies arrays to be merged with the root log file.
         /// </summary>
         [DataMember(Name = "policies", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<ExternalPropertyFileReference> Policies { get; set; }
+        public virtual IList<ExternalPropertyFileReference> Policies { get; set; }
 
         /// <summary>
         /// An array of external property files containing run.translations arrays to be merged with the root log file.
         /// </summary>
         [DataMember(Name = "translations", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<ExternalPropertyFileReference> Translations { get; set; }
+        public virtual IList<ExternalPropertyFileReference> Translations { get; set; }
 
         /// <summary>
         /// An array of external property files containing run.requests arrays to be merged with the root log file.
         /// </summary>
         [DataMember(Name = "webRequests", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<ExternalPropertyFileReference> WebRequests { get; set; }
+        public virtual IList<ExternalPropertyFileReference> WebRequests { get; set; }
 
         /// <summary>
         /// An array of external property files containing run.responses arrays to be merged with the root log file.
         /// </summary>
         [DataMember(Name = "webResponses", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<ExternalPropertyFileReference> WebResponses { get; set; }
+        public virtual IList<ExternalPropertyFileReference> WebResponses { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the external property files.
@@ -241,7 +241,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Creates a deep copy of this instance.
         /// </summary>
-        public ExternalPropertyFileReferences DeepClone()
+        public virtual ExternalPropertyFileReferences DeepClone()
         {
             return (ExternalPropertyFileReferences)DeepCloneCore();
         }

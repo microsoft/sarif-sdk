@@ -3,9 +3,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using Microsoft.CodeAnalysis.Sarif.Processors;
 using System.Diagnostics;
+using System.Linq;
+
+using Microsoft.CodeAnalysis.Sarif.Processors;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
 
 namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
@@ -34,28 +35,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         /// <summary>
         /// Helper function that accepts a single baseline and current SARIF log and matches them.
         /// </summary>
-        /// <param name="previousLog">Array of sarif logs representing the baseline run</param>
-        /// <param name="currentLogs">Array of sarif logs representing the current run</param>
+        /// <param name="previousLog">Array of SARIF logs representing the baseline run</param>
+        /// <param name="currentLogs">Array of SARIF logs representing the current run</param>
         /// <returns>A SARIF log with the merged set of results.</returns>
         public SarifLog Match(SarifLog previousLog, SarifLog currentLog)
         {
-            return Match(previousLogs: new[] { previousLog }, currentLogs: new[]{ currentLog }).FirstOrDefault();
+            return Match(previousLogs: new[] { previousLog }, currentLogs: new[] { currentLog }).FirstOrDefault();
         }
 
 
         /// <summary>
-        /// Take two groups of sarif logs, and compute a sarif log containing the complete set of results,
+        /// Take two groups of SARIF logs, and compute a SARIF log containing the complete set of results,
         /// with status (compared to baseline) and various baseline-related fields persisted (e.x. work item links,
         /// ID, etc.
         /// </summary>
-        /// <param name="previousLogs">Array of sarif logs representing the baseline run</param>
-        /// <param name="currentLogs">Array of sarif logs representing the current run</param>
+        /// <param name="previousLogs">Array of SARIF logs representing the baseline run</param>
+        /// <param name="currentLogs">Array of SARIF logs representing the current run</param>
         /// <returns>A SARIF log with the merged set of results.</returns>
         public IEnumerable<SarifLog> Match(IEnumerable<SarifLog> previousLogs, IEnumerable<SarifLog> currentLogs)
         {
             Dictionary<string, List<Run>> runsByToolPrevious = GetRunsByTool(previousLogs);
             Dictionary<string, List<Run>> runsByToolCurrent = GetRunsByTool(currentLogs);
-            
+
             List<string> tools = runsByToolPrevious.Keys.Union(runsByToolCurrent.Keys).ToList();
 
             List<SarifLog> resultToolLogs = new List<SarifLog>();
@@ -65,7 +66,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 IEnumerable<Run> baselineRuns = new Run[0];
                 if (runsByToolPrevious.ContainsKey(key))
                 {
-                     baselineRuns = runsByToolPrevious[key];
+                    baselineRuns = runsByToolPrevious[key];
                 }
                 IEnumerable<Run> currentRuns = new Run[0];
 
@@ -113,17 +114,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         private SarifLog BaselineSarifLogs(IEnumerable<Run> previous, IEnumerable<Run> current)
         {
             // Spin out SARIF logs into MatchingResult objects.
-            List<ExtractedResult> baselineResults = 
-                previous == null ? new List<ExtractedResult>() : ExtractResultsFromRuns(previous);
+            List<ExtractedResult> baselineResults =
+                previous == null ? new List<ExtractedResult>() : ExtractResultsFromRuns(previous, isBaselineRun: true);
 
             List<ExtractedResult> currentResults =
-                current == null ? new List<ExtractedResult>() : ExtractResultsFromRuns(current);
+                current == null ? new List<ExtractedResult>() : ExtractResultsFromRuns(current, isBaselineRun: false);
 
             List<MatchedResults> matchedResults = new List<MatchedResults>();
 
             // Calculate exact mappings using exactResultMatchers.
             CalculateMatches(ExactResultMatchers, baselineResults, currentResults, matchedResults);
-            
+
             // Use the heuristic matchers to match remaining results.
             CalculateMatches(HeuristicMatchers, baselineResults, currentResults, matchedResults);
 
@@ -136,6 +137,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
         private static void AddUnmatchedResults(List<ExtractedResult> baselineResults, List<ExtractedResult> currentResults, List<MatchedResults> matchedResults)
         {
+            // Add unmatched results from Baseline log which weren't already Absent in previous run
             foreach (ExtractedResult result in baselineResults)
             {
                 matchedResults.Add(new MatchedResults(result, null));
@@ -164,16 +166,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             }
         }
 
-        private List<ExtractedResult> ExtractResultsFromRuns(IEnumerable<Run> sarifRuns)
+        private List<ExtractedResult> ExtractResultsFromRuns(IEnumerable<Run> sarifRuns, bool isBaselineRun)
         {
-            List<ExtractedResult> results = new List<ExtractedResult>();          
+            List<ExtractedResult> results = new List<ExtractedResult>();
             foreach (Run run in sarifRuns)
             {
                 if (run.Results != null)
                 {
                     foreach (Result result in run.Results)
                     {
-                        results.Add(new ExtractedResult(result, run));
+                        // Include all Results except Absent results in the baseline
+                        if (!(isBaselineRun && result.BaselineState == BaselineState.Absent))
+                        {
+                            results.Add(new ExtractedResult(result, run));
+                        }
                     }
                 }
             }
@@ -182,45 +188,61 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         }
 
         private SarifLog ConstructSarifLogFromMatchedResults(
-            IEnumerable<MatchedResults> results, 
-            IEnumerable<Run> previousRuns, 
+            IEnumerable<MatchedResults> results,
+            IEnumerable<Run> previousRuns,
             IEnumerable<Run> currentRuns)
         {
             if (currentRuns == null || !currentRuns.Any())
             {
                 throw new ArgumentException(nameof(currentRuns));
             }
-            
+
             // Results should all be from the same tool, so we'll pull the log from the first run.
-            Tool tool = currentRuns.First().Tool.DeepClone();
+            Run firstRun = currentRuns.First();
+            Tool tool = firstRun.Tool.DeepClone();
+
+            // Only include the rules corresponding to matched results.
+            tool.Driver.Rules = null;
 
             var run = new Run
             {
-                Tool = tool,
-                AutomationDetails = currentRuns.First().AutomationDetails,
+                Tool = tool
             };
+
+            // If there was only one run, we can fill in more information because we don't need to
+            // worry about it being different from run to run.
+            if (currentRuns.Count() == 1)
+            {
+                run.AutomationDetails = firstRun.AutomationDetails;
+                run.Conversion = firstRun.Conversion;
+                run.Taxonomies = firstRun.Taxonomies;
+                run.Translations = firstRun.Translations;
+                run.Policies = firstRun.Policies;
+                run.RedactionTokens = firstRun.RedactionTokens;
+                run.Language = firstRun.Language;
+            }
 
             IDictionary<string, SerializedPropertyInfo> properties = null;
 
             if (previousRuns != null && previousRuns.Count() != 0)
             {
                 // We flow the baseline instance id forward (which becomes the 
-                // baseline guid for the merged log)
+                // baseline guid for the merged log).
                 run.BaselineGuid = previousRuns.First().AutomationDetails?.Guid;
             }
 
             bool initializeFromOldest = PropertyBagMergeBehavior.HasFlag(DictionaryMergeBehavior.InitializeFromOldest);
             if (initializeFromOldest)
             {
-                // Find the 'oldest' log file and initialize properties from that log property bag
+                // Find the 'oldest' log file and initialize properties from that log property bag.
                 properties = previousRuns.FirstOrDefault() != null
                     ? previousRuns.First().Properties
                     : currentRuns.First().Properties;
             }
             else
             {
-                // Find the most recent log file instance and retain its property bag
-                // Find the 'oldest' log file and initialize properties from that log property bag
+                // Find the most recent log file instance and retain its property bag.
+                // Find the 'oldest' log file and initialize properties from that log property bag.
                 properties = currentRuns.Last().Properties;
             }
 
@@ -248,13 +270,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
                 if (result.RuleIndex != -1)
                 {
-                    ReportingDescriptor rule = resultPair.Run.Tool.Driver.Rules[0];
-                    if (!reportingDescriptors.TryGetValue(rule, out int ruleIndex))
+                    ReportingDescriptor rule = result.GetRule(resultPair.Run);
+                    if (rule != null)
                     {
-                        reportingDescriptors[rule] = run.Tool.Driver.Rules.Count;
-                        run.Tool.Driver.Rules.Add(rule);
+                        if (reportingDescriptors.TryGetValue(rule, out int ruleIndex))
+                        {
+                            result.RuleIndex = ruleIndex;
+                        }
+                        else
+                        {
+                            result.RuleIndex = reportingDescriptors.Count;
+                            reportingDescriptors[rule] = reportingDescriptors.Count;
+
+                            run.Tool.Driver.Rules = run.Tool.Driver.Rules ?? new List<ReportingDescriptor>();
+                            run.Tool.Driver.Rules.Add(rule);
+                        }
                     }
-                    result.RuleIndex = ruleIndex;
                 }
 
                 newRunResults.Add(result);
@@ -263,9 +294,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             run.Results = newRunResults;
             run.Artifacts = indexRemappingVisitor.CurrentArtifacts;
             run.LogicalLocations = indexRemappingVisitor.CurrentLogicalLocations;
-            
+
             var graphs = new List<Graph>();
-            //var ruleData = new Dictionary<string, ReportingDescriptor>();
             var invocations = new List<Invocation>();
 
             // TODO tool message strings are not currently handled
@@ -306,9 +336,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         }
 
         internal static void MergeDictionaryInto<T, S>(
-            IDictionary<T, S> baseDictionary, 
-            IDictionary<T, S> dictionaryToAdd, 
-            IEqualityComparer<S> duplicateCatch, 
+            IDictionary<T, S> baseDictionary,
+            IDictionary<T, S> dictionaryToAdd,
+            IEqualityComparer<S> duplicateCatch,
             DictionaryMergeBehavior propertyBagMergeBehavior)
         {
             foreach (KeyValuePair<T, S> pair in dictionaryToAdd)

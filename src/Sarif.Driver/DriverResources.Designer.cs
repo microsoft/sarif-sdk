@@ -97,15 +97,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Analyzing....
-        /// </summary>
-        internal static string MSG_Analyzing {
-            get {
-                return ResourceManager.GetString("MSG_Analyzing", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Analysis halted prematurely due to a fatal execution condition..
         /// </summary>
         internal static string MSG_UnexpectedApplicationExit {

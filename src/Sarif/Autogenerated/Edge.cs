@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
         /// </summary>
-        public SarifNodeKind SarifNodeKind
+        public virtual SarifNodeKind SarifNodeKind
         {
             get
             {
@@ -36,25 +36,25 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A string that uniquely identifies the edge within its graph.
         /// </summary>
         [DataMember(Name = "id", IsRequired = true)]
-        public string Id { get; set; }
+        public virtual string Id { get; set; }
 
         /// <summary>
         /// A short description of the edge.
         /// </summary>
         [DataMember(Name = "label", IsRequired = false, EmitDefaultValue = false)]
-        public Message Label { get; set; }
+        public virtual Message Label { get; set; }
 
         /// <summary>
         /// Identifies the source node (the node at which the edge starts).
         /// </summary>
         [DataMember(Name = "sourceNodeId", IsRequired = true)]
-        public string SourceNodeId { get; set; }
+        public virtual string SourceNodeId { get; set; }
 
         /// <summary>
         /// Identifies the target node (the node at which the edge ends).
         /// </summary>
         [DataMember(Name = "targetNodeId", IsRequired = true)]
-        public string TargetNodeId { get; set; }
+        public virtual string TargetNodeId { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the edge.
@@ -119,7 +119,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Creates a deep copy of this instance.
         /// </summary>
-        public Edge DeepClone()
+        public virtual Edge DeepClone()
         {
             return (Edge)DeepCloneCore();
         }

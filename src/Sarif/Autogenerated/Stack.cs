@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
         /// </summary>
-        public SarifNodeKind SarifNodeKind
+        public virtual SarifNodeKind SarifNodeKind
         {
             get
             {
@@ -36,13 +36,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A message relevant to this call stack.
         /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
-        public Message Message { get; set; }
+        public virtual Message Message { get; set; }
 
         /// <summary>
         /// An array of stack frames that represents a sequence of calls, rendered in reverse chronological order, that comprise the call stack.
         /// </summary>
         [DataMember(Name = "frames", IsRequired = true)]
-        public IList<StackFrame> Frames { get; set; }
+        public virtual IList<StackFrame> Frames { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the stack.
@@ -101,7 +101,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Creates a deep copy of this instance.
         /// </summary>
-        public Stack DeepClone()
+        public virtual Stack DeepClone()
         {
             return (Stack)DeepCloneCore();
         }
