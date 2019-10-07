@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             string originalContents = GetResourceContents("RoundTripping.sarif");
 
-            SarifLog log = SarifUtilities.DeserializeObject<SarifLog>(originalContents);
+            SarifLog log = JsonConvert.DeserializeObject<SarifLog>(originalContents);
 
             PropertyBagHolder holder = log.Runs[0].Results[0];
 

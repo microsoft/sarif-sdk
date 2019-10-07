@@ -1,6 +1,8 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
 ## **v2.1.19** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.19) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.19) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.19) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.19)
+* API BREAKING: Remove helper method `SarifUtilities.DeserializeObject` introduced in 2.1.15 to fix [#1577](https://github.com/microsoft/sarif-sdk/issues/1577).
+Now that an underlying bug in `PropertyBagConverter` has been fixed, there is no need to work around it with this helper method. `JsonConvert.DeserializeObject` works fine.
 * FEATURE: Expanding Sarif SDK query mode to support Result.Uri, string StartsWith/EndsWith/Contains.
 * FEATURE: Adding Result.Run and a populating method, so that methods which need the Run context
 for a given Result have an integrated way to retrieve it.

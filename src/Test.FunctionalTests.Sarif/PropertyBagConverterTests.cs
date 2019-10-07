@@ -58,7 +58,7 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests
             var settings = new JsonSerializerSettings { Formatting = Formatting.Indented };
             string originalLogContents = JsonConvert.SerializeObject(originalLog, settings);
 
-            SarifLog deserializedLog = SarifUtilities.DeserializeObject<SarifLog>(originalLogContents);
+            SarifLog deserializedLog = JsonConvert.DeserializeObject<SarifLog>(originalLogContents);
             run = deserializedLog.Runs[0];
 
             int integerProperty = run.GetProperty<int>(intPropertyName);

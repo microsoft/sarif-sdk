@@ -7,7 +7,6 @@ using System.Diagnostics;
 using System.Resources;
 using System.Text;
 using System.Text.RegularExpressions;
-using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -186,42 +185,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             new Regex(
                 pattern,
                 RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.ExplicitCapture | RegexOptions.IgnorePatternWhitespace);
-
-        // This method works around what might be considered a bug in Newtonsoft.Json
-        // (see https://github.com/JamesNK/Newtonsoft.Json/issues/1241).
-        //
-        // By default, when Newtonsoft.Json deserializes a property whose value is a string in
-        // a format that it recognizes as a date/time, it deserializes the value into a DateTime
-        // object. Then, when it reserializes the property, it produces an unquoted string
-        // (which incidentially is in a different format). For example, this JSON string:
-        //
-        // "properties": {
-        //   "someTime": "2019-06-22T19:06:31.209Z"
-        // }
-        //
-        // ... will round-trip to
-        //
-        // "properties": {
-        //   "someTime": 6/22/2019 7:06:31 PM
-        // }
-        //
-        // ... which is invalid JSON. This caused a failure in the PrereleaseCompatibilityTransformer
-        // (which performs exactly such a round trip) when the file being upgraded contained a
-        // date/time string in a property bag (see https://github.com/microsoft/sarif-sdk/issues/1577).
-        //
-        // To avoid this problem, provide a settings object and a utility method that instructs the
-        // deserializer not to attempt to recognize "date/time-like" strings. They will be treated
-        // as normal strings, and round-tripped correctly.
-        private static readonly JsonSerializerSettings s_dateTimeSafeDeserializerSettings = new JsonSerializerSettings
-        {
-            DateParseHandling = DateParseHandling.None,
-            DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate
-        };
-
-        public static T DeserializeObject<T>(string json)
-        {
-            return JsonConvert.DeserializeObject<T>(json, s_dateTimeSafeDeserializerSettings);
-        }
 
         internal static bool UnitTesting = false;
 
