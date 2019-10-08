@@ -746,6 +746,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     logger.OverwriteExistingOutputFile.Should().BeFalse();
                     logger.PrettyPrint.Should().BeFalse();
                     logger.Verbose.Should().BeFalse();
+                    logger.Optimize.Should().BeFalse();
                     break;
                 }
                 case LoggingOptions.OverwriteExistingOutputFile:
@@ -753,6 +754,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     logger.OverwriteExistingOutputFile.Should().BeTrue();
                     logger.PrettyPrint.Should().BeFalse();
                     logger.Verbose.Should().BeFalse();
+                    logger.Optimize.Should().BeFalse();
                     break;
                 }
                 case LoggingOptions.PrettyPrint:
@@ -760,6 +762,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     logger.OverwriteExistingOutputFile.Should().BeFalse();
                     logger.PrettyPrint.Should().BeTrue();
                     logger.Verbose.Should().BeFalse();
+                    logger.Optimize.Should().BeFalse();
                     break;
                 }
                 case LoggingOptions.Verbose:
@@ -767,6 +770,15 @@ namespace Microsoft.CodeAnalysis.Sarif
                     logger.OverwriteExistingOutputFile.Should().BeFalse();
                     logger.PrettyPrint.Should().BeFalse();
                     logger.Verbose.Should().BeTrue();
+                    logger.Optimize.Should().BeFalse();
+                    break;
+                }
+                case LoggingOptions.Optimize:
+                {
+                    logger.OverwriteExistingOutputFile.Should().BeFalse();
+                    logger.PrettyPrint.Should().BeFalse();
+                    logger.Verbose.Should().BeFalse();
+                    logger.Optimize.Should().BeTrue();
                     break;
                 }
                 case LoggingOptions.All:
@@ -774,6 +786,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     logger.OverwriteExistingOutputFile.Should().BeTrue();
                     logger.PrettyPrint.Should().BeTrue();
                     logger.Verbose.Should().BeTrue();
+                    logger.Optimize.Should().BeTrue();
                     break;
                 }
                 default:
