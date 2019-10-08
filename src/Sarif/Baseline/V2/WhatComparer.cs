@@ -65,7 +65,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             {
                 foreach (var property in result.Result.Properties)
                 {
-                    yield return new WhatComponent(result.RuleId, "Property", "PropertyBag/" + property.Key, property.Value.SerializedValue);
+                    yield return new WhatComponent(result.RuleId, "Property", "PropertyBag/" + property.Key, property.Value?.SerializedValue);
                 }
             }
         }
