@@ -14,17 +14,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <returns>SarifLog instance for file</returns>
         public static SarifLog LoadDeferred(string sarifFilePath)
         {
-            JsonSerializer serializer = new JsonSerializer();
-            serializer.ContractResolver = new SarifDeferredContractResolver();
-
-            // NOTE: Deferred reading needs JsonPositionedTextReader to identify where deferred collection items are
-            // (to deserialize them 'just in time' later) and needs a 'streamProvider' function (how to open the file again)
-            // so that deferred collections know how to open the file again to seek to and read elements 'just in time'
-
-            using (JsonPositionedTextReader jtr = new JsonPositionedTextReader(sarifFilePath))
+            using (Stream stream = File.OpenRead(sarifFilePath))
             {
-                // NOTE: Load with JsonSerializer.Deserialize, not JsonConvert.DeserializeObject, to avoid a string of the whole file in memory.
-                return serializer.Deserialize<SarifLog>(jtr);
+                return Load(stream, deferred: true);
             }
         }
 
@@ -36,9 +28,29 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <returns>SarifLog instance for file</returns>
         public static SarifLog Load(string sarifFilePath)
         {
+            using (Stream stream = File.OpenRead(sarifFilePath))
+            {
+                return Load(stream);
+            }
+        }
+
+        /// <summary>
+        ///  Load a SARIF stream into a SarifLog object model instance.
+        ///  [File is fully loaded; more RAM but faster]
+        /// </summary>
+        /// <param name="source">Stream with SARIF to load</param>
+        /// <returns>SarifLog instance for file</returns>
+        public static SarifLog Load(Stream source, bool deferred = false)
+        {
             JsonSerializer serializer = new JsonSerializer();
 
-            using (JsonTextReader jtr = new JsonTextReader(File.OpenText(sarifFilePath)))
+            if (deferred)
+            {
+                serializer.ContractResolver = new SarifDeferredContractResolver();
+            }
+
+            using (StreamReader sr = new StreamReader(source))
+            using (JsonTextReader jtr = new JsonTextReader(sr))
             {
                 // NOTE: Load with JsonSerializer.Deserialize, not JsonConvert.DeserializeObject, to avoid a string of the whole file in memory.
                 return serializer.Deserialize<SarifLog>(jtr);
@@ -51,21 +63,33 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="sarifFilePath">File Path to Sarif file to write to</param>
         public void Save(string sarifFilePath)
         {
-            using (StreamWriter writer = File.CreateText(sarifFilePath))
+            using (FileStream stream = File.Create(sarifFilePath))
             {
-                this.Save(writer);
+                this.Save(stream);
             }
         }
 
         /// <summary>
-        ///  Write a SARIF log to disk as a file.
+        ///  Write a SARIF log to a destination stream.
         /// </summary>
-        /// <param name="destination">StreamWriter to write SARIF to</param>
-        public void Save(StreamWriter destination)
+        /// <param name="streamWriter">Stream to write SARIF to</param>
+        public void Save(Stream stream)
+        {
+            using (StreamWriter streamWriter = new StreamWriter(stream))
+            {
+                this.Save(streamWriter);
+            }
+        }
+
+        /// <summary>
+        ///  Write a SARIF log to a destination StreamWriter.
+        /// </summary>
+        /// <param name="streamWriter">StreamWriter to write SARIF to</param>
+        public void Save(StreamWriter streamWriter)
         {
             JsonSerializer serializer = new JsonSerializer();
 
-            using (JsonTextWriter writer = new JsonTextWriter(destination))
+            using (JsonTextWriter writer = new JsonTextWriter(streamWriter))
             {
                 serializer.Serialize(writer, this);
             }
