@@ -16,6 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             if (analyzeOptions.Verbose) { loggingOptions |= LoggingOptions.Verbose; }
             if (analyzeOptions.PrettyPrint) { loggingOptions |= LoggingOptions.PrettyPrint; }
             if (analyzeOptions.Force) { loggingOptions |= LoggingOptions.OverwriteExistingOutputFile; }
+            if (analyzeOptions.Optimize) { loggingOptions |= LoggingOptions.Optimize; }
 
             return loggingOptions;
         }

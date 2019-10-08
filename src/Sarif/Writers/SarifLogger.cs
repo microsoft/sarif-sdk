@@ -198,23 +198,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         public IDictionary<string, HashData> AnalysisTargetToHashDataMap { get; }
         public IDictionary<ReportingDescriptor, int> RuleToIndexMap { get; }
 
-        public bool ComputeFileHashes { get { return _dataToInsert.HasFlag(OptionallyEmittedData.Hashes); } }
+        public bool ComputeFileHashes => _dataToInsert.HasFlag(OptionallyEmittedData.Hashes);
 
-        public bool PersistBinaryContents { get { return _dataToInsert.HasFlag(OptionallyEmittedData.BinaryFiles); } }
+        public bool PersistBinaryContents => _dataToInsert.HasFlag(OptionallyEmittedData.BinaryFiles);
 
-        public bool PersistTextFileContents { get { return _dataToInsert.HasFlag(OptionallyEmittedData.TextFiles); } }
+        public bool PersistTextFileContents => _dataToInsert.HasFlag(OptionallyEmittedData.TextFiles);
 
-        public bool PersistEnvironment { get { return _dataToInsert.HasFlag(OptionallyEmittedData.EnvironmentVariables); } }
+        public bool PersistEnvironment => _dataToInsert.HasFlag(OptionallyEmittedData.EnvironmentVariables);
 
-        public bool OverwriteExistingOutputFile { get { return _loggingOptions.HasFlag(LoggingOptions.OverwriteExistingOutputFile); } }
+        public bool OverwriteExistingOutputFile => _loggingOptions.HasFlag(LoggingOptions.OverwriteExistingOutputFile);
 
-        public bool PrettyPrint { get { return _loggingOptions.HasFlag(LoggingOptions.PrettyPrint); } }
+        public bool PrettyPrint => _loggingOptions.HasFlag(LoggingOptions.PrettyPrint);
 
-        public bool Verbose { get { return _loggingOptions.HasFlag(LoggingOptions.Verbose); } }
+        public bool Verbose => _loggingOptions.HasFlag(LoggingOptions.Verbose);
 
-        // Whether to omit redundant properties; log become non-human-readable but much smaller.
-        // We haven't decided how to expose this, so I'm putting the property to control the relevant code without an external way to set it yet.
-        public bool Optimized { get; internal set; } = true;
+        public bool Optimize => _loggingOptions.HasFlag(LoggingOptions.Optimize);
 
         public virtual void Dispose()
         {
@@ -411,7 +409,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 encoding);
 
             // Remove redundant Uri and UriBaseId once index has been set
-            if (this.Optimized)
+            if (this.Optimize)
             {
                 fileLocation.Uri = null;
                 fileLocation.UriBaseId = null;

@@ -147,7 +147,8 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
                 OutputFilePath = actualLogFilePath,
                 Quiet = true,
                 UpdateInputsToCurrentSarif = updateInputsToCurrentSarif,
-                PrettyPrint = true
+                PrettyPrint = true,
+                Optimize = true
             };
 
             var mockFileSystem = new Mock<IFileSystem>();

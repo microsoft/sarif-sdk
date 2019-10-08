@@ -19,6 +19,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         // Overwrite previous version of log file, if it exists.
         OverwriteExistingOutputFile = 0x4,
 
-        All = PrettyPrint | Verbose | OverwriteExistingOutputFile
+        // Omit redundant properties, producing a smaller but non-human-readable log.
+        Optimize = 0x8,
+
+        All = PrettyPrint | Verbose | OverwriteExistingOutputFile | Optimize
     }
 }
