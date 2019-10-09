@@ -363,7 +363,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         public static void LogUnhandledRuleExceptionAssessingTargetApplicability(
-            HashSet<string> disabledSkimmers,
+            ISet<string> disabledSkimmers,
             IAnalysisContext context,
             Exception exception)
         {
@@ -417,7 +417,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         public static RuntimeConditions LogUnhandledRuleExceptionAnalyzingTarget(
-            HashSet<string> disabledSkimmers,
+            ISet<string> disabledSkimmers,
             IAnalysisContext context,
             Exception exception)
         {

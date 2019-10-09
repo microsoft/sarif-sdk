@@ -48,7 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         protected override void AnalyzeTarget(
             IEnumerable<Skimmer<SarifValidationContext>> skimmers,
             SarifValidationContext context,
-            HashSet<string> disabledSkimmers)
+            ISet<string> disabledSkimmers)
         {
             // The base class knows how to invoke the skimmers that implement smart validation,
             // but it doesn't know how to invoke schema validation, which has its own set of rules,
