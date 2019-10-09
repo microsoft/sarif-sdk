@@ -56,6 +56,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
+        private string _id;
         public override string Id
         {
             get
@@ -64,7 +65,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     throw new InvalidOperationException(nameof(TestRuleBehaviors.RaiseExceptionAccessingId));
                 }
-                return TestRuleId;
+                return _id ?? TestRuleId;
+            }
+            set
+            {
+                _id = value;
             }
         }
 
