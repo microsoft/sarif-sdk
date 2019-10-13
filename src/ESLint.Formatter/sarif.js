@@ -183,10 +183,8 @@ module.exports = function (results, data) {
 
     if (Object.keys(sarifRules).length > 0) {
 
-        let ruleIndex = 0;
         Object.keys(sarifRules).forEach(function (ruleId) {
             let rule = sarifRules[ruleId];
-            rule.ruleIndex = ruleIndex++;
             sarifLog.runs[0].tool.driver.rules.push(rule);
         });
     }
