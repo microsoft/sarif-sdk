@@ -9,6 +9,7 @@ const lodash = require("lodash");
 const fs = require("fs");
 const utf8 = require("utf8");
 const jschardet = require("jschardet");
+const url = require('url')
 
 //------------------------------------------------------------------------------
 // Helper Functions
@@ -71,7 +72,7 @@ module.exports = function (results, data) {
             // Create a new entry in the files dictionary.
             sarifFiles[result.filePath] = {
                 location: {
-                    uri: result.filePath
+                    uri: url.pathToFileURL(result.filePath)
                 }
             };
 
@@ -111,7 +112,7 @@ module.exports = function (results, data) {
                             {
                                 physicalLocation: {
                                     artifactLocation: {
-                                        uri: result.filePath,
+                                        uri: url.pathToFileURL(result.filePath),
                                         index: sarifArtifactIndices[result.filePath]
                                     }
                                 }
