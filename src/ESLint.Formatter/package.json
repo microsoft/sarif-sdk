@@ -27,7 +27,7 @@
   "bugs": {
     "url": "https://github.com/Microsoft/sarif-sdk/issues"
   },
-  "homepage": "https://github.com/Microsoft/sarif-sdk/src/ESLint.Formatter/readme.MD",
+  "homepage": "https://github.com/Microsoft/sarif-sdk/src/ESLint.Formatter#readme",
   "dependencies": {
     "chai": "^4.2.0",
     "jschardet": "latest",
