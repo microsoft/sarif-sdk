@@ -50,7 +50,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
 
                 foreach (string fieldKvp in fieldKvps)
                 {
-                    string[] kv = fieldKvp.Split(':');
+                    string[] kv = fieldKvp.Split(new char[] { ':' }, 2);
 
                     if (kv.Length == 2)
                     {
