@@ -1,6 +1,8 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
 ## **v2.1.20** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.20) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.20) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.20) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.20)
+* Sort driver skimmers by rule id + name during analysis, in order to improve deterministic ordering of log file data.
+* API BREAKING: Convert various public SARIF Driver framework API to prefer abtract ISet<string> type over HashSet<string>.
 * API BREAKING: Remove helper method `SarifUtilities.DeserializeObject` introduced in 2.1.15 to fix [#1577](https://github.com/microsoft/sarif-sdk/issues/1577).
 Now that an underlying bug in `PropertyBagConverter` has been fixed, there is no need to work around it with this helper method. `JsonConvert.DeserializeObject` works fine.
 * FEATURE: Expanding Sarif SDK query mode to support Result.Uri, string StartsWith/EndsWith/Contains.

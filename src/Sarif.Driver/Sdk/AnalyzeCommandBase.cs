@@ -108,7 +108,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             ValidateOptions(_rootContext, analyzeOptions);
 
             // 3. Produce a comprehensive set of analysis targets 
-            HashSet<string> targets = CreateTargetsSet(analyzeOptions);
+            ISet<string> targets = CreateTargetsSet(analyzeOptions);
 
             // 4. Proactively validate that we can locate and 
             //    access all analysis targets. Helper will return
@@ -120,7 +120,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             InitializeOutputFile(analyzeOptions, _rootContext, targets);
 
             // 6. Instantiate skimmers.
-            HashSet<Skimmer<TContext>> skimmers = CreateSkimmers(_rootContext);
+            ISet<Skimmer<TContext>> skimmers = CreateSkimmers(_rootContext);
 
             // 7. Initialize configuration. This step must be done after initializing
             //    the skimmers, as rules define their specific context objects and
@@ -263,9 +263,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return logger;
         }
 
-        private HashSet<string> CreateTargetsSet(TOptions analyzeOptions)
+        private ISet<string> CreateTargetsSet(TOptions analyzeOptions)
         {
-            HashSet<string> targets = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            SortedSet<string> targets = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
             foreach (string specifier in analyzeOptions.TargetFileSpecifiers)
             {
                 string normalizedSpecifier = specifier;
@@ -284,7 +284,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
            return targets;
         }
 
-        private HashSet<string> ValidateTargetsExist(TContext context, HashSet<string> targets)
+        private ISet<string> ValidateTargetsExist(TContext context, ISet<string> targets)
         {
             if (targets.Count == 0)
             {
@@ -383,7 +383,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        private void InitializeOutputFile(TOptions analyzeOptions, TContext context, HashSet<string> targets)
+        private void InitializeOutputFile(TOptions analyzeOptions, TContext context, ISet<string> targets)
         {
             string filePath = analyzeOptions.OutputFilePath;
             AggregatingLogger aggregatingLogger = (AggregatingLogger)context.Logger;
@@ -479,10 +479,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        protected virtual HashSet<Skimmer<TContext>> CreateSkimmers(TContext context)
+        protected virtual ISet<Skimmer<TContext>> CreateSkimmers(TContext context)
         {
             IEnumerable<Skimmer<TContext>> skimmers;
-            HashSet<Skimmer<TContext>> result = new HashSet<Skimmer<TContext>>();
+            SortedSet<Skimmer<TContext>> result = new SortedSet<Skimmer<TContext>>(SkimmerIdComparer<TContext>.Instance);
 
             try
             {
@@ -546,7 +546,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             TContext rootContext,
             IEnumerable<string> targets)
         {
-            HashSet<string> disabledSkimmers = new HashSet<string>();
+            SortedSet<string> disabledSkimmers = new SortedSet<string>();
 
             foreach (Skimmer<TContext> skimmer in skimmers)
             {
@@ -590,7 +590,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             IEnumerable<Skimmer<TContext>> skimmers,
             TContext rootContext,
             string target,
-            HashSet<string> disabledSkimmers)
+            ISet<string> disabledSkimmers)
         {
             var context = CreateContext(options, rootContext.Logger, rootContext.RuntimeErrors, target);
             context.Policy = rootContext.Policy;
@@ -706,7 +706,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return Path.GetFileName(uri.OriginalString);
         }
 
-        protected virtual void AnalyzeTarget(IEnumerable<Skimmer<TContext>> skimmers, TContext context, HashSet<string> disabledSkimmers)
+        protected virtual void AnalyzeTarget(IEnumerable<Skimmer<TContext>> skimmers, TContext context, ISet<string> disabledSkimmers)
         {
             foreach (Skimmer<TContext> skimmer in skimmers)
             {
@@ -728,7 +728,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         protected virtual IEnumerable<Skimmer<TContext>> DetermineApplicabilityForTarget(
             IEnumerable<Skimmer<TContext>> skimmers,
             TContext context,
-            HashSet<string> disabledSkimmers)
+            ISet<string> disabledSkimmers)
         {
             var candidateSkimmers = new List<Skimmer<TContext>>();
 
@@ -783,9 +783,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             };
         }
 
-        protected virtual HashSet<Skimmer<TContext>> InitializeSkimmers(HashSet<Skimmer<TContext>> skimmers, TContext context)
+        protected virtual ISet<Skimmer<TContext>> InitializeSkimmers(ISet<Skimmer<TContext>> skimmers, TContext context)
         {
-            HashSet<Skimmer<TContext>> disabledSkimmers = new HashSet<Skimmer<TContext>>();
+            SortedSet<Skimmer<TContext>> disabledSkimmers = new SortedSet<Skimmer<TContext>>(SkimmerIdComparer<TContext>.Instance);
 
             // ONE-TIME initialization of skimmers. Do not call 
             // Initialize more than once per skimmer instantiation

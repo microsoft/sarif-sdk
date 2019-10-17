@@ -56,6 +56,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
+        private string _id;
         public override string Id
         {
             get
@@ -64,8 +65,19 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     throw new InvalidOperationException(nameof(TestRuleBehaviors.RaiseExceptionAccessingId));
                 }
-                return TestRuleId;
+                return _id ?? TestRuleId;
             }
+            set
+            {
+                _id = value;
+            }
+        }
+
+        private string _name;
+        public override string Name
+        {
+            get { return _name ?? base.Name; }
+            set { _name = value; }
         }
 
         public override void Initialize(TestAnalysisContext context)
