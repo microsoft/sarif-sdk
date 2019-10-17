@@ -91,7 +91,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
             foreach (SarifLog sarifLog in sarifLogs)
             {
-                if (sarifLog == null)
+                if (sarifLog?.Runs == null)
                 {
                     continue;
                 }

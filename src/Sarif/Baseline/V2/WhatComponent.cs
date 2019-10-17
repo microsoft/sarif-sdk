@@ -14,10 +14,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
 
         public WhatComponent(string category, string propertySet, string propertyName, string propertyValue)
         {
-            this.Category = category;
-            this.PropertySet = propertySet;
-            this.PropertyName = propertyName;
-            this.PropertyValue = propertyValue;
+            this.Category = category ?? "";
+            this.PropertySet = propertySet ?? "";
+            this.PropertyName = propertyName ?? "";
+            this.PropertyValue = propertyValue ?? "";
         }
 
         public override string ToString()
