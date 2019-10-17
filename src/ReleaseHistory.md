@@ -6,11 +6,14 @@ Now that an underlying bug in `PropertyBagConverter` has been fixed, there is no
 * FEATURE: Expanding Sarif SDK query mode to support Result.Uri, string StartsWith/EndsWith/Contains.
 * FEATURE: Adding Result.Run and a populating method, so that methods which need the Run context for a given Result have an integrated way to retrieve it.
 * FEATURE: Enhanced property bag serialization unit testing. [#1673](https://github.com/microsoft/sarif-sdk/issues/1673)
+* FEATURE: Added Stream-based SarifLog.Load and Save overloads
 * BUGFIX: Fix packaging warning NU5048 during build. [#1687](https://github.com/microsoft/sarif-sdk/issues/1687)
 * BUGFIX: SarifLogger.Optimized could not be set from the command line. [#1695](https://github.com/microsoft/sarif-sdk/issues/1695)
 * BUGFIX: Result Matching now omits previously Absent results.
 * BUGFIX: Result Matching properly compares results from the same RuleID when multiple Rules match the same source line.
 * BUGFIX: Result Matching works when a result moves and has the line number in the message.
+* BUGFIX: Result Matching uses Result.Guid as default CorrelationGuid in matched Results.
+* BUGFIX: Null hardening in Result Matching
 
 ## **v2.1.17** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.17) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.17) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.17) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.17)
 * API NON-BREAKING: emit all core object model members as 'virtual'.
