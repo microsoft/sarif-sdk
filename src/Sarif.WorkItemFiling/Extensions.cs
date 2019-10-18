@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
 {
     public static class Extensions
     {
-        public static WorkItemFilingMetadata CreateWorkItemFilingMetadata(this SarifLog sarifLog, string workItemProjectName, string templateFilePath)
+        public static WorkItemFilingMetadata CreateWorkItemFilingMetadata(this SarifLog sarifLog, string workItemProjectName, string templateFilePath, GroupingStrategy groupingStrategy)
         {
             WorkItemFilingMetadata metadata = new WorkItemFilingMetadata()
             {
@@ -62,11 +62,17 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
             metadata.CustomFields = customFields;
 
             Result result = sarifLog.Runs[0].Results[0];
-            string ruleName = sarifLog.Runs[0].Results[0].RuleId.Split('/')[0];
+            string ruleName = string.Empty;
 
-            if (result.RuleIndex > -1)
+            if (groupingStrategy == GroupingStrategy.PerRunPerRule
+                || groupingStrategy == GroupingStrategy.PerRunPerTargetPerRule)
             {
-                ruleName = sarifLog.Runs[0].Tool.Driver.Rules[result.RuleIndex].Name + ":" + ruleName;
+                ruleName = sarifLog.Runs[0].Results[0].RuleId.Split('/')[0];
+
+                if (result.RuleIndex > -1)
+                {
+                    ruleName = sarifLog.Runs[0].Tool.Driver.Rules[result.RuleIndex].Name + ":" + ruleName;
+                }
             }
 
             string titleEntity = GetArtifactTypeDisplayName(artifactType);
