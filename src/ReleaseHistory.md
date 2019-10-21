@@ -10,6 +10,7 @@
 * BUGFIX: Result Matching works when a result moves and has the line number in the message.
 * BUGFIX: Result Matching uses Result.Guid as default CorrelationGuid in matched Results.
 * BUGFIX: Null hardening in Result Matching
+* BUGFIX: Console logger now outputs file location, if when writing notifications.
 
 ## **v2.1.19** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.19) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.19) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.19) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.19)
 * Sort driver skimmers by rule id + name during analysis, in order to improve deterministic ordering of log file data.
