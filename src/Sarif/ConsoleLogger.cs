@@ -107,7 +107,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             string message = result.GetMessageText(rule);
 
             // TODO we need better retrieval for locations than these defaults.
-            // Note that we can potentially emit many messages from a single result
+            // Note that we can potentially emit many messages from a single result.
             PhysicalLocation physicalLocation = result.Locations?.First().PhysicalLocation;
 
             WriteToConsole(
@@ -310,7 +310,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             // TODO we need better retrieval for locations than these defaults.
-            // Note that we can potentially emit many messages from a single result
+            // Note that we can potentially emit many messages from a single result.
             PhysicalLocation physicalLocation = notification.Locations?.First().PhysicalLocation;
             Uri uri = physicalLocation?.ArtifactLocation?.Uri;
 
