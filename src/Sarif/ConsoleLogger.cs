@@ -106,7 +106,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             string message = result.GetMessageText(rule);
 
-            // TODO we need better retrieval for locations than these defaults
+            // TODO we need better retrieval for locations than these defaults.
             // Note that we can potentially emit many messages from a single result
             PhysicalLocation physicalLocation = result.Locations?.First().PhysicalLocation;
 
@@ -178,18 +178,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             ValidateKindAndLevel(kind, level);
 
-            if (uri != null)
-            {
-                // If a path refers to a URI of form file://blah, we will convert to the local path           
-                if (uri.IsAbsoluteUri && uri.Scheme == Uri.UriSchemeFile)
-                {
-                    path = uri.LocalPath;
-                }
-                else
-                {
-                    path = uri.ToString();
-                }
-            }
+            path = ConstructPathFromUri(uri);
 
             string issueType = null;
 
@@ -320,7 +309,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new InvalidOperationException("Unknown notification level: " + notification.Level);
             }
 
-            var sb = new StringBuilder(_toolName + " : ");
+            // TODO we need better retrieval for locations than these defaults.
+            // Note that we can potentially emit many messages from a single result
+            PhysicalLocation physicalLocation = notification.Locations?.First().PhysicalLocation;
+            Uri uri = physicalLocation?.ArtifactLocation?.Uri;
+
+            var sb = new StringBuilder((ConstructPathFromUri(uri) ?? _toolName) + " : ");
 
             sb.Append(issueType + " ");
 
@@ -337,6 +331,26 @@ namespace Microsoft.CodeAnalysis.Sarif
             sb.Append(notification.Message.Text);
 
             return sb.ToString();
+        }
+
+        private static string ConstructPathFromUri(Uri uri)
+        {
+            string path = null;
+
+            if (uri != null)
+            {
+                // If a path refers to a URI of form file://blah, we will convert to the local path           
+                if (uri.IsAbsoluteUri && uri.Scheme == Uri.UriSchemeFile)
+                {
+                    path = uri.LocalPath;
+                }
+                else
+                {
+                    path = uri.ToString();
+                }
+            }
+
+            return path;
         }
     }
 }
