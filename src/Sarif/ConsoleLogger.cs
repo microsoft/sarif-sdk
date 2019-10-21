@@ -268,14 +268,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                 case FailureLevel.Note:
                     if (Verbose)
                     {
-                        WriteLineToConsole(FormatNotificationMessage(notification));
+                        WriteLineToConsole(FormatNotificationMessage(notification, _toolName));
                     }
                     break;
 
                 // These notification types are always emitted.
                 case FailureLevel.Error:
                 case FailureLevel.Warning:
-                    WriteLineToConsole(FormatNotificationMessage(notification));
+                    WriteLineToConsole(FormatNotificationMessage(notification, _toolName));
                     break;
 
                 default:
@@ -283,7 +283,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        private string FormatNotificationMessage(Notification notification)
+        static internal string FormatNotificationMessage(Notification notification, string toolName)
         {
             string issueType = null;
 
@@ -314,7 +314,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             PhysicalLocation physicalLocation = notification.Locations?.First().PhysicalLocation;
             Uri uri = physicalLocation?.ArtifactLocation?.Uri;
 
-            var sb = new StringBuilder((ConstructPathFromUri(uri) ?? _toolName) + " : ");
+            var sb = new StringBuilder((ConstructPathFromUri(uri) ?? toolName) + " : ");
 
             sb.Append(issueType + " ");
 
