@@ -60,16 +60,16 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         protected virtual string TestLogResourceNameRoot => "Microsoft.CodeAnalysis.Test.UnitTests.Sarif.TestData." + TypeUnderTest;
 
-        protected abstract string ConstructTestOutputFromInputResource(string inputResourceName);
+        protected abstract string ConstructTestOutputFromInputResource(string inputResourceName, object parameter);
 
-        protected virtual void RunTest(string inputResourceName, string expectedOutputResourceName = null)
+        protected virtual void RunTest(string inputResourceName, string expectedOutputResourceName = null, object parameter = null)
         {
             expectedOutputResourceName = expectedOutputResourceName ?? inputResourceName;
             // When retrieving constructed test content, we pass the resourceName as the test
             // specified it. When constructing actual and expected file names from this data, 
             // however, we will ensure that the name has the ".sarif" extension. We do this
             // for test classes such as the Fortify converter that operate again non-SARIF inputs.
-            string actualSarifText = ConstructTestOutputFromInputResource("Inputs." + inputResourceName);
+            string actualSarifText = ConstructTestOutputFromInputResource("Inputs." + inputResourceName, parameter);
 
             expectedOutputResourceName = Path.GetFileNameWithoutExtension(expectedOutputResourceName) + ".sarif";
 

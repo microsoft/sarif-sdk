@@ -535,6 +535,8 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="v2\ConverterTestData\StaticDriverVerifier\sdv-harness.c" />
+    <EmbeddedResource Include="TestData\Partitioning\FilterByPredicate\ExpectedOutputs\FilterByPredicate.sarif" />
+    <EmbeddedResource Include="TestData\Partitioning\FilterByPredicate\Inputs\FilterByPredicate.sarif" />
     <None Include="v2\ConverterTestData\PREfast\Expected-021.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Generator>TextTemplatingFileGenerator</Generator>
