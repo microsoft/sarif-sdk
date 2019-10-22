@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Web;
 using Newtonsoft.Json;
@@ -214,7 +215,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
                 ? projectUriString.Substring(lastSlashIndex + 1)
                 : throw new ArgumentException($"Cannot parse project name from URI {projectUriString}");
 
-            return projectName;
+            return WebUtility.UrlDecode(projectName);
         }
 
         public static string GetAccountUriString(this Uri projectUri)
