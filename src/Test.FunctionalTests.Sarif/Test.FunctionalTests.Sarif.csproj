@@ -75,6 +75,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="v1\ConverterTestData\PREfast\*.*" />
+    <None Remove="TestData\Partitioning\FilterByPredicate\ExpectedOutputs\AlwaysFalsePredicate.sarif" />
     <Content Include="v1\ConverterTestData\StaticDriverVerifier\cancelspinlock_bug1.tt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -535,7 +536,8 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="v2\ConverterTestData\StaticDriverVerifier\sdv-harness.c" />
-    <EmbeddedResource Include="TestData\Partitioning\FilterByPredicate\ExpectedOutputs\FilterByPredicate.sarif" />
+    <EmbeddedResource Include="TestData\Partitioning\FilterByPredicate\ExpectedOutputs\AlwaysFalsePredicate.sarif" />
+    <EmbeddedResource Include="TestData\Partitioning\FilterByPredicate\ExpectedOutputs\AlwaysTruePredicate.sarif" />
     <EmbeddedResource Include="TestData\Partitioning\FilterByPredicate\Inputs\FilterByPredicate.sarif" />
     <None Include="v2\ConverterTestData\PREfast\Expected-021.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

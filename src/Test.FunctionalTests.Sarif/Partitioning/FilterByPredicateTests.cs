@@ -21,7 +21,15 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Partitioning
         {
             SarifPartitioner.FilteringPredicate predicate = (Result result) => true;
 
-            RunTest("FilterByPredicate.sarif", "FilterByPredicate.sarif", predicate);
+            RunTest("FilterByPredicate.sarif", "AlwaysTruePredicate.sarif", predicate);
+        }
+
+        [Fact]
+        public void Filter_WithAlwaysFalsePredicate_ReturnsLogWithNoResults()
+        {
+            SarifPartitioner.FilteringPredicate predicate = (Result result) => false;
+
+            RunTest("FilterByPredicate.sarif", "AlwaysFalsePredicate.sarif", predicate);
         }
 
         protected override string ConstructTestOutputFromInputResource(string inputResourceName, object parameter)
