@@ -10,12 +10,6 @@
       },
       "results": [
         {
-          "ruleId": "TST0001",
-          "message": {
-            "text": "Message 1.1."
-          }
-        },
-        {
           "ruleId": "TST0002",
           "message": {
             "text": "Message 1.2."
@@ -30,14 +24,7 @@
           "name": "Sarif Functional Testing"
         }
       },
-      "results": [
-        {
-          "ruleId": "TST0001",
-          "message": {
-            "text": "Message 2.1."
-          }
-        }
-      ],
+      "results": [],
       "columnKind": "utf16CodeUnits"
     }
   ]

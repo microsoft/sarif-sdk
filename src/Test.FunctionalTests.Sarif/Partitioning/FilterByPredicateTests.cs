@@ -5,6 +5,8 @@ using Xunit;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Xunit.Abstractions;
 using Newtonsoft.Json;
+using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
+using System;
 
 namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Partitioning
 {
@@ -30,6 +32,15 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Partitioning
             SarifPartitioner.FilteringPredicate predicate = (Result result) => false;
 
             RunTest("FilterByPredicate.sarif", "AlwaysFalsePredicate.sarif", predicate);
+        }
+
+        [Fact]
+        public void Filter_WithRuleIdPredicate_ReturnsLogWithResultsForOnlyThatRuleId()
+        {
+            SarifPartitioner.FilteringPredicate predicate =
+                (Result result) => result.RuleId.Equals(TestConstants.RuleIds.Rule2, StringComparison.InvariantCulture);
+
+            RunTest("FilterByPredicate.sarif", "RuleIdPredicate.sarif", predicate);
         }
 
         protected override string ConstructTestOutputFromInputResource(string inputResourceName, object parameter)

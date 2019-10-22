@@ -10,13 +10,13 @@
       },
       "results": [
         {
-          "ruleId": "TST0101",
+          "ruleId": "TST0001",
           "message": {
             "text": "Message 1.1."
           }
         },
         {
-          "ruleId": "TST0102",
+          "ruleId": "TST0002",
           "message": {
             "text": "Message 1.2."
           }
@@ -32,7 +32,7 @@
       },
       "results": [
         {
-          "ruleId": "TST0201",
+          "ruleId": "TST0001",
           "message": {
             "text": "Message 2.1."
           }
