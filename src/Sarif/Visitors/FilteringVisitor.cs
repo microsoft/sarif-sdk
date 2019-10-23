@@ -14,7 +14,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
     /// </summary>
     public class FilteringVisitor : SarifRewritingVisitor
     {
-        private readonly SarifPartitioner.FilteringPredicate predicate;
+        public delegate bool FilteringPredicate(Result result);
+
+        private readonly FilteringPredicate predicate;
 
         private Run currentRun;
         private IList<Result> filteredResults;
@@ -27,7 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         /// <param name="predicate">
         /// A predicate that selects the results in the filtered log file.
         /// </param>
-        public FilteringVisitor(SarifPartitioner.FilteringPredicate predicate)
+        public FilteringVisitor(FilteringPredicate predicate)
         {
             this.predicate = predicate;
         }

@@ -10,8 +10,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
     /// </summary>
     public static class SarifPartitioner
     {
-        public delegate bool FilteringPredicate(Result result);
-
         /// <summary>
         /// Filter the specified SARIF log to create a new log containing only those results for
         /// which the specified predicate returns true, and only those elements of run-level
@@ -27,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         /// A new SARIF log containing only the filtered results, and only the relevant elements
         /// of the run-level collections.
         /// </returns>
-        public static SarifLog Filter(SarifLog log, FilteringPredicate predicate)
+        public static SarifLog Filter(SarifLog log, FilteringVisitor.FilteringPredicate predicate)
         {
             var newLog = log.DeepClone();
 

@@ -7,6 +7,7 @@ using Xunit.Abstractions;
 using Newtonsoft.Json;
 using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
 using System;
+using Microsoft.CodeAnalysis.Sarif.Visitors;
 
 namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Partitioning
 {
@@ -21,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Partitioning
         [Fact]
         public void Filter_WithAlwaysTruePredicate_ReturnsIdenticalLog()
         {
-            SarifPartitioner.FilteringPredicate predicate = (Result result) => true;
+            FilteringVisitor.FilteringPredicate predicate = (Result result) => true;
 
             RunTest("FilterByPredicate.sarif", "AlwaysTruePredicate.sarif", predicate);
         }
@@ -29,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Partitioning
         [Fact]
         public void Filter_WithAlwaysFalsePredicate_ReturnsLogWithNoResults()
         {
-            SarifPartitioner.FilteringPredicate predicate = (Result result) => false;
+            FilteringVisitor.FilteringPredicate predicate = (Result result) => false;
 
             RunTest("FilterByPredicate.sarif", "AlwaysFalsePredicate.sarif", predicate);
         }
@@ -37,7 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Partitioning
         [Fact]
         public void Filter_WithRuleIdPredicate_ReturnsLogWithResultsForOnlyThatRuleId()
         {
-            SarifPartitioner.FilteringPredicate predicate =
+            FilteringVisitor.FilteringPredicate predicate =
                 (Result result) => result.RuleId.Equals(TestConstants.RuleIds.Rule2, StringComparison.InvariantCulture);
 
             RunTest("FilterByPredicate.sarif", "RuleIdPredicate.sarif", predicate);
@@ -46,7 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Partitioning
         [Fact]
         public void Filter_FiltersArtifacts()
         {
-            SarifPartitioner.FilteringPredicate predicate =
+            FilteringVisitor.FilteringPredicate predicate =
                 (Result result) => result.RuleId.Equals(TestConstants.RuleIds.Rule1, StringComparison.InvariantCulture);
 
             RunTest("FilterByPredicateWithArtifacts.sarif", "FilterByPredicateWithArtifacts.sarif", predicate);
@@ -54,7 +55,7 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Partitioning
 
         protected override string ConstructTestOutputFromInputResource(string inputResourceName, object parameter)
         {
-            var predicate = (SarifPartitioner.FilteringPredicate)parameter;
+            var predicate = (FilteringVisitor.FilteringPredicate)parameter;
 
             string inputText = GetResourceText(inputResourceName);
             SarifLog inputLog = JsonConvert.DeserializeObject<SarifLog>(inputText);
