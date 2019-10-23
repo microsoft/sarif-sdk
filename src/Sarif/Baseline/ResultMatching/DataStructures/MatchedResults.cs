@@ -75,6 +75,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             out Dictionary<string, object> originalResultMatchingProperties)
         {
             Result result = PreviousResult.Result.DeepClone();
+            result.Guid = result.Guid ?? Guid.NewGuid().ToString(SarifConstants.GuidFormat);
+            result.CorrelationGuid = result.CorrelationGuid ?? result.Guid;
             result.BaselineState = BaselineState.Absent;
 
             if (!PreviousResult.Result.TryGetProperty(SarifLogResultMatcher.ResultMatchingResultPropertyName, out originalResultMatchingProperties))
@@ -96,9 +98,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             Dictionary<string, object> resultMatchingProperties,
             out Dictionary<string, object> originalResultMatchingProperties)
         {
-            // Result is New.
+            // Result is New. Use the Result's own Guid as the CorrelationGuid; assign one if not assigned by the producer
             Result result = CurrentResult.Result.DeepClone();
-            result.CorrelationGuid = result.Guid ?? Guid.NewGuid().ToString(SarifConstants.GuidFormat);
+            result.Guid = result.Guid ?? Guid.NewGuid().ToString(SarifConstants.GuidFormat);
+            result.CorrelationGuid = result.CorrelationGuid ?? result.Guid;
             result.BaselineState = BaselineState.New;
 
             if (!CurrentResult.Result.TryGetProperty(SarifLogResultMatcher.ResultMatchingResultPropertyName, out originalResultMatchingProperties))
@@ -128,7 +131,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         {
             // Result exists.
             Result result = CurrentResult.Result.DeepClone();
-            result.CorrelationGuid = PreviousResult.Result.CorrelationGuid ?? PreviousResult.Result.Guid;
+            result.Guid = result.Guid ?? Guid.NewGuid().ToString(SarifConstants.GuidFormat);
+            result.CorrelationGuid = PreviousResult.Result.CorrelationGuid ?? PreviousResult.Result.Guid ?? result.Guid;
             result.BaselineState = BaselineState.Unchanged;
 
             if (!PreviousResult.Result.TryGetProperty(SarifLogResultMatcher.ResultMatchingResultPropertyName, out originalResultMatchingProperties))
