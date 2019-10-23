@@ -105,6 +105,51 @@
               }
             }
           ]
+        },
+        {
+          "ruleId": "TST9999",
+          "message": {
+            "text": "Uses same artifact as result 0, does not match predicate, but artifact still appears."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "TST0001",
+          "message": {
+            "text": "Uses same artifact as result 0, matches predicate, but artifact appears only once."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "TST0001",
+          "message": {
+            "text": "Uses different artifact from result 0, matches predicate, but artifact 'file1' will not be included because it's not referenced by index."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file1"
+                }
+              }
+            }
+          ]
         }
       ],
       "columnKind": "utf16CodeUnits"

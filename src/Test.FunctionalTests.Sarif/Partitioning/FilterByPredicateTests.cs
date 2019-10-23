@@ -1,13 +1,13 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using Xunit;
-using Microsoft.CodeAnalysis.Sarif.Writers;
-using Xunit.Abstractions;
-using Newtonsoft.Json;
-using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
 using System;
+using Microsoft.CodeAnalysis.Sarif.Writers;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
+using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
+using Newtonsoft.Json;
+using Xunit;
+using Xunit.Abstractions;
 
 namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Partitioning
 {
@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Partitioning
         [Fact]
         public void Filter_WithAlwaysTruePredicate_ReturnsIdenticalLog()
         {
-            FilteringVisitor.FilteringPredicate predicate = (Result result) => true;
+            FilteringVisitor.IncludeResultPredicate predicate = (Result result) => true;
 
             RunTest("FilterByPredicate.sarif", "AlwaysTruePredicate.sarif", predicate);
         }
@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Partitioning
         [Fact]
         public void Filter_WithAlwaysFalsePredicate_ReturnsLogWithNoResults()
         {
-            FilteringVisitor.FilteringPredicate predicate = (Result result) => false;
+            FilteringVisitor.IncludeResultPredicate predicate = (Result result) => false;
 
             RunTest("FilterByPredicate.sarif", "AlwaysFalsePredicate.sarif", predicate);
         }
@@ -38,7 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Partitioning
         [Fact]
         public void Filter_WithRuleIdPredicate_ReturnsLogWithResultsForOnlyThatRuleId()
         {
-            FilteringVisitor.FilteringPredicate predicate =
+            FilteringVisitor.IncludeResultPredicate predicate =
                 (Result result) => result.RuleId.Equals(TestConstants.RuleIds.Rule2, StringComparison.InvariantCulture);
 
             RunTest("FilterByPredicate.sarif", "RuleIdPredicate.sarif", predicate);
@@ -47,7 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Partitioning
         [Fact]
         public void Filter_FiltersArtifacts()
         {
-            FilteringVisitor.FilteringPredicate predicate =
+            FilteringVisitor.IncludeResultPredicate predicate =
                 (Result result) => result.RuleId.Equals(TestConstants.RuleIds.Rule1, StringComparison.InvariantCulture);
 
             RunTest("FilterByPredicateWithArtifacts.sarif", "FilterByPredicateWithArtifacts.sarif", predicate);
@@ -55,7 +55,7 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Partitioning
 
         protected override string ConstructTestOutputFromInputResource(string inputResourceName, object parameter)
         {
-            var predicate = (FilteringVisitor.FilteringPredicate)parameter;
+            var predicate = (FilteringVisitor.IncludeResultPredicate)parameter;
 
             string inputText = GetResourceText(inputResourceName);
             SarifLog inputLog = JsonConvert.DeserializeObject<SarifLog>(inputText);

@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         /// A new SARIF log containing only the filtered results, and only the relevant elements
         /// of the run-level collections.
         /// </returns>
-        public static SarifLog Filter(SarifLog log, FilteringVisitor.FilteringPredicate predicate)
+        public static SarifLog Filter(SarifLog log, FilteringVisitor.IncludeResultPredicate predicate)
         {
             var newLog = log.DeepClone();
 

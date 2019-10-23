@@ -14,9 +14,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
     /// </summary>
     public class FilteringVisitor : SarifRewritingVisitor
     {
-        public delegate bool FilteringPredicate(Result result);
+        public delegate bool IncludeResultPredicate(Result result);
 
-        private readonly FilteringPredicate predicate;
+        private readonly IncludeResultPredicate predicate;
 
         private Run currentRun;
         private IList<Result> filteredResults;
@@ -29,7 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         /// <param name="predicate">
         /// A predicate that selects the results in the filtered log file.
         /// </param>
-        public FilteringVisitor(FilteringPredicate predicate)
+        public FilteringVisitor(IncludeResultPredicate predicate)
         {
             this.predicate = predicate;
         }
@@ -66,7 +66,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 if (!remappedArtifactIndexDictionary.ContainsKey(node.Index))
                 {
-                    remappedArtifactIndexDictionary.Add(node.Index, filteredArtifacts.Count);
+                    int newIndex = filteredArtifacts.Count;
+                    remappedArtifactIndexDictionary.Add(node.Index, newIndex);
                     filteredArtifacts.Add(currentRun.Artifacts[node.Index]);
                 }
 
