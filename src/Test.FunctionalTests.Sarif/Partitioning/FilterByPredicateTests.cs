@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Partitioning
         protected override string IntermediateTestFolder => @"Partitioning";
 
         [Fact]
-        public void Filter_WithAlwaysTruePredicate_ReturnsLogWithArrayContentsFromAllResults()
+        public void Filter_WithAlwaysTruePredicate_ReturnsLogWithAllResultsAndRunLevelArrayContentsFromAllResults()
         {
             FilteringVisitor.IncludeResultPredicate predicate = (Result result) => true;
 
@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Partitioning
         }
 
         [Fact]
-        public void Filter_WithAlwaysFalsePredicate_ReturnsLogWithNoResults()
+        public void Filter_WithAlwaysFalsePredicate_ReturnsLogWithNoResultsAndNoRunLevelArrayContents()
         {
             FilteringVisitor.IncludeResultPredicate predicate = (Result result) => false;
 
@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Partitioning
         }
 
         [Fact]
-        public void Filter_WithRuleIdPredicate_ReturnsLogWithExpectedResultsAndRunLevelArrayContents()
+        public void Filter_WithRuleIdPredicate_ReturnsLogWithExpectedResultsAndRunLevelArrayContentsFromSelectedResults()
         {
             FilteringVisitor.IncludeResultPredicate predicate =
                 (Result result) => result.RuleId.Equals(TestConstants.RuleIds.Rule1, StringComparison.InvariantCulture);
