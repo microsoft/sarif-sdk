@@ -74,10 +74,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             Dictionary<string, object> resultMatchingProperties,
             out Dictionary<string, object> originalResultMatchingProperties)
         {
-            Result result = PreviousResult.Result.DeepClone();
-            result.Guid = result.Guid ?? Guid.NewGuid().ToString(SarifConstants.GuidFormat);
-            result.CorrelationGuid = result.CorrelationGuid ?? result.Guid;
-            result.BaselineState = BaselineState.Absent;
+            Result result = CreateBaselinedResult(BaselineState.Absent);
 
             if (!PreviousResult.Result.TryGetProperty(SarifLogResultMatcher.ResultMatchingResultPropertyName, out originalResultMatchingProperties))
             {
@@ -98,11 +95,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             Dictionary<string, object> resultMatchingProperties,
             out Dictionary<string, object> originalResultMatchingProperties)
         {
-            // Result is New. Use the Result's own Guid as the CorrelationGuid; assign one if not assigned by the producer
-            Result result = CurrentResult.Result.DeepClone();
-            result.Guid = result.Guid ?? Guid.NewGuid().ToString(SarifConstants.GuidFormat);
-            result.CorrelationGuid = result.CorrelationGuid ?? result.Guid;
-            result.BaselineState = BaselineState.New;
+            // Result is New.
+            Result result = CreateBaselinedResult(BaselineState.New);
 
             if (!CurrentResult.Result.TryGetProperty(SarifLogResultMatcher.ResultMatchingResultPropertyName, out originalResultMatchingProperties))
             {
@@ -130,11 +124,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             out Dictionary<string, object> originalResultMatchingProperties)
         {
             // Result exists.
-            Result result = CurrentResult.Result.DeepClone();
-            result.Guid = result.Guid ?? Guid.NewGuid().ToString(SarifConstants.GuidFormat);
-            result.CorrelationGuid = PreviousResult.Result.CorrelationGuid ?? PreviousResult.Result.Guid ?? result.Guid;
-            result.BaselineState = BaselineState.Unchanged;
-
+            Result result = CreateBaselinedResult(BaselineState.Unchanged);
+            
             if (!PreviousResult.Result.TryGetProperty(SarifLogResultMatcher.ResultMatchingResultPropertyName, out originalResultMatchingProperties))
             {
                 originalResultMatchingProperties = new Dictionary<string, object>();
@@ -151,6 +142,33 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             }
 
             Run = CurrentResult.OriginalRun;
+
+            return result;
+        }
+
+        private Result CreateBaselinedResult(BaselineState newBaselineState)
+        {
+            // Clone the most recent copy of the Result
+            Result result = (CurrentResult ?? PreviousResult).Result.DeepClone();
+
+            // Assign a Guid, if not assigned by the Result producer
+            result.Guid = result.Guid ?? Guid.NewGuid().ToString(SarifConstants.GuidFormat);
+
+            // Assign a CorrelationGuid to map copies of this logical Result across baselined logs to each other
+            if (PreviousResult?.Result == null)
+            {
+                // If this Result is new, use the Guid as the Correlation Guid for this 'series'
+                result.CorrelationGuid = result.CorrelationGuid ?? result.Guid;
+            }
+            else
+            { 
+                // If not, persist forward the CorrelationGuid already assigned
+                //  or the Guid if the previous log was never baselined
+                //  or the new Guid if the previous Result never had a Guid assigned at all
+                result.CorrelationGuid = PreviousResult.Result.CorrelationGuid ?? PreviousResult.Result.Guid ?? result.Guid;
+            }
+
+            result.BaselineState = newBaselineState;
 
             return result;
         }

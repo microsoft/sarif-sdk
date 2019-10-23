@@ -237,7 +237,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
             Result newSuppressedResult = matchedRun.Results.Single(r => r.Message.Text == "New suppressed result.");
 
             newSuppressedResult.Suppressions.Count.Should().Be(1);
-            AssertBaselinedRunInvariants(matchedRun);
+            AssertMatchedRunInvariants(matchedRun);
         }
 
         [Fact]
@@ -248,7 +248,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
             Result existingResultNewlySuppressed = matchedRun.Results.Single(r => r.Message.Text == "Existing, originally unsuppressed result.");
 
             existingResultNewlySuppressed.Suppressions.Count.Should().Be(1);
-            AssertBaselinedRunInvariants(matchedRun);
+            AssertMatchedRunInvariants(matchedRun);
         }
 
         [Fact]
@@ -259,7 +259,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
             Result existingResultNewlySuppressed = matchedRun.Results.Single(r => r.Message.Text == "Result suppressed in both runs.");
 
             existingResultNewlySuppressed.Suppressions.Count.Should().Be(1);
-            AssertBaselinedRunInvariants(matchedRun);
+            AssertMatchedRunInvariants(matchedRun);
         }
 
         [Fact]
@@ -270,7 +270,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
             Result existingResultNewlyUnsuppressed = matchedRun.Results.Single(r => r.Message.Text == "Existing, originally suppressed result.");
 
             existingResultNewlyUnsuppressed.Suppressions.Should().BeNull();
-            AssertBaselinedRunInvariants(matchedRun);
+            AssertMatchedRunInvariants(matchedRun);
         }
 
         /// <summary>
@@ -421,7 +421,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
             }
         }
 
-        private void AssertBaselinedRunInvariants(Run baselinedRun)
+        private void AssertMatchedRunInvariants(Run baselinedRun)
         {
             // Ensure all results always have a BaselineState, CorrelationGuid, and Guid assigned after baselining.
             // The CorrelationGuid provides a stable identity to identify a Result matching across Runs.
@@ -429,9 +429,9 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
             // The Guid also needs to be defined to provided an identity to attach other data (like Annotations) to the Result consistently.
             foreach(Result result in baselinedRun.Results ?? Enumerable.Empty<Result>())
             {
-                Assert.NotNull(result.Guid);
-                Assert.NotNull(result.CorrelationGuid);
-                Assert.NotEqual(BaselineState.None, result.BaselineState);
+                result.Guid.Should().NotBeNullOrEmpty();
+                result.CorrelationGuid.Should().NotBeNullOrEmpty();
+                result.BaselineState.Should().NotBe(BaselineState.None);
             }
         }
     }

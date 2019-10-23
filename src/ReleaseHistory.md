@@ -8,7 +8,7 @@
 * BUGFIX: Result Matching now omits previously Absent results.
 * BUGFIX: Result Matching properly compares results from the same RuleID when multiple Rules match the same source line.
 * BUGFIX: Result Matching works when a result moves and has the line number in the message.
-* BUGFIX: Result Matching assigned Guids and uses Result.Guid as default CorrelationGuid in matched Results.
+* BUGFIX: Result Matching always assigns Result.CorrelationGuid and Result.Guid.
 * BUGFIX: Null hardening in Result Matching
 * BUGFIX: Console logger now outputs file location, if available, when writing notifications.
 
