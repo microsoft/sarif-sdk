@@ -237,6 +237,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
             Result newSuppressedResult = matchedRun.Results.Single(r => r.Message.Text == "New suppressed result.");
 
             newSuppressedResult.Suppressions.Count.Should().Be(1);
+            AssertBaselinedRunInvariants(matchedRun);
         }
 
         [Fact]
@@ -247,6 +248,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
             Result existingResultNewlySuppressed = matchedRun.Results.Single(r => r.Message.Text == "Existing, originally unsuppressed result.");
 
             existingResultNewlySuppressed.Suppressions.Count.Should().Be(1);
+            AssertBaselinedRunInvariants(matchedRun);
         }
 
         [Fact]
@@ -257,6 +259,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
             Result existingResultNewlySuppressed = matchedRun.Results.Single(r => r.Message.Text == "Result suppressed in both runs.");
 
             existingResultNewlySuppressed.Suppressions.Count.Should().Be(1);
+            AssertBaselinedRunInvariants(matchedRun);
         }
 
         [Fact]
@@ -267,6 +270,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
             Result existingResultNewlyUnsuppressed = matchedRun.Results.Single(r => r.Message.Text == "Existing, originally suppressed result.");
 
             existingResultNewlyUnsuppressed.Suppressions.Should().BeNull();
+            AssertBaselinedRunInvariants(matchedRun);
         }
 
         /// <summary>
@@ -414,6 +418,20 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
                 matchedRun.Results[i].Properties = originalRun.Results[i].Properties;
 
                 matchedRun.Results[i].ValueEquals(originalRun.Results[i]).Should().BeTrue();
+            }
+        }
+
+        private void AssertBaselinedRunInvariants(Run baselinedRun)
+        {
+            // Ensure all results always have a BaselineState, CorrelationGuid, and Guid assigned after baselining.
+            // The CorrelationGuid provides a stable identity to identify a Result matching across Runs.
+            // The Guid should be the default CorrelationGuid, so that matched Results have an identity mappable to the first occurrence of the Result (even before it was baselined)
+            // The Guid also needs to be defined to provided an identity to attach other data (like Annotations) to the Result consistently.
+            foreach(Result result in baselinedRun.Results ?? Enumerable.Empty<Result>())
+            {
+                Assert.NotNull(result.Guid);
+                Assert.NotNull(result.CorrelationGuid);
+                Assert.NotEqual(BaselineState.None, result.BaselineState);
             }
         }
     }
