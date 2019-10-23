@@ -16,7 +16,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
     {
         private readonly SarifPartitioner.FilteringPredicate predicate;
 
+        private Run currentRun;
         private IList<Result> filteredResults;
+        private IList<Artifact> filteredArtifacts;
+        private IDictionary<int, int> remappedArtifactIndexDictionary;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FilteringVisitor"/> class.
@@ -31,10 +34,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         public override Run VisitRun(Run node)
         {
+            currentRun = node;
+
             filteredResults = new List<Result>();
+            filteredArtifacts = new List<Artifact>();
+            remappedArtifactIndexDictionary = new Dictionary<int, int>();
 
             Run visitedRun = base.VisitRun(node);
+
             visitedRun.Results = filteredResults;
+            visitedRun.Artifacts = filteredArtifacts;
 
             return visitedRun;
         }
@@ -47,6 +56,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
 
             return base.VisitResult(node);
+        }
+
+        public override ArtifactLocation VisitArtifactLocation(ArtifactLocation node)
+        {
+            if (node.Index >= 0)
+            {
+                if (!remappedArtifactIndexDictionary.ContainsKey(node.Index))
+                {
+                    remappedArtifactIndexDictionary.Add(node.Index, filteredArtifacts.Count);
+                    filteredArtifacts.Add(currentRun.Artifacts[node.Index]);
+                }
+
+                node.Index = remappedArtifactIndexDictionary[node.Index];
+            }
+
+            return base.VisitArtifactLocation(node);
         }
     }
 }

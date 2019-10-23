@@ -43,6 +43,15 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Partitioning
             RunTest("FilterByPredicate.sarif", "RuleIdPredicate.sarif", predicate);
         }
 
+        [Fact]
+        public void Filter_FiltersArtifacts()
+        {
+            SarifPartitioner.FilteringPredicate predicate =
+                (Result result) => result.RuleId.Equals(TestConstants.RuleIds.Rule1, StringComparison.InvariantCulture);
+
+            RunTest("FilterByPredicateWithArtifacts.sarif", "FilterByPredicateWithArtifacts.sarif", predicate);
+        }
+
         protected override string ConstructTestOutputFromInputResource(string inputResourceName, object parameter)
         {
             var predicate = (SarifPartitioner.FilteringPredicate)parameter;
