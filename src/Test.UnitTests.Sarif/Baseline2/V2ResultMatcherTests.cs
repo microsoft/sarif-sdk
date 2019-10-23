@@ -403,11 +403,13 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
             {
                 // The Result objects won't be identical because the results in the matched run
                 // will have their baseline state set, and they have a "ResultMatching" property
-                // bag property.
+                // bag property, and Guid and CorrelationGuid set
                 matchedRun.Results[i].BaselineState.Should().Be(BaselineState.Unchanged);
                 matchedRun.Results[i].Properties.Should().ContainKey("ResultMatching");
 
                 // But aside from that they should be the same:
+                matchedRun.Results[i].Guid = originalRun.Results[i].Guid;
+                matchedRun.Results[i].CorrelationGuid = originalRun.Results[i].CorrelationGuid;
                 matchedRun.Results[i].BaselineState = originalRun.Results[i].BaselineState;
                 matchedRun.Results[i].Properties = originalRun.Results[i].Properties;
 
