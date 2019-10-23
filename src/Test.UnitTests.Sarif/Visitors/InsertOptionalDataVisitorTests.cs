@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
         }
 
-        protected override string ConstructTestOutputFromInputResource(string inputResourceName)
+        protected override string ConstructTestOutputFromInputResource(string inputResourceName, object parameter)
         {
             PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(
                 GetResourceText(inputResourceName),

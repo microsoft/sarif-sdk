@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
     {
         public SarifVersionOneToCurrentVisitorTests(ITestOutputHelper outputHelper) : base(outputHelper) { }
 
-        protected override string ConstructTestOutputFromInputResource(string inputResourceName)
+        protected override string ConstructTestOutputFromInputResource(string inputResourceName, object parameter)
         {
             string v1LogText = GetResourceText(inputResourceName);
             SarifLogVersionOne v1Log = JsonConvert.DeserializeObject<SarifLogVersionOne>(v1LogText, SarifTransformerUtilities.JsonSettingsV1Indented);
