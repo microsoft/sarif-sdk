@@ -1,6 +1,7 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
 ## **v2.1.21** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.21) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.21) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.21) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.21)
+* FEATURE: Provide an API `SarifPartitioner.Filter` that selects results according to a predicate, and filters `run.artifacts` to only those artifacts used by the included results.
 
 ## **v2.1.20** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.20) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.20) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.20) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.20)
 * FEATURE: Added Stream-based SarifLog.Load and Save overloads
