@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Partitioning
         protected override string IntermediateTestFolder => @"Partitioning";
 
         [Fact]
-        public void Filter_WithAlwaysTruePredicate_ReturnsIdenticalLog()
+        public void Filter_WithAlwaysTruePredicate_ReturnsLogWithArrayContentsFromAllResults()
         {
             FilteringVisitor.IncludeResultPredicate predicate = (Result result) => true;
 
@@ -36,21 +36,12 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Partitioning
         }
 
         [Fact]
-        public void Filter_WithRuleIdPredicate_ReturnsLogWithResultsForOnlyThatRuleId()
-        {
-            FilteringVisitor.IncludeResultPredicate predicate =
-                (Result result) => result.RuleId.Equals(TestConstants.RuleIds.Rule2, StringComparison.InvariantCulture);
-
-            RunTest("FilterByPredicate.sarif", "RuleIdPredicate.sarif", predicate);
-        }
-
-        [Fact]
-        public void Filter_FiltersArtifacts()
+        public void Filter_WithRuleIdPredicate_ReturnsLogWithExpectedResultsAndRunLevelArrayContents()
         {
             FilteringVisitor.IncludeResultPredicate predicate =
                 (Result result) => result.RuleId.Equals(TestConstants.RuleIds.Rule1, StringComparison.InvariantCulture);
 
-            RunTest("FilterByPredicateWithArtifacts.sarif", "FilterByPredicateWithArtifacts.sarif", predicate);
+            RunTest("FilterByPredicate.sarif", "RuleIdPredicate.sarif", predicate);
         }
 
         protected override string ConstructTestOutputFromInputResource(string inputResourceName, object parameter)

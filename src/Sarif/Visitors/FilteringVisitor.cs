@@ -19,6 +19,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         private readonly IncludeResultPredicate predicate;
 
         private Run currentRun;
+        bool includeReferencedObjects = true;
+
         private IList<Result> filteredResults;
         private IList<Artifact> filteredArtifacts;
         private IDictionary<int, int> remappedArtifactIndexDictionary;
@@ -52,8 +54,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         public override Result VisitResult(Result node)
         {
+            includeReferencedObjects = false;
             if (predicate(node))
             {
+                includeReferencedObjects = true;
                 filteredResults.Add(node);
             }
 
@@ -62,16 +66,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         public override ArtifactLocation VisitArtifactLocation(ArtifactLocation node)
         {
-            if (node.Index >= 0)
+            if (includeReferencedObjects)
             {
-                if (!remappedArtifactIndexDictionary.ContainsKey(node.Index))
+                if (node.Index >= 0)
                 {
-                    int newIndex = filteredArtifacts.Count;
-                    remappedArtifactIndexDictionary.Add(node.Index, newIndex);
-                    filteredArtifacts.Add(currentRun.Artifacts[node.Index]);
-                }
+                    if (!remappedArtifactIndexDictionary.ContainsKey(node.Index))
+                    {
+                        int newIndex = filteredArtifacts.Count;
+                        remappedArtifactIndexDictionary.Add(node.Index, newIndex);
+                        filteredArtifacts.Add(currentRun.Artifacts[node.Index]);
+                    }
 
-                node.Index = remappedArtifactIndexDictionary[node.Index];
+                    node.Index = remappedArtifactIndexDictionary[node.Index];
+                }
             }
 
             return base.VisitArtifactLocation(node);

@@ -8,6 +8,7 @@
           "name": "Sarif Functional Testing"
         }
       },
+      "artifacts": [],
       "results": [],
       "columnKind": "utf16CodeUnits"
     },
@@ -17,6 +18,7 @@
           "name": "Sarif Functional Testing"
         }
       },
+      "artifacts": [],
       "results": [],
       "columnKind": "utf16CodeUnits"
     }
