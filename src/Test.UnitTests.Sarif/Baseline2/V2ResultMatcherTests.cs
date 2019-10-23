@@ -237,6 +237,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
             Result newSuppressedResult = matchedRun.Results.Single(r => r.Message.Text == "New suppressed result.");
 
             newSuppressedResult.Suppressions.Count.Should().Be(1);
+            AssertMatchedRunInvariants(matchedRun);
         }
 
         [Fact]
@@ -247,6 +248,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
             Result existingResultNewlySuppressed = matchedRun.Results.Single(r => r.Message.Text == "Existing, originally unsuppressed result.");
 
             existingResultNewlySuppressed.Suppressions.Count.Should().Be(1);
+            AssertMatchedRunInvariants(matchedRun);
         }
 
         [Fact]
@@ -257,6 +259,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
             Result existingResultNewlySuppressed = matchedRun.Results.Single(r => r.Message.Text == "Result suppressed in both runs.");
 
             existingResultNewlySuppressed.Suppressions.Count.Should().Be(1);
+            AssertMatchedRunInvariants(matchedRun);
         }
 
         [Fact]
@@ -267,6 +270,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
             Result existingResultNewlyUnsuppressed = matchedRun.Results.Single(r => r.Message.Text == "Existing, originally suppressed result.");
 
             existingResultNewlyUnsuppressed.Suppressions.Should().BeNull();
+            AssertMatchedRunInvariants(matchedRun);
         }
 
         /// <summary>
@@ -403,15 +407,31 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
             {
                 // The Result objects won't be identical because the results in the matched run
                 // will have their baseline state set, and they have a "ResultMatching" property
-                // bag property.
+                // bag property, and Guid and CorrelationGuid set
                 matchedRun.Results[i].BaselineState.Should().Be(BaselineState.Unchanged);
                 matchedRun.Results[i].Properties.Should().ContainKey("ResultMatching");
 
                 // But aside from that they should be the same:
+                matchedRun.Results[i].Guid = originalRun.Results[i].Guid;
+                matchedRun.Results[i].CorrelationGuid = originalRun.Results[i].CorrelationGuid;
                 matchedRun.Results[i].BaselineState = originalRun.Results[i].BaselineState;
                 matchedRun.Results[i].Properties = originalRun.Results[i].Properties;
 
                 matchedRun.Results[i].ValueEquals(originalRun.Results[i]).Should().BeTrue();
+            }
+        }
+
+        private void AssertMatchedRunInvariants(Run baselinedRun)
+        {
+            // Ensure all results always have a BaselineState, CorrelationGuid, and Guid assigned after baselining.
+            // The CorrelationGuid provides a stable identity to identify a Result matching across Runs.
+            // The Guid should be the default CorrelationGuid, so that matched Results have an identity mappable to the first occurrence of the Result (even before it was baselined)
+            // The Guid also needs to be defined to provided an identity to attach other data (like Annotations) to the Result consistently.
+            foreach(Result result in baselinedRun.Results ?? Enumerable.Empty<Result>())
+            {
+                result.Guid.Should().NotBeNullOrEmpty();
+                result.CorrelationGuid.Should().NotBeNullOrEmpty();
+                result.BaselineState.Should().NotBe(BaselineState.None);
             }
         }
     }
