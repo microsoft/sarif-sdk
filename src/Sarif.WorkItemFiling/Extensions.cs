@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Web;
 using Newtonsoft.Json;
@@ -13,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
 {
     public static class Extensions
     {
-        public static WorkItemFilingMetadata CreateWorkItemFilingMetadata(this SarifLog sarifLog, string workItemProjectName, string templateFilePath)
+        public static WorkItemFilingMetadata CreateWorkItemFilingMetadata(this SarifLog sarifLog, string workItemProjectName, string templateFilePath, GroupingStrategy groupingStrategy)
         {
             WorkItemFilingMetadata metadata = new WorkItemFilingMetadata()
             {
@@ -62,11 +63,17 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
             metadata.CustomFields = customFields;
 
             Result result = sarifLog.Runs[0].Results[0];
-            string ruleName = sarifLog.Runs[0].Results[0].RuleId.Split('/')[0];
+            string ruleName = string.Empty;
 
-            if (result.RuleIndex > -1)
+            if (groupingStrategy == GroupingStrategy.PerRunPerRule
+                || groupingStrategy == GroupingStrategy.PerRunPerTargetPerRule)
             {
-                ruleName = sarifLog.Runs[0].Tool.Driver.Rules[result.RuleIndex].Name + ":" + ruleName;
+                ruleName = result.ResolvedRuleId(sarifLog.Runs[0]).Split('/')[0];
+
+                if (result.RuleIndex > -1)
+                {
+                    ruleName = sarifLog.Runs[0].Tool.Driver.Rules[result.RuleIndex].Name + ":" + ruleName;
+                }
             }
 
             string titleEntity = GetArtifactTypeDisplayName(artifactType);
@@ -208,7 +215,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
                 ? projectUriString.Substring(lastSlashIndex + 1)
                 : throw new ArgumentException($"Cannot parse project name from URI {projectUriString}");
 
-            return projectName;
+            return WebUtility.UrlDecode(projectName);
         }
 
         public static string GetAccountUriString(this Uri projectUri)

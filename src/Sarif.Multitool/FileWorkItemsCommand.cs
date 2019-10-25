@@ -56,9 +56,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                     if (options.GroupingStrategy != GroupingStrategy.PerRun)
                     {
-                        SplittingVisitor visitor = (options.GroupingStrategy == GroupingStrategy.PerRunPerRule 
-                            ? (SplittingVisitor)new PerRunPerRuleSplittingVisitor()
-                            : new PerRunPerTargetPerRuleSplittingVisitor());
+                        SplittingVisitor visitor;
+                        switch(options.GroupingStrategy)
+                        {
+                            case GroupingStrategy.PerRunPerRule:
+                                visitor = new PerRunPerRuleSplittingVisitor();
+                                break;
+                            case GroupingStrategy.PerRunPerTarget:
+                                visitor = new PerRunPerTargetSplittingVisitor();
+                                break;
+                            case GroupingStrategy.PerRunPerTargetPerRule:
+                                visitor = new PerRunPerTargetPerRuleSplittingVisitor();
+                                break;
+                            default:
+                                throw new ArgumentOutOfRangeException($"GroupingStrategy: {options.GroupingStrategy}");
+                        }
 
                         visitor.VisitRun(sarifLog.Runs[runIndex]);
                         logsToProcess = visitor.SplitSarifLogs;
@@ -69,7 +81,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     for (int splitFileIndex = 0; splitFileIndex < logsToProcess.Count; splitFileIndex++)
                     {
                         SarifLog splitLog = logsToProcess[splitFileIndex];
-                        workItemMetadata.Add(splitLog.CreateWorkItemFilingMetadata(projectName, options.TemplateFilePath));
+                        workItemMetadata.Add(splitLog.CreateWorkItemFilingMetadata(projectName, options.TemplateFilePath, options.GroupingStrategy));
                     }
 
                     try
