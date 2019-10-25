@@ -68,7 +68,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
             if (groupingStrategy == GroupingStrategy.PerRunPerRule
                 || groupingStrategy == GroupingStrategy.PerRunPerTargetPerRule)
             {
-                ruleName = sarifLog.Runs[0].Results[0].RuleId.Split('/')[0];
+                ruleName = result.ResolvedRuleId(sarifLog.Runs[0]).Split('/')[0];
 
                 if (result.RuleIndex > -1)
                 {

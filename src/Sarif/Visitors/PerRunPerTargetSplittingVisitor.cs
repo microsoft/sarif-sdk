@@ -26,20 +26,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             if (!FilteringStrategy(node)) { return node; }
 
-            ArtifactLocation artifactLocation = s_emptyArtifactLocation;
-            if (node.Locations[0].PhysicalLocation?.ArtifactLocation != null)
-            {
-                artifactLocation = node.Locations[0].PhysicalLocation?.ArtifactLocation;
-            }
+            ArtifactLocation artifactLocation = node?.Locations[0]?.PhysicalLocation?.ArtifactLocation ?? s_emptyArtifactLocation;
 
             if (artifactLocation == null)
             {
                 throw new InvalidOperationException("Result.Locations.PhysicalLocation.ArtifactLocation is null.");
             }
 
-            if (!_targetMap.TryGetValue(artifactLocation.Uri.ToString(), out SarifLog sarifLog))
+            if (!_targetMap.TryGetValue(artifactLocation.Uri.OriginalString, out SarifLog sarifLog))
             {
-                sarifLog = _targetMap[artifactLocation.Uri.ToString()] = new SarifLog()
+                sarifLog = _targetMap[artifactLocation.Uri.OriginalString] = new SarifLog()
                 {
                     Runs = new[]
                     {

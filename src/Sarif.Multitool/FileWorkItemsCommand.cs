@@ -65,9 +65,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                             case GroupingStrategy.PerRunPerTarget:
                                 visitor = new PerRunPerTargetSplittingVisitor();
                                 break;
-                            default:
+                            case GroupingStrategy.PerRunPerTargetPerRule:
                                 visitor = new PerRunPerTargetPerRuleSplittingVisitor();
                                 break;
+                            default:
+                                throw new ArgumentOutOfRangeException($"GroupingStrategy: {options.GroupingStrategy}");
                         }
 
                         visitor.VisitRun(sarifLog.Runs[runIndex]);
