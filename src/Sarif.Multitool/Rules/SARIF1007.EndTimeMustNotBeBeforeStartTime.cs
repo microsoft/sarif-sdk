@@ -31,7 +31,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override void Analyze(Invocation invocation, string invocationPointer)
         {
-            if (invocation.StartTimeUtc > invocation.EndTimeUtc)
+            // Compare the start and end times only if both are present.
+            if (invocation.StartTimeUtc != default &&
+                invocation.EndTimeUtc != default &&
+                invocation.StartTimeUtc > invocation.EndTimeUtc)
             {
                 string endTimePointer = invocationPointer.AtProperty(SarifPropertyName.EndTimeUtc);
 
