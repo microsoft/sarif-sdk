@@ -24,7 +24,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         // Force introduction of errors on parsing a target or failure to locate a PDB.
         RaiseTargetParseError = 0x100,
-        RaiseLoadingPdbError = 0x200,
 
         // Force 'current platform not valid to analyze' code path.
         TreatPlatformAsInvalid = 0x400
