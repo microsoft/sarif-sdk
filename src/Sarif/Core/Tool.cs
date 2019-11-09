@@ -39,22 +39,19 @@ namespace Microsoft.CodeAnalysis.Sarif
                     Version = version.ToString(),
                     DottedQuadFileVersion = dottedQuadFileVersion,
                     SemanticVersion = version.Major.ToString() + "." + version.Minor.ToString() + "." + version.Build.ToString(),
-                    Properties = CreatePropertiesFromFileVersionInfo(fileVersion)
+                    Organization = string.IsNullOrEmpty(fileVersion.CompanyName) ? null : fileVersion.CompanyName,
+                    Product = string.IsNullOrEmpty(fileVersion.ProductName) ? null : fileVersion.ProductName,
                 }
             };
+
+            SetDriverPropertiesFromFileVersionInfo(tool.Driver, fileVersion);
 
             return tool;
         }
 
-        private static IDictionary<string, SerializedPropertyInfo> CreatePropertiesFromFileVersionInfo(FileVersionInfo fileVersion)
+        private static void SetDriverPropertiesFromFileVersionInfo(ToolComponent driver, FileVersionInfo fileVersion)
         {
-            var toolComponent = new ToolComponent();
-
-            if (!string.IsNullOrEmpty(fileVersion.Comments)) { toolComponent.SetProperty("Comments", fileVersion.Comments); }
-            if (!string.IsNullOrEmpty(fileVersion.CompanyName)) { toolComponent.SetProperty("CompanyName", fileVersion.CompanyName); }
-            if (!string.IsNullOrEmpty(fileVersion.ProductName)) { toolComponent.SetProperty("ProductName", fileVersion.ProductName); }
-
-            return toolComponent.Properties;
+            if (!string.IsNullOrEmpty(fileVersion.Comments)) { driver.SetProperty("Comments", fileVersion.Comments); }
         }
 
         /// <summary>
