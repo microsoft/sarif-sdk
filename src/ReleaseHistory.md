@@ -1,5 +1,8 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
+## **v2.1.23** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.23) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.23) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.23) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.23)
+* FEATURE: `SarifLogger` now populates `tool.driver.organization` and `.product` instead of adding properties `"Company"` and `"ProductName"` to the driver's property bag. [#1716](https://github.com/microsoft/sarif-sdk/issues/1716)
+
 ## **v2.1.22** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.22) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.22) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.22) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.22)
 * BUGFIX: Fix bug in validation rule `EndTimeMustNotBeBeforeStartTime`, which threw if `invocation.startTimeUtc` was present but `endTimeUtc` was absent.
 
@@ -21,7 +24,7 @@
 ## **v2.1.19** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.19) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.19) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.19) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.19)
 * Sort driver skimmers by rule id + name during analysis, in order to improve deterministic ordering of log file data.
 * API BREAKING: Convert various public SARIF Driver framework API to prefer abstract ISet<string> type over HashSet<string>.
-* API BREAKING: Remove helper method `SarifUtilities.DeserializeObject` introduced in 2.1.15 to fix [#1577](https://github.com/microsoft/sarif-sdk/issues/1577).
+* API BREAKING: Remove helper method `SarifUtilities.DeserializeObject` introduced in 2.1.15 to fix. [#1577](https://github.com/microsoft/sarif-sdk/issues/1577)
 Now that an underlying bug in `PropertyBagConverter` has been fixed, there is no need to work around it with this helper method. `JsonConvert.DeserializeObject` works fine.
 * FEATURE: Expanding Sarif SDK query mode to support Result.Uri, string StartsWith/EndsWith/Contains.
 * FEATURE: Adding Result.Run and a populating method, so that methods which need the Run context for a given Result have an integrated way to retrieve it.
