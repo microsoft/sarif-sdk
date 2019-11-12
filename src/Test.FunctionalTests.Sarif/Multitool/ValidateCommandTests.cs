@@ -201,7 +201,9 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
             driver.FullName = null;
             driver.SemanticVersion = null;
             driver.DottedQuadFileVersion = null;
-            driver.Properties.Clear();
+            driver.Product = null;
+            driver.Organization = null;
+            driver.Properties?.Clear();
             actualLog.Runs[0].OriginalUriBaseIds = null;
 
             return JsonConvert.SerializeObject(actualLog, Formatting.Indented);
