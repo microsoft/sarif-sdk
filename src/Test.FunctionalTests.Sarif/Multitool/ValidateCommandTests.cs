@@ -202,6 +202,7 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
             driver.SemanticVersion = null;
             driver.DottedQuadFileVersion = null;
             driver.Product = null;
+            driver.Organization = null;
             driver.Properties?.Clear();
             actualLog.Runs[0].OriginalUriBaseIds = null;
 
