@@ -3,7 +3,7 @@
 
 namespace Microsoft.CodeAnalysis.Test.FunctionalTests.Sarif.Partitioning
 {
-    public class PartionTests
+    public class PartitionTests
     {
     }
 }
