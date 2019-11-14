@@ -2,8 +2,10 @@
 // license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using FluentAssertions;
@@ -60,59 +62,134 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         protected virtual string TestLogResourceNameRoot => "Microsoft.CodeAnalysis.Test.UnitTests.Sarif.TestData." + TypeUnderTest;
 
-        protected abstract string ConstructTestOutputFromInputResource(string inputResourceName, object parameter);
+        // Most tests convert a single input file to a single output file, but some have multiple
+        // inputs and/or multiple outputs. Derived test classes must implement one or the other of
+        // the methods ConstructTestOutputFromInputResource (which handles the one-to-one case) and
+        // ConstructTestOutputsFromInputResources (which handles the many-to-many case). These
+        // methods can't (or at least, shouldn't) both be abstract because derived test classes
+        // shouldn't have to supply even an empty implementation of the one that they don't use.
+        // Therefore this class implements both of those methods to throw NotImplementedException
+        // so you don't accidentally call the wrong one.
+        protected virtual string ConstructTestOutputFromInputResource(string inputResourceName, object parameter)
+            => throw new NotImplementedException(nameof(ConstructTestOutputFromInputResource));
+
+        protected virtual List<string> ConstructTestOutputsFromInputResources(IEnumerable<string> inputResourceNames, object parameter)
+            => throw new NotImplementedException(nameof(ConstructTestOutputsFromInputResources));
 
         protected virtual void RunTest(string inputResourceName, string expectedOutputResourceName = null, object parameter = null)
         {
+            // In the simple case of one input file and one output file, the output resource name
+            // can be inferred from the input resource name. In the case of arbitrary numbers of
+            // input and output files (the other overload of RunTest), the output resource names
+            // must be specified explicitly.
             expectedOutputResourceName = expectedOutputResourceName ?? inputResourceName;
-            // When retrieving constructed test content, we pass the resourceName as the test
-            // specified it. When constructing actual and expected file names from this data, 
-            // however, we will ensure that the name has the ".sarif" extension. We do this
-            // for test classes such as the Fortify converter that operate again non-SARIF inputs.
-            string actualSarifText = ConstructTestOutputFromInputResource("Inputs." + inputResourceName, parameter);
 
+            // When we retrieve test input content, we use the resource name as the test specified it.
+            // But when we construct the names of the actual and expected output files, we ensure that
+            // the name has the ".sarif" extension. This is necessary for testing classes such as the
+            // Fortify converter whose input is not SARIF. In the other overload of RunTest, this is
+            // not necessary because, again, the output resource names are specified explicitly.
             expectedOutputResourceName = Path.GetFileNameWithoutExtension(expectedOutputResourceName) + ".sarif";
+            string expectedSarifText = GetExpectedSarifTextFromResource(expectedOutputResourceName);
 
-            var sb = new StringBuilder();
+            string actualSarifText = ConstructTestOutputFromInputResource(ConstructFullInputResourceName(inputResourceName), parameter);
 
-            string expectedSarifText = GetResourceText("ExpectedOutputs." + expectedOutputResourceName);
+            // The comparison code is shared between this one-input-to-one-output method and the
+            // overload that takes multiple inputs and multiple outputs. So set up the lists that
+            // the shared comparison method expects.
+            var inputResourceNames = new List<string> { inputResourceName };
+            var expectedOutputResourceNames = new List<string> { expectedOutputResourceName };
+            var expectedSarifTexts = new List<string> { expectedSarifText };
+            var actualSarifTexts = new List<string> { actualSarifText };
 
-            bool passed = false;
+            CompareActualToExpected(inputResourceNames, expectedOutputResourceNames, expectedSarifTexts, actualSarifTexts);
+        }
 
-            if (!RebaselineExpectedResults)
+        protected virtual void RunTest(IList<string> inputResourceNames, IList<string> expectedOutputResourceNames, object parameter = null)
+        {
+            var expectedSarifTexts = new List<string>(
+                expectedOutputResourceNames.Select(resName => GetExpectedSarifTextFromResource(resName)));
+
+            IEnumerable<string> fullInputResourceNames = inputResourceNames.Select(resName => ConstructFullInputResourceName(resName));
+
+            List<string> actualSarifTexts = ConstructTestOutputsFromInputResources(fullInputResourceNames, parameter);
+        }
+
+        private void CompareActualToExpected(List<string> inputResourceNames, List<string> expectedOutputResourceNames, List<string> expectedSarifTexts, List<string> actualSarifTexts)
+        {
+            if (inputResourceNames.Count == 0)
             {
-                if (_testProducesSarifCurrentVersion)
+                throw new ArgumentException("No input resources were specified", nameof(inputResourceNames));
+            }
+
+            if (expectedOutputResourceNames.Count == 0)
+            {
+                throw new ArgumentException("No expected output resources were specified", nameof(expectedOutputResourceNames));
+            }
+
+            if (expectedSarifTexts.Count != expectedOutputResourceNames.Count)
+            {
+                throw new ArgumentException($"The number of expected output files ({expectedSarifTexts.Count}) does not match the number of expected output resources {expectedOutputResourceNames.Count}");
+            }
+
+            if (expectedSarifTexts.Count != actualSarifTexts.Count)
+            {
+                throw new ArgumentException($"The number of actual output files ({actualSarifTexts.Count}) does not match the number of expected output files {expectedSarifTexts.Count}");
+            }
+
+            bool passed = true;
+            if (RebaselineExpectedResults)
+            {
+                passed = false;
+            }
+            else
+            {
+                for (int i = 0; i < expectedSarifTexts.Count; ++i)
                 {
-                    PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(expectedSarifText, Formatting.Indented, out expectedSarifText);
-                    passed = AreEquivalent<SarifLog>(actualSarifText, expectedSarifText);
-                }
-                else
-                {
-                    passed = AreEquivalent<SarifLogVersionOne>(actualSarifText, expectedSarifText, SarifContractResolverVersionOne.Instance);
+                    if (_testProducesSarifCurrentVersion)
+                    {
+                        PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(expectedSarifTexts[i], Formatting.Indented, out string transformedSarifText);
+                        expectedSarifTexts[i] = transformedSarifText;
+
+                        passed &= AreEquivalent<SarifLog>(actualSarifTexts[i], expectedSarifTexts[i]);
+                    }
+                    else
+                    {
+                        passed &= AreEquivalent<SarifLogVersionOne>(actualSarifTexts[i], expectedSarifTexts[i], SarifContractResolverVersionOne.Instance);
+                    }
                 }
             }
 
             if (!passed)
             {
-                string errorMessage = string.Format(@"there should be no unexpected diffs detected comparing actual results to '{0}'.", inputResourceName);
-                sb.AppendLine(errorMessage);
+                string errorMessage = string.Format(@"there should be no unexpected diffs detected comparing actual results to '{0}'.", string.Join(", ", inputResourceNames));
+                var sb = new StringBuilder(errorMessage);
 
                 if (!Utilities.RunningInAppVeyor)
                 {
-                    string expectedFilePath = GetOutputFilePath("ExpectedOutputs", expectedOutputResourceName);
-                    string actualFilePath = GetOutputFilePath("ActualOutputs", expectedOutputResourceName);
+                    string expectedRootDirectory = null;
+                    string actualRootDirectory = null;
 
-                    string expectedRootDirectory = Path.GetDirectoryName(expectedFilePath);
-                    string actualRootDirectory = Path.GetDirectoryName(actualFilePath);
+                    for (int i = 0; i < expectedOutputResourceNames.Count; ++i)
+                    {
+                        string expectedFilePath = GetOutputFilePath("ExpectedOutputs", expectedOutputResourceNames[i]);
+                        string actualFilePath = GetOutputFilePath("ActualOutputs", expectedOutputResourceNames[i]);
 
-                    Directory.CreateDirectory(expectedRootDirectory);
-                    Directory.CreateDirectory(actualRootDirectory);
+                        if (i == 0)
+                        {
+                            expectedRootDirectory = Path.GetDirectoryName(expectedFilePath);
+                            actualRootDirectory = Path.GetDirectoryName(actualFilePath);
 
-                    File.WriteAllText(expectedFilePath, expectedSarifText);
-                    File.WriteAllText(actualFilePath, actualSarifText);
+                            Directory.CreateDirectory(expectedRootDirectory);
+                            Directory.CreateDirectory(actualRootDirectory);
+                        }
+
+                        File.WriteAllText(expectedFilePath, expectedSarifTexts[i]);
+                        File.WriteAllText(actualFilePath, actualSarifTexts[i]);
+                    }
 
                     sb.AppendLine("To compare all difference for this test suite:");
-                    sb.AppendLine(GenerateDiffCommand(TypeUnderTest, Path.GetDirectoryName(expectedFilePath), Path.GetDirectoryName(actualFilePath)) + Environment.NewLine);
+                    sb.AppendLine(GenerateDiffCommand(TypeUnderTest, expectedRootDirectory, actualRootDirectory) + Environment.NewLine);
 
                     if (RebaselineExpectedResults)
                     {
@@ -122,9 +199,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                         // We retrieve all test strings from embedded resources. To rebaseline, we need to
                         // compute the enlistment location from which these resources are compiled.
-
-                        expectedFilePath = Path.Combine(testDirectory, expectedOutputResourceName);
-                        File.WriteAllText(expectedFilePath, actualSarifText);
+                        for (int i = 0; i < expectedOutputResourceNames.Count; ++i)
+                        {
+                            string expectedFilePath = Path.Combine(testDirectory, expectedOutputResourceNames[i]);
+                            File.WriteAllText(expectedFilePath, actualSarifTexts[i]);
+                        }
                     }
                 }
 
@@ -207,5 +286,14 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             return true;
         }
+
+        private string GetExpectedSarifTextFromResource(string resourceName)
+            => GetResourceText(ConstructFullExpectedOutputResourceName(resourceName));
+
+        private string ConstructFullExpectedOutputResourceName(string resourceName)
+            => "ExpectedOutputs." + resourceName;
+
+        private string ConstructFullInputResourceName(string resourceName)
+            => "Inputs." + resourceName;
     }
 }

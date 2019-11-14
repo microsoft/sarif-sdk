@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System.Collections.Generic;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
 
 namespace Microsoft.CodeAnalysis.Sarif.Writers
@@ -33,6 +34,41 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             newLog = visitor.VisitSarifLog(newLog);
 
             return newLog;
+        }
+
+        /// <summary>
+        /// Partition the specified SARIF log into a set of "partitioned logs" according to
+        /// the specified partitioning function. Each partitioned log contains only those
+        /// elements of run-level collections such as Run.Artifacts that are relevant to the
+        /// subset of results in that log.
+        /// </summary>
+        /// <typeparam name="T">
+        /// The type of the object returned by the partition function. It must be a reference
+        /// type so that null is a valid value. It must override bool Equals(T other) so that
+        /// two Ts can compare equal even if they are not reference equal.
+        /// </typeparam>
+        /// <param name="log">
+        /// The SARIF log to be partitioned.
+        /// </param>
+        /// <param name="partitionFunction">
+        /// A function that returns a value specifying which partitioned log a specified result
+        /// belongs in, or null if the result should be discarded (not placed in any of the
+        /// partitioned logs).
+        /// </param>
+        /// <returns>
+        /// A dictionary whose keys are the values returned by <paramref name="partitionFunction"/>
+        /// for the results in <paramref name="log"/> and whose values are the SARIF logs
+        /// containing the results for which the partition function returns those values.
+        /// </returns>
+        public static IDictionary<T, SarifLog> Partition<T>(
+            SarifLog log,
+            PartitioningVisitor<T>.PartitionFunction partitionFunction)
+            where T : class
+        {
+            var visitor = new PartitioningVisitor<T>(partitionFunction);
+            visitor.VisitSarifLog(log);
+
+            return default;
         }
     }
 }

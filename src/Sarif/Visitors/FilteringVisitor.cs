@@ -2,11 +2,9 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Collections.Generic;
-using Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
-
     /// <summary>
     /// A visitor that filters a specified SARIF log to create a new log containing only those
     /// results for which a specified predicate returns true, and only those elements of run-level
@@ -14,6 +12,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
     /// </summary>
     public class FilteringVisitor : SarifRewritingVisitor
     {
+        /// <summary>
+        /// A delgate for a function that returns true if the specified result should be included
+        /// in the filtered log, otherwise false.
+        /// </summary>
         public delegate bool IncludeResultPredicate(Result result);
 
         private readonly IncludeResultPredicate predicate;
