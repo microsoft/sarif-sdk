@@ -19,12 +19,59 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public class SarifLoggerTests : JsonTests
     {
+
+        private static string GetResourceContents(string resourceName)
+            => ResourceExtractor.GetResourceText($"SarifLogger.{resourceName}");
+
         private readonly ITestOutputHelper output;
 
         public SarifLoggerTests(ITestOutputHelper output)
         {
             this.output = output;
-        }      
+        }
+
+        [Fact]
+        public void SarifLogger_StreamOwnership()
+        {
+            // Should work
+            StreamOwnershipHelper(closeWriterOnDispose: false);
+
+            Assert.Throws<ObjectDisposedException>(() => StreamOwnershipHelper(closeWriterOnDispose: true));
+        }
+
+        private static void StreamOwnershipHelper(bool closeWriterOnDispose)
+        {
+            string expectedText = GetResourceContents("SimpleExample.sarif");
+
+            MemoryStream memoryStream = new MemoryStream();
+            var streamWriter = new StreamWriter(memoryStream);
+
+            using (var logger = new SarifLogger(
+                streamWriter,
+                loggingOptions: LoggingOptions.PrettyPrint,
+                dataToRemove: OptionallyEmittedData.NondeterministicProperties,
+                closeWriterOnDispose: closeWriterOnDispose))
+            {
+                logger.Log(
+                    new ReportingDescriptor { Id = "MyId" },
+                    new Result { Message = new Message { Text = "My text" }, RuleId = "MyId" });
+            }
+
+            // Important. Force streamwriter to commit everything.
+            streamWriter.Flush();
+            memoryStream.Seek(0, SeekOrigin.Begin);
+
+            using (var streamReader = new StreamReader(memoryStream))
+            using (var jsonTextReader = new JsonTextReader(streamReader))
+            {
+                var jsonSerializer = new JsonSerializer();
+                SarifLog sarifLog = jsonSerializer.Deserialize<SarifLog>(jsonTextReader);
+
+                // Prove we did it.
+                string actualText = JsonConvert.SerializeObject(sarifLog, formatting: Formatting.Indented);
+                actualText.Should().BeEquivalentTo(expectedText);
+            }
+        }
 
         [Fact]
         public void SarifLogger_RedactedCommandLine()
