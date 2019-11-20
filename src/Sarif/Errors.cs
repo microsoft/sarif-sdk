@@ -15,7 +15,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         // Configuration errors:
         private const string ERR997_MissingFile = "ERR997.MissingFile";
         private const string ERR997_NoRulesLoaded = "ERR997.NoRulesLoaded";
-        private const string ERR997_ExceptionLoadingPdb = "ERR997.ExceptionLoadingPdb";
         private const string ERR997_ExceptionLoadingPlugIn = "ERR997.ExceptionLoadingPlugIn";
         private const string ERR997_NoValidAnalysisTargets = "ERR997.NoValidAnalysisTargets";
         private const string ERR997_ExceptionAccessingFile = "ERR997.ExceptionAccessingFile";
@@ -50,34 +49,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                 CreateNotification(
                     context.TargetUri,
                     ERR997_ExceptionLoadingAnalysisTarget,
+                    ruleId: null,
                     FailureLevel.Error,
                     context.TargetLoadException,
-                    false,
+                    persistExceptionStack: false,
+                    messageFormat: null,
                     context.TargetUri.GetFileName()));
 
             context.RuntimeErrors |= RuntimeConditions.ExceptionLoadingTargetFile;
-        }
-
-        public static void LogExceptionLoadingPdb(IAnalysisContext context, Exception exception)
-        {
-            if (context == null)
-            {
-                throw new ArgumentNullException(nameof(context));
-            }
-
-            // '{0}' was not evaluated for check '{1}' because its PDB could not be loaded.
-            context.Logger.LogConfigurationNotification(
-                CreateNotification(
-                    context.TargetUri,
-                    ERR997_ExceptionLoadingPdb,
-                    context.Rule.Id,
-                    FailureLevel.Error,
-                    exception,
-                    false,
-                    context.TargetUri.GetFileName(),
-                    context.Rule.Name));
-
-            context.RuntimeErrors |= RuntimeConditions.ExceptionLoadingPdb;
         }
 
         public static void LogExceptionInstantiatingSkimmers(
@@ -98,9 +77,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 CreateNotification(
                     context.TargetUri,
                     ERR997_ExceptionInstantiatingSkimmers,
+                    ruleId: null,
                     FailureLevel.Error,
                     exception,
-                    false,
+                    persistExceptionStack: false,
+                    messageFormat: null,
                     plugins));
 
             context.RuntimeErrors |= RuntimeConditions.ExceptionInstantiatingSkimmers;
@@ -118,13 +99,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                 CreateNotification(
                     context.TargetUri,
                     ERR997_NoRulesLoaded,
+                    ruleId: null,
                     FailureLevel.Error,
-                    null,
-                    false));
+                    exception: null,
+                    persistExceptionStack: false,
+                    messageFormat: null));
 
             context.RuntimeErrors |= RuntimeConditions.NoRulesLoaded;
         }
-
 
 
         public static void LogAllRulesExplicitlyDisabled(IAnalysisContext context) 
@@ -139,9 +121,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 CreateNotification(
                     context.TargetUri,
                     ERR997_AllRulesExplicitlyDisabled,
+                    ruleId: null,
                     FailureLevel.Error,
-                    null,
-                    false));
+                    exception: null,
+                    persistExceptionStack: false,
+                    messageFormat: null));
 
             context.RuntimeErrors |= RuntimeConditions.NoRulesLoaded;
         }
@@ -158,9 +142,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 CreateNotification(
                     context.TargetUri,
                     ERR997_NoValidAnalysisTargets,
+                    ruleId: null,
                     FailureLevel.Error,
-                    null,
-                    false));
+                    exception: null,
+                    persistExceptionStack: false,
+                    messageFormat: null));
 
             context.RuntimeErrors |= RuntimeConditions.NoValidAnalysisTargets;
         }
@@ -177,9 +163,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 CreateNotification(
                     context.TargetUri,
                     ERR997_ExceptionCreatingLogFile,
+                    ruleId: null,
                     FailureLevel.Error,
-                    exception,
-                    false,
+                    exception: null,                    
+                    persistExceptionStack: false,
+                    messageFormat: null,
                     fileName));
 
             context.RuntimeErrors |= RuntimeConditions.ExceptionCreatingLogFile;
@@ -197,9 +185,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 CreateNotification(
                     context.TargetUri,
                     ERR997_MissingFile,
+                    ruleId: null,
                     FailureLevel.Error,
-                    null,
-                    false,
+                    exception: null,
+                    persistExceptionStack: false,
+                    messageFormat: null,
                     fileName));
 
             context.RuntimeErrors |= RuntimeConditions.MissingFile;
@@ -217,9 +207,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 CreateNotification(
                     context.TargetUri,
                     ERR997_ExceptionAccessingFile,
+                    ruleId: null,
                     FailureLevel.Error,
-                    exception,
-                    false,
+                    exception: null,
+                    persistExceptionStack: false,
+                    messageFormat: null,
                     fileName));
 
             context.RuntimeErrors |= RuntimeConditions.ExceptionAccessingFile;
@@ -237,9 +229,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 CreateNotification(
                     context.TargetUri,
                     ERR997_InvalidInvocationPropertyName,
+                    ruleId: null,
                     FailureLevel.Error,
-                    null,
-                    false,
+                    exception: null,
+                    persistExceptionStack: false,
+                    messageFormat: null,
                     propertyName));
 
             context.RuntimeErrors |= RuntimeConditions.InvalidCommandLineOption;
@@ -312,9 +306,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 CreateNotification(
                     context.TargetUri,
                     ERR997_ExceptionLoadingPlugIn,
+                    ruleId: null,
                     FailureLevel.Error,
-                    exception,
-                    false,  
+                    exception: null,
+                    persistExceptionStack: false,
+                    messageFormat: null,
                     pluginFilePath));
 
             context.RuntimeErrors |= RuntimeConditions.ExceptionLoadingAnalysisPlugin;
@@ -331,9 +327,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 CreateNotification(
                     context.TargetUri,
                     ERR997_OutputFileAlreadyExists,
+                    ruleId: null,
                     FailureLevel.Error,
                     exception: null,
                     persistExceptionStack: false,
+                    messageFormat: null,
                     outputFilePath));
 
             context.RuntimeErrors |= RuntimeConditions.OutputFileAlreadyExists;
@@ -351,9 +349,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 CreateNotification(
                     context.TargetUri,
                     ERR1000_ParseError,
+                    ruleId: null,
                     FailureLevel.Error,
-                    null,
-                    false,
+                    exception: null,
+                    persistExceptionStack: false,
+                    messageFormat: null,
                     context.TargetUri.LocalPath,
                     region.FormatForVisualStudio(),
                     ERR1000_ParseError,
@@ -384,7 +384,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     context.Rule.Id,
                     FailureLevel.Error,
                     exception,
-                    true,
+                    persistExceptionStack: true,
+                    messageFormat: null,
                     context.TargetUri.GetFileName(),
                     context.Rule.Name));
 
@@ -410,7 +411,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                 context.Rule.Id,
                 FailureLevel.Error,
                 exception,
-                true,
+                persistExceptionStack: true,
+                messageFormat: null,
                 context.Rule.Name));
 
             context.RuntimeErrors |= RuntimeConditions.ExceptionInSkimmerInitialize;
@@ -437,7 +439,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     context.Rule.Id,
                     FailureLevel.Error,
                     exception,
-                    true,
+                    persistExceptionStack: false,
+                    messageFormat: null,
                     context.TargetUri.GetFileName(),
                     context.Rule.Name));
 
@@ -458,34 +461,26 @@ namespace Microsoft.CodeAnalysis.Sarif
                 CreateNotification(
                     context.TargetUri,
                     ERR999UnhandledEngineException,
+                    ruleId: null,
                     FailureLevel.Error,
                     exception,
-                    true));
+                    persistExceptionStack: true,
+                    messageFormat: null));
 
             return RuntimeConditions.ExceptionInEngine;
         }
 
-        private static Notification CreateNotification(
-            Uri uri,
-            string notificationId,
-            FailureLevel level,
-            Exception exception,
-            bool persistExceptionStack,
-            params string[] args)
-        {
-            return CreateNotification(uri, notificationId, null, level, exception, persistExceptionStack, args);
-        }
-
-        private static Notification CreateNotification(
+        public static Notification CreateNotification(
             Uri uri,
             string notificationId,
             string ruleId,
             FailureLevel level,
             Exception exception,
             bool persistExceptionStack,
+            string messageFormat,
             params string[] args)
         {            
-            string messageFormat = GetMessageFormatResourceForNotification(notificationId);
+            messageFormat = messageFormat ?? GetMessageFormatResourceForNotification(notificationId);
 
             string message = string.Format(CultureInfo.CurrentCulture, messageFormat, args);
 

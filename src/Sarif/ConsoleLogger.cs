@@ -265,6 +265,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             switch (notification.Level)
             {
                 // This notification type is optionally emitted.
+                case FailureLevel.None:
                 case FailureLevel.Note:
                     if (Verbose)
                     {
@@ -302,6 +303,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 case FailureLevel.Note:
                 {
                     issueType = "note";
+                    break;
+                }
+                case FailureLevel.None:
+                {
+                    issueType = "info";
                     break;
                 }
 

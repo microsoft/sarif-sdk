@@ -1,6 +1,8 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
 ## **v2.1.23** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.23) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.23) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.23) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.23)
+* API BREAKING: Remove 'Errors.LogExceptionLoadingPdb' helper (as not relevant to core SDK).
+* FEATURE: Allow emitting non-failure tool notifications as debug/informational messages.
 * FEATURE: `SarifLogger` now populates `tool.driver`'s `organization` and `product` properties instead of adding `"Company"` and `"ProductName"` to `tool.driver'`s property bag. [#1716](https://github.com/microsoft/sarif-sdk/issues/1716)
 * FEATURE: Add `closeWriterOnDispose` argument (with a default of 'true') that indicates whether SarifLogger writers are closed during its Dispose() method. Providing a value of `false` to this argument allows SarifLogger to work against a stream that can subsequently be reused (for example, to deserialize the logged content back to a `SarifLog` instance).
 
