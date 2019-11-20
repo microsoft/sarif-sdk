@@ -31,7 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [Fact]
-        public void SarifLogger_StreamOwnership()
+        public void SarifLogger_ClosesWriterOrNotOnDispose()
         {
             // Opens SarifLogger on MemoryStream, then attempt to reuse the stream.
             StreamOwnershipHelper(closeWriterOnDispose: false);
