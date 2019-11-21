@@ -170,6 +170,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             // value, create a run in the partitioned log file that contains only those results
             // and the relevant subset of the run-level properties such as artifacts.
             //
+            // IS THAT RIGHT? DO WE WANT AN EMPTY RUN IN THE PARTITIONED LOG IF A GIVEN RUN
+            // IN THE ORIGINAL LOG HAD NO RESULTS IN THIS PARTITION?
+            //
             // If we got here, we know that there must be at least one run in original log file,
             // because there was at least one result in the log file with this partition value.
             for (int iRun = 0; iRun < originalLog.Runs.Count; ++iRun)

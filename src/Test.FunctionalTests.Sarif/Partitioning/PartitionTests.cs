@@ -35,6 +35,22 @@ namespace Microsoft.CodeAnalysis.Test.FunctionalTests.Sarif.Partitioning
                 parameter: partitionFunction);
         }
 
+        [Fact]
+        public void Partition_ByRuleId_ProducesOneLogFilePerRule()
+        {
+            PartitioningVisitor<string>.PartitionFunction partitionFunction = result => result.RuleId;
+
+            RunTest(
+                inputResourceNames: new List<string> { "Partition.sarif" },
+                expectedOutputResourceNames: new Dictionary<string, string>
+                {
+                    ["TST0001"] = "TST0001.sarif",
+                    ["TST0002"] = "TST0002.sarif",
+                    ["TST9999"] = "TST9999.sarif"
+                },
+                parameter: partitionFunction);
+        }
+
         protected override IDictionary<string, string> ConstructTestOutputsFromInputResources(
             IEnumerable<string> inputResourceNames,
             object parameter)
