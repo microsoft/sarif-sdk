@@ -16,6 +16,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         /// A delgate for a function that returns true if the specified result should be included
         /// in the filtered log, otherwise false.
         /// </summary>
+        /// <param name="result">
+        /// The result to be tested.
+        /// </param>
         public delegate bool IncludeResultPredicate(Result result);
 
         private readonly IncludeResultPredicate predicate;

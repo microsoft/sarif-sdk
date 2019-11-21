@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Partitioning
         [Fact]
         public void Filter_WithAlwaysTruePredicate_ReturnsLogWithAllResultsAndRunLevelArrayContentsFromAllResults()
         {
-            FilteringVisitor.IncludeResultPredicate predicate = (Result result) => true;
+            FilteringVisitor.IncludeResultPredicate predicate = result => true;
 
             RunTest("FilterByPredicate.sarif", "AlwaysTruePredicate.sarif", predicate);
         }

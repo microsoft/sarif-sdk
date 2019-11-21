@@ -68,7 +68,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             var visitor = new PartitioningVisitor<T>(partitionFunction);
             visitor.VisitSarifLog(log);
 
-            return default;
+            return visitor.GetPartitionedSarifLogDictionary();
         }
     }
 }
