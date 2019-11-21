@@ -74,7 +74,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         private SarifLog originalLog;
         private int currentRunIndex;
-        private Run currentRun;
 
         private IDictionary<T, SarifLog> partitionedSarifLogDictionary;
 
@@ -123,7 +122,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             currentArtifactDictionary = null;
 
             currentRunIndex = -1;
-            currentRun = null;
 
             return base.VisitSarifLog(node);
         }
@@ -131,7 +129,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         public override Run VisitRun(Run node)
         {
             ++currentRunIndex;
-            currentRun = node;
 
             currentResultDictionary = new Dictionary<T, List<Result>>();
             currentArtifactDictionary = new Dictionary<T, List<Artifact>>();
