@@ -57,6 +57,7 @@
     <None Remove="TestData\RoundTripping\RoundTripping.sarif" />
     <None Remove="TestData\SarifCurrentToVersionOneVisitor\ExpectedOutputs\OneRunWithNotificationTime.sarif" />
     <None Remove="TestData\SarifCurrentToVersionOneVisitor\Inputs\OneRunWithNotificationTime.sarif" />
+    <None Remove="TestData\SarifLogger\SimpleExample.sarif" />
     <None Remove="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\MinimumWithLanguage.sarif" />
     <None Remove="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\NestedInnerExceptionsInNotifications.sarif" />
     <None Remove="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\NonDottedQuadFileVersion.sarif" />
@@ -87,6 +88,7 @@
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\RegressionTests.sarif" />
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\Inputs\RegressionTests.sarif" />
     <EmbeddedResource Include="TestData\RoundTripping\RoundTripping.sarif" />
+    <EmbeddedResource Include="TestData\SarifLogger\SimpleExample.sarif" />
     <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\NonDottedQuadFileVersion.sarif" />
     <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\ResultLocationsAsEmptyArray.sarif" />
     <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\Inputs\NonDottedQuadFileVersion.sarif" />

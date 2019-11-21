@@ -16,6 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
     {
         private Run _run;
         private TextWriter _textWriter;
+        private bool _closeWriterOnDispose;
         private LoggingOptions _loggingOptions;
         private JsonTextWriter _jsonTextWriter;
         private OptionallyEmittedData _dataToInsert;
@@ -57,7 +58,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             IEnumerable<string> analysisTargets = null,
             IEnumerable<string> invocationTokensToRedact = null,
             IEnumerable<string> invocationPropertiesToLog = null,
-            string defaultFileEncoding = null) : this(textWriter, loggingOptions)
+            string defaultFileEncoding = null,
+            bool closeWriterOnDispose = true) : this(textWriter, loggingOptions, closeWriterOnDispose)
         {
             if (dataToInsert.HasFlag(OptionallyEmittedData.Hashes))
             {
@@ -90,9 +92,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
         }
 
-        private SarifLogger(TextWriter textWriter, LoggingOptions loggingOptions)
+        private SarifLogger(TextWriter textWriter, LoggingOptions loggingOptions, bool closeWriterOnDipose)
         {
             _textWriter = textWriter;
+            _closeWriterOnDispose = closeWriterOnDipose;
             _jsonTextWriter = new JsonTextWriter(_textWriter);
 
             _loggingOptions = loggingOptions;
@@ -104,6 +107,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
 
             _jsonTextWriter.DateFormatString = DateTimeConverter.DateTimeFormat;
+            _jsonTextWriter.CloseOutput = _closeWriterOnDispose;
 
             _issueLogJsonWriter = new ResultLogJsonWriter(_jsonTextWriter);
             RuleToIndexMap = new Dictionary<ReportingDescriptor, int>(ReportingDescriptor.ValueComparer);
@@ -232,9 +236,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 _issueLogJsonWriter.Dispose();
             }
 
-            if (_textWriter != null) { _textWriter.Dispose(); }
-
-            if (_jsonTextWriter == null) { _jsonTextWriter.Close(); }
+            if (_closeWriterOnDispose)
+            {
+                if (_textWriter != null) { _textWriter.Dispose(); }
+                if (_jsonTextWriter == null) { _jsonTextWriter.Close(); }
+            }
 
             GC.SuppressFinalize(this);
         }

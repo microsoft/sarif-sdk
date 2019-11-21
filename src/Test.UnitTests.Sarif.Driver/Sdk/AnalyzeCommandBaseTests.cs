@@ -207,21 +207,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public void LoadPdbException()
-        {
-            var options = new TestAnalyzeOptions()
-            {
-                TargetFileSpecifiers = new string[] { GetThisTestAssemblyFilePath() },
-            };
-
-            ExceptionTestHelper(
-                TestRuleBehaviors.RaiseLoadingPdbError,
-                RuntimeConditions.ExceptionLoadingPdb,
-                analyzeOptions: options
-            );
-        }
-
-        [Fact]
         public void FileUri()
         {
             Uri uri = new Uri(this.GetType().Assembly.Location);
@@ -918,7 +903,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var testCase = new ResultsCachingTestCase
             {
                 Files = ComprehensiveKindAndLevelsByFileName,
-                TestRuleBehaviors = TestRuleBehaviors.RaiseLoadingPdbError,
+                TestRuleBehaviors = TestRuleBehaviors.RaiseTargetParseError,
                 ExpectedReturnCode = FAILURE,
             };
 
@@ -935,7 +920,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 Files = ComprehensiveKindAndLevelsByFileName,
                 PersistLogFileToDisk = true,
-                TestRuleBehaviors = TestRuleBehaviors.RaiseLoadingPdbError,
+                TestRuleBehaviors = TestRuleBehaviors.RaiseTargetParseError,
                 ExpectedReturnCode = FAILURE,
             };
 
@@ -1207,7 +1192,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             // to results. This will require us to recompute expected notification vs.
             // results counts depending on whether we are examining the console output
             // or an actual persisted log file to validate outcomes.
-            bool NotificationsWillBeConvertedToErrorResults => TestRuleBehaviors == TestRuleBehaviors.RaiseLoadingPdbError && !PersistLogFileToDisk;
+            bool NotificationsWillBeConvertedToErrorResults => TestRuleBehaviors == TestRuleBehaviors.RaiseTargetParseError && !PersistLogFileToDisk;
         }
         #endregion ResultsCachingTestsAndHelpers
     }

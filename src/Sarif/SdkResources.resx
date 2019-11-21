@@ -177,9 +177,6 @@
   <data name="ERR997_ExceptionLoadingAnalysisTarget" xml:space="preserve">
     <value>Could not load analysis target '{0}'.</value>
   </data>
-  <data name="ERR997_ExceptionLoadingPdb" xml:space="preserve">
-    <value>'{0}' was not evaluated for check '{1}' because its PDB could not be loaded.</value>
-  </data>
   <data name="ERR997_ExceptionLoadingPlugIn" xml:space="preserve">
     <value>Could not load the plug-in '{0}'.</value>
   </data>
