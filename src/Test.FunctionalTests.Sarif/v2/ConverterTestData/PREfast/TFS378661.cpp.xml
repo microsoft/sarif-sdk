@@ -17,9 +17,15 @@
     <CATEGORY>
       <RULECATEGORY>mspft</RULECATEGORY>
     </CATEGORY>
+    <ADDITIONALINFO>
+      <entry key="SuppressedMatch" />
+      <entry key="HashKey:abcdefabcdefabcdefacbdeacbdefacbdefabcdadeca=" />
+      <entry key="SuppressJustification:Scheduled to fix in Milestone 32." />
+      <entry key="MatchingScore:45.4" />
+    </ADDITIONALINFO>
     <PATH>
       <SFA>
-        <FILEPATH>d:\src\sarif-sdk\src\sarif.functionaltests\convertertestdata\prefast\src\fixedbugs\</FILEPATH>
+        <FILEPATH>d:\src\sarif-sdk\src\sarif.functionaltests\convertertestdata\prefast\src\fixedbugs</FILEPATH>
         <FILENAME>tfs378661.cpp</FILENAME>
         <LINE>6</LINE>
         <COLUMN>16</COLUMN>
@@ -31,7 +37,7 @@
         </KEYEVENT>
       </SFA>
       <SFA>
-        <FILEPATH>d:\src\sarif-sdk\src\sarif.functionaltests\convertertestdata\prefast\src\fixedbugs\</FILEPATH>
+        <FILEPATH>d:\src\sarif-sdk\src\sarif.functionaltests\convertertestdata\prefast\src\fixedbugs</FILEPATH>
         <FILENAME>tfs378661.cpp</FILENAME>
         <LINE>10</LINE>
         <COLUMN>8</COLUMN>

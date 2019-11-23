@@ -5,9 +5,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Xml.Serialization;
-using Microsoft.CodeAnalysis.Sarif.Converters.PREFastObjectModel;
 using System.Xml;
+using System.Xml.Serialization;
+
+using Microsoft.CodeAnalysis.Sarif.Converters.PREFastObjectModel;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
@@ -26,7 +27,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             output = output ?? throw new ArgumentNullException(nameof(output));
 
             LogicalLocations.Clear();
-
 
             XmlReaderSettings settings = new XmlReaderSettings
             {
@@ -70,7 +70,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 StartLine = defect.SFA.Line
             };
 
-            var resultsFileUri = new Uri($"{defect.SFA.FilePath}{defect.SFA.FileName}", UriKind.Relative);
+            string filePath = defect.SFA.FilePath + (defect.SFA.FilePath.EndsWith(@"\") ? "" : @"\");
+            var resultsFileUri = new Uri($"{filePath}{defect.SFA.FileName}", UriKind.Relative);
 
             var physicalLocation = new PhysicalLocation
             {
@@ -106,13 +107,51 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             };
 
             result.Locations.Add(location);
+
             SetProbability(defect, result);
             SetRank(defect, result);
-
             SetCategories(defect, result);
+
             GenerateCodeFlows(defect, result);
+            GenerateSuppressions(defect.AdditionalInfo, result);
 
             return result;
+        }
+
+        private void GenerateSuppressions(AdditionalInfo additionalInfo, Result result)
+        {
+            if (additionalInfo == null) { return; }
+
+            result.Suppressions = new List<Suppression>();
+            result.Suppressions.Add(GenerateSuppression(additionalInfo));
+        }
+
+        internal static Suppression GenerateSuppression(AdditionalInfo additionalInfo)
+        {
+            // If this sentinel key does not exist, we have not suppression data.
+            if (!additionalInfo.ContainsKey("SuppressedMatch")) return null;
+
+            additionalInfo.TryGetValue("HashKey", out string hashKey);
+            additionalInfo.TryGetValue("MatchingScore", out string matchingScore);
+            additionalInfo.TryGetValue("SuppressJustification", out string justification);
+
+            var suppression = new Suppression
+            {
+                Kind = SuppressionKind.External,
+                Justification = justification
+            };
+
+            if (!string.IsNullOrEmpty(matchingScore))
+            {
+                suppression.SetProperty("MatchingScore", matchingScore);
+            }
+
+            if (!string.IsNullOrEmpty(hashKey))
+            {
+                suppression.SetProperty("HashKey", matchingScore);
+            }
+
+            return suppression;
         }
 
         private int AddLogicalLocation(string name, string decoratedName)
