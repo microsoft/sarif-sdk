@@ -148,7 +148,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             if (!string.IsNullOrEmpty(hashKey))
             {
-                suppression.SetProperty("HashKey", matchingScore);
+                suppression.SetProperty("HashKey", hashKey);
             }
 
             return suppression;
