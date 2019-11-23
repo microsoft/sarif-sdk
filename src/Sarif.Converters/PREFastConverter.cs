@@ -70,7 +70,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 StartLine = defect.SFA.Line
             };
 
-            string filePath = defect.SFA.FilePath + (defect.SFA.FilePath.EndsWith(@"\") ? "" : @"\");
+            string filePath = defect.SFA.FilePath + ((defect.SFA.FilePath.EndsWith(@"\") ? "" : @"\"));
             var resultsFileUri = new Uri($"{filePath}{defect.SFA.FileName}", UriKind.Relative);
 
             var physicalLocation = new PhysicalLocation
@@ -212,7 +212,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     StartLine = sfa.Line
                 };
 
-                var uri = new Uri($"{sfa.FilePath}{sfa.FileName}", UriKind.Relative);
+                string filePath = sfa.FilePath + ((sfa.FilePath.EndsWith(@"\") ? "" : @"\"));
+                var uri = new Uri($"{filePath}{sfa.FileName}", UriKind.Relative);
                 var fileLocation = new PhysicalLocation
                 {
                     ArtifactLocation = new ArtifactLocation
