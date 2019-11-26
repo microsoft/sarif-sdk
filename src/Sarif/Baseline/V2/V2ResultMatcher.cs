@@ -1,10 +1,9 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
+using Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching;
 using System;
 using System.Collections.Generic;
-
-using Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching;
 
 namespace Microsoft.CodeAnalysis.Sarif.Baseline
 {
@@ -73,6 +72,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             else
             {
                 LinkResultsWithIdenticalWhere();
+                LinkFirstAndLastFromSameArtifact();
                 LinkResultsWithUniqueIdenticalWhat();
                 LinkAdjacentSimilarResults();
             }
@@ -112,6 +112,43 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
                     beforeIndex++;
                     afterIndex++;
                 }
+            }
+        }
+
+        private void LinkFirstAndLastFromSameArtifact()
+        {
+            int afterIndex = 0;
+            int beforeIndex = 0;
+
+            while (beforeIndex < Before.Count && afterIndex < After.Count)
+            {
+                // Get the next After Result (the first for a given Uri)
+                ExtractedResult afterFirstForUri = After[afterIndex];
+
+                // Look for the first Before Result with the same Uri, if any
+                ExtractedResult beforeFirstForUri = FirstWithUri(afterFirstForUri, Before, ref beforeIndex);
+
+                // If there was one...
+                if (beforeFirstForUri != null)
+                {
+                    // ... Try to link the first Results together
+                    LinkIfSimilar(beforeIndex, afterIndex);
+
+                    // ... Find the last Before and After result with the same Uri
+                    ExtractedResult beforeLastForUri = LastWithUri(afterFirstForUri, Before, ref beforeIndex);
+                    ExtractedResult afterLastForUri = LastWithUri(afterFirstForUri, After, ref afterIndex);
+
+                    // ... Try to link those as well (either may be the first Result if there was only one for that Uri)
+                    LinkIfSimilar(beforeIndex, afterIndex);
+                }
+                else
+                {
+                    // ... If no Before results for this Uri, skip to the After Result with the next Uri
+                    LastWithUri(afterFirstForUri, After, ref afterIndex);
+                }
+
+                // Move to the first Result with the next Uri
+                afterIndex++;
             }
         }
 
@@ -192,6 +229,54 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
                     MatchingIndexFromAfter[afterIndex] = beforeIndex;
                 }
             }
+        }
+
+        private ExtractedResult FirstWithUri(ExtractedResult desiredUri, IList<ExtractedResult> set, ref int fromIndex)
+        {
+            // Find the first Result with a Uri *matching* the desired one, or null if there aren't any
+            for (; fromIndex < set.Count; ++fromIndex)
+            {
+                int whereCmp = WhereComparer.CompareFirstArtifactUri(set[fromIndex], desiredUri);
+
+                if (whereCmp == 0)
+                {
+                    return set[fromIndex];
+                }
+                else if (whereCmp > 0)
+                {
+                    break;
+                }
+            }
+
+            return null;
+        }
+
+        private ExtractedResult LastWithUri(ExtractedResult desiredUri, IList<ExtractedResult> set, ref int fromIndex)
+        {
+            ExtractedResult lastMatch = null;
+
+            // Find the first Result with a Uri *after* the desired one, saving the last Result that matched as we go
+            for (; fromIndex < set.Count; ++fromIndex)
+            {
+                int whereCmp = WhereComparer.CompareFirstArtifactUri(set[fromIndex], desiredUri);
+
+                if (whereCmp == 0)
+                {
+                    lastMatch = set[fromIndex];
+                }
+                else if (whereCmp > 0)
+                {
+                    break;
+                }
+            }
+
+            // Ensure the index ends at the last match
+            if (fromIndex > 0)
+            {
+                fromIndex--;
+            }
+
+            return lastMatch;
         }
 
         private static void Fill(int[] array, int value)
