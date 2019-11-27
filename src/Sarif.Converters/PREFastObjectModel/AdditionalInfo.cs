@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters.PREFastObjectModel
             return null;
         }
 
-        // Define how XmlSerializer.Deserialize should deserialize into a dictionary
+        // Define how XmlSerializer.Deserialize should deserialize into a dictionary.
         public void ReadXml(XmlReader reader)
         {
             bool wasEmpty = reader.IsEmptyElement;

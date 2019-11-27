@@ -25,7 +25,7 @@
     </ADDITIONALINFO>
     <PATH>
       <SFA>
-        <FILEPATH>d:\src\sarif-sdk\src\sarif.functionaltests\convertertestdata\prefast\src\fixedbugs</FILEPATH>
+        <FILEPATH>d:\src\sarif-sdk\src\sarif.functionaltests\convertertestdata\prefast\src\no_trailing_slash</FILEPATH>
         <FILENAME>tfs378661.cpp</FILENAME>
         <LINE>6</LINE>
         <COLUMN>16</COLUMN>
@@ -37,7 +37,7 @@
         </KEYEVENT>
       </SFA>
       <SFA>
-        <FILEPATH>d:\src\sarif-sdk\src\sarif.functionaltests\convertertestdata\prefast\src\fixedbugs</FILEPATH>
+        <FILEPATH>d:\src\sarif-sdk\src\sarif.functionaltests\convertertestdata\prefast\src\no_trailing_slash</FILEPATH>
         <FILENAME>tfs378661.cpp</FILENAME>
         <LINE>10</LINE>
         <COLUMN>8</COLUMN>

@@ -70,7 +70,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 StartLine = defect.SFA.Line
             };
 
-            string filePath = defect.SFA.FilePath + ((defect.SFA.FilePath.EndsWith(@"\") ? "" : @"\"));
+            string filePath = defect.SFA.FilePath.Trim('\\') + @"\";
             var resultsFileUri = new Uri($"{filePath}{defect.SFA.FileName}", UriKind.Relative);
 
             var physicalLocation = new PhysicalLocation
@@ -122,13 +122,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             if (additionalInfo == null) { return; }
 
-            result.Suppressions = new List<Suppression>();
-            result.Suppressions.Add(GenerateSuppression(additionalInfo));
+            Suppression suppression = GenerateSuppression(additionalInfo);
+            if (suppression == null) { return; }
+
+            result.Suppressions = new List<Suppression> { suppression };
         }
 
         internal static Suppression GenerateSuppression(AdditionalInfo additionalInfo)
         {
-            // If this sentinel key does not exist, we have not suppression data.
+            // If this sentinel key does not exist, we have no suppression data.
             if (!additionalInfo.ContainsKey("SuppressedMatch")) return null;
 
             additionalInfo.TryGetValue("HashKey", out string hashKey);
