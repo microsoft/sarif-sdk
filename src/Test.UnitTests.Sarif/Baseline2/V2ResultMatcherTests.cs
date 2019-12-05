@@ -230,6 +230,51 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
         }
 
         [Fact]
+        public void V2ResultMatcher_MatchesFirstAndLastInFile()
+        {
+            // We want to ensure that the first and last Results in a file are compared.
+            // To cover this, we need:
+            //  - No unique properties in any results in the file.
+            //  - The Result file Uri stays the same. (No file rename)
+            //  - The Result moves within the file, but is still first/last.
+            //  - The Results just before and after (in the file just before and after) change order
+
+            // To do this, we'll change the URIs of /public-encrypt/test/test.pem and test_rsa_privkey_encrypted.pem to /zzz/test
+            // and will move the result in /public-encrypt/test/test_rsa_privkey.pem
+
+            Run firstRun = SampleRun.DeepClone();
+            Run secondRun = SampleRun.DeepClone();
+
+            // Change Uris for Result[1] and Result[3]
+            string changeFrom = "/public-encrypt/";
+            string changeTo = "/zzz/";
+            ReplaceInUri(secondRun.Artifacts[1].Location, changeFrom, changeTo);
+            ReplaceInUri(secondRun.Artifacts[3].Location, changeFrom, changeTo);
+            ReplaceInUri(secondRun.Results[1].Locations[0].PhysicalLocation.ArtifactLocation, changeFrom, changeTo);
+            ReplaceInUri(secondRun.Results[3].Locations[0].PhysicalLocation.ArtifactLocation, changeFrom, changeTo);
+
+            // Move Result[2]
+            Result firstInFile = secondRun.Results[2];
+            firstInFile.Locations[0].PhysicalLocation.Region.StartLine += 1;
+            firstInFile.Locations[0].PhysicalLocation.Region.CharOffset += 5;
+
+            // Verify the result matched, and matched the copy from the same file
+            IEnumerable<MatchedResults> matches = CreateMatchedResults(firstRun, secondRun);
+            MatchedResults match = matches.Where(m => Location.ValueComparer.Equals(m.CurrentResult?.Result?.Locations?.FirstOrDefault(), firstInFile.Locations[0])).FirstOrDefault();
+            Assert.NotNull(match.PreviousResult);
+            Assert.Equal(
+                match.PreviousResult.Result.Locations[0].PhysicalLocation.ArtifactLocation.Uri,
+                match.CurrentResult.Result.Locations[0].PhysicalLocation.ArtifactLocation.Uri);
+        }
+
+        private static void ReplaceInUri(ArtifactLocation artifactLocation, string replaceThis, string withThis)
+        {
+            string original = artifactLocation.Uri.OriginalString;
+            string updated = original.Replace(replaceThis, withThis);
+            artifactLocation.Uri = new Uri(updated);
+        }
+
+        [Fact]
         public void V2ResultMatcher_WhenNewIssueIsSuppressed_SupressesTheResultInTheOutput()
         {
             Run matchedRun = CreateMatchedRun(SuppressionTestPreviousLog, SuppressionTestCurrentLog);
