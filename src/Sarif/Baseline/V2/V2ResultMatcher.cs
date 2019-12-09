@@ -1,9 +1,10 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-using Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching;
 using System;
 using System.Collections.Generic;
+
+using Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching;
 
 namespace Microsoft.CodeAnalysis.Sarif.Baseline
 {
@@ -120,6 +121,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             int afterIndex = 0;
             int beforeIndex = 0;
 
+            // Walk Before and After once, looking for the first and last results per Uri
+            // NOTE: 'beforeIndex' and 'afterIndex' are passed by ref to FirstWithUri and LastWithUri, which move them forward only.
             while (beforeIndex < Before.Count && afterIndex < After.Count)
             {
                 // Get the next After Result (the first for a given Uri)
@@ -233,7 +236,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
 
         private ExtractedResult FirstWithUri(ExtractedResult desiredUri, IList<ExtractedResult> set, ref int fromIndex)
         {
-            // Find the first Result with a Uri *matching* the desired one, or null if there aren't any
+            // Find the first Result at fromIndex or later with a Uri *matching* the desired one, or null if there aren't any
             for (; fromIndex < set.Count; ++fromIndex)
             {
                 int whereCmp = WhereComparer.CompareFirstArtifactUri(set[fromIndex], desiredUri);
@@ -255,7 +258,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
         {
             ExtractedResult lastMatch = null;
 
-            // Find the first Result with a Uri *after* the desired one, saving the last Result that matched as we go
+            // Find the first Result  at fromIndex or later with a Uri *after* the desired one, saving the last Result that matched as we go
             for (; fromIndex < set.Count; ++fromIndex)
             {
                 int whereCmp = WhereComparer.CompareFirstArtifactUri(set[fromIndex], desiredUri);
