@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 using Microsoft.CodeAnalysis.Sarif;
 
@@ -79,6 +80,9 @@ namespace SarifToCsv
             // (Formatted) Message
             writers["Message"] = (c) => { c.Writer.Write(c.Result.GetMessageText(c.Result.GetRule(c.Run))); };
 
+            // Properties
+            writers["Properties"] = WriteProperties;
+
             // PhysicalLocation Properties
             writers["Location.Tags"] = (c) => { c.Writer.Write(String.Join("; ", ((IEnumerable<string>)c.PLoc?.Tags) ?? Array.Empty<string>())); };
             writers["Location.Uri"] = (c) => { c.Writer.Write(c.PLoc?.ArtifactLocation?.FileUri(c.Run)?.ToString() ?? ""); };
@@ -113,6 +117,21 @@ namespace SarifToCsv
 
 
             return writers;
+        }
+
+        private static void WriteProperties(WriteContext c)
+        {
+            StringBuilder result = new StringBuilder();
+
+            foreach (string propertyName in c?.Result?.PropertyNames ?? Enumerable.Empty<string>())
+            {
+                if (result.Length > 0) { result.Append("; "); }
+                result.Append(propertyName);
+                result.Append(": ");
+                result.Append(c.Result.GetSerializedPropertyValue(propertyName) ?? "<null>");
+            }
+
+            c.Writer.Write(result.ToString());
         }
     }
 }

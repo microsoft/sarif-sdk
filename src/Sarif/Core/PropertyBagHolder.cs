@@ -142,7 +142,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         propertyName));
             }
 
-            return Properties[propertyName].SerializedValue;
+            return Properties[propertyName]?.SerializedValue;
         }
 
         private static readonly JsonSerializerSettings s_settingsWithComprehensiveV2ContractResolver = new JsonSerializerSettings
