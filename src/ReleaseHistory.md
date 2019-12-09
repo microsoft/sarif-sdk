@@ -5,8 +5,9 @@
 * FEATURE: Allow emitting non-failure tool notifications as debug/informational messages.
 * FEATURE: `SarifLogger` now populates `tool.driver`'s `organization` and `product` properties instead of adding `"Company"` and `"ProductName"` to `tool.driver'`s property bag. [#1716](https://github.com/microsoft/sarif-sdk/issues/1716)
 * FEATURE: Add `closeWriterOnDispose` argument (with a default of 'true') that indicates whether SarifLogger writers are closed during its Dispose() method. Providing a value of `false` to this argument allows SarifLogger to work against a stream that can subsequently be reused (for example, to deserialize the logged content back to a `SarifLog` instance).
-* BUGFIX: Update PREfast converter to handle paths with no trailing slash.
 * FEATURE: Update PREfast converter to render optional suppression data.
+* BUGFIX: Update PREfast converter to handle paths with no trailing slash.
+* BUGFIX: Baselining now matches the first and last Result per URI as an additional pass.
 
 ## **v2.1.22** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.22) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.22) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.22) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.22)
 * BUGFIX: Fix bug in validation rule `EndTimeMustNotBeBeforeStartTime`, which threw if `invocation.startTimeUtc` was present but `endTimeUtc` was absent.

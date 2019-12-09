@@ -3,11 +3,17 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching;
 
 namespace Microsoft.CodeAnalysis.Sarif.Baseline
 {
+    /// <summary>
+    ///  Compare the 'Where' properties of two ExtractedResults.
+    ///  They will compare equal if every PhysicalLocation Uri and Region position matches
+    ///  and all LogicalLocation FullyQualifiedName matches.
+    /// </summary>
     public class WhereComparer : IComparer<ExtractedResult>
     {
         public static WhereComparer Instance = new WhereComparer();
@@ -15,6 +21,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
         public int Compare(ExtractedResult left, ExtractedResult right)
         {
             return CompareWhere(left, right);
+        }
+
+        /// <summary>
+        ///  Compare the first Physical Location Uri of each Result
+        /// </summary>
+        public static int CompareFirstArtifactUri(ExtractedResult left, ExtractedResult right)
+        {
+            Uri leftUri = FirstUri(left);
+            Uri rightUri = FirstUri(right);
+
+            return CompareTo(leftUri, rightUri);
         }
 
         public static int CompareWhere(ExtractedResult left, ExtractedResult right)
@@ -147,9 +164,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             return left.OriginalString.CompareTo(right.OriginalString);
         }
 
+        public static Uri FirstUri(ExtractedResult result)
+        {
+            return ArtifactUri(result?.Result?.Locations?.FirstOrDefault()?.PhysicalLocation?.ArtifactLocation, result?.OriginalRun);
+        }
+
         private static Uri ArtifactUri(ArtifactLocation loc, Run run)
         {
-            return loc?.Uri ?? loc.Resolve(run)?.Uri;
+            return loc?.Uri ?? loc?.Resolve(run)?.Uri;
         }
     }
 }
