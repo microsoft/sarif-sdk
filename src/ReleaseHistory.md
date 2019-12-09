@@ -1,5 +1,8 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
+## **v2.1.21** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.21) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.21) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.21) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.21)
+* BUGFIX: Baselining now matches the first and last Result per URI as an additional pass.
+
 ## **v2.1.20** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.20) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.20) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.20) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.20)
 * FEATURE: Added Stream-based SarifLog.Load and Save overloads
 * FEATURE: Enhanced property bag serialization unit testing. [#1673](https://github.com/microsoft/sarif-sdk/issues/1673)
