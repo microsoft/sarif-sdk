@@ -33,5 +33,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters.PREFastObjectModel
 
         [XmlElement("CATEGORY")]
         public Category Category { get; set; }
+
+        [XmlElement("ADDITIONALINFO")]
+        public AdditionalInfo AdditionalInfo { get; set; }
     }
 }

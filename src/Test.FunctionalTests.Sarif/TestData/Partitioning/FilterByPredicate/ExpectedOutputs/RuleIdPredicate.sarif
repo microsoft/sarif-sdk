@@ -1,0 +1,112 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.4.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "Sarif Functional Testing"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file1"
+          }
+        },
+        {
+          "location": {
+            "uri": "file3"
+          }
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "TST0001",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 1
+                }
+              }
+            }
+          ],
+          "message": {
+            "text": "Message 1.1."
+          }
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    },
+    {
+      "tool": {
+        "driver": {
+          "name": "Sarif Functional Testing"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file4"
+          }
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "TST0001",
+          "message": {
+            "text": "Message 2.1."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "TST0001",
+          "message": {
+            "text": "Uses same artifact as result 0, matches predicate, but artifact appears only once."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "TST0001",
+          "message": {
+            "text": "Uses different artifact from result 0, matches predicate, but artifact 'file1' will not be included because it's not referenced by index."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file1"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}

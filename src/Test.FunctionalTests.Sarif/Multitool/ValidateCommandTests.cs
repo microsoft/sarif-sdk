@@ -123,7 +123,7 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
         private string MakeInvalidTestFileName(string ruleId, string ruleName)
             => $"{ruleId}.{ruleName}{InvalidTestFileNameSuffix}";
 
-        protected override string ConstructTestOutputFromInputResource(string inputResourceName)
+        protected override string ConstructTestOutputFromInputResource(string inputResourceName, object parameter)
         {
             string v2LogText = GetResourceText(inputResourceName);
 
@@ -137,7 +137,7 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
 
             // All SARIF rule prefixes require update to current release.
             // All rules with JSON prefix are low level syntax/deserialization checks.
-            // We can't transform these test inputs as that operation fixes up erros in the file.        
+            // We can't transform these test inputs as that operation fixes up erros in the file.
             bool updateInputsToCurrentSarif = ruleUnderTest.StartsWith("SARIF") ? true : false;
 
             var validateOptions = new ValidateOptions
@@ -201,7 +201,9 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
             driver.FullName = null;
             driver.SemanticVersion = null;
             driver.DottedQuadFileVersion = null;
-            driver.Properties.Clear();
+            driver.Product = null;
+            driver.Organization = null;
+            driver.Properties?.Clear();
             actualLog.Runs[0].OriginalUriBaseIds = null;
 
             return JsonConvert.SerializeObject(actualLog, Formatting.Indented);

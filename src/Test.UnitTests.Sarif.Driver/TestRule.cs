@@ -150,12 +150,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     break;
                 }
 
-                case TestRuleBehaviors.RaiseLoadingPdbError:
-                {
-                    Errors.LogExceptionLoadingPdb(context, new InvalidOperationException(nameof(TestRuleBehaviors.RaiseLoadingPdbError)));
-                    break;
-                }
-
                 case TestRuleBehaviors.LogError:
                 {
                     context.Logger.Log(this,

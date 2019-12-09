@@ -46,6 +46,10 @@ const rules = {
     }
 };
 
+const sourceFilePath1 = "service.js"
+const sourceFilePath2 = "utils.js"
+const uriPrefix = "file:///"
+
 //------------------------------------------------------------------------------
 // Tests
 //------------------------------------------------------------------------------
@@ -66,9 +70,8 @@ describe("formatter:sarif", () => {
     });
 
     describe("when passed no messages", () => {
-        const sourceFilePath = "service.js";
         const code = [{
-            filePath: sourceFilePath,
+            filePath: sourceFilePath1,
             messages: []
         }];
 
@@ -76,7 +79,8 @@ describe("formatter:sarif", () => {
             const log = JSON.parse(formatter(code, null));
 
             assert.isDefined(log.runs[0].artifacts);
-            assert.strictEqual(log.runs[0].artifacts[0].location.uri, "service.js");
+            assert(log.runs[0].artifacts[0].location.uri.startsWith(uriPrefix));
+            assert(log.runs[0].artifacts[0].location.uri.endsWith("/" + sourceFilePath1));
             assert.isUndefined(log.runs[0].results);
         });
     });
@@ -84,9 +88,8 @@ describe("formatter:sarif", () => {
 
 describe("formatter:sarif", () => {
     describe("when passed one message", () => {
-        const sourceFilePath = "service.js";
         const code = [{
-            filePath: sourceFilePath,
+            filePath: sourceFilePath1,
             messages: [{
                 message: "Unexpected value.",
                 severity: 2
@@ -96,13 +99,15 @@ describe("formatter:sarif", () => {
         it("should return a log with one file and one result", () => {
             const log = JSON.parse(formatter(code, { rulesMeta: rules }));
             
-            assert.strictEqual(log.runs[0].artifacts[0].location.uri, sourceFilePath);
+            assert(log.runs[0].artifacts[0].location.uri.startsWith(uriPrefix));
+            assert(log.runs[0].artifacts[0].location.uri, "/" + sourceFilePath1);
             assert.isDefined(log.runs[0].results);
             assert.lengthOf(log.runs[0].results, 1);
             assert.strictEqual(log.runs[0].results[0].level, "error");
             assert.isDefined(log.runs[0].results[0].message);
             assert.strictEqual(log.runs[0].results[0].message.text, code[0].messages[0].message);
-            assert.strictEqual(log.runs[0].results[0].locations[0].physicalLocation.artifactLocation.uri, sourceFilePath);
+            assert(log.runs[0].results[0].locations[0].physicalLocation.artifactLocation.uri.startsWith(uriPrefix));
+            assert(log.runs[0].results[0].locations[0].physicalLocation.artifactLocation.uri.endsWith("/" + sourceFilePath1));
             assert.strictEqual(log.runs[0].results[0].locations[0].physicalLocation.artifactLocation.index, 0);
         });
     });
@@ -112,7 +117,7 @@ describe("formatter:sarif", () => {
     describe("when passed one message with a rule id", () => {
         const ruleid = "no-unused-vars";
         const code = [{
-            filePath: "service.js",
+            filePath: sourceFilePath1,
             messages: [{
                 message: "Unexpected value.",
                 ruleId: ruleid,
@@ -136,7 +141,7 @@ describe("formatter:sarif", () => {
 describe("formatter:sarif", () => {
     describe("when passed one message with line but no column nor source string", () => {
         const code = [{
-            filePath: "service.js",
+            filePath: sourceFilePath1,
             messages: [{
                 message: "Unexpected value.",
                 line: 10
@@ -156,7 +161,7 @@ describe("formatter:sarif", () => {
 describe("formatter:sarif", () => {
     describe("when passed one message with line and column but no source string", () => {
         const code = [{
-            filePath: "service.js",
+            filePath: sourceFilePath1,
             messages: [{
                 message: "Unexpected value.",
                 line: 10,
@@ -199,7 +204,7 @@ describe("formatter:sarif", () => {
 describe("formatter:sarif", () => {
     describe("when passed one message with a source string but without line and column #s", () => {
         const code = [{
-            filePath: "service.js",
+            filePath: sourceFilePath1,
             messages: [{
                 message: "Unexpected value.",
                 severity: 2,
@@ -220,8 +225,6 @@ describe("formatter:sarif", () => {
 
 describe("formatter:sarif", () => {
     describe("when passed two results with two messages each", () => {
-        const sourceFilePath1 = "service.js";
-        const sourceFilePath2 = "utils.js";
         const ruleid1 = "no-unused-vars";
         const ruleid2 = "no-extra-semi";
         const ruleid3 = "custom-rule";
@@ -276,11 +279,12 @@ describe("formatter:sarif", () => {
             assert.strictEqual(log.runs[0].tool.driver.rules[1].id, ruleid2);
             assert.strictEqual(log.runs[0].tool.driver.rules[2].id, ruleid3);
 
-            assert.strictEqual(log.runs[0].artifacts[0].location.uri, sourceFilePath1);
-            assert.strictEqual(log.runs[0].artifacts[1].location.uri, sourceFilePath2);
+            assert(log.runs[0].artifacts[0].location.uri.startsWith(uriPrefix));
+            assert(log.runs[0].artifacts[0].location.uri, sourceFilePath1);
 
-            assert.strictEqual(log.runs[0].artifacts[0].location.uri, sourceFilePath1);
-            assert.strictEqual(log.runs[0].artifacts[1].location.uri, sourceFilePath2);
+            assert(log.runs[0].artifacts[1].location.uri.startsWith(uriPrefix));
+            assert(log.runs[0].artifacts[1].location.uri, sourceFilePath2);
+
 
             assert.strictEqual(log.runs[0].tool.driver.rules[0].id, ruleid1);
             assert.strictEqual(log.runs[0].tool.driver.rules[0].shortDescription.text, rule1.docs.description);
@@ -317,10 +321,14 @@ describe("formatter:sarif", () => {
             assert.strictEqual(log.runs[0].results[2].message.text, "Unexpected something.");
             assert.strictEqual(log.runs[0].results[3].message.text, "Custom error.");
 
-            assert.strictEqual(log.runs[0].results[0].locations[0].physicalLocation.artifactLocation.uri, sourceFilePath1);
-            assert.strictEqual(log.runs[0].results[1].locations[0].physicalLocation.artifactLocation.uri, sourceFilePath1);
-            assert.strictEqual(log.runs[0].results[2].locations[0].physicalLocation.artifactLocation.uri, sourceFilePath2);
-            assert.strictEqual(log.runs[0].results[3].locations[0].physicalLocation.artifactLocation.uri, sourceFilePath2);
+            assert(log.runs[0].results[0].locations[0].physicalLocation.artifactLocation.uri.startsWith(uriPrefix));
+            assert(log.runs[0].results[0].locations[0].physicalLocation.artifactLocation.uri.endsWith("/" + sourceFilePath1));
+            assert(log.runs[0].results[1].locations[0].physicalLocation.artifactLocation.uri.startsWith(uriPrefix));
+            assert(log.runs[0].results[1].locations[0].physicalLocation.artifactLocation.uri.endsWith("/" + sourceFilePath1));
+            assert(log.runs[0].results[2].locations[0].physicalLocation.artifactLocation.uri.startsWith(uriPrefix));
+            assert(log.runs[0].results[2].locations[0].physicalLocation.artifactLocation.uri.endsWith("/" + sourceFilePath2));
+            assert(log.runs[0].results[3].locations[0].physicalLocation.artifactLocation.uri.startsWith(uriPrefix));
+            assert(log.runs[0].results[3].locations[0].physicalLocation.artifactLocation.uri.endsWith("/" + sourceFilePath2));
 
             assert.strictEqual(log.runs[0].results[0].locations[0].physicalLocation.artifactLocation.index, 0);
             assert.strictEqual(log.runs[0].results[1].locations[0].physicalLocation.artifactLocation.index, 0);
@@ -342,8 +350,6 @@ describe("formatter:sarif", () => {
 
 describe("formatter:sarif", () => {
     describe("when passed two results with one having no message and one with two messages", () => {
-        const sourceFilePath1 = "service.js";
-        const sourceFilePath2 = "utils.js";
         const ruleid1 = "no-unused-vars";
         const ruleid2 = "no-extra-semi";
         const ruleid3 = "custom-rule";
@@ -385,8 +391,10 @@ describe("formatter:sarif", () => {
             assert.strictEqual(log.runs[0].tool.driver.rules[0].id, ruleid2);
             assert.strictEqual(log.runs[0].tool.driver.rules[1].id, ruleid3);
 
-            assert.strictEqual(log.runs[0].artifacts[0].location.uri, sourceFilePath1);
-            assert.strictEqual(log.runs[0].artifacts[1].location.uri, sourceFilePath2);
+            assert(log.runs[0].artifacts[0].location.uri.startsWith(uriPrefix));
+            assert(log.runs[0].artifacts[0].location.uri.endsWith(sourceFilePath1));
+            assert(log.runs[0].artifacts[1].location.uri.startsWith(uriPrefix));
+            assert(log.runs[0].artifacts[1].location.uri.endsWith(sourceFilePath2));
 
             assert.strictEqual(log.runs[0].tool.driver.rules[0].id, ruleid2);
             assert.strictEqual(log.runs[0].tool.driver.rules[0].shortDescription.text, rule2.docs.description);
@@ -407,8 +415,10 @@ describe("formatter:sarif", () => {
             assert.strictEqual(log.runs[0].results[0].message.text, "Unexpected something.");
             assert.strictEqual(log.runs[0].results[1].message.text, "Custom error.");
 
-            assert.strictEqual(log.runs[0].results[0].locations[0].physicalLocation.artifactLocation.uri, sourceFilePath2);
-            assert.strictEqual(log.runs[0].results[1].locations[0].physicalLocation.artifactLocation.uri, sourceFilePath2);
+            assert(log.runs[0].results[0].locations[0].physicalLocation.artifactLocation.uri.startsWith(uriPrefix));
+            assert(log.runs[0].results[0].locations[0].physicalLocation.artifactLocation.uri.endsWith(sourceFilePath2));
+            assert(log.runs[0].results[1].locations[0].physicalLocation.artifactLocation.uri.startsWith(uriPrefix));
+            assert(log.runs[0].results[1].locations[0].physicalLocation.artifactLocation.uri.endsWith(sourceFilePath2));
 
             assert.strictEqual(log.runs[0].results[0].locations[0].physicalLocation.region.startLine, 18);
             assert.isUndefined(log.runs[0].results[0].locations[0].physicalLocation.region.startColumn);

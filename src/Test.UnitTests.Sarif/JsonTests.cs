@@ -16,6 +16,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         protected static readonly Tool DefaultTool = new Tool() { Driver = new ToolComponent { Name = "DefaultTool" } };
         protected static readonly Result DefaultResult = new Result { Message = new Message { Text = "Some testing occurred." } };
 
+        protected static readonly ResourceExtractor ResourceExtractor = new ResourceExtractor(typeof(JsonTests));
+
         protected static string GetJson(Action<ResultLogJsonWriter> testContent)
         {
             StringBuilder result = new StringBuilder();

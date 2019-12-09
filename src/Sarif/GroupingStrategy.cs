@@ -32,5 +32,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// associated with each target within each run.
         /// </summary>
         PerRunPerTargetPerRule = 2,
+
+        /// <summary>
+        /// A grouping strategy that splits SARIF log files into a single log per run, per target.
+        /// I.e., the total number of log files created is the sum of the unique targets within each run.
+        /// </summary>
+        PerRunPerTarget = 3,
     }
 }

@@ -1,7 +1,19 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
-## **v2.1.21** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.21) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.21) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.21) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.21)
+## **v2.1.23** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.23) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.23) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.23) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.23)
+* API BREAKING: Remove 'Errors.LogExceptionLoadingPdb' helper (as not relevant to core SDK).
+* FEATURE: Allow emitting non-failure tool notifications as debug/informational messages.
+* FEATURE: `SarifLogger` now populates `tool.driver`'s `organization` and `product` properties instead of adding `"Company"` and `"ProductName"` to `tool.driver'`s property bag. [#1716](https://github.com/microsoft/sarif-sdk/issues/1716)
+* FEATURE: Add `closeWriterOnDispose` argument (with a default of 'true') that indicates whether SarifLogger writers are closed during its Dispose() method. Providing a value of `false` to this argument allows SarifLogger to work against a stream that can subsequently be reused (for example, to deserialize the logged content back to a `SarifLog` instance).
+* FEATURE: Update PREfast converter to render optional suppression data.
+* BUGFIX: Update PREfast converter to handle paths with no trailing slash.
 * BUGFIX: Baselining now matches the first and last Result per URI as an additional pass.
+
+## **v2.1.22** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.22) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.22) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.22) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.22)
+* BUGFIX: Fix bug in validation rule `EndTimeMustNotBeBeforeStartTime`, which threw if `invocation.startTimeUtc` was present but `endTimeUtc` was absent.
+
+## **v2.1.21** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.21) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.21) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.21) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.21)
+* FEATURE: Provide an API `SarifPartitioner.Filter` that selects results according to a predicate, and filters `run.artifacts` to only those artifacts used by the included results.
 
 ## **v2.1.20** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.20) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.20) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.20) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.20)
 * FEATURE: Added Stream-based SarifLog.Load and Save overloads
@@ -18,7 +30,7 @@
 ## **v2.1.19** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.19) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.19) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.19) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.19)
 * Sort driver skimmers by rule id + name during analysis, in order to improve deterministic ordering of log file data.
 * API BREAKING: Convert various public SARIF Driver framework API to prefer abstract ISet<string> type over HashSet<string>.
-* API BREAKING: Remove helper method `SarifUtilities.DeserializeObject` introduced in 2.1.15 to fix [#1577](https://github.com/microsoft/sarif-sdk/issues/1577).
+* API BREAKING: Remove helper method `SarifUtilities.DeserializeObject` introduced in 2.1.15 to fix. [#1577](https://github.com/microsoft/sarif-sdk/issues/1577)
 Now that an underlying bug in `PropertyBagConverter` has been fixed, there is no need to work around it with this helper method. `JsonConvert.DeserializeObject` works fine.
 * FEATURE: Expanding Sarif SDK query mode to support Result.Uri, string StartsWith/EndsWith/Contains.
 * FEATURE: Adding Result.Run and a populating method, so that methods which need the Run context for a given Result have an integrated way to retrieve it.
@@ -238,36 +250,36 @@ Now that an underlying bug in `PropertyBagConverter` has been fixed, there is no
 ## **v2.0.0-csd.2.beta.2019.01-24** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.2.beta.2019.01-24) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.2.beta.2019.01-24) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.2.beta.2019.01-24)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.2.beta.2019.01-24))
 * BUGFIX: SDK compatibility update for sample apps.
 * BUGFIX: Add Sarif.Multitool.exe.config file to multitool package to resolve "Could not load file or assembly `Newtonsoft.Json, Version=9.0.0.0`" exception on using validate command.
-* API BREAKING: rename baselineState `existing` value to `unchanged`. Add new baselineState value `updated`. https://github.com/oasis-tcs/sarif-spec/issues/312
-* API BREAKING: unify result and notification failure levels (`note`, `warning`, `error`). Break out result evaluation state into `result.kind` property with values `pass`, `fail`, `open`, `review`, `notApplicable`. https://github.com/oasis-tcs/sarif-spec/issues/317
+* API BREAKING: rename baselineState `existing` value to `unchanged`. Add new baselineState value `updated`. [oasis-tcs/sarif-spec#312](https://github.com/oasis-tcs/sarif-spec/issues/312)
+* API BREAKING: unify result and notification failure levels (`note`, `warning`, `error`). Break out result evaluation state into `result.kind` property with values `pass`, `fail`, `open`, `review`, `notApplicable`. [oasis-tcs/sarif-spec#317](https://github.com/oasis-tcs/sarif-spec/issues/317)
 * API BREAKING: remove IRule entirely, in favor of utilizing ReportingDescriptor base class.
-* API BREAKING: define `toolComponent` object to persist tool data. The `tool.driver` component documents the standard driver metadata. `tool.extensions` is an array of `toolComponent` instances that describe extensions to the core analyzer. This change also deletes `tool.sarifLoggerVersion` (from the newly created `toolComponent` object) due to its lack of utility. Adds `result.extensionIndex` to allow results to be associated with a plug-in. `toolComponent` also added as a new file role. https://github.com/oasis-tcs/sarif-spec/issues/179
-* API BREAKING: Remove `run.resources` object. Rename `rule` object to `reportingDescriptor`. Move rule and notification reportingDescriptor objects to `tool.notificationDescriptors` and `tool.ruleDescriptors`. `resources.messageStrings` now located at `toolComponent.globalMessageStrings`. `rule.configuration` property now named `reportingDescriptor.defaultConfiguration`. `reportingConfiguration.defaultLevel` and `reportingConfiguration.defaultRank` simplified to `reportingConfiguration.level` and `reportingConfiguration.rank`. Actual runtime reportingConfiguration persisted to new array of reportingConfiguration objects at `invocation.reportingConfiguration`. https://github.com/oasis-tcs/sarif-spec/issues/311
-* API BREAKING: `run.richTextMessageMimeType` renamed to `run.markdownMessageMimeType`. `message.richText` renamed to `message.markdown`. `message.richMessageId` deleted. Create `multiformatMessageString` object, that holds plain text and markdown message format strings. `reportingDescriptor.messageStrings` is now a dictionary of these objects, keyed by message id. `reporting.Descriptor.richMessageStrings` dictionary is deleted. https://github.com/oasis-tcs/sarif-spec/issues/319
-* API BREAKING: `threadflowLocation.kind` is now `threadflowLocation.kinds`, an array of strings that categorize the thread flow location. https://github.com/oasis-tcs/sarif-spec/issues/202
-* API BREAKING: `file` renamed to `artifact`. `fileLocation` renamed to `artifactLocation`. `run.files` renamed to `run.artifacts`. https://github.com/oasis-tcs/sarif-spec/issues/309
+* API BREAKING: define `toolComponent` object to persist tool data. The `tool.driver` component documents the standard driver metadata. `tool.extensions` is an array of `toolComponent` instances that describe extensions to the core analyzer. This change also deletes `tool.sarifLoggerVersion` (from the newly created `toolComponent` object) due to its lack of utility. Adds `result.extensionIndex` to allow results to be associated with a plug-in. `toolComponent` also added as a new file role. [oasis-tcs/sarif-spec#179](https://github.com/oasis-tcs/sarif-spec/issues/179)
+* API BREAKING: Remove `run.resources` object. Rename `rule` object to `reportingDescriptor`. Move rule and notification reportingDescriptor objects to `tool.notificationDescriptors` and `tool.ruleDescriptors`. `resources.messageStrings` now located at `toolComponent.globalMessageStrings`. `rule.configuration` property now named `reportingDescriptor.defaultConfiguration`. `reportingConfiguration.defaultLevel` and `reportingConfiguration.defaultRank` simplified to `reportingConfiguration.level` and `reportingConfiguration.rank`. Actual runtime reportingConfiguration persisted to new array of reportingConfiguration objects at `invocation.reportingConfiguration`. [oasis-tcs/sarif-spec#311](https://github.com/oasis-tcs/sarif-spec/issues/311)
+* API BREAKING: `run.richTextMessageMimeType` renamed to `run.markdownMessageMimeType`. `message.richText` renamed to `message.markdown`. `message.richMessageId` deleted. Create `multiformatMessageString` object, that holds plain text and markdown message format strings. `reportingDescriptor.messageStrings` is now a dictionary of these objects, keyed by message id. `reporting.Descriptor.richMessageStrings` dictionary is deleted. [oasis-tcs/sarif-spec#319](https://github.com/oasis-tcs/sarif-spec/issues/319)
+* API BREAKING: `threadflowLocation.kind` is now `threadflowLocation.kinds`, an array of strings that categorize the thread flow location. [oasis-tcs/sarif-spec#202](https://github.com/oasis-tcs/sarif-spec/issues/202)
+* API BREAKING: `file` renamed to `artifact`. `fileLocation` renamed to `artifactLocation`. `run.files` renamed to `run.artifacts`. [oasis-tcs/sarif-spec#309](https://github.com/oasis-tcs/sarif-spec/issues/309)
 
 ## **v2.0.0-csd.2.beta.2019-01-09** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.2.beta.2019-01-09) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.2.beta.2019-01-09) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.2.beta.2019-01-09) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.2.beta.2019-01-09)
 * BUGFIX: Result matching improvements in properties persistence.
 * FEATURE: Fortify FPR converter improvements.
 * API NON-BREAKING: Remove uniqueness requirement from `result.locations`.
-* API NON-BREAKING: Add `run.newlineSequences` to schema. https://github.com/oasis-tcs/sarif-spec/issues/169
-* API NON-BREAKING: Add `rule.deprecatedIds` to schema. https://github.com/oasis-tcs/sarif-spec/issues/293
-* API NON-BREAKING: Add `versionControlDetails.mappedTo`. https://github.com/oasis-tcs/sarif-spec/issues/248
+* API NON-BREAKING: Add `run.newlineSequences` to schema. [oasis-tcs/sarif-spec#169](https://github.com/oasis-tcs/sarif-spec/issues/169)
+* API NON-BREAKING: Add `rule.deprecatedIds` to schema. [oasis-tcs/sarif-spec#293](https://github.com/oasis-tcs/sarif-spec/issues/293)
+* API NON-BREAKING: Add `versionControlDetails.mappedTo`. [oasis-tcs/sarif-spec#248](https://github.com/oasis-tcs/sarif-spec/issues/248)
 * API NON-BREAKING: Add result.rank`. Add `ruleConfiguration.defaultRank`.
-* API NON-BREAKING: Add `file.sourceLocation` and `region.sourceLanguage` to guide in snippet colorization. `run.defaultSourceLanguage` provides a default value. https://github.com/oasis-tcs/sarif-spec/issues/286
-* API NON-BREAKING: default values for `result.rank` and `ruleConfiguration.defaultRank` is now -1.0 (from 0.0). https://github.com/oasis-tcs/sarif-spec/issues/303
-* API BREAKING: Remove `run.architecture` https://github.com/oasis-tcs/sarif-spec/issues/262
-* API BREAKING: `result.message` is now a required property https://github.com/oasis-tcs/sarif-spec/issues/283
-* API BREAKING: Rename `tool.fileVersion` to `tool.dottedQuadFileVersion` https://github.com/oasis-tcs/sarif-spec/issues/274
-* API BREAKING: Remove `open` from valid rule default configuration levels. https://github.com/oasis-tcs/sarif-spec/issues/288. The transformer remaps this value to `note`.
-* API BREAKING: `run.columnKind` default value is now `unicodeCodePoints`. https://github.com/Microsoft/sarif-sdk/pull/1160. The transformer will inject `utf16CodeUnits`, however, when this property is absent, as this value is a more appropriate default for the Windows platform.
+* API NON-BREAKING: Add `file.sourceLocation` and `region.sourceLanguage` to guide in snippet colorization. `run.defaultSourceLanguage` provides a default value. [oasis-tcs/sarif-spec#286](https://github.com/oasis-tcs/sarif-spec/issues/286)
+* API NON-BREAKING: default values for `result.rank` and `ruleConfiguration.defaultRank` is now -1.0 (from 0.0). [oasis-tcs/sarif-spec#303](https://github.com/oasis-tcs/sarif-spec/issues/303)
+* API BREAKING: Remove `run.architecture` [oasis-tcs/sarif-spec#262](https://github.com/oasis-tcs/sarif-spec/issues/262)
+* API BREAKING: `result.message` is now a required property [oasis-tcs/sarif-spec#283](https://github.com/oasis-tcs/sarif-spec/issues/283)
+* API BREAKING: Rename `tool.fileVersion` to `tool.dottedQuadFileVersion` [oasis-tcs/sarif-spec#274](https://github.com/oasis-tcs/sarif-spec/issues/274)
+* API BREAKING: Remove `open` from valid rule default configuration levels. The transformer remaps this value to `note`. [oasis-tcs/sarif-spec#288](https://github.com/oasis-tcs/sarif-spec/issues/288)
+* API BREAKING: `run.columnKind` default value is now `unicodeCodePoints`. The transformer will inject `utf16CodeUnits`, however, when this property is absent, as this value is a more appropriate default for the Windows platform. [#1160](https://github.com/Microsoft/sarif-sdk/pull/1160)
 * API BREAKING: Make `run.logicalLocations` an array, not a dictionary. Add result.logicalLocationIndex to point to associated logical location.
 * API BREAKING: `run.externalFiles` renamed to `run.externalPropertyFiles`, which is not a bundle of external property file objects. NOTE: no transformation will be provided for legacy versions of the external property files API.
 * API BREAKING: rework `result.provenance` object, including moving result.conversionProvenance to `result.provenance.conversionSources`. NOTE: no transformation currently exists for this update.
 * API BREAKING: Make `run.files` an array, not a dictionary. Add fileLocation.fileIndex to point to a file object associated with the location within `run.files`.
 * API BREAKING: Make `resources.rules` an array, not a dictionary. Add result.ruleIndex to point to a rule object associated with the result within `resources.rules`.
-* API BREAKING: `run.logicalLocations` now requires unique array elements. https://github.com/oasis-tcs/sarif-spec/issues/304
+* API BREAKING: `run.logicalLocations` now requires unique array elements. [oasis-tcs/sarif-spec#304](https://github.com/oasis-tcs/sarif-spec/issues/304)
 
 ## **v2.0.0-csd.2.beta.2018-10-10.2** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.2.beta.2018-10-10.2) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.2.beta.2018-10-10.2) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.2.beta.2018-10-10.2) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.2.beta.2018-10-10.2)
 * BUGFIX: Don`t emit v2 analysisTarget if there is no v1 resultFile.

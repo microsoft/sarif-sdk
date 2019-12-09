@@ -32,7 +32,7 @@ if ($Previous) {
 }
 
 $versionPrefix = Get-VersionComponent "${PreviousNamePrefix}VersionPrefix"
-$schemaVersionAsPublishedToSchemaStoreOrg = Get-VersionComponent "${PreviousNamePrefix}SchemaVersionAsPublishedToSchemaStoreOrg"
-$stableSarifVersion = Get-VersionComponent "${PreviousNamePrefix}StableSarifVersion"
+$schemaVersionAsPublishedToSchemaStoreOrg = Get-VersionComponent SchemaVersionAsPublishedToSchemaStoreOrg
+$stableSarifVersion = Get-VersionComponent StableSarifVersion
 
 $versionPrefix, $schemaVersionAsPublishedToSchemaStoreOrg, $stableSarifVersion
