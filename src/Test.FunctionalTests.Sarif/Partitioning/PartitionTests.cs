@@ -21,8 +21,25 @@ namespace Microsoft.CodeAnalysis.Test.FunctionalTests.Sarif.Partitioning
 
         protected override string IntermediateTestFolder => @"Partitioning";
 
+        private class TestParameters
+        {
+            internal PartitioningVisitor<string>.PartitionFunction PartitionFunction { get; set; }
+            internal bool DeepClone { get; set; }
+        }
+
         [Fact]
-        public void Partition_WithTrivialPartitionFunction_ReturnsLogWithAllResultsAndRunLevelArrayContentsFromAllResults()
+        public void Partition_WithTrivialPartitionFunction_WithDeepClone_ReturnsLogWithAllResultsAndRunLevelArrayContentsFromAllResults()
+        {
+            Partition_WithTrivialPartitionFunction_ReturnsLogWithAllResultsAndRunLevelArrayContentsFromAllResults(deepClone: true);
+        }
+
+        [Fact]
+        public void Partition_WithTrivialPartitionFunction_WithShallowCopy_ReturnsLogWithAllResultsAndRunLevelArrayContentsFromAllResults()
+        {
+            Partition_WithTrivialPartitionFunction_ReturnsLogWithAllResultsAndRunLevelArrayContentsFromAllResults(deepClone: false);
+        }
+
+        private void Partition_WithTrivialPartitionFunction_ReturnsLogWithAllResultsAndRunLevelArrayContentsFromAllResults(bool deepClone)
         {
             PartitioningVisitor<string>.PartitionFunction partitionFunction = result => "default";
 
@@ -32,11 +49,26 @@ namespace Microsoft.CodeAnalysis.Test.FunctionalTests.Sarif.Partitioning
                 {
                     ["default"] = "TrivialPartitionFunction.sarif"
                 },
-                parameter: partitionFunction);
+                parameter: new TestParameters
+                {
+                    PartitionFunction = partitionFunction,
+                    DeepClone = deepClone
+                });
         }
 
         [Fact]
-        public void Partition_ByRuleId_ProducesOneLogFilePerRule()
+        public void Partition_ByRuleId_WithDeepClone_ProducesOneLogFilePerRule()
+        {
+            Partition_ByRuleId_ProducesOneLogFilePerRule(deepClone: true);
+        }
+
+        [Fact]
+        public void Partition_ByRuleId_WithShallowCopy_ProducesOneLogFilePerRule()
+        {
+            Partition_ByRuleId_ProducesOneLogFilePerRule(deepClone: false);
+        }
+
+        private void Partition_ByRuleId_ProducesOneLogFilePerRule(bool deepClone)
         {
             PartitioningVisitor<string>.PartitionFunction partitionFunction = result => result.RuleId;
 
@@ -48,7 +80,11 @@ namespace Microsoft.CodeAnalysis.Test.FunctionalTests.Sarif.Partitioning
                     ["TST0002"] = "TST0002.sarif",
                     ["TST9999"] = "TST9999.sarif"
                 },
-                parameter: partitionFunction);
+                parameter: new TestParameters
+                {
+                    PartitionFunction = partitionFunction,
+                    DeepClone = deepClone
+                });
         }
 
         protected override IDictionary<string, string> ConstructTestOutputsFromInputResources(
@@ -58,12 +94,11 @@ namespace Microsoft.CodeAnalysis.Test.FunctionalTests.Sarif.Partitioning
             // In these tests there is a single input resource and multiple output resources.
             inputResourceNames.Count().Should().Be(1);
 
-            var partionFunction = (PartitioningVisitor<string>.PartitionFunction)parameter;
-
             string inputText = GetResourceText(inputResourceNames.First());
             SarifLog inputLog = JsonConvert.DeserializeObject<SarifLog>(inputText);
 
-            IDictionary<string, SarifLog> outputLogDictionary = SarifPartitioner.Partition(inputLog, partionFunction);
+            var testParameters = (TestParameters)parameter;
+            IDictionary<string, SarifLog> outputLogDictionary = SarifPartitioner.Partition(inputLog, testParameters.PartitionFunction, testParameters.DeepClone);
 
             IDictionary<string, string> outputLogFileContentsDictionary = outputLogDictionary.ToDictionary(
                 pair => pair.Key,

@@ -63,7 +63,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         /// do not share any objects, so they can be modified safely, but at a cost of increased
         /// partitioning time and  working set. Shallow copying reduces partitioning time and
         /// working set, but it is not safe to modify any of the resulting logs because this class
-        /// makes no guarantee about which objects are shared. The default is <code>false</code>.
+        /// makes no guarantee about which objects are shared.
         /// </param>
         /// <returns>
         /// A dictionary whose keys are the values returned by <paramref name="partitionFunction"/>
@@ -73,7 +73,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         public static IDictionary<T, SarifLog> Partition<T>(
             SarifLog log,
             PartitioningVisitor<T>.PartitionFunction partitionFunction,
-            bool deepClone = false)
+            bool deepClone)
             where T : class
         {
             var visitor = new PartitioningVisitor<T>(partitionFunction, deepClone);

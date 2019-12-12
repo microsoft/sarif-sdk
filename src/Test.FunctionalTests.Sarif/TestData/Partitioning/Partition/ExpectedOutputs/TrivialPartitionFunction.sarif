@@ -11,7 +11,7 @@
       "artifacts": [
         {
           "location": {
-            "uri": "file1",
+            "uri": "file1"
           },
           "parentIndex": 1
         },
@@ -40,7 +40,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "index": 1
+                  "index": 2
                 }
               }
             }
