@@ -12,7 +12,8 @@
         {
           "location": {
             "uri": "file1"
-          }
+          },
+          "parentIndex": 4
         },
         {
           "location": {
@@ -27,6 +28,11 @@
         {
           "location": {
             "uri": "file4"
+          }
+        },
+        {
+          "location": {
+            "uri": "file5"
           }
         }
       ],
@@ -72,7 +78,8 @@
         {
           "location": {
             "uri": "file1"
-          }
+          },
+          "parentIndex": 4
         },
         {
           "location": {
@@ -87,6 +94,11 @@
         {
           "location": {
             "uri": "file4"
+          }
+        },
+        {
+          "location": {
+            "uri": "file5"
           }
         }
       ],
@@ -154,5 +166,8 @@
       ],
       "columnKind": "utf16CodeUnits"
     }
-  ]
+  ],
+  "properties": {
+    "testProperty": "testPropertyValue"
+  }
 }

@@ -11,22 +11,18 @@
       "artifacts": [
         {
           "location": {
-            "uri": "file1"
-          }
+            "uri": "file1",
+          },
+          "parentIndex": 1
         },
         {
           "location": {
-            "uri": "file2"
+            "uri": "file5"
           }
         },
         {
           "location": {
             "uri": "file3"
-          }
-        },
-        {
-          "location": {
-            "uri": "file4"
           }
         }
       ],
@@ -44,7 +40,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "index": 2
+                  "index": 1
                 }
               }
             }
@@ -71,21 +67,6 @@
       "artifacts": [
         {
           "location": {
-            "uri": "file1"
-          }
-        },
-        {
-          "location": {
-            "uri": "file2"
-          }
-        },
-        {
-          "location": {
-            "uri": "file3"
-          }
-        },
-        {
-          "location": {
             "uri": "file4"
           }
         }
@@ -100,7 +81,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "index": 3
+                  "index": 0
                 }
               }
             }
@@ -115,7 +96,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "index": 3
+                  "index": 0
                 }
               }
             }
@@ -130,7 +111,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "index": 3
+                  "index": 0
                 }
               }
             }
@@ -156,6 +137,7 @@
     }
   ],
   "properties": {
+    "testProperty": "testPropertyValue",
     "partitionValue": "default"
   }
 }

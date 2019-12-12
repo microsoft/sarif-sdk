@@ -8,28 +8,6 @@
           "name": "Sarif Functional Testing"
         }
       },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "file1"
-          }
-        },
-        {
-          "location": {
-            "uri": "file2"
-          }
-        },
-        {
-          "location": {
-            "uri": "file3"
-          }
-        },
-        {
-          "location": {
-            "uri": "file4"
-          }
-        }
-      ],
       "results": [
         {
           "ruleId": "TST0002",
@@ -42,6 +20,7 @@
     }
   ],
   "properties": {
+    "testProperty": "testPropertyValue",
     "partitionValue": "TST0002"
   }
 }

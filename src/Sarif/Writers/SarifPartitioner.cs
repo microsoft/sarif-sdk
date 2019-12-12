@@ -55,6 +55,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         /// belongs in, or null if the result should be discarded (not placed in any of the
         /// partitioned logs).
         /// </param>
+        /// <param name="deepClone">
+        /// A value that specifies how the partitioned logs are constructed from the original log.
+        /// If <code>true</code>, each partitioned log is constructed from a deep clone of the
+        /// original log; if <code>false</code>, each partitioned log is constructed from a shallow
+        /// copy of the original log. Deep cloning ensures that the original and partitioned logs
+        /// do not share any objects, so they can be modified safely, but at a cost of increased
+        /// partitioning time and  working set. Shallow copying reduces partitioning time and
+        /// working set, but it is not safe to modify any of the resulting logs because this class
+        /// makes no guarantee about which objects are shared. The default is <code>false</code>.
+        /// </param>
         /// <returns>
         /// A dictionary whose keys are the values returned by <paramref name="partitionFunction"/>
         /// for the results in <paramref name="log"/> and whose values are the SARIF logs
@@ -62,10 +72,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         /// </returns>
         public static IDictionary<T, SarifLog> Partition<T>(
             SarifLog log,
-            PartitioningVisitor<T>.PartitionFunction partitionFunction)
+            PartitioningVisitor<T>.PartitionFunction partitionFunction,
+            bool deepClone = false)
             where T : class
         {
-            var visitor = new PartitioningVisitor<T>(partitionFunction);
+            var visitor = new PartitioningVisitor<T>(partitionFunction, deepClone);
             visitor.VisitSarifLog(log);
 
             return visitor.GetPartitionLogs();
