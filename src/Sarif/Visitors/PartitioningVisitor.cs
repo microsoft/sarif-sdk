@@ -334,37 +334,46 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                     partitionRun.Results = results;
 
-                    // Copy the artifacts that were mentioned in the results in this partition.
+                    // Construct a mapping from the indices in the original run to the indices
+                    // in the partition run. This includes both the indices relevant to the
+                    // results in this partition, and indices that appear in all partitions
+                    // because they are mentioned outside of any result (we refer to these as
+                    // "global" indices).
+                    IEnumerable<int> allPartitionArtifactIndices = globalArtifactIndexSets[iOriginalRun];
+
                     if (partitionResultArtifactIndicesDictionaries[iOriginalRun].TryGetValue(partitionValue, out HashSet<int> partitionResultArtifactIndices))
                     {
-                        // Construct a mapping from the indices in the original run to the indices
-                        // in the partition run. This includes both the indices relevant to the
-                        // results in this partition, and indices that appear in all partitions
-                        // because they are mentioned outside of any result.
-                        var partitionArtifactIndexRemappingDictionary = new Dictionary<int, int>();
-                        artifactIndexRemappingDictionaries.Add(partitionArtifactIndexRemappingDictionary);
+                        allPartitionArtifactIndices = allPartitionArtifactIndices.Union(partitionResultArtifactIndices);
+                    }
 
-                        List<int> allPartitionArtifactIndices = partitionResultArtifactIndices
-                            .Union(globalArtifactIndexSets[iOriginalRun])
-                            .OrderBy(index => index)
-                            .ToList();
+                    var partitionArtifactIndexRemappingDictionary = new Dictionary<int, int>();
+                    artifactIndexRemappingDictionaries.Add(partitionArtifactIndexRemappingDictionary);
 
-                        int numPartitionIndices = 0;
-                        foreach (int originalIndex in allPartitionArtifactIndices)
-                        {
-                            partitionArtifactIndexRemappingDictionary.Add(originalIndex, numPartitionIndices++);
-                        }
+                    List<int> allPartitionArtifactIndicesList = allPartitionArtifactIndices
+                        .OrderBy(index => index)
+                        .ToList();
 
-                        partitionRun.Artifacts = new List<Artifact>();
-                        foreach (int originalIndex in allPartitionArtifactIndices)
-                        {
-                            Artifact originalArtifact = originalRun.Artifacts[originalIndex];
-                            Artifact partitionArtifact = deepClone
-                                ? originalArtifact.DeepClone()
-                                : new Artifact(originalArtifact);
+                    int numPartitionIndices = 0;
+                    foreach (int originalIndex in allPartitionArtifactIndicesList)
+                    {
+                        partitionArtifactIndexRemappingDictionary.Add(originalIndex, numPartitionIndices++);
+                    }
 
-                            partitionRun.Artifacts.Add(partitionArtifact);
-                        }
+                    // Copy the artifacts corresponding to the complete set of indices.
+                    var artifacts = new List<Artifact>();
+                    foreach (int originalIndex in allPartitionArtifactIndicesList)
+                    {
+                        Artifact originalArtifact = originalRun.Artifacts[originalIndex];
+                        Artifact partitionArtifact = deepClone
+                            ? originalArtifact.DeepClone()
+                            : new Artifact(originalArtifact);
+
+                        artifacts.Add(partitionArtifact);
+                    }
+
+                    if (artifacts.Any())
+                    {
+                        partitionRun.Artifacts = artifacts;
                     }
 
                     partitionLog.Runs.Add(partitionRun);
@@ -373,11 +382,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             // Traverse the entire log, fixing the index mappings for indices that appear
             // in the remapping dictionaries.
-            // TODO: Unit tests for non-result locations.
-            // TODO: Figure out how to _replace_ artifact locations in our traversals -- because
-            // we need to update their indices, but that means we have to replace them with either
-            // deep clones or shallow copies in their _parent_ objects.
-            // DO WE NEED TO DO THAT? WHY CAN'T WE UPDATE IN PLACE?
             var remappingVisitor = new PartitionedIndexRemappingVisitor<T>(artifactIndexRemappingDictionaries);
 
             remappingVisitor.VisitSarifLog(partitionLog);
@@ -386,7 +390,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         }
     }
 
-    // This class adjust the indices into the run-level property arrays of a single
+    // This class adjust the indices into the run-level property arrays in a single
     // parition log.
     internal class PartitionedIndexRemappingVisitor<T> : SarifRewritingVisitor where T : class
     {

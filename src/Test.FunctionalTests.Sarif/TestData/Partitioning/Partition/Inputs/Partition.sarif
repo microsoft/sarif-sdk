@@ -5,7 +5,12 @@
     {
       "tool": {
         "driver": {
-          "name": "Sarif Functional Testing"
+          "name": "Sarif Functional Testing",
+          "locations": [
+            {
+              "index": 6
+            }
+          ]
         }
       },
       "artifacts": [
@@ -39,6 +44,17 @@
         {
           "location": {
             "uri": "file6"
+          }
+        },
+        {
+          "location": {
+            "uri": "test.exe"
+          },
+          "parentIndex": 7
+        },
+        {
+          "location": {
+            "uri": "test.zip"
           }
         }
       ],

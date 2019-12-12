@@ -5,13 +5,29 @@
     {
       "tool": {
         "driver": {
-          "name": "Sarif Functional Testing"
+          "name": "Sarif Functional Testing",
+          "locations": [
+            {
+              "index": 1
+            }
+          ]
         }
       },
       "artifacts": [
         {
           "location": {
             "uri": "file4"
+          }
+        },
+        {
+          "location": {
+            "uri": "test.exe"
+          },
+          "parentIndex": 2
+        },
+        {
+          "location": {
+            "uri": "test.zip"
           }
         }
       ],

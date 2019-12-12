@@ -5,9 +5,27 @@
     {
       "tool": {
         "driver": {
-          "name": "Sarif Functional Testing"
+          "name": "Sarif Functional Testing",
+          "locations": [
+            {
+              "index": 0
+            }
+          ]
         }
       },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "test.exe"
+          },
+          "parentIndex": 1
+        },
+        {
+          "location": {
+            "uri": "test.zip"
+          }
+        }
+      ],
       "results": [
         {
           "ruleId": "TST0002",
