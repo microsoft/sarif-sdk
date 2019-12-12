@@ -33,6 +33,12 @@
         {
           "location": {
             "uri": "file5"
+          },
+          "parentIndex": 5
+        },
+        {
+          "location": {
+            "uri": "file6"
           }
         }
       ],

@@ -73,29 +73,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         // The partition value of the current result (the result currently being processed).
         private T currentPartitionValue = null;
 
+        // True if we are currently processing a result, otherwise false.
+        private bool inResult;
+
         // The set of results in each partition in each original run. That is,
         //
         //     partitionedResultDictionaries[runIndex][partitionValue]
         //
         // contains the list of results in the run at runIndex for whose partition value is
         // partitionValue.
-        private List<Dictionary<T, List<Result>>> partitionedResultDictionaries;
+        private List<Dictionary<T, List<Result>>> partitionResultDictionaries;
 
-        // A set of per-run, per-partition index remappings for run-level properties such as
-        // artifacts. For example,
+        // A set of per-run, per-partition index sets the indices of run-level properties (such as
+        // artifacts) that are relevant to the results in this partition. For example,
         //
-        //    artifactIndexRemappings[runIndex][partitionValue][originalIndex]
+        //    partitionArtifactIndicesDictionaries[runIndex][partitionValue]
         //
-        // contains the index within the run at index runIndex in the partition log for
-        // partitionValue of the artifact whose index in the corresponding original run was
-        // originalIndex.
-        private List<Dictionary<T, Dictionary<int, int>>> artifactIndexRemappings;
+        // contains a list of the indices within the original run at index runIndex of the
+        // artifacts that are relevant to the results whose partition value is partitionValue.
+        private List<Dictionary<T, HashSet<int>>> partitionResultArtifactIndicesDictionaries;
 
-        // For each partition value, a mapping from the run index in the partition log
-        // to the index of the corresponding run in the original log. This is necessary
-        // because not every run contains results for every partition value, and we omit
-        // runs with no results from the partition logs.
-        private Dictionary<T, Dictionary<int, int>> runIndexMappings;
+        // As list of per-run sets of the indices of run-level properties (such as artifacts)
+        // that are relevant to the current run and appear outside of any result.
+        private List<HashSet<int>> globalArtifactIndexSets;
 
         // The set of all partition values encountered on all results in all runs of the original
         // log file.
@@ -151,9 +151,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             originalLog = node;
             currentRunIndex = -1;
+            currentPartitionValue = null;
+            inResult = false;
             partitionValues = new HashSet<T>();
-            partitionedResultDictionaries = new List<Dictionary<T, List<Result>>>();
-            artifactIndexRemappings = new List<Dictionary<T, Dictionary<int, int>>>();
+            partitionResultDictionaries = new List<Dictionary<T, List<Result>>>();
+            partitionResultArtifactIndicesDictionaries = new List<Dictionary<T, HashSet<int>>>();
+            globalArtifactIndexSets = new List<HashSet<int>>();
             partitionLogDictionary = null;
 
             return base.VisitSarifLog(node);
@@ -163,15 +166,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             ++currentRunIndex;
             currentRunArtifacts = originalLog.Runs[currentRunIndex].Artifacts;
-            partitionedResultDictionaries.Add(new Dictionary<T, List<Result>>());
+            partitionResultDictionaries.Add(new Dictionary<T, List<Result>>());
 
-            artifactIndexRemappings.Add(new Dictionary<T, Dictionary<int, int>>());
+            partitionResultArtifactIndicesDictionaries.Add(new Dictionary<T, HashSet<int>>());
+            globalArtifactIndexSets.Add(new HashSet<int>());
 
             return base.VisitRun(node);
         }
 
         public override Result VisitResult(Result node)
         {
+            inResult = true;
             currentPartitionValue = partitionFunction(node);
             if (currentPartitionValue != null)
             {
@@ -180,57 +185,82 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     partitionValues.Add(currentPartitionValue);
                 }
 
-                if (!partitionedResultDictionaries[currentRunIndex].ContainsKey(currentPartitionValue))
+                if (!partitionResultDictionaries[currentRunIndex].ContainsKey(currentPartitionValue))
                 {
-                    partitionedResultDictionaries[currentRunIndex].Add(currentPartitionValue, new List<Result>());
+                    partitionResultDictionaries[currentRunIndex].Add(currentPartitionValue, new List<Result>());
                 }
 
                 Result partitionedResult = deepClone
                     ? node.DeepClone()
                     : new Result(node);
 
-                partitionedResultDictionaries[currentRunIndex][currentPartitionValue].Add(partitionedResult);
+                partitionResultDictionaries[currentRunIndex][currentPartitionValue].Add(partitionedResult);
             }
 
             Result visitedResult = base.VisitResult(node);
 
-            // Unset currentPartitionValue so that VisitArtifactLocation (and other methods which
-            // accumulate run-level properties) knows whether the ArtifactLocation occurs in the
-            // context of a result. The run-level properties will only contain elements that are
-            // relevant to the results in a single partition.
+            // Unset inResult and currentPartitionValue so that VisitArtifactLocation (and other
+            // methods which accumulate run-level properties) knows whether the ArtifactLocation
+            // occurs in the context of a result, and if so, whether the partitionFunction
+            // returned non-null. The run-level properties will only contain elements that are
+            // relevant to the results in a single partition, OR which are not associated with
+            // a result at all.
             currentPartitionValue = null;
+            inResult = false;
 
             return visitedResult;
         }
 
         public override ArtifactLocation VisitArtifactLocation(ArtifactLocation node)
         {
-            // Does this artifactLocation occur in the context of a result? And if so, does it
-            // refer to an element of the original run's artifacts array?
-            if (currentPartitionValue != null
-                && currentRunArtifacts != null
+            HashSet<int> artifactIndices = null;
+
+            // Does this run have any artifacts, and if so, does this ArtifactLocation specify a
+            // valid index into those artifacts?
+            if (currentRunArtifacts != null
                 && node.Index >= 0
                 && node.Index < currentRunArtifacts.Count)
             {
-                // Remap this index if it isn't already remapped.
-                if (!artifactIndexRemappings[currentRunIndex].ContainsKey(currentPartitionValue))
+                // Does this artifactLocation occur in the context of a result...
+                if (inResult)
                 {
-                    artifactIndexRemappings[currentRunIndex].Add(currentPartitionValue, new Dictionary<int, int>());
+                    // If so, does this result belong to any partition?
+                    if (currentPartitionValue != null)
+                    {
+                        // Remap this index if it isn't already remapped.
+                        Dictionary<T, HashSet<int>> partitionArtifactIndicesDictionary = partitionResultArtifactIndicesDictionaries[currentRunIndex];
+                        if (!partitionArtifactIndicesDictionary.ContainsKey(currentPartitionValue))
+                        {
+                            partitionArtifactIndicesDictionary.Add(currentPartitionValue, new HashSet<int>());
+                        }
+
+                        artifactIndices = partitionArtifactIndicesDictionary[currentPartitionValue];
+                    }
+                }
+                // ... or outside of any result?
+                else
+                {
+                    artifactIndices = globalArtifactIndexSets[currentRunIndex];
                 }
 
-                Dictionary<int, int> artifactIndexRemapping = artifactIndexRemappings[currentRunIndex][currentPartitionValue];
-                if (!artifactIndexRemapping.ContainsKey(node.Index))
+                // Either way, bring the artifact and all its ancestors into the appropriate
+                // list of indices.
+                if (artifactIndices != null)
                 {
-                    artifactIndexRemapping.Add(node.Index, artifactIndexRemapping.Count);
-                }
+                    // It's safe to add the same item to a hash set multiple times, but
+                    // we check whether we've already seen this item anyway to avoid walking
+                    // the ancestor chain if we don't need to.
+                    if (!artifactIndices.Contains(node.Index))
+                    {
+                        artifactIndices.Add(node.Index);
 
-                // If the specified artifact has a parent, we'll need to bring it along as well.
-                Artifact artifact = currentRunArtifacts[node.Index];
-                if (artifact.ParentIndex >= 0
-                    && artifact.ParentIndex < currentRunArtifacts.Count
-                    && !artifactIndexRemapping.ContainsKey(artifact.ParentIndex))
-                {
-                    artifactIndexRemapping.Add(artifact.ParentIndex, artifactIndexRemapping.Count);
+                        Artifact artifact = currentRunArtifacts[node.Index];
+                        while (artifact.ParentIndex >= 0)
+                        {
+                            artifactIndices.Add(artifact.ParentIndex);
+                            artifact = currentRunArtifacts[artifact.ParentIndex];
+                        }
+                    }
                 }
             }
 
@@ -239,18 +269,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         private void CreatePartitionLogDictionary()
         {
-            runIndexMappings = new Dictionary<T, Dictionary<int, int>>();
-
             partitionLogDictionary = partitionValues.ToDictionary(
                 keySelector: pv => pv,
-                elementSelector: CreatePartitionedLog);
+                elementSelector: CreatePartitionLog);
         }
 
-        private SarifLog CreatePartitionedLog(T partitionValue)
+        private SarifLog CreatePartitionLog(T partitionValue)
         {
-            runIndexMappings.Add(partitionValue, new Dictionary<int, int>());
-
-            SarifLog partitionedLog;
+            SarifLog partitionLog;
             if (deepClone)
             {
                 // Save time and space by not cloning the runs unless and until necessary. We will
@@ -258,32 +284,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 IList<Run> originalRuns = originalLog.Runs;
                 originalLog.Runs = null;
 
-                partitionedLog = originalLog.DeepClone();
+                partitionLog = originalLog.DeepClone();
 
                 originalLog.Runs = originalRuns;
             }
             else
             {
-                partitionedLog = new SarifLog(originalLog)
+                partitionLog = new SarifLog(originalLog)
                 {
                     Runs = null
                 };
             }
 
-            partitionedLog.Runs = new List<Run>();
-            partitionedLog.SetProperty(PartitionValuePropertyName, partitionValue);
+            partitionLog.Runs = new List<Run>();
+            partitionLog.SetProperty(PartitionValuePropertyName, partitionValue);
 
-            for (int iRun = 0; iRun < partitionedResultDictionaries.Count; ++iRun)
+            var artifactIndexRemappingDictionaries = new List<Dictionary<int, int>>();
+            for (int iOriginalRun = 0; iOriginalRun < partitionResultDictionaries.Count; ++iOriginalRun)
             {
                 // Are there results for this run in this partition?
-                if (partitionedResultDictionaries[iRun].TryGetValue(partitionValue, out List<Result> results))
+                if (partitionResultDictionaries[iOriginalRun].TryGetValue(partitionValue, out List<Result> results))
                 {
-                    runIndexMappings[partitionValue].Add(runIndexMappings[partitionValue].Count, iRun);
-
                     // Yes, so we'll need a copy of the original run in which the results, and
                     // certain run-level collections such as Run.Artifacts, have been replaced.
-                    Run originalRun = originalLog.Runs[iRun];
-                    Run partitionedRun;
+                    Run originalRun = originalLog.Runs[iOriginalRun];
+                    Run partitionRun;
                     if (deepClone)
                     {
                         // Save time and space by only cloning the necessary results and associated
@@ -293,127 +318,133 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         originalRun.Results = null;
                         originalRun.Artifacts = null;
 
-                        partitionedRun = originalRun.DeepClone();
+                        partitionRun = originalRun.DeepClone();
 
                         originalRun.Results = originalResults;
                         originalRun.Artifacts = originalArtifacts;
                     }
                     else
                     {
-                        partitionedRun = new Run(originalRun)
+                        partitionRun = new Run(originalRun)
                         {
                             Results = null,
                             Artifacts = null
                         };
                     }
 
-                    partitionedRun.Results = results;
+                    partitionRun.Results = results;
 
                     // Copy the artifacts that were mentioned in the results in this partition.
-                    // TOD: 
-                    if (artifactIndexRemappings[iRun].TryGetValue(partitionValue, out Dictionary<int, int> indexRemappings))
+                    if (partitionResultArtifactIndicesDictionaries[iOriginalRun].TryGetValue(partitionValue, out HashSet<int> partitionResultArtifactIndices))
                     {
-                        partitionedRun.Artifacts = new List<Artifact>();
-                        foreach (int originalIndex in indexRemappings.Keys)
+                        // Construct a mapping from the indices in the original run to the indices
+                        // in the partition run. This includes both the indices relevant to the
+                        // results in this partition, and indices that appear in all partitions
+                        // because they are mentioned outside of any result.
+                        var partitionArtifactIndexRemappingDictionary = new Dictionary<int, int>();
+                        artifactIndexRemappingDictionaries.Add(partitionArtifactIndexRemappingDictionary);
+
+                        List<int> allPartitionArtifactIndices = partitionResultArtifactIndices
+                            .Union(globalArtifactIndexSets[iOriginalRun])
+                            .OrderBy(index => index)
+                            .ToList();
+
+                        int numPartitionIndices = 0;
+                        foreach (int originalIndex in allPartitionArtifactIndices)
+                        {
+                            partitionArtifactIndexRemappingDictionary.Add(originalIndex, numPartitionIndices++);
+                        }
+
+                        partitionRun.Artifacts = new List<Artifact>();
+                        foreach (int originalIndex in allPartitionArtifactIndices)
                         {
                             Artifact originalArtifact = originalRun.Artifacts[originalIndex];
-                            Artifact partitionedArtifact = deepClone
+                            Artifact partitionArtifact = deepClone
                                 ? originalArtifact.DeepClone()
                                 : new Artifact(originalArtifact);
 
-                            if (originalArtifact.ParentIndex >= 0)
-                            {
-                                partitionedArtifact.ParentIndex = indexRemappings[originalArtifact.ParentIndex];
-                            }
-
-                            partitionedRun.Artifacts.Add(partitionedArtifact);
+                            partitionRun.Artifacts.Add(partitionArtifact);
                         }
                     }
 
-                    partitionedLog.Runs.Add(partitionedRun);
+                    partitionLog.Runs.Add(partitionRun);
                 }
             }
 
             // Traverse the entire log, fixing the index mappings for indices that appear
-            // in the remapping dictionaries, and settings indices to -1 if they don't appear
-            // in the remapping dictionaries. This can happen (for example) when an artifactLocation
-            // that is not part of a result refers to an element of run.artifacts. For simplicity,
-            // we have elected not to attempt to carry along those locations.
-            // TODO: On second thought
-            // it's not that much more work so let's consider it. We'd need a remapping for
-            // artifact locations in a context where currentPartitionValue is null -- and
-            // how do we distinguish that from the case where the partitioning function returned null?
-            // Answer: we don't overload currentPartitionValue like that. We have an explicit
-            // flag "inResult".
+            // in the remapping dictionaries.
+            // TODO: Unit tests for non-result locations.
             // TODO: Figure out how to _replace_ artifact locations in our traversals -- because
             // we need to update their indices, but that means we have to replace them with either
             // deep clones or shallow copies in their _parent_ objects.
             // DO WE NEED TO DO THAT? WHY CAN'T WE UPDATE IN PLACE?
-            var remappingVisitor = new PartitionedIndexRemappingVisitor<T>(
-                partitionFunction,
-                artifactIndexRemappings,
-                runIndexMappings);
+            var remappingVisitor = new PartitionedIndexRemappingVisitor<T>(artifactIndexRemappingDictionaries);
 
-            remappingVisitor.VisitSarifLog(partitionedLog);
+            remappingVisitor.VisitSarifLog(partitionLog);
 
-            return partitionedLog;
+            return partitionLog;
         }
     }
 
+    // This class adjust the indices into the run-level property arrays of a single
+    // parition log.
     internal class PartitionedIndexRemappingVisitor<T> : SarifRewritingVisitor where T : class
     {
-        private readonly PartitioningVisitor<T>.PartitionFunction partitionFunction;
-        private readonly List<Dictionary<T, Dictionary<int, int>>> artifactIndexRemappings;
-        private readonly Dictionary<T, Dictionary<int, int>> runIndexMappings;
+        private readonly List<Dictionary<int, int>> artifactIndexRemappingDictionaries;
 
+        private Run currentRun;
         private int currentRunIndex;
-        private T currentPartitionValue;
 
         internal PartitionedIndexRemappingVisitor(
-            PartitioningVisitor<T>.PartitionFunction partitionFunction,
-            List<Dictionary<T, Dictionary<int, int>>> artifactIndexRemappings,
-            Dictionary<T, Dictionary<int, int>> runIndexMappings)
+            List<Dictionary<int, int>> artifactIndexRemappingDictionaries)
         {
-            this.partitionFunction = partitionFunction;
-            this.artifactIndexRemappings = artifactIndexRemappings;
-            this.runIndexMappings = runIndexMappings;
+            this.artifactIndexRemappingDictionaries = artifactIndexRemappingDictionaries;
         }
 
         public override SarifLog VisitSarifLog(SarifLog node)
         {
+            currentRun = null;
             currentRunIndex = -1;
+
             return base.VisitSarifLog(node);
         }
 
         public override Run VisitRun(Run node)
         {
+            currentRun = node;
             ++currentRunIndex;
-            return base.VisitRun(node);
-        }
 
-        public override Result VisitResult(Result node)
-        {
-            currentPartitionValue = partitionFunction(node);
-            return base.VisitResult(node);
+            return base.VisitRun(node);
         }
 
         public override ArtifactLocation VisitArtifactLocation(ArtifactLocation node)
         {
-            if (currentPartitionValue != null // TODO: This is why we can't remap indices for non-result locations. We do need to fix this, either by handling those locations or by blanking out their indices.
-                && runIndexMappings.TryGetValue(currentPartitionValue, out Dictionary<int, int> runIndexMappingForPartition)
-                && runIndexMappingForPartition.TryGetValue(currentRunIndex, out int originalRunIndex))
+            if (node.Index >= 0 && currentRun.Artifacts?.Any() == true)
             {
-                if (node.Index >= 0
-                    && artifactIndexRemappings[originalRunIndex].TryGetValue(currentPartitionValue, out Dictionary<int, int> artifactIndexRemapping))
+                Dictionary<int, int> artifactIndexRemappingDictionary = artifactIndexRemappingDictionaries[currentRunIndex];
+
+                if (artifactIndexRemappingDictionary.ContainsKey(node.Index))
                 {
-                    if (artifactIndexRemapping.ContainsKey(node.Index))
-                    {
-                        node.Index = artifactIndexRemapping[node.Index];
-                    }
+                    node.Index = artifactIndexRemappingDictionary[node.Index];
                 }
             }
 
             return base.VisitArtifactLocation(node);
+        }
+
+        public override Artifact VisitArtifact(Artifact node)
+        {
+            if (node.ParentIndex >= 0)
+            {
+                Dictionary<int, int> artifactIndexRemappingDictionary = artifactIndexRemappingDictionaries[currentRunIndex];
+
+                if (artifactIndexRemappingDictionary.ContainsKey(node.ParentIndex))
+                {
+                    node.ParentIndex = artifactIndexRemappingDictionary[node.ParentIndex];
+                }
+            }
+
+            return base.VisitArtifact(node);
         }
     }
 }

@@ -13,16 +13,22 @@
           "location": {
             "uri": "file1"
           },
-          "parentIndex": 1
-        },
-        {
-          "location": {
-            "uri": "file5"
-          }
+          "parentIndex": 2
         },
         {
           "location": {
             "uri": "file3"
+          }
+        },
+        {
+          "location": {
+            "uri": "file5"
+          },
+          "parentIndex": 3
+        },
+        {
+          "location": {
+            "uri": "file6"
           }
         }
       ],
@@ -40,7 +46,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "index": 2
+                  "index": 1
                 }
               }
             }

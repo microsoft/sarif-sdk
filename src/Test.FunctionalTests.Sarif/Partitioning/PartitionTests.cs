@@ -38,7 +38,6 @@ namespace Microsoft.CodeAnalysis.Test.FunctionalTests.Sarif.Partitioning
         {
             Partition_WithTrivialPartitionFunction_ReturnsLogWithAllResultsAndRunLevelArrayContentsFromAllResults(deepClone: false);
         }
-
         private void Partition_WithTrivialPartitionFunction_ReturnsLogWithAllResultsAndRunLevelArrayContentsFromAllResults(bool deepClone)
         {
             PartitioningVisitor<string>.PartitionFunction partitionFunction = result => "default";
