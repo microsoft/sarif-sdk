@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using System.Collections.Generic;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
 
@@ -74,7 +75,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             SarifLog log,
             PartitioningVisitor<T>.PartitionFunction partitionFunction,
             bool deepClone)
-            where T : class
+            where T : class, IEquatable<T>
         {
             var visitor = new PartitioningVisitor<T>(partitionFunction, deepClone);
             visitor.VisitSarifLog(log);
