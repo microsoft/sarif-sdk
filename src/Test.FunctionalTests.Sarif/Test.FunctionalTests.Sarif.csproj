@@ -78,6 +78,11 @@
     <None Remove="TestData\Partitioning\FilterByPredicate\ExpectedOutputs\AlwaysFalsePredicate.sarif" />
     <None Remove="TestData\Partitioning\FilterByPredicate\ExpectedOutputs\RuleIdPredicate.sarif" />
     <None Remove="TestData\Partitioning\FilterByPredicate\Inputs\FilterByPredicate.sarif" />
+    <None Remove="TestData\Partitioning\Partition\ExpectedOutputs\TrivialPartitionFunction.sarif" />
+    <None Remove="TestData\Partitioning\Partition\ExpectedOutputs\TST0001.sarif" />
+    <None Remove="TestData\Partitioning\Partition\ExpectedOutputs\TST0002.sarif" />
+    <None Remove="TestData\Partitioning\Partition\ExpectedOutputs\TST9999.sarif" />
+    <None Remove="TestData\Partitioning\Partition\Inputs\Partition.sarif" />
     <Content Include="v1\ConverterTestData\StaticDriverVerifier\cancelspinlock_bug1.tt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -542,6 +547,11 @@
     <EmbeddedResource Include="TestData\Partitioning\FilterByPredicate\ExpectedOutputs\RuleIdPredicate.sarif" />
     <EmbeddedResource Include="TestData\Partitioning\FilterByPredicate\ExpectedOutputs\AlwaysTruePredicate.sarif" />
     <EmbeddedResource Include="TestData\Partitioning\FilterByPredicate\Inputs\FilterByPredicate.sarif" />
+    <EmbeddedResource Include="TestData\Partitioning\Partition\ExpectedOutputs\TrivialPartitionFunction.sarif" />
+    <EmbeddedResource Include="TestData\Partitioning\Partition\ExpectedOutputs\TST0001.sarif" />
+    <EmbeddedResource Include="TestData\Partitioning\Partition\ExpectedOutputs\TST0002.sarif" />
+    <EmbeddedResource Include="TestData\Partitioning\Partition\ExpectedOutputs\TST9999.sarif" />
+    <EmbeddedResource Include="TestData\Partitioning\Partition\Inputs\Partition.sarif" />
     <None Include="v2\ConverterTestData\PREfast\Expected-021.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Generator>TextTemplatingFileGenerator</Generator>

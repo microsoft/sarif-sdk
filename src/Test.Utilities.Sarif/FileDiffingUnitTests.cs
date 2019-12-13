@@ -2,8 +2,10 @@
 // license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using FluentAssertions;
@@ -60,59 +62,161 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         protected virtual string TestLogResourceNameRoot => "Microsoft.CodeAnalysis.Test.UnitTests.Sarif.TestData." + TypeUnderTest;
 
-        protected abstract string ConstructTestOutputFromInputResource(string inputResourceName, object parameter);
+        // Most tests convert a single input file to a single output file, but some have multiple
+        // inputs and/or multiple outputs. Derived test classes must implement one or the other of
+        // the methods ConstructTestOutputFromInputResource (which handles the one-to-one case) and
+        // ConstructTestOutputsFromInputResources (which handles the many-to-many case). These
+        // methods can't (or at least, shouldn't) both be abstract because derived test classes
+        // shouldn't have to supply even an empty implementation of the one that they don't use.
+        // Therefore this class implements both of those methods to throw NotImplementedException
+        // so you don't accidentally call the wrong one.
+        protected virtual string ConstructTestOutputFromInputResource(string inputResourceName, object parameter)
+            => throw new NotImplementedException(nameof(ConstructTestOutputFromInputResource));
+
+        protected virtual IDictionary<string, string> ConstructTestOutputsFromInputResources(IEnumerable<string> inputResourceNames, object parameter)
+            => throw new NotImplementedException(nameof(ConstructTestOutputsFromInputResources));
 
         protected virtual void RunTest(string inputResourceName, string expectedOutputResourceName = null, object parameter = null)
         {
+            // In the simple case of one input file and one output file, the output resource name
+            // can be inferred from the input resource name. In the case of arbitrary numbers of
+            // input and output files (the other overload of RunTest), the output resource names
+            // must be specified explicitly.
             expectedOutputResourceName = expectedOutputResourceName ?? inputResourceName;
-            // When retrieving constructed test content, we pass the resourceName as the test
-            // specified it. When constructing actual and expected file names from this data, 
-            // however, we will ensure that the name has the ".sarif" extension. We do this
-            // for test classes such as the Fortify converter that operate again non-SARIF inputs.
-            string actualSarifText = ConstructTestOutputFromInputResource("Inputs." + inputResourceName, parameter);
 
+            // When we retrieve test input content, we use the resource name as the test specified it.
+            // But when we construct the names of the actual and expected output files, we ensure that
+            // the name has the ".sarif" extension. This is necessary for testing classes such as the
+            // Fortify converter whose input is not SARIF. In the other overload of RunTest, this is
+            // not necessary because, again, the output resource names are specified explicitly.
             expectedOutputResourceName = Path.GetFileNameWithoutExtension(expectedOutputResourceName) + ".sarif";
+            string expectedSarifText = GetExpectedSarifTextFromResource(expectedOutputResourceName);
 
-            var sb = new StringBuilder();
+            string actualSarifText = ConstructTestOutputFromInputResource(ConstructFullInputResourceName(inputResourceName), parameter);
 
-            string expectedSarifText = GetResourceText("ExpectedOutputs." + expectedOutputResourceName);
+            // The comparison code is shared between this one-input-to-one-output method and the
+            // overload that takes multiple inputs and multiple outputs. So set up the lists and
+            // dictionaries that the shared comparison method expects.
+            var inputResourceNames = new List<string> { inputResourceName };
 
-            bool passed = false;
+            const string SingleOutputDictionaryKey = "single";
 
-            if (!RebaselineExpectedResults)
+            var expectedOutputResourceNameDictionary = new Dictionary<string, string>
             {
-                if (_testProducesSarifCurrentVersion)
+                [SingleOutputDictionaryKey] = expectedOutputResourceName
+            };
+
+            var expectedSarifTexts = new Dictionary<string, string>
+            {
+                [SingleOutputDictionaryKey] = expectedSarifText
+            };
+
+            var actualSarifTexts = new Dictionary<string, string>
+            {
+                [SingleOutputDictionaryKey] = actualSarifText
+            };
+
+            CompareActualToExpected(inputResourceNames, expectedOutputResourceNameDictionary, expectedSarifTexts, actualSarifTexts);
+        }
+
+        protected virtual void RunTest(IList<string> inputResourceNames, IDictionary<string, string> expectedOutputResourceNames, object parameter = null)
+        {
+            var expectedSarifTexts = expectedOutputResourceNames.ToDictionary(
+                pair => pair.Key,
+                pair => GetExpectedSarifTextFromResource(pair.Value));
+
+            IEnumerable<string> fullInputResourceNames = inputResourceNames.Select(resName => ConstructFullInputResourceName(resName));
+
+            IDictionary<string, string> actualSarifTexts = ConstructTestOutputsFromInputResources(fullInputResourceNames, parameter);
+
+            CompareActualToExpected(inputResourceNames, expectedOutputResourceNames, expectedSarifTexts, actualSarifTexts);
+        }
+
+        private void CompareActualToExpected(
+            IList<string> inputResourceNames,
+            IDictionary<string, string> expectedOutputResourceNameDictionary,
+            IDictionary<string, string> expectedSarifTextDictionary,
+            IDictionary<string, string> actualSarifTextDictionary)
+        {
+            if (inputResourceNames.Count == 0)
+            {
+                throw new ArgumentException("No input resources were specified", nameof(inputResourceNames));
+            }
+
+            if (expectedOutputResourceNameDictionary.Count == 0)
+            {
+                throw new ArgumentException("No expected output resources were specified", nameof(expectedOutputResourceNameDictionary));
+            }
+
+            if (expectedSarifTextDictionary.Count != expectedOutputResourceNameDictionary.Count)
+            {
+                throw new ArgumentException($"The number of expected output files ({expectedSarifTextDictionary.Count}) does not match the number of expected output resources {expectedOutputResourceNameDictionary.Count}");
+            }
+
+            if (expectedSarifTextDictionary.Count != actualSarifTextDictionary.Count)
+            {
+                throw new ArgumentException($"The number of actual output files ({actualSarifTextDictionary.Count}) does not match the number of expected output files {expectedSarifTextDictionary.Count}");
+            }
+
+            bool passed = true;
+            if (RebaselineExpectedResults)
+            {
+                passed = false;
+            }
+            else
+            {
+                // Reify the list of keys because we're going to modify the dictionary in place.
+                List<string> keys = expectedSarifTextDictionary.Keys.ToList();
+
+                foreach (string key in keys)
                 {
-                    PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(expectedSarifText, Formatting.Indented, out expectedSarifText);
-                    passed = AreEquivalent<SarifLog>(actualSarifText, expectedSarifText);
-                }
-                else
-                {
-                    passed = AreEquivalent<SarifLogVersionOne>(actualSarifText, expectedSarifText, SarifContractResolverVersionOne.Instance);
+                    if (_testProducesSarifCurrentVersion)
+                    {
+                        PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(expectedSarifTextDictionary[key], Formatting.Indented, out string transformedSarifText);
+                        expectedSarifTextDictionary[key] = transformedSarifText;
+
+                        passed &= AreEquivalent<SarifLog>(actualSarifTextDictionary[key], expectedSarifTextDictionary[key]);
+                    }
+                    else
+                    {
+                        passed &= AreEquivalent<SarifLogVersionOne>(actualSarifTextDictionary[key], expectedSarifTextDictionary[key], SarifContractResolverVersionOne.Instance);
+                    }
                 }
             }
 
             if (!passed)
             {
-                string errorMessage = string.Format(@"there should be no unexpected diffs detected comparing actual results to '{0}'.", inputResourceName);
-                sb.AppendLine(errorMessage);
+                string errorMessage = string.Format(@"there should be no unexpected diffs detected comparing actual results to '{0}'.", string.Join(", ", inputResourceNames));
+                var sb = new StringBuilder(errorMessage);
 
                 if (!Utilities.RunningInAppVeyor)
                 {
-                    string expectedFilePath = GetOutputFilePath("ExpectedOutputs", expectedOutputResourceName);
-                    string actualFilePath = GetOutputFilePath("ActualOutputs", expectedOutputResourceName);
+                    string expectedRootDirectory = null;
+                    string actualRootDirectory = null;
 
-                    string expectedRootDirectory = Path.GetDirectoryName(expectedFilePath);
-                    string actualRootDirectory = Path.GetDirectoryName(actualFilePath);
+                    bool firstKey = true;
+                    foreach (string key in expectedOutputResourceNameDictionary.Keys)
+                    {
+                        string expectedFilePath = GetOutputFilePath("ExpectedOutputs", expectedOutputResourceNameDictionary[key]);
+                        string actualFilePath = GetOutputFilePath("ActualOutputs", expectedOutputResourceNameDictionary[key]);
 
-                    Directory.CreateDirectory(expectedRootDirectory);
-                    Directory.CreateDirectory(actualRootDirectory);
+                        if (firstKey)
+                        {
+                            expectedRootDirectory = Path.GetDirectoryName(expectedFilePath);
+                            actualRootDirectory = Path.GetDirectoryName(actualFilePath);
 
-                    File.WriteAllText(expectedFilePath, expectedSarifText);
-                    File.WriteAllText(actualFilePath, actualSarifText);
+                            Directory.CreateDirectory(expectedRootDirectory);
+                            Directory.CreateDirectory(actualRootDirectory);
+
+                            firstKey = false;
+                        }
+
+                        File.WriteAllText(expectedFilePath, expectedSarifTextDictionary[key]);
+                        File.WriteAllText(actualFilePath, actualSarifTextDictionary[key]);
+                    }
 
                     sb.AppendLine("To compare all difference for this test suite:");
-                    sb.AppendLine(GenerateDiffCommand(TypeUnderTest, Path.GetDirectoryName(expectedFilePath), Path.GetDirectoryName(actualFilePath)) + Environment.NewLine);
+                    sb.AppendLine(GenerateDiffCommand(TypeUnderTest, expectedRootDirectory, actualRootDirectory) + Environment.NewLine);
 
                     if (RebaselineExpectedResults)
                     {
@@ -122,9 +226,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                         // We retrieve all test strings from embedded resources. To rebaseline, we need to
                         // compute the enlistment location from which these resources are compiled.
-
-                        expectedFilePath = Path.Combine(testDirectory, expectedOutputResourceName);
-                        File.WriteAllText(expectedFilePath, actualSarifText);
+                        foreach (string key in expectedOutputResourceNameDictionary.Keys)
+                        {
+                            string expectedFilePath = Path.Combine(testDirectory, expectedOutputResourceNameDictionary[key]);
+                            File.WriteAllText(expectedFilePath, actualSarifTextDictionary[key]);
+                        }
                     }
                 }
 
@@ -207,5 +313,14 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             return true;
         }
+
+        private string GetExpectedSarifTextFromResource(string resourceName)
+            => GetResourceText(ConstructFullExpectedOutputResourceName(resourceName));
+
+        private string ConstructFullExpectedOutputResourceName(string resourceName)
+            => "ExpectedOutputs." + resourceName;
+
+        private string ConstructFullInputResourceName(string resourceName)
+            => "Inputs." + resourceName;
     }
 }
