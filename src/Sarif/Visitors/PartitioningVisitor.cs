@@ -375,7 +375,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             // partitionValue.
             public Dictionary<T, List<Result>> ResultDictionary { get; }
 
-            // The sets of artifact indices relevant to the results in each partition. That is,
+            // The sets of artifact indices relevant to the results in each partition of the
+            // original run. That is,
             //
             //    ArtifactIndicesDictionary[partitionValue]
             //
@@ -383,7 +384,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             // relevant to the results whose partition value is partitionValue.
             public Dictionary<T, HashSet<int>> ArtifactIndicesDictionary { get; }
 
-            // The set of artifact indices that are relevant to the current run and appear outside
+            // The set of artifact indices that are relevant to the original run and appear outside
             // of any result.
             public HashSet<int> GlobalArtifactIndices { get; }
 
