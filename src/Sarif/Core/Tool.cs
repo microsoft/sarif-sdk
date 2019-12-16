@@ -2,12 +2,10 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -16,6 +14,12 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// </summary>
     public partial class Tool 
     {
+        // This regex does not anchor to the end of the string ("$") because FileVersionInfo
+        // can contain additional information, for example: "2.1.3.25 built by: MY-MACHINE".
+        private const string DottedQuadFileVersionPattern = @"^\d+(\.\d+){3}";
+
+        private static readonly Regex dottedQuadFileVersionRegex = new Regex(DottedQuadFileVersionPattern, RegexOptions.Compiled | RegexOptions.CultureInvariant);
+
         public static Tool CreateFromAssemblyData(Assembly assembly = null, string prereleaseInfo = null)
         {
             assembly = assembly ?? Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly();
@@ -27,7 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             FileVersionInfo fileVersion = FileVersionInfo.GetVersionInfo(assembly.Location);
             if (fileVersion.FileVersion != version.ToString())
             {
-                dottedQuadFileVersion = fileVersion.FileVersion;
+                dottedQuadFileVersion = ParseFileVersion(fileVersion.FileVersion);
             }
 
             Tool tool = new Tool
@@ -47,6 +51,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             SetDriverPropertiesFromFileVersionInfo(tool.Driver, fileVersion);
 
             return tool;
+        }
+
+        internal static string ParseFileVersion(string fileVersion)
+        {
+            Match match = dottedQuadFileVersionRegex.Match(fileVersion);
+            return (match.Success) ? match.Value : null;
         }
 
         private static void SetDriverPropertiesFromFileVersionInfo(ToolComponent driver, FileVersionInfo fileVersion)

@@ -2,6 +2,7 @@
 
 ## **v2.1.24** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.24) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.24) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.24) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.24)
 * FEATURE: Introduce API to partition log files by arbitrary criteria (method `SarifPartitioner.Partition` and class `PartitioningVisitor`).
+* BUGFIX: `Tool.CreateFromAssembly` now properly handles file versions that contain extra characters after the "dotted quad" string. [#1728](https://github.com/microsoft/sarif-sdk/issues/1728)
 
 ## **v2.1.23** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.23) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.23) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.23) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.23)
 * API BREAKING: Remove 'Errors.LogExceptionLoadingPdb' helper (as not relevant to core SDK).
