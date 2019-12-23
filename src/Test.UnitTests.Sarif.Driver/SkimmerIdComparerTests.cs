@@ -62,8 +62,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         break;
                     }
                 }
-
-
             }
 
             failedTestCases.Should().BeEmpty();
