@@ -1136,13 +1136,13 @@
         },
 
         "startTimeUtc": {
-          "description": "The Coordinated Universal Time (UTC) date and time at which the run started. See \"Date/time properties\" in the SARIF spec for the required format.",
+          "description": "The Coordinated Universal Time (UTC) date and time at which the invocation started. See \"Date/time properties\" in the SARIF spec for the required format.",
           "type": "string",
           "format": "date-time"
         },
 
         "endTimeUtc": {
-          "description": "The Coordinated Universal Time (UTC) date and time at which the run ended. See \"Date/time properties\" in the SARIF spec for the required format.",
+          "description": "The Coordinated Universal Time (UTC) date and time at which the invocation ended. See \"Date/time properties\" in the SARIF spec for the required format.",
           "type": "string",
           "format": "date-time"
         },
@@ -1222,7 +1222,7 @@
         },
 
         "machine": {
-          "description": "The machine that hosted the analysis tool run.",
+          "description": "The machine that hosted the analysis tool invocation.",
           "type": "string"
         },
 
@@ -1232,7 +1232,7 @@
         },
 
         "processId": {
-          "description": "The process id for the analysis tool run.",
+          "description": "The process id for the analysis tool invocation.",
           "type": "integer"
         },
 
@@ -1242,7 +1242,7 @@
         },
 
         "workingDirectory": {
-          "description": "The working directory for the analysis tool run.",
+          "description": "The working directory for the analysis tool invocation.",
           "$ref": "#/definitions/artifactLocation"
         },
 
