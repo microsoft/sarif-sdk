@@ -61,15 +61,18 @@ namespace Test.EndToEnd.Baselining
     ///    
     ///  Usage
     ///  =====
+    ///   Get Test Content:
+    ///   git clone https://github.com/microsoft/sarif-sdk-test-content
+    ///   
     ///   Run a Full Pass:
-    ///   "Test.EndToEnd.Baselining run C:\Code\sarif-baseline-e2e"
+    ///   "Test.EndToEnd.Baselining run C:\Code\sarif-sdk-test-content\BaselineE2E"
     ///   
     ///   Debug matching for Result 004 in log 001 in series "Spam\v1\WorkItem\mseng":
     ///   To quickly debug a Result, copy and paste the first line from the Series log for the Series path and the RID (ex: 001 004) from the Result to debug.
-    ///   "Test.EndToEnd.Baselining debug C:\Code\sarif-baseline-e2e Spam\v1\WorkItem\mseng 001 004"
+    ///   "Test.EndToEnd.Baselining debug C:\Code\sarif-sdk-test-content\BaselineE2E Spam\v1\WorkItem\mseng 001 004"
     ///   
     ///   Re-generate debug logs with the details as coded in BaseliningDetailEnricher:
-    ///   "Test.EndToEnd.Baselining rebuild-debug-logs C:\Code\sarif-baseline-e2e"
+    ///   "Test.EndToEnd.Baselining rebuild-debug-logs C:\Code\sarif-sdk-test-content\BaselineE2E"
     /// </summary>
     class Program
     {
