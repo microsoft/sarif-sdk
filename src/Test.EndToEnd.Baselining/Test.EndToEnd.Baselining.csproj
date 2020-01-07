@@ -13,4 +13,6 @@
     <ProjectReference Include="..\Sarif\Sarif.csproj" />
   </ItemGroup>
 
+  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
+
 </Project>

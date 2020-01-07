@@ -24,7 +24,7 @@ namespace SarifBaseline.Extensions
             }
             else
             {
-                return set.Where(path => path?.Contains(requiredPart, StringComparison.OrdinalIgnoreCase) ?? false);
+                return set.Where(path => (path?.IndexOf(requiredPart, StringComparison.OrdinalIgnoreCase) ?? -1) >= 0);
             }
         }
 

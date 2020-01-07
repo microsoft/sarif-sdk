@@ -6,6 +6,9 @@ using System.Linq;
 
 namespace Test.EndToEnd.Baselining
 {
+    /// <summary>
+    ///  Custom Result property formatting for BaselineE2E debugging.
+    /// </summary>
     public static class ResultTextFormatter
     {
         public static string PartialFingerprint(this Result result, string fingerprintName, int lengthLimit = -1)
@@ -37,6 +40,7 @@ namespace Test.EndToEnd.Baselining
 
         public static string RegionString(this Region region)
         {
+            // NOTE: Similar to but not the same as FormatForVisualStudio(Region); this has offset handling and some other tweaks
             if (region == null) { return ""; }
 
             if (region.EndLine != region.StartLine)

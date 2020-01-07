@@ -9,6 +9,10 @@ using System.Linq;
 
 namespace Test.EndToEnd.Baselining
 {
+    /// <summary>
+    ///  BaseliningTester contains the overall logic for running the Baselining E2E tests.
+    ///  It knows test content folder structure and runs the baselining for each series.
+    /// </summary>
     public class BaseliningTester
     {
         public const string InputFolderName = "Input";
@@ -189,7 +193,9 @@ namespace Test.EndToEnd.Baselining
 
         public static void DebugResultComparison(SarifLog baseline, SarifLog current, string currentResultGuid)
         {
+            // Set in debugger to the GUID of the Result you want to check against.
             string baselineResultGuid = "";
+
             bool similar = AreSufficientlySimiliar(baseline, baselineResultGuid, current, currentResultGuid);
         }
 
@@ -248,8 +254,7 @@ namespace Test.EndToEnd.Baselining
             }
         }
 
-        // --- FROM SarifBaseliner; find better integration story
-
+        // TODO: Make the core baselining algorithm support BaselineFilteringMode.ToIncludedArtifacts
         private static SarifLog Baseline(SarifLog baselineLog, SarifLog currentLog)
         {
             // Baseline the complete log
