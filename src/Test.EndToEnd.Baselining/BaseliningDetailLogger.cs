@@ -21,7 +21,22 @@ namespace Test.EndToEnd.Baselining
         public BaseliningDetailLogger(string seriesPath, Stream outputStream)
         {
             Writer = new StreamWriter(outputStream);
-            Writer.WriteLine(seriesPath);
+            Writer.WriteLine(RelativeSeriesPath(seriesPath));
+        }
+
+        private static string RelativeSeriesPath(string seriesPath)
+        {
+            string inputFolderSnippet = $"\\{BaseliningTester.InputFolderName}\\";
+            int indexOfInputFolder = seriesPath.IndexOf(inputFolderSnippet);
+
+            if (indexOfInputFolder > 0)
+            {
+                return seriesPath.Substring(indexOfInputFolder + inputFolderSnippet.Length);
+            }
+            else
+            {
+                return seriesPath;
+            }
         }
 
         public void Write(SarifLog newBaselineLog, SarifLog baselineLog, SarifLog currentLog, BaseliningSummary summary)
