@@ -1,4 +1,7 @@
-﻿using System;
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License.
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -20,13 +23,13 @@ namespace SarifBaseline.Extensions
         {
             if (log == null) { throw new ArgumentNullException("log"); }
 
-            BaselineFilteringMode result;
+            BaselineFilteringMode mode;
 
             if (log.TryGetProperty<string>(SarifLogExtensions.BaselineFilteringPropertyName, out string modeString))
             {
-                if (Enum.TryParse<BaselineFilteringMode>(modeString, out result))
+                if (Enum.TryParse<BaselineFilteringMode>(modeString, out mode))
                 {
-                    return result;
+                    return mode;
                 }
                 else
                 {

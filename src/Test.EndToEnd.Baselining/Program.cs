@@ -1,7 +1,12 @@
-﻿using System;
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License.
+
+using System;
 using System.Diagnostics;
 using System.IO;
+
 using CommandLine;
+
 using Test.EndToEnd.Baselining.Options;
 
 namespace Test.EndToEnd.Baselining
@@ -51,7 +56,7 @@ namespace Test.EndToEnd.Baselining
     ///  Running tests will find each series folder in Input and:
     ///    - Load the initial baseline
     ///    - Load each log in order
-    ///    - Replace the GUID with a 'RID' (LogIndex + ' ' + ResultIndex)
+    ///    - Replace the Result.GUID with a 'RID' (LogIndex + ' ' + ResultIndex)
     ///    - Baseline the current log to the Baseline-so-far
     ///    - Write detail report lines about how each Result was baselined
     ///    - Save the output as the Baseline-so-far
@@ -99,7 +104,7 @@ namespace Test.EndToEnd.Baselining
         {
             BaseliningTester tester = new BaseliningTester();
             BaseliningSummary overallSummary = tester.RunAll(options.TestRootPath);
-            Console.WriteLine($"{overallSummary}");
+            Console.WriteLine(overallSummary);
 
             return 0;
         }

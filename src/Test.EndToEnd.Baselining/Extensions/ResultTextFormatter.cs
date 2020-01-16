@@ -1,8 +1,13 @@
-﻿using Microsoft.CodeAnalysis.Sarif;
-using SarifBaseline.Extensions;
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License.
+
 using System;
 using System.IO;
 using System.Linq;
+
+using Microsoft.CodeAnalysis.Sarif;
+
+using SarifBaseline.Extensions;
 
 namespace Test.EndToEnd.Baselining
 {

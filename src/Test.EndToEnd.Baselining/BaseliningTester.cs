@@ -1,11 +1,16 @@
-﻿using Microsoft.CodeAnalysis.Sarif;
-using Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching;
-using SarifBaseline.Extensions;
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License.
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+
+using Microsoft.CodeAnalysis.Sarif;
+using Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching;
+
+using SarifBaseline.Extensions;
 
 namespace Test.EndToEnd.Baselining
 {
@@ -267,7 +272,7 @@ namespace Test.EndToEnd.Baselining
             // Mark all Results which are NOT in the new run as 'Unchanged'
             if (filteringMode == BaselineFilteringMode.ToIncludedArtifacts)
             {
-                HashSet<string> includedArtifacts = new HashSet<string>(currentLog.AllArtifactUris().Select(uri => uri.OriginalString));
+                HashSet<string> includedArtifacts = new HashSet<string>(currentLog.AllResultArtifactUris().Select(uri => uri.OriginalString));
 
                 foreach (Result result in outputLog.EnumerateResults())
                 {
