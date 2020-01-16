@@ -14,9 +14,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <returns>SarifLog instance for file</returns>
         public static SarifLog LoadDeferred(string sarifFilePath)
         {
-            using (Stream stream = File.OpenRead(sarifFilePath))
+            JsonSerializer serializer = new JsonSerializer();
+            serializer.ContractResolver = new SarifDeferredContractResolver();
+
+            using (JsonPositionedTextReader jptr = new JsonPositionedTextReader(sarifFilePath))
             {
-                return Load(stream, deferred: true);
+                return serializer.Deserialize<SarifLog>(jptr);
             }
         }
 
