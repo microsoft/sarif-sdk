@@ -66,6 +66,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             // Ensure Run TFL list is ready for consolidating TFLs
             _run.ThreadFlowLocations = _run.ThreadFlowLocations ?? new List<ThreadFlowLocation>();
 
+            // Realize ThreadFlowLocations for consolidation
+            _run.ThreadFlowLocations = _run.ThreadFlowLocations.ToList();
+
             // Add existing TFLs to map (can't consolidate; there may be existing references to them)
             for (int i = 0; i < _run.ThreadFlowLocations.Count; ++i)
             {
