@@ -1,0 +1,13 @@
+{
+	"name": "@microsoft/sarif-multitool-linux",
+	"description": "SARIF Multitool for Linux",
+	"version": "0.0.1",
+	"author": "Microsoft",
+	"license": "MIT",
+	"repository": {
+	  "type": "git",
+	  "url": "https://github.com/microsoft/sarif-sdk"
+	},
+	"os": ["linux"],
+	"bin": "./bin.js"
+}
