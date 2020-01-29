@@ -42,6 +42,7 @@
     <IntermediateOutputPath>$(MsBuildThisFileDirectory)..\bld\obj\$(OutputSubDir)\$(MSBuildProjectName)\</IntermediateOutputPath>
     <OutputPath>$(MsBuildThisFileDirectory)..\bld\bin\$(OutputSubDir)\$(MSBuildProjectName)\</OutputPath>
     <PublishDir>$(OutputPath)\Publish\$(TargetFramework)\</PublishDir>
+    <PublishDir Condition=" '$(RuntimeIdentifier)' != '' ">$(OutputPath)\Publish\$(TargetFramework)\$(RuntimeIdentifier)\</PublishDir>
     <SolutionDir Condition=" '$(SolutionDir)' == '' ">$(MsBuildThisFileDirectory)</SolutionDir>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
