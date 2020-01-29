@@ -118,7 +118,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline2
                     ExpectedBaselineState = BaselineState.New,
                     ExpectedFirstDetectionTime = currentRunStartTime
                 },
-                new FirstDetectionTimeTestCase // TODO TEST CASE SHOWING CURRENT RUN WINS FOR NEW AND PREV RUN WINS FOR EXISTING
+                new FirstDetectionTimeTestCase
                 {
                     Name = "New, current start and end times",
                     PreviousResult = null,
@@ -244,6 +244,34 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline2
                     CurrentRun = new Run(),
                     ExpectedBaselineState = BaselineState.Unchanged,
                     ExpectedFirstDetectionTime = firstDetectionTime
+                },
+                new FirstDetectionTimeTestCase
+                {
+                    Name = "Existing, previous run wins",
+                    PreviousResult = new Result(),
+                    PreviousRun = new Run
+                    {
+                        Invocations = new List<Invocation>
+                        {
+                            new Invocation
+                            {
+                                EndTimeUtc = previousRunEndTime
+                            }
+                        }
+                    },
+                    CurrentResult = new Result(),
+                    CurrentRun = new Run
+                    {
+                        Invocations = new List<Invocation>
+                        {
+                            new Invocation
+                            {
+                                EndTimeUtc = currentRunEndTime
+                            }
+                        }
+                    },
+                    ExpectedBaselineState = BaselineState.Unchanged,
+                    ExpectedFirstDetectionTime = previousRunEndTime
                 }
             };
 
