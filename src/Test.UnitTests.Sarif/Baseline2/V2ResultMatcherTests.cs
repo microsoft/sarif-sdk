@@ -324,6 +324,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
         [Fact]
         public void ResultMatchingBaseliner_WhenThereIsOnlyOneCurrentRun_CopiesSelectedRunData()
         {
+            DateTime firstDetectionTime = new DateTime(2019, 10, 7, 12, 13, 14);
+
             Run originalRun = new Run
             {
                 Tool = new Tool
@@ -347,12 +349,20 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
                     new Result
                     {
                         RuleId = TestConstants.RuleIds.Rule1,
-                        RuleIndex = 0
+                        RuleIndex = 0,
+                        Provenance = new ResultProvenance
+                        {
+                            FirstDetectionTimeUtc = firstDetectionTime
+                        }
                     },
                     new Result
                     {
                         RuleId = TestConstants.RuleIds.Rule2,
-                        RuleIndex = 1
+                        RuleIndex = 1,
+                        Provenance = new ResultProvenance
+                        {
+                            FirstDetectionTimeUtc = firstDetectionTime
+                        }
                     }
                 },
                 Conversion = new Conversion

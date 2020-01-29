@@ -30,9 +30,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         }
 
         /// <summary>
-        /// Creates a new SARIF Result object with contents from the
-        /// most recent result of the matched pair, the appropriate state,
-        /// and some metadata in the property bag about the matching algorithm used.
+        /// Creates a new SARIF Result object with contents from the most recent result of the
+        /// matched pair, the appropriate state and time of first detection, and some metadata
+        /// in the property bag about the matching algorithm used.
         /// </summary>
         /// <returns>The new SARIF result.</returns>
         public Result CalculateBasedlinedResult(DictionaryMergeBehavior propertyBagMergeBehavior)
@@ -56,6 +56,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 // Baseline result is present, current result is missing => absent.
                 result = ConstructAbsentResult(resultMatchingProperties, out originalResultMatchingProperties);
             }
+
+            SetFirstDetectionTime(result);
 
             resultMatchingProperties = MergeDictionaryPreferFirst(resultMatchingProperties, originalResultMatchingProperties);
 
@@ -125,7 +127,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         {
             // Result exists.
             Result result = CreateBaselinedResult(BaselineState.Unchanged);
-            
+
             if (!PreviousResult.Result.TryGetProperty(SarifLogResultMatcher.ResultMatchingResultPropertyName, out originalResultMatchingProperties))
             {
                 originalResultMatchingProperties = new Dictionary<string, object>();
@@ -171,6 +173,59 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             result.BaselineState = newBaselineState;
 
             return result;
+        }
+
+        internal void SetFirstDetectionTime(Result targetResult)
+        {
+            DateTime firstDetectionTime = default;
+
+            // For existing results (or results that have disappeared), get the first detection
+            // time from the previous result and its associated run. For new results, get the first
+            // detection time from the current result and its associated run.
+            ExtractedResult extractedResult;
+            switch (targetResult.BaselineState)
+            {
+                case BaselineState.Absent:
+                case BaselineState.Updated:
+                case BaselineState.Unchanged:
+                    extractedResult = PreviousResult;
+                    break;
+
+                case BaselineState.New:
+                    extractedResult = CurrentResult;
+                    break;
+
+                default:
+                    throw new ArgumentException("Baseline state was not set.", nameof(targetResult));
+            }
+
+            Result sourceResult = extractedResult.Result;
+            if (sourceResult.Provenance != null && sourceResult.Provenance.FirstDetectionTimeUtc != default)
+            {
+                firstDetectionTime = sourceResult.Provenance.FirstDetectionTimeUtc;
+            }
+            else
+            {
+                Invocation invocation = extractedResult.OriginalRun?.Invocations?[0];
+                if (invocation != null)
+                {
+                    firstDetectionTime = invocation.EndTimeUtc != default
+                        ? invocation.EndTimeUtc
+                        : invocation.StartTimeUtc;
+                }
+            }
+
+            if (firstDetectionTime == default)
+            {
+                firstDetectionTime = DateTime.UtcNow;
+            }
+
+            if (targetResult.Provenance == null)
+            {
+                targetResult.Provenance = new ResultProvenance();
+            }
+
+            targetResult.Provenance.FirstDetectionTimeUtc = firstDetectionTime;
         }
 
         private Dictionary<string, object> MergeDictionaryPreferFirst(
