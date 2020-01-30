@@ -6,7 +6,7 @@
     NuGet packages.
 .PARAMETER Configuration
     The build configuration: Release or Debug. Default=Release
-.PARAMETER MSBuildVerbosity
+.PARAMETER BuildVerbosity
     Specifies the amount of information for MSBuild to display: quiet, minimal,
     normal, detailed, or diagnostic. Default=minimal
 .PARAMETER NuGetVerbosity
@@ -40,7 +40,7 @@ param(
 
     [string]
     [ValidateSet("quiet", "minimal", "normal", "detailed", "diagnostic")]
-    $MSBuildVerbosity = "minimal",
+    $BuildVerbosity = "minimal",
 
     [string]
     [ValidateSet("quiet", "normal", "detailed")]
@@ -83,37 +83,23 @@ $ScriptName = $([io.Path]::GetFileNameWithoutExtension($PSCommandPath))
 Import-Module -Force $PSScriptRoot\ScriptUtilities.psm1
 Import-Module -Force $PSScriptRoot\Projects.psm1
 
-$BuildTarget = "Rebuild"
-
-function Invoke-MSBuild($solutionFileRelativePath, $logFile = $null) {
+function Invoke-DotNetBuild($solutionFileRelativePath) {
     Write-Information "Building $solutionFileRelativePath..."
 
-    $fileLoggerParameters = "Verbosity=detailed"
-    if ($logFile -ne $null) {
-        $fileLoggerParameters += "`;LogFile=$logFile"
-    }
-
     $solutionFilePath = Join-Path $SourceRoot $solutionFileRelativePath
-
-    $arguments =
-        "/verbosity:$MSBuildVerbosity",
-        "/target:$BuildTarget",
-        "/property:Configuration=$Configuration",
-        "/fileloggerparameters:$fileLoggerParameters",
-        $solutionFilePath
-
-    & msbuild  $arguments
+    & dotnet build  $solutionFilePath -c $Configuration -v $BuildVerbosity --no-incremental
+    
     if ($LASTEXITCODE -ne 0) {
         Exit-WithFailureMessage $ScriptName "Build of $solutionFilePath failed."
     }
 }
 
 function Invoke-Build {
-    Invoke-MSBuild $SolutionFile
+    Invoke-DotNetBuild $SolutionFile
 }
 
 function Invoke-BuildSample {
-    Invoke-MSBuild $sampleSolutionFile sample.log
+    Invoke-DotNetBuild $sampleSolutionFile
 }
 
 # Create a directory containing all files necessary to execute an application.
