@@ -12,6 +12,8 @@ Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 $InformationPreference = "Continue"
 
+$ScriptName = $([io.Path]::GetFileNameWithoutExtension($PSCommandPath))
+
 Import-Module $PSScriptRoot\NuGetUtilities.psm1
 
 Hide-NuGetPackages

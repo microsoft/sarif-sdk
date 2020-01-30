@@ -38,6 +38,8 @@ Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 $InformationPreference = "Continue"
 
+$ScriptName = $([io.Path]::GetFileNameWithoutExtension($PSCommandPath))
+
 Import-Module -Force $PSScriptRoot\ScriptUtilities.psm1
 Import-Module -Force $PSScriptRoot\NuGetUtilities.psm1
 Import-Module -Force $PSScriptRoot\Projects.psm1
@@ -70,8 +72,6 @@ function Install-VersionConstantsFile {
 
     & $PSScriptRoot\New-VersionConstantsFile.ps1 $targetProjectDirectory $rootNamespace
 }
-
-$ScriptName = $([io.Path]::GetFileNameWithoutExtension($PSCommandPath))
 
 if (-not $NoClean) {
     Remove-BuildOutput

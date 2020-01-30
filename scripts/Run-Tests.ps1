@@ -28,11 +28,11 @@ Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 $InformationPreference = "Continue"
 
+$ScriptName = $([io.Path]::GetFileNameWithoutExtension($PSCommandPath))
+
 Import-Module -Force $PSScriptRoot\ScriptUtilities.psm1
 Import-Module -Force $PSScriptRoot\NuGetUtilities.psm1
 Import-Module -Force $PSScriptRoot\Projects.psm1
-
-$ScriptName = $([io.Path]::GetFileNameWithoutExtension($PSCommandPath))
 
 $failedTestProjects = @()
 foreach ($project in $Projects.Tests) {
