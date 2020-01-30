@@ -33,11 +33,12 @@ dotnet publish $SourceRoot\$project\$project.csproj -c $Configuration -f netcore
 dotnet publish $SourceRoot\$project\$project.csproj -c $Configuration -f netcoreapp3.0 /p:TargetFrameworks=netcoreapp3.0 -r linux-x64
 dotnet publish $SourceRoot\$project\$project.csproj -c $Configuration -f netcoreapp3.0 /p:TargetFrameworks=netcoreapp3.0 -r osx-x64
 
-Write-Information "Merging binaries and NPM configuration..."
-# Copy-Item -Force -Container -Recurse -Path $npmSourceFolder\* -Destination $npmBuildFolder
-Copy-Item -Force -Container -Recurse -Path $projectBinDirectory\Publish\netcoreapp3.0\win-x64\* -Destination $npmBuildFolder\sarif-multitool-win32
-Copy-Item -Force -Container -Recurse -Path $projectBinDirectory\Publish\netcoreapp3.0\linux-x64\* -Destination $npmBuildFolder\sarif-multitool-linux
-Copy-Item -Force -Container -Recurse -Path $projectBinDirectory\Publish\netcoreapp3.0\osx-x64\* -Destination $npmBuildFolder\sarif-multitool-darwin
+Write-Information "Merging binaries [$projectBinDirectory] and NPM configuration [$npmSourceFolder]..."
+New-Item -ItemType Directory -Path $npmBuildFolder\
+Copy-Item -Force -Container -Recurse -Path $npmSourceFolder\* -Destination $npmBuildFolder\
+Copy-Item -Force -Container -Recurse -Path $projectBinDirectory\Publish\netcoreapp3.0\win-x64\* -Destination $npmBuildFolder\sarif-multitool-win32\
+Copy-Item -Force -Container -Recurse -Path $projectBinDirectory\Publish\netcoreapp3.0\linux-x64\* -Destination $npmBuildFolder\sarif-multitool-linux\
+Copy-Item -Force -Container -Recurse -Path $projectBinDirectory\Publish\netcoreapp3.0\osx-x64\* -Destination $npmBuildFolder\sarif-multitool-darwin\
 
 # To Publish:
 # from [sarif-sdk]\bld\bin\AnyCPU_Release\Sarif.Multitool\npm, run:
