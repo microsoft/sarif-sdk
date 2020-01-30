@@ -1,7 +1,7 @@
 {
 	"name": "@microsoft/sarif-multitool-darwin",
 	"description": "SARIF Multitool for MacOS (Darwin)",
-	"version": "0.0.8",
+	"version": "0.0.9",
 	"author": "Microsoft",
 	"license": "MIT",
 	"repository": {

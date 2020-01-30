@@ -1,7 +1,7 @@
 {
 	"name": "@microsoft/sarif-multitool-win32",
 	"description": "SARIF Multitool for Windows (Win32)",
-	"version": "0.0.5",
+	"version": "0.0.9",
 	"author": "Microsoft",
 	"license": "MIT",
 	"repository": {

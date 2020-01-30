@@ -11,8 +11,8 @@
 	"os": ["darwin", "linux", "win32"],
 	"bin": "./bin.js",
 	"optionalDependencies": {
-		"@microsoft/sarif-multitool-darwin": "^0.0.8",
-		"@microsoft/sarif-multitool-linux": "^0.0.1",
-		"@microsoft/sarif-multitool-win32": "^0.0.5"
+		"@microsoft/sarif-multitool-darwin": "^0.0.9",
+		"@microsoft/sarif-multitool-linux": "^0.0.9",
+		"@microsoft/sarif-multitool-win32": "^0.0.9"
 	}
 }

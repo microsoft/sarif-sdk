@@ -1,7 +1,7 @@
 {
 	"name": "@microsoft/sarif-multitool-linux",
 	"description": "SARIF Multitool for Linux",
-	"version": "0.0.1",
+	"version": "0.0.9",
 	"author": "Microsoft",
 	"license": "MIT",
 	"repository": {
