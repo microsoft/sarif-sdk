@@ -96,7 +96,7 @@ if (-not $NoRestore) {
 
 if (-not $NoObjectModel) {
     # Generate the SARIF object model classes from the SARIF JSON schema.
-    msbuild /verbosity:minimal /target:BuildAndInjectObjectModel $SourceRoot\Sarif\Sarif.csproj /fileloggerparameters:Verbosity=detailed`;LogFile=CodeGen.log
+    dotnet msbuild /verbosity:minimal /target:BuildAndInjectObjectModel $SourceRoot\Sarif\Sarif.csproj /fileloggerparameters:Verbosity=detailed`;LogFile=CodeGen.log
     if ($LASTEXITCODE -ne 0) {
         Exit-WithFailureMessage $ScriptName "SARIF object model generation failed."
     }
