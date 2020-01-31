@@ -3,15 +3,17 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
 
-    <!-- If ready to go to VS 2019+ only: -->
-    <!-- <TargetFrameworks>netcoreapp2.0;netcoreapp2.1;netcoreapp3.0</TargetFrameworks> -->
-    <TargetFrameworks>netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-
     <!-- To Publish single-file exes, run: 
-      dotnet publish Sarif.Multitool.csproj -c Release -f netcoreapp3.0 /p:TargetFrameworks=netcoreapp3.0 -r win-x64
-      dotnet publish Sarif.Multitool.csproj -c Release -f netcoreapp3.0 /p:TargetFrameworks=netcoreapp3.0 -r linux-x64
-      dotnet publish Sarif.Multitool.csproj -c Release -f netcoreapp3.0 /p:TargetFrameworks=netcoreapp3.0 -r osx-x64
+      dotnet publish Sarif.Multitool.csproj -c Release -f netcoreapp3.0 -r win-x64
+      dotnet publish Sarif.Multitool.csproj -c Release -f netcoreapp3.0 -r linux-x64
+      dotnet publish Sarif.Multitool.csproj -c Release -f netcoreapp3.0 -r osx-x64
+
+      For settings which we want only for these builds, we use [Condition="'$(RuntimeIdentifier)' != ''"] to identify them
     -->
+
+    <!-- Keep default targets to allow VS2017 use; our build pool is Hosted VS2017 only. -->
+    <TargetFrameworks>netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
+    <TargetFrameworks Condition="'$(RuntimeIdentifier)' != ''">netcoreapp2.0;netcoreapp2.1;netcoreapp3.0</TargetFrameworks>
 
     <!-- When dotnet publish run, produce trimmed single-file exe -->
     <PublishSingleFile Condition="'$(RuntimeIdentifier)' != ''">true</PublishSingleFile>
