@@ -1,8 +1,8 @@
 <#
 .SYNOPSIS
-    Build, and package the Sarif Multitool NPM package.
+    Delete test outputs from bld\bin to reduce published content size.
 .DESCRIPTION
-    Builds the Sarif Multitool NPM package, including building the .NET Core 3.0 single-file-exe of the Multitool for all supported platforms.
+    Deletes all test project outputs from bld\bin; reduces published size by ~450 MB.
 .PARAMETER Configuration
     The build configuration: Release or Debug. Default=Release
 #>
