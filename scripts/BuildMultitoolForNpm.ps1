@@ -26,7 +26,7 @@ Import-Module -Force $PSScriptRoot\Projects.psm1
 $project = "Sarif.Multitool"
 $projectBinDirectory = (Get-ProjectBinDirectory $project $Configuration)
 $npmSourceFolder = "$RepoRoot\npm"
-$npmBuildFolder = "$projectBinDirectory\npm"
+$npmBuildFolder = "$BuildRoot\Publish\npm"
 
 Write-Information "Building Sarif.Multitool for Windows, Linux, and MacOS..."
 dotnet publish $SourceRoot\$project\$project.csproj -c $Configuration -f netcoreapp3.0 -r win-x64
