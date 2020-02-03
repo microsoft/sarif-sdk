@@ -37,9 +37,9 @@ $npmBuildFolder = "$BuildRoot\Publish\npm"
 
 if (-not $SkipBuild) {
     Write-Information "Building Sarif.Multitool for Windows, Linux, and MacOS..."
-    dotnet publish $SourceRoot\$project\$project.csproj -c $Configuration -f netcoreapp3.0 -r win-x64
-    dotnet publish $SourceRoot\$project\$project.csproj -c $Configuration -f netcoreapp3.0 -r linux-x64
-    dotnet publish $SourceRoot\$project\$project.csproj -c $Configuration -f netcoreapp3.0 -r osx-x64
+    dotnet publish $SourceRoot\$project\$project.csproj -c $Configuration -f netcoreapp3.0 --no-restore -r win-x64
+    dotnet publish $SourceRoot\$project\$project.csproj -c $Configuration -f netcoreapp3.0 --no-restore -r linux-x64
+    dotnet publish $SourceRoot\$project\$project.csproj -c $Configuration -f netcoreapp3.0 --no-restore -r osx-x64
 
     Write-Information "Merging binaries [$projectBinDirectory] and NPM configuration [$npmSourceFolder]..."
     New-DirectorySafely $npmBuildFolder\
