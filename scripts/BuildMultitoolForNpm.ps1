@@ -14,6 +14,9 @@ param(
     $Configuration="Release",
 
     [switch]
+    $SkipBuild,
+
+    [switch]
     $NoPostClean
 )
 
@@ -24,6 +27,7 @@ $InformationPreference = "Continue"
 $ScriptName = $([io.Path]::GetFileNameWithoutExtension($PSCommandPath))
 
 Import-Module -Force $PSScriptRoot\ScriptUtilities.psm1
+Import-Module -Force $PSScriptRoot\NuGetUtilities.psm1
 Import-Module -Force $PSScriptRoot\Projects.psm1
 
 $project = "Sarif.Multitool"
@@ -44,6 +48,15 @@ if (-not $SkipBuild) {
     Copy-Item -Force -Container -Recurse -Path $projectBinDirectory\Publish\netcoreapp3.0\linux-x64\* -Destination $npmBuildFolder\sarif-multitool-linux\
     Copy-Item -Force -Container -Recurse -Path $projectBinDirectory\Publish\netcoreapp3.0\osx-x64\* -Destination $npmBuildFolder\sarif-multitool-darwin\
 }
+
+$sarifVersion = Get-PackageVersion
+# TEMP: Use 0.x.y numbering until NPM package shape settled, then follow SDK version exactly by removing the next line
+$sarifVersion = $sarifVersion -replace "2\.", "0."
+Write-Information "Injecting Sarif SDK version $sarifVersion for NPM Packages..."
+foreach ($package in (Get-ChildItem $npmBuildFolder).FullName) {
+    Find-AndReplaceInFile "$package\package.json" "0\.1\.0" $sarifVersion
+}
+
 
 # To Publish:
 # from [sarif-sdk]\bld\bin\AnyCPU_Release\Sarif.Multitool\npm, run:

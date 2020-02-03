@@ -150,7 +150,8 @@ function Hide-NuGetPackages {
 
 Export-ModuleMember -Function `
     Hide-NuGetPackages, `
-    New-NuGetPackages
+    New-NuGetPackages, `
+    Get-PackageVersion
 
 Export-ModuleMember -Variable `
     NuGetConfigFile, `

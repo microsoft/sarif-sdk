@@ -54,12 +54,24 @@ function Write-CommandLine($exeName, $arguments) {
     Write-Verbose "$exeName $($arguments -join ' ')"
 }
 
+function Find-AndReplaceInFile($filePath, $value, $withValue) {
+    $tempFilePath = "$filePath.tmp"
+    if (Test-Path -Path $tempFilePath) { 
+        Remove-Item $tempFilePath 
+    }
+
+    (Get-Content -Path $filePath) -replace $value, $withValue | Add-Content -Path $tempFilePath -Force
+    Remove-Item $filePath
+    Move-Item -Path $tempFilePath -Destination $filePath
+}
+
 Export-ModuleMember -Function `
     Exit-WithFailureMessage, `
     New-DirectorySafely, `
     Remove-DirectorySafely, `
     Get-ProjectBinDirectory, `
-    Write-CommandLine
+    Write-CommandLine, `
+    Find-AndReplaceInFile
 
 Export-ModuleMember -Variable `
     BinRoot, `
