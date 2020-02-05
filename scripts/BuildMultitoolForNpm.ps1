@@ -1,8 +1,8 @@
 <#
 .SYNOPSIS
-    Build, and package the Sarif Multitool NPM package.
+    Build and package the Sarif Multitool NPM package.
 .DESCRIPTION
-    Builds the Sarif Multitool NPM package, including building the .NET Core 3.0 single-file-exe of the Multitool for all supported platforms.
+    Builds the Sarif.Multitool NPM package, including building the .NET Core 3.0 single-file-exe of the Multitool for all supported platforms.
 .PARAMETER Configuration
     The build configuration: Release or Debug. Default=Release
 #>
@@ -37,9 +37,9 @@ $npmBuildFolder = "$BuildRoot\Publish\npm"
 
 if (-not $SkipBuild) {
     Write-Information "Building Sarif.Multitool for Windows, Linux, and MacOS..."
-    dotnet publish $SourceRoot\$project\$project.csproj -c $Configuration -f netcoreapp3.0 -r win-x64
-    dotnet publish $SourceRoot\$project\$project.csproj -c $Configuration -f netcoreapp3.0 -r linux-x64
-    dotnet publish $SourceRoot\$project\$project.csproj -c $Configuration -f netcoreapp3.0 -r osx-x64
+    foreach ($runtime in "win-x64", "linux-x64", "osx-x64") {
+        dotnet publish $SourceRoot\$project\$project.csproj -c $Configuration -f netcoreapp3.0 -r $runtime
+    }
 
     Write-Information "Merging binaries [$projectBinDirectory] and NPM configuration [$npmSourceFolder]..."
     New-DirectorySafely $npmBuildFolder\
@@ -55,7 +55,7 @@ $sarifVersion = "0.1.25"
 
 Write-Information "Injecting Sarif SDK version $sarifVersion for NPM Packages..."
 foreach ($package in (Get-ChildItem $npmBuildFolder).FullName) {
-    Find-AndReplaceInFile "$package\package.json" "0\.1\.0" $sarifVersion
+    Find-AndReplaceInFile "$package\package.json" "{version}" $sarifVersion
 }
 
 

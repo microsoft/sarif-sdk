@@ -8,14 +8,14 @@
       dotnet publish Sarif.Multitool.csproj -c Release -f netcoreapp3.0 -r linux-x64
       dotnet publish Sarif.Multitool.csproj -c Release -f netcoreapp3.0 -r osx-x64
 
-      For settings which we want only for these builds, we use [Condition="'$(RuntimeIdentifier)' != ''"] to identify them
+      We use [Condition="'$(RuntimeIdentifier)' != ''"] to identify settings used only for these builds.      
     -->
 
-    <!-- Keep default targets to allow VS2017 use; our build pool is Hosted VS2017 only. -->
+    <!-- Keep default targets to allow VS2017 use and builds in the Azure 'Hosted VS2017' build agent pool -->
     <TargetFrameworks>netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-    <TargetFrameworks Condition="'$(RuntimeIdentifier)' != ''">netcoreapp2.0;netcoreapp2.1;netcoreapp3.0</TargetFrameworks>
+    <TargetFrameworks Condition="'$(RuntimeIdentifier)' != ''">$(TargetFrameworks);netcoreapp3.0</TargetFrameworks>
 
-    <!-- When dotnet publish run, produce trimmed single-file exe -->
+    <!-- Publish trimmed single-file exe -->
     <PublishSingleFile Condition="'$(RuntimeIdentifier)' != ''">true</PublishSingleFile>
     <PublishTrimmed Condition="'$(RuntimeIdentifier)' != ''">true</PublishTrimmed>
 
