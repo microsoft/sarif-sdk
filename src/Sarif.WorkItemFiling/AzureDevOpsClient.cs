@@ -90,14 +90,17 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
                     }
                 };
 
-                foreach (var customField in metadata.CustomFields)
+                if (metadata.CustomFields != null)
                 {
-                    patchDocument.Add(new JsonPatchOperation
+                    foreach (var customField in metadata.CustomFields)
                     {
-                        Operation = Operation.Add,
-                        Path = $"/fields/{customField.Key}",
-                        Value = customField.Value
-                    });
+                        patchDocument.Add(new JsonPatchOperation
+                        {
+                            Operation = Operation.Add,
+                            Path = $"/fields/{customField.Key}",
+                            Value = customField.Value
+                        });
+                    }
                 }
 
                 if (attachmentReference != null)

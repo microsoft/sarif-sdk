@@ -9,7 +9,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     [Verb("file-work-items", HelpText = "Send SARIF results to a work item tracking system such as GitHub or Azure DevOps")]
     public class FileWorkItemsOptions : SingleFileOptionsBase
-    {
+    { 
         [Option(
             "project-uri",
             HelpText = "The absolute URI of the project in which the work items are to be filed, for example https://dev.azure.com/{org}/{project} or https://github.com/{org}/{project}.",

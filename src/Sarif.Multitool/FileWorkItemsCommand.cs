@@ -32,8 +32,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             // For unit tests: allow us to just validate the options and return.
             if (s_validateOptionsOnly) { return SUCCESS; }
 
-            string projectName = options.ProjectUri.GetProjectName();
-
             string logFileContents = fileSystem.ReadAllText(options.InputFilePath);
             EnsureValidSarifLogFile(logFileContents, options.InputFilePath);
 
@@ -42,11 +40,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(logFileContents);
 
-            if (options.DataToRemove != null)
+            OptionallyEmittedData optionallyEmittedData = options.DataToRemove.ToFlags();
+            if (optionallyEmittedData != OptionallyEmittedData.None)
             {
                 var dataRemovingVisitor = new RemoveOptionalDataVisitor(options.DataToRemove.ToFlags());
                 dataRemovingVisitor.Visit(sarifLog);
             }
+
+            string projectName = options.ProjectUri.GetProjectName();
 
             for (int runIndex = 0; runIndex < sarifLog.Runs.Count; ++runIndex)
             {
@@ -81,7 +82,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     for (int splitFileIndex = 0; splitFileIndex < logsToProcess.Count; splitFileIndex++)
                     {
                         SarifLog splitLog = logsToProcess[splitFileIndex];
-                        WorkItemModel workItemModel = splitLog.CreateWorkItemModel();
+                        WorkItemModel workItemModel = splitLog.CreateWorkItemModel(projectName);
                         workItemModels.Add(workItemModel);
                     }
 

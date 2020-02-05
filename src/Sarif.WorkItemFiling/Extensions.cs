@@ -10,19 +10,23 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
 {
     public static class Extensions
     {
-        public static WorkItemModel CreateWorkItemModel(this SarifLog sarifLog)
+        public static WorkItemModel CreateWorkItemModel(this SarifLog sarifLog, string projectName)
         {
+            // For default ADO work item boards, the project name is repurposed
+            // to provide a default area path and iteration
             WorkItemModel metadata = new WorkItemModel()
             {
                 AdditionalData = sarifLog,
-                Area = "AreaPath",
+                Area = projectName,
                 Attachment = new WorkItemFiling.Attachment
                 {
                     Name = "AttachedResults.sarif",
                     Text = JsonConvert.SerializeObject(sarifLog),
                 },
                 Description = "Description",
+                Discussion = "Discussion",
                 Title = "Title",
+                Iteration = projectName,
                 Tags = new List<string> { "tag"}                 
             };
 
@@ -32,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
         public static string GetProjectName(this Uri projectUri)
         {
             string projectUriString = projectUri.OriginalString;
-            int lastSlashIndex = projectUriString.LastIndexOf('/');
+            int lastSlashIndex = projectUriString.LastIndexOf('/'); 
 
             string projectName = lastSlashIndex > 0 && lastSlashIndex < projectUriString.Length - 1
                 ? projectUriString.Substring(lastSlashIndex + 1)
