@@ -1,5 +1,8 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
+## **v2.1.25** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.25) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.25) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.25) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.25)
+* FEATURE: The baseliner (available through the Multitool's `match-results-forward` command) now populates `result.provenance.firstDetectionTimeUtc` so you can now track the age of each issue. [#1737](https://github.com/microsoft/sarif-sdk/issues/1737)
+
 ## **v2.1.24** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.24) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.24) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.24) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.24)
 * FEATURE: Introduce API to partition log files by arbitrary criteria (method `SarifPartitioner.Partition` and class `PartitioningVisitor`).
 * BUGFIX: `Tool.CreateFromAssembly` now properly handles file versions that contain extra characters after the "dotted quad" string. [#1728](https://github.com/microsoft/sarif-sdk/issues/1728)
