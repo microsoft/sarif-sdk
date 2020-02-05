@@ -15,6 +15,8 @@ param(
     $Configuration="Release"
 )
 
+$ScriptName = $([io.Path]::GetFileNameWithoutExtension($PSCommandPath))
+
 Import-Module -Force $PSScriptRoot\ScriptUtilities.psm1
 Import-Module -Force $PSScriptRoot\Projects.psm1
 Import-Module -Force $PSScriptRoot\NuGetUtilities.psm1

@@ -1,0 +1,18 @@
+{
+	"name": "@microsoft/sarif-multitool",
+	"version": "{version}",
+	"author": "Microsoft",
+	"description": "SARIF Multitool",
+	"license": "MIT",
+	"repository": {
+	  "type": "git",
+	  "url": "https://github.com/microsoft/sarif-sdk"
+	},
+	"os": ["darwin", "linux", "win32"],
+	"bin": "./bin.js",
+	"optionalDependencies": {
+		"@microsoft/sarif-multitool-darwin": "^{version}",
+		"@microsoft/sarif-multitool-linux": "^{version}",
+		"@microsoft/sarif-multitool-win32": "^{version}"
+	}
+}

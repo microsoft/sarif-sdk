@@ -1,0 +1,13 @@
+{
+	"name": "@microsoft/sarif-multitool-win32",
+	"description": "SARIF Multitool for Windows (Win32)",
+	"version": "{version}",
+	"author": "Microsoft",
+	"license": "MIT",
+	"repository": {
+	  "type": "git",
+	  "url": "https://github.com/microsoft/sarif-sdk"
+	},
+	"os": ["win32"],
+	"bin": "./bin.js"
+}

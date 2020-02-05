@@ -1,4 +1,4 @@
-image: Visual Studio 2017
+image: Visual Studio 2019
 
 init:
   - git config --global core.autocrlf true
@@ -11,7 +11,8 @@ branches:
     - sarif-v1
 
 install:
-  - ps: .\dotnet-install.ps1 --version 2.1.506
+  - ps: .\dotnet-install.ps1 --version 2.2.402
+  - ps: .\dotnet-install.ps1 --version 3.1.101
 
 configuration:
   - Release

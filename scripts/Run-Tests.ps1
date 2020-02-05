@@ -28,17 +28,17 @@ Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 $InformationPreference = "Continue"
 
+$ScriptName = $([io.Path]::GetFileNameWithoutExtension($PSCommandPath))
+
 Import-Module -Force $PSScriptRoot\ScriptUtilities.psm1
 Import-Module -Force $PSScriptRoot\NuGetUtilities.psm1
 Import-Module -Force $PSScriptRoot\Projects.psm1
-
-$ScriptName = $([io.Path]::GetFileNameWithoutExtension($PSCommandPath))
 
 $failedTestProjects = @()
 foreach ($project in $Projects.Tests) {
     foreach ($framework in $Frameworks.Application) {
 
-        if (-not $AppVeyor -and $framework -ne "netcoreapp2.0") { continue; }
+        if ((-not $AppVeyor) -and ($framework -ne "netcoreapp2.0")) { continue; }
 
         Write-Information "Running tests in ${project}: $framework..."
         Push-Location $SourceRoot\$project

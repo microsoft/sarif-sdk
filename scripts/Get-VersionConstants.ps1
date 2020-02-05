@@ -16,6 +16,8 @@ Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 $InformationPreference = "Continue"
 
+$ScriptName = $([io.Path]::GetFileNameWithoutExtension($PSCommandPath))
+
 Import-Module $PSScriptRoot\ScriptUtilities.psm1 -Force
 
 $assemblyAttributesXPath = "/msbuild:Project/msbuild:PropertyGroup[@Label='AssemblyAttributes']"

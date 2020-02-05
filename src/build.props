@@ -20,6 +20,10 @@
     having all the relevant values in one place. This property is actually used by the PowerShell
     script that hides ("delists") the previous package versions on nuget.org.
     -->
+    <!-- 
+      NOTE: Version in scripts/BuildMultitoolForNpm.ps1 also has to be updated for each release
+      until it adopts the same versions as the SDK itself.
+    -->
     <VersionPrefix>2.1.25</VersionPrefix>
     <PreviousVersionPrefix>2.1.24</PreviousVersionPrefix>
 
@@ -42,6 +46,7 @@
     <IntermediateOutputPath>$(MsBuildThisFileDirectory)..\bld\obj\$(OutputSubDir)\$(MSBuildProjectName)\</IntermediateOutputPath>
     <OutputPath>$(MsBuildThisFileDirectory)..\bld\bin\$(OutputSubDir)\$(MSBuildProjectName)\</OutputPath>
     <PublishDir>$(OutputPath)\Publish\$(TargetFramework)\</PublishDir>
+    <PublishDir Condition=" '$(RuntimeIdentifier)' != '' ">$(PublishDir)\$(RuntimeIdentifier)\</PublishDir>
     <SolutionDir Condition=" '$(SolutionDir)' == '' ">$(MsBuildThisFileDirectory)</SolutionDir>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>

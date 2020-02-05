@@ -2,11 +2,29 @@
   
   <PropertyGroup>
     <OutputType>Exe</OutputType>
+
+    <!-- To Publish single-file exes, run: 
+      dotnet publish Sarif.Multitool.csproj -c Release -f netcoreapp3.0 -r win-x64
+      dotnet publish Sarif.Multitool.csproj -c Release -f netcoreapp3.0 -r linux-x64
+      dotnet publish Sarif.Multitool.csproj -c Release -f netcoreapp3.0 -r osx-x64
+
+      We use [Condition="'$(RuntimeIdentifier)' != ''"] to identify settings used only for these builds.      
+    -->
+
+    <!-- Keep default targets to allow VS2017 use and builds in the Azure 'Hosted VS2017' build agent pool -->
     <TargetFrameworks>netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
+    <TargetFrameworks Condition="'$(RuntimeIdentifier)' != ''">$(TargetFrameworks);netcoreapp3.0</TargetFrameworks>
+
+    <!-- Publish trimmed single-file exe -->
+    <PublishSingleFile Condition="'$(RuntimeIdentifier)' != ''">true</PublishSingleFile>
+    <PublishTrimmed Condition="'$(RuntimeIdentifier)' != ''">true</PublishTrimmed>
+
+    <!-- Publish 'ready-to-run' on Windows (Linux/Mac not yet supported) -->
+    <PublishReadyToRun Condition="'$(RuntimeIdentifier)' == 'win-x64'">true</PublishReadyToRun>   
   </PropertyGroup>
 
   <!-- PackAsTool is supported/recommended for .NET Core >= 2.1 -->
-  <PropertyGroup Condition="'$(TargetFramework)' == 'netcoreapp2.1'">
+  <PropertyGroup Condition="'$(TargetFramework)' != 'netcoreapp2.0'">
     <PackAsTool>true</PackAsTool>
   </PropertyGroup>
 

@@ -38,6 +38,8 @@ Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 $InformationPreference = "Continue"
 
+$ScriptName = $([io.Path]::GetFileNameWithoutExtension($PSCommandPath))
+
 Import-Module -Force $PSScriptRoot\ScriptUtilities.psm1
 Import-Module -Force $PSScriptRoot\NuGetUtilities.psm1
 Import-Module -Force $PSScriptRoot\Projects.psm1
@@ -71,8 +73,6 @@ function Install-VersionConstantsFile {
     & $PSScriptRoot\New-VersionConstantsFile.ps1 $targetProjectDirectory $rootNamespace
 }
 
-$ScriptName = $([io.Path]::GetFileNameWithoutExtension($PSCommandPath))
-
 if (-not $NoClean) {
     Remove-BuildOutput
 }
@@ -96,7 +96,7 @@ if (-not $NoRestore) {
 
 if (-not $NoObjectModel) {
     # Generate the SARIF object model classes from the SARIF JSON schema.
-    msbuild /verbosity:minimal /target:BuildAndInjectObjectModel $SourceRoot\Sarif\Sarif.csproj /fileloggerparameters:Verbosity=detailed`;LogFile=CodeGen.log
+    dotnet msbuild /verbosity:minimal /target:BuildAndInjectObjectModel $SourceRoot\Sarif\Sarif.csproj /fileloggerparameters:Verbosity=detailed`;LogFile=CodeGen.log
     if ($LASTEXITCODE -ne 0) {
         Exit-WithFailureMessage $ScriptName "SARIF object model generation failed."
     }

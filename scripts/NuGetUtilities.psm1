@@ -19,7 +19,7 @@ $NuGetSamplesPackageRoot = "$SourceRoot\Samples\packages"
 $NuGetConfigFile = "$RepoRoot\NuGet.Config"
 
 $PackageSource = "https://nuget.org"
-$PackageOutputDirectoryRoot = Join-Path $BinRoot NuGet
+$PackageOutputDirectoryRoot = Join-Path $BuildRoot "Publish\NuGet"
 
 function Get-PackageVersion([switch]$previous) {
     $versionPrefix, $schemaVersion, $stableSarifVersion = & $PSScriptRoot\Get-VersionConstants.ps1 -Previous:$previous
@@ -150,7 +150,8 @@ function Hide-NuGetPackages {
 
 Export-ModuleMember -Function `
     Hide-NuGetPackages, `
-    New-NuGetPackages
+    New-NuGetPackages, `
+    Get-PackageVersion
 
 Export-ModuleMember -Variable `
     NuGetConfigFile, `
