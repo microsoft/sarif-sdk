@@ -51,7 +51,7 @@ if (-not $SkipBuild) {
 
 # TEMP: Use 0.x.y numbering until NPM package shape settled, then follow SDK version exactly by removing the hardcoded set
 $sarifVersion = Get-PackageVersion
-$sarifVersion = "0.1.25"
+$sarifVersion = "0.1.26"
 
 Write-Information "Injecting Sarif SDK version $sarifVersion for NPM Packages..."
 foreach ($package in (Get-ChildItem $npmBuildFolder).FullName) {
