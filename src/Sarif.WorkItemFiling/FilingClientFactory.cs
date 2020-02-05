@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 
 namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
 {
-    public class FilingTargetFactory
+    public class FilingClientFactory
     {
         private const string AzureDevOpsUriPattern = @"^https://dev.azure.com/[^/]+/[^/]+$";
         private static readonly Regex s_azureDevOpsUriRegex = SarifUtilities.RegexFromPattern(AzureDevOpsUriPattern);
@@ -15,17 +15,17 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
         private const string GitHubUriPattern = @"^https://github.com/[^/]+/[^/]+$";
         private static readonly Regex s_gitHubUriRegex = SarifUtilities.RegexFromPattern(GitHubUriPattern);
 
-        public static FilingTarget CreateFilingTarget(string projectUriString)
+        public static FilingClient CreateFilingTarget(string projectUriString)
         {
             if (projectUriString == null) { throw new ArgumentNullException(nameof(projectUriString)); }
 
             if (s_azureDevOpsUriRegex.IsMatch(projectUriString))
             {
-                return new AzureDevOpsFilingTarget();
+                return new AzureDevOpsClient();
             }
             else if (s_gitHubUriRegex.IsMatch(projectUriString))
             {
-                return new GitHubFilingTarget();
+                return new GitHubClient();
             }
             else
             {

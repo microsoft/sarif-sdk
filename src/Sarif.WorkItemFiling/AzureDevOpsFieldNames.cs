@@ -3,7 +3,7 @@
 
 namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
 {
-    public static class WorkItemFields
+    public static class AzureDevOpsFieldNames
     {
         /// <summary>
         /// Area Path field name.

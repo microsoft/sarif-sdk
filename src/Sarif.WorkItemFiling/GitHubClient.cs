@@ -10,9 +10,9 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
     /// <summary>
     /// Represents a GitHub project in which work items can be filed.
     /// </summary>
-    public class GitHubFilingTarget : FilingTarget
+    public class GitHubClient : FilingClient
     {
-        public override Task<IEnumerable<WorkItemFilingMetadata>> FileWorkItems(IEnumerable<WorkItemFilingMetadata> workItemFilingMetadata)
+        public override Task<IEnumerable<WorkItemModel>> FileWorkItems(IEnumerable<WorkItemModel> workItemFilingMetadata)
         {
             throw new NotImplementedException();
         }

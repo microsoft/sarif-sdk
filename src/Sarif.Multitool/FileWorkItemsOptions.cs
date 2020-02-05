@@ -16,24 +16,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             Required = true)]
         public string ProjectUriString { get; internal set; }
 
-        // For an explanation of the difference between ProjectUriString and ProjectUri, see FileWorkItemsCommand.ValidateOptions.
+        // ProjectUri is the URI representation of ProjectUriString above. We convert the command-line argument to the URI
+        // form as part of argument validation at runtime (in order to provide better error messages than those that 
+        // the CommandlineLibrary component provides). See FileWorkItemsCommand.ValidateOptions for more details.
         public Uri ProjectUri { get; internal set; }
-
-        [Option(
-            "personal-access-token",
-            HelpText = "TEMPORARY: Specifes the personal access used to access the project")]
-        public string PersonalAccessToken { get; internal set; }
 
         [Option(
             "group",
             HelpText = "Apply a grouping strategy to factor input log file to multiple bugs. Must be one of All, PerRunPerRule or PerRunPerTargetPerRule.",
             Default = GroupingStrategy.PerRun)]
         public GroupingStrategy GroupingStrategy { get; internal set; }
-
-        [Option(
-            "template",
-            HelpText = "A bug template to use for creating work items.",
-            Required = true)]
-        public string TemplateFilePath { get; internal set; }
     }
 }

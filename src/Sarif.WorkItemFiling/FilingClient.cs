@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
     /// Abstract base for classes that represents a system (for example, GitHub or Azure DevOps)
     /// to which work items can be filed.
     /// </summary>
-    public abstract class FilingTarget
+    public abstract class FilingClient
     {
         /// <summary>
         /// Connect to the project in which work items will be filed.
@@ -39,6 +39,6 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
         /// <returns>
         /// An object that can be awaited to see the result groups that were actually filed.
         /// </returns>
-        public abstract Task<IEnumerable<WorkItemFilingMetadata>> FileWorkItems(IEnumerable<WorkItemFilingMetadata> workItemFilingMetadata);
+        public abstract Task<IEnumerable<WorkItemModel>> FileWorkItems(IEnumerable<WorkItemModel> workItemFilingMetadata);
     }
 }

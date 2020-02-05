@@ -3,11 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "tool": {
-        "driver": {
-          "name": "FxCop"
-        }
-      },
       "results": [
         {
           "ruleId": "CA0055",
@@ -28,6 +23,11 @@
           }
         }
       ],
+      "tool": {
+        "driver": {
+          "name": "FxCop"
+        }
+      },
       "columnKind": "utf16CodeUnits"
     }
   ]
