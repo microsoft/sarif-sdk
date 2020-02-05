@@ -1,7 +1,7 @@
 # Overview
-JSON Map is a JSON-based format which describes part of the structure of another JSON document. Maps inform clients of the sizes of parts of the JSON and to allow constant time construction of subsets of the document.
+JSON Map is a JSON-based format which describes part of the structure of another JSON document. Maps inform clients of the sizes of parts of the JSON to allow constant time construction of subsets of the document.
 
-For example, suppose you have a 20GB JSON file which contains a huge array with one million elements along with some surrounding document structure. You can construct a map with a 0.1% target size (20 MB). The map will identify the path to the huge array, the number of elements it has, where each nth array element begins, and where the array itself starts and ends. 
+For example, suppose you have a 20GB JSON file which contains an array with one million elements along with some surrounding document structure. You can construct a map with a 0.1% target size (20 MB). The map will identify the path to the huge array, the number of elements it has, where each nth array element begins, and where the array itself starts and ends. 
 
 To write a copy of the file with only the first 1,000 array elements, copy the file content up to the array start, copy the range from element 0 to element 999, omit the last comma, and copy the range from the array end to the end of the file.
 
@@ -23,6 +23,53 @@ Arrays therefore also have:
 
 To find the element with JSON path "array`[15]`.snippet" in a JSON map, search the map for "nodes`["array"]`.nodes`[15]`.nodes`["snippet"]`. If the snippet was too small to have a node, "nodes`["array"]`.nodes`[15]`" or "nodes`["array"]`" can be used to get close to "snippet".
 
+# Example
+For the following JSON document:
+```
+{ "version": "1.0.0", "schema": "https://schema.org/someFancySchema", "results": [ 0, 1000, 2000, 3000, [ 4000 ], 5000, { "v": 6000 }, 7000, 8000, 9000 ] }
+```
+
+Here is a particular JSON map:
+```
+{
+  "start": 0,
+  "end": 154,
+  "count": 3,
+  "nodes": {
+    "version": {
+      "start": 12,
+      "end": 19,
+      "count": 0
+    },
+    "schema": {
+      "start": 31,
+      "end": 67,
+      "count": 0
+    },
+    "results": {
+      "start": 81,
+      "end": 152,
+      "count": 10,
+      "every": 1,
+      "arrayStarts": [
+        82,
+        3,
+        6,
+        6,
+        7,
+        9,
+        7,
+        14,
+        6,
+        6
+      ]
+    }
+  }
+}
+```
+
+This map has been configured to be up to 10x the size of the document; in most cases, a JSON document this small wouldn't be large enough for any map to be created.
+
 # Uses
 JSON Maps can be used to:
 
@@ -31,7 +78,7 @@ A map can be used to find any large object or array in a JSON document. One can 
 
 
 ### Inform clients of JSON size and structure
-A map can be sent to a client (for example, a web viewer) to allow it to determine whether to request the whole file or only subsets. A viewer can request a subset of the file with large portions excluded and then, if needed, can request those subsets only to reconstruct the full document. A viewer can request "pages" of elements from large arrays, allowing it to show only the first 100 elements, for example, and then retrieve additional pages as a user scrolls. The exact count is available in the map, so the viewer can display the total number of items available and size scroll bars and similar interface elements appropriately.
+A map can be sent to a client (for example, a web viewer) to allow it to determine whether to request the whole file or only subsets. A viewer can request a subset of the file with large portions excluded and then, if needed, can request only those subsets to reconstruct the full document. A viewer can request "pages" of elements from large arrays, allowing it to show only the first 100 elements, for example, and then retrieve additional pages as a user scrolls. The exact count is available in the map, so the viewer can display the total number of items available and size scroll bars and similar interface elements appropriately.
 
 
 ### Enable as-you-go JSON parsing
