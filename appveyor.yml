@@ -11,7 +11,8 @@ branches:
     - sarif-v1
 
 install:
-  - ps: .\dotnet-install.ps1 --version 2.1.506
+  - ps: .\dotnet-install.ps1 --version 2.2.402
+  - ps: .\dotnet-install.ps1 --version 3.1.101
 
 configuration:
   - Release
