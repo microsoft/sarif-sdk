@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
     /// <summary>
     /// Represents an Azure DevOps project in which work items can be filed.
     /// </summary>
-    public class AzureDevOpsFilingTarget : FilingTarget
+    public class AzureDevOpsClient : FilingClient
     {
         private WorkItemTrackingHttpClient _witClient;
         private string _projectName;
@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
         public override async Task Connect(Uri projectUri, string personalAccessToken)
         {
             _projectName = projectUri.GetProjectName();
-            string accountUriString = projectUri.GetAccountUriString();
+            string accountUriString = projectUri.GetAccountName();
 
             Uri accountUri = new Uri(accountUriString, UriKind.Absolute);
 
@@ -36,9 +36,9 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
             _witClient = await connection.GetClientAsync<WorkItemTrackingHttpClient>();
         }
 
-        public override async Task<IEnumerable<WorkItemFilingMetadata>> FileWorkItems(IEnumerable<WorkItemFilingMetadata> workItemFilingMetadata)
+        public override async Task<IEnumerable<WorkItemModel>> FileWorkItems(IEnumerable<WorkItemModel> workItemFilingMetadata)
         {
-            foreach (WorkItemFilingMetadata metadata in workItemFilingMetadata)
+            foreach (WorkItemModel metadata in workItemFilingMetadata)
             {
                 AttachmentReference attachmentReference = null;
                 string attachmentText = metadata.Attachment?.Text;
@@ -67,37 +67,40 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
                     new JsonPatchOperation
                     {
                         Operation = Operation.Add,
-                        Path = $"/fields/{WorkItemFields.Title}",
+                        Path = $"/fields/{AzureDevOpsFieldNames.Title}",
                         Value = metadata.Title
                     },
                     new JsonPatchOperation
                     {
                         Operation = Operation.Add,
-                        Path = $"/fields/{WorkItemFields.ReproSteps}",
+                        Path = $"/fields/{AzureDevOpsFieldNames.ReproSteps}",
                         Value = metadata.Description
                     },
                     new JsonPatchOperation
                     {
                         Operation = Operation.Add,
-                        Path = $"/fields/{WorkItemFields.AreaPath}",
-                        Value = metadata.AreaPath
+                        Path = $"/fields/{AzureDevOpsFieldNames.AreaPath}",
+                        Value = metadata.Area
                     },
                     new JsonPatchOperation
                     {
                         Operation = Operation.Add,
-                        Path = $"/fields/{WorkItemFields.Tags}",
-                        Value = string.Join(",", metadata.GetAllTags())
+                        Path = $"/fields/{AzureDevOpsFieldNames.Tags}",
+                        Value = string.Join(",", metadata.Tags)
                     }
                 };
 
-                foreach (var customField in metadata.CustomFields)
+                if (metadata.CustomFields != null)
                 {
-                    patchDocument.Add(new JsonPatchOperation
+                    foreach (var customField in metadata.CustomFields)
                     {
-                        Operation = Operation.Add,
-                        Path = $"/fields/{customField.Key}",
-                        Value = customField.Value
-                    });
+                        patchDocument.Add(new JsonPatchOperation
+                        {
+                            Operation = Operation.Add,
+                            Path = $"/fields/{customField.Key}",
+                            Value = customField.Value
+                        });
+                    }
                 }
 
                 if (attachmentReference != null)
@@ -137,7 +140,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
                 }
 
                 const string HTML = "html";
-                SarifLog sarifLog = (SarifLog)metadata.Object;
+                SarifLog sarifLog = (SarifLog)metadata.AdditionalData;
                 foreach (Result result in sarifLog.Runs[0].Results)
                 {
                     if (workItem.Links?.Links?.ContainsKey(HTML) == true)

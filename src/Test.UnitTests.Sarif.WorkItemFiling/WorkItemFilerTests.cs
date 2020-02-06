@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
         {
             var filer = CreateWorkItemFiler();
 
-            Func<Task> action = async () => await filer.FileWorkItems(projectUri: null, workItemFilingMetadata: new List<WorkItemFilingMetadata>()); ;
+            Func<Task> action = async () => await filer.FileWorkItems(projectUri: null, workItemFilingMetadata: new List<WorkItemModel>()); ;
 
             await action.ShouldThrowAsync<ArgumentNullException>();
         }
@@ -39,9 +39,9 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
         private static WorkItemFiler CreateWorkItemFiler()
             => new WorkItemFiler(CreateMockFilingTarget());
 
-        private static FilingTarget CreateMockFilingTarget()
+        private static FilingClient CreateMockFilingTarget()
         {
-            var mockFilingTarget = new Mock<FilingTarget>();
+            var mockFilingTarget = new Mock<FilingClient>();
 
             mockFilingTarget
                 .Setup(x => x.Connect(It.IsAny<Uri>(), It.IsAny<string>()))
@@ -51,8 +51,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
             // a lambda (rather than a fixed value) to Returns or ReturnsAsync.
             // https://stackoverflow.com/questions/996602/returning-value-that-was-passed-into-a-method
             mockFilingTarget
-                .Setup(x => x.FileWorkItems(It.IsAny<IEnumerable<WorkItemFilingMetadata>>()))
-                .ReturnsAsync((IEnumerable<WorkItemFilingMetadata> resultGroups) => resultGroups);
+                .Setup(x => x.FileWorkItems(It.IsAny<IEnumerable<WorkItemModel>>()))
+                .ReturnsAsync((IEnumerable<WorkItemModel> resultGroups) => resultGroups);
 
             return mockFilingTarget.Object;
         }

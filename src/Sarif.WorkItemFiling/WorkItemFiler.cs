@@ -9,7 +9,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
 {
     public class WorkItemFiler
     {
-        private readonly FilingTarget _filingTarget;
+        private readonly FilingClient _filingTarget;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="WorkItemFiler"> class.</see>
@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
         /// An object that represents the system (for example, GitHub or Azure DevOps)
         /// to which the work items will be filed.
         /// </param>
-        public WorkItemFiler(FilingTarget filingTarget)
+        public WorkItemFiler(FilingClient filingTarget)
         {
             _filingTarget = filingTarget ?? throw new ArgumentNullException(nameof(filingTarget));
         }
@@ -38,9 +38,9 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
         /// <returns>
         /// The set of results that were filed as work items.
         /// </returns>
-        public async Task<IEnumerable<WorkItemFilingMetadata>> FileWorkItems(
+        public async Task<IEnumerable<WorkItemModel>> FileWorkItems(
             Uri projectUri,
-            IList<WorkItemFilingMetadata> workItemFilingMetadata,
+            IList<WorkItemModel> workItemFilingMetadata,
             string personalAccessToken = null)
         {
             if (projectUri == null) { throw new ArgumentNullException(nameof(projectUri)); }
@@ -48,7 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
 
             await _filingTarget.Connect(projectUri, personalAccessToken);
 
-            IEnumerable<WorkItemFilingMetadata> filedResults = await _filingTarget.FileWorkItems(workItemFilingMetadata);
+            IEnumerable<WorkItemModel> filedResults = await _filingTarget.FileWorkItems(workItemFilingMetadata);
 
             return filedResults;
         }

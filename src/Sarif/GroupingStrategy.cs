@@ -21,22 +21,28 @@ namespace Microsoft.CodeAnalysis.Sarif
         PerRun = 0,
 
         /// <summary>
+        /// A grouping strategy that splits SARIF log files into a single log for each result.
+        /// I.e., the total number of log files created is the sum of individual results in each log.
+        /// </summary>
+        PerResult,
+
+        /// <summary>
         /// A grouping strategy that splits SARIF log files into a single log per run, per rule.
         /// I.e., the total number of log files created is the sum of the unique rules in each log.
         /// </summary>
-        PerRunPerRule = 1,
+        PerRunPerRule,
 
         /// <summary>
         /// A grouping strategy that splits SARIF log files into a single log per run, per target,
         /// per rule. I.e., the total number of log files created is the sum of the unique rules
         /// associated with each target within each run.
         /// </summary>
-        PerRunPerTargetPerRule = 2,
+        PerRunPerTargetPerRule,
 
         /// <summary>
         /// A grouping strategy that splits SARIF log files into a single log per run, per target.
         /// I.e., the total number of log files created is the sum of the unique targets within each run.
         /// </summary>
-        PerRunPerTarget = 3,
+        PerRunPerTarget,
     }
 }

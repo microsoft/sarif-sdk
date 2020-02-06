@@ -32,21 +32,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             // For unit tests: allow us to just validate the options and return.
             if (s_validateOptionsOnly) { return SUCCESS; }
 
-            string projectName = options.ProjectUri.GetProjectName();
-
             string logFileContents = fileSystem.ReadAllText(options.InputFilePath);
             EnsureValidSarifLogFile(logFileContents, options.InputFilePath);
 
-            FilingTarget filingTarget = FilingTargetFactory.CreateFilingTarget(options.ProjectUriString);
+            FilingClient filingTarget = FilingClientFactory.CreateFilingTarget(options.ProjectUriString);
             var filer = new WorkItemFiler(filingTarget);
 
             SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(logFileContents);
 
-            if (options.DataToRemove != null)
+            OptionallyEmittedData optionallyEmittedData = options.DataToRemove.ToFlags();
+            if (optionallyEmittedData != OptionallyEmittedData.None)
             {
                 var dataRemovingVisitor = new RemoveOptionalDataVisitor(options.DataToRemove.ToFlags());
                 dataRemovingVisitor.Visit(sarifLog);
             }
+
+            string projectName = options.ProjectUri.GetProjectName();
 
             for (int runIndex = 0; runIndex < sarifLog.Runs.Count; ++runIndex)
             {
@@ -76,18 +77,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         logsToProcess = visitor.SplitSarifLogs;
                     }
 
-                    IList<WorkItemFilingMetadata> workItemMetadata = new List<WorkItemFilingMetadata>(logsToProcess.Count);
+                    IList<WorkItemModel> workItemModels = new List<WorkItemModel>(logsToProcess.Count);
 
                     for (int splitFileIndex = 0; splitFileIndex < logsToProcess.Count; splitFileIndex++)
                     {
                         SarifLog splitLog = logsToProcess[splitFileIndex];
-                        workItemMetadata.Add(splitLog.CreateWorkItemFilingMetadata(projectName, options.TemplateFilePath, options.GroupingStrategy));
+                        WorkItemModel workItemModel = splitLog.CreateWorkItemModel(projectName);
+                        workItemModels.Add(workItemModel);
                     }
 
                     try
                     {
-                        IEnumerable<WorkItemFilingMetadata> filedWorkItems = filer.FileWorkItems(options.ProjectUri, workItemMetadata, options.PersonalAccessToken).Result;
-
+                        string securityToken = Environment.GetEnvironmentVariable("SarifWorkItemFilingSecurityToken");
+                        IEnumerable<WorkItemModel> filedWorkItems = filer.FileWorkItems(options.ProjectUri, workItemModels, securityToken).Result;
                         Console.WriteLine($"Created {filedWorkItems.Count()} work items for run {runIndex}.");
                     }
                     catch (Exception ex)

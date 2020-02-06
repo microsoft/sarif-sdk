@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
         public void CreateFilingTarget_ThrowsIfUriIsNull
             ()
         {
-            Action action = () => FilingTargetFactory.CreateFilingTarget(null);
+            Action action = () => FilingClientFactory.CreateFilingTarget(null);
 
             action.Should().Throw<ArgumentNullException>();
         }
@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
         {
             const string ProjectUriString = "https://www.example.com/myOrg/myProject";
 
-            Action action = () => FilingTargetFactory.CreateFilingTarget(ProjectUriString);
+            Action action = () => FilingClientFactory.CreateFilingTarget(ProjectUriString);
 
             action.Should().Throw<ArgumentException>().WithMessage($"*{ProjectUriString}*");
         }
@@ -34,7 +34,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
         {
             const string ProjectUriString = "https://github.com/myOrg/myProject/issues";
 
-            Action action = () => FilingTargetFactory.CreateFilingTarget(ProjectUriString);
+            Action action = () => FilingClientFactory.CreateFilingTarget(ProjectUriString);
 
             action.Should().Throw<ArgumentException>().WithMessage($"*{ProjectUriString}*");
         }
@@ -44,9 +44,9 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
         {
             const string ProjectUriString = "https://github.com/myOrg/myProject";
 
-            var filingTarget = FilingTargetFactory.CreateFilingTarget(ProjectUriString);
+            var filingTarget = FilingClientFactory.CreateFilingTarget(ProjectUriString);
 
-            filingTarget.Should().BeOfType<GitHubFilingTarget>();
+            filingTarget.Should().BeOfType<GitHubClient>();
         }
 
         [Fact]
@@ -54,9 +54,9 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
         {
             const string ProjectUriString = "https://dev.azure.com/myOrg/myProject";
 
-            var filingTarget = FilingTargetFactory.CreateFilingTarget(ProjectUriString);
+            var filingTarget = FilingClientFactory.CreateFilingTarget(ProjectUriString);
 
-            filingTarget.Should().BeOfType<AzureDevOpsFilingTarget>();
+            filingTarget.Should().BeOfType<AzureDevOpsClient>();
         }
     }
 }
