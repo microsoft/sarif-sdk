@@ -9,18 +9,12 @@
 ## Write a SARIF log file to disk
 
 ```C#
-
 # For a file in the standardized SARIF v2.1.0 format:
-var settings = new JsonSerializerSettings()
-{
-    Formatting = Formatting.Indented
-};
-
 SarifLog log = ... ;
-
-string sarifText = JsonConvert.SerializeObject(log, settings);
-File.WriteAllText(outputFilePath, sarifText);
+log.Save(outputFilePath);
 ```
+
+
 ```C#
 # For a file in the deprecated, pre-standardization SARIF v1.0 format:
 var settings = new JsonSerializerSettings()
@@ -39,9 +33,7 @@ File.WriteAllText(outputFilePath, sarifText);
 
 ```C#
 # For a file in the standardized SARIF v2.1.0 format:
-string logContents = File.ReadAllText(logFilePath);
-
-SarifLog log = JsonConvert.DeserializeObject<SarifLog>(logContents);
+SarifLog log = SarifLog.Load(logFilePath);
 ```
 ```C#
 # For a file in the deprecated, pre-standardization SARIF v1.0 format:
