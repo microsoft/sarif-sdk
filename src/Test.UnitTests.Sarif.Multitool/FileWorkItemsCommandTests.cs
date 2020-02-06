@@ -52,9 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         "--project-uri",
                         "https://github.com/my-org/my-project",
                         "--inline",
-                        "test.sarif",
-                        "--template",
-                        "TestBugTemplate.htm"
+                        "test.sarif"
                     },
                     ExpectedExitCode = 0
                 },
@@ -66,9 +64,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         "--project-uri",
                         "https://dev.azure.com/my-org/my-project",
                         "--inline",
-                        "test.sarif",
-                        "--template",
-                        "TestBugTemplate.htm"
+                        "test.sarif"
                     },
                     ExpectedExitCode = 0
                 },
@@ -81,9 +77,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         "https://dev.azure.com/my-org/my-project",
                         "--output",
                         "test-output.sarif",
-                        "test.sarif",
-                        "--template",
-                        "TestBugTemplate.htm"
+                        "test.sarif"
                     },
                     ExpectedExitCode = 0
                 },
@@ -95,9 +89,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         "--project-uri",
                         "https://github.com/my-org/my-project",
                         "--inline",
-                        "test.sarif",
-                        "--template",
-                        "TestBugTemplate.htm"
+                        "test.sarif"
                     },
                     ExpectedExitCode = 0
                 },
@@ -109,9 +101,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         "--project-uri",
                         "https://github.com/my-org/my-project",
                         "--inline",
+                        "test.sarif"
+                    },
+                    ExpectedExitCode = 0
+                },
+
+                new TestCase {
+                    Title = "Explicit 'PerResult' grouping strategy",
+                    Args = new string[] {
+                        "file-work-items",
+                        "--project-uri",
+                        "https://github.com/my-org/my-project",
+                        "--inline",
                         "test.sarif",
-                        "--template",
-                        "TestBugTemplate.htm"
+                        "--group",
+                        "PerResult"
                     },
                     ExpectedExitCode = 0
                 },
@@ -125,9 +129,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         "--inline",
                         "test.sarif",
                         "--group",
-                        "PerRun",
-                        "--template",
-                        "TestBugTemplate.htm"
+                        "PerRun"
                     },
                     ExpectedExitCode = 0
                 },
@@ -141,9 +143,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         "--inline",
                         "test.sarif",
                         "--group",
-                        "None",
-                        "--template",
-                        "TestBugTemplate.htm"
+                        "None"
                     },
                     ExpectedExitCode = 0
                 },
@@ -157,9 +157,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         "--inline",
                         "test.sarif",
                         "--group",
-                        "PerRunPerRule",
-                        "--template",
-                        "TestBugTemplate.htm"
+                        "PerRunPerRule"
                     },
                     ExpectedExitCode = 0
                 },
@@ -173,26 +171,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         "--inline",
                         "test.sarif",
                         "--group",
-                        "PerRunPerTargetPerRule",
-                        "--template",
-                        "TestBugTemplate.htm"
+                        "PerRunPerTargetPerRule"
                     },
                     ExpectedExitCode = 0
                 },
 
-                new TestCase {
-                    Title = "Missing required template argument",
-                    Args = new string[] {
-                        "file-work-items",
-                        "--project-uri",
-                        "https://github.com/my-org/my-project",
-                        "--inline",
-                        "test.sarif",
-                        "--group",
-                        "PerRunPerTargetPerRule"
-                    },
-                    ExpectedExitCode = 1
-                },
 
                 new TestCase {
                     Title = "Non-existent grouping strategy",
@@ -203,9 +186,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         "--inline",
                         "test.sarif",
                         "--group",
-                        "PerRunPerRun",
-                        "--template",
-                        "TestBugTemplate.htm"
+                        "PerRunPerRun"
                     },
                     ExpectedExitCode = 1
                 },
@@ -215,9 +196,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     Args = new string[] {
                         "file-work-items",
                         "--inline",
-                        "test.sarif",
-                        "--template",
-                        "TestBugTemplate.htm"
+                        "test.sarif"
                     },
                     ExpectedExitCode = 1
                 },
@@ -228,9 +207,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         "file-work-items",
                         "--project-uri",
                         "https://dev.azure.com/my-org/my-project",
-                        "--inline",
-                        "--template",
-                        "TestBugTemplate.htm"
+                        "--inline"
                     },
                     ExpectedExitCode = 1
                 },
@@ -242,9 +219,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                        "--project-uri",
                         "dev.azure.com/my-org/my-project",
                         "--inline",
-                        "test.sarif",
-                        "--template",
-                        "TestBugTemplate.htm"
+                        "test.sarif"
                     },
                     ExpectedExitCode = 1
                 },
@@ -258,9 +233,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         "--output",
                         "test-output.sarif",
                         "--inline",
-                        "test.sarif",
-                        "--template",
-                        "TestBugTemplate.htm"
+                        "test.sarif"
                     },
                     ExpectedExitCode = 1
                 },
@@ -271,9 +244,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         "file-work-items",
                         "--project-uri",
                         "https://dev.azure.com/my-org/my-project",
-                        "test.sarif",
-                        "--template",
-                        "TestBugTemplate.htm"
+                        "test.sarif"
                     },
                     ExpectedExitCode = 1
                 }
