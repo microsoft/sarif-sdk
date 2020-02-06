@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
         {
             var filer = CreateWorkItemFiler();
 
-            Func<Task> action = async () => await filer.FileWorkItems(projectUri: null, workItemFilingMetadata: new List<WorkItemModel>()); ;
+            Func<Task> action = async () => await filer.FileWorkItems(projectUri: null, workItemModel: new List<WorkItemModel>()); ;
 
             await action.ShouldThrowAsync<ArgumentNullException>();
         }
@@ -31,7 +31,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
         {
             var filer = CreateWorkItemFiler();
 
-            Func<Task> action = async () => await filer.FileWorkItems(s_testUri, workItemFilingMetadata: null);
+            Func<Task> action = async () => await filer.FileWorkItems(s_testUri, workItemModel: null);
 
             await action.ShouldThrowAsync<ArgumentNullException>();
         }
