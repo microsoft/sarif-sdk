@@ -9,7 +9,7 @@ Query mode is not as sophisticated as the SARIF viewers, but can be used to sepa
 | `Sarif.Multitool query In.sarif -e "RuleId = SM00251"`    | Output Result count with RuleId SM00251 |
 | `Sarif.Multitool query In.sarif -e "RuleId = SM00251" -o Out.sarif` | ...and write filtered log to 'Out.sarif' |
 | `... -e "Uri : 'Test Framework'"` | Find Results where any URI contains 'Test Framework' |
-| `... -e "!(Uri >&#124;> .cs)"`   | Find Results where no URI EndWith '.cs' |
+| `... -e "!(Uri >\| .cs)"`   | Find Results where no URI EndWith '.cs' |
 | `... -e "OccurrenceCount > 10 AND RuleId = SM00251"` | Look for Results which match both criteria |
 
 
@@ -39,7 +39,7 @@ Query mode is not as sophisticated as the SARIF viewers, but can be used to sepa
 These operators are in precedence order, so these two are equivalent:
 ```
 NOT RuleId = SM00251 OR OccurrenceCount > 10 AND OccurrenceCount < 100
-((NOT RuleId = SM00251) OR (OccurrenceCount > 10 AND OccurrenceCount < 100))
+(NOT RuleId = SM00251) OR (OccurrenceCount > 10 AND OccurrenceCount < 100)
 ```
 
 ### Supported Result Columns:
