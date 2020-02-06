@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
         {
             // For default ADO work item boards, the project name is repurposed
             // to provide a default area path and iteration
-            WorkItemModel metadata = new WorkItemModel()
+            WorkItemModel model = new WorkItemModel()
             {
                 AdditionalData = sarifLog,
                 Area = projectName,
@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
                 Tags = new List<string> { "tag"}                 
             };
 
-            return metadata;
+            return model;
         }
 
         public static string GetProjectName(this Uri projectUri)

@@ -36,12 +36,12 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
             _witClient = await connection.GetClientAsync<WorkItemTrackingHttpClient>();
         }
 
-        public override async Task<IEnumerable<WorkItemModel>> FileWorkItems(IEnumerable<WorkItemModel> workItemFilingMetadata)
+        public override async Task<IEnumerable<WorkItemModel>> FileWorkItems(IEnumerable<WorkItemModel> workItemModels)
         {
-            foreach (WorkItemModel metadata in workItemFilingMetadata)
+            foreach (WorkItemModel workItemModel in workItemModels)
             {
                 AttachmentReference attachmentReference = null;
-                string attachmentText = metadata.Attachment?.Text;
+                string attachmentText = workItemModel.Attachment?.Text;
                 if (!string.IsNullOrEmpty(attachmentText))
                 {
                     using (var stream = new MemoryStream())
@@ -52,7 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
                         stream.Position = 0;
                         try
                         {
-                            attachmentReference = await _witClient.CreateAttachmentAsync(stream, fileName: metadata.Attachment.Name);
+                            attachmentReference = await _witClient.CreateAttachmentAsync(stream, fileName: workItemModel.Attachment.Name);
                         }
                         catch
                         {
@@ -68,31 +68,31 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
                     {
                         Operation = Operation.Add,
                         Path = $"/fields/{AzureDevOpsFieldNames.Title}",
-                        Value = metadata.Title
+                        Value = workItemModel.Title
                     },
                     new JsonPatchOperation
                     {
                         Operation = Operation.Add,
                         Path = $"/fields/{AzureDevOpsFieldNames.ReproSteps}",
-                        Value = metadata.Description
+                        Value = workItemModel.Description
                     },
                     new JsonPatchOperation
                     {
                         Operation = Operation.Add,
                         Path = $"/fields/{AzureDevOpsFieldNames.AreaPath}",
-                        Value = metadata.Area
+                        Value = workItemModel.Area
                     },
                     new JsonPatchOperation
                     {
                         Operation = Operation.Add,
                         Path = $"/fields/{AzureDevOpsFieldNames.Tags}",
-                        Value = string.Join(",", metadata.Tags)
+                        Value = string.Join(",", workItemModel.Tags)
                     }
                 };
 
-                if (metadata.CustomFields != null)
+                if (workItemModel.CustomFields != null)
                 {
-                    foreach (var customField in metadata.CustomFields)
+                    foreach (KeyValuePair<string, string> customField in workItemModel.CustomFields)
                     {
                         patchDocument.Add(new JsonPatchOperation
                         {
@@ -122,7 +122,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
 
                 try
                 {
-                    Console.Write($"Creating work item: {metadata.Title}");
+                    Console.Write($"Creating work item: {workItemModel.Title}");
                     workItem = await _witClient.CreateWorkItemAsync(patchDocument, project: _projectName, "Bug");
                     Console.WriteLine($": {workItem.Id}: DONE");
                 }
@@ -140,7 +140,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
                 }
 
                 const string HTML = "html";
-                SarifLog sarifLog = (SarifLog)metadata.AdditionalData;
+                SarifLog sarifLog = (SarifLog)workItemModel.AdditionalData;
                 foreach (Result result in sarifLog.Runs[0].Results)
                 {
                     if (workItem.Links?.Links?.ContainsKey(HTML) == true)
@@ -154,7 +154,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
                 }
             }
 
-            return workItemFilingMetadata;
+            return workItemModels;
         }
     }
 }

@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         [Option(
             "group",
-            HelpText = "Apply a grouping strategy to factor input log file to multiple bugs. Must be one of All, PerRunPerRule or PerRunPerTargetPerRule.",
+            HelpText = "Apply a grouping strategy to factor input log file to multiple bugs. Must be one of All, PerRun, PerResult, PerRunPerRule or PerRunPerTarget, or PerRunPerTargetPerRule.",
             Default = GroupingStrategy.PerRun)]
         public GroupingStrategy GroupingStrategy { get; internal set; }
     }
