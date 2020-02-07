@@ -18,17 +18,13 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
     /// <summary>
     /// Represents an Azure DevOps project in which work items can be filed.
     /// </summary>
-    public class AzureDevOpsClient : FilingClient
+    public class AzureDevOpsClientWrapper : FilingClient
     {
         private WorkItemTrackingHttpClient _witClient;
-        private string _projectName;
-
-        public override async Task Connect(Uri projectUri, string personalAccessToken)
+        
+        public override async Task Connect(string personalAccessToken)
         {
-            _projectName = projectUri.GetProjectName();
-            string accountUriString = projectUri.GetAccountName();
-
-            Uri accountUri = new Uri(accountUriString, UriKind.Absolute);
+            Uri accountUri = new Uri(this.AccountOrOrganization, UriKind.Absolute);
 
             VssConnection connection = new VssConnection(accountUri, new VssBasicCredential(string.Empty, personalAccessToken));
             await connection.ConnectAsync();
@@ -123,7 +119,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
                 try
                 {
                     Console.Write($"Creating work item: {metadata.Title}");
-                    workItem = await _witClient.CreateWorkItemAsync(patchDocument, project: _projectName, "Bug");
+                    workItem = await _witClient.CreateWorkItemAsync(patchDocument, project: this.ProjectOrRepository, "Bug");
                     Console.WriteLine($": {workItem.Id}: DONE");
                 }
                 catch (Exception e)

@@ -9,7 +9,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public class QueryCommandTests
     {
-        private static ResourceExtractor Extractor = new ResourceExtractor(typeof(QueryCommandTests));
+        private static readonly ResourceExtractor Extractor = new ResourceExtractor(typeof(QueryCommandTests));
 
         [Fact]
         public void QueryCommand_Basics()

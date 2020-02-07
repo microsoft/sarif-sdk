@@ -13,6 +13,7 @@ using Microsoft.CodeAnalysis.Sarif.Visitors;
 using Microsoft.CodeAnalysis.Sarif.WorkItemFiling;
 using Microsoft.Json.Schema;
 using Microsoft.Json.Schema.Validation;
+using Microsoft.TeamFoundation.Build.WebApi;
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
@@ -47,7 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 dataRemovingVisitor.Visit(sarifLog);
             }
 
-            string projectName = options.ProjectUri.GetProjectName();
+            string projectName = options.ProjectUri.GetProjectOrRepositoryName();
 
             for (int runIndex = 0; runIndex < sarifLog.Runs.Count; ++runIndex)
             {
@@ -89,6 +90,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     try
                     {
                         string securityToken = Environment.GetEnvironmentVariable("SarifWorkItemFilingSecurityToken");
+
+                        if (string.IsNullOrEmpty(securityToken))
+                        {
+                            throw new InvalidOperationException("'SarifWorkItemFilingSecurityToken' environment variable is not initialized with a personal access token.");
+                        }
+
                         IEnumerable<WorkItemModel> filedWorkItems = filer.FileWorkItems(options.ProjectUri, workItemModels, securityToken).Result;
                         Console.WriteLine($"Created {filedWorkItems.Count()} work items for run {runIndex}.");
                     }

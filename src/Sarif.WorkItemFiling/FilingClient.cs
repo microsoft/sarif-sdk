@@ -14,21 +14,32 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
     public abstract class FilingClient
     {
         /// <summary>
+        /// The URI to the work item filing host.
+        /// </summary>
+        public Uri HostUri { get; internal set; }
+
+        
+        /// <summary>
+        ///  The Azure DevOps account name or GitHub organization name.
+        /// </summary>
+        public string AccountOrOrganization { get; set; }
+
+
+        /// <summary>
+        /// The Azure DevOps project or GitHub repository name.
+        /// </summary>
+        public string ProjectOrRepository { get; set; }
+
+        /// <summary>
         /// Connect to the project in which work items will be filed.
         /// </summary>
-        /// <param name="projectUri">
+        /// <param name="hostUri">
         /// The URI of the project.
         /// </param>
         /// <param name="personalAccessToken">
-        /// TEMPORARY: Specifes the personal access used to access the project. Default: null.
+        /// Specifes the personal access used to access the project.
         /// </param>
-        /// <remarks>
-        /// We provide an empty implementation because not all systems require an explicit connection step.
-        /// </remarks>
-        public virtual Task Connect(Uri projectUri, string personalAccessToken = null)
-        {
-            return Task.CompletedTask;
-        }
+        public abstract Task Connect(string personalAccessToken = null);
 
         /// <summary>
         /// Asynchronously file work items for the specified results.

@@ -22,7 +22,7 @@
     -->
     <!-- 
       NOTE: Version in scripts/BuildMultitoolForNpm.ps1 also has to be updated for each release
-      until it adopts the same versions as the SDK itself.
+      until it adopts the same versions as the SDK itself.https://docs.microsoft.com/en-us/visualstudio/ide/how-to-suppress-compiler-warnings
     -->
     <VersionPrefix>2.1.25</VersionPrefix>
     <PreviousVersionPrefix>2.1.24</PreviousVersionPrefix>
@@ -49,6 +49,7 @@
     <PublishDir Condition=" '$(RuntimeIdentifier)' != '' ">$(PublishDir)\$(RuntimeIdentifier)\</PublishDir>
     <SolutionDir Condition=" '$(SolutionDir)' == '' ">$(MsBuildThisFileDirectory)</SolutionDir>
     <ErrorReport>prompt</ErrorReport>
+    <NoWarn>CS8002</NoWarn>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <HighEntropyVA>true</HighEntropyVA> 

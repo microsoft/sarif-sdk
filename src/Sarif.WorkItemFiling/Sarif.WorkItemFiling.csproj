@@ -4,9 +4,16 @@
     <TargetFrameworks>netstandard2.0</TargetFrameworks>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+    <NoWarn>NU5105kk</NoWarn>
+  </PropertyGroup>
+
   <PropertyGroup Label="AssemblyAttributes">
     <AssemblyTitle>SARIF Work Item Filing Library</AssemblyTitle>
     <Description>Classes for filing the results in a SARIF log file as work items in a system such as GitHub or AzureDevOps.</Description>
+    <UserSecretsId>97162dcd-3764-45a8-92ac-8c4c6a4fb345</UserSecretsId>
   </PropertyGroup>
 
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
@@ -20,6 +27,12 @@
     <PackageReference Include="Microsoft.Json.Schema.Validation" Version="1.1.1" />
     <PackageReference Include="Microsoft.VisualStudio.Services.Client" Version="16.143.2" />
     <PackageReference Include="Microsoft.TeamFoundationServer.Client" Version="16.143.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Octokit">
+      <HintPath>..\..\refs\Octokit.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
