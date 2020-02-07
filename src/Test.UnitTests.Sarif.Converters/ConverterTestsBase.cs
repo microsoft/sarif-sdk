@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using FluentAssertions;
 
 using Microsoft.CodeAnalysis.Sarif.Converters;
-using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Newtonsoft.Json;
 

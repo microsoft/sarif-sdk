@@ -4,7 +4,6 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.Json.Schema;
 using Octokit;
 using Octokit.Internal;
 
@@ -27,6 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
                 this.gitHubClient = new GitHubClient(new ProductHeaderValue(this.AccountOrOrganization), credentialsStore);
             });
         }
+
         public override async Task<IEnumerable<WorkItemModel>> FileWorkItems(IEnumerable<WorkItemModel> workItemFilingMetadata)
         {
             foreach (WorkItemModel workItemModel in workItemFilingMetadata)
@@ -35,7 +35,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
                 {
                     Body = workItemModel.Body,
                 };
-                Issue issue = await this.gitHubClient.Issue.Create("michaelcfanning", "bug-dummy", newIssue);
+                Issue issue = await this.gitHubClient.Issue.Create(this.AccountOrOrganization, this.ProjectOrRepository, newIssue);
 
                 SarifLog sarifLog = (SarifLog)workItemModel.AdditionalData;
                 foreach (Result result in sarifLog.Runs[0].Results)

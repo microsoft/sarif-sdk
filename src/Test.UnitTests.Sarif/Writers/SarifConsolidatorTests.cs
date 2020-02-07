@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Xunit;
 

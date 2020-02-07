@@ -8,10 +8,8 @@ using System.IO;
 using System.Linq;
 using System.Xml;
 using FluentAssertions;
-using Microsoft.CodeAnalysis.Sarif;
 
 using Microsoft.CodeAnalysis.Sarif.Writers;
-using Newtonsoft.Json;
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
