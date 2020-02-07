@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
         {
             var filer = CreateWorkItemFiler();
 
-            Func<Task> action = async () => await filer.FileWorkItems(projectUri: null, workItemFilingMetadata: new List<WorkItemModel>()); ;
+            Func<Task> action = async () => await filer.FileWorkItems(projectUri: null, workItemFilingModels: new List<WorkItemModel>()); ;
 
             await action.ShouldThrowAsync<ArgumentNullException>();
         }
@@ -31,7 +31,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
         {
             var filer = CreateWorkItemFiler();
 
-            Func<Task> action = async () => await filer.FileWorkItems(s_testUri, workItemFilingMetadata: null);
+            Func<Task> action = async () => await filer.FileWorkItems(s_testUri, workItemFilingModels: null);
 
             await action.ShouldThrowAsync<ArgumentNullException>();
         }
@@ -44,7 +44,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
             var mockFilingTarget = new Mock<FilingClient>();
 
             mockFilingTarget
-                .Setup(x => x.Connect(It.IsAny<Uri>(), It.IsAny<string>()))
+                .Setup(x => x.Connect(It.IsAny<string>()))
                 .CallBase(); // The base class implementation does nothing, so this is safe.
 
             // Moq magic: you can return whatever was passed to a method by providing

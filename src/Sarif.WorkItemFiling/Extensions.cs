@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
         {
             // For default ADO work item boards, the project name is repurposed
             // to provide a default area path and iteration
-            WorkItemModel metadata = new WorkItemModel()
+            WorkItemModel model = new WorkItemModel()
             {
                 AdditionalData = sarifLog,
                 Area = projectName,
@@ -30,29 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
                 Tags = new List<string> { "tag"}                 
             };
 
-            return metadata;
-        }
-
-        public static string GetProjectName(this Uri projectUri)
-        {
-            string projectUriString = projectUri.OriginalString;
-            int lastSlashIndex = projectUriString.LastIndexOf('/'); 
-
-            string projectName = lastSlashIndex > 0 && lastSlashIndex < projectUriString.Length - 1
-                ? projectUriString.Substring(lastSlashIndex + 1)
-                : throw new ArgumentException($"Cannot parse project name from URI {projectUriString}");
-
-            return WebUtility.UrlDecode(projectName);
-        }
-
-        public static string GetAccountName(this Uri projectUri)
-        {
-            string projectUriString = projectUri.OriginalString;
-            int lastSlashIndex = projectUriString.LastIndexOf('/');
-
-            string accountUriString = projectUriString.Substring(0, lastSlashIndex);
-
-            return accountUriString;
+            return model;
         }
     }
 }

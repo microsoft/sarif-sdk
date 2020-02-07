@@ -46,7 +46,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
 
             var filingTarget = FilingClientFactory.CreateFilingTarget(ProjectUriString);
 
-            filingTarget.Should().BeOfType<GitHubClient>();
+            filingTarget.Should().BeOfType<GitHubClientWrapper>();
         }
 
         [Fact]
@@ -56,7 +56,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
 
             var filingTarget = FilingClientFactory.CreateFilingTarget(ProjectUriString);
 
-            filingTarget.Should().BeOfType<AzureDevOpsClient>();
+            filingTarget.Should().BeOfType<AzureDevOpsClientWrapper>();
         }
     }
 }

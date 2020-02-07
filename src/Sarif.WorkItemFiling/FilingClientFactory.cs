@@ -3,49 +3,65 @@
 
 using System;
 using System.Globalization;
+using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 
 namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
 {
     public class FilingClientFactory
     {
-        private const string LegacyAzureDevOpsUriPattern = @"^https://[^\.]+\.visualstudio\.com/[^/]+$";
-        private static readonly Regex s_legacyAzureDevOpsUriRegex = SarifUtilities.RegexFromPattern(LegacyAzureDevOpsUriPattern);
-
-        private const string AzureDevOpsUriPattern = @"^https://dev\.azure\.com/[^/]+/[^/]+$";
-        private static readonly Regex s_azureDevOpsUriRegex = SarifUtilities.RegexFromPattern(AzureDevOpsUriPattern);
-
-        private const string GitHubUriPattern = @"^https://github\.com/[^/]+/[^/]+$";
-        private static readonly Regex s_gitHubUriRegex = SarifUtilities.RegexFromPattern(GitHubUriPattern);
+        private const string GitHubUriPattern = @"^https://github\.com/([^/]+)/([^/]+)$";
+        private const string AzureDevOpsUriPattern = @"^(https://dev\.azure\.com/[^/]+)/([^/]+)$";
+        private const string LegacyAzureDevOpsUriPattern = @"^(https://[^\.]+\.visualstudio\.com)/([^/]+)$";
 
 
-        // https://secretscantest.visualstudio.com/RTAKET-DELM
-
-        public static FilingClient CreateFilingTarget(string projectUriString)
+        private static Tuple<string, Regex>[] s_regexTuples = new[]
         {
-            if (projectUriString == null) { throw new ArgumentNullException(nameof(projectUriString)); }
+            new Tuple<string, Regex>("github", SarifUtilities.RegexFromPattern(GitHubUriPattern)),
+            new Tuple<string, Regex>("ado", SarifUtilities.RegexFromPattern(AzureDevOpsUriPattern)),
+            new Tuple<string, Regex>("ado", SarifUtilities.RegexFromPattern(LegacyAzureDevOpsUriPattern))
+        };
 
-            // TODO: make this code populate project/account/org details 
-            if (s_azureDevOpsUriRegex.IsMatch(projectUriString))
+
+        public static FilingClient CreateFilingTarget(string filingHostUriString, bool connect = true)
+        {
+            if (filingHostUriString == null) { throw new ArgumentNullException(nameof(filingHostUriString)); }
+
+            if (!Uri.TryCreate(filingHostUriString, UriKind.Absolute, out Uri filingHostUri))
             {
-                return new AzureDevOpsClient();
+                throw new ArgumentException(nameof(filingHostUriString));
             }
-            else if (s_legacyAzureDevOpsUriRegex.IsMatch(projectUriString))
+
+            FilingClient filingClient = null;
+
+            foreach (Tuple<string, Regex> regexTuple in s_regexTuples)
             {
-                return new AzureDevOpsClient();
+                bool isGitHub = regexTuple.Item1.Equals("github");
+                Regex regex = regexTuple.Item2;
+
+                Match match = regex.Match(filingHostUriString);
+                if (match.Success)
+                {
+                    filingClient = isGitHub ? (FilingClient)new GitHubClientWrapper() : new AzureDevOpsClientWrapper();
+                    filingClient.AccountOrOrganization = match.Groups[1].Value;
+                    filingClient.ProjectOrRepository = match.Groups[2].Value;
+                    break;
+                }
             }
-            else if (s_gitHubUriRegex.IsMatch(projectUriString))
-            {
-                return new GitHubClient();
-            }
-            else
+
+            if (filingClient == null)
             {
                 throw new ArgumentException(
                     string.Format(
                         CultureInfo.CurrentCulture,
-                        "'{0}' is not a recognized target URI for work item filing. Work items can be filed to GitHub or AzureDevOps.",
-                        projectUriString));
+                        "'{0}' is not a recognized target URI for work item filing. Work items can be filed to GitHub or AzureDevOps "+
+                        "(with URIs such as https://github.com/microsoft/sarif-sdk or https://dev.azure.com/contoso/contoso-project).",
+                        filingHostUriString));
             }
+
+            filingClient.HostUri = filingHostUri;
+
+            return filingClient;
         }
     }
 }
