@@ -32,27 +32,5 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
 
             return model;
         }
-
-        public static string GetProjectOrRepositoryName(this Uri filingHostUri)
-        {
-            string projectUriString = filingHostUri.OriginalString;
-            int lastSlashIndex = projectUriString.LastIndexOf('/'); 
-
-            string projectName = lastSlashIndex > 0 && lastSlashIndex < projectUriString.Length - 1
-                ? projectUriString.Substring(lastSlashIndex + 1)
-                : throw new ArgumentException($"Cannot parse project name from URI {projectUriString}");
-
-            return WebUtility.UrlDecode(projectName);
-        }
-
-        public static string GetAccountOrOrganizationName(this Uri filingHostUri)
-        {
-            string projectUriString = filingHostUri.OriginalString;
-            int lastSlashIndex = projectUriString.LastIndexOf('/');
-
-            string accountUriString = projectUriString.Substring(0, lastSlashIndex);
-
-            return accountUriString;
-        }
     }
 }

@@ -36,8 +36,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             string logFileContents = fileSystem.ReadAllText(options.InputFilePath);
             EnsureValidSarifLogFile(logFileContents, options.InputFilePath);
 
-            FilingClient filingTarget = FilingClientFactory.CreateFilingTarget(options.ProjectUriString);
-            var filer = new WorkItemFiler(filingTarget);
+            FilingClient filingClient = FilingClientFactory.CreateFilingTarget(options.ProjectUriString);
+            var filer = new WorkItemFiler(filingClient);
 
             SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(logFileContents);
 
@@ -47,8 +47,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 var dataRemovingVisitor = new RemoveOptionalDataVisitor(options.DataToRemove.ToFlags());
                 dataRemovingVisitor.Visit(sarifLog);
             }
-
-            string projectName = options.ProjectUri.GetProjectOrRepositoryName();
 
             for (int runIndex = 0; runIndex < sarifLog.Runs.Count; ++runIndex)
             {
@@ -83,7 +81,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     for (int splitFileIndex = 0; splitFileIndex < logsToProcess.Count; splitFileIndex++)
                     {
                         SarifLog splitLog = logsToProcess[splitFileIndex];
-                        WorkItemModel workItemModel = splitLog.CreateWorkItemModel(projectName);
+                        WorkItemModel workItemModel = splitLog.CreateWorkItemModel(filingClient.ProjectOrRepository);
                         workItemModels.Add(workItemModel);
                     }
 
