@@ -1,0 +1,6 @@
+extraction:
+  csharp:
+     index:
+        all_solutions: true
+        build_command:
+        - BuildAndTest.cmd
