@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
+namespace Microsoft.WorkItemFiling
 {
     /// <summary>
     /// Abstract base for classes that represents a system (for example, GitHub or Azure DevOps)

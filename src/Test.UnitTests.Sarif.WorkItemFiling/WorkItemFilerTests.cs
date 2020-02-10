@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.CodeAnalysis.Sarif.WorkItemFiling;
+using Microsoft.WorkItemFiling;
 using Moq;
 using Xunit;
 
@@ -35,8 +36,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
             await action.ShouldThrowAsync<ArgumentNullException>();
         }
 
-        private static WorkItemFiler CreateWorkItemFiler()
-            => new WorkItemFiler(CreateMockFilingTarget());
+        private static LogFileToWorkItemsFiler CreateWorkItemFiler()
+            => new LogFileToWorkItemsFiler(CreateMockFilingTarget());
 
         private static FilingClient CreateMockFilingTarget()
         {

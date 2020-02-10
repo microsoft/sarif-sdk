@@ -3,6 +3,8 @@
 
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using Microsoft.WorkItemFiling;
+using MicrosoftWorkItemFiling = Microsoft.WorkItemFiling;
 
 namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
 {
@@ -16,7 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
             {
                 AdditionalData = sarifLog,
                 Area = projectName,
-                Attachment = new WorkItemFiling.Attachment
+                Attachment = new MicrosoftWorkItemFiling.Attachment
                 {
                     Name = "AttachedResults.sarif",
                     Text = JsonConvert.SerializeObject(sarifLog),

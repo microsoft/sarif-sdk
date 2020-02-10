@@ -3,10 +3,9 @@
 
 using System;
 using FluentAssertions;
-using Microsoft.CodeAnalysis.Sarif.WorkItemFiling;
 using Xunit;
 
-namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
+namespace Microsoft.WorkItemFiling
 {
     public class FilingTargetFactoryTests
     {
@@ -47,6 +46,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
             var filingTarget = FilingClientFactory.CreateFilingTarget(ProjectUriString);
 
             filingTarget.Should().BeOfType<GitHubClientWrapper>();
+            string.IsNullOrEmpty(filingTarget.ProjectOrRepository).Should().BeFalse();
+            string.IsNullOrEmpty(filingTarget.AccountOrOrganization).Should().BeFalse();
         }
 
         [Fact]
@@ -57,6 +58,20 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
             var filingTarget = FilingClientFactory.CreateFilingTarget(ProjectUriString);
 
             filingTarget.Should().BeOfType<AzureDevOpsClientWrapper>();
+            string.IsNullOrEmpty(filingTarget.ProjectOrRepository).Should().BeFalse();
+            string.IsNullOrEmpty(filingTarget.AccountOrOrganization).Should().BeFalse();
+        }
+
+        [Fact]
+        public void CreateFilingTarget_CreatesLegacyAzureDevOpsFilingTarget()
+        {
+            const string ProjectUriString = "https://myorg.visualstudio.com/myProject";
+
+            var filingTarget = FilingClientFactory.CreateFilingTarget(ProjectUriString);
+
+            filingTarget.ProjectOrRepository.Should().NotBeNull();
+            string.IsNullOrEmpty(filingTarget.ProjectOrRepository).Should().BeFalse();
+            string.IsNullOrEmpty(filingTarget.AccountOrOrganization).Should().BeFalse();
         }
     }
 }

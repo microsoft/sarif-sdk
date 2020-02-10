@@ -1,9 +1,10 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using System.Collections.Generic;
 
-namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
+namespace Microsoft.WorkItemFiling
 {
     /// <summary>
     /// Describes a work item to be filed.
@@ -33,5 +34,15 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
         public IDictionary<string, string> CustomFields { get; set; }
 
         public object AdditionalData { get; set; }
+
+        /// <summary>
+        /// URI to raw work item data.
+        /// </summary>
+        public Uri Uri { get; set; }
+
+        /// <summary>
+        /// URI to work item as rendered in browser to users.
+        /// </summary>
+        public Uri HtmlUri { get; set; }
     }
 }
