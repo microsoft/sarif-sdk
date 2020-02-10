@@ -1,0 +1,9 @@
+extraction:
+  csharp:
+     after-prepare:
+        - export 
+          PATH=$LGTM_WORKSPACE/tools:$PATH
+     index:
+        all_solutions: true
+        build_command:
+        - .\BuildAndTest.cmd
