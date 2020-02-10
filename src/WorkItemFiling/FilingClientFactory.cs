@@ -5,23 +5,10 @@ using System;
 using System.Globalization;
 using System.Text.RegularExpressions;
 
-namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
+namespace Microsoft.WorkItemFiling
 {
     public class FilingClientFactory
     {
-        private const string GitHubUriPattern = @"^https://github\.com/([^/]+)/([^/]+)$";
-        private const string AzureDevOpsUriPattern = @"^(https://dev\.azure\.com/[^/]+)/([^/]+)$";
-        private const string LegacyAzureDevOpsUriPattern = @"^(https://[^\.]+\.visualstudio\.com)/([^/]+)$";
-
-
-        private static readonly Tuple<string, Regex>[] s_regexTuples = new[]
-        {
-            new Tuple<string, Regex>("github", SarifUtilities.RegexFromPattern(GitHubUriPattern)),
-            new Tuple<string, Regex>("ado", SarifUtilities.RegexFromPattern(AzureDevOpsUriPattern)),
-            new Tuple<string, Regex>("ado", SarifUtilities.RegexFromPattern(LegacyAzureDevOpsUriPattern))
-        };
-
-
         public static FilingClient CreateFilingTarget(string filingHostUriString)
         {
             if (filingHostUriString == null) { throw new ArgumentNullException(nameof(filingHostUriString)); }
@@ -33,7 +20,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
 
             FilingClient filingClient = null;
 
-            foreach (Tuple<string, Regex> regexTuple in s_regexTuples)
+            foreach (Tuple<string, Regex> regexTuple in WorkItemFilingUtilities.WorkItemHostRegexTuples)
             {
                 bool isGitHub = regexTuple.Item1.Equals("github");
                 Regex regex = regexTuple.Item2;
@@ -42,8 +29,8 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
                 if (match.Success)
                 {
                     filingClient = isGitHub ? (FilingClient)new GitHubClientWrapper() : new AzureDevOpsClientWrapper();
-                    filingClient.AccountOrOrganization = match.Groups[1].Value;
-                    filingClient.ProjectOrRepository = match.Groups[2].Value;
+                    filingClient.ProjectOrRepository = match.Groups[WorkItemFilingUtilities.PROJECT].Value;
+                    filingClient.AccountOrOrganization = match.Groups[WorkItemFilingUtilities.ACCOUNT].Value;
                     break;
                 }
             }

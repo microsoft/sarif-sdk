@@ -13,6 +13,7 @@ using Microsoft.CodeAnalysis.Sarif.Visitors;
 using Microsoft.CodeAnalysis.Sarif.WorkItemFiling;
 using Microsoft.Json.Schema;
 using Microsoft.Json.Schema.Validation;
+using Microsoft.WorkItemFiling;
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
@@ -36,7 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             EnsureValidSarifLogFile(logFileContents, options.InputFilePath);
 
             FilingClient filingClient = FilingClientFactory.CreateFilingTarget(options.ProjectUriString);
-            var filer = new WorkItemFiler(filingClient);
+            var filer = new LogFileToWorkItemsFiler(filingClient);
 
             SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(logFileContents);
 

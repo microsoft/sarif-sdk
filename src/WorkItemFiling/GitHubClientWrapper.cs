@@ -4,10 +4,11 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models;
 using Octokit;
 using Octokit.Internal;
 
-namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
+namespace Microsoft.WorkItemFiling
 {
     /// <summary>
     /// Represents a GitHub project in which work items can be filed.
@@ -37,13 +38,9 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
                 };
                 Issue issue = await this.gitHubClient.Issue.Create(this.AccountOrOrganization, this.ProjectOrRepository, newIssue);
 
-                SarifLog sarifLog = (SarifLog)workItemModel.AdditionalData;
-                foreach (Result result in sarifLog.Runs[0].Results)
-                {
-                    result.WorkItemUris = new List<Uri> { new Uri(issue.HtmlUrl, UriKind.Absolute) };
-                }
+                workItemModel.HtmlUri = new Uri(issue.HtmlUrl, UriKind.Absolute);
+                workItemModel.Uri = new Uri(issue.Url, UriKind.Absolute);                  
             }
-
             return workItemFilingMetadata;
         }
     }

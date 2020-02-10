@@ -184,7 +184,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public static Regex RegexFromPattern(string pattern) =>
             new Regex(
                 pattern,
-                RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnorePatternWhitespace);
+                RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.ExplicitCapture | RegexOptions.IgnorePatternWhitespace);
 
         internal static bool UnitTesting = false;
 

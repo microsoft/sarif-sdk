@@ -4,21 +4,22 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.WorkItemFiling;
 
 namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
 {
-    public class WorkItemFiler
+    public class LogFileToWorkItemsFiler
     {
         private readonly FilingClient _filingTarget;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="WorkItemFiler"> class.</see>
+        /// Initializes a new instance of the <see cref="LogFileToWorkItemsFiler"> class.</see>
         /// </summary>
         /// <param name="filingTarget">
         /// An object that represents the system (for example, GitHub or Azure DevOps)
         /// to which the work items will be filed.
         /// </param>
-        public WorkItemFiler(FilingClient filingTarget)
+        public LogFileToWorkItemsFiler(FilingClient filingTarget)
         {
             _filingTarget = filingTarget ?? throw new ArgumentNullException(nameof(filingTarget));
         }
