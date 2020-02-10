@@ -88,7 +88,7 @@ namespace Microsoft.WorkItemFiling
 
                 if (workItemModel.CustomFields != null)
                 {
-                    foreach (var customField in workItemModel.CustomFields)
+                    foreach (KeyValuePair<string, string> customField in workItemModel.CustomFields)
                     {
                         patchDocument.Add(new JsonPatchOperation
                         {
