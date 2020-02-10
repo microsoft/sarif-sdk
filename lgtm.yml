@@ -3,4 +3,4 @@ extraction:
      index:
         all_solutions: true
         build_command:
-        - .\BuildAndTest.cmd
+        - ..\BuildAndTest.cmd
