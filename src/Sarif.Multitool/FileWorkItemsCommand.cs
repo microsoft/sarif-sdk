@@ -13,7 +13,6 @@ using Microsoft.CodeAnalysis.Sarif.Visitors;
 using Microsoft.CodeAnalysis.Sarif.WorkItemFiling;
 using Microsoft.Json.Schema;
 using Microsoft.Json.Schema.Validation;
-using Microsoft.TeamFoundation.Build.WebApi;
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool

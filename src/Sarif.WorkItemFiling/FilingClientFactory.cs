@@ -3,7 +3,6 @@
 
 using System;
 using System.Globalization;
-using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 
 namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
@@ -15,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
         private const string LegacyAzureDevOpsUriPattern = @"^(https://[^\.]+\.visualstudio\.com)/([^/]+)$";
 
 
-        private static Tuple<string, Regex>[] s_regexTuples = new[]
+        private static readonly Tuple<string, Regex>[] s_regexTuples = new[]
         {
             new Tuple<string, Regex>("github", SarifUtilities.RegexFromPattern(GitHubUriPattern)),
             new Tuple<string, Regex>("ado", SarifUtilities.RegexFromPattern(AzureDevOpsUriPattern)),
@@ -23,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
         };
 
 
-        public static FilingClient CreateFilingTarget(string filingHostUriString, bool connect = true)
+        public static FilingClient CreateFilingTarget(string filingHostUriString)
         {
             if (filingHostUriString == null) { throw new ArgumentNullException(nameof(filingHostUriString)); }
 

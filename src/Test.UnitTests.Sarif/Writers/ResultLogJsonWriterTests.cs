@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using FluentAssertions;
-using Microsoft.CodeAnalysis.Sarif;
 using Newtonsoft.Json;
 using Xunit;
 
