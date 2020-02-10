@@ -1,6 +1,7 @@
 extraction:
   csharp:
      index:
-        all_solutions: true
+        all_solutions: false
+        solution : src\Sarif.Sdk.Semmle.sln
         build_command:
-        - BuildAndTest.cmd
+        - SimpleSemmleBuild.cmd
