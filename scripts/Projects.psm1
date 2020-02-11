@@ -13,10 +13,10 @@ $Frameworks = @{}
 $Frameworks.NetFx = @("net461")
 
 # Frameworks for which we build libraries.
-$Frameworks.Library = @("netstandard2.0") + $Frameworks.NetFx
+$Frameworks.Library = @("netstandard2.1") + $Frameworks.NetFx
 
 # Frameworks for which we build applications.
-$Frameworks.Application = @("netcoreapp2.0", "netcoreapp2.1") + $Frameworks.NetFx
+$Frameworks.Application = @("netcoreapp2.1") + $Frameworks.NetFx
 
 $Frameworks.All = ($Frameworks.Library + $Frameworks.Application | Select -Unique)
 

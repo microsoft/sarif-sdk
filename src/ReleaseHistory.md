@@ -1,5 +1,8 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
+## **v2.1.26** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.25) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.26) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.26) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.26)
+* PACKAGE BREAKING: Update tool directory to netstandard2.1, to reflect use of that version of .NET core.
+
 ## **v2.1.25** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.25) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.25) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.25) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.25)
 * FEATURE: The baseliner (available through the Multitool's `match-results-forward` command) now populates `result.provenance.firstDetectionTimeUtc` so you can now track the age of each issue. [#1737](https://github.com/microsoft/sarif-sdk/issues/1737)
 
