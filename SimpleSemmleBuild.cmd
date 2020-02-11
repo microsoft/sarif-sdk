@@ -1,1 +1,1 @@
-msbuild.exe /t:clean,build src\Sarif.Sdk.Semmle.sln -verbosity:minimal -property:Configuration=Release -property:TargetFramework=net461
+dotnet build src\Sarif.Sdk.Semmle.sln -c Release -f net461
