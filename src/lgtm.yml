@@ -1,6 +1,6 @@
 extraction:
   csharp:
      index:
-        all_solutions: true
+        all_solutions: false
         build_command:
-        - BuildAndTest.cmd
+        - SimpleSemmleBuild.cmd

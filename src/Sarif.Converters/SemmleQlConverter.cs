@@ -7,6 +7,7 @@ using System.Globalization;
 using System.IO;
 using System.Text;
 using CsvHelper;
+using CsvHelper.Configuration;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
@@ -84,7 +85,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var results = new List<Result>();
             using (var reader = new StreamReader(input))
             {
-                using (_parser = new CsvParser(reader))
+                var csvConfiguration = new CsvConfiguration(CultureInfo.InvariantCulture)
+                {
+                    Delimiter = ","
+                };
+
+                using (var fieldReader = new CsvFieldReader(reader, csvConfiguration, true))
+                using (_parser = new CsvParser(fieldReader))
                 {
                     string[] row = null;
                     while ((row = _parser.Read()) != null)
