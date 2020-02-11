@@ -2,6 +2,5 @@ extraction:
   csharp:
      index:
         all_solutions: false
-        solution : src\Sarif.Sdk.Semmle.sln
         build_command:
         - SimpleSemmleBuild.cmd
