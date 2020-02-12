@@ -202,6 +202,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         
         public void LoadFromXml(Stream stream)
         {
+            this.Clear();
+
             var settings = new XmlReaderSettings
             {
                 DtdProcessing = DtdProcessing.Ignore,
@@ -231,7 +233,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         public static readonly ImmutableArray<string> DefaultNamespaces = new List<string>(
             new string[] {
                 "Microsoft.CodeAnalysis.Sarif.",
-                "Microsoft.CodeAnalysis."
+                "Microsoft.CodeAnalysis.",
+                "Microsoft."
             }).ToImmutableArray();
     }
 }

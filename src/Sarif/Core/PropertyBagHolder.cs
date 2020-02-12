@@ -218,7 +218,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public void RemoveProperty(string propertyName)
         {
-                Properties?.Remove(propertyName);
+            Properties?.Remove(propertyName);
         }
 
         [JsonIgnore]
@@ -227,11 +227,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         public virtual bool ShouldSerializeProperties()
         {
             return PropertyBagHasAtLeastOneNonNullValue(this.Properties);
-        }   
+        }
 
         public static bool PropertyBagHasAtLeastOneNonNullValue(IDictionary<string, SerializedPropertyInfo> properties)
-        {            
-            return  properties != null && properties.Any();
+        {
+            return properties != null && properties.Any();
         }
     }
 }

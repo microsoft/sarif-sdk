@@ -36,9 +36,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             string logFileContents = fileSystem.ReadAllText(options.InputFilePath);
             EnsureValidSarifLogFile(logFileContents, options.InputFilePath);
 
-            FilingClient filingClient = FilingClientFactory.CreateFilingTarget(options.ProjectUriString);
-            var filer = new LogFileToWorkItemsFiler(filingClient);
+            FilingClient<SarifWorkItemData> filingClient = FilingClientFactory.CreateFilingTarget<SarifWorkItemData>(options.ProjectUriString);
+            var filer = new SarifWorkItemFiler(filingClient);
 
+            filer.FileWorkItems(logFileContents);
+
+/*
             SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(logFileContents);
 
             OptionallyEmittedData optionallyEmittedData = options.DataToRemove.ToFlags();
@@ -105,7 +108,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
 
             Console.WriteLine($"Writing log with work item Ids to {options.OutputFilePath}.");
-            WriteSarifFile<SarifLog>(fileSystem, sarifLog, options.OutputFilePath, (options.PrettyPrint ? Formatting.Indented : Formatting.None));
+            WriteSarifFile<SarifLog>(fileSystem, sarifLog, options.OutputFilePath, (options.PrettyPrint ? Formatting.Indented : Formatting.None));*/
 
             return SUCCESS;
         }

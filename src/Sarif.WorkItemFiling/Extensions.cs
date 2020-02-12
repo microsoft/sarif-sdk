@@ -9,19 +9,22 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
 {
     public static class Extensions
     {
-        public static WorkItemModel CreateWorkItemModel(this SarifLog sarifLog, string projectName)
+        public static WorkItemModel<SarifWorkItemData> CreateWorkItemModel(this SarifLog sarifLog, string projectName)
         {
+            var sarifWorkItemData = new SarifWorkItemData();
+            sarifWorkItemData.InitializeFromLog(sarifLog);
+
             // For default ADO work item boards, the project name is repurposed
             // to provide a default area path and iteration
-            WorkItemModel model = new WorkItemModel()
+            var model = new WorkItemModel<SarifWorkItemData>()
             {
-                AdditionalData = sarifLog,
                 Area = projectName,
                 Attachment = new Microsoft.WorkItemFiling.Attachment
                 {
                     Name = "AttachedResults.sarif",
                     Text = JsonConvert.SerializeObject(sarifLog),
                 },
+                Data = sarifWorkItemData,
                 Description = "Description",
                 Discussion = "Discussion",
                 Title = "Title",

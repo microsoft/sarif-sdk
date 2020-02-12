@@ -18,10 +18,14 @@ namespace Microsoft.WorkItemFiling
     /// <summary>
     /// Represents an Azure DevOps project in which work items can be filed.
     /// </summary>
-    public class AzureDevOpsClientWrapper : FilingClient
+    public class AzureDevOpsClientWrapper<T> : FilingClient<T>
     {
         private WorkItemTrackingHttpClient _witClient;
-        
+
+        public AzureDevOpsClientWrapper(T configuration) : base(configuration)
+        {
+        }
+
         public override async Task Connect(string personalAccessToken)
         {
             Uri accountUri = new Uri(this.AccountOrOrganization, UriKind.Absolute);
@@ -32,9 +36,9 @@ namespace Microsoft.WorkItemFiling
             _witClient = await connection.GetClientAsync<WorkItemTrackingHttpClient>();
         }
 
-        public override async Task<IEnumerable<WorkItemModel>> FileWorkItems(IEnumerable<WorkItemModel> workItemModels)
+        public override async Task<IEnumerable<WorkItemModel<T>>> FileWorkItems(IEnumerable<WorkItemModel<T>> workItemModels)
         {
-            foreach (WorkItemModel workItemModel in workItemModels)
+            foreach (WorkItemModel<T> workItemModel in workItemModels)
             {
                 AttachmentReference attachmentReference = null;
                 string attachmentText = workItemModel.Attachment?.Text;

@@ -8,12 +8,12 @@ using Xunit;
 namespace Microsoft.WorkItemFiling
 {
     public class FilingTargetFactoryTests
-    {
+    {       
         [Fact]
         public void CreateFilingTarget_ThrowsIfUriIsNull
             ()
         {
-            Action action = () => FilingClientFactory.CreateFilingTarget(null);
+            Action action = () => FilingClientFactory.CreateFilingTarget<TestWorkItemData>(null);
 
             action.Should().Throw<ArgumentNullException>();
         }
@@ -23,7 +23,7 @@ namespace Microsoft.WorkItemFiling
         {
             const string ProjectUriString = "https://www.example.com/myOrg/myProject";
 
-            Action action = () => FilingClientFactory.CreateFilingTarget(ProjectUriString);
+            Action action = () => FilingClientFactory.CreateFilingTarget<TestWorkItemData>(ProjectUriString);
 
             action.Should().Throw<ArgumentException>().WithMessage($"*{ProjectUriString}*");
         }
@@ -33,7 +33,7 @@ namespace Microsoft.WorkItemFiling
         {
             const string ProjectUriString = "https://github.com/myOrg/myProject/issues";
 
-            Action action = () => FilingClientFactory.CreateFilingTarget(ProjectUriString);
+            Action action = () => FilingClientFactory.CreateFilingTarget<TestWorkItemData>(ProjectUriString);
 
             action.Should().Throw<ArgumentException>().WithMessage($"*{ProjectUriString}*");
         }
@@ -43,9 +43,9 @@ namespace Microsoft.WorkItemFiling
         {
             const string ProjectUriString = "https://github.com/myOrg/myProject";
 
-            var filingTarget = FilingClientFactory.CreateFilingTarget(ProjectUriString);
+            var filingTarget = FilingClientFactory.CreateFilingTarget<TestWorkItemData>(ProjectUriString);
 
-            filingTarget.Should().BeOfType<GitHubClientWrapper>();
+            filingTarget.Should().BeOfType<GitHubClientWrapper<TestWorkItemData>>();
             string.IsNullOrEmpty(filingTarget.ProjectOrRepository).Should().BeFalse();
             string.IsNullOrEmpty(filingTarget.AccountOrOrganization).Should().BeFalse();
         }
@@ -55,9 +55,9 @@ namespace Microsoft.WorkItemFiling
         {
             const string ProjectUriString = "https://dev.azure.com/myOrg/myProject";
 
-            var filingTarget = FilingClientFactory.CreateFilingTarget(ProjectUriString);
+            var filingTarget = FilingClientFactory.CreateFilingTarget<TestWorkItemData>(ProjectUriString);
 
-            filingTarget.Should().BeOfType<AzureDevOpsClientWrapper>();
+            filingTarget.Should().BeOfType<AzureDevOpsClientWrapper<TestWorkItemData>>();
             string.IsNullOrEmpty(filingTarget.ProjectOrRepository).Should().BeFalse();
             string.IsNullOrEmpty(filingTarget.AccountOrOrganization).Should().BeFalse();
         }
@@ -67,7 +67,7 @@ namespace Microsoft.WorkItemFiling
         {
             const string ProjectUriString = "https://myorg.visualstudio.com/myProject";
 
-            var filingTarget = FilingClientFactory.CreateFilingTarget(ProjectUriString);
+            var filingTarget = FilingClientFactory.CreateFilingTarget<TestWorkItemData>(ProjectUriString);
 
             filingTarget.ProjectOrRepository.Should().NotBeNull();
             string.IsNullOrEmpty(filingTarget.ProjectOrRepository).Should().BeFalse();

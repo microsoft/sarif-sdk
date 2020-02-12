@@ -9,8 +9,10 @@ namespace Microsoft.WorkItemFiling
     /// <summary>
     /// Describes a work item to be filed.
     /// </summary>
-    public class WorkItemModel
+    public class WorkItemModel<T>
     {
+        public T Data { get; set; }
+
         public string AccountorOrganization { get; set; }
      
         public string ProjectOrRepository { get; set; }
@@ -32,8 +34,6 @@ namespace Microsoft.WorkItemFiling
         public Attachment Attachment { get; set; }
 
         public IDictionary<string, string> CustomFields { get; set; }
-
-        public object AdditionalData { get; set; }
 
         /// <summary>
         /// URI to raw work item data.
