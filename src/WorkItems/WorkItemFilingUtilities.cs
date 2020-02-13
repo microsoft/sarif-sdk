@@ -4,7 +4,7 @@
 using System;
 using System.Text.RegularExpressions;
 
-namespace Microsoft.WorkItemFiling
+namespace Microsoft.WorkItems
 {
     public static class WorkItemFilingUtilities
     {

@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using System.Collections.Generic;
 using FluentAssertions;
 using Xunit;
@@ -15,6 +16,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             try
             {
                 FileWorkItemsCommand.s_validateOptionsOnly = true;
+
+                Environment.SetEnvironmentVariable("SarifWorkItemFilingSecurityToken", Guid.NewGuid().ToString());
 
                 var failedTestCases = new List<string>();
 
@@ -82,8 +85,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     ExpectedExitCode = 0
                 },
 
+
                 new TestCase {
-                    Title = "Implicit grouping strategy",
+                    Title = "Implicit splitting strategy",
                     Args = new string[] {
                         "file-work-items",
                         "--project-uri",
@@ -95,82 +99,70 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 },
 
                 new TestCase {
-                    Title = "Implicit grouping strategy",
-                    Args = new string[] {
-                        "file-work-items",
-                        "--project-uri",
-                        "https://github.com/my-org/my-project",
-                        "--inline",
-                        "test.sarif"
-                    },
-                    ExpectedExitCode = 0
-                },
-
-                new TestCase {
-                    Title = "Explicit 'PerResult' grouping strategy",
+                    Title = "Explicit 'PerResult' splitting strategy",
                     Args = new string[] {
                         "file-work-items",
                         "--project-uri",
                         "https://github.com/my-org/my-project",
                         "--inline",
                         "test.sarif",
-                        "--group",
+                        "--split",
                         "PerResult"
                     },
                     ExpectedExitCode = 0
                 },
 
                 new TestCase {
-                    Title = "Explicit 'PerRun' grouping strategy",
+                    Title = "Explicit 'PerRun' splitting strategy",
                     Args = new string[] {
                         "file-work-items",
                         "--project-uri",
                         "https://github.com/my-org/my-project",
                         "--inline",
                         "test.sarif",
-                        "--group",
+                        "--split",
                         "PerRun"
                     },
                     ExpectedExitCode = 0
                 },
 
                 new TestCase {
-                    Title = "Explicit 'None' grouping strategy (equivalent to 'PerRun')",
+                    Title = "Explicit 'None' splitting strategy",
                     Args = new string[] {
                         "file-work-items",
                         "--project-uri",
                         "https://github.com/my-org/my-project",
                         "--inline",
                         "test.sarif",
-                        "--group",
+                        "--split",
                         "None"
                     },
                     ExpectedExitCode = 0
                 },
 
                 new TestCase {
-                    Title = "PerRunPerRule grouping strategy",
+                    Title = "PerRunPerRule splitting strategy",
                     Args = new string[] {
                         "file-work-items",
                         "--project-uri",
                         "https://github.com/my-org/my-project",
                         "--inline",
                         "test.sarif",
-                        "--group",
+                        "--split",
                         "PerRunPerRule"
                     },
                     ExpectedExitCode = 0
                 },
 
                 new TestCase {
-                    Title = "PerRunPerTargetPerRun grouping strategy",
+                    Title = "PerRunPerTargetPerRun splitting strategy",
                     Args = new string[] {
                         "file-work-items",
                         "--project-uri",
                         "https://github.com/my-org/my-project",
                         "--inline",
                         "test.sarif",
-                        "--group",
+                        "--split",
                         "PerRunPerTargetPerRule"
                     },
                     ExpectedExitCode = 0
@@ -178,14 +170,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
 
                 new TestCase {
-                    Title = "Non-existent grouping strategy",
+                    Title = "Non-existent splitting strategy",
                     Args = new string[] {
                         "file-work-items",
                         "--project-uri",
                         "https://github.com/my-org/my-project",
                         "--inline",
                         "test.sarif",
-                        "--group",
+                        "--split",
                         "PerRunPerRun"
                     },
                     ExpectedExitCode = 1
@@ -246,7 +238,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         "https://dev.azure.com/my-org/my-project",
                         "test.sarif"
                     },
-                    ExpectedExitCode = 1
+                    ExpectedExitCode = 0
                 }
             };
     }

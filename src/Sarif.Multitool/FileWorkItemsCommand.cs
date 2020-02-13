@@ -10,10 +10,11 @@ using System.Reflection;
 using System.Text;
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
-using Microsoft.CodeAnalysis.Sarif.WorkItemFiling;
+using Microsoft.CodeAnalysis.Sarif.WorkItems;
 using Microsoft.Json.Schema;
 using Microsoft.Json.Schema.Validation;
-using Microsoft.WorkItemFiling;
+using Microsoft.TeamFoundation.Build.WebApi;
+using Microsoft.WorkItems;
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
@@ -28,7 +29,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public int Run(FileWorkItemsOptions options, IFileSystem fileSystem)
         {
-            if (!ValidateOptions(options, fileSystem)) { return FAILURE; }
+            var workItemFilingConfiguration = new SarifWorkItemContext();
+            if (!string.IsNullOrEmpty(options.ConfigurationFilePath))
+            {
+                workItemFilingConfiguration.LoadFromXml(options.ConfigurationFilePath);
+            }
+
+            if (!ValidateOptions(options, workItemFilingConfiguration, fileSystem)) 
+            { 
+                return FAILURE; 
+            }
 
             // For unit tests: allow us to just validate the options and return.
             if (s_validateOptionsOnly) { return SUCCESS; }
@@ -36,84 +46,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             string logFileContents = fileSystem.ReadAllText(options.InputFilePath);
             EnsureValidSarifLogFile(logFileContents, options.InputFilePath);
 
-            FilingClient<SarifWorkItemData> filingClient = FilingClientFactory.CreateFilingTarget<SarifWorkItemData>(options.ProjectUriString);
+            if (options.SplittingStrategy != SplittingStrategy.None)
+            {
+                workItemFilingConfiguration.SplittingStrategy = options.SplittingStrategy;
+            }
+
+            FilingClient<SarifWorkItemContext> filingClient = FilingClientFactory.CreateFilingTarget<SarifWorkItemContext>(options.ProjectUriString);
             var filer = new SarifWorkItemFiler(filingClient);
 
-            filer.FileWorkItems(logFileContents);
-
-/*
-            SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(logFileContents);
-
-            OptionallyEmittedData optionallyEmittedData = options.DataToRemove.ToFlags();
-            if (optionallyEmittedData != OptionallyEmittedData.None)
-            {
-                var dataRemovingVisitor = new RemoveOptionalDataVisitor(options.DataToRemove.ToFlags());
-                dataRemovingVisitor.Visit(sarifLog);
-            }
-
-            for (int runIndex = 0; runIndex < sarifLog.Runs.Count; ++runIndex)
-            {
-                if (sarifLog.Runs[runIndex]?.Results?.Count > 0)
-                {
-                    IList<SarifLog> logsToProcess = new List<SarifLog>(new SarifLog[] { sarifLog });
-
-                    if (options.GroupingStrategy != GroupingStrategy.PerRun)
-                    {
-                        SplittingVisitor visitor;
-                        switch(options.GroupingStrategy)
-                        {
-                            case GroupingStrategy.PerRunPerRule:
-                                visitor = new PerRunPerRuleSplittingVisitor();
-                                break;
-                            case GroupingStrategy.PerRunPerTarget:
-                                visitor = new PerRunPerTargetSplittingVisitor();
-                                break;
-                            case GroupingStrategy.PerRunPerTargetPerRule:
-                                visitor = new PerRunPerTargetPerRuleSplittingVisitor();
-                                break;
-                            default:
-                                throw new ArgumentOutOfRangeException($"GroupingStrategy: {options.GroupingStrategy}");
-                        }
-
-                        visitor.VisitRun(sarifLog.Runs[runIndex]);
-                        logsToProcess = visitor.SplitSarifLogs;
-                    }
-
-                    IList<WorkItemModel> workItemModels = new List<WorkItemModel>(logsToProcess.Count);
-
-                    for (int splitFileIndex = 0; splitFileIndex < logsToProcess.Count; splitFileIndex++)
-                    {
-                        SarifLog splitLog = logsToProcess[splitFileIndex];
-                        WorkItemModel workItemModel = splitLog.CreateWorkItemModel(filingClient.ProjectOrRepository);
-                        workItemModels.Add(workItemModel);
-                    }
-
-                    try
-                    {
-                        string securityToken = Environment.GetEnvironmentVariable("SarifWorkItemFilingSecurityToken");
-
-                        if (string.IsNullOrEmpty(securityToken))
-                        {
-                            throw new InvalidOperationException("'SarifWorkItemFilingSecurityToken' environment variable is not initialized with a personal access token.");
-                        }
-
-                        IEnumerable<WorkItemModel> filedWorkItems = filer.FileWorkItems(options.ProjectUri, workItemModels, securityToken).Result;
-                        Console.WriteLine($"Created {filedWorkItems.Count()} work items for run {runIndex}.");
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.Error.WriteLine(ex);
-                    }
-                }
-            }
-
-            Console.WriteLine($"Writing log with work item Ids to {options.OutputFilePath}.");
-            WriteSarifFile<SarifLog>(fileSystem, sarifLog, options.OutputFilePath, (options.PrettyPrint ? Formatting.Indented : Formatting.None));*/
+            filer.FileWorkItems(logFileContents);           
 
             return SUCCESS;
         }
 
-        private bool ValidateOptions(FileWorkItemsOptions options, IFileSystem fileSystem)
+        private bool ValidateOptions(FileWorkItemsOptions options, SarifWorkItemContext workItemFilingConfiguration, IFileSystem fileSystem)
         {
             bool valid = true;
 
@@ -140,6 +86,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             if (!options.ProjectUri.IsAbsoluteUri)
             {
                 string optionDescription = DriverUtilities.GetOptionDescription<FileWorkItemsOptions>(nameof(options.ProjectUriString));
+
+                // The value '{0}' of the '{1}' option is not an absolute URI.
                 Console.Error.WriteLine(
                     string.Format(
                         CultureInfo.CurrentCulture,
@@ -151,9 +99,35 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             valid &= options.ValidateOutputOptions();
 
-            valid &= DriverUtilities.ReportWhetherOutputFileCanBeCreated(options.OutputFilePath, options.Force, fileSystem);
+            if (!string.IsNullOrEmpty(options.OutputFilePath))
+            {
+                valid &= DriverUtilities.ReportWhetherOutputFileCanBeCreated(options.OutputFilePath, options.Force, fileSystem);
+            }
+
+            valid &= EnsureSecurityToken(options, workItemFilingConfiguration);
 
             return valid;
+        }
+
+        private bool EnsureSecurityToken(FileWorkItemsOptions options, SarifWorkItemContext workItemFilingConfiguration)
+        {
+            string securityToken = Environment.GetEnvironmentVariable("SarifWorkItemFilingSecurityToken");
+
+            if (!string.IsNullOrEmpty(securityToken))
+            {
+                workItemFilingConfiguration.SecurityToken = securityToken;
+            }
+
+            if (string.IsNullOrEmpty(workItemFilingConfiguration.SecurityToken))
+            {
+                // "No security token was provided. Populate the 'SarifWorkItemFilingSecurityToken' environment 
+                // variable with a valid personal access token or pass a token in a configuration file using
+                // the --configuration arguement."
+                Console.Error.WriteLine(MultitoolResources.WorkItemFiling_NoSecurityTokenFound);
+                return false;
+            }
+
+            return true;
         }
 
         private void EnsureValidSarifLogFile(string logFileContents, string logFilePath)

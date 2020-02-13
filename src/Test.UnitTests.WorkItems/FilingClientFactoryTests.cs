@@ -5,9 +5,9 @@ using System;
 using FluentAssertions;
 using Xunit;
 
-namespace Microsoft.WorkItemFiling
+namespace Microsoft.WorkItems
 {
-    public class FilingTargetFactoryTests
+    public class FilingClientFactoryTests
     {       
         [Fact]
         public void CreateFilingTarget_ThrowsIfUriIsNull

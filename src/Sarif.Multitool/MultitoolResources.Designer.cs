@@ -140,5 +140,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool {
                 return ResourceManager.GetString("WorkItemFiling_ErrorUriIsNotAbsolute", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No security token was provided. Populate the &apos;SarifWorkItemFilingSecurityToken&apos; environment variable with a valid personal access token or pass a token in a configuration file using the --configuration arguement..
+        /// </summary>
+        internal static string WorkItemFiling_NoSecurityTokenFound {
+            get {
+                return ResourceManager.GetString("WorkItemFiling_NoSecurityTokenFound", resourceCulture);
+            }
+        }
     }
 }

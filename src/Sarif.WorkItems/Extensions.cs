@@ -3,23 +3,23 @@
 
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using Microsoft.WorkItemFiling;
+using Microsoft.WorkItems;
 
-namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
+namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 {
     public static class Extensions
     {
-        public static WorkItemModel<SarifWorkItemData> CreateWorkItemModel(this SarifLog sarifLog, string projectName)
+        public static WorkItemModel<SarifWorkItemContext> CreateWorkItemModel(this SarifLog sarifLog, string projectName)
         {
-            var sarifWorkItemData = new SarifWorkItemData();
-            sarifWorkItemData.InitializeFromLog(sarifLog);
+            var sarifWorkItemData = new SarifWorkItemContext();
+            //sarifWorkItemData.InitializeFromLog(sarifLog);
 
             // For default ADO work item boards, the project name is repurposed
             // to provide a default area path and iteration
-            var model = new WorkItemModel<SarifWorkItemData>()
+            var model = new WorkItemModel<SarifWorkItemContext>()
             {
                 Area = projectName,
-                Attachment = new Microsoft.WorkItemFiling.Attachment
+                Attachment = new Microsoft.WorkItems.Attachment
                 {
                     Name = "AttachedResults.sarif",
                     Text = JsonConvert.SerializeObject(sarifLog),

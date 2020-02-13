@@ -73,7 +73,7 @@ Now that an underlying bug in `PropertyBagConverter` has been fixed, there is no
 
 ## **v2.1.14** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.14) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.14) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.14) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.14)
 * BUGFIX: FxCop converter produced logicalLocation.index but did not produce the run.logicalLocations array. [#1571](https://github.com/microsoft/sarif-sdk/issues/1571)
-* BUGFIX: Include Sarif.WorkItemFiling.dll in the Sarif.Multitool NuGet package. [#1636](https://github.com/microsoft/sarif-sdk/issues/1636)
+* BUGFIX: Include Sarif.WorkItems.dll in the Sarif.Multitool NuGet package. [#1636](https://github.com/microsoft/sarif-sdk/issues/1636)
 * FEATURE: Add validation rule to ensure that all array-index-valued properties are consistent with their respective arrays.
 
 ## **v2.1.13** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.13) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.13) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.13) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.13)

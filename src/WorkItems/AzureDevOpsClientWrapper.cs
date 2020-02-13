@@ -13,7 +13,7 @@ using Microsoft.VisualStudio.Services.WebApi.Patch;
 using Microsoft.VisualStudio.Services.WebApi.Patch.Json;
 using Newtonsoft.Json;
 
-namespace Microsoft.WorkItemFiling
+namespace Microsoft.WorkItems
 {
     /// <summary>
     /// Represents an Azure DevOps project in which work items can be filed.

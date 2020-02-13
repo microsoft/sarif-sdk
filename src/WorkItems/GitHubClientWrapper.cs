@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Octokit;
 using Octokit.Internal;
 
-namespace Microsoft.WorkItemFiling
+namespace Microsoft.WorkItems
 {
     /// <summary>
     /// Represents a GitHub project in which work items can be filed.

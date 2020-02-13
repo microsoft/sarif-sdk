@@ -4,7 +4,7 @@
     <TargetFrameworks>netcoreapp2.1</TargetFrameworks>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
-    <RootNamespace>Microsoft.WorkItemFiling</RootNamespace>
+    <RootNamespace>Microsoft.WorkItems</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup Label="AssemblyAttributes">
@@ -33,7 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WorkItemFiling\WorkItemFiling.csproj" />
+    <ProjectReference Include="..\WorkItems\WorkItems.csproj" />
   </ItemGroup>
 
 </Project>

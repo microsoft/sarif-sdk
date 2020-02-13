@@ -6,7 +6,7 @@ using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
+namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 {
     public class StringSetConverter : JsonConverter
     {

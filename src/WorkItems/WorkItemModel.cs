@@ -4,7 +4,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Microsoft.WorkItemFiling
+namespace Microsoft.WorkItems
 {
     /// <summary>
     /// Describes a work item to be filed.

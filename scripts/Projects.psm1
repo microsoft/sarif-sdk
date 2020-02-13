@@ -26,7 +26,7 @@ $Projects.Libraries = @(
     "Sarif",
     "Sarif.Converters",
     "Sarif.Driver",
-    "Sarif.WorkItemFiling"
+    "Sarif.WorkItems"
 )
 
 $Projects.Applications = @(
@@ -42,7 +42,7 @@ $Projects.Tests = @(
     "Test.UnitTests.Sarif.Converters",
     "Test.UnitTests.Sarif.Driver",    
     "Test.UnitTests.Sarif.Multitool",
-    "Test.UnitTests.Sarif.WorkItemFiling",
+    "Test.UnitTests.Sarif.WorkItems",
     "Test.Utilities.Sarif"
     )
 

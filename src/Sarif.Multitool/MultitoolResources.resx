@@ -144,4 +144,7 @@
   <data name="WorkItemFiling_ErrorUriIsNotAbsolute" xml:space="preserve">
     <value>The value '{0}' of the '{1}' option is not an absolute URI.</value>
   </data>
+  <data name="WorkItemFiling_NoSecurityTokenFound" xml:space="preserve">
+    <value>No security token was provided. Populate the 'SarifWorkItemFilingSecurityToken' environment variable with a valid personal access token or pass a token in a configuration file using the --configuration arguement.</value>
+  </data>
 </root>

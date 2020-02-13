@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Microsoft.WorkItemFiling
+namespace Microsoft.WorkItems
 {
     public class TestWorkItemData
     {

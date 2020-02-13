@@ -117,7 +117,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         Force = false,
                         OutputFilePath = null
                     },
-                    ExpectedResult = false
+                    ExpectedResult = true
                 },
 
                 new ValidateSingleFileOutputOptionsTestCase

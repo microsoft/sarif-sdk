@@ -5,13 +5,13 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using FluentAssertions;
-using Microsoft.WorkItemFiling;
+using Microsoft.WorkItems;
 using Moq;
 using Xunit;
 
-namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
+namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 {
-    public class WorkItemFilerTests
+    public class SarifWorkItemFilerTests
     {
         private static readonly Uri s_testUri = new Uri("https://github.com/Microsoft/sarif-sdk");
 
@@ -63,23 +63,23 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
             mockFilingTarget
                 .Setup(x => x.FileWorkItems(It.IsAny<Uri>()))
                 .CallBase();
-
+            
             // Moq magic: you can return whatever was passed to a method by providing
             // a lambda (rather than a fixed value) to Returns or ReturnsAsync.
             // https://stackoverflow.com/questions/996602/returning-value-that-was-passed-into-a-method
             mockFilingTarget
                 .Setup(x => x.FileWorkItems(
                     It.IsAny<Uri>(), 
-                    It.IsAny<IList<WorkItemModel<SarifWorkItemData>>>(),
+                    It.IsAny<IList<WorkItemModel<SarifWorkItemContext>>>(),
                     It.IsAny<string>()))
-                .ReturnsAsync((Uri uri, IList<WorkItemModel<SarifWorkItemData>> resultGroups, string securityToken) => resultGroups);
+                .ReturnsAsync((Uri uri, IList<WorkItemModel<SarifWorkItemContext>> resultGroups, string securityToken) => resultGroups);
 
             return mockFilingTarget.Object;
         }
 
-        private class TestFilingClient : FilingClient<SarifWorkItemData>
+        private class TestFilingClient : FilingClient<SarifWorkItemContext>
         {
-            public TestFilingClient(SarifWorkItemData configuration) : base(configuration)
+            public TestFilingClient(SarifWorkItemContext configuration) : base(configuration)
             {
 
             }
@@ -89,7 +89,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
                 throw new NotImplementedException();
             }
 
-            public override Task<IEnumerable<WorkItemModel<SarifWorkItemData>>> FileWorkItems(IEnumerable<WorkItemModel<SarifWorkItemData>> workItemModels)
+            public override Task<IEnumerable<WorkItemModel<SarifWorkItemContext>>> FileWorkItems(IEnumerable<WorkItemModel<SarifWorkItemContext>> workItemModels)
             {
                 throw new NotImplementedException();
             }

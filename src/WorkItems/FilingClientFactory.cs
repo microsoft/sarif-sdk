@@ -5,7 +5,7 @@ using System;
 using System.Globalization;
 using System.Text.RegularExpressions;
 
-namespace Microsoft.WorkItemFiling
+namespace Microsoft.WorkItems
 {
     public class FilingClientFactory
     {

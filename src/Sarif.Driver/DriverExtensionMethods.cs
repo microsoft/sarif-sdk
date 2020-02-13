@@ -48,14 +48,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     valid = false;
                 }
             }
-            else
-            {
-                if (options.OutputFilePath == null)
-                {
-                    ReportInvalidOutputOptions(options);
-                    valid = false;
-                }
-            }
 
             return valid;
         }
