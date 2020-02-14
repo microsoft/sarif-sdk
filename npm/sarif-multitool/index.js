@@ -1,1 +1,1 @@
-module.exports = require(`${require('./package').name}-${process.platform}`)
+module.exports = require(`${require('./package.json').name}-${process.platform}`)
