@@ -9,7 +9,7 @@ namespace Microsoft.WorkItems
 {
     public class FilingClientFactory
     {
-        public static FilingClient<T> CreateFilingTarget<T>(string filingHostUriString) where T : new()
+        public static FilingClient CreateFilingTarget(string filingHostUriString)
         {
             if (filingHostUriString == null) { throw new ArgumentNullException(nameof(filingHostUriString)); }
 
@@ -18,7 +18,7 @@ namespace Microsoft.WorkItems
                 throw new ArgumentException(nameof(filingHostUriString));
             }
 
-            FilingClient<T> filingClient = null;
+            FilingClient filingClient = null;
 
             foreach (Tuple<string, Regex> regexTuple in WorkItemFilingUtilities.WorkItemHostRegexTuples)
             {
@@ -28,8 +28,7 @@ namespace Microsoft.WorkItems
                 Match match = regex.Match(filingHostUriString);
                 if (match.Success)
                 {
-                    var defaultConfiguration = new T();
-                    filingClient = isGitHub ? (FilingClient<T>)new GitHubClientWrapper<T>(defaultConfiguration) : new AzureDevOpsClientWrapper<T>(defaultConfiguration);
+                    filingClient = isGitHub ? (FilingClient)new GitHubClientWrapper() : new AzureDevOpsClientWrapper();
                     filingClient.ProjectOrRepository = match.Groups[WorkItemFilingUtilities.PROJECT].Value;
                     filingClient.AccountOrOrganization = match.Groups[WorkItemFilingUtilities.ACCOUNT].Value;
                     break;

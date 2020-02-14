@@ -9,10 +9,19 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 {
     public class SarifWorkItemContext : PropertiesDictionary
     {
+        public SarifWorkItemContext() { }
+
+        public SarifWorkItemContext(SarifWorkItemContext initializer) : base(initializer) { }
+
         private List<IWorkItemModelTransformer<SarifWorkItemContext>> workItemModelTransformers;
         public IReadOnlyList<IWorkItemModelTransformer<SarifWorkItemContext>> WorkItemModelTransformers
         {
             get { return PopulateWorkItemModelTransformers(); }
+        }
+
+        internal void InitializeFromLog(SarifLog sarifLog)
+        {
+            throw new NotImplementedException();
         }
 
         public string SecurityToken 
@@ -25,6 +34,18 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         {
             get { return this.GetProperty(SplittingStrategyOption); }
             set { this.SetProperty(SplittingStrategyOption, value); }
+        }
+
+        public OptionallyEmittedData DataToRemove
+        {
+            get { return this.GetProperty(DataToRemoveOption); }
+            set { this.SetProperty(DataToRemoveOption, value); }
+        }
+
+        public OptionallyEmittedData DataToInsert
+        {
+            get { return this.GetProperty(DataToInsertOption); }
+            set { this.SetProperty(DataToInsertOption, value); }
         }
 
         public void AddWorkItemModelTransformer(IWorkItemModelTransformer<SarifWorkItemContext> workItemModelTransformer)
@@ -75,7 +96,17 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
         public static PerLanguageOption<StringSet> PluginAssemblyQualifiedNames { get; } =
             new PerLanguageOption<StringSet>(
-                "Extensibility", nameof(PluginAssemblyQualifiedNames), 
+                "Extensibility", nameof(PluginAssemblyQualifiedNames),
                 defaultValue: () => { return new StringSet(); });
+
+        public static PerLanguageOption<OptionallyEmittedData> DataToRemoveOption { get; } =
+            new PerLanguageOption<OptionallyEmittedData>(
+                "Extensibility", nameof(DataToRemove),
+                defaultValue: () => { return 0; });
+
+        public static PerLanguageOption<OptionallyEmittedData> DataToInsertOption { get; } =
+            new PerLanguageOption<OptionallyEmittedData>(
+                "Extensibility", nameof(DataToInsert),
+                defaultValue: () => { return 0; });
     }
 }

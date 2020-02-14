@@ -11,15 +11,8 @@ namespace Microsoft.WorkItems
     /// Abstract base for classes that represents a system (for example, GitHub or Azure DevOps)
     /// to which work items can be filed.
     /// </summary>
-    public abstract class FilingClient<T>
+    public abstract class FilingClient
     {
-        public FilingClient(T configuration)
-        {
-            this.Configuration = configuration;
-        }
-
-        public T Configuration { get; set; }
-
         /// <summary>
         /// The URI to the work item filing host.
         /// </summary>
@@ -55,6 +48,6 @@ namespace Microsoft.WorkItems
         /// <returns>
         /// An object that can be awaited to see the result groups that were actually filed.
         /// </returns>
-        public abstract Task<IEnumerable<WorkItemModel<T>>> FileWorkItems(IEnumerable<WorkItemModel<T>> workItemModels);
+        public abstract Task<IEnumerable<WorkItemModel>> FileWorkItems(IEnumerable<WorkItemModel> workItemModels);
     }
 }

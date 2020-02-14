@@ -29,13 +29,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public int Run(FileWorkItemsOptions options, IFileSystem fileSystem)
         {
-            var workItemFilingConfiguration = new SarifWorkItemContext();
+            var filingContext = new SarifWorkItemContext();
             if (!string.IsNullOrEmpty(options.ConfigurationFilePath))
             {
-                workItemFilingConfiguration.LoadFromXml(options.ConfigurationFilePath);
+                filingContext.LoadFromXml(options.ConfigurationFilePath);
             }
 
-            if (!ValidateOptions(options, workItemFilingConfiguration, fileSystem)) 
+            if (!ValidateOptions(options, filingContext, fileSystem)) 
             { 
                 return FAILURE; 
             }
@@ -48,11 +48,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             if (options.SplittingStrategy != SplittingStrategy.None)
             {
-                workItemFilingConfiguration.SplittingStrategy = options.SplittingStrategy;
+                filingContext.SplittingStrategy = options.SplittingStrategy;
             }
 
-            FilingClient<SarifWorkItemContext> filingClient = FilingClientFactory.CreateFilingTarget<SarifWorkItemContext>(options.ProjectUriString);
-            var filer = new SarifWorkItemFiler(filingClient);
+            if (options.DataToRemove.ToFlags() != OptionallyEmittedData.None)
+            {
+                filingContext.DataToRemove = options.DataToRemove.ToFlags();
+            }
+
+            if (options.DataToInsert.ToFlags() != OptionallyEmittedData.None)
+            {
+                filingContext.DataToInsert = options.DataToInsert.ToFlags();
+            }
+
+            FilingClient filingClient = FilingClientFactory.CreateFilingTarget(options.ProjectUriString);
+            var filer = new SarifWorkItemFiler(filingClient, filingContext);
 
             filer.FileWorkItems(logFileContents);           
 

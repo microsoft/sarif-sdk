@@ -6,15 +6,10 @@ using System.Collections.Generic;
 
 namespace Microsoft.WorkItems
 {
-    /// <summary>
-    /// Describes a work item to be filed.
-    /// </summary>
-    public class WorkItemModel<T>
+    public class WorkItemModel
     {
-        public T Data { get; set; }
-
         public string AccountorOrganization { get; set; }
-     
+
         public string ProjectOrRepository { get; set; }
 
         public string Title { get; set; }
@@ -22,7 +17,7 @@ namespace Microsoft.WorkItems
         public string Body { get; set; }
 
         public string Description { get; set; }
-        
+
         public string Discussion { get; set; }
 
         public string Area { get; set; }
@@ -44,5 +39,14 @@ namespace Microsoft.WorkItems
         /// URI to work item as rendered in browser to users.
         /// </summary>
         public Uri HtmlUri { get; set; }
+
+    }
+
+    /// <summary>
+    /// Describes a work item to be filed.
+    /// </summary>
+    public class WorkItemModel<T> : WorkItemModel
+    {
+        public T Context { get; set; }
     }
 }

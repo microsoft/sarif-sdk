@@ -12,13 +12,9 @@ namespace Microsoft.WorkItems
     /// <summary>
     /// Represents a GitHub project in which work items can be filed.
     /// </summary>
-    public class GitHubClientWrapper<T> : FilingClient<T>
+    public class GitHubClientWrapper : FilingClient
     {
         private GitHubClient gitHubClient;
-
-        public GitHubClientWrapper(T configuration) : base(configuration) 
-        { 
-        }
 
         public override async Task Connect(string personalAccessToken)
         {
@@ -31,9 +27,9 @@ namespace Microsoft.WorkItems
             });
         }
 
-        public override async Task<IEnumerable<WorkItemModel<T>>> FileWorkItems(IEnumerable<WorkItemModel<T>> workItemFilingMetadata)
+        public override async Task<IEnumerable<WorkItemModel>> FileWorkItems(IEnumerable<WorkItemModel> workItemFilingMetadata)
         {
-            foreach (WorkItemModel<T> workItemModel in workItemFilingMetadata)
+            foreach (WorkItemModel workItemModel in workItemFilingMetadata)
             {
                 var newIssue = new NewIssue(workItemModel.Title)
                 {

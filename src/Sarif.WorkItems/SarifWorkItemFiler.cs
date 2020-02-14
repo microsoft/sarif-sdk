@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using Microsoft.CodeAnalysis.Sarif.Visitors;
+using Microsoft.VisualStudio.Services.CircuitBreaker;
 using Microsoft.WorkItems;
 using Newtonsoft.Json;
 
@@ -12,24 +14,26 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 {
     public class SarifWorkItemFiler
     {
-        public SarifWorkItemFiler()
-        {
-
-        }
+        public SarifWorkItemFiler() { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SarifWorkItemFiler"> class.</see>
         /// </summary>
-        /// <param name="filingTarget">
-        /// An object that represents the system (for example, GitHub or Azure DevOps)
-        /// to which the work items will be filed.
+        /// <param name="filingClient">
+        /// A client for communicating with a work item filing host (for example, GitHub or Azure DevOps).
         /// </param>
-        public SarifWorkItemFiler(FilingClient<SarifWorkItemContext> filingTarget) // init with configuration
+        /// <param name="filingContext">
+        /// A root context object that configures the work item filing operation.
+        /// </param>
+        public SarifWorkItemFiler(FilingClient filingClient, SarifWorkItemContext filingContext)
         {
-            FilingClient = filingTarget ?? throw new ArgumentNullException(nameof(filingTarget));
+            FilingClient = filingClient ?? throw new ArgumentNullException(nameof(filingClient));
+            FilingContext = filingContext ?? throw new ArgumentNullException(nameof(filingContext));
         }
 
-        public FilingClient<SarifWorkItemContext> FilingClient { get; set; }
+        public SarifWorkItemContext FilingContext { get; set; }
+
+        public FilingClient FilingClient { get; set; }
 
         public virtual void FileWorkItems(Uri sarifLogFileLocation)
         {
@@ -55,77 +59,92 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         {
             sarifLog = sarifLog ?? throw new ArgumentNullException(nameof(sarifLog));
 
-            // TODO populate the files
+            OptionallyEmittedData optionallyEmittedData = this.FilingContext.DataToRemove;
+            if (optionallyEmittedData != OptionallyEmittedData.None)
+            {
+                var dataRemovingVisitor = new RemoveOptionalDataVisitor(optionallyEmittedData);
+                dataRemovingVisitor.Visit(sarifLog);
+            }
 
-            /*
-                                   SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(logFileContents);
+            optionallyEmittedData = this.FilingContext.DataToInsert;
+            if (optionallyEmittedData != OptionallyEmittedData.None)
+            {
+                var dataInsertingVisitor = new InsertOptionalDataVisitor(optionallyEmittedData);
+                dataInsertingVisitor.Visit(sarifLog);
+            }
 
-                                   OptionallyEmittedData optionallyEmittedData = options.DataToRemove.ToFlags();
-                                   if (optionallyEmittedData != OptionallyEmittedData.None)
-                                   {
-                                       var dataRemovingVisitor = new RemoveOptionalDataVisitor(options.DataToRemove.ToFlags());
-                                       dataRemovingVisitor.Visit(sarifLog);
-                                   }
+            SplittingStrategy splittingStrategy = this.FilingContext.SplittingStrategy;
+            if (splittingStrategy == SplittingStrategy.None)
+            {
+                FileWorkItemsForSarifLog(sarifLog);
+                return;
+            }
 
-                                   for (int runIndex = 0; runIndex < sarifLog.Runs.Count; ++runIndex)
-                                   {
-                                       if (sarifLog.Runs[runIndex]?.Results?.Count > 0)
-                                       {
-                                           IList<SarifLog> logsToProcess = new List<SarifLog>(new SarifLog[] { sarifLog });
+            for (int runIndex = 0; runIndex < sarifLog.Runs.Count; ++runIndex)
+            {
+                if (sarifLog.Runs[runIndex]?.Results?.Count > 0)
+                {
+                    IList<SarifLog> logsToProcess = new List<SarifLog>(new SarifLog[] { sarifLog });
 
-                                           if (options.GroupingStrategy != GroupingStrategy.PerRun)
-                                           {
-                                               SplittingVisitor visitor;
-                                               switch(options.GroupingStrategy)
-                                               {
-                                                   case GroupingStrategy.PerRunPerRule:
-                                                       visitor = new PerRunPerRuleSplittingVisitor();
-                                                       break;
-                                                   case GroupingStrategy.PerRunPerTarget:
-                                                       visitor = new PerRunPerTargetSplittingVisitor();
-                                                       break;
-                                                   case GroupingStrategy.PerRunPerTargetPerRule:
-                                                       visitor = new PerRunPerTargetPerRuleSplittingVisitor();
-                                                       break;
-                                                   default:
-                                                       throw new ArgumentOutOfRangeException($"GroupingStrategy: {options.GroupingStrategy}");
-                                               }
+                    if (splittingStrategy != SplittingStrategy.PerRun)
+                    {
+                        SplittingVisitor visitor;
+                        switch (splittingStrategy)
+                        {
+                            case SplittingStrategy.PerRunPerRule:
+                                visitor = new PerRunPerRuleSplittingVisitor();
+                                break;
+                            
+                            case SplittingStrategy.PerRunPerTarget:
+                                visitor = new PerRunPerTargetSplittingVisitor();
+                                break;
+                            
+                            case SplittingStrategy.PerRunPerTargetPerRule:
+                                visitor = new PerRunPerTargetPerRuleSplittingVisitor();
+                                break;
+                            
+                                // TODO
+                            case SplittingStrategy.PerResult:
+                            case SplittingStrategy.PerRun:                           
+                            default:
+                                throw new ArgumentOutOfRangeException($"GroupingStrategy: {splittingStrategy}");
+                        }
 
-                                               visitor.VisitRun(sarifLog.Runs[runIndex]);
-                                               logsToProcess = visitor.SplitSarifLogs;
-                                           }
+                        visitor.VisitRun(sarifLog.Runs[runIndex]);
+                        logsToProcess = visitor.SplitSarifLogs;
+                    }
 
-                                           IList<WorkItemModel> workItemModels = new List<WorkItemModel>(logsToProcess.Count);
+                    for (int splitFileIndex = 0; splitFileIndex < logsToProcess.Count; splitFileIndex++)
+                    {
+                        SarifLog splitLog = logsToProcess[splitFileIndex];
+                        WorkItemModel<SarifWorkItemContext> workItemModel = splitLog.CreateWorkItemModel(this.FilingContext);
 
-                                           for (int splitFileIndex = 0; splitFileIndex < logsToProcess.Count; splitFileIndex++)
-                                           {
-                                               SarifLog splitLog = logsToProcess[splitFileIndex];
-                                               WorkItemModel workItemModel = splitLog.CreateWorkItemModel(filingClient.ProjectOrRepository);
-                                               workItemModels.Add(workItemModel);
-                                           }
+                        try
+                        {
+                            this.FilingClient.FileWorkItems(new[] { workItemModel });
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.Error.WriteLine(ex.ToString());
+                        }
 
-                                           try
-                                           {
-                                               string securityToken = Environment.GetEnvironmentVariable("SarifWorkItemFilingSecurityToken");
+                        // TODO capture work item uris
+                    }
+                }
+            }
 
-                                               if (string.IsNullOrEmpty(securityToken))
-                                               {
-                                                   throw new InvalidOperationException("'SarifWorkItemFilingSecurityToken' environment variable is not initialized with a personal access token.");
-                                               }
-
-                                               IEnumerable<WorkItemModel> filedWorkItems = filer.FileWorkItems(options.ProjectUri, workItemModels, securityToken).Result;
-                                               Console.WriteLine($"Created {filedWorkItems.Count()} work items for run {runIndex}.");
-                                           }
-                                           catch (Exception ex)
-                                           {
-                                               Console.Error.WriteLine(ex);
-                                           }
-                                       }
-                                   }
-
-                                   Console.WriteLine($"Writing log with work item Ids to {options.OutputFilePath}.");
-                                   WriteSarifFile<SarifLog>(fileSystem, sarifLog, options.OutputFilePath, (options.PrettyPrint ? Formatting.Indented : Formatting.None));*/
         }
+
+        private void FileWorkItemsForSarifLog(SarifLog sarifLog)
+        {
+            throw new NotImplementedException();
+        }
+
+        private IList<SarifLog> SplitSarifLog(SplittingStrategy splittingStrategy)
+        {
+            throw new NotImplementedException();
+        }
+
 
         /// <summary>
         /// Files work items from the results in a SARIF log file.
@@ -142,7 +161,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         /// <returns>
         /// The set of results that were filed as work items.
         /// </returns>
-        internal async virtual Task<IEnumerable<WorkItemModel<SarifWorkItemContext>>> FileWorkItems(
+        internal async virtual Task<IEnumerable<WorkItemModel>> FileWorkItems(
             Uri projectUri,
             IList<WorkItemModel<SarifWorkItemContext>> workItemFilingModels,
             string personalAccessToken = null)
@@ -152,7 +171,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
             await FilingClient.Connect(personalAccessToken);
 
-            IEnumerable<WorkItemModel<SarifWorkItemContext>> filedResults = await FilingClient.FileWorkItems(workItemFilingModels);
+            IEnumerable<WorkItemModel> filedResults = await FilingClient.FileWorkItems(workItemFilingModels);
 
             return filedResults;
         }

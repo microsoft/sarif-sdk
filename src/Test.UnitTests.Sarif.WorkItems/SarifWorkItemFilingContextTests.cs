@@ -16,23 +16,23 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         {
             var munger = new Munger();
 
-            var configuration = new SarifWorkItemContext();
+            var context = new SarifWorkItemContext();
 
-            configuration.AddWorkItemModelTransformer(munger);
-            configuration.WorkItemModelTransformers[0].GetType().Should().Be(munger.GetType());
+            context.AddWorkItemModelTransformer(munger);
+            context.WorkItemModelTransformers[0].GetType().Should().Be(munger.GetType());
 
-            configuration = RoundTripThroughXml(configuration);
-            configuration.WorkItemModelTransformers[0].GetType().Should().Be(munger.GetType());
+            context = RoundTripThroughXml(context);
+            context.WorkItemModelTransformers[0].GetType().Should().Be(munger.GetType());
 
             string newAreaPath = Guid.NewGuid().ToString();
-            configuration.SetProperty(Munger.NewAreaPath, newAreaPath);
+            context.SetProperty(Munger.NewAreaPath, newAreaPath);
 
             var workItemModel = new WorkItemModel<SarifWorkItemContext>()
             {
-                Data = configuration
+                Context = context
             };
 
-            configuration.WorkItemModelTransformers[0].Transform(workItemModel);
+            context.WorkItemModelTransformers[0].Transform(workItemModel);
             workItemModel.Area.Should().Be(newAreaPath);
         }
 
@@ -59,7 +59,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         {            
             public void Transform(WorkItemModel<SarifWorkItemContext> workItemModel)
             {
-                string newAreaPath = workItemModel.Data.GetProperty(NewAreaPath);
+                string newAreaPath = workItemModel.Context.GetProperty(NewAreaPath);
 
                 workItemModel.Area = !string.IsNullOrEmpty(newAreaPath) ? newAreaPath : workItemModel.Area;
             }

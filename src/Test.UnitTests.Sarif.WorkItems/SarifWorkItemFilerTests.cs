@@ -77,19 +77,14 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             return mockFilingTarget.Object;
         }
 
-        private class TestFilingClient : FilingClient<SarifWorkItemContext>
+        private class TestFilingClient : FilingClient
         {
-            public TestFilingClient(SarifWorkItemContext configuration) : base(configuration)
-            {
-
-            }
-
             public override Task Connect(string personalAccessToken = null)
             {
                 throw new NotImplementedException();
             }
 
-            public override Task<IEnumerable<WorkItemModel<SarifWorkItemContext>>> FileWorkItems(IEnumerable<WorkItemModel<SarifWorkItemContext>> workItemModels)
+            public override Task<IEnumerable<WorkItemModel>> FileWorkItems(IEnumerable<WorkItemModel> workItemModels)
             {
                 throw new NotImplementedException();
             }
