@@ -89,6 +89,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.UnitTests.WorkItems", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorkItems", "WorkItems\WorkItems.csproj", "{CA4CE31C-0474-48B7-89FC-3FB83F76A905}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.Plugins", "Test.Plugins\Test.Plugins.csproj", "{58EF0BEA-348C-43B7-9F6A-526F4A7D01FD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -279,6 +281,18 @@ Global
 		{CA4CE31C-0474-48B7-89FC-3FB83F76A905}.Release|x64.Build.0 = Release|Any CPU
 		{CA4CE31C-0474-48B7-89FC-3FB83F76A905}.Release|x86.ActiveCfg = Release|Any CPU
 		{CA4CE31C-0474-48B7-89FC-3FB83F76A905}.Release|x86.Build.0 = Release|Any CPU
+		{58EF0BEA-348C-43B7-9F6A-526F4A7D01FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58EF0BEA-348C-43B7-9F6A-526F4A7D01FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58EF0BEA-348C-43B7-9F6A-526F4A7D01FD}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{58EF0BEA-348C-43B7-9F6A-526F4A7D01FD}.Debug|x64.Build.0 = Debug|Any CPU
+		{58EF0BEA-348C-43B7-9F6A-526F4A7D01FD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{58EF0BEA-348C-43B7-9F6A-526F4A7D01FD}.Debug|x86.Build.0 = Debug|Any CPU
+		{58EF0BEA-348C-43B7-9F6A-526F4A7D01FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58EF0BEA-348C-43B7-9F6A-526F4A7D01FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58EF0BEA-348C-43B7-9F6A-526F4A7D01FD}.Release|x64.ActiveCfg = Release|Any CPU
+		{58EF0BEA-348C-43B7-9F6A-526F4A7D01FD}.Release|x64.Build.0 = Release|Any CPU
+		{58EF0BEA-348C-43B7-9F6A-526F4A7D01FD}.Release|x86.ActiveCfg = Release|Any CPU
+		{58EF0BEA-348C-43B7-9F6A-526F4A7D01FD}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

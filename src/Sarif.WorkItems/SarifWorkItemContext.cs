@@ -13,12 +13,6 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
         public SarifWorkItemContext(SarifWorkItemContext initializer) : base(initializer) { }
 
-        private List<IWorkItemModelTransformer<SarifWorkItemContext>> workItemModelTransformers;
-        public IReadOnlyList<IWorkItemModelTransformer<SarifWorkItemContext>> WorkItemModelTransformers
-        {
-            get { return PopulateWorkItemModelTransformers(); }
-        }
-
         internal void InitializeFromLog(SarifLog sarifLog)
         {
             throw new NotImplementedException();
@@ -46,6 +40,12 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         {
             get { return this.GetProperty(DataToInsertOption); }
             set { this.SetProperty(DataToInsertOption, value); }
+        }
+
+        private List<SarifWorkItemModel> workItemModelTransformers;
+        public IReadOnlyList<IWorkItemModelTransformer<SarifWorkItemContext>> WorkItemModelTransformers
+        {
+            get { return PopulateWorkItemModelTransformers(); }
         }
 
         public void AddWorkItemModelTransformer(IWorkItemModelTransformer<SarifWorkItemContext> workItemModelTransformer)

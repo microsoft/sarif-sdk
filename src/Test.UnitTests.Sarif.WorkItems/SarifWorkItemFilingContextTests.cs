@@ -22,6 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             context.WorkItemModelTransformers[0].GetType().Should().Be(munger.GetType());
 
             context = RoundTripThroughXml(context);
+
             context.WorkItemModelTransformers[0].GetType().Should().Be(munger.GetType());
 
             string newAreaPath = Guid.NewGuid().ToString();
@@ -36,14 +37,15 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             workItemModel.Area.Should().Be(newAreaPath);
         }
 
-        private SarifWorkItemContext RoundTripThroughXml(SarifWorkItemContext propertiesDictionary)
+        private SarifWorkItemContext RoundTripThroughXml(SarifWorkItemContext sarifWorkItemContext)
         {
             string temp = Path.GetTempFileName();
 
             try
             {
-                propertiesDictionary.SaveToXml(temp);
-                propertiesDictionary.LoadFromXml(temp);
+                sarifWorkItemContext.SaveToXml(temp);
+                sarifWorkItemContext = new SarifWorkItemContext();
+                sarifWorkItemContext.LoadFromXml(temp);
             }
             finally
             {
@@ -52,11 +54,11 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                     File.Delete(temp);
                 }
             }
-            return propertiesDictionary;
+            return sarifWorkItemContext;
         }
 
         public class Munger : IWorkItemModelTransformer<SarifWorkItemContext>
-        {            
+        {      
             public void Transform(WorkItemModel<SarifWorkItemContext> workItemModel)
             {
                 string newAreaPath = workItemModel.Context.GetProperty(NewAreaPath);
