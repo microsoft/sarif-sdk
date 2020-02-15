@@ -61,7 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 filingContext.DataToInsert = options.DataToInsert.ToFlags();
             }
 
-            FilingClient filingClient = FilingClientFactory.CreateFilingTarget(options.ProjectUriString);
+            FilingClient filingClient = FilingClientFactory.CreateFilingTarget(filingContext.ProjectUri);
             var filer = new SarifWorkItemFiler(filingClient, filingContext);
 
             filer.FileWorkItems(logFileContents);           
@@ -91,22 +91,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             // We convert it to a URI with the ctor Uri(string, UriKind.RelativeOrAbsolute).
             // If it succeeds, we can assign the result to a Uri-valued property; if it fails,
             // we can produce a helpful error message.
-            options.ProjectUri = new Uri(options.ProjectUriString, UriKind.RelativeOrAbsolute);
 
-            if (!options.ProjectUri.IsAbsoluteUri)
-            {
-                string optionDescription = DriverUtilities.GetOptionDescription<FileWorkItemsOptions>(nameof(options.ProjectUriString));
+            valid &= ValidateProjectUri(options.ProjectUri, workItemFilingConfiguration);
 
-                // The value '{0}' of the '{1}' option is not an absolute URI.
-                Console.Error.WriteLine(
-                    string.Format(
-                        CultureInfo.CurrentCulture,
-                        MultitoolResources.WorkItemFiling_ErrorUriIsNotAbsolute,
-                        options.ProjectUriString,
-                        optionDescription));
-                valid = false;
-            }
-
+ 
             valid &= options.ValidateOutputOptions();
 
             if (!string.IsNullOrEmpty(options.OutputFilePath))
@@ -119,7 +107,46 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             return valid;
         }
 
-        private bool EnsureSecurityToken(FileWorkItemsOptions options, SarifWorkItemContext workItemFilingConfiguration)
+        private static bool ValidateProjectUri(string projectUriString, SarifWorkItemContext workItemFilingConfiguration)
+        {
+            if (string.IsNullOrEmpty(projectUriString) && workItemFilingConfiguration.ProjectUri == null)
+            {
+                // No project URI was provided via the --project-uri argument or as
+                // part of an input file specified via --configuration.
+                Console.Error.WriteLine(MultitoolResources.WorkItemFiling_NoProjectUriSpecified);
+                return false;
+            }
+
+            Uri projectUri = null;
+            if (!string.IsNullOrEmpty(projectUriString) && !Uri.TryCreate(projectUriString, UriKind.RelativeOrAbsolute, out projectUri))
+            {
+                // A valid URI could not be created from the value '{0}' of the '{1}' option.
+                Console.Error.WriteLine(MultitoolResources.WorkItemFiling_ErrorUriIsNotLegal);
+                return false;
+            }
+
+            // Any command-line argument that's provided overrides values specified in the configuration.
+            workItemFilingConfiguration.ProjectUri = projectUri ?? workItemFilingConfiguration.ProjectUri;
+            
+
+            if (!workItemFilingConfiguration.ProjectUri.IsAbsoluteUri)
+            {
+                string optionDescription = projectUri != null ? "--project-uri" : "--configuration";
+
+                // The value '{0}' of the '{1}' option is not an absolute URI.
+                Console.Error.WriteLine(
+                    string.Format(
+                        CultureInfo.CurrentCulture,
+                        MultitoolResources.WorkItemFiling_ErrorUriIsNotAbsolute,
+                        workItemFilingConfiguration.ProjectUri.OriginalString,
+                        optionDescription));
+                return false;
+            }
+
+            return true;
+        }
+    
+    private static bool EnsureSecurityToken(FileWorkItemsOptions options, SarifWorkItemContext workItemFilingConfiguration)
         {
             string securityToken = Environment.GetEnvironmentVariable("SarifWorkItemFilingSecurityToken");
 

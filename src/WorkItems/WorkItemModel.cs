@@ -8,23 +8,32 @@ namespace Microsoft.WorkItems
 {
     public class WorkItemModel
     {
-        public string AccountorOrganization { get; set; }
+        // TODO: Provide a meaningful representation of work item state in the model.
+        //       https://github.com/microsoft/sarif-sdk/issues/1758
 
-        public string ProjectOrRepository { get; set; }
+        // TODO: provide a meaningful unique identifier for work items, that allows
+        //       consumers to locate filed items again in the future.
+        // 
+
+        public string OwnerOrAccount { get; set; }
+
+        public string RepositoryOrProject { get; set; }
 
         public string Title { get; set; }
 
-        public string Body { get; set; }
+        public string BodyOrDescription { get; set; }
 
-        public string Description { get; set; }
-
-        public string Discussion { get; set; }
+        public string CommentOrDiscussion { get; set; }
 
         public string Area { get; set; }
 
         public string Iteration { get; set; }
 
-        public IList<string> Tags { get; set; }
+        public IList<string> Assigness { get; set; }
+
+        public string Milestone { get; set; }
+
+        public IList<string> LabelsOrTags { get; set; }
 
         public Attachment Attachment { get; set; }
 
@@ -39,7 +48,6 @@ namespace Microsoft.WorkItems
         /// URI to work item as rendered in browser to users.
         /// </summary>
         public Uri HtmlUri { get; set; }
-
     }
 
     /// <summary>

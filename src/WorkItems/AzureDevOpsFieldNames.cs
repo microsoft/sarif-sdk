@@ -8,7 +8,7 @@ namespace Microsoft.WorkItems
         /// <summary>
         /// Area Path field name.
         /// </summary>
-        public const string AreaPath = "System.AreaPath";
+        public const string Area = "System.AreaPath";
 
         /// <summary>
         /// Description field name.
@@ -24,10 +24,5 @@ namespace Microsoft.WorkItems
         /// Title field name.
         /// </summary>
         public const string Title = "System.Title";
-
-        /// <summary>
-        /// Repro Steps field name.
-        /// </summary>
-        public const string ReproSteps = "Microsoft.VSTS.TCM.ReproSteps";
     }
 }

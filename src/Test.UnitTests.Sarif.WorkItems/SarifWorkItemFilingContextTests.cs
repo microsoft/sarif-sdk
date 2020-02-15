@@ -19,21 +19,21 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             var context = new SarifWorkItemContext();
 
             context.AddWorkItemModelTransformer(munger);
-            context.WorkItemModelTransformers[0].GetType().Should().Be(munger.GetType());
+            context.Transformers[0].GetType().Should().Be(munger.GetType());
 
             context = RoundTripThroughXml(context);
 
-            context.WorkItemModelTransformers[0].GetType().Should().Be(munger.GetType());
+            context.Transformers[0].GetType().Should().Be(munger.GetType());
 
             string newAreaPath = Guid.NewGuid().ToString();
             context.SetProperty(Munger.NewAreaPath, newAreaPath);
 
-            var workItemModel = new WorkItemModel<SarifWorkItemContext>()
+            var workItemModel = new SarifWorkItemModel
             {
                 Context = context
             };
 
-            context.WorkItemModelTransformers[0].Transform(workItemModel);
+            context.Transformers[0].Transform(workItemModel);
             workItemModel.Area.Should().Be(newAreaPath);
         }
 
@@ -57,9 +57,9 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             return sarifWorkItemContext;
         }
 
-        public class Munger : IWorkItemModelTransformer<SarifWorkItemContext>
-        {      
-            public void Transform(WorkItemModel<SarifWorkItemContext> workItemModel)
+        public class Munger : SarifWorkItemModelTransformer
+        {
+            public override void Transform(SarifWorkItemModel workItemModel)
             {
                 string newAreaPath = workItemModel.Context.GetProperty(NewAreaPath);
 

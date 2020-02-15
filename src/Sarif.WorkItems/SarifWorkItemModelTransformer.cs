@@ -6,8 +6,8 @@ using Microsoft.WorkItems;
 
 namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 {
-    public abstract class SarifWorkItemModelTransformer : IWorkItemModelTransformer<SarifWorkItemContext>
+    public abstract class SarifWorkItemModelTransformer
     {
-        public abstract void Transform(WorkItemModel<SarifWorkItemContext> workItemModel);
+        public abstract void Transform(SarifWorkItemModel workItemModel);
     }
 }

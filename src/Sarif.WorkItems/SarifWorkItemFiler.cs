@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
+using Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models;
 using Microsoft.VisualStudio.Services.CircuitBreaker;
 using Microsoft.WorkItems;
 using Newtonsoft.Json;
@@ -59,6 +60,8 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         {
             sarifLog = sarifLog ?? throw new ArgumentNullException(nameof(sarifLog));
 
+            this.FilingClient.Connect(this.FilingContext.SecurityToken).Wait();
+
             OptionallyEmittedData optionallyEmittedData = this.FilingContext.DataToRemove;
             if (optionallyEmittedData != OptionallyEmittedData.None)
             {
@@ -103,7 +106,10 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                                 visitor = new PerRunPerTargetPerRuleSplittingVisitor();
                                 break;
                             
-                                // TODO
+                            // TODO: Implement PerResult and PerRun splittings strategies
+                            //
+                            //
+                            //
                             case SplittingStrategy.PerResult:
                             case SplittingStrategy.PerRun:                           
                             default:
@@ -117,34 +123,46 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                     for (int splitFileIndex = 0; splitFileIndex < logsToProcess.Count; splitFileIndex++)
                     {
                         SarifLog splitLog = logsToProcess[splitFileIndex];
-                        WorkItemModel<SarifWorkItemContext> workItemModel = splitLog.CreateWorkItemModel(this.FilingContext);
-
-                        try
-                        {
-                            this.FilingClient.FileWorkItems(new[] { workItemModel });
-                        }
-                        catch (Exception ex)
-                        {
-                            Console.Error.WriteLine(ex.ToString());
-                        }
-
-                        // TODO capture work item uris
+                        FileWorkItemsForSarifLog(sarifLog);
                     }
                 }
             }
-
         }
 
         private void FileWorkItemsForSarifLog(SarifLog sarifLog)
         {
-            throw new NotImplementedException();
-        }
+            // First we make a copy of the pipeline root context. This allows us to produce
+            // new context files, potentially with outputs, that are specific to each log.
+            
+            SarifWorkItemModel workItemModel = sarifLog.CreateWorkItemModel(this.FilingContext);
 
-        private IList<SarifLog> SplitSarifLog(SplittingStrategy splittingStrategy)
-        {
-            throw new NotImplementedException();
-        }
+            // Now we initialize this work item model from the SARIF log file driving the
+            // current operations. As a first step, this code should extract all 
+            // source-controlled files from the log file. In an imminent implementation
+            // this information will be used to derive area path and owner information.
+            
+            workItemModel.Context.InitializeFromLog(sarifLog);
 
+            try
+            {
+                // Populate the work item with the target organization/repository information.
+                // In ADO, certain fields (such as the area path) will defaut to the 
+                // project name and so this information is used in at least that context. 
+                workItemModel.RepositoryOrProject = this.FilingClient.ProjectOrRepository;
+                workItemModel.OwnerOrAccount = this.FilingClient.AccountOrOrganization;
+
+                foreach (SarifWorkItemModelTransformer transformer in workItemModel.Context.Transformers)
+                {
+                    transformer.Transform(workItemModel);
+                }
+
+                this.FilingClient.FileWorkItems(new[] { workItemModel }).Wait();
+            }
+            catch (Exception ex)
+            {
+                Console.Error.WriteLine(ex.ToString());
+            }
+        }
 
         /// <summary>
         /// Files work items from the results in a SARIF log file.
@@ -169,7 +187,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             if (projectUri == null) { throw new ArgumentNullException(nameof(projectUri)); }
             if (workItemFilingModels == null) { throw new ArgumentNullException(nameof(workItemFilingModels)); }
 
-            await FilingClient.Connect(personalAccessToken);
+            FilingClient.Connect(personalAccessToken).Wait();
 
             IEnumerable<WorkItemModel> filedResults = await FilingClient.FileWorkItems(workItemFilingModels);
 

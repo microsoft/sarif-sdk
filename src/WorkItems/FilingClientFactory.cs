@@ -9,14 +9,11 @@ namespace Microsoft.WorkItems
 {
     public class FilingClientFactory
     {
-        public static FilingClient CreateFilingTarget(string filingHostUriString)
+        public static FilingClient CreateFilingTarget(Uri filingUri)
         {
-            if (filingHostUriString == null) { throw new ArgumentNullException(nameof(filingHostUriString)); }
+            filingUri = filingUri ?? throw new ArgumentNullException(nameof(filingUri));
 
-            if (!Uri.TryCreate(filingHostUriString, UriKind.Absolute, out Uri filingHostUri))
-            {
-                throw new ArgumentException(nameof(filingHostUriString));
-            }
+            string filingUriString = filingUri.OriginalString;
 
             FilingClient filingClient = null;
 
@@ -25,7 +22,7 @@ namespace Microsoft.WorkItems
                 bool isGitHub = regexTuple.Item1.Equals("github");
                 Regex regex = regexTuple.Item2;
 
-                Match match = regex.Match(filingHostUriString);
+                Match match = regex.Match(filingUriString);
                 if (match.Success)
                 {
                     filingClient = isGitHub ? (FilingClient)new GitHubClientWrapper() : new AzureDevOpsClientWrapper();
@@ -42,10 +39,10 @@ namespace Microsoft.WorkItems
                         CultureInfo.CurrentCulture,
                         "'{0}' is not a recognized target URI for work item filing. Work items can be filed to GitHub or AzureDevOps "+
                         "(with URIs such as https://github.com/microsoft/sarif-sdk or https://dev.azure.com/contoso/contoso-project).",
-                        filingHostUriString));
+                        filingUriString));
             }
 
-            filingClient.HostUri = filingHostUri;
+            filingClient.HostUri = filingUri;
 
             return filingClient;
         }

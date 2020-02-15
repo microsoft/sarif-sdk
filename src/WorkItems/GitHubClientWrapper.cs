@@ -33,12 +33,52 @@ namespace Microsoft.WorkItems
             {
                 var newIssue = new NewIssue(workItemModel.Title)
                 {
-                    Body = workItemModel.Body,
+                    Body = workItemModel.BodyOrDescription,
                 };
-                Issue issue = await this.gitHubClient.Issue.Create(this.AccountOrOrganization, this.ProjectOrRepository, newIssue);
 
-                workItemModel.HtmlUri = new Uri(issue.HtmlUrl, UriKind.Absolute);
+                Issue issue = await this.gitHubClient.Issue.Create(
+                    this.AccountOrOrganization, 
+                    this.ProjectOrRepository, 
+                    newIssue);
+
+                if (workItemModel.LabelsOrTags?.Count != 0)
+                {
+                    var issueUpdate = new IssueUpdate();
+
+                    foreach (string tag in workItemModel.LabelsOrTags)
+                    {
+                        issueUpdate.AddLabel(tag);
+                    }
+
+                    await this.gitHubClient.Issue.Update(
+                        this.AccountOrOrganization, 
+                        this.ProjectOrRepository, 
+                        issue.Number, 
+                        issueUpdate);
+                }
+
                 workItemModel.Uri = new Uri(issue.Url, UriKind.Absolute);
+                workItemModel.HtmlUri = new Uri(issue.HtmlUrl, UriKind.Absolute);
+
+                // TODO: Extend GitHub issue filer to add file attachments 
+                // https://github.com/microsoft/sarif-sdk/issues/1754
+
+                // TODO: Provide helper that generates useful attachment name from filed bug.
+                //       This helper should be common to both ADO and GH filers. The implementation 
+                //       should work like this: the filer should prefix the proposed file name with
+                //       the account and project and number of the filed work item. So an attachment
+                //       name of Scan.sarif would be converted tO
+                // 
+                //          MyAcct_MyProject_WorkItem1000_Scan.sarif
+                //
+                //       The GH filer may prefer to use 'issue' instead:
+                // 
+                //          myowner_my-repo_Issue1000_Scan.sarif
+                //
+                //       The common helper should preserve casing choices in the account/owner and
+                //       project/repo information that's provided.
+                //                //      
+                //       https://github.com/microsoft/sarif-sdk/issues/1753
             }
             return workItemFilingMetadata;
         }

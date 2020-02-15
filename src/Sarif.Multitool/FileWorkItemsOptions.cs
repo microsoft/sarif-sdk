@@ -12,14 +12,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     { 
         [Option(
             "project-uri",
-            HelpText = "The absolute URI of the project in which the work items are to be filed, for example https://dev.azure.com/{org}/{project} or https://github.com/{org}/{project}.",
-            Required = true)]
-        public string ProjectUriString { get; internal set; }
-
-        // ProjectUri is the URI representation of ProjectUriString above. We convert the command-line argument to the URI
-        // form as part of argument validation at runtime (in order to provide better error messages than those that 
-        // the CommandlineLibrary component provides). See FileWorkItemsCommand.ValidateOptions for more details.
-        public Uri ProjectUri { get; internal set; }
+            HelpText = "The absolute URI of the project in which the work items are to be filed, for example https://dev.azure.com/{org}/{project} or https://github.com/{org}/{project}.")]
+        public string ProjectUri { get; internal set; }
 
         [Option(
             "split",

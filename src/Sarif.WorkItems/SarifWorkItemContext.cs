@@ -2,8 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 using System;
 using System.Collections.Generic;
-using Microsoft.CodeAnalysis.Sarif.Baseline;
-using Microsoft.WorkItems;
+using System.Reflection;
 
 namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 {
@@ -15,7 +14,15 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
         internal void InitializeFromLog(SarifLog sarifLog)
         {
-            throw new NotImplementedException();
+            // TODOD: Initialize source and non-source-controlled files here,
+            //        as determined by scraping all URLs associated with results.
+            // 
+            //        https://github.com/microsoft/sarif-sdk/issues/1752
+        }
+        public Uri ProjectUri
+        {
+            get { return this.GetProperty(ProjectUriOption); }
+            set { this.SetProperty(ProjectUriOption, value); }
         }
 
         public string SecurityToken 
@@ -42,39 +49,45 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             set { this.SetProperty(DataToInsertOption, value); }
         }
 
-        private List<SarifWorkItemModel> workItemModelTransformers;
-        public IReadOnlyList<IWorkItemModelTransformer<SarifWorkItemContext>> WorkItemModelTransformers
+        private List<SarifWorkItemModelTransformer> workItemModelTransformers;
+        public IReadOnlyList<SarifWorkItemModelTransformer> Transformers
         {
             get { return PopulateWorkItemModelTransformers(); }
         }
 
-        public void AddWorkItemModelTransformer(IWorkItemModelTransformer<SarifWorkItemContext> workItemModelTransformer)
+        public void AddWorkItemModelTransformer(SarifWorkItemModelTransformer workItemModelTransformer)
         {
-            StringSet assemblyAndTypeNames = this.GetProperty(PluginAssemblyQualifiedNames);
+            StringSet assemblies = this.GetProperty(PluginAssemblyLocations);
+            StringSet assemblyQualifiedNames = this.GetProperty(PluginAssemblyQualifiedNames);
 
+            string assemblyLocation = workItemModelTransformer.GetType().Assembly.Location;
             string assemblyQualifiedName = workItemModelTransformer.GetType().AssemblyQualifiedName;
 
-            if (!assemblyAndTypeNames.Contains(assemblyQualifiedName))
-            {
-                assemblyAndTypeNames.Add(assemblyQualifiedName);
-                this.workItemModelTransformers = this.workItemModelTransformers ?? new List<IWorkItemModelTransformer<SarifWorkItemContext>>();
-                this.workItemModelTransformers.Add(workItemModelTransformer);
-            }
+            assemblies.Add(assemblyLocation);
+            assemblyQualifiedNames.Add(assemblyQualifiedName);
+
+            this.workItemModelTransformers = this.workItemModelTransformers ?? new List<SarifWorkItemModelTransformer>();
+            this.workItemModelTransformers.Add(workItemModelTransformer);
         }
 
-        private IReadOnlyList<IWorkItemModelTransformer<SarifWorkItemContext>> PopulateWorkItemModelTransformers()
+        private IReadOnlyList<SarifWorkItemModelTransformer> PopulateWorkItemModelTransformers()
         {
             if (this.workItemModelTransformers == null) 
             {
-                this.workItemModelTransformers = new List<IWorkItemModelTransformer<SarifWorkItemContext>>();
+                this.workItemModelTransformers = new List<SarifWorkItemModelTransformer>();
+
+                foreach (string assemblyLocation in this.GetProperty(PluginAssemblyLocations))
+                {
+                    Assembly.LoadFrom(assemblyLocation);
+                }
 
                 StringSet assemblyAndTypeNames = this.GetProperty(PluginAssemblyQualifiedNames);
                 foreach (string assemblyAndTypeName in assemblyAndTypeNames)
                 {
                     Type type = Type.GetType(assemblyAndTypeName);
 
-                    IWorkItemModelTransformer<SarifWorkItemContext> workItemModelTransformer =
-                        (IWorkItemModelTransformer<SarifWorkItemContext>)Activator.CreateInstance(type);
+                    SarifWorkItemModelTransformer workItemModelTransformer =
+                        (SarifWorkItemModelTransformer)Activator.CreateInstance(type);
 
                     workItemModelTransformers.Add(workItemModelTransformer);
                 }
@@ -82,17 +95,20 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             return this.workItemModelTransformers.AsReadOnly();
         }
 
+        internal static PerLanguageOption<Uri> ProjectUriOption { get; } =
+            new PerLanguageOption<Uri>(
+                "Extensibility", nameof(ProjectUri),
+                defaultValue: () => { return null; });
+
         internal static PerLanguageOption<string> SecurityTokenOption { get; } =
             new PerLanguageOption<string>(
                 "Extensibility", nameof(SecurityToken),
                 defaultValue: () => { return String.Empty; });
 
-
-        public static PerLanguageOption<SplittingStrategy> SplittingStrategyOption { get; } =
-            new PerLanguageOption<SplittingStrategy>(
-                "Extensibility", nameof(SplittingStrategy),
-                defaultValue: () => { return 0; });
-
+        public static PerLanguageOption<StringSet> PluginAssemblyLocations { get; } =
+            new PerLanguageOption<StringSet>(
+                "Extensibility", nameof(PluginAssemblyLocations),
+                defaultValue: () => { return new StringSet(); });
 
         public static PerLanguageOption<StringSet> PluginAssemblyQualifiedNames { get; } =
             new PerLanguageOption<StringSet>(
@@ -107,6 +123,11 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         public static PerLanguageOption<OptionallyEmittedData> DataToInsertOption { get; } =
             new PerLanguageOption<OptionallyEmittedData>(
                 "Extensibility", nameof(DataToInsert),
+                defaultValue: () => { return 0; });
+
+        public static PerLanguageOption<SplittingStrategy> SplittingStrategyOption { get; } =
+            new PerLanguageOption<SplittingStrategy>(
+                "Extensibility", nameof(SplittingStrategy),
                 defaultValue: () => { return 0; });
     }
 }
