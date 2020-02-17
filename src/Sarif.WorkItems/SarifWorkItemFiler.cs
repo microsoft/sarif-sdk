@@ -26,10 +26,10 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         /// <param name="filingContext">
         /// A root context object that configures the work item filing operation.
         /// </param>
-        public SarifWorkItemFiler(FilingClient filingClient, SarifWorkItemContext filingContext)
+        public SarifWorkItemFiler(SarifWorkItemContext filingContext)
         {
-            FilingClient = filingClient ?? throw new ArgumentNullException(nameof(filingClient));
-            FilingContext = filingContext ?? throw new ArgumentNullException(nameof(filingContext));
+            this.FilingContext = filingContext ?? throw new ArgumentNullException(nameof(filingContext));
+            this.FilingClient = FilingClientFactory.CreateFilingTarget(filingContext.ProjectUri);
         }
 
         public SarifWorkItemContext FilingContext { get; set; }
@@ -105,10 +105,11 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                             case SplittingStrategy.PerRunPerTargetPerRule:
                                 visitor = new PerRunPerTargetPerRuleSplittingVisitor();
                                 break;
-                            
+
                             // TODO: Implement PerResult and PerRun splittings strategies
                             //
-                            //
+                            //       https://github.com/microsoft/sarif-sdk/issues/1763
+                            //       https://github.com/microsoft/sarif-sdk/issues/1762
                             //
                             case SplittingStrategy.PerResult:
                             case SplittingStrategy.PerRun:                           
@@ -157,6 +158,14 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 }
 
                 this.FilingClient.FileWorkItems(new[] { workItemModel }).Wait();
+
+                // TODO: We need to process updated work item models to persist filing
+                //       details back to the input SARIF file, if that was specified.
+                //       This code should either return or persist the updated models
+                //       via a property, so that the file work items command can do
+                //       this work.
+                //
+                //       https://github.com/microsoft/sarif-sdk/issues/1774
             }
             catch (Exception ex)
             {

@@ -5,21 +5,27 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Text;
 using Microsoft.CodeAnalysis.Sarif.Driver;
-using Microsoft.CodeAnalysis.Sarif.Visitors;
 using Microsoft.CodeAnalysis.Sarif.WorkItems;
 using Microsoft.Json.Schema;
 using Microsoft.Json.Schema.Validation;
-using Microsoft.TeamFoundation.Build.WebApi;
 using Microsoft.WorkItems;
-using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
-    public class FileWorkItemsCommand : CommandBase
+    /// <summary>
+    /// A class that drives SARIF work item filing. This class is responsible for 
+    /// collecting and verifying all options relevant to driving the work item filing
+    /// process. These options may be retrieved from a serialized version of the 
+    /// aggregated configuration (currently rendered as XML, via the PropertiesDictionary
+    /// class). Command-line arguments should override any options specified in the 
+    /// file-based serialized configuration (if present). After verifying that all
+    /// configured options are valid, the command will instantiate an instance of 
+    /// SarifWorkItemFiler in order to complete the work.
+    /// </summary>
+    internal class FileWorkItemsCommand : CommandBase
     {
         [ThreadStatic]
         internal static bool s_validateOptionsOnly;
@@ -61,10 +67,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 filingContext.DataToInsert = options.DataToInsert.ToFlags();
             }
 
-            FilingClient filingClient = FilingClientFactory.CreateFilingTarget(filingContext.ProjectUri);
-            var filer = new SarifWorkItemFiler(filingClient, filingContext);
+            var filer = new SarifWorkItemFiler(filingContext);
+            filer.FileWorkItems(logFileContents);
 
-            filer.FileWorkItems(logFileContents);           
+            // TODO: We need to process updated work item models to persist filing
+            //       details back to the input SARIF file, if that was specified.
+            //       The SarifWorkItemFi;er should either return or persist the updated
+            //       models via a property, so that we can do this work.
+            //
+            //       This information should be inlined to the input file, if configured,
+            //       or persisted to a new SARIF file, if configured. If neither of 
+            //       those options is specified, there is no work to do. 
+            //
+            //       https://github.com/microsoft/sarif-sdk/issues/1774
 
             return SUCCESS;
         }
