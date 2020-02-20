@@ -60,23 +60,23 @@ namespace Microsoft.CodeAnalysis.Sarif
                     // If cache full, remove least recently used item
                     if (Capacity > 0 && _cache.Count >= Capacity)
                     {
-                        TKey oldest = _keysInUseOrder.First.Value;
-                        _keysInUseOrder.RemoveFirst();
+                        TKey oldest = _keysInUseOrder.Last.Value;
+                        _keysInUseOrder.RemoveLast();
                         _cache.Remove(oldest);
                     }
 
                     // Build and add the new item to cache
                     value = _builder(key);
                     _cache[key] = value;
-                    _keysInUseOrder.AddLast(key);
+                    _keysInUseOrder.AddFirst(key);
                 }
                 else
                 {
-                    // When an in-cache key is retrieved, move it back to the end of the order used set, if not already most recent
-                    if (Capacity > 0 && key.CompareTo(_keysInUseOrder.Last.Value) != 0)
+                    // When an in-cache key is retrieved, move it back to the start of the order used set, if not already most recent
+                    if (Capacity > 0 && key.CompareTo(_keysInUseOrder.First.Value) != 0)
                     {
                         _keysInUseOrder.Remove(key);
-                        _keysInUseOrder.AddLast(key);
+                        _keysInUseOrder.AddFirst(key);
                     }
                 }
 

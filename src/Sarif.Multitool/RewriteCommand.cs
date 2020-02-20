@@ -24,6 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             try
             {
+                Console.WriteLine($"Rewriting '{rewriteOptions.InputFilePath}' => '{rewriteOptions.OutputFilePath}'...");
                 Stopwatch w = Stopwatch.StartNew();
 
                 bool valid = ValidateOptions(rewriteOptions);

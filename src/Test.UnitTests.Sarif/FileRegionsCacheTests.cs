@@ -1,9 +1,11 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Text;
 using FluentAssertions;
-using Moq;
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.UnitTests
@@ -307,6 +309,42 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
                     actualRegion.Snippet.Text.Should().Be(snippet.Text);
                 }
             }
+        }
+
+        [Fact]
+        public void FileRegionsCache_ProperlyCaches()
+        {
+            Uri uri = new Uri(@"C:\Code\Program.cs");
+
+            StringBuilder fileContents = new StringBuilder();
+            for (int i = 0; i < 1000; ++i)
+            {
+                fileContents.AppendLine("0123456789");
+            }
+
+            var run = new Run();
+            var mockFileSystem = MockFactory.MakeMockFileSystem(uri.LocalPath, fileContents.ToString());
+            var fileRegionsCache = new FileRegionsCache(run, fileSystem: mockFileSystem);
+
+            Region region = new Region()
+            {
+                StartLine = 2,
+                StartColumn = 1,
+                EndLine = 3,
+                EndColumn = 10,
+            };
+
+            Stopwatch w = Stopwatch.StartNew();
+
+            for (int i = 0; i < 1000; ++i)
+            {
+                Region copy = region.DeepClone();
+                Region populated = fileRegionsCache.PopulateTextRegionProperties(copy, uri, populateSnippet: true);
+            }
+
+            // Runtime should be way under 100ms if caching, and much longer otherwise
+            w.Stop();
+            Assert.True(w.ElapsedMilliseconds < 100);
         }
 
         [Fact]
