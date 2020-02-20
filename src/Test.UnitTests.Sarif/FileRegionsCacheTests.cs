@@ -3,6 +3,7 @@
 using System;
 using System.Collections.ObjectModel;
 using FluentAssertions;
+using Moq;
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.UnitTests
@@ -269,13 +270,11 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
 
         private static void ExecuteTests(string fileText, ReadOnlyCollection<TestCaseData> testCases)
         {
-            var run = new Run();
-            var fileRegionsCache = new FileRegionsCache(run);
-
             Uri uri = new Uri(@"c:\temp\myFile.cpp");
-            var mockFileSystem = MockFactory.MakeMockFileSystem(uri.LocalPath, fileText);
 
-            fileRegionsCache._fileSystem = mockFileSystem;
+            var run = new Run();
+            var mockFileSystem = MockFactory.MakeMockFileSystem(uri.LocalPath, fileText);
+            var fileRegionsCache = new FileRegionsCache(run, fileSystem: mockFileSystem);
 
             ExecuteTests(testCases, fileRegionsCache, uri);
         }
@@ -313,13 +312,11 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
         [Fact]
         public void FileRegionsCache_PopulatesNullRegion()
         {
-            var run = new Run();
-            var fileRegionsCache = new FileRegionsCache(run);
-
             Uri uri = new Uri(@"c:\temp\myFile.cpp");
-            var mockFileSystem = MockFactory.MakeMockFileSystem(uri.LocalPath, SPEC_EXAMPLE);
 
-            fileRegionsCache._fileSystem = mockFileSystem;
+            var run = new Run();
+            var mockFileSystem = MockFactory.MakeMockFileSystem(uri.LocalPath, SPEC_EXAMPLE);
+            var fileRegionsCache = new FileRegionsCache(run, fileSystem: mockFileSystem);
 
             Region region = fileRegionsCache.PopulateTextRegionProperties(inputRegion: null, uri: uri, populateSnippet: false);
             region.Should().BeNull();

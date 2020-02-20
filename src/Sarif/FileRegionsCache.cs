@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -15,20 +13,20 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// </summary>
     public class FileRegionsCache
     {
-        internal IFileSystem _fileSystem;
-
+        public const int DefaultCacheCapacity = 100;
         private readonly Run _run;
-        private readonly Dictionary<string, NewLineIndex> _filePathToNewLineIndexMap;
+        private readonly IFileSystem _fileSystem;
+        private readonly Cache<string, Tuple<string, NewLineIndex>> _cache;
 
-        public FileRegionsCache(Run run)
+        public FileRegionsCache(Run run, int capacity = DefaultCacheCapacity, IFileSystem fileSystem = null)
         {
             // Each file regions cache is associated with a single SARIF run.
             // The reason is that a run provides an isolated scope for 
             // things like URLs, point-in-time file contents, etc.
             _run = run;
 
-            _fileSystem = new FileSystem();
-            _filePathToNewLineIndexMap = new Dictionary<string, NewLineIndex>(StringComparer.OrdinalIgnoreCase);
+            _fileSystem = fileSystem ?? new FileSystem();
+            _cache = new Cache<string, Tuple<string, NewLineIndex>>(BuildIndexForFile);
         }
 
         /// <summary>
@@ -67,7 +65,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             // avoid verifying region data in cases where regions are fully 
             // populated (and we can skip file parsing required to build
             // the map of new line offsets).
-            Debug.Assert(!inputRegion.IsBinaryRegion);
+            Assert(!inputRegion.IsBinaryRegion);
 
             // If we have no input source file, there is no work to do
             if (lineIndex == null) { return inputRegion; }
@@ -81,10 +79,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
             else
             {
-                PopulatePropertiesFromStartAndEndProperties(lineIndex, region, fileText); 
+                PopulatePropertiesFromStartAndEndProperties(lineIndex, region, fileText);
             }
 
-            if (populateSnippet)
+            if (populateSnippet
+                && region.CharOffset >= 0
+                && region.CharLength >= 0
+                && (region.CharOffset + region.CharLength <= fileText.Length))
             {
                 region.Snippet = region.Snippet ?? new ArtifactContent();
 
@@ -93,7 +94,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     region.Snippet.Text = snippetText;
                 }
-                Debug.Assert(region.Snippet.Text == snippetText);
+                Assert(region.Snippet.Text == snippetText);
             }
 
             return region;
@@ -127,9 +128,9 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private void PopulatePropertiesFromCharOffsetAndLength(NewLineIndex newLineIndex, Region region)
         {
-            Debug.Assert(!region.IsBinaryRegion);
-            Debug.Assert(region.StartLine == 0);
-            Debug.Assert(region.CharLength > 0 || region.CharOffset > 0);
+            Assert(!region.IsBinaryRegion);
+            Assert(region.StartLine == 0);
+            Assert(region.CharLength > 0 || region.CharOffset > 0);
 
             int startLine, startColumn, endLine, endColumn;
 
@@ -153,15 +154,15 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (region.EndColumn == 0) { region.EndColumn = endColumn; }
 
             // Validate cases where new line index disagrees with explicit values
-            Debug.Assert(region.StartLine == startLine);
-            Debug.Assert(region.StartColumn == startColumn);
-            Debug.Assert(region.EndLine == endLine);
-            Debug.Assert(region.EndColumn == endColumn);
+            Assert(region.StartLine == startLine);
+            Assert(region.StartColumn == startColumn);
+            Assert(region.EndLine == endLine);
+            Assert(region.EndColumn == endColumn);
         }
 
         private void PopulatePropertiesFromStartAndEndProperties(NewLineIndex lineIndex, Region region, string fileText)
         {
-            Debug.Assert(region.StartLine > 0);
+            Assert(region.StartLine > 0);
 
             // Note: execution order of these helpers is important, as some 
             // calls assume that certain preceding helpers have executed,
@@ -183,18 +184,18 @@ namespace Microsoft.CodeAnalysis.Sarif
             PopulateCharLength(lineIndex, region);
 
             // Populated at this point: StartLine, EndLine, StartColumn, EndColumn, CharOffset, CharLength
-            Debug.Assert(region.StartLine > 0);
-            Debug.Assert(region.EndLine > 0);
-            Debug.Assert((region.CharOffset + region.CharLength) <= fileText.Length);
-            Debug.Assert(region.StartColumn > 0);
-            Debug.Assert(region.CharLength > 0 || (region.StartColumn == region.EndColumn && region.StartLine == region.EndLine));
-            Debug.Assert(region.EndColumn > 0);
+            Assert(region.StartLine > 0);
+            Assert(region.EndLine > 0);
+            Assert((region.CharOffset + region.CharLength) <= fileText.Length);
+            Assert(region.StartColumn > 0);
+            Assert(region.CharLength > 0 || (region.StartColumn == region.EndColumn && region.StartLine == region.EndLine));
+            Assert(region.EndColumn > 0);
         }
 
         private static void PopulateEndLine(Region region)
         {
             // Populated at this point: StartLine
-            Debug.Assert(region.StartLine > 0);
+            Assert(region.StartLine > 0);
 
             region.EndLine = region.EndLine == 0 ? region.StartLine : region.EndLine;
         }
@@ -202,8 +203,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         private static void PopulateStartColumn(Region region)
         {
             // Populated at this point: StartLine, EndLine
-            Debug.Assert(region.StartLine > 0);
-            Debug.Assert(region.EndLine > 0);
+            Assert(region.StartLine > 0);
+            Assert(region.EndLine > 0);
 
             region.StartColumn = region.StartColumn == 0 ? 1 : region.StartColumn;
         }
@@ -212,9 +213,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         private void PopulateEndColumn(NewLineIndex lineIndex, Region region, string fileText)
         {
             // Populated at this point: StartLine, EndLine, StartColumn
-            Debug.Assert(region.StartLine > 0);
-            Debug.Assert(region.StartColumn > 0);
-            Debug.Assert(region.EndLine > 0);
+            Assert(region.StartLine > 0);
+            Assert(region.StartColumn > 0);
+            Assert(region.EndLine > 0);
 
             if (region.EndColumn == 0)
             {
@@ -237,10 +238,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         private static void PopulateCharOffset(NewLineIndex lineIndex, Region region)
         {
             // Populated at this point: StartLine, EndLine, StartColumn, EndColumn
-            Debug.Assert(region.StartLine > 0);
-            Debug.Assert(region.EndLine > 0);
-            Debug.Assert(region.StartColumn > 0);
-            Debug.Assert(region.EndColumn > 0);
+            Assert(region.StartLine > 0);
+            Assert(region.EndLine > 0);
+            Assert(region.StartColumn > 0);
+            Assert(region.EndColumn > 0);
 
             LineInfo lineInfo = lineIndex.GetLineInfoForLine(region.StartLine);
 
@@ -253,17 +254,17 @@ namespace Microsoft.CodeAnalysis.Sarif
                 region.CharOffset = offset;
             }
 
-            SarifUtilities.DebugAssert(region.CharOffset == offset);
+            Assert(region.CharOffset == offset);
         }
 
         private void PopulateCharLength(NewLineIndex lineIndex, Region region)
         {
             // Populated at this point: StartLine, EndLine, StartColumn, EndColumn, CharOffset
-            Debug.Assert(region.StartLine > 0);
-            Debug.Assert(region.EndLine > 0);
-            Debug.Assert(region.StartColumn > 0);
-            Debug.Assert(region.EndColumn > 0);
-            Debug.Assert(region.CharOffset > 0 || (region.StartLine == 1 && region.StartColumn == 1));
+            Assert(region.StartLine > 0);
+            Assert(region.EndLine > 0);
+            Assert(region.StartColumn > 0);
+            Assert(region.EndColumn > 0);
+            Assert(region.CharOffset > 0 || (region.StartLine == 1 && region.StartColumn == 1));
 
             LineInfo lineInfo = lineIndex.GetLineInfoForLine(region.EndLine);
             int charLength = lineInfo.StartOffset;
@@ -274,23 +275,48 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 region.CharLength = charLength;
             }
-            SarifUtilities.DebugAssert(region.CharLength == charLength);
+            Assert(region.CharLength == charLength);
         }
 
         private NewLineIndex GetNewLineIndex(Uri uri, out string fileText)
         {
-            fileText = null;
+            Tuple<string, NewLineIndex> entry = _cache[uri.LocalPath];
+         
+            fileText = entry.Item1;
+            return entry.Item2;
+        }
+
+        private Tuple<string, NewLineIndex> BuildIndexForFile(string localPath)
+        {
+            string fileText = null;
+            NewLineIndex index = null;
 
             // We will expand this code later to construct all possible URLs from
             // the log file, bearing in mind things like uriBaseIds. Also, we could
             // consider downloading and caching web-hosted source files.
             try
             {
-                fileText = _fileSystem.ReadAllText(uri.LocalPath);
+                fileText = _fileSystem.ReadAllText(localPath);
             }
             catch (IOException) { }
 
-            return fileText != null ? new NewLineIndex(fileText) : null;
+            if (fileText != null)
+            {
+                index = new NewLineIndex(fileText);
+            }
+
+            return new Tuple<string, NewLineIndex>(fileText, index);
+        }
+
+        private static void Assert(bool condition)
+        {
+            // Placeholder to report issues in a situationally appropriate way.
+            //  We don't want Multitool rewrite to blow up.
+            //  We don't want unit tests for invalid Regions to block on asserts; we want to verify the code leaves those results alone.
+            //  We may want console or output log output when invalid Regions are detected during Multitool rewrite use.
+            // https://github.com/microsoft/sarif-sdk/issues/1784
+
+            //Debug.Assert(condition);
         }
     }
 }

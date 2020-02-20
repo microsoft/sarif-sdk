@@ -54,7 +54,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         protected virtual string TypeUnderTest => this.GetType().Name.Substring(0, this.GetType().Name.Length - "Tests".Length);
 
-        protected virtual string OutputFolderPath => Path.Combine(Path.GetDirectoryName(ThisAssembly.Location), "UnitTestOutput." + TypeUnderTest);
+        protected virtual string OutputFolderPath => Path.Combine(GetTestDirectory(), "..", "UnitTestOutput." + TypeUnderTest);
 
         protected virtual string ProductTestDataDirectory => GetProductTestDataDirectory(TypeUnderTest);
 
