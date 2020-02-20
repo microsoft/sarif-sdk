@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System.Linq;
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.UnitTests
@@ -26,6 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
             Assert.Equal(1, cache.Count);
             Assert.Equal(1, buildCount);
             Assert.Single(cache.CachedKeys);
+            Assert.Contains(10, cache.CachedKeys);
             Assert.True(cache.Contains(10));
             Assert.False(cache.Contains(15));
 
@@ -35,6 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
             Assert.Equal(2, buildCount);
             Assert.True(cache.Contains(10));
             Assert.True(cache.Contains(15));
+            Assert.Contains(15, cache.CachedKeys);
 
             // Request 10 - verify returned from cache
             Assert.Equal(10, cache[10]);
@@ -48,6 +51,8 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
             Assert.True(cache.Contains(10));
             Assert.False(cache.Contains(15));
             Assert.True(cache.Contains(20));
+            Assert.Contains(20, cache.CachedKeys);
+            Assert.DoesNotContain(15, cache.CachedKeys);
         }
     }
 }
