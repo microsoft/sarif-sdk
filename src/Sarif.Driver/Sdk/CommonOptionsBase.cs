@@ -27,7 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             Separator = ';',
             HelpText =
             "Optionally present data, expressed as a semicolon-delimited list, that should be inserted into the log file. " +
-            "Valid values include Hashes, TextFiles, BinaryFiles, EnvironmentVariables, RegionSnippets, ContextRegionSnippets " +
+            "Valid values include Hashes, TextFiles, BinaryFiles, EnvironmentVariables, RegionSnippets, ContextRegionSnippets, Guids, " +
             "and NondeterministicProperties.")]
         public IEnumerable<OptionallyEmittedData> DataToInsert { get; set; }
 

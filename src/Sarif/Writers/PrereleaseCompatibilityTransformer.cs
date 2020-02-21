@@ -80,6 +80,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         case "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.1.json":
                         {
                             modifiedLog |= ApplyRtm2and3Changes(logObject);
+                            modifiedLog |= ApplyRtm5Changes(logObject);
                             break;
                         }
                         default:
@@ -97,6 +98,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     modifiedLog |= ApplyRtm0Changes(logObject);
                     modifiedLog |= ApplyRtm1Changes(logObject);
                     modifiedLog |= ApplyRtm2and3Changes(logObject);
+                    modifiedLog |= ApplyRtm5Changes(logObject);
                     break;
                 }
 
@@ -108,6 +110,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     modifiedLog |= ApplyRtm0Changes(logObject);
                     modifiedLog |= ApplyRtm1Changes(logObject);
                     modifiedLog |= ApplyRtm2and3Changes(logObject);
+                    modifiedLog |= ApplyRtm5Changes(logObject);
                     break;
                 }
 
@@ -121,6 +124,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     modifiedLog |= ApplyRtm0Changes(logObject);
                     modifiedLog |= ApplyRtm1Changes(logObject);
                     modifiedLog |= ApplyRtm2and3Changes(logObject);
+                    modifiedLog |= ApplyRtm5Changes(logObject);
                     break;
                 }
 
@@ -134,6 +138,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     modifiedLog |= ApplyRtm0Changes(logObject);
                     modifiedLog |= ApplyRtm1Changes(logObject);
                     modifiedLog |= ApplyRtm2and3Changes(logObject);
+                    modifiedLog |= ApplyRtm5Changes(logObject);
                     break;
                 }
 
@@ -155,6 +160,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     modifiedLog |= ApplyRtm0Changes(logObject);
                     modifiedLog |= ApplyRtm1Changes(logObject);
                     modifiedLog |= ApplyRtm2and3Changes(logObject);
+                    modifiedLog |= ApplyRtm5Changes(logObject);
                     break;
                 }
 
@@ -174,6 +180,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     modifiedLog |= ApplyRtm0Changes(logObject);
                     modifiedLog |= ApplyRtm1Changes(logObject);
                     modifiedLog |= ApplyRtm2and3Changes(logObject);
+                    modifiedLog |= ApplyRtm5Changes(logObject);
                     break;
                 }
             }
@@ -234,6 +241,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 {
                     // https://github.com/oasis-tcs/sarif-spec/issues/414
                     modifiedLog |= ConvertResultLogicalLocationToArray(run);
+                }
+            }
+
+            return modifiedLog;
+        }
+
+        private static bool ApplyRtm5Changes(JObject sarifLog)
+        {
+            bool modifiedLog = false;
+
+            if (sarifLog["runs"] is JArray runs)
+            {
+                foreach (JObject run in runs)
+                {
+                    if (run["results"] is JArray results)
+                    {
+                        foreach (JObject result in results)
+                        {
+                            if (result["suppression"] is JObject suppression)
+                            {
+                                modifiedLog = RenameProperty(suppression, "state", "status");
+                            }
+                        }
+                    }
                 }
             }
 

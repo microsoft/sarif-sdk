@@ -896,12 +896,12 @@
       }
     }
   ],
-  "Suppression.State": [
+  "Suppression.Status": [
     {
       "kind": "EnumHint",
       "arguments": {
-        "typeName": "SuppressionState",
-        "description": "A string that indicates the state of the suppression.",
+        "typeName": "SuppressionStatus",
+        "description": "A string that indicates the status of the suppression.",
         "zeroValueName": "None",
         "memberNames": [
           "Accepted",
