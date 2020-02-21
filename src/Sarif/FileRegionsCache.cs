@@ -26,6 +26,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             _run = run;
 
             _fileSystem = fileSystem ?? new FileSystem();
+
+            // Build a cache for this data, with the load method it should use to add new entries
             _cache = new Cache<string, Tuple<string, NewLineIndex>>(BuildIndexForFile);
         }
 
@@ -286,6 +288,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             return entry.Item2;
         }
 
+        /// <summary>
+        ///  Method to build cache entries which aren't already in the cache.
+        /// </summary>
+        /// <param name="localPath">Uri.LocalPath for the file to load</param>
+        /// <returns>Cache entry to add to cache with file contents and NewLineIndex</returns>
         private Tuple<string, NewLineIndex> BuildIndexForFile(string localPath)
         {
             string fileText = null;

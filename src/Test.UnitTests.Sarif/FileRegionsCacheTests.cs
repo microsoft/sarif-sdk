@@ -322,9 +322,9 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
                 fileContents.AppendLine("0123456789");
             }
 
-            var run = new Run();
-            var mockFileSystem = MockFactory.MakeMockFileSystem(uri.LocalPath, fileContents.ToString());
-            var fileRegionsCache = new FileRegionsCache(run, fileSystem: mockFileSystem);
+            Run run = new Run();
+            IFileSystem mockFileSystem = MockFactory.MakeMockFileSystem(uri.LocalPath, fileContents.ToString());
+            FileRegionsCache fileRegionsCache = new FileRegionsCache(run, fileSystem: mockFileSystem);
 
             Region region = new Region()
             {
