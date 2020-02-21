@@ -1,6 +1,6 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
-## **v2.2.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.25) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.26) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.26) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.26)
+## **v2.2.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.2.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.2.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.2.0) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.2.0)
 * PACKAGE BREAKING: Update tool directory to netstandard2.1, to reflect use of that version of .NET Core.
 * FEATURE: Multitool `rewrite` command performance when populating regions and snippets is greatly improved.
 * FEATURE: Multitool `insert` option now supports `Guids` value to populate `Result.Guid`.
