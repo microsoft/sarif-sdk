@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         private readonly LinkedList<TKey> _keysInUseOrder;
 
         public const int DefaultCapacity = 100;
-        public int Capacity { get; private set; }
+        public int Capacity { get; }
 
         /// <summary>
         ///  Construct a new Cache
@@ -42,7 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         ///  Returns the keys of items currently cached
         /// </summary>
-        public IEnumerable<TKey> CachedKeys => _cache.Keys;
+        public IEnumerable<TKey> Keys => _cache.Keys;
 
         /// <summary>
         ///  Return value for a given key, either from the cache or after rebuilding it.
@@ -89,7 +89,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         /// <param name="key">Key to check cache for</param>
         /// <returns>True if value in cache, False otherwise</returns>
-        public bool Contains(TKey key)
+        public bool ContainsKey(TKey key)
         {
             return _cache.ContainsKey(key);
         }
