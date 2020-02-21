@@ -161,5 +161,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             // is in place.
             RunTest("V1.sarif");
         }
+
+        [Fact]
+        [Trait(TestTraits.Bug, "https://github.com/oasis-tcs/sarif-spec/issues/449")]
+        [Trait(TestTraits.Bug, "https://github.com/microsoft/sarif-sdk/issues/1785")]
+        public void PrereleaseCompatibilityTransformer_TransformsRtm4Correctly()
+        {
+            RunTest("ExercisesSchemaRtm5Changes.sarif");
+        }
     }
 }

@@ -245,17 +245,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         private static bool ConvertSuppressionStateToSuppressionStatus(JObject sarifLog)
         {
-            string suppressionsPathToUpdate = "runs[].results[].suppressions[]";
+            bool modifiedLog = false;
 
-            bool actionOnLeaf(JObject suppression)
+            if (sarifLog["runs"] is JArray runs)
             {
-                return RenameProperty(suppression, "state", "status");
+                foreach (JObject run in runs)
+                {
+                    if (run["results"] is JArray results)
+                    {
+                        foreach (JObject result in results)
+                        {
+                            if (result["suppressions"] is JArray suppressions)
+                            {
+                                foreach (JObject suppression in suppressions)
+                                {
+                                    modifiedLog = RenameProperty(suppression, "state", "status");
+                                }
+                            }
+                        }
+                    }
+                }
             }
 
-            return PerformActionOnLeafNodeIfExists(
-                possiblePathToLeafNode: suppressionsPathToUpdate,
-                rootNode: sarifLog,
-                action: actionOnLeaf);
+            return modifiedLog;
         }
 
         private static bool ApplyRtm1Changes(JObject sarifLog)

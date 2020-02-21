@@ -1,0 +1,59 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.4.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "CodeScanner",
+          "fullName": "CodeScanner 1.1 for Unix (en-US)",
+          "rules": [
+            {
+              "id": "C2001",
+              "shortDescription": {
+                "text": "A variable was used without being initialized."
+              },
+              "fullDescription": {
+                "text": "A variable was used without being initialized. This can result in runtime errors such as null reference exceptions."
+              },
+              "messageStrings": {
+                "default": {
+                  "text": "Variable \"{0}\" was used without being initialized."
+                }
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "C2001",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "text": "Variable \"one\" was used without being initialized."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/buildAgent/src/collections/list.h"
+                },
+                "region": {
+                  "startLine": 15
+                }
+              }
+            }
+          ],
+          "suppressions": [		  
+            {
+              "kind": "external",
+              "state": "accepted"
+            }
+          ]
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}

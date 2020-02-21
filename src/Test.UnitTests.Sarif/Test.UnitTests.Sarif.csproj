@@ -143,6 +143,7 @@
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\WithExternalPropertyFiles.01-24.sarif" />
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\WithSuppressions.sarif" />
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\ThreadFlowLocationWithKind.sarif" />
+    <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\ExercisesSchemaRtm5Changes.sarif" />
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\Inputs\ArtifactsWithRoles.sarif" />
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\Inputs\ComprehensiveFileProperties.sarif" />
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\Inputs\OneRunWithBasicInvocation.sarif" />
@@ -161,15 +162,16 @@
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\Inputs\ToolWithLanguage.sarif" />
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\Inputs\WithSuppressions.sarif" />
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\Inputs\ThreadFlowLocationWithKind.sarif" />
+    <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\Inputs\ExercisesSchemaRtm5Changes.sarif" />
     <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\ExpectedOutputs\Minimum.sarif" />
     <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\ExpectedOutputs\MinimumWithTwoRuns.sarif" />
     <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\ExpectedOutputs\NotificationExceptionWithStack.sarif" />
     <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\ExpectedOutputs\OneRunWithAutomationDetails.sarif" />
     <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\ExpectedOutputs\OneRunWithBasicInvocation.sarif" />
     <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\ExpectedOutputs\OneRunWithFiles.sarif" />
+    <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\ExpectedOutputs\OneRunWithLogicalLocations.sarif" />
     <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\ExpectedOutputs\OneRunWithNotificationTime.sarif" />
     <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\ExpectedOutputs\OneRunWithInvocationAndNotifications.sarif" />
-    <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\ExpectedOutputs\OneRunWithLogicalLocations.sarif" />
     <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\ExpectedOutputs\OneRunWithRules.sarif" />
     <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\ExpectedOutputs\Regions.sarif" />
     <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\ExpectedOutputs\RestoreFromPropertyBag.sarif" />
