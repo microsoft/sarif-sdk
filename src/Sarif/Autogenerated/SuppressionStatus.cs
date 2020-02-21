@@ -6,10 +6,10 @@ using System.CodeDom.Compiler;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// A string that indicates the state of the suppression.
+    /// A string that indicates the review status of the suppression.
     /// </summary>
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.0.0")]
-    public enum SuppressionState
+    public enum SuppressionStatus
     {
         None,
         Accepted,

@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "Static Analysis Results Format (SARIF) Version 2.1.0-rtm.4 JSON Schema",
-  "id": "https://raw.githubusercontent.com/schemastore/schemastore/master/src/schemas/json/sarif-2.1.0-rtm.4.json",
-  "description": "Static Analysis Results Format (SARIF) Version 2.1.0-rtm.4 JSON Schema: a standard format for the output of static analysis tools.",
+  "title": "Static Analysis Results Format (SARIF) Version 2.1.0-rtm.5 JSON Schema",
+  "id": "https://raw.githubusercontent.com/schemastore/schemastore/master/src/schemas/json/sarif-2.1.0-rtm.5.json",
+  "description": "Static Analysis Results Format (SARIF) Version 2.1.0-rtm.5 JSON Schema: a standard format for the output of static analysis tools.",
   "additionalProperties": false,
   "type": "object",
   "properties": {
@@ -2715,8 +2715,8 @@
           ]
         },
 
-        "state": {
-          "description": "A string that indicates the state of the suppression.",
+        "status": {
+          "description": "A string that indicates the review status of the suppression.",
           "enum": [
             "accepted",
             "underReview",

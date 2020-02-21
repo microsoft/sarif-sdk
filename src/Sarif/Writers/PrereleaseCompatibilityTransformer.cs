@@ -16,8 +16,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         private const char NodeDelimiterSymbol = '.';
 
         public static SarifLog UpdateToCurrentVersion(
-            string prereleaseSarifLog, 
-            Formatting formatting, 
+            string prereleaseSarifLog,
+            Formatting formatting,
             out string updatedLog)
         {
             bool modifiedLog = false;
@@ -79,9 +79,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         case "http://json.schemastore.org/sarif-2.1.0-rtm.1":
                         case "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.1.json":
                         {
-                            modifiedLog |= ApplyRtm2and3Changes(logObject);
+                            modifiedLog |= ApplyRtm5Changes(logObject);
+                            modifiedLog |= UpdateSarifLogVersionAndSchema(logObject);
                             break;
                         }
+                        case "http://json.schemastore.org/sarif-2.1.0-rtm.5":
+                        case "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json":
+                        {
+                            // Current schema version. There should be no work to do
+                            break;
+                        }
+
                         default:
                         {
                             break;
@@ -96,7 +104,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     modifiedLog |= ApplyChangesFromTC35(logObject);
                     modifiedLog |= ApplyRtm0Changes(logObject);
                     modifiedLog |= ApplyRtm1Changes(logObject);
-                    modifiedLog |= ApplyRtm2and3Changes(logObject);
+                    modifiedLog |= ApplyRtm5Changes(logObject);
+                    modifiedLog |= UpdateSarifLogVersionAndSchema(logObject);
                     break;
                 }
 
@@ -107,7 +116,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     modifiedLog |= ApplyChangesFromTC35(logObject);
                     modifiedLog |= ApplyRtm0Changes(logObject);
                     modifiedLog |= ApplyRtm1Changes(logObject);
-                    modifiedLog |= ApplyRtm2and3Changes(logObject);
+                    modifiedLog |= ApplyRtm5Changes(logObject);
+                    modifiedLog |= UpdateSarifLogVersionAndSchema(logObject);
                     break;
                 }
 
@@ -120,7 +130,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     modifiedLog |= ApplyChangesFromTC35(logObject);
                     modifiedLog |= ApplyRtm0Changes(logObject);
                     modifiedLog |= ApplyRtm1Changes(logObject);
-                    modifiedLog |= ApplyRtm2and3Changes(logObject);
+                    modifiedLog |= ApplyRtm5Changes(logObject);
+                    modifiedLog |= UpdateSarifLogVersionAndSchema(logObject);
                     break;
                 }
 
@@ -133,7 +144,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     modifiedLog |= ApplyChangesFromTC35(logObject);
                     modifiedLog |= ApplyRtm0Changes(logObject);
                     modifiedLog |= ApplyRtm1Changes(logObject);
-                    modifiedLog |= ApplyRtm2and3Changes(logObject);
+                    modifiedLog |= ApplyRtm5Changes(logObject);
+                    modifiedLog |= UpdateSarifLogVersionAndSchema(logObject);
                     break;
                 }
 
@@ -143,7 +155,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 {
                     // 2.0.0-csd.2.beta.2018-10-10 == changes through SARIF TC #25
                     modifiedLog |= ApplyChangesFromTC25ThroughTC30(
-                        logObject, 
+                        logObject,
                         out fullyQualifiedLogicalNameToIndexMap,
                         out fileLocationKeyToIndexMap,
                         out ruleKeyToIndexMap);
@@ -154,7 +166,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     modifiedLog |= ApplyChangesFromTC35(logObject);
                     modifiedLog |= ApplyRtm0Changes(logObject);
                     modifiedLog |= ApplyRtm1Changes(logObject);
-                    modifiedLog |= ApplyRtm2and3Changes(logObject);
+                    modifiedLog |= ApplyRtm5Changes(logObject);
+                    modifiedLog |= UpdateSarifLogVersionAndSchema(logObject);
                     break;
                 }
 
@@ -162,7 +175,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 {
                     modifiedLog |= ApplyCoreTransformations(logObject);
                     modifiedLog |= ApplyChangesFromTC25ThroughTC30(
-                        logObject, 
+                        logObject,
                         out fullyQualifiedLogicalNameToIndexMap,
                         out fileLocationKeyToIndexMap,
                         out ruleKeyToIndexMap);
@@ -173,19 +186,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     modifiedLog |= ApplyChangesFromTC35(logObject);
                     modifiedLog |= ApplyRtm0Changes(logObject);
                     modifiedLog |= ApplyRtm1Changes(logObject);
-                    modifiedLog |= ApplyRtm2and3Changes(logObject);
+                    modifiedLog |= ApplyRtm5Changes(logObject);
+                    modifiedLog |= UpdateSarifLogVersionAndSchema(logObject);
                     break;
                 }
             }
 
             SarifLog transformedSarifLog = null;
 
-            if (fullyQualifiedLogicalNameToIndexMap != null  || fileLocationKeyToIndexMap != null || ruleKeyToIndexMap != null)
+            if (fullyQualifiedLogicalNameToIndexMap != null || fileLocationKeyToIndexMap != null || ruleKeyToIndexMap != null)
             {
                 transformedSarifLog = JsonConvert.DeserializeObject<SarifLog>(logObject.ToString());
 
                 var indexUpdatingVisitor = new UpdateIndicesFromLegacyDataVisitor(
-                    fullyQualifiedLogicalNameToIndexMap, 
+                    fullyQualifiedLogicalNameToIndexMap,
                     fileLocationKeyToIndexMap,
                     ruleKeyToIndexMap);
 
@@ -219,9 +233,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             return transformer.SarifLog;
         }
 
-        private static bool ApplyRtm2and3Changes(JObject sarifLog)
+        private static bool ApplyRtm5Changes(JObject sarifLog)
         {
-            return UpdateSarifLogVersionAndSchema(sarifLog);
+            bool modifiedLog = false;
+
+            // https://github.com/oasis-tcs/sarif-spec/issues/449
+            modifiedLog |= ConvertSuppressionStateToSuppressionStatus(sarifLog);
+
+            return modifiedLog;
+        }
+
+        private static bool ConvertSuppressionStateToSuppressionStatus(JObject sarifLog)
+        {
+            string suppressionsPathToUpdate = "runs[].results[].suppressions[]";
+
+            bool actionOnLeaf(JObject suppression)
+            {
+                return RenameProperty(suppression, "state", "status");
+            }
+
+            return PerformActionOnLeafNodeIfExists(
+                possiblePathToLeafNode: suppressionsPathToUpdate,
+                rootNode: sarifLog,
+                action: actionOnLeaf);
         }
 
         private static bool ApplyRtm1Changes(JObject sarifLog)
@@ -459,7 +493,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 if (suppression["kind"] is JValue kind && kind.Value is string)
                 {
-                    if (kind.Value as string == "suppressedInSource" )
+                    if (kind.Value as string == "suppressedInSource")
                     {
                         kind.Value = "inSource";
                         return true;
@@ -1484,7 +1518,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             if (run["conversion"] is JObject conversion)
             {
                 driver = (JObject)conversion["tool"];
-                
+
                 tool = new JObject(new JProperty("language", driver["language"] ?? "en-US"));
 
                 driver.Remove("language");
@@ -1523,7 +1557,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 if (messageStrings == null && richMessageStrings == null)
                 {
                     continue;
-                }                
+                }
 
                 foreach (JProperty property in messageStrings.Properties())
                 {
@@ -1573,7 +1607,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             // 2. 'run.resources.rules' moves to 'run.tool.ruleDescriptors'
             if (resources["rules"] is JArray rules)
             {
-                foreach(JObject rule in rules)
+                foreach (JObject rule in rules)
                 {
                     RenameProperty(rule, previousName: "configuration", newName: "defaultConfiguration");
 
@@ -1658,7 +1692,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         }
 
         private static bool ApplyChangesFromTC25ThroughTC30(
-            JObject sarifLog, 
+            JObject sarifLog,
             out Dictionary<string, int> fullyQualifiedLogicalNameToIndexMap,
             out Dictionary<string, int> fileKeyToIndexMap,
             out Dictionary<string, int> ruleKeyToIndexMap)
@@ -1671,12 +1705,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             // code. This would prevent multiple passes over things like the run.results array.
             // We've isolated the changes here instead simply to keep them grouped together.
 
-            bool modifiedLog = false; 
+            bool modifiedLog = false;
 
             // For completness, this update added run.newlineSequences to the schema
             // This is a non-breaking (additive) change, so there is no work to do.
             //https://github.com/oasis-tcs/sarif-spec/issues/169
-            
+
             if (sarifLog["runs"] is JArray runs)
             {
                 foreach (JObject run in runs)
@@ -1864,7 +1898,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         }
 
         private static JToken ConvertFilesDictionaryToArray(JObject files, Dictionary<string, int> keyToIndexMap)
-        { 
+        {
             if (files == null) { return null; }
 
             Dictionary<JObject, int> jObjectToIndexMap = new Dictionary<JObject, int>();
@@ -1972,9 +2006,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
                 AddEntryToFullyQualifiedNameToIndexMap(
                     logicalLocations,
-                    logicalLocationEntry.Name, 
+                    logicalLocationEntry.Name,
                     (JObject)logicalLocationEntry.Value,
-                    logicalLocationToIndexMap, 
+                    logicalLocationToIndexMap,
                     jObjectToIndexMap,
                     fullyQualifiedLogicalNameToIndexMap);
             }
@@ -2070,7 +2104,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             if (resources == null) { return modifiedResources; }
 
             var rules = (JArray)resources["rules"];
-            if (rules == null ) { return modifiedResources; }
+            if (rules == null) { return modifiedResources; }
 
             foreach (JObject rule in rules)
             {
@@ -2159,7 +2193,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             string existingValue = (string)jObject[propertyName];
             if (!string.IsNullOrEmpty(existingValue) && existingValue != propertyValue)
             {
-                jObject[propertyName] =propertyValue;
+                jObject[propertyName] = propertyValue;
                 modified = true;
             }
 
@@ -2318,7 +2352,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         private static bool UpdateRunInvocations(JObject run)
         {
             bool modifiedRun = false;
-            
+
             if (run["invocations"] is JArray invocations)
             {
                 foreach (JObject invocation in invocations)
@@ -2444,7 +2478,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             bool renamedProperty = false;
 
             if (jObject == null) { return renamedProperty; }
-            
+
             if (jObject[previousName] is JToken propertyValue)
             {
                 jObject.Remove(previousName);
@@ -2584,7 +2618,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             bool result = false;
 
-            foreach(string nodePath in possiblePathsToLeafNode)
+            foreach (string nodePath in possiblePathsToLeafNode)
             {
                 result |= PerformActionOnLeafNodeIfExists(nodePath, rootNode, action);
             }
