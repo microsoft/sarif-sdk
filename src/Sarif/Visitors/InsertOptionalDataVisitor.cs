@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         private FileRegionsCache _fileRegionsCache;
         private readonly OptionallyEmittedData _dataToInsert;
         private readonly IDictionary<string, ArtifactLocation> _originalUriBaseIds;
-        
+
         public InsertOptionalDataVisitor(OptionallyEmittedData dataToInsert, IDictionary<string, ArtifactLocation> originalUriBaseIds = null)
         {
             _dataToInsert = dataToInsert;
@@ -116,7 +116,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 }
             }
 
-            Exit:
+        Exit:
             return base.VisitPhysicalLocation(node);
         }
 
@@ -167,6 +167,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             node = base.VisitResult(node);
             _ruleIndex = -1;
 
+            if (String.IsNullOrEmpty(node.Guid) && _dataToInsert.HasFlag(OptionallyEmittedData.Guids))
+            {
+                node.Guid = Guid.NewGuid().ToString(SarifConstants.GuidFormat);
+            }
+
             return node;
         }
 
@@ -177,13 +182,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 MultiformatMessageString formatString = null;
                 ReportingDescriptor rule = _ruleIndex != -1 ? _run.Tool.Driver.Rules[_ruleIndex] : null;
-            
+
                 if (rule != null &&
                     rule.MessageStrings != null &&
                     rule.MessageStrings.TryGetValue(node.Id, out formatString))
                 {
-                    node.Text = node.Arguments?.Count > 0 
-                        ? rule.Format(node.Id, node.Arguments) 
+                    node.Text = node.Arguments?.Count > 0
+                        ? rule.Format(node.Id, node.Arguments)
                         : formatString?.Text;
                 }
 
