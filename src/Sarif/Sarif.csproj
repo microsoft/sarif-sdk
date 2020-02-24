@@ -43,7 +43,6 @@
     -->
     <Content Include="Schemata\sarif-$(SchemaVersionAsPublishedToSchemaStoreOrg).json" />
     <Content Include="Schemata\sarif-external-property-file-$(SchemaVersionAsPublishedToSchemaStoreOrg).json" />
-
     <!-- This item will be added to the NuGet package, however. -->
     <Content Include="..\ReleaseHistory.md" />
   </ItemGroup>

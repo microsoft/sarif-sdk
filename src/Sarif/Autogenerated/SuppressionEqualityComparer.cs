@@ -38,7 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.State != right.State)
+            if (left.Status != right.Status)
             {
                 return false;
             }
@@ -94,7 +94,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 result = (result * 31) + obj.Kind.GetHashCode();
-                result = (result * 31) + obj.State.GetHashCode();
+                result = (result * 31) + obj.Status.GetHashCode();
                 if (obj.Justification != null)
                 {
                     result = (result * 31) + obj.Justification.GetHashCode();
