@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             {
                 FileWorkItemsCommand.s_validateOptionsOnly = true;
 
-                Environment.SetEnvironmentVariable("SarifWorkItemFilingSecurityToken", Guid.NewGuid().ToString());
+                Environment.SetEnvironmentVariable("SarifWorkItemFilingPat", Guid.NewGuid().ToString());
 
                 var failedTestCases = new List<string>();
 

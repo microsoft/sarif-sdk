@@ -8,12 +8,12 @@ namespace Microsoft.WorkItems
 {
     public static class WorkItemFilingUtilities
     {
-        internal const string PROJECT = "account";
-        internal const string ACCOUNT = "project";
+        internal const string PROJECT = "project";
+        internal const string ACCOUNT = "account";
 
         private static readonly string GitHubUriPattern = $"^https://github\\.com/(?<{ACCOUNT}>[^/]+)/(?<{PROJECT}>[^/]+)$";
-        private static readonly string AzureDevOpsUriPattern = $"^(?<{ACCOUNT}>https://dev\\.azure\\.com/[^/]+)/(?<{PROJECT}>[^/]+)$";
-        private static readonly string LegacyAzureDevOpsUriPattern = $"^(?<{ACCOUNT}>https://[^\\.]+\\.visualstudio\\.com)/(?<{PROJECT}>[^/]+)$";
+        private static readonly string AzureDevOpsUriPattern = $"^https://dev\\.azure\\.com/(?<{ACCOUNT}>[^/]+)/(?<{PROJECT}>[^/]+)$";
+        private static readonly string LegacyAzureDevOpsUriPattern = $"^https://(?<{ACCOUNT}>[^\\.]+)\\.visualstudio\\.com/(?<{PROJECT}>[^/]+)$";
 
         internal static readonly Tuple<string, Regex>[] WorkItemHostRegexTuples = new[]
         {

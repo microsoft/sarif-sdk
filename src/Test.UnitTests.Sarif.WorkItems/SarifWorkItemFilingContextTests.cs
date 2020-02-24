@@ -28,10 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             string newAreaPath = Guid.NewGuid().ToString();
             context.SetProperty(Munger.NewAreaPath, newAreaPath);
 
-            var workItemModel = new SarifWorkItemModel
-            {
-                Context = context
-            };
+            var workItemModel = new SarifWorkItemModel(sarifLog: null, context);
 
             context.Transformers[0].Transform(workItemModel);
             workItemModel.Area.Should().Be(newAreaPath);

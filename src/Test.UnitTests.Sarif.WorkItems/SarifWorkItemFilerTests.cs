@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         [Fact]
         public void WorkItemFiler_ValidatesSarifLogFileContentsArgument()
         {
-            var filer = CreateWorkItemFiler();
+            SarifWorkItemFiler filer = CreateWorkItemFiler();
 
             Action action = () => filer.FileWorkItems(sarifLogFileContents: null);
 
@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         [Fact]
         public void WorkItemFiler_ValidatesSarifLogFileArgument()
         {
-            var filer = CreateWorkItemFiler();
+            SarifWorkItemFiler filer = CreateWorkItemFiler();
 
             Action action = () => filer.FileWorkItems(sarifLog: null);
 
@@ -38,7 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         [Fact]
         public void WorkItemFiler_ValidatesSarifLogFileLocationArgument()
         {
-            var filer = CreateWorkItemFiler();
+            SarifWorkItemFiler filer = CreateWorkItemFiler();
 
             Action action = () => filer.FileWorkItems(sarifLogFileLocation: null);
 
@@ -50,31 +50,31 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
         private static SarifWorkItemFiler CreateMockSarifWorkItemFiler()
         {
-            var mockFilingTarget = new Mock<SarifWorkItemFiler>();
+            var mockFiler = new Mock<SarifWorkItemFiler>();
 
-            mockFilingTarget
+            mockFiler
                 .Setup(x => x.FileWorkItems(It.IsAny<string>()))
                 .CallBase(); 
 
-            mockFilingTarget
+            mockFiler
                 .Setup(x => x.FileWorkItems(It.IsAny<SarifLog>()))
                 .CallBase();
 
-            mockFilingTarget
+            mockFiler
                 .Setup(x => x.FileWorkItems(It.IsAny<Uri>()))
                 .CallBase();
             
             // Moq magic: you can return whatever was passed to a method by providing
             // a lambda (rather than a fixed value) to Returns or ReturnsAsync.
             // https://stackoverflow.com/questions/996602/returning-value-that-was-passed-into-a-method
-            mockFilingTarget
+            mockFiler
                 .Setup(x => x.FileWorkItems(
                     It.IsAny<Uri>(), 
                     It.IsAny<IList<WorkItemModel<SarifWorkItemContext>>>(),
                     It.IsAny<string>()))
-                .ReturnsAsync((Uri uri, IList<WorkItemModel<SarifWorkItemContext>> resultGroups, string securityToken) => resultGroups);
+                .ReturnsAsync((Uri uri, IList<WorkItemModel<SarifWorkItemContext>> resultGroups, string personalAccessToken) => resultGroups);
 
-            return mockFilingTarget.Object;
+            return mockFiler.Object;
         }
 
         private class TestFilingClient : FilingClient

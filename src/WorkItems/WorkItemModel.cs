@@ -29,7 +29,7 @@ namespace Microsoft.WorkItems
 
         public string Iteration { get; set; }
 
-        public IList<string> Assigness { get; set; }
+        public IList<string> Assignees { get; set; }
 
         public string Milestone { get; set; }
 

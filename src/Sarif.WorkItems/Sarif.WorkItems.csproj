@@ -4,10 +4,7 @@
     <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
-    <DefineConstants />
-  </PropertyGroup>
-
+ 
   <PropertyGroup Label="AssemblyAttributes">
     <AssemblyTitle>SARIF Work Item Filing Library</AssemblyTitle>
     <Description>Classes for filing the results in a SARIF log file as work items in a system such as GitHub or AzureDevOps.</Description>

@@ -151,20 +151,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No security token was provided. Populate the &apos;SarifWorkItemFilingSecurityToken&apos; environment variable with a valid personal access token or pass a token in a configuration file using the --configuration option.
+        /// </summary>
+        internal static string WorkItemFiling_NoPatFound {
+            get {
+                return ResourceManager.GetString("WorkItemFiling_NoPatFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No project URI was provided via the --project-uri option or as part of an input file specified via --configuration..
         /// </summary>
         internal static string WorkItemFiling_NoProjectUriSpecified {
             get {
                 return ResourceManager.GetString("WorkItemFiling_NoProjectUriSpecified", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to No security token was provided. Populate the &apos;SarifWorkItemFilingSecurityToken&apos; environment variable with a valid personal access token or pass a token in a configuration file using the --configuration option.
-        /// </summary>
-        internal static string WorkItemFiling_NoSecurityTokenFound {
-            get {
-                return ResourceManager.GetString("WorkItemFiling_NoSecurityTokenFound", resourceCulture);
             }
         }
     }

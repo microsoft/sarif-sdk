@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 {
     public class SarifWorkItemModel : WorkItemModel<SarifWorkItemContext>
     {
-        public void InitializeFromLog(SarifLog sarifLog, SarifWorkItemContext context = null)
+        public SarifWorkItemModel(SarifLog sarifLog, SarifWorkItemContext context = null)
         {
             this.Context = context ?? new SarifWorkItemContext();
 
@@ -20,11 +20,12 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
             this.LabelsOrTags = new List<string> { $"default{nameof(this.LabelsOrTags)}" };
 
-            // Note that we a simple file name here. The filers will add a prefix
-            // to the file name that includes other details, such as the id of
-            // the filed item.
+            // Note that we provide a simple file name here. The filers will
+            // add a prefix to the file name that includes other details,
+            // such as the id of the filed item.
             this.Attachment = new Microsoft.WorkItems.Attachment
             {
+                Name = "ScanResults.sarif",
                 Text = JsonConvert.SerializeObject(sarifLog),
             };
 
@@ -33,7 +34,6 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             //       https://github.com/microsoft/sarif-sdk/issues/1755
             //
             this.Title = $"Default {nameof(this.Title)}";
-
 
             // TODO: Provide a useful SARIF-derived discussion entry 
             //       for the preliminary filing operation.
@@ -60,7 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             //
             this.BodyOrDescription = $"Default {nameof(this.BodyOrDescription)}";
 
-            // These are an Azure DevOps-specific field. All ADO work item board
+            // These properties are Azure DevOps-specific. All ADO work item board
             // area paths are rooted by the project name, as are iterations.
             this.Area = this.RepositoryOrProject;
             this.Iteration = this.RepositoryOrProject;

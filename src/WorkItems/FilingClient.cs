@@ -31,9 +31,6 @@ namespace Microsoft.WorkItems
         /// <summary>
         /// Connect to the project in which work items will be filed.
         /// </summary>
-        /// <param name="hostUri">
-        /// The URI of the project.
-        /// </param>
         /// <param name="personalAccessToken">
         /// Specifes the personal access used to access the project.
         /// </param>

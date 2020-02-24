@@ -25,10 +25,10 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             set { this.SetProperty(ProjectUriOption, value); }
         }
 
-        public string SecurityToken 
+        public string PersonalAccessToken 
         {
-            get { return this.GetProperty(SecurityTokenOption); }
-            set { this.SetProperty(SecurityTokenOption, value); }
+            get { return this.GetProperty(PersonalAccessTokenOption); }
+            set { this.SetProperty(PersonalAccessTokenOption, value); }
         }
 
         public SplittingStrategy SplittingStrategy
@@ -100,9 +100,9 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 "Extensibility", nameof(ProjectUri),
                 defaultValue: () => { return null; });
 
-        internal static PerLanguageOption<string> SecurityTokenOption { get; } =
+        internal static PerLanguageOption<string> PersonalAccessTokenOption { get; } =
             new PerLanguageOption<string>(
-                "Extensibility", nameof(SecurityToken),
+                "Extensibility", nameof(PersonalAccessToken),
                 defaultValue: () => { return String.Empty; });
 
         public static PerLanguageOption<StringSet> PluginAssemblyLocations { get; } =

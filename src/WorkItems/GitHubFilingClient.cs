@@ -12,7 +12,7 @@ namespace Microsoft.WorkItems
     /// <summary>
     /// Represents a GitHub project in which work items can be filed.
     /// </summary>
-    public class GitHubClientWrapper : FilingClient
+    public class GitHubFilingClient : FilingClient
     {
         private GitHubClient gitHubClient;
 
@@ -27,9 +27,9 @@ namespace Microsoft.WorkItems
             });
         }
 
-        public override async Task<IEnumerable<WorkItemModel>> FileWorkItems(IEnumerable<WorkItemModel> workItemFilingMetadata)
+        public override async Task<IEnumerable<WorkItemModel>> FileWorkItems(IEnumerable<WorkItemModel> workItemModels)
         {
-            foreach (WorkItemModel workItemModel in workItemFilingMetadata)
+            foreach (WorkItemModel workItemModel in workItemModels)
             {
                 var newIssue = new NewIssue(workItemModel.Title)
                 {
@@ -40,6 +40,10 @@ namespace Microsoft.WorkItems
                     this.AccountOrOrganization, 
                     this.ProjectOrRepository, 
                     newIssue);
+
+                // TODO: Can we collapse GH issue creation to a single operation?
+                // 
+                // https://github.com/microsoft/sarif-sdk/issues/1790
 
                 if (workItemModel.LabelsOrTags?.Count != 0)
                 {
@@ -77,10 +81,10 @@ namespace Microsoft.WorkItems
                 //
                 //       The common helper should preserve casing choices in the account/owner and
                 //       project/repo information that's provided.
-                //                //      
+                //    
                 //       https://github.com/microsoft/sarif-sdk/issues/1753
             }
-            return workItemFilingMetadata;
+            return workItemModels;
         }
     }
 }

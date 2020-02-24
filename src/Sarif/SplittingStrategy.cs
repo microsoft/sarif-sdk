@@ -4,7 +4,7 @@
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// Enumerates the grouping strategies provided out of the box by the WorkItemFiler.
+    /// Enumerates the log file splitting strategies provided out of the box by the SarifWorkItemFiler.
     /// </summary>
     public enum SplittingStrategy
     {

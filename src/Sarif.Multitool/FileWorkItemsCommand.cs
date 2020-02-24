@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     /// collecting and verifying all options relevant to driving the work item filing
     /// process. These options may be retrieved from a serialized version of the 
     /// aggregated configuration (currently rendered as XML, via the PropertiesDictionary
-    /// class). Command-line arguments should override any options specified in the 
+    /// class). Command-line arguments will override any options specified in the 
     /// file-based serialized configuration (if present). After verifying that all
     /// configured options are valid, the command will instantiate an instance of 
     /// SarifWorkItemFiler in order to complete the work.
@@ -41,9 +41,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 filingContext.LoadFromXml(options.ConfigurationFilePath);
             }
 
-            if (!ValidateOptions(options, filingContext, fileSystem)) 
-            { 
-                return FAILURE; 
+            if (!ValidateOptions(options, filingContext, fileSystem))
+            {
+                return FAILURE;
             }
 
             // For unit tests: allow us to just validate the options and return.
@@ -72,7 +72,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             // TODO: We need to process updated work item models to persist filing
             //       details back to the input SARIF file, if that was specified.
-            //       The SarifWorkItemFi;er should either return or persist the updated
+            //       The SarifWorkItemFiler should either return or persist the updated
             //       models via a property, so that we can do this work.
             //
             //       This information should be inlined to the input file, if configured,
@@ -84,7 +84,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             return SUCCESS;
         }
 
-        private bool ValidateOptions(FileWorkItemsOptions options, SarifWorkItemContext workItemFilingConfiguration, IFileSystem fileSystem)
+        private bool ValidateOptions(FileWorkItemsOptions options, SarifWorkItemContext sarifWorkItemContext, IFileSystem fileSystem)
         {
             bool valid = true;
 
@@ -104,12 +104,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             //
             // Therefore we declare the property corresponding to "project-uri" as a string.
             // We convert it to a URI with the ctor Uri(string, UriKind.RelativeOrAbsolute).
-            // If it succeeds, we can assign the result to a Uri-valued property; if it fails,
-            // we can produce a helpful error message.
+            // If it succeeds, we can assign the result to a Uri-valued property (persisted in the
+            // context object); if it fails, we can produce a helpful error message.
 
-            valid &= ValidateProjectUri(options.ProjectUri, workItemFilingConfiguration);
+            valid &= ValidateProjectUri(options.ProjectUri, sarifWorkItemContext);
 
- 
             valid &= options.ValidateOutputOptions();
 
             if (!string.IsNullOrEmpty(options.OutputFilePath))
@@ -117,7 +116,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 valid &= DriverUtilities.ReportWhetherOutputFileCanBeCreated(options.OutputFilePath, options.Force, fileSystem);
             }
 
-            valid &= EnsureSecurityToken(options, workItemFilingConfiguration);
+            valid &= EnsurePersonalAccessToken(options, sarifWorkItemContext);
 
             return valid;
         }
@@ -142,7 +141,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             // Any command-line argument that's provided overrides values specified in the configuration.
             workItemFilingConfiguration.ProjectUri = projectUri ?? workItemFilingConfiguration.ProjectUri;
-            
+
 
             if (!workItemFilingConfiguration.ProjectUri.IsAbsoluteUri)
             {
@@ -160,22 +159,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             return true;
         }
-    
-    private static bool EnsureSecurityToken(FileWorkItemsOptions options, SarifWorkItemContext workItemFilingConfiguration)
-        {
-            string securityToken = Environment.GetEnvironmentVariable("SarifWorkItemFilingSecurityToken");
 
-            if (!string.IsNullOrEmpty(securityToken))
+        private static bool EnsurePersonalAccessToken(FileWorkItemsOptions options, SarifWorkItemContext workItemFilingConfiguration)
+        {
+            string pat = Environment.GetEnvironmentVariable("SarifWorkItemFilingPat");
+
+            if (!string.IsNullOrEmpty(pat))
             {
-                workItemFilingConfiguration.SecurityToken = securityToken;
+                workItemFilingConfiguration.PersonalAccessToken = pat;
             }
 
-            if (string.IsNullOrEmpty(workItemFilingConfiguration.SecurityToken))
+            if (string.IsNullOrEmpty(workItemFilingConfiguration.PersonalAccessToken))
             {
-                // "No security token was provided. Populate the 'SarifWorkItemFilingSecurityToken' environment 
+                // "No security token was provided. Populate the 'SarifWorkItemFilingPath' environment 
                 // variable with a valid personal access token or pass a token in a configuration file using
                 // the --configuration arguement."
-                Console.Error.WriteLine(MultitoolResources.WorkItemFiling_NoSecurityTokenFound);
+                Console.Error.WriteLine(MultitoolResources.WorkItemFiling_NoPatFound);
                 return false;
             }
 
