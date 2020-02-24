@@ -7,6 +7,7 @@ using Microsoft.CodeAnalysis.Sarif.Visitors;
 using Microsoft.CodeAnalysis.Sarif.Driver.Sdk;
 using Newtonsoft.Json;
 using Microsoft.CodeAnalysis.Sarif.Driver;
+using System.Diagnostics;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
@@ -23,6 +24,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             try
             {
+                Console.WriteLine($"Rewriting '{rewriteOptions.InputFilePath}' => '{rewriteOptions.OutputFilePath}'...");
+                Stopwatch w = Stopwatch.StartNew();
+
                 bool valid = ValidateOptions(rewriteOptions);
                 if (!valid) { return FAILURE; }
 
@@ -40,6 +44,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     : Formatting.None;
 
                 WriteSarifFile(_fileSystem, reformattedLog, fileName, formatting);
+
+                w.Stop();
+                Console.WriteLine($"Rewrite completed in {w.Elapsed}.");
             }
             catch(Exception ex)
             {

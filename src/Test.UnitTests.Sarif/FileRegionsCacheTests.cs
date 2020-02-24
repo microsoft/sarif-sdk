@@ -1,7 +1,10 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Text;
 using FluentAssertions;
 using Xunit;
 
@@ -269,13 +272,11 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
 
         private static void ExecuteTests(string fileText, ReadOnlyCollection<TestCaseData> testCases)
         {
-            var run = new Run();
-            var fileRegionsCache = new FileRegionsCache(run);
-
             Uri uri = new Uri(@"c:\temp\myFile.cpp");
-            var mockFileSystem = MockFactory.MakeMockFileSystem(uri.LocalPath, fileText);
 
-            fileRegionsCache._fileSystem = mockFileSystem;
+            var run = new Run();
+            var mockFileSystem = MockFactory.MakeMockFileSystem(uri.LocalPath, fileText);
+            var fileRegionsCache = new FileRegionsCache(run, fileSystem: mockFileSystem);
 
             ExecuteTests(testCases, fileRegionsCache, uri);
         }
@@ -311,15 +312,49 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
         }
 
         [Fact]
+        public void FileRegionsCache_ProperlyCaches()
+        {
+            Uri uri = new Uri(@"C:\Code\Program.cs");
+
+            StringBuilder fileContents = new StringBuilder();
+            for (int i = 0; i < 1000; ++i)
+            {
+                fileContents.AppendLine("0123456789");
+            }
+
+            Run run = new Run();
+            IFileSystem mockFileSystem = MockFactory.MakeMockFileSystem(uri.LocalPath, fileContents.ToString());
+            FileRegionsCache fileRegionsCache = new FileRegionsCache(run, fileSystem: mockFileSystem);
+
+            Region region = new Region()
+            {
+                StartLine = 2,
+                StartColumn = 1,
+                EndLine = 3,
+                EndColumn = 10,
+            };
+
+            Stopwatch w = Stopwatch.StartNew();
+
+            for (int i = 0; i < 1000; ++i)
+            {
+                Region copy = region.DeepClone();
+                Region populated = fileRegionsCache.PopulateTextRegionProperties(copy, uri, populateSnippet: true);
+            }
+
+            // Runtime should be way under 100ms if caching, and much longer otherwise
+            w.Stop();
+            Assert.True(w.ElapsedMilliseconds < 100);
+        }
+
+        [Fact]
         public void FileRegionsCache_PopulatesNullRegion()
         {
-            var run = new Run();
-            var fileRegionsCache = new FileRegionsCache(run);
-
             Uri uri = new Uri(@"c:\temp\myFile.cpp");
-            var mockFileSystem = MockFactory.MakeMockFileSystem(uri.LocalPath, SPEC_EXAMPLE);
 
-            fileRegionsCache._fileSystem = mockFileSystem;
+            var run = new Run();
+            var mockFileSystem = MockFactory.MakeMockFileSystem(uri.LocalPath, SPEC_EXAMPLE);
+            var fileRegionsCache = new FileRegionsCache(run, fileSystem: mockFileSystem);
 
             Region region = fileRegionsCache.PopulateTextRegionProperties(inputRegion: null, uri: uri, populateSnippet: false);
             region.Should().BeNull();

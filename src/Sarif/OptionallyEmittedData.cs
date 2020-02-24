@@ -66,10 +66,16 @@ namespace Microsoft.CodeAnalysis.Sarif
         // both versions exist
         FlattenedMessages = 0x100,
 
+        // SARIF Results may each have a GUID assigned to uniquely identify them.
+        Guids = 0x200,
+
         // A special enum value that indicates that insertion should overwrite any existing
         // information in the SARIF log file. In the absence of this setting, any existing
         // data that would otherwise have been overwritten by the insert operation will
         // be preserved.
-        OverwriteExistingData = 0x40000000
+        OverwriteExistingData = 0x40000000,
+
+        // Insert Everything - should include every flag except the overwrite one
+        All = ~OverwriteExistingData
     }
 }

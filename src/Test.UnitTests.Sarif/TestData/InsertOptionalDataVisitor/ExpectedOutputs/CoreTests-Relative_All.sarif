@@ -289,6 +289,42 @@
               }
             }
           ]
+        },
+        {
+          "ruleId": "TEST2006",
+          "message": {
+            "text": "This result has an out of range region, which should not be populated."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "InsertOptionalDataVisitor/InsertOptionalDataVisitor.txt",
+                  "uriBaseId": "TESTROOT",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 15,
+                  "startColumn": 9,
+                  "endLine": 15,
+                  "endColumn": 8,
+                  "charOffset": 442,
+                  "charLength": -1
+                },
+                "contextRegion": {
+                  "startLine": 14,
+                  "startColumn": 1,
+                  "endLine": 16,
+                  "endColumn": 1,
+                  "charOffset": 385,
+                  "charLength": 68,
+                  "snippet": {
+                    "text": "  Region_One (this isn't part of the region...)\r\nTrailing context.\r\n"
+                  }
+                }
+              }
+            }
+          ]
         }
       ],
       "columnKind": "utf16CodeUnits"

@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         private OptionallyEmittedData _currentOptionallyEmittedData;
 
-        public InsertOptionalDataVisitorTests(ITestOutputHelper outputHelper, InsertOptionalDataVisitorTestsFixture fixture) : base (outputHelper)
+        public InsertOptionalDataVisitorTests(ITestOutputHelper outputHelper, InsertOptionalDataVisitorTestsFixture fixture) : base(outputHelper)
         {
         }
 
@@ -27,7 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(
                 GetResourceText(inputResourceName),
-                formatting: Formatting.Indented, 
+                formatting: Formatting.Indented,
                 out string transformedLog);
 
             SarifLog actualLog = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(transformedLog, formatting: Formatting.None, out transformedLog);
@@ -50,17 +50,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 // Restore the remanufactured URI so that file diffing matches
                 actualLog.Runs[0].OriginalUriBaseIds["TESTROOT"] = new ArtifactLocation { Uri = originalUri };
             }
-           else if (inputResourceName == "Inputs.CoreTests-Absolute.sarif")
+            else if (inputResourceName == "Inputs.CoreTests-Absolute.sarif")
             {
                 Uri originalUri = actualLog.Runs[0].Artifacts[0].Location.Uri;
                 string uriString = originalUri.ToString();
 
                 string currentDirectory = Environment.CurrentDirectory;
-                currentDirectory = currentDirectory.Substring(0, currentDirectory.IndexOf(@"\bld\"));                
+                currentDirectory = currentDirectory.Substring(0, currentDirectory.IndexOf(@"\bld\"));
                 uriString = uriString.Replace("REPLACED_AT_TEST_RUNTIME", currentDirectory);
 
                 actualLog.Runs[0].Artifacts[0].Location = new ArtifactLocation { Uri = new Uri(uriString, UriKind.Absolute) };
-               
+
                 var visitor = new InsertOptionalDataVisitor(_currentOptionallyEmittedData);
                 visitor.Visit(actualLog.Runs[0]);
 
@@ -73,6 +73,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 visitor.Visit(actualLog.Runs[0]);
             }
 
+            // Verify and remove Guids, because they'll vary with every run and can't be compared to a fixed expected output
+            if (_currentOptionallyEmittedData.HasFlag(OptionallyEmittedData.Guids))
+            {
+                for (int i = 0; i < actualLog.Runs[0].Results.Count; ++i)
+                {
+                    Result result = actualLog.Runs[0].Results[i];
+                    if (String.IsNullOrEmpty(result.Guid))
+                    {
+                        Assert.True(false, $"Results[{i}] had no Guid assigned, but OptionallyEmittedData.Guids flag was set.");
+                    }
+
+                    result.Guid = null;
+                }
+            }
 
             return JsonConvert.SerializeObject(actualLog, Formatting.Indented);
         }
@@ -103,7 +117,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             RunTest("CoreTests-Absolute.sarif", OptionallyEmittedData.TextFiles);
         }
 
-
         [Fact]
         public void InsertOptionalDataVisitor_PersistsRegionSnippets()
         {
@@ -129,6 +142,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         }
 
         [Fact]
+        public void InsertOptionalDataVisitor_PersistsGuids()
+        {
+            // NOTE: Test adding Guids, but validation is in test code, not diff, as Guids vary with each run.
+            RunTest("CoreTests-Relative.sarif", OptionallyEmittedData.Guids);
+        }
+
+        [Fact]
         public void InsertOptionalDataVisitor_PersistsNone()
         {
             RunTest("CoreTests-Relative.sarif");
@@ -145,13 +165,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         [Fact]
         public void InsertOptionalDataVisitor_PersistsAll()
         {
-            RunTest("CoreTests-Relative.sarif", 
-                OptionallyEmittedData.ComprehensiveRegionProperties | 
-                OptionallyEmittedData.RegionSnippets | 
-                OptionallyEmittedData.TextFiles | 
-                OptionallyEmittedData.Hashes | 
-                OptionallyEmittedData.ContextRegionSnippets | 
-                OptionallyEmittedData.FlattenedMessages);
+            RunTest("CoreTests-Relative.sarif",
+                OptionallyEmittedData.All);
         }
 
         [Fact]
@@ -286,7 +301,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     {
                         Id = NotificationId
                     },
-                    Message = new Message {  Id = SharedMessageId}
+                    Message = new Message { Id = SharedMessageId }
                 });
             configurationNotifications.Add(toolNotifications[0]);
 
@@ -341,7 +356,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             toolNotifications[2].Message.Text.Should().Be(SharedKeyGlobalMessageValue);
             configurationNotifications[2].Message.Text.Should().Be(SharedKeyGlobalMessageValue);
         }
-
 
         [Fact]
         public void InsertOptionalDataVisitorTests_FlattensMessageStringsInFix()
@@ -450,7 +464,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     }
                 }
             };
-                        
+
             var visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.TextFiles);
             visitor.VisitRun(run);
 
@@ -473,7 +487,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             message = "If the actual output is expected, generate new baselines by setting s_rebaseline == true in the test code and rerunning.";
             return message;
         }
-    
+
         private string NormalizeOptionallyEmittedDataToString(OptionallyEmittedData optionallyEmittedData)
         {
             string result = optionallyEmittedData.ToString();
