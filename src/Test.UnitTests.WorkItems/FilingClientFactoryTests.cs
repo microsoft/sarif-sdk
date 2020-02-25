@@ -5,15 +5,15 @@ using System;
 using FluentAssertions;
 using Xunit;
 
-namespace Microsoft.WorkItemFiling
+namespace Microsoft.WorkItems
 {
-    public class FilingTargetFactoryTests
+    public class FilingClientFactoryTests
     {
         [Fact]
         public void CreateFilingTarget_ThrowsIfUriIsNull
             ()
         {
-            Action action = () => FilingClientFactory.CreateFilingTarget(null);
+            Action action = () => FilingClientFactory.Create(null);
 
             action.Should().Throw<ArgumentNullException>();
         }
@@ -21,31 +21,31 @@ namespace Microsoft.WorkItemFiling
         [Fact]
         public void CreateFilingTarget_ThrowsIfUriPatternIsNotRecognized()
         {
-            const string ProjectUriString = "https://www.example.com/myOrg/myProject";
+            Uri projectUri = new Uri("https://www.example.com/myOrg/myProject");
 
-            Action action = () => FilingClientFactory.CreateFilingTarget(ProjectUriString);
+            Action action = () => FilingClientFactory.Create(projectUri);
 
-            action.Should().Throw<ArgumentException>().WithMessage($"*{ProjectUriString}*");
+            action.Should().Throw<ArgumentException>().WithMessage($"*{projectUri}*");
         }
 
         [Fact]
         public void CreateFilingTarget_ThrowsIfUriIncludesAdditionalPathSegments()
         {
-            const string ProjectUriString = "https://github.com/myOrg/myProject/issues";
+            Uri projectUri = new Uri("https://github.com/myOrg/myProject/issues");
 
-            Action action = () => FilingClientFactory.CreateFilingTarget(ProjectUriString);
+            Action action = () => FilingClientFactory.Create(projectUri);
 
-            action.Should().Throw<ArgumentException>().WithMessage($"*{ProjectUriString}*");
+            action.Should().Throw<ArgumentException>().WithMessage($"*{projectUri}*");
         }
 
         [Fact]
         public void CreateFilingTarget_CreatesGitHubFilingTarget()
         {
-            const string ProjectUriString = "https://github.com/myOrg/myProject";
+            Uri projectUri = new Uri("https://github.com/myOrg/myProject");
 
-            var filingTarget = FilingClientFactory.CreateFilingTarget(ProjectUriString);
+            var filingTarget = FilingClientFactory.Create(projectUri);
 
-            filingTarget.Should().BeOfType<GitHubClientWrapper>();
+            filingTarget.Should().BeOfType<GitHubFilingClient>();
             string.IsNullOrEmpty(filingTarget.ProjectOrRepository).Should().BeFalse();
             string.IsNullOrEmpty(filingTarget.AccountOrOrganization).Should().BeFalse();
         }
@@ -53,11 +53,11 @@ namespace Microsoft.WorkItemFiling
         [Fact]
         public void CreateFilingTarget_CreatesAzureDevOpsFilingTarget()
         {
-            const string ProjectUriString = "https://dev.azure.com/myOrg/myProject";
+            Uri projectUri = new Uri("https://dev.azure.com/myOrg/myProject");
 
-            var filingTarget = FilingClientFactory.CreateFilingTarget(ProjectUriString);
+            var filingTarget = FilingClientFactory.Create(projectUri);
 
-            filingTarget.Should().BeOfType<AzureDevOpsClientWrapper>();
+            filingTarget.Should().BeOfType<AzureDevOpsFilingClient>();
             string.IsNullOrEmpty(filingTarget.ProjectOrRepository).Should().BeFalse();
             string.IsNullOrEmpty(filingTarget.AccountOrOrganization).Should().BeFalse();
         }
@@ -65,9 +65,9 @@ namespace Microsoft.WorkItemFiling
         [Fact]
         public void CreateFilingTarget_CreatesLegacyAzureDevOpsFilingTarget()
         {
-            const string ProjectUriString = "https://myorg.visualstudio.com/myProject";
+            Uri projectUri = new Uri("https://myorg.visualstudio.com/myProject");
 
-            var filingTarget = FilingClientFactory.CreateFilingTarget(ProjectUriString);
+            var filingTarget = FilingClientFactory.Create(projectUri);
 
             filingTarget.ProjectOrRepository.Should().NotBeNull();
             string.IsNullOrEmpty(filingTarget.ProjectOrRepository).Should().BeFalse();

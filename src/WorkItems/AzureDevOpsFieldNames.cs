@@ -1,14 +1,14 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-namespace Microsoft.WorkItemFiling
+namespace Microsoft.WorkItems
 {
     public static class AzureDevOpsFieldNames
     {
         /// <summary>
         /// Area Path field name.
         /// </summary>
-        public const string AreaPath = "System.AreaPath";
+        public const string Area = "System.AreaPath";
 
         /// <summary>
         /// Description field name.
@@ -24,10 +24,5 @@ namespace Microsoft.WorkItemFiling
         /// Title field name.
         /// </summary>
         public const string Title = "System.Title";
-
-        /// <summary>
-        /// Repro Steps field name.
-        /// </summary>
-        public const string ReproSteps = "Microsoft.VSTS.TCM.ReproSteps";
     }
 }

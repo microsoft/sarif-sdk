@@ -5,18 +5,15 @@ using System;
 using System.Globalization;
 using System.Text.RegularExpressions;
 
-namespace Microsoft.WorkItemFiling
+namespace Microsoft.WorkItems
 {
     public class FilingClientFactory
     {
-        public static FilingClient CreateFilingTarget(string filingHostUriString)
+        public static FilingClient Create(Uri filingHostUri)
         {
-            if (filingHostUriString == null) { throw new ArgumentNullException(nameof(filingHostUriString)); }
+            filingHostUri = filingHostUri ?? throw new ArgumentNullException(nameof(filingHostUri));
 
-            if (!Uri.TryCreate(filingHostUriString, UriKind.Absolute, out Uri filingHostUri))
-            {
-                throw new ArgumentException(nameof(filingHostUriString));
-            }
+            string filingUriString = filingHostUri.OriginalString;
 
             FilingClient filingClient = null;
 
@@ -25,10 +22,10 @@ namespace Microsoft.WorkItemFiling
                 bool isGitHub = regexTuple.Item1.Equals("github");
                 Regex regex = regexTuple.Item2;
 
-                Match match = regex.Match(filingHostUriString);
+                Match match = regex.Match(filingUriString);
                 if (match.Success)
                 {
-                    filingClient = isGitHub ? (FilingClient)new GitHubClientWrapper() : new AzureDevOpsClientWrapper();
+                    filingClient = isGitHub ? (FilingClient)new GitHubFilingClient() : new AzureDevOpsFilingClient();
                     filingClient.ProjectOrRepository = match.Groups[WorkItemFilingUtilities.PROJECT].Value;
                     filingClient.AccountOrOrganization = match.Groups[WorkItemFilingUtilities.ACCOUNT].Value;
                     break;
@@ -42,7 +39,7 @@ namespace Microsoft.WorkItemFiling
                         CultureInfo.CurrentCulture,
                         "'{0}' is not a recognized target URI for work item filing. Work items can be filed to GitHub or AzureDevOps "+
                         "(with URIs such as https://github.com/microsoft/sarif-sdk or https://dev.azure.com/contoso/contoso-project).",
-                        filingHostUriString));
+                        filingUriString));
             }
 
             filingClient.HostUri = filingHostUri;

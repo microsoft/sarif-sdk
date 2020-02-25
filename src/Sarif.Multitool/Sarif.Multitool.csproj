@@ -43,10 +43,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Sarif.Converters\Sarif.Converters.csproj" />
-    <ProjectReference Include="..\Sarif.Driver\Sarif.Driver.csproj" />
-    <ProjectReference Include="..\Sarif.WorkItemFiling\Sarif.WorkItemFiling.csproj" />
     <ProjectReference Include="..\Sarif\Sarif.csproj" />
+    <ProjectReference Include="..\Sarif.Driver\Sarif.Driver.csproj" />
+    <ProjectReference Include="..\Sarif.WorkItems\Sarif.WorkItems.csproj" />
+    <ProjectReference Include="..\Sarif.Converters\Sarif.Converters.csproj" />
   </ItemGroup>
 
   <ItemGroup>

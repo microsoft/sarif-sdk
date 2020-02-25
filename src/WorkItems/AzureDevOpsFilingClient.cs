@@ -13,15 +13,15 @@ using Microsoft.VisualStudio.Services.WebApi.Patch;
 using Microsoft.VisualStudio.Services.WebApi.Patch.Json;
 using Newtonsoft.Json;
 
-namespace Microsoft.WorkItemFiling
+namespace Microsoft.WorkItems
 {
     /// <summary>
     /// Represents an Azure DevOps project in which work items can be filed.
     /// </summary>
-    public class AzureDevOpsClientWrapper : FilingClient
+    public class AzureDevOpsFilingClient: FilingClient
     {
         private WorkItemTrackingHttpClient _witClient;
-        
+
         public override async Task Connect(string personalAccessToken)
         {
             Uri accountUri = new Uri(this.AccountOrOrganization, UriKind.Absolute);
@@ -36,6 +36,26 @@ namespace Microsoft.WorkItemFiling
         {
             foreach (WorkItemModel workItemModel in workItemModels)
             {
+                //TODO: Provide helper that generates useful attachment name from filed bug.
+                //      This helper should be common to both ADO and GH filers. The implementation 
+                //      should work like this: the filer should prefix the proposed file name with
+                //      the account and project and number of the filed work item. So an attachment
+                //      name of Scan.sarif would be converted tO
+                // 
+                //         MyAcct_MyProject_WorkItem1000_Scan.sarif
+                //
+                //      The GH filer may prefer to use 'issue' instead:
+                //
+                //         myowner_my-repo_Issue1000_Scan.sarif
+                //
+                //      The common helper should preserve casing choices in the account/owner and
+                //      project/repo information that's provided.
+                //
+                //      Obviously, this proposal requires a change below to first file the bug,
+                //      then compute the file name and add the attachment.
+                //      
+                //      https://github.com/microsoft/sarif-sdk/issues/1753
+
                 AttachmentReference attachmentReference = null;
                 string attachmentText = workItemModel.Attachment?.Text;
                 if (!string.IsNullOrEmpty(attachmentText))
@@ -69,20 +89,14 @@ namespace Microsoft.WorkItemFiling
                     new JsonPatchOperation
                     {
                         Operation = Operation.Add,
-                        Path = $"/fields/{AzureDevOpsFieldNames.ReproSteps}",
-                        Value = workItemModel.Description
-                    },
-                    new JsonPatchOperation
-                    {
-                        Operation = Operation.Add,
-                        Path = $"/fields/{AzureDevOpsFieldNames.AreaPath}",
-                        Value = workItemModel.Area
+                        Path = $"/fields/{AzureDevOpsFieldNames.Area}",
+                        Value = workItemModel.Area ?? workItemModel.RepositoryOrProject
                     },
                     new JsonPatchOperation
                     {
                         Operation = Operation.Add,
                         Path = $"/fields/{AzureDevOpsFieldNames.Tags}",
-                        Value = string.Join(",", workItemModel.Tags)
+                        Value = string.Join(",", workItemModel.LabelsOrTags)
                     }
                 };
 
@@ -118,8 +132,13 @@ namespace Microsoft.WorkItemFiling
 
                 try
                 {
+                    // TODO: Make work item kind configurable for Azure DevOps filer
+                    //
+                    // https://github.com/microsoft/sarif-sdk/issues/1770
+                    string workItemKind = "Bug";
+
                     Console.Write($"Creating work item: {workItemModel.Title}");
-                    workItem = await _witClient.CreateWorkItemAsync(patchDocument, project: this.ProjectOrRepository, "Bug");
+                    workItem = await _witClient.CreateWorkItemAsync(patchDocument, project: this.ProjectOrRepository, workItemKind);
                     Console.WriteLine($": {workItem.Id}: DONE");
                 }
                 catch (Exception e)
@@ -138,7 +157,9 @@ namespace Microsoft.WorkItemFiling
                 const string HTML = "html";
                 workItemModel.HtmlUri = new Uri(((ReferenceLink)workItem.Links.Links[HTML]).Href, UriKind.Absolute);
 
-                // TODO: populate workItemModel.Uri              
+                // TODO: ADO work item filer should populate the raw URI (in addition to HtmlUri) 
+                //
+                //       https://github.com/microsoft/sarif-sdk/issues/1773
             }
 
             return workItemModels;

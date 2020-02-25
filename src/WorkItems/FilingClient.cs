@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Microsoft.WorkItemFiling
+namespace Microsoft.WorkItems
 {
     /// <summary>
     /// Abstract base for classes that represents a system (for example, GitHub or Azure DevOps)
@@ -17,13 +17,11 @@ namespace Microsoft.WorkItemFiling
         /// The URI to the work item filing host.
         /// </summary>
         public Uri HostUri { get; internal set; }
-
         
         /// <summary>
         ///  The Azure DevOps account name or GitHub organization name.
         /// </summary>
         public string AccountOrOrganization { get; set; }
-
 
         /// <summary>
         /// The Azure DevOps project or GitHub repository name.
@@ -33,9 +31,6 @@ namespace Microsoft.WorkItemFiling
         /// <summary>
         /// Connect to the project in which work items will be filed.
         /// </summary>
-        /// <param name="hostUri">
-        /// The URI of the project.
-        /// </param>
         /// <param name="personalAccessToken">
         /// Specifes the personal access used to access the project.
         /// </param>
@@ -50,6 +45,6 @@ namespace Microsoft.WorkItemFiling
         /// <returns>
         /// An object that can be awaited to see the result groups that were actually filed.
         /// </returns>
-        public abstract Task<IEnumerable<WorkItemModel>> FileWorkItems(IEnumerable<WorkItemModel> workItemFilingMetadata);
+        public abstract Task<IEnumerable<WorkItemModel>> FileWorkItems(IEnumerable<WorkItemModel> workItemModels);
     }
 }

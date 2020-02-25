@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0</TargetFrameworks>
-    <RootNamespace>Microsoft.WorkItemFiling</RootNamespace>
+    <RootNamespace>Microsoft.WorkItems</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup Label="AssemblyAttributes">
