@@ -49,6 +49,7 @@ const rules = {
 const sourceFilePath1 = "service.js"
 const sourceFilePath2 = "utils.js"
 const uriPrefix = "file:///"
+const testRuleId = "ESL0001"
 
 //------------------------------------------------------------------------------
 // Tests
@@ -81,7 +82,7 @@ describe("formatter:sarif", () => {
             assert.isDefined(log.runs[0].artifacts);
             assert(log.runs[0].artifacts[0].location.uri.startsWith(uriPrefix));
             assert(log.runs[0].artifacts[0].location.uri.endsWith("/" + sourceFilePath1));
-            assert.isUndefined(log.runs[0].results);
+            assert.lengthOf(log.runs[0].results, 0);
         });
     });
 });
@@ -92,7 +93,8 @@ describe("formatter:sarif", () => {
             filePath: sourceFilePath1,
             messages: [{
                 message: "Unexpected value.",
-                severity: 2
+                severity: 2,
+                ruleId: testRuleId
             }]
         }];
 
@@ -144,6 +146,7 @@ describe("formatter:sarif", () => {
             filePath: sourceFilePath1,
             messages: [{
                 message: "Unexpected value.",
+                ruleId: testRuleId,
                 line: 10
             }]
         }];
@@ -164,6 +167,7 @@ describe("formatter:sarif", () => {
             filePath: sourceFilePath1,
             messages: [{
                 message: "Unexpected value.",
+                ruleId: testRuleId,
                 line: 10,
                 column: 5
             }]
@@ -185,6 +189,7 @@ describe("formatter:sarif", () => {
             filePath: "service.js",
             messages: [{
                 message: "Unexpected value.",
+                ruleId: testRuleId,
                 line: 10,
                 column: 5,
                 source: "getValue()"
@@ -208,7 +213,7 @@ describe("formatter:sarif", () => {
             messages: [{
                 message: "Unexpected value.",
                 severity: 2,
-                ruleId: "the-rule",
+                ruleId: testRuleId,
                 source: "getValue()"
             }]
         }];
@@ -241,7 +246,7 @@ describe("formatter:sarif", () => {
             messages: [{
                 message: "Unexpected value.",
                 severity: 2,
-                ruleId: "the-rule"
+                ruleId: testRuleId
             },
             {
                 ruleId: ruleid1,
@@ -301,7 +306,7 @@ describe("formatter:sarif", () => {
             assert.strictEqual(log.runs[0].tool.driver.rules[2].helpUri, rule3.docs.url);
             assert.strictEqual(log.runs[0].tool.driver.rules[2].properties.category, rule3.docs.category);
 
-            assert.strictEqual(log.runs[0].results[0].ruleId, "the-rule");
+            assert.strictEqual(log.runs[0].results[0].ruleId, testRuleId);
             assert.strictEqual(log.runs[0].results[1].ruleId, ruleid1);
             assert.strictEqual(log.runs[0].results[2].ruleId, ruleid2);
             assert.strictEqual(log.runs[0].results[3].ruleId, ruleid3);
@@ -423,6 +428,48 @@ describe("formatter:sarif", () => {
             assert.strictEqual(log.runs[0].results[0].locations[0].physicalLocation.region.startLine, 18);
             assert.isUndefined(log.runs[0].results[0].locations[0].physicalLocation.region.startColumn);
             assert.isUndefined(log.runs[0].results[0].locations[0].physicalLocation.region.snippet);
+        });
+    });
+});
+
+describe("formatter:sarif", () => {
+    describe("when passed a result with no rule id", () => {
+        const code = [{
+            filePath: sourceFilePath1,
+            messages: [{
+                message: "Internal error.",
+                severity: 2,
+                // no ruleId property
+            }]
+        }];
+
+        it("should return a log with no rules, no results, and a tool execution notification", () => {
+            const log = JSON.parse(formatter(code, { rulesMeta: rules }));
+
+            assert.lengthOf(log.runs, 1)
+            let run = log.runs[0]
+            assert.lengthOf(run.tool.driver.rules, 0);
+            assert.lengthOf(run.results, 0);
+
+            assert.lengthOf(run.artifacts, 1);
+            let artifactUri = run.artifacts[0].location.uri
+            assert(artifactUri.startsWith(uriPrefix));
+            assert(artifactUri.endsWith(sourceFilePath1));
+
+            assert.lengthOf(run.invocations, 1)
+            let invocation = run.invocations[0]
+            assert.isFalse(invocation.executionSuccessful)
+
+            assert.lengthOf(invocation.toolExecutionNotifications, 1)
+            let notification = invocation.toolExecutionNotifications[0]
+            assert.strictEqual(notification.descriptor.id, "ESL9999");
+            assert.strictEqual(notification.level, "error");
+            assert.strictEqual(notification.message.text, "Internal error.");
+
+            assert.lengthOf(notification.locations, 1)
+            let notificationUri = notification.locations[0].physicalLocation.artifactLocation.uri
+            assert(notificationUri.startsWith(uriPrefix));
+            assert(notificationUri.endsWith(sourceFilePath1));
         });
     });
 });

@@ -54,12 +54,19 @@ module.exports = function (results, data) {
 
     const sarifFiles = {};
     const sarifArtifactIndices = {};
-    var nextArtifactIndex = 0;
+    let nextArtifactIndex = 0;
     const sarifRules = {};
     const sarifRuleIndices = {};
-    var nextRuleIndex = 0;
+    let nextRuleIndex = 0;
     const sarifResults = [];
     const embedFileContents = process.env.SARIF_ESLINT_EMBED === "true";
+
+    // Emit a tool execution notification with this id if ESLint emits a message with
+    // no ruleId (which indicates an internal error in ESLint).
+    const internalErrorId = "ESL9999"
+
+    const toolExecutionNotifications = [];
+    let executionSuccessful = true;
 
     results.forEach(result => {
 
@@ -103,7 +110,7 @@ module.exports = function (results, data) {
 
                 result.messages.forEach(message => {
 
-                    const sarifResult = {
+                    const sarifRepresentation = {
                         level: getResultLevel(message),
                         message: {
                             text: message.message
@@ -121,7 +128,7 @@ module.exports = function (results, data) {
                     };
 
                     if (message.ruleId) {
-                        sarifResult.ruleId = message.ruleId;
+                        sarifRepresentation.ruleId = message.ruleId;
 
                         if (rulesMeta && typeof sarifRules[message.ruleId] === "undefined") {
                             const meta = rulesMeta[message.ruleId];
@@ -145,12 +152,29 @@ module.exports = function (results, data) {
                         }
 
                         if (sarifRuleIndices[message.ruleId] !== "undefined") {
-                            sarifResult.ruleIndex = sarifRuleIndices[message.ruleId];
+                            sarifRepresentation.ruleIndex = sarifRuleIndices[message.ruleId];
+                        }
+                    } else {
+                        // ESLint produces a message with no ruleId when it encounters an internal
+                        // error. SARIF represents this as a tool execution notification rather
+                        // than as a result, and a notification has a descriptor.id property rather
+                        // than a ruleId property.
+                        sarifRepresentation.descriptor = {
+                            id: internalErrorId
+                        };
+
+                        // As far as we know, whenever ESLint produces a message with no rule id,
+                        // it has severity: 2 which corresponds to a SARIF error. But check here
+                        // anyway.
+                        if (sarifRepresentation.level === "error") {
+                            // An error-level notification means that the tool failed to complete
+                            // its task.
+                            executionSuccessful = false
                         }
                     }
 
                     if (message.line > 0 || message.column > 0) {
-                        sarifResult.locations[0].physicalLocation.region = {
+                        sarifRepresentation.locations[0].physicalLocation.region = {
                             startLine: message.line,
                             startColumn: message.column
                         };
@@ -159,12 +183,17 @@ module.exports = function (results, data) {
                     if (message.source) {
 
                         // Create an empty region if we don't already have one from the line / column block above.
-                        sarifResult.locations[0].physicalLocation.region = sarifResult.locations[0].physicalLocation.region || {};
-                        sarifResult.locations[0].physicalLocation.region.snippet = {
+                        sarifRepresentation.locations[0].physicalLocation.region = sarifRepresentation.locations[0].physicalLocation.region || {};
+                        sarifRepresentation.locations[0].physicalLocation.region.snippet = {
                             text: message.source
                         };
                     }
-                    sarifResults.push(sarifResult);
+
+                    if (message.ruleId) {
+                        sarifResults.push(sarifRepresentation);
+                    } else {
+                        toolExecutionNotifications.push(sarifRepresentation)
+                    }
                 });
             }
         }
@@ -178,8 +207,17 @@ module.exports = function (results, data) {
         });
     }
 
-    if (sarifResults.length > 0) {
-        sarifLog.runs[0].results = sarifResults;
+    // Per the SARIF spec §3.14.23, run.results must be present even if there are no results.
+    // This provides a positive indication that the run completed and no results were found.
+    sarifLog.runs[0].results = sarifResults;
+
+    if (toolExecutionNotifications.length > 0) {
+        sarifLog.runs[0].invocations = [
+            {
+                toolExecutionNotifications: toolExecutionNotifications,
+                executionSuccessful: executionSuccessful
+            }
+        ]
     }
 
     if (Object.keys(sarifRules).length > 0) {
