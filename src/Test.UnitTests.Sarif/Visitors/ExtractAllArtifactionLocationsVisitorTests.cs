@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
     public class ExtractAllArtifactLocationsVisitorTests
     {
         [Fact]
-        public void PerRunPerRuleSplittingVisitor_EmptyLog()
+        public void ExtractAllArtifactLocationsVisitor_EmptyLog()
         {
             var visitor = new ExtractAllArtifactLocationsVisitor();
             visitor.VisitRun(new Run());
@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         }
 
         [Fact]
-        public void PerRunPerRuleSplittingVisitor_ExtractsMultipleLocations()
+        public void ExtractAllArtifactLocationsVisitor_ExtractsMultipleLocations()
         {
             var sarifLog = new SarifLog
             {
@@ -100,7 +100,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         }
 
         [Fact]
-        public void PerRunPerRuleSplittingVisitor_ExtractsMultipleLocationsSingleResult()
+        public void ExtractAllArtifactLocationsVisitor_ExtractsMultipleLocationsSingleResult()
         {
             var sarifLog = new SarifLog
             {
