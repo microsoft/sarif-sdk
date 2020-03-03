@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             var visitor = new ExtractAllArtifactLocationsVisitor();
             visitor.VisitRun(new Run());
-            visitor.allArtifactLocations.Count.Should().Be(0);
+            visitor.AllArtifactLocations.Count.Should().Be(0);
         }
 
         [Fact]
@@ -95,7 +95,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             foreach (Result result in sarifLog.Runs[0].Results)
             {
-                visitor.allArtifactLocations.Contains(result.Locations[0].PhysicalLocation.ArtifactLocation).Should().BeTrue();
+                visitor.AllArtifactLocations.Contains(result.Locations[0].PhysicalLocation.ArtifactLocation).Should().BeTrue();
             }
         }
 
@@ -158,7 +158,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             foreach (Location location in sarifLog.Runs[0].Results[0].Locations)
             {
-                visitor.allArtifactLocations.Contains(location.PhysicalLocation.ArtifactLocation).Should().BeTrue();
+                visitor.AllArtifactLocations.Contains(location.PhysicalLocation.ArtifactLocation).Should().BeTrue();
             }
         }
     }

@@ -6,15 +6,19 @@ using System.Collections.Generic;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
-
+    /// <summary>
+    /// A visitor that examines a specified SARIF log to extract all artifact locations for later processing.
+    /// This will extract every location present in the log file, which may then need to be filtered by a
+    /// downstream consumer.
+    /// </summary>
     public class ExtractAllArtifactLocationsVisitor : SarifRewritingVisitor
     {
         private Run _currentRun;
-        public HashSet<ArtifactLocation> allArtifactLocations { get; private set; }
+        public HashSet<ArtifactLocation> AllArtifactLocations { get; private set; }
 
         public ExtractAllArtifactLocationsVisitor()
         {
-            allArtifactLocations = new HashSet<ArtifactLocation>(ArtifactLocation.ValueComparer);
+            AllArtifactLocations = new HashSet<ArtifactLocation>(ArtifactLocation.ValueComparer);
         }
 
         public override ArtifactLocation VisitArtifactLocation(ArtifactLocation node)
@@ -23,7 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 return node;
             }
-            allArtifactLocations.Add(node.Resolve(_currentRun));
+            AllArtifactLocations.Add(node.Resolve(_currentRun));
             return node;
         }
 
