@@ -11,12 +11,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
     /// This will extract every location present in the log file, which may then need to be filtered by a
     /// downstream consumer.
     /// 
-    /// May optionally be based a run at contsruction, which allows the visitor to later visit only specific parts of
-    /// the sarif log where location data aggregation is desired.
+    /// User may optionally set a specific run before invoking, in order to only fetch artifact locations
+    /// from a subset on an entire SARIF file.
     /// </summary>
     public class ExtractAllArtifactLocationsVisitor : SarifRewritingVisitor
     {
-        private Run _currentRun;
+        private Run CurrentRun { get; set; }
         public HashSet<ArtifactLocation> AllArtifactLocations { get; private set; }
 
         public ExtractAllArtifactLocationsVisitor()
@@ -24,25 +24,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             AllArtifactLocations = new HashSet<ArtifactLocation>(ArtifactLocation.ValueComparer);
         }
 
-        public ExtractAllArtifactLocationsVisitor(Run node)
-        {
-            AllArtifactLocations = new HashSet<ArtifactLocation>(ArtifactLocation.ValueComparer);
-            _currentRun = node;
-        }
-
         public override ArtifactLocation VisitArtifactLocation(ArtifactLocation node)
         {
-            if (node.Uri == null)
-            {
-                return node;
-            }
-            AllArtifactLocations.Add(node.Resolve(_currentRun));
+            AllArtifactLocations.Add(node.Resolve(CurrentRun));
             return node;
         }
 
         public override Run VisitRun(Run node)
         {
-            _currentRun = base.VisitRun(node);
+            CurrentRun = node;
+            CurrentRun = base.VisitRun(node);
             return node;
         }
     }

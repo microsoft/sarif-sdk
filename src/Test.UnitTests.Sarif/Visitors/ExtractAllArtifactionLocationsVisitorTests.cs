@@ -92,6 +92,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             var visitor = new ExtractAllArtifactLocationsVisitor();
             visitor.VisitSarifLog(sarifLog);
+            visitor.AllArtifactLocations.Count.Should().Be(3);
 
             foreach (Result result in sarifLog.Runs[0].Results)
             {
@@ -155,10 +156,70 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             var visitor = new ExtractAllArtifactLocationsVisitor();
             visitor.VisitSarifLog(sarifLog);
+            visitor.AllArtifactLocations.Count.Should().Be(3);
 
-            foreach (Location location in sarifLog.Runs[0].Results[0].Locations)
+            foreach (Result result in sarifLog.Runs[0].Results)
             {
-                visitor.AllArtifactLocations.Contains(location.PhysicalLocation.ArtifactLocation).Should().BeTrue();
+                visitor.AllArtifactLocations.Contains(result.Locations[0].PhysicalLocation.ArtifactLocation).Should().BeTrue();
+            }
+        }
+
+             [Fact]
+        public void ExtractAllArtifactLocationsVisitor_FetchesIndexedLocations()
+        {
+            var sarifLog = new SarifLog
+            {
+                Runs = new[]
+                {
+                    new Run
+                    {
+                        Artifacts = new List<Artifact>
+                        {
+                            new Artifact{ Location = new ArtifactLocation{  Uri = new Uri(TestConstants.FileLocations.Location1), }, Contents = new ArtifactContent { Text = "New" } },
+                            new Artifact{ Location = new ArtifactLocation{  Uri = new Uri(TestConstants.FileLocations.Location2), }, Contents = new ArtifactContent { Text = "Child of new" } },
+                        },
+                        Results = new[]
+                        {
+                            new Result
+                            {
+                                RuleId = TestConstants.RuleIds.Rule1,
+                                BaselineState = BaselineState.New,
+                                Locations = new []
+                                {
+                                    new Location
+                                    {
+                                        PhysicalLocation = new PhysicalLocation
+                                        {
+                                             ArtifactLocation = new ArtifactLocation
+                                             {
+                                                Index = 0,
+                                             }
+                                        }
+                                    },
+                                    new Location
+                                    {
+                                        PhysicalLocation = new PhysicalLocation
+                                        {
+                                             ArtifactLocation = new ArtifactLocation
+                                             {
+                                                Index = 1,
+                                             }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+
+            var visitor = new ExtractAllArtifactLocationsVisitor();
+            visitor.VisitSarifLog(sarifLog);
+            visitor.AllArtifactLocations.Count.Should().Be(2);
+
+            foreach (Artifact artifact in sarifLog.Runs[0].Artifacts)
+            {
+                visitor.AllArtifactLocations.Contains(artifact.Location).Should().BeTrue();
             }
         }
     }
