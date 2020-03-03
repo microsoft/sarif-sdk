@@ -90,12 +90,12 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             using (var tempDir = new TempDirectory())
             {
-                var inputFileName = tempDir.Write("input.xml", emptyCppCheckLog);
-                var expectedOutputFileName = tempDir.Combine("output_expected.xml");
+                string inputFileName = tempDir.Write("input.xml", emptyCppCheckLog);
+                string expectedOutputFileName = tempDir.Combine("output_expected.xml");
                 _converter.ConvertToStandardFormat(ToolFormat.CppCheck, inputFileName, expectedOutputFileName);
 
                 string expectedOutput = File.ReadAllText(expectedOutputFileName, Encoding.UTF8);
-                var actualOutputFileName = tempDir.Write("output_actual.xml", new string('a', expectedOutput.Length + 4096));
+                string actualOutputFileName = tempDir.Write("output_actual.xml", new string('a', expectedOutput.Length + 4096));
                 _converter.ConvertToStandardFormat(ToolFormat.CppCheck, inputFileName, actualOutputFileName, LoggingOptions.OverwriteExistingOutputFile);
                 string actualOutput = File.ReadAllText(actualOutputFileName, Encoding.UTF8);
 

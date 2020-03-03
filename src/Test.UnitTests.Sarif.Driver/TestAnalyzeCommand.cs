@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             RuntimeConditions runtimeErrors,
             string filePath = null)
         {
-            var context = base.CreateContext(options, logger, runtimeErrors, filePath);
+            TestAnalysisContext context = base.CreateContext(options, logger, runtimeErrors, filePath);
             context.IsValidAnalysisTarget = options.RegardAnalysisTargetAsValid;
             context.TargetLoadException = options.RegardAnalysisTargetAsCorrupted ? new InvalidOperationException() : null;
             context.Options = options;

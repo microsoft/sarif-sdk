@@ -68,7 +68,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
                     accumulator.Runs = new List<Run>();
                 }
 
-                foreach (var run in nextLog.Runs)
+                foreach (Run run in nextLog.Runs)
                 {
                     if (run != null)
                     {

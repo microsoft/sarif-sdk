@@ -38,7 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 // NOTE: we don't actually utilize the dataToInsert command-line data yet...
                 OptionallyEmittedData dataToInsert = transformOptions.DataToInsert.ToFlags();
 
-                var formatting = transformOptions.PrettyPrint
+                Formatting formatting = transformOptions.PrettyPrint
                     ? Formatting.Indented
                     : Formatting.None;
 

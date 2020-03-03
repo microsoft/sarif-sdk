@@ -42,7 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         [Fact]
         public void UpdateIndicesFromLegacyDataVisitor_FunctionsWithNullMaps()
         {
-            var result = _result.DeepClone();
+            Result result = _result.DeepClone();
 
             var visitor = new UpdateIndicesFromLegacyDataVisitor(null, null, null);
             visitor.VisitResult(result);
@@ -54,7 +54,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         [Fact]
         public void UpdateIndicesFromLegacyDataVisitor_RemapsFullyQualifiedogicalLNames()
         {
-            var result = _result.DeepClone();
+            Result result = _result.DeepClone();
             int remappedIndex = 42;
 
             var fullyQualifiedLogicalNameToIndexMap = new Dictionary<string, int>
@@ -72,7 +72,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         [Fact]
         public void UpdateIndicesFromLegacyDataVisitor_RemapsFileLocations()
         {
-            var result = _result.DeepClone();
+            Result result = _result.DeepClone();
             int remappedIndex = 42 * 42;
 
             ArtifactLocation fileLocation = result.Locations[0].PhysicalLocation.ArtifactLocation;
@@ -100,7 +100,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 ["COLLISION"] = remappedIndex
             };
 
-            var result = _result.DeepClone();
+            Result result = _result.DeepClone();
             result.RuleId = "COLLISION";
             result.RuleIndex = -1;
 
@@ -132,7 +132,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         [Fact]
         public void UpdateIndicesFromLegacyDataVisitor_DoesNotMutateUnrecognizedLogicalLocation()
         {
-            var result = ConstructNewResult();
+            Result result = ConstructNewResult();
             Result originalResult = result.DeepClone();
 
             int remappedIndex = 42 * 3;
@@ -151,7 +151,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         [Fact]
         public void UpdateIndicesFromLegacyDataVisitor_DoesNotMutateUnrecognizedFileLocation()
         {
-            var result = ConstructNewResult();
+            Result result = ConstructNewResult();
             Result originalResult = result.DeepClone();
 
             int remappedIndex = 42 * 2;

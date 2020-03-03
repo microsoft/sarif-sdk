@@ -123,7 +123,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (extensions != null)
             {
                 var destination_0 = new List<ToolComponent>();
-                foreach (var value_0 in extensions)
+                foreach (ToolComponent value_0 in extensions)
                 {
                     if (value_0 == null)
                     {

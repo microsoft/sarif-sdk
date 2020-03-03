@@ -744,7 +744,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             };
 
             var uri = new Uri(path, UriKind.RelativeOrAbsolute);
-            if (_files.TryGetValue(uri, out var entry))
+            if (_files.TryGetValue(uri, out Tuple<Artifact, int> entry))
             {
                 location.ArtifactLocation = new ArtifactLocation { Index = entry.Item2 };
             }

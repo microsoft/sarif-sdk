@@ -437,7 +437,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (locations != null)
             {
                 var destination_0 = new List<Location>();
-                foreach (var value_0 in locations)
+                foreach (Location value_0 in locations)
                 {
                     if (value_0 == null)
                     {
@@ -468,7 +468,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (stacks != null)
             {
                 var destination_1 = new List<Stack>();
-                foreach (var value_1 in stacks)
+                foreach (Stack value_1 in stacks)
                 {
                     if (value_1 == null)
                     {
@@ -486,7 +486,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (codeFlows != null)
             {
                 var destination_2 = new List<CodeFlow>();
-                foreach (var value_2 in codeFlows)
+                foreach (CodeFlow value_2 in codeFlows)
                 {
                     if (value_2 == null)
                     {
@@ -504,7 +504,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (graphs != null)
             {
                 var destination_3 = new List<Graph>();
-                foreach (var value_3 in graphs)
+                foreach (Graph value_3 in graphs)
                 {
                     if (value_3 == null)
                     {
@@ -522,7 +522,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (graphTraversals != null)
             {
                 var destination_4 = new List<GraphTraversal>();
-                foreach (var value_4 in graphTraversals)
+                foreach (GraphTraversal value_4 in graphTraversals)
                 {
                     if (value_4 == null)
                     {
@@ -540,7 +540,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (relatedLocations != null)
             {
                 var destination_5 = new List<Location>();
-                foreach (var value_5 in relatedLocations)
+                foreach (Location value_5 in relatedLocations)
                 {
                     if (value_5 == null)
                     {
@@ -558,7 +558,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (suppressions != null)
             {
                 var destination_6 = new List<Suppression>();
-                foreach (var value_6 in suppressions)
+                foreach (Suppression value_6 in suppressions)
                 {
                     if (value_6 == null)
                     {
@@ -578,7 +578,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (attachments != null)
             {
                 var destination_7 = new List<Attachment>();
-                foreach (var value_7 in attachments)
+                foreach (Attachment value_7 in attachments)
                 {
                     if (value_7 == null)
                     {
@@ -601,7 +601,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (workItemUris != null)
             {
                 var destination_8 = new List<Uri>();
-                foreach (var value_8 in workItemUris)
+                foreach (Uri value_8 in workItemUris)
                 {
                     destination_8.Add(value_8);
                 }
@@ -617,7 +617,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (fixes != null)
             {
                 var destination_9 = new List<Fix>();
-                foreach (var value_9 in fixes)
+                foreach (Fix value_9 in fixes)
                 {
                     if (value_9 == null)
                     {
@@ -635,7 +635,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (taxa != null)
             {
                 var destination_10 = new List<ReportingDescriptorReference>();
-                foreach (var value_10 in taxa)
+                foreach (ReportingDescriptorReference value_10 in taxa)
                 {
                     if (value_10 == null)
                     {

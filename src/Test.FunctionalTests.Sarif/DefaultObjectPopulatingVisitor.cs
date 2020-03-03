@@ -117,8 +117,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         private void PopulateInstanceWithDefaultMemberValues(ISarifNode node)
         {           
             Type nodeType = node.GetType();
-          
-            var binding = BindingFlags.Public | BindingFlags.Instance;
+
+            BindingFlags binding = BindingFlags.Public | BindingFlags.Instance;
             foreach (PropertyInfo property in nodeType.GetProperties(binding))
             {
                 // The node kind is always properly set in the OM and
@@ -196,7 +196,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             bool isPropertyInOneOfSubset = false;
 
-            foreach (var item in propertySchema.OneOf)
+            foreach (JsonSchema item in propertySchema.OneOf)
             {
                 if (item.Required != null && item.Required.Contains(jsonPropertyName))
                 {
@@ -338,7 +338,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             else if ((property.PropertyType.BaseType == typeof(Enum)))
             {
                 // This code sets any enum to the first non-zero value we encounter
-                foreach (var enumValue in Enum.GetValues(property.PropertyType))
+                foreach (object enumValue in Enum.GetValues(property.PropertyType))
                 {
                     if ((int)enumValue != 0)
                     {
@@ -408,14 +408,14 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private void AddElementToDictionary(object dictionary, object dictionaryValue)
         {
-            var dictionaryType = dictionary.GetType();
+            Type dictionaryType = dictionary.GetType();
             MethodInfo method = dictionaryType.GetMethod("Add");
             method.Invoke(dictionary, new[] { "key", dictionaryValue });
         }
 
         private void AddElementToList(object list, object listElement)
         {
-            var listType = list.GetType();
+            Type listType = list.GetType();
             MethodInfo method = listType.GetMethod("Add");
             method.Invoke(list, new [] { listElement});
         }
@@ -427,8 +427,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             // concrete List<T> class, using the generic type argument from the OM.
             // These constructed types are creatable via a parameterless constructor
             // (which is what is ultimately invoked by Activator.CreateInstance).
-            var listType = typeof(List<>);
-            var constructedType = listType.MakeGenericType(propertyType.GenericTypeArguments[0]);
+            Type listType = typeof(List<>);
+            Type constructedType = listType.MakeGenericType(propertyType.GenericTypeArguments[0]);
             return Activator.CreateInstance(constructedType);
         }
 
@@ -439,8 +439,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             // concrete Dictionary<string, T> class, using the generic type argument from the OM.
             // These constructed types are creatable via a parameterless constructor
             // (which is what is ultimately invoked by Activator.CreateInstance).
-            var listType = typeof(Dictionary<,>);
-            var constructedType = listType.MakeGenericType(propertyType.GenericTypeArguments[0], propertyType.GenericTypeArguments[1]);
+            Type listType = typeof(Dictionary<,>);
+            Type constructedType = listType.MakeGenericType(propertyType.GenericTypeArguments[0], propertyType.GenericTypeArguments[1]);
             return Activator.CreateInstance(constructedType);
         }
 

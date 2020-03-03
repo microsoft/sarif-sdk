@@ -29,7 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             // we wouldn't be required to do this. Filed an issue on this.
             // https://github.com/Microsoft/jschema/issues/6
 
-            var log = JsonConvert.DeserializeObject<SarifLog>(actualJson);
+            SarifLog log = JsonConvert.DeserializeObject<SarifLog>(actualJson);
 
             // Pretty-printed JSON literals can consume significant space in test code,
             // so we'll provide an option to collapse into minimal form

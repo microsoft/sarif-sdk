@@ -171,7 +171,7 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
 
             returnCode.Should().Be(0);
 
-            var actualLog = JsonConvert.DeserializeObject<SarifLog>(File.ReadAllText(actualLogFilePath));
+            SarifLog actualLog = JsonConvert.DeserializeObject<SarifLog>(File.ReadAllText(actualLogFilePath));
 
             // First, we'll strip any validation results that don't originate with the rule under test
             var newResults = new List<Result>();

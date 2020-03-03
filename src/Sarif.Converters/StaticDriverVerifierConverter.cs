@@ -77,7 +77,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private void ProcessLine(string logFileLine, ref int nestingLevel, Result result)
         {
-            var codeFlow = result.CodeFlows[0];
+            CodeFlow codeFlow = result.CodeFlows[0];
 
             const int STEP  = 0;
             const int URI   = 1;
@@ -309,7 +309,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             caller = callee = null;
 
-            var match = s_callRegex.Match(text);
+            Match match = s_callRegex.Match(text);
             if (match.Success && match.Groups.Count == 3)
             {
                 caller = match.Groups[1].Value;

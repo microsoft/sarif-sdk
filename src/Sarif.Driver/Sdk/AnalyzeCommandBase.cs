@@ -592,7 +592,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             string target,
             ISet<string> disabledSkimmers)
         {
-            var context = CreateContext(options, rootContext.Logger, rootContext.RuntimeErrors, target);
+            TContext context = CreateContext(options, rootContext.Logger, rootContext.RuntimeErrors, target);
             context.Policy = rootContext.Policy;
 
             if (options.ComputeFileHashes)

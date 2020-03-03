@@ -968,7 +968,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     {
                         run.Tool.Driver.Rules = new List<ReportingDescriptor>();
 
-                        foreach (var pair in v1Run.Rules)
+                        foreach (KeyValuePair<string, RuleVersionOne> pair in v1Run.Rules)
                         {
                             run.Tool.Driver.Rules.Add(CreateRule(pair.Value));
                         }

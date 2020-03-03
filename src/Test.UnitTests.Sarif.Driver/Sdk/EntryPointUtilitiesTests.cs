@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         [Fact]
         public void EnryPointUtilities_GenerateArguments_SucceedsWithNormalArguments()
         {
-            var args = new[] { "/y:z", "/x" };
+            string[] args = new[] { "/y:z", "/x" };
 
             string[] result = EntryPointUtilities.GenerateArguments(args, null, null);
 
@@ -36,10 +36,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public void EnryPointUtilities_GenerateArguments_ExpandsResponseFileContents()
         {
             const string ResponseFileName = "test.rsp";
-            var responseFileContents = new[] { "/b", "/c:val /d", "   /e   " };
-            var mockFileSystem = MockFactory.MakeMockFileSystem(ResponseFileName, responseFileContents);
+            string[] responseFileContents = new[] { "/b", "/c:val /d", "   /e   " };
+            IFileSystem mockFileSystem = MockFactory.MakeMockFileSystem(ResponseFileName, responseFileContents);
 
-            var args = new[] { "/a", "@" + ResponseFileName, "/f" };
+            string[] args = new[] { "/a", "@" + ResponseFileName, "/f" };
 
             string[] result = EntryPointUtilities.GenerateArguments(args, mockFileSystem, MockFactory.MakeMockEnvironmentVariables());
 
@@ -51,7 +51,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public void EnryPointUtilities_GenerateArguments_ExceptionIfResponseFileDoesNotExist()
         {
             string NonexistentResponseFile = Guid.NewGuid().ToString() + ".rsp";
-            var args = new[] { "/a", "@" + NonexistentResponseFile, "/f" };
+            string[] args = new[] { "/a", "@" + NonexistentResponseFile, "/f" };
 
             Assert.Throws<FileNotFoundException>(
                 () => EntryPointUtilities.GenerateArguments(args, new FileSystem(), new EnvironmentVariables())
@@ -62,10 +62,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public void EnryPointUtilities_GenerateArguments_StripsQuotesFromAroundArgsWithSpacesInResponseFiles()
         {
             const string ResponseFileName = "test.rsp";
-            var responseFileContents = new[] { "a \"one two\" b" };
-            var mockFileSystem = MockFactory.MakeMockFileSystem(ResponseFileName, responseFileContents);
+            string[] responseFileContents = new[] { "a \"one two\" b" };
+            IFileSystem mockFileSystem = MockFactory.MakeMockFileSystem(ResponseFileName, responseFileContents);
 
-            var args = new[] { "@" + ResponseFileName };
+            string[] args = new[] { "@" + ResponseFileName };
 
             string[] result = EntryPointUtilities.GenerateArguments(args, mockFileSystem, MockFactory.MakeMockEnvironmentVariables());
 
@@ -82,7 +82,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 { DirectoryVariableName, DirectoryName }
             };
-            var mockEnvironmentVariables = MockFactory.MakeMockEnvironmentVariables(environmentVariableDictionary);
+            IEnvironmentVariables mockEnvironmentVariables = MockFactory.MakeMockEnvironmentVariables(environmentVariableDictionary);
 
             const string ResponseFileName = "test.rsp";
 
@@ -92,10 +92,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             string expandedResponseFileName = String.Format(CultureInfo.InvariantCulture,
                 @"{0}\{1}", DirectoryName, ResponseFileName);
 
-            var responseFileContents = new[] { "a", "b c" };
-            var mockFileSystem = MockFactory.MakeMockFileSystem(expandedResponseFileName, responseFileContents);
+            string[] responseFileContents = new[] { "a", "b c" };
+            IFileSystem mockFileSystem = MockFactory.MakeMockFileSystem(expandedResponseFileName, responseFileContents);
 
-            var args = new[] { "@" + responseFileNameArgument };
+            string[] args = new[] { "@" + responseFileNameArgument };
 
             string[] result = EntryPointUtilities.GenerateArguments(args, mockFileSystem, mockEnvironmentVariables);
 

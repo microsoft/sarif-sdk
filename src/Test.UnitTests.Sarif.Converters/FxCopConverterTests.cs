@@ -52,7 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void FxCopLogReader_Context_RefineReport()
         {
-            var context = TestHelper.CreateProjectContext();
+            FxCopLogReader.Context context = TestHelper.CreateProjectContext();
 
             context.RefineReport("myreport");
             Assert.Equal("myreport", context.Report);
@@ -61,7 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void FxCopLogReader_Context_RefineResource()
         {
-            var context = TestHelper.CreateProjectContext();
+            FxCopLogReader.Context context = TestHelper.CreateProjectContext();
 
             context.RefineResource("myresource.resx");
             Assert.Equal("myresource.resx", context.Resource);
@@ -70,7 +70,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void FxCopLogReader_Context_RefineException()
         {
-            var context = TestHelper.CreateProjectContext();
+            FxCopLogReader.Context context = TestHelper.CreateProjectContext();
 
             context.RefineException(true, "CA0001", "mytarget");
             Assert.True(context.Exception);
@@ -81,7 +81,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void FxCopLogReader_Context_RefineExceptionType()
         {
-            var context = TestHelper.CreateProjectContext();
+            FxCopLogReader.Context context = TestHelper.CreateProjectContext();
 
             context.RefineExceptionType("mytype");
             Assert.Equal("mytype", context.ExceptionType);
@@ -90,7 +90,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void FxCopLogReader_Context_RefineExceptionMessage()
         {
-            var context = TestHelper.CreateProjectContext();
+            FxCopLogReader.Context context = TestHelper.CreateProjectContext();
 
             context.RefineExceptionMessage("mymessage");
             Assert.Equal("mymessage", context.ExceptionMessage);
@@ -99,7 +99,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void FxCopLogReader_Context_RefineStackTrace()
         {
-            var context = TestHelper.CreateProjectContext();
+            FxCopLogReader.Context context = TestHelper.CreateProjectContext();
 
             context.RefineStackTrace(@"trace\n trace");
             context.StackTrace.Should().BeCrossPlatformEquivalentStrings(@"trace\n trace");
@@ -108,7 +108,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void FxCopLogReader_Context_RefineInnerExceptionType()
         {
-            var context = TestHelper.CreateProjectContext();
+            FxCopLogReader.Context context = TestHelper.CreateProjectContext();
 
             context.RefineInnerExceptionType(@"myinnertype");
             Assert.Equal(@"myinnertype", context.InnerExceptionType);
@@ -117,7 +117,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void FxCopLogReader_Context_RefineInnerExceptionMessage()
         {
-            var context = TestHelper.CreateProjectContext();
+            FxCopLogReader.Context context = TestHelper.CreateProjectContext();
 
             context.RefineInnerExceptionMessage(@"myinnermessage");
             Assert.Equal(@"myinnermessage", context.InnerExceptionMessage);
@@ -126,7 +126,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void FxCopLogReader_Context_RefineInnerStackTrace()
         {
-            var context = TestHelper.CreateProjectContext();
+            FxCopLogReader.Context context = TestHelper.CreateProjectContext();
 
             context.RefineInnerStackTrace(@"myinnertrace");
             Assert.Equal(@"myinnertrace", context.InnerStackTrace);
@@ -135,7 +135,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void FxCopLogReader_Context_RefineTarget()
         {
-            var context = TestHelper.CreateProjectContext();
+            FxCopLogReader.Context context = TestHelper.CreateProjectContext();
 
             context.RefineTarget("mybinary.dll");
             Assert.Equal("mybinary.dll", context.Target);
@@ -144,7 +144,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void FxCopLogReader_Context_RefineModule()
         {
-            var context = TestHelper.CreateProjectContext();
+            FxCopLogReader.Context context = TestHelper.CreateProjectContext();
 
             context.RefineModule("mybinary.dll");
             Assert.Equal("mybinary.dll", context.Module);
@@ -153,7 +153,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void FxCopLogReader_Context_RefineNamespace()
         {
-            var context = TestHelper.CreateProjectContext();
+            FxCopLogReader.Context context = TestHelper.CreateProjectContext();
 
             context.RefineNamespace("mynamespace");
             Assert.Equal("mynamespace", context.Namespace);
@@ -162,7 +162,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void FxCopLogReader_Context_RefineType()
         {
-            var context = TestHelper.CreateProjectContext();
+            FxCopLogReader.Context context = TestHelper.CreateProjectContext();
 
             context.RefineType("mytype");
             Assert.Equal("mytype", context.Type);
@@ -171,7 +171,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void FxCopLogReader_Context_RefineMember()
         {
-            var context = TestHelper.CreateProjectContext();
+            FxCopLogReader.Context context = TestHelper.CreateProjectContext();
 
             context.RefineMember("mymember(string)");
             Assert.Equal("mymember(string)", context.Member);
@@ -180,7 +180,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void FxCopLogReader_Context_RefineMessage()
         {
-            var context = TestHelper.CreateProjectContext();
+            FxCopLogReader.Context context = TestHelper.CreateProjectContext();
 
             context.RefineMessage("CA0000", "VeryUsefulCheck", "1", "MyCategory", "Breaking", "ExcludedInSource");
             Assert.Equal("CA0000", context.CheckId);
@@ -194,7 +194,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void FxCopLogReader_Context_RefineIssue()
         {
-            var context = TestHelper.CreateProjectContext();
+            FxCopLogReader.Context context = TestHelper.CreateProjectContext();
 
             context.RefineIssue("hello!", "test", "25", "error", "source", "myfile.cs", 13);
             Assert.Equal("hello!", context.Message);
@@ -209,7 +209,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void FxCopLogReader_Context_RefineProjectToMemberIssue()
         {
-            var context = TestHelper.CreateProjectContext();
+            FxCopLogReader.Context context = TestHelper.CreateProjectContext();
 
             context.RefineTarget("mybinary.dll");
             context.RefineModule("mybinary.dll");
@@ -251,7 +251,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void FxCopLogReader_Context_RefineProjectToResourceIssue()
         {
-            var context = TestHelper.CreateProjectContext();
+            FxCopLogReader.Context context = TestHelper.CreateProjectContext();
 
             context.RefineTarget("mybinary.dll");
             context.RefineModule("mybinary.dll");
@@ -290,7 +290,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void FxCopLogReader_Context_RefineProjectToExceptionIssue()
         {
-            var context = TestHelper.CreateProjectContext();
+            FxCopLogReader.Context context = TestHelper.CreateProjectContext();
 
             context.RefineException(true, "CA0001", "binary.dll#namespace#member(string)");
             context.RefineExceptionType("type");
@@ -357,7 +357,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void FxCopConverter_CreateResult_FakeContext_Member()
         {
-            var context = TestHelper.CreateProjectContext();
+            FxCopLogReader.Context context = TestHelper.CreateProjectContext();
 
             context.RefineTarget(@"mybinary.dll");
             context.RefineModule("mybinary.dll");
@@ -422,7 +422,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void FxCopConverter_CreateResult_FakeContext_NoModule_Member()
         {
-            var context = TestHelper.CreateProjectContext();
+            FxCopLogReader.Context context = TestHelper.CreateProjectContext();
 
             context.RefineTarget(@"mybinary.dll");
             context.RefineNamespace("mynamespace");
@@ -448,7 +448,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void FxCopConverter_CreateResult_FakeContext_Resource()
         {
-            var context = TestHelper.CreateProjectContext();
+            FxCopLogReader.Context context = TestHelper.CreateProjectContext();
 
             context.RefineTarget(@"mybinary.dll");
             context.RefineModule("mybinary.dll");
@@ -471,7 +471,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void FxCopConverter_CreateResult_FakeContext_NoModule_Resource()
         {
-            var context = TestHelper.CreateProjectContext();
+            FxCopLogReader.Context context = TestHelper.CreateProjectContext();
 
             context.RefineTarget(@"mybinary.dll");
             context.RefineResource("myresource.resx");

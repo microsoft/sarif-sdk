@@ -121,7 +121,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (frames != null)
             {
                 var destination_0 = new List<StackFrame>();
-                foreach (var value_0 in frames)
+                foreach (StackFrame value_0 in frames)
                 {
                     if (value_0 == null)
                     {

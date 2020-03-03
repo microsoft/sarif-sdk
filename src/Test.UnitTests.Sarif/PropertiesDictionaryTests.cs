@@ -29,7 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             var properties = new PropertiesDictionary();
             properties.GetProperty(BooleanProperty).Should().Be(BOOL_DEFAULT);
 
-            var nonDefaultValue = false;
+            bool nonDefaultValue = false;
             properties.SetProperty(BooleanProperty, nonDefaultValue);
             properties.GetProperty(BooleanProperty).Should().Be(nonDefaultValue);
 

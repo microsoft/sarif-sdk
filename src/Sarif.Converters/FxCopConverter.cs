@@ -413,7 +413,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             private static string CreateId(params string[] parts)
             {
-                var updated = parts
+                IEnumerable<string> updated = parts
                     .Where(part => !String.IsNullOrEmpty(part))
                     .Select(part => part.TrimStart('#'));
 
@@ -735,7 +735,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 XmlResolver = null
             };
 
-            using (var stream = assembly.GetManifestResourceStream(FxCopLogReader.FxCopReportSchema))
+            using (Stream stream = assembly.GetManifestResourceStream(FxCopLogReader.FxCopReportSchema))
             using (var reader = XmlReader.Create(stream, settings))
             {
                 XmlSchema schema = XmlSchema.Read(reader, new ValidationEventHandler(ReportError));

@@ -166,7 +166,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public void LoadFromJson(string filePath)
         {
-            var properties = JsonConvert.DeserializeObject<PropertiesDictionary>(File.ReadAllText(filePath));
+            PropertiesDictionary properties = JsonConvert.DeserializeObject<PropertiesDictionary>(File.ReadAllText(filePath));
             this.Clear();
 
             foreach (string key in properties.Keys)

@@ -371,7 +371,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (invocations != null)
             {
                 var destination_0 = new List<Invocation>();
-                foreach (var value_0 in invocations)
+                foreach (Invocation value_0 in invocations)
                 {
                     if (value_0 == null)
                     {
@@ -395,7 +395,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (versionControlProvenance != null)
             {
                 var destination_1 = new List<VersionControlDetails>();
-                foreach (var value_1 in versionControlProvenance)
+                foreach (VersionControlDetails value_1 in versionControlProvenance)
                 {
                     if (value_1 == null)
                     {
@@ -413,7 +413,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (originalUriBaseIds != null)
             {
                 OriginalUriBaseIds = new Dictionary<string, ArtifactLocation>();
-                foreach (var value_2 in originalUriBaseIds)
+                foreach (KeyValuePair<string, ArtifactLocation> value_2 in originalUriBaseIds)
                 {
                     OriginalUriBaseIds.Add(value_2.Key, new ArtifactLocation(value_2.Value));
                 }
@@ -422,7 +422,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (artifacts != null)
             {
                 var destination_2 = new List<Artifact>();
-                foreach (var value_3 in artifacts)
+                foreach (Artifact value_3 in artifacts)
                 {
                     if (value_3 == null)
                     {
@@ -440,7 +440,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (logicalLocations != null)
             {
                 var destination_3 = new List<LogicalLocation>();
-                foreach (var value_4 in logicalLocations)
+                foreach (LogicalLocation value_4 in logicalLocations)
                 {
                     if (value_4 == null)
                     {
@@ -458,7 +458,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (graphs != null)
             {
                 var destination_4 = new List<Graph>();
-                foreach (var value_5 in graphs)
+                foreach (Graph value_5 in graphs)
                 {
                     if (value_5 == null)
                     {
@@ -476,7 +476,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (results != null)
             {
                 var destination_5 = new List<Result>();
-                foreach (var value_6 in results)
+                foreach (Result value_6 in results)
                 {
                     if (value_6 == null)
                     {
@@ -499,7 +499,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (runAggregates != null)
             {
                 var destination_6 = new List<RunAutomationDetails>();
-                foreach (var value_7 in runAggregates)
+                foreach (RunAutomationDetails value_7 in runAggregates)
                 {
                     if (value_7 == null)
                     {
@@ -518,7 +518,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (redactionTokens != null)
             {
                 var destination_7 = new List<string>();
-                foreach (var value_8 in redactionTokens)
+                foreach (string value_8 in redactionTokens)
                 {
                     destination_7.Add(value_8);
                 }
@@ -531,7 +531,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (newlineSequences != null)
             {
                 var destination_8 = new List<string>();
-                foreach (var value_9 in newlineSequences)
+                foreach (string value_9 in newlineSequences)
                 {
                     destination_8.Add(value_9);
                 }
@@ -548,7 +548,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (threadFlowLocations != null)
             {
                 var destination_9 = new List<ThreadFlowLocation>();
-                foreach (var value_10 in threadFlowLocations)
+                foreach (ThreadFlowLocation value_10 in threadFlowLocations)
                 {
                     if (value_10 == null)
                     {
@@ -566,7 +566,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (taxonomies != null)
             {
                 var destination_10 = new List<ToolComponent>();
-                foreach (var value_11 in taxonomies)
+                foreach (ToolComponent value_11 in taxonomies)
                 {
                     if (value_11 == null)
                     {
@@ -584,7 +584,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (addresses != null)
             {
                 var destination_11 = new List<Address>();
-                foreach (var value_12 in addresses)
+                foreach (Address value_12 in addresses)
                 {
                     if (value_12 == null)
                     {
@@ -602,7 +602,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (translations != null)
             {
                 var destination_12 = new List<ToolComponent>();
-                foreach (var value_13 in translations)
+                foreach (ToolComponent value_13 in translations)
                 {
                     if (value_13 == null)
                     {
@@ -620,7 +620,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (policies != null)
             {
                 var destination_13 = new List<ToolComponent>();
-                foreach (var value_14 in policies)
+                foreach (ToolComponent value_14 in policies)
                 {
                     if (value_14 == null)
                     {
@@ -638,7 +638,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (webRequests != null)
             {
                 var destination_14 = new List<WebRequest>();
-                foreach (var value_15 in webRequests)
+                foreach (WebRequest value_15 in webRequests)
                 {
                     if (value_15 == null)
                     {
@@ -656,7 +656,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (webResponses != null)
             {
                 var destination_15 = new List<WebResponse>();
-                foreach (var value_16 in webResponses)
+                foreach (WebResponse value_16 in webResponses)
                 {
                     if (value_16 == null)
                     {

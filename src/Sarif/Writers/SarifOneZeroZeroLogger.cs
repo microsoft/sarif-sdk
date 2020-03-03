@@ -48,7 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             string logText = File.ReadAllText(_outputFilePath);
 
-            var v2Log = JsonConvert.DeserializeObject<SarifLog>(logText);
+            SarifLog v2Log = JsonConvert.DeserializeObject<SarifLog>(logText);
 
             var transformer = new SarifCurrentToVersionOneVisitor();
             transformer.VisitSarifLog(v2Log);

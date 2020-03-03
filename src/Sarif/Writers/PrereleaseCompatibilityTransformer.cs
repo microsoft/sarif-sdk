@@ -1155,8 +1155,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             if (address.Count > 0)
             {
-                var location = stackFrame["location"] is JObject ? stackFrame["location"] : new JObject();
-                var physicalLocation = location["physicalLocation"] is JObject ? location["physicalLocation"] : new JObject();
+                JToken location = stackFrame["location"] is JObject ? stackFrame["location"] : new JObject();
+                JToken physicalLocation = location["physicalLocation"] is JObject ? location["physicalLocation"] : new JObject();
 
                 physicalLocation["address"] = address;
                 location["physicalLocation"] = physicalLocation;

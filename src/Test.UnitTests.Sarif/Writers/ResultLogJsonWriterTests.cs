@@ -44,7 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         [Fact]
         public void ResultLogJsonWriter_ResultsMayNotBeWrittenMoreThanOnce()
         {
-            var results = new[] { DefaultResult };
+            Result[] results = new[] { DefaultResult };
 
             Assert.Throws<InvalidOperationException>(() => 
                 GetJson(uut =>

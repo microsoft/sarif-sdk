@@ -227,7 +227,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             var sb = new StringBuilder(firstMessageLine);
             sb.AppendLine();
 
-            foreach (var error in errors)
+            foreach (Result error in errors)
             {
                 sb.AppendLine(error.FormatForVisualStudio(RuleFactory.GetRuleFromRuleId(error.RuleId)));
             }

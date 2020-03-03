@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
 
             Dictionary <Result, List<ExtractedResult>> baselineResults = new Dictionary<Result, List<ExtractedResult>>(comparer);
 
-            foreach (var result in baseline)
+            foreach (ExtractedResult result in baseline)
             {
                 if (!baselineResults.ContainsKey(result.Result) || baselineResults[result.Result] == null)
                 {
@@ -42,7 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
                 }
             }
 
-            foreach (var result in current)
+            foreach (ExtractedResult result in current)
             {
                 if (baselineResults.ContainsKey(result.Result))
                 {

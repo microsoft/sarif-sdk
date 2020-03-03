@@ -46,7 +46,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             PhysicalLocation location = new PhysicalLocation() { ArtifactLocation = new ArtifactLocation { UriBaseId = "%TEST%", Uri = new Uri("src/file.cs", UriKind.Relative) } };
 
-            var newLocation = visitor.VisitPhysicalLocation(location);
+            PhysicalLocation newLocation = visitor.VisitPhysicalLocation(location);
             newLocation.ArtifactLocation.UriBaseId.Should().BeNull();
             newLocation.ArtifactLocation.Uri.Should().BeEquivalentTo(new Uri("C:/github/sarif/src/file.cs"));
         }
@@ -68,7 +68,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             PhysicalLocation location = new PhysicalLocation() { ArtifactLocation = new ArtifactLocation { UriBaseId = "%TEST2%", Uri = new Uri("src/file.cs", UriKind.Relative) } };
 
-            var newLocation = visitor.VisitPhysicalLocation(location);
+            PhysicalLocation newLocation = visitor.VisitPhysicalLocation(location);
             newLocation.ArtifactLocation.UriBaseId.Should().NotBeNull();
             newLocation.ArtifactLocation.Uri.Should().BeEquivalentTo(new Uri("src/file.cs", UriKind.Relative));
         }
@@ -90,7 +90,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             PhysicalLocation location = new PhysicalLocation() { ArtifactLocation = new ArtifactLocation { UriBaseId = null, Uri = new Uri("src/file.cs", UriKind.Relative) } };
 
-            var newLocation = visitor.VisitPhysicalLocation(location);
+            PhysicalLocation newLocation = visitor.VisitPhysicalLocation(location);
             newLocation.ArtifactLocation.UriBaseId.Should().BeNull();
             newLocation.ArtifactLocation.Uri.Should().BeEquivalentTo(new Uri("src/file.cs", UriKind.Relative));
         }
@@ -106,7 +106,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             MakeUrisAbsoluteVisitor visitor = new MakeUrisAbsoluteVisitor();
 
-            var newRun = visitor.VisitRun(run);
+            Run newRun = visitor.VisitRun(run);
 
             // Validate.
             newRun.Artifacts[0].Location.Uri.ToString().Should().Be(@"file:///C:/srcroot/src/file1.cs");
@@ -133,7 +133,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             Run actualRun = expectedRun.DeepClone();
 
             MakeUrisAbsoluteVisitor visitor = new MakeUrisAbsoluteVisitor();
-            var newRun = visitor.VisitRun(actualRun);
+            Run newRun = visitor.VisitRun(actualRun);
 
             expectedRun.ValueEquals(actualRun).Should().BeTrue();
         }

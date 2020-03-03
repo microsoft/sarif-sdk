@@ -66,7 +66,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             _toolNotifications = new List<Notification>();
 
-            var results = GetResultsFromStream(input);
+            Result[] results = GetResultsFromStream(input);
 
             PersistResults(output, results);
 

@@ -275,7 +275,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
             Uri uri = new Uri(@"c:\temp\myFile.cpp");
 
             var run = new Run();
-            var mockFileSystem = MockFactory.MakeMockFileSystem(uri.LocalPath, fileText);
+            IFileSystem mockFileSystem = MockFactory.MakeMockFileSystem(uri.LocalPath, fileText);
             var fileRegionsCache = new FileRegionsCache(run, fileSystem: mockFileSystem);
 
             ExecuteTests(testCases, fileRegionsCache, uri);
@@ -353,7 +353,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
             Uri uri = new Uri(@"c:\temp\myFile.cpp");
 
             var run = new Run();
-            var mockFileSystem = MockFactory.MakeMockFileSystem(uri.LocalPath, SPEC_EXAMPLE);
+            IFileSystem mockFileSystem = MockFactory.MakeMockFileSystem(uri.LocalPath, SPEC_EXAMPLE);
             var fileRegionsCache = new FileRegionsCache(run, fileSystem: mockFileSystem);
 
             Region region = fileRegionsCache.PopulateTextRegionProperties(inputRegion: null, uri: uri, populateSnippet: false);

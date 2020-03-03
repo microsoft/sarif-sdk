@@ -139,7 +139,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (arguments != null)
             {
                 var destination_0 = new List<string>();
-                foreach (var value_0 in arguments)
+                foreach (string value_0 in arguments)
                 {
                     destination_0.Add(value_0);
                 }

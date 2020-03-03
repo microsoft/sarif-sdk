@@ -222,7 +222,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (deprecatedIds != null)
             {
                 var destination_0 = new List<string>();
-                foreach (var value_0 in deprecatedIds)
+                foreach (string value_0 in deprecatedIds)
                 {
                     destination_0.Add(value_0);
                 }
@@ -234,7 +234,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (deprecatedGuids != null)
             {
                 var destination_1 = new List<string>();
-                foreach (var value_1 in deprecatedGuids)
+                foreach (string value_1 in deprecatedGuids)
                 {
                     destination_1.Add(value_1);
                 }
@@ -246,7 +246,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (deprecatedNames != null)
             {
                 var destination_2 = new List<string>();
-                foreach (var value_2 in deprecatedNames)
+                foreach (string value_2 in deprecatedNames)
                 {
                     destination_2.Add(value_2);
                 }
@@ -267,7 +267,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (messageStrings != null)
             {
                 MessageStrings = new Dictionary<string, MultiformatMessageString>();
-                foreach (var value_3 in messageStrings)
+                foreach (KeyValuePair<string, MultiformatMessageString> value_3 in messageStrings)
                 {
                     MessageStrings.Add(value_3.Key, new MultiformatMessageString(value_3.Value));
                 }
@@ -291,7 +291,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (relationships != null)
             {
                 var destination_3 = new List<ReportingDescriptorRelationship>();
-                foreach (var value_4 in relationships)
+                foreach (ReportingDescriptorRelationship value_4 in relationships)
                 {
                     if (value_4 == null)
                     {

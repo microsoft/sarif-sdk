@@ -320,7 +320,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void Extensions_ConsumeElementOfDepth_AtLesserDepthTakesNoAction()
         {
-            using (var xml = s_consumeElementOfDepthTestDocument.CreateReader())
+            using (XmlReader xml = s_consumeElementOfDepthTestDocument.CreateReader())
             {
                 xml.ConsumeElementOfDepth(1); // Already at endElementDepth 0, should have no effect
                 Assert.Equal(ReadState.Initial, xml.ReadState);
@@ -330,7 +330,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void Extensions_ConsumeElementOfDepth_ConsumesEmptyElement()
         {
-            using (var xml = s_consumeElementOfDepthTestDocument.CreateReader())
+            using (XmlReader xml = s_consumeElementOfDepthTestDocument.CreateReader())
             {
                 Assert.True(xml.ReadToDescendant("empty_child"));
                 Assert.True(xml.IsEmptyElement);
@@ -342,7 +342,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void Extensions_ConsumeElementOfDepth_ConsumesElementWithChildren()
         {
-            using (var xml = s_consumeElementOfDepthTestDocument.CreateReader())
+            using (XmlReader xml = s_consumeElementOfDepthTestDocument.CreateReader())
             {
                 Assert.True(xml.ReadToDescendant("nodes_child"));
                 xml.ConsumeElementOfDepth(1);
@@ -354,7 +354,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void Extensions_ConsumeElementOfDepth_ConsumesWhenAlreadyInsideElement()
         {
-            using (var xml = s_consumeElementOfDepthTestDocument.CreateReader())
+            using (XmlReader xml = s_consumeElementOfDepthTestDocument.CreateReader())
             {
                 Assert.True(xml.ReadToDescendant("nodes_child"));
                 Assert.True(xml.ReadToDescendant("node"));
@@ -369,7 +369,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void Extensions_ConsumeElementOfDepth_ConsumesEndElement()
         {
-            using (var xml = s_consumeElementOfDepthTestDocument.CreateReader())
+            using (XmlReader xml = s_consumeElementOfDepthTestDocument.CreateReader())
             {
                 Assert.True(xml.ReadToDescendant("nodes_child"));
                 Assert.True(xml.ReadToDescendant("node"));

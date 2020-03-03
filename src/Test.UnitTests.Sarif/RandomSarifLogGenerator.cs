@@ -72,7 +72,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             Run run = GenerateRandomRun(random, resultCount);
             IList<Result> resultList = run.Results;
             List<Result> uniqueResults = new List<Result>();
-            foreach (var result in resultList)
+            foreach (Result result in resultList)
             {
                 if (!uniqueResults.Contains(result, comparer))
                 {
@@ -144,7 +144,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             var rules = new List<ReportingDescriptor>();
 
-            foreach (var ruleId in ruleIds)
+            foreach (string ruleId in ruleIds)
             {
                 rules.Add( 
                     new ReportingDescriptor()

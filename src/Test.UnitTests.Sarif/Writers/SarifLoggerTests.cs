@@ -243,7 +243,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 string output = sb.ToString();
-                var sarifLog = JsonConvert.DeserializeObject<SarifLog>(output);
+                SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(output);
                 sarifLog.Runs[0].Artifacts.Should().BeNull();
             }
         }
@@ -267,7 +267,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             string output = sb.ToString();
-            var sarifLog = JsonConvert.DeserializeObject<SarifLog>(output);
+            SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(output);
 
             string sarifLoggerLocation = typeof(SarifLogger).Assembly.Location;
             string expectedVersion = FileVersionInfo.GetVersionInfo(sarifLoggerLocation).FileVersion;
@@ -285,7 +285,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             string runInstanceId = automationLogicalId + "/" + runInstanceGuid;
             string architecture = nameof(architecture) + ":" + "x86";
             var conversion = new Conversion() { Tool = DefaultTool };
-            var utcNow = DateTime.UtcNow;
+            DateTime utcNow = DateTime.UtcNow;
             var versionControlUri = new Uri("https://www.github.com/contoso/contoso");
             var versionControlDetails = new VersionControlDetails() { RepositoryUri = versionControlUri, AsOfTimeUtc = DateTime.UtcNow };
             string originalUriBaseIdKey = "testBase";
@@ -325,7 +325,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             string output = sb.ToString();
-            var sarifLog = JsonConvert.DeserializeObject<SarifLog>(output);
+            SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(output);
 
             run = sarifLog.Runs[0];
 
@@ -367,7 +367,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             string fileDataKey = new Uri(file).AbsoluteUri;
 
-            var sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
+            SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
             sarifLog.Runs[0].Artifacts[0].Hashes.Keys.Count.Should().Be(3);
             sarifLog.Runs[0].Artifacts[0].Hashes["md5"].Should().Be("4B9DC12934390387862CC4AB5E4A2159");
             sarifLog.Runs[0].Artifacts[0].Hashes["sha-1"].Should().Be("9B59B1C1E3F5F7013B10F6C6B7436293685BAACE");
@@ -404,7 +404,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             string fileDataKey = new Uri(file).AbsoluteUri;
             byte[] fileBytes = Encoding.Default.GetBytes(fileText);
 
-            var sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
+            SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
             Artifact fileData = sarifLog.Runs[0].Artifacts[0];
             fileData.Contents.Binary.Should().Be(Convert.ToBase64String(fileBytes));
             fileData.Contents.Text.Should().BeNull();
@@ -537,7 +537,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             string logText = sb.ToString();
-            var sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
+            SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
 
             int fileCount = 6;
 
@@ -605,7 +605,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             string logText = sb.ToString();
-            var sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
+            SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
 
             sarifLog.Runs[0].Artifacts.Should().BeNull();
         }
@@ -629,7 +629,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             string logText = sb.ToString();
-            var sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
+            SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
 
             Invocation invocation = sarifLog.Runs[0].Invocations?[0];
             invocation.StartTimeUtc.Should().NotBe(DateTime.MinValue);
@@ -661,7 +661,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             string logText = sb.ToString();
-            var sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
+            SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
 
             Invocation invocation = sarifLog.Runs[0].Invocations[0];
 
@@ -697,7 +697,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             string logText = sb.ToString();
-            var sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
+            SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
 
             Invocation invocation = sarifLog.Runs[0].Invocations?[0];
 

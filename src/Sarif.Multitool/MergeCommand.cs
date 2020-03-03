@@ -32,9 +32,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     return FAILURE;
                 }
 
-                var sarifFiles = CreateTargetsSet(mergeOptions.TargetFileSpecifiers, mergeOptions.Recurse, _fileSystem);
+                HashSet<string> sarifFiles = CreateTargetsSet(mergeOptions.TargetFileSpecifiers, mergeOptions.Recurse, _fileSystem);
 
-                var allRuns = ParseFiles(sarifFiles);
+                IEnumerable<SarifLog> allRuns = ParseFiles(sarifFiles);
 
                 // Build one SarifLog with all the Runs.
                 SarifLog combinedLog = allRuns.Merge();
@@ -55,7 +55,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 }
 
                 // Write output to file.
-                var formatting = mergeOptions.PrettyPrint
+                Formatting formatting = mergeOptions.PrettyPrint
                     ? Formatting.Indented
                     : Formatting.None;
 
@@ -73,7 +73,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
 	    private IEnumerable<SarifLog> ParseFiles(IEnumerable<string> sarifFiles)
 	    {
-            foreach (var file in sarifFiles)
+            foreach (string file in sarifFiles)
             {
                 yield return ReadSarifFile<SarifLog>(_fileSystem, file);
             }

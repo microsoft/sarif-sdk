@@ -82,7 +82,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void AndroidStudioConverter_GetShortDescription_UsesDescriptionIfPresent()
         {
-            var builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
+            AndroidStudioProblem.Builder builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
             builder.Description = "Cute fluffy kittens";
             var uut = new AndroidStudioProblem(builder);
             string result = AndroidStudioConverter.GetShortDescriptionForProblem(uut);
@@ -92,7 +92,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void AndroidStudioConverter_GetShortDescription_UsesProblemClassIfDescriptionNotPresent()
         {
-            var uut = AndroidStudioProblemTests.GetDefaultProblem();
+            AndroidStudioProblem uut = AndroidStudioProblemTests.GetDefaultProblem();
             string result = AndroidStudioConverter.GetShortDescriptionForProblem(uut);
             result.Should().Contain("A Problematic Problem");
         }
@@ -100,7 +100,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void AndroidStudioConverter_ConvertToSarifResult_EmptyHintsDoNotAffectDescription()
         {
-            var builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
+            AndroidStudioProblem.Builder builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
             builder.Description = "hungry EVIL zombies";
             var uut = new AndroidStudioProblem(builder);
 
@@ -129,7 +129,7 @@ Possible resolution: delete", result.Message.Text);
         [Fact]
         public void AndroidStudioConverter_ConvertToSarifResult_UsesProblemClassForRuleId()
         {
-            var uut = AndroidStudioProblemTests.GetDefaultProblem();
+            AndroidStudioProblem uut = AndroidStudioProblemTests.GetDefaultProblem();
             Result result = new AndroidStudioConverter().ConvertProblemToSarifResult(uut);
             Assert.Equal("A Problematic Problem", result.RuleId);
         }
@@ -137,7 +137,7 @@ Possible resolution: delete", result.Message.Text);
         [Fact]
         public void AndroidStudioConverter_ConvertToSarifResult_HasNoPropertiesIfAttributeKeyAndSeverity()
         {
-            var uut = AndroidStudioProblemTests.GetDefaultProblem();
+            AndroidStudioProblem uut = AndroidStudioProblemTests.GetDefaultProblem();
             Result result = new AndroidStudioConverter().ConvertProblemToSarifResult(uut);
             Assert.Null(result.Properties);
         }
@@ -145,7 +145,7 @@ Possible resolution: delete", result.Message.Text);
         [Fact]
         public void AndroidStudioConverter_ConvertToSarifResult_AttributeKeyIsPersistedInProperties()
         {
-            var builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
+            AndroidStudioProblem.Builder builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
             builder.AttributeKey = "key";
             var uut = new AndroidStudioProblem(builder);
             Result result = new AndroidStudioConverter().ConvertProblemToSarifResult(uut);
@@ -156,7 +156,7 @@ Possible resolution: delete", result.Message.Text);
         [Fact]
         public void AndroidStudioConverter_ConvertToSarifResult_SeverityIsPersistedInProperties()
         {
-            var builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
+            AndroidStudioProblem.Builder builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
             builder.Severity = "warning";
             var uut = new AndroidStudioProblem(builder);
             Result result = new AndroidStudioConverter().ConvertProblemToSarifResult(uut);
@@ -167,7 +167,7 @@ Possible resolution: delete", result.Message.Text);
         [Fact]
         public void AndroidStudioConverter_ConvertToSarifResult_MultiplePropertiesArePersisted()
         {
-            var builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
+            AndroidStudioProblem.Builder builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
             builder.AttributeKey = "key";
             builder.Severity = "warning";
             var uut = new AndroidStudioProblem(builder);
@@ -180,7 +180,7 @@ Possible resolution: delete", result.Message.Text);
         [Fact]
         public void AndroidStudioConverter_ConvertSarifResult_RecordsTopLevelFileAsSourceFile()
         {
-            var builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
+            AndroidStudioProblem.Builder builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
             builder.File = "expected_file.java";
             builder.EntryPointType = "file";
             builder.EntryPointName = "bad_file.java";
@@ -191,7 +191,7 @@ Possible resolution: delete", result.Message.Text);
         [Fact]
         public void AndroidStudioConverter_ConvertSarifResult_DoesNotRecordTopLevelEntryPointAsSourceFile()
         {
-            var builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
+            AndroidStudioProblem.Builder builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
             builder.File = null;
             builder.EntryPointType = "file";
             builder.EntryPointName = "expected_file.java";
@@ -211,7 +211,7 @@ Possible resolution: delete", result.Message.Text);
         [Fact]
         public void AndroidStudioConverter_ConvertSarifResult_RecordsModuleAsTopLevelIfPresent()
         {
-            var builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
+            AndroidStudioProblem.Builder builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
             builder.File = null;
             builder.Module = "my_fancy_binary";
             builder.EntryPointType = "method";
@@ -243,7 +243,7 @@ Possible resolution: delete", result.Message.Text);
         [Fact]
         public void AndroidStudioConverter_ConvertSarifResult_GeneratesLocationWithOnlyMethodEntryPoint()
         {
-            var builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
+            AndroidStudioProblem.Builder builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
             builder.File = null;
             builder.Package = null;
             builder.Module = null;
@@ -275,7 +275,7 @@ Possible resolution: delete", result.Message.Text);
         [Fact]
         public void AndroidStudioConverter_ConvertSarifResult_GeneratesLocationWithMethodEntryPointAndPackage()
         {
-            var builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
+            AndroidStudioProblem.Builder builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
             builder.File = null;
             builder.Package = "FancyPackageName";
             builder.Module = null;
@@ -308,7 +308,7 @@ Possible resolution: delete", result.Message.Text);
         [Fact]
         public void AndroidStudioConverter_ConvertSarifResult_GeneratesLocationWithOnlyPackage()
         {
-            var builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
+            AndroidStudioProblem.Builder builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
             builder.File = null;
             builder.Package = "FancyPackageName";
             builder.Module = null;
@@ -339,7 +339,7 @@ Possible resolution: delete", result.Message.Text);
         [Fact]
         public void AndroidStudioConverter_ConvertSarifResult_CanRecordSourceFileAndModule()
         {
-            var builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
+            AndroidStudioProblem.Builder builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
             builder.File = "File Goes Here";
             builder.Package = null;
             builder.Module = "LastResortModule";
@@ -376,7 +376,7 @@ Possible resolution: delete", result.Message.Text);
         [Fact]
         public void AndroidStudioConverter_ConvertSarifResult_RemovesProjectDirPrefix()
         {
-            var builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
+            AndroidStudioProblem.Builder builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
             builder.File = "file://$PROJECT_DIR$/mydir/myfile.xml";
             LocationInfo locationInfo = GetLocationInfoForBuilder(builder);
             locationInfo.Location.PhysicalLocation.ArtifactLocation.Uri.ToString().Should().Be("mydir/myfile.xml");
@@ -385,7 +385,7 @@ Possible resolution: delete", result.Message.Text);
         [Fact]
         public void AndroidStudioConverter_ConvertSarifResult_PersistsSourceLineInfo()
         {
-            var builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
+            AndroidStudioProblem.Builder builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
             builder.Line = 42;
             LocationInfo locationInfo = GetLocationInfoForBuilder(builder);
             locationInfo.Location.PhysicalLocation.Region.StartLine.Should().Be(42);

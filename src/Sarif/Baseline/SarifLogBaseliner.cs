@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             Run differencedRun = nextLog.DeepClone();
             differencedRun.Results = new List<Result>();
             
-            foreach (var result in nextLog.Results)
+            foreach (Result result in nextLog.Results)
             {
                 Result newResult = result.DeepClone();
 
@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
                 differencedRun.Results.Add(newResult);
             }
 
-            foreach (var result in baseLine.Results)
+            foreach (Result result in baseLine.Results)
             {
                 if (!nextLog.Results.Contains(result, ResultComparator))
                 {

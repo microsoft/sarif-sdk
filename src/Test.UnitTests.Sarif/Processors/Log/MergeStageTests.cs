@@ -52,7 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
 
             SarifLog merged = Merge.Fold(logs);
             
-            foreach(var log in logs)
+            foreach(SarifLog log in logs)
             {
                 if (log.Runs != null)
                 {

@@ -55,7 +55,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
                     }
                     else if (possibleRemappings != null)
                     {
-                        var applicableRemappings = possibleRemappings.Where(rm => rm.Applies(currentResult));
+                        IEnumerable<SarifLogRemapping> applicableRemappings = possibleRemappings.Where(rm => rm.Applies(currentResult));
                         foreach (SarifLogRemapping remap in applicableRemappings)
                         {
                             if (TryMatchResult(baselineResults, remap.RemapResult(currentResult), out result))

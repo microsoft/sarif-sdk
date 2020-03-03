@@ -39,7 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 
                 string fileName = CommandUtilities.GetTransformedOutputFileName(rewriteOptions);
 
-                var formatting = rewriteOptions.PrettyPrint
+                Formatting formatting = rewriteOptions.PrettyPrint
                     ? Formatting.Indented
                     : Formatting.None;
 

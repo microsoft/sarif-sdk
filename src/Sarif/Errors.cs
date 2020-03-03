@@ -491,11 +491,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 message = string.Format(CultureInfo.InvariantCulture, SdkResources.NotificationWithExceptionMessage, message, exceptionMessage);
             }
 
-            var exceptionData = exception != null && persistExceptionStack
+            ExceptionData exceptionData = exception != null && persistExceptionStack
                 ? ExceptionData.Create(exception)
                 : null;
 
-            var physicalLocation = uri != null
+            PhysicalLocation physicalLocation = uri != null
                 ? new PhysicalLocation
                 {
                     ArtifactLocation = new ArtifactLocation

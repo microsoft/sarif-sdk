@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     baseUri = new Uri(baseUri.ToString() + "/");
                 }
 
-                var rebaseUriFiles = GetRebaseUriFiles(rebaseOptions);
+                IEnumerable<RebaseUriFile> rebaseUriFiles = GetRebaseUriFiles(rebaseOptions);
 
                 if (!ValidateOptions(rebaseOptions, rebaseUriFiles)) { return FAILURE; }
 
@@ -45,11 +45,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     _fileSystem.CreateDirectory(rebaseOptions.OutputFolderPath);
                 }
 
-                var formatting = rebaseOptions.PrettyPrint
+                Formatting formatting = rebaseOptions.PrettyPrint
                     ? Formatting.Indented
                     : Formatting.None;
 
-                foreach (var rebaseUriFile in rebaseUriFiles)
+                foreach (RebaseUriFile rebaseUriFile in rebaseUriFiles)
                 {
                     rebaseUriFile.Log = rebaseUriFile.Log.RebaseUri(rebaseOptions.BasePathToken, rebaseOptions.RebaseRelativeUris, baseUri);
 
@@ -69,7 +69,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             // Get files names first, as we may write more sarif logs to the same directory as we rebase them.
             HashSet<string> inputFilePaths = CreateTargetsSet(rebaseUriOptions.TargetFileSpecifiers, rebaseUriOptions.Recurse, _fileSystem);
-            foreach(var inputFilePath in inputFilePaths)
+            foreach(string inputFilePath in inputFilePaths)
             {
                 yield return new RebaseUriFile
                 {

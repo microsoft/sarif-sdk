@@ -57,7 +57,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Assembly assembly = typeof(ContrastSecurityConverter).Assembly;
             SarifLog sarifLog;
 
-            using (var stream = assembly.GetManifestResourceStream(ContrastSecurityRulesData))
+            using (Stream stream = assembly.GetManifestResourceStream(ContrastSecurityRulesData))
             using (var streamReader = new StreamReader(stream))
             {
                 string prereleaseRuleDataLogText = streamReader.ReadToEnd();

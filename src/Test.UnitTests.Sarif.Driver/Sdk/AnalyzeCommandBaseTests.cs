@@ -294,7 +294,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             try
             {
-                using (var stream = File.OpenWrite(path))
+                using (FileStream stream = File.OpenWrite(path))
                 {
                     // Our log file is locked for write
                     // causing exceptions at analysis time.
@@ -326,7 +326,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             path = Path.Combine(path, Guid.NewGuid().ToString());
 
-            using (var stream = File.Create(path, 1, FileOptions.DeleteOnClose))
+            using (FileStream stream = File.Create(path, 1, FileOptions.DeleteOnClose))
             {
                 // Attempt to persist to unauthorized location will raise exception.
                 var options = new TestAnalyzeOptions()

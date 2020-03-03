@@ -143,7 +143,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (innerExceptions != null)
             {
                 var destination_0 = new List<ExceptionData>();
-                foreach (var value_0 in innerExceptions)
+                foreach (ExceptionData value_0 in innerExceptions)
                 {
                     if (value_0 == null)
                     {

@@ -39,7 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
         {
             var equalityComparer = new DefaultObjectComparer<ArtifactChange>();
 
-            var listOne = CreateTestList(equalityComparer);
+            OrderSensitiveValueComparisonList<ArtifactChange> listOne = CreateTestList(equalityComparer);
 
             // Populate the second list with references from the first.
             var listTwo = new OrderSensitiveValueComparisonList<ArtifactChange>(equalityComparer);
@@ -69,8 +69,8 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
         {
             // Two identical lists with elements that are 
             // distinct objects, by reference.
-            var listOne = CreateTestList(ArtifactChange.ValueComparer);
-            var listTwo = CreateTestList(ArtifactChange.ValueComparer);
+            OrderSensitiveValueComparisonList<ArtifactChange> listOne = CreateTestList(ArtifactChange.ValueComparer);
+            OrderSensitiveValueComparisonList<ArtifactChange> listTwo = CreateTestList(ArtifactChange.ValueComparer);
 
             // Every list s/be equal to itself
             listOne.Equals(listOne).Should().Be(true);

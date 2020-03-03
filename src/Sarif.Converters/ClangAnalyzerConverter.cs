@@ -52,7 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     xmlReader.ReadStartElement(ClangSchemaStrings.PlistName);
                     if (xmlReader.NodeType == XmlNodeType.Element)
                     {
-                        using (var pListReader = xmlReader.ReadSubtree())
+                        using (XmlReader pListReader = xmlReader.ReadSubtree())
                         {
                             this.ReadPlist(pListReader, results);
                         }
@@ -206,7 +206,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                         case ClangSchemaStrings.ArrayName:
                             {
-                                using (var subTreeReader = xmlReader.ReadSubtree())
+                                using (XmlReader subTreeReader = xmlReader.ReadSubtree())
                                 {
                                     IList<object> array = ReadArray(subTreeReader);
                                     list.Add(array);
@@ -216,7 +216,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                         case ClangSchemaStrings.DictionaryName:
                             {
-                                using (var subTreeReader = xmlReader.ReadSubtree())
+                                using (XmlReader subTreeReader = xmlReader.ReadSubtree())
                                 {
                                     IDictionary<string, object> dictionary = ReadDictionary(subTreeReader);
                                     list.Add(dictionary);
@@ -282,7 +282,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                                     throw new InvalidDataException("Expected key value before dictionary data.");
                                 }
 
-                                using (var subTreeReader = xmlReader.ReadSubtree())
+                                using (XmlReader subTreeReader = xmlReader.ReadSubtree())
                                 {
                                     IList<object> array = ReadArray(subTreeReader);
                                     dictionary.Add(keyName, array);
@@ -298,7 +298,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                                     throw new InvalidDataException("Expected key value before dictionary data.");
                                 }
 
-                                using (var subTreeReader = xmlReader.ReadSubtree())
+                                using (XmlReader subTreeReader = xmlReader.ReadSubtree())
                                 {
                                     IDictionary<string, object> child = ReadDictionary(subTreeReader);
                                     dictionary.Add(keyName, child);
@@ -358,7 +358,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                                     throw new InvalidDataException("Expected key value before dictionary data.");
                                 }
 
-                                using (var subTreeReader = xmlReader.ReadSubtree())
+                                using (XmlReader subTreeReader = xmlReader.ReadSubtree())
                                 {
                                     if (keyName.Equals("files"))
                                     {
@@ -393,7 +393,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 {
                     if (xmlReader.Name.Equals(ClangSchemaStrings.DictionaryName))
                     {
-                        using (var subTreeReader = xmlReader.ReadSubtree())
+                        using (XmlReader subTreeReader = xmlReader.ReadSubtree())
                         {
                             IDictionary<string, object> dictionary = ReadDictionary(subTreeReader);
                             Result result = this.CreateResult(dictionary);
@@ -420,7 +420,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 {
                     if (xmlReader.Name.Equals(ClangSchemaStrings.DictionaryName))
                     {
-                        using (var subTreeReader = xmlReader.ReadSubtree())
+                        using (XmlReader subTreeReader = xmlReader.ReadSubtree())
                         {
                             this.ReadPlistDictionary(subTreeReader, results);
                         }

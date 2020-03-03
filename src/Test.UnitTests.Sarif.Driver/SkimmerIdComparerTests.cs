@@ -29,9 +29,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var failedTestCases = new List<string>();
 
             foreach (SkimmerIdComparerTestCase testCase in s_skimmerIdComparerTestCases)
-            {                
-                var leftRule = PopulateRuleProperties(id: testCase.LeftId, name: testCase.LeftName);
-                var rightRule = PopulateRuleProperties(id: testCase.RightId, name: testCase.RightName);
+            {
+                TestRule leftRule = PopulateRuleProperties(id: testCase.LeftId, name: testCase.LeftName);
+                TestRule rightRule = PopulateRuleProperties(id: testCase.RightId, name: testCase.RightName);
 
                 int comparison = SkimmerIdComparer<TestAnalysisContext>.Instance.Compare(leftRule, rightRule);
 

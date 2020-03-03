@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
                 throw new ArgumentNullException(nameof(collection));
             }
             
-            foreach (var entry in collection)
+            foreach (T entry in collection)
             {
                 accumulator = _action(accumulator, entry);
             }

@@ -85,7 +85,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public void Tags_CopyTo_CopiesToArray()
         {
             InitializeTags("x", "y");
-            var array = new string[] { "a", "b", "c", "d" };
+            string[] array = new string[] { "a", "b", "c", "d" };
 
             _testObject.Tags.CopyTo(array, 1);
 
@@ -95,7 +95,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void Tags_CopyTo_WorksOnEmptyTags()
         {
-            var array = new string[] { "a", "b", "c", "d" };
+            string[] array = new string[] { "a", "b", "c", "d" };
 
             _testObject.Tags.CopyTo(array, 1);
 

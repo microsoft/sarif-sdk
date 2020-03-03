@@ -131,7 +131,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         private static ImmutableHashSet<string> InitializeMimeTypesSet(ImmutableArray<ImmutableArray<string>> extensionsTable)
         {
-            var builder = ImmutableHashSet.CreateBuilder<string>();
+            ImmutableHashSet<string>.Builder builder = ImmutableHashSet.CreateBuilder<string>();
             foreach (ImmutableArray<string> tableEntry in extensionsTable)
             {
                 builder.Add(tableEntry[0]);

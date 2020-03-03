@@ -205,7 +205,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             var messageLines = new List<string>();
 
-            foreach (var location in result.Locations)
+            foreach (Location location in result.Locations)
             {
                 Uri uri = location.PhysicalLocation.ArtifactLocation.Uri;
                 string path = uri.IsAbsoluteUri && uri.IsFile ? uri.LocalPath : uri.ToString();

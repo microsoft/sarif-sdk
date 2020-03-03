@@ -235,7 +235,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             var sb = new StringBuilder("file should be valid, but the following errors were found:\n");
 
-            foreach (var error in errors)
+            foreach (Result error in errors)
             {
                 sb.AppendLine(error.FormatForVisualStudio(RuleFactory.GetRuleFromRuleId(error.RuleId)));
             }

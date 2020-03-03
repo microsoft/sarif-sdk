@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
         public IEnumerable<T> Act(IEnumerable<T> collection)
         {
             IEnumerable<T> intermediate = collection;
-            foreach (var action in _stages)
+            foreach (IActionWrapper<T> action in _stages)
             {
                 intermediate = action.Act(intermediate);
             }

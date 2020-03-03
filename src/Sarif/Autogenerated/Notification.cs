@@ -178,7 +178,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (locations != null)
             {
                 var destination_0 = new List<Location>();
-                foreach (var value_0 in locations)
+                foreach (Location value_0 in locations)
                 {
                     if (value_0 == null)
                     {

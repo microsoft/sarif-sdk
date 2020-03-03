@@ -51,7 +51,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 SarifLog output = matcher.Match(new SarifLog[] { baselineFile }, currentSarifLogs).First();
 
-                var formatting = matchingOptions.PrettyPrint
+                Newtonsoft.Json.Formatting formatting = matchingOptions.PrettyPrint
                         ? Newtonsoft.Json.Formatting.Indented
                         : Newtonsoft.Json.Formatting.None;
 
