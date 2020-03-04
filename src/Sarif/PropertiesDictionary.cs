@@ -142,7 +142,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         private static bool TryConvertFromString<T>(string source, out T destination)
         {
             destination = default(T);
-            if (source == null) return false;
+            if (source == null) { return false; }
             TypeConverter converter = TypeDescriptor.GetConverter(typeof(T));
             destination = (T)converter.ConvertFrom(source);
             return destination != null;
@@ -223,7 +223,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     reader.ReadStartElement(PropertiesDictionaryExtensionMethods.PROPERTIES_ID);
 
                     this.LoadPropertiesFromXmlStream(reader);
-                    if (!isEmpty) reader.ReadEndElement();
+                    if (!isEmpty) { reader.ReadEndElement(); }
                 }
             }
         }
