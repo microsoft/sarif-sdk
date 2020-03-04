@@ -12,8 +12,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     internal class StaticDriverVerifierConverter : ToolFileConverterBase
     {
-        private StringBuilder _sb;
-        private Stack<string> _callers;
+        private readonly StringBuilder _sb;
+        private readonly Stack<string> _callers;
 
         /// <summary>Initializes a new instance of the <see cref="StaticDriverVerifierConverter"/> class.</summary>
         public StaticDriverVerifierConverter()
@@ -303,7 +303,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 || fileName.EndsWith("sdv-harness.c", StringComparison.OrdinalIgnoreCase);
         }
 
-        private static Regex s_callRegex = new Regex(@"Call ""(.*)"" ""(.*)""", RegexOptions.Compiled);
+        private static readonly Regex s_callRegex = new Regex(@"Call ""(.*)"" ""(.*)""", RegexOptions.Compiled);
 
         private static bool ExtractCallerAndCallee(string text, out string caller, out string callee)
         {

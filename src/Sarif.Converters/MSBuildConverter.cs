@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             _verbose = verbose;
         }
 
-        private bool _verbose;
+        private readonly bool _verbose;
         private readonly HashSet<string> _fullMessageHashes = new HashSet<string>();
         
         public override string ToolName => ToolFormat.MSBuild;

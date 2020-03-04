@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     public class AndroidStudioConverterTests : ConverterTestsBase<AndroidStudioConverter>
     {
-        private AndroidStudioConverter _converter = null;
+        private readonly AndroidStudioConverter _converter = null;
 
         public AndroidStudioConverterTests()
         {

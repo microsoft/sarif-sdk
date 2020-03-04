@@ -27,8 +27,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Query
     /// </remarks>
     public static class ExpressionParser
     {
-        private static List<Literal<CompareOperator>> CompareOperators;
-        private static List<Literal<ExpressionToken>> Tokens;
+        private static readonly List<Literal<CompareOperator>> CompareOperators;
+        private static readonly List<Literal<ExpressionToken>> Tokens;
 
         static ExpressionParser()
         {

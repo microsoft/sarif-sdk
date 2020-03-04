@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
 {
     public class FullFingerprintMatcherTests
     {
-        private static FullFingerprintResultMatcher matcher = new FullFingerprintResultMatcher();
+        private static readonly FullFingerprintResultMatcher matcher = new FullFingerprintResultMatcher();
         
         [Fact]
         public void FullFingerprintMatcher_MatchesIdenticalFingerprints()

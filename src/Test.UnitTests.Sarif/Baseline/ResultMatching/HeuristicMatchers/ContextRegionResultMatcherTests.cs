@@ -9,7 +9,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
 {
     public class ContextRegionResultMatcherTests
     {
-        private static ContextRegionHeuristicMatcher matcher = new ContextRegionHeuristicMatcher();
+        private static readonly ContextRegionHeuristicMatcher matcher = new ContextRegionHeuristicMatcher();
 
         [Fact]
         public void ContextRegionHeuristicMatcher_NoRegion_DoesNotMatchResults()

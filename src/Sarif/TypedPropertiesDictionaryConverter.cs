@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             _versionConverter = new VersionConverter();
         }
 
-        private VersionConverter _versionConverter;
+        private readonly VersionConverter _versionConverter;
 
         public override bool CanConvert(Type objectType)
         {

@@ -8,7 +8,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
 {
     internal class SarifLogBaseliner : ISarifLogBaseliner
     {
-        IEqualityComparer<Result> ResultComparator;
+        readonly IEqualityComparer<Result> ResultComparator;
 
         public SarifLogBaseliner(IEqualityComparer<Result> comparator)
         {

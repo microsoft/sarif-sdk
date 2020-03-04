@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             output = outputHelper;
         }
 
-        private ISarifLogBaseliner strictBaseliner = SarifLogBaselinerFactory.CreateSarifLogBaseliner(SarifBaselineType.Strict);
+        private readonly ISarifLogBaseliner strictBaseliner = SarifLogBaselinerFactory.CreateSarifLogBaseliner(SarifBaselineType.Strict);
 
         [Fact]
         public void StrictBaseline_SameResults_AllExisting()

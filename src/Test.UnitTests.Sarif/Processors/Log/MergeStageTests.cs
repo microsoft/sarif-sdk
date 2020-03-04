@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
             output = outputHelper;
         }
 
-        GenericFoldAction<SarifLog> Merge = (GenericFoldAction<SarifLog>)SarifLogProcessorFactory.GetActionStage(SarifLogAction.Merge);
+        readonly GenericFoldAction<SarifLog> Merge = (GenericFoldAction<SarifLog>)SarifLogProcessorFactory.GetActionStage(SarifLogAction.Merge);
         
         [Theory]
         [InlineData(0)]

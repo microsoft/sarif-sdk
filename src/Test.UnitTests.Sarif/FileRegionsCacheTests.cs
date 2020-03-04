@@ -133,7 +133,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
             new Region() { Snippet = new ArtifactContent() { Text = FRAGMENT_CARRIAGE_RETURNS_ONLY },
                            StartLine = 4, StartColumn = 2, EndLine = 6, EndColumn = 1, CharOffset = 4, CharLength = 6 };
 
-        private static ReadOnlyCollection<TestCaseData> s_specExampleTestCases =
+        private static readonly ReadOnlyCollection<TestCaseData> s_specExampleTestCases =
             new ReadOnlyCollection<TestCaseData>(new TestCaseData[]
             {   
                 // Insertion point at beginning of binary file
@@ -191,7 +191,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
                     inputRegion: new Region() {CharOffset = 12, CharLength = 2 })
     });
 
-        private static ReadOnlyCollection<TestCaseData> s_newLineTestCases =
+        private static readonly ReadOnlyCollection<TestCaseData> s_newLineTestCases =
             new ReadOnlyCollection<TestCaseData>(new TestCaseData[]
             { 
                 // 
@@ -216,7 +216,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
                     inputRegion: new Region() { StartLine = 1, EndLine = 4, StartColumn = 4, EndColumn = 1, CharOffset = 0, CharLength = 9 })
             });
 
-        private static ReadOnlyCollection<TestCaseData> s_carriageReturnTestCasess =
+        private static readonly ReadOnlyCollection<TestCaseData> s_carriageReturnTestCasess =
             new ReadOnlyCollection<TestCaseData>(new TestCaseData[]
             {
                 // 

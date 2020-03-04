@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
             private set;
         }
         
-        private GenericActionPipeline<SarifLog> _pipeline;
+        private readonly GenericActionPipeline<SarifLog> _pipeline;
 
         [JsonConstructor]
         public SarifLogPipeline(List<SarifLogActionTuple> actions)

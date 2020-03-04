@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
     /// </summary>
     internal class IdenticalResultMatcher : IResultMatcher
     {
-        private bool _considerPropertyBagsWhenComparing;
+        private readonly bool _considerPropertyBagsWhenComparing;
 
         public  IdenticalResultMatcher(bool considerPropertyBagsWhenComparing)
         {
@@ -64,7 +64,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
         /// </summary>
         public class IdenticalResultEqualityComparer : IEqualityComparer<Result>
         {
-            private bool _considerPropertyBagsWhenComparing;
+            private readonly bool _considerPropertyBagsWhenComparing;
 
             public IdenticalResultEqualityComparer(bool considerPropertyBagsWhenComparing)
             {

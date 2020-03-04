@@ -9,7 +9,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
 {
     public class PartialFingerprintResultMatcherTests
     {
-        private static PartialFingerprintResultMatcher matcher = new PartialFingerprintResultMatcher();
+        private static readonly PartialFingerprintResultMatcher matcher = new PartialFingerprintResultMatcher();
 
         [Fact]
         public void PartialFingerprintResultMatcher_WithoutPartialFingerprints_DoesNotMatch()

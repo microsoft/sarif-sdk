@@ -8,7 +8,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
 {
     public class JsonMapBuilderTests
     {
-        private static ResourceExtractor Extractor = new ResourceExtractor(typeof(JsonMapBuilderTests));
+        private static readonly ResourceExtractor Extractor = new ResourceExtractor(typeof(JsonMapBuilderTests));
 
         [Fact]
         public void JsonMapBuilder_Basic_20x()

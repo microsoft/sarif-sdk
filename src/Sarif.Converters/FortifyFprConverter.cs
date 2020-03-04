@@ -54,17 +54,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private int _currentFileIndex = 0;
 
         // Dictionary with replacement variables for the current Result (reused when parsing results to avoid per-Result allocation)
-        private Dictionary<string, string> _currentResultReplacementDictionary;
+        private readonly Dictionary<string, string> _currentResultReplacementDictionary;
 
         // First-Pass Maps: Rules, Artifacts/Files, Nodes, Snippets
         // These are populated on the first pass and used to output complete Results as-we-go during the second pass
-        private HashSet<string> _cweIds;
-        private Dictionary<Uri, Tuple<Artifact, int>> _files;
-        private List<ReportingDescriptor> _rules;
-        private Dictionary<string, int> _ruleIdToIndexMap;
-        private Dictionary<string, Node> _nodeDictionary;
-        private IDictionary<ThreadFlowLocation, int> _threadFlowLocationToIndexDictionary;
-        private Dictionary<string, Snippet> _snippetDictionary;
+        private readonly HashSet<string> _cweIds;
+        private readonly Dictionary<Uri, Tuple<Artifact, int>> _files;
+        private readonly List<ReportingDescriptor> _rules;
+        private readonly Dictionary<string, int> _ruleIdToIndexMap;
+        private readonly Dictionary<string, Node> _nodeDictionary;
+        private readonly IDictionary<ThreadFlowLocation, int> _threadFlowLocationToIndexDictionary;
+        private readonly Dictionary<string, Snippet> _snippetDictionary;
 
         // Output Configurability
         public bool IncludeThreadFlowLocations { get; set; }

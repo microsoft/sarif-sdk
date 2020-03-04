@@ -7,7 +7,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
 {
     public class GenericActionPipeline<T> : IActionWrapper<T>
     {
-        IEnumerable<IActionWrapper<T>> _stages;
+        readonly IEnumerable<IActionWrapper<T>> _stages;
 
         public GenericActionPipeline(IEnumerable<IActionWrapper<T>> stages)
         {

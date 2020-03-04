@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             _toolName = toolName.ToUpperInvariant();
         }
 
-        private string _toolName;
+        private readonly string _toolName;
         private StringBuilder _capturedOutput;
 
         public bool CaptureOutput { get; set; }

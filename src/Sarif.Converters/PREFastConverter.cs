@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     public class PREfastConverter : ToolFileConverterBase
     {
-        private Dictionary<string, string> knownCategories = new Dictionary<string, string>
+        private readonly Dictionary<string, string> knownCategories = new Dictionary<string, string>
         {
             { "RULECATEGORY", "ruleCategory" }
         };

@@ -37,7 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private readonly ITestOutputHelper _outputHelper;
         private readonly bool _testProducesSarifCurrentVersion;
-        private ResourceExtractor _resourceExtractor;
+        private readonly ResourceExtractor _resourceExtractor;
 
         public FileDiffingUnitTests(ITestOutputHelper outputHelper, bool testProducesSarifCurrentVersion = true)
         {
