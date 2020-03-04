@@ -64,7 +64,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             // Repeat look-up with bad file index value. This should succeed and reset
             // the fileIndex to the appropriate value.
             fileLocation = BuildDefaultFileLocation();
-            fileLocation.Index = Int32.MaxValue;
+            fileLocation.Index = int.MaxValue;
             RetrieveFileIndexAndValidate(run, fileLocation, expectedFileIndex: 1);
 
             // Now set a unique property bag on the file location. The property bag

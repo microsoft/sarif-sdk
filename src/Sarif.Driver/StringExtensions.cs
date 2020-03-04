@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         /// <returns>If <paramref name="target"/> is <c>null</c> or whitespace, <c>null</c>; otherwise <paramref name="target"/>.</returns>
         public static string ClampToNullIfWhiteSpace(this string target)
         {
-            if (String.IsNullOrWhiteSpace(target))
+            if (string.IsNullOrWhiteSpace(target))
             {
                 return null;
             }

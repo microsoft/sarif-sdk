@@ -341,7 +341,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 return null;
             }
 
-            if (String.IsNullOrEmpty(options.ConfigurationFilePath))
+            if (string.IsNullOrEmpty(options.ConfigurationFilePath))
             {
                 if (!FileSystem.FileExists(DefaultConfigurationPath) && !unitTestFileExists)
                 {

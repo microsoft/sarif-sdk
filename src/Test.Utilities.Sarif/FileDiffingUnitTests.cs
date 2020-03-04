@@ -58,7 +58,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         protected virtual string ProductTestDataDirectory => GetProductTestDataDirectory(TypeUnderTest);
 
-        protected virtual string IntermediateTestFolder { get { return String.Empty; } }
+        protected virtual string IntermediateTestFolder { get { return string.Empty; } }
 
         protected virtual string TestLogResourceNameRoot => "Microsoft.CodeAnalysis.Test.UnitTests.Sarif.TestData." + TypeUnderTest;
 
@@ -220,7 +220,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                     if (RebaselineExpectedResults)
                     {
-                        string intermediateFolder = !string.IsNullOrEmpty(IntermediateTestFolder) ? IntermediateTestFolder + @"\" : String.Empty;
+                        string intermediateFolder = !string.IsNullOrEmpty(IntermediateTestFolder) ? IntermediateTestFolder + @"\" : string.Empty;
                         string testDirectory = Path.Combine(GetProductTestDataDirectory(TestBinaryName, intermediateFolder + TypeUnderTest), "ExpectedOutputs");
                         Directory.CreateDirectory(testDirectory);
 
@@ -274,9 +274,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             actual = Path.GetFullPath(actual);
             expected = Path.GetFullPath(expected);
 
-            string diffText =  String.Format(CultureInfo.InvariantCulture, "%DIFF% \"{0}\" \"{1}\"", expected, actual);
+            string diffText = string.Format(CultureInfo.InvariantCulture, "%DIFF% \"{0}\" \"{1}\"", expected, actual);
 
-            string qualifier = String.Empty;
+            string qualifier = string.Empty;
 
             if (File.Exists(expected))
             {

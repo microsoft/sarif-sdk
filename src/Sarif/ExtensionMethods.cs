@@ -57,7 +57,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (instanceId.EndsWith("/"))
             {
-                return String.Empty;
+                return string.Empty;
             }
 
             return instanceId.Substring(instanceId.LastIndexOf('/') + 1);
@@ -127,7 +127,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (region == null)
             {
-                return String.Empty;
+                return string.Empty;
             }
 
             if (region.StartLine < 0)

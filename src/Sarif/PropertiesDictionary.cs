@@ -121,7 +121,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             PropertiesDictionary properties = this;
 
-            if (String.IsNullOrEmpty(Name))
+            if (string.IsNullOrEmpty(Name))
             {
                 object propertiesObject;
                 string featureOptionsName = setting.Feature + ".Options";

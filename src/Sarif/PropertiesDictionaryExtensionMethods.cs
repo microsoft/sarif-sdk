@@ -187,7 +187,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                     IDictionary nestedPropertyBag;
 
-                    if (String.IsNullOrEmpty(typeName))
+                    if (string.IsNullOrEmpty(typeName))
                     {
                         nestedPropertyBag = new PropertiesDictionary();
                     }
@@ -301,7 +301,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             Type propertyType = null;
 
-            if (String.IsNullOrEmpty(typeName))
+            if (string.IsNullOrEmpty(typeName))
             {
                 return typeof(string);
             }

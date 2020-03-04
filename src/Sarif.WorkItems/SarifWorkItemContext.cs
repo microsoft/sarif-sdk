@@ -103,7 +103,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         internal static PerLanguageOption<string> PersonalAccessTokenOption { get; } =
             new PerLanguageOption<string>(
                 "Extensibility", nameof(PersonalAccessToken),
-                defaultValue: () => { return String.Empty; });
+                defaultValue: () => { return string.Empty; });
 
         public static PerLanguageOption<StringSet> PluginAssemblyLocations { get; } =
             new PerLanguageOption<StringSet>(

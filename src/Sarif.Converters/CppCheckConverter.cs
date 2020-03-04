@@ -81,7 +81,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 }
             }
 
-            if (String.IsNullOrWhiteSpace(version))
+            if (string.IsNullOrWhiteSpace(version))
             {
                 throw reader.CreateException(ConverterResources.CppCheckCppCheckElementMissing);
             }

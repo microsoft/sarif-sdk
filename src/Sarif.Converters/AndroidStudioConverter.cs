@@ -133,7 +133,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             Uri uri;
             string file = problem.File;
-            if (!String.IsNullOrEmpty(file))
+            if (!string.IsNullOrEmpty(file))
             {
                 location.PhysicalLocation = new PhysicalLocation
                 {
@@ -224,7 +224,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string desc = problem.Description;
             if (desc == null)
             {
-                return String.Format(CultureInfo.InvariantCulture, ConverterResources.AndroidStudioDescriptionUnknown, problem.ProblemClass);
+                return string.Format(CultureInfo.InvariantCulture, ConverterResources.AndroidStudioDescriptionUnknown, problem.ProblemClass);
             }
 
             return desc;

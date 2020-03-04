@@ -129,7 +129,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query
 
         private static IExpressionEvaluator<long> LongArrayEvaluator(TermExpression term)
         {
-            if (!String.Equals(term.PropertyName, "Value", StringComparison.OrdinalIgnoreCase)) { throw new QueryParseException($"Name {term.PropertyName} unknown in term {term}. 'Value' is the only valid name."); }
+            if (!string.Equals(term.PropertyName, "Value", StringComparison.OrdinalIgnoreCase)) { throw new QueryParseException($"Name {term.PropertyName} unknown in term {term}. 'Value' is the only valid name."); }
             return new LongEvaluator<long>(l => l, term);
         }
 

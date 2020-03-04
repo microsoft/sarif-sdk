@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
     {
         public bool Equals(T x, T y)
         {
-            return Object.Equals(x, y);
+            return object.Equals(x, y);
         }
 
         public int GetHashCode(T obj)

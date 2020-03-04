@@ -40,7 +40,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             else if (objectType == typeof(IntegerSet))
             {
                 ja = JArray.Load(reader);
-                return new IntegerSet(ja.Values().Select(token => Int32.Parse(token.ToString())));
+                return new IntegerSet(ja.Values().Select(token => int.Parse(token.ToString())));
             }
             else if (objectType == typeof(Version))
             {

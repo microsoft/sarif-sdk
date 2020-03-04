@@ -204,9 +204,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                             },
                             Region = new Region
                             {
-                                StartLine = Int32.Parse(locationTokens[3]),
-                                ByteOffset = Int32.Parse(locationTokens[4]),
-                                ByteLength = Int32.Parse(locationTokens[5])
+                                StartLine = int.Parse(locationTokens[3]),
+                                ByteOffset = int.Parse(locationTokens[4]),
+                                ByteLength = int.Parse(locationTokens[5])
                             }
                         };
                     }
@@ -221,9 +221,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                             },
                             Region = new Region
                             {
-                                StartLine = Int32.Parse(locationTokens[2]),
-                                ByteOffset = Int32.Parse(locationTokens[3]),
-                                ByteLength = Int32.Parse(locationTokens[4])
+                                StartLine = int.Parse(locationTokens[2]),
+                                ByteOffset = int.Parse(locationTokens[3]),
+                                ByteLength = int.Parse(locationTokens[4])
                             }
                         };
                     }

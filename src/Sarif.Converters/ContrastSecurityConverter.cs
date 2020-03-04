@@ -1412,7 +1412,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 }
                 else
                 {
-                    throw new XmlException(String.Format(CultureInfo.InvariantCulture, "Invalid root element in Contrast Security log file: {0}", sparseReader.LocalName));
+                    throw new XmlException(string.Format(CultureInfo.InvariantCulture, "Invalid root element in Contrast Security log file: {0}", sparseReader.LocalName));
                 }
             }
         }

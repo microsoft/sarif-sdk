@@ -35,7 +35,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 arguments.CopyTo(fullArguments, 1);
             }
 
-            return String.Format(CultureInfo.InvariantCulture,
+            return string.Format(CultureInfo.InvariantCulture,
                 messageFormat, fullArguments);
         }
 
@@ -45,7 +45,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             // pass --defaultPolicy to invoke built-in settings. Invoke the 
             // BinSkim.exe 'export' command to produce an initial policy file 
             // that can be edited if required and passed back into the tool.
-            return String.Format(
+            return string.Format(
                 CultureInfo.InvariantCulture,
                 SdkResources.ERR997_MissingReportingConfiguration,
                 ruleName,

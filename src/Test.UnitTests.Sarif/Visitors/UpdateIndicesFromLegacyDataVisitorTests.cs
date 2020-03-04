@@ -26,12 +26,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     {
                         PhysicalLocation = new PhysicalLocation
                         {
-                            ArtifactLocation = new ArtifactLocation { Uri = _remappedUri, UriBaseId = _remappedUriBaseId, Index = Int32.MaxValue}
+                            ArtifactLocation = new ArtifactLocation { Uri = _remappedUri, UriBaseId = _remappedUriBaseId, Index = int.MaxValue}
                         },
                         LogicalLocation = new LogicalLocation
                         {
                             FullyQualifiedName = _remappedFullyQualifiedLogicalName,
-                            Index = Int32.MaxValue
+                            Index = int.MaxValue
                         },
                     }
                 }
@@ -47,8 +47,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             var visitor = new UpdateIndicesFromLegacyDataVisitor(null, null, null);
             visitor.VisitResult(result);
 
-            result.Locations[0].LogicalLocation.Index.Should().Be(Int32.MaxValue);
-            result.Locations[0].PhysicalLocation.ArtifactLocation.Index.Should().Be(Int32.MaxValue);
+            result.Locations[0].LogicalLocation.Index.Should().Be(int.MaxValue);
+            result.Locations[0].PhysicalLocation.ArtifactLocation.Index.Should().Be(int.MaxValue);
         }
 
         [Fact]
@@ -66,7 +66,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             visitor.VisitResult(result);
 
             result.Locations[0].LogicalLocation.Index.Should().Be(remappedIndex);
-            result.Locations[0].PhysicalLocation.ArtifactLocation.Index.Should().Be(Int32.MaxValue);
+            result.Locations[0].PhysicalLocation.ArtifactLocation.Index.Should().Be(int.MaxValue);
         }
 
         [Fact]
@@ -85,7 +85,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             var visitor = new UpdateIndicesFromLegacyDataVisitor(fullyQualifiedLogicalNameToIndexMap: null, fileLocationKeyToIndexMap: fileLocationKeyToIndexMap, ruleKeyToIndexMap: null);
             visitor.VisitResult(result);
 
-            result.Locations[0].LogicalLocation.Index.Should().Be(Int32.MaxValue);
+            result.Locations[0].LogicalLocation.Index.Should().Be(int.MaxValue);
             result.Locations[0].PhysicalLocation.ArtifactLocation.Index.Should().Be(remappedIndex);
         }
 

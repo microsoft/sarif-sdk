@@ -143,14 +143,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             foreach (char ch in id)
             {
-                if (Char.IsLetter(ch))
+                if (char.IsLetter(ch))
                 {
                     alphaCount++;
                     continue;
                 }
                 break;
             }
-            return Int32.Parse(id.Substring(alphaCount));
+            return int.Parse(id.Substring(alphaCount));
         }
     }
 }

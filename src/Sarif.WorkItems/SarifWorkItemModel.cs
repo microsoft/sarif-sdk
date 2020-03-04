@@ -69,7 +69,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             // environments this field is an open-ended text field. As such, there is
             // no useful default. An empty string here will prompt filers to skip
             // updating this field.
-            this.Milestone = String.Empty;
+            this.Milestone = string.Empty;
                         
             // No defaults are provided for custom fields. This dictionary is used
             // to provide values for non-standard fields as defined in an Azure

@@ -86,10 +86,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             const string ResponseFileName = "test.rsp";
 
-            string responseFileNameArgument = String.Format(CultureInfo.InvariantCulture,
+            string responseFileNameArgument = string.Format(CultureInfo.InvariantCulture,
                 @"%{0}%\{1}", DirectoryVariableName, ResponseFileName);
 
-            string expandedResponseFileName = String.Format(CultureInfo.InvariantCulture,
+            string expandedResponseFileName = string.Format(CultureInfo.InvariantCulture,
                 @"{0}\{1}", DirectoryName, ResponseFileName);
 
             string[] responseFileContents = new[] { "a", "b c" };

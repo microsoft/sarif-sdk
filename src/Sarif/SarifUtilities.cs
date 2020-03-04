@@ -168,7 +168,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             chars = chars ?? throw new ArgumentNullException(nameof(chars));
             encoding = encoding ?? throw new ArgumentNullException(nameof(encoding));
 
-            string s = new String(chars);
+            string s = new string(chars);
             return GetByteLength(s, encoding);
         }
 
