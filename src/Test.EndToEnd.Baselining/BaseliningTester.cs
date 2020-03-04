@@ -30,9 +30,14 @@ namespace Test.EndToEnd.Baselining
 
         public BaseliningSummary RunAll(string rootPath)
         {
+            // Clear prior output
+            DeleteAndCreateDirectory(Path.Combine(rootPath, OutputFolderName));
+            DeleteAndCreateDirectory(Path.Combine(rootPath, OutputDebugFolderName));
+
+            // Run all series
             BaseliningSummary overallSummary = RunUnder(Path.Combine(rootPath, InputFolderName));
 
-            Directory.CreateDirectory(Path.Combine(rootPath, OutputFolderName));
+            // Write overall summary
             using (StreamWriter writer = File.CreateText(Path.Combine(rootPath, OutputFolderName, SummaryFileName)))
             {
                 overallSummary.Write(writer);
@@ -68,6 +73,7 @@ namespace Test.EndToEnd.Baselining
             BaseliningSummary seriesSummary = new BaseliningSummary(Path.GetFileName(seriesPath));
 
             Directory.CreateDirectory(Path.GetDirectoryName(outputLogPath));
+
             using (Stream outputStream = File.Create(outputLogPath))
             using (BaseliningDetailLogger logger = new BaseliningDetailLogger(seriesPath, outputStream))
             {
@@ -84,6 +90,12 @@ namespace Test.EndToEnd.Baselining
                     }
 
                     SarifLog newBaseline = Baseline(baseline, current.Log);
+
+                    if (debugLogIndex == current.LogIndex)
+                    {
+                        List<Result> absentResults = newBaseline.EnumerateResults().Where((r) => r.BaselineState == BaselineState.Absent).ToList();
+                        List<Result> newResults = newBaseline.EnumerateResults().Where((r) => r.BaselineState == BaselineState.New).ToList();
+                    }
 
                     BaseliningSummary fileSummary = new BaseliningSummary(Path.GetFileNameWithoutExtension(current.FilePath));
                     fileSummary.Add(newBaseline, baseline, current.Log);
@@ -315,6 +327,12 @@ namespace Test.EndToEnd.Baselining
             run.SetRunOnResults();
             List<Result> results = (List<Result>)run.Results;
             results.Sort(DirectResultMatchingComparer.Instance);
+        }
+
+        private static void DeleteAndCreateDirectory(string directoryPath)
+        {
+            if (Directory.Exists(directoryPath)) { Directory.Delete(directoryPath, true); }
+            Directory.CreateDirectory(directoryPath);
         }
     }
 }
