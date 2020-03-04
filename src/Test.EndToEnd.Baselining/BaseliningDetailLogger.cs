@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 
 using Microsoft.CodeAnalysis.Sarif;
@@ -46,6 +47,12 @@ namespace Test.EndToEnd.Baselining
 
         public void Write(SarifLog newBaselineLog, SarifLog baselineLog, SarifLog currentLog, BaseliningSummary summary)
         {
+            Dictionary<string, Result> baselineResultsByGuid = new Dictionary<string, Result>();
+            foreach(Result result in baselineLog.EnumerateResults())
+            {
+                baselineResultsByGuid[result.CorrelationGuid ?? result.Guid] = result;
+            }
+
             Writer.WriteLine();
             Writer.WriteLine($"   {summary}");
 
@@ -62,7 +69,8 @@ namespace Test.EndToEnd.Baselining
                     case BaselineState.Unchanged:
                     case BaselineState.Updated:
                         // Find and write old Result from previous Baseline (to get pre-merged properties)
-                        Result previousResult = baselineLog.FindByGuid(result.CorrelationGuid);
+                        Result previousResult = null;
+                        baselineResultsByGuid.TryGetValue(result.CorrelationGuid, out previousResult);
 
                         if (previousResult == null)
                         {
@@ -89,7 +97,12 @@ namespace Test.EndToEnd.Baselining
 
         public void Dispose()
         {
-            if (Writer != null)
+            Dispose(true);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing == true && Writer != null)
             {
                 Writer.Dispose();
                 Writer = null;
