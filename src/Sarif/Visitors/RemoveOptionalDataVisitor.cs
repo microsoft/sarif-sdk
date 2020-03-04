@@ -63,5 +63,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             return base.VisitArtifact(node);
         }
+
+        public override Result VisitResult(Result node)
+        {
+            if (_dataToRemove.HasFlag(OptionallyEmittedData.Guids))
+            {
+                node.Guid = null;
+            }
+
+            return base.VisitResult(node);
+        }
     }
 }
