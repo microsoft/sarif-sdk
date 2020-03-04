@@ -47,7 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
 
             long[] absoluteStarts = new long[results.ArrayStarts.Count];
             long previous = 0;
-            for(int i = 0; i < results.ArrayStarts.Count; ++i)
+            for (int i = 0; i < results.ArrayStarts.Count; ++i)
             {
                 previous += results.ArrayStarts[i];
                 absoluteStarts[i] = previous;
@@ -99,7 +99,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
             Assert.Equal(13, root.ArrayStarts[2]);
 
             // Ask the lookup method to find the positions of every element (every 3 bytes for "#, "
-            for(int i = 0; i < root.Count; ++i)
+            for (int i = 0; i < root.Count; ++i)
             {
                 long position = root.FindArrayStart(i, () => File.OpenRead(sampleFilePath));
                 Assert.Equal(1 + 3 * i, position);

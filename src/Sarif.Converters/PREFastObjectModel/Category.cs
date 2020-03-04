@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters.PREFastObjectModel
 
             if (wasEmpty)
                 return;
-            
+
             while (reader.NodeType != XmlNodeType.EndElement)
             {
                 string key = reader.Name;

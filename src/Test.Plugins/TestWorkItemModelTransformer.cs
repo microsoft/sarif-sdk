@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.Test.Plugins
             }
         }
 
-        internal static PerLanguageOption<StringSet> AdditionalTags{ get; } =
+        internal static PerLanguageOption<StringSet> AdditionalTags { get; } =
             new PerLanguageOption<StringSet>(
                 nameof(TestWorkItemModelTransformer), nameof(AdditionalTags),
                 defaultValue: () => { return new StringSet(); });

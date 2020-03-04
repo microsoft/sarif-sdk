@@ -115,7 +115,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         private void PopulateInstanceWithDefaultMemberValues(ISarifNode node)
-        {           
+        {
             Type nodeType = node.GetType();
 
             BindingFlags binding = BindingFlags.Public | BindingFlags.Instance;
@@ -277,7 +277,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             // isRequired flag ensures we don't end up generating a SARIF file that's missing a required property or an anyOf required property,
             // because such a file wouldn't validate.
-            bool isRequired = PropertyIsRequiredBySchema(node.GetType().Name, property.Name) || 
+            bool isRequired = PropertyIsRequiredBySchema(node.GetType().Name, property.Name) ||
                 PropertyIsAnyOfRequiredBySchema(node.GetType().Name, property.Name);
 
             if (GetPropertyFormatPattern(node.GetType().Name, property.Name) is string propertyFormatPattern)
@@ -346,7 +346,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         break;
                     }
                 }
-                
+
                 // This code ensures both that we encounter an enum value that is non-zero,
                 // and that no enum definitions skips the value of one in its definition
                 if ((int)propertyValue != 1)
@@ -364,7 +364,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             string jsonPropertyName = GetJsonNameFor(propertyName);
             JsonSchema propertySchema = GetJsonSchemaForObject(objectTypeName);
-     
+
             return propertySchema.Required != null && propertySchema.Required.Contains(jsonPropertyName);
         }
 
@@ -417,7 +417,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             Type listType = list.GetType();
             MethodInfo method = listType.GetMethod("Add");
-            method.Invoke(list, new [] { listElement});
+            method.Invoke(list, new[] { listElement });
         }
 
         private object CreateEmptyList(Type propertyType)
@@ -464,21 +464,21 @@ namespace Microsoft.CodeAnalysis.Sarif
             switch (propertyFormatPattern)
             {
                 case "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$":
-                    {
-                        return "0DB2CD87-8185-49F8-8EEA-CE07A0E95241";
-                    }
+                {
+                    return "0DB2CD87-8185-49F8-8EEA-CE07A0E95241";
+                }
                 case "[^/]+/.+":
-                    {
-                        return "text/x-csharp";
-                    }
+                {
+                    return "text/x-csharp";
+                }
                 case "^[a-z]{2}-[A-Z]{2}$":
-                    {
-                        return "en-ZA";
-                    }
+                {
+                    return "en-ZA";
+                }
                 case "[0-9]+(\\.[0-9]+){3}":
-                    {
-                        return "2.7.1500.12";
-                    }
+                {
+                    return "2.7.1500.12";
+                }
             }
             return null;
         }

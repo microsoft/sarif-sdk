@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// The analysis tool that was run.
     /// </summary>
-    public partial class Tool 
+    public partial class Tool
     {
         // This regex does not anchor to the end of the string ("$") because FileVersionInfo
         // can contain additional information, for example: "2.1.3.25 built by: MY-MACHINE".

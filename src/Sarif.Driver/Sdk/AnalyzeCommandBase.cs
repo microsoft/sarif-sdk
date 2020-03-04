@@ -44,7 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             FileSystem = fileSystem ?? new FileSystem();
         }
-        
+
         public string DefaultConfigurationPath
         {
             get
@@ -281,7 +281,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 var fileSpecifier = new FileSpecifier(normalizedSpecifier, recurse: analyzeOptions.Recurse, fileSystem: FileSystem);
                 foreach (string file in fileSpecifier.Files) { targets.Add(file); }
             }
-           return targets;
+            return targets;
         }
 
         private ISet<string> ValidateTargetsExist(TContext context, ISet<string> targets)
@@ -352,7 +352,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
             return options.ConfigurationFilePath;
         }
-        
+
         protected virtual void InitializeConfiguration(TOptions options, TContext context)
         {
             context.Policy = new PropertiesDictionary();
@@ -491,7 +491,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 SupportedPlatform currentOS = GetCurrentRunningOS();
                 foreach (Skimmer<TContext> skimmer in skimmers)
                 {
-                    if(skimmer.SupportedPlatforms.HasFlag(currentOS))
+                    if (skimmer.SupportedPlatforms.HasFlag(currentOS))
                     {
                         result.Add(skimmer);
                     }

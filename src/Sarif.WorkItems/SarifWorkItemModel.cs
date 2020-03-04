@@ -70,7 +70,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             // no useful default. An empty string here will prompt filers to skip
             // updating this field.
             this.Milestone = string.Empty;
-                        
+
             // No defaults are provided for custom fields. This dictionary is used
             // to provide values for non-standard fields as defined in an Azure
             // DevOps work item template. Because this data by definition addresses

@@ -457,9 +457,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             context.RefineIssue("hello!", "test", null, null, @"source", "myfile.cs", 13);
 
             var expectedLogicalLocations = new List<LogicalLocation>
-            {                
-                new LogicalLocation { Kind = LogicalLocationKind.Module, Name = "mybinary.dll" },                
-                new LogicalLocation { ParentIndex = 0, Name = "myresource.resx", FullyQualifiedName = "mybinary.dll!myresource.resx", Kind = LogicalLocationKind.Resource }                
+            {
+                new LogicalLocation { Kind = LogicalLocationKind.Module, Name = "mybinary.dll" },
+                new LogicalLocation { ParentIndex = 0, Name = "myresource.resx", FullyQualifiedName = "mybinary.dll!myresource.resx", Kind = LogicalLocationKind.Resource }
             };
 
             var converter = new FxCopConverter();

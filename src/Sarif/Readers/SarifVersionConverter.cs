@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             }
 
             string sarifVersionText = (string)reader.Value;
-            return sarifVersionText.ConvertToSarifVersion();            
+            return sarifVersionText.ConvertToSarifVersion();
         }
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
@@ -34,7 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             }
 
             string sarifVersionText = ((SarifVersion)value).ConvertToText();
-            writer.WriteRawValue(@"""" + sarifVersionText + @""""); 
+            writer.WriteRawValue(@"""" + sarifVersionText + @"""");
         }
     }
 }

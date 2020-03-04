@@ -3,8 +3,8 @@
 
 using System;
 using System.Collections.ObjectModel;
-using FluentAssertions;
 using System.Text;
+using FluentAssertions;
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Core

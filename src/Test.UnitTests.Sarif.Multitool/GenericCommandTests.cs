@@ -68,13 +68,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 }
             }
 
-            foreach(CustomAttributeNamedArgument namedArgument in attribute.NamedArguments)
+            foreach (CustomAttributeNamedArgument namedArgument in attribute.NamedArguments)
             {
-                if(namedArgument.MemberName == "ShortName")
+                if (namedArgument.MemberName == "ShortName")
                 {
                     result.ShortName = (char)namedArgument.TypedValue.Value;
                 }
-                else if(namedArgument.MemberName == "LongName")
+                else if (namedArgument.MemberName == "LongName")
                 {
                     result.LongName = (string)namedArgument.TypedValue.Value;
                 }

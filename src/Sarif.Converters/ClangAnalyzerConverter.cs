@@ -117,7 +117,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                 // Used as rule id. 
                 string issueType = FindString(issueData, "type");
-                
+
                 // This data persisted to result property bag
                 string category = FindString(issueData, "category");
                 string issueContextKind = FindString(issueData, "issue_context_kind");
@@ -197,32 +197,32 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         case ClangSchemaStrings.RealName:
                         case ClangSchemaStrings.DataName:
                         case ClangSchemaStrings.DateName:
-                            {
-                                string value = xmlReader.ReadElementContentAsString();
-                                readerMoved = true;
-                                list.Add(value);
-                                break;
-                            }
+                        {
+                            string value = xmlReader.ReadElementContentAsString();
+                            readerMoved = true;
+                            list.Add(value);
+                            break;
+                        }
 
                         case ClangSchemaStrings.ArrayName:
+                        {
+                            using (XmlReader subTreeReader = xmlReader.ReadSubtree())
                             {
-                                using (XmlReader subTreeReader = xmlReader.ReadSubtree())
-                                {
-                                    IList<object> array = ReadArray(subTreeReader);
-                                    list.Add(array);
-                                }
-                                break;
+                                IList<object> array = ReadArray(subTreeReader);
+                                list.Add(array);
                             }
+                            break;
+                        }
 
                         case ClangSchemaStrings.DictionaryName:
+                        {
+                            using (XmlReader subTreeReader = xmlReader.ReadSubtree())
                             {
-                                using (XmlReader subTreeReader = xmlReader.ReadSubtree())
-                                {
-                                    IDictionary<string, object> dictionary = ReadDictionary(subTreeReader);
-                                    list.Add(dictionary);
-                                }
-                                break;
+                                IDictionary<string, object> dictionary = ReadDictionary(subTreeReader);
+                                list.Add(dictionary);
                             }
+                            break;
+                        }
                     }
                 }
 
@@ -251,61 +251,61 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     switch (xmlReader.Name)
                     {
                         case ClangSchemaStrings.KeyName:
-                            {
-                                keyName = xmlReader.ReadElementContentAsString();
-                                readerMoved = true;
-                                break;
-                            }
+                        {
+                            keyName = xmlReader.ReadElementContentAsString();
+                            readerMoved = true;
+                            break;
+                        }
 
                         case ClangSchemaStrings.StringName:
                         case ClangSchemaStrings.IntegerName:
                         case ClangSchemaStrings.RealName:
                         case ClangSchemaStrings.DataName:
                         case ClangSchemaStrings.DateName:
+                        {
+                            if (string.IsNullOrEmpty(keyName))
                             {
-                                if (string.IsNullOrEmpty(keyName))
-                                {
-                                    throw new InvalidDataException("Expected key value before dictionary data.");
-                                }
-
-                                string value = xmlReader.ReadElementContentAsString();
-                                readerMoved = true;
-                                dictionary.Add(keyName, value);
-                                keyName = string.Empty;
-                                break;
+                                throw new InvalidDataException("Expected key value before dictionary data.");
                             }
+
+                            string value = xmlReader.ReadElementContentAsString();
+                            readerMoved = true;
+                            dictionary.Add(keyName, value);
+                            keyName = string.Empty;
+                            break;
+                        }
 
                         case ClangSchemaStrings.ArrayName:
+                        {
+                            if (string.IsNullOrEmpty(keyName))
                             {
-                                if (string.IsNullOrEmpty(keyName))
-                                {
-                                    throw new InvalidDataException("Expected key value before dictionary data.");
-                                }
-
-                                using (XmlReader subTreeReader = xmlReader.ReadSubtree())
-                                {
-                                    IList<object> array = ReadArray(subTreeReader);
-                                    dictionary.Add(keyName, array);
-                                    keyName = string.Empty;
-                                }
-                                break;
+                                throw new InvalidDataException("Expected key value before dictionary data.");
                             }
+
+                            using (XmlReader subTreeReader = xmlReader.ReadSubtree())
+                            {
+                                IList<object> array = ReadArray(subTreeReader);
+                                dictionary.Add(keyName, array);
+                                keyName = string.Empty;
+                            }
+                            break;
+                        }
 
                         case ClangSchemaStrings.DictionaryName:
+                        {
+                            if (string.IsNullOrEmpty(keyName))
                             {
-                                if (string.IsNullOrEmpty(keyName))
-                                {
-                                    throw new InvalidDataException("Expected key value before dictionary data.");
-                                }
-
-                                using (XmlReader subTreeReader = xmlReader.ReadSubtree())
-                                {
-                                    IDictionary<string, object> child = ReadDictionary(subTreeReader);
-                                    dictionary.Add(keyName, child);
-                                    keyName = string.Empty;
-                                }
-                                break;
+                                throw new InvalidDataException("Expected key value before dictionary data.");
                             }
+
+                            using (XmlReader subTreeReader = xmlReader.ReadSubtree())
+                            {
+                                IDictionary<string, object> child = ReadDictionary(subTreeReader);
+                                dictionary.Add(keyName, child);
+                                keyName = string.Empty;
+                            }
+                            break;
+                        }
                     }
                 }
                 else if (xmlReader.NodeType == XmlNodeType.EndElement && xmlReader.Name == ClangSchemaStrings.DictionaryName)
@@ -332,48 +332,48 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     switch (xmlReader.Name)
                     {
                         case ClangSchemaStrings.KeyName:
-                            {
-                                keyName = xmlReader.ReadElementContentAsString();
-                                readerMoved = true;
-                                break;
-                            }
+                        {
+                            keyName = xmlReader.ReadElementContentAsString();
+                            readerMoved = true;
+                            break;
+                        }
 
                         case ClangSchemaStrings.StringName:
+                        {
+                            if (string.IsNullOrEmpty(keyName))
                             {
-                                if (string.IsNullOrEmpty(keyName))
-                                {
-                                    throw new InvalidDataException("Expected key value before dictionary data.");
-                                }
-
-                                xmlReader.ReadElementContentAsString();
-                                readerMoved = true;
-                                keyName = string.Empty;
-                                break;
+                                throw new InvalidDataException("Expected key value before dictionary data.");
                             }
+
+                            xmlReader.ReadElementContentAsString();
+                            readerMoved = true;
+                            keyName = string.Empty;
+                            break;
+                        }
 
                         case ClangSchemaStrings.ArrayName:
+                        {
+                            if (string.IsNullOrEmpty(keyName))
                             {
-                                if (string.IsNullOrEmpty(keyName))
-                                {
-                                    throw new InvalidDataException("Expected key value before dictionary data.");
-                                }
-
-                                using (XmlReader subTreeReader = xmlReader.ReadSubtree())
-                                {
-                                    if (keyName.Equals("files"))
-                                    {
-                                        _files = ReadArray(subTreeReader);
-                                    }
-
-                                    if (keyName.Equals("diagnostics"))
-                                    {
-                                        ReadDiagnostics(subTreeReader, results);
-                                    }
-
-                                    keyName = string.Empty;
-                                }
-                                break;
+                                throw new InvalidDataException("Expected key value before dictionary data.");
                             }
+
+                            using (XmlReader subTreeReader = xmlReader.ReadSubtree())
+                            {
+                                if (keyName.Equals("files"))
+                                {
+                                    _files = ReadArray(subTreeReader);
+                                }
+
+                                if (keyName.Equals("diagnostics"))
+                                {
+                                    ReadDiagnostics(subTreeReader, results);
+                                }
+
+                                keyName = string.Empty;
+                            }
+                            break;
+                        }
                     }
                 }
                 else if (xmlReader.NodeType == XmlNodeType.EndElement && xmlReader.Name == ClangSchemaStrings.DictionaryName)

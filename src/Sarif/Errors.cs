@@ -29,7 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         // Rule disabling tool errors:
         private const string ERR998_ExceptionInCanAnalyze = "ERR998.ExceptionInCanAnalyze";
         private const string ERR998_ExceptionInInitialize = "ERR998.ExceptionInInitialize";
-        private const string ERR998_ExceptionInAnalyze    = "ERR998.ExceptionInAnalyze";
+        private const string ERR998_ExceptionInAnalyze = "ERR998.ExceptionInAnalyze";
 
         // Analysis halting tool errors:
         private const string ERR999UnhandledEngineException = "ERR999.UnhandledEngineException";
@@ -70,7 +70,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             string plugins = string.Join(", ",
-                skimmerAssemblies.Select(sa => '"' +  Path.GetFileName(sa.Location) + '"'));
+                skimmerAssemblies.Select(sa => '"' + Path.GetFileName(sa.Location) + '"'));
 
             // Could not instantiate skimmers from the following plugins: {0}
             context.Logger.LogConfigurationNotification(
@@ -109,7 +109,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
 
-        public static void LogAllRulesExplicitlyDisabled(IAnalysisContext context) 
+        public static void LogAllRulesExplicitlyDisabled(IAnalysisContext context)
         {
             if (context == null)
             {
@@ -165,7 +165,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     ERR997_ExceptionCreatingLogFile,
                     ruleId: null,
                     FailureLevel.Error,
-                    exception: null,                    
+                    exception: null,
                     persistExceptionStack: false,
                     messageFormat: null,
                     fileName));
@@ -479,7 +479,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             bool persistExceptionStack,
             string messageFormat,
             params string[] args)
-        {            
+        {
             messageFormat = messageFormat ?? GetMessageFormatResourceForNotification(notificationId);
 
             string message = string.Format(CultureInfo.CurrentCulture, messageFormat, args);

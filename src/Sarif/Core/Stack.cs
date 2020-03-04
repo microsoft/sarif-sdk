@@ -85,7 +85,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             for (int i = 0; i < stackTrace.FrameCount; i++)
             {
-                this.Frames[i] = StackFrame.Create(stackTrace.GetFrame(i));                
+                this.Frames[i] = StackFrame.Create(stackTrace.GetFrame(i));
             }
         }
 
@@ -97,7 +97,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public static Stack Create(string stackTrace)
         {
             Stack stack = new Stack();
-            
+
             if (string.IsNullOrEmpty(stackTrace))
             {
                 return stack;
@@ -119,7 +119,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 if (match.Success)
                 {
                     stackFrame.Location = new Location();
-                    if(!string.IsNullOrWhiteSpace(match.Groups[1].Value))
+                    if (!string.IsNullOrWhiteSpace(match.Groups[1].Value))
                     {
                         stackFrame.Location.LogicalLocation = new LogicalLocation
                         {
@@ -157,7 +157,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         public string ToString(StackFormat stackFormat)
-        {           
+        {
             if (this.Frames == null) { return "[No frames]"; }
 
             StringBuilder sb = new StringBuilder(255);

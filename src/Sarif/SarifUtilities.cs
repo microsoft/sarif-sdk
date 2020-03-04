@@ -176,7 +176,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             s = s ?? throw new ArgumentNullException(nameof(s));
             encoding = encoding ?? throw new ArgumentNullException(nameof(encoding));
-            
+
             byte[] bytes = encoding.GetBytes(s);
             return bytes.Length;
         }

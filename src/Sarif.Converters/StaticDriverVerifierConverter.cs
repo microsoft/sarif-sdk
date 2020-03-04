@@ -55,7 +55,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var result = new Result
             {
                 Locations = new List<Location>(),
-                CodeFlows = new []
+                CodeFlows = new[]
                 {
                     SarifUtilities.CreateSingleThreadedCodeFlow()
                 }
@@ -79,9 +79,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             CodeFlow codeFlow = result.CodeFlows[0];
 
-            const int STEP  = 0;
-            const int URI   = 1;
-            const int LINE  = 2;
+            const int STEP = 0;
+            const int URI = 1;
+            const int LINE = 2;
             // const int IMPORTANCE  = 3; This value not persisted to SARIF
             const int STATE = 4;
             const int KIND1 = 5;
@@ -255,7 +255,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             else
             {
                 // This is the defect message.
-                const int LEVEL  = 0;
+                const int LEVEL = 0;
 
                 string levelText = tokens[LEVEL];
 

@@ -37,7 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
 
         private void Add(ExtractedResult result, int index)
         {
-            foreach(WhatComponent component in result.WhatProperties())
+            foreach (WhatComponent component in result.WhatProperties())
             {
                 Add(component, index);
             }

@@ -65,7 +65,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 results = ProcessAndroidStudioLog(xmlReader);
             }
-            
+
             var run = new Run()
             {
                 Tool = new Tool { Driver = new ToolComponent { Name = ToolName } },
@@ -260,7 +260,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private static bool RemoveBadRoot(string path, out Uri uri)
         {
-            const string badRoot = "file://" + PROJECT_DIR +"/";
+            const string badRoot = "file://" + PROJECT_DIR + "/";
             bool removedBadRoot;
             string removed;
             if (path.StartsWith(badRoot, StringComparison.Ordinal))

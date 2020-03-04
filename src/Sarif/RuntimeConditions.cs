@@ -50,14 +50,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         OutputFileAlreadyExists = 0x10000,
 
         // Non-fatal conditions
-        UnassignedNonfatal        = 0x01F00000,
+        UnassignedNonfatal = 0x01F00000,
         RuleWasExplicitlyDisabled = 0x02000000,
-        RuleCannotRunOnPlatform   = 0x04000000,
+        RuleCannotRunOnPlatform = 0x04000000,
         RuleNotApplicableToTarget = 0x08000000,
-        TargetNotValidToAnalyze   = 0x10000000,
-        OneOrMoreWarningsFired    = 0x20000000,
-        OneOrMoreErrorsFired      = 0x40000000,
+        TargetNotValidToAnalyze = 0x10000000,
+        OneOrMoreWarningsFired = 0x20000000,
+        OneOrMoreErrorsFired = 0x40000000,
 
         Nonfatal = 0x7FF00000
-    }       
+    }
 }

@@ -134,7 +134,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             action.Should().Throw<InvalidOperationException>();
 
             action = () => _roundTrippedObject.GetProperty<int>("a");
-            action.Should().Throw <InvalidOperationException>();
+            action.Should().Throw<InvalidOperationException>();
         }
 
         public class ObjectClass

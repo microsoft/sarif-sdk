@@ -73,7 +73,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             // This is important because we will populate result.message.id, but _not_ result.message.text.
             // That means that viewers will need to _look up_ the message text by way of result.ruleIndex,
             // so we must popuate it.
-            _ruleIdToIndexDictionary = CreateRuleToIndexDictionary(run.Tool.Driver.Rules); 
+            _ruleIdToIndexDictionary = CreateRuleToIndexDictionary(run.Tool.Driver.Rules);
 
             run.OriginalUriBaseIds = new Dictionary<string, ArtifactLocation>
             {

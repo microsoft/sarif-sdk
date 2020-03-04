@@ -2,16 +2,16 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Collections.Generic;
-using Xunit;
-using FluentAssertions;
 using System.Linq;
+using FluentAssertions;
+using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
 {
     public class FullFingerprintMatcherTests
     {
         private static readonly FullFingerprintResultMatcher matcher = new FullFingerprintResultMatcher();
-        
+
         [Fact]
         public void FullFingerprintMatcher_MatchesIdenticalFingerprints()
         {
@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
             Result resultB = ResultMatchingTestHelpers.CreateMatchingResult(@"http://notasmuchatest", @"file://differentpath", "different contexty contexts");
 
             resultA.Fingerprints = new Dictionary<string, string>() { { "FingerprintAlgorithm1", "FingerprintValue1" }, { "FingerprintAlgorithm2", "FingerprintValue2" } };
-            resultB.Fingerprints = new Dictionary<string, string>() { { "FingerprintAlgorithm1", "FingerprintValue1" }};
+            resultB.Fingerprints = new Dictionary<string, string>() { { "FingerprintAlgorithm1", "FingerprintValue1" } };
 
             ExtractedResult matchingResultA = new ExtractedResult(resultA, null);
             ExtractedResult matchingResultB = new ExtractedResult(resultB, null);
@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
             matchedResults.First().PreviousResult.Should().BeEquivalentTo(matchingResultA);
             matchedResults.First().CurrentResult.Should().BeEquivalentTo(matchingResultB);
         }
-        
+
         [Fact]
         public void FullFingerprintMatcher_DoesNotMatchOnChangedFingerprints()
         {
@@ -42,7 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
 
             ExtractedResult matchingResultA = new ExtractedResult(resultA, null);
             ExtractedResult matchingResultB = new ExtractedResult(resultB, null);
-            
+
             IEnumerable<MatchedResults> matchedResults = matcher.Match(new ExtractedResult[] { matchingResultA }, new ExtractedResult[] { matchingResultB });
 
             matchedResults.Should().HaveCount(0);

@@ -32,7 +32,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void Tags_Add_AddsTag()
         {
-            bool wasAdded =_testObject.Tags.Add("x");
+            bool wasAdded = _testObject.Tags.Add("x");
 
             wasAdded.Should().BeTrue();
             _testObject.Tags.Count.Should().Be(1);
@@ -44,7 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             InitializeTags("x");
 
-            bool wasAdded =_testObject.Tags.Add("x");
+            bool wasAdded = _testObject.Tags.Add("x");
 
             wasAdded.Should().BeFalse();
             _testObject.Tags.Count.Should().Be(1);

@@ -46,7 +46,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                     bytesRead += reader.CurrentEncoding.GetByteCount(buffer, 0, lengthRead);
 
                     // Ask the LineMappingStreamReader for the position of (N, 1) for each line in range
-                    for(; nextLine < newlines.Count; nextLine++)
+                    for (; nextLine < newlines.Count; nextLine++)
                     {
                         long nextNewlinePosition = newlines[nextLine];
                         if (nextNewlinePosition > bytesRead) break;

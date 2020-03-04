@@ -62,7 +62,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             {
                 Console.WriteLine(ex.ToString());
                 return FAILURE;
-            } 
+            }
 
             return SUCCESS;
         }

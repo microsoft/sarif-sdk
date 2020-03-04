@@ -487,24 +487,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 case FailureLevel.None:
                 case FailureLevel.Note:
+                {
+                    if (!Verbose)
                     {
-                        if (!Verbose)
-                        {
-                            return false;
-                        }
-                        break;
+                        return false;
                     }
+                    break;
+                }
 
                 case FailureLevel.Error:
                 case FailureLevel.Warning:
-                    {
-                        break;
-                    }
+                {
+                    break;
+                }
 
                 default:
-                    {
-                        throw new InvalidOperationException();
-                    }
+                {
+                    throw new InvalidOperationException();
+                }
             }
             return true;
         }

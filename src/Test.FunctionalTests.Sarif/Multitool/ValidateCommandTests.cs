@@ -18,7 +18,8 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
     public class ValidateCommandTests : FileDiffingFunctionalTests
     {
         public ValidateCommandTests(ITestOutputHelper outputHelper, bool testProducesSarifCurrentVersion = true) :
-            base(outputHelper, testProducesSarifCurrentVersion) { }
+            base(outputHelper, testProducesSarifCurrentVersion)
+        { }
 
         protected override string IntermediateTestFolder => @"Multitool";
 

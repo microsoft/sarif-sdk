@@ -191,7 +191,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 relativeUri: relativeUri);
 
             // Pass relative URI where absolute expected.
-            Action action = () => 
+            Action action = () =>
             {
                 MakeUrisAbsoluteVisitor.CombineUris(
                     absoluteBaseUri: relativeUri,

@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             set { this.SetProperty(ProjectUriOption, value); }
         }
 
-        public string PersonalAccessToken 
+        public string PersonalAccessToken
         {
             get { return this.GetProperty(PersonalAccessTokenOption); }
             set { this.SetProperty(PersonalAccessTokenOption, value); }
@@ -72,7 +72,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
         private IReadOnlyList<SarifWorkItemModelTransformer> PopulateWorkItemModelTransformers()
         {
-            if (this.workItemModelTransformers == null) 
+            if (this.workItemModelTransformers == null)
             {
                 this.workItemModelTransformers = new List<SarifWorkItemModelTransformer>();
 

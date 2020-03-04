@@ -19,12 +19,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
         {
             Run differencedRun = nextLog.DeepClone();
             differencedRun.Results = new List<Result>();
-            
+
             foreach (Result result in nextLog.Results)
             {
                 Result newResult = result.DeepClone();
 
-                newResult.BaselineState = 
+                newResult.BaselineState =
                     baseLine.Results.Contains(result, ResultComparator) ? BaselineState.Unchanged : BaselineState.New;
 
                 differencedRun.Results.Add(newResult);

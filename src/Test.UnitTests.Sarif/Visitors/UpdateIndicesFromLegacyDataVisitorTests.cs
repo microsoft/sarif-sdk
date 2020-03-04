@@ -94,7 +94,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             int remappedIndex = 0;
             string actualRuleId = "ActualId";
-            
+
             var ruleKeyToIndexMap = new Dictionary<string, int>()
             {
                 ["COLLISION"] = remappedIndex

@@ -31,7 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        public string RootDirectory { get; set;  }
+        public string RootDirectory { get; set; }
 
         public void Dispose()
         {

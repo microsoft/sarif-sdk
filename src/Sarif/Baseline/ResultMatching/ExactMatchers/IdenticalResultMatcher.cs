@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
     {
         private readonly bool _considerPropertyBagsWhenComparing;
 
-        public  IdenticalResultMatcher(bool considerPropertyBagsWhenComparing)
+        public IdenticalResultMatcher(bool considerPropertyBagsWhenComparing)
         {
             _considerPropertyBagsWhenComparing = considerPropertyBagsWhenComparing;
         }
@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
                 ? IdenticalResultEqualityComparer.PropertyBagComparingInstance
                 : IdenticalResultEqualityComparer.PropertyBagIgnoringInstance;
 
-            Dictionary <Result, List<ExtractedResult>> baselineResults = new Dictionary<Result, List<ExtractedResult>>(comparer);
+            Dictionary<Result, List<ExtractedResult>> baselineResults = new Dictionary<Result, List<ExtractedResult>>(comparer);
 
             foreach (ExtractedResult result in baseline)
             {

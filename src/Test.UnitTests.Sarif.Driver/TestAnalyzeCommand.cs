@@ -16,8 +16,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public override IEnumerable<Assembly> DefaultPlugInAssemblies { get; set; }
 
         protected override TestAnalysisContext CreateContext(
-            TestAnalyzeOptions options, 
-            IAnalysisLogger logger, 
+            TestAnalyzeOptions options,
+            IAnalysisLogger logger,
             RuntimeConditions runtimeErrors,
             string filePath = null)
         {

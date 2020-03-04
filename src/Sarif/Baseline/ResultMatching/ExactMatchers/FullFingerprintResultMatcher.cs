@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
                 foreach (string key in result.Result.Fingerprints.Keys)
                 {
                     Tuple<string, string> fingerprint = new Tuple<string, string>(key, result.Result.Fingerprints[key]);
-                    if(!baselineResults.ContainsKey(fingerprint) || baselineResults[fingerprint] == null)
+                    if (!baselineResults.ContainsKey(fingerprint) || baselineResults[fingerprint] == null)
                     {
                         baselineResults[fingerprint] = new List<ExtractedResult>() { result };
                     }
@@ -60,7 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
                 {
                     return false;
                 }
-                
+
                 if (x.Item1 == y.Item1 && x.Item2 == y.Item2)
                 {
                     return true;

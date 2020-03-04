@@ -34,7 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             if (!_ruleToSarifLogMap.TryGetValue(ruleId, out SarifLog sarifLog))
             {
                 _ruleToSarifLogMap[ruleId] = sarifLog = new SarifLog()
-                { 
+                {
                     Runs = new[]
                     {
                         new Run
@@ -42,7 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                             Tool = CurrentRun.Tool,
                             Invocations = CurrentRun.Invocations,
                             Results = new List<Result>()
-                        },                        
+                        },
                     }
                 };
                 SplitSarifLogs.Add(sarifLog);

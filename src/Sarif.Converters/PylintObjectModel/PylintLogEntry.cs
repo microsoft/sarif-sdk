@@ -11,25 +11,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters.PylintObjectModel
         public string Type { get; set; }
 
         [JsonProperty("module")]
-        public string ModuleName { get;  set; }
+        public string ModuleName { get; set; }
 
         [JsonProperty("obj")]
-        public string Object { get;  set; }
+        public string Object { get; set; }
 
         [JsonProperty("line")]
-        public string Line { get;  set; }
+        public string Line { get; set; }
 
         [JsonProperty("column")]
-        public string Column {  get; set; }
+        public string Column { get; set; }
 
         [JsonProperty("path")]
-        public string FilePath { get;  set; }
+        public string FilePath { get; set; }
 
         [JsonProperty("symbol")]
-        public string Symbol { get;  set; }
+        public string Symbol { get; set; }
 
         [JsonProperty("message")]
-        public string Message { get;  set; }
+        public string Message { get; set; }
 
         [JsonProperty("message-id")]
         public string MessageId { get; set; }

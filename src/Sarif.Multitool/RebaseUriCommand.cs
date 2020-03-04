@@ -69,7 +69,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             // Get files names first, as we may write more sarif logs to the same directory as we rebase them.
             HashSet<string> inputFilePaths = CreateTargetsSet(rebaseUriOptions.TargetFileSpecifiers, rebaseUriOptions.Recurse, _fileSystem);
-            foreach(string inputFilePath in inputFilePaths)
+            foreach (string inputFilePath in inputFilePaths)
             {
                 yield return new RebaseUriFile
                 {

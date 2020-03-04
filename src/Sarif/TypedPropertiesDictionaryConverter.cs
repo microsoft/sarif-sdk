@@ -126,7 +126,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                     Type t = typeof(object);
                     if (dictionaryValue is IDictionary ||
-                        dictionaryValue is IntegerSet  ||
+                        dictionaryValue is IntegerSet ||
                         dictionaryValue is StringSet)
                     {
                         WriteJson(writer, dictionaryValue, serializer);

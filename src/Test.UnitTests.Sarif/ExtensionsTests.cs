@@ -153,7 +153,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             using (XmlReader xml = Utilities.CreateXmlReaderFromString(simpleXmlDoc))
             {
                 xml.Read(); // <xml>
-                Assert.Throws<XmlException>(() => 
+                Assert.Throws<XmlException>(() =>
                     xml.IgnoreElement(xml.NameTable.Add("skip_this"), IgnoreOptions.Required)
                 );
             }

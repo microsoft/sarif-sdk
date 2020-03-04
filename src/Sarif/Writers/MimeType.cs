@@ -174,7 +174,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         private static readonly ImmutableArray<ImmutableArray<string>> s_binaryExtensionsTable = ImmutableArray.Create(
              ImmutableArray.Create(MimeType.Java, "java", "jav"),
-             ImmutableArray.Create("application/java-archive", "jar"),             
+             ImmutableArray.Create("application/java-archive", "jar"),
              ImmutableArray.Create("application/zip", "zip"),
              ImmutableArray.Create("application/vns.ms-appx", "appx"),
              ImmutableArray.Create("application/vnd.ms-word.document", "docx"),

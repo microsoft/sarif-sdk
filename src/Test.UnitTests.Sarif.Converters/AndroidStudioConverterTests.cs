@@ -228,7 +228,7 @@ Possible resolution: delete", result.Message.Text);
 
             var expectedLogicalLocations = new List<LogicalLocation>
             {
-                new LogicalLocation { ParentIndex = -1, FullyQualifiedName = "my_fancy_binary", Kind = LogicalLocationKind.Module },                
+                new LogicalLocation { ParentIndex = -1, FullyQualifiedName = "my_fancy_binary", Kind = LogicalLocationKind.Module },
                 new LogicalLocation { ParentIndex = 0, Name = "my_method", FullyQualifiedName = @"my_fancy_binary\my_method", Kind = LogicalLocationKind.Member }
            };
 
@@ -292,9 +292,9 @@ Possible resolution: delete", result.Message.Text);
             };
 
             var expectedLogicalLocations = new List<LogicalLocation>
-            {                
-                new LogicalLocation { ParentIndex = -1, FullyQualifiedName = "FancyPackageName", Kind = LogicalLocationKind.Package },                
-                new LogicalLocation { ParentIndex = 0, Name = "my_method", FullyQualifiedName = @"FancyPackageName\my_method", Kind = LogicalLocationKind.Member }                
+            {
+                new LogicalLocation { ParentIndex = -1, FullyQualifiedName = "FancyPackageName", Kind = LogicalLocationKind.Package },
+                new LogicalLocation { ParentIndex = 0, Name = "my_method", FullyQualifiedName = @"FancyPackageName\my_method", Kind = LogicalLocationKind.Member }
             };
 
             var converter = new AndroidStudioConverter();
@@ -324,7 +324,7 @@ Possible resolution: delete", result.Message.Text);
             };
 
             var expectedLogicalLocations = new List<LogicalLocation>
-            {                
+            {
                 new LogicalLocation {Kind = LogicalLocationKind.Package, FullyQualifiedName = "FancyPackageName" }
             };
 
@@ -361,9 +361,9 @@ Possible resolution: delete", result.Message.Text);
                 }
             };
 
-            var expectedLogicalLocations = new List< LogicalLocation>
-            {                
-                new LogicalLocation { Kind = LogicalLocationKind.Module, FullyQualifiedName = "LastResortModule" } 
+            var expectedLogicalLocations = new List<LogicalLocation>
+            {
+                new LogicalLocation { Kind = LogicalLocationKind.Module, FullyQualifiedName = "LastResortModule" }
             };
 
             var converter = new AndroidStudioConverter();

@@ -292,7 +292,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
 
             if (!string.IsNullOrEmpty(context.Resource))
-            {                
+            {
                 index = AddLogicalLocation(index, ref fullyQualifiedName, context.Resource, LogicalLocationKind.Resource, delimiter);
                 delimiter = ".";
             }
@@ -328,7 +328,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 Name = value,
                 ParentIndex = parentIndex
             };
-            
+
             return AddLogicalLocation(logicalLocation);
         }
 

@@ -310,7 +310,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
 
             SerializeIfNotNull(_run.Graphs, "graphs");
-            
+
             // Results go here in schema order
 
             SerializeIfNotNull(_run.AutomationDetails, "automationDetails");

@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         private Tool _tool;
 
         public UpdateIndicesFromLegacyDataVisitor(
-            IDictionary<string, int> fullyQualifiedLogicalNameToIndexMap, 
+            IDictionary<string, int> fullyQualifiedLogicalNameToIndexMap,
             IDictionary<string, int> fileLocationKeyToIndexMap,
             IDictionary<string, int> ruleKeyToIndexMap)
         {
@@ -32,7 +32,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             if (_ruleKeyToIndexMap != null)
             {
-                if (node.RuleId != null &&_ruleKeyToIndexMap.TryGetValue(node.RuleId, out int ruleIndex))
+                if (node.RuleId != null && _ruleKeyToIndexMap.TryGetValue(node.RuleId, out int ruleIndex))
                 {
                     node.RuleIndex = ruleIndex;
 

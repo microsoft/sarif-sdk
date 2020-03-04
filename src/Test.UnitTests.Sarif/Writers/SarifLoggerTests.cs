@@ -149,7 +149,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         // the directory of the test driver (the location of which we can't retrieve
                         // from Assembly.GetEntryAssembly() as we are running in an AppDomain).
                         pathToExe = pathToExe.Substring(0, pathToExe.Length - @"\Extensions".Length);
-                        tokensToRedact = new string[] {  pathToExe };
+                        tokensToRedact = new string[] { pathToExe };
                     }
                 }
                 else if (commandLine.Contains("/agentKey"))
@@ -564,7 +564,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     dataToInsert: OptionallyEmittedData.Hashes,
                     invocationTokensToRedact: null,
                     invocationPropertiesToLog: null))
-                {                    
+                {
                     var toolNotification = new Notification
                     {
                         Locations = new List<Location>
@@ -731,7 +731,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         private Result CreateSimpleResult(ReportingDescriptor rule)
-        {           
+        {
             return new Result
             {
                 RuleId = rule.Id,
@@ -760,7 +760,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 Assert.Throws<ArgumentException>(() => sarifLogger.Log(rule, result));
             }
-        }        
+        }
 
         [Fact]
         public void SarifLogger_LoggingOptions()
@@ -798,7 +798,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     ValidateLoggerForExclusiveOption(logger, loggingOption);
                 };
-            }            
+            }
             finally
             {
                 if (File.Exists(fileName)) { File.Delete(fileName); }

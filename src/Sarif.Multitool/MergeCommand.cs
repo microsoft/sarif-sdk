@@ -19,8 +19,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             _fileSystem = fileSystem ?? new FileSystem();
         }
-    
-        public  int Run(MergeOptions mergeOptions)
+
+        public int Run(MergeOptions mergeOptions)
         {
             try
             {
@@ -71,14 +71,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             return SUCCESS;
         }
 
-	    private IEnumerable<SarifLog> ParseFiles(IEnumerable<string> sarifFiles)
-	    {
+        private IEnumerable<SarifLog> ParseFiles(IEnumerable<string> sarifFiles)
+        {
             foreach (string file in sarifFiles)
             {
                 yield return ReadSarifFile<SarifLog>(_fileSystem, file);
             }
         }
-        
+
         internal static string GetOutputFileName(MergeOptions mergeOptions)
         {
             return string.IsNullOrEmpty(mergeOptions.OutputFileName) == false

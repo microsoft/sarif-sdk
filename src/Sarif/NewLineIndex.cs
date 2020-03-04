@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private readonly int _fileLength;
 
-        internal static char[] s_newLineChars = 
+        internal static char[] s_newLineChars =
         {
             '\n',
             '\r',

@@ -59,27 +59,27 @@ namespace Microsoft.CodeAnalysis.Sarif
             switch (kind)
             {
                 case ResultKind.Pass:
-                    {
-                        PassTargets.Add(targetPath);
-                        break;
-                    }
+                {
+                    PassTargets.Add(targetPath);
+                    break;
+                }
 
                 case ResultKind.Fail:
-                    {
-                        FailTargets.Add(targetPath);
-                        break;
-                    }
+                {
+                    FailTargets.Add(targetPath);
+                    break;
+                }
 
                 case ResultKind.NotApplicable:
-                    {
-                        NotApplicableTargets.Add(targetPath);
-                        break;
-                    }
+                {
+                    NotApplicableTargets.Add(targetPath);
+                    break;
+                }
 
                 default:
-                    {
-                        throw new InvalidOperationException();
-                    }
+                {
+                    throw new InvalidOperationException();
+                }
             }
         }
 

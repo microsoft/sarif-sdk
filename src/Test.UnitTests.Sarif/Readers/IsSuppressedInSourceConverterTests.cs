@@ -12,10 +12,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
     {
         [Fact]
         public void SuppressionStatus_SuppressedInSource()
-        {            
+        {
             string expected = CreateCurrentV2SarifLogText(
                 resultCount: 1,
-                (log) => {
+                (log) =>
+                {
                     log.Runs[0].Results[0].Suppressions = new List<Suppression> { new Suppression { Kind = SuppressionKind.InSource } };
                 });
 
@@ -77,7 +78,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         {
             string expected = CreateCurrentV2SarifLogText(
                 resultCount: 2,
-                (log) => {
+                (log) =>
+                {
                     log.Runs[0].Results[0].BaselineState = BaselineState.Unchanged;
                     log.Runs[0].Results[1].BaselineState = BaselineState.Updated;
                 });

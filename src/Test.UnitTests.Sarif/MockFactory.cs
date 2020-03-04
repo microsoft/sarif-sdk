@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             mock.Setup(fs => fs.FileExists(It.IsAny<string>())).Returns((string s) => s.Equals(fileName, StringComparison.OrdinalIgnoreCase));
             mock.Setup(fs => fs.GetFullPath(It.IsAny<string>())).Returns((string path) => path);
             mock.Setup(fs => fs.ReadAllText(fileName)).Returns(fileText ?? string.Join(Environment.NewLine, fileLines));
-            mock.Setup(fs => fs.ReadAllLines(fileName)).Returns(fileLines ?? fileText.Split(new [] { Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries));
+            mock.Setup(fs => fs.ReadAllLines(fileName)).Returns(fileLines ?? fileText.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries));
             return mock.Object;
         }
     }

@@ -119,7 +119,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query
 
             Assert.Throws<QueryParseException>(() => Run(0, "Unknown > 5", values));
             Assert.Throws<QueryParseException>(() => Run(0, "Value > Bill", values));
-            
+
         }
 
         private static void Run(int expectedCount, string query, long[] values)

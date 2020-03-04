@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             rightIsNull.Should().NotBe(0);
             leftIsNull.Should().NotBe(rightIsNull);
         }
-        
+
         [Fact]
         public void SkimmerIdComparer_ComparesIdAndName()
         {
@@ -99,13 +99,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             rule.SetProperty<string>(Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
 
-            rule.Relationships = new[] 
+            rule.Relationships = new[]
             {
                 new ReportingDescriptorRelationship { Description = new Message{ Text = Guid.NewGuid().ToString() } }
             };
 
             rule.ShortDescription = new MultiformatMessageString { Text = Guid.NewGuid().ToString() };
-            
+
             return rule;
         }
 

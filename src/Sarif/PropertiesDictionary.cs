@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -10,6 +8,8 @@ using System.ComponentModel;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Xml;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -159,7 +159,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 Formatting = formatting
             };
-             
+
             File.WriteAllText(filePath, JsonConvert.SerializeObject(this, settings));
         }
 
@@ -199,7 +199,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 LoadFromXml(reader);
             }
         }
-        
+
         public void LoadFromXml(Stream stream)
         {
             this.Clear();

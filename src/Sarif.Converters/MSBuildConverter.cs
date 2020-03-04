@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private readonly bool _verbose;
         private readonly HashSet<string> _fullMessageHashes = new HashSet<string>();
-        
+
         public override string ToolName => ToolFormat.MSBuild;
 
         public override void Convert(Stream input, IResultLogWriter output, OptionallyEmittedData dataToInsert)

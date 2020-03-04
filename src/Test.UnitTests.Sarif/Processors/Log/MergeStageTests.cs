@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
         }
 
         readonly GenericFoldAction<SarifLog> Merge = (GenericFoldAction<SarifLog>)SarifLogProcessorFactory.GetActionStage(SarifLogAction.Merge);
-        
+
         [Theory]
         [InlineData(0)]
         [InlineData(1)]
@@ -51,8 +51,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
             }
 
             SarifLog merged = Merge.Fold(logs);
-            
-            foreach(SarifLog log in logs)
+
+            foreach (SarifLog log in logs)
             {
                 if (log.Runs != null)
                 {

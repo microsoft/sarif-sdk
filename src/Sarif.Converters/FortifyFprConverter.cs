@@ -464,7 +464,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     // Get the rule GUID from the ClassId element.
                     string ruleId = _reader.ReadElementContentAsString();
                     rule = FindOrCreateRule(ruleId, out ruleIndex);
-                    
+
                     result.RuleIndex = ruleIndex;
                     FailureLevel failureLevel = GetFailureLevelFromRuleMetadata(rule);
                     result.Level = failureLevel;

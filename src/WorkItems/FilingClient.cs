@@ -17,7 +17,7 @@ namespace Microsoft.WorkItems
         /// The URI to the work item filing host.
         /// </summary>
         public Uri HostUri { get; internal set; }
-        
+
         /// <summary>
         ///  The Azure DevOps account name or GitHub organization name.
         /// </summary>

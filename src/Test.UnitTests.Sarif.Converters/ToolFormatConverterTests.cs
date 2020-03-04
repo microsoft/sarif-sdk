@@ -4,12 +4,12 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Reflection;
 using System.Text;
 using FluentAssertions;
-using Microsoft.CodeAnalysis.Sarif.Writers;
-using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Converters;
-using System.Reflection;
+using Microsoft.CodeAnalysis.Sarif.Driver;
+using Microsoft.CodeAnalysis.Sarif.Writers;
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -73,7 +73,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             string file = this.GetType().Assembly.Location;
             string doesNotExist = Guid.NewGuid().ToString();
-            Action action = () =>_converter.ConvertToStandardFormat(ToolFormat.AndroidStudio, doesNotExist, file, LoggingOptions.OverwriteExistingOutputFile);
+            Action action = () => _converter.ConvertToStandardFormat(ToolFormat.AndroidStudio, doesNotExist, file, LoggingOptions.OverwriteExistingOutputFile);
 
             action.Should().Throw<FileNotFoundException>();
         }

@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public partial class Invocation
     {
-        private IEnumerable<string> PropertiesToLog {get; set; }
+        private IEnumerable<string> PropertiesToLog { get; set; }
 
         private bool _suppressNonDeterministicProperties;
 

@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
         public void StrictBaseline_SameResults_AllExisting()
         {
             Random random = RandomSarifLogGenerator.GenerateRandomAndLog(this.output);
-            Run baseline = RandomSarifLogGenerator.GenerateRandomRunWithoutDuplicateIssues(random, Result.ValueComparer, random.Next(100)+5);
+            Run baseline = RandomSarifLogGenerator.GenerateRandomRunWithoutDuplicateIssues(random, Result.ValueComparer, random.Next(100) + 5);
             Run next = baseline.DeepClone();
 
             Run run = strictBaseliner.CreateBaselinedRun(baseline, next);
@@ -45,7 +45,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             Run result = strictBaseliner.CreateBaselinedRun(baseline, next);
 
             result.Results.Where(r => r.BaselineState == BaselineState.New).Should().ContainSingle();
-            result.Results.Should().HaveCount(baseline.Results.Count()+1);
+            result.Results.Should().HaveCount(baseline.Results.Count() + 1);
         }
 
         [Fact]
@@ -61,7 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             result.Results.Where(r => r.BaselineState == BaselineState.Absent).Should().ContainSingle();
             result.Results.Should().HaveCount(baseline.Results.Count());
         }
-    
+
 
         [Fact]
         public void StrictBaseline_ChangedResult_AbsentAndNew()
@@ -71,12 +71,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             Run baseline = RandomSarifLogGenerator.GenerateRandomRunWithoutDuplicateIssues(random, Result.ValueComparer, random.Next(100) + 5);
             Run next = baseline.DeepClone();
             next.Results[0].RuleId += "V2";
-            
+
             Run result = strictBaseliner.CreateBaselinedRun(baseline, next);
 
             result.Results.Where(r => r.BaselineState == BaselineState.New).Should().ContainSingle();
             result.Results.Where(r => r.BaselineState == BaselineState.Absent).Should().ContainSingle();
-            result.Results.Should().HaveCount(baseline.Results.Count()+1);
+            result.Results.Should().HaveCount(baseline.Results.Count() + 1);
         }
     }
 }

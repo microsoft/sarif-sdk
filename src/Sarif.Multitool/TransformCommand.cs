@@ -73,7 +73,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         _fileSystem.WriteAllText(transformOptions.OutputFilePath, sarifText);
                     }
                 }
-                else 
+                else
                 {
                     if (inputVersion == "1.0.0")
                     {

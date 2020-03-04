@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 string format = "";
                 string outputFilePath = exportOptions.OutputFilePath;
                 string extension = Path.GetExtension(outputFilePath);
-                
+
                 switch (extension)
                 {
                     case (".json"):
@@ -96,7 +96,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             sb.AppendLine("</rules>" + Environment.NewLine + "</profile>");
 
             File.WriteAllText(outputFilePath, sb.ToString());
-        }    
+        }
 
         private void OutputSarifRulesMetada(string outputFilePath, ImmutableArray<ReportingDescriptor> skimmers)
         {
@@ -121,7 +121,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             SortedDictionary<int, ReportingDescriptor> sortedRules = new SortedDictionary<int, ReportingDescriptor>();
 
             foreach (ReportingDescriptor rule in skimmers)
-            {                
+            {
                 int numericId = GetIdIntegerSuffix(rule.Id);
 
                 sortedRules[numericId] = rule;

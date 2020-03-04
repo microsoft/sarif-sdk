@@ -74,9 +74,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 Version dotNetVersion;
                 if (Version.TryParse(version, out dotNetVersion))
                 {
-                    version = 
-                        Math.Max(0, dotNetVersion.Major) + "." + 
-                        Math.Max(0, dotNetVersion.Minor) + "." + 
+                    version =
+                        Math.Max(0, dotNetVersion.Major) + "." +
+                        Math.Max(0, dotNetVersion.Minor) + "." +
                         Math.Max(0, dotNetVersion.Build);
                 }
             }

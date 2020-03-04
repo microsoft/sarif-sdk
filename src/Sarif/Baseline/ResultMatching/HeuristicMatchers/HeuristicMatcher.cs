@@ -67,10 +67,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
                     }
                 }
             }
-            
+
             return matchedResults;
         }
-        
+
         public bool TryMatchResult(Dictionary<int, List<ExtractedResult>> resultDictionary, ExtractedResult currentResult, out MatchedResults result)
         {
             int unmodifiedKey = Comparer.GetHashCode(currentResult);

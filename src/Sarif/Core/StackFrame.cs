@@ -51,7 +51,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (fileName != null)
             {
-                if(stackFrame.Location == null)
+                if (stackFrame.Location == null)
                 {
                     stackFrame.Location = new Location();
                 }

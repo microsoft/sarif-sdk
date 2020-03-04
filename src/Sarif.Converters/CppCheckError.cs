@@ -124,7 +124,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             result.SetProperty("Severity", this.Severity);
 
             if (!string.IsNullOrEmpty(this.VerboseMessage))
-            { 
+            {
                 result.Message = new Message { Text = this.VerboseMessage };
             }
             else

@@ -37,7 +37,7 @@ namespace Microsoft.WorkItems
                 throw new ArgumentException(
                     string.Format(
                         CultureInfo.CurrentCulture,
-                        "'{0}' is not a recognized target URI for work item filing. Work items can be filed to GitHub or AzureDevOps "+
+                        "'{0}' is not a recognized target URI for work item filing. Work items can be filed to GitHub or AzureDevOps " +
                         "(with URIs such as https://github.com/microsoft/sarif-sdk or https://dev.azure.com/contoso/contoso-project).",
                         filingUriString));
             }

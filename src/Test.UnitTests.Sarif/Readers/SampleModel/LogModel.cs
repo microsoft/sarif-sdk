@@ -98,11 +98,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers.SampleModel
         {
             JsonContract contract = base.CreateContract(objectType);
 
-            if(objectType == typeof(IList<LogMessage>))
+            if (objectType == typeof(IList<LogMessage>))
             {
                 contract.Converter = new DeferredListConverter<LogMessage>();
             }
-            else if(objectType == typeof(IDictionary<string, CodeContext>))
+            else if (objectType == typeof(IDictionary<string, CodeContext>))
             {
                 contract.Converter = new DeferredDictionaryConverter<CodeContext>();
             }
@@ -149,7 +149,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers.SampleModel
             //
 
             var random = new Random(7);
-            
+
             // Uncomment this code to provoke a failure for debugging
             //return Build(random, new DateTime(random.Next(1, 9999), random.Next(1, 12), random.Next(1, 30)), 7);
 

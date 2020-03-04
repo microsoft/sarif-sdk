@@ -304,7 +304,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     ResponseFiles = CreateResponseFilesList(v1Invocation.ResponseFiles),
                     StartTimeUtc = v1Invocation.StartTime,
                     ExecutionSuccessful = true
-            };
+                };
 
                 if (!string.IsNullOrWhiteSpace(v1Invocation.FileName))
                 {
@@ -373,7 +373,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             Location location = null;
 
             if (v1AnnotatedCodeLocation != null)
-            {                
+            {
                 location = new Location
                 {
                     Annotations = v1AnnotatedCodeLocation.Annotations?.SelectMany(a => a.Locations,
@@ -630,7 +630,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             if (v1Replacement != null)
             {
                 replacement = new Replacement();
-                
+
                 if (v1Replacement.InsertedBytes != null)
                 {
                     replacement.InsertedContent = new ArtifactContent
@@ -1009,11 +1009,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         foreach (KeyValuePair<string, LogicalLocationVersionOne> pair in v1Run.LogicalLocations)
                         {
                             PopulateLogicalLocation(
-                                run, 
+                                run,
                                 v1Run.LogicalLocations,
                                 _v1LogicalLocationKeyToDecoratedNameMap,
                                 _v1KeyToFullyQualifiedNameMap,
-                                pair.Key, 
+                                pair.Key,
                                 pair.Value,
                                 populatedKeys);
                         }
@@ -1100,12 +1100,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         }
 
         private void PopulateLogicalLocation(
-            Run v2Run, 
+            Run v2Run,
             IDictionary<string, LogicalLocationVersionOne> v1LogicalLocations,
             IDictionary<string, string> fullyQualifiedNameToDecoratedNameMap,
             IDictionary<string, string> keyToFullyQualifiedNameMap,
-            string logicalLocationKey, 
-            LogicalLocationVersionOne v1LogicalLocation, 
+            string logicalLocationKey,
+            LogicalLocationVersionOne v1LogicalLocation,
             HashSet<string> populatedKeys)
         {
             // We saw and populated this one previously, because it was a parent to 
@@ -1213,7 +1213,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 if (v1Tool.FileVersion != null &&
                     s_dottedQuadFileVersionRegex.IsMatch(v1Tool.FileVersion))
                 {
-                     dottedQuadFileVersion = v1Tool.FileVersion;
+                    dottedQuadFileVersion = v1Tool.FileVersion;
                 }
 
                 var driver = new ToolComponent

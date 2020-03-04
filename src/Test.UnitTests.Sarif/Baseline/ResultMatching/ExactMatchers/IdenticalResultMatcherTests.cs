@@ -3,16 +3,16 @@
 
 using System;
 using System.Collections.Generic;
-using Xunit;
-using FluentAssertions;
 using System.Linq;
+using FluentAssertions;
+using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
 {
     public class IdenticalResultMatcherTests
     {
         private static readonly IdenticalResultMatcher matcher = new IdenticalResultMatcher(considerPropertyBagsWhenComparing: true);
-        
+
         [Fact]
         public void IdenticalResultMatcher_MatchesIdenticalResults_Single()
         {

@@ -7,7 +7,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A component of the analysis tool that was run, such as the primary driver or a plug-in.
     /// </summary>
     public partial class ToolComponent
-    {        
+    {
         public bool ShouldSerializeRules()
         {
             return this.Rules.HasAtLeastOneNonNullValue();

@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     {
         public static string GeneratorBaseUri = @"C:\src\";
 
-        public static Random GenerateRandomAndLog(ITestOutputHelper output, [CallerMemberName] string testName="")
+        public static Random GenerateRandomAndLog(ITestOutputHelper output, [CallerMemberName] string testName = "")
         {
             // Slightly roundabout.  We want to randomly test this, but we also want to be able to repeat this if the test fails.
             int randomSeed = (new Random()).Next();
@@ -100,11 +100,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             List<Result> results = new List<Result>();
             int fileIndex = random.Next(filePaths.Count);
             for (int i = 0; i < resultCount; i++)
-            { 
+            {
                 results.Add(new Result()
                 {
                     RuleId = ruleIds[random.Next(ruleIds.Count)],
-                    Locations = new Location[] 
+                    Locations = new Location[]
                     {
                         new Location
                         {
@@ -146,7 +146,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             foreach (string ruleId in ruleIds)
             {
-                rules.Add( 
+                rules.Add(
                     new ReportingDescriptor()
                     {
                         Id = ruleId,

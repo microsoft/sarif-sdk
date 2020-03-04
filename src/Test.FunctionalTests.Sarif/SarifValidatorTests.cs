@@ -77,7 +77,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     var visitor = new OverridePrimitiveArraysPopulatingVisitor();
                     return visitor.VisitSarifLog(sarifLog);
-               };
+                };
 
             ValidateDefaultDocument(
                 propertyValueBuilders: DefaultObjectPopulatingVisitor.GetBuildersForRequiredPrimitives(),

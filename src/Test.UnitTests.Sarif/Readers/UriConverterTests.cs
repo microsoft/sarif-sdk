@@ -98,7 +98,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers.UnitTests
         {
             string expected = CreateCurrentV2SarifLogText(
                 resultCount: 1,
-                (log) => {
+                (log) =>
+                {
                     log.Runs[0].Results[0].Locations = new List<Location>
                     {
                         new Location
@@ -113,7 +114,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers.UnitTests
                         }
                     };
                 });
-            
+
             string actual = GetJson(uut =>
             {
                 var run = new Run() { Tool = DefaultTool };
@@ -121,7 +122,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers.UnitTests
 
                 var result = new Result
                 {
-                    Message = new Message {  Text = "Some testing occurred."},
+                    Message = new Message { Text = "Some testing occurred." },
                     Locations = new List<Location>
                     {
                         new Location

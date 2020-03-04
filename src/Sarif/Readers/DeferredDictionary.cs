@@ -250,7 +250,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
         public void Dispose()
         {
-            if(_stream != null)
+            if (_stream != null)
             {
                 _stream.Dispose();
                 _stream = null;

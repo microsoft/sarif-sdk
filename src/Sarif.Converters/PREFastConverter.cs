@@ -51,7 +51,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     {
                         Driver = new ToolComponent
                         {
-                            Name = ToolName, FullName = "PREfast Code Analysis"
+                            Name = ToolName,
+                            FullName = "PREfast Code Analysis"
                         }
                     },
                     ColumnKind = ColumnKind.Utf16CodeUnits,
@@ -224,7 +225,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     },
                     Region = region
                 };
-                    
+
                 var threadFlowLocation = new ThreadFlowLocation
                 {
                     Location = new Location
