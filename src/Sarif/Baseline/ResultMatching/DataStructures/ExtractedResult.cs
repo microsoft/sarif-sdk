@@ -18,13 +18,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         public Run OriginalRun { get; set; }
         public string RuleId { get; set; }
 
+        private ReportingDescriptor Rule { get; set; }
+        private bool HasDeprecatedIds { get; set; }
+
         public ExtractedResult(Result result, Run run)
         {
             Result = result;
             OriginalRun = run;
 
-            // Look up and cache the RuleId.
+            // Look up and cache RuleId, Rule
             RuleId = result.ResolvedRuleId(run);
+            Rule = result.GetRule(run);
+            HasDeprecatedIds = Rule?.DeprecatedIds?.Count > 0;
         }
 
         /// <summary>
@@ -34,7 +39,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         /// <returns>True if Category is identical, False otherwise</returns>
         public bool MatchesCategory(ExtractedResult other)
         {
-            return this.RuleId == other.RuleId;
+            if (!this.HasDeprecatedIds && !other.HasDeprecatedIds)
+            {
+                return (this.RuleId == other.RuleId);
+            }
+
+            // Handle ReportingDescriptor.DeprecatedIds (rare)
+            if (other.HasDeprecatedIds && other.Rule.DeprecatedIds.Contains(this.RuleId))
+            {
+                return true;
+            }
+
+            if (this.HasDeprecatedIds && this.Rule.DeprecatedIds.Contains(other.RuleId))
+            {
+                return true;
+            }
+
+            return false;
 
             // Tool contributes to category, but SarifLogMatcher ensures only Runs with matching Tools are compared,
             // so we don't check here.
