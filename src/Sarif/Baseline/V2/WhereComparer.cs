@@ -143,16 +143,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             cmp = left.StartLine.CompareTo(right.StartLine);
             if (cmp != 0) { return cmp; }
 
-            cmp = left.StartColumn.CompareTo(right.StartColumn);
+            cmp = ResolvedStartColumn(left).CompareTo(ResolvedStartColumn(right));
             if (cmp != 0) { return cmp; }
 
-            cmp = left.EndLine.CompareTo(right.EndLine);
+            cmp = ResolvedEndLine(left).CompareTo(ResolvedEndLine(right));
             if (cmp != 0) { return cmp; }
 
             cmp = left.EndColumn.CompareTo(right.EndColumn);
             if (cmp != 0) { return cmp; }
 
             return cmp;
+        }
+
+        private static int ResolvedStartColumn(Region region)
+        {
+            return (region.StartColumn == -1 ? 1 : region.StartColumn);
+        }
+
+        private static int ResolvedEndLine(Region region)
+        {
+            return (region.EndLine == -1 ? region.StartLine : region.EndLine);
         }
 
         public static int CompareTo(Uri left, Uri right)
