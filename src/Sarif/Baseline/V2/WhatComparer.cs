@@ -138,35 +138,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
                 }
             }
 
-            // Match Properties (50% must match)
-            if (left.Result.Properties != null && right.Result.Properties != null)
-            {
-                int correspondingPropertyCount = 0;
-                int matchCount = 0;
-
-                foreach (var property in left.Result.Properties)
-                {
-                    if (left.Result.TryGetSerializedPropertyValue(property.Key, out string leftValue)
-                        && right.Result.TryGetSerializedPropertyValue(property.Key, out string otherPropertyValue))
-                    {
-                        correspondingPropertyCount++;
-
-                        if (string.Equals(leftValue, otherPropertyValue))
-                        {
-                            matchCount++;
-                        }
-                    }
-                }
-
-                if (correspondingPropertyCount > 0)
-                {
-                    if (matchCount == 0 || matchCount * 2 < left.Result.Properties.Count)
-                    {
-                        return false;
-                    }
-                }
-            }
-
             // At this point, no high confidence properties matched or failed to match
             string leftMessage = GetCanonicalizedMessage(left);
             string rightMessage = GetCanonicalizedMessage(right);
