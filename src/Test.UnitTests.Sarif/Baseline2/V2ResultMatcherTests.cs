@@ -267,6 +267,34 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
                 match.CurrentResult.Result.Locations[0].PhysicalLocation.ArtifactLocation.Uri);
         }
 
+        [Fact]
+        public void V2ResultMatcher_IgnoresConstantPartialFingerprint()
+        {
+            // If there's a PartialFingerprint which is useless (the same for every result),
+            // the baseliner needs to recognize the situation and disregard that partialFingerprint. 
+            
+            // Spam had this issue with CanonicalLogicalLocation in JSON files where
+            // all user content is in one place (WorkItemHyperLink -> "url")
+
+            Run firstRun = SampleRun.DeepClone();
+            Run secondRun = SampleRun.DeepClone();
+
+            foreach(Result result in firstRun.Results)
+            {
+                // Give each result a unique (non-matching) and constant fingerprint
+                result.PartialFingerprints.Clear();
+                result.PartialFingerprints["SecretHash/v1"] = Guid.NewGuid().ToString(SarifConstants.GuidFormat);
+                result.PartialFingerprints["Useless/v1"] = "Constant";
+
+                // Give each result a unique (non-matching) snippet (to ensure fallback doesn't match)
+                result.Locations[0].PhysicalLocation.Region.Snippet.Text = Guid.NewGuid().ToString(SarifConstants.GuidFormat);
+            }
+
+            // Match the Runs, and confirm *nothing* matches; this requires the constant partialFingerprint not to be trusted
+            IEnumerable<MatchedResults> matches = CreateMatchedResults(firstRun, secondRun);
+            Assert.Empty(matches.Where(m => m.PreviousResult != null && m.CurrentResult != null));
+        }
+
         private static void ReplaceInUri(ArtifactLocation artifactLocation, string replaceThis, string withThis)
         {
             string original = artifactLocation.Uri.OriginalString;

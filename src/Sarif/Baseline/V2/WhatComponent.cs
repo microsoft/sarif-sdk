@@ -5,16 +5,18 @@ using System;
 
 namespace Microsoft.CodeAnalysis.Sarif.Baseline
 {
-    internal class WhatComponent : IEquatable<WhatComponent>
+    internal struct WhatComponent : IEquatable<WhatComponent>
     {
         public string Category { get; }
+        public string Location { get; }
         public string PropertySet { get; }
         public string PropertyName { get; }
         public string PropertyValue { get; }
 
-        public WhatComponent(string category, string propertySet, string propertyName, string propertyValue)
+        public WhatComponent(string category, string location, string propertySet, string propertyName, string propertyValue)
         {
             this.Category = category ?? "";
+            this.Location = location ?? "";
             this.PropertySet = propertySet ?? "";
             this.PropertyName = propertyName ?? "";
             this.PropertyValue = propertyValue ?? "";
@@ -22,22 +24,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
 
         public override string ToString()
         {
-            return $"{Category} | {PropertySet} | {PropertyName} | {PropertyValue}";
+            return $"{Category} | {Location} | {PropertySet} | {PropertyName} | {PropertyValue}";
         }
 
         public bool Equals(WhatComponent other)
         {
-            if (other == null) { return false; }
-
             return string.Equals(this.PropertyValue, other.PropertyValue)
                 && string.Equals(this.PropertyName, other.PropertyName)
                 && string.Equals(this.PropertySet, other.PropertySet)
+                && string.Equals(this.Location, other.Location)
                 && string.Equals(this.Category, other.Category);
         }
 
         public override bool Equals(object obj)
         {
-            return Equals(this as WhatComponent);
+            if(obj is WhatComponent)
+            {
+                return Equals((WhatComponent)obj);
+            }
+
+            return false;
         }
 
         public override int GetHashCode()
@@ -49,6 +55,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
                 if (this.Category != null)
                 {
                     hashCode = hashCode * 31 + this.Category.GetHashCode();
+                }
+
+                if (this.Location != null)
+                {
+                    hashCode = hashCode * 31 + this.Location.GetHashCode();
                 }
 
                 if (this.PropertySet != null)

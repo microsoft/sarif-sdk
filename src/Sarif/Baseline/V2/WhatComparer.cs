@@ -11,23 +11,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
 {
     internal static class WhatComparer
     {
+        private const string LocationNonSpecific = "";
         private const string PropertySetBase = "Base";
+        private const string PropertySetFingerprint = "Fingerprint";
+        private const string PropertySetPartialFingerprint = "PartialFingerprint";
+        private const string PropertySetProperty = "Property";
 
-        public static IEnumerable<WhatComponent> WhatProperties(this ExtractedResult result)
+        public static IEnumerable<WhatComponent> WhatProperties(this ExtractedResult result, string locationSpecifier = LocationNonSpecific)
         {
             if (result?.Result == null) { yield break; }
 
             // Add Guid
             if (result.Result.Guid != null)
             {
-                yield return new WhatComponent(result.RuleId, PropertySetBase, "Guid", result.Result.Guid);
+                yield return new WhatComponent(result.RuleId, locationSpecifier, PropertySetBase, "Guid", result.Result.Guid);
             }
 
             // Add Message Text
             string messageText = result.Result.GetMessageText(result.Result.GetRule(result.OriginalRun));
             if (!string.IsNullOrEmpty(messageText))
             {
-                yield return new WhatComponent(result.RuleId, PropertySetBase, "Message", messageText);
+                yield return new WhatComponent(result.RuleId, locationSpecifier, PropertySetBase, "Message", messageText);
             }
 
             // Add each Fingerprint
@@ -35,7 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             {
                 foreach (var fingerprint in result.Result.Fingerprints)
                 {
-                    yield return new WhatComponent(result.RuleId, "Fingerprint", "Fingerprint/" + fingerprint.Key, fingerprint.Value);
+                    yield return new WhatComponent(result.RuleId, locationSpecifier, PropertySetFingerprint, fingerprint.Key, fingerprint.Value);
                 }
             }
 
@@ -44,20 +48,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             {
                 foreach (var fingerprint in result.Result.PartialFingerprints)
                 {
-                    yield return new WhatComponent(result.RuleId, "PartialFingerprint", "PartialFingerprint/" + fingerprint.Key, fingerprint.Value);
+                    yield return new WhatComponent(result.RuleId, locationSpecifier, PropertySetPartialFingerprint, fingerprint.Key, fingerprint.Value);
                 }
             }
 
-            if (result.Result.Locations != null)
+            string snippet = GetFirstSnippet(result);
+            if (snippet != null)
             {
-                foreach (Location location in result.Result.Locations)
-                {
-                    string snippet = location?.PhysicalLocation?.Region?.Snippet?.Text;
-                    if (!string.IsNullOrEmpty(snippet))
-                    {
-                        yield return new WhatComponent(result.RuleId, PropertySetBase, "Location.Snippet", snippet);
-                    }
-                }
+                yield return new WhatComponent(result.RuleId, locationSpecifier, PropertySetBase, "Location.Snippet", snippet);
             }
 
             // Add each Property
@@ -65,7 +63,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             {
                 foreach (var property in result.Result.Properties)
                 {
-                    yield return new WhatComponent(result.RuleId, "Property", "PropertyBag/" + property.Key, property.Value?.SerializedValue);
+                    yield return new WhatComponent(result.RuleId, locationSpecifier, PropertySetProperty, property.Key, property.Value?.SerializedValue);
                 }
             }
         }

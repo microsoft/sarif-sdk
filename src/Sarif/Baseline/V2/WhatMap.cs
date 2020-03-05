@@ -11,17 +11,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
 {
     /// <summary>
     ///  WhatMap is used to look for unique 'What' properties across batches of Results.
-    ///  Each 'What' property value is added to a Dictionary, specific to the Category (RuleId)
-    ///  and Property Name where that value was found.
+    ///  Each 'What' value is added to a Dictionary, specific to the Category (RuleId),
+    ///  Location specifier, and Attribute Name where that value was found.
     /// </summary>
     internal class WhatMap
     {
-        // This dictionary maps each distinct combination of (Category | PropertyName | Value)
+        // This dictionary maps each distinct combination of (Category | Location | PropertyName | Value)
         // to the index of the unique result in which it was found. If the same combination occurs
         // multiple times, it will be in the map with an index of -1.
         private Dictionary<WhatComponent, int> Map { get; }
 
-        public WhatMap(IList<ExtractedResult> results, int[] linksFromResults)
+        public WhatMap(IList<ExtractedResult> results, HashSet<string> otherRunLocations, int[] linksFromResults)
         {
             Map = new Dictionary<WhatComponent, int>();
 
@@ -30,14 +30,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             {
                 if (linksFromResults[i] == -1)
                 {
-                    Add(results[i], i);
+                    Add(results[i], otherRunLocations, i);
                 }
             }
         }
 
-        private void Add(ExtractedResult result, int index)
+        private void Add(ExtractedResult result, HashSet<string> otherRunLocations, int index)
         {
-            foreach(WhatComponent component in result.WhatProperties())
+            // Find the LocationSpecifier for the Result (the first Uri or FQN also in the other Run)
+            string locationSpecifier = WhereComparer.LocationSpecifier(result, otherRunLocations);
+
+            // Add Result attributes used as matching hints in a "bucket" for the Rule x LocationSpecifier x AttributeName
+            foreach(WhatComponent component in result.WhatProperties(locationSpecifier))
             {
                 Add(component, index);
             }
@@ -45,7 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
 
         public void Add(WhatComponent component, int index)
         {
-            if (component?.PropertyValue == null) { return; }
+            if (component.PropertyValue == null) { return; }
 
             if (Map.TryGetValue(component, out int existingIndex) && existingIndex != index)
             {

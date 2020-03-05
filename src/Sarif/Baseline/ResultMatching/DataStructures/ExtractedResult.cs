@@ -26,6 +26,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             Result = result;
             OriginalRun = run;
 
+            // Ensure Result.Run is set (if not previously set)
+            result.Run = result.Run ?? run;
+
             // Look up and cache RuleId, Rule
             RuleId = result.ResolvedRuleId(run);
             Rule = result.GetRule(run);

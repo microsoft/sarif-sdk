@@ -157,8 +157,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
 
         private void LinkResultsWithUniqueIdenticalWhat()
         {
-            WhatMap beforeMap = new WhatMap(Before, MatchingIndexFromBefore);
-            WhatMap afterMap = new WhatMap(After, MatchingIndexFromAfter);
+            HashSet<string> beforeLocationIdentifiers = new HashSet<string>();
+            Before.ForEach((result) => WhereComparer.AddLocationIdentifiers(result, beforeLocationIdentifiers));
+
+            HashSet<string> afterLocationIdentifiers = new HashSet<string>();
+            After.ForEach((result) => WhereComparer.AddLocationIdentifiers(result, afterLocationIdentifiers));
+
+            WhatMap beforeMap = new WhatMap(Before, afterLocationIdentifiers, MatchingIndexFromBefore);
+            WhatMap afterMap = new WhatMap(After, beforeLocationIdentifiers, MatchingIndexFromAfter);
 
             foreach (Tuple<int, int> link in beforeMap.UniqueLinks(afterMap))
             {
