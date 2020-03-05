@@ -61,11 +61,16 @@ module.exports = function (results, data) {
     const sarifResults = [];
     const embedFileContents = process.env.SARIF_ESLINT_EMBED === "true";
 
-    // Emit a tool execution notification with this id if ESLint emits a message with
+    // Emit a tool configuration notification with this id if ESLint emits a message with
     // no ruleId (which indicates an internal error in ESLint).
-    const internalErrorId = "ESL9999"
+    //
+    // It is not clear whether we should treat these messages tool configuration notifications,
+    // tool execution notifications, or a mixture of the two, based on the properties of the
+    // message. https://github.com/microsoft/sarif-sdk/issues/1798, "ESLint formatter can't
+    // distinguish between an internal error and a misconfiguration", tracks this issue.
+    const internalErrorId = "ESL0999"
 
-    const toolExecutionNotifications = [];
+    const toolConfigurationNotifications = [];
     let executionSuccessful = true;
 
     results.forEach(result => {
@@ -192,7 +197,7 @@ module.exports = function (results, data) {
                     if (message.ruleId) {
                         sarifResults.push(sarifRepresentation);
                     } else {
-                        toolExecutionNotifications.push(sarifRepresentation)
+                        toolConfigurationNotifications.push(sarifRepresentation)
                     }
                 });
             }
@@ -211,10 +216,10 @@ module.exports = function (results, data) {
     // This provides a positive indication that the run completed and no results were found.
     sarifLog.runs[0].results = sarifResults;
 
-    if (toolExecutionNotifications.length > 0) {
+    if (toolConfigurationNotifications.length > 0) {
         sarifLog.runs[0].invocations = [
             {
-                toolExecutionNotifications: toolExecutionNotifications,
+                toolConfigurationNotifications: toolConfigurationNotifications,
                 executionSuccessful: executionSuccessful
             }
         ]

@@ -460,9 +460,9 @@ describe("formatter:sarif", () => {
             let invocation = run.invocations[0]
             assert.isFalse(invocation.executionSuccessful)
 
-            assert.lengthOf(invocation.toolExecutionNotifications, 1)
-            let notification = invocation.toolExecutionNotifications[0]
-            assert.strictEqual(notification.descriptor.id, "ESL9999");
+            assert.lengthOf(invocation.toolConfigurationNotifications, 1)
+            let notification = invocation.toolConfigurationNotifications[0]
+            assert.strictEqual(notification.descriptor.id, "ESL0999");
             assert.strictEqual(notification.level, "error");
             assert.strictEqual(notification.message.text, "Internal error.");
 
