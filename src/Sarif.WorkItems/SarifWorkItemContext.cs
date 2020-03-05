@@ -19,10 +19,10 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             // 
             //        https://github.com/microsoft/sarif-sdk/issues/1752
         }
-        public Uri ProjectUri
+        public Uri HostUri
         {
-            get { return this.GetProperty(ProjectUriOption); }
-            set { this.SetProperty(ProjectUriOption, value); }
+            get { return this.GetProperty(HostUriOption); }
+            set { this.SetProperty(HostUriOption, value); }
         }
 
         public string PersonalAccessToken 
@@ -95,9 +95,9 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             return this.workItemModelTransformers.AsReadOnly();
         }
 
-        internal static PerLanguageOption<Uri> ProjectUriOption { get; } =
+        internal static PerLanguageOption<Uri> HostUriOption { get; } =
             new PerLanguageOption<Uri>(
-                "Extensibility", nameof(ProjectUri),
+                "Extensibility", nameof(HostUri),
                 defaultValue: () => { return null; });
 
         internal static PerLanguageOption<string> PersonalAccessTokenOption { get; } =

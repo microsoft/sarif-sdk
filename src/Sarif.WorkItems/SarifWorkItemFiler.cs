@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
+using Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models;
 using Microsoft.WorkItems;
 using Newtonsoft.Json;
 
@@ -13,7 +14,25 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 {
     public class SarifWorkItemFiler
     {
-        public SarifWorkItemFiler() { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SarifWorkItemFiler"> class.</see>
+        /// </summary>
+        /// <param name="filingClient">
+        /// A client for communicating with a work item filing host (for example, GitHub or Azure DevOps).
+        /// </param>
+        /// <param name="filingContext">
+        /// A starting context object that configures the work item filing operation. In the
+        /// current implementation, this context is copied for each SARIF file (if any) split
+        /// from the input log and then further elaborated upon.
+        /// </param>
+        public SarifWorkItemFiler(Uri filingUri)
+        {
+            this.FilingContext = new SarifWorkItemContext
+            {
+                HostUri = filingUri
+            };
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SarifWorkItemFiler"> class.</see>
@@ -29,12 +48,12 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         public SarifWorkItemFiler(SarifWorkItemContext filingContext)
         {
             this.FilingContext = filingContext ?? throw new ArgumentNullException(nameof(filingContext));
-            this.FilingClient = FilingClientFactory.Create(filingContext.ProjectUri);
+            this.FilingClient = FilingClientFactory.Create(filingContext.HostUri);
         }
 
-        public SarifWorkItemContext FilingContext { get; }
-
         public FilingClient FilingClient { get; set; }
+
+        public SarifWorkItemContext FilingContext { get; }
 
         public virtual void FileWorkItems(Uri sarifLogFileLocation)
         {
@@ -152,8 +171,8 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 // Populate the work item with the target organization/repository information.
                 // In ADO, certain fields (such as the area path) will defaut to the 
                 // project name and so this information is used in at least that context. 
-                workItemModel.RepositoryOrProject = filingClient.ProjectOrRepository;
                 workItemModel.OwnerOrAccount = filingClient.AccountOrOrganization;
+                workItemModel.RepositoryOrProject = filingClient.ProjectOrRepository;
 
                 foreach (SarifWorkItemModelTransformer transformer in workItemModel.Context.Transformers)
                 {

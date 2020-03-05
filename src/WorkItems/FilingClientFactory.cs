@@ -28,6 +28,14 @@ namespace Microsoft.WorkItems
                     filingClient = isGitHub ? (FilingClient)new GitHubFilingClient() : new AzureDevOpsFilingClient();
                     filingClient.ProjectOrRepository = match.Groups[WorkItemFilingUtilities.PROJECT].Value;
                     filingClient.AccountOrOrganization = match.Groups[WorkItemFilingUtilities.ACCOUNT].Value;
+
+                    string uri = 
+                        isGitHub ? WorkItemFilingUtilities.GitHubOrganizationUriPrefix
+                                 : WorkItemFilingUtilities.AzureDevOpsAccountUriPrefix;
+                    
+                    uri += filingClient.AccountOrOrganization;
+
+                    filingClient.AccountOrOrganizationUri = new Uri(uri, UriKind.Absolute);
                     break;
                 }
             }
@@ -41,8 +49,6 @@ namespace Microsoft.WorkItems
                         "(with URIs such as https://github.com/microsoft/sarif-sdk or https://dev.azure.com/contoso/contoso-project).",
                         filingUriString));
             }
-
-            filingClient.HostUri = filingHostUri;
 
             return filingClient;
         }

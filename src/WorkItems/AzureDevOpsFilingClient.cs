@@ -22,11 +22,12 @@ namespace Microsoft.WorkItems
     {
         private WorkItemTrackingHttpClient _witClient;
 
+        internal
+
         public override async Task Connect(string personalAccessToken)
         {
-            Uri accountUri = new Uri(this.AccountOrOrganization, UriKind.Absolute);
+            VssConnection connection = new VssConnection(this.AccountOrOrganizationUri, new VssBasicCredential(string.Empty, personalAccessToken));
 
-            VssConnection connection = new VssConnection(accountUri, new VssBasicCredential(string.Empty, personalAccessToken));
             await connection.ConnectAsync();
 
             _witClient = await connection.GetClientAsync<WorkItemTrackingHttpClient>();

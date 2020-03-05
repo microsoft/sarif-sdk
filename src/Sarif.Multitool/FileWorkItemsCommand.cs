@@ -123,7 +123,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         private static bool ValidateProjectUri(string projectUriString, SarifWorkItemContext workItemFilingConfiguration)
         {
-            if (string.IsNullOrEmpty(projectUriString) && workItemFilingConfiguration.ProjectUri == null)
+            if (string.IsNullOrEmpty(projectUriString) && workItemFilingConfiguration.HostUri == null)
             {
                 // No project URI was provided via the --project-uri argument or as
                 // part of an input file specified via --configuration.
@@ -140,10 +140,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
 
             // Any command-line argument that's provided overrides values specified in the configuration.
-            workItemFilingConfiguration.ProjectUri = projectUri ?? workItemFilingConfiguration.ProjectUri;
+            workItemFilingConfiguration.HostUri = projectUri ?? workItemFilingConfiguration.HostUri;
 
 
-            if (!workItemFilingConfiguration.ProjectUri.IsAbsoluteUri)
+            if (!workItemFilingConfiguration.HostUri.IsAbsoluteUri)
             {
                 string optionDescription = projectUri != null ? "--project-uri" : "--configuration";
 
@@ -152,7 +152,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     string.Format(
                         CultureInfo.CurrentCulture,
                         MultitoolResources.WorkItemFiling_ErrorUriIsNotAbsolute,
-                        workItemFilingConfiguration.ProjectUri.OriginalString,
+                        workItemFilingConfiguration.HostUri.OriginalString,
                         optionDescription));
                 return false;
             }

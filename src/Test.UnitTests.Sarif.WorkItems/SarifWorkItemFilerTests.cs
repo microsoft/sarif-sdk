@@ -16,6 +16,22 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         private static readonly Uri s_testUri = new Uri("https://github.com/Microsoft/sarif-sdk");
 
         [Fact]
+        public void WorkItemFiler_ConnectReceivesValidUrl()
+        {
+            SarifWorkItemFiler filer = CreateMockSarifWorkItemFiler(out Mock<FilingClient> mockClient).Object;
+
+            mockClient
+                .Setup(x => x.Connect(It.IsAny<string>()))
+                .Callback<string, Task>((pat, task) => 
+                    {
+                    }) ;
+
+            Action action = () => filer.FileWorkItems(sarifLogFileContents: null);
+
+            action.Should().Throw<ArgumentNullException>();
+        }
+
+        [Fact]
         public void WorkItemFiler_ValidatesSarifLogFileContentsArgument()
         {
             SarifWorkItemFiler filer = CreateWorkItemFiler();
@@ -45,12 +61,31 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             action.Should().Throw<ArgumentNullException>();
         }
 
-        private static SarifWorkItemFiler CreateWorkItemFiler()
-            => CreateMockSarifWorkItemFiler();
+        private static SarifWorkItemFiler CreateWorkItemFiler(SarifWorkItemContext context = null)
+            => CreateMockSarifWorkItemFiler(out Mock<FilingClient> client, context).Object;
 
-        private static SarifWorkItemFiler CreateMockSarifWorkItemFiler()
+        private static Uri GitHubFilingUri = new Uri("https://github.com/nonexistentorg/nonexistentrepo");
+
+        private static SarifWorkItemContext TestContext = new SarifWorkItemContext()
+        { 
+            HostUri = GitHubFilingUri
+        };
+
+        private static Mock<SarifWorkItemFiler> CreateMockSarifWorkItemFiler(out Mock<FilingClient> mockClient, SarifWorkItemContext context = null)
         {
-            var mockFiler = new Mock<SarifWorkItemFiler>();
+            context = context ?? TestContext;
+
+            mockClient = new Mock<FilingClient>();
+
+            mockClient
+                .Setup(x => x.Connect(It.IsAny<string>()))
+                .CallBase();
+
+            mockClient
+                .Setup(x => x.FileWorkItems(It.IsAny<IEnumerable<WorkItemModel>>()))
+                .CallBase();
+
+            var mockFiler = new Mock<SarifWorkItemFiler>(context);
 
             mockFiler
                 .Setup(x => x.FileWorkItems(It.IsAny<string>()))
@@ -74,7 +109,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                     It.IsAny<string>()))
                 .ReturnsAsync((Uri uri, IList<WorkItemModel<SarifWorkItemContext>> resultGroups, string personalAccessToken) => resultGroups);
 
-            return mockFiler.Object;
+            return mockFiler;
         }
 
         private class TestFilingClient : FilingClient
