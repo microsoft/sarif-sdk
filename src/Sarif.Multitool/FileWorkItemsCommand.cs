@@ -11,7 +11,6 @@ using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.WorkItems;
 using Microsoft.Json.Schema;
 using Microsoft.Json.Schema.Validation;
-using Microsoft.WorkItems;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {

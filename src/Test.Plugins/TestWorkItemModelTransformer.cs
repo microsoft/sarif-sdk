@@ -4,7 +4,6 @@
 using System.Collections.Generic;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.CodeAnalysis.Sarif.WorkItems;
-using Microsoft.WorkItems;
 
 namespace Microsoft.CodeAnalysis.Test.Plugins
 {
