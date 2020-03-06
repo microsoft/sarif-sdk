@@ -14,9 +14,10 @@ namespace Microsoft.WorkItems
     public abstract class FilingClient
     {
         /// <summary>
-        /// The GitHub organization or Azure DevOps account URI to file work items within.
+        /// The GitHub organization and repository URI, or Azure DevOps
+        /// account and project URI, to file work items against.
         /// </summary>
-        public Uri AccountOrOrganizationUri { get; internal set; }
+        public Uri FilingUri { get; internal set; }
         
         /// <summary>
         ///  The Azure DevOps account name or GitHub organization name.

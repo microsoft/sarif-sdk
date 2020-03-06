@@ -3,8 +3,16 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
+using Microsoft.TeamFoundation.Build.WebApi;
+using Microsoft.TeamFoundation.Work.WebApi;
+using Microsoft.TeamFoundation.WorkItemTracking.WebApi;
+using Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models;
+using Microsoft.VisualStudio.Services.Directories;
+using Microsoft.VisualStudio.Services.WebApi.Patch.Json;
 using Microsoft.WorkItems;
 using Moq;
 using Xunit;
@@ -16,19 +24,78 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         private static readonly Uri s_testUri = new Uri("https://github.com/Microsoft/sarif-sdk");
 
         [Fact]
-        public void WorkItemFiler_ConnectReceivesValidUrl()
+        public void WorkItemFiler_AzureDevOpsClientReceivesExpectedCalls()
         {
-            SarifWorkItemFiler filer = CreateMockSarifWorkItemFiler(out Mock<FilingClient> mockClient).Object;
+            var attachmentReference = new AttachmentReference()
+            {
+                Id = Guid.NewGuid(),
+                Url = Guid.NewGuid().ToString()
+            };
 
-            mockClient
-                .Setup(x => x.Connect(It.IsAny<string>()))
-                .Callback<string, Task>((pat, task) => 
+            var workItem = new WorkItem
+            {
+                Id = DateTime.UtcNow.Millisecond
+            };
+
+            bool connectCalled = false,
+                 createWorkItemCalled = false,
+                 createAttachmenCalled = false;                 
+
+            // Create a default mock SARIF filer, configured by an 
+            // AzureDevOps context (which creates a default ADO
+            // filing client underneat).
+            SarifWorkItemFiler filer = CreateMockSarifWorkItemFiler(
+                out Mock<FilingClient> mockClient, 
+                AzureDevOpsTestContext).Object;
+
+            var workItemTrackingHttpClientMock = new Mock<IWorkItemTrackingHttpClient>();
+            workItemTrackingHttpClientMock
+                .Setup(x => x.CreateAttachmentAsync(It.IsAny<MemoryStream>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<object>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(attachmentReference)
+                .Callback<MemoryStream, string, string, string, object, CancellationToken>(
+                    (stream, fileName, uploadType, areaPath, userState, cancellationToken) =>
                     {
-                    }) ;
+                        createAttachmenCalled = true;
+                    });
 
-            Action action = () => filer.FileWorkItems(sarifLogFileContents: null);
+            workItemTrackingHttpClientMock
+                .Setup(x => x.CreateWorkItemAsync(It.IsAny<JsonPatchDocument>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool?>(), It.IsAny<bool?>(), It.IsAny<bool?>(), It.IsAny<object>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(workItem)
+                .Callback<JsonPatchDocument, string, string, bool?, bool?, bool?, object, CancellationToken>(
+                    (document, project, type, validateOnly, bypassRules, suppressNotifications, userState, cancellationToken) =>
+                    {
+                        createAttachmenCalled = true;
+                    });
 
-            action.Should().Throw<ArgumentNullException>();
+
+            var vssConnectionMock = new Mock<IVssConnection>();
+            vssConnectionMock
+                .Setup(x => x.ConnectAsync(It.IsAny<Uri>(), It.IsAny<string>()))
+                .Returns(Task.CompletedTask)
+                .Callback<Uri, string>(
+                    (uri, pat) =>
+                    {
+                        uri.Should().NotBeNull();
+                        pat.Should().Be(NotActuallyASecret);
+                        connectCalled = true;
+                    });
+
+            vssConnectionMock
+                .Setup(x => x.GetClientAsync())
+                .ReturnsAsync(workItemTrackingHttpClientMock.Object);
+
+            // Inject an object to receive lower-level ADO client interactions
+            // This call will throw an exception if the client type isn't right.
+            var adoFilingClient = (AzureDevOpsFilingClient)filer.FilingClient;
+            adoFilingClient.vssConection = vssConnectionMock.Object;
+
+            Action action = () => filer.FileWorkItems(sarifLog: SimpleLog);
+
+            action();
+
+            connectCalled.Should().BeTrue();
+            createAttachmenCalled.Should().BeTrue();
+            createWorkItemCalled.Should().BeTrue();
         }
 
         [Fact]
@@ -64,16 +131,9 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         private static SarifWorkItemFiler CreateWorkItemFiler(SarifWorkItemContext context = null)
             => CreateMockSarifWorkItemFiler(out Mock<FilingClient> client, context).Object;
 
-        private static Uri GitHubFilingUri = new Uri("https://github.com/nonexistentorg/nonexistentrepo");
-
-        private static SarifWorkItemContext TestContext = new SarifWorkItemContext()
-        { 
-            HostUri = GitHubFilingUri
-        };
-
         private static Mock<SarifWorkItemFiler> CreateMockSarifWorkItemFiler(out Mock<FilingClient> mockClient, SarifWorkItemContext context = null)
         {
-            context = context ?? TestContext;
+            context = context ?? GitHubTestContext;
 
             mockClient = new Mock<FilingClient>();
 
@@ -112,17 +172,50 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             return mockFiler;
         }
 
-        private class TestFilingClient : FilingClient
-        {
-            public override Task Connect(string personalAccessToken = null)
-            {
-                throw new NotImplementedException();
-            }
+        private const string TestRuleId = nameof(TestRuleId);
+        private const string TestMessageText = nameof(TestMessageText);
+        private const string NotActuallyASecret = nameof(NotActuallyASecret);
 
-            public override Task<IEnumerable<WorkItemModel>> FileWorkItems(IEnumerable<WorkItemModel> workItemModels)
-            {
-                throw new NotImplementedException();
-            }
-        }
+        private readonly static string AttachmentUrl = Guid.NewGuid().ToString();
+
+        private readonly static Uri GitHubFilingUri = new Uri("https://github.com/nonexistentorg/nonexistentrepo");
+        private readonly static Uri AzureDevOpsFilingUri = new Uri("https://dev.azure.com/nonexistentaccount/nonexistentproject");
+
+        private static SarifWorkItemContext GitHubTestContext = new SarifWorkItemContext()
+        {
+            HostUri = GitHubFilingUri,
+            PersonalAccessToken = NotActuallyASecret
+        };
+
+        private static SarifWorkItemContext AzureDevOpsTestContext = new SarifWorkItemContext()
+        {
+            HostUri = AzureDevOpsFilingUri,
+            PersonalAccessToken = NotActuallyASecret
+        };
+
+
+        private static SarifLog SimpleLog = new SarifLog
+        {
+                Runs = new Run[]
+                {
+                    new Run
+                    {
+                        Results = new []
+                        {
+                            new Result
+                            {
+                                Rule = new ReportingDescriptorReference
+                                {
+                                    Id = TestRuleId
+                                },
+                                Message = new Message
+                                {
+                                    Text = TestMessageText
+                                }
+                            }
+                        }
+                    }
+                }
+        };
     }
 }

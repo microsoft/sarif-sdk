@@ -4,10 +4,10 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Microsoft.TeamFoundation.WorkItemTracking.WebApi;
 using Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models;
-using Microsoft.VisualStudio.Services.Common;
 using Microsoft.VisualStudio.Services.WebApi;
 using Microsoft.VisualStudio.Services.WebApi.Patch;
 using Microsoft.VisualStudio.Services.WebApi.Patch.Json;
@@ -20,17 +20,20 @@ namespace Microsoft.WorkItems
     /// </summary>
     public class AzureDevOpsFilingClient: FilingClient
     {
-        private WorkItemTrackingHttpClient _witClient;
+        internal IWorkItemTrackingHttpClient _witClient;
 
-        internal
+        // We use this field for mock object injection when unit testing.
+        internal IVssConnection vssConection;
+
+        public Uri AccountUri => new Uri(string.Format("https://dev.azure.com/" + this.AccountOrOrganization));
 
         public override async Task Connect(string personalAccessToken)
         {
-            VssConnection connection = new VssConnection(this.AccountOrOrganizationUri, new VssBasicCredential(string.Empty, personalAccessToken));
+            vssConection = vssConection ?? new VssConnectionWrapper();
 
-            await connection.ConnectAsync();
-
-            _witClient = await connection.GetClientAsync<WorkItemTrackingHttpClient>();
+            await vssConection.ConnectAsync(this.AccountUri, personalAccessToken);
+            
+            _witClient = await vssConection.GetClientAsync();
         }
 
         public override async Task<IEnumerable<WorkItemModel>> FileWorkItems(IEnumerable<WorkItemModel> workItemModels)
@@ -64,12 +67,13 @@ namespace Microsoft.WorkItems
                     using (var stream = new MemoryStream())
                     using (var writer = new StreamWriter(stream))
                     {
-                        writer.Write(attachmentText);
-                        writer.Flush();
+                        writer.Write(attachmentText);                       writer.Flush();
                         stream.Position = 0;
                         try
                         {
-                            attachmentReference = await _witClient.CreateAttachmentAsync(stream, fileName: workItemModel.Attachment.Name);
+                            attachmentReference = await _witClient.CreateAttachmentAsync(
+                                stream, 
+                                fileName: workItemModel.Attachment.Name);
                         }
                         catch
                         {

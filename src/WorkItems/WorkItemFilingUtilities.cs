@@ -15,9 +15,6 @@ namespace Microsoft.WorkItems
         private static readonly string AzureDevOpsUriPattern = $"^https://dev\\.azure\\.com/(?<{ACCOUNT}>[^/]+)/(?<{PROJECT}>[^/]+)$";
         private static readonly string LegacyAzureDevOpsUriPattern = $"^https://(?<{ACCOUNT}>[^\\.]+)\\.visualstudio\\.com/(?<{PROJECT}>[^/]+)$";
 
-        public const string GitHubOrganizationUriPrefix = "https://github.com/";
-        public const string AzureDevOpsAccountUriPrefix = "https://dev.azure.com/";
-
         internal static readonly Tuple<string, Regex>[] WorkItemHostRegexTuples = new[]
         {
             new Tuple<string, Regex>("github", WorkItemFilingUtilities.RegexFromPattern(GitHubUriPattern)),
