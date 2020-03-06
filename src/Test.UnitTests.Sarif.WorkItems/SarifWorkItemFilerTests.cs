@@ -7,11 +7,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
-using Microsoft.TeamFoundation.Build.WebApi;
-using Microsoft.TeamFoundation.Work.WebApi;
-using Microsoft.TeamFoundation.WorkItemTracking.WebApi;
 using Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models;
-using Microsoft.VisualStudio.Services.Directories;
 using Microsoft.VisualStudio.Services.WebApi;
 using Microsoft.VisualStudio.Services.WebApi.Patch.Json;
 using Microsoft.WorkItems;
@@ -26,6 +22,18 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         [Fact]
         public void WorkItemFiler_AzureDevOpsClientReceivesExpectedCalls()
         {
+            // IMPORTANT. This is a single end-to-end test that demonstrates we have
+            // the capability of mocking/injecting mocks into the end-to-end work
+            // item filing scenario. This example works for the ADO filer only. Once
+            // reviewed/finalized, we would look to provide an equivalent implementation
+            // for the GitHub filer. The code below isn't intended to reflect the 
+            // actual factoring we can expect when we use this machinery to cover
+            // all expected future cases. i.e., after completing this first review,
+            // we should look at more thoughtful factoring/helpers to capture 
+            // testing for specific scenarios.
+
+            // ONE. Create test data that the low-level ADO client mocks
+            //      will flow back to the SARIF work item filer. 
             var attachmentReference = new AttachmentReference()
             {
                 Id = Guid.NewGuid(),
@@ -38,16 +46,17 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 Links = new ReferenceLinks()
             };
 
+            // The fake URI to the filed item that we'll expect the filer to receive
             string htmlUri = "https://example.com/" + Guid.NewGuid().ToString();
             workItem.Links.AddLink("html", htmlUri);
 
+            // TWO. Define variables to capture whether we enter all expected ADO client methods.
             bool connectCalled = false,
                  createWorkItemCalled = false,
                  createAttachmenCalled = false;                 
 
-            // Create a default mock SARIF filer, configured by an 
-            // AzureDevOps context (which creates a default ADO
-            // filing client underneat).
+            // THREE. Create a default mock SARIF filer, configured by an AzureDevOps context
+            //        (which creates a default ADO filing client underneath).
             SarifWorkItemFiler filer = CreateMockSarifWorkItemFiler(
                 out Mock<FilingClient> mockClient, 
                 AzureDevOpsTestContext).Object;
@@ -55,22 +64,27 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             var workItemTrackingHttpClientMock = new Mock<IWorkItemTrackingHttpClient>();
             workItemTrackingHttpClientMock
                 .Setup(x => x.CreateAttachmentAsync(It.IsAny<MemoryStream>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<object>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(attachmentReference)
+                .ReturnsAsync(attachmentReference) // Return our test attachment, defined above.
                 .Callback<MemoryStream, string, string, string, object, CancellationToken>(
                     (stream, fileName, uploadType, areaPath, userState, cancellationToken) =>
                     {
+                        // Verify that the ADO client receives the request to create an attachment
                         createAttachmenCalled = true;
                     });
 
             workItemTrackingHttpClientMock
                 .Setup(x => x.CreateWorkItemAsync(It.IsAny<JsonPatchDocument>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool?>(), It.IsAny<bool?>(), It.IsAny<bool?>(), It.IsAny<object>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(workItem)
+                .ReturnsAsync(workItem) // Return our test work item, defined above
                 .Callback<JsonPatchDocument, string, string, bool?, bool?, bool?, object, CancellationToken>(
                     (document, project, type, validateOnly, bypassRules, suppressNotifications, userState, cancellationToken) =>
                     {
+                        // Verify that the ADO client receives the request to file the bug
                         createWorkItemCalled = true;
                     });
 
+            // FOUR. Create a mock VssConnection instance, which handles the auth connection
+            //       and retrieval of the ADO filing client. We are required to put this
+            //       mock behind an interface due to an inability 
 
             var vssConnectionMock = new Mock<IVssConnection>();
             vssConnectionMock
@@ -79,17 +93,42 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 .Callback<Uri, string>(
                     (uri, pat) =>
                     {
-                        uri.Should().NotBeNull();
+                        // The following data values flow to us via test constants which are
+                        // captured in the default context object that initialized the filer.
                         pat.Should().Be(NotActuallyASecret);
+
+                        // We configure the filer with a full ADO URI that contains the account and
+                        // project, e.g., https://dev.azure.com/myaccount/myproject. By the time the
+                        // ADO client receives it, however, the project has been stripped off 
+                        // (because it is not required for making the connection).
+                        AzureDevOpsFilingUri.OriginalString.StartsWith(uri.ToString()).Should().BeTrue();                        
+
+                        // Verify that we received the connection request.
                         connectCalled = true;
                     });
 
+            // Our GetClientAsync is overridden to provide our low-level ADO mock.
             vssConnectionMock
                 .Setup(x => x.GetClientAsync())
                 .ReturnsAsync(workItemTrackingHttpClientMock.Object);
 
-            // Inject an object to receive lower-level ADO client interactions
-            // This call will throw an exception if the client type isn't right.
+            // FIVE. We are required to inject the low level ADO connection wrapper. We are 
+            //       required to do so due to the complexity of creating and initializing
+            //       required objects. MOQ cannot override constructors and (related)
+            //       in general cannot instantiate a type without a parameterless ctor.
+            //       Even when a concrete class can be instantiated, its various properties
+            //       might not be easily stubbed (as for a non-virtual property accessor).
+            //       For these cases, we need to insert an interface in our system, and 
+            //       create wrappers around those concrete types, where the interface is
+            //       directly mapped or otherwise adapted to the concrete type's methods.
+            //       Moq can then simply manufacture a class that implements that interface
+            //       in order to control behaviors.
+            //
+            //       Rather than introducing a type factory or more sophisticated pattern
+            //       of injection, we use the very simple expedient of declaring an internal
+            //       property to hold a mock instance. In production, if that property is null,
+            //       the system instantiates a wrapper around the standard types for use.
+            
             var adoFilingClient = (AzureDevOpsFilingClient)filer.FilingClient;
             adoFilingClient.vssConection = vssConnectionMock.Object;
 
@@ -97,15 +136,26 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
             action();
 
+
+            // Did we see all the execution we expected?
             connectCalled.Should().BeTrue();
             createAttachmenCalled.Should().BeTrue();
             createWorkItemCalled.Should().BeTrue();
 
+            // This property is a naive mechanism to ensure that the code
+            // executed comprehensively (i.e., that execution was not limited
+            // due to unhandled exceptions). This is required because we have
+            // not really implemented a proper async API with appropriate handling
+            // for exceptions and other negative conditions. I wouldn't expect this
+            // little helper to survive but it closes the loop for the current
+            // rudimentary in-flight implementation.
             filer.FilingSucceeded.Should().BeTrue();
 
             filer.FiledWorkItems.Count.Should().Be(1);
 
             WorkItemModel filedWorkItem = filer.FiledWorkItems[0];
+
+            // Finally, make sure that our test data flows back properly through the filer.
 
             filedWorkItem.Attachment.Should().NotBeNull();
             filedWorkItem.Attachment.Text.Should().Be(JsonConvert.SerializeObject(SimpleLog));
