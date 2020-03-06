@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
 using Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models;
@@ -28,10 +29,14 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         /// </param>
         public SarifWorkItemFiler(Uri filingUri)
         {
+            if (filingUri == null) { throw new ArgumentOutOfRangeException(nameof(filingUri)); };
+
             this.FilingContext = new SarifWorkItemContext
             {
                 HostUri = filingUri
             };
+
+            this.FilingClient = FilingClientFactory.Create(this.FilingContext.HostUri);
         }
 
         /// <summary>
@@ -54,6 +59,10 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         public FilingClient FilingClient { get; set; }
 
         public SarifWorkItemContext FilingContext { get; }
+
+        public List<WorkItemModel> FiledWorkItems { get; private set; }
+
+        public bool FilingSucceeded { get; private set; }
 
         public virtual void FileWorkItems(Uri sarifLogFileLocation)
         {
@@ -86,6 +95,9 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
         public virtual void FileWorkItems(SarifLog sarifLog)
         {
+            this.FilingSucceeded = false;
+            this.FiledWorkItems = new List<WorkItemModel>();
+
             sarifLog = sarifLog ?? throw new ArgumentNullException(nameof(sarifLog));
 
             this.FilingClient.Connect(this.FilingContext.PersonalAccessToken).Wait();
@@ -158,7 +170,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             }
         }
 
-        internal static void FileWorkItemsHelper(SarifLog sarifLog, SarifWorkItemContext filingContext, FilingClient filingClient)
+        private void FileWorkItemsHelper(SarifLog sarifLog, SarifWorkItemContext filingContext, FilingClient filingClient)
         {
             // The helper below will initialize the sarif work item model with a copy
             // of the root pipeline filing context. This context will then be initialized
@@ -179,7 +191,10 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                     transformer.Transform(workItemModel);
                 }
 
-                filingClient.FileWorkItems(new[] { workItemModel }).Wait();
+                Task<IEnumerable<WorkItemModel>> task = filingClient.FileWorkItems(new[] { workItemModel });
+                task.Wait();
+
+                this.FiledWorkItems.AddRange(task.Result);
 
                 // TODO: We need to process updated work item models to persist filing
                 //       details back to the input SARIF file, if that was specified.
@@ -188,11 +203,14 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 //       this work.
                 //
                 //       https://github.com/microsoft/sarif-sdk/issues/1774
+
+                this.FilingSucceeded = true;
             }
             catch (Exception ex)
             {
                 Console.Error.WriteLine(ex);
             }
+
         }
 
         /// <summary>

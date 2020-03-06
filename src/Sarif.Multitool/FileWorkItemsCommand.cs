@@ -116,7 +116,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 valid &= DriverUtilities.ReportWhetherOutputFileCanBeCreated(options.OutputFilePath, options.Force, fileSystem);
             }
 
-            valid &= EnsurePersonalAccessToken(options, sarifWorkItemContext);
+            valid &= EnsurePersonalAccessToken(sarifWorkItemContext);
 
             return valid;
         }
@@ -160,7 +160,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             return true;
         }
 
-        private static bool EnsurePersonalAccessToken(FileWorkItemsOptions options, SarifWorkItemContext workItemFilingConfiguration)
+        private static bool EnsurePersonalAccessToken(SarifWorkItemContext workItemFilingConfiguration)
         {
             string pat = Environment.GetEnvironmentVariable("SarifWorkItemFilingPat");
 

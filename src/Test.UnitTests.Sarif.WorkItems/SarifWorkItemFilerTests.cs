@@ -12,17 +12,17 @@ using Microsoft.TeamFoundation.Work.WebApi;
 using Microsoft.TeamFoundation.WorkItemTracking.WebApi;
 using Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models;
 using Microsoft.VisualStudio.Services.Directories;
+using Microsoft.VisualStudio.Services.WebApi;
 using Microsoft.VisualStudio.Services.WebApi.Patch.Json;
 using Microsoft.WorkItems;
 using Moq;
+using Newtonsoft.Json;
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 {
     public class SarifWorkItemFilerTests
     {
-        private static readonly Uri s_testUri = new Uri("https://github.com/Microsoft/sarif-sdk");
-
         [Fact]
         public void WorkItemFiler_AzureDevOpsClientReceivesExpectedCalls()
         {
@@ -34,8 +34,12 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
             var workItem = new WorkItem
             {
-                Id = DateTime.UtcNow.Millisecond
+                Id = DateTime.UtcNow.Millisecond,
+                Links = new ReferenceLinks()
             };
+
+            string htmlUri = "https://example.com/" + Guid.NewGuid().ToString();
+            workItem.Links.AddLink("html", htmlUri);
 
             bool connectCalled = false,
                  createWorkItemCalled = false,
@@ -64,7 +68,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 .Callback<JsonPatchDocument, string, string, bool?, bool?, bool?, object, CancellationToken>(
                     (document, project, type, validateOnly, bypassRules, suppressNotifications, userState, cancellationToken) =>
                     {
-                        createAttachmenCalled = true;
+                        createWorkItemCalled = true;
                     });
 
 
@@ -89,13 +93,24 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             var adoFilingClient = (AzureDevOpsFilingClient)filer.FilingClient;
             adoFilingClient.vssConection = vssConnectionMock.Object;
 
-            Action action = () => filer.FileWorkItems(sarifLog: SimpleLog);
+            void action() => filer.FileWorkItems(sarifLog: SimpleLog);
 
             action();
 
             connectCalled.Should().BeTrue();
             createAttachmenCalled.Should().BeTrue();
             createWorkItemCalled.Should().BeTrue();
+
+            filer.FilingSucceeded.Should().BeTrue();
+
+            filer.FiledWorkItems.Count.Should().Be(1);
+
+            WorkItemModel filedWorkItem = filer.FiledWorkItems[0];
+
+            filedWorkItem.Attachment.Should().NotBeNull();
+            filedWorkItem.Attachment.Text.Should().Be(JsonConvert.SerializeObject(SimpleLog));
+
+            filedWorkItem.HtmlUri.Should().Be(new Uri(htmlUri, UriKind.Absolute));
         }
 
         [Fact]
@@ -176,25 +191,23 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         private const string TestMessageText = nameof(TestMessageText);
         private const string NotActuallyASecret = nameof(NotActuallyASecret);
 
-        private readonly static string AttachmentUrl = Guid.NewGuid().ToString();
-
         private readonly static Uri GitHubFilingUri = new Uri("https://github.com/nonexistentorg/nonexistentrepo");
         private readonly static Uri AzureDevOpsFilingUri = new Uri("https://dev.azure.com/nonexistentaccount/nonexistentproject");
 
-        private static SarifWorkItemContext GitHubTestContext = new SarifWorkItemContext()
+        private static readonly SarifWorkItemContext GitHubTestContext = new SarifWorkItemContext()
         {
             HostUri = GitHubFilingUri,
             PersonalAccessToken = NotActuallyASecret
         };
 
-        private static SarifWorkItemContext AzureDevOpsTestContext = new SarifWorkItemContext()
+        private static readonly SarifWorkItemContext AzureDevOpsTestContext = new SarifWorkItemContext()
         {
             HostUri = AzureDevOpsFilingUri,
             PersonalAccessToken = NotActuallyASecret
         };
 
 
-        private static SarifLog SimpleLog = new SarifLog
+        private static readonly SarifLog SimpleLog = new SarifLog
         {
                 Runs = new Run[]
                 {

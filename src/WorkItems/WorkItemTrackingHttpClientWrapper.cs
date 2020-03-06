@@ -12,7 +12,7 @@ namespace Microsoft.WorkItems
 {
     internal class WorkItemTrackingHttpClientWrapper : IWorkItemTrackingHttpClient
     {
-        private WorkItemTrackingHttpClient workItemTrackingHttpClient;
+        private readonly WorkItemTrackingHttpClient workItemTrackingHttpClient;
 
         public WorkItemTrackingHttpClientWrapper(WorkItemTrackingHttpClient workItemTrackingHttpClient)
         {

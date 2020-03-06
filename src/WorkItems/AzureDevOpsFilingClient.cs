@@ -134,7 +134,7 @@ namespace Microsoft.WorkItems
                 }
 
                 WorkItem workItem = null;
-
+                
                 try
                 {
                     // TODO: Make work item kind configurable for Azure DevOps filer
