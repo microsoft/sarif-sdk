@@ -28,6 +28,14 @@ namespace Microsoft.CodeAnalysis.Test.Utilities.Sarif
             public const string Rule10 = "TST0010";
         }
 
+        public static class FileLocations
+        {
+            public const string Location1 = @"C:\Test\Data\File1.sarif";
+            public const string Location2 = @"C:\Test\Data\File2.sarif";
+            public const string Location3 = @"C:\Test\Data\File3.sarif";
+            public const string Location4 = @"C:\Test\Data\File4.sarif";
+        }
+
         public static class TaxonIds
         {
             public const string Taxon1 = "TAX0001";
