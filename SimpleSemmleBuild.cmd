@@ -1,1 +1,0 @@
-dotnet build src\Sarif.Sdk.Semmle.sln -c Release -f net461

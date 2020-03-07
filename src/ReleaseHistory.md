@@ -6,6 +6,8 @@
 * FEATURE: Multitool `insert` option now supports `Guids` value to populate `Result.Guid`.
 * API + SCHEMA BREAKING: Fix typo in schema: suppression.state should be suppression.status according to the spec. [#1785](https://github.com/microsoft/sarif-sdk/issues/1785)
 * BUGFIX: Multitool `rewrite` no longer throws when it encounters an invalid value (such as -1) for a region property.
+* BUGFIX: ESLint SARIF formatter no longer produces invalid SARIF when given an ESLint message with no rule id. It is treated as a `toolConfigurationNotification`. [#1791](https://github.com/microsoft/sarif-sdk/issues/1791)
+* BUGFIX: Resolve crash on converting PREfast log files with non-null but empty help URLs.
 
 ## **v2.1.25** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.25) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.25) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.25) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.25)
 * FEATURE: The baseliner (available through the Multitool's `match-results-forward` command) now populates `result.provenance.firstDetectionTimeUtc` so you can now track the age of each issue. [#1737](https://github.com/microsoft/sarif-sdk/issues/1737)

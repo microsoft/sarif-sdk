@@ -61,20 +61,29 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
         [Fact]
         public void SARIF1008_MessagesShouldEndWithPeriod_Invalid()
             => RunTest(MakeInvalidTestFileName(RuleId.MessagesShouldEndWithPeriod, nameof(RuleId.MessagesShouldEndWithPeriod)));
+
+/******************
+ * This set of tests constructs a full file path that exceeds MAX_PATH when running in some AzureDevOps build and test
+ * environments. As a result, we slightly truncate the file names so that they are within ADO's tolerance. If/when
+ * we chase down a more satisfying solution, we can restore the nameof() pattern (and updated the corresponding
+ * test file names in TestData\Inputs and TestData\ExpectedOutputs.
+ ******************/
         [Fact]
         public void SARIF1012_EndLineMustNotBeLessThanStartLine_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.EndLineMustNotBeLessThanStartLine, nameof(RuleId.EndLineMustNotBeLessThanStartLine)));
+            => RunTest(MakeValidTestFileName(RuleId.EndLineMustNotBeLessThanStartLine, "EndLineMustNotBeLessThanStart"));
 
         [Fact]
         public void SARIF1012_EndLineMustNotBeLessThanStartLine_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.EndLineMustNotBeLessThanStartLine, nameof(RuleId.EndLineMustNotBeLessThanStartLine)));
+            => RunTest(MakeInvalidTestFileName(RuleId.EndLineMustNotBeLessThanStartLine, "EndLineMustNotBeLessThanStart"));
         [Fact]
         public void SARIF1013_EndColumnMustNotBeLessThanStartColumn_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.EndColumnMustNotBeLessThanStartColumn, nameof(RuleId.EndColumnMustNotBeLessThanStartColumn)));
+            => RunTest(MakeValidTestFileName(RuleId.EndColumnMustNotBeLessThanStartColumn, "EndColumnMustNotBeLessThanStart"));
 
         [Fact]
         public void SARIF1013_EndColumnMustNotBeLessThanStartColumn_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.EndColumnMustNotBeLessThanStartColumn, nameof(RuleId.EndColumnMustNotBeLessThanStartColumn)));
+            => RunTest(MakeInvalidTestFileName(RuleId.EndColumnMustNotBeLessThanStartColumn, "EndColumnMustNotBeLessThanStart"));
+/********** END PROBLEMATIC TESTS*******/
+
         [Fact]
         public void SARIF1014_UriBaseIdRequiresRelativeUri_Valid()
             => RunTest(MakeValidTestFileName(RuleId.UriBaseIdRequiresRelativeUri, nameof(RuleId.UriBaseIdRequiresRelativeUri)));
