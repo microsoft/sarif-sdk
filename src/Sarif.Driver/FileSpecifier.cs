@@ -59,7 +59,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             try
             {
                 filter = Path.GetFileName(expandedSpecifier);
-                directory = Path.GetDirectoryName(expandedSpecifier);
+                directory = expandedSpecifier.Substring(0, expandedSpecifier.Length - filter.Length - 1);
+                //directory = Path.GetDirectoryName(expandedSpecifier);
             }
             catch (IOException)
             {
