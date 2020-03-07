@@ -194,7 +194,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         }
 
         private static SarifWorkItemFiler CreateWorkItemFiler(SarifWorkItemContext context = null)
-            => CreateMockSarifWorkItemFiler(out Mock<FilingClient> client, context).Object;
+            => CreateMockSarifWorkItemFiler(out _, context).Object;
 
         private static Mock<SarifWorkItemFiler> CreateMockSarifWorkItemFiler(out Mock<FilingClient> mockClient, SarifWorkItemContext context = null)
         {
@@ -224,16 +224,6 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 .Setup(x => x.FileWorkItems(It.IsAny<Uri>()))
                 .CallBase();
             
-            // Moq magic: you can return whatever was passed to a method by providing
-            // a lambda (rather than a fixed value) to Returns or ReturnsAsync.
-            // https://stackoverflow.com/questions/996602/returning-value-that-was-passed-into-a-method
-            mockFiler
-                .Setup(x => x.FileWorkItems(
-                    It.IsAny<Uri>(), 
-                    It.IsAny<IList<WorkItemModel<SarifWorkItemContext>>>(),
-                    It.IsAny<string>()))
-                .ReturnsAsync((Uri uri, IList<WorkItemModel<SarifWorkItemContext>> resultGroups, string personalAccessToken) => resultGroups);
-
             return mockFiler;
         }
 

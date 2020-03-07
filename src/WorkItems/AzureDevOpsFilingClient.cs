@@ -67,7 +67,8 @@ namespace Microsoft.WorkItems
                     using (var stream = new MemoryStream())
                     using (var writer = new StreamWriter(stream))
                     {
-                        writer.Write(attachmentText);                       writer.Flush();
+                        writer.Write(attachmentText);
+                        writer.Flush();
                         stream.Position = 0;
                         try
                         {
@@ -77,7 +78,9 @@ namespace Microsoft.WorkItems
                         }
                         catch
                         {
-                            // TBD error handling
+                            // Implement simple, sensible logging mechanism
+                            //
+                            // https://github.com/microsoft/sarif-sdk/issues/1771
                             throw;
                         }
                     }
@@ -168,6 +171,19 @@ namespace Microsoft.WorkItems
             }
 
             return workItemModels;
+        }
+
+        public override void Dispose()
+        {
+            if (this.vssConection != null)
+            {
+                this.vssConection.Dispose();
+                this.vssConection = null;
+            }
+
+            if (this._witClient != null)
+            {
+            }
         }
     }
 }

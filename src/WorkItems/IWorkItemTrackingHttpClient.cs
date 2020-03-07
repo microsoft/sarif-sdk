@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -10,7 +11,7 @@ using Microsoft.VisualStudio.Services.WebApi.Patch.Json;
 
 namespace Microsoft.WorkItems
 {
-    public interface IWorkItemTrackingHttpClient
+    public interface IWorkItemTrackingHttpClient : IDisposable
     {
         /// <summary>
         /// Wraps Microsoft.TeamFoundation.WorkItemTracking.WebApi.CreateAttachmentAsync.

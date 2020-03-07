@@ -12,7 +12,7 @@ namespace Microsoft.WorkItems
 {
     internal class WorkItemTrackingHttpClientWrapper : IWorkItemTrackingHttpClient
     {
-        private readonly WorkItemTrackingHttpClient workItemTrackingHttpClient;
+        private WorkItemTrackingHttpClient workItemTrackingHttpClient;
 
         public WorkItemTrackingHttpClientWrapper(WorkItemTrackingHttpClient workItemTrackingHttpClient)
         {
@@ -41,6 +41,15 @@ namespace Microsoft.WorkItems
             CancellationToken cancellationToken = default)
         {
             return this.workItemTrackingHttpClient.CreateWorkItemAsync(document, project, type, validateOnly, bypassRules, suppressNotifications, userState, cancellationToken);
+        }
+
+        public void Dispose()
+        {
+            if (this.workItemTrackingHttpClient != null)
+            {
+                this.workItemTrackingHttpClient.Dispose();
+                this.workItemTrackingHttpClient = null;
+            }
         }
     }
 }
