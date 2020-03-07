@@ -1,6 +1,6 @@
 trigger:
 - master
-- ado-build.yaml
+- ado-build-yaml
 
 pool:
   vmImage: 'windows-latest'
