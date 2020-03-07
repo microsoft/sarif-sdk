@@ -54,18 +54,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             expandedSpecifier = Environment.ExpandEnvironmentVariables(_specifier);
 
-            string filter, directory;
-
-            try
-            {
-                filter = Path.GetFileName(expandedSpecifier);
-                directory = expandedSpecifier.Substring(0, expandedSpecifier.Length - filter.Length - 1);
-                //directory = Path.GetDirectoryName(expandedSpecifier);
-            }
-            catch (IOException)
-            {
-                throw new InvalidOperationException(expandedSpecifier);
-            }
+            string filter = Path.GetFileName(expandedSpecifier);
+            string directory = Path.GetDirectoryName(expandedSpecifier);
 
             if (directory.Length == 0)
             {

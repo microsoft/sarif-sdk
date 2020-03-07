@@ -8,17 +8,17 @@
           "name": "SARIF Functional Testing",
           "rules": [
             {
-              "id": "SARIF1012",
-              "name": "EndLineMustNotBeLessThanStartLine",
+              "id": "SARIF1013",
+              "name": "EndColumnMustNotBeLessThanStartColumn",
               "shortDescription": {
-                "text": "The \"endLine\" property of a region object must not be less than the \"startLine\" property."
+                "text": "The \"endColumn\" property of a region object must not be less than the \"startColumn\" property."
               },
               "fullDescription": {
-                "text": "The \"endLine\" property of a region object must not be less than the \"startLine\" property."
+                "text": "The \"endColumn\" property of a region object must not be less than the \"startColumn\" property."
               },
               "messageStrings": {
                 "Default": {
-                  "text": "{0}: The value of the \"endLine\" property is {1}, which is less than the value of the \"startLine\" property, which is {2}."
+                  "text": "{0}: The value of the \"endColumn\" property is {1}, which is less than the value of the \"startColumn\" property, which is {2}."
                 }
               },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
@@ -34,20 +34,20 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1013.EndColumnMustNotBeLessThanStartColumn_Invalid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1012.EndLineMustNotBeLessThanStart_Invalid.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }
       ],
       "results": [
         {
-          "ruleId": "SARIF1012",
+          "ruleId": "SARIF1013",
           "ruleIndex": 0,
           "level": "error",
           "message": {
             "id": "Default",
             "arguments": [
-              "runs[0].results[0].locations[0].physicalLocation.region.endLine",
+              "runs[0].results[0].locations[0].physicalLocation.region.endColumn",
               "1",
               "2"
             ]
@@ -59,21 +59,21 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 26,
-                  "startColumn": 30
+                  "startLine": 27,
+                  "startColumn": 32
                 }
               }
             }
           ]
         },
         {
-          "ruleId": "SARIF1012",
+          "ruleId": "SARIF1013",
           "ruleIndex": 0,
           "level": "error",
           "message": {
             "id": "Default",
             "arguments": [
-              "runs[0].results[0].codeFlows[0].threadFlows[0].locations[0].location.physicalLocation.region.endLine",
+              "runs[0].results[0].codeFlows[0].threadFlows[0].locations[0].location.physicalLocation.region.endColumn",
               "1",
               "2"
             ]
@@ -85,21 +85,21 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 69,
-                  "startColumn": 40
+                  "startLine": 72,
+                  "startColumn": 42
                 }
               }
             }
           ]
         },
         {
-          "ruleId": "SARIF1012",
+          "ruleId": "SARIF1013",
           "ruleIndex": 0,
           "level": "error",
           "message": {
             "id": "Default",
             "arguments": [
-              "runs[0].results[0].stacks[0].frames[0].location.physicalLocation.region.endLine",
+              "runs[0].results[0].stacks[0].frames[0].location.physicalLocation.region.endColumn",
               "1",
               "2"
             ]
@@ -111,21 +111,21 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 45,
-                  "startColumn": 36
+                  "startLine": 47,
+                  "startColumn": 38
                 }
               }
             }
           ]
         },
         {
-          "ruleId": "SARIF1012",
+          "ruleId": "SARIF1013",
           "ruleIndex": 0,
           "level": "error",
           "message": {
             "id": "Default",
             "arguments": [
-              "runs[0].results[0].relatedLocations[0].physicalLocation.region.endLine",
+              "runs[0].results[0].relatedLocations[0].physicalLocation.region.endColumn",
               "1",
               "2"
             ]
@@ -137,8 +137,8 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 90,
-                  "startColumn": 30
+                  "startLine": 94,
+                  "startColumn": 32
                 }
               }
             }

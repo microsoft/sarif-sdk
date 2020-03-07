@@ -62,18 +62,18 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
             => RunTest(MakeInvalidTestFileName(RuleId.MessagesShouldEndWithPeriod, nameof(RuleId.MessagesShouldEndWithPeriod)));
         [Fact]
         public void SARIF1012_EndLineMustNotBeLessThanStartLine_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.EndLineMustNotBeLessThanStartLine, nameof(RuleId.EndLineMustNotBeLessThanStartLine)));
+            => RunTest(MakeValidTestFileName(RuleId.EndLineMustNotBeLessThanStartLine, "EndLineMustNotBeLessThanStart"));
 
         [Fact]
         public void SARIF1012_EndLineMustNotBeLessThanStartLine_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.EndLineMustNotBeLessThanStartLine, nameof(RuleId.EndLineMustNotBeLessThanStartLine)));
+            => RunTest(MakeInvalidTestFileName(RuleId.EndLineMustNotBeLessThanStartLine, "EndLineMustNotBeLessThanStart"));
         [Fact]
         public void SARIF1013_EndColumnMustNotBeLessThanStartColumn_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.EndColumnMustNotBeLessThanStartColumn, nameof(RuleId.EndColumnMustNotBeLessThanStartColumn)));
+            => RunTest(MakeValidTestFileName(RuleId.EndColumnMustNotBeLessThanStartColumn, "EndColumnMustNotBeLessThanStart"));
 
         [Fact]
         public void SARIF1013_EndColumnMustNotBeLessThanStartColumn_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.EndColumnMustNotBeLessThanStartColumn, nameof(RuleId.EndColumnMustNotBeLessThanStartColumn)));
+            => RunTest(MakeInvalidTestFileName(RuleId.EndColumnMustNotBeLessThanStartColumn, "EndColumnMustNotBeLessThanStart"));
         [Fact]
         public void SARIF1014_UriBaseIdRequiresRelativeUri_Valid()
             => RunTest(MakeValidTestFileName(RuleId.UriBaseIdRequiresRelativeUri, nameof(RuleId.UriBaseIdRequiresRelativeUri)));
