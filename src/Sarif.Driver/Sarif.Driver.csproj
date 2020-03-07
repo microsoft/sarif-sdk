@@ -1,9 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFrameworks>netstandard2.0</TargetFrameworks>
-  </PropertyGroup>
-
   <PropertyGroup Label="AssemblyAttributes">
     <AssemblyTitle>SARIF Driver Framework</AssemblyTitle>
     <Description>Framework for creating a command line analysis tool which produces the SARIF format.</Description>
