@@ -1,9 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
-  </PropertyGroup>
-
   <PropertyGroup Label="AssemblyAttributes">
     <AssemblyTitle>SARIF SDK Library</AssemblyTitle>
     <Description>Object model and utilities for reading and writing files in the SARIF format</Description>

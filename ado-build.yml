@@ -1,0 +1,24 @@
+trigger:
+- master
+- ado-build-yaml
+
+pool:
+  vmImage: 'windows-latest'
+
+steps:
+
+# Restore NuGet packages
+- task: DotNetCoreCLI@2
+  displayName: Build and publish net461
+  inputs:
+    command: publish
+    projects: src/Sarif.Sdk.sln
+    arguments: --framework net461
+    publishWebProjects: false
+
+- task: DotNetCoreCLI@2
+  displayName: Run unit tests for net461
+  inputs:
+    command: test
+    projects: src/Sarif.Sdk.sln
+    arguments: --framework net461
