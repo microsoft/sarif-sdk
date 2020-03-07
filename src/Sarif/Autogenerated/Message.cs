@@ -5,6 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Microsoft.CodeAnalysis.Sarif.Readers;
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -138,7 +139,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (arguments != null)
             {
                 var destination_0 = new List<string>();
-                foreach (string value_0 in arguments)
+                foreach (var value_0 in arguments)
                 {
                     destination_0.Add(value_0);
                 }

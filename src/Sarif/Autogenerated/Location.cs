@@ -6,6 +6,7 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.Serialization;
+using Microsoft.CodeAnalysis.Sarif.Readers;
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -165,7 +166,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (logicalLocations != null)
             {
                 var destination_0 = new List<LogicalLocation>();
-                foreach (LogicalLocation value_0 in logicalLocations)
+                foreach (var value_0 in logicalLocations)
                 {
                     if (value_0 == null)
                     {
@@ -188,7 +189,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (annotations != null)
             {
                 var destination_1 = new List<Region>();
-                foreach (Region value_1 in annotations)
+                foreach (var value_1 in annotations)
                 {
                     if (value_1 == null)
                     {
@@ -206,7 +207,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (relationships != null)
             {
                 var destination_2 = new List<LocationRelationship>();
-                foreach (LocationRelationship value_2 in relationships)
+                foreach (var value_2 in relationships)
                 {
                     if (value_2 == null)
                     {

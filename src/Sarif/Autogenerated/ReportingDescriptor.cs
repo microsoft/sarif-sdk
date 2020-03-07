@@ -5,6 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Microsoft.CodeAnalysis.Sarif.Readers;
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -221,7 +222,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (deprecatedIds != null)
             {
                 var destination_0 = new List<string>();
-                foreach (string value_0 in deprecatedIds)
+                foreach (var value_0 in deprecatedIds)
                 {
                     destination_0.Add(value_0);
                 }
@@ -233,7 +234,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (deprecatedGuids != null)
             {
                 var destination_1 = new List<string>();
-                foreach (string value_1 in deprecatedGuids)
+                foreach (var value_1 in deprecatedGuids)
                 {
                     destination_1.Add(value_1);
                 }
@@ -245,7 +246,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (deprecatedNames != null)
             {
                 var destination_2 = new List<string>();
-                foreach (string value_2 in deprecatedNames)
+                foreach (var value_2 in deprecatedNames)
                 {
                     destination_2.Add(value_2);
                 }
@@ -266,7 +267,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (messageStrings != null)
             {
                 MessageStrings = new Dictionary<string, MultiformatMessageString>();
-                foreach (KeyValuePair<string, MultiformatMessageString> value_3 in messageStrings)
+                foreach (var value_3 in messageStrings)
                 {
                     MessageStrings.Add(value_3.Key, new MultiformatMessageString(value_3.Value));
                 }
@@ -290,7 +291,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (relationships != null)
             {
                 var destination_3 = new List<ReportingDescriptorRelationship>();
-                foreach (ReportingDescriptorRelationship value_4 in relationships)
+                foreach (var value_4 in relationships)
                 {
                     if (value_4 == null)
                     {

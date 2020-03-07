@@ -6,6 +6,7 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.Serialization;
+using Microsoft.CodeAnalysis.Sarif.Readers;
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -239,7 +240,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (kinds != null)
             {
                 var destination_0 = new List<string>();
-                foreach (string value_0 in kinds)
+                foreach (var value_0 in kinds)
                 {
                     destination_0.Add(value_0);
                 }
@@ -250,7 +251,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (taxa != null)
             {
                 var destination_1 = new List<ReportingDescriptorReference>();
-                foreach (ReportingDescriptorReference value_1 in taxa)
+                foreach (var value_1 in taxa)
                 {
                     if (value_1 == null)
                     {
@@ -269,7 +270,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (state != null)
             {
                 State = new Dictionary<string, MultiformatMessageString>();
-                foreach (KeyValuePair<string, MultiformatMessageString> value_2 in state)
+                foreach (var value_2 in state)
                 {
                     State.Add(value_2.Key, new MultiformatMessageString(value_2.Value));
                 }

@@ -5,6 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Microsoft.CodeAnalysis.Sarif.Readers;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -120,7 +121,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (frames != null)
             {
                 var destination_0 = new List<StackFrame>();
-                foreach (StackFrame value_0 in frames)
+                foreach (var value_0 in frames)
                 {
                     if (value_0 == null)
                     {

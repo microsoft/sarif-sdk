@@ -5,6 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Microsoft.CodeAnalysis.Sarif.Readers;
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -122,7 +123,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (extensions != null)
             {
                 var destination_0 = new List<ToolComponent>();
-                foreach (ToolComponent value_0 in extensions)
+                foreach (var value_0 in extensions)
                 {
                     if (value_0 == null)
                     {

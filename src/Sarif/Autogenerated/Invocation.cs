@@ -5,6 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Microsoft.CodeAnalysis.Sarif.Readers;
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -336,7 +337,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (arguments != null)
             {
                 var destination_0 = new List<string>();
-                foreach (string value_0 in arguments)
+                foreach (var value_0 in arguments)
                 {
                     destination_0.Add(value_0);
                 }
@@ -347,7 +348,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (responseFiles != null)
             {
                 var destination_1 = new List<ArtifactLocation>();
-                foreach (ArtifactLocation value_1 in responseFiles)
+                foreach (var value_1 in responseFiles)
                 {
                     if (value_1 == null)
                     {
@@ -368,7 +369,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (ruleConfigurationOverrides != null)
             {
                 var destination_2 = new List<ConfigurationOverride>();
-                foreach (ConfigurationOverride value_2 in ruleConfigurationOverrides)
+                foreach (var value_2 in ruleConfigurationOverrides)
                 {
                     if (value_2 == null)
                     {
@@ -386,7 +387,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (notificationConfigurationOverrides != null)
             {
                 var destination_3 = new List<ConfigurationOverride>();
-                foreach (ConfigurationOverride value_3 in notificationConfigurationOverrides)
+                foreach (var value_3 in notificationConfigurationOverrides)
                 {
                     if (value_3 == null)
                     {
@@ -404,7 +405,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (toolExecutionNotifications != null)
             {
                 var destination_4 = new List<Notification>();
-                foreach (Notification value_4 in toolExecutionNotifications)
+                foreach (var value_4 in toolExecutionNotifications)
                 {
                     if (value_4 == null)
                     {
@@ -422,7 +423,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (toolConfigurationNotifications != null)
             {
                 var destination_5 = new List<Notification>();
-                foreach (Notification value_5 in toolConfigurationNotifications)
+                foreach (var value_5 in toolConfigurationNotifications)
                 {
                     if (value_5 == null)
                     {
