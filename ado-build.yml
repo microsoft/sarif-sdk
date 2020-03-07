@@ -12,5 +12,5 @@ steps:
   displayName: Restore NuGet Packages
   inputs:
     command: restore
-    projects: src\Sarif.Sdk.sln
+    projects: src/Sarif.Sdk.sln
 
