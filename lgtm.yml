@@ -1,6 +1,6 @@
 extraction:
   csharp:
-     index:
-        all_solutions: false
-        build_command:
-        - SimpleSemmleBuild.cmd
+    index:
+      solution: "src/Sarif.Sdk.CodeQL.sln"
+      msbuild:
+        configuration: "Release"
