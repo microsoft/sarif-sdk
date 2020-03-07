@@ -1,0 +1,6 @@
+extraction:
+  csharp:
+     index:
+        all_solutions: false
+        build_command:
+        - SimpleSemmleBuild.cmd
