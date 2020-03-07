@@ -1,0 +1,9 @@
+steps:
+
+# Restore NuGet packages
+- task: DotNetCoreCLI@2
+  displayName: Restore NuGet Packages
+  inputs:
+    command: restore
+    projects: src\Sarif.Sdk.sln
+
