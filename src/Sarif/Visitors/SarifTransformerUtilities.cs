@@ -219,7 +219,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             bool isSuppressedExternally = false;
             bool isSuppressedInSource = false;
 
-            foreach(Suppression suppression in v2Suppressions)
+            foreach (Suppression suppression in v2Suppressions)
             {
                 switch (suppression.Kind)
                 {
@@ -242,7 +242,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 return SuppressionStatesVersionOne.SuppressedInSource;
             }
 
-            if(isSuppressedExternally)
+            if (isSuppressedExternally)
             {
                 return SuppressionStatesVersionOne.SuppressedExternally;
             }

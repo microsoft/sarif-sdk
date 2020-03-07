@@ -18,7 +18,7 @@ namespace Microsoft.WorkItems
     /// <summary>
     /// Represents an Azure DevOps project in which work items can be filed.
     /// </summary>
-    public class AzureDevOpsFilingClient: FilingClient
+    public class AzureDevOpsFilingClient : FilingClient
     {
         private WorkItemTrackingHttpClient _witClient;
 

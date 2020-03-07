@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
     public class TSLintConverter : ToolFileConverterBase
     {
         private readonly LogReader<TSLintLog> logReader;
-        
+
         public TSLintConverter()
         {
             logReader = new TSLintLogReader();
@@ -133,9 +133,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                 Fix sarifFix = new Fix(description: null, artifactChanges: new List<ArtifactChange>() { sarifFileChange }, properties: null);
                 result.Fixes = new List<Fix> { sarifFix };
-            } 
+            }
 
             return result;
-        }        
+        }
     }
 }

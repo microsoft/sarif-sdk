@@ -120,7 +120,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     $"The type {optionsType.FullName} does not contain a public instance property named {optionPropertyName}.",
                     nameof(optionPropertyName));
 
-            var optionAttribute =
+            OptionAttribute optionAttribute =
                 propertyInfo.GetCustomAttribute<OptionAttribute>() ??
                 throw new ArgumentException(
                     $"The {optionPropertyName} property of the type {optionsType.FullName} does not define a command line option.",

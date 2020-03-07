@@ -4,7 +4,6 @@
 using System.Collections.Generic;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.CodeAnalysis.Sarif.WorkItems;
-using Microsoft.WorkItems;
 
 namespace Microsoft.CodeAnalysis.Test.Plugins
 {
@@ -20,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Test.Plugins
             }
         }
 
-        internal static PerLanguageOption<StringSet> AdditionalTags{ get; } =
+        internal static PerLanguageOption<StringSet> AdditionalTags { get; } =
             new PerLanguageOption<StringSet>(
                 nameof(TestWorkItemModelTransformer), nameof(AdditionalTags),
                 defaultValue: () => { return new StringSet(); });

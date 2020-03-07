@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public class RebaseUriCommandTests : FileDiffingUnitTests
     {
-        private static ResourceExtractor Extractor = new ResourceExtractor(typeof(RebaseUriCommandTests));
+        private static readonly ResourceExtractor Extractor = new ResourceExtractor(typeof(RebaseUriCommandTests));
         private RebaseUriOptions options;
 
         public RebaseUriCommandTests(ITestOutputHelper outputHelper) : base(outputHelper) { }

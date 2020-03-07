@@ -14,9 +14,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
     {
         private readonly ITestOutputHelper output;
 
-        private readonly SarifLogResultMatcher baseliner = 
+        private readonly SarifLogResultMatcher baseliner =
             new SarifLogResultMatcher(
-                exactResultMatchers: new [] { ExactMatchers.ExactResultMatcherFactory.GetIdenticalResultMatcher(considerPropertyBagsWhenComparing: true) }, 
+                exactResultMatchers: new[] { ExactMatchers.ExactResultMatcherFactory.GetIdenticalResultMatcher(considerPropertyBagsWhenComparing: true) },
                 heuristicMatchers: null,
                 propertyBagMergeBehaviors: DictionaryMergeBehavior.None);
 

@@ -13,9 +13,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
     /// </summary>
     internal class IdenticalResultMatcher : IResultMatcher
     {
-        private bool _considerPropertyBagsWhenComparing;
+        private readonly bool _considerPropertyBagsWhenComparing;
 
-        public  IdenticalResultMatcher(bool considerPropertyBagsWhenComparing)
+        public IdenticalResultMatcher(bool considerPropertyBagsWhenComparing)
         {
             _considerPropertyBagsWhenComparing = considerPropertyBagsWhenComparing;
         }
@@ -28,9 +28,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
                 ? IdenticalResultEqualityComparer.PropertyBagComparingInstance
                 : IdenticalResultEqualityComparer.PropertyBagIgnoringInstance;
 
-            Dictionary <Result, List<ExtractedResult>> baselineResults = new Dictionary<Result, List<ExtractedResult>>(comparer);
+            Dictionary<Result, List<ExtractedResult>> baselineResults = new Dictionary<Result, List<ExtractedResult>>(comparer);
 
-            foreach (var result in baseline)
+            foreach (ExtractedResult result in baseline)
             {
                 if (!baselineResults.ContainsKey(result.Result) || baselineResults[result.Result] == null)
                 {
@@ -42,7 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
                 }
             }
 
-            foreach (var result in current)
+            foreach (ExtractedResult result in current)
             {
                 if (baselineResults.ContainsKey(result.Result))
                 {
@@ -64,7 +64,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
         /// </summary>
         public class IdenticalResultEqualityComparer : IEqualityComparer<Result>
         {
-            private bool _considerPropertyBagsWhenComparing;
+            private readonly bool _considerPropertyBagsWhenComparing;
 
             public IdenticalResultEqualityComparer(bool considerPropertyBagsWhenComparing)
             {

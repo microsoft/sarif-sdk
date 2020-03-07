@@ -9,10 +9,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     [Verb("merge", HelpText = "Merge multiple SARIF files into one.")]
     internal class MergeOptions : MultipleFilesOptionsBase
     {
-	    [Option(
-		    "output-file",
-		    Default = "merged.sarif",
-		    HelpText = "File name to write merged content to.")]
-	    public string OutputFileName { get; internal set; }
-	}
+        [Option(
+            "output-file",
+            Default = "merged.sarif",
+            HelpText = "File name to write merged content to.")]
+        public string OutputFileName { get; internal set; }
+    }
 }

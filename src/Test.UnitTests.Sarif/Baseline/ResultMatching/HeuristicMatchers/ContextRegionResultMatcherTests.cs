@@ -2,14 +2,14 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Collections.Generic;
-using Xunit;
 using FluentAssertions;
+using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
 {
     public class ContextRegionResultMatcherTests
     {
-        private static ContextRegionHeuristicMatcher matcher = new ContextRegionHeuristicMatcher();
+        private static readonly ContextRegionHeuristicMatcher matcher = new ContextRegionHeuristicMatcher();
 
         [Fact]
         public void ContextRegionHeuristicMatcher_NoRegion_DoesNotMatchResults()

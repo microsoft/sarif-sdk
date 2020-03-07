@@ -63,7 +63,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                 tokens[i] = EnumConverter.ConvertToCamelCase(tokens[i].Trim());
             }
 
-            writer.WriteRawValue("[\"" + String.Join("\",\"", tokens) + "\"]");
+            writer.WriteRawValue("[\"" + string.Join("\",\"", tokens) + "\"]");
         }
     }
 }

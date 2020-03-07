@@ -49,7 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             {
                 contract.Converter = LogicalLocationConverterInstance;
             }
-            else if(type == typeof(IList<Graph>))
+            else if (type == typeof(IList<Graph>))
             {
                 contract.Converter = GraphConverterInstance;
             }

@@ -66,12 +66,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         {
                             reader.Read(); // Move to Title element
 
-                            if (reader.ReadElementContentAsString(_strings.Title, String.Empty) == "Executive Summary")
+                            if (reader.ReadElementContentAsString(_strings.Title, string.Empty) == "Executive Summary")
                             {
                                 reader.Read(); // Move to SubSection element
                                 reader.IgnoreElement(_strings.Title, IgnoreOptions.Required);
                                 reader.IgnoreElement(_strings.Description, IgnoreOptions.Required);
-                                runDescription = reader.ReadElementContentAsString(_strings.Text, String.Empty);
+                                runDescription = reader.ReadElementContentAsString(_strings.Text, string.Empty);
                             }
                         }
                     }
@@ -137,14 +137,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 result.Message = new Message
                 {
-                    Text = String.Format(CultureInfo.InvariantCulture, ConverterResources.FortifyFallbackMessage, result.RuleId)
+                    Text = string.Format(CultureInfo.InvariantCulture, ConverterResources.FortifyFallbackMessage, result.RuleId)
                 };
             }
             else
             {
                 result.Message = new Message
                 {
-                    Text = String.Join(Environment.NewLine, messageComponents)
+                    Text = string.Join(Environment.NewLine, messageComponents)
                 };
             }
 
@@ -156,7 +156,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             if (!fortify.CweIds.IsDefaultOrEmpty)
             {
-                result.SetProperty("cwe", String.Join(", ",
+                result.SetProperty("cwe", string.Join(", ",
                     fortify.CweIds.Select(id => id.ToString(CultureInfo.InvariantCulture))));
             }
 

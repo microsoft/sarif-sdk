@@ -88,9 +88,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         private string Validate(
-            string instanceFilePath, 
-            string schemaFilePath, 
-            IAnalysisLogger logger, 
+            string instanceFilePath,
+            string schemaFilePath,
+            IAnalysisLogger logger,
             bool updateToCurrentSarifVersion = true)
         {
             string instanceText = null;

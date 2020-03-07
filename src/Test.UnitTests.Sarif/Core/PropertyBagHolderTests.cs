@@ -299,12 +299,12 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
         internal static void ShouldSerializeAs<T>(this T value, string serializedValue)
         {
             string expectedOutput = "{\"properties\":{\"" + PropertyName + "\":" + serializedValue + "}}";
-            var inputObject = JsonConvert.DeserializeObject<TestClass>(Input);
+            TestClass inputObject = JsonConvert.DeserializeObject<TestClass>(Input);
             inputObject.GetProperty<long>(PropertyName).Should().Be(12);
 
             inputObject.SetProperty(PropertyName, value);
 
-            var serializedObject = JsonConvert.SerializeObject(inputObject);
+            string serializedObject = JsonConvert.SerializeObject(inputObject);
             serializedObject.Should().Be(expectedOutput);
         }
 

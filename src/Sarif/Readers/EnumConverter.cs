@@ -82,14 +82,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                 return false;
             }
 
-            bool isPrefixedWithTwoLetterWord = Char.IsUpper(name[0]) == Char.IsUpper(name[1]);
+            bool isPrefixedWithTwoLetterWord = char.IsUpper(name[0]) == char.IsUpper(name[1]);
 
             if (name.Length == 2)
             {
                 return isPrefixedWithTwoLetterWord;
             }
 
-            return (Char.IsDigit(name[2]) || Char.IsUpper(name[2]));
+            return (char.IsDigit(name[2]) || char.IsUpper(name[2]));
         }
     }
 }

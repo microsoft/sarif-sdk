@@ -9,7 +9,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
         {
             return new ContextRegionHeuristicMatcher();
         }
-        
+
         public static IResultMatcher GetPartialFingerprintResultMatcher()
         {
             return new PartialFingerprintResultMatcher();

@@ -37,7 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private readonly ITestOutputHelper _outputHelper;
         private readonly bool _testProducesSarifCurrentVersion;
-        private ResourceExtractor _resourceExtractor;
+        private readonly ResourceExtractor _resourceExtractor;
 
         public FileDiffingUnitTests(ITestOutputHelper outputHelper, bool testProducesSarifCurrentVersion = true)
         {
@@ -58,7 +58,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         protected virtual string ProductTestDataDirectory => GetProductTestDataDirectory(TypeUnderTest);
 
-        protected virtual string IntermediateTestFolder { get { return String.Empty; } }
+        protected virtual string IntermediateTestFolder { get { return string.Empty; } }
 
         protected virtual string TestLogResourceNameRoot => "Microsoft.CodeAnalysis.Test.UnitTests.Sarif.TestData." + TypeUnderTest;
 
@@ -220,7 +220,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                     if (RebaselineExpectedResults)
                     {
-                        string intermediateFolder = !string.IsNullOrEmpty(IntermediateTestFolder) ? IntermediateTestFolder + @"\" : String.Empty;
+                        string intermediateFolder = !string.IsNullOrEmpty(IntermediateTestFolder) ? IntermediateTestFolder + @"\" : string.Empty;
                         string testDirectory = Path.Combine(GetProductTestDataDirectory(TestBinaryName, intermediateFolder + TypeUnderTest), "ExpectedOutputs");
                         Directory.CreateDirectory(testDirectory);
 
@@ -274,9 +274,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             actual = Path.GetFullPath(actual);
             expected = Path.GetFullPath(expected);
 
-            string diffText =  String.Format(CultureInfo.InvariantCulture, "%DIFF% \"{0}\" \"{1}\"", expected, actual);
+            string diffText = string.Format(CultureInfo.InvariantCulture, "%DIFF% \"{0}\" \"{1}\"", expected, actual);
 
-            string qualifier = String.Empty;
+            string qualifier = string.Empty;
 
             if (File.Exists(expected))
             {
@@ -293,9 +293,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         public static bool AreEquivalent<T>(string actualSarif, string expectedSarif, IContractResolver contractResolver = null)
         {
             expectedSarif = expectedSarif ?? "{}";
-            var expectedToken = JsonConvert.DeserializeObject<JToken>(expectedSarif);
+            JToken expectedToken = JsonConvert.DeserializeObject<JToken>(expectedSarif);
 
-            var actualToken = JsonConvert.DeserializeObject<JToken>(actualSarif);
+            JToken actualToken = JsonConvert.DeserializeObject<JToken>(actualSarif);
             if (!JToken.DeepEquals(actualToken, expectedToken)) { return false; }
 
             // Make sure we can successfully roundtrip what was just generated.
@@ -308,7 +308,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             T actualSarifObject = JsonConvert.DeserializeObject<T>(actualSarif, settings);
             string roundTrippedSarif = JsonConvert.SerializeObject(actualSarifObject, settings);
 
-            var roundTrippedToken = JsonConvert.DeserializeObject<JToken>(roundTrippedSarif);
+            JToken roundTrippedToken = JsonConvert.DeserializeObject<JToken>(roundTrippedSarif);
             if (!JToken.DeepEquals(actualToken, roundTrippedToken)) { return false; }
 
             return true;

@@ -187,7 +187,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                     IDictionary nestedPropertyBag;
 
-                    if (String.IsNullOrEmpty(typeName))
+                    if (string.IsNullOrEmpty(typeName))
                     {
                         nestedPropertyBag = new PropertiesDictionary();
                     }
@@ -301,7 +301,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             Type propertyType = null;
 
-            if (String.IsNullOrEmpty(typeName))
+            if (string.IsNullOrEmpty(typeName))
             {
                 return typeof(string);
             }
@@ -339,6 +339,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         private const string INTEGER_SET_ID = "IntegerSet";
         internal const string PROPERTIES_ID = "Properties";
 
-        private static HybridDictionary s_typesCache = new HybridDictionary();
+        private static readonly HybridDictionary s_typesCache = new HybridDictionary();
     }
 }

@@ -18,11 +18,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
                  { new SarifLogActionTuple(){Action=SarifLogAction.RebaseUri, Parameters=new string[] {"SrcRoot", @"C:\src\"} },
                    new SarifLogActionTuple(){Action=SarifLogAction.Merge, Parameters=new string[0]}
                 });
-            
+
             string result = JsonConvert.SerializeObject(preserialized);
 
             SarifLogPipeline deserialized = JsonConvert.DeserializeObject<SarifLogPipeline>(result);
-            
+
             deserialized.Should().BeEquivalentTo(preserialized);
         }
     }

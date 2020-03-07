@@ -24,12 +24,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             string nameToFind = $"{root ?? ""}.{resourceName}";
 
             string[] resourceNames = ClassAssembly.GetManifestResourceNames();
-            foreach(string name in resourceNames)
+            foreach (string name in resourceNames)
             {
-                if(name.EndsWith(nameToFind, StringComparison.OrdinalIgnoreCase)) { return name; }
+                if (name.EndsWith(nameToFind, StringComparison.OrdinalIgnoreCase)) { return name; }
             }
 
-            throw new ArgumentException($"Could not find {nameToFind}. Valid Names:\r\n{String.Join("\r\n", resourceNames)}");
+            throw new ArgumentException($"Could not find {nameToFind}. Valid Names:\r\n{string.Join("\r\n", resourceNames)}");
         }
 
         public string GetResourceText(string resourceName, string root = null)

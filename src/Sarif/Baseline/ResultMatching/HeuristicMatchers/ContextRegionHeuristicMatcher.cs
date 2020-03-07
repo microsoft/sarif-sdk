@@ -9,7 +9,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
     internal class ContextRegionHeuristicMatcher : HeuristicMatcher
     {
         public ContextRegionHeuristicMatcher() : base(ContextRegionResultComparer.Instance) { }
-        
+
         public class ContextRegionResultComparer : IResultMatchingComparer
         {
             public static readonly ContextRegionResultComparer Instance = new ContextRegionResultComparer();

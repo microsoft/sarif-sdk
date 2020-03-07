@@ -27,12 +27,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         [SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
         public static void WriteElementInt(this XmlWriter writer, string localElementName, int value)
         {
-            if (String.IsNullOrWhiteSpace(localElementName))
+            if (string.IsNullOrWhiteSpace(localElementName))
             {
                 throw new ArgumentException(ExceptionStrings.XmlElementNameWasUnset, nameof(localElementName));
             }
 
-            writer.WriteStartElement(String.Empty, localElementName, String.Empty);
+            writer.WriteStartElement(string.Empty, localElementName, string.Empty);
             writer.WriteValue(value);
             writer.WriteEndElement();
         }
@@ -50,12 +50,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 throw new ArgumentNullException(nameof(writer));
             }
 
-            if (String.IsNullOrWhiteSpace(localElementName))
+            if (string.IsNullOrWhiteSpace(localElementName))
             {
                 throw new ArgumentException(ExceptionStrings.XmlElementNameWasUnset, nameof(localElementName));
             }
 
-            if (String.IsNullOrWhiteSpace(elementValue))
+            if (string.IsNullOrWhiteSpace(elementValue))
             {
                 return;
             }
@@ -68,7 +68,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             string entryListName,
             IEnumerable<KeyValuePair<string, string>> entryListEntries)
         {
-            Debug.Assert(!String.IsNullOrWhiteSpace(entryListName));
+            Debug.Assert(!string.IsNullOrWhiteSpace(entryListName));
 
             // Null is semantically the same as an empty list
             if (entryListEntries == null)

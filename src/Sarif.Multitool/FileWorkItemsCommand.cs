@@ -11,7 +11,6 @@ using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.WorkItems;
 using Microsoft.Json.Schema;
 using Microsoft.Json.Schema.Validation;
-using Microsoft.WorkItems;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
@@ -227,7 +226,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             var sb = new StringBuilder(firstMessageLine);
             sb.AppendLine();
 
-            foreach (var error in errors)
+            foreach (Result error in errors)
             {
                 sb.AppendLine(error.FormatForVisualStudio(RuleFactory.GetRuleFromRuleId(error.RuleId)));
             }

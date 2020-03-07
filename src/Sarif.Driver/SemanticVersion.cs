@@ -68,8 +68,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             this.Minor = -1;
             this.Patch = -1;
             this.PatchMinor = -1;
-            this.Prerelease = String.Empty;
-            this.Metadata = String.Empty;
+            this.Prerelease = string.Empty;
+            this.Metadata = string.Empty;
         }
 
         /// <summary>
@@ -239,7 +239,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public override string ToString()
         {
             string version = this.Major + "." +
-                this.Minor + "." + this.Patch + ((this.PatchMinor > 0) ? "." + this.PatchMinor : String.Empty);
+                this.Minor + "." + this.Patch + ((this.PatchMinor > 0) ? "." + this.PatchMinor : string.Empty);
             string preRelease = string.IsNullOrEmpty(this.Prerelease) ? string.Empty : "-" + this.Prerelease;
             string metaData = string.IsNullOrEmpty(this.Metadata) ? string.Empty : "+" + this.Metadata;
             return version + preRelease + metaData;
@@ -287,7 +287,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             Regex regex = new Regex(@"[^0-9\\.]");
             Match match = regex.Match(version);
             string versionPart1 = version;
-            string versionPart2 = String.Empty;
+            string versionPart2 = string.Empty;
 
             if (match.Success)
             {
@@ -319,7 +319,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             result = null;
 
-            if (!String.IsNullOrEmpty(version))
+            if (!string.IsNullOrEmpty(version))
             {
                 // 1.2.3[-Pre1.2.3][+meta]
                 int indexOfPre = version.IndexOf('-');

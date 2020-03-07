@@ -121,7 +121,7 @@ namespace Microsoft.CodeAnalysis.Sarif.VersionOne
                     ? JsonConvert.ToString(value)
                     : JsonConvert.SerializeObject(value);
             }
-             
+
             Properties[propertyName] = new SerializedPropertyInfo(serializedValue, isString);
         }
 
@@ -131,7 +131,7 @@ namespace Microsoft.CodeAnalysis.Sarif.VersionOne
             {
                 throw new ArgumentNullException(nameof(other));
             }
-            
+
             // We need the concrete class because the IPropertyBagHolderVersionOne interface
             // doesn't expose the raw Properties array.
             PropertyBagHolderVersionOne otherHolder = other as PropertyBagHolderVersionOne;

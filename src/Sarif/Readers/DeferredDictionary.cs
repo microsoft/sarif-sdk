@@ -31,9 +31,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
     /// <typeparam name="T">Type of items in Dictionary</typeparam>
     public class DeferredDictionary<T> : IDictionary<string, T>, IDisposable
     {
-        private JsonSerializer _jsonSerializer;
-        private Func<Stream> _streamProvider;
-        private long _start;
+        private readonly JsonSerializer _jsonSerializer;
+        private readonly Func<Stream> _streamProvider;
+        private readonly long _start;
 
         private Stream _stream;
         private Dictionary<int, long> _itemPositions;
@@ -250,7 +250,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
         public void Dispose()
         {
-            if(_stream != null)
+            if (_stream != null)
             {
                 _stream.Dispose();
                 _stream = null;
@@ -312,9 +312,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         /// <typeparam name="U">Dictionary Value item type</typeparam>
         private class JsonDeferredDictionaryEnumerator<U> : IEnumerator<KeyValuePair<string, U>>
         {
-            private JsonSerializer _jsonSerializer;
-            private Func<Stream> _streamProvider;
-            private long _start;
+            private readonly JsonSerializer _jsonSerializer;
+            private readonly Func<Stream> _streamProvider;
+            private readonly long _start;
 
             private JsonTextReader _jsonTextReader;
             private Stream _stream;
@@ -387,8 +387,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         /// <typeparam name="U">Collection Item type</typeparam>
         private class ReadOnlyCollectionAdapter<U> : ICollection<U>
         {
-            private Func<IEnumerator<U>> _enumeratorFactory;
-            private Func<int> _countGetter;
+            private readonly Func<IEnumerator<U>> _enumeratorFactory;
+            private readonly Func<int> _countGetter;
             public int Count => _countGetter();
             public bool IsReadOnly => true;
 

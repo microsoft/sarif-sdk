@@ -94,7 +94,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             left = left?.Resolve(leftRun);
             right = right?.Resolve(rightRun);
 
-            return String.Compare(left?.FullyQualifiedName, right?.FullyQualifiedName);
+            return string.Compare(left?.FullyQualifiedName, right?.FullyQualifiedName);
         }
 
         public static int CompareTo(PhysicalLocation left, Run leftRun, PhysicalLocation right, Run rightRun)

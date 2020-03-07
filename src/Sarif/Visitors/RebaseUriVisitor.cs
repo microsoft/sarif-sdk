@@ -64,7 +64,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             newRun.OriginalUriBaseIds = newRun.OriginalUriBaseIds ?? new Dictionary<string, ArtifactLocation>();
 
             // Add dictionary entry if it doesn't exist, or replace it if it does.
-            newRun.OriginalUriBaseIds[_uriBaseId] = new ArtifactLocation { Uri =_baseUri };
+            newRun.OriginalUriBaseIds[_uriBaseId] = new ArtifactLocation { Uri = _baseUri };
 
             return newRun;
         }

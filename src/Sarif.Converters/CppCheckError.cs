@@ -124,7 +124,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             result.SetProperty("Severity", this.Severity);
 
             if (!string.IsNullOrEmpty(this.VerboseMessage))
-            { 
+            {
                 result.Message = new Message { Text = this.VerboseMessage };
             }
             else
@@ -179,7 +179,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private static ImmutableArray<CppCheckLocation> ParseLocationsSubtree(XmlReader reader, CppCheckStrings strings)
         {
-            var locationBuilder = ImmutableArray.CreateBuilder<CppCheckLocation>();
+            ImmutableArray<CppCheckLocation>.Builder locationBuilder = ImmutableArray.CreateBuilder<CppCheckLocation>();
 
             if (!reader.IsEmptyElement)
             {

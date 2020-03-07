@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
         {
             int buildCount = 0;
             Cache<int, int> cache = new Cache<int, int>(
-                (key) => { buildCount++; return 10 * key; }, 
+                (key) => { buildCount++; return 10 * key; },
                 capacity: 2);
 
             // Verify empty, no keys, Contains false

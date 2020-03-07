@@ -220,7 +220,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     nameof(SkimmerBaseTestResources.TEST1001_Information),
                     context.TargetUri.GetFileName()));
             }
-        }        
+        }
 
         public IEnumerable<IOption> GetOptions()
         {

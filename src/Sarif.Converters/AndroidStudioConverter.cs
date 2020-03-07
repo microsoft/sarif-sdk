@@ -65,7 +65,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 results = ProcessAndroidStudioLog(xmlReader);
             }
-            
+
             var run = new Run()
             {
                 Tool = new Tool { Driver = new ToolComponent { Name = ToolName } },
@@ -133,7 +133,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             Uri uri;
             string file = problem.File;
-            if (!String.IsNullOrEmpty(file))
+            if (!string.IsNullOrEmpty(file))
             {
                 location.PhysicalLocation = new PhysicalLocation
                 {
@@ -224,7 +224,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string desc = problem.Description;
             if (desc == null)
             {
-                return String.Format(CultureInfo.InvariantCulture, ConverterResources.AndroidStudioDescriptionUnknown, problem.ProblemClass);
+                return string.Format(CultureInfo.InvariantCulture, ConverterResources.AndroidStudioDescriptionUnknown, problem.ProblemClass);
             }
 
             return desc;
@@ -260,7 +260,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private static bool RemoveBadRoot(string path, out Uri uri)
         {
-            const string badRoot = "file://" + PROJECT_DIR +"/";
+            const string badRoot = "file://" + PROJECT_DIR + "/";
             bool removedBadRoot;
             string removed;
             if (path.StartsWith(badRoot, StringComparison.Ordinal))

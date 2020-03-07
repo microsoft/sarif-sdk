@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             _toolName = toolName.ToUpperInvariant();
         }
 
-        private string _toolName;
+        private readonly string _toolName;
         private StringBuilder _capturedOutput;
 
         public bool CaptureOutput { get; set; }
@@ -229,7 +229,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 location = region.FormatForVisualStudio();
             }
 
-            string messageText = 
+            string messageText =
                    (path != null ? (path + location) : toolName) + ": " +
                    issueType + (!string.IsNullOrEmpty(ruleId) ? " " : "") +
                    (!string.IsNullOrEmpty(ruleId) ? (ruleId + ": ") : "") +
@@ -312,7 +312,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 default:
-                throw new InvalidOperationException("Unknown notification level: " + notification.Level);
+                    throw new InvalidOperationException("Unknown notification level: " + notification.Level);
             }
 
             // TODO we need better retrieval for locations than these defaults.

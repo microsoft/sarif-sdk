@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     public class PREfastConverter : ToolFileConverterBase
     {
-        private Dictionary<string, string> knownCategories = new Dictionary<string, string>
+        private readonly Dictionary<string, string> knownCategories = new Dictionary<string, string>
         {
             { "RULECATEGORY", "ruleCategory" }
         };
@@ -51,7 +51,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     {
                         Driver = new ToolComponent
                         {
-                            Name = ToolName, FullName = "PREfast Code Analysis"
+                            Name = ToolName,
+                            FullName = "PREfast Code Analysis"
                         }
                     },
                     ColumnKind = ColumnKind.Utf16CodeUnits,
@@ -206,7 +207,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var locations = new List<ThreadFlowLocation>();
             bool pathUsesKeyEvents = defect.Path.SFAs.Any(x => !string.IsNullOrWhiteSpace(x?.KeyEvent?.Id));
 
-            foreach (var sfa in defect.Path.SFAs)
+            foreach (SFA sfa in defect.Path.SFAs)
             {
                 var region = new Region()
                 {
@@ -224,7 +225,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     },
                     Region = region
                 };
-                    
+
                 var threadFlowLocation = new ThreadFlowLocation
                 {
                     Location = new Location
@@ -269,7 +270,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             if (defect.Category != null)
             {
-                foreach (var keyValuePair in defect.Category)
+                foreach (KeyValuePair<string, string> keyValuePair in defect.Category)
                 {
                     string category = keyValuePair.Key;
                     if (knownCategories.ContainsKey(category))

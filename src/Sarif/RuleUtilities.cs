@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             // A message of kind == debug and failure level == none is a trace
             // message, pure and simple.
             ResultKind kind = (level != FailureLevel.None)
-                ? ResultKind.Fail 
+                ? ResultKind.Fail
                 : ResultKind.None;
 
             return BuildResult(level, kind, context, region, ruleMessageId, arguments);

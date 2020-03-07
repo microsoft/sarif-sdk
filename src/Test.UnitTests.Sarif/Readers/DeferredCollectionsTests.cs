@@ -98,7 +98,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
             // Enumeration
             Dictionary<string, CodeContext> contextsCopy = new Dictionary<string, CodeContext>();
-            foreach(KeyValuePair<string, CodeContext> pair in actual.CodeContexts)
+            foreach (KeyValuePair<string, CodeContext> pair in actual.CodeContexts)
             {
                 contextsCopy[pair.Key] = pair.Value;
             }
@@ -106,7 +106,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
             // Enumerate Keys
             int keyCount = 0;
-            foreach(string key in actual.CodeContexts.Keys)
+            foreach (string key in actual.CodeContexts.Keys)
             {
                 Assert.True(contextsCopy.ContainsKey(key));
                 keyCount++;
@@ -115,7 +115,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
             // Enumerate Values
             int valueCount = 0;
-            foreach(CodeContext value in actual.CodeContexts.Values)
+            foreach (CodeContext value in actual.CodeContexts.Values)
             {
                 Assert.True(contextsCopy.ContainsValue(value));
                 valueCount++;
@@ -131,7 +131,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             Assert.Equal(expected.ApplicationContext, actual.ApplicationContext);
 
             // Validate DeferredDictionary has the right keys and all equal values
-            foreach(KeyValuePair<string, CodeContext> item in actual.CodeContexts)
+            foreach (KeyValuePair<string, CodeContext> item in actual.CodeContexts)
             {
                 Assert.Equal(expected.CodeContexts[item.Key], item.Value);
             }
@@ -139,7 +139,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
             // Verify DeferredList has the right count and reconstructs identical messages
             int count = 0;
-            foreach(LogMessage message in actual.Messages)
+            foreach (LogMessage message in actual.Messages)
             {
                 Assert.Equal(expected.Messages[count++], message);
             }

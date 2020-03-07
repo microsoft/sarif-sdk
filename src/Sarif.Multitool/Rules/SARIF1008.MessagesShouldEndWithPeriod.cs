@@ -77,7 +77,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             string messagePointer,
             string propertyName)
         {
-            if (!String.IsNullOrEmpty(messageString) && DoesNotEndWithPeriod(messageString))
+            if (!string.IsNullOrEmpty(messageString) && DoesNotEndWithPeriod(messageString))
             {
                 string textPointer = messagePointer.AtProperty(propertyName);
 

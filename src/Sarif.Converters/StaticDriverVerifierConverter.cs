@@ -12,8 +12,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     internal class StaticDriverVerifierConverter : ToolFileConverterBase
     {
-        private StringBuilder _sb;
-        private Stack<string> _callers;
+        private readonly StringBuilder _sb;
+        private readonly Stack<string> _callers;
 
         /// <summary>Initializes a new instance of the <see cref="StaticDriverVerifierConverter"/> class.</summary>
         public StaticDriverVerifierConverter()
@@ -55,7 +55,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var result = new Result
             {
                 Locations = new List<Location>(),
-                CodeFlows = new []
+                CodeFlows = new[]
                 {
                     SarifUtilities.CreateSingleThreadedCodeFlow()
                 }
@@ -77,11 +77,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private void ProcessLine(string logFileLine, ref int nestingLevel, Result result)
         {
-            var codeFlow = result.CodeFlows[0];
+            CodeFlow codeFlow = result.CodeFlows[0];
 
-            const int STEP  = 0;
-            const int URI   = 1;
-            const int LINE  = 2;
+            const int STEP = 0;
+            const int URI = 1;
+            const int LINE = 2;
             // const int IMPORTANCE  = 3; This value not persisted to SARIF
             const int STATE = 4;
             const int KIND1 = 5;
@@ -255,7 +255,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             else
             {
                 // This is the defect message.
-                const int LEVEL  = 0;
+                const int LEVEL = 0;
 
                 string levelText = tokens[LEVEL];
 
@@ -303,13 +303,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 || fileName.EndsWith("sdv-harness.c", StringComparison.OrdinalIgnoreCase);
         }
 
-        private static Regex s_callRegex = new Regex(@"Call ""(.*)"" ""(.*)""", RegexOptions.Compiled);
+        private static readonly Regex s_callRegex = new Regex(@"Call ""(.*)"" ""(.*)""", RegexOptions.Compiled);
 
         private static bool ExtractCallerAndCallee(string text, out string caller, out string callee)
         {
             caller = callee = null;
 
-            var match = s_callRegex.Match(text);
+            Match match = s_callRegex.Match(text);
             if (match.Success && match.Groups.Count == 3)
             {
                 caller = match.Groups[1].Value;

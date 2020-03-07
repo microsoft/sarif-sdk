@@ -22,16 +22,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             rightIsNull.Should().NotBe(0);
             leftIsNull.Should().NotBe(rightIsNull);
         }
-        
+
         [Fact]
         public void SkimmerIdComparer_ComparesIdAndName()
         {
             var failedTestCases = new List<string>();
 
             foreach (SkimmerIdComparerTestCase testCase in s_skimmerIdComparerTestCases)
-            {                
-                var leftRule = PopulateRuleProperties(id: testCase.LeftId, name: testCase.LeftName);
-                var rightRule = PopulateRuleProperties(id: testCase.RightId, name: testCase.RightName);
+            {
+                TestRule leftRule = PopulateRuleProperties(id: testCase.LeftId, name: testCase.LeftName);
+                TestRule rightRule = PopulateRuleProperties(id: testCase.RightId, name: testCase.RightName);
 
                 int comparison = SkimmerIdComparer<TestAnalysisContext>.Instance.Compare(leftRule, rightRule);
 
@@ -99,13 +99,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             rule.SetProperty<string>(Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
 
-            rule.Relationships = new[] 
+            rule.Relationships = new[]
             {
                 new ReportingDescriptorRelationship { Description = new Message{ Text = Guid.NewGuid().ToString() } }
             };
 
             rule.ShortDescription = new MultiformatMessageString { Text = Guid.NewGuid().ToString() };
-            
+
             return rule;
         }
 

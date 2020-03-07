@@ -14,10 +14,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         private const string FEATURE = "Sarif.Sdk";
         private const string OPTIONS = FEATURE + ".Options";
 
-        private static bool BOOL_DEFAULT = true;
-        private static StringSet STRINGSET_DEFAULT = new StringSet(new string[] { "a", "b", "c" });
-        private static IntegerSet INTEGERSET_DEFAULT = new IntegerSet(new int[] { -1, 0, 1, 2 });
-        private static PropertiesDictionary PROPERTIES_DEFAULT = new PropertiesDictionary
+        private static readonly bool BOOL_DEFAULT = true;
+        private static readonly StringSet STRINGSET_DEFAULT = new StringSet(new string[] { "a", "b", "c" });
+        private static readonly IntegerSet INTEGERSET_DEFAULT = new IntegerSet(new int[] { -1, 0, 1, 2 });
+        private static readonly PropertiesDictionary PROPERTIES_DEFAULT = new PropertiesDictionary
         {
             { "TestKey", "TestValue" }
         };
@@ -29,7 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             var properties = new PropertiesDictionary();
             properties.GetProperty(BooleanProperty).Should().Be(BOOL_DEFAULT);
 
-            var nonDefaultValue = false;
+            bool nonDefaultValue = false;
             properties.SetProperty(BooleanProperty, nonDefaultValue);
             properties.GetProperty(BooleanProperty).Should().Be(nonDefaultValue);
 

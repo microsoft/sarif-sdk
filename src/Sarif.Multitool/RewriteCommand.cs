@@ -3,11 +3,11 @@
 
 using System;
 using System.Collections.Generic;
-using Microsoft.CodeAnalysis.Sarif.Visitors;
-using Microsoft.CodeAnalysis.Sarif.Driver.Sdk;
-using Newtonsoft.Json;
-using Microsoft.CodeAnalysis.Sarif.Driver;
 using System.Diagnostics;
+using Microsoft.CodeAnalysis.Sarif.Driver;
+using Microsoft.CodeAnalysis.Sarif.Driver.Sdk;
+using Microsoft.CodeAnalysis.Sarif.Visitors;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
@@ -36,10 +36,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 IDictionary<string, ArtifactLocation> originalUriBaseIds = rewriteOptions.ConstructUriBaseIdsDictionary();
 
                 SarifLog reformattedLog = new InsertOptionalDataVisitor(dataToInsert, originalUriBaseIds).VisitSarifLog(actualLog);
-                
+
                 string fileName = CommandUtilities.GetTransformedOutputFileName(rewriteOptions);
 
-                var formatting = rewriteOptions.PrettyPrint
+                Formatting formatting = rewriteOptions.PrettyPrint
                     ? Formatting.Indented
                     : Formatting.None;
 
@@ -48,7 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 w.Stop();
                 Console.WriteLine($"Rewrite completed in {w.Elapsed}.");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex);
                 return FAILURE;

@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             PropertiesDictionary configuration = CreateDefaultConfiguration();
 
-            foreach(PropertiesDictionary properties in configuration.Values)
+            foreach (PropertiesDictionary properties in configuration.Values)
             {
                 properties[DefaultDriverOptions.RuleEnabled.Name] = RuleEnabledState.Disabled;
             }
@@ -44,7 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 command.DefaultPlugInAssemblies = new Assembly[] { typeof(ExportConfigurationCommandBaseTests).Assembly };
                 int result = command.Run(options);
 
-                Assert.Equal(TestAnalyzeCommand.SUCCESS, result);               
+                Assert.Equal(TestAnalyzeCommand.SUCCESS, result);
             }
             finally
             {

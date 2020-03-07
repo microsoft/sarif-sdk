@@ -14,14 +14,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
     public class SarifLogger : IDisposable, IAnalysisLogger
     {
-        private Run _run;
-        private TextWriter _textWriter;
-        private bool _closeWriterOnDispose;
-        private LoggingOptions _loggingOptions;
-        private JsonTextWriter _jsonTextWriter;
-        private OptionallyEmittedData _dataToInsert;
-        private OptionallyEmittedData _dataToRemove;
-        private ResultLogJsonWriter _issueLogJsonWriter;
+        private readonly Run _run;
+        private readonly TextWriter _textWriter;
+        private readonly bool _closeWriterOnDispose;
+        private readonly LoggingOptions _loggingOptions;
+        private readonly JsonTextWriter _jsonTextWriter;
+        private readonly OptionallyEmittedData _dataToInsert;
+        private readonly OptionallyEmittedData _dataToRemove;
+        private readonly ResultLogJsonWriter _issueLogJsonWriter;
 
         protected const LoggingOptions DefaultLoggingOptions = LoggingOptions.PrettyPrint;
 
@@ -487,24 +487,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 case FailureLevel.None:
                 case FailureLevel.Note:
+                {
+                    if (!Verbose)
                     {
-                        if (!Verbose)
-                        {
-                            return false;
-                        }
-                        break;
+                        return false;
                     }
+                    break;
+                }
 
                 case FailureLevel.Error:
                 case FailureLevel.Warning:
-                    {
-                        break;
-                    }
+                {
+                    break;
+                }
 
                 default:
-                    {
-                        throw new InvalidOperationException();
-                    }
+                {
+                    throw new InvalidOperationException();
+                }
             }
             return true;
         }
