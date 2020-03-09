@@ -42,8 +42,6 @@ namespace Microsoft.WorkItems
                         filingUriString));
             }
 
-            filingClient.HostUri = filingHostUri;
-
             return filingClient;
         }
     }
