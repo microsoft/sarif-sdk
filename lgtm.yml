@@ -1,0 +1,6 @@
+extraction:
+  csharp:
+    index:
+      solution: "src/Sarif.Sdk.CodeQL.sln"
+      msbuild:
+        configuration: "Release"

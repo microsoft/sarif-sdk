@@ -136,7 +136,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         /// <summary>Adds item to the calculated hash.</summary>
         /// <param name="item">The item to add to the calculated hash. If this parameter is
         /// <c>null</c>, the effect will be the same as if its
-        /// <see cref="System.Object.GetHashCode()" /> function returns 0.</param>
+        /// <see cref="object.GetHashCode()" /> function returns 0.</param>
         public void Add(object item)
         {
             if (item == null)
@@ -151,7 +151,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         /// <summary>Adds a set of items to the calculated hash.</summary>
         /// <param name="items">The items to add. If any item is <c>null</c>, the effect is the
-        /// same as if that item's <see cref="System.Object.GetHashCode()" /> returned null.</param>
+        /// same as if that item's <see cref="object.GetHashCode()" /> returned null.</param>
         [SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
         public void AddRange(IEnumerable items)
         {

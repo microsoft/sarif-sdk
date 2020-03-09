@@ -15,8 +15,8 @@ namespace Microsoft.CodeAnalysis.Sarif
     public partial class Artifact : ISarifNode
     {
         public static Artifact Create(
-            Uri uri, 
-            OptionallyEmittedData dataToInsert = OptionallyEmittedData.None, 
+            Uri uri,
+            OptionallyEmittedData dataToInsert = OptionallyEmittedData.None,
             Encoding encoding = null,
             HashData hashData = null,
             IFileSystem fileSystem = null)
@@ -40,13 +40,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             // occurred. Something to discuss moving forward.
             try
             {
-                bool workTodo = dataToInsert.HasFlag(OptionallyEmittedData.Hashes)    ||
+                bool workTodo = dataToInsert.HasFlag(OptionallyEmittedData.Hashes) ||
                                 dataToInsert.HasFlag(OptionallyEmittedData.TextFiles) ||
                                 dataToInsert.HasFlag(OptionallyEmittedData.BinaryFiles);
-                
-                if (!workTodo          ||
-                    !uri.IsAbsoluteUri || 
-                    !uri.IsFile        || 
+
+                if (!workTodo ||
+                    !uri.IsAbsoluteUri ||
+                    !uri.IsFile ||
                     !fileSystem.FileExists(uri.LocalPath))
                 {
                     return artifact;
@@ -73,7 +73,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     {
                         { "md5", hashes.MD5 },
                         { "sha-1", hashes.Sha1 },
-                        { "sha-256", hashes.Sha256 },                        
+                        { "sha-256", hashes.Sha256 },
                     };
                 }
             }

@@ -173,9 +173,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             xmlReader.MoveToElement();
             xmlReader.Read(); // reads start element
 
-            string category = xmlReader.ReadElementContentAsString(strings.Category, String.Empty);
+            string category = xmlReader.ReadElementContentAsString(strings.Category, string.Empty);
             xmlReader.IgnoreElement(strings.Folder, IgnoreOptions.Required);
-            string kingdom = xmlReader.ReadElementContentAsString(strings.Kingdom, String.Empty);
+            string kingdom = xmlReader.ReadElementContentAsString(strings.Kingdom, string.Empty);
             string abstract_ = xmlReader.ReadOptionalElementContentAsString(strings.Abstract);
             string abstractCustom = xmlReader.ReadOptionalElementContentAsString(strings.AbstractCustom);
             string friority = xmlReader.ReadOptionalElementContentAsString(strings.Friority);
@@ -221,7 +221,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var result = new SortedSet<int>();
             foreach (Match match in s_cweRegex.Matches(cweIdSource))
             {
-                result.Add(Int32.Parse(match.Groups[1].Value, CultureInfo.InvariantCulture));
+                result.Add(int.Parse(match.Groups[1].Value, CultureInfo.InvariantCulture));
             }
 
             return result.ToImmutableArray();

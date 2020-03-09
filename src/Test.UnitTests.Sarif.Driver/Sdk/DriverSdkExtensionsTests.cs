@@ -69,7 +69,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             string name = "SRC";
             string path = "http://example<>";
-            
+
             string uriBaseIdEntry = name + "=" + path;
 
             var commonOptionsBase = new CommonOptionsBase

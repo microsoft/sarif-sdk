@@ -79,7 +79,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <returns>A string that represents this object.</returns>
         public override string ToString()
         {
-            return String.Format(CultureInfo.InvariantCulture, "Line {0} starting at {1}", this.LineNumber, this.StartOffset);
+            return string.Format(CultureInfo.InvariantCulture, "Line {0} starting at {1}", this.LineNumber, this.StartOffset);
         }
 
         /// <summary>Equality operator.</summary>

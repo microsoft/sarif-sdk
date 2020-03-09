@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public class RoundTrippingTests
     {
-        private static ResourceExtractor s_extractor = new ResourceExtractor(typeof(RoundTrippingTests));
+        private static readonly ResourceExtractor s_extractor = new ResourceExtractor(typeof(RoundTrippingTests));
 
         private static string GetResourceContents(string resourceName)
             => s_extractor.GetResourceText($"RoundTripping.{resourceName}");

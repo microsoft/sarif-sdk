@@ -45,8 +45,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             // FileMode settings here will results in an exception being raised if the input 
             // file does not exist, and that an existing output file will be overwritten
-            using (var input = File.OpenRead(inputFileName))
-            using (var outputTextStream = File.Create(outputFileName))
+            using (FileStream input = File.OpenRead(inputFileName))
+            using (FileStream outputTextStream = File.Create(outputFileName))
             using (var outputTextWriter = new StreamWriter(outputTextStream))
             using (var outputJson = new JsonTextWriter(outputTextWriter))
             {

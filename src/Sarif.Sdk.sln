@@ -91,6 +91,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorkItems", "WorkItems\Work
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.Plugins", "Test.Plugins\Test.Plugins.csproj", "{58EF0BEA-348C-43B7-9F6A-526F4A7D01FD}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{17AA3EDD-33F9-4661-93DF-C6EC59EB44B4}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

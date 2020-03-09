@@ -137,11 +137,11 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                             case SplittingStrategy.PerRunPerRule:
                                 visitor = new PerRunPerRuleSplittingVisitor();
                                 break;
-                            
+
                             case SplittingStrategy.PerRunPerTarget:
                                 visitor = new PerRunPerTargetSplittingVisitor();
                                 break;
-                            
+
                             case SplittingStrategy.PerRunPerTargetPerRule:
                                 visitor = new PerRunPerTargetPerRuleSplittingVisitor();
                                 break;
@@ -152,7 +152,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                             //       https://github.com/microsoft/sarif-sdk/issues/1762
                             //
                             case SplittingStrategy.PerResult:
-                            case SplittingStrategy.PerRun:                           
+                            case SplittingStrategy.PerRun:
                             default:
                                 throw new ArgumentOutOfRangeException($"SplittingStrategy: {splittingStrategy}");
                         }
@@ -175,7 +175,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             // The helper below will initialize the sarif work item model with a copy
             // of the root pipeline filing context. This context will then be initialized
             // based on the current sarif log file that we're processing.
-            
+
             SarifWorkItemModel workItemModel = new SarifWorkItemModel(sarifLog, filingContext);
 
             try

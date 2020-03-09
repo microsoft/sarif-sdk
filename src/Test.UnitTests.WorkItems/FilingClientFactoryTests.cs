@@ -43,7 +43,7 @@ namespace Microsoft.WorkItems
         {
             Uri projectUri = new Uri("https://github.com/myOrg/myProject");
 
-            var filingTarget = FilingClientFactory.Create(projectUri);
+            FilingClient filingTarget = FilingClientFactory.Create(projectUri);
 
             filingTarget.Should().BeOfType<GitHubFilingClient>();
             string.IsNullOrEmpty(filingTarget.ProjectOrRepository).Should().BeFalse();
@@ -55,7 +55,7 @@ namespace Microsoft.WorkItems
         {
             Uri projectUri = new Uri("https://dev.azure.com/myOrg/myProject");
 
-            var filingTarget = FilingClientFactory.Create(projectUri);
+            FilingClient filingTarget = FilingClientFactory.Create(projectUri);
 
             filingTarget.Should().BeOfType<AzureDevOpsFilingClient>();
             string.IsNullOrEmpty(filingTarget.ProjectOrRepository).Should().BeFalse();
@@ -67,7 +67,7 @@ namespace Microsoft.WorkItems
         {
             Uri projectUri = new Uri("https://myorg.visualstudio.com/myProject");
 
-            var filingTarget = FilingClientFactory.Create(projectUri);
+            FilingClient filingTarget = FilingClientFactory.Create(projectUri);
 
             filingTarget.ProjectOrRepository.Should().NotBeNull();
             string.IsNullOrEmpty(filingTarget.ProjectOrRepository).Should().BeFalse();

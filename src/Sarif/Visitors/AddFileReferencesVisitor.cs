@@ -48,7 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 node.Index = _currentRun.GetFileIndex(node, addToFilesTableIfNotPresent: true);
             }
 
-            return base.VisitArtifactLocation(node);            
+            return base.VisitArtifactLocation(node);
         }
     }
 }

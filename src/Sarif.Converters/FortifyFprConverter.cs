@@ -54,17 +54,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private int _currentFileIndex = 0;
 
         // Dictionary with replacement variables for the current Result (reused when parsing results to avoid per-Result allocation)
-        private Dictionary<string, string> _currentResultReplacementDictionary;
+        private readonly Dictionary<string, string> _currentResultReplacementDictionary;
 
         // First-Pass Maps: Rules, Artifacts/Files, Nodes, Snippets
         // These are populated on the first pass and used to output complete Results as-we-go during the second pass
-        private HashSet<string> _cweIds;
-        private Dictionary<Uri, Tuple<Artifact, int>> _files;
-        private List<ReportingDescriptor> _rules;
-        private Dictionary<string, int> _ruleIdToIndexMap;
-        private Dictionary<string, Node> _nodeDictionary;
-        private IDictionary<ThreadFlowLocation, int> _threadFlowLocationToIndexDictionary;
-        private Dictionary<string, Snippet> _snippetDictionary;
+        private readonly HashSet<string> _cweIds;
+        private readonly Dictionary<Uri, Tuple<Artifact, int>> _files;
+        private readonly List<ReportingDescriptor> _rules;
+        private readonly Dictionary<string, int> _ruleIdToIndexMap;
+        private readonly Dictionary<string, Node> _nodeDictionary;
+        private readonly IDictionary<ThreadFlowLocation, int> _threadFlowLocationToIndexDictionary;
+        private readonly Dictionary<string, Snippet> _snippetDictionary;
 
         // Output Configurability
         public bool IncludeThreadFlowLocations { get; set; }
@@ -464,7 +464,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     // Get the rule GUID from the ClassId element.
                     string ruleId = _reader.ReadElementContentAsString();
                     rule = FindOrCreateRule(ruleId, out ruleIndex);
-                    
+
                     result.RuleIndex = ruleIndex;
                     FailureLevel failureLevel = GetFailureLevelFromRuleMetadata(rule);
                     result.Level = failureLevel;
@@ -744,7 +744,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             };
 
             var uri = new Uri(path, UriKind.RelativeOrAbsolute);
-            if (_files.TryGetValue(uri, out var entry))
+            if (_files.TryGetValue(uri, out Tuple<Artifact, int> entry))
             {
                 location.ArtifactLocation = new ArtifactLocation { Index = entry.Item2 };
             }

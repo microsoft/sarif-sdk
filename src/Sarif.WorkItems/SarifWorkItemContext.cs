@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             set { this.SetProperty(HostUriOption, value); }
         }
 
-        public string PersonalAccessToken 
+        public string PersonalAccessToken
         {
             get { return this.GetProperty(PersonalAccessTokenOption); }
             set { this.SetProperty(PersonalAccessTokenOption, value); }
@@ -72,7 +72,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
         private IReadOnlyList<SarifWorkItemModelTransformer> PopulateWorkItemModelTransformers()
         {
-            if (this.workItemModelTransformers == null) 
+            if (this.workItemModelTransformers == null)
             {
                 this.workItemModelTransformers = new List<SarifWorkItemModelTransformer>();
 
@@ -103,7 +103,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         internal static PerLanguageOption<string> PersonalAccessTokenOption { get; } =
             new PerLanguageOption<string>(
                 "Extensibility", nameof(PersonalAccessToken),
-                defaultValue: () => { return String.Empty; });
+                defaultValue: () => { return string.Empty; });
 
         public static PerLanguageOption<StringSet> PluginAssemblyLocations { get; } =
             new PerLanguageOption<StringSet>(

@@ -8,7 +8,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
     public class PerRunPerTargetSplittingVisitor : SplittingVisitor
     {
-        private static ArtifactLocation s_emptyArtifactLocation = new ArtifactLocation();
+        private static readonly ArtifactLocation s_emptyArtifactLocation = new ArtifactLocation();
 
         private Dictionary<string, SarifLog> _targetMap;
 

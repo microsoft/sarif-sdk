@@ -47,14 +47,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Query
         public int CompareTo(StringSlice other, StringComparison comparison = StringComparison.Ordinal)
         {
             int length = Math.Min(this.Length, other.Length);
-            int compareResult = String.Compare(this.Value, this.Index, other.Value, other.Index, length, comparison);
+            int compareResult = string.Compare(this.Value, this.Index, other.Value, other.Index, length, comparison);
             return (compareResult != 0 ? compareResult : this.Length.CompareTo(other.Length));
         }
 
         public bool StartsWith(StringSlice prefix, StringComparison comparison = StringComparison.Ordinal)
         {
             if (this.Length < prefix.Length) { return false; }
-            return String.Compare(this.Value, this.Index, prefix.Value, prefix.Index, prefix.Length, comparison) == 0;
+            return string.Compare(this.Value, this.Index, prefix.Value, prefix.Index, prefix.Length, comparison) == 0;
         }
 
         public bool StartsWith(char c)

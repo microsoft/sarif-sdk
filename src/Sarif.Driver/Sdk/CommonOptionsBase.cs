@@ -35,7 +35,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             "remove",
             Separator = ';',
             HelpText =
-            "Optionally present data, expressed as a semicolon-delimited list, that should be not be persisted to or which "  +
+            "Optionally present data, expressed as a semicolon-delimited list, that should be not be persisted to or which " +
             "should be removed from the log file. Valid values include Hashes, TextFiles, BinaryFiles, EnvironmentVariables, " +
             "RegionSnippets, ContextRegionSnippets and NondeterministicProperties.")]
         public IEnumerable<OptionallyEmittedData> DataToRemove { get; set; }

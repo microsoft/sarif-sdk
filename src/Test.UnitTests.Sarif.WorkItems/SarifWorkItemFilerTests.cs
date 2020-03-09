@@ -214,7 +214,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
             mockFiler
                 .Setup(x => x.FileWorkItems(It.IsAny<string>()))
-                .CallBase(); 
+                .CallBase();
 
             mockFiler
                 .Setup(x => x.FileWorkItems(It.IsAny<SarifLog>()))

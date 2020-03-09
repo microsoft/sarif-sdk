@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using System;
-
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     /// <summary>Extensions on the <see cref="System.String"/> class.</summary>
@@ -13,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         /// <returns>If <paramref name="target"/> is <c>null</c> or whitespace, <c>null</c>; otherwise <paramref name="target"/>.</returns>
         public static string ClampToNullIfWhiteSpace(this string target)
         {
-            if (String.IsNullOrWhiteSpace(target))
+            if (string.IsNullOrWhiteSpace(target))
             {
                 return null;
             }

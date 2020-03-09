@@ -115,10 +115,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         private void PopulateInstanceWithDefaultMemberValues(ISarifNode node)
-        {           
+        {
             Type nodeType = node.GetType();
-          
-            var binding = BindingFlags.Public | BindingFlags.Instance;
+
+            BindingFlags binding = BindingFlags.Public | BindingFlags.Instance;
             foreach (PropertyInfo property in nodeType.GetProperties(binding))
             {
                 // The node kind is always properly set in the OM and
@@ -196,7 +196,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             bool isPropertyInOneOfSubset = false;
 
-            foreach (var item in propertySchema.OneOf)
+            foreach (JsonSchema item in propertySchema.OneOf)
             {
                 if (item.Required != null && item.Required.Contains(jsonPropertyName))
                 {
@@ -277,7 +277,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             // isRequired flag ensures we don't end up generating a SARIF file that's missing a required property or an anyOf required property,
             // because such a file wouldn't validate.
-            bool isRequired = PropertyIsRequiredBySchema(node.GetType().Name, property.Name) || 
+            bool isRequired = PropertyIsRequiredBySchema(node.GetType().Name, property.Name) ||
                 PropertyIsAnyOfRequiredBySchema(node.GetType().Name, property.Name);
 
             if (GetPropertyFormatPattern(node.GetType().Name, property.Name) is string propertyFormatPattern)
@@ -338,7 +338,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             else if ((property.PropertyType.BaseType == typeof(Enum)))
             {
                 // This code sets any enum to the first non-zero value we encounter
-                foreach (var enumValue in Enum.GetValues(property.PropertyType))
+                foreach (object enumValue in Enum.GetValues(property.PropertyType))
                 {
                     if ((int)enumValue != 0)
                     {
@@ -346,7 +346,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         break;
                     }
                 }
-                
+
                 // This code ensures both that we encounter an enum value that is non-zero,
                 // and that no enum definitions skips the value of one in its definition
                 if ((int)propertyValue != 1)
@@ -364,7 +364,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             string jsonPropertyName = GetJsonNameFor(propertyName);
             JsonSchema propertySchema = GetJsonSchemaForObject(objectTypeName);
-     
+
             return propertySchema.Required != null && propertySchema.Required.Contains(jsonPropertyName);
         }
 
@@ -408,16 +408,16 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private void AddElementToDictionary(object dictionary, object dictionaryValue)
         {
-            var dictionaryType = dictionary.GetType();
+            Type dictionaryType = dictionary.GetType();
             MethodInfo method = dictionaryType.GetMethod("Add");
             method.Invoke(dictionary, new[] { "key", dictionaryValue });
         }
 
         private void AddElementToList(object list, object listElement)
         {
-            var listType = list.GetType();
+            Type listType = list.GetType();
             MethodInfo method = listType.GetMethod("Add");
-            method.Invoke(list, new [] { listElement});
+            method.Invoke(list, new[] { listElement });
         }
 
         private object CreateEmptyList(Type propertyType)
@@ -427,8 +427,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             // concrete List<T> class, using the generic type argument from the OM.
             // These constructed types are creatable via a parameterless constructor
             // (which is what is ultimately invoked by Activator.CreateInstance).
-            var listType = typeof(List<>);
-            var constructedType = listType.MakeGenericType(propertyType.GenericTypeArguments[0]);
+            Type listType = typeof(List<>);
+            Type constructedType = listType.MakeGenericType(propertyType.GenericTypeArguments[0]);
             return Activator.CreateInstance(constructedType);
         }
 
@@ -439,8 +439,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             // concrete Dictionary<string, T> class, using the generic type argument from the OM.
             // These constructed types are creatable via a parameterless constructor
             // (which is what is ultimately invoked by Activator.CreateInstance).
-            var listType = typeof(Dictionary<,>);
-            var constructedType = listType.MakeGenericType(propertyType.GenericTypeArguments[0], propertyType.GenericTypeArguments[1]);
+            Type listType = typeof(Dictionary<,>);
+            Type constructedType = listType.MakeGenericType(propertyType.GenericTypeArguments[0], propertyType.GenericTypeArguments[1]);
             return Activator.CreateInstance(constructedType);
         }
 
@@ -464,21 +464,21 @@ namespace Microsoft.CodeAnalysis.Sarif
             switch (propertyFormatPattern)
             {
                 case "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$":
-                    {
-                        return "0DB2CD87-8185-49F8-8EEA-CE07A0E95241";
-                    }
+                {
+                    return "0DB2CD87-8185-49F8-8EEA-CE07A0E95241";
+                }
                 case "[^/]+/.+":
-                    {
-                        return "text/x-csharp";
-                    }
+                {
+                    return "text/x-csharp";
+                }
                 case "^[a-z]{2}-[A-Z]{2}$":
-                    {
-                        return "en-ZA";
-                    }
+                {
+                    return "en-ZA";
+                }
                 case "[0-9]+(\\.[0-9]+){3}":
-                    {
-                        return "2.7.1500.12";
-                    }
+                {
+                    return "2.7.1500.12";
+                }
             }
             return null;
         }

@@ -29,19 +29,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
             {
                 return new BoolEvaluator<bool>(value => value, term);
             }
-            else if(fieldType == typeof(double))
+            else if (fieldType == typeof(double))
             {
                 return new DoubleEvaluator<double>(value => value, term);
             }
-            else if(fieldType == typeof(float))
+            else if (fieldType == typeof(float))
             {
                 return new DoubleEvaluator<float>(value => (double)value, term);
             }
-            else if(fieldType == typeof(long))
+            else if (fieldType == typeof(long))
             {
                 return new LongEvaluator<long>(value => value, term);
             }
-            else if(fieldType == typeof(int))
+            else if (fieldType == typeof(int))
             {
                 return new LongEvaluator<int>(value => (long)value, term);
             }

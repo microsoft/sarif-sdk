@@ -57,7 +57,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (instanceId.EndsWith("/"))
             {
-                return String.Empty;
+                return string.Empty;
             }
 
             return instanceId.Substring(instanceId.LastIndexOf('/') + 1);
@@ -127,7 +127,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (region == null)
             {
-                return String.Empty;
+                return string.Empty;
             }
 
             if (region.StartLine < 0)
@@ -205,7 +205,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             var messageLines = new List<string>();
 
-            foreach (var location in result.Locations)
+            foreach (Location location in result.Locations)
             {
                 Uri uri = location.PhysicalLocation.ArtifactLocation.Uri;
                 string path = uri.IsAbsoluteUri && uri.IsFile ? uri.LocalPath : uri.ToString();

@@ -24,11 +24,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         /// </summary>
         public static PerLanguageOption<RuleEnabledState> RuleEnabled { get; } =
             new PerLanguageOption<RuleEnabledState>(
-                feature: "DefaultDriverOptions", 
-                name: nameof(RuleEnabled), 
+                feature: "DefaultDriverOptions",
+                name: nameof(RuleEnabled),
                 defaultValue: () => { return RuleEnabledState.Default; },
-                description: 
-                @"Enabled state of rule. Valid values: Default, Disabled, Warning, Error. A rule in the 'Default' " + 
+                description:
+                @"Enabled state of rule. Valid values: Default, Disabled, Warning, Error. A rule in the 'Default' " +
                 @"state will raise all issues as errors or warnings according to how the issue is logged.");
 
         public static PerLanguageOption<T> CreateRuleSpecificOption<T>(ReportingDescriptor rule, PerLanguageOption<T> option)
@@ -40,7 +40,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 feature: rule.Id + "." + rule.Name,
                 name: option.Name,
                 defaultValue: option.DefaultValue,
-                description: option.Description );
+                description: option.Description);
         }
 
         public IEnumerable<IOption> GetOptions()

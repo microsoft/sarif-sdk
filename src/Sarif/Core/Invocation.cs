@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public partial class Invocation
     {
-        private IEnumerable<string> PropertiesToLog {get; set; }
+        private IEnumerable<string> PropertiesToLog { get; set; }
 
         private bool _suppressNonDeterministicProperties;
 
@@ -67,7 +67,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         private static IDictionary<string, string> CopyEnvironmentVariables()
         {
             var result = new Dictionary<string, string>();
-            var variables = Environment.GetEnvironmentVariables();
+            IDictionary variables = Environment.GetEnvironmentVariables();
 
             foreach (DictionaryEntry entry in variables)
             {

@@ -94,7 +94,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors.Log
                                         location.PhysicalLocation.ArtifactLocation.Uri.IsAbsoluteUri
                                         && string.IsNullOrEmpty(location.PhysicalLocation.ArtifactLocation.UriBaseId))))
                    .Should().BeTrue();
-            }         
+            }
         }
 
         [Fact]

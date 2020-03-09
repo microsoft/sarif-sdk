@@ -8,7 +8,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
 {
     public class GenericFoldAction<T> : IFoldAction<T> where T : new()
     {
-        Func<T, T, T> _action;
+        readonly Func<T, T, T> _action;
 
         public GenericFoldAction(Func<T, T, T> action)
         {
@@ -25,8 +25,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
             {
                 throw new ArgumentNullException(nameof(collection));
             }
-            
-            foreach (var entry in collection)
+
+            foreach (T entry in collection)
             {
                 accumulator = _action(accumulator, entry);
             }

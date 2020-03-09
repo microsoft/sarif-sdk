@@ -23,10 +23,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             HelpText = "Path(s) to SARIF log(s) comprising the current set of results, without result matching information",
             Required = true)]
         public IEnumerable<string> CurrentFilePaths { get; internal set; }
-        
 
-        [Option('o', 
-            "output-file-path", 
+
+        [Option('o',
+            "output-file-path",
             HelpText = "File path to output the annotated SARIF log with result matching information.  Defaults to <currentFile>-annotated.sarif")]
         public string OutputFilePath { get; internal set; }
     }

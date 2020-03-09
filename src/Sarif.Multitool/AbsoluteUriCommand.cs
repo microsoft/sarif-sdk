@@ -33,11 +33,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     _fileSystem.CreateDirectory(absoluteUriOptions.OutputFolderPath);
                 }
 
-                var formatting = absoluteUriOptions.PrettyPrint
+                Formatting formatting = absoluteUriOptions.PrettyPrint
                     ? Formatting.Indented
                     : Formatting.None;
 
-                foreach (var absoluteUriFile in absoluteUriFiles)
+                foreach (AbsoluteUriFile absoluteUriFile in absoluteUriFiles)
                 {
                     absoluteUriFile.Log = absoluteUriFile.Log.MakeUrisAbsolute();
 
@@ -68,7 +68,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             // Get files names first, as we may write more sarif logs to the same directory as we rebase them.
             HashSet<string> inputFilePaths = CreateTargetsSet(absoluteUriOptions.TargetFileSpecifiers, absoluteUriOptions.Recurse, _fileSystem);
-            foreach (var inputFilePath in inputFilePaths)
+            foreach (string inputFilePath in inputFilePaths)
             {
                 yield return new AbsoluteUriFile
                 {

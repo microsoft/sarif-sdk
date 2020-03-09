@@ -17,9 +17,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             _verbose = verbose;
         }
 
-        private bool _verbose;
+        private readonly bool _verbose;
         private readonly HashSet<string> _fullMessageHashes = new HashSet<string>();
-        
+
         public override string ToolName => ToolFormat.MSBuild;
 
         public override void Convert(Stream input, IResultLogWriter output, OptionallyEmittedData dataToInsert)
@@ -206,8 +206,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             match = s_startLineStartColumnRegex.Match(regionString);
             if (match.Success)
             {
-                startLine = Int32.Parse(match.Groups["startLine"].Value);
-                startColumn = Int32.Parse(match.Groups["startColumn"].Value);
+                startLine = int.Parse(match.Groups["startLine"].Value);
+                startColumn = int.Parse(match.Groups["startColumn"].Value);
 
                 region = new Region
                 {
@@ -221,7 +221,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 match = s_startLineOnlyRegex.Match(regionString);
                 if (match.Success)
                 {
-                    startLine = Int32.Parse(match.Groups["startLine"].Value);
+                    startLine = int.Parse(match.Groups["startLine"].Value);
 
                     region = new Region
                     {
@@ -235,8 +235,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 match = s_startLineEndLineRegex.Match(regionString);
                 if (match.Success)
                 {
-                    startLine = Int32.Parse(match.Groups["startLine"].Value);
-                    endLine = Int32.Parse(match.Groups["endLine"].Value);
+                    startLine = int.Parse(match.Groups["startLine"].Value);
+                    endLine = int.Parse(match.Groups["endLine"].Value);
 
                     region = new Region
                     {
@@ -251,9 +251,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 match = s_startLineStartColumnEndColumnRegex.Match(regionString);
                 if (match.Success)
                 {
-                    startLine = Int32.Parse(match.Groups["startLine"].Value);
-                    startColumn = Int32.Parse(match.Groups["startColumn"].Value);
-                    endColumn = Int32.Parse(match.Groups["endColumn"].Value);
+                    startLine = int.Parse(match.Groups["startLine"].Value);
+                    startColumn = int.Parse(match.Groups["startColumn"].Value);
+                    endColumn = int.Parse(match.Groups["endColumn"].Value);
 
                     region = new Region
                     {
@@ -269,10 +269,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 match = s_startLineStartColumnEndLineEndColumnRegex.Match(regionString);
                 if (match.Success)
                 {
-                    startLine = Int32.Parse(match.Groups["startLine"].Value);
-                    startColumn = Int32.Parse(match.Groups["startColumn"].Value);
-                    endLine = Int32.Parse(match.Groups["endLine"].Value);
-                    endColumn = Int32.Parse(match.Groups["endColumn"].Value);
+                    startLine = int.Parse(match.Groups["startLine"].Value);
+                    startColumn = int.Parse(match.Groups["startColumn"].Value);
+                    endLine = int.Parse(match.Groups["endLine"].Value);
+                    endColumn = int.Parse(match.Groups["endColumn"].Value);
 
                     region = new Region
                     {

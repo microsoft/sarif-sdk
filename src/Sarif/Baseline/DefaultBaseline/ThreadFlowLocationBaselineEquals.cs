@@ -8,7 +8,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
     internal class ThreadFlowLocationBaselineEquals : IEqualityComparer<ThreadFlowLocation>
     {
         internal static readonly ThreadFlowLocationBaselineEquals DefaultInstance = new ThreadFlowLocationBaselineEquals();
-        
+
         public bool Equals(ThreadFlowLocation x, ThreadFlowLocation y)
         {
             if (!object.ReferenceEquals(x, y))
@@ -40,7 +40,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
             else
             {
                 int hs = 0;
-                
+
                 hs = hs ^ obj.NestingLevel ^ LocationBaselineEquals.Instance.GetHashCode(obj.Location);
 
                 return hs;

@@ -15,6 +15,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters.TSLintObjectModel
         public int InnerLength { get; set; }
 
         [DataMember(Name = "innerText", IsRequired = false, EmitDefaultValue = true)]
-        public string InnerText { get; set; }        
+        public string InnerText { get; set; }
     }
 }

@@ -283,7 +283,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         private NewLineIndex GetNewLineIndex(Uri uri, out string fileText)
         {
             Tuple<string, NewLineIndex> entry = _cache[uri.LocalPath];
-         
+
             fileText = entry.Item1;
             return entry.Item2;
         }

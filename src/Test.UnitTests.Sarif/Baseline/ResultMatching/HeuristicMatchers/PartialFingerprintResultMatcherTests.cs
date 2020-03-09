@@ -2,14 +2,14 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Collections.Generic;
-using Xunit;
 using FluentAssertions;
+using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
 {
     public class PartialFingerprintResultMatcherTests
     {
-        private static PartialFingerprintResultMatcher matcher = new PartialFingerprintResultMatcher();
+        private static readonly PartialFingerprintResultMatcher matcher = new PartialFingerprintResultMatcher();
 
         [Fact]
         public void PartialFingerprintResultMatcher_WithoutPartialFingerprints_DoesNotMatch()
@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
             resultA.Result.PartialFingerprints = new Dictionary<string, string>() { { "Fingerprint1", "Value1" } };
 
             ExtractedResult resultB = new ExtractedResult(ResultMatchingTestHelpers.CreateMatchingResult("file://test3", "file://test4", null), null);
-            
+
             resultA.Result.PartialFingerprints = new Dictionary<string, string>() { { "Fingerprint1", "Value2" } };
 
             IEnumerable<MatchedResults> matchedResults = matcher.Match(new List<ExtractedResult>() { resultA }, new List<ExtractedResult>() { resultB });
@@ -46,7 +46,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
             resultA.Result.PartialFingerprints = new Dictionary<string, string>() { { "Fingerprint1", "Value1" } };
 
             ExtractedResult resultB = new ExtractedResult(ResultMatchingTestHelpers.CreateMatchingResult("file://test3", "file://test4", null), null);
-            
+
             resultA.Result.PartialFingerprints = new Dictionary<string, string>() { { "Fingerprint1", "Value1" } };
 
             IEnumerable<MatchedResults> matchedResults = matcher.Match(new List<ExtractedResult>() { resultA }, new List<ExtractedResult>() { resultB });

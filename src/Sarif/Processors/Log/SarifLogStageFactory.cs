@@ -54,7 +54,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
                     throw new ArgumentException($"Unknown/Not Supported Action {action}.", nameof(action));
             }
         }
-        
+
         private readonly static Func<SarifLog, SarifLog, SarifLog> mergeFunction =
             (accumulator, nextLog) =>
             {
@@ -68,14 +68,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
                     accumulator.Runs = new List<Run>();
                 }
 
-                foreach (var run in nextLog.Runs)
+                foreach (Run run in nextLog.Runs)
                 {
                     if (run != null)
                     {
                         accumulator.Runs.Add(run);
                     }
                 }
-                
+
                 return accumulator;
             };
     }

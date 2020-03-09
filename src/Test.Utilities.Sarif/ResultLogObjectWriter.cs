@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
     public sealed class ResultLogObjectWriter : IResultLogWriter
     {
         /// <summary>Gets the Run object.</summary>
-        public Run Run { get; set;  }
+        public Run Run { get; set; }
 
         public void Initialize(Run run)
         {

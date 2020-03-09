@@ -56,7 +56,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
         /// </summary>
         public override int GetHashCode()
         {
-            var hashCode = -2011433744;
+            int hashCode = -2011433744;
             hashCode = hashCode * -1521134295 + Action.GetHashCode();
             hashCode = hashCode * -1521134295 + EqualityComparer<string[]>.Default.GetHashCode(Parameters);
             return hashCode;

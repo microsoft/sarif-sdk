@@ -104,7 +104,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             // Various operations mutate state. We will make a copy so that we can
             // compare our ulitmate results to an unaltered original baseline.
-            var baselineRunCopy = baselineRun.DeepClone();
+            Run baselineRunCopy = baselineRun.DeepClone();
 
             visitor.HistoricalFiles = baselineRunCopy.Artifacts;
             foreach (Result result in baselineRunCopy.Results)
@@ -293,7 +293,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             visitor.CurrentLogicalLocations.Should().BeEquivalentTo(mergedRun.LogicalLocations);
             visitor.RemappedLogicalLocations.Count.Should().Be(mergedRun.LogicalLocations.Count);
 
-            var baselineRunCopy = baselineRun.DeepClone();
+            Run baselineRunCopy = baselineRun.DeepClone();
 
             visitor.HistoricalLogicalLocations = baselineRunCopy.LogicalLocations;
             foreach (Result result in baselineRunCopy.Results)

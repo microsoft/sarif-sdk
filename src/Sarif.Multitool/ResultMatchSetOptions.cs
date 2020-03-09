@@ -16,8 +16,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public string FolderPath { get; internal set; }
 
 
-        [Option('o', 
-            "output-folder-path", 
+        [Option('o',
+            "output-folder-path",
             HelpText = "Folder Path where output will be written.")]
         public string OutputFolderPath { get; internal set; }
     }
