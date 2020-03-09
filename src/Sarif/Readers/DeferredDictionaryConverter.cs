@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            if(reader is JsonInnerTextReader)
+            if (reader is JsonInnerTextReader)
             {
                 // Nested in another deferred container, read the dictionary non-deferred
                 return serializer.Deserialize<Dictionary<string, T>>(reader);

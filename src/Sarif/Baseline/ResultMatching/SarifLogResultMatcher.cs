@@ -61,7 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
             List<SarifLog> resultToolLogs = new List<SarifLog>();
 
-            foreach (var key in tools)
+            foreach (string key in tools)
             {
                 IEnumerable<Run> baselineRuns = new Run[0];
                 if (runsByToolPrevious.ContainsKey(key))
@@ -156,7 +156,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 foreach (IResultMatcher matcher in matchers)
                 {
                     IEnumerable<MatchedResults> results = matcher.Match(baselineResults, currentResults);
-                    foreach (var result in results)
+                    foreach (MatchedResults result in results)
                     {
                         baselineResults.Remove(result.PreviousResult);
                         currentResults.Remove(result.CurrentResult);

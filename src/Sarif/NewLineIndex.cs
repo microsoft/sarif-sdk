@@ -19,9 +19,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         // which is the line in the file at index n.
         private readonly ImmutableArray<int> _lineOffsetStarts;
 
-        private int _fileLength;
+        private readonly int _fileLength;
 
-        internal static char[] s_newLineChars = 
+        internal static char[] s_newLineChars =
         {
             '\n',
             '\r',

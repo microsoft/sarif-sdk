@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp2.1</TargetFrameworks>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
   </PropertyGroup>
@@ -47,8 +46,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Sarif.Driver\Sarif.Driver.csproj" />
     <ProjectReference Include="..\Sarif\Sarif.csproj" />
+    <ProjectReference Include="..\Sarif.Driver\Sarif.Driver.csproj" />
     <ProjectReference Include="..\Sarif.Multitool\Sarif.Multitool.csproj" />
     <ProjectReference Include="..\Test.Utilities.Sarif\Test.Utilities.Sarif.csproj" />
   </ItemGroup>

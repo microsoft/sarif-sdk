@@ -11,10 +11,6 @@
       We use [Condition="'$(RuntimeIdentifier)' != ''"] to identify settings used only for these builds.      
     -->
 
-    <!-- Keep default targets to allow VS2017 use and builds in the Azure 'Hosted VS2017' build agent pool -->
-    <TargetFrameworks>netcoreapp2.1</TargetFrameworks>
-    <TargetFrameworks Condition="'$(RuntimeIdentifier)' != ''">$(TargetFrameworks);netcoreapp3.0</TargetFrameworks>
-
     <!-- Publish trimmed single-file exe -->
     <PublishSingleFile Condition="'$(RuntimeIdentifier)' != ''">true</PublishSingleFile>
     <PublishTrimmed Condition="'$(RuntimeIdentifier)' != ''">true</PublishTrimmed>
@@ -43,10 +39,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Sarif.Converters\Sarif.Converters.csproj" />
-    <ProjectReference Include="..\Sarif.Driver\Sarif.Driver.csproj" />
-    <ProjectReference Include="..\Sarif.WorkItemFiling\Sarif.WorkItemFiling.csproj" />
     <ProjectReference Include="..\Sarif\Sarif.csproj" />
+    <ProjectReference Include="..\Sarif.Driver\Sarif.Driver.csproj" />
+    <ProjectReference Include="..\Sarif.WorkItems\Sarif.WorkItems.csproj" />
+    <ProjectReference Include="..\Sarif.Converters\Sarif.Converters.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -76,7 +72,7 @@
   <ItemGroup>
     <EmbeddedResource Include="$(SolutionDir)\Sarif\Schemata\sarif-$(SchemaVersionAsPublishedToSchemaStoreOrg).json" CopyToOutputDirectory="PreserveNewest" />
     <EmbeddedResource Include=".\DotnetToolSettings.xml" CopyToOutputDirectory="PreserveNewest" />
-    <EmbeddedResource Include="..\Sarif\Schemata\sarif-2.1.0-rtm.4.json" Link="sarif-2.1.0.json" />
+    <EmbeddedResource Include="..\Sarif\Schemata\sarif-2.1.0-rtm.5.json" Link="sarif-2.1.0.json" />
   </ItemGroup>
 
 </Project>

@@ -79,7 +79,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 for (int i = 0; i < actualLog.Runs[0].Results.Count; ++i)
                 {
                     Result result = actualLog.Runs[0].Results[i];
-                    if (String.IsNullOrEmpty(result.Guid))
+                    if (string.IsNullOrEmpty(result.Guid))
                     {
                         Assert.True(false, $"Results[{i}] had no Guid assigned, but OptionallyEmittedData.Guids flag was set.");
                     }

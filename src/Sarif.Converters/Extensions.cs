@@ -79,7 +79,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <paramref name="xmlReader"/>.</returns>
         internal static XmlException CreateException(this XmlReader xmlReader, string message, params object[] args)
         {
-            return xmlReader.CreateException(String.Format(CultureInfo.CurrentCulture, message, args));
+            return xmlReader.CreateException(string.Format(CultureInfo.CurrentCulture, message, args));
         }
 
         /// <summary>Asserts that the local name of a given element is the name indicated, and ignores the

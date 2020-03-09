@@ -39,7 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
         // Json.NET can overflow LinePosition for huge minified JSON.
         // Track and attempt to correct for it.
-        private OverflowCorrector _overflowCorrector;
+        private readonly OverflowCorrector _overflowCorrector;
 
         public LineMappingStreamReader(Stream stream) : base(stream)
         {

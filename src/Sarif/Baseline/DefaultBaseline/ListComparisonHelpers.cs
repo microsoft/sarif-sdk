@@ -106,7 +106,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
                     }
                 }
             }
-            return (int) hs;
+            return (int)hs;
         }
     }
 }

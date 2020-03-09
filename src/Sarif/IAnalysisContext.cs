@@ -13,15 +13,15 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         HashData Hashes { get; set; }
 
-        Exception TargetLoadException { get; set;  }
+        Exception TargetLoadException { get; set; }
 
-        bool IsValidAnalysisTarget { get;  }
+        bool IsValidAnalysisTarget { get; }
 
         ReportingDescriptor Rule { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         PropertiesDictionary Policy { get; set; }
-        
+
         IAnalysisLogger Logger { get; set; }
 
         RuntimeConditions RuntimeErrors { get; set; }

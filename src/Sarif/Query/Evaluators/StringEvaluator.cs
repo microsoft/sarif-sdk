@@ -73,7 +73,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
             int i = 0;
             foreach (T item in list)
             {
-                matches.Set(i, String.Compare(Getter(item) ?? "", Value, StringComparison) == 0);
+                matches.Set(i, string.Compare(Getter(item) ?? "", Value, StringComparison) == 0);
                 i++;
             }
         }
@@ -83,7 +83,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
             int i = 0;
             foreach (T item in list)
             {
-                matches.Set(i, String.Compare(Getter(item) ?? "", Value, StringComparison) != 0);
+                matches.Set(i, string.Compare(Getter(item) ?? "", Value, StringComparison) != 0);
                 i++;
             }
         }
@@ -93,7 +93,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
             int i = 0;
             foreach (T item in list)
             {
-                matches.Set(i, String.Compare(Getter(item) ?? "", Value, StringComparison) < 0);
+                matches.Set(i, string.Compare(Getter(item) ?? "", Value, StringComparison) < 0);
                 i++;
             }
         }
@@ -103,7 +103,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
             int i = 0;
             foreach (T item in list)
             {
-                matches.Set(i, String.Compare(Getter(item) ?? "", Value, StringComparison) <= 0);
+                matches.Set(i, string.Compare(Getter(item) ?? "", Value, StringComparison) <= 0);
                 i++;
             }
         }
@@ -113,7 +113,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
             int i = 0;
             foreach (T item in list)
             {
-                matches.Set(i, String.Compare(Getter(item) ?? "", Value, StringComparison) > 0);
+                matches.Set(i, string.Compare(Getter(item) ?? "", Value, StringComparison) > 0);
                 i++;
             }
         }
@@ -123,7 +123,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
             int i = 0;
             foreach (T item in list)
             {
-                matches.Set(i, String.Compare(Getter(item) ?? "", Value, StringComparison) >= 0);
+                matches.Set(i, string.Compare(Getter(item) ?? "", Value, StringComparison) >= 0);
                 i++;
             }
         }

@@ -189,7 +189,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
                             lengthRead = i;
                             break;
                         }
-                        else if(!IsWhitespace(buffer[i]))
+                        else if (!IsWhitespace(buffer[i]))
                         {
                             break;
                         }

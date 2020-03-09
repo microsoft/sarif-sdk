@@ -180,7 +180,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             actual.Should().Be(expected);
         }
 
-private Result MakeResultFromTestCase(FailureLevel level, ResultKind kind, Region region, string path)
+        private Result MakeResultFromTestCase(FailureLevel level, ResultKind kind, Region region, string path)
         {
             return new Result
             {

@@ -131,7 +131,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         private static ImmutableHashSet<string> InitializeMimeTypesSet(ImmutableArray<ImmutableArray<string>> extensionsTable)
         {
-            var builder = ImmutableHashSet.CreateBuilder<string>();
+            ImmutableHashSet<string>.Builder builder = ImmutableHashSet.CreateBuilder<string>();
             foreach (ImmutableArray<string> tableEntry in extensionsTable)
             {
                 builder.Add(tableEntry[0]);
@@ -174,7 +174,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         private static readonly ImmutableArray<ImmutableArray<string>> s_binaryExtensionsTable = ImmutableArray.Create(
              ImmutableArray.Create(MimeType.Java, "java", "jav"),
-             ImmutableArray.Create("application/java-archive", "jar"),             
+             ImmutableArray.Create("application/java-archive", "jar"),
              ImmutableArray.Create("application/zip", "zip"),
              ImmutableArray.Create("application/vns.ms-appx", "appx"),
              ImmutableArray.Create("application/vnd.ms-word.document", "docx"),

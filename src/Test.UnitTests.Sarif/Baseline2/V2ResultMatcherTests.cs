@@ -526,7 +526,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
             // The CorrelationGuid provides a stable identity to identify a Result matching across Runs.
             // The Guid should be the default CorrelationGuid, so that matched Results have an identity mappable to the first occurrence of the Result (even before it was baselined)
             // The Guid also needs to be defined to provided an identity to attach other data (like Annotations) to the Result consistently.
-            foreach(Result result in baselinedRun.Results ?? Enumerable.Empty<Result>())
+            foreach (Result result in baselinedRun.Results ?? Enumerable.Empty<Result>())
             {
                 result.Guid.Should().NotBeNullOrEmpty();
                 result.CorrelationGuid.Should().NotBeNullOrEmpty();

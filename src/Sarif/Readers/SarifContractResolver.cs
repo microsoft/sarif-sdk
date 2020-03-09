@@ -1,16 +1,16 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
+using Newtonsoft.Json.Serialization;
 
 namespace Microsoft.CodeAnalysis.Sarif.Readers
 {
     public class SarifContractResolver : DefaultContractResolver
     {
 
-        [Obsolete("The default SARIF serialization has been updated so that specifying a contract resolver is no longer required.", error: false)]  
+        [Obsolete("The default SARIF serialization has been updated so that specifying a contract resolver is no longer required.", error: false)]
         public static readonly SarifContractResolver Instance = new SarifContractResolver();
 
         protected override JsonContract CreateContract(Type objectType)
@@ -35,7 +35,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
             else if (objectType == typeof(FailureLevel))
                 contract.Converter = EnumConverter.Instance;
-     
+
             else if (objectType == typeof(ResultKind))
                 contract.Converter = EnumConverter.Instance;
 

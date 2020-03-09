@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <returns>true if <c>Object.ReferenceEquals(left, right)</c>; otherwise, false.</returns>
         public static bool AreEqual(string left, string right)
         {
-            Debug.Assert(((object)left) == ((object)right) || !String.Equals(left, right, StringComparison.Ordinal),
+            Debug.Assert(((object)left) == ((object)right) || !string.Equals(left, right, StringComparison.Ordinal),
                 "Object comparison used for non-atomized string \"" + left + "\".");
             return ((object)left) == ((object)right);
         }

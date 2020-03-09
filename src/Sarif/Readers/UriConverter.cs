@@ -42,7 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             }
 
             var uri = value as Uri;
-            if (uri != null)
+            if (uri != null && !string.IsNullOrWhiteSpace(uri.OriginalString))
             {
                 string path = uri.OriginalString;
                 string validUri = UriHelper.MakeValidUri(path);

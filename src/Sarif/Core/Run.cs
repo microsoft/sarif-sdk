@@ -11,10 +11,10 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public partial class Run
     {
-        private static Graph EmptyGraph = new Graph();
-        private static Artifact EmptyFile = new Artifact();
-        private static Invocation EmptyInvocation = new Invocation();
-        private static LogicalLocation EmptyLogicalLocation = new LogicalLocation();
+        private static readonly Graph EmptyGraph = new Graph();
+        private static readonly Artifact EmptyFile = new Artifact();
+        private static readonly Invocation EmptyInvocation = new Invocation();
+        private static readonly LogicalLocation EmptyLogicalLocation = new LogicalLocation();
 
         private IDictionary<ArtifactLocation, int> _fileToIndexMap;
 

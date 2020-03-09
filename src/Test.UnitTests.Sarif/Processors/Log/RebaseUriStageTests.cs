@@ -33,19 +33,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
                 logs.Add(RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, random.Next(10)));
             }
 
-            var rebaseRelativeUris = false;
-            var RewriteUri = SarifLogProcessorFactory.GetActionStage(SarifLogAction.RebaseUri, new string[] { "SRCROOT", rebaseRelativeUris.ToString(), @"C:\src\" });
+            bool rebaseRelativeUris = false;
+            IActionWrapper<SarifLog> RewriteUri = SarifLogProcessorFactory.GetActionStage(SarifLogAction.RebaseUri, new string[] { "SRCROOT", rebaseRelativeUris.ToString(), @"C:\src\" });
 
             IEnumerable<SarifLog> rewrittenLogs = RewriteUri.Act(logs.AsEnumerable());
 
             rewrittenLogs.Should().HaveCount(logs.Count);
 
             // We just check that the log rewriter hit each run.  We'll test the RewriteUriVisitor more comprehensively in its own test class.
-            foreach (var rewrittenLog in rewrittenLogs)
+            foreach (SarifLog rewrittenLog in rewrittenLogs)
             {
                 if (rewrittenLog.Runs != null)
                 {
-                    foreach (var run in rewrittenLog.Runs)
+                    foreach (Run run in rewrittenLog.Runs)
                     {
                         run.OriginalUriBaseIds.Should().ContainKey("SRCROOT");
                     }

@@ -20,14 +20,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
             get;
             private set;
         }
-        
-        private GenericActionPipeline<SarifLog> _pipeline;
+
+        private readonly GenericActionPipeline<SarifLog> _pipeline;
 
         [JsonConstructor]
         public SarifLogPipeline(List<SarifLogActionTuple> actions)
         {
             this.Actions = actions;
-            
+
             _pipeline = new GenericActionPipeline<SarifLog>(Actions.Select(a => SarifLogProcessorFactory.GetActionStage(a.Action, a.Parameters)));
         }
 
@@ -35,7 +35,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
         {
             return _pipeline.Act(logs);
         }
-        
+
         /// <summary>
         /// Two pipelines are equal if they apply the same steps to the input sarif files.
         /// </summary>
@@ -55,7 +55,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
 
             for (int i = 0; i < this.Actions.Count; i++)
             {
-                if(!this.Actions[i].Equals(other.Actions[i]))
+                if (!this.Actions[i].Equals(other.Actions[i]))
                 {
                     return false;
                 }

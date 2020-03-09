@@ -52,7 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                     foreach (IOption option in DefaultDriverOptions.Instance.GetOptions())
                     {
-                        properties.SetProperty(option, option.DefaultValue, cacheDescription: true, persistToSettingsContainer : false);
+                        properties.SetProperty(option, option.DefaultValue, cacheDescription: true, persistToSettingsContainer: false);
                     }
                 }
 

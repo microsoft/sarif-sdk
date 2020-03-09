@@ -12,10 +12,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
     {
         [Fact]
         public void SuppressionStatus_SuppressedInSource()
-        {            
+        {
             string expected = CreateCurrentV2SarifLogText(
                 resultCount: 1,
-                (log) => {
+                (log) =>
+                {
                     log.Runs[0].Results[0].Suppressions = new List<Suppression> { new Suppression { Kind = SuppressionKind.InSource } };
                 });
 
@@ -34,7 +35,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             });
             actual.Should().BeCrossPlatformEquivalent<SarifLog>(expected);
 
-            var sarifLog = JsonConvert.DeserializeObject<SarifLog>(actual);
+            SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(actual);
             Assert.Equal(SuppressionKind.InSource, sarifLog.Runs[0].Results[0].Suppressions[0].Kind);
         }
 
@@ -67,7 +68,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
             actual.Should().BeCrossPlatformEquivalent<SarifLog>(expected);
 
-            var sarifLog = JsonConvert.DeserializeObject<SarifLog>(actual);
+            SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(actual);
             Assert.Null(sarifLog.Runs[0].Results[0].Suppressions);
             Assert.Equal(BaselineState.None, sarifLog.Runs[0].Results[0].BaselineState);
         }
@@ -77,7 +78,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         {
             string expected = CreateCurrentV2SarifLogText(
                 resultCount: 2,
-                (log) => {
+                (log) =>
+                {
                     log.Runs[0].Results[0].BaselineState = BaselineState.Unchanged;
                     log.Runs[0].Results[1].BaselineState = BaselineState.Updated;
                 });
@@ -101,7 +103,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             });
             actual.Should().BeCrossPlatformEquivalent<SarifLog>(expected);
 
-            var sarifLog = JsonConvert.DeserializeObject<SarifLog>(actual);
+            SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(actual);
             Assert.Null(sarifLog.Runs[0].Results[0].Suppressions);
             Assert.Equal(BaselineState.Unchanged, sarifLog.Runs[0].Results[0].BaselineState);
             Assert.Equal(BaselineState.Updated, sarifLog.Runs[0].Results[1].BaselineState);

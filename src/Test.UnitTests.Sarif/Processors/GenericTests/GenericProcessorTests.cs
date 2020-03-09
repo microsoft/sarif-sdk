@@ -3,8 +3,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Xunit;
 using FluentAssertions;
+using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Processors
 {
@@ -15,13 +15,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
             Random r = new Random();
             int size = r.Next(1, 100);
             List<int> list = new List<int>(size);
-            for(int i=0; i<size; i++)
+            for (int i = 0; i < size; i++)
             {
                 list.Add(r.Next());
             }
             return list;
         }
-        
+
         [Fact]
         public void GenericMapStage_WorksAsExpected()
         {
@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
             TestMappingProcessor testMapper = new TestMappingProcessor();
 
             IEnumerable<int> mappedList = testMapper.Map(list.AsEnumerable());
-            
+
             mappedList.SequenceEqual(list.Select(TestMappingProcessor.internalFunction));
         }
 

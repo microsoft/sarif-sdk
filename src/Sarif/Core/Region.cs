@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 // Do we need to just bite the bullet and make these Nullable type so that we have a
                 // clear indicator of whether the region is binary vs. textual? I tend to think so.
                 return
-                     this.StartLine ==  0 &&
+                     this.StartLine == 0 &&
                      this.CharLength == 0 &&
                      this.CharOffset == 0;
             }

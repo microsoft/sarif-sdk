@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
             Assert.Equal("METoo", EnumConverter.ConvertToPascalCase("meToo"));
         }
-    
+
         [Fact]
         public void EnumConverter_ConvertToCamelCase()
         {

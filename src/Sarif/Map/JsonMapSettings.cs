@@ -45,7 +45,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
         public double CurrentSizeRatio { get; private set; }
         public int MinimumSizeForNode { get; private set; }
 
-        public JsonMapRunSettings(double fileSizeBytes, JsonMapSettings userSettings) 
+        public JsonMapRunSettings(double fileSizeBytes, JsonMapSettings userSettings)
             : base(userSettings.MapDesiredSizeRatio, userSettings.MapMaximumSizeBytes)
         {
             double expectedSize = fileSizeBytes * MapDesiredSizeRatio;

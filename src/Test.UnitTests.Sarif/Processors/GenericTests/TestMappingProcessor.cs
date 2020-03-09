@@ -9,6 +9,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
     {
         public static Func<int, int> internalFunction = a => { return a + 1; };
 
-        public TestMappingProcessor() : base (internalFunction) { }
+        public TestMappingProcessor() : base(internalFunction) { }
     }
 }

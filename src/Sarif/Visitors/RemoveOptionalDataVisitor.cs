@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             _dataToRemove = optionallyEmittedData;
         }
 
-        OptionallyEmittedData _dataToRemove;
+        readonly OptionallyEmittedData _dataToRemove;
 
         public override Invocation VisitInvocation(Invocation node)
         {

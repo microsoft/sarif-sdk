@@ -3,8 +3,8 @@
 
 using System;
 using System.Collections.ObjectModel;
-using FluentAssertions;
 using System.Text;
+using FluentAssertions;
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Core
@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
             public string ExpectedOutput { get; }
         }
 
-        private static ReadOnlyCollection<DottedQuadFileVersionTestCase> s_dottedQuadFileVersionTestCases =
+        private static readonly ReadOnlyCollection<DottedQuadFileVersionTestCase> s_dottedQuadFileVersionTestCases =
             new ReadOnlyCollection<DottedQuadFileVersionTestCase>(new DottedQuadFileVersionTestCase[]
             {
                 new DottedQuadFileVersionTestCase(

@@ -255,7 +255,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             Debug.Assert(StringReference.AreEqual(reader.LocalName, strings.Hints), "ReadHints didn't have hints");
 
-            var result = ImmutableArray.CreateBuilder<string>();
+            ImmutableArray<string>.Builder result = ImmutableArray.CreateBuilder<string>();
             if (!reader.IsEmptyElement)
             {
                 int hintsDepth = reader.Depth;

@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <param name="line">The line value from the location. This value must be positive.</param>
         public CppCheckLocation(string file, int line)
         {
-            if (String.IsNullOrWhiteSpace(file))
+            if (string.IsNullOrWhiteSpace(file))
             {
                 throw new ArgumentException(ConverterResources.CppCheckLocationNameEmpty, "file");
             }
@@ -161,7 +161,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <seealso cref="M:System.ValueType.ToString()"/>
         public override string ToString()
         {
-            return String.Format(CultureInfo.InvariantCulture, ConverterResources.CppCheckLocationFormat,
+            return string.Format(CultureInfo.InvariantCulture, ConverterResources.CppCheckLocationFormat,
                 this.File, this.Line);
         }
     }

@@ -32,17 +32,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return System.Text.Encoding.UTF8.GetString(abString);
         }
 
-        public static UInt16 ReadUInt16(this FileStream stream)
+        public static ushort ReadUInt16(this FileStream stream)
         {
             return BitConverter.ToUInt16(stream.ReadToArray(2), 0);
         }
 
-        public static Int32 ReadInt32(this FileStream stream)
+        public static int ReadInt32(this FileStream stream)
         {
             return BitConverter.ToInt32(stream.ReadToArray(4), 0);
         }
 
-        public static Int64 ReadInt64(this FileStream stream)
+        public static long ReadInt64(this FileStream stream)
         {
             return BitConverter.ToInt64(stream.ReadToArray(8), 0);
         }

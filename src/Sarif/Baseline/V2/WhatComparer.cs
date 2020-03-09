@@ -37,7 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             // Add each Fingerprint
             if (result.Result.Fingerprints != null)
             {
-                foreach (var fingerprint in result.Result.Fingerprints)
+                foreach (KeyValuePair<string, string> fingerprint in result.Result.Fingerprints)
                 {
                     yield return new WhatComponent(result.RuleId, locationSpecifier, PropertySetFingerprint, fingerprint.Key, fingerprint.Value);
                 }
@@ -46,7 +46,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             // Add each PartialFingerprint
             if (result.Result.PartialFingerprints != null)
             {
-                foreach (var fingerprint in result.Result.PartialFingerprints)
+                foreach (KeyValuePair<string, string> fingerprint in result.Result.PartialFingerprints)
                 {
                     yield return new WhatComponent(result.RuleId, locationSpecifier, PropertySetPartialFingerprint, fingerprint.Key, fingerprint.Value);
                 }
@@ -61,7 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             // Add each Property
             if (result.Result.Properties != null)
             {
-                foreach (var property in result.Result.Properties)
+                foreach (KeyValuePair<string, SerializedPropertyInfo> property in result.Result.Properties)
                 {
                     yield return new WhatComponent(result.RuleId, locationSpecifier, PropertySetProperty, property.Key, property.Value?.SerializedValue);
                 }
@@ -93,7 +93,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             {
                 int correspondingFingerprintCount = 0;
 
-                foreach (var fingerprint in left.Result.Fingerprints)
+                foreach (KeyValuePair<string, string> fingerprint in left.Result.Fingerprints)
                 {
                     if (right.Result.Fingerprints.TryGetValue(fingerprint.Key, out string otherFingerprint))
                     {
@@ -116,7 +116,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
                 float weightOfComparableValues = 0;
                 float matchWeight = 0;
 
-                foreach (var fingerprint in left.Result.PartialFingerprints)
+                foreach (KeyValuePair<string, string> fingerprint in left.Result.PartialFingerprints)
                 {
                     if (right.Result.PartialFingerprints.TryGetValue(fingerprint.Key, out string otherFingerprint))
                     {

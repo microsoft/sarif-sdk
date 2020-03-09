@@ -88,9 +88,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         private string Validate(
-            string instanceFilePath, 
-            string schemaFilePath, 
-            IAnalysisLogger logger, 
+            string instanceFilePath,
+            string schemaFilePath,
+            IAnalysisLogger logger,
             bool updateToCurrentSarifVersion = true)
         {
             string instanceText = null;
@@ -140,7 +140,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
             else
             {
-                string schemaResource = "Microsoft.CodeAnalysis.Sarif.Multitool.sarif-2.1.0-rtm.4.json";
+                string schemaResource = "Microsoft.CodeAnalysis.Sarif.Multitool.sarif-2.1.0-rtm.5.json";
 
                 using (Stream stream = this.GetType().Assembly.GetManifestResourceStream(schemaResource))
                 using (StreamReader reader = new StreamReader(stream))

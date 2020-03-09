@@ -8,7 +8,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class UriBaseIdRequiresRelativeUri : SarifValidationSkimmerBase
     {
-        private MultiformatMessageString _fullDescription = new MultiformatMessageString
+        private readonly MultiformatMessageString _fullDescription = new MultiformatMessageString
         {
             Text = RuleResources.SARIF1014_UriBaseIdRequiresRelativeUri
         };

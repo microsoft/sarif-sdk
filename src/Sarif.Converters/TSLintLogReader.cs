@@ -124,7 +124,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private static void NormalizeFixProperty(JProperty fixProperty)
         {
-            var fixValueToken = fixProperty.Value;
+            JToken fixValueToken = fixProperty.Value;
             if (fixValueToken is JObject fixValueObject)
             {
                 JProperty innerReplacementsProperty = fixValueObject.Property("innerReplacements");

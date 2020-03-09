@@ -53,7 +53,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             using (IEnumerator<T> leftEnumerator = leftSequence.GetEnumerator())
             using (IEnumerator<T> rightEnumerator = rightSequence.GetEnumerator())
-                for (;;)
+                for (; ; )
                 {
                     bool leftHasElements = leftEnumerator.MoveNext();
                     bool rightHasElements = rightEnumerator.MoveNext();

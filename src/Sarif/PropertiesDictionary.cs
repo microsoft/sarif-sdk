@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -10,6 +8,8 @@ using System.ComponentModel;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Xml;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -121,7 +121,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             PropertiesDictionary properties = this;
 
-            if (String.IsNullOrEmpty(Name))
+            if (string.IsNullOrEmpty(Name))
             {
                 object propertiesObject;
                 string featureOptionsName = setting.Feature + ".Options";
@@ -142,7 +142,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         private static bool TryConvertFromString<T>(string source, out T destination)
         {
             destination = default(T);
-            if (source == null) return false;
+            if (source == null) { return false; }
             TypeConverter converter = TypeDescriptor.GetConverter(typeof(T));
             destination = (T)converter.ConvertFrom(source);
             return destination != null;
@@ -159,14 +159,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 Formatting = formatting
             };
-             
+
             File.WriteAllText(filePath, JsonConvert.SerializeObject(this, settings));
         }
 
 
         public void LoadFromJson(string filePath)
         {
-            var properties = JsonConvert.DeserializeObject<PropertiesDictionary>(File.ReadAllText(filePath));
+            PropertiesDictionary properties = JsonConvert.DeserializeObject<PropertiesDictionary>(File.ReadAllText(filePath));
             this.Clear();
 
             foreach (string key in properties.Keys)
@@ -199,9 +199,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 LoadFromXml(reader);
             }
         }
-        
+
         public void LoadFromXml(Stream stream)
         {
+            this.Clear();
+
             var settings = new XmlReaderSettings
             {
                 DtdProcessing = DtdProcessing.Ignore,
@@ -221,7 +223,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     reader.ReadStartElement(PropertiesDictionaryExtensionMethods.PROPERTIES_ID);
 
                     this.LoadPropertiesFromXmlStream(reader);
-                    if (!isEmpty) reader.ReadEndElement();
+                    if (!isEmpty) { reader.ReadEndElement(); }
                 }
             }
         }
@@ -231,7 +233,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         public static readonly ImmutableArray<string> DefaultNamespaces = new List<string>(
             new string[] {
                 "Microsoft.CodeAnalysis.Sarif.",
-                "Microsoft.CodeAnalysis."
+                "Microsoft.CodeAnalysis.",
+                "Microsoft."
             }).ToImmutableArray();
     }
 }

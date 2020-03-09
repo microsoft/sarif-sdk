@@ -16,6 +16,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             "format",
             Default = FileFormat.Json,
             HelpText = "The file format to persist settings to (if the format cannot be inferred from the file name extension).")]
-        public FileFormat FileFormat{ get; set; }
+        public FileFormat FileFormat { get; set; }
     }
 }

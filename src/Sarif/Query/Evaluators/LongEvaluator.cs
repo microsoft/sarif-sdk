@@ -65,7 +65,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
         private void EvaluateEquals(ICollection<T> list, BitArray matches)
         {
             int i = 0;
-            foreach(T item in list)
+            foreach (T item in list)
             {
                 matches.Set(i, Getter(item) == Value);
                 i++;

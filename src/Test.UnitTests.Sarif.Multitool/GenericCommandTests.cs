@@ -32,7 +32,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             {
                 Argument result;
 
-                foreach (var customAttribute in property.CustomAttributes)
+                foreach (CustomAttributeData customAttribute in property.CustomAttributes)
                 {
                     if (customAttribute.AttributeType == typeof(CommandLine.OptionAttribute))
                     {
@@ -56,7 +56,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             Argument result = new Argument();
 
-            foreach (var argument in attribute.ConstructorArguments)
+            foreach (CustomAttributeTypedArgument argument in attribute.ConstructorArguments)
             {
                 if (argument.ArgumentType == typeof(char))
                 {
@@ -68,13 +68,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 }
             }
 
-            foreach(var namedArgument in attribute.NamedArguments)
+            foreach (CustomAttributeNamedArgument namedArgument in attribute.NamedArguments)
             {
-                if(namedArgument.MemberName == "ShortName")
+                if (namedArgument.MemberName == "ShortName")
                 {
                     result.ShortName = (char)namedArgument.TypedValue.Value;
                 }
-                else if(namedArgument.MemberName == "LongName")
+                else if (namedArgument.MemberName == "LongName")
                 {
                     result.LongName = (string)namedArgument.TypedValue.Value;
                 }

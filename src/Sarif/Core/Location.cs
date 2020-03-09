@@ -10,7 +10,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         public LogicalLocation LogicalLocation
         {
             get { return LogicalLocations?[0]; }
-            set {
+            set
+            {
                 if (value != null)
                 {
                     LogicalLocations = new List<LogicalLocation> { value };

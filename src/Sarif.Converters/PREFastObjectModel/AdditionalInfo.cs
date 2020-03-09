@@ -29,12 +29,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters.PREFastObjectModel
 
             while (reader.NodeType != XmlNodeType.EndElement)
             {
-                var keyValue = reader.GetAttribute("key");
+                string keyValue = reader.GetAttribute("key");
                 if (!string.IsNullOrWhiteSpace(keyValue))
                 {
                     string[] tokens = keyValue.Split(':');
-                    var key = tokens[0];
-                    var value = tokens.Length > 1 ? tokens[1] : null;
+                    string key = tokens[0];
+                    string value = tokens.Length > 1 ? tokens[1] : null;
 
                     Add(key, value);
                 }

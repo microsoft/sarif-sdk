@@ -29,7 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif.VersionOne.Readers
             // when the input is a string that parses as a valid integer, such as "1". In
             // that case, objectType is Int32, but the object returned by reader.Value is
             // a string!
-            var stringValue = value as string;
+            string stringValue = value as string;
             if (stringValue != null)
             {
                 if (!int.TryParse(stringValue, out intValue))

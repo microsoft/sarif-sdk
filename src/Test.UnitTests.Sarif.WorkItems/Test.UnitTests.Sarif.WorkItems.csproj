@@ -1,0 +1,54 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+
+  <PropertyGroup Label="AssemblyAttributes">
+    <AssemblyTitle>SARIF Work Item Filer Unit Tests</AssemblyTitle>
+    <Description>Unit tests for the SARIF Work Item Filer, which files the results in a SARIF log file as work items in a system such as GitHub or AzureDevOps.</Description>
+  </PropertyGroup>
+
+  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
+
+  <ItemGroup>
+    <None Remove="TestData\EmptyResults.sarif" />
+    <None Remove="TestData\Invalid.sarif" />
+    <None Remove="TestData\MultipleRuns.sarif" />
+    <None Remove="TestData\NewAndOldResults.sarif" />
+    <None Remove="TestData\NullResults.sarif" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentAssertions" Version="5.10.2" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
+    <PackageReference Include="Moq" Version="4.13.1" />
+    <PackageReference Include="System.Collections.Immutable" Version="1.7.0" />
+    <PackageReference Include="System.Composition" Version="1.4.0" />
+    <PackageReference Include="xunit" Version="2.4.1" />
+    <PackageReference Include="xunit.runner.console" Version="2.4.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="TestData\EmptyResults.sarif" />
+    <EmbeddedResource Include="TestData\Invalid.sarif" />
+    <EmbeddedResource Include="TestData\MultipleRuns.sarif" />
+    <EmbeddedResource Include="TestData\NewAndOldResults.sarif" />
+    <EmbeddedResource Include="TestData\NullResults.sarif" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Sarif.WorkItems\Sarif.WorkItems.csproj" />
+    <ProjectReference Include="..\Test.Utilities.Sarif\Test.Utilities.Sarif.csproj" />
+  </ItemGroup>
+
+</Project>

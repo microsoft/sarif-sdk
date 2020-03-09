@@ -5,20 +5,26 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Text;
 using Microsoft.CodeAnalysis.Sarif.Driver;
-using Microsoft.CodeAnalysis.Sarif.Visitors;
-using Microsoft.CodeAnalysis.Sarif.WorkItemFiling;
+using Microsoft.CodeAnalysis.Sarif.WorkItems;
 using Microsoft.Json.Schema;
 using Microsoft.Json.Schema.Validation;
-using Microsoft.WorkItemFiling;
-using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
-    public class FileWorkItemsCommand : CommandBase
+    /// <summary>
+    /// A class that drives SARIF work item filing. This class is responsible for 
+    /// collecting and verifying all options relevant to driving the work item filing
+    /// process. These options may be retrieved from a serialized version of the 
+    /// aggregated configuration (currently rendered as XML, via the PropertiesDictionary
+    /// class). Command-line arguments will override any options specified in the 
+    /// file-based serialized configuration (if present). After verifying that all
+    /// configured options are valid, the command will instantiate an instance of 
+    /// SarifWorkItemFiler in order to complete the work.
+    /// </summary>
+    internal class FileWorkItemsCommand : CommandBase
     {
         [ThreadStatic]
         internal static bool s_validateOptionsOnly;
@@ -28,7 +34,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public int Run(FileWorkItemsOptions options, IFileSystem fileSystem)
         {
-            if (!ValidateOptions(options, fileSystem)) { return FAILURE; }
+            var filingContext = new SarifWorkItemContext();
+            if (!string.IsNullOrEmpty(options.ConfigurationFilePath))
+            {
+                filingContext.LoadFromXml(options.ConfigurationFilePath);
+            }
+
+            if (!ValidateOptions(options, filingContext, fileSystem))
+            {
+                return FAILURE;
+            }
 
             // For unit tests: allow us to just validate the options and return.
             if (s_validateOptionsOnly) { return SUCCESS; }
@@ -36,81 +51,39 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             string logFileContents = fileSystem.ReadAllText(options.InputFilePath);
             EnsureValidSarifLogFile(logFileContents, options.InputFilePath);
 
-            FilingClient filingClient = FilingClientFactory.CreateFilingTarget(options.ProjectUriString);
-            var filer = new LogFileToWorkItemsFiler(filingClient);
-
-            SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(logFileContents);
-
-            OptionallyEmittedData optionallyEmittedData = options.DataToRemove.ToFlags();
-            if (optionallyEmittedData != OptionallyEmittedData.None)
+            if (options.SplittingStrategy != SplittingStrategy.None)
             {
-                var dataRemovingVisitor = new RemoveOptionalDataVisitor(options.DataToRemove.ToFlags());
-                dataRemovingVisitor.Visit(sarifLog);
+                filingContext.SplittingStrategy = options.SplittingStrategy;
             }
 
-            for (int runIndex = 0; runIndex < sarifLog.Runs.Count; ++runIndex)
+            if (options.DataToRemove.ToFlags() != OptionallyEmittedData.None)
             {
-                if (sarifLog.Runs[runIndex]?.Results?.Count > 0)
-                {
-                    IList<SarifLog> logsToProcess = new List<SarifLog>(new SarifLog[] { sarifLog });
-
-                    if (options.GroupingStrategy != GroupingStrategy.PerRun)
-                    {
-                        SplittingVisitor visitor;
-                        switch(options.GroupingStrategy)
-                        {
-                            case GroupingStrategy.PerRunPerRule:
-                                visitor = new PerRunPerRuleSplittingVisitor();
-                                break;
-                            case GroupingStrategy.PerRunPerTarget:
-                                visitor = new PerRunPerTargetSplittingVisitor();
-                                break;
-                            case GroupingStrategy.PerRunPerTargetPerRule:
-                                visitor = new PerRunPerTargetPerRuleSplittingVisitor();
-                                break;
-                            default:
-                                throw new ArgumentOutOfRangeException($"GroupingStrategy: {options.GroupingStrategy}");
-                        }
-
-                        visitor.VisitRun(sarifLog.Runs[runIndex]);
-                        logsToProcess = visitor.SplitSarifLogs;
-                    }
-
-                    IList<WorkItemModel> workItemModels = new List<WorkItemModel>(logsToProcess.Count);
-
-                    for (int splitFileIndex = 0; splitFileIndex < logsToProcess.Count; splitFileIndex++)
-                    {
-                        SarifLog splitLog = logsToProcess[splitFileIndex];
-                        WorkItemModel workItemModel = splitLog.CreateWorkItemModel(filingClient.ProjectOrRepository);
-                        workItemModels.Add(workItemModel);
-                    }
-
-                    try
-                    {
-                        string securityToken = Environment.GetEnvironmentVariable("SarifWorkItemFilingSecurityToken");
-
-                        if (string.IsNullOrEmpty(securityToken))
-                        {
-                            throw new InvalidOperationException("'SarifWorkItemFilingSecurityToken' environment variable is not initialized with a personal access token.");
-                        }
-
-                        IEnumerable<WorkItemModel> filedWorkItems = filer.FileWorkItems(options.ProjectUri, workItemModels, securityToken).Result;
-                        Console.WriteLine($"Created {filedWorkItems.Count()} work items for run {runIndex}.");
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.Error.WriteLine(ex);
-                    }
-                }
+                filingContext.DataToRemove = options.DataToRemove.ToFlags();
             }
 
-            Console.WriteLine($"Writing log with work item Ids to {options.OutputFilePath}.");
-            WriteSarifFile<SarifLog>(fileSystem, sarifLog, options.OutputFilePath, (options.PrettyPrint ? Formatting.Indented : Formatting.None));
+            if (options.DataToInsert.ToFlags() != OptionallyEmittedData.None)
+            {
+                filingContext.DataToInsert = options.DataToInsert.ToFlags();
+            }
+
+            var filer = new SarifWorkItemFiler(filingContext);
+            filer.FileWorkItems(logFileContents);
+
+            // TODO: We need to process updated work item models to persist filing
+            //       details back to the input SARIF file, if that was specified.
+            //       The SarifWorkItemFiler should either return or persist the updated
+            //       models via a property, so that we can do this work.
+            //
+            //       This information should be inlined to the input file, if configured,
+            //       or persisted to a new SARIF file, if configured. If neither of 
+            //       those options is specified, there is no work to do. 
+            //
+            //       https://github.com/microsoft/sarif-sdk/issues/1774
 
             return SUCCESS;
         }
 
-        private bool ValidateOptions(FileWorkItemsOptions options, IFileSystem fileSystem)
+        private bool ValidateOptions(FileWorkItemsOptions options, SarifWorkItemContext sarifWorkItemContext, IFileSystem fileSystem)
         {
             bool valid = true;
 
@@ -130,27 +103,81 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             //
             // Therefore we declare the property corresponding to "project-uri" as a string.
             // We convert it to a URI with the ctor Uri(string, UriKind.RelativeOrAbsolute).
-            // If it succeeds, we can assign the result to a Uri-valued property; if it fails,
-            // we can produce a helpful error message.
-            options.ProjectUri = new Uri(options.ProjectUriString, UriKind.RelativeOrAbsolute);
+            // If it succeeds, we can assign the result to a Uri-valued property (persisted in the
+            // context object); if it fails, we can produce a helpful error message.
 
-            if (!options.ProjectUri.IsAbsoluteUri)
+            valid &= ValidateProjectUri(options.ProjectUri, sarifWorkItemContext);
+
+            valid &= options.ValidateOutputOptions();
+
+            if (!string.IsNullOrEmpty(options.OutputFilePath))
             {
-                string optionDescription = DriverUtilities.GetOptionDescription<FileWorkItemsOptions>(nameof(options.ProjectUriString));
+                valid &= DriverUtilities.ReportWhetherOutputFileCanBeCreated(options.OutputFilePath, options.Force, fileSystem);
+            }
+
+            valid &= EnsurePersonalAccessToken(sarifWorkItemContext);
+
+            return valid;
+        }
+
+        private static bool ValidateProjectUri(string projectUriString, SarifWorkItemContext workItemFilingConfiguration)
+        {
+            if (string.IsNullOrEmpty(projectUriString) && workItemFilingConfiguration.HostUri == null)
+            {
+                // No project URI was provided via the --project-uri argument or as
+                // part of an input file specified via --configuration.
+                Console.Error.WriteLine(MultitoolResources.WorkItemFiling_NoProjectUriSpecified);
+                return false;
+            }
+
+            Uri projectUri = null;
+            if (!string.IsNullOrEmpty(projectUriString) && !Uri.TryCreate(projectUriString, UriKind.RelativeOrAbsolute, out projectUri))
+            {
+                // A valid URI could not be created from the value '{0}' of the '{1}' option.
+                Console.Error.WriteLine(MultitoolResources.WorkItemFiling_ErrorUriIsNotLegal);
+                return false;
+            }
+
+            // Any command-line argument that's provided overrides values specified in the configuration.
+            workItemFilingConfiguration.HostUri = projectUri ?? workItemFilingConfiguration.HostUri;
+
+
+            if (!workItemFilingConfiguration.HostUri.IsAbsoluteUri)
+            {
+                string optionDescription = projectUri != null ? "--project-uri" : "--configuration";
+
+                // The value '{0}' of the '{1}' option is not an absolute URI.
                 Console.Error.WriteLine(
                     string.Format(
                         CultureInfo.CurrentCulture,
                         MultitoolResources.WorkItemFiling_ErrorUriIsNotAbsolute,
-                        options.ProjectUriString,
+                        workItemFilingConfiguration.HostUri.OriginalString,
                         optionDescription));
-                valid = false;
+                return false;
             }
 
-            valid &= options.ValidateOutputOptions();
+            return true;
+        }
 
-            valid &= DriverUtilities.ReportWhetherOutputFileCanBeCreated(options.OutputFilePath, options.Force, fileSystem);
+        private static bool EnsurePersonalAccessToken(SarifWorkItemContext workItemFilingConfiguration)
+        {
+            string pat = Environment.GetEnvironmentVariable("SarifWorkItemFilingPat");
 
-            return valid;
+            if (!string.IsNullOrEmpty(pat))
+            {
+                workItemFilingConfiguration.PersonalAccessToken = pat;
+            }
+
+            if (string.IsNullOrEmpty(workItemFilingConfiguration.PersonalAccessToken))
+            {
+                // "No security token was provided. Populate the 'SarifWorkItemFilingPath' environment 
+                // variable with a valid personal access token or pass a token in a configuration file using
+                // the --configuration arguement."
+                Console.Error.WriteLine(MultitoolResources.WorkItemFiling_NoPatFound);
+                return false;
+            }
+
+            return true;
         }
 
         private void EnsureValidSarifLogFile(string logFileContents, string logFilePath)
@@ -199,7 +226,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             var sb = new StringBuilder(firstMessageLine);
             sb.AppendLine();
 
-            foreach (var error in errors)
+            foreach (Result error in errors)
             {
                 sb.AppendLine(error.FormatForVisualStudio(RuleFactory.GetRuleFromRuleId(error.RuleId)));
             }
