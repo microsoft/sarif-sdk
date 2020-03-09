@@ -30,9 +30,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             result.Run = result.Run ?? run;
 
             // Look up and cache RuleId, Rule
-            RuleId = result.ResolvedRuleId(run);
-            Rule = result.GetRule(run);
-            HasDeprecatedIds = Rule?.DeprecatedIds?.Count > 0;
+            RuleId = result.ResolvedRuleId(result.Run);
+
+            if (result.Run != null)
+            {
+                Rule = result.GetRule(result.Run);
+                HasDeprecatedIds = Rule?.DeprecatedIds?.Count > 0;
+            }
         }
 
         /// <summary>
@@ -78,6 +82,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         }
 
         /// <summary>
+        ///  Match enough of the 'What' properties of two ExtractedResults (Guid, Fingerprints, PartialFingerprints, Snippets, Message, Properties).
+        ///  A match in high-confidence identity properties is a match (Guid, Fingerprint, >= 50% of PartialFingerprint).
+        ///  A non-match in high-confidence identity properties is a non-match (Fingerprint, 0% of PartialFingerprints, Properties).
+        ///  Otherwise, Results match if Message and first Snippet match.
+        /// </summary>
+        /// <param name="other">ExtractedResult to match</param>
+        /// <returns>True if *any* 'What' property matches, False otherwise</returns>
+        internal bool MatchesAnyWhat(ExtractedResult other, TrustMap trustMap)
+        {
+            return WhatComparer.MatchesWhat(this, other, trustMap);
+        }
+
+        /// <summary>
         ///  Match all of the 'Where' properties of two ExtractedResults (FileUri, StartLine/Column, EndLine/Column).
         /// </summary>
         /// <param name="other">ExtractedResult to match</param>
@@ -96,6 +113,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         public bool IsSufficientlySimilarTo(ExtractedResult other)
         {
             return this.MatchesCategory(other) && (this.MatchesAnyWhat(other) || this.MatchesAllWhere(other));
+        }
+
+        /// <summary>
+        ///  Determine whether this ExtractedResult is 'sufficiently similar' to another.
+        ///  An ExtractedResult must have the same category and either match a 'What' property or all 'Where' properties.
+        /// </summary>
+        /// <param name="other">ExtractedResult to match</param>
+        /// <returns>True if ExtractedResults are 'sufficiently similar', otherwise False.</returns>
+        internal bool IsSufficientlySimilarTo(ExtractedResult other, TrustMap trustMap)
+        {
+            return this.MatchesCategory(other) && (this.MatchesAnyWhat(other, trustMap) || this.MatchesAllWhere(other));
         }
 
         public override string ToString()

@@ -100,10 +100,10 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
             right.PartialFingerprints["Fourth"] = "0004";
             WhatComparer.MatchesWhat(eLeft, eRight).Should().BeTrue();
 
-            // Don't match when names are different
+            // Don't count when names are different
             left.PartialFingerprints["Fifth_Left"] = "0005";
-            right.PartialFingerprints["Fifth_Right"] = "0005";
-            WhatComparer.MatchesWhat(eLeft, eRight).Should().BeFalse();
+            right.PartialFingerprints["Fifth_Right"] = "0006";
+            WhatComparer.MatchesWhat(eLeft, eRight).Should().BeTrue();
 
             left.PartialFingerprints = null;
             right.PartialFingerprints = null;

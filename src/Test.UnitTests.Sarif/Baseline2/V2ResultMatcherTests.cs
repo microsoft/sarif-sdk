@@ -290,6 +290,22 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
                 result.Locations[0].PhysicalLocation.Region.Snippet.Text = Guid.NewGuid().ToString(SarifConstants.GuidFormat);
             }
 
+            foreach (Result result in secondRun.Results)
+            {
+                // Give each result a unique (non-matching) and constant fingerprint
+                result.PartialFingerprints.Clear();
+                result.PartialFingerprints["SecretHash/v1"] = Guid.NewGuid().ToString(SarifConstants.GuidFormat);
+                result.PartialFingerprints["Useless/v1"] = "Constant";
+
+                Region region = result.Locations[0].PhysicalLocation.Region;
+
+                // Give each result a unique (non-matching) snippet (to ensure fallback doesn't match)
+                region.Snippet.Text = Guid.NewGuid().ToString(SarifConstants.GuidFormat);
+
+                // Ensure each results moves, so none match by where
+                region.StartLine += 100;
+            }
+
             // Match the Runs, and confirm *nothing* matches; this requires the constant partialFingerprint not to be trusted
             IEnumerable<MatchedResults> matches = CreateMatchedResults(firstRun, secondRun);
             Assert.Empty(matches.Where(m => m.PreviousResult != null && m.CurrentResult != null));

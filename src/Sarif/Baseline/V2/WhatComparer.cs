@@ -73,7 +73,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
         /// </summary>
         /// <param name="right">ExtractedResult to match</param>
         /// <returns>True if *any* 'What' property matches, False otherwise</returns>
-        public static bool MatchesWhat(ExtractedResult left, ExtractedResult right)
+        public static bool MatchesWhat(ExtractedResult left, ExtractedResult right, TrustMap trustMap = null)
         {
             if (left?.Result == null || right?.Result == null) { return false; }
 
@@ -113,26 +113,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             // Match PartialFingerprints (50% must match)
             if (left.Result.PartialFingerprints != null && right.Result.PartialFingerprints != null)
             {
-                int correspondingFingerprintCount = 0;
-                int matchCount = 0;
+                float weightOfComparableValues = 0;
+                float matchWeight = 0;
 
                 foreach (var fingerprint in left.Result.PartialFingerprints)
                 {
                     if (right.Result.PartialFingerprints.TryGetValue(fingerprint.Key, out string otherFingerprint))
                     {
-                        correspondingFingerprintCount++;
+                        float trust = trustMap?.Trust(PropertySetPartialFingerprint, fingerprint.Key) ?? TrustMap.DefaultTrust;
+                        weightOfComparableValues += trust;
 
                         if (string.Equals(fingerprint.Value, otherFingerprint))
                         {
-                            matchCount++;
+                            matchWeight += trust;
                         }
                     }
                 }
 
-                if (correspondingFingerprintCount > 0)
+                if (weightOfComparableValues > 0)
                 {
-                    // If fingerprints were found, return true when at least half of them matched, false otherwise
-                    return (matchCount > 0 && matchCount * 2 >= left.Result.PartialFingerprints.Count);
+                    // Return whether at least half of the partialFingerprints matched weighted by trust
+                    return (matchWeight * 2 >= weightOfComparableValues);
                 }
             }
 

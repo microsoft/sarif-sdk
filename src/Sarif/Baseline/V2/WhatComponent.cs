@@ -5,7 +5,7 @@ using System;
 
 namespace Microsoft.CodeAnalysis.Sarif.Baseline
 {
-    internal struct WhatComponent : IEquatable<WhatComponent>
+    public struct WhatComponent : IEquatable<WhatComponent>
     {
         public string Category { get; }
         public string Location { get; }
@@ -79,6 +79,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             }
 
             return hashCode;
+        }
+
+        public static bool operator ==(WhatComponent left, WhatComponent right)
+        {
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(WhatComponent left, WhatComponent right)
+        {
+            return !(left == right);
         }
     }
 }

@@ -16,23 +16,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
     /// </summary>
     internal class WhatMap
     {
-        // This dictionary maps each distinct combination of (Category | Location | PropertyName | Value)
-        // to the index of the unique result in which it was found. If the same combination occurs
-        // multiple times, it will be in the map with an index of -1.
+        // This dictionary tracks which WhatComponents are unique.
+        // The value is the index of the result with that value, if unique, or -1 if in several.
         private Dictionary<WhatComponent, int> Map { get; }
-
-        public WhatMap(IList<ExtractedResult> results, HashSet<string> otherRunLocations, int[] linksFromResults)
+        
+        public WhatMap()
         {
             Map = new Dictionary<WhatComponent, int>();
-
-            // Map *only* results which aren't already linked.
-            for (int i = 0; i < results.Count; ++i)
-            {
-                if (linksFromResults[i] == -1)
-                {
-                    Add(results[i], otherRunLocations, i);
-                }
-            }
         }
 
         private void Add(ExtractedResult result, HashSet<string> otherRunLocations, int index)
