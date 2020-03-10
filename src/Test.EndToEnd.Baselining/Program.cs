@@ -105,7 +105,10 @@ namespace Test.EndToEnd.Baselining
             BaseliningTester tester = new BaseliningTester();
             BaseliningSummary overallSummary = tester.RunAll(options.TestRootPath);
             Console.WriteLine(overallSummary);
-            Console.WriteLine($"windiff \"{Path.GetFullPath(Path.Combine(options.TestRootPath, BaseliningTester.ExpectedDebugFolderName))}\" \"{Path.GetFullPath(Path.Combine(options.TestRootPath, BaseliningTester.OutputDebugFolderName))}\"");
+            
+            Console.WriteLine();
+            Console.WriteLine($"REVIEW: windiff \"{Path.GetFullPath(Path.Combine(options.TestRootPath, BaseliningTester.ExpectedDebugFolderName))}\" \"{Path.GetFullPath(Path.Combine(options.TestRootPath, BaseliningTester.OutputDebugFolderName))}\"");
+            Console.WriteLine($"ACCEPT: robocopy /MIR \"{Path.GetFullPath(Path.Combine(options.TestRootPath, BaseliningTester.OutputFolderName))}\" \"{Path.GetFullPath(Path.Combine(options.TestRootPath, BaseliningTester.ExpectedFolderName))}\"");
 
             return 0;
         }
