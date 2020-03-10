@@ -2,7 +2,6 @@
 // Licensed under the MIT License.
 
 using System;
-using System.IO;
 using System.Linq;
 
 using Microsoft.CodeAnalysis.Sarif;
@@ -28,8 +27,9 @@ namespace Test.EndToEnd.Baselining
         public static string Snippet(this Result result, int lengthLimit = -1)
         {
             string value = result?.EnumeratePhysicalLocations().FirstOrDefault()?.Region?.Snippet?.Text ?? "";
+            value = value.Replace("\n", "").Replace("\r", "").TrimStart();
+            
             if (lengthLimit > 0 && value.Length > lengthLimit) { value = value.Substring(0, lengthLimit); }
-            value = value.Replace("\n", "").Replace("\r", "");
             return value;
         }
 
@@ -38,9 +38,25 @@ namespace Test.EndToEnd.Baselining
             PhysicalLocation pLoc = result.EnumeratePhysicalLocations().FirstOrDefault();
             if (pLoc == null) { return ""; }
 
-            Uri uri = pLoc.FileUri(result.Run);
+            return $"{UriSuffix(pLoc.FileUri(result.Run), 15)}{RegionString(pLoc.Region)}";
+        }
 
-            return $"{Path.GetFileName(uri?.OriginalString)}{RegionString(pLoc.Region)}";
+        // Return the shortest suffix of the URL of at least minLength length, splitting only at '/'
+        public static string UriSuffix(Uri uri, int minLength)
+        {
+            string uriText = uri?.OriginalString ?? "";
+
+            // Look for a suffix path of the Uri at least minLength long
+            for (int i = uriText.Length - minLength; i >= 0; --i)
+            {
+                if (uriText[i] == '/')
+                {
+                    return uriText.Substring(i + 1);
+                }
+            }
+
+            // If there wasn't an even suffix, return the whole thing
+            return uriText;
         }
 
         public static string RegionString(this Region region)

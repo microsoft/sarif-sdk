@@ -57,35 +57,35 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
 
     public class TermEvaluator<T> : IExpressionEvaluator<T>
     {
-        private Action<ICollection<T>, BitArray> Action { get; set; }
+        private readonly Action<ICollection<T>, BitArray> _action;
 
         public TermEvaluator(Action<ICollection<T>, BitArray> action)
         {
-            Action = action;
+            _action = action;
         }
 
         public void Evaluate(ICollection<T> list, BitArray matches)
         {
-            Action(list, matches);
+            _action(list, matches);
         }
     }
 
     public class AndEvaluator<T> : IExpressionEvaluator<T>
     {
-        private IReadOnlyList<IExpressionEvaluator<T>> Terms { get; set; }
+        private readonly IReadOnlyList<IExpressionEvaluator<T>> _terms;
 
         public AndEvaluator(IEnumerable<IExpressionEvaluator<T>> terms)
         {
-            Terms = terms.ToList();
+            _terms = terms.ToList();
         }
 
         public void Evaluate(ICollection<T> list, BitArray matches)
         {
             BitArray termMatches = new BitArray(list.Count);
 
-            for (int i = 0; i < Terms.Count; ++i)
+            for (int i = 0; i < _terms.Count; ++i)
             {
-                IExpressionEvaluator<T> term = Terms[i];
+                IExpressionEvaluator<T> term = _terms[i];
 
                 // Get matches for the term
                 termMatches.SetAll(false);
@@ -109,16 +109,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
 
     public class OrEvaluator<T> : IExpressionEvaluator<T>
     {
-        private IReadOnlyList<IExpressionEvaluator<T>> Terms { get; set; }
+        private readonly IReadOnlyList<IExpressionEvaluator<T>> _terms;
 
         public OrEvaluator(IEnumerable<IExpressionEvaluator<T>> terms)
         {
-            Terms = terms.ToList();
+            _terms = terms.ToList();
         }
 
         public void Evaluate(ICollection<T> list, BitArray matches)
         {
-            foreach (IExpressionEvaluator<T> term in Terms)
+            foreach (IExpressionEvaluator<T> term in _terms)
             {
                 // Add each term's matches to the same set
                 term.Evaluate(list, matches);
@@ -131,16 +131,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
 
     public class NotEvaluator<T> : IExpressionEvaluator<T>
     {
-        private IExpressionEvaluator<T> Inner { get; set; }
+        private readonly IExpressionEvaluator<T> _inner;
 
         public NotEvaluator(IExpressionEvaluator<T> inner)
         {
-            Inner = inner;
+            _inner = inner;
         }
 
         public void Evaluate(ICollection<T> list, BitArray matches)
         {
-            Inner.Evaluate(list, matches);
+            _inner.Evaluate(list, matches);
             matches.Not();
         }
     }

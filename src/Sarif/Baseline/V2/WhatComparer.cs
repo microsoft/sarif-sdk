@@ -11,23 +11,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
 {
     internal static class WhatComparer
     {
+        private const string LocationNonSpecific = "";
         private const string PropertySetBase = "Base";
+        private const string PropertySetFingerprint = "Fingerprint";
+        private const string PropertySetPartialFingerprint = "PartialFingerprint";
+        private const string PropertySetProperty = "Property";
 
-        public static IEnumerable<WhatComponent> WhatProperties(this ExtractedResult result)
+        public static IEnumerable<WhatComponent> WhatProperties(this ExtractedResult result, string locationSpecifier = LocationNonSpecific)
         {
             if (result?.Result == null) { yield break; }
 
             // Add Guid
             if (result.Result.Guid != null)
             {
-                yield return new WhatComponent(result.RuleId, PropertySetBase, "Guid", result.Result.Guid);
+                yield return new WhatComponent(result.RuleId, locationSpecifier, PropertySetBase, "Guid", result.Result.Guid);
             }
 
             // Add Message Text
             string messageText = result.Result.GetMessageText(result.Result.GetRule(result.OriginalRun));
             if (!string.IsNullOrEmpty(messageText))
             {
-                yield return new WhatComponent(result.RuleId, PropertySetBase, "Message", messageText);
+                yield return new WhatComponent(result.RuleId, locationSpecifier, PropertySetBase, "Message", messageText);
             }
 
             // Add each Fingerprint
@@ -35,7 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             {
                 foreach (KeyValuePair<string, string> fingerprint in result.Result.Fingerprints)
                 {
-                    yield return new WhatComponent(result.RuleId, "Fingerprint", "Fingerprint/" + fingerprint.Key, fingerprint.Value);
+                    yield return new WhatComponent(result.RuleId, locationSpecifier, PropertySetFingerprint, fingerprint.Key, fingerprint.Value);
                 }
             }
 
@@ -44,20 +48,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             {
                 foreach (KeyValuePair<string, string> fingerprint in result.Result.PartialFingerprints)
                 {
-                    yield return new WhatComponent(result.RuleId, "PartialFingerprint", "PartialFingerprint/" + fingerprint.Key, fingerprint.Value);
+                    yield return new WhatComponent(result.RuleId, locationSpecifier, PropertySetPartialFingerprint, fingerprint.Key, fingerprint.Value);
                 }
             }
 
-            if (result.Result.Locations != null)
+            string snippet = GetFirstSnippet(result);
+            if (snippet != null)
             {
-                foreach (Location location in result.Result.Locations)
-                {
-                    string snippet = location?.PhysicalLocation?.Region?.Snippet?.Text;
-                    if (!string.IsNullOrEmpty(snippet))
-                    {
-                        yield return new WhatComponent(result.RuleId, PropertySetBase, "Location.Snippet", snippet);
-                    }
-                }
+                yield return new WhatComponent(result.RuleId, locationSpecifier, PropertySetBase, "Location.Snippet", snippet);
             }
 
             // Add each Property
@@ -65,7 +63,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             {
                 foreach (KeyValuePair<string, SerializedPropertyInfo> property in result.Result.Properties)
                 {
-                    yield return new WhatComponent(result.RuleId, "Property", "PropertyBag/" + property.Key, property.Value?.SerializedValue);
+                    yield return new WhatComponent(result.RuleId, locationSpecifier, PropertySetProperty, property.Key, property.Value?.SerializedValue);
                 }
             }
         }
@@ -75,7 +73,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
         /// </summary>
         /// <param name="right">ExtractedResult to match</param>
         /// <returns>True if *any* 'What' property matches, False otherwise</returns>
-        public static bool MatchesWhat(ExtractedResult left, ExtractedResult right)
+        public static bool MatchesWhat(ExtractedResult left, ExtractedResult right, TrustMap trustMap = null)
         {
             if (left?.Result == null || right?.Result == null) { return false; }
 
@@ -115,55 +113,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             // Match PartialFingerprints (50% must match)
             if (left.Result.PartialFingerprints != null && right.Result.PartialFingerprints != null)
             {
-                int correspondingFingerprintCount = 0;
-                int matchCount = 0;
+                float weightOfComparableValues = 0;
+                float matchWeight = 0;
 
                 foreach (KeyValuePair<string, string> fingerprint in left.Result.PartialFingerprints)
                 {
                     if (right.Result.PartialFingerprints.TryGetValue(fingerprint.Key, out string otherFingerprint))
                     {
-                        correspondingFingerprintCount++;
+                        float trust = trustMap?.Trust(PropertySetPartialFingerprint, fingerprint.Key) ?? TrustMap.DefaultTrust;
+                        weightOfComparableValues += trust;
 
                         if (string.Equals(fingerprint.Value, otherFingerprint))
                         {
-                            matchCount++;
+                            matchWeight += trust;
                         }
                     }
                 }
 
-                if (correspondingFingerprintCount > 0)
+                if (weightOfComparableValues > 0)
                 {
-                    // If fingerprints were found, return true when at least half of them matched, false otherwise
-                    return (matchCount > 0 && matchCount * 2 >= left.Result.PartialFingerprints.Count);
-                }
-            }
-
-            // Match Properties (50% must match)
-            if (left.Result.Properties != null && right.Result.Properties != null)
-            {
-                int correspondingPropertyCount = 0;
-                int matchCount = 0;
-
-                foreach (KeyValuePair<string, SerializedPropertyInfo> property in left.Result.Properties)
-                {
-                    if (left.Result.TryGetSerializedPropertyValue(property.Key, out string leftValue)
-                        && right.Result.TryGetSerializedPropertyValue(property.Key, out string otherPropertyValue))
-                    {
-                        correspondingPropertyCount++;
-
-                        if (string.Equals(leftValue, otherPropertyValue))
-                        {
-                            matchCount++;
-                        }
-                    }
-                }
-
-                if (correspondingPropertyCount > 0)
-                {
-                    if (matchCount == 0 || matchCount * 2 < left.Result.Properties.Count)
-                    {
-                        return false;
-                    }
+                    // Return whether at least half of the partialFingerprints matched weighted by trust
+                    return (matchWeight * 2 >= weightOfComparableValues);
                 }
             }
 

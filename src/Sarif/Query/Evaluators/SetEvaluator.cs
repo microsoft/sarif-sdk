@@ -18,9 +18,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
     /// <typeparam name="T">Type of Item Evaluator will evaluate.</typeparam>
     public class SetEvaluator<T, U> : IExpressionEvaluator<T>
     {
-        private Func<T, IEnumerable<U>> Getter { get; set; }
-        private IExpressionEvaluator<U> InnerEvaluator { get; set; }
-        private Action<ICollection<T>, BitArray> EvaluateSet { get; set; }
+        private readonly Func<T, IEnumerable<U>> _getter;
+        private readonly IExpressionEvaluator<U> _innerEvaluator;
 
         /// <summary>
         ///  Build a SetEvaluator given a method to get an IEnumerable&lt;U&gt; of a primitive type
@@ -30,10 +29,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
         /// <param name="term">TermExpression for how to match each T</param>
         public SetEvaluator(Func<T, IEnumerable<U>> getter, TermExpression term)
         {
-            Getter = getter;
+            _getter = getter;
 
             object innerEvaluator = EvaluatorFactory.BuildPrimitiveEvaluator(typeof(U), term);
-            InnerEvaluator = (IExpressionEvaluator<U>)innerEvaluator;
+            _innerEvaluator = (IExpressionEvaluator<U>)innerEvaluator;
         }
 
         /// <summary>
@@ -47,8 +46,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
         /// <param name="innerEvaluator">IExpressionEvaluator&lt;U&gt; for which the getter returns just the item itself</param>
         public SetEvaluator(Func<T, IEnumerable<U>> getter, IExpressionEvaluator<U> innerEvaluator)
         {
-            Getter = getter;
-            InnerEvaluator = innerEvaluator;
+            _getter = getter;
+            _innerEvaluator = innerEvaluator;
         }
 
         public void Evaluate(ICollection<T> list, BitArray matches)
@@ -59,7 +58,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
             foreach (T item in list)
             {
                 // Convert the set of values for this item to a List
-                ICollection<U> values = Getter(item).ToList();
+                ICollection<U> values = _getter(item).ToList();
 
                 // Build a BitArray to match each of those value
                 if (perItemResult == null || perItemResult.Length < values.Count)
@@ -68,7 +67,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
                 }
 
                 // Ask the inner evaluator to check each value as if the values were the set of rows
-                InnerEvaluator.Evaluate(values, perItemResult);
+                _innerEvaluator.Evaluate(values, perItemResult);
 
                 // Make this item included if any of the values matched
                 bool isAnySet = false;

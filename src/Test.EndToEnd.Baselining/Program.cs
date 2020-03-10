@@ -79,9 +79,9 @@ namespace Test.EndToEnd.Baselining
     ///   Re-generate debug logs with the details as coded in BaseliningDetailEnricher:
     ///   "Test.EndToEnd.Baselining rebuild-debug-logs C:\Code\sarif-sdk-test-content\BaselineE2E"
     /// </summary>
-    class Program
+    internal class Program
     {
-        static int Main(string[] args)
+        private static int Main(string[] args)
         {
             try
             {
@@ -100,16 +100,20 @@ namespace Test.EndToEnd.Baselining
             }
         }
 
-        static int Run(RunOptions options)
+        private static int Run(RunOptions options)
         {
             BaseliningTester tester = new BaseliningTester();
             BaseliningSummary overallSummary = tester.RunAll(options.TestRootPath);
             Console.WriteLine(overallSummary);
+            
+            Console.WriteLine();
+            Console.WriteLine($"REVIEW: windiff \"{Path.GetFullPath(Path.Combine(options.TestRootPath, BaseliningTester.ExpectedDebugFolderName))}\" \"{Path.GetFullPath(Path.Combine(options.TestRootPath, BaseliningTester.OutputDebugFolderName))}\"");
+            Console.WriteLine($"ACCEPT: robocopy /MIR \"{Path.GetFullPath(Path.Combine(options.TestRootPath, BaseliningTester.OutputFolderName))}\" \"{Path.GetFullPath(Path.Combine(options.TestRootPath, BaseliningTester.ExpectedFolderName))}\"");
 
             return 0;
         }
 
-        static int Debug(DebugOptions options)
+        private static int Debug(DebugOptions options)
         {
             BaseliningTester tester = new BaseliningTester();
             tester.RunSeries(Path.Combine(options.TestRootPath, BaseliningTester.InputFolderName, options.DebugSeriesPath), options.DebugLogIndex, options.DebugResultIndex);
@@ -117,7 +121,7 @@ namespace Test.EndToEnd.Baselining
             return 0;
         }
 
-        static int CreateDebugLogs(RebuildDebugLogsOptions options)
+        private static int CreateDebugLogs(RebuildDebugLogsOptions options)
         {
             BaseliningTester tester = new BaseliningTester();
             tester.EnrichUnder(Path.Combine(options.TestRootPath, BaseliningTester.InputFolderName));

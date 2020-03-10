@@ -21,24 +21,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
     /// <typeparam name="T">Type of Item Evaluator will evaluate.</typeparam>
     public class DoubleEvaluator<T> : IExpressionEvaluator<T>
     {
-        private Func<T, double> Getter { get; set; }
-        private double Value { get; set; }
-
-        private Action<ICollection<T>, BitArray> EvaluateSet { get; set; }
+        private readonly Func<T, double> _getter;
+        private readonly double _value;
+        private readonly Action<ICollection<T>, BitArray> _evaluateSet;
 
         public DoubleEvaluator(Func<T, double> getter, TermExpression term)
         {
-            Getter = getter;
+            _getter = getter;
 
             if (!double.TryParse(term.Value, out double parsedValue)) { throw new QueryParseException($"{term} value {term.Value} was not a valid floating point number."); }
-            Value = parsedValue;
+            _value = parsedValue;
 
-            EvaluateSet = Comparer(term);
+            _evaluateSet = Comparer(term);
         }
 
         public void Evaluate(ICollection<T> list, BitArray matches)
         {
-            EvaluateSet(list, matches);
+            _evaluateSet(list, matches);
         }
 
         private Action<ICollection<T>, BitArray> Comparer(TermExpression term)
@@ -67,7 +66,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
             int i = 0;
             foreach (T item in list)
             {
-                matches.Set(i, Getter(item) == Value);
+                matches.Set(i, _getter(item) == _value);
                 i++;
             }
         }
@@ -77,7 +76,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
             int i = 0;
             foreach (T item in list)
             {
-                matches.Set(i, Getter(item) != Value);
+                matches.Set(i, _getter(item) != _value);
                 i++;
             }
         }
@@ -87,7 +86,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
             int i = 0;
             foreach (T item in list)
             {
-                matches.Set(i, Getter(item) < Value);
+                matches.Set(i, _getter(item) < _value);
                 i++;
             }
         }
@@ -97,7 +96,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
             int i = 0;
             foreach (T item in list)
             {
-                matches.Set(i, Getter(item) <= Value);
+                matches.Set(i, _getter(item) <= _value);
                 i++;
             }
         }
@@ -107,7 +106,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
             int i = 0;
             foreach (T item in list)
             {
-                matches.Set(i, Getter(item) > Value);
+                matches.Set(i, _getter(item) > _value);
                 i++;
             }
         }
@@ -117,7 +116,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
             int i = 0;
             foreach (T item in list)
             {
-                matches.Set(i, Getter(item) >= Value);
+                matches.Set(i, _getter(item) >= _value);
                 i++;
             }
         }

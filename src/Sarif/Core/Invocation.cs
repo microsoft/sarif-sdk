@@ -11,8 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public partial class Invocation
     {
-        private IEnumerable<string> PropertiesToLog { get; set; }
-
+        private IEnumerable<string> _propertiesToLog;
         private bool _suppressNonDeterministicProperties;
 
         public static Invocation Create(
@@ -23,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             var invocation = new Invocation
             {
                 _suppressNonDeterministicProperties = !emitTimestamps,
-                PropertiesToLog = propertiesToLog?.Select(p => p.ToUpperInvariant()).ToList()
+                _propertiesToLog = propertiesToLog?.Select(p => p.ToUpperInvariant()).ToList()
             };
 
             if (emitTimestamps)
@@ -79,7 +78,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private bool ShouldLog(string propertyName)
         {
-            return PropertiesToLog != null && PropertiesToLog.Contains(propertyName.ToUpperInvariant());
+            return _propertiesToLog != null && _propertiesToLog.Contains(propertyName.ToUpperInvariant());
         }
 
         public bool ShouldSerializeArguments()

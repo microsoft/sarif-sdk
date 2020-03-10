@@ -21,23 +21,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
     /// <typeparam name="T">Type of Item Evaluator will evaluate.</typeparam>
     public class StringEvaluator<T> : IExpressionEvaluator<T>
     {
-        private Func<T, string> Getter { get; set; }
-        private string Value { get; set; }
-        private StringComparison StringComparison { get; set; }
-
-        private Action<ICollection<T>, BitArray> EvaluateSet { get; set; }
+        private readonly Func<T, string> _getter;
+        private readonly string _value;
+        private readonly StringComparison _stringComparison;
+        private readonly Action<ICollection<T>, BitArray> _evaluateSet;
 
         public StringEvaluator(Func<T, string> getter, TermExpression term, StringComparison stringComparison)
         {
-            Getter = getter;
-            Value = term.Value;
-            EvaluateSet = Comparer(term);
-            StringComparison = stringComparison;
+            _getter = getter;
+            _value = term.Value;
+            _evaluateSet = Comparer(term);
+            _stringComparison = stringComparison;
         }
 
         public void Evaluate(ICollection<T> list, BitArray matches)
         {
-            EvaluateSet(list, matches);
+            _evaluateSet(list, matches);
         }
 
         private Action<ICollection<T>, BitArray> Comparer(TermExpression term)
@@ -73,7 +72,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
             int i = 0;
             foreach (T item in list)
             {
-                matches.Set(i, string.Compare(Getter(item) ?? "", Value, StringComparison) == 0);
+                matches.Set(i, string.Compare(_getter(item) ?? "", _value, _stringComparison) == 0);
                 i++;
             }
         }
@@ -83,7 +82,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
             int i = 0;
             foreach (T item in list)
             {
-                matches.Set(i, string.Compare(Getter(item) ?? "", Value, StringComparison) != 0);
+                matches.Set(i, string.Compare(_getter(item) ?? "", _value, _stringComparison) != 0);
                 i++;
             }
         }
@@ -93,7 +92,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
             int i = 0;
             foreach (T item in list)
             {
-                matches.Set(i, string.Compare(Getter(item) ?? "", Value, StringComparison) < 0);
+                matches.Set(i, string.Compare(_getter(item) ?? "", _value, _stringComparison) < 0);
                 i++;
             }
         }
@@ -103,7 +102,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
             int i = 0;
             foreach (T item in list)
             {
-                matches.Set(i, string.Compare(Getter(item) ?? "", Value, StringComparison) <= 0);
+                matches.Set(i, string.Compare(_getter(item) ?? "", _value, _stringComparison) <= 0);
                 i++;
             }
         }
@@ -113,7 +112,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
             int i = 0;
             foreach (T item in list)
             {
-                matches.Set(i, string.Compare(Getter(item) ?? "", Value, StringComparison) > 0);
+                matches.Set(i, string.Compare(_getter(item) ?? "", _value, _stringComparison) > 0);
                 i++;
             }
         }
@@ -123,7 +122,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
             int i = 0;
             foreach (T item in list)
             {
-                matches.Set(i, string.Compare(Getter(item) ?? "", Value, StringComparison) >= 0);
+                matches.Set(i, string.Compare(_getter(item) ?? "", _value, _stringComparison) >= 0);
                 i++;
             }
         }
@@ -133,7 +132,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
             int i = 0;
             foreach (T item in list)
             {
-                matches.Set(i, (Getter(item) ?? "").StartsWith(Value, StringComparison));
+                matches.Set(i, (_getter(item) ?? "").StartsWith(_value, _stringComparison));
                 i++;
             }
         }
@@ -143,7 +142,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
             int i = 0;
             foreach (T item in list)
             {
-                matches.Set(i, (Getter(item) ?? "").IndexOf(Value, StringComparison) != -1);
+                matches.Set(i, (_getter(item) ?? "").IndexOf(_value, _stringComparison) != -1);
                 i++;
             }
         }
@@ -153,7 +152,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
             int i = 0;
             foreach (T item in list)
             {
-                matches.Set(i, (Getter(item) ?? "").EndsWith(Value, StringComparison));
+                matches.Set(i, (_getter(item) ?? "").EndsWith(_value, _stringComparison));
                 i++;
             }
         }
