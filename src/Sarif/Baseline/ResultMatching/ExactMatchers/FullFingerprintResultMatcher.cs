@@ -14,12 +14,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
             List<MatchedResults> matchedResults = new List<MatchedResults>();
             Dictionary<Tuple<string, string>, List<ExtractedResult>> baselineResults = new Dictionary<Tuple<string, string>, List<ExtractedResult>>(FingerprintEqualityCalculator.Instance);
 
-            foreach (var result in baseline)
+            foreach (ExtractedResult result in baseline)
             {
-                foreach (var key in result.Result.Fingerprints.Keys)
+                foreach (string key in result.Result.Fingerprints.Keys)
                 {
                     Tuple<string, string> fingerprint = new Tuple<string, string>(key, result.Result.Fingerprints[key]);
-                    if(!baselineResults.ContainsKey(fingerprint) || baselineResults[fingerprint] == null)
+                    if (!baselineResults.ContainsKey(fingerprint) || baselineResults[fingerprint] == null)
                     {
                         baselineResults[fingerprint] = new List<ExtractedResult>() { result };
                     }
@@ -30,9 +30,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
                 }
             }
 
-            foreach (var result in current)
+            foreach (ExtractedResult result in current)
             {
-                foreach (var key in result.Result.Fingerprints.Keys)
+                foreach (string key in result.Result.Fingerprints.Keys)
                 {
                     Tuple<string, string> fingerprint = new Tuple<string, string>(key, result.Result.Fingerprints[key]);
                     if (baselineResults.ContainsKey(fingerprint) && baselineResults[fingerprint] != null && baselineResults[fingerprint].Count > 0)
@@ -60,7 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
                 {
                     return false;
                 }
-                
+
                 if (x.Item1 == y.Item1 && x.Item2 == y.Item2)
                 {
                     return true;

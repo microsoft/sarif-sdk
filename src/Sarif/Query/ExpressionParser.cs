@@ -27,8 +27,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Query
     /// </remarks>
     public static class ExpressionParser
     {
-        private static List<Literal<CompareOperator>> CompareOperators;
-        private static List<Literal<ExpressionToken>> Tokens;
+        private static readonly List<Literal<CompareOperator>> CompareOperators;
+        private static readonly List<Literal<ExpressionToken>> Tokens;
 
         static ExpressionParser()
         {
@@ -66,7 +66,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query
 
         public static string Escape(string value)
         {
-            if (String.IsNullOrEmpty(value)) { return "''"; }
+            if (string.IsNullOrEmpty(value)) { return "''"; }
 
             // If we can avoid escaping, avoid escaping
             if (value.IndexOf(' ') == -1 && value[0] != '\'' && value[0] != '"') { return value; }

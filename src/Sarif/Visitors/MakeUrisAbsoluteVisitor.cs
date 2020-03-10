@@ -9,7 +9,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
     {
         private Run _run;
 
-         public override Run VisitRun(Run node)
+        public override Run VisitRun(Run node)
         {
             _run = node;
             return base.VisitRun(node);
@@ -17,15 +17,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         public override ArtifactLocation VisitArtifactLocation(ArtifactLocation node)
         {
-            if ( _run.OriginalUriBaseIds!= null &&
+            if (_run.OriginalUriBaseIds != null &&
                 !string.IsNullOrEmpty(node?.UriBaseId) &&
-                _run.OriginalUriBaseIds.ContainsKey(node.UriBaseId) && 
+                _run.OriginalUriBaseIds.ContainsKey(node.UriBaseId) &&
                 !_run.OriginalUriBaseIds.Values.Contains(node))
             {
                 Uri baseUri = _run.ExpandUrisWithUriBaseId(node.UriBaseId);
                 node.Uri = CombineUris(baseUri, node.Uri);
                 node.UriBaseId = null;
-            }           
+            }
 
             return node;
         }

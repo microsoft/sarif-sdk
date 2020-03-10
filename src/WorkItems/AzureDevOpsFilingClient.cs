@@ -4,10 +4,10 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Microsoft.TeamFoundation.WorkItemTracking.WebApi;
 using Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models;
-using Microsoft.VisualStudio.Services.Common;
 using Microsoft.VisualStudio.Services.WebApi;
 using Microsoft.VisualStudio.Services.WebApi.Patch;
 using Microsoft.VisualStudio.Services.WebApi.Patch.Json;
@@ -18,18 +18,22 @@ namespace Microsoft.WorkItems
     /// <summary>
     /// Represents an Azure DevOps project in which work items can be filed.
     /// </summary>
-    public class AzureDevOpsFilingClient: FilingClient
+    public class AzureDevOpsFilingClient : FilingClient
     {
-        private WorkItemTrackingHttpClient _witClient;
+        internal IWorkItemTrackingHttpClient _witClient;
+
+        // We use this field for mock object injection when unit testing.
+        internal IVssConnection vssConection;
+
+        public Uri AccountUri => new Uri(string.Format("https://dev.azure.com/" + this.AccountOrOrganization));
 
         public override async Task Connect(string personalAccessToken)
         {
-            Uri accountUri = new Uri(this.AccountOrOrganization, UriKind.Absolute);
+            vssConection = vssConection ?? new VssConnectionWrapper();
 
-            VssConnection connection = new VssConnection(accountUri, new VssBasicCredential(string.Empty, personalAccessToken));
-            await connection.ConnectAsync();
-
-            _witClient = await connection.GetClientAsync<WorkItemTrackingHttpClient>();
+            await vssConection.ConnectAsync(this.AccountUri, personalAccessToken);
+            
+            _witClient = await vssConection.GetClientAsync();
         }
 
         public override async Task<IEnumerable<WorkItemModel>> FileWorkItems(IEnumerable<WorkItemModel> workItemModels)
@@ -68,11 +72,15 @@ namespace Microsoft.WorkItems
                         stream.Position = 0;
                         try
                         {
-                            attachmentReference = await _witClient.CreateAttachmentAsync(stream, fileName: workItemModel.Attachment.Name);
+                            attachmentReference = await _witClient.CreateAttachmentAsync(
+                                stream, 
+                                fileName: workItemModel.Attachment.Name);
                         }
                         catch
                         {
-                            // TBD error handling
+                            // Implement simple, sensible logging mechanism
+                            //
+                            // https://github.com/microsoft/sarif-sdk/issues/1771
                             throw;
                         }
                     }
@@ -129,7 +137,7 @@ namespace Microsoft.WorkItems
                 }
 
                 WorkItem workItem = null;
-
+                
                 try
                 {
                     // TODO: Make work item kind configurable for Azure DevOps filer
@@ -163,6 +171,19 @@ namespace Microsoft.WorkItems
             }
 
             return workItemModels;
+        }
+
+        public override void Dispose()
+        {
+            if (this.vssConection != null)
+            {
+                this.vssConection.Dispose();
+                this.vssConection = null;
+            }
+
+            if (this._witClient != null)
+            {
+            }
         }
     }
 }

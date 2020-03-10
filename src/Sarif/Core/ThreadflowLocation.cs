@@ -10,6 +10,6 @@ namespace Microsoft.CodeAnalysis.Sarif
     {
         public bool ShouldSerializeKinds() { return this.Kinds.HasAtLeastOneNonNullValue(); }
 
-        public bool ShouldSerializeTaxa() { return this.Taxa.HasAtLeastOneNonDefaultValue(ReportingDescriptorReference.ValueComparer);  }
+        public bool ShouldSerializeTaxa() { return this.Taxa.HasAtLeastOneNonDefaultValue(ReportingDescriptorReference.ValueComparer); }
     }
 }

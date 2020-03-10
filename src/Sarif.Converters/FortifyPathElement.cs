@@ -68,8 +68,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             xmlReader.Read(); // Always true because !IsEmptyElement
             xmlReader.IgnoreElement(strings.FileName, IgnoreOptions.Required);
-            string filePath = xmlReader.ReadElementContentAsString(strings.FilePath, String.Empty);
-            int lineStart = xmlReader.ReadElementContentAsInt(strings.LineStart, String.Empty);
+            string filePath = xmlReader.ReadElementContentAsString(strings.FilePath, string.Empty);
+            int lineStart = xmlReader.ReadElementContentAsInt(strings.LineStart, string.Empty);
             xmlReader.IgnoreElement(strings.Snippet, IgnoreOptions.Optional);
             xmlReader.IgnoreElement(strings.SnippetLine, IgnoreOptions.Optional);
             string targetFunction = xmlReader.ReadOptionalElementContentAsString(strings.TargetFunction);

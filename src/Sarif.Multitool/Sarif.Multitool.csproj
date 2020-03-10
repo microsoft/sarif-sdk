@@ -11,10 +11,6 @@
       We use [Condition="'$(RuntimeIdentifier)' != ''"] to identify settings used only for these builds.      
     -->
 
-    <!-- Keep default targets to allow VS2017 use and builds in the Azure 'Hosted VS2017' build agent pool -->
-    <TargetFrameworks>netcoreapp2.1</TargetFrameworks>
-    <TargetFrameworks Condition="'$(RuntimeIdentifier)' != ''">$(TargetFrameworks);netcoreapp3.0</TargetFrameworks>
-
     <!-- Publish trimmed single-file exe -->
     <PublishSingleFile Condition="'$(RuntimeIdentifier)' != ''">true</PublishSingleFile>
     <PublishTrimmed Condition="'$(RuntimeIdentifier)' != ''">true</PublishTrimmed>

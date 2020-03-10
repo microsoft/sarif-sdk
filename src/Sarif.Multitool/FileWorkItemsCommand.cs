@@ -11,7 +11,6 @@ using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.WorkItems;
 using Microsoft.Json.Schema;
 using Microsoft.Json.Schema.Validation;
-using Microsoft.WorkItems;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
@@ -116,14 +115,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 valid &= DriverUtilities.ReportWhetherOutputFileCanBeCreated(options.OutputFilePath, options.Force, fileSystem);
             }
 
-            valid &= EnsurePersonalAccessToken(options, sarifWorkItemContext);
+            valid &= EnsurePersonalAccessToken(sarifWorkItemContext);
 
             return valid;
         }
 
         private static bool ValidateProjectUri(string projectUriString, SarifWorkItemContext workItemFilingConfiguration)
         {
-            if (string.IsNullOrEmpty(projectUriString) && workItemFilingConfiguration.ProjectUri == null)
+            if (string.IsNullOrEmpty(projectUriString) && workItemFilingConfiguration.HostUri == null)
             {
                 // No project URI was provided via the --project-uri argument or as
                 // part of an input file specified via --configuration.
@@ -140,10 +139,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
 
             // Any command-line argument that's provided overrides values specified in the configuration.
-            workItemFilingConfiguration.ProjectUri = projectUri ?? workItemFilingConfiguration.ProjectUri;
+            workItemFilingConfiguration.HostUri = projectUri ?? workItemFilingConfiguration.HostUri;
 
 
-            if (!workItemFilingConfiguration.ProjectUri.IsAbsoluteUri)
+            if (!workItemFilingConfiguration.HostUri.IsAbsoluteUri)
             {
                 string optionDescription = projectUri != null ? "--project-uri" : "--configuration";
 
@@ -152,7 +151,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     string.Format(
                         CultureInfo.CurrentCulture,
                         MultitoolResources.WorkItemFiling_ErrorUriIsNotAbsolute,
-                        workItemFilingConfiguration.ProjectUri.OriginalString,
+                        workItemFilingConfiguration.HostUri.OriginalString,
                         optionDescription));
                 return false;
             }
@@ -160,7 +159,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             return true;
         }
 
-        private static bool EnsurePersonalAccessToken(FileWorkItemsOptions options, SarifWorkItemContext workItemFilingConfiguration)
+        private static bool EnsurePersonalAccessToken(SarifWorkItemContext workItemFilingConfiguration)
         {
             string pat = Environment.GetEnvironmentVariable("SarifWorkItemFilingPat");
 
@@ -227,7 +226,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             var sb = new StringBuilder(firstMessageLine);
             sb.AppendLine();
 
-            foreach (var error in errors)
+            foreach (Result error in errors)
             {
                 sb.AppendLine(error.FormatForVisualStudio(RuleFactory.GetRuleFromRuleId(error.RuleId)));
             }

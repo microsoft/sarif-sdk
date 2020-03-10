@@ -20,19 +20,16 @@ In addition to the object model, the SARIF SDK provides a set of helper classes 
 If you want to build the SDK from source, rather than consuming the NuGet package,
 proceed as follows:
 
-1. Install .NET Core SDK 2.0 from https://www.microsoft.com/net/download/core
+1. Install .NET Core SDK 2.1 from https://www.microsoft.com/net/download/core
 
-2. Ensure that Visual Studio 2017 is installed on your machine.
+2. Ensure that Visual Studio 2019 is installed on your machine.
 
-    You can build in VS 2017, but at present the build requires
-    certain assemblies that are supplied only in VS 2015, so it must be present.
+    You can build in VS 2017 as well.
 
 3. Ensure that your Visual Studio installation includes the components that support
     - C# development
-    - C++ development
-    - Visual Studio extension (VSIX) development
 
-4. Open a Visual Studio 2017 Developer Command Prompt Window.
+4. Open a Visual Studio 2019 Developer Command Prompt Window.
 
 5. From the root directory of your local repo, run the command `BuildAndTest.cmd`.
     This restores all necessary NuGet packages, builds the SDK, and runs all the tests.
@@ -45,11 +42,6 @@ proceed as follows:
 6. After you have run `BuildAndTest.cmd` once, you can open any of the solution files
 in the `src\` directory in Visual Studio 2017, and build them by running **Rebuild Solution**.
 
-## Installing VISUAL STUDIO SARIF VIEWER EXTENSION
-1. Run `BuildAndTest.ps1` to
-    - Build,
-    - Install the SARIF Visual Studio Extension and
-    - Add Registry settings to open the .SARIF in Visual Studio.
 
 ## Accomplishing common tasks
 

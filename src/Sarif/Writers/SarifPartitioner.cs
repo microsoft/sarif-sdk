@@ -29,7 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         /// </returns>
         public static SarifLog Filter(SarifLog log, FilteringVisitor.IncludeResultPredicate predicate)
         {
-            var newLog = log.DeepClone();
+            SarifLog newLog = log.DeepClone();
 
             var visitor = new FilteringVisitor(predicate);
             newLog = visitor.VisitSarifLog(newLog);

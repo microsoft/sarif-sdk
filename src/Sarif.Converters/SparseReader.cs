@@ -268,17 +268,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                 if (content == "-INF")
                 {
-                    return Double.NegativeInfinity;
+                    return double.NegativeInfinity;
                 }
 
                 if (content == "INF")
                 {
-                    return Double.PositiveInfinity;
+                    return double.PositiveInfinity;
                 }
             }
 
             double dVal;
-            if (!Double.TryParse(content,
+            if (!double.TryParse(content,
                                  NumberStyles.AllowLeadingSign |
                                  NumberStyles.AllowDecimalPoint |
                                  NumberStyles.AllowExponent |

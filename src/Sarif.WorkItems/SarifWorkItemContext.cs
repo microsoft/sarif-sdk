@@ -28,13 +28,13 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 }
             }
         }
-        public Uri ProjectUri
+        public Uri HostUri
         {
-            get { return this.GetProperty(ProjectUriOption); }
-            set { this.SetProperty(ProjectUriOption, value); }
+            get { return this.GetProperty(HostUriOption); }
+            set { this.SetProperty(HostUriOption, value); }
         }
 
-        public string PersonalAccessToken 
+        public string PersonalAccessToken
         {
             get { return this.GetProperty(PersonalAccessTokenOption); }
             set { this.SetProperty(PersonalAccessTokenOption, value); }
@@ -81,7 +81,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
         private IReadOnlyList<SarifWorkItemModelTransformer> PopulateWorkItemModelTransformers()
         {
-            if (this.workItemModelTransformers == null) 
+            if (this.workItemModelTransformers == null)
             {
                 this.workItemModelTransformers = new List<SarifWorkItemModelTransformer>();
 
@@ -104,15 +104,15 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             return this.workItemModelTransformers.AsReadOnly();
         }
 
-        internal static PerLanguageOption<Uri> ProjectUriOption { get; } =
+        internal static PerLanguageOption<Uri> HostUriOption { get; } =
             new PerLanguageOption<Uri>(
-                "Extensibility", nameof(ProjectUri),
+                "Extensibility", nameof(HostUri),
                 defaultValue: () => { return null; });
 
         internal static PerLanguageOption<string> PersonalAccessTokenOption { get; } =
             new PerLanguageOption<string>(
                 "Extensibility", nameof(PersonalAccessToken),
-                defaultValue: () => { return String.Empty; });
+                defaultValue: () => { return string.Empty; });
 
         public static PerLanguageOption<StringSet> PluginAssemblyLocations { get; } =
             new PerLanguageOption<StringSet>(

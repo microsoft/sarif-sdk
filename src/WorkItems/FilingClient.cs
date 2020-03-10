@@ -11,13 +11,8 @@ namespace Microsoft.WorkItems
     /// Abstract base for classes that represents a system (for example, GitHub or Azure DevOps)
     /// to which work items can be filed.
     /// </summary>
-    public abstract class FilingClient
-    {
-        /// <summary>
-        /// The URI to the work item filing host.
-        /// </summary>
-        public Uri HostUri { get; internal set; }
-        
+    public abstract class FilingClient: IDisposable
+    {        
         /// <summary>
         ///  The Azure DevOps account name or GitHub organization name.
         /// </summary>
@@ -46,5 +41,11 @@ namespace Microsoft.WorkItems
         /// An object that can be awaited to see the result groups that were actually filed.
         /// </returns>
         public abstract Task<IEnumerable<WorkItemModel>> FileWorkItems(IEnumerable<WorkItemModel> workItemModels);
+
+        public virtual void Dispose()
+        {
+            // This method isn't abstract because we don't required all derived classes to implement.
+            // Specifically, the GitHubClient type isn't disposable, so its wrapper has no work here.
+        }
     }
 }

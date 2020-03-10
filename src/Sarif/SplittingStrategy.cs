@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// 
         /// </summary>
         None = 0,
-        
+
         /// <summary>
         /// Split the SARIF log file into a single file for each run.
         /// I.e., the total number of log files created is the sum of individual run in each log.

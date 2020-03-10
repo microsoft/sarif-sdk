@@ -57,7 +57,7 @@ namespace SarifBaseline.Extensions
 
             if (result?.Attachments != null)
             {
-                foreach(Attachment attachment in result.Attachments)
+                foreach (Attachment attachment in result.Attachments)
                 {
                     Uri uri = attachment.ArtifactLocation?.FileUri(result.Run);
                     if (uri != null) { yield return uri; }

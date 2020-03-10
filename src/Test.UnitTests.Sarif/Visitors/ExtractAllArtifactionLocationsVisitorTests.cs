@@ -164,7 +164,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
         }
 
-             [Fact]
+        [Fact]
         public void ExtractAllArtifactLocationsVisitor_FetchesIndexedLocations()
         {
             var sarifLog = new SarifLog

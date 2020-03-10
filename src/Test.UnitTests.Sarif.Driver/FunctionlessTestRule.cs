@@ -25,12 +25,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
         };
 
-        public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = "This is the full description for TEST1002" }; 
+        public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = "This is the full description for TEST1002" };
 
         public override void Analyze(TestAnalysisContext context)
         {
         }
-        
+
         public IEnumerable<IOption> GetOptions()
         {
             return new IOption[] { Behaviors, UnusedOption };

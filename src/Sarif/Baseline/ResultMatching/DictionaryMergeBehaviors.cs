@@ -8,7 +8,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
     [Flags]
     public enum DictionaryMergeBehavior
     {
-        None = 0,                      
+        None = 0,
         InitializeFromOldest = 0x1,    // On setting this bit, we retain oldest property bags for matched items
         InitializeFromMostRecent = 0x2,// On setting this bit, we will discard earlier properties
                                        // in favor of those that are most recently generated.

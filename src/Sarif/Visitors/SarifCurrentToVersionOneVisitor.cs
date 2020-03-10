@@ -329,7 +329,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         }
 
         internal LogicalLocationVersionOne CreateLogicalLocationVersionOne(LogicalLocation v2LogicalLocation)
-        {            
+        {
             LogicalLocationVersionOne logicalLocation = null;
             string parentKey = null;
 

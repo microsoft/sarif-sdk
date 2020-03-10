@@ -51,11 +51,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             foreach (char c in input)
             {
-                if (whitespaceMode == WhitespaceMode.Ignore && Char.IsWhiteSpace(c))
+                if (whitespaceMode == WhitespaceMode.Ignore && char.IsWhiteSpace(c))
                 {
                     // Purposely do nothing
                 }
-                else if (whitespaceMode == WhitespaceMode.EndArgument && Char.IsWhiteSpace(c))
+                else if (whitespaceMode == WhitespaceMode.EndArgument && char.IsWhiteSpace(c))
                 {
                     AddSlashes(sb, ref slashCount);
                     EmitArgument(result, sb);

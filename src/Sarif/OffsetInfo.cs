@@ -88,7 +88,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <returns>A string that represents this object.</returns>
         public override string ToString()
         {
-            return String.Format(CultureInfo.InvariantCulture, "{0}:{1}", this.LineNumber, this.ColumnNumber);
+            return string.Format(CultureInfo.InvariantCulture, "{0}:{1}", this.LineNumber, this.ColumnNumber);
         }
 
         /// <summary>Gets object data for serialization.</summary>

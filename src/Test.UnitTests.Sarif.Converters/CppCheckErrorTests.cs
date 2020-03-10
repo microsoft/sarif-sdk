@@ -156,7 +156,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string errorXml = exampleErrorXmlOpen + " <location file=\"" + ExampleFileName + "\" line=\"42\" /> " + exampleErrorClose;
             using (XmlReader xml = Utilities.CreateXmlReaderFromString(errorXml))
             {
-                var uut = Parse(xml);
+                CppCheckError uut = Parse(xml);
                 AssertOuterPropertiesAreExampleError(uut);
                 uut.Locations.Should().Equal(new[] { new CppCheckLocation(ExampleFileName, 42) });
             }
@@ -168,7 +168,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string errorXml = exampleErrorXmlOpen + " <location file=\"" + ExampleFileName + "\" line=\"42\" />  <location file=\"" + ExampleFileName2 + "\" line=\"1729\" /> " + exampleErrorClose;
             using (XmlReader xml = Utilities.CreateXmlReaderFromString(errorXml))
             {
-                var uut = Parse(xml);
+                CppCheckError uut = Parse(xml);
                 AssertOuterPropertiesAreExampleError(uut);
                 uut.Locations.Should().Equal(new[] {
                     new CppCheckLocation(ExampleFileName, 42),

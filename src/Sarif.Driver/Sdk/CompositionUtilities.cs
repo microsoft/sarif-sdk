@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
     {
         public static ImmutableArray<T> GetExports<T>(IEnumerable<Assembly> assemblies)
         {
-            var container = CreateCompositionContainer<T>(assemblies);
+            CompositionHost container = CreateCompositionContainer<T>(assemblies);
             return container.GetExports<T>().ToImmutableArray();
         }
 

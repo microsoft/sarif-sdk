@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
     internal class ResultBaselineEquals : IEqualityComparer<Result>
     {
         internal static readonly ResultBaselineEquals DefaultInstance = new ResultBaselineEquals();
-        
+
         public bool Equals(Result x, Result y)
         {
             if (!object.ReferenceEquals(x, y))

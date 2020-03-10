@@ -4,9 +4,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using FluentAssertions;
 using Xunit;
 using Xunit.Abstractions;
-using FluentAssertions;
 
 namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 {
@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         private readonly ITestOutputHelper output;
 
         private static readonly SarifLogResultMatcher s_preserveMostRecentPropertyBagMatcher = new SarifLogResultMatcher(
-            exactResultMatchers: new [] { ExactMatchers.ExactResultMatcherFactory.GetIdenticalResultMatcher(considerPropertyBagsWhenComparing: false) }, 
+            exactResultMatchers: new[] { ExactMatchers.ExactResultMatcherFactory.GetIdenticalResultMatcher(considerPropertyBagsWhenComparing: false) },
             heuristicMatchers: null,
             propertyBagMergeBehaviors: DictionaryMergeBehavior.InitializeFromMostRecent);
 
@@ -121,7 +121,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             // The default property bag matching behavior is to retain the property bag in its entirety from the baseline
             calculatedNextBaseline.Runs[0].Properties.Should().NotBeNull();
             calculatedNextBaseline.Runs[0].Properties.Count.Should().Be(2);
-            
+
             calculatedNextBaseline.Runs[0].GetProperty(sharedPropertyName).Should().Be(currentSharedPropertyValue);
             calculatedNextBaseline.Runs[0].GetProperty(uniqueToBaselinePropertyName).Should().Be(uniqueToBaselinePropertyValue);
             calculatedNextBaseline.Runs[0].TryGetProperty(uniqueToCurrentPropertyName, out value).Should().BeFalse();
@@ -134,7 +134,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
             calculatedNextBaseline.Runs[0].GetProperty(sharedPropertyName).Should().Be(currentSharedPropertyValue);
             calculatedNextBaseline.Runs[0].GetProperty(uniqueToCurrentPropertyName).Should().Be(uniqueToCurrentPropertyValue);
-            calculatedNextBaseline.Runs[0].TryGetProperty(uniqueToBaselinePropertyName, out value).Should().BeFalse();       
+            calculatedNextBaseline.Runs[0].TryGetProperty(uniqueToBaselinePropertyName, out value).Should().BeFalse();
         }
 
         [Fact]
@@ -161,7 +161,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             oldestLog.Runs[0].SetProperty(uniqueToOldestPropertyName, uniqueToOldestPropertyValue);
 
             SarifLog calculatedNextBaseline = s_preserveOldestPropertyBagMatcher.Match(
-                previousLogs: null, 
+                previousLogs: null,
                 currentLogs: new SarifLog[] { oldestLog, mostRecentLog }).First();
 
             calculatedNextBaseline.Runs[0].Properties.Should().NotBeNull();
@@ -232,7 +232,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             Random random = RandomSarifLogGenerator.GenerateRandomAndLog(this.output);
             SarifLog currentLog = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, 1);
             currentLog.Runs[0].AutomationDetails = new RunAutomationDetails { Guid = Guid.NewGuid().ToString() };
-            
+
             SarifLog calculatedNextBaseline = s_preserveOldestPropertyBagMatcher.Match(null, new SarifLog[] { currentLog }).First();
 
             calculatedNextBaseline.Runs.Should().HaveCount(1);
@@ -245,7 +245,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 // They should all have correllation ids
                 calculatedNextBaseline.Runs[0]
                     .Results.Where(r => string.IsNullOrEmpty(r.CorrelationGuid)).Should().HaveCount(0);
-                
+
                 // They should all be new.
                 calculatedNextBaseline.Runs[0]
                     .Results.Where(r => r.BaselineState == BaselineState.New).Should().HaveCount(currentLog.Runs[0].Results.Count);
@@ -254,7 +254,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 calculatedNextBaseline.Runs[0]
                     .Results.Where(r => r.BaselineState == BaselineState.New)
                     .First().TryGetProperty(
-                    SarifLogResultMatcher.ResultMatchingResultPropertyName, 
+                    SarifLogResultMatcher.ResultMatchingResultPropertyName,
                     out Dictionary<string, object> NewResultProperties)
                     .Should().BeTrue();
                 NewResultProperties.Should().ContainKey("Run");
@@ -355,13 +355,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             result.Runs[0].Results[0].Locations[0].PhysicalLocation.ArtifactLocation.Index.Should().Be(0);
             result.Runs[0].Results[1].Locations[0].PhysicalLocation.ArtifactLocation.Index.Should().Be(1);
         }
-        
+
         [Fact]
-        public void SarifLogResultMatcher_PreservesPropertiesProperly ()
+        public void SarifLogResultMatcher_PreservesPropertiesProperly()
         {
             Random random = RandomSarifLogGenerator.GenerateRandomAndLog(this.output);
             SarifLog baselineLog = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, 1);
-            SarifLog currentLog = baselineLog.DeepClone();            
+            SarifLog currentLog = baselineLog.DeepClone();
 
             string baselinePropertyValue = Guid.NewGuid().ToString();
             string currentPropertyValue = Guid.NewGuid().ToString();
@@ -395,7 +395,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                         file.SetProperty(propertyKey, propertyValue);
                     }
                 }
-            }            
+            }
         }
     }
 }

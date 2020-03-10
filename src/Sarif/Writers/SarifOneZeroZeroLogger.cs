@@ -1,11 +1,11 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System.Collections.Generic;
+using System.IO;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
 using Newtonsoft.Json;
-using System.Collections.Generic;
-using System.IO;
 
 namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
@@ -48,7 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             string logText = File.ReadAllText(_outputFilePath);
 
-            var v2Log = JsonConvert.DeserializeObject<SarifLog>(logText);
+            SarifLog v2Log = JsonConvert.DeserializeObject<SarifLog>(logText);
 
             var transformer = new SarifCurrentToVersionOneVisitor();
             transformer.VisitSarifLog(v2Log);

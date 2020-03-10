@@ -92,7 +92,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             string uniqueId = context.GetUniqueId();
 
-            if (!String.IsNullOrWhiteSpace(uniqueId))
+            if (!string.IsNullOrWhiteSpace(uniqueId))
             {
                 if (result.PartialFingerprints == null)
                 {
@@ -292,7 +292,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
 
             if (!string.IsNullOrEmpty(context.Resource))
-            {                
+            {
                 index = AddLogicalLocation(index, ref fullyQualifiedName, context.Resource, LogicalLocationKind.Resource, delimiter);
                 delimiter = ".";
             }
@@ -328,13 +328,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 Name = value,
                 ParentIndex = parentIndex
             };
-            
+
             return AddLogicalLocation(logicalLocation);
         }
 
         private static void AddProperty(Result result, string value, string key)
         {
-            if (!String.IsNullOrWhiteSpace(value))
+            if (!string.IsNullOrWhiteSpace(value))
             {
                 result.SetProperty(key, value);
             }
@@ -413,11 +413,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             private static string CreateId(params string[] parts)
             {
-                var updated = parts
-                    .Where(part => !String.IsNullOrEmpty(part))
+                IEnumerable<string> updated = parts
+                    .Where(part => !string.IsNullOrEmpty(part))
                     .Select(part => part.TrimStart('#'));
 
-                return String.Join("#", updated.ToArray());
+                return string.Join("#", updated.ToArray());
             }
 
             public void RefineReport(string report)
@@ -735,7 +735,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 XmlResolver = null
             };
 
-            using (var stream = assembly.GetManifestResourceStream(FxCopLogReader.FxCopReportSchema))
+            using (Stream stream = assembly.GetManifestResourceStream(FxCopLogReader.FxCopReportSchema))
             using (var reader = XmlReader.Create(stream, settings))
             {
                 XmlSchema schema = XmlSchema.Read(reader, new ValidationEventHandler(ReportError));
@@ -768,7 +768,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 }
                 else
                 {
-                    throw new XmlException(String.Format(CultureInfo.InvariantCulture, "Invalid root element in FxCop log file: {0}", sparseReader.LocalName));
+                    throw new XmlException(string.Format(CultureInfo.InvariantCulture, "Invalid root element in FxCop log file: {0}", sparseReader.LocalName));
                 }
             }
         }
@@ -1067,19 +1067,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         internal static string MakeExceptionMessage(string kind, string checkId, string type, string message, string stackTrace, string innerType, string innerMessage, string innerStackTrace)
         {
-            string innerException = String.Empty;
+            string innerException = string.Empty;
             if (innerType != null)
             {
-                innerException = String.Format(CultureInfo.InvariantCulture, " Inner Exception: {0}: {1} {2}", innerType, innerMessage, innerStackTrace);
+                innerException = string.Format(CultureInfo.InvariantCulture, " Inner Exception: {0}: {1} {2}", innerType, innerMessage, innerStackTrace);
             }
 
             if (kind == SchemaStrings.EnumRule)
             {
-                return String.Format(CultureInfo.InvariantCulture, "Rule {0} exception: {1}: {2} {3}.{4}", checkId, type, message, stackTrace, innerException);
+                return string.Format(CultureInfo.InvariantCulture, "Rule {0} exception: {1}: {2} {3}.{4}", checkId, type, message, stackTrace, innerException);
             }
             else
             {
-                return String.Format(CultureInfo.InvariantCulture, "{0} exception: {1}: {2} {3}.{4}", kind, type, message, stackTrace, innerException);
+                return string.Format(CultureInfo.InvariantCulture, "{0} exception: {1}: {2} {3}.{4}", kind, type, message, stackTrace, innerException);
             }
         }
     }

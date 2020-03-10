@@ -37,8 +37,8 @@ namespace Microsoft.WorkItems
                 };
 
                 Issue issue = await this.gitHubClient.Issue.Create(
-                    this.AccountOrOrganization, 
-                    this.ProjectOrRepository, 
+                    this.AccountOrOrganization,
+                    this.ProjectOrRepository,
                     newIssue);
 
                 // TODO: Can we collapse GH issue creation to a single operation?
@@ -55,9 +55,9 @@ namespace Microsoft.WorkItems
                     }
 
                     await this.gitHubClient.Issue.Update(
-                        this.AccountOrOrganization, 
-                        this.ProjectOrRepository, 
-                        issue.Number, 
+                        this.AccountOrOrganization,
+                        this.ProjectOrRepository,
+                        issue.Number,
                         issueUpdate);
                 }
 

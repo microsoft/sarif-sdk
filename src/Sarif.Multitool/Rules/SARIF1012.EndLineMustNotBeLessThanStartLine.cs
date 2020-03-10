@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         protected override void Analyze(Region region, string regionPointer)
         {
             var jsonPointer = new JsonPointer(regionPointer);
-            var regionToken = jsonPointer.Evaluate(Context.InputLogToken);
+            Newtonsoft.Json.Linq.JToken regionToken = jsonPointer.Evaluate(Context.InputLogToken);
 
             if (regionToken.HasProperty(SarifPropertyName.EndLine) &&
                 region.EndLine < region.StartLine)

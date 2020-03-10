@@ -25,7 +25,7 @@ namespace Test.EndToEnd.Baselining
     public class BaseliningDetailEnricher
     {
         private Dictionary<string, string> DetailByGuid { get; set; }
-        private Regex RidRegex = new Regex(@"(\d{3} \d{3,4})$", RegexOptions.Compiled | RegexOptions.Singleline);
+        private readonly Regex RidRegex = new Regex(@"(\d{3} \d{3,4})$", RegexOptions.Compiled | RegexOptions.Singleline);
 
         public BaseliningDetailEnricher()
         {

@@ -30,9 +30,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
     /// <typeparam name="T">Type of items in list</typeparam>
     public class DeferredList<T> : IList<T>, IDisposable
     {
-        private JsonSerializer _jsonSerializer;
-        private Func<Stream> _streamProvider;
-        private long _start;
+        private readonly JsonSerializer _jsonSerializer;
+        private readonly Func<Stream> _streamProvider;
+        private readonly long _start;
         private int _count;
 
         private Stream _stream;
@@ -241,9 +241,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
         private class JsonDeferredListEnumerator<U> : IEnumerator<U>
         {
-            private JsonSerializer _jsonSerializer;
-            private Func<Stream> _streamProvider;
-            private long _start;
+            private readonly JsonSerializer _jsonSerializer;
+            private readonly Func<Stream> _streamProvider;
+            private readonly long _start;
 
             private JsonTextReader _jsonTextReader;
             private Stream _stream;

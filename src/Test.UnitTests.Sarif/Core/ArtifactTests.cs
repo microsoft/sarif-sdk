@@ -160,7 +160,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             {
                 // Place an exclusive read lock on file, so that FileData cannot access its contents.
                 // This raises an IOException, which is swallowed by FileData.Create
-                using (var exclusiveAccessReader = File.Open(filePath, FileMode.Open, FileAccess.Read, FileShare.None))
+                using (FileStream exclusiveAccessReader = File.Open(filePath, FileMode.Open, FileAccess.Read, FileShare.None))
                 {
                     Artifact fileData = Artifact.Create(uri, OptionallyEmittedData.TextFiles);
                     fileData.Location.Should().Be(null);

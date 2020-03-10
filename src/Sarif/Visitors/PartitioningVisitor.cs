@@ -287,7 +287,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     {
                         // Save time and space by only cloning the necessary results and associated
                         // collection elements. We already cloned the relevant results in VisitResult.
-                        IList <Result> originalResults = originalRun.Results;
+                        IList<Result> originalResults = originalRun.Results;
                         IList<Artifact> originalArtifacts = originalRun.Artifacts;
                         originalRun.Results = null;
                         originalRun.Artifacts = null;

@@ -249,7 +249,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void AndroidStudioProblem_ParseSelfClosingNodeConsumesNode()
         {
-            var xmlStr = "<root><problem /><following /></root>";
+            string xmlStr = "<root><problem /><following /></root>";
             using (XmlReader xml = Utilities.CreateXmlReaderFromString(xmlStr))
             {
                 xml.ReadStartElement("root");
@@ -261,7 +261,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void AndroidStudioProblem_ParseEmptyNodeConsumesNode()
         {
-            var xmlStr = "<root><problem></problem><following /></root>";
+            string xmlStr = "<root><problem></problem><following /></root>";
             using (XmlReader xml = Utilities.CreateXmlReaderFromString(xmlStr))
             {
                 xml.ReadStartElement("root");
@@ -490,7 +490,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void AndroidStudioProblem_ReadHintsSelfClosingNodeConsumesNode()
         {
-            var xmlStr = "<root><hints /><following /></root>";
+            string xmlStr = "<root><hints /><following /></root>";
             using (XmlReader xml = Utilities.CreateXmlReaderFromString(xmlStr))
             {
                 xml.ReadStartElement("root");
@@ -504,7 +504,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void AndroidStudioProblem_ReadHintsEmptyNodeConsumesNode()
         {
-            var xmlStr = "<root><hints></hints><following /></root>";
+            string xmlStr = "<root><hints></hints><following /></root>";
             using (XmlReader xml = Utilities.CreateXmlReaderFromString(xmlStr))
             {
                 xml.ReadStartElement("root");
@@ -518,7 +518,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void AndroidStudioProblem_ReadHintsRejectsNonHintChildren()
         {
-            var xmlStr = "<root><hints><hint value=\"val\" /><not_a_hint /></hints><following /></root>";
+            string xmlStr = "<root><hints><hint value=\"val\" /><not_a_hint /></hints><following /></root>";
             using (XmlReader xml = Utilities.CreateXmlReaderFromString(xmlStr))
             {
                 xml.ReadStartElement("root");
@@ -529,7 +529,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void AndroidStudioProblem_ReadHintsRejectsMissingValueHints()
         {
-            var xmlStr = "<root><hints><hint /></hints><following /></root>";
+            string xmlStr = "<root><hints><hint /></hints><following /></root>";
             using (XmlReader xml = Utilities.CreateXmlReaderFromString(xmlStr))
             {
                 xml.ReadStartElement("root");
@@ -540,7 +540,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void AndroidStudioProblem_ReadHintsAcceptsEmptyStringHints()
         {
-            var xmlStr = "<root><hints><hint value=\"\" /></hints><following /></root>";
+            string xmlStr = "<root><hints><hint value=\"\" /></hints><following /></root>";
             using (XmlReader xml = Utilities.CreateXmlReaderFromString(xmlStr))
             {
                 xml.ReadStartElement("root");
@@ -552,7 +552,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void AndroidStudioProblem_ReadHintsAcceptsValidHints()
         {
-            var xmlStr = "<root><hints><hint value=\"content_first\" /><hint value=\"content_second\" /></hints><following /></root>";
+            string xmlStr = "<root><hints><hint value=\"content_first\" /><hint value=\"content_second\" /></hints><following /></root>";
             using (XmlReader xml = Utilities.CreateXmlReaderFromString(xmlStr))
             {
                 xml.ReadStartElement("root");

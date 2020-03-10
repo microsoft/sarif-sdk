@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
     internal class PartialFingerprintResultMatcher : HeuristicMatcher
     {
         public PartialFingerprintResultMatcher() : base(PartialFingerprintResultComparer.Instance) { }
-        
+
         public class PartialFingerprintResultComparer : IResultMatchingComparer
         {
             public static readonly PartialFingerprintResultComparer Instance = new PartialFingerprintResultComparer();
@@ -64,7 +64,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
                 }
 
                 int hash = -1324097150;
-                
+
                 foreach (string key in obj.Result.PartialFingerprints.Keys)
                 {
                     int keyHash = key.GetHashCode();

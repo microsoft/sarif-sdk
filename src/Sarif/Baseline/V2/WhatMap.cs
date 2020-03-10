@@ -37,7 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
 
         private void Add(ExtractedResult result, int index)
         {
-            foreach(WhatComponent component in result.WhatProperties())
+            foreach (WhatComponent component in result.WhatProperties())
             {
                 Add(component, index);
             }
@@ -67,7 +67,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
         /// <returns>Index of this and Index of other Result where the two have a unique trait in common.</returns>
         public IEnumerable<Tuple<int, int>> UniqueLinks(WhatMap other)
         {
-            foreach (var entry in Map.Where(entry => entry.Value != -1))
+            foreach (KeyValuePair<WhatComponent, int> entry in Map.Where(entry => entry.Value != -1))
             {
                 if (other.Map.TryGetValue(entry.Key, out int otherIndex) && otherIndex != -1)
                 {

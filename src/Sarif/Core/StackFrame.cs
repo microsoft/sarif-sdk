@@ -51,7 +51,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (fileName != null)
             {
-                if(stackFrame.Location == null)
+                if (stackFrame.Location == null)
                 {
                     stackFrame.Location = new Location();
                 }
@@ -169,7 +169,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     firstParameterInfo = false;
                 }
 
-                String typeName = "<UnknownType>";
+                string typeName = "<UnknownType>";
                 if (parameterInfos[j].ParameterType != null)
                 {
                     typeName = parameterInfos[j].ParameterType.Name;

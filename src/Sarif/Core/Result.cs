@@ -74,7 +74,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 // Look up by this.RuleDescriptor, Guid, if present
-                if (!String.IsNullOrEmpty(this.Rule?.Guid))
+                if (!string.IsNullOrEmpty(this.Rule?.Guid))
                 {
                     if (rules != null)
                     {

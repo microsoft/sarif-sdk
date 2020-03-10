@@ -57,7 +57,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Assembly assembly = typeof(ContrastSecurityConverter).Assembly;
             SarifLog sarifLog;
 
-            using (var stream = assembly.GetManifestResourceStream(ContrastSecurityRulesData))
+            using (Stream stream = assembly.GetManifestResourceStream(ContrastSecurityRulesData))
             using (var streamReader = new StreamReader(stream))
             {
                 string prereleaseRuleDataLogText = streamReader.ReadToEnd();
@@ -73,7 +73,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             // This is important because we will populate result.message.id, but _not_ result.message.text.
             // That means that viewers will need to _look up_ the message text by way of result.ruleIndex,
             // so we must popuate it.
-            _ruleIdToIndexDictionary = CreateRuleToIndexDictionary(run.Tool.Driver.Rules); 
+            _ruleIdToIndexDictionary = CreateRuleToIndexDictionary(run.Tool.Driver.Rules);
 
             run.OriginalUriBaseIds = new Dictionary<string, ArtifactLocation>
             {
@@ -1412,7 +1412,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 }
                 else
                 {
-                    throw new XmlException(String.Format(CultureInfo.InvariantCulture, "Invalid root element in Contrast Security log file: {0}", sparseReader.LocalName));
+                    throw new XmlException(string.Format(CultureInfo.InvariantCulture, "Invalid root element in Contrast Security log file: {0}", sparseReader.LocalName));
                 }
             }
         }

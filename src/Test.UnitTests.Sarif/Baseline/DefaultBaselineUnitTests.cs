@@ -18,9 +18,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
         {
             output = outputHelper;
         }
-        
-        private ISarifLogBaseliner defaultBaseliner = SarifLogBaselinerFactory.CreateSarifLogBaseliner(SarifBaselineType.Standard);
-        
+
+        private readonly ISarifLogBaseliner defaultBaseliner = SarifLogBaselinerFactory.CreateSarifLogBaseliner(SarifBaselineType.Standard);
+
         [Fact]
         public void DefaultBaseline_SameResults_AllExisting()
         {
@@ -77,7 +77,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             result.Results.Where(r => r.BaselineState == BaselineState.Absent).Should().ContainSingle();
             result.Results.Should().HaveCount(baseline.Results.Count() + 1);
         }
-        
+
         [Fact]
         public void DefaultBaseline_ChangedResultOnNonTrackedField_Existing()
         {
@@ -88,7 +88,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             next.Results[0].Message = new Message { Text = "new message" };
 
             Run result = defaultBaseliner.CreateBaselinedRun(baseline, next);
-            
+
             result.Results.Should().OnlyContain(r => r.BaselineState == BaselineState.Unchanged);
             result.Results.Should().HaveCount(baseline.Results.Count());
         }

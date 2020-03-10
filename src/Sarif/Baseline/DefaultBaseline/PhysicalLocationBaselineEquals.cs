@@ -16,13 +16,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
                 {
                     return false;
                 }
-                
+
                 if (!ArtifactLocationBaselineEquals.Instance.Equals(x.ArtifactLocation, y.ArtifactLocation))
                 {
                     return false;
                 }
             }
-            
+
             return true;
         }
 

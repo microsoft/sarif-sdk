@@ -167,7 +167,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             node = base.VisitResult(node);
             _ruleIndex = -1;
 
-            if (String.IsNullOrEmpty(node.Guid) && _dataToInsert.HasFlag(OptionallyEmittedData.Guids))
+            if (string.IsNullOrEmpty(node.Guid) && _dataToInsert.HasFlag(OptionallyEmittedData.Guids))
             {
                 node.Guid = Guid.NewGuid().ToString(SarifConstants.GuidFormat);
             }

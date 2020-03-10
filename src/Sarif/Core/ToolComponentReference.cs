@@ -7,7 +7,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A reference to a ToolComponent defined at the Run level.
     /// </summary>
     public partial class ToolComponentReference
-    {        
+    {
         /// <summary>
         ///  Look up the ToolComponent for this ToolComponentReference.
         /// </summary>

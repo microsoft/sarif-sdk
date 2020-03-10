@@ -24,11 +24,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters.PREFastObjectModel
 
             if (wasEmpty)
                 return;
-            
+
             while (reader.NodeType != XmlNodeType.EndElement)
             {
-                var key = reader.Name;
-                var value = reader.ReadInnerXml();
+                string key = reader.Name;
+                string value = reader.ReadInnerXml();
 
                 if (string.IsNullOrWhiteSpace(key))
                     continue;

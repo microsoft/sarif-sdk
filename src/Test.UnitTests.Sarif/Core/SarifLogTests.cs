@@ -7,7 +7,7 @@ using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
 {
-    public class SarifLogTests 
+    public class SarifLogTests
     {
         [Fact]
         public void SarifLog_DoesNotSerializeNonNullEmptyCollections()
@@ -41,9 +41,9 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
             // that consist of nothing but default values, these also 
             // should not be persisted to disk
             run.Graphs = new Graph[] { new Graph() };
-            run.Artifacts = new Artifact[] { new Artifact()};
+            run.Artifacts = new Artifact[] { new Artifact() };
             run.LogicalLocations = new LogicalLocation[] { new LogicalLocation() };
-            
+
             // Invocations are special, they have a required property,
             // ExecutionSuccessful. This means even an entirely default instance
             // should be retained when serialized.

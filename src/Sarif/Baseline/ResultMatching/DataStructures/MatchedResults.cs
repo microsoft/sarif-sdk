@@ -163,7 +163,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 result.CorrelationGuid = result.CorrelationGuid ?? result.Guid;
             }
             else
-            { 
+            {
                 // If not, persist forward the CorrelationGuid already assigned
                 //  or the Guid if the previous log was never baselined
                 //  or the new Guid if the previous Result never had a Guid assigned at all

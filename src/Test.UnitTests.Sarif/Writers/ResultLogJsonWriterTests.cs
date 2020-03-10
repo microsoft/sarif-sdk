@@ -31,7 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         [Fact]
         public void ResultLogJsonWriter_DoNotInitializeMoreThanOnce()
         {
-            Assert.Throws<InvalidOperationException>(() => 
+            Assert.Throws<InvalidOperationException>(() =>
                 GetJson(uut =>
                 {
                     var run = new Run() { Tool = DefaultTool };
@@ -44,9 +44,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         [Fact]
         public void ResultLogJsonWriter_ResultsMayNotBeWrittenMoreThanOnce()
         {
-            var results = new[] { DefaultResult };
+            Result[] results = new[] { DefaultResult };
 
-            Assert.Throws<InvalidOperationException>(() => 
+            Assert.Throws<InvalidOperationException>(() =>
                 GetJson(uut =>
                 {
                     var run = new Run() { Tool = DefaultTool };
@@ -72,12 +72,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 var run = new Run() { Tool = null };
                 uut.Initialize(run);
             }));
-       }
+        }
 
         [Fact]
         public void ResultLogJsonWriter_RequiresNonNullResult()
         {
-            Assert.Throws<ArgumentNullException>(() => 
+            Assert.Throws<ArgumentNullException>(() =>
                 GetJson(uut =>
                 {
                     var run = new Run() { Tool = DefaultTool };
@@ -95,7 +95,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             using (var uut = new ResultLogJsonWriter(json))
             {
                 uut.Dispose();
-                Assert.Throws<InvalidOperationException>(() => uut.Initialize(new Run() { Tool = DefaultTool}));
+                Assert.Throws<InvalidOperationException>(() => uut.Initialize(new Run() { Tool = DefaultTool }));
             }
         }
 
@@ -139,7 +139,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             string expected = CreateCurrentV2SarifLogText(
                 resultCount: 0,
-                (log) => {
+                (log) =>
+                {
                     log.Runs[0].Invocations = new List<Invocation> { s_invocation };
                 });
 
@@ -165,7 +166,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             string expected = CreateCurrentV2SarifLogText(
                 resultCount: 0,
-                (log) => {
+                (log) =>
+                {
                     log.Runs[0].Invocations = new List<Invocation> { s_invocation };
                     log.Runs[0].AutomationDetails = new RunAutomationDetails
                     {
@@ -312,7 +314,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             string expected = CreateCurrentV2SarifLogText(
                 resultCount: 0,
-                (log) => {
+                (log) =>
+                {
                     log.Runs[0].Invocations = new List<Invocation>
                     {
                         new Invocation
@@ -344,7 +347,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             string expected = CreateCurrentV2SarifLogText(
                 resultCount: 0,
-                (log) => {
+                (log) =>
+                {
                     log.Runs[0].Invocations = new List<Invocation>
                     {
                         new Invocation

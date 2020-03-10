@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using System;
 using System.Collections.Generic;
 using Microsoft.WorkItems;
 using Newtonsoft.Json;
@@ -69,8 +68,8 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             // environments this field is an open-ended text field. As such, there is
             // no useful default. An empty string here will prompt filers to skip
             // updating this field.
-            this.Milestone = String.Empty;
-                        
+            this.Milestone = string.Empty;
+
             // No defaults are provided for custom fields. This dictionary is used
             // to provide values for non-standard fields as defined in an Azure
             // DevOps work item template. Because this data by definition addresses

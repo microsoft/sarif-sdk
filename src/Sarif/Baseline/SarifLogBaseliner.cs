@@ -8,7 +8,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
 {
     internal class SarifLogBaseliner : ISarifLogBaseliner
     {
-        IEqualityComparer<Result> ResultComparator;
+        readonly IEqualityComparer<Result> ResultComparator;
 
         public SarifLogBaseliner(IEqualityComparer<Result> comparator)
         {
@@ -19,18 +19,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
         {
             Run differencedRun = nextLog.DeepClone();
             differencedRun.Results = new List<Result>();
-            
-            foreach (var result in nextLog.Results)
+
+            foreach (Result result in nextLog.Results)
             {
                 Result newResult = result.DeepClone();
 
-                newResult.BaselineState = 
+                newResult.BaselineState =
                     baseLine.Results.Contains(result, ResultComparator) ? BaselineState.Unchanged : BaselineState.New;
 
                 differencedRun.Results.Add(newResult);
             }
 
-            foreach (var result in baseLine.Results)
+            foreach (Result result in baseLine.Results)
             {
                 if (!nextLog.Results.Contains(result, ResultComparator))
                 {
