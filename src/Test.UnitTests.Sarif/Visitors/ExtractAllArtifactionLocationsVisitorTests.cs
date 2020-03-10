@@ -103,56 +103,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         [Fact]
         public void ExtractAllArtifactLocationsVisitor_ExtractsMultipleLocationsSingleResult()
         {
-            var sarifLog = new SarifLog
-            {
-                Runs = new[]
-                {
-                    new Run
-                    {
-                        Results = new[]
-                        {
-                            new Result
-                            {
-                                RuleId = TestConstants.RuleIds.Rule1,
-                                BaselineState = BaselineState.New,
-                                Locations = new []
-                                {
-                                    new Location
-                                    {
-                                        PhysicalLocation = new PhysicalLocation
-                                        {
-                                             ArtifactLocation = new ArtifactLocation
-                                             {
-                                                Uri = new Uri(TestConstants.FileLocations.Location1),
-                                             }
-                                        }
-                                    },
-                                    new Location
-                                    {
-                                        PhysicalLocation = new PhysicalLocation
-                                        {
-                                             ArtifactLocation = new ArtifactLocation
-                                             {
-                                                Uri = new Uri(TestConstants.FileLocations.Location2),
-                                             }
-                                        }
-                                    },
-                                    new Location
-                                    {
-                                        PhysicalLocation = new PhysicalLocation
-                                        {
-                                             ArtifactLocation = new ArtifactLocation
-                                             {
-                                                Uri = new Uri(TestConstants.FileLocations.Location3),
-                                             }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            };
+            SarifLog sarifLog = TestConstants.SarifLogs.OneIdThreeLocations;
 
             var visitor = new ExtractAllArtifactLocationsVisitor();
             visitor.VisitSarifLog(sarifLog);

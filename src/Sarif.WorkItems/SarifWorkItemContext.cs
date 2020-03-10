@@ -9,8 +9,6 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 {
     public class SarifWorkItemContext : PropertiesDictionary
     {
-        private Uri _locationUri;
-
         public SarifWorkItemContext() { }
 
         public SarifWorkItemContext(SarifWorkItemContext initializer) : base(initializer) { }
@@ -21,13 +19,16 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             visitor.VisitSarifLog(sarifLog);
             foreach (ArtifactLocation location in visitor.AllArtifactLocations)
             {
-                if(location.Uri != null)
+                if(location?.Uri != null)
                 {
-                    _locationUri = location.Uri;
+                    LocationUri = location.Uri;
                     break;
                 }
             }
         }
+
+        public Uri LocationUri { get; private set; }
+
         public Uri HostUri
         {
             get { return this.GetProperty(HostUriOption); }

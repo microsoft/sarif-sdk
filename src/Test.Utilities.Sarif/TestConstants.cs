@@ -1,6 +1,9 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using Microsoft.CodeAnalysis.Sarif;
+using System;
+
 namespace Microsoft.CodeAnalysis.Test.Utilities.Sarif
 {
     public static class TestConstants
@@ -26,6 +29,60 @@ namespace Microsoft.CodeAnalysis.Test.Utilities.Sarif
             public const string Rule8 = "TST0008";
             public const string Rule9 = "TST0009";
             public const string Rule10 = "TST0010";
+        }
+
+        public static class SarifLogs
+        {
+            public readonly static SarifLog OneIdThreeLocations = new SarifLog
+            {
+                Runs = new[]
+                {
+                    new Run
+                    {
+                        Results = new[]
+                        {
+                            new Result
+                            {
+                                RuleId = TestConstants.RuleIds.Rule1,
+                                BaselineState = BaselineState.New,
+                                Locations = new []
+                                {
+                                    new Location
+                                    {
+                                        PhysicalLocation = new PhysicalLocation
+                                        {
+                                             ArtifactLocation = new ArtifactLocation
+                                             {
+                                                Uri = new Uri(TestConstants.FileLocations.Location1),
+                                             }
+                                        }
+                                    },
+                                    new Location
+                                    {
+                                        PhysicalLocation = new PhysicalLocation
+                                        {
+                                             ArtifactLocation = new ArtifactLocation
+                                             {
+                                                Uri = new Uri(TestConstants.FileLocations.Location2),
+                                             }
+                                        }
+                                    },
+                                    new Location
+                                    {
+                                        PhysicalLocation = new PhysicalLocation
+                                        {
+                                             ArtifactLocation = new ArtifactLocation
+                                             {
+                                                Uri = new Uri(TestConstants.FileLocations.Location3),
+                                             }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            };
         }
 
         public static class FileLocations
