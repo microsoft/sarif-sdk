@@ -37,12 +37,12 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         [Fact]
         public void WorkItemFilingContext_NullAreaPathRemainsUnchanged()
         {
-            var AreaPathTransformer = new AreaPathFromUri();
+            var areaPathTransformer = new AreaPathFromUri();
 
             var context = new SarifWorkItemContext();
 
-            context.AddWorkItemModelTransformer(AreaPathTransformer);
-            context.Transformers[0].GetType().Should().Be(AreaPathTransformer.GetType());
+            context.AddWorkItemModelTransformer(areaPathTransformer);
+            context.Transformers[0].GetType().Should().Be(areaPathTransformer.GetType());
 
             var workItemModel = new SarifWorkItemModel(sarifLog: null, context);
 
@@ -53,12 +53,12 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         [Fact]
         public void WorkItemFilingContext_FetchUriSuccessfully()
         {
-            var AreaPathTransformer = new AreaPathFromUri();
+            var areaPathTransformer = new AreaPathFromUri();
 
             var context = new SarifWorkItemContext();
 
-            context.AddWorkItemModelTransformer(AreaPathTransformer);
-            context.Transformers[0].GetType().Should().Be(AreaPathTransformer.GetType());
+            context.AddWorkItemModelTransformer(areaPathTransformer);
+            context.Transformers[0].GetType().Should().Be(areaPathTransformer.GetType());
 
             SarifLog sarifLog = TestConstants.SarifLogs.OneIdThreeLocations;
 
@@ -107,7 +107,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         {
             public override void Transform(SarifWorkItemModel workItemModel)
             {
-                string newAreaPath = workItemModel.Context.LocationUri?.OriginalString;
+                string newAreaPath = workItemModel.LocationUri?.OriginalString;
 
                 workItemModel.Area = !string.IsNullOrEmpty(newAreaPath) ? newAreaPath : workItemModel.Area;
             }

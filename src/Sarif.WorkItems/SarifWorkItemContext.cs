@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
-using Microsoft.CodeAnalysis.Sarif.Visitors;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -13,21 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
         public SarifWorkItemContext(SarifWorkItemContext initializer) : base(initializer) { }
 
-        internal void InitializeFromLog(SarifLog sarifLog)
-        {
-            var visitor = new ExtractAllArtifactLocationsVisitor();
-            visitor.VisitSarifLog(sarifLog);
-            foreach (ArtifactLocation location in visitor.AllArtifactLocations)
-            {
-                if(location?.Uri != null)
-                {
-                    LocationUri = location.Uri;
-                    break;
-                }
-            }
-        }
-
-        public Uri LocationUri { get; private set; }
+        internal void InitializeFromLog(SarifLog sarifLog) { }
 
         public Uri HostUri
         {
