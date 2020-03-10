@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif.Baseline;
 using Xunit;
 
@@ -25,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
             TrustMap afterMap = new TrustMap();
 
             // All properties are unknown to start
-            Assert.Equal(TrustMap.DefaultTrust, beforeMap.Trust(Set, NameGreat));
+            beforeMap.Trust(Set, NameGreat).Should().Be(TrustMap.DefaultTrust);
 
             for (int i = 0; i < 20; ++i)
             {
@@ -47,33 +48,34 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
             }
 
             // Before comparing the runs, trust is based on uniqueness only
-            Assert.Equal(1.0f, beforeMap.Trust(Set, NameGreat));
-            Assert.Equal((3.0f / 20.0f), beforeMap.Trust(Set, NameMedium));
-            Assert.Equal(1.0f, beforeMap.Trust(Set, NameNoMatches));
-            Assert.Equal(0.0f, beforeMap.Trust(Set, NameConstant));
+            beforeMap.Trust(Set, NameGreat).Should().Be(1.0f);
+            beforeMap.Trust(Set, NameMedium).Should().Be(3.0f / 20.0f);
+            beforeMap.Trust(Set, NameNoMatches).Should().Be(1.0f);
+            beforeMap.Trust(Set, NameConstant).Should().Be(0.0f);
 
             // Match the two runs to allow trust scoring based on matches
-            Assert.False(beforeMap.WasMatched);
-            Assert.False(afterMap.WasMatched);
+            beforeMap.WasMatched.Should().BeFalse();
+            afterMap.WasMatched.Should().BeFalse();
             afterMap.CountMatchesWith(beforeMap);
-            Assert.True(beforeMap.WasMatched);
-            Assert.True(afterMap.WasMatched);
+            beforeMap.WasMatched.Should().BeTrue();
+            afterMap.WasMatched.Should().BeTrue();
 
             // After comparing runs, trust is based on uniqueness and number of matches
-            // Note: Constants have no trust, unique and no match have low (default) trust.
-            Assert.Equal(1.0f, beforeMap.Trust(Set, NameGreat));
-            Assert.Equal((3.0f / 20.0f), beforeMap.Trust(Set, NameMedium));
-            Assert.Equal(TrustMap.DefaultTrust, beforeMap.Trust(Set, NameNoMatches));
-            Assert.Equal(0.0f, beforeMap.Trust(Set, NameConstant));
+            // Note: Attributes with only one value (constants) have zero trust.
+            // Note: Attributes which are unique but never match have low (default) trust.
+            beforeMap.Trust(Set, NameGreat).Should().Be(1.0f);
+            beforeMap.Trust(Set, NameMedium).Should().Be(3.0f / 20.0f);
+            beforeMap.Trust(Set, NameNoMatches).Should().Be(TrustMap.DefaultTrust);
+            beforeMap.Trust(Set, NameConstant).Should().Be(0.0f);
 
             // Same scores from both maps
-            Assert.Equal(1.0f, afterMap.Trust(Set, NameGreat));
-            Assert.Equal((3.0f / 20.0f), afterMap.Trust(Set, NameMedium));
-            Assert.Equal(TrustMap.DefaultTrust, afterMap.Trust(Set, NameNoMatches));
-            Assert.Equal(0.0f, afterMap.Trust(Set, NameConstant));
+            afterMap.Trust(Set, NameGreat).Should().Be(beforeMap.Trust(Set, NameGreat));
+            afterMap.Trust(Set, NameMedium).Should().Be(beforeMap.Trust(Set, NameMedium));
+            afterMap.Trust(Set, NameNoMatches).Should().Be(beforeMap.Trust(Set, NameNoMatches));
+            afterMap.Trust(Set, NameConstant).Should().Be(beforeMap.Trust(Set, NameConstant));
 
             // Unknown properties are still unknown
-            Assert.Equal(TrustMap.DefaultTrust, afterMap.Trust("Set2", NameConstant));
+            afterMap.Trust("Set2", NameConstant).Should().Be(TrustMap.DefaultTrust);
         }
     }
 }

@@ -18,11 +18,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
     {
         // This dictionary tracks which WhatComponents are unique.
         // The value is the index of the result with that value, if unique, or -1 if in several.
-        private Dictionary<WhatComponent, int> Map { get; }
+        private readonly Dictionary<WhatComponent, int> _map;
         
         public WhatMap()
         {
-            Map = new Dictionary<WhatComponent, int>();
+            _map = new Dictionary<WhatComponent, int>();
         }
 
         private void Add(ExtractedResult result, HashSet<string> otherRunLocations, int index)
@@ -41,15 +41,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
         {
             if (component.PropertyValue == null) { return; }
 
-            if (Map.TryGetValue(component, out int existingIndex) && existingIndex != index)
+            if (_map.TryGetValue(component, out int existingIndex) && existingIndex != index)
             {
                 // If the map has another of this value, set index -1 to indicate non-unique.
-                Map[component] = -1;
+                _map[component] = -1;
             }
             else
             {
                 // Otherwise, point to the result.
-                Map[component] = index;
+                _map[component] = index;
             }
         }
 
@@ -61,9 +61,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
         /// <returns>Index of this and Index of other Result where the two have a unique trait in common.</returns>
         public IEnumerable<Tuple<int, int>> UniqueLinks(WhatMap other)
         {
-            foreach (KeyValuePair<WhatComponent, int> entry in Map.Where(entry => entry.Value != -1))
+            foreach (KeyValuePair<WhatComponent, int> entry in _map.Where(entry => entry.Value != -1))
             {
-                if (other.Map.TryGetValue(entry.Key, out int otherIndex) && otherIndex != -1)
+                if (other._map.TryGetValue(entry.Key, out int otherIndex) && otherIndex != -1)
                 {
                     yield return new Tuple<int, int>(entry.Value, otherIndex);
                 }

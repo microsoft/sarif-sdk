@@ -21,24 +21,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
     /// <typeparam name="T">Type of Item Evaluator will evaluate.</typeparam>
     public class BoolEvaluator<T> : IExpressionEvaluator<T>
     {
-        private Func<T, bool> Getter { get; set; }
-        private bool MustEqual { get; set; }
-
-        private Action<IList<T>, BitArray> EvaluateSet { get; set; }
+        private readonly Func<T, bool> _getter;
+        private readonly bool _mustEqual;
 
         public BoolEvaluator(Func<T, bool> getter, TermExpression term)
         {
-            Getter = getter;
+            _getter = getter;
 
             if (!bool.TryParse(term.Value, out bool parsedValue)) { throw new QueryParseException($"{term} value {term.Value} was not a valid boolean."); }
-            MustEqual = parsedValue;
+            _mustEqual = parsedValue;
 
             switch (term.Operator)
             {
                 case CompareOperator.Equals:
                     break;
                 case CompareOperator.NotEquals:
-                    MustEqual = !MustEqual;
+                    _mustEqual = !_mustEqual;
                     break;
                 default:
                     throw new QueryParseException($"In {term}, {term.PropertyName} is boolean and only supports equals and not equals, not operator {term.Operator}");
@@ -51,7 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
             int i = 0;
             foreach (T item in list)
             {
-                matches.Set(i, Getter(item) == MustEqual);
+                matches.Set(i, _getter(item) == _mustEqual);
                 i++;
             }
         }

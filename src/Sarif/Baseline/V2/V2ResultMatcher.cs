@@ -33,37 +33,37 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
         private const int NearnessThreshold = 3;
 
         // Results in the first set.
-        private List<ExtractedResult> Before { get; }
-        private TrustMap BeforeTrustMap { get; }
-        private WhatMap BeforeWhatMap { get; }
-        private int[] MatchingIndexFromBefore { get; }
+        private readonly List<ExtractedResult> _before;
+        private readonly TrustMap _beforeTrustMap;
+        private readonly WhatMap _beforeWhatMap;
+        private readonly int[] _matchingIndexFromBefore;
 
         // Results in the second set.
-        private List<ExtractedResult> After { get; }
-        private TrustMap AfterTrustMap { get; }
-        private WhatMap AfterWhatMap { get; }
-        private int[] MatchingIndexFromAfter { get; }
+        private readonly List<ExtractedResult> _after;
+        private readonly TrustMap _afterTrustMap;
+        private readonly WhatMap _afterWhatMap;
+        private readonly int[] _matchingIndexFromAfter;
 
         public StatefulResultMatcher(IList<ExtractedResult> before, IList<ExtractedResult> after)
         {
             // Sort results by 'Where', then 'RuleId' for matching
-            Before = new List<ExtractedResult>(before);
-            Before.Sort(ResultMatchingComparer.Instance);
+            _before = new List<ExtractedResult>(before);
+            _before.Sort(ResultMatchingComparer.Instance);
 
-            BeforeTrustMap = new TrustMap();
-            BeforeWhatMap = new WhatMap();
+            _beforeTrustMap = new TrustMap();
+            _beforeWhatMap = new WhatMap();
 
-            MatchingIndexFromBefore = new int[Before.Count];
-            Fill(MatchingIndexFromBefore, -1);
+            _matchingIndexFromBefore = new int[_before.Count];
+            Fill(_matchingIndexFromBefore, -1);
 
-            After = new List<ExtractedResult>(after);
-            After.Sort(ResultMatchingComparer.Instance);
+            _after = new List<ExtractedResult>(after);
+            _after.Sort(ResultMatchingComparer.Instance);
 
-            AfterTrustMap = new TrustMap();
-            AfterWhatMap = new WhatMap();
+            _afterTrustMap = new TrustMap();
+            _afterWhatMap = new WhatMap();
 
-            MatchingIndexFromAfter = new int[After.Count];
-            Fill(MatchingIndexFromAfter, -1);
+            _matchingIndexFromAfter = new int[_after.Count];
+            Fill(_matchingIndexFromAfter, -1);
         }
 
         public IList<MatchedResults> Match()
@@ -72,10 +72,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
 
             // If there's only one result, the "match before" and "match after" logic doesn't fire for them,
             // so the only way they'll actually get compared is if we add this special case:
-            if (Before.Count == 1 && After.Count == 1)
+            if (_before.Count == 1 && _after.Count == 1)
             {
                 // If there's only one issue, it matches if 'Sufficiently Similar'.
-                if (Before[0].IsSufficientlySimilarTo(After[0], AfterTrustMap))
+                if (_before[0].IsSufficientlySimilarTo(_after[0], _afterTrustMap))
                 {
                     LinkIfSimilar(0, 0);
                 }
@@ -95,17 +95,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
         {
             // Identify all locations used in each log
             HashSet<string> beforeLocationIdentifiers = new HashSet<string>();
-            Before.ForEach((result) => WhereComparer.AddLocationIdentifiers(result, beforeLocationIdentifiers));
+            _before.ForEach((result) => WhereComparer.AddLocationIdentifiers(result, beforeLocationIdentifiers));
 
             HashSet<string> afterLocationIdentifiers = new HashSet<string>();
-            After.ForEach((result) => WhereComparer.AddLocationIdentifiers(result, afterLocationIdentifiers));
+            _after.ForEach((result) => WhereComparer.AddLocationIdentifiers(result, afterLocationIdentifiers));
 
             // Populate WhatMap and TrustMap to guide subsequent matching
-            BuildMap(Before, BeforeWhatMap, BeforeTrustMap, otherRunLocations: afterLocationIdentifiers);
-            BuildMap(After, AfterWhatMap, AfterTrustMap, otherRunLocations: beforeLocationIdentifiers);
+            BuildMap(_before, _beforeWhatMap, _beforeTrustMap, otherRunLocations: afterLocationIdentifiers);
+            BuildMap(_after, _afterWhatMap, _afterTrustMap, otherRunLocations: beforeLocationIdentifiers);
 
             // Match the TrustMaps to finish determining trust
-            AfterTrustMap.CountMatchesWith(BeforeTrustMap);
+            _afterTrustMap.CountMatchesWith(_beforeTrustMap);
         }
 
         private static void BuildMap(List<ExtractedResult> results, WhatMap whatMap, TrustMap trustMap, HashSet<string> otherRunLocations)
@@ -133,10 +133,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
         {
             // Walk Results sorted by where, linking those with identical positions and a matching category.
             int beforeIndex = 0, afterIndex = 0;
-            while (beforeIndex < Before.Count && afterIndex < After.Count)
+            while (beforeIndex < _before.Count && afterIndex < _after.Count)
             {
-                ExtractedResult left = Before[beforeIndex];
-                ExtractedResult right = After[afterIndex];
+                ExtractedResult left = _before[beforeIndex];
+                ExtractedResult right = _after[afterIndex];
 
                 int whereCmp = WhereComparer.CompareWhere(left, right);
                 if (whereCmp < 0)
@@ -171,13 +171,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
 
             // Walk Before and After once, looking for the first and last results per Uri
             // NOTE: 'beforeIndex' and 'afterIndex' are passed by ref to FirstWithUri and LastWithUri, which move them forward only.
-            while (beforeIndex < Before.Count && afterIndex < After.Count)
+            while (beforeIndex < _before.Count && afterIndex < _after.Count)
             {
                 // Get the next After Result (the first for a given Uri)
-                ExtractedResult afterFirstForUri = After[afterIndex];
+                ExtractedResult afterFirstForUri = _after[afterIndex];
 
                 // Look for the first Before Result with the same Uri, if any
-                ExtractedResult beforeFirstForUri = FirstWithUri(afterFirstForUri, Before, ref beforeIndex);
+                ExtractedResult beforeFirstForUri = FirstWithUri(afterFirstForUri, _before, ref beforeIndex);
 
                 // If there was one...
                 if (beforeFirstForUri != null)
@@ -186,8 +186,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
                     LinkIfSimilar(beforeIndex, afterIndex);
 
                     // ... Find the last Before and After result with the same Uri
-                    ExtractedResult beforeLastForUri = LastWithUri(afterFirstForUri, Before, ref beforeIndex);
-                    ExtractedResult afterLastForUri = LastWithUri(afterFirstForUri, After, ref afterIndex);
+                    ExtractedResult beforeLastForUri = LastWithUri(afterFirstForUri, _before, ref beforeIndex);
+                    ExtractedResult afterLastForUri = LastWithUri(afterFirstForUri, _after, ref afterIndex);
 
                     // ... Try to link those as well (either may be the first Result if there was only one for that Uri)
                     LinkIfSimilar(beforeIndex, afterIndex);
@@ -195,7 +195,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
                 else
                 {
                     // ... If no Before results for this Uri, skip to the After Result with the next Uri
-                    LastWithUri(afterFirstForUri, After, ref afterIndex);
+                    LastWithUri(afterFirstForUri, _after, ref afterIndex);
                 }
 
                 // Move to the first Result with the next Uri
@@ -205,7 +205,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
 
         private void LinkResultsWithUniqueIdenticalWhat()
         {
-            foreach (Tuple<int, int> link in BeforeWhatMap.UniqueLinks(AfterWhatMap))
+            foreach (Tuple<int, int> link in _beforeWhatMap.UniqueLinks(_afterWhatMap))
             {
                 LinkIfSimilar(link.Item1, link.Item2);
             }
@@ -214,9 +214,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
         private void LinkNearbySimilarResults()
         {
             // Walk up, matching similar, previously unlinked Results after already linked pairs.
-            for (int beforeIndex = 0; beforeIndex < Before.Count - 1; ++beforeIndex)
+            for (int beforeIndex = 0; beforeIndex < _before.Count - 1; ++beforeIndex)
             {
-                int afterIndex = MatchingIndexFromBefore[beforeIndex];
+                int afterIndex = _matchingIndexFromBefore[beforeIndex];
                 if (afterIndex == -1) { continue; }
 
                 // This is very subtle. At first glance it seems that we only give the result pairs
@@ -226,15 +226,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
                 // and we'll give the next pair a chance to match as well.
                 for (int i = 1; i < NearnessThreshold; ++i)
                 {
-                    if (beforeIndex + i >= Before.Count || afterIndex + i >= After.Count) { break; }
+                    if (beforeIndex + i >= _before.Count || afterIndex + i >= _after.Count) { break; }
                     LinkIfSimilar(beforeIndex + i, afterIndex + i);
                 }
             }
 
             // Walk down, matching similar, previously unlinked Results before already linked pairs.
-            for (int beforeIndex = Before.Count - 1; beforeIndex > 0; --beforeIndex)
+            for (int beforeIndex = _before.Count - 1; beforeIndex > 0; --beforeIndex)
             {
-                int afterIndex = MatchingIndexFromBefore[beforeIndex];
+                int afterIndex = _matchingIndexFromBefore[beforeIndex];
                 if (afterIndex == -1) { continue; }
 
                 for (int i = 1; i < NearnessThreshold; ++i)
@@ -250,25 +250,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             List<MatchedResults> matches = new List<MatchedResults>();
 
             // 1. Add all Removed Results.
-            for (int beforeIndex = 0; beforeIndex < Before.Count; ++beforeIndex)
+            for (int beforeIndex = 0; beforeIndex < _before.Count; ++beforeIndex)
             {
-                if (MatchingIndexFromBefore[beforeIndex] == -1)
+                if (_matchingIndexFromBefore[beforeIndex] == -1)
                 {
-                    matches.Add(new MatchedResults(Before[beforeIndex], null));
+                    matches.Add(new MatchedResults(_before[beforeIndex], null));
                 }
             }
 
             // 2. Add all linked pairs and Added Results (in 'After' order).
-            for (int afterIndex = 0; afterIndex < After.Count; ++afterIndex)
+            for (int afterIndex = 0; afterIndex < _after.Count; ++afterIndex)
             {
-                int beforeIndex = MatchingIndexFromAfter[afterIndex];
+                int beforeIndex = _matchingIndexFromAfter[afterIndex];
                 if (beforeIndex == -1)
                 {
-                    matches.Add(new MatchedResults(null, After[afterIndex]));
+                    matches.Add(new MatchedResults(null, _after[afterIndex]));
                 }
                 else
                 {
-                    matches.Add(new MatchedResults(Before[beforeIndex], After[afterIndex]));
+                    matches.Add(new MatchedResults(_before[beforeIndex], _after[afterIndex]));
                 }
             }
 
@@ -278,12 +278,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
         private void LinkIfSimilar(int beforeIndex, int afterIndex)
         {
             // Link Results *if* they weren't matched earlier and they are 'Sufficiently Similar'.
-            if (MatchingIndexFromBefore[beforeIndex] == -1 && MatchingIndexFromAfter[afterIndex] == -1)
+            if (_matchingIndexFromBefore[beforeIndex] == -1 && _matchingIndexFromAfter[afterIndex] == -1)
             {
-                if (Before[beforeIndex].IsSufficientlySimilarTo(After[afterIndex], AfterTrustMap))
+                if (_before[beforeIndex].IsSufficientlySimilarTo(_after[afterIndex], _afterTrustMap))
                 {
-                    MatchingIndexFromBefore[beforeIndex] = afterIndex;
-                    MatchingIndexFromAfter[afterIndex] = beforeIndex;
+                    _matchingIndexFromBefore[beforeIndex] = afterIndex;
+                    _matchingIndexFromAfter[afterIndex] = beforeIndex;
                 }
             }
         }

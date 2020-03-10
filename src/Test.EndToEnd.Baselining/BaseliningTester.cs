@@ -331,7 +331,7 @@ namespace Test.EndToEnd.Baselining
 
         private static void DeleteAndCreateDirectory(string directoryPath)
         {
-            if (Directory.Exists(directoryPath)) { Directory.Delete(directoryPath, true); }
+            if (Directory.Exists(directoryPath)) { Directory.Delete(directoryPath, recursive: true); }
             Directory.CreateDirectory(directoryPath);
         }
     }

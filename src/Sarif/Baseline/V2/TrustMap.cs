@@ -10,18 +10,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
     ///  TrustMap determines how much to trust different Result attributes for matching.
     ///  
     ///  Trust is the product of how often values match and how unique the values were.
-    ///  An attribute which always had the same value will have very low trust.
+    ///  An attribute which always has the same value will have very low trust.
     ///  An attribute which never matches will have very low trust.
     /// </summary>
     internal class TrustMap
     {
         public const float DefaultTrust = 0.1f;
         public bool WasMatched { get; private set; }
-        private Dictionary<TrustKey, TrustValue> Map { get; }
+        private readonly Dictionary<TrustKey, TrustValue> _map;
 
         public TrustMap()
         {
-            Map = new Dictionary<TrustKey, TrustValue>();
+            _map = new Dictionary<TrustKey, TrustValue>();
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
         /// <returns>Value between zero and one indicating how much to trust this property for matching</returns>
         public float Trust(string propertySetName, string propertyName)
         {
-            if (Map.TryGetValue(new TrustKey(propertySetName, propertyName), out TrustValue value))
+            if (_map.TryGetValue(new TrustKey(propertySetName, propertyName), out TrustValue value))
             {
                 // No trust for constant values - more than one occurrence but only one value
                 if (value.UseCount > 1 && value.UniqueValues.Count == 1) { return 0; }
@@ -64,10 +64,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             TrustKey key = new TrustKey(component);
 
             TrustValue value = null;
-            if (!Map.TryGetValue(key, out value))
+            if (!_map.TryGetValue(key, out value))
             {
                 value = new TrustValue();
-                Map[key] = value;
+                _map[key] = value;
             }
 
             value.Add(component);
@@ -80,12 +80,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
         /// <param name="otherRunMap">TrustMap for the other Run we're baselining against</param>
         public void CountMatchesWith(TrustMap otherRunMap)
         {
-            foreach (TrustKey key in Map.Keys)
+            foreach (TrustKey key in _map.Keys)
             {
                 int matchCount = 0;
 
-                TrustValue ourValue = Map[key];
-                if (otherRunMap.Map.TryGetValue(key, out TrustValue theirValue))
+                TrustValue ourValue = _map[key];
+                if (otherRunMap._map.TryGetValue(key, out TrustValue theirValue))
                 {
                     foreach (string value in ourValue.UniqueValues)
                     {

@@ -18,8 +18,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         public Run OriginalRun { get; set; }
         public string RuleId { get; set; }
 
-        private ReportingDescriptor Rule { get; set; }
-        private bool HasDeprecatedIds { get; set; }
+        private readonly ReportingDescriptor _rule;
+        private readonly bool _hasDeprecatedIds;
 
         public ExtractedResult(Result result, Run run)
         {
@@ -34,8 +34,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
             if (result.Run != null)
             {
-                Rule = result.GetRule(result.Run);
-                HasDeprecatedIds = Rule?.DeprecatedIds?.Count > 0;
+                _rule = result.GetRule(result.Run);
+                _hasDeprecatedIds = _rule?.DeprecatedIds?.Count > 0;
             }
         }
 
@@ -46,18 +46,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         /// <returns>True if Category is identical, False otherwise</returns>
         public bool MatchesCategory(ExtractedResult other)
         {
-            if (!this.HasDeprecatedIds && !other.HasDeprecatedIds)
+            if (!this._hasDeprecatedIds && !other._hasDeprecatedIds)
             {
                 return (this.RuleId == other.RuleId);
             }
 
             // Handle ReportingDescriptor.DeprecatedIds (rare)
-            if (other.HasDeprecatedIds && other.Rule.DeprecatedIds.Contains(this.RuleId))
+            if (other._hasDeprecatedIds && other._rule.DeprecatedIds.Contains(this.RuleId))
             {
                 return true;
             }
 
-            if (this.HasDeprecatedIds && this.Rule.DeprecatedIds.Contains(other.RuleId))
+            if (this._hasDeprecatedIds && this._rule.DeprecatedIds.Contains(other.RuleId))
             {
                 return true;
             }
@@ -88,6 +88,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         ///  Otherwise, Results match if Message and first Snippet match.
         /// </summary>
         /// <param name="other">ExtractedResult to match</param>
+        /// <param name="trustMap">TrustMap for either Run being compared, to weight attributes selectively</param>
         /// <returns>True if *any* 'What' property matches, False otherwise</returns>
         internal bool MatchesAnyWhat(ExtractedResult other, TrustMap trustMap)
         {
@@ -120,6 +121,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         ///  An ExtractedResult must have the same category and either match a 'What' property or all 'Where' properties.
         /// </summary>
         /// <param name="other">ExtractedResult to match</param>
+        /// <param name="trustMap">TrustMap for either Run being compared, to weight attributes selectively</param>
         /// <returns>True if ExtractedResults are 'sufficiently similar', otherwise False.</returns>
         internal bool IsSufficientlySimilarTo(ExtractedResult other, TrustMap trustMap)
         {

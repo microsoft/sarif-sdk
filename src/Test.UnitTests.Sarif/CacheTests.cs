@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using FluentAssertions;
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.UnitTests
@@ -16,42 +17,42 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
                 capacity: 2);
 
             // Verify empty, no keys, Contains false
-            Assert.Equal(2, cache.Capacity);
-            Assert.Equal(0, cache.Count);
-            Assert.Empty(cache.Keys);
-            Assert.False(cache.ContainsKey(10));
+            cache.Capacity.Should().Be(2);
+            cache.Count.Should().Be(0);
+            cache.Keys.Should().BeEmpty();
+            cache.ContainsKey(10).Should().BeFalse();
 
             // Add 10, verify added
-            Assert.Equal(100, cache[10]);
-            Assert.Equal(1, cache.Count);
-            Assert.Equal(1, buildCount);
-            Assert.Single(cache.Keys);
-            Assert.Contains(10, cache.Keys);
-            Assert.True(cache.ContainsKey(10));
-            Assert.False(cache.ContainsKey(15));
+            cache[10].Should().Be(100);
+            cache.Count.Should().Be(1);
+            buildCount.Should().Be(1);
+            cache.Keys.Should().ContainSingle();
+            cache.Keys.Should().Contain(10);
+            cache.ContainsKey(10).Should().BeTrue();
+            cache.ContainsKey(15).Should().BeFalse();
 
             // Add 15, verify added
-            Assert.Equal(150, cache[15]);
-            Assert.Equal(2, cache.Count);
-            Assert.Equal(2, buildCount);
-            Assert.True(cache.ContainsKey(10));
-            Assert.True(cache.ContainsKey(15));
-            Assert.Contains(15, cache.Keys);
+            cache[15].Should().Be(150);
+            cache.Count.Should().Be(2);
+            buildCount.Should().Be(2);
+            cache.ContainsKey(10).Should().BeTrue();
+            cache.ContainsKey(15).Should().BeTrue();
+            cache.Keys.Should().Contain(15);
 
             // Request 10 - verify returned from cache
-            Assert.Equal(100, cache[10]);
-            Assert.Equal(2, cache.Count);
-            Assert.Equal(2, buildCount);
+            cache[10].Should().Be(100);
+            cache.Count.Should().Be(2);
+            buildCount.Should().Be(2);
 
             // Add 20, verify 15 evicted, 10 kept (least recently used)
-            Assert.Equal(200, cache[20]);
-            Assert.Equal(2, cache.Count);
-            Assert.Equal(3, buildCount);
-            Assert.True(cache.ContainsKey(10));
-            Assert.False(cache.ContainsKey(15));
-            Assert.True(cache.ContainsKey(20));
-            Assert.Contains(20, cache.Keys);
-            Assert.DoesNotContain(15, cache.Keys);
+            cache[20].Should().Be(200);
+            cache.Count.Should().Be(2);
+            buildCount.Should().Be(3);
+            cache.ContainsKey(10).Should().BeTrue();
+            cache.ContainsKey(15).Should().BeFalse();
+            cache.ContainsKey(20).Should().BeTrue();
+            cache.Keys.Should().Contain(20);
+            cache.Keys.Should().NotContain(15);
         }
     }
 }

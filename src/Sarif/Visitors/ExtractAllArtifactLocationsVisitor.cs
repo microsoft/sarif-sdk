@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
     /// </summary>
     public class ExtractAllArtifactLocationsVisitor : SarifRewritingVisitor
     {
-        private Run CurrentRun { get; set; }
+        private Run _currentRun;
         public HashSet<ArtifactLocation> AllArtifactLocations { get; private set; }
 
         public ExtractAllArtifactLocationsVisitor()
@@ -25,14 +25,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         public override ArtifactLocation VisitArtifactLocation(ArtifactLocation node)
         {
-            AllArtifactLocations.Add(node.Resolve(CurrentRun));
+            AllArtifactLocations.Add(node.Resolve(_currentRun));
             return node;
         }
 
         public override Run VisitRun(Run node)
         {
-            CurrentRun = node;
-            CurrentRun = base.VisitRun(node);
+            _currentRun = node;
+            _currentRun = base.VisitRun(node);
             return node;
         }
     }

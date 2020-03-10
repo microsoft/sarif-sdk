@@ -261,10 +261,9 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
             // Verify the result matched, and matched the copy from the same file
             IEnumerable<MatchedResults> matches = CreateMatchedResults(firstRun, secondRun);
             MatchedResults match = matches.Where(m => Location.ValueComparer.Equals(m.CurrentResult?.Result?.Locations?.FirstOrDefault(), firstInFile.Locations[0])).FirstOrDefault();
-            Assert.NotNull(match.PreviousResult);
-            Assert.Equal(
-                match.PreviousResult.Result.Locations[0].PhysicalLocation.ArtifactLocation.Uri,
-                match.CurrentResult.Result.Locations[0].PhysicalLocation.ArtifactLocation.Uri);
+            match.PreviousResult.Should().NotBeNull();
+            match.PreviousResult.Result.Locations[0].PhysicalLocation.ArtifactLocation.Uri
+                .Should().Be(match.CurrentResult.Result.Locations[0].PhysicalLocation.ArtifactLocation.Uri);
         }
 
         [Fact]
@@ -308,7 +307,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
 
             // Match the Runs, and confirm *nothing* matches; this requires the constant partialFingerprint not to be trusted
             IEnumerable<MatchedResults> matches = CreateMatchedResults(firstRun, secondRun);
-            Assert.Empty(matches.Where(m => m.PreviousResult != null && m.CurrentResult != null));
+            matches.Where(m => m.PreviousResult != null && m.CurrentResult != null).Should().BeEmpty();
         }
 
         private static void ReplaceInUri(ArtifactLocation artifactLocation, string replaceThis, string withThis)
