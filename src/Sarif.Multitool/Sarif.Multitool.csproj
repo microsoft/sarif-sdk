@@ -4,23 +4,23 @@
     <OutputType>Exe</OutputType>
 
     <!-- To Publish single-file exes, run: 
-      dotnet publish Sarif.Multitool.csproj -c Release -f netcoreapp3.0 -r win-x64
-      dotnet publish Sarif.Multitool.csproj -c Release -f netcoreapp3.0 -r linux-x64
-      dotnet publish Sarif.Multitool.csproj -c Release -f netcoreapp3.0 -r osx-x64
+      dotnet publish Sarif.Multitool.csproj -c Release -f netcoreapp3.1 -r win-x64
+      dotnet publish Sarif.Multitool.csproj -c Release -f netcoreapp3.1 -r linux-x64
+      dotnet publish Sarif.Multitool.csproj -c Release -f netcoreapp3.1 -r osx-x64
 
       We use [Condition="'$(RuntimeIdentifier)' != ''"] to identify settings used only for these builds.      
     -->
 
     <!-- Publish trimmed single-file exe -->
-    <PublishSingleFile Condition="'$(RuntimeIdentifier)' != ''">true</PublishSingleFile>
-    <PublishTrimmed Condition="'$(RuntimeIdentifier)' != ''">true</PublishTrimmed>
+    <PublishSingleFile>true</PublishSingleFile>
 
-    <!-- Publish 'ready-to-run' on Windows (Linux/Mac not yet supported) -->
+    <!-- Publish trimmed in per-platform builds, and 'ready-to-run' on Windows (Linux/Mac not yet supported) -->
+    <PublishTrimmed Condition="'$(RuntimeIdentifier)' != ''">true</PublishTrimmed>
     <PublishReadyToRun Condition="'$(RuntimeIdentifier)' == 'win-x64'">true</PublishReadyToRun>   
   </PropertyGroup>
 
   <!-- PackAsTool is supported/recommended for .NET Core -->
-  <PropertyGroup Condition="'$(TargetFramework)' != 'netcoreapp3.0'">
+  <PropertyGroup Condition="'$(TargetFramework)' != 'netcoreapp3.1'">
     <PackAsTool>true</PackAsTool>
   </PropertyGroup>
 

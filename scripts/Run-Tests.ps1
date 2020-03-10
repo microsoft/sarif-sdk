@@ -38,7 +38,7 @@ $failedTestProjects = @()
 foreach ($project in $Projects.Tests) {
     foreach ($framework in $Frameworks.Application) {
 
-        if ((-not $AppVeyor) -and ($framework -ne "netcoreapp3.0")) { continue; }
+        if ((-not $AppVeyor) -and ($framework -ne "netcoreapp3.1")) { continue; }
 
         Write-Information "Running tests in ${project}: $framework..."
         Push-Location $SourceRoot\$project

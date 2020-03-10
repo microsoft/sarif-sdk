@@ -16,7 +16,7 @@ $Frameworks.NetFx = @("net461")
 $Frameworks.Library = @("netstandard2.1") + $Frameworks.NetFx
 
 # Frameworks for which we build applications.
-$Frameworks.Application = @("netcoreapp3.0") + $Frameworks.NetFx
+$Frameworks.Application = @("netcoreapp3.1") + $Frameworks.NetFx
 
 $Frameworks.All = ($Frameworks.Library + $Frameworks.Application | Select -Unique)
 
