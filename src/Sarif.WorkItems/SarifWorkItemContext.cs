@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
+using Microsoft.CodeAnalysis.Sarif.Visitors;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -8,16 +9,24 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 {
     public class SarifWorkItemContext : PropertiesDictionary
     {
+        private Uri _locationUri;
+
         public SarifWorkItemContext() { }
 
         public SarifWorkItemContext(SarifWorkItemContext initializer) : base(initializer) { }
 
         internal void InitializeFromLog(SarifLog sarifLog)
         {
-            // TODOD: Initialize source and non-source-controlled files here,
-            //        as determined by scraping all URLs associated with results.
-            // 
-            //        https://github.com/microsoft/sarif-sdk/issues/1752
+            var visitor = new ExtractAllArtifactLocationsVisitor();
+            visitor.VisitSarifLog(sarifLog);
+            foreach (ArtifactLocation location in visitor.AllArtifactLocations)
+            {
+                if(location.Uri != null)
+                {
+                    _locationUri = location.Uri;
+                    break;
+                }
+            }
         }
         public Uri ProjectUri
         {
@@ -129,5 +138,6 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             new PerLanguageOption<SplittingStrategy>(
                 "Extensibility", nameof(SplittingStrategy),
                 defaultValue: () => { return 0; });
+
     }
 }
