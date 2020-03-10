@@ -27,8 +27,9 @@ namespace Test.EndToEnd.Baselining
         public static string Snippet(this Result result, int lengthLimit = -1)
         {
             string value = result?.EnumeratePhysicalLocations().FirstOrDefault()?.Region?.Snippet?.Text ?? "";
+            value = value.Replace("\n", "").Replace("\r", "").TrimStart();
+            
             if (lengthLimit > 0 && value.Length > lengthLimit) { value = value.Substring(0, lengthLimit); }
-            value = value.Replace("\n", "").Replace("\r", "");
             return value;
         }
 

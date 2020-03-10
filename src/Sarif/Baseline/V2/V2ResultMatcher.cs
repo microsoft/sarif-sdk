@@ -226,8 +226,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
                 // and we'll give the next pair a chance to match as well.
                 for (int i = 1; i < NearnessThreshold; ++i)
                 {
-                    if (beforeIndex + i >= _before.Count || afterIndex + i >= _after.Count) { break; }
-                    LinkIfSimilar(beforeIndex + i, afterIndex + i);
+                    if (afterIndex + i >= _after.Count) { break; }
+                    LinkIfSimilar(beforeIndex + 1, afterIndex + i);
                 }
             }
 
@@ -239,8 +239,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
 
                 for (int i = 1; i < NearnessThreshold; ++i)
                 {
-                    if (beforeIndex - i < 0 || afterIndex - i < 0) { break; }
-                    LinkIfSimilar(beforeIndex - i, afterIndex - i);
+                    if (afterIndex - i < 0) { break; }
+                    LinkIfSimilar(beforeIndex - 1, afterIndex - i);
                 }
             }
         }
