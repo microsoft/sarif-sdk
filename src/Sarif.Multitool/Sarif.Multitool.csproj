@@ -19,8 +19,8 @@
     <PublishReadyToRun Condition="'$(RuntimeIdentifier)' == 'win-x64'">true</PublishReadyToRun>   
   </PropertyGroup>
 
-  <!-- PackAsTool is supported/recommended for .NET Core >= 2.1 -->
-  <PropertyGroup Condition="'$(TargetFramework)' != 'netcoreapp2.1'">
+  <!-- PackAsTool is supported/recommended for .NET Core -->
+  <PropertyGroup Condition="'$(TargetFramework)' != 'netcoreapp3.0'">
     <PackAsTool>true</PackAsTool>
   </PropertyGroup>
 

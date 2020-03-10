@@ -20,7 +20,7 @@
   </metadata>
   <files>
     <!-- The subfolder layout for the different TargetFrameworks is intentionally inconsistent -->
-    <!-- net461 and netcoreapp2.1 pack to tools\TargetFramework\* for backcompat -->
+    <!-- net461 and netcoreapp3.0 pack to tools\TargetFramework\* for backcompat -->
     <file src="bld\bin\$platform$_$configuration$\Sarif.Multitool\Publish\net461\Sarif.Multitool.exe.config"
           target="tools\net461"
           />
@@ -32,27 +32,27 @@
           target="tools\net461"
           />
 
-    <file src="bld\bin\$platform$_$configuration$\Sarif.Multitool\Publish\netcoreapp2.1\**"
-          target="tools\netcoreapp2.1"
-          exclude="bld\bin\$platform$_$configuration$\Sarif.Multitool\Publish\netcoreapp2.1\Sarif*.dll"
+    <file src="bld\bin\$platform$_$configuration$\Sarif.Multitool\Publish\netcoreapp3.0\**"
+          target="tools\netcoreapp3.0"
+          exclude="bld\bin\$platform$_$configuration$\Sarif.Multitool\Publish\netcoreapp3.0\Sarif*.dll"
           />
-    <file src="bld\bin\Signing\netcoreapp2.1\**"
-          target="tools\netcoreapp2.1"
+    <file src="bld\bin\Signing\netcoreapp3.0\**"
+          target="tools\netcoreapp3.0"
           />
     <file src="bld\bin\Signing\netstandard2.1\**"
-          target="tools\netcoreapp2.1"
+          target="tools\netcoreapp3.0"
           />
 
-    <!-- netcoreapp2.1 packs to tools\TargetFramework\any\* for compatibility with dotnet tool install -->
-    <file src="bld\bin\$platform$_$configuration$\Sarif.Multitool\Publish\netcoreapp2.1\**"
-          target="tools\netcoreapp2.1\any"
-          exclude="bld\bin\$platform$_$configuration$\Sarif.Multitool\Publish\netcoreapp2.1\Sarif*.dll"
+    <!-- netcoreapp3.0 packs to tools\TargetFramework\any\* for compatibility with dotnet tool install -->
+    <file src="bld\bin\$platform$_$configuration$\Sarif.Multitool\Publish\netcoreapp3.0\**"
+          target="tools\netcoreapp3.0\any"
+          exclude="bld\bin\$platform$_$configuration$\Sarif.Multitool\Publish\netcoreapp3.0\Sarif*.dll"
           />
-    <file src="bld\bin\Signing\netcoreapp2.1\**"
-          target="tools\netcoreapp2.1\any"
+    <file src="bld\bin\Signing\netcoreapp3.0\**"
+          target="tools\netcoreapp3.0\any"
           />
     <file src="bld\bin\Signing\netstandard2.1**"
-          target="tools\netcoreapp2.1\any"
+          target="tools\netcoreapp3.0\any"
           />
 
     <file src="src\ReleaseHistory.md" />        
