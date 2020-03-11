@@ -1,7 +1,9 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using System.Collections.Generic;
+using Microsoft.CodeAnalysis.Sarif.Visitors;
 using Microsoft.WorkItems;
 using Newtonsoft.Json;
 
@@ -9,11 +11,24 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 {
     public class SarifWorkItemModel : WorkItemModel<SarifWorkItemContext>
     {
+        public Uri LocationUri { get; private set; }
+
         public SarifWorkItemModel(SarifLog sarifLog, SarifWorkItemContext context = null)
         {
             this.Context = context ?? new SarifWorkItemContext();
 
             context.InitializeFromLog(sarifLog);
+
+            var visitor = new ExtractAllArtifactLocationsVisitor();
+            visitor.VisitSarifLog(sarifLog);
+            foreach (ArtifactLocation location in visitor.AllArtifactLocations)
+            {
+                if (location?.Uri != null)
+                {
+                    LocationUri = location.Uri;
+                    break;
+                }
+            }
 
             // Shared GitHub/Azure DevOps concepts
 

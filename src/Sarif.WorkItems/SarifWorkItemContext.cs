@@ -12,13 +12,8 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
         public SarifWorkItemContext(SarifWorkItemContext initializer) : base(initializer) { }
 
-        internal void InitializeFromLog(SarifLog sarifLog)
-        {
-            // TODOD: Initialize source and non-source-controlled files here,
-            //        as determined by scraping all URLs associated with results.
-            // 
-            //        https://github.com/microsoft/sarif-sdk/issues/1752
-        }
+        internal void InitializeFromLog(SarifLog sarifLog) { }
+
         public Uri HostUri
         {
             get { return this.GetProperty(HostUriOption); }
@@ -129,5 +124,6 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             new PerLanguageOption<SplittingStrategy>(
                 "Extensibility", nameof(SplittingStrategy),
                 defaultValue: () => { return 0; });
+
     }
 }
