@@ -11,7 +11,7 @@
       We use [Condition="'$(RuntimeIdentifier)' != ''"] to identify settings used only for these builds.      
     -->
 
-    <TargetFrameworks>netcoreapp2.1;netcoreapp3.0</TargetFrameworks>
+    <TargetFrameworks>netcoreapp3.0</TargetFrameworks>
 
     <!-- Publish trimmed single-file exe -->
     <PublishTrimmed Condition="'$(RuntimeIdentifier)' != ''">true</PublishTrimmed>
