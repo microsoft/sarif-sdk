@@ -1,10 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
-  </PropertyGroup>
-
- 
   <PropertyGroup Label="AssemblyAttributes">
     <AssemblyTitle>SARIF Work Item Filing Library</AssemblyTitle>
     <Description>Classes for filing the results in a SARIF log file as work items in a system such as GitHub or AzureDevOps.</Description>
@@ -12,16 +7,13 @@
 
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
 
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\Sarif\Sarif.csproj" />
     <ProjectReference Include="..\WorkItems\WorkItems.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Json.Schema" Version="1.1.1" />
-    <PackageReference Include="Microsoft.Json.Schema.Validation" Version="1.1.1" />
-    <PackageReference Include="Microsoft.VisualStudio.Services.Client" Version="16.143.2" />
-    <PackageReference Include="Microsoft.TeamFoundationServer.Client" Version="16.143.2" />
   </ItemGroup>
 
   <ItemGroup>
