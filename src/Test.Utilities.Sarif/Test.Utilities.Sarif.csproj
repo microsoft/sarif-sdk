@@ -1,11 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFrameworks>netstandard2.0</TargetFrameworks>
-    <IsPackable>false</IsPackable>
-    <IsTestProject>false</IsTestProject>
-  </PropertyGroup>
-
   <ItemGroup>
     <Compile Remove="TestUtilityResources.Designer.cs" />
   </ItemGroup>
@@ -18,6 +12,12 @@
   </ItemGroup>
 
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>false</IsTestProject>
+  </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Sarif\Sarif.csproj" />

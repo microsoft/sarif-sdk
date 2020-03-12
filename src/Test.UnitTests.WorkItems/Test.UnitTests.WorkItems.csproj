@@ -1,18 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+  <PropertyGroup Label="AssemblyAttributes">
+    <AssemblyTitle>Universal Work Item Filer Unit Tests</AssemblyTitle>
+    <Description>Unit tests for the Universal Work Item Filer, which files issues in GitHub or AzureDevOps.</Description>
+    <RootNamespace>Microsoft.WorkItems</RootNamespace>
+  </PropertyGroup>
+
+  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
+
   <PropertyGroup>
     <TargetFrameworks>netcoreapp2.1</TargetFrameworks>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
-    <RootNamespace>Microsoft.WorkItems</RootNamespace>
   </PropertyGroup>
-
-  <PropertyGroup Label="AssemblyAttributes">
-    <AssemblyTitle>Universal Work Item Filer Unit Tests</AssemblyTitle>
-    <Description>Unit tests for the Universal Work Item Filer, which files issues in GitHub or AzureDevOps.</Description>
-  </PropertyGroup>
-
-  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
 
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.10.2" />

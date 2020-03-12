@@ -6,7 +6,9 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <TargetFrameworks>net461</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>false</IsTestProject>
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,7 +26,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Sarif.WorkItems\Sarif.WorkItems.csproj" />
     <ProjectReference Include="..\Sarif\Sarif.csproj" />
-    <ProjectReference Include="..\Test.UnitTests.Sarif.WorkItems\Test.UnitTests.Sarif.WorkItems.csproj" />
     <ProjectReference Include="..\WorkItems\WorkItems.csproj" />
   </ItemGroup>
 
