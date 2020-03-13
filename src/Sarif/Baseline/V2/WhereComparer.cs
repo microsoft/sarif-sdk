@@ -143,16 +143,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             cmp = left.StartLine.CompareTo(right.StartLine);
             if (cmp != 0) { return cmp; }
 
-            cmp = left.StartColumn.CompareTo(right.StartColumn);
+            cmp = ResolvedStartColumn(left).CompareTo(ResolvedStartColumn(right));
             if (cmp != 0) { return cmp; }
 
-            cmp = left.EndLine.CompareTo(right.EndLine);
+            cmp = ResolvedEndLine(left).CompareTo(ResolvedEndLine(right));
             if (cmp != 0) { return cmp; }
 
             cmp = left.EndColumn.CompareTo(right.EndColumn);
             if (cmp != 0) { return cmp; }
 
             return cmp;
+        }
+
+        private static int ResolvedStartColumn(Region region)
+        {
+            return (region.StartColumn == -1 ? 1 : region.StartColumn);
+        }
+
+        private static int ResolvedEndLine(Region region)
+        {
+            return (region.EndLine == -1 ? region.StartLine : region.EndLine);
         }
 
         public static int CompareTo(Uri left, Uri right)
@@ -164,9 +174,70 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             return left.OriginalString.CompareTo(right.OriginalString);
         }
 
+        /// <summary>
+        ///  Choose a location (Uri or FullyQualifiedName) to represent this Result.
+        ///  It's the first Uri or FullyQualifiedName which was also seen in the other Run.
+        /// </summary>
+        public static string LocationSpecifier(ExtractedResult result, HashSet<string> otherRunLocations)
+        {
+            // Return the first Uri also in the other run, if any
+            foreach (Location location in result.Result.Locations ?? Enumerable.Empty<Location>())
+            {
+                string uri = LocationUri(location, result.OriginalRun)?.OriginalString;
+                if (uri != null && otherRunLocations.Contains(uri))
+                {
+                    return uri;
+                }
+            }
+
+            // Otherwise, return the first FullyQualifiedName also in the other run, if any
+            foreach (Location location in result.Result.Locations ?? Enumerable.Empty<Location>())
+            {
+                string fullyQualifiedName = LocationFullyQualifiedName(location);
+                if (fullyQualifiedName != null && otherRunLocations.Contains(fullyQualifiedName))
+                {
+                    return fullyQualifiedName;
+                }
+            }
+
+            // Otherwise, return empty, so that all Results without matching locations
+            // are put in the same "bucket" for matching. (File Rename handling)
+            return String.Empty;
+        }
+
+        // Add all Uris and FullyQualifiedLocations in the Result to a set
+        // Used to identify Uris or FQLs which 
+        public static void AddLocationIdentifiers(ExtractedResult result, HashSet<string> toSet)
+        {
+            foreach (Location location in result.Result.Locations ?? Enumerable.Empty<Location>())
+            {
+                string uri = LocationUri(location, result.OriginalRun)?.OriginalString;
+                if (uri != null)
+                {
+                    toSet.Add(uri);
+                }
+
+                string fullyQualifiedName = LocationFullyQualifiedName(location);
+                if(fullyQualifiedName != null)
+                {
+                    toSet.Add(fullyQualifiedName);
+                }
+            }
+        }
+
+        public static string LocationFullyQualifiedName(Location loc)
+        {
+            return loc?.LogicalLocation?.FullyQualifiedName;
+        }
+
         public static Uri FirstUri(ExtractedResult result)
         {
-            return ArtifactUri(result?.Result?.Locations?.FirstOrDefault()?.PhysicalLocation?.ArtifactLocation, result?.OriginalRun);
+            return LocationUri(result?.Result?.Locations?.FirstOrDefault(), result?.OriginalRun);
+        }
+
+        public static Uri LocationUri(Location loc, Run run)
+        {
+            return ArtifactUri(loc?.PhysicalLocation?.ArtifactLocation, run);
         }
 
         private static Uri ArtifactUri(ArtifactLocation loc, Run run)

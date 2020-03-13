@@ -79,6 +79,28 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
             // Right Length bigger
             right = new Region(left) { CharLength = left.CharLength + 1, StartLine = left.StartLine - 1, StartColumn = left.StartColumn - 1, EndLine = left.EndLine - 1, EndColumn = left.EndColumn - 1 };
             WhereComparer.CompareTo(left, right).Should().BeLessThan(0);
+
+            // EndLine default resolution
+            left = new Region() { StartLine = 10, StartColumn = 1, EndLine = 10, EndColumn = 55 };
+            right = new Region(left) { EndLine = -1 };
+            WhereComparer.CompareTo(left, right).Should().Be(0);
+            WhereComparer.CompareTo(right, left).Should().Be(0);
+
+            // Left.EndLine greater than Right defaulted EndLine
+            left.EndLine += 1;
+            WhereComparer.CompareTo(left, right).Should().BeGreaterThan(0);
+            WhereComparer.CompareTo(right, left).Should().BeLessThan(0);
+
+            // StartColumn default resolution
+            left = new Region() { StartLine = 10, StartColumn = 1, EndLine = 10, EndColumn = 55 };
+            right = new Region(left) { StartColumn = -1 };
+            WhereComparer.CompareTo(left, right).Should().Be(0);
+            WhereComparer.CompareTo(right, left).Should().Be(0);
+
+            // Left.StartColumn greater than Right defaulted EndColumn
+            left.StartColumn = 2;
+            WhereComparer.CompareTo(left, right).Should().BeGreaterThan(0);
+            WhereComparer.CompareTo(right, left).Should().BeLessThan(0);
         }
 
         [Fact]

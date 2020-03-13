@@ -25,7 +25,7 @@ namespace Test.EndToEnd.Baselining
     public class BaseliningDetailEnricher
     {
         private Dictionary<string, string> DetailByGuid { get; set; }
-        private readonly Regex RidRegex = new Regex(@"(\d{3} \d{3,4})$", RegexOptions.Compiled | RegexOptions.Singleline);
+        private readonly Regex RidRegex = new Regex(@"(\d{3} \d{3,6})$", RegexOptions.Compiled | RegexOptions.Singleline);
 
         public BaseliningDetailEnricher()
         {
@@ -79,7 +79,7 @@ namespace Test.EndToEnd.Baselining
                     // Add details for every line with a RID
                     string rid = m.Groups[1].Value;
                     if (!DetailByGuid.TryGetValue(rid, out string detail)) { detail = ""; }
-                    writer.Write(line);
+                    writer.Write(PadTo(17, line));
                     writer.WriteLine(detail);
                 }
                 else
@@ -94,12 +94,19 @@ namespace Test.EndToEnd.Baselining
         // (There are too many to include all of them all the time)
         private string DetailsHeading()
         {
-            return $"        RID     | RuleID    | Uri+Region          | Hash     | Snippet";
+            return $"{PadTo(17, "RID")} | RuleID    | {PadTo(40, "Uri+Region")} | Hash     | Snippet";
         }
 
         private string Details(Result result)
         {
-            return $" | {result.ResolvedRuleId(result.Run)} | {result.FirstLocation()} | {result.PartialFingerprint("SecretHash/v1", 8)} | {result.Snippet(16)}";
+            return $" | {result.ResolvedRuleId(result.Run)} | {PadTo(40, result.FirstLocation())} | {result.PartialFingerprint("SecretHash/v1", 8)} | {result.Snippet(16)}";
+        }
+
+        private string PadTo(int length, string value)
+        {
+            string result = value ?? "";
+            if (result.Length < length) { result += new string(' ', length - result.Length); }
+            return result;
         }
     }
 }

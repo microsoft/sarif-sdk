@@ -11,33 +11,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
 {
     /// <summary>
     ///  WhatMap is used to look for unique 'What' properties across batches of Results.
-    ///  Each 'What' property value is added to a Dictionary, specific to the Category (RuleId)
-    ///  and Property Name where that value was found.
+    ///  Each 'What' value is added to a Dictionary, specific to the Category (RuleId),
+    ///  Location specifier, and Attribute Name where that value was found.
     /// </summary>
     internal class WhatMap
     {
-        // This dictionary maps each distinct combination of (Category | PropertyName | Value)
-        // to the index of the unique result in which it was found. If the same combination occurs
-        // multiple times, it will be in the map with an index of -1.
-        private Dictionary<WhatComponent, int> Map { get; }
-
-        public WhatMap(IList<ExtractedResult> results, int[] linksFromResults)
+        // This dictionary tracks which WhatComponents are unique.
+        // The value is the index of the result with that value, if unique, or -1 if in several.
+        private readonly Dictionary<WhatComponent, int> _map;
+        
+        public WhatMap()
         {
-            Map = new Dictionary<WhatComponent, int>();
-
-            // Map *only* results which aren't already linked.
-            for (int i = 0; i < results.Count; ++i)
-            {
-                if (linksFromResults[i] == -1)
-                {
-                    Add(results[i], i);
-                }
-            }
+            _map = new Dictionary<WhatComponent, int>();
         }
 
-        private void Add(ExtractedResult result, int index)
+        private void Add(ExtractedResult result, HashSet<string> otherRunLocations, int index)
         {
-            foreach (WhatComponent component in result.WhatProperties())
+            // Find the LocationSpecifier for the Result (the first Uri or FQN also in the other Run)
+            string locationSpecifier = WhereComparer.LocationSpecifier(result, otherRunLocations);
+
+            // Add Result attributes used as matching hints in a "bucket" for the Rule x LocationSpecifier x AttributeName
+            foreach(WhatComponent component in result.WhatProperties(locationSpecifier))
             {
                 Add(component, index);
             }
@@ -45,17 +39,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
 
         public void Add(WhatComponent component, int index)
         {
-            if (component?.PropertyValue == null) { return; }
+            if (component.PropertyValue == null) { return; }
 
-            if (Map.TryGetValue(component, out int existingIndex) && existingIndex != index)
+            if (_map.TryGetValue(component, out int existingIndex) && existingIndex != index)
             {
                 // If the map has another of this value, set index -1 to indicate non-unique.
-                Map[component] = -1;
+                _map[component] = -1;
             }
             else
             {
                 // Otherwise, point to the result.
-                Map[component] = index;
+                _map[component] = index;
             }
         }
 
@@ -67,9 +61,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
         /// <returns>Index of this and Index of other Result where the two have a unique trait in common.</returns>
         public IEnumerable<Tuple<int, int>> UniqueLinks(WhatMap other)
         {
-            foreach (KeyValuePair<WhatComponent, int> entry in Map.Where(entry => entry.Value != -1))
+            foreach (KeyValuePair<WhatComponent, int> entry in _map.Where(entry => entry.Value != -1))
             {
-                if (other.Map.TryGetValue(entry.Key, out int otherIndex) && otherIndex != -1)
+                if (other._map.TryGetValue(entry.Key, out int otherIndex) && otherIndex != -1)
                 {
                     yield return new Tuple<int, int>(entry.Value, otherIndex);
                 }

@@ -261,10 +261,53 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
             // Verify the result matched, and matched the copy from the same file
             IEnumerable<MatchedResults> matches = CreateMatchedResults(firstRun, secondRun);
             MatchedResults match = matches.Where(m => Location.ValueComparer.Equals(m.CurrentResult?.Result?.Locations?.FirstOrDefault(), firstInFile.Locations[0])).FirstOrDefault();
-            Assert.NotNull(match.PreviousResult);
-            Assert.Equal(
-                match.PreviousResult.Result.Locations[0].PhysicalLocation.ArtifactLocation.Uri,
-                match.CurrentResult.Result.Locations[0].PhysicalLocation.ArtifactLocation.Uri);
+            match.PreviousResult.Should().NotBeNull();
+            match.PreviousResult.Result.Locations[0].PhysicalLocation.ArtifactLocation.Uri
+                .Should().Be(match.CurrentResult.Result.Locations[0].PhysicalLocation.ArtifactLocation.Uri);
+        }
+
+        [Fact]
+        public void V2ResultMatcher_IgnoresConstantPartialFingerprint()
+        {
+            // If there's a PartialFingerprint which is useless (the same for every result),
+            // the baseliner needs to recognize the situation and disregard that partialFingerprint. 
+            
+            // Spam had this issue with CanonicalLogicalLocation in JSON files where
+            // all user content is in one place (WorkItemHyperLink -> "url")
+
+            Run firstRun = SampleRun.DeepClone();
+            Run secondRun = SampleRun.DeepClone();
+
+            foreach(Result result in firstRun.Results)
+            {
+                // Give each result a unique (non-matching) and constant fingerprint
+                result.PartialFingerprints.Clear();
+                result.PartialFingerprints["SecretHash/v1"] = Guid.NewGuid().ToString(SarifConstants.GuidFormat);
+                result.PartialFingerprints["Useless/v1"] = "Constant";
+
+                // Give each result a unique (non-matching) snippet (to ensure fallback doesn't match)
+                result.Locations[0].PhysicalLocation.Region.Snippet.Text = Guid.NewGuid().ToString(SarifConstants.GuidFormat);
+            }
+
+            foreach (Result result in secondRun.Results)
+            {
+                // Give each result a unique (non-matching) and constant fingerprint
+                result.PartialFingerprints.Clear();
+                result.PartialFingerprints["SecretHash/v1"] = Guid.NewGuid().ToString(SarifConstants.GuidFormat);
+                result.PartialFingerprints["Useless/v1"] = "Constant";
+
+                Region region = result.Locations[0].PhysicalLocation.Region;
+
+                // Give each result a unique (non-matching) snippet (to ensure fallback doesn't match)
+                region.Snippet.Text = Guid.NewGuid().ToString(SarifConstants.GuidFormat);
+
+                // Ensure each results moves, so none match by where
+                region.StartLine += 100;
+            }
+
+            // Match the Runs, and confirm *nothing* matches; this requires the constant partialFingerprint not to be trusted
+            IEnumerable<MatchedResults> matches = CreateMatchedResults(firstRun, secondRun);
+            matches.Where(m => m.PreviousResult != null && m.CurrentResult != null).Should().BeEmpty();
         }
 
         private static void ReplaceInUri(ArtifactLocation artifactLocation, string replaceThis, string withThis)

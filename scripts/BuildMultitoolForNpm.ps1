@@ -49,9 +49,8 @@ if (-not $SkipBuild) {
     Copy-Item -Force -Container -Recurse -Path $projectBinDirectory\Publish\netcoreapp3.0\osx-x64\* -Destination $npmBuildFolder\sarif-multitool-darwin\
 }
 
-# TEMP: Use 0.x.y numbering until NPM package shape settled, then follow SDK version exactly by removing the hardcoded set
+# Match SARIF SDK version (from 2.2.1 forward).
 $sarifVersion = Get-PackageVersion
-$sarifVersion = "0.1.28"
 
 Write-Information "Injecting Sarif SDK version $sarifVersion for NPM Packages..."
 foreach ($package in (Get-ChildItem $npmBuildFolder).FullName) {

@@ -1,5 +1,10 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
+## **v2.2.1** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.2.1) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.2.1) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.2.1) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.2.1)
+* FEATURE: Multitool `remove` option now supports `Guids` value to remove `Result.Guid`.
+* FEATURE: Significant Baselining algorithm improvements: dynamic `partialFingerprint` trust, location-specific unique what property matching, 'nearby' matching, correct omitted `Region` property handling, correct `ReportingDescriptor.DeprecatedIds` handling.
+* DEPENDENCY BREAKING: SARIF now requires Newtonsoft.JSON 10.0.3 (rather than 9.0.x).
+
 ## **v2.2.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.2.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.2.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.2.0) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.2.0)
 * PACKAGE BREAKING: Update tool directory to netstandard2.1, to reflect use of that version of .NET Core.
 * FEATURE: Multitool `rewrite` command performance when populating regions and snippets is greatly improved.

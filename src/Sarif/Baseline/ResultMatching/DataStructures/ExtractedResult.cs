@@ -18,13 +18,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         public Run OriginalRun { get; set; }
         public string RuleId { get; set; }
 
+        private readonly ReportingDescriptor _rule;
+        private readonly bool _hasDeprecatedIds;
+
         public ExtractedResult(Result result, Run run)
         {
             Result = result;
             OriginalRun = run;
 
-            // Look up and cache the RuleId.
-            RuleId = result.ResolvedRuleId(run);
+            // Ensure Result.Run is set (if not previously set)
+            result.Run = result.Run ?? run;
+
+            // Look up and cache RuleId, Rule
+            RuleId = result.ResolvedRuleId(result.Run);
+
+            if (result.Run != null)
+            {
+                _rule = result.GetRule(result.Run);
+                _hasDeprecatedIds = _rule?.DeprecatedIds?.Count > 0;
+            }
         }
 
         /// <summary>
@@ -34,7 +46,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         /// <returns>True if Category is identical, False otherwise</returns>
         public bool MatchesCategory(ExtractedResult other)
         {
-            return this.RuleId == other.RuleId;
+            if (!this._hasDeprecatedIds && !other._hasDeprecatedIds)
+            {
+                return (this.RuleId == other.RuleId);
+            }
+
+            // Handle ReportingDescriptor.DeprecatedIds (rare)
+            if (other._hasDeprecatedIds && other._rule.DeprecatedIds.Contains(this.RuleId))
+            {
+                return true;
+            }
+
+            if (this._hasDeprecatedIds && this._rule.DeprecatedIds.Contains(other.RuleId))
+            {
+                return true;
+            }
+
+            return false;
 
             // Tool contributes to category, but SarifLogMatcher ensures only Runs with matching Tools are compared,
             // so we don't check here.
@@ -51,6 +79,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         public bool MatchesAnyWhat(ExtractedResult other)
         {
             return WhatComparer.MatchesWhat(this, other);
+        }
+
+        /// <summary>
+        ///  Match enough of the 'What' properties of two ExtractedResults (Guid, Fingerprints, PartialFingerprints, Snippets, Message, Properties).
+        ///  A match in high-confidence identity properties is a match (Guid, Fingerprint, >= 50% of PartialFingerprint).
+        ///  A non-match in high-confidence identity properties is a non-match (Fingerprint, 0% of PartialFingerprints, Properties).
+        ///  Otherwise, Results match if Message and first Snippet match.
+        /// </summary>
+        /// <param name="other">ExtractedResult to match</param>
+        /// <param name="trustMap">TrustMap for either Run being compared, to weight attributes selectively</param>
+        /// <returns>True if *any* 'What' property matches, False otherwise</returns>
+        internal bool MatchesAnyWhat(ExtractedResult other, TrustMap trustMap)
+        {
+            return WhatComparer.MatchesWhat(this, other, trustMap);
         }
 
         /// <summary>
@@ -72,6 +114,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         public bool IsSufficientlySimilarTo(ExtractedResult other)
         {
             return this.MatchesCategory(other) && (this.MatchesAnyWhat(other) || this.MatchesAllWhere(other));
+        }
+
+        /// <summary>
+        ///  Determine whether this ExtractedResult is 'sufficiently similar' to another.
+        ///  An ExtractedResult must have the same category and either match a 'What' property or all 'Where' properties.
+        /// </summary>
+        /// <param name="other">ExtractedResult to match</param>
+        /// <param name="trustMap">TrustMap for either Run being compared, to weight attributes selectively</param>
+        /// <returns>True if ExtractedResults are 'sufficiently similar', otherwise False.</returns>
+        internal bool IsSufficientlySimilarTo(ExtractedResult other, TrustMap trustMap)
+        {
+            return this.MatchesCategory(other) && (this.MatchesAnyWhat(other, trustMap) || this.MatchesAllWhere(other));
         }
 
         public override string ToString()

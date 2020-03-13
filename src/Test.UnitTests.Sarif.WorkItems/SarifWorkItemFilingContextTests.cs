@@ -4,6 +4,7 @@
 using System;
 using System.IO;
 using FluentAssertions;
+using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.WorkItems
@@ -31,6 +32,40 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
             context.Transformers[0].Transform(workItemModel);
             workItemModel.Area.Should().Be(newAreaPath);
+        }
+
+        [Fact]
+        public void WorkItemFilingContext_NullAreaPathRemainsUnchanged()
+        {
+            var areaPathTransformer = new AreaPathFromUri();
+
+            var context = new SarifWorkItemContext();
+
+            context.AddWorkItemModelTransformer(areaPathTransformer);
+            context.Transformers[0].GetType().Should().Be(areaPathTransformer.GetType());
+
+            var workItemModel = new SarifWorkItemModel(sarifLog: null, context);
+
+            context.Transformers[0].Transform(workItemModel);
+            workItemModel.Area.Should().BeNull();
+        }
+
+        [Fact]
+        public void WorkItemFilingContext_FetchUriSuccessfully()
+        {
+            var areaPathTransformer = new AreaPathFromUri();
+
+            var context = new SarifWorkItemContext();
+
+            context.AddWorkItemModelTransformer(areaPathTransformer);
+            context.Transformers[0].GetType().Should().Be(areaPathTransformer.GetType());
+
+            SarifLog sarifLog = TestConstants.SarifLogs.OneIdThreeLocations;
+
+            var workItemModel = new SarifWorkItemModel(sarifLog, context);
+
+            context.Transformers[0].Transform(workItemModel);
+            workItemModel.Area.Should().Be(TestConstants.FileLocations.Location1);
         }
 
         private SarifWorkItemContext RoundTripThroughXml(SarifWorkItemContext sarifWorkItemContext)
@@ -66,6 +101,16 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 new PerLanguageOption<string>(
                     nameof(Munger), nameof(NewAreaPath),
                     defaultValue: () => { return null; });
+        }
+
+        public class AreaPathFromUri : SarifWorkItemModelTransformer
+        {
+            public override void Transform(SarifWorkItemModel workItemModel)
+            {
+                string newAreaPath = workItemModel.LocationUri?.OriginalString;
+
+                workItemModel.Area = !string.IsNullOrEmpty(newAreaPath) ? newAreaPath : workItemModel.Area;
+            }
         }
     }
 }

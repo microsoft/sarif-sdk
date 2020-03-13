@@ -22,24 +22,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
     /// <typeparam name="EnumType">Type of Enum of property being compared</typeparam>
     public class EnumEvaluator<T, EnumType> : IExpressionEvaluator<T> where EnumType : struct, Enum
     {
-        private Func<T, EnumType> Getter { get; set; }
-        private EnumType Value { get; set; }
-
-        private Action<ICollection<T>, BitArray> EvaluateSet { get; set; }
+        private readonly Func<T, EnumType> _getter;
+        private readonly EnumType _value;
+        private readonly Action<ICollection<T>, BitArray> _evaluateSet;
 
         public EnumEvaluator(Func<T, EnumType> getter, TermExpression term)
         {
-            Getter = getter;
+            _getter = getter;
 
             if (!Enum.TryParse<EnumType>(term.Value, out EnumType parsedValue)) { throw new QueryParseException($"{term} value {term.Value} was not a valid {typeof(EnumType).Name}."); }
-            Value = parsedValue;
+            _value = parsedValue;
 
-            EvaluateSet = Comparer(term);
+            _evaluateSet = Comparer(term);
         }
 
         public void Evaluate(ICollection<T> list, BitArray matches)
         {
-            EvaluateSet(list, matches);
+            _evaluateSet(list, matches);
         }
 
         private Action<ICollection<T>, BitArray> Comparer(TermExpression term)
@@ -60,7 +59,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
             int i = 0;
             foreach (T item in list)
             {
-                matches.Set(i, Getter(item).Equals(Value));
+                matches.Set(i, _getter(item).Equals(_value));
                 i++;
             }
         }
@@ -70,7 +69,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
             int i = 0;
             foreach (T item in list)
             {
-                matches.Set(i, !Getter(item).Equals(Value));
+                matches.Set(i, !_getter(item).Equals(_value));
                 i++;
             }
         }
