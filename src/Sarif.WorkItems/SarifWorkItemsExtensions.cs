@@ -64,7 +64,11 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 locationName = firstResult.Locations?[0].PhysicalLocation?.ArtifactLocation?.Resolve(run)?.Uri.OriginalString;
             }
 
-            // [Tool:Warning] RULE1001: Friendly Rule Name in 'c:\src\build.props'
+            // Returns strings like:
+            //
+            // [Tool:Warning] RULE3067 (in 'Namespace.Type.MyMethod()')
+            // [Tool:Error] RULE2001: Null derefernece (in c:\src\build.cpp)
+
             return "[" + run.Tool.Driver.Name + ":" +
                     firstResult.Level.ToString() + "]: " +
                     fullRuleId +
