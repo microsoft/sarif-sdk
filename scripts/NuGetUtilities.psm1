@@ -75,7 +75,7 @@ function New-NuGetPackageFromNuSpecFile($configuration, $project, $version, $suf
         Exit-WithFailureMessage $ScriptName "$project NuGet package creation failed."
     }
 
-    Write-Information "  Successfully created package '$BinRoot\NuGet\$Configuration\$Project.$version.nupkg'."
+    Write-Information "  Successfully created package '$BinRoot\..\Publish\NuGet\$Configuration\$Project.$version.nupkg'."
 }
 
 function New-NuGetPackages($configuration, $projects) {
