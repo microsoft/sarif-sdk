@@ -128,7 +128,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     sb.Append(argument + ",");
                 }
-                sb.Length = sb.Length - 1;
+                sb.Length -= 1;
                 sb.Append("}");
             }
 

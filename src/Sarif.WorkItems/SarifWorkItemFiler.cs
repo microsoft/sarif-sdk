@@ -176,7 +176,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             // of the root pipeline filing context. This context will then be initialized
             // based on the current sarif log file that we're processing.
 
-            SarifWorkItemModel workItemModel = new SarifWorkItemModel(sarifLog, filingContext);
+            var workItemModel = new SarifWorkItemModel(sarifLog, filingContext);
 
             try
             {
