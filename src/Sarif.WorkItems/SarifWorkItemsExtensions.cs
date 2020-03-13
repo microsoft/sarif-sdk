@@ -72,7 +72,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             return "[" + run.Tool.Driver.Name + ":" +
                     firstResult.Level.ToString() + "]: " +
                     fullRuleId +
-                    (locationName == null ? "" : " (in file " + locationName + ")");
+                    (locationName == null ? "" : " (in " + locationName + ")");
         }
 
         private static string ConstructFullRuleIdentifier(ReportingDescriptor reportingDescriptor)
