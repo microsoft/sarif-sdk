@@ -43,11 +43,9 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 Text = JsonConvert.SerializeObject(sarifLog),
             };
 
-            // TODO: Provide a useful SARIF-derived issue title
-            //
-            //       https://github.com/microsoft/sarif-sdk/issues/1755
-            //
-            this.Title = $"Default {nameof(this.Title)}";
+            string title = sarifLog.Runs?[0]?.CreateWorkItemTitle();
+
+            this.Title = title ?? "[ERROR GENERATING TITLE]";
 
             // TODO: Provide a useful SARIF-derived discussion entry 
             //       for the preliminary filing operation.

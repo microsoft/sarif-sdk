@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using FluentAssertions;
+using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
@@ -13,22 +14,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
     // also exercise Region.FormatForVisualStudio and ResultKind.FormatForVisualStudio.
     public class FormatForVisualStudioTests
     {
-        private const string TestRuleId = "TST0001";
-        private const string TestMessageStringId = "testMessageStringId";
-        private const string TestAnalysisTarget = @"C:\dir\file";
-
-        private static readonly ReportingDescriptor TestRule = new ReportingDescriptor
-        {
-            Id = TestRuleId,
-            Name = "ThisIsATest",
-            ShortDescription = new MultiformatMessageString { Text = "short description" },
-            FullDescription = new MultiformatMessageString { Text = "full description" },
-            MessageStrings = new Dictionary<string, MultiformatMessageString>
-            {
-                [TestMessageStringId] = new MultiformatMessageString { Text = "First: {0}, Second: {1}" }
-            }
-        };
-
         private static readonly Region MultiLineTestRegion = new Region
         {
             StartLine = 2,
@@ -63,7 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         };
 
         public static IEnumerable<object[]> FailureLevelFormatForVisualStudioTestCases => new[]
-        {
+        {            
             // Default core failure cases, verbose and non-verbose
             BuildDefaultTestCase(FailureLevel.Error),
             BuildDefaultTestCase(FailureLevel.Warning),
@@ -86,8 +71,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 FailureLevel.Error,
                 ResultKind.Fail,
                 SingleLineMultiColumnTestRegion,
-                $"{TestAnalysisTarget}(2,4-5): error {TestRuleId}: First: 42, Second: 54",
-                TestAnalysisTarget
+                $"{TestData.TestAnalysisTarget}(2,4-5): error {TestData.TestRuleId}: First: 42, Second: 54",
+                TestData.TestAnalysisTarget
             },
 
             // Test formatting of a single-line single-column region.
@@ -96,8 +81,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 FailureLevel.Error,
                 ResultKind.Fail,
                 SingleLineSingleColumnTestRegion,
-                $"{TestAnalysisTarget}(2,4): error {TestRuleId}: First: 42, Second: 54",
-                TestAnalysisTarget
+                $"{TestData.TestAnalysisTarget}(2,4): error {TestData.TestRuleId}: First: 42, Second: 54",
+                TestData.TestAnalysisTarget
             },
 
             // Test formatting of a single-line region with no column specified.
@@ -106,8 +91,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 FailureLevel.Error,
                 ResultKind.Fail,
                 SingleLineNoColumnTestRegion,
-                $"{TestAnalysisTarget}(2): error {TestRuleId}: First: 42, Second: 54",
-                TestAnalysisTarget
+                $"{TestData.TestAnalysisTarget}(2): error {TestData.TestRuleId}: First: 42, Second: 54",
+                TestData.TestAnalysisTarget
             },
 
             // Test formatting of a multi-line region with no columns specified.
@@ -116,8 +101,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 FailureLevel.Error,
                 ResultKind.Fail,
                 MultiLineNoColumnTestRegion,
-                $"{TestAnalysisTarget}(2-3): error {TestRuleId}: First: 42, Second: 54",
-                TestAnalysisTarget
+                $"{TestData.TestAnalysisTarget}(2-3): error {TestData.TestRuleId}: First: 42, Second: 54",
+                TestData.TestAnalysisTarget
             },
 
             // Test formatting of a relative path.
@@ -126,7 +111,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 FailureLevel.Error,
                 ResultKind.Fail,
                 MultiLineNoColumnTestRegion,
-                $"file(2-3): error {TestRuleId}: First: 42, Second: 54",
+                $"file(2-3): error {TestData.TestRuleId}: First: 42, Second: 54",
                 "file"
             },
 
@@ -136,7 +121,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 FailureLevel.Error,
                 ResultKind.Fail,
                 MultiLineNoColumnTestRegion,
-                $"http://www.example.com/test.html(2-3): error {TestRuleId}: First: 42, Second: 54",
+                $"http://www.example.com/test.html(2-3): error {TestData.TestRuleId}: First: 42, Second: 54",
                 "http://www.example.com/test.html"
             },
         };
@@ -164,8 +149,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 level,
                 kind,
                 MultiLineTestRegion,
-                $"{TestAnalysisTarget}(2,4,3,5): {lineLabel} {TestRuleId}: First: 42, Second: 54",
-                TestAnalysisTarget
+                $"{TestData.TestAnalysisTarget}(2,4,3,5): {lineLabel} {TestData.TestRuleId}: First: 42, Second: 54",
+                TestData.TestAnalysisTarget
             };
         }
 
@@ -173,44 +158,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         [MemberData(nameof(FailureLevelFormatForVisualStudioTestCases))]
         public void Result_FormatFailureLevelsForVisualStudioTests(FailureLevel level, ResultKind kind, Region region, string expected, string path)
         {
-            Result result = MakeResultFromTestCase(level, kind, region, path);
+            Result result = TestData.CreateResult(level, kind, region, path);
 
-            string actual = result.FormatForVisualStudio(TestRule);
+            string actual = result.FormatForVisualStudio(TestData.TestRule);
 
             actual.Should().Be(expected);
-        }
-
-        private Result MakeResultFromTestCase(FailureLevel level, ResultKind kind, Region region, string path)
-        {
-            return new Result
-            {
-                RuleId = TestRuleId,
-                Level = level,
-                Kind = kind,
-                Locations = new List<Location>
-                {
-                    new Location
-                    {
-                        PhysicalLocation = new PhysicalLocation
-                        {
-                            ArtifactLocation = new ArtifactLocation
-                            {
-                                Uri = new Uri(path, UriKind.RelativeOrAbsolute)
-                            },
-                            Region = region
-                        }
-                    }
-                },
-                Message = new Message
-                {
-                    Arguments = new List<string>
-                    {
-                        "42",
-                        "54"
-                    },
-                    Id = TestMessageStringId
-                }
-            };
         }
     }
 }
