@@ -61,7 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 // We don't bother to wrap a file path or URL in apostrophes as these are self-evident
                 //
                 // Lines of code like this that inspire strong feelings in SARIF consumers as far as its design.
-                locationName = firstResult.Locations?[0].PhysicalLocation?.ArtifactLocation?.Resolve(run)?.Uri.OriginalString;
+                locationName = firstResult.Locations?[0].PhysicalLocation?.ArtifactLocation?.Resolve(run)?.Uri?.OriginalString;
             }
 
             // Returns strings like:

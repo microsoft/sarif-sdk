@@ -45,7 +45,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
             string title = sarifLog.Runs?[0]?.CreateWorkItemTitle();
 
-            this.Title = title ??  "[ERROR GENERATING TITLE]";
+            this.Title = title ?? "[ERROR GENERATING TITLE]";
 
             // TODO: Provide a useful SARIF-derived discussion entry 
             //       for the preliminary filing operation.
