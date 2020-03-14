@@ -3,6 +3,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Octokit;
 
 namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 {
@@ -33,9 +34,10 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
         public static string CreateWorkItemTitle(this Run run)
         {
-            Result firstResult = null;
-            var ruleIds = new HashSet<string>();
+            if (run == null) { throw new NullReferenceException(); }
 
+            Result firstResult = null;
+            
             foreach (Result result in run?.Results)
             {
                 if (!result.AppropriateForFiling())
@@ -44,8 +46,8 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 }
 
                 string ruleId = result.ResolvedRuleId(run);
-                firstResult = firstResult ?? result;
-                ruleIds.Add(ruleId);
+                firstResult = result;
+                break;
             }
 
             // No useful work to schedule in a work item, apparently.
