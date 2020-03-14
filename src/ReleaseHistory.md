@@ -1,5 +1,8 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
+## **v2.2.2** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.2.2) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.2.2) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.2.2) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.2.2)
+* BUGFIX: `dotnet tool install` command for Multitool now produces a working installation rather than reporting missing `Sarif.Converters` binary.
+
 ## **v2.2.1** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.2.1) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.2.1) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.2.1) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.2.1)
 * FEATURE: Multitool `remove` option now supports `Guids` value to remove `Result.Guid`.
 * FEATURE: Significant Baselining algorithm improvements: dynamic `partialFingerprint` trust, location-specific unique what property matching, 'nearby' matching, correct omitted `Region` property handling, correct `ReportingDescriptor.DeprecatedIds` handling.
