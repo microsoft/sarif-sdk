@@ -40,14 +40,11 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             
             foreach (Result result in run?.Results)
             {
-                if (!result.AppropriateForFiling())
-                {                     
-                    continue; 
+                if (result.AppropriateForFiling())
+                {
+                    firstResult = result;
+                    break;
                 }
-
-                string ruleId = result.ResolvedRuleId(run);
-                firstResult = result;
-                break;
             }
 
             // No useful work to schedule in a work item, apparently.
