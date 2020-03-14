@@ -50,7 +50,7 @@
     <file src="bld\bin\Signing\netcoreapp2.1\**"
           target="tools\netcoreapp2.1\any"
           />
-    <file src="bld\bin\Signing\netstandard2.0**"
+    <file src="bld\bin\Signing\netstandard2.0\**"
           target="tools\netcoreapp2.1\any"
           />
 
