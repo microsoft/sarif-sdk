@@ -7,6 +7,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
+using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
 using Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models;
 using Microsoft.VisualStudio.Services.WebApi;
 using Microsoft.VisualStudio.Services.WebApi.Patch.Json;
@@ -95,7 +96,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                     {
                         // The following data values flow to us via test constants which are
                         // captured in the default context object that initialized the filer.
-                        pat.Should().Be(NotActuallyASecret);
+                        pat.Should().Be(TestData.NotActuallyASecret);
 
                         // We configure the filer with a full ADO URI that contains the account and
                         // project, e.g., https://dev.azure.com/myaccount/myproject. By the time the
@@ -132,10 +133,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             var adoFilingClient = (AzureDevOpsFilingClient)filer.FilingClient;
             adoFilingClient.vssConection = vssConnectionMock.Object;
 
-            void action() => filer.FileWorkItems(sarifLog: SimpleLog);
-
-            action();
-
+            filer.FileWorkItems(sarifLog: TestData.SimpleLog);
 
             // Did we see all the execution we expected?
             connectCalled.Should().BeTrue();
@@ -158,7 +156,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             // Finally, make sure that our test data flows back properly through the filer.
 
             filedWorkItem.Attachment.Should().NotBeNull();
-            filedWorkItem.Attachment.Text.Should().Be(JsonConvert.SerializeObject(SimpleLog));
+            filedWorkItem.Attachment.Text.Should().Be(JsonConvert.SerializeObject(TestData.SimpleLog));
 
             filedWorkItem.HtmlUri.Should().Be(new Uri(htmlUri, UriKind.Absolute));
         }
@@ -227,48 +225,19 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             return mockFiler;
         }
 
-        private const string TestRuleId = nameof(TestRuleId);
-        private const string TestMessageText = nameof(TestMessageText);
-        private const string NotActuallyASecret = nameof(NotActuallyASecret);
-
         private readonly static Uri GitHubFilingUri = new Uri("https://github.com/nonexistentorg/nonexistentrepo");
         private readonly static Uri AzureDevOpsFilingUri = new Uri("https://dev.azure.com/nonexistentaccount/nonexistentproject");
 
         private static readonly SarifWorkItemContext GitHubTestContext = new SarifWorkItemContext()
         {
             HostUri = GitHubFilingUri,
-            PersonalAccessToken = NotActuallyASecret
+            PersonalAccessToken = TestData.NotActuallyASecret
         };
 
         private static readonly SarifWorkItemContext AzureDevOpsTestContext = new SarifWorkItemContext()
         {
             HostUri = AzureDevOpsFilingUri,
-            PersonalAccessToken = NotActuallyASecret
-        };
-
-
-        private static readonly SarifLog SimpleLog = new SarifLog
-        {
-                Runs = new Run[]
-                {
-                    new Run
-                    {
-                        Results = new []
-                        {
-                            new Result
-                            {
-                                Rule = new ReportingDescriptorReference
-                                {
-                                    Id = TestRuleId
-                                },
-                                Message = new Message
-                                {
-                                    Text = TestMessageText
-                                }
-                            }
-                        }
-                    }
-                }
+            PersonalAccessToken = TestData.NotActuallyASecret
         };
     }
 }

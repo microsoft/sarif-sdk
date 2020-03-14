@@ -31,7 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         {
                             new Result
                             {
-                                RuleId = TestConstants.RuleIds.Rule1,
+                                RuleId = TestData.RuleIds.Rule1,
                                 BaselineState = BaselineState.New,
                                 Locations = new []
                                 {
@@ -41,7 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                                         {
                                              ArtifactLocation = new ArtifactLocation
                                              {
-                                                Uri = new Uri(TestConstants.FileLocations.Location1),
+                                                Uri = new Uri(TestData.FileLocations.Location1),
                                              }
                                         }
                                     }
@@ -50,7 +50,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                             new Result
                             {
-                                RuleId = TestConstants.RuleIds.Rule2,
+                                RuleId = TestData.RuleIds.Rule2,
                                 BaselineState = BaselineState.Updated,
                                 Locations = new []
                                 {
@@ -60,7 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                                         {
                                              ArtifactLocation = new ArtifactLocation
                                              {
-                                                Uri = new Uri(TestConstants.FileLocations.Location2),
+                                                Uri = new Uri(TestData.FileLocations.Location2),
                                              }
                                         }
                                     }
@@ -69,7 +69,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                             new Result
                             {
-                                RuleId = TestConstants.RuleIds.Rule2,
+                                RuleId = TestData.RuleIds.Rule2,
                                 BaselineState = BaselineState.New,
                                 Locations = new []
                                 {
@@ -79,7 +79,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                                         {
                                              ArtifactLocation = new ArtifactLocation
                                              {
-                                                Uri = new Uri(TestConstants.FileLocations.Location3),
+                                                Uri = new Uri(TestData.FileLocations.Location3),
                                              }
                                         }
                                     }
@@ -103,7 +103,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         [Fact]
         public void ExtractAllArtifactLocationsVisitor_ExtractsMultipleLocationsSingleResult()
         {
-            SarifLog sarifLog = TestConstants.SarifLogs.OneIdThreeLocations;
+            SarifLog sarifLog = TestData.SarifLogs.OneIdThreeLocations;
 
             var visitor = new ExtractAllArtifactLocationsVisitor();
             visitor.VisitSarifLog(sarifLog);
@@ -126,14 +126,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     {
                         Artifacts = new List<Artifact>
                         {
-                            new Artifact{ Location = new ArtifactLocation{  Uri = new Uri(TestConstants.FileLocations.Location1), }, Contents = new ArtifactContent { Text = "New" } },
-                            new Artifact{ Location = new ArtifactLocation{  Uri = new Uri(TestConstants.FileLocations.Location2), }, Contents = new ArtifactContent { Text = "Child of new" } },
+                            new Artifact{ Location = new ArtifactLocation{  Uri = new Uri(TestData.FileLocations.Location1), }, Contents = new ArtifactContent { Text = "New" } },
+                            new Artifact{ Location = new ArtifactLocation{  Uri = new Uri(TestData.FileLocations.Location2), }, Contents = new ArtifactContent { Text = "Child of new" } },
                         },
                         Results = new[]
                         {
                             new Result
                             {
-                                RuleId = TestConstants.RuleIds.Rule1,
+                                RuleId = TestData.RuleIds.Rule1,
                                 BaselineState = BaselineState.New,
                                 Locations = new []
                                 {
