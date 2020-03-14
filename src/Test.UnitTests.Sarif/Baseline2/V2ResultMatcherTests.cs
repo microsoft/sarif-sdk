@@ -375,23 +375,23 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
                 {
                     Driver = new ToolComponent
                     {
-                        Name = TestConstants.ToolName,
+                        Name = TestData.ToolName,
                         Rules = new ReportingDescriptor[]
                         {
-                            new ReportingDescriptor { Id = TestConstants.RuleIds.Rule1 },
-                            new ReportingDescriptor { Id = TestConstants.RuleIds.Rule2 },
+                            new ReportingDescriptor { Id = TestData.RuleIds.Rule1 },
+                            new ReportingDescriptor { Id = TestData.RuleIds.Rule2 },
                         }
                     }
                 },
                 AutomationDetails = new RunAutomationDetails
                 {
-                    Guid = TestConstants.AutomationDetailsGuid
+                    Guid = TestData.AutomationDetailsGuid
                 },
                 Results = new Result[]
                 {
                     new Result
                     {
-                        RuleId = TestConstants.RuleIds.Rule1,
+                        RuleId = TestData.RuleIds.Rule1,
                         RuleIndex = 0,
                         Provenance = new ResultProvenance
                         {
@@ -400,7 +400,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
                     },
                     new Result
                     {
-                        RuleId = TestConstants.RuleIds.Rule2,
+                        RuleId = TestData.RuleIds.Rule2,
                         RuleIndex = 1,
                         Provenance = new ResultProvenance
                         {
@@ -414,7 +414,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
                     {
                         Driver = new ToolComponent
                         {
-                            Name = TestConstants.ConverterName
+                            Name = TestData.ConverterName
                         }
                     }
                 },
@@ -422,11 +422,11 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
                 {
                     new ToolComponent
                     {
-                        Name = TestConstants.TaxonomyName,
+                        Name = TestData.TaxonomyName,
                         Taxa = new ReportingDescriptor[]
                         {
-                            new ReportingDescriptor { Id = TestConstants.TaxonIds.Taxon1 },
-                            new ReportingDescriptor { Id = TestConstants.TaxonIds.Taxon2 },
+                            new ReportingDescriptor { Id = TestData.TaxonIds.Taxon1 },
+                            new ReportingDescriptor { Id = TestData.TaxonIds.Taxon2 },
                         }
                     }
                 },
@@ -434,12 +434,12 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
                 {
                     new ToolComponent
                     {
-                        Name = TestConstants.PolicyName,
+                        Name = TestData.PolicyName,
                         Rules = new ReportingDescriptor[]
                         {
                             new ReportingDescriptor
                             {
-                                Id = TestConstants.RuleIds.Rule2,
+                                Id = TestData.RuleIds.Rule2,
                                 DefaultConfiguration = new ReportingConfiguration { Level = FailureLevel.Error }
                             }
                         }
@@ -449,14 +449,14 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
                 {
                     new ToolComponent
                     {
-                        Name = TestConstants.TranslationName,
+                        Name = TestData.TranslationName,
                         TranslationMetadata = new TranslationMetadata
                         {
-                            Name = TestConstants.TranslationMetadataName
+                            Name = TestData.TranslationMetadataName
                         }
                     }
                 },
-                Language = TestConstants.LanguageIdentifier,
+                Language = TestData.LanguageIdentifier,
                 RedactionTokens = new string[]
                 {
                     SarifConstants.RedactedMarker

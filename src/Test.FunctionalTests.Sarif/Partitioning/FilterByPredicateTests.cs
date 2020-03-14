@@ -39,7 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Partitioning
         public void Filter_WithRuleIdPredicate_ReturnsLogWithExpectedResultsAndRunLevelArrayContentsFromSelectedResults()
         {
             FilteringVisitor.IncludeResultPredicate predicate =
-                (Result result) => result.RuleId.Equals(TestConstants.RuleIds.Rule1, StringComparison.InvariantCulture);
+                (Result result) => result.RuleId.Equals(TestData.RuleIds.Rule1, StringComparison.InvariantCulture);
 
             RunTest("FilterByPredicate.sarif", "RuleIdPredicate.sarif", predicate);
         }

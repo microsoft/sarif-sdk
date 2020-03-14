@@ -15,6 +15,8 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
         public SarifWorkItemModel(SarifLog sarifLog, SarifWorkItemContext context = null)
         {
+            if (sarifLog == null) { throw new ArgumentNullException(nameof(sarifLog)); }
+
             this.Context = context ?? new SarifWorkItemContext();
 
             context.InitializeFromLog(sarifLog);

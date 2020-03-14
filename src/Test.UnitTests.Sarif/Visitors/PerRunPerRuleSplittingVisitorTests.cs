@@ -30,19 +30,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         {
                             new Result
                             {
-                                RuleId = TestConstants.RuleIds.Rule1,
+                                RuleId = TestData.RuleIds.Rule1,
                                 BaselineState = BaselineState.New
                             },
 
                             new Result
                             {
-                                RuleId = TestConstants.RuleIds.Rule2,
+                                RuleId = TestData.RuleIds.Rule2,
                                 BaselineState = BaselineState.Updated
                             },
 
                             new Result
                             {
-                                RuleId = TestConstants.RuleIds.Rule2,
+                                RuleId = TestData.RuleIds.Rule2,
                                 BaselineState = BaselineState.New
                             }
                         }
@@ -56,10 +56,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             visitor.SplitSarifLogs.Count.Should().Be(2);
 
             visitor.SplitSarifLogs[0].Runs[0].Results.Count.Should().Be(1);
-            visitor.SplitSarifLogs[0].Runs[0].Results[0].RuleId.Should().Be(TestConstants.RuleIds.Rule1);
+            visitor.SplitSarifLogs[0].Runs[0].Results[0].RuleId.Should().Be(TestData.RuleIds.Rule1);
 
             visitor.SplitSarifLogs[1].Runs[0].Results.Count.Should().Be(1);
-            visitor.SplitSarifLogs[1].Runs[0].Results[0].RuleId.Should().Be(TestConstants.RuleIds.Rule2);
+            visitor.SplitSarifLogs[1].Runs[0].Results[0].RuleId.Should().Be(TestData.RuleIds.Rule2);
         }
 
         [Fact]
@@ -99,78 +99,78 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         {
                             new Result
                             {
-                                RuleId = TestConstants.RuleIds.Rule1
+                                RuleId = TestData.RuleIds.Rule1
                             },
 
                             new Result
                             {
-                                RuleId = TestConstants.RuleIds.Rule2,
+                                RuleId = TestData.RuleIds.Rule2,
                                 BaselineState = BaselineState.Absent
                             },
 
                             new Result
                             {
-                                RuleId = TestConstants.RuleIds.Rule3,
+                                RuleId = TestData.RuleIds.Rule3,
                                 BaselineState = BaselineState.New
                             },
 
                             new Result
                             {
-                                RuleId = TestConstants.RuleIds.Rule3,
+                                RuleId = TestData.RuleIds.Rule3,
                                 BaselineState = BaselineState.Updated
                             },
 
                             new Result
                             {
-                                RuleId = TestConstants.RuleIds.Rule3,
+                                RuleId = TestData.RuleIds.Rule3,
                                 BaselineState = BaselineState.New
                             },
 
                             new Result
                             {
-                                RuleId = TestConstants.RuleIds.Rule4,
+                                RuleId = TestData.RuleIds.Rule4,
                                 BaselineState = BaselineState.None
                             },
 
                             new Result
                             {
-                                RuleId = TestConstants.RuleIds.Rule5,
+                                RuleId = TestData.RuleIds.Rule5,
                                 BaselineState = BaselineState.Unchanged
                             },
 
                             new Result
                             {
-                                RuleId = TestConstants.RuleIds.Rule5,
+                                RuleId = TestData.RuleIds.Rule5,
                                 BaselineState = BaselineState.Unchanged
                             },
 
                             new Result
                             {
-                                RuleId = TestConstants.RuleIds.Rule6,
+                                RuleId = TestData.RuleIds.Rule6,
                                 BaselineState = BaselineState.Updated
                             },
 
                             new Result
                             {
-                                RuleId = TestConstants.RuleIds.Rule7,
+                                RuleId = TestData.RuleIds.Rule7,
                                 BaselineState = BaselineState.New
                             },
 
                             new Result
                             {
-                                RuleId = TestConstants.RuleIds.Rule8,
+                                RuleId = TestData.RuleIds.Rule8,
                                 BaselineState = BaselineState.New
                             },
 
                             new Result
                             {
-                                RuleId = TestConstants.RuleIds.Rule9,
+                                RuleId = TestData.RuleIds.Rule9,
                                 BaselineState = BaselineState.New
                             },
 
                             new Result
                             {
-                                RuleId = TestConstants.RuleIds.Rule10,
+                                RuleId = TestData.RuleIds.Rule10,
                                 BaselineState = BaselineState.New
                             }
                         }
