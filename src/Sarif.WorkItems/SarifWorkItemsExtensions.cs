@@ -35,7 +35,8 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         public static string CreateWorkItemTitle(this Run run)
         {
             if (run == null) { throw new NullReferenceException(); }
-
+            if (run.Results == null) { throw new ArgumentNullException(nameof(run.Results)); }
+        
             Result firstResult = null;
             
             foreach (Result result in run?.Results)
