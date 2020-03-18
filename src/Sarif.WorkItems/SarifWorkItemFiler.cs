@@ -123,50 +123,37 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 return;
             }
 
-            for (int runIndex = 0; runIndex < sarifLog.Runs?.Count; ++runIndex)
+            IList<SarifLog> logsToProcess = new List<SarifLog>(new SarifLog[] { sarifLog });
+
+            PartitionFunction<string> partitionFunction = null;
+
+            switch (splittingStrategy)
             {
-                if (sarifLog.Runs[runIndex]?.Results?.Count > 0)
+                case SplittingStrategy.PerRun:
                 {
-                    IList<SarifLog> logsToProcess = new List<SarifLog>(new SarifLog[] { sarifLog });
-
-                    if (splittingStrategy != SplittingStrategy.PerRun)
-                    {
-                        SplittingVisitor visitor;
-                        switch (splittingStrategy)
-                        {
-                            case SplittingStrategy.PerRunPerRule:
-                                visitor = new PerRunPerRuleSplittingVisitor();
-                                break;
-
-                            case SplittingStrategy.PerRunPerTarget:
-                                visitor = new PerRunPerTargetSplittingVisitor();
-                                break;
-
-                            case SplittingStrategy.PerRunPerTargetPerRule:
-                                visitor = new PerRunPerTargetPerRuleSplittingVisitor();
-                                break;
-
-                            // TODO: Implement PerResult and PerRun splittings strategies
-                            //
-                            //       https://github.com/microsoft/sarif-sdk/issues/1763
-                            //       https://github.com/microsoft/sarif-sdk/issues/1762
-                            //
-                            case SplittingStrategy.PerResult:
-                            case SplittingStrategy.PerRun:
-                            default:
-                                throw new ArgumentOutOfRangeException($"SplittingStrategy: {splittingStrategy}");
-                        }
-
-                        visitor.VisitRun(sarifLog.Runs[runIndex]);
-                        logsToProcess = visitor.SplitSarifLogs;
-                    }
-
-                    for (int splitFileIndex = 0; splitFileIndex < logsToProcess.Count; splitFileIndex++)
-                    {
-                        SarifLog splitLog = logsToProcess[splitFileIndex];
-                        FileWorkItemsHelper(splitLog, this.FilingContext, this.FilingClient);
-                    }
+                    partitionFunction = (result) => result.ShouldBeFiled() ? "Include" : null;
+                    break;
                 }
+                case SplittingStrategy.PerResult:
+                {
+                    partitionFunction = (result) => result.ShouldBeFiled() ? Guid.NewGuid().ToString() : null;
+                    break;
+                }
+                default:
+                {
+                    throw new ArgumentOutOfRangeException($"SplittingStrategy: {splittingStrategy}");
+                }
+            }
+
+            var partitioningVisitor = new PartitioningVisitor<string>(partitionFunction, deepClone: false);
+            partitioningVisitor.VisitSarifLog(sarifLog);
+
+            logsToProcess = new List<SarifLog>(partitioningVisitor.GetPartitionLogs().Values);
+
+            for (int splitFileIndex = 0; splitFileIndex < logsToProcess.Count; splitFileIndex++)
+            {
+                SarifLog splitLog = logsToProcess[splitFileIndex];
+                FileWorkItemsHelper(splitLog, this.FilingContext, this.FilingClient);
             }
         }
 
@@ -215,11 +202,8 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
         public void Dispose()
         {
-            if (this.FilingClient != null)
-            {
-                this.FilingClient.Dispose();
-                this.FilingClient = null;
-            }
+            this.FilingClient?.Dispose();
+            this.FilingClient = null;
         }
     }
 }

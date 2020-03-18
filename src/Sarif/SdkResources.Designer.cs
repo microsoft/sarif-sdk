@@ -340,6 +340,15 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Could not identify the log being partitioned. Call VisitSarifLog and provide the log to partition. This class is designed to create log files on a per-run basis (i.e., all partioned logs will contain a single run only)..
+        /// </summary>
+        public static string PartioningVisitHappensAtSarifLogLevel {
+            get {
+                return ResourceManager.GetString("PartioningVisitHappensAtSarifLogLevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Property &apos;{0}&apos; does not exist. Consider calling TryGetProperty instead..
         /// </summary>
         public static string PropertyDoesNotExist {

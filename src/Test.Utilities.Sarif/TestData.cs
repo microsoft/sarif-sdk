@@ -39,19 +39,20 @@ namespace Microsoft.CodeAnalysis.Test.Utilities.Sarif
             public const string Rule10 = "TST0010";
         }
 
-        // TODO: In general, static instances of SARIF logs are a bad idea, because
-        //       they are mutable. A test may munge these and leave them in a bad
-        //       state for another test. Instead, we should prefer factories that
-        //       reliably generate a fresh copy of a log for each test.
-        public static class SarifLogs
+        // In general, static instances of SARIF logs are a bad idea, because
+        // they are mutable. A test may munge these and leave them in a bad
+        // state for another test. Instead, we should prefer factories that
+        // reliably generate a fresh copy of a log for each test.
+
+        public static SarifLog CreateOneIdThreeLocations()
         {
-            public readonly static SarifLog OneIdThreeLocations = new SarifLog
+            return new SarifLog
             {
                 Runs = new[]
-                {
+            {
                     new Run
                     {
-                        Tool = SimpleLog.Runs[0].Tool,
+                        Tool = CreateSimpleLog().Runs[0].Tool,
                         Results = new[]
                         {
                             new Result
@@ -157,36 +158,49 @@ namespace Microsoft.CodeAnalysis.Test.Utilities.Sarif
             };
         }
 
-        public static readonly SarifLog SimpleLog = new SarifLog
+        public static SarifLog CreateSimpleLog()
         {
-            Runs = new Run[]
+            return new SarifLog
             {
-                new Run
+                Runs = new Run[]
                 {
-                    Tool = new Tool
+                    new Run
                     {
-                        Driver = new ToolComponent
+                        Tool = new Tool
                         {
-                            Name = TestToolName
-                        }
-                    },
-                    Results = new []
-                    {
-                        new Result
-                        {
-                            Rule = new ReportingDescriptorReference
+                            Driver = new ToolComponent
                             {
-                                Id = TestRuleId
+                                Name = TestToolName
+                            }
+                        },
+                        Results = new []
+                        {
+                            new Result
+                            {
+                                Rule = new ReportingDescriptorReference
+                                {
+                                    Id = RuleIds.Rule1
+                                },
+                                Message = new Message
+                                {
+                                    Text = TestMessageText
+                                }
                             },
-                            Message = new Message
+                            new Result
                             {
-                                Text = TestMessageText
+                                Rule = new ReportingDescriptorReference
+                                {
+                                    Id = RuleIds.Rule2
+                                },
+                                Message = new Message
+                                {
+                                    Text = TestMessageText
+                                }
                             }
                         }
                     }
                 }
-            }
-        };
-
+            };
+        }
     }
 }

@@ -145,9 +145,9 @@ namespace Microsoft.WorkItems
                     // https://github.com/microsoft/sarif-sdk/issues/1770
                     string workItemKind = "Bug";
 
-                    Console.Write($"Creating work item: {workItemModel.Title}");
+                    Console.WriteLine($"Creating work item: {workItemModel.Title}");
                     workItem = await _witClient.CreateWorkItemAsync(patchDocument, project: this.ProjectOrRepository, workItemKind);
-                    Console.WriteLine($": {workItem.Id}: DONE");
+                    workItemModel.Uri = new Uri(workItem.Url, UriKind.Absolute);
                 }
                 catch (Exception e)
                 {
@@ -164,6 +164,9 @@ namespace Microsoft.WorkItems
 
                 const string HTML = "html";
                 workItemModel.HtmlUri = new Uri(((ReferenceLink)workItem.Links.Links[HTML]).Href, UriKind.Absolute);
+
+                Console.WriteLine($"CREATED: {workItemModel.HtmlUri}");
+
 
                 // TODO: ADO work item filer should populate the raw URI (in addition to HtmlUri) 
                 //

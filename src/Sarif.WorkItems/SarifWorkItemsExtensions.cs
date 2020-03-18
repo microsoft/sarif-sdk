@@ -9,7 +9,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 {
     public static class SarifWorkItemsExtensions
     {
-        public static bool AppropriateForFiling(this Result result)
+        public static bool ShouldBeFiled(this Result result)
         {
             // Fail: an explicit failure occurred.
             //
@@ -41,7 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             
             foreach (Result result in run?.Results)
             {
-                if (result.AppropriateForFiling())
+                if (result.ShouldBeFiled())
                 {
                     firstResult = result;
                     break;

@@ -7,6 +7,23 @@ using System.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
+
+
+    /// <summary>
+    /// A delegate for a function that returns a value specifying which partition a specified
+    /// result belongs to, or null if the result should be discarded (not placed in any
+    /// partition).
+    /// </summary>
+    /// <param name="result">
+    /// The result to be assigned to a partition.
+    /// </param>
+    /// <typeparam name="T">
+    /// The type of the object returned from the partition function. It must be a reference
+    /// type so that null is a valid value. It must override bool Equals(T other) so that
+    /// two Ts can compare equal even if they are not reference equal.
+    /// </typeparam>
+    public delegate T PartitionFunction<T>(Result result);
+
     /// <summary>
     /// A visitor that partitions a specified SARIF log into a set of "partition logs."
     /// </summary>
@@ -39,23 +56,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         // partition value for the results in that log file.
         private const string PartitionValuePropertyName = "partitionValue";
 
-        /// <summary>
-        /// A delegate for a function that returns a value specifying which partition a specified
-        /// result belongs to, or null if the result should be discarded (not placed in any
-        /// partition).
-        /// </summary>
-        /// <param name="result">
-        /// The result to be assigned to a partition.
-        /// </param>
-        /// <typeparam name="T">
-        /// The type of the object returned from the partition function. It must be a reference
-        /// type so that null is a valid value. It must override bool Equals(T other) so that
-        /// two Ts can compare equal even if they are not reference equal.
-        /// </typeparam>
-        public delegate T PartitionFunction(Result result);
-
         // The partition function being used to partition the original log.
-        private readonly PartitionFunction partitionFunction;
+        private readonly PartitionFunction<T> partitionFunction;
 
         // A value that specifies whether to construct each partitioned log from a deep clone of
         // the original log (if true) or from a shallow copy of the original log (if false).
@@ -103,7 +105,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         /// working set, but it is not safe to modify any of the resulting logs because this class
         /// makes no guarantee about which objects are shared. The default is <code>false</code>.
         /// </param>
-        public PartitioningVisitor(PartitionFunction partitionFunction, bool deepClone)
+        public PartitioningVisitor(PartitionFunction<T> partitionFunction, bool deepClone)
         {
             this.partitionFunction = partitionFunction;
             this.deepClone = deepClone;
@@ -144,6 +146,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         public override Run VisitRun(Run node)
         {
+            if (originalLog == null)
+            {
+                // Could not identify the log being partitioned. Call VisitSarifLog and
+                // provide the log to partition. This class is designed to create log files
+                // on a per-run basis (i.e., all partioned logs will contain a single run only).
+                throw new InvalidOperationException(SdkResources.PartioningVisitHappensAtSarifLogLevel);
+            };
+
             ++currentRunIndex;
             currentRunArtifacts = originalLog.Runs[currentRunIndex].Artifacts;
             partitionRunInfos.Add(new PartitionRunInfo());
