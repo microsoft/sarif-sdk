@@ -51,6 +51,17 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         }
 
         [Fact]
+        public void WorkItemFilingContext_PopulateDescription()
+        {
+            var context = new SarifWorkItemContext();
+            SarifLog sarifLog = TestData.SarifLogs.OneIdThreeLocations;
+
+            var workItemModel = new SarifWorkItemModel(sarifLog, context);
+            workItemModel.BodyOrDescription.Should().NotBeNullOrEmpty();
+            workItemModel.BodyOrDescription.Should().Contain(nameof(TestData.TestToolName));
+        }
+
+        [Fact]
         public void WorkItemFilingContext_FetchUriSuccessfully()
         {
             var areaPathTransformer = new AreaPathFromUri();

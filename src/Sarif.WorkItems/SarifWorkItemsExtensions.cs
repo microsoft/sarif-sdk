@@ -3,6 +3,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
+using Microsoft.TeamFoundation.TestManagement.WebApi.Legacy;
 using Octokit;
 
 namespace Microsoft.CodeAnalysis.Sarif.WorkItems
@@ -36,9 +38,9 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         {
             if (run == null) { throw new NullReferenceException(); }
             if (run.Results == null) { throw new ArgumentNullException(nameof(run.Results)); }
-        
+
             Result firstResult = null;
-            
+
             foreach (Result result in run?.Results)
             {
                 if (result.AppropriateForFiling())
@@ -75,6 +77,35 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                     (locationName == null ? "" : " (in " + locationName + ")");
         }
 
+        public static Dictionary<string, int> FetchToolResultCounts(this SarifLog log)
+        {
+            if (log == null) { throw new NullReferenceException(); }
+            if (log.Runs == null) { throw new ArgumentNullException(nameof(log.Runs)); }
+
+            Dictionary<string, int> resultCountsByTool = new Dictionary<string, int>();
+            int appropriateResultCount = 0;
+
+            foreach (Run run in log?.Runs)
+            {
+                if (run != null)
+                {
+                    if (run?.Tool?.Driver?.Name != null && run?.Results != null)
+                    {
+                        foreach (Result result in run?.Results)
+                        {
+                            if (result.AppropriateForFiling())
+                            {
+                                appropriateResultCount++;
+                            }
+                        }
+                        resultCountsByTool.Add(run?.Tool?.Driver?.Name, appropriateResultCount);
+                    }
+                }
+            }
+
+            return resultCountsByTool;
+        }
+
         private static string ConstructFullRuleIdentifier(ReportingDescriptor reportingDescriptor)
         {
             string fullRuleIdentifier = reportingDescriptor.Id;
@@ -84,6 +115,29 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 fullRuleIdentifier += ": " + reportingDescriptor.Name;
             }
             return fullRuleIdentifier;
+        }
+
+        public static string CreateWorkItemDescription(this SarifLog log)
+        {
+            Dictionary<string, int> resultCountsByTool = FetchToolResultCounts(log);
+            StringBuilder templateText = new StringBuilder(@"This bug has been filed by the Sarif Work Item Automatic Filer.  It contains results for the following tools and issues:");
+            templateText.AppendLine();
+            templateText.AppendLine();
+
+            foreach (KeyValuePair<string, int> toolResult in resultCountsByTool)
+            {
+                templateText.Append(string.Format("*Tool: {0}", toolResult.Key));
+                templateText.AppendLine();
+                templateText.Append(string.Format("     Result count: {0}", toolResult.Value));
+                templateText.AppendLine();
+                templateText.AppendLine();
+            }
+
+            templateText.AppendLine();
+            templateText.Append(@"To see result details, please visit the Scans tab of this bug, or the attached Sarif log.");
+            templateText.Append(@"If the scans tab is missing or unavailable, please install the Sarif viewer from https://marketplace.visualstudio.com/items?itemName=WDGIS.MicrosoftSarifViewer");
+
+            return templateText.ToString();
         }
     }
 }

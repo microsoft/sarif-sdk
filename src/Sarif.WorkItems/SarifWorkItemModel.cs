@@ -56,23 +56,11 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             //
             this.CommentOrDiscussion = $"Default {nameof(this.CommentOrDiscussion)}";
 
-
-            // TODO: Provide a useful SARIF-derived issue body. Note that there
-            //       is a client-specific consideration here in that there is much
-            //       less pressure to provide an ADO rendering of the scan results 
-            //       in the bug body, as we can integrate the SARIF results viewing
-            //       web control in that environment. So for this scenario, a very
-            //       simple boilerplate text could be sufficient. For GH, we would
-            //       prefer the issue body to provide more details. Another clear
-            //       distinction centers on differences in rendering format
-            //       (markdown vs. HTML). We only have a single tracking issue below - 
-            //       in the event, this work is likely to be broken aparts into 
-            //       multiple tasks, each of which may entail breaking changes to 
-            //       models/API.
-            //
-            //       https://github.com/microsoft/sarif-sdk/issues/1757
-            //
-            this.BodyOrDescription = $"Default {nameof(this.BodyOrDescription)}";
+            this.BodyOrDescription = sarifLog.CreateWorkItemDescription();
+            if (string.IsNullOrEmpty(this.BodyOrDescription))
+            {
+                this.BodyOrDescription = $"Default {nameof(this.BodyOrDescription)}";
+            }
 
             // These properties are Azure DevOps-specific. All ADO work item board
             // area paths are rooted by the project name, as are iterations.
