@@ -232,7 +232,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         {
             context = context ?? GitHubTestContext;
 
-            var mockFiler = new Mock<SarifWorkItemFiler>(context);
+            var mockFiler = new Mock<SarifWorkItemFiler>(context.HostUri, context);
 
             mockFiler
                 .Setup(x => x.FileWorkItems(It.IsAny<string>()))
