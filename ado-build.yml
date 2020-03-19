@@ -1,6 +1,6 @@
 pr:
   branches:
-    include: *
+    include: '*'
 
 pool:
   vmImage: 'windows-latest'
