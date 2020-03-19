@@ -4,10 +4,8 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
-using Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models;
 using Microsoft.WorkItems;
 using Newtonsoft.Json;
 
@@ -18,42 +16,27 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         /// <summary>
         /// Initializes a new instance of the <see cref="SarifWorkItemFiler"> class.</see>
         /// </summary>
-        /// <param name="filingClient">
-        /// A client for communicating with a work item filing host (for example, GitHub or Azure DevOps).
+        /// <param name="filingUri">
+        /// The uri to the remote filing host.
         /// </param>
         /// <param name="filingContext">
         /// A starting context object that configures the work item filing operation. In the
         /// current implementation, this context is copied for each SARIF file (if any) split
         /// from the input log and then further elaborated upon.
         /// </param>
-        public SarifWorkItemFiler(Uri filingUri)
+        public SarifWorkItemFiler(Uri filingUri = null, SarifWorkItemContext filingContext = null)
         {
-            if (filingUri == null) { throw new ArgumentOutOfRangeException(nameof(filingUri)); };
+            this.FilingContext = filingContext ?? new SarifWorkItemContext { HostUri = filingUri };
+            filingUri = filingUri ?? this.FilingContext.HostUri;
 
-            this.FilingContext = new SarifWorkItemContext
+            if (filingUri == null) { throw new ArgumentNullException(nameof(filingUri)); };
+
+            if (filingUri != this.FilingContext.HostUri)
             {
-                HostUri = filingUri
-            };
+                throw new InvalidOperationException();
+            }
 
             this.FilingClient = FilingClientFactory.Create(this.FilingContext.HostUri);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SarifWorkItemFiler"> class.</see>
-        /// </summary>
-        /// <param name="filingClient">
-        /// A client for communicating with a work item filing host (for example, GitHub or Azure DevOps).
-        /// </param>
-        /// <param name="filingContext">
-        /// A starting context object that configures the work item filing operation. In the
-        /// current implementation, this context is copied for each SARIF file (if any) split
-        /// from the input log and then further elaborated upon.
-        /// </param>
-        public SarifWorkItemFiler(SarifWorkItemContext filingContext) : this(filingContext.HostUri)
-        {
-            this.FilingContext = filingContext ?? throw new ArgumentNullException(nameof(filingContext));
-
-            this.FilingClient = FilingClientFactory.Create(filingContext.HostUri);
         }
 
         public FilingClient FilingClient { get; set; }
@@ -197,7 +180,6 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             {
                 Console.Error.WriteLine(ex);
             }
-
         }
 
         public void Dispose()

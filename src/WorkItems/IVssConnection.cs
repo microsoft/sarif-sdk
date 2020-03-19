@@ -9,7 +9,7 @@ using Microsoft.VisualStudio.Services.WebApi;
 namespace Microsoft.WorkItems
 {
     /// <summary>
-    /// This class allows for mocking of the low-level VssConnection class.
+    /// This interface allows for mocking of the low-level VssConnection class.
     /// </summary>
     internal interface IVssConnection: IDisposable
     {

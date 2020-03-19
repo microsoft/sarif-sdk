@@ -31,7 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             // Our default splitting strategy is PerRun, that is, one
             // work item (and corresponding attachment) shoudl be filed 
             // for each run in the log file.
-            int numberOfRuns = sarifLog.Runs.Count;            
+            int numberOfRuns = sarifLog.Runs.Count;
             context.SetProperty(ExpectedWorkItemsCount, numberOfRuns);
 
             TestWorkItemFiler(sarifLog, context);
@@ -86,13 +86,11 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
             // TWO. Define variables to capture whether we enter all expected ADO client methods.
             bool connectCalled = false;
-            int createWorkItemCalled = 0, createAttachmentCalled = 0; 
+            int createWorkItemCalled = 0, createAttachmentCalled = 0;
 
-            // THREE. Create a default mock SARIF filer, configured by an AzureDevOps context
+            // THREE. Create a default mock SARIF filer and client, configured by an AzureDevOps context
             //        (which creates a default ADO filing client underneath).
-            SarifWorkItemFiler filer = CreateMockSarifWorkItemFiler(
-                out Mock<FilingClient> mockClient, 
-                context).Object;
+            SarifWorkItemFiler filer = CreateMockSarifWorkItemFiler(context).Object;
 
             var workItemTrackingHttpClientMock = new Mock<IWorkItemTrackingHttpClient>();
             workItemTrackingHttpClientMock
@@ -134,7 +132,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                         // project, e.g., https://dev.azure.com/myaccount/myproject. By the time the
                         // ADO client receives it, however, the project has been stripped off 
                         // (because it is not required for making the connection).
-                        AzureDevOpsFilingUri.OriginalString.StartsWith(uri.ToString()).Should().BeTrue();                        
+                        AzureDevOpsFilingUri.OriginalString.StartsWith(uri.ToString()).Should().BeTrue();
 
                         // Verify that we received the connection request.
                         connectCalled = true;
@@ -161,9 +159,9 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             //       of injection, we use the very simple expedient of declaring an internal
             //       property to hold a mock instance. In production, if that property is null,
             //       the system instantiates a wrapper around the standard types for use.
-            
+
             var adoFilingClient = (AzureDevOpsFilingClient)filer.FilingClient;
-            adoFilingClient.vssConection = vssConnectionMock.Object;
+            adoFilingClient._vssConection = vssConnectionMock.Object;
 
             filer.FileWorkItems(sarifLog);
 
@@ -228,21 +226,11 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         }
 
         private static SarifWorkItemFiler CreateWorkItemFiler(SarifWorkItemContext context = null)
-            => CreateMockSarifWorkItemFiler(out _, context).Object;
+            => CreateMockSarifWorkItemFiler(context).Object;
 
-        private static Mock<SarifWorkItemFiler> CreateMockSarifWorkItemFiler(out Mock<FilingClient> mockClient, SarifWorkItemContext context = null)
+        private static Mock<SarifWorkItemFiler> CreateMockSarifWorkItemFiler(SarifWorkItemContext context = null)
         {
             context = context ?? GitHubTestContext;
-
-            mockClient = new Mock<FilingClient>();
-
-            mockClient
-                .Setup(x => x.Connect(It.IsAny<string>()))
-                .CallBase();
-
-            mockClient
-                .Setup(x => x.FileWorkItems(It.IsAny<IEnumerable<WorkItemModel>>()))
-                .CallBase();
 
             var mockFiler = new Mock<SarifWorkItemFiler>(context);
 
@@ -257,7 +245,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             mockFiler
                 .Setup(x => x.FileWorkItems(It.IsAny<Uri>()))
                 .CallBase();
-            
+
             return mockFiler;
         }
 
