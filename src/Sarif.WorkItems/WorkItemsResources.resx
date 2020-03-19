@@ -118,6 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="InconsistentHostUrisProvided" xml:space="preserve">
-    <value>Inconsistent uris were provided in 'filingContext' and 'filingUri' arguments.</value>
+    <value>Inconsistent URIs were provided in 'filingContext' and 'filingUri' arguments.</value>
   </data>
 </root>

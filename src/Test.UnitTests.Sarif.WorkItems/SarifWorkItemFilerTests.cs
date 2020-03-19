@@ -22,14 +22,14 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
     public class SarifWorkItemFilerTests
     {
         [Fact]
-        public void WorkItemFiler_PerRunSplitStrategyRefactorsProperly()
+        public void WorkItemFiler_PerRunSplitStrategyPartitionsProperly()
         {
             SarifWorkItemContext context = CreateAzureDevOpsTestContext();
 
             SarifLog sarifLog = TestData.CreateSimpleLog();
 
             // Our default splitting strategy is PerRun, that is, one
-            // work item (and corresponding attachment) shoudl be filed 
+            // work item (and corresponding attachment) should be filed 
             // for each run in the log file.
             int numberOfRuns = sarifLog.Runs.Count;
             context.SetProperty(ExpectedWorkItemsCount, numberOfRuns);
@@ -38,7 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         }
 
         [Fact]
-        public void WorkItemFiler_PerResultSplitStrategyRefactorsProperly()
+        public void WorkItemFiler_PerResultSplitStrategyPartitionsProperly()
         {
             SarifLog sarifLog = TestData.CreateSimpleLog();
             SarifWorkItemContext context = CreateAzureDevOpsTestContext();
@@ -53,16 +53,6 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
         private void TestWorkItemFiler(SarifLog sarifLog, SarifWorkItemContext context)
         {
-            // IMPORTANT. This is a single end-to-end test that demonstrates we have
-            // the capability of mocking/injecting mocks into the end-to-end work
-            // item filing scenario. This example works for the ADO filer only. Once
-            // reviewed/finalized, we would look to provide an equivalent implementation
-            // for the GitHub filer. The code below isn't intended to reflect the 
-            // actual factoring we can expect when we use this machinery to cover
-            // all expected future cases. i.e., after completing this first review,
-            // we should look at more thoughtful factoring/helpers to capture 
-            // testing for specific scenarios.
-
             // ONE. Create test data that the low-level ADO client mocks
             //      will flow back to the SARIF work item filer. 
             var attachmentReference = new AttachmentReference()

@@ -61,7 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Inconsistent uris were provided in &apos;filingContext&apos; and &apos;filingUri&apos; arguments..
+        ///   Looks up a localized string similar to Inconsistent URIs were provided in &apos;filingContext&apos; and &apos;filingUri&apos; arguments..
         /// </summary>
         internal static string InconsistentHostUrisProvided {
             get {

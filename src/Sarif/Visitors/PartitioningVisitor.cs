@@ -7,8 +7,6 @@ using System.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
-
-
     /// <summary>
     /// A delegate for a function that returns a value specifying which partition a specified
     /// result belongs to, or null if the result should be discarded (not placed in any
@@ -22,7 +20,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
     /// type so that null is a valid value. It must override bool Equals(T other) so that
     /// two Ts can compare equal even if they are not reference equal.
     /// </typeparam>
-    public delegate T PartitionFunction<T>(Result result);
+    public delegate T PartitionFunction<T>(Result result) where T : class, IEquatable<T>;
 
     /// <summary>
     /// A visitor that partitions a specified SARIF log into a set of "partition logs."

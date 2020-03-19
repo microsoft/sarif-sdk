@@ -33,7 +33,8 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
             if (filingUri != this.FilingContext.HostUri)
             {
-                throw new InvalidOperationException();
+                // Inconsistent URIs were provided in 'filingContext' and 'filingUri'; arguments.
+                throw new InvalidOperationException(WorkItemsResources.InconsistentHostUrisProvided);
             }
 
             this.FilingClient = FilingClientFactory.Create(this.FilingContext.HostUri);
