@@ -7,6 +7,9 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
+using Microsoft.CodeAnalysis.WorkItems;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models;
 using Microsoft.WorkItems;
 using Newtonsoft.Json;
@@ -64,6 +67,26 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
         public bool FilingSucceeded { get; private set; }
 
+        private ILogger m_logger;
+        internal ILogger Logger
+        {
+            get
+            {
+                if (m_logger == null)
+                {
+                    lock (this)
+                    {
+                        if (m_logger == null)
+                        {
+                            m_logger = ServiceProviderFactory.ServiceProvider.GetService<ILogger<SarifLog>>();
+                        }
+                    }
+                }
+
+                return m_logger;
+            }
+        }
+
         public virtual void FileWorkItems(Uri sarifLogFileLocation)
         {
             sarifLogFileLocation = sarifLogFileLocation ?? throw new ArgumentNullException(nameof(sarifLogFileLocation));
@@ -102,6 +125,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
             this.FilingClient.Connect(this.FilingContext.PersonalAccessToken).Wait();
 
+            this.Logger.LogTrace("Removing data");
             OptionallyEmittedData optionallyEmittedData = this.FilingContext.DataToRemove;
             if (optionallyEmittedData != OptionallyEmittedData.None)
             {
@@ -109,6 +133,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 dataRemovingVisitor.Visit(sarifLog);
             }
 
+            this.Logger.LogTrace("Inserting data");
             optionallyEmittedData = this.FilingContext.DataToInsert;
             if (optionallyEmittedData != OptionallyEmittedData.None)
             {
@@ -117,11 +142,16 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             }
 
             SplittingStrategy splittingStrategy = this.FilingContext.SplittingStrategy;
+
+            this.Logger.LogInformation("Splitting strategy: {splittingStrategy}", splittingStrategy);
+
             if (splittingStrategy == SplittingStrategy.None)
             {
                 FileWorkItemsHelper(sarifLog, this.FilingContext, this.FilingClient);
                 return;
             }
+
+            this.Logger.LogInformation("Processing {runCount} runs", sarifLog.Runs?.Count);
 
             for (int runIndex = 0; runIndex < sarifLog.Runs?.Count; ++runIndex)
             {
@@ -161,6 +191,8 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                         logsToProcess = visitor.SplitSarifLogs;
                     }
 
+                    this.Logger.LogInformation("Log count after split: {runCount}", logsToProcess.Count);
+
                     for (int splitFileIndex = 0; splitFileIndex < logsToProcess.Count; splitFileIndex++)
                     {
                         SarifLog splitLog = logsToProcess[splitFileIndex];
@@ -186,8 +218,12 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 workItemModel.OwnerOrAccount = filingClient.AccountOrOrganization;
                 workItemModel.RepositoryOrProject = filingClient.ProjectOrRepository;
 
+                this.Logger.LogInformation("OwnerOrAccount: {ownerOrAccount}", workItemModel.OwnerOrAccount);
+                this.Logger.LogInformation("RepositoryOrProject: {repositoryOrProject}", workItemModel.RepositoryOrProject);
+
                 foreach (SarifWorkItemModelTransformer transformer in workItemModel.Context.Transformers)
                 {
+                    this.Logger.LogInformation("Running transformer {transformerName}", transformer.GetType().FullName);
                     transformer.Transform(workItemModel);
                 }
 
