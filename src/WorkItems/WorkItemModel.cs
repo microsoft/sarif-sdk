@@ -13,11 +13,6 @@ namespace Microsoft.WorkItems
 
         // TODO: provide a meaningful unique identifier for work items, that allows
         //       consumers to locate filed items again in the future.
-        // 
-
-        /// <summary>
-        /// The current source control provider.
-        /// </summary>
 
         public string OwnerOrAccount { get; set; }
 
