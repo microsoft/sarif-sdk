@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
@@ -21,18 +22,37 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
     public class SarifWorkItemFilerTests
     {
         [Fact]
-        public void WorkItemFiler_AzureDevOpsClientReceivesExpectedCalls()
+        public void WorkItemFiler_PerRunSplitStrategyPartitionsProperly()
         {
-            // IMPORTANT. This is a single end-to-end test that demonstrates we have
-            // the capability of mocking/injecting mocks into the end-to-end work
-            // item filing scenario. This example works for the ADO filer only. Once
-            // reviewed/finalized, we would look to provide an equivalent implementation
-            // for the GitHub filer. The code below isn't intended to reflect the 
-            // actual factoring we can expect when we use this machinery to cover
-            // all expected future cases. i.e., after completing this first review,
-            // we should look at more thoughtful factoring/helpers to capture 
-            // testing for specific scenarios.
+            SarifWorkItemContext context = CreateAzureDevOpsTestContext();
 
+            SarifLog sarifLog = TestData.CreateSimpleLog();
+
+            // Our default splitting strategy is PerRun, that is, one
+            // work item (and corresponding attachment) should be filed 
+            // for each run in the log file.
+            int numberOfRuns = sarifLog.Runs.Count;
+            context.SetProperty(ExpectedWorkItemsCount, numberOfRuns);
+
+            TestWorkItemFiler(sarifLog, context);
+        }
+
+        [Fact]
+        public void WorkItemFiler_PerResultSplitStrategyPartitionsProperly()
+        {
+            SarifLog sarifLog = TestData.CreateSimpleLog();
+            SarifWorkItemContext context = CreateAzureDevOpsTestContext();
+
+            context.SplittingStrategy = SplittingStrategy.PerResult;
+
+            int numberOfResults = sarifLog.Runs.Sum(run => run.Results.Count);
+            context.SetProperty(ExpectedWorkItemsCount, numberOfResults);
+
+            TestWorkItemFiler(sarifLog, context);
+        }
+
+        private void TestWorkItemFiler(SarifLog sarifLog, SarifWorkItemContext context)
+        {
             // ONE. Create test data that the low-level ADO client mocks
             //      will flow back to the SARIF work item filer. 
             var attachmentReference = new AttachmentReference()
@@ -48,19 +68,19 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             };
 
             // The fake URI to the filed item that we'll expect the filer to receive
-            string htmlUri = "https://example.com/" + Guid.NewGuid().ToString();
-            workItem.Links.AddLink("html", htmlUri);
+            string bugUri = "https://example.com/" + Guid.NewGuid().ToString();
+            string bugHtmlUri = "https://example.com/" + Guid.NewGuid().ToString();
+
+            workItem.Url = bugUri;
+            workItem.Links.AddLink("html", bugHtmlUri);
 
             // TWO. Define variables to capture whether we enter all expected ADO client methods.
-            bool connectCalled = false,
-                 createWorkItemCalled = false,
-                 createAttachmenCalled = false;                 
+            bool connectCalled = false;
+            int createWorkItemCalled = 0, createAttachmentCalled = 0;
 
-            // THREE. Create a default mock SARIF filer, configured by an AzureDevOps context
+            // THREE. Create a default mock SARIF filer and client, configured by an AzureDevOps context
             //        (which creates a default ADO filing client underneath).
-            SarifWorkItemFiler filer = CreateMockSarifWorkItemFiler(
-                out Mock<FilingClient> mockClient, 
-                AzureDevOpsTestContext).Object;
+            SarifWorkItemFiler filer = CreateMockSarifWorkItemFiler(context).Object;
 
             var workItemTrackingHttpClientMock = new Mock<IWorkItemTrackingHttpClient>();
             workItemTrackingHttpClientMock
@@ -70,7 +90,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                     (stream, fileName, uploadType, areaPath, userState, cancellationToken) =>
                     {
                         // Verify that the ADO client receives the request to create an attachment
-                        createAttachmenCalled = true;
+                        createAttachmentCalled++;
                     });
 
             workItemTrackingHttpClientMock
@@ -80,7 +100,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                     (document, project, type, validateOnly, bypassRules, suppressNotifications, userState, cancellationToken) =>
                     {
                         // Verify that the ADO client receives the request to file the bug
-                        createWorkItemCalled = true;
+                        createWorkItemCalled++;
                     });
 
             // FOUR. Create a mock VssConnection instance, which handles the auth connection
@@ -102,7 +122,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                         // project, e.g., https://dev.azure.com/myaccount/myproject. By the time the
                         // ADO client receives it, however, the project has been stripped off 
                         // (because it is not required for making the connection).
-                        AzureDevOpsFilingUri.OriginalString.StartsWith(uri.ToString()).Should().BeTrue();                        
+                        AzureDevOpsFilingUri.OriginalString.StartsWith(uri.ToString()).Should().BeTrue();
 
                         // Verify that we received the connection request.
                         connectCalled = true;
@@ -129,16 +149,19 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             //       of injection, we use the very simple expedient of declaring an internal
             //       property to hold a mock instance. In production, if that property is null,
             //       the system instantiates a wrapper around the standard types for use.
-            
-            var adoFilingClient = (AzureDevOpsFilingClient)filer.FilingClient;
-            adoFilingClient.vssConection = vssConnectionMock.Object;
 
-            filer.FileWorkItems(sarifLog: TestData.SimpleLog);
+            var adoFilingClient = (AzureDevOpsFilingClient)filer.FilingClient;
+            adoFilingClient._vssConection = vssConnectionMock.Object;
+
+            filer.FileWorkItems(sarifLog);
 
             // Did we see all the execution we expected?
             connectCalled.Should().BeTrue();
-            createAttachmenCalled.Should().BeTrue();
-            createWorkItemCalled.Should().BeTrue();
+
+            int expectedWorkItemsCount = context.GetProperty(ExpectedWorkItemsCount);
+
+            createWorkItemCalled.Should().Be(expectedWorkItemsCount);
+            createAttachmentCalled.Should().Be(expectedWorkItemsCount);
 
             // This property is a naive mechanism to ensure that the code
             // executed comprehensively (i.e., that execution was not limited
@@ -149,16 +172,17 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             // rudimentary in-flight implementation.
             filer.FilingSucceeded.Should().BeTrue();
 
-            filer.FiledWorkItems.Count.Should().Be(1);
+            filer.FiledWorkItems.Count.Should().Be(expectedWorkItemsCount);
 
             WorkItemModel filedWorkItem = filer.FiledWorkItems[0];
 
             // Finally, make sure that our test data flows back properly through the filer.
 
             filedWorkItem.Attachment.Should().NotBeNull();
-            filedWorkItem.Attachment.Text.Should().Be(JsonConvert.SerializeObject(TestData.SimpleLog));
+            JsonConvert.SerializeObject(filedWorkItem.Attachment.Text).Should().NotBeNull();
 
-            filedWorkItem.HtmlUri.Should().Be(new Uri(htmlUri, UriKind.Absolute));
+            filedWorkItem.Uri.Should().Be(new Uri(bugUri, UriKind.Absolute));
+            filedWorkItem.HtmlUri.Should().Be(new Uri(bugHtmlUri, UriKind.Absolute));
         }
 
         [Fact]
@@ -192,23 +216,13 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         }
 
         private static SarifWorkItemFiler CreateWorkItemFiler(SarifWorkItemContext context = null)
-            => CreateMockSarifWorkItemFiler(out _, context).Object;
+            => CreateMockSarifWorkItemFiler(context).Object;
 
-        private static Mock<SarifWorkItemFiler> CreateMockSarifWorkItemFiler(out Mock<FilingClient> mockClient, SarifWorkItemContext context = null)
+        private static Mock<SarifWorkItemFiler> CreateMockSarifWorkItemFiler(SarifWorkItemContext context = null)
         {
             context = context ?? GitHubTestContext;
 
-            mockClient = new Mock<FilingClient>();
-
-            mockClient
-                .Setup(x => x.Connect(It.IsAny<string>()))
-                .CallBase();
-
-            mockClient
-                .Setup(x => x.FileWorkItems(It.IsAny<IEnumerable<WorkItemModel>>()))
-                .CallBase();
-
-            var mockFiler = new Mock<SarifWorkItemFiler>(context);
+            var mockFiler = new Mock<SarifWorkItemFiler>(context.HostUri, context);
 
             mockFiler
                 .Setup(x => x.FileWorkItems(It.IsAny<string>()))
@@ -221,7 +235,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             mockFiler
                 .Setup(x => x.FileWorkItems(It.IsAny<Uri>()))
                 .CallBase();
-            
+
             return mockFiler;
         }
 
@@ -234,10 +248,18 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             PersonalAccessToken = TestData.NotActuallyASecret
         };
 
-        private static readonly SarifWorkItemContext AzureDevOpsTestContext = new SarifWorkItemContext()
+        private static SarifWorkItemContext CreateAzureDevOpsTestContext()
         {
-            HostUri = AzureDevOpsFilingUri,
-            PersonalAccessToken = TestData.NotActuallyASecret
-        };
+            return new SarifWorkItemContext()
+            {
+                HostUri = AzureDevOpsFilingUri,
+                PersonalAccessToken = TestData.NotActuallyASecret
+            };
+        }
+
+        internal static PerLanguageOption<int> ExpectedWorkItemsCount { get; } =
+            new PerLanguageOption<int>(
+                "Extensibility", nameof(ExpectedWorkItemsCount),
+                defaultValue: () => { return 1; });
     }
 }
