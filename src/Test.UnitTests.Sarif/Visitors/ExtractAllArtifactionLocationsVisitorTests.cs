@@ -103,7 +103,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         [Fact]
         public void ExtractAllArtifactLocationsVisitor_ExtractsMultipleLocationsSingleResult()
         {
-            SarifLog sarifLog = TestData.SarifLogs.OneIdThreeLocations;
+            SarifLog sarifLog = TestData.CreateOneIdThreeLocations();
 
             var visitor = new ExtractAllArtifactLocationsVisitor();
             visitor.VisitSarifLog(sarifLog);

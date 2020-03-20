@@ -9,9 +9,9 @@ using Microsoft.VisualStudio.Services.WebApi;
 
 namespace Microsoft.WorkItems
 {
-    internal class VssConnectionWrapper : IVssConnection
+    internal class VssConnectionFacade : IVssConnection
     {
-        VssConnection connection;
+        private VssConnection connection;
 
         async public Task ConnectAsync(Uri accountUri, string personalAccessToken)
         {
@@ -20,8 +20,8 @@ namespace Microsoft.WorkItems
         }
 
         async public Task<IWorkItemTrackingHttpClient> GetClientAsync()
-        {            
-            var workItemTrackingHttpClient = await connection.GetClientAsync<WorkItemTrackingHttpClient>();
+        {
+            WorkItemTrackingHttpClient workItemTrackingHttpClient = await connection.GetClientAsync<WorkItemTrackingHttpClient>();
             return new WorkItemTrackingHttpClientWrapper(workItemTrackingHttpClient);
         }
 

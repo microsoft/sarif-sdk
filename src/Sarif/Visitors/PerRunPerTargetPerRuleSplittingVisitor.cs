@@ -38,16 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 ruleId = node.RuleId.Substring(0, lastIndexOf >= 0 ? lastIndexOf : node.RuleId.Length);
             }
 
-            ArtifactLocation artifactLocation = s_emptyArtifactLocation;
-            if (node.Locations[0].PhysicalLocation?.ArtifactLocation != null)
-            {
-                artifactLocation = node.Locations[0].PhysicalLocation?.ArtifactLocation;
-            }
-
-            if (artifactLocation == null)
-            {
-                throw new InvalidOperationException("Result.Locations.PhysicalLocation.ArtifactLocation is null.");
-            }
+            ArtifactLocation artifactLocation = node.Locations?[0]?.PhysicalLocation?.ArtifactLocation ?? s_emptyArtifactLocation;
 
             if (!_targetToRuleMap.TryGetValue(artifactLocation.Uri.ToString(), out Dictionary<string, SarifLog> ruleToSarifLogMap))
             {

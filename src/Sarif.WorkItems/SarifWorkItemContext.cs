@@ -12,8 +12,6 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
         public SarifWorkItemContext(SarifWorkItemContext initializer) : base(initializer) { }
 
-        internal void InitializeFromLog(SarifLog sarifLog) { }
-
         public Uri HostUri
         {
             get { return this.GetProperty(HostUriOption); }

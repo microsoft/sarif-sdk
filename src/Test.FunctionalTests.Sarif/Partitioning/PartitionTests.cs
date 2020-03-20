@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Test.FunctionalTests.Sarif.Partitioning
 
         private class TestParameters
         {
-            internal PartitioningVisitor<string>.PartitionFunction PartitionFunction { get; set; }
+            internal PartitionFunction<string> PartitionFunction { get; set; }
             internal bool DeepClone { get; set; }
         }
 
@@ -40,7 +40,7 @@ namespace Microsoft.CodeAnalysis.Test.FunctionalTests.Sarif.Partitioning
         }
         private void Partition_WithTrivialPartitionFunction_ReturnsLogWithAllResultsAndRunLevelArrayContentsFromAllResults(bool deepClone)
         {
-            PartitioningVisitor<string>.PartitionFunction partitionFunction = result => "default";
+            PartitionFunction<string> partitionFunction = result => "default";
 
             RunTest(
                 inputResourceNames: new List<string> { "Partition.sarif" },
@@ -69,7 +69,7 @@ namespace Microsoft.CodeAnalysis.Test.FunctionalTests.Sarif.Partitioning
 
         private void Partition_ByRuleId_ProducesOneLogFilePerRule(bool deepClone)
         {
-            PartitioningVisitor<string>.PartitionFunction partitionFunction = result => result.RuleId;
+            PartitionFunction<string> partitionFunction = result => result.RuleId;
 
             RunTest(
                 inputResourceNames: new List<string> { "Partition.sarif" },
