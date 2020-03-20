@@ -66,7 +66,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 filingContext.DataToInsert = options.DataToInsert.ToFlags();
             }
 
-            var filer = new SarifWorkItemFiler(filingContext);
+            var filer = new SarifWorkItemFiler(filingContext.HostUri, filingContext);
             filer.FileWorkItems(logFileContents);
 
             // TODO: We need to process updated work item models to persist filing

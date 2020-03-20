@@ -1,17 +1,12 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.TeamFoundation.TestManagement.WebApi.Legacy;
-using Octokit;
 
 namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 {
     public static class SarifWorkItemsExtensions
     {
-        public static bool AppropriateForFiling(this Result result)
+        public static bool ShouldBeFiled(this Result result)
         {
             // Fail: an explicit failure occurred.
             //
@@ -43,7 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
             foreach (Result result in run?.Results)
             {
-                if (result.AppropriateForFiling())
+                if (result.ShouldBeFiled())
                 {
                     firstResult = result;
                     break;

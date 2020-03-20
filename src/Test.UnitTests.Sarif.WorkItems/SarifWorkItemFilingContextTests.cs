@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             string newAreaPath = Guid.NewGuid().ToString();
             context.SetProperty(Munger.NewAreaPath, newAreaPath);
 
-            var workItemModel = new SarifWorkItemModel(sarifLog: TestData.SimpleLog, context);
+            var workItemModel = new SarifWorkItemModel(sarifLog: TestData.CreateSimpleLog(), context);
 
             context.Transformers[0].Transform(workItemModel);
             workItemModel.Area.Should().Be(newAreaPath);
@@ -44,7 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             context.AddWorkItemModelTransformer(areaPathTransformer);
             context.Transformers[0].GetType().Should().Be(areaPathTransformer.GetType());
 
-            var workItemModel = new SarifWorkItemModel(sarifLog: TestData.SimpleLog, context);
+            var workItemModel = new SarifWorkItemModel(sarifLog: TestData.CreateSimpleLog(), context);
 
             context.Transformers[0].Transform(workItemModel);
             workItemModel.Area.Should().BeNull();
@@ -71,7 +71,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             context.AddWorkItemModelTransformer(areaPathTransformer);
             context.Transformers[0].GetType().Should().Be(areaPathTransformer.GetType());
 
-            SarifLog sarifLog = TestData.SarifLogs.OneIdThreeLocations;
+            SarifLog sarifLog = TestData.CreateOneIdThreeLocations();
 
             var workItemModel = new SarifWorkItemModel(sarifLog, context);
 

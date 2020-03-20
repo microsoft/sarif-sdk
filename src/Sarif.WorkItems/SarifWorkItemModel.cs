@@ -19,8 +19,6 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
             this.Context = context ?? new SarifWorkItemContext();
 
-            context.InitializeFromLog(sarifLog);
-
             var visitor = new ExtractAllArtifactLocationsVisitor();
             visitor.VisitSarifLog(sarifLog);
             foreach (ArtifactLocation location in visitor.AllArtifactLocations)

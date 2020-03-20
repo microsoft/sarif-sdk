@@ -28,11 +28,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             ArtifactLocation artifactLocation = node?.Locations[0]?.PhysicalLocation?.ArtifactLocation ?? s_emptyArtifactLocation;
 
-            if (artifactLocation == null)
-            {
-                throw new InvalidOperationException("Result.Locations.PhysicalLocation.ArtifactLocation is null.");
-            }
-
             if (!_targetMap.TryGetValue(artifactLocation.Uri.OriginalString, out SarifLog sarifLog))
             {
                 sarifLog = _targetMap[artifactLocation.Uri.OriginalString] = new SarifLog()

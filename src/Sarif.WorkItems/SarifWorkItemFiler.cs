@@ -4,10 +4,8 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
-using Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models;
 using Microsoft.WorkItems;
 using Newtonsoft.Json;
 
@@ -18,42 +16,28 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         /// <summary>
         /// Initializes a new instance of the <see cref="SarifWorkItemFiler"> class.</see>
         /// </summary>
-        /// <param name="filingClient">
-        /// A client for communicating with a work item filing host (for example, GitHub or Azure DevOps).
+        /// <param name="filingUri">
+        /// The uri to the remote filing host.
         /// </param>
         /// <param name="filingContext">
         /// A starting context object that configures the work item filing operation. In the
         /// current implementation, this context is copied for each SARIF file (if any) split
         /// from the input log and then further elaborated upon.
         /// </param>
-        public SarifWorkItemFiler(Uri filingUri)
+        public SarifWorkItemFiler(Uri filingUri = null, SarifWorkItemContext filingContext = null)
         {
-            if (filingUri == null) { throw new ArgumentOutOfRangeException(nameof(filingUri)); };
+            this.FilingContext = filingContext ?? new SarifWorkItemContext { HostUri = filingUri };
+            filingUri = filingUri ?? this.FilingContext.HostUri;
 
-            this.FilingContext = new SarifWorkItemContext
+            if (filingUri == null) { throw new ArgumentNullException(nameof(filingUri)); };
+
+            if (filingUri != this.FilingContext.HostUri)
             {
-                HostUri = filingUri
-            };
+                // Inconsistent URIs were provided in 'filingContext' and 'filingUri'; arguments.
+                throw new InvalidOperationException(WorkItemsResources.InconsistentHostUrisProvided);
+            }
 
             this.FilingClient = FilingClientFactory.Create(this.FilingContext.HostUri);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SarifWorkItemFiler"> class.</see>
-        /// </summary>
-        /// <param name="filingClient">
-        /// A client for communicating with a work item filing host (for example, GitHub or Azure DevOps).
-        /// </param>
-        /// <param name="filingContext">
-        /// A starting context object that configures the work item filing operation. In the
-        /// current implementation, this context is copied for each SARIF file (if any) split
-        /// from the input log and then further elaborated upon.
-        /// </param>
-        public SarifWorkItemFiler(SarifWorkItemContext filingContext) : this(filingContext.HostUri)
-        {
-            this.FilingContext = filingContext ?? throw new ArgumentNullException(nameof(filingContext));
-
-            this.FilingClient = FilingClientFactory.Create(filingContext.HostUri);
         }
 
         public FilingClient FilingClient { get; set; }
@@ -123,50 +107,37 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 return;
             }
 
-            for (int runIndex = 0; runIndex < sarifLog.Runs?.Count; ++runIndex)
+            IList<SarifLog> logsToProcess = new List<SarifLog>(new SarifLog[] { sarifLog });
+
+            PartitionFunction<string> partitionFunction = null;
+
+            switch (splittingStrategy)
             {
-                if (sarifLog.Runs[runIndex]?.Results?.Count > 0)
+                case SplittingStrategy.PerRun:
                 {
-                    IList<SarifLog> logsToProcess = new List<SarifLog>(new SarifLog[] { sarifLog });
-
-                    if (splittingStrategy != SplittingStrategy.PerRun)
-                    {
-                        SplittingVisitor visitor;
-                        switch (splittingStrategy)
-                        {
-                            case SplittingStrategy.PerRunPerRule:
-                                visitor = new PerRunPerRuleSplittingVisitor();
-                                break;
-
-                            case SplittingStrategy.PerRunPerTarget:
-                                visitor = new PerRunPerTargetSplittingVisitor();
-                                break;
-
-                            case SplittingStrategy.PerRunPerTargetPerRule:
-                                visitor = new PerRunPerTargetPerRuleSplittingVisitor();
-                                break;
-
-                            // TODO: Implement PerResult and PerRun splittings strategies
-                            //
-                            //       https://github.com/microsoft/sarif-sdk/issues/1763
-                            //       https://github.com/microsoft/sarif-sdk/issues/1762
-                            //
-                            case SplittingStrategy.PerResult:
-                            case SplittingStrategy.PerRun:
-                            default:
-                                throw new ArgumentOutOfRangeException($"SplittingStrategy: {splittingStrategy}");
-                        }
-
-                        visitor.VisitRun(sarifLog.Runs[runIndex]);
-                        logsToProcess = visitor.SplitSarifLogs;
-                    }
-
-                    for (int splitFileIndex = 0; splitFileIndex < logsToProcess.Count; splitFileIndex++)
-                    {
-                        SarifLog splitLog = logsToProcess[splitFileIndex];
-                        FileWorkItemsHelper(splitLog, this.FilingContext, this.FilingClient);
-                    }
+                    partitionFunction = (result) => result.ShouldBeFiled() ? "Include" : null;
+                    break;
                 }
+                case SplittingStrategy.PerResult:
+                {
+                    partitionFunction = (result) => result.ShouldBeFiled() ? Guid.NewGuid().ToString() : null;
+                    break;
+                }
+                default:
+                {
+                    throw new ArgumentOutOfRangeException($"SplittingStrategy: {splittingStrategy}");
+                }
+            }
+
+            var partitioningVisitor = new PartitioningVisitor<string>(partitionFunction, deepClone: false);
+            partitioningVisitor.VisitSarifLog(sarifLog);
+
+            logsToProcess = new List<SarifLog>(partitioningVisitor.GetPartitionLogs().Values);
+
+            for (int splitFileIndex = 0; splitFileIndex < logsToProcess.Count; splitFileIndex++)
+            {
+                SarifLog splitLog = logsToProcess[splitFileIndex];
+                FileWorkItemsHelper(splitLog, this.FilingContext, this.FilingClient);
             }
         }
 
@@ -210,16 +181,12 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             {
                 Console.Error.WriteLine(ex);
             }
-
         }
 
         public void Dispose()
         {
-            if (this.FilingClient != null)
-            {
-                this.FilingClient.Dispose();
-                this.FilingClient = null;
-            }
+            this.FilingClient?.Dispose();
+            this.FilingClient = null;
         }
     }
 }
