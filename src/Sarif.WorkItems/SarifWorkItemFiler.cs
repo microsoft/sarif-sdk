@@ -146,14 +146,15 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             // The helper below will initialize the sarif work item model with a copy
             // of the root pipeline filing context. This context will then be initialized
             // based on the current sarif log file that we're processing.
-
+            // First intializes the contexts provider to the value in the current filing client.
+            filingContext.CurrentProvider = filingClient.CurrentProvider;
             var workItemModel = new SarifWorkItemModel(sarifLog, filingContext);
 
             try
             {
                 // Populate the work item with the target organization/repository information.
                 // In ADO, certain fields (such as the area path) will defaut to the 
-                // project name and so this information is used in at least that context. 
+                // project name and so this information is used in at least that context.
                 workItemModel.OwnerOrAccount = filingClient.AccountOrOrganization;
                 workItemModel.RepositoryOrProject = filingClient.ProjectOrRepository;
 

@@ -11,6 +11,7 @@ namespace Microsoft.CodeAnalysis.Test.Utilities.Sarif
     {
         public const string TestRuleId = "TST0001";
         public const string TestToolName = nameof(TestToolName);
+        public const string SecondTestToolName = nameof(SecondTestToolName);
         public const string TestMessageText = "This is a flattened (argument-free) test message.";
         public const string TestMessageStringId = "testMessageStringId";
         public const string TestAnalysisTarget = @"C:\dir\file";
@@ -93,6 +94,39 @@ namespace Microsoft.CodeAnalysis.Test.Utilities.Sarif
                                     }
                                 }
                             }
+                        }
+                    }
+                }
+            };
+        }
+
+        public static SarifLog CreateTwoRunThreeResultLog()
+        { 
+            return new SarifLog
+            {
+                Runs = new[]
+            {
+                    new Run
+                    {
+                        Tool = CreateSimpleLog().Runs[0].Tool,
+                        Results = new[]
+                        {
+                            CreateResult(FailureLevel.Error, ResultKind.Fail, new Region(), TestData.FileLocations.Location1),
+                            CreateResult(FailureLevel.Error, ResultKind.Fail, new Region(), TestData.FileLocations.Location2),
+                        }
+                    },
+                    new Run
+                    {
+                        Tool = new Tool
+                        {
+                            Driver = new ToolComponent
+                            {
+                                Name = SecondTestToolName
+                            }
+                        },
+                        Results = new[]
+                        {
+                            CreateResult(FailureLevel.Error, ResultKind.Fail, new Region(), TestData.FileLocations.Location1)
                         }
                     }
                 }

@@ -106,7 +106,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         public static string CreateWorkItemDescription(this SarifLog log)
         {
             Dictionary<string, int> resultCountsByTool = ComputeToolResultCounts(log);
-            StringBuilder templateText = new StringBuilder(@"This bug has been filed by the Sarif Work Item Automatic Filer.  It contains results for the following tools and issues:");
+            StringBuilder templateText = new StringBuilder(@"This bug contains results for the below tool(s) and issue(s).  It was filed automatically.");
             templateText.AppendLine();
             templateText.AppendLine();
 
@@ -116,13 +116,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 templateText.AppendLine();
                 templateText.Append(string.Format("     Result count: {0}", toolResult.Value));
                 templateText.AppendLine();
-                templateText.AppendLine();
             }
-
-            templateText.AppendLine();
-            templateText.Append(@"To see result details, please visit the Scans tab of this bug, or the attached Sarif log.");
-            templateText.Append(@"If the scans tab is missing or unavailable, please install the Sarif viewer from https://marketplace.visualstudio.com/items?itemName=WDGIS.MicrosoftSarifViewer");
-
             return templateText.ToString();
         }
     }

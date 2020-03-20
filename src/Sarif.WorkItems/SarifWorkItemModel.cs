@@ -3,7 +3,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.Text;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
+using Microsoft.TeamFoundation.Common;
 using Microsoft.WorkItems;
 using Newtonsoft.Json;
 
@@ -54,7 +56,8 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             //
             this.CommentOrDiscussion = $"Default {nameof(this.CommentOrDiscussion)}";
 
-            this.BodyOrDescription = sarifLog.CreateWorkItemDescription();
+            string descriptionFooter = !string.IsNullOrEmpty(context.BugFooter) ? context.BugFooter : CreateBugFooter(); 
+            this.BodyOrDescription = string.Join(Environment.NewLine, sarifLog.CreateWorkItemDescription(), descriptionFooter);
 
             // These properties are Azure DevOps-specific. All ADO work item board
             // area paths are rooted by the project name, as are iterations.
@@ -73,6 +76,22 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             // non-generalized needs, there are no useful defaults we can provide.
             //
             // this.CustomFields
+        }
+
+        private string CreateBugFooter()
+        {
+            if(this.Context.CurrentProvider == FilingClient.SourceControlProvider.AzureDevOps)
+            {
+                StringBuilder azureDevOpsFooter = new StringBuilder();
+                azureDevOpsFooter.Append(@"To see result details, please visit the Scans tab of this bug, or the attached SARIF log.");
+                azureDevOpsFooter.AppendLine();
+                azureDevOpsFooter.Append(@"If the scans tab is missing or unavailable, please install the SARIF viewer from https://marketplace.visualstudio.com/items?itemName=WDGIS.MicrosoftSarifViewer");
+                return azureDevOpsFooter.ToString();
+            }
+            else
+            {
+                return @"Details for the above issues can be found in the attachment filed with this issue.";
+            }
         }
     }
 }
