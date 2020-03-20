@@ -3,11 +3,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
 using Microsoft.CodeAnalysis.WorkItems;
+using Microsoft.CodeAnalysis.WorkItems.Logging;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models;
@@ -39,6 +41,8 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             };
 
             this.FilingClient = FilingClientFactory.Create(this.FilingContext.HostUri);
+
+            this.Logger = ServiceProviderFactory.ServiceProvider.GetService<ILogger<FilingClient>>();
         }
 
         /// <summary>
@@ -67,25 +71,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
         public bool FilingSucceeded { get; private set; }
 
-        private ILogger m_logger;
-        internal ILogger Logger
-        {
-            get
-            {
-                if (m_logger == null)
-                {
-                    lock (this)
-                    {
-                        if (m_logger == null)
-                        {
-                            m_logger = ServiceProviderFactory.ServiceProvider.GetService<ILogger<SarifLog>>();
-                        }
-                    }
-                }
-
-                return m_logger;
-            }
-        }
+        internal ILogger Logger { get; }
 
         public virtual void FileWorkItems(Uri sarifLogFileLocation)
         {
@@ -118,85 +104,92 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
         public virtual void FileWorkItems(SarifLog sarifLog)
         {
-            this.FilingSucceeded = false;
-            this.FiledWorkItems = new List<WorkItemModel>();
-
-            sarifLog = sarifLog ?? throw new ArgumentNullException(nameof(sarifLog));
-
-            this.FilingClient.Connect(this.FilingContext.PersonalAccessToken).Wait();
-
-            this.Logger.LogTrace("Removing data");
-            OptionallyEmittedData optionallyEmittedData = this.FilingContext.DataToRemove;
-            if (optionallyEmittedData != OptionallyEmittedData.None)
+            using (IDisposable loggingScope = Logger.BeginScope("FileWorkItems"))
             {
-                var dataRemovingVisitor = new RemoveOptionalDataVisitor(optionallyEmittedData);
-                dataRemovingVisitor.Visit(sarifLog);
-            }
+                this.FilingSucceeded = false;
+                this.FiledWorkItems = new List<WorkItemModel>();
 
-            this.Logger.LogTrace("Inserting data");
-            optionallyEmittedData = this.FilingContext.DataToInsert;
-            if (optionallyEmittedData != OptionallyEmittedData.None)
-            {
-                var dataInsertingVisitor = new InsertOptionalDataVisitor(optionallyEmittedData);
-                dataInsertingVisitor.Visit(sarifLog);
-            }
+                sarifLog = sarifLog ?? throw new ArgumentNullException(nameof(sarifLog));
 
-            SplittingStrategy splittingStrategy = this.FilingContext.SplittingStrategy;
+                Logger.LogInformation("Connecting to filing client: {accountOrOrganization}", this.FilingClient.AccountOrOrganization);
+                this.FilingClient.Connect(this.FilingContext.PersonalAccessToken).Wait();
 
-            this.Logger.LogInformation("Splitting strategy: {splittingStrategy}", splittingStrategy);
-
-            if (splittingStrategy == SplittingStrategy.None)
-            {
-                FileWorkItemsHelper(sarifLog, this.FilingContext, this.FilingClient);
-                return;
-            }
-
-            this.Logger.LogInformation("Processing {runCount} runs", sarifLog.Runs?.Count);
-
-            for (int runIndex = 0; runIndex < sarifLog.Runs?.Count; ++runIndex)
-            {
-                if (sarifLog.Runs[runIndex]?.Results?.Count > 0)
+                OptionallyEmittedData optionallyEmittedData = this.FilingContext.DataToRemove;
+                if (optionallyEmittedData != OptionallyEmittedData.None)
                 {
-                    IList<SarifLog> logsToProcess = new List<SarifLog>(new SarifLog[] { sarifLog });
+                    var dataRemovingVisitor = new RemoveOptionalDataVisitor(optionallyEmittedData);
+                    dataRemovingVisitor.Visit(sarifLog);
+                }
 
-                    if (splittingStrategy != SplittingStrategy.PerRun)
+                optionallyEmittedData = this.FilingContext.DataToInsert;
+                if (optionallyEmittedData != OptionallyEmittedData.None)
+                {
+                    var dataInsertingVisitor = new InsertOptionalDataVisitor(optionallyEmittedData);
+                    dataInsertingVisitor.Visit(sarifLog);
+                }
+
+                SplittingStrategy splittingStrategy = this.FilingContext.SplittingStrategy;
+
+                if (splittingStrategy == SplittingStrategy.None)
+                {
+                    FileWorkItemsHelper(sarifLog, this.FilingContext, this.FilingClient);
+                    return;
+                }
+
+                Stopwatch splittingStopwatch = Stopwatch.StartNew();
+
+                for (int runIndex = 0; runIndex < sarifLog.Runs?.Count; ++runIndex)
+                {
+                    if (sarifLog.Runs[runIndex]?.Results?.Count > 0)
                     {
-                        SplittingVisitor visitor;
-                        switch (splittingStrategy)
+                        IList<SarifLog> logsToProcess = new List<SarifLog>(new SarifLog[] { sarifLog });
+
+                        if (splittingStrategy != SplittingStrategy.PerRun)
                         {
-                            case SplittingStrategy.PerRunPerRule:
-                                visitor = new PerRunPerRuleSplittingVisitor();
-                                break;
+                            SplittingVisitor visitor;
+                            switch (splittingStrategy)
+                            {
+                                case SplittingStrategy.PerRunPerRule:
+                                    visitor = new PerRunPerRuleSplittingVisitor();
+                                    break;
 
-                            case SplittingStrategy.PerRunPerTarget:
-                                visitor = new PerRunPerTargetSplittingVisitor();
-                                break;
+                                case SplittingStrategy.PerRunPerTarget:
+                                    visitor = new PerRunPerTargetSplittingVisitor();
+                                    break;
 
-                            case SplittingStrategy.PerRunPerTargetPerRule:
-                                visitor = new PerRunPerTargetPerRuleSplittingVisitor();
-                                break;
+                                case SplittingStrategy.PerRunPerTargetPerRule:
+                                    visitor = new PerRunPerTargetPerRuleSplittingVisitor();
+                                    break;
 
-                            // TODO: Implement PerResult and PerRun splittings strategies
-                            //
-                            //       https://github.com/microsoft/sarif-sdk/issues/1763
-                            //       https://github.com/microsoft/sarif-sdk/issues/1762
-                            //
-                            case SplittingStrategy.PerResult:
-                            case SplittingStrategy.PerRun:
-                            default:
-                                throw new ArgumentOutOfRangeException($"SplittingStrategy: {splittingStrategy}");
+                                // TODO: Implement PerResult and PerRun splittings strategies
+                                //
+                                //       https://github.com/microsoft/sarif-sdk/issues/1763
+                                //       https://github.com/microsoft/sarif-sdk/issues/1762
+                                //
+                                case SplittingStrategy.PerResult:
+                                case SplittingStrategy.PerRun:
+                                default:
+                                    throw new ArgumentOutOfRangeException($"SplittingStrategy: {splittingStrategy}");
+                            }
+
+                            visitor.VisitRun(sarifLog.Runs[runIndex]);
+                            logsToProcess = visitor.SplitSarifLogs;
                         }
 
-                        visitor.VisitRun(sarifLog.Runs[runIndex]);
-                        logsToProcess = visitor.SplitSarifLogs;
-                    }
+                        var logsToProcessMetrics = new Dictionary<string, object>
+                        {
+                            { "splittingStrategy", splittingStrategy },
+                            { "logsToProcessCount", logsToProcess.Count },
+                            { "splittingDurationInMilliseconds", splittingStopwatch.ElapsedMilliseconds },
+                        };
+                        this.Logger.LogMetrics(EventIds.LogsToProcessMetrics, logsToProcessMetrics);
+                        splittingStopwatch.Stop();
 
-                    this.Logger.LogInformation("Log count after split: {runCount}", logsToProcess.Count);
-
-                    for (int splitFileIndex = 0; splitFileIndex < logsToProcess.Count; splitFileIndex++)
-                    {
-                        SarifLog splitLog = logsToProcess[splitFileIndex];
-                        FileWorkItemsHelper(splitLog, this.FilingContext, this.FilingClient);
+                        for (int splitFileIndex = 0; splitFileIndex < logsToProcess.Count; splitFileIndex++)
+                        {
+                            SarifLog splitLog = logsToProcess[splitFileIndex];
+                            FileWorkItemsHelper(splitLog, this.FilingContext, this.FilingClient);
+                        }
                     }
                 }
             }
@@ -218,12 +211,8 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 workItemModel.OwnerOrAccount = filingClient.AccountOrOrganization;
                 workItemModel.RepositoryOrProject = filingClient.ProjectOrRepository;
 
-                this.Logger.LogInformation("OwnerOrAccount: {ownerOrAccount}", workItemModel.OwnerOrAccount);
-                this.Logger.LogInformation("RepositoryOrProject: {repositoryOrProject}", workItemModel.RepositoryOrProject);
-
                 foreach (SarifWorkItemModelTransformer transformer in workItemModel.Context.Transformers)
                 {
-                    this.Logger.LogInformation("Running transformer {transformerName}", transformer.GetType().FullName);
                     transformer.Transform(workItemModel);
                 }
 
@@ -244,9 +233,8 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             }
             catch (Exception ex)
             {
-                Console.Error.WriteLine(ex);
+                Logger.LogError(ex, ex.Message);
             }
-
         }
 
         public void Dispose()

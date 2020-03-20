@@ -80,6 +80,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="appsettings.local.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="appsettings.json">
       <CopyToOutputDirectory Condition="'$(Configuration)' == 'Debug'">PreserveNewest</CopyToOutputDirectory>
     </None>

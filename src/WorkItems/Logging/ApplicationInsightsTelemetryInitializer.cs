@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Microsoft.CodeAnalysis.WorkItems
+namespace Microsoft.CodeAnalysis.WorkItems.Logging
 {
     /// <summary>
     /// Assigns a GUID as the operation_Id for the Application Insights traces.
