@@ -52,6 +52,11 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             sb.Length.Should().Be(0, because: Environment.NewLine + sb.ToString());
         }
 
+        [Fact]
+        public void SarifWorkItemExtensions_ComputeToolResultCounts_CountsMultipleTools()
+        {
+        }
+
         private static readonly string ToolName = Guid.NewGuid().ToString();
 
         public Tuple<string, Result>[] ResultsWithVariousRuleExpressions = new[]

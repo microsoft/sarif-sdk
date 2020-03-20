@@ -57,10 +57,6 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             this.CommentOrDiscussion = $"Default {nameof(this.CommentOrDiscussion)}";
 
             this.BodyOrDescription = sarifLog.CreateWorkItemDescription();
-            if (string.IsNullOrEmpty(this.BodyOrDescription))
-            {
-                this.BodyOrDescription = $"Default {nameof(this.BodyOrDescription)}";
-            }
 
             // These properties are Azure DevOps-specific. All ADO work item board
             // area paths are rooted by the project name, as are iterations.

@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
         public static string CreateWorkItemTitle(this Run run)
         {
-            if (run == null) { throw new NullReferenceException(); }
+            if (run == null) { throw new ArgumentNullException(nameof(run)); }
             if (run.Results == null) { throw new ArgumentNullException(nameof(run.Results)); }
 
             Result firstResult = null;
@@ -77,29 +77,18 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                     (locationName == null ? "" : " (in " + locationName + ")");
         }
 
-        public static Dictionary<string, int> FetchToolResultCounts(this SarifLog log)
+        public static Dictionary<string, int> ComputeToolResultCounts(this SarifLog log)
         {
-            if (log == null) { throw new NullReferenceException(); }
+            if (log == null) { throw new ArgumentNullException(nameof(log)); }
             if (log.Runs == null) { throw new ArgumentNullException(nameof(log.Runs)); }
 
-            Dictionary<string, int> resultCountsByTool = new Dictionary<string, int>();
-            int appropriateResultCount = 0;
+            var resultCountsByTool = new Dictionary<string, int>();
 
             foreach (Run run in log?.Runs)
             {
-                if (run != null)
+                if (run != null && run.Results != null)
                 {
-                    if (run?.Tool?.Driver?.Name != null && run?.Results != null)
-                    {
-                        foreach (Result result in run?.Results)
-                        {
-                            if (result.AppropriateForFiling())
-                            {
-                                appropriateResultCount++;
-                            }
-                        }
-                        resultCountsByTool.Add(run?.Tool?.Driver?.Name, appropriateResultCount);
-                    }
+                    resultCountsByTool.Add(run?.Tool?.Driver?.Name, run.Results.Count);
                 }
             }
 
@@ -119,7 +108,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
         public static string CreateWorkItemDescription(this SarifLog log)
         {
-            Dictionary<string, int> resultCountsByTool = FetchToolResultCounts(log);
+            Dictionary<string, int> resultCountsByTool = ComputeToolResultCounts(log);
             StringBuilder templateText = new StringBuilder(@"This bug has been filed by the Sarif Work Item Automatic Filer.  It contains results for the following tools and issues:");
             templateText.AppendLine();
             templateText.AppendLine();
