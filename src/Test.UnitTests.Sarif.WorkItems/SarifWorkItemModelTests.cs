@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItems
         public void SarifWorkItemModel_PopulatesDescription()
         {
             var context = new SarifWorkItemContext();
-            SarifLog sarifLog = TestData.SarifLogs.OneIdThreeLocations;
+            SarifLog sarifLog = TestData.CreateOneIdThreeLocations();
 
             var workItemModel = new SarifWorkItemModel(sarifLog, context);
             workItemModel.BodyOrDescription.Should().NotBeNullOrEmpty();
