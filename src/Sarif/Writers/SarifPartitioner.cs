@@ -73,7 +73,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         /// </returns>
         public static IDictionary<T, SarifLog> Partition<T>(
             SarifLog log,
-            PartitioningVisitor<T>.PartitionFunction partitionFunction,
+            PartitionFunction<T> partitionFunction,
             bool deepClone)
             where T : class, IEquatable<T>
         {

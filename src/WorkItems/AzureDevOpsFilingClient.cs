@@ -20,20 +20,19 @@ namespace Microsoft.WorkItems
     /// </summary>
     public class AzureDevOpsFilingClient : FilingClient
     {
+        // We use these fields for mock object injection when unit testing.
+        internal IVssConnection _vssConection;
         internal IWorkItemTrackingHttpClient _witClient;
-
-        // We use this field for mock object injection when unit testing.
-        internal IVssConnection vssConection;
 
         public Uri AccountUri => new Uri(string.Format("https://dev.azure.com/" + this.AccountOrOrganization));
 
         public override async Task Connect(string personalAccessToken)
         {
-            vssConection = vssConection ?? new VssConnectionWrapper();
+            _vssConection = _vssConection ?? new VssConnectionFacade();
 
-            await vssConection.ConnectAsync(this.AccountUri, personalAccessToken);
+            await _vssConection.ConnectAsync(this.AccountUri, personalAccessToken);
             
-            _witClient = await vssConection.GetClientAsync();
+            _witClient = await _vssConection.GetClientAsync();
         }
 
         public override async Task<IEnumerable<WorkItemModel>> FileWorkItems(IEnumerable<WorkItemModel> workItemModels)
@@ -145,9 +144,9 @@ namespace Microsoft.WorkItems
                     // https://github.com/microsoft/sarif-sdk/issues/1770
                     string workItemKind = "Bug";
 
-                    Console.Write($"Creating work item: {workItemModel.Title}");
+                    Console.WriteLine($"Creating work item: {workItemModel.Title}");
                     workItem = await _witClient.CreateWorkItemAsync(patchDocument, project: this.ProjectOrRepository, workItemKind);
-                    Console.WriteLine($": {workItem.Id}: DONE");
+                    workItemModel.Uri = new Uri(workItem.Url, UriKind.Absolute);
                 }
                 catch (Exception e)
                 {
@@ -162,12 +161,8 @@ namespace Microsoft.WorkItems
                     continue;
                 }
 
-                const string HTML = "html";
-                workItemModel.HtmlUri = new Uri(((ReferenceLink)workItem.Links.Links[HTML]).Href, UriKind.Absolute);
-
-                // TODO: ADO work item filer should populate the raw URI (in addition to HtmlUri) 
-                //
-                //       https://github.com/microsoft/sarif-sdk/issues/1773
+                workItemModel.HtmlUri = new Uri(((ReferenceLink)workItem.Links.Links["html"]).Href, UriKind.Absolute);
+                Console.WriteLine($"CREATED: {workItemModel.HtmlUri}");
             }
 
             return workItemModels;
@@ -175,15 +170,11 @@ namespace Microsoft.WorkItems
 
         public override void Dispose()
         {
-            if (this.vssConection != null)
-            {
-                this.vssConection.Dispose();
-                this.vssConection = null;
-            }
+            this._vssConection?.Dispose();
+            this._vssConection = null;
 
-            if (this._witClient != null)
-            {
-            }
+            this._witClient?.Dispose();
+            this._witClient = null;
         }
     }
 }
