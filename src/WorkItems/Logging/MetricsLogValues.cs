@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Microsoft.CodeAnalysis.WorkItems.Logging
+namespace Microsoft.WorkItems.Logging
 {
     /// <summary>
     /// MetricsLogValues is variation of FormattedLogValues that accepts a dictionary to store customDimensions Application Insights.
@@ -46,7 +46,7 @@ namespace Microsoft.CodeAnalysis.WorkItems.Logging
                 throw new ArgumentOutOfRangeException(nameof(values), $"The {nameof(values)} dictionary cannot be null or empty.");
             }
 
-            _originalMessage = (format ?? NullFormat);
+            _originalMessage = format;
             _values = values.ToList();
             _eventId = eventId;
         }
@@ -65,13 +65,9 @@ namespace Microsoft.CodeAnalysis.WorkItems.Logging
             {
                 return _originalMessage;
             }
-            else if (_eventId != null)
-            {
-                return $"Event {_eventId.Id} ({_eventId.Name})";
-            }
             else
             {
-                return "Metrics"; 
+                return $"Event {_eventId.Id} ({_eventId.Name})";
             }
         }
 

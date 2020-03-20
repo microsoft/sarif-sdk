@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Microsoft.CodeAnalysis.WorkItems.Logging
+namespace Microsoft.WorkItems.Logging
 {
     /// <summary>
     /// Assigns a GUID as the operation_Id for the Application Insights traces.
@@ -20,6 +20,11 @@ namespace Microsoft.CodeAnalysis.WorkItems.Logging
 
         public void Initialize(ITelemetry telemetry)
         {
+            if (telemetry?.Context?.Operation == null)
+            {
+                throw new ArgumentNullException(nameof(telemetry));
+            }
+
             if (string.IsNullOrEmpty(telemetry.Context.Operation.Id))
             {
                 telemetry.Context.Operation.Id = m_operationId;

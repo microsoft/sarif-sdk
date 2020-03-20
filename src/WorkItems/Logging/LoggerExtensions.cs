@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Microsoft.CodeAnalysis.WorkItems.Logging
+namespace Microsoft.WorkItems.Logging
 {
     public static class LoggerExtensions
     {

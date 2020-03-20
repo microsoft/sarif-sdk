@@ -2,7 +2,9 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using CommandLine;
-using Microsoft.CodeAnalysis.WorkItems;
+using Microsoft.ApplicationInsights.Channel;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.WorkItems;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
@@ -45,7 +47,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
             finally 
             {
-                ServiceProviderFactory.Flush();
+                ITelemetryChannel channel = ServiceProviderFactory.ServiceProvider.GetService<ITelemetryChannel>();
+                channel?.Flush();
+                channel?.Dispose();
             }
         }
     }
