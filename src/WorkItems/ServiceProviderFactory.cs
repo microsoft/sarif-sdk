@@ -78,6 +78,7 @@ namespace Microsoft.WorkItems
             string appSettingsFile = GetAppSettingsFilePath();
             IConfiguration config = new ConfigurationBuilder()
                 .AddJsonFile(appSettingsFile, optional: true, reloadOnChange: false)
+                .AddEnvironmentVariables()
                 .AddJsonFile("appsettings.local.json", optional: true, reloadOnChange: false)
                 .Build();
 
