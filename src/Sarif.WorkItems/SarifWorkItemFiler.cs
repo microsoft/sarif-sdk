@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models;
 using Microsoft.WorkItems;
 using Microsoft.WorkItems.Logging;
 using Newtonsoft.Json;
@@ -125,7 +124,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 PartitionFunction<string> partitionFunction = null;
 
                 Stopwatch splittingStopwatch = Stopwatch.StartNew();
-
+                
                 switch (splittingStrategy)
                 {
                     case SplittingStrategy.PerRun:
@@ -205,7 +204,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             }
             catch (Exception ex)
             {
-                Logger.LogError(ex, ex.Message);
+                Console.Error.WriteLine(ex);
             }
         }
 
