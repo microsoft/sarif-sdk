@@ -120,37 +120,50 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                     return;
                 }
 
-            IList<SarifLog> logsToProcess = new List<SarifLog>(new SarifLog[] { sarifLog });
+                IList<SarifLog> logsToProcess = new List<SarifLog>(new SarifLog[] { sarifLog });
 
-            PartitionFunction<string> partitionFunction = null;
+                PartitionFunction<string> partitionFunction = null;
 
-            switch (splittingStrategy)
-            {
-                case SplittingStrategy.PerRun:
+                Stopwatch splittingStopwatch = Stopwatch.StartNew();
+
+                switch (splittingStrategy)
                 {
-                    partitionFunction = (result) => result.ShouldBeFiled() ? "Include" : null;
-                    break;
+                    case SplittingStrategy.PerRun:
+                    {
+                        partitionFunction = (result) => result.ShouldBeFiled() ? "Include" : null;
+                        break;
+                    }
+                    case SplittingStrategy.PerResult:
+                    {
+                        partitionFunction = (result) => result.ShouldBeFiled() ? Guid.NewGuid().ToString() : null;
+                        break;
+                    }
+                    default:
+                    {
+                        throw new ArgumentOutOfRangeException($"SplittingStrategy: {splittingStrategy}");
+                    }
                 }
-                case SplittingStrategy.PerResult:
+
+                var partitioningVisitor = new PartitioningVisitor<string>(partitionFunction, deepClone: false);
+                partitioningVisitor.VisitSarifLog(sarifLog);
+
+                logsToProcess = new List<SarifLog>(partitioningVisitor.GetPartitionLogs().Values);
+
+                var logsToProcessMetrics = new Dictionary<string, object>
                 {
-                    partitionFunction = (result) => result.ShouldBeFiled() ? Guid.NewGuid().ToString() : null;
-                    break;
-                }
-                default:
+                    { "splittingStrategy", splittingStrategy },
+                    { "logsToProcessCount", logsToProcess.Count },
+                    { "splittingDurationInMilliseconds", splittingStopwatch.ElapsedMilliseconds },
+                };
+
+                this.Logger.LogMetrics(EventIds.LogsToProcessMetrics, logsToProcessMetrics);
+                splittingStopwatch.Stop();
+
+                for (int splitFileIndex = 0; splitFileIndex < logsToProcess.Count; splitFileIndex++)
                 {
-                    throw new ArgumentOutOfRangeException($"SplittingStrategy: {splittingStrategy}");
+                    SarifLog splitLog = logsToProcess[splitFileIndex];
+                    FileWorkItemsHelper(splitLog, this.FilingContext, this.FilingClient);
                 }
-            }
-
-            var partitioningVisitor = new PartitioningVisitor<string>(partitionFunction, deepClone: false);
-            partitioningVisitor.VisitSarifLog(sarifLog);
-
-            logsToProcess = new List<SarifLog>(partitioningVisitor.GetPartitionLogs().Values);
-
-            for (int splitFileIndex = 0; splitFileIndex < logsToProcess.Count; splitFileIndex++)
-            {
-                SarifLog splitLog = logsToProcess[splitFileIndex];
-                FileWorkItemsHelper(splitLog, this.FilingContext, this.FilingClient);
             }
         }
 

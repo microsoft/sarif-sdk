@@ -13,7 +13,6 @@ namespace Microsoft.WorkItems.Logging
     /// </summary>
     internal readonly struct MetricsLogValues : IReadOnlyList<KeyValuePair<string, object>>, IEnumerable<KeyValuePair<string, object>>, IEnumerable, IReadOnlyCollection<KeyValuePair<string, object>>
     {
-        private const string NullFormat = "[null]";
         private readonly List<KeyValuePair<string, object>> _values;
         private readonly string _originalMessage;
         private readonly EventId _eventId;
