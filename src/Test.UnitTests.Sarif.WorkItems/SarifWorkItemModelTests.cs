@@ -9,7 +9,7 @@ using Microsoft.WorkItems;
 using Xunit;
 
 
-namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItems
+namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 {
     public class SarifWorkItemModelTests
     {
@@ -22,6 +22,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItems
             var workItemModel = new SarifWorkItemModel(sarifLog, context);
             workItemModel.BodyOrDescription.Should().NotBeNullOrEmpty();
             workItemModel.BodyOrDescription.Should().Contain(nameof(TestData.TestToolName));
+            workItemModel.BodyOrDescription.Should().Contain(nameof(TestData.FileLocations.Location1));
             workItemModel.BodyOrDescription.Should().Contain("Details for the above issues can be found in the attachment filed with this issue.");
             workItemModel.BodyOrDescription.Should().NotContain("Scans tab");
         }
@@ -36,7 +37,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItems
             var workItemModel = new SarifWorkItemModel(sarifLog, context);
             workItemModel.BodyOrDescription.Should().NotBeNullOrEmpty();
             workItemModel.BodyOrDescription.Should().Contain(nameof(TestData.TestToolName));
-            workItemModel.BodyOrDescription.Should().Contain("To see result details, please visit the Scans tab of this bug, or the attached SARIF log.");
+            workItemModel.BodyOrDescription.Should().Contain(sarifLog.Runs[0].VersionControlProvenance[0].RepositoryUri.OriginalString);
+            workItemModel.BodyOrDescription.Should().Contain("Visual Studio SARIF add-in.");
         }
     }
 }

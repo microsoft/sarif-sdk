@@ -57,7 +57,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             this.CommentOrDiscussion = $"Default {nameof(this.CommentOrDiscussion)}";
 
             string descriptionFooter = !string.IsNullOrEmpty(this.Context.BugFooter) ? this.Context.BugFooter : CreateBugFooter(); 
-            this.BodyOrDescription = string.Join(Environment.NewLine, sarifLog.CreateWorkItemDescription(), descriptionFooter);
+            this.BodyOrDescription = string.Join(Environment.NewLine, sarifLog.CreateWorkItemDescription(LocationUri), descriptionFooter);
 
             // These properties are Azure DevOps-specific. All ADO work item board
             // area paths are rooted by the project name, as are iterations.
@@ -83,9 +83,14 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             if(this.Context.CurrentProvider == FilingClient.SourceControlProvider.AzureDevOps)
             {
                 StringBuilder azureDevOpsFooter = new StringBuilder();
-                azureDevOpsFooter.Append(@"To see result details, please visit the Scans tab of this bug, or the attached SARIF log.");
+                azureDevOpsFooter.Append(@"<br><br>Other viewing options:<br>");
                 azureDevOpsFooter.AppendLine();
-                azureDevOpsFooter.Append(@"If the scans tab is missing or unavailable, please install the SARIF viewer from https://marketplace.visualstudio.com/items?itemName=WDGIS.MicrosoftSarifViewer");
+                azureDevOpsFooter.AppendLine();
+                azureDevOpsFooter.Append(@"<li>Examine the complete <a href=""https://dev.azure.com/office/Office/_componentGovernance/Office?_a=alerts&typeId=1731351&alerts-view-option=active"">CG Scan</a> for this repository.</li>");
+                azureDevOpsFooter.AppendLine();
+                azureDevOpsFooter.Append(@"<li>Load the attached log file in the <a href=""https://marketplace.visualstudio.com/_apis/public/gallery/publishers/WDGIS/vsextensions/MicrosoftSarifViewer/2.1.7/vspackage"">CG Scan</a> Visual Studio SARIF add-in.</li>");
+                azureDevOpsFooter.AppendLine();
+                azureDevOpsFooter.Append(@"<li>Load the attached log file in the <a href=""https://marketplace.visualstudio.com/items?itemName=MS-SarifVSCode.sarif-viewer"">CG Scan</a> VS Code SARIF extension.</li>");
                 return azureDevOpsFooter.ToString();
             }
             else

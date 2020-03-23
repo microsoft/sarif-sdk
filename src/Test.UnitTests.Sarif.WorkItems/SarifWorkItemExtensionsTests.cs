@@ -57,22 +57,22 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         public void SarifWorkItemExtensions_ComputeToolResultCounts_CountsSingleResult()
         {
             SarifLog sarifLog = TestData.CreateOneIdThreeLocations();
-            Dictionary<string, int> resultsCounts = sarifLog.ComputeToolResultCounts();
+            Dictionary<Run, int> resultsCounts = sarifLog.ComputeRunResultCounts();
             resultsCounts.Keys.Should().HaveCount(1);
-            resultsCounts.Keys.Should().Contain(TestData.TestToolName);
-            resultsCounts[TestData.TestToolName].Should().Be(1);
+            resultsCounts.Keys.Should().Contain(sarifLog.Runs[0]);
+            resultsCounts[sarifLog.Runs[0]].Should().Be(1);
         }
 
         [Fact]
         public void SarifWorkItemExtensions_ComputeToolResultCounts_CountsMultipleToolsMultipleResults()
         {
             SarifLog sarifLog = TestData.CreateTwoRunThreeResultLog();
-            Dictionary<string, int> resultsCounts = sarifLog.ComputeToolResultCounts();
+            Dictionary<Run, int> resultsCounts = sarifLog.ComputeRunResultCounts();
             resultsCounts.Keys.Should().HaveCount(2);
-            resultsCounts.Keys.Should().Contain(TestData.TestToolName);
-            resultsCounts.Keys.Should().Contain(TestData.SecondTestToolName);
-            resultsCounts[TestData.TestToolName].Should().Be(2);
-            resultsCounts[TestData.SecondTestToolName].Should().Be(1);
+            resultsCounts.Keys.Should().Contain(sarifLog.Runs[0]);
+            resultsCounts.Keys.Should().Contain(sarifLog.Runs[1]);
+            resultsCounts[sarifLog.Runs[0]].Should().Be(2);
+            resultsCounts[sarifLog.Runs[1]].Should().Be(1);
         }
 
         private static readonly string ToolName = Guid.NewGuid().ToString();

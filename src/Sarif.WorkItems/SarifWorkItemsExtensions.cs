@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Microsoft.CodeAnalysis.Sarif.WorkItems
@@ -74,22 +75,22 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                     (locationName == null ? "" : " (in " + locationName + ")");
         }
 
-        public static Dictionary<string, int> ComputeToolResultCounts(this SarifLog log)
+        public static Dictionary<Run, int> ComputeRunResultCounts(this SarifLog log)
         {
             if (log == null) { throw new ArgumentNullException(nameof(log)); }
             if (log.Runs == null) { throw new ArgumentNullException(nameof(log.Runs)); }
 
-            var resultCountsByTool = new Dictionary<string, int>();
+            var resultCountsByRun = new Dictionary<Run, int>();
 
             foreach (Run run in log?.Runs)
             {
                 if (run != null && run.Results != null)
                 {
-                    resultCountsByTool.Add(run?.Tool?.Driver?.Name, run.Results.Count);
+                    resultCountsByRun.Add(run, run.Results.Count);
                 }
             }
 
-            return resultCountsByTool;
+            return resultCountsByRun;
         }
 
         private static string ConstructFullRuleIdentifier(ReportingDescriptor reportingDescriptor)
@@ -103,20 +104,19 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             return fullRuleIdentifier;
         }
 
-        public static string CreateWorkItemDescription(this SarifLog log)
+        public static string CreateWorkItemDescription(this SarifLog log, Uri locationUri)
         {
-            Dictionary<string, int> resultCountsByTool = ComputeToolResultCounts(log);
-            StringBuilder templateText = new StringBuilder(@"This bug contains results for the below tool(s) and issue(s).  It was filed automatically.");
-            templateText.AppendLine();
+            Dictionary<Run, int> resultCountsByRun = ComputeRunResultCounts(log);
+            StringBuilder templateText = new StringBuilder();
+
+            foreach (KeyValuePair<Run, int> run in resultCountsByRun)
+            {
+                Uri detectionLocation = !string.IsNullOrEmpty(run.Key?.VersionControlProvenance?.FirstOrDefault().RepositoryUri?.OriginalString) ? run.Key?.VersionControlProvenance?.FirstOrDefault().RepositoryUri : locationUri;
+                templateText = new StringBuilder(string.Format(@"This work item contains {0} {1} issue(s) detected in {2}.  ", run.Value, run.Key?.Tool?.Driver?.Name, detectionLocation.OriginalString));
+                templateText.Append("Click the 'Scans' tab to review results.");
+            }
             templateText.AppendLine();
 
-            foreach (KeyValuePair<string, int> toolResult in resultCountsByTool)
-            {
-                templateText.Append(string.Format("*Tool: {0}", toolResult.Key));
-                templateText.AppendLine();
-                templateText.Append(string.Format("     Result count: {0}", toolResult.Value));
-                templateText.AppendLine();
-            }
             return templateText.ToString();
         }
     }
