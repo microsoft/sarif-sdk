@@ -56,7 +56,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             //
             this.CommentOrDiscussion = $"Default {nameof(this.CommentOrDiscussion)}";
 
-            string descriptionFooter = !string.IsNullOrEmpty(context.BugFooter) ? context.BugFooter : CreateBugFooter(); 
+            string descriptionFooter = !string.IsNullOrEmpty(this.Context.BugFooter) ? this.Context.BugFooter : CreateBugFooter(); 
             this.BodyOrDescription = string.Join(Environment.NewLine, sarifLog.CreateWorkItemDescription(), descriptionFooter);
 
             // These properties are Azure DevOps-specific. All ADO work item board
