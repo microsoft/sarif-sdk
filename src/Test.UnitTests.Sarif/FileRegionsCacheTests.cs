@@ -478,9 +478,11 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
                 Region populated = fileRegionsCache.PopulateTextRegionProperties(copy, uri, populateSnippet: true);
             }
 
+            int const timeThreshold = 150;
+
             // Runtime should be way under 100ms if caching, and much longer otherwise
             w.Stop();
-            Assert.True(w.ElapsedMilliseconds < 100);
+            Assert.True(w.ElapsedMilliseconds < timeThreshold, $"Time observed was {w.ElapsedMilliseconds}. Expected < {timeThreshold} ms.");
         }
 
         [Fact]
