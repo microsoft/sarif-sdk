@@ -42,7 +42,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 (ResultMatchSetOptions options) => new ResultMatchSetCommand().Run(options),
                 (FileWorkItemsOptions fileWorkItemsOptions) => new FileWorkItemsCommand().Run(fileWorkItemsOptions),
                 errs => CommandBase.FAILURE);
-            }
         }
     }
 }
