@@ -3,7 +3,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.Text;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
+using Microsoft.TeamFoundation.Common;
 using Microsoft.WorkItems;
 using Newtonsoft.Json;
 
@@ -54,23 +56,8 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             //
             this.CommentOrDiscussion = $"Default {nameof(this.CommentOrDiscussion)}";
 
-
-            // TODO: Provide a useful SARIF-derived issue body. Note that there
-            //       is a client-specific consideration here in that there is much
-            //       less pressure to provide an ADO rendering of the scan results 
-            //       in the bug body, as we can integrate the SARIF results viewing
-            //       web control in that environment. So for this scenario, a very
-            //       simple boilerplate text could be sufficient. For GH, we would
-            //       prefer the issue body to provide more details. Another clear
-            //       distinction centers on differences in rendering format
-            //       (markdown vs. HTML). We only have a single tracking issue below - 
-            //       in the event, this work is likely to be broken aparts into 
-            //       multiple tasks, each of which may entail breaking changes to 
-            //       models/API.
-            //
-            //       https://github.com/microsoft/sarif-sdk/issues/1757
-            //
-            this.BodyOrDescription = $"Default {nameof(this.BodyOrDescription)}";
+            string descriptionFooter = !string.IsNullOrEmpty(this.Context.BugFooter) ? this.Context.BugFooter : CreateBugFooter(); 
+            this.BodyOrDescription = string.Join(Environment.NewLine, sarifLog.CreateWorkItemDescription(), descriptionFooter);
 
             // These properties are Azure DevOps-specific. All ADO work item board
             // area paths are rooted by the project name, as are iterations.
@@ -89,6 +76,22 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             // non-generalized needs, there are no useful defaults we can provide.
             //
             // this.CustomFields
+        }
+
+        private string CreateBugFooter()
+        {
+            if(this.Context.CurrentProvider == FilingClient.SourceControlProvider.AzureDevOps)
+            {
+                StringBuilder azureDevOpsFooter = new StringBuilder();
+                azureDevOpsFooter.Append(@"To see result details, please visit the Scans tab of this bug, or the attached SARIF log.");
+                azureDevOpsFooter.AppendLine();
+                azureDevOpsFooter.Append(@"If the scans tab is missing or unavailable, please install the SARIF viewer from https://marketplace.visualstudio.com/items?itemName=WDGIS.MicrosoftSarifViewer");
+                return azureDevOpsFooter.ToString();
+            }
+            else
+            {
+                return @"Details for the above issues can be found in the attachment filed with this issue.";
+            }
         }
     }
 }

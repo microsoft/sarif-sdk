@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using FluentAssertions;
+using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
 using Microsoft.TeamFoundation.Work.WebApi;
 using Xunit;
 
@@ -50,6 +51,28 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             }
 
             sb.Length.Should().Be(0, because: Environment.NewLine + sb.ToString());
+        }
+
+        [Fact]
+        public void SarifWorkItemExtensions_ComputeToolResultCounts_CountsSingleResult()
+        {
+            SarifLog sarifLog = TestData.CreateOneIdThreeLocations();
+            Dictionary<string, int> resultsCounts = sarifLog.ComputeToolResultCounts();
+            resultsCounts.Keys.Should().HaveCount(1);
+            resultsCounts.Keys.Should().Contain(TestData.TestToolName);
+            resultsCounts[TestData.TestToolName].Should().Be(1);
+        }
+
+        [Fact]
+        public void SarifWorkItemExtensions_ComputeToolResultCounts_CountsMultipleToolsMultipleResults()
+        {
+            SarifLog sarifLog = TestData.CreateTwoRunThreeResultLog();
+            Dictionary<string, int> resultsCounts = sarifLog.ComputeToolResultCounts();
+            resultsCounts.Keys.Should().HaveCount(2);
+            resultsCounts.Keys.Should().Contain(TestData.TestToolName);
+            resultsCounts.Keys.Should().Contain(TestData.SecondTestToolName);
+            resultsCounts[TestData.TestToolName].Should().Be(2);
+            resultsCounts[TestData.SecondTestToolName].Should().Be(1);
         }
 
         private static readonly string ToolName = Guid.NewGuid().ToString();

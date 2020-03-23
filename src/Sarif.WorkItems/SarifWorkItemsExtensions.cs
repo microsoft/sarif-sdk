@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 {
@@ -31,11 +33,11 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
         public static string CreateWorkItemTitle(this Run run)
         {
-            if (run == null) { throw new NullReferenceException(); }
+            if (run == null) { throw new ArgumentNullException(nameof(run)); }
             if (run.Results == null) { throw new ArgumentNullException(nameof(run.Results)); }
-        
+
             Result firstResult = null;
-            
+
             foreach (Result result in run?.Results)
             {
                 if (result.ShouldBeFiled())
@@ -72,6 +74,24 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                     (locationName == null ? "" : " (in " + locationName + ")");
         }
 
+        public static Dictionary<string, int> ComputeToolResultCounts(this SarifLog log)
+        {
+            if (log == null) { throw new ArgumentNullException(nameof(log)); }
+            if (log.Runs == null) { throw new ArgumentNullException(nameof(log.Runs)); }
+
+            var resultCountsByTool = new Dictionary<string, int>();
+
+            foreach (Run run in log?.Runs)
+            {
+                if (run != null && run.Results != null)
+                {
+                    resultCountsByTool.Add(run?.Tool?.Driver?.Name, run.Results.Count);
+                }
+            }
+
+            return resultCountsByTool;
+        }
+
         private static string ConstructFullRuleIdentifier(ReportingDescriptor reportingDescriptor)
         {
             string fullRuleIdentifier = reportingDescriptor.Id;
@@ -81,6 +101,23 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 fullRuleIdentifier += ": " + reportingDescriptor.Name;
             }
             return fullRuleIdentifier;
+        }
+
+        public static string CreateWorkItemDescription(this SarifLog log)
+        {
+            Dictionary<string, int> resultCountsByTool = ComputeToolResultCounts(log);
+            StringBuilder templateText = new StringBuilder(@"This bug contains results for the below tool(s) and issue(s).  It was filed automatically.");
+            templateText.AppendLine();
+            templateText.AppendLine();
+
+            foreach (KeyValuePair<string, int> toolResult in resultCountsByTool)
+            {
+                templateText.Append(string.Format("*Tool: {0}", toolResult.Key));
+                templateText.AppendLine();
+                templateText.Append(string.Format("     Result count: {0}", toolResult.Value));
+                templateText.AppendLine();
+            }
+            return templateText.ToString();
         }
     }
 }
