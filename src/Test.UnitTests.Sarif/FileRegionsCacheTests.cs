@@ -480,7 +480,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
 
             // Runtime should be way under 100ms if caching, and much longer otherwise
             w.Stop();
-            Assert.True(w.ElapsedMilliseconds < 100);
+            Assert.True(w.ElapsedMilliseconds < 150, $"Time observed was {w.ElapsedMilliseconds}. Expected < 150 ms.");
         }
 
         [Fact]
