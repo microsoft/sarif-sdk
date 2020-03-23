@@ -51,6 +51,18 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         }
 
         [Fact]
+        public void WorkItemFilingContext_IncludeCustomBugFooter()
+        {
+            var context = new SarifWorkItemContext();
+
+            string customBugFooter = "This text is important to all my bugs.";
+            context.BugFooter = customBugFooter;
+            var workItemModel = new SarifWorkItemModel(sarifLog: TestData.CreateSimpleLog(), context);
+
+            workItemModel.BodyOrDescription.Should().Contain(customBugFooter);
+        }
+
+        [Fact]
         public void WorkItemFilingContext_FetchUriSuccessfully()
         {
             var areaPathTransformer = new AreaPathFromUri();

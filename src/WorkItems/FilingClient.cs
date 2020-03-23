@@ -12,7 +12,19 @@ namespace Microsoft.WorkItems
     /// to which work items can be filed.
     /// </summary>
     public abstract class FilingClient: IDisposable
-    {        
+    {
+
+        public enum SourceControlProvider
+        {
+            Github,
+            AzureDevOps
+        }
+
+        /// <summary>
+        /// The current source control provider.
+        /// </summary>
+        public SourceControlProvider CurrentProvider { get; set; }
+
         /// <summary>
         ///  The Azure DevOps account name or GitHub organization name.
         /// </summary>

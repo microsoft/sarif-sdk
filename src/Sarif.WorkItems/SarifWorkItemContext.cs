@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
+using Microsoft.WorkItems;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -12,10 +13,18 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
         public SarifWorkItemContext(SarifWorkItemContext initializer) : base(initializer) { }
 
+        public FilingClient.SourceControlProvider CurrentProvider { get; set; }
+
         public Uri HostUri
         {
             get { return this.GetProperty(HostUriOption); }
             set { this.SetProperty(HostUriOption, value); }
+        }
+
+        public string BugFooter
+        {
+            get { return this.GetProperty(BugFooterOption); }
+            set { this.SetProperty(BugFooterOption, value); }
         }
 
         public string PersonalAccessToken
@@ -122,6 +131,11 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             new PerLanguageOption<SplittingStrategy>(
                 "Extensibility", nameof(SplittingStrategy),
                 defaultValue: () => { return 0; });
+
+        public static PerLanguageOption<string> BugFooterOption { get; } =
+            new PerLanguageOption<string>(
+                "Extensibility", nameof(BugFooter),
+                defaultValue: () => { return string.Empty; });
 
     }
 }
