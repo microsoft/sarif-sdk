@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
+using Microsoft.ApplicationInsights.Channel;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -213,6 +214,10 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         {
             this.FilingClient?.Dispose();
             this.FilingClient = null;
+
+            ITelemetryChannel channel = ServiceProviderFactory.ServiceProvider.GetService<ITelemetryChannel>();
+            channel?.Flush();
+            channel?.Dispose();
         }
     }
 }

@@ -66,19 +66,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 filingContext.DataToInsert = options.DataToInsert.ToFlags();
             }
 
-            var filer = new SarifWorkItemFiler(filingUri: filingContext.HostUri, filingContext: filingContext);
-            filer.FileWorkItems(logFileContents);
+            using (var filer = new SarifWorkItemFiler(filingUri: filingContext.HostUri, filingContext: filingContext))
+            {
+                filer.FileWorkItems(logFileContents);
 
-            // TODO: We need to process updated work item models to persist filing
-            //       details back to the input SARIF file, if that was specified.
-            //       The SarifWorkItemFiler should either return or persist the updated
-            //       models via a property, so that we can do this work.
-            //
-            //       This information should be inlined to the input file, if configured,
-            //       or persisted to a new SARIF file, if configured. If neither of 
-            //       those options is specified, there is no work to do. 
-            //
-            //       https://github.com/microsoft/sarif-sdk/issues/1774
+                // TODO: We need to process updated work item models to persist filing
+                //       details back to the input SARIF file, if that was specified.
+                //       The SarifWorkItemFiler should either return or persist the updated
+                //       models via a property, so that we can do this work.
+                //
+                //       This information should be inlined to the input file, if configured,
+                //       or persisted to a new SARIF file, if configured. If neither of 
+                //       those options is specified, there is no work to do. 
+                //
+                //       https://github.com/microsoft/sarif-sdk/issues/1774
+            }
 
             return SUCCESS;
         }
