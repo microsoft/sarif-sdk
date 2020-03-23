@@ -8,6 +8,14 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
     {
         public static bool ShouldBeFiled(this Result result)
         {
+            if (result.BaselineState != BaselineState.None &&
+                result.BaselineState != BaselineState.New) 
+            { 
+                return false; 
+            }
+                        
+            if (result.Suppressions?.Count > 0) { return false; }
+
             // Fail: an explicit failure occurred.
             //
             // Open: a sound analysis is 'open' indicating that the analysis requires
