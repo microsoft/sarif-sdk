@@ -3,10 +3,15 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
+using Microsoft.ApplicationInsights.Channel;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.WorkItems;
+using Microsoft.WorkItems.Logging;
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.WorkItems
@@ -38,6 +43,8 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             }
 
             this.FilingClient = FilingClientFactory.Create(this.FilingContext.HostUri);
+
+            this.Logger = ServiceProviderFactory.ServiceProvider.GetService<ILogger<FilingClient>>();
         }
 
         public FilingClient FilingClient { get; set; }
@@ -47,6 +54,8 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         public List<WorkItemModel> FiledWorkItems { get; private set; }
 
         public bool FilingSucceeded { get; private set; }
+
+        internal ILogger Logger { get; }
 
         public virtual void FileWorkItems(Uri sarifLogFileLocation)
         {
@@ -79,65 +88,82 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
         public virtual void FileWorkItems(SarifLog sarifLog)
         {
-            this.FilingSucceeded = false;
-            this.FiledWorkItems = new List<WorkItemModel>();
-
-            sarifLog = sarifLog ?? throw new ArgumentNullException(nameof(sarifLog));
-
-            this.FilingClient.Connect(this.FilingContext.PersonalAccessToken).Wait();
-
-            OptionallyEmittedData optionallyEmittedData = this.FilingContext.DataToRemove;
-            if (optionallyEmittedData != OptionallyEmittedData.None)
+            using (Logger.BeginScope(nameof(FileWorkItems)))
             {
-                var dataRemovingVisitor = new RemoveOptionalDataVisitor(optionallyEmittedData);
-                dataRemovingVisitor.Visit(sarifLog);
-            }
+                this.FilingSucceeded = false;
+                this.FiledWorkItems = new List<WorkItemModel>();
 
-            optionallyEmittedData = this.FilingContext.DataToInsert;
-            if (optionallyEmittedData != OptionallyEmittedData.None)
-            {
-                var dataInsertingVisitor = new InsertOptionalDataVisitor(optionallyEmittedData);
-                dataInsertingVisitor.Visit(sarifLog);
-            }
+                sarifLog = sarifLog ?? throw new ArgumentNullException(nameof(sarifLog));
 
-            SplittingStrategy splittingStrategy = this.FilingContext.SplittingStrategy;
-            if (splittingStrategy == SplittingStrategy.None)
-            {
-                FileWorkItemsHelper(sarifLog, this.FilingContext, this.FilingClient);
-                return;
-            }
+                Logger.LogInformation("Connecting to filing client: {accountOrOrganization}", this.FilingClient.AccountOrOrganization);
+                this.FilingClient.Connect(this.FilingContext.PersonalAccessToken).Wait();
 
-            IList<SarifLog> logsToProcess = new List<SarifLog>(new SarifLog[] { sarifLog });
-
-            PartitionFunction<string> partitionFunction = null;
-
-            switch (splittingStrategy)
-            {
-                case SplittingStrategy.PerRun:
+                OptionallyEmittedData optionallyEmittedData = this.FilingContext.DataToRemove;
+                if (optionallyEmittedData != OptionallyEmittedData.None)
                 {
-                    partitionFunction = (result) => result.ShouldBeFiled() ? "Include" : null;
-                    break;
+                    var dataRemovingVisitor = new RemoveOptionalDataVisitor(optionallyEmittedData);
+                    dataRemovingVisitor.Visit(sarifLog);
                 }
-                case SplittingStrategy.PerResult:
+
+                optionallyEmittedData = this.FilingContext.DataToInsert;
+                if (optionallyEmittedData != OptionallyEmittedData.None)
                 {
-                    partitionFunction = (result) => result.ShouldBeFiled() ? Guid.NewGuid().ToString() : null;
-                    break;
+                    var dataInsertingVisitor = new InsertOptionalDataVisitor(optionallyEmittedData);
+                    dataInsertingVisitor.Visit(sarifLog);
                 }
-                default:
+
+                SplittingStrategy splittingStrategy = this.FilingContext.SplittingStrategy;
+
+                if (splittingStrategy == SplittingStrategy.None)
                 {
-                    throw new ArgumentOutOfRangeException($"SplittingStrategy: {splittingStrategy}");
+                    FileWorkItemsHelper(sarifLog, this.FilingContext, this.FilingClient);
+                    return;
                 }
-            }
 
-            var partitioningVisitor = new PartitioningVisitor<string>(partitionFunction, deepClone: false);
-            partitioningVisitor.VisitSarifLog(sarifLog);
+                IList<SarifLog> logsToProcess = new List<SarifLog>(new SarifLog[] { sarifLog });
 
-            logsToProcess = new List<SarifLog>(partitioningVisitor.GetPartitionLogs().Values);
+                PartitionFunction<string> partitionFunction = null;
 
-            for (int splitFileIndex = 0; splitFileIndex < logsToProcess.Count; splitFileIndex++)
-            {
-                SarifLog splitLog = logsToProcess[splitFileIndex];
-                FileWorkItemsHelper(splitLog, this.FilingContext, this.FilingClient);
+                Stopwatch splittingStopwatch = Stopwatch.StartNew();
+                
+                switch (splittingStrategy)
+                {
+                    case SplittingStrategy.PerRun:
+                    {
+                        partitionFunction = (result) => result.ShouldBeFiled() ? "Include" : null;
+                        break;
+                    }
+                    case SplittingStrategy.PerResult:
+                    {
+                        partitionFunction = (result) => result.ShouldBeFiled() ? Guid.NewGuid().ToString() : null;
+                        break;
+                    }
+                    default:
+                    {
+                        throw new ArgumentOutOfRangeException($"SplittingStrategy: {splittingStrategy}");
+                    }
+                }
+
+                var partitioningVisitor = new PartitioningVisitor<string>(partitionFunction, deepClone: false);
+                partitioningVisitor.VisitSarifLog(sarifLog);
+
+                logsToProcess = new List<SarifLog>(partitioningVisitor.GetPartitionLogs().Values);
+
+                var logsToProcessMetrics = new Dictionary<string, object>
+                {
+                    { "splittingStrategy", splittingStrategy },
+                    { "logsToProcessCount", logsToProcess.Count },
+                    { "splittingDurationInMilliseconds", splittingStopwatch.ElapsedMilliseconds },
+                };
+
+                this.Logger.LogMetrics(EventIds.LogsToProcessMetrics, logsToProcessMetrics);
+                splittingStopwatch.Stop();
+
+                for (int splitFileIndex = 0; splitFileIndex < logsToProcess.Count; splitFileIndex++)
+                {
+                    SarifLog splitLog = logsToProcess[splitFileIndex];
+                    FileWorkItemsHelper(splitLog, this.FilingContext, this.FilingClient);
+                }
             }
         }
 
@@ -188,6 +214,10 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         {
             this.FilingClient?.Dispose();
             this.FilingClient = null;
+
+            ITelemetryChannel channel = ServiceProviderFactory.ServiceProvider.GetService<ITelemetryChannel>();
+            channel?.Flush();
+            channel?.Dispose();
         }
     }
 }

@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 ResultMatchingOptions,
                 ResultMatchSetOptions,
                 FileWorkItemsOptions>(args)
-              .MapResult(
+                .MapResult(
                 (ValidateOptions validateOptions) => new ValidateCommand().Run(validateOptions),
                 (ConvertOptions convertOptions) => new ConvertCommand().Run(convertOptions),
                 (RewriteOptions rewriteOptions) => new RewriteCommand().Run(rewriteOptions),

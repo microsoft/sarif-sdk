@@ -3,8 +3,6 @@
 
 using System;
 using System.Threading.Tasks;
-using Microsoft.TeamFoundation.WorkItemTracking.WebApi;
-using Microsoft.VisualStudio.Services.WebApi;
 
 namespace Microsoft.WorkItems
 {
