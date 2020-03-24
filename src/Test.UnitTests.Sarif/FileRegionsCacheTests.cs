@@ -447,7 +447,12 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
             }
         }
 
-        [Fact]
+        /// <remarks>
+        /// The test is skipped because the CI builds were intermittently
+        /// failing due to the differences in runtime environment.
+        /// https://github.com/microsoft/sarif-sdk/issues/1827
+        /// </remarks>
+        [Fact(Skip = "Flaky test. Results vary depending on environment.")]
         public void FileRegionsCache_ProperlyCaches()
         {
             Uri uri = new Uri(@"C:\Code\Program.cs");
