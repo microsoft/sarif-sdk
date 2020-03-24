@@ -67,7 +67,12 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
             currentLog.Runs[0].Results[0].BaselineState = BaselineState.Absent;
 
             SarifLog output = Baseline(SampleLog.DeepClone(), currentLog);
-            output.Runs[0].Results.Where(result => result.BaselineState != BaselineState.Unchanged).Should().BeEmpty();
+
+            // The absent result should be marked as absent in the baseline.
+            output.Runs[0].Results[0].BaselineState.Should().Be(BaselineState.Absent);
+
+            // All other results are unchanged.
+            output.Runs[0].Results.Where(result => result.BaselineState == BaselineState.Unchanged).Count().Should().Be(SampleLog.Runs[0].Results.Count - 1);
         }
     }
 }
