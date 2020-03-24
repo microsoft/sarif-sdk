@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             var workItemModel = new SarifWorkItemModel(sarifLog, context);
             workItemModel.BodyOrDescription.Should().NotBeNullOrEmpty();
             workItemModel.BodyOrDescription.Should().Contain(nameof(TestData.TestToolName));
-            workItemModel.BodyOrDescription.Should().Contain(nameof(TestData.FileLocations.Location1));
+            workItemModel.BodyOrDescription.Should().Contain(sarifLog.Runs[0].VersionControlProvenance[0].RepositoryUri.OriginalString);
             workItemModel.BodyOrDescription.Should().Contain("Details for the above issues can be found in the attachment filed with this issue.");
             workItemModel.BodyOrDescription.Should().NotContain("Scans tab");
         }
