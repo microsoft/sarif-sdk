@@ -115,10 +115,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         {
             // Spin out SARIF logs into MatchingResult objects.
             List<ExtractedResult> baselineResults =
-                previous == null ? new List<ExtractedResult>() : ExtractResultsFromRuns(previous, isBaselineRun: true);
+                previous == null ? new List<ExtractedResult>() : ExtractResultsFromRuns(previous);
 
             List<ExtractedResult> currentResults =
-                current == null ? new List<ExtractedResult>() : ExtractResultsFromRuns(current, isBaselineRun: false);
+                current == null ? new List<ExtractedResult>() : ExtractResultsFromRuns(current);
 
             List<MatchedResults> matchedResults = new List<MatchedResults>();
 
@@ -166,7 +166,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             }
         }
 
-        private List<ExtractedResult> ExtractResultsFromRuns(IEnumerable<Run> sarifRuns, bool isBaselineRun)
+        private List<ExtractedResult> ExtractResultsFromRuns(IEnumerable<Run> sarifRuns)
         {
             List<ExtractedResult> results = new List<ExtractedResult>();
             foreach (Run run in sarifRuns)
@@ -175,8 +175,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 {
                     foreach (Result result in run.Results)
                     {
-                        // Include all Results except Absent results in the baseline
-                        if (!(isBaselineRun && result.BaselineState == BaselineState.Absent))
+                        // Include all Results except Absent results
+                        if (result.BaselineState != BaselineState.Absent)
                         {
                             results.Add(new ExtractedResult(result, run));
                         }

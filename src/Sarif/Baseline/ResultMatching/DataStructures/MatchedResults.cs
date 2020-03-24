@@ -46,7 +46,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 // Baseline result and current result have been matched => existing.
                 result = ConstructExistingResult(resultMatchingProperties, out originalResultMatchingProperties);
             }
-            else if (PreviousResult == null && CurrentResult != null)
+            else if (PreviousResult == null && CurrentResult != null && CurrentResult.Result.BaselineState != BaselineState.Absent)
             {
                 // No baseline result, present current result => new.
                 result = ConstructNewResult(resultMatchingProperties, out originalResultMatchingProperties);
