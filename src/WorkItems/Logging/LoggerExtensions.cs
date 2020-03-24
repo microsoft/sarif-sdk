@@ -10,12 +10,21 @@ namespace Microsoft.WorkItems.Logging
     {
         public static void LogMetrics(this ILogger logger, EventId eventId, IDictionary<string, object> customDimensions)
         {
-            LogMetrics(logger, eventId, string.Empty, customDimensions);
+            LogMetrics(
+                logger, 
+                eventId, 
+                message: string.Empty, 
+                customDimensions);
         }
 
         public static void LogMetrics(this ILogger logger, EventId eventId, string message, IDictionary<string, object> customDimensions)
         {
-            logger.Log(LogLevel.Information, eventId, new MetricsLogValues(message, eventId, customDimensions), null, (state, error) => state.ToString());
+            logger.Log(
+                LogLevel.Information, 
+                eventId, 
+                new MetricsLogValues(message, eventId, customDimensions),
+                exception: null, 
+                (state, error) => state.ToString());
         }
     }
 }
