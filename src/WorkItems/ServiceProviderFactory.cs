@@ -1,15 +1,13 @@
-﻿using Microsoft.ApplicationInsights.Channel;
+﻿// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+using System;
+
+using Microsoft.ApplicationInsights.Channel;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.WorkItems.Logging;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
 
 namespace Microsoft.WorkItems
 {

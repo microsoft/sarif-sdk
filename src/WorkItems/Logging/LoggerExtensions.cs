@@ -1,8 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using System;
+﻿// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 using System.Collections.Generic;
-using System.Text;
+using Microsoft.Extensions.Logging;
 
 namespace Microsoft.WorkItems.Logging
 {
