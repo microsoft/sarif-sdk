@@ -88,7 +88,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
         public virtual void FileWorkItems(SarifLog sarifLog)
         {
-            using (Logger.BeginScope("FileWorkItems"))
+            using (Logger.BeginScope(nameof(FileWorkItems)))
             {
                 this.FilingSucceeded = false;
                 this.FiledWorkItems = new List<WorkItemModel>();
