@@ -23,11 +23,6 @@ namespace Microsoft.WorkItems.Logging
         {
             get
             {
-                if (index < 0 || index >= Count)
-                {
-                    throw new IndexOutOfRangeException("index");
-                }
-
                 return _values[index];
             }
         }
