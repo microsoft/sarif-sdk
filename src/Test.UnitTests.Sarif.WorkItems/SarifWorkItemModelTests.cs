@@ -40,5 +40,20 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             workItemModel.BodyOrDescription.Should().Contain(sarifLog.Runs[0].VersionControlProvenance[0].RepositoryUri.OriginalString);
             workItemModel.BodyOrDescription.Should().Contain("Visual Studio SARIF add-in.");
         }
+
+        [Fact]
+        public void SarifWorkItemModel_MultipleToolsADODescription()
+        {
+            var context = new SarifWorkItemContext();
+            context.CurrentProvider = FilingClient.SourceControlProvider.AzureDevOps;
+            SarifLog sarifLog = TestData.CreateTwoRunThreeResultLog();
+
+            var workItemModel = new SarifWorkItemModel(sarifLog, context);
+            workItemModel.BodyOrDescription.Should().NotBeNullOrEmpty();
+            workItemModel.BodyOrDescription.Should().Contain(nameof(TestData.TestToolName));
+            workItemModel.BodyOrDescription.Should().Contain(nameof(TestData.SecondTestToolName));
+            workItemModel.BodyOrDescription.Should().Contain(TestData.FileLocations.Location1);
+            workItemModel.BodyOrDescription.Should().Contain("Visual Studio SARIF add-in.");
+        }
     }
 }

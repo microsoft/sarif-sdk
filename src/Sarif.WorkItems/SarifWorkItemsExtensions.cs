@@ -108,13 +108,41 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         {
             Dictionary<Run, int> resultCountsByRun = ComputeRunResultCounts(log);
             StringBuilder templateText = new StringBuilder();
+            int runningResults = 0;
+            string toolNames = string.Empty;
+            string multipleToolsFooter = string.Empty;
 
-            foreach (KeyValuePair<Run, int> run in resultCountsByRun)
+            Uri runRepositoryUri = resultCountsByRun.FirstOrDefault().Key?.VersionControlProvenance?.FirstOrDefault().RepositoryUri;
+            string detectionLocation = !string.IsNullOrEmpty(runRepositoryUri?.OriginalString) ? runRepositoryUri?.OriginalString : locationUri.OriginalString;
+
+            toolNames = string.Format("'{0}'", resultCountsByRun.FirstOrDefault().Key?.Tool?.Driver?.Name);
+            runningResults = resultCountsByRun.FirstOrDefault().Value;
+
+            if (resultCountsByRun.Count > 1)
             {
-                Uri detectionLocation = !string.IsNullOrEmpty(run.Key?.VersionControlProvenance?.FirstOrDefault().RepositoryUri?.OriginalString) ? run.Key?.VersionControlProvenance?.FirstOrDefault().RepositoryUri : locationUri;
-                templateText = new StringBuilder(string.Format(@"This work item contains {0} {1} issue(s) detected in {2}.  ", run.Value, run.Key?.Tool?.Driver?.Name, detectionLocation.OriginalString));
-                templateText.Append("Click the 'Scans' tab to review results.");
+                Run lastrun = resultCountsByRun.Last().Key;
+                multipleToolsFooter = " (and other locations)";
+                foreach (KeyValuePair<Run, int> run in resultCountsByRun)
+                {
+                    if (run.Key == resultCountsByRun.First().Key)
+                    {
+                        continue;
+                    }
+                    else if (run.Key == lastrun)
+                    {
+                        toolNames = string.Join(" and ", toolNames, string.Format("'{0}'", run.Key?.Tool?.Driver?.Name));
+                        runningResults += run.Value;
+                    }
+                    else
+                    {
+                        toolNames = string.Join(", ", toolNames, string.Format("'{0}'", run.Key?.Tool?.Driver?.Name));
+                        runningResults += run.Value;
+                    }
+                }
             }
+          
+            templateText = new StringBuilder(string.Format(@"This work item contains {0} {1} issue(s) detected in '{2}'{3}.  ", runningResults, toolNames, detectionLocation, multipleToolsFooter));
+            templateText.Append("Click the 'Scans' tab to review results.");
             templateText.AppendLine();
 
             return templateText.ToString();

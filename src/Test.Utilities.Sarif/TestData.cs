@@ -58,7 +58,7 @@ namespace Microsoft.CodeAnalysis.Test.Utilities.Sarif
                         {
                             new VersionControlDetails
                             {
-                                RepositoryUri = new Uri(@"https://bugfiler.visualstudio.com/")
+                                RepositoryUri = new Uri(@"https://bugfiler.example.com/")
                             }
                         },
                         Results = new[]
