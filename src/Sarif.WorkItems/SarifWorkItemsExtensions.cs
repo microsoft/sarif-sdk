@@ -113,7 +113,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             string multipleToolsFooter = string.Empty;
 
             Uri runRepositoryUri = resultCountsByRun.FirstOrDefault().Key?.VersionControlProvenance?.FirstOrDefault().RepositoryUri;
-            string detectionLocation = !string.IsNullOrEmpty(runRepositoryUri?.OriginalString) ? runRepositoryUri?.OriginalString : locationUri.OriginalString;
+            string detectionLocation = !string.IsNullOrEmpty(runRepositoryUri?.OriginalString) ? runRepositoryUri?.OriginalString : locationUri?.OriginalString;
 
             toolNames = string.Format("'{0}'", resultCountsByRun.FirstOrDefault().Key?.Tool?.Driver?.Name);
             runningResults = resultCountsByRun.FirstOrDefault().Value;
