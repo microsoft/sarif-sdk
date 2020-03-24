@@ -10,7 +10,8 @@ using Microsoft.Extensions.Logging;
 namespace Microsoft.WorkItems.Logging
 {
     /// <summary>
-    /// MetricsLogValues is variation of FormattedLogValues that accepts a dictionary to store customDimensions Application Insights.
+    /// MetricsLogValues is variation of FormattedLogValues that accepts a dictionary which represents the customDimensions
+    /// column in Application Insights.
     /// https://github.com/aspnet/Logging/blob/master/src/Microsoft.Extensions.Logging.Abstractions/Internal/FormattedLogValues.cs
     /// </summary>
     internal readonly struct MetricsLogValues : IReadOnlyList<KeyValuePair<string, object>>, IEnumerable<KeyValuePair<string, object>>, IEnumerable, IReadOnlyCollection<KeyValuePair<string, object>>
