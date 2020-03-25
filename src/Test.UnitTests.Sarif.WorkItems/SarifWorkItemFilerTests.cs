@@ -158,7 +158,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
 
             string sarifLogText = JsonConvert.SerializeObject(sarifLog);
-            filer.FileWorkItems(sarifLogText, out SarifLog updatedSarifLog);
+            SarifLog updatedSarifLog = filer.FileWorkItems(sarifLogText);
 
             // Did we see all the execution we expected?
             connectCalled.Should().BeTrue();
@@ -217,7 +217,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         {
             SarifWorkItemFiler filer = CreateWorkItemFiler();
 
-            Action action = () => filer.FileWorkItems(sarifLogFileContents: null, out SarifLog sarifLog);
+            Action action = () => filer.FileWorkItems(sarifLogFileContents: null);
 
             action.Should().Throw<ArgumentNullException>();
         }
@@ -252,7 +252,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             var mockFiler = new Mock<SarifWorkItemFiler>(context.HostUri, context);
 
             mockFiler
-                .Setup(x => x.FileWorkItems(It.IsAny<string>(), out It.Ref<SarifLog>.IsAny))
+                .Setup(x => x.FileWorkItems(It.IsAny<string>()))
                 .CallBase();
 
             mockFiler

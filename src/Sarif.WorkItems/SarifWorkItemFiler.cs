@@ -57,7 +57,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
         internal ILogger Logger { get; }
 
-        public virtual void FileWorkItems(Uri sarifLogFileLocation)
+        public virtual SarifLog FileWorkItems(Uri sarifLogFileLocation)
         {
             sarifLogFileLocation = sarifLogFileLocation ?? throw new ArgumentNullException(nameof(sarifLogFileLocation));
 
@@ -71,23 +71,23 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                     {
                         var serializer = new JsonSerializer();
                         SarifLog sarifLog = serializer.Deserialize<SarifLog>(jsonReader);
-                        FileWorkItems(sarifLog);
+                        return FileWorkItems(sarifLog);
                     }
                 }
             }
             throw new ArgumentException($"Specified URI was not an absolute file URI: {sarifLogFileLocation}");
         }
 
-        public virtual void FileWorkItems(string sarifLogFileContents, out SarifLog sarifLog)
+        public virtual SarifLog FileWorkItems(string sarifLogFileContents)
         {
             sarifLogFileContents = sarifLogFileContents ?? throw new ArgumentNullException(nameof(sarifLogFileContents));
 
-            sarifLog = JsonConvert.DeserializeObject<SarifLog>(sarifLogFileContents);
+            SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(sarifLogFileContents);
 
-            FileWorkItems(sarifLog);
+            return FileWorkItems(sarifLog);
         }
 
-        public virtual void FileWorkItems(SarifLog sarifLog)
+        public virtual SarifLog FileWorkItems(SarifLog sarifLog)
         {
             using (Logger.BeginScope(nameof(FileWorkItems)))
             {
@@ -118,7 +118,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 if (splittingStrategy == SplittingStrategy.None)
                 {
                     FileWorkItemsHelper(sarifLog, this.FilingContext, this.FilingClient);
-                    return;
+                    return sarifLog;
                 }
 
                 IList<SarifLog> logsToProcess;
@@ -166,6 +166,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                     FileWorkItemsHelper(splitLog, this.FilingContext, this.FilingClient);
                 }
             }
+            return sarifLog;
         }
 
         internal const string PROGRAMMABLE_URIS_PROPERTY_NAME = "programmableWorkItemUris";

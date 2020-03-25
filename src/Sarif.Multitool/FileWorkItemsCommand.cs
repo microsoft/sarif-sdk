@@ -70,7 +70,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             SarifLog sarifLog = null;
             using (var filer = new SarifWorkItemFiler(filingContext.HostUri, filingContext))
             {
-                filer.FileWorkItems(logFileContents, out sarifLog);
+                sarifLog = filer.FileWorkItems(logFileContents);
             }
 
             // By the time we're here, we have updated options.OutputFilePath with the 
