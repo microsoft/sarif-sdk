@@ -121,7 +121,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                     return;
                 }
 
-                IList<SarifLog> logsToProcess = new List<SarifLog>(new SarifLog[] { sarifLog });
+                IList<SarifLog> logsToProcess;
 
                 PartitionFunction<string> partitionFunction = null;
 

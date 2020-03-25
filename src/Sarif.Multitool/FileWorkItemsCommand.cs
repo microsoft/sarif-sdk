@@ -67,8 +67,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 filingContext.DataToInsert = options.DataToInsert.ToFlags();
             }
 
-            var filer = new SarifWorkItemFiler(filingContext.HostUri, filingContext);
-            filer.FileWorkItems(logFileContents, out SarifLog sarifLog);
+            SarifLog sarifLog = null;
+            using (var filer = new SarifWorkItemFiler(filingContext.HostUri, filingContext))
+            {
+                filer.FileWorkItems(logFileContents, out sarifLog);
+            }
 
             // By the time we're here, we have updated options.OutputFilePath with the 
             // options.InputFilePath argument (in the presence of --inline) and validated
