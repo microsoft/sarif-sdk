@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Text;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
-using Microsoft.TeamFoundation.Work.WebApi;
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.WorkItems

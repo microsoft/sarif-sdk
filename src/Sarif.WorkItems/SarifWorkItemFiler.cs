@@ -69,11 +69,12 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             throw new ArgumentException($"Specified URI was not an absolute file URI: {sarifLogFileLocation}");
         }
 
-        public virtual void FileWorkItems(string sarifLogFileContents)
+        public virtual void FileWorkItems(string sarifLogFileContents, out SarifLog sarifLog)
         {
             sarifLogFileContents = sarifLogFileContents ?? throw new ArgumentNullException(nameof(sarifLogFileContents));
 
-            SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(sarifLogFileContents);
+            sarifLog = JsonConvert.DeserializeObject<SarifLog>(sarifLogFileContents);
+
             FileWorkItems(sarifLog);
         }
 
@@ -141,6 +142,8 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             }
         }
 
+        internal const string PROGRAMMABLE_URIS_PROPERTY_NAME = "programmableWorkItemUris";
+
         private void FileWorkItemsHelper(SarifLog sarifLog, SarifWorkItemContext filingContext, FilingClient filingClient)
         {
             // The helper below will initialize the sarif work item model with a copy
@@ -168,13 +171,23 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
                 this.FiledWorkItems.AddRange(task.Result);
 
-                // TODO: We need to process updated work item models to persist filing
-                //       details back to the input SARIF file, if that was specified.
-                //       This code should either return or persist the updated models
-                //       via a property, so that the file work items command can do
-                //       this work.
-                //
-                //       https://github.com/microsoft/sarif-sdk/issues/1774
+                foreach (Run run in sarifLog.Runs)
+                {
+                    if (run.Results == null) { continue; }
+
+                    foreach (Result result in run.Results)
+                    {
+                        result.WorkItemUris ??= new List<Uri>();
+                        result.WorkItemUris.Add(workItemModel.HtmlUri);
+
+                        result.TryGetProperty(PROGRAMMABLE_URIS_PROPERTY_NAME, out List<Uri> programmableUris);
+
+                        programmableUris ??= new List<Uri>();
+                        programmableUris.Add(workItemModel.Uri);
+
+                        result.SetProperty(PROGRAMMABLE_URIS_PROPERTY_NAME, programmableUris);
+                    }
+                }
 
                 this.FilingSucceeded = true;
             }
