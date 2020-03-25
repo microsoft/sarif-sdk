@@ -79,4 +79,13 @@
     <EmbeddedResource Include="..\Sarif\Schemata\sarif-2.1.0-rtm.5.json" Link="sarif-2.1.0.json" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory Condition="'$(Configuration)' == 'Debug'">PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="appsettings.local.json">
+      <CopyToOutputDirectory Condition="'$(Configuration)' == 'Debug'">PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
