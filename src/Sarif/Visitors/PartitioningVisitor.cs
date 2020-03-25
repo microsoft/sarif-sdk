@@ -174,7 +174,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 Result partitionedResult = deepClone
                     ? node.DeepClone()
-                    : new Result(node);
+                    : node;
 
                 partitionRunInfos[currentRunIndex].ResultDictionary[currentPartitionValue].Add(partitionedResult);
             }

@@ -57,7 +57,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
         internal ILogger Logger { get; }
 
-        public virtual void FileWorkItems(Uri sarifLogFileLocation)
+        public virtual SarifLog FileWorkItems(Uri sarifLogFileLocation)
         {
             sarifLogFileLocation = sarifLogFileLocation ?? throw new ArgumentNullException(nameof(sarifLogFileLocation));
 
@@ -71,22 +71,23 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                     {
                         var serializer = new JsonSerializer();
                         SarifLog sarifLog = serializer.Deserialize<SarifLog>(jsonReader);
-                        FileWorkItems(sarifLog);
+                        return FileWorkItems(sarifLog);
                     }
                 }
             }
             throw new ArgumentException($"Specified URI was not an absolute file URI: {sarifLogFileLocation}");
         }
 
-        public virtual void FileWorkItems(string sarifLogFileContents)
+        public virtual SarifLog FileWorkItems(string sarifLogFileContents)
         {
             sarifLogFileContents = sarifLogFileContents ?? throw new ArgumentNullException(nameof(sarifLogFileContents));
 
             SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(sarifLogFileContents);
-            FileWorkItems(sarifLog);
+
+            return FileWorkItems(sarifLog);
         }
 
-        public virtual void FileWorkItems(SarifLog sarifLog)
+        public virtual SarifLog FileWorkItems(SarifLog sarifLog)
         {
             using (Logger.BeginScope(nameof(FileWorkItems)))
             {
@@ -117,10 +118,10 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 if (splittingStrategy == SplittingStrategy.None)
                 {
                     FileWorkItemsHelper(sarifLog, this.FilingContext, this.FilingClient);
-                    return;
+                    return sarifLog;
                 }
 
-                IList<SarifLog> logsToProcess = new List<SarifLog>(new SarifLog[] { sarifLog });
+                IList<SarifLog> logsToProcess;
 
                 PartitionFunction<string> partitionFunction = null;
 
@@ -165,7 +166,10 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                     FileWorkItemsHelper(splitLog, this.FilingContext, this.FilingClient);
                 }
             }
+            return sarifLog;
         }
+
+        internal const string PROGRAMMABLE_URIS_PROPERTY_NAME = "programmableWorkItemUris";
 
         private void FileWorkItemsHelper(SarifLog sarifLog, SarifWorkItemContext filingContext, FilingClient filingClient)
         {
@@ -194,13 +198,30 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
                 this.FiledWorkItems.AddRange(task.Result);
 
-                // TODO: We need to process updated work item models to persist filing
-                //       details back to the input SARIF file, if that was specified.
-                //       This code should either return or persist the updated models
-                //       via a property, so that the file work items command can do
-                //       this work.
-                //
-                //       https://github.com/microsoft/sarif-sdk/issues/1774
+                // IMPORTANT: as we update our partitioned logs, we are actually modifying the input log file 
+                // as well. That's because our partitioning is configured to reuse references to existing
+                // run and result objects, even though they are partitioned into a separate log file. 
+                // This approach also us to update the original log file with the filed work item details
+                // without requiring us to build a map of results between the original log and its
+                // partioned log files.
+
+                foreach (Run run in sarifLog.Runs)
+                {
+                    if (run.Results == null) { continue; }
+
+                    foreach (Result result in run.Results)
+                    {
+                        result.WorkItemUris ??= new List<Uri>();
+                        result.WorkItemUris.Add(workItemModel.HtmlUri);
+
+                        result.TryGetProperty(PROGRAMMABLE_URIS_PROPERTY_NAME, out List<Uri> programmableUris);
+
+                        programmableUris ??= new List<Uri>();
+                        programmableUris.Add(workItemModel.Uri);
+
+                        result.SetProperty(PROGRAMMABLE_URIS_PROPERTY_NAME, programmableUris);
+                    }
+                }
 
                 this.FilingSucceeded = true;
             }

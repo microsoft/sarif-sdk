@@ -68,11 +68,14 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             };
 
             // The fake URI to the filed item that we'll expect the filer to receive
-            string bugUri = "https://example.com/" + Guid.NewGuid().ToString();
-            string bugHtmlUri = "https://example.com/" + Guid.NewGuid().ToString();
+            string bugUriText = "https://example.com/" + Guid.NewGuid().ToString();
+            string bugHtmlUriText = "https://example.com/" + Guid.NewGuid().ToString();
 
-            workItem.Url = bugUri;
-            workItem.Links.AddLink("html", bugHtmlUri);
+            Uri bugUri = new Uri(bugUriText, UriKind.RelativeOrAbsolute);
+            Uri bugHtmlUri = new Uri(bugHtmlUriText, UriKind.RelativeOrAbsolute);
+
+            workItem.Url = bugUriText;
+            workItem.Links.AddLink("html", bugHtmlUriText);
 
             // TWO. Define variables to capture whether we enter all expected ADO client methods.
             bool connectCalled = false;
@@ -153,7 +156,9 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             var adoFilingClient = (AzureDevOpsFilingClient)filer.FilingClient;
             adoFilingClient._vssConection = vssConnectionMock.Object;
 
-            filer.FileWorkItems(sarifLog);
+
+            string sarifLogText = JsonConvert.SerializeObject(sarifLog);
+            SarifLog updatedSarifLog = filer.FileWorkItems(sarifLogText);
 
             // Did we see all the execution we expected?
             connectCalled.Should().BeTrue();
@@ -174,15 +179,37 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
             filer.FiledWorkItems.Count.Should().Be(expectedWorkItemsCount);
 
-            WorkItemModel filedWorkItem = filer.FiledWorkItems[0];
+            foreach (WorkItemModel filedWorkItem in filer.FiledWorkItems)
+            {
+                // Finally, make sure that our test data flows back properly through the filer.
 
-            // Finally, make sure that our test data flows back properly through the filer.
+                filedWorkItem.Attachment.Should().NotBeNull();
+                JsonConvert.SerializeObject(filedWorkItem.Attachment.Text).Should().NotBeNull();
 
-            filedWorkItem.Attachment.Should().NotBeNull();
-            JsonConvert.SerializeObject(filedWorkItem.Attachment.Text).Should().NotBeNull();
+                filedWorkItem.Uri.Should().Be(bugUri);
+                filedWorkItem.HtmlUri.Should().Be(bugHtmlUri);
+            }
 
-            filedWorkItem.Uri.Should().Be(new Uri(bugUri, UriKind.Absolute));
-            filedWorkItem.HtmlUri.Should().Be(new Uri(bugHtmlUri, UriKind.Absolute));
+            // Validate that we updated the SARIF log with work itme URIs.
+            // 
+            updatedSarifLog.Should().NotBeEquivalentTo(sarifLog);
+            
+            foreach(Run run in updatedSarifLog.Runs)
+            {
+                foreach(Result result in run.Results)
+                {
+                    result.WorkItemUris.Should().NotBeNull();
+                    result.WorkItemUris.Count.Should().Be(1);
+                    result.WorkItemUris[0].Should().Be(bugHtmlUri);
+
+                    result.TryGetProperty(SarifWorkItemFiler.PROGRAMMABLE_URIS_PROPERTY_NAME, out List<Uri> programmableUris)
+                        .Should().BeTrue();
+
+                    programmableUris.Should().NotBeNull();
+                    programmableUris.Count.Should().Be(1);
+                    programmableUris[0].Should().Be(bugUri);
+                }
+            }              
         }
 
         [Fact]

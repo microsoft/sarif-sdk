@@ -11,6 +11,7 @@ using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.WorkItems;
 using Microsoft.Json.Schema;
 using Microsoft.Json.Schema.Validation;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
@@ -66,20 +67,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 filingContext.DataToInsert = options.DataToInsert.ToFlags();
             }
 
-            using (var filer = new SarifWorkItemFiler(filingUri: filingContext.HostUri, filingContext: filingContext))
+            SarifLog sarifLog = null;
+            using (var filer = new SarifWorkItemFiler(filingContext.HostUri, filingContext))
             {
-                filer.FileWorkItems(logFileContents);
+                sarifLog = filer.FileWorkItems(logFileContents);
+            }
 
-                // TODO: We need to process updated work item models to persist filing
-                //       details back to the input SARIF file, if that was specified.
-                //       The SarifWorkItemFiler should either return or persist the updated
-                //       models via a property, so that we can do this work.
-                //
-                //       This information should be inlined to the input file, if configured,
-                //       or persisted to a new SARIF file, if configured. If neither of 
-                //       those options is specified, there is no work to do. 
-                //
-                //       https://github.com/microsoft/sarif-sdk/issues/1774
+            // By the time we're here, we have updated options.OutputFilePath with the 
+            // options.InputFilePath argument (in the presence of --inline) and validated
+            // that we can write to this location with one exception: we do not currently
+            // handle inlining to a read-only location.
+            string outputFilePath = options.OutputFilePath;
+            if (!string.IsNullOrEmpty(outputFilePath))
+            {
+                Formatting formatting = options.PrettyPrint ? Formatting.Indented : Formatting.None;
+
+                string sarifLogText = JsonConvert.SerializeObject(sarifLog, formatting);
+
+                fileSystem.WriteAllText(outputFilePath, sarifLogText);                
             }
 
             return SUCCESS;
