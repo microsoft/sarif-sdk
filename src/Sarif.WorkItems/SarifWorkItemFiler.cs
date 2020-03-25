@@ -198,6 +198,13 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
                 this.FiledWorkItems.AddRange(task.Result);
 
+                // IMPORTANT: as we update our partitioned logs, we are actually modifying the input log file 
+                // as well. That's because our partitioning is configured to reuse references to existing
+                // run and result objects, even though they are partitioned into a separate log file. 
+                // This approach also us to update the original log file with the filed work item details
+                // without requiring us to build a map of results between the original log and its
+                // partioned log files.
+
                 foreach (Run run in sarifLog.Runs)
                 {
                     if (run.Results == null) { continue; }
