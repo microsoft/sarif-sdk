@@ -102,6 +102,12 @@ namespace Microsoft.WorkItems
                         Operation = Operation.Add,
                         Path = $"/fields/{AzureDevOpsFieldNames.Tags}",
                         Value = string.Join(",", workItemModel.LabelsOrTags)
+                    },
+                    new JsonPatchOperation
+                    {
+                        Operation = Operation.Add,
+                        Path = $"/fields/{AzureDevOpsFieldNames.ReproSteps}",
+                        Value = workItemModel.BodyOrDescription
                     }
                 };
 
