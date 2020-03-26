@@ -26,7 +26,7 @@ namespace Microsoft.WorkItems
                 if (match.Success)
                 {
                     filingClient = isGitHub ? (FilingClient)new GitHubFilingClient() : new AzureDevOpsFilingClient();
-                    filingClient.CurrentProvider = isGitHub ? FilingClient.SourceControlProvider.Github : FilingClient.SourceControlProvider.AzureDevOps;
+                    filingClient.Provider = isGitHub ? FilingClient.SourceControlProvider.Github : FilingClient.SourceControlProvider.AzureDevOps;
                     filingClient.ProjectOrRepository = match.Groups[WorkItemFilingUtilities.PROJECT].Value;
                     filingClient.AccountOrOrganization = match.Groups[WorkItemFilingUtilities.ACCOUNT].Value;
                     break;

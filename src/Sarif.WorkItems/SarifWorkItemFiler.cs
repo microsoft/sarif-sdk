@@ -173,7 +173,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             // of the root pipeline filing context. This context will then be initialized
             // based on the current sarif log file that we're processing.
             // First intializes the contexts provider to the value in the current filing client.
-            filingContext.CurrentProvider = filingClient.CurrentProvider;
+            filingContext.CurrentProvider = filingClient.Provider;
             var workItemModel = new SarifWorkItemModel(sarifLog, filingContext);
 
             try

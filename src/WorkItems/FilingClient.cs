@@ -23,7 +23,7 @@ namespace Microsoft.WorkItems
         /// <summary>
         /// The current source control provider.
         /// </summary>
-        public SourceControlProvider CurrentProvider { get; set; }
+        public SourceControlProvider Provider { get; set; }
 
         /// <summary>
         ///  The Azure DevOps account name or GitHub organization name.
