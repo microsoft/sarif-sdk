@@ -15,6 +15,8 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
     {
         public Uri LocationUri { get; private set; }
 
+        // The sarifLog parameter contains exactly a set of results that are intended to be filed as a single work item 
+        // and this log will be attached to the work item.
         public SarifWorkItemModel(SarifLog sarifLog, SarifWorkItemContext context = null)
         {
             if (sarifLog == null) { throw new ArgumentNullException(nameof(sarifLog)); }
