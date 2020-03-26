@@ -42,7 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             this.Attachment = new Microsoft.WorkItems.Attachment
             {
                 Name = "ScanResults.sarif",
-                Text = JsonConvert.SerializeObject(sarifLog),
+                Text = JsonConvert.SerializeObject(sarifLog, Formatting.Indented),
             };
 
             string title = sarifLog.Runs?[0]?.CreateWorkItemTitle();
