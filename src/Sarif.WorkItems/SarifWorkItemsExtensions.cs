@@ -84,7 +84,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
             foreach (Run run in log?.Runs)
             {
-                if (run != null && run.Results != null)
+                if (run?.Results != null)
                 {
                     resultCountsByRun.Add(run, run.Results.Count);
                 }
@@ -107,42 +107,42 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         public static string CreateWorkItemDescription(this SarifLog log, Uri locationUri)
         {
             Dictionary<Run, int> resultCountsByRun = ComputeRunResultCounts(log);
-            StringBuilder templateText = new StringBuilder();
+            var templateText = new StringBuilder();
             int runningResults = 0;
             string toolNames = string.Empty;
             string multipleToolsFooter = string.Empty;
 
-            Uri runRepositoryUri = resultCountsByRun.FirstOrDefault().Key?.VersionControlProvenance?.FirstOrDefault().RepositoryUri;
+            Uri runRepositoryUri = resultCountsByRun?.FirstOrDefault().Key?.VersionControlProvenance?.FirstOrDefault().RepositoryUri;
             string detectionLocation = !string.IsNullOrEmpty(runRepositoryUri?.OriginalString) ? runRepositoryUri?.OriginalString : locationUri?.OriginalString;
 
-            toolNames = string.Format("'{0}'", resultCountsByRun.FirstOrDefault().Key?.Tool?.Driver?.Name);
+            toolNames = string.Format("'{0}'", resultCountsByRun?.FirstOrDefault().Key?.Tool?.Driver?.Name ?? string.Empty);
             runningResults = resultCountsByRun.FirstOrDefault().Value;
 
             if (resultCountsByRun.Count > 1)
             {
                 Run lastrun = resultCountsByRun.Last().Key;
-                multipleToolsFooter = " (and other locations)";
-                foreach (KeyValuePair<Run, int> run in resultCountsByRun)
+                multipleToolsFooter = WorkItemsResources.MultipleToolsFooter;
+                foreach (KeyValuePair<Run, int> entry in resultCountsByRun)
                 {
-                    if (run.Key == resultCountsByRun.First().Key)
+                    if (entry.Key == resultCountsByRun.First().Key)
                     {
                         continue;
                     }
-                    else if (run.Key == lastrun)
+                    else if (entry.Key == lastrun)
                     {
-                        toolNames = string.Join(" and ", toolNames, string.Format("'{0}'", run.Key?.Tool?.Driver?.Name));
-                        runningResults += run.Value;
+                        toolNames = string.Join(" and ", toolNames, string.Format("'{0}'", entry.Key?.Tool?.Driver?.Name ?? string.Empty));
+                        runningResults += entry.Value;
                     }
                     else
                     {
-                        toolNames = string.Join(", ", toolNames, string.Format("'{0}'", run.Key?.Tool?.Driver?.Name));
-                        runningResults += run.Value;
+                        toolNames = string.Join(", ", toolNames, string.Format("'{0}'", entry.Key?.Tool?.Driver?.Name ?? string.Empty));
+                        runningResults += entry.Value;
                     }
                 }
             }
           
-            templateText = new StringBuilder(string.Format(@"This work item contains {0} {1} issue(s) detected in '{2}'{3}.  ", runningResults, toolNames, detectionLocation, multipleToolsFooter));
-            templateText.Append("Click the 'Scans' tab to review results.");
+            templateText = new StringBuilder(string.Format(WorkItemsResources.WorkItemBodyTemplateText, runningResults, toolNames, detectionLocation, multipleToolsFooter));
+            templateText.Append(WorkItemsResources.ViewScansTabResults);
             templateText.AppendLine();
 
             return templateText.ToString();

@@ -34,6 +34,7 @@
     <EmbeddedResource Update="WorkItemsResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>WorkItemsResources.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Microsoft.CodeAnalysis.Sarif.WorkItems</CustomToolNamespace>
     </EmbeddedResource>
   </ItemGroup>
 

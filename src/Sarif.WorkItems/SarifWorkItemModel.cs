@@ -83,19 +83,14 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             if(this.Context.CurrentProvider == FilingClient.SourceControlProvider.AzureDevOps)
             {
                 StringBuilder azureDevOpsFooter = new StringBuilder();
-                azureDevOpsFooter.Append(@"<br><br>Other viewing options:<br>");
-                azureDevOpsFooter.AppendLine();
-                azureDevOpsFooter.AppendLine();
-                azureDevOpsFooter.Append(@"<li>Examine the complete <a href=""https://dev.azure.com/office/Office/_componentGovernance/Office?_a=alerts&typeId=1731351&alerts-view-option=active"">CG Scan</a> for this repository.</li>");
-                azureDevOpsFooter.AppendLine();
-                azureDevOpsFooter.Append(@"<li>Load the attached log file in the <a href=""https://marketplace.visualstudio.com/_apis/public/gallery/publishers/WDGIS/vsextensions/MicrosoftSarifViewer/2.1.7/vspackage"">CG Scan</a> Visual Studio SARIF add-in.</li>");
-                azureDevOpsFooter.AppendLine();
-                azureDevOpsFooter.Append(@"<li>Load the attached log file in the <a href=""https://marketplace.visualstudio.com/items?itemName=MS-SarifVSCode.sarif-viewer"">CG Scan</a> VS Code SARIF extension.</li>");
+                azureDevOpsFooter.Append(WorkItemsResources.AdoViewingOptions);
+                azureDevOpsFooter.Append(WorkItemsResources.AdoSARIFAddInMessage);
+                azureDevOpsFooter.Append(WorkItemsResources.AdoSARIFViewerMessage);
                 return azureDevOpsFooter.ToString();
             }
             else
             {
-                return @"Details for the above issues can be found in the attachment filed with this issue.";
+                return WorkItemsResources.GeneralFooterText;
             }
         }
     }
