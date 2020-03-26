@@ -61,11 +61,74 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;li&gt;Load the attached log file in the &lt;a href=&quot;&quot;https://marketplace.visualstudio.com/_apis/public/gallery/publishers/WDGIS/vsextensions/MicrosoftSarifViewer/2.1.7/vspackage&quot;&quot;&gt;Visual Studio SARIF add-in.&lt;/a&gt;&lt;/li&gt;.
+        /// </summary>
+        internal static string AdoSarifAddInMessage {
+            get {
+                return ResourceManager.GetString("AdoSarifAddInMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;li&gt;Load the attached log file in the &lt;a href=&quot;&quot;https://marketplace.visualstudio.com/items?itemName=MS-SarifVSCode.sarif-viewer&quot;&quot;&gt;VS Code SARIF extension.&lt;/a&gt;&lt;/li&gt;.
+        /// </summary>
+        internal static string AdoSarifViewerMessage {
+            get {
+                return ResourceManager.GetString("AdoSarifViewerMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;br&gt;&lt;br&gt;Other viewing options:&lt;br&gt;.
+        /// </summary>
+        internal static string AdoViewingOptions {
+            get {
+                return ResourceManager.GetString("AdoViewingOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Details for the above issues can be found in the attachment filed with this issue..
+        /// </summary>
+        internal static string GeneralFooterText {
+            get {
+                return ResourceManager.GetString("GeneralFooterText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Inconsistent URIs were provided in &apos;filingContext&apos; and &apos;filingUri&apos; arguments..
         /// </summary>
         internal static string InconsistentHostUrisProvided {
             get {
                 return ResourceManager.GetString("InconsistentHostUrisProvided", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  (and other locations).
+        /// </summary>
+        internal static string MultipleToolsFooter {
+            get {
+                return ResourceManager.GetString("MultipleToolsFooter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Click the &apos;Scans&apos; tab to review results..
+        /// </summary>
+        internal static string ViewScansTabResults {
+            get {
+                return ResourceManager.GetString("ViewScansTabResults", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This work item contains {0} {1} issue(s) detected in &apos;{2}&apos;{3}.  .
+        /// </summary>
+        internal static string WorkItemBodyTemplateText {
+            get {
+                return ResourceManager.GetString("WorkItemBodyTemplateText", resourceCulture);
             }
         }
     }

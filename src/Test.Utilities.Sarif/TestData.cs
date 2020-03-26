@@ -54,6 +54,13 @@ namespace Microsoft.CodeAnalysis.Test.Utilities.Sarif
                     new Run
                     {
                         Tool = CreateSimpleLog().Runs[0].Tool,
+                        VersionControlProvenance = new []
+                        {
+                            new VersionControlDetails
+                            {
+                                RepositoryUri = new Uri(@"https://bugfiler.example.com/")
+                            }
+                        },
                         Results = new[]
                         {
                             new Result

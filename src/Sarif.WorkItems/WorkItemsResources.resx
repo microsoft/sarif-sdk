@@ -117,7 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AdoSarifAddInMessage" xml:space="preserve">
+    <value>&lt;li&gt;Load the attached log file in the &lt;a href=""https://marketplace.visualstudio.com/_apis/public/gallery/publishers/WDGIS/vsextensions/MicrosoftSarifViewer/2.1.7/vspackage""&gt;Visual Studio SARIF add-in.&lt;/a&gt;&lt;/li&gt;</value>
+  </data>
+  <data name="AdoSarifViewerMessage" xml:space="preserve">
+    <value>&lt;li&gt;Load the attached log file in the &lt;a href=""https://marketplace.visualstudio.com/items?itemName=MS-SarifVSCode.sarif-viewer""&gt;VS Code SARIF extension.&lt;/a&gt;&lt;/li&gt;</value>
+  </data>
+  <data name="AdoViewingOptions" xml:space="preserve">
+    <value>&lt;br&gt;&lt;br&gt;Other viewing options:&lt;br&gt;</value>
+  </data>
+  <data name="GeneralFooterText" xml:space="preserve">
+    <value>Details for the above issues can be found in the attachment filed with this issue.</value>
+  </data>
   <data name="InconsistentHostUrisProvided" xml:space="preserve">
     <value>Inconsistent URIs were provided in 'filingContext' and 'filingUri' arguments.</value>
+  </data>
+  <data name="MultipleToolsFooter" xml:space="preserve">
+    <value> (and other locations)</value>
+  </data>
+  <data name="ViewScansTabResults" xml:space="preserve">
+    <value>Click the 'Scans' tab to review results.</value>
+  </data>
+  <data name="WorkItemBodyTemplateText" xml:space="preserve">
+    <value>This work item contains {0} {1} issue(s) detected in '{2}'{3}.  </value>
   </data>
 </root>

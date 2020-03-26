@@ -15,6 +15,8 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
     {
         public Uri LocationUri { get; private set; }
 
+        // The sarifLog parameter contains exactly a set of results that are intended to be filed as a single work item 
+        // and this log will be attached to the work item.
         public SarifWorkItemModel(SarifLog sarifLog, SarifWorkItemContext context = null)
         {
             if (sarifLog == null) { throw new ArgumentNullException(nameof(sarifLog)); }
@@ -42,7 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             this.Attachment = new Microsoft.WorkItems.Attachment
             {
                 Name = "ScanResults.sarif",
-                Text = JsonConvert.SerializeObject(sarifLog),
+                Text = JsonConvert.SerializeObject(sarifLog, Formatting.Indented),
             };
 
             string title = sarifLog.Runs?[0]?.CreateWorkItemTitle();
@@ -57,7 +59,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             this.CommentOrDiscussion = $"Default {nameof(this.CommentOrDiscussion)}";
 
             string descriptionFooter = !string.IsNullOrEmpty(this.Context.BugFooter) ? this.Context.BugFooter : CreateBugFooter(); 
-            this.BodyOrDescription = string.Join(Environment.NewLine, sarifLog.CreateWorkItemDescription(), descriptionFooter);
+            this.BodyOrDescription = string.Join(Environment.NewLine, sarifLog.CreateWorkItemDescription(LocationUri), descriptionFooter);
 
             // These properties are Azure DevOps-specific. All ADO work item board
             // area paths are rooted by the project name, as are iterations.
@@ -83,14 +85,14 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             if(this.Context.CurrentProvider == FilingClient.SourceControlProvider.AzureDevOps)
             {
                 StringBuilder azureDevOpsFooter = new StringBuilder();
-                azureDevOpsFooter.Append(@"To see result details, please visit the Scans tab of this bug, or the attached SARIF log.");
-                azureDevOpsFooter.AppendLine();
-                azureDevOpsFooter.Append(@"If the scans tab is missing or unavailable, please install the SARIF viewer from https://marketplace.visualstudio.com/items?itemName=WDGIS.MicrosoftSarifViewer");
+                azureDevOpsFooter.Append(WorkItemsResources.AdoViewingOptions);
+                azureDevOpsFooter.Append(WorkItemsResources.AdoSarifAddInMessage);
+                azureDevOpsFooter.Append(WorkItemsResources.AdoSarifViewerMessage);
                 return azureDevOpsFooter.ToString();
             }
             else
             {
-                return @"Details for the above issues can be found in the attachment filed with this issue.";
+                return WorkItemsResources.GeneralFooterText;
             }
         }
     }

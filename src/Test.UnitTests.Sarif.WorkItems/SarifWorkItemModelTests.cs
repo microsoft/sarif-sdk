@@ -2,17 +2,16 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using FluentAssertions;
-using Microsoft.CodeAnalysis.Sarif;
-using Microsoft.CodeAnalysis.Sarif.WorkItems;
 using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
 using Microsoft.WorkItems;
 using Xunit;
 
 
-namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItems
+namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 {
     public class SarifWorkItemModelTests
     {
+
         [Fact]
         public void SarifWorkItemModel_PopulatesDescription()
         {
@@ -22,12 +21,13 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItems
             var workItemModel = new SarifWorkItemModel(sarifLog, context);
             workItemModel.BodyOrDescription.Should().NotBeNullOrEmpty();
             workItemModel.BodyOrDescription.Should().Contain(nameof(TestData.TestToolName));
-            workItemModel.BodyOrDescription.Should().Contain("Details for the above issues can be found in the attachment filed with this issue.");
-            workItemModel.BodyOrDescription.Should().NotContain("Scans tab");
+            workItemModel.BodyOrDescription.Should().Contain(sarifLog.Runs[0].VersionControlProvenance[0].RepositoryUri.OriginalString);
+            workItemModel.BodyOrDescription.Should().Contain(WorkItemsResources.GeneralFooterText);
+            workItemModel.BodyOrDescription.Should().NotContain(WorkItemsResources.AdoViewingOptions);
         }
 
         [Fact]
-        public void SarifWorkItemModel_PopulatesADODescription()
+        public void SarifWorkItemModel_PopulatesAdoDescription()
         {
             var context = new SarifWorkItemContext();
             context.CurrentProvider = FilingClient.SourceControlProvider.AzureDevOps;
@@ -36,7 +36,23 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItems
             var workItemModel = new SarifWorkItemModel(sarifLog, context);
             workItemModel.BodyOrDescription.Should().NotBeNullOrEmpty();
             workItemModel.BodyOrDescription.Should().Contain(nameof(TestData.TestToolName));
-            workItemModel.BodyOrDescription.Should().Contain("To see result details, please visit the Scans tab of this bug, or the attached SARIF log.");
+            workItemModel.BodyOrDescription.Should().Contain(sarifLog.Runs[0].VersionControlProvenance[0].RepositoryUri.OriginalString);
+            workItemModel.BodyOrDescription.Should().Contain(WorkItemsResources.ViewScansTabResults);
+        }
+
+        [Fact]
+        public void SarifWorkItemModel_IncorporatesMultipleToolNamesIntoAdoDescription()
+        {
+            var context = new SarifWorkItemContext();
+            context.CurrentProvider = FilingClient.SourceControlProvider.AzureDevOps;
+            SarifLog sarifLog = TestData.CreateTwoRunThreeResultLog();
+
+            var workItemModel = new SarifWorkItemModel(sarifLog, context);
+            workItemModel.BodyOrDescription.Should().NotBeNullOrEmpty();
+            workItemModel.BodyOrDescription.Should().Contain(nameof(TestData.TestToolName));
+            workItemModel.BodyOrDescription.Should().Contain(nameof(TestData.SecondTestToolName));
+            workItemModel.BodyOrDescription.Should().Contain(TestData.FileLocations.Location1);
+            workItemModel.BodyOrDescription.Should().Contain(WorkItemsResources.ViewScansTabResults);
         }
     }
 }
