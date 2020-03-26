@@ -243,5 +243,19 @@ namespace Microsoft.CodeAnalysis.Test.Utilities.Sarif
                 }
             };
         }
+
+        public static SarifLog CreateEmptyRun()
+        {
+            return new SarifLog
+            {
+                Runs = new Run[]
+                {
+                    new Run
+                    {
+
+                    }
+                }
+            };
+        }
     }
 }
