@@ -86,8 +86,8 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             {
                 StringBuilder azureDevOpsFooter = new StringBuilder();
                 azureDevOpsFooter.Append(WorkItemsResources.AdoViewingOptions);
-                azureDevOpsFooter.Append(WorkItemsResources.AdoSARIFAddInMessage);
-                azureDevOpsFooter.Append(WorkItemsResources.AdoSARIFViewerMessage);
+                azureDevOpsFooter.Append(WorkItemsResources.AdoSarifAddInMessage);
+                azureDevOpsFooter.Append(WorkItemsResources.AdoSarifViewerMessage);
                 return azureDevOpsFooter.ToString();
             }
             else

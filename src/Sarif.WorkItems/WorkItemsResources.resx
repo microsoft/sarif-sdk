@@ -117,10 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AdoSARIFAddInMessage" xml:space="preserve">
+  <data name="AdoSarifAddInMessage" xml:space="preserve">
     <value>&lt;li&gt;Load the attached log file in the &lt;a href=""https://marketplace.visualstudio.com/_apis/public/gallery/publishers/WDGIS/vsextensions/MicrosoftSarifViewer/2.1.7/vspackage""&gt;Visual Studio SARIF add-in.&lt;/a&gt;&lt;/li&gt;</value>
   </data>
-  <data name="AdoSARIFViewerMessage" xml:space="preserve">
+  <data name="AdoSarifViewerMessage" xml:space="preserve">
     <value>&lt;li&gt;Load the attached log file in the &lt;a href=""https://marketplace.visualstudio.com/items?itemName=MS-SarifVSCode.sarif-viewer""&gt;VS Code SARIF extension.&lt;/a&gt;&lt;/li&gt;</value>
   </data>
   <data name="AdoViewingOptions" xml:space="preserve">

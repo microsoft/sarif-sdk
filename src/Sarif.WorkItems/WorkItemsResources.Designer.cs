@@ -63,18 +63,18 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems {
         /// <summary>
         ///   Looks up a localized string similar to &lt;li&gt;Load the attached log file in the &lt;a href=&quot;&quot;https://marketplace.visualstudio.com/_apis/public/gallery/publishers/WDGIS/vsextensions/MicrosoftSarifViewer/2.1.7/vspackage&quot;&quot;&gt;Visual Studio SARIF add-in.&lt;/a&gt;&lt;/li&gt;.
         /// </summary>
-        internal static string AdoSARIFAddInMessage {
+        internal static string AdoSarifAddInMessage {
             get {
-                return ResourceManager.GetString("AdoSARIFAddInMessage", resourceCulture);
+                return ResourceManager.GetString("AdoSarifAddInMessage", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;li&gt;Load the attached log file in the &lt;a href=&quot;&quot;https://marketplace.visualstudio.com/items?itemName=MS-SarifVSCode.sarif-viewer&quot;&quot;&gt;VS Code SARIF extension.&lt;/a&gt;&lt;/li&gt;.
         /// </summary>
-        internal static string AdoSARIFViewerMessage {
+        internal static string AdoSarifViewerMessage {
             get {
-                return ResourceManager.GetString("AdoSARIFViewerMessage", resourceCulture);
+                return ResourceManager.GetString("AdoSarifViewerMessage", resourceCulture);
             }
         }
         
