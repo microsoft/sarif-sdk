@@ -1,0 +1,4 @@
+[submodule "extensions"]
+	path = extensions
+	url = https://smurff@dev.azure.com/smurff/Smurff/_git/Smurff
+	branch = master

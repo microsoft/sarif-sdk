@@ -102,6 +102,14 @@ function Invoke-BuildSample {
     Invoke-DotNetBuild $sampleSolutionFile
 }
 
+function Invoke-BuildExtensions {
+    $solutionFullPath = Join-Path $SourceRoot $ExtensionsSolutionFile
+    Write-Host $solutionFullPath
+    if (Test-Path -Path $solutionFullPath) {
+        Invoke-DotNetBuild $ExtensionsSolutionFile
+    }
+}
+
 # Create a directory containing all files necessary to execute an application.
 # This operation is called "publish" because it is performed by "dotnet publish".
 function Publish-Application($project, $framework) {
@@ -164,6 +172,7 @@ if (-not $?) {
 
 if (-not $NoBuild) {
     Invoke-Build
+    Invoke-BuildExtensions
     Invoke-BuildSample
 }
 

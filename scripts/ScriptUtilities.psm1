@@ -19,6 +19,7 @@ $BuildRoot = "$RepoRoot\bld"
 $BinRoot = "$BuildRoot\bin"
 $SolutionFile = "Sarif.Sdk.sln"
 $SampleSolutionFile = "Samples\Sarif.Sdk.Sample.sln"
+$ExtensionsSolutionFile = "..\extensions\src\Extensions.sln"
 
 $MSBuildXmlNamespaces = @{ msbuild = "http://schemas.microsoft.com/developer/msbuild/2003" }
 
@@ -83,5 +84,6 @@ Export-ModuleMember -Variable `
     Platform, `
     SampleSolutionFile, `
     SarifExtension, `
+    ExtensionsSolutionFile, `
     SolutionFile, `
     SourceRoot
