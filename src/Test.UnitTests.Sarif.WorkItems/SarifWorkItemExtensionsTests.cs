@@ -53,6 +53,28 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             sb.Length.Should().Be(0, because: Environment.NewLine + sb.ToString());
         }
 
+        [Fact]
+        public void SarifWorkItemExtensions_CreateWorkItemTitle_LongTitle()
+        {
+            string ruleId = "TestRuleId";
+
+            Result result = new Result();
+            ArtifactLocation artifactLocation = new ArtifactLocation(new Uri(new string('a', 1024), UriKind.Relative), string.Empty, 0, new Message(), new Dictionary<string, SerializedPropertyInfo>());
+            PhysicalLocation physicalLocation = new PhysicalLocation(new Address(), artifactLocation, new Region(), new Region(), new Dictionary<string, SerializedPropertyInfo>());
+            Location location = new Location(0, physicalLocation, null, null, null, null, null);
+            result.Locations = new List<Location>();
+            result.Locations.Add(location);
+            result.RuleId = ruleId;
+            SarifLog sarifLog = CreateLogWithEmptyRun();
+
+            Run run = sarifLog.Runs[0];
+            run.Results.Add(result);
+
+            string title = sarifLog.Runs[0].CreateWorkItemTitle();
+
+            title.Should().EndWith(ruleId);
+        }
+
         private class PhraseToolNamesTestCase
         {
             public PhraseToolNamesTestCase(List<string> input, string expectedOutput)

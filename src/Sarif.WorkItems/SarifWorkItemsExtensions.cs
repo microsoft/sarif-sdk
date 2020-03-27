@@ -77,10 +77,21 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             // [Tool:Warning] RULE3067 (in 'Namespace.Type.MyMethod()')
             // [Tool:Error] RULE2001: Null derefernece (in c:\src\build.cpp)
 
-            return "[" + run.Tool.Driver.Name + ":" +
+            string title = "[" + run.Tool.Driver.Name + ":" +
                     firstResult.Level.ToString() + "]: " +
                     fullRuleId +
                     (locationName == null ? "" : " (in " + locationName + ")");
+
+            // In ADO, the title cannot be longer than 128 characters
+            // Do not include the location if the limit is exceeded.
+            if (title.Length > 128)
+            {
+                title = "[" + run.Tool.Driver.Name + ":" +
+                        firstResult.Level.ToString() + "]: " +
+                        fullRuleId;
+            }
+
+            return title;
         }
 
         public static List<string> GetToolNames(this SarifLog log)

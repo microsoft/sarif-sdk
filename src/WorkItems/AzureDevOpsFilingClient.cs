@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models;
 using Microsoft.VisualStudio.Services.WebApi;
 using Microsoft.VisualStudio.Services.WebApi.Patch;
@@ -149,6 +150,7 @@ namespace Microsoft.WorkItems
                 catch (Exception e)
                 {
                     Console.Error.WriteLine(e);
+                    this.Logger.LogError(e, "Creating work item: {workItemModel.Title}", workItemModel.Title);
 
                     if (patchDocument != null)
                     {
