@@ -126,5 +126,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             string logFileContents = extractor.GetResourceText(resourceName);
             return JsonConvert.DeserializeObject<SarifLog>(logFileContents);
         }
+
+        public static string SafeFormat(string s)
+            => s != null ? $"'{s}'" : "<null>";
     }
 }

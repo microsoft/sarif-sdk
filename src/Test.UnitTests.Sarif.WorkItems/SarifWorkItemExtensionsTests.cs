@@ -69,8 +69,12 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             new ReadOnlyCollection<PhraseToolNamesTestCase>(new PhraseToolNamesTestCase[]
             {
                 new PhraseToolNamesTestCase(
+                    input: new List<string>() {null},
+                    expectedOutput: "''"),
+
+                new PhraseToolNamesTestCase(
                     input: new List<string>() {""},
-                    expectedOutput: ""),
+                    expectedOutput: "''"),
 
                 new PhraseToolNamesTestCase(
                     input: new List<string>() {"CredentialScanner"},
@@ -104,16 +108,17 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
             foreach (PhraseToolNamesTestCase testCase in s_phraseToolNamesTestCases)
             {
-                string actualOutput = SarifWorkItemsExtensions.PhraseToolNames(testCase.Input);
+                string actualOutput = testCase.Input.ToAndPhrase();
 
                 bool succeeded = (testCase.ExpectedOutput == null && actualOutput == null)
                     || (actualOutput?.Equals(testCase.ExpectedOutput, StringComparison.Ordinal) == true);
 
                 if (!succeeded)
                 {
-                    sb.AppendLine($"    Input: {testCase.Input} Expected: {testCase.ExpectedOutput} Actual: {actualOutput}");
+                    sb.AppendLine($"    Input: {Utilities.SafeFormat(string.Join(" ", testCase.Input.ToArray()))} Expected: {Utilities.SafeFormat(testCase.ExpectedOutput)} Actual: {Utilities.SafeFormat(actualOutput)}");
                 }
             }
+
             sb.Length.Should().Be(0,
                 $"all test cases should pass, but the following test cases failed:\n{sb.ToString()}");
         }
@@ -143,18 +148,18 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             var context = new SarifWorkItemContext();
             SarifLog sarifLog = TestData.CreateOneIdThreeLocations();
 
-            List<string> toolNames = sarifLog.GetRunToolNames();
+            List<string> toolNames = sarifLog.GetToolNames();
             toolNames.Count.Should().Be(1);
             toolNames.Should().Contain(TestData.TestToolName);
 
             sarifLog = TestData.CreateTwoRunThreeResultLog();
-            toolNames = sarifLog.GetRunToolNames();
+            toolNames = sarifLog.GetToolNames();
             toolNames.Count.Should().Be(2);
             toolNames.Should().Contain(TestData.TestToolName);
             toolNames.Should().Contain(TestData.SecondTestToolName);
 
             sarifLog = TestData.CreateEmptyRun();
-            toolNames = sarifLog.GetRunToolNames();
+            toolNames = sarifLog.GetToolNames();
             toolNames.Count.Should().Be(0);
         }
 

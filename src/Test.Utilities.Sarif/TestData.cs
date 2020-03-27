@@ -252,7 +252,6 @@ namespace Microsoft.CodeAnalysis.Test.Utilities.Sarif
                 {
                     new Run
                     {
-
                     }
                 }
             };

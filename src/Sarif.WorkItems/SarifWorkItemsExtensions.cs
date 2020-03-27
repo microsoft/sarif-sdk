@@ -83,7 +83,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                     (locationName == null ? "" : " (in " + locationName + ")");
         }
 
-        public static List<string> GetRunToolNames(this SarifLog log)
+        public static List<string> GetToolNames(this SarifLog log)
         {
             return log?.Runs?.Where(r => r?.Results?.Count > 0).Select(r => r.Tool?.Driver?.Name).Distinct().ToList();
         }
@@ -93,44 +93,23 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             return log?.Runs?.Select(r => r?.Results?.Count).Sum() ?? 0;
         }
 
-        public static string PhraseToolNames(List<string> toolNames)
-        {
-            toolNames = toolNames.Where(r => !string.IsNullOrWhiteSpace(r)).ToList();
-            if (toolNames.Count == 0)
-            {
-                return string.Empty;
-            }
-            else if (toolNames.Count == 1)
-            {
-                return string.Format("'{0}'", toolNames[0]);
-            }
-            else
-            {
-                string phrasedToolNames = string.Format("'{0}'", toolNames[0]);
-                for (int j = 1; j < toolNames.Count - 1; j++)
-                {
-                    phrasedToolNames = string.Join(", ", phrasedToolNames, string.Format("'{0}'", toolNames[j]));
-                }
-                phrasedToolNames = string.Join(" and ", phrasedToolNames, string.Format("'{0}'", toolNames[toolNames.Count - 1]));
-                return phrasedToolNames;
-            }
-        }
+        
 
         public static string CreateWorkItemDescription(this SarifLog log, Uri locationUri)
         {
-            List<string> toolNames = log.GetRunToolNames();
             int totalResults = log.GetAggregateResultCount();
-            string phrasedToolNames = PhraseToolNames(toolNames);
+            List<string> toolNames = log.GetToolNames();
+            string phrasedToolNames = toolNames.ToAndPhrase();
             string multipleToolsFooter = toolNames.Count > 1 ? WorkItemsResources.MultipleToolsFooter : string.Empty;
 
             Uri runRepositoryUri = log?.Runs.FirstOrDefault()?.VersionControlProvenance?.FirstOrDefault().RepositoryUri;
             string detectionLocation = !string.IsNullOrEmpty(runRepositoryUri?.OriginalString) ? runRepositoryUri?.OriginalString : locationUri?.OriginalString;
           
-            var descriptionText = new StringBuilder(string.Format(WorkItemsResources.WorkItemBodyTemplateText, totalResults, phrasedToolNames, detectionLocation, multipleToolsFooter));
-            descriptionText.Append(WorkItemsResources.ViewScansTabResults);
-            descriptionText.AppendLine();
+            var descriptionBuilder = new StringBuilder(string.Format(WorkItemsResources.WorkItemBodyTemplateText, totalResults, phrasedToolNames, detectionLocation, multipleToolsFooter));
+            descriptionBuilder.Append(WorkItemsResources.ViewScansTabResults);
+            descriptionBuilder.AppendLine();
 
-            return descriptionText.ToString();
+            return descriptionBuilder.ToString();
         }
 
         private static string ConstructFullRuleIdentifier(ReportingDescriptor reportingDescriptor)

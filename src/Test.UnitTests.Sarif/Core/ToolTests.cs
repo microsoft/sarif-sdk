@@ -69,15 +69,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
 
                 if (!succeeded)
                 {
-                    sb.AppendLine($"    Input: {SafeFormat(testCase.Input)} Expected: {SafeFormat(testCase.ExpectedOutput)} Actual: {SafeFormat(actualOutput)}");
+                    sb.AppendLine($"    Input: {Utilities.SafeFormat(testCase.Input)} Expected: {Utilities.SafeFormat(testCase.ExpectedOutput)} Actual: {Utilities.SafeFormat(actualOutput)}");
                 }
             }
 
             sb.Length.Should().Be(0,
                 $"all test cases should pass, but the following test cases failed:\n{sb.ToString()}");
         }
-
-        private static string SafeFormat(string s)
-           => s != null ? $"'{s}'" : "<null>";
     }
 }
