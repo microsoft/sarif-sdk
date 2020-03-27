@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
@@ -52,26 +53,114 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             sb.Length.Should().Be(0, because: Environment.NewLine + sb.ToString());
         }
 
-        [Fact]
-        public void SarifWorkItemExtensions_ComputeToolResultCounts_CountsSingleResult()
+        private class PhraseToolNamesTestCase
         {
-            SarifLog sarifLog = TestData.CreateOneIdThreeLocations();
-            Dictionary<Run, int> resultsCounts = sarifLog.ComputeRunResultCounts();
-            resultsCounts.Keys.Should().HaveCount(1);
-            resultsCounts.Keys.Should().Contain(sarifLog.Runs[0]);
-            resultsCounts[sarifLog.Runs[0]].Should().Be(1);
+            public PhraseToolNamesTestCase(List<string> input, string expectedOutput)
+            {
+                Input = input;
+                ExpectedOutput = expectedOutput;
+            }
+
+            public List<string> Input { get; }
+            public string ExpectedOutput { get; }
+        }
+
+        private static readonly ReadOnlyCollection<PhraseToolNamesTestCase> s_phraseToolNamesTestCases =
+            new ReadOnlyCollection<PhraseToolNamesTestCase>(new PhraseToolNamesTestCase[]
+            {
+                new PhraseToolNamesTestCase(
+                    input: new List<string>() {null},
+                    expectedOutput: "''"),
+
+                new PhraseToolNamesTestCase(
+                    input: new List<string>() {""},
+                    expectedOutput: "''"),
+
+                new PhraseToolNamesTestCase(
+                    input: new List<string>() {"CredentialScanner"},
+                    expectedOutput: "'CredentialScanner'"),
+
+                new PhraseToolNamesTestCase(
+                    input: new List<string>() {"CredentialScanner", "Binskim"},
+                    expectedOutput: "'CredentialScanner' and 'Binskim'"),
+
+                new PhraseToolNamesTestCase(
+                    input: new List<string>() {"SEMMLE", "CredentialScanner", "Binskim"},
+                    expectedOutput: "'SEMMLE', 'CredentialScanner' and 'Binskim'"),
+
+                new PhraseToolNamesTestCase(
+                    input: new List<string>() {"SEMMLE", "", "Binskim"},
+                    expectedOutput: "'SEMMLE' and 'Binskim'"),
+
+                new PhraseToolNamesTestCase(
+                    input: new List<string>() {"", "CredentialScanner", "SEMMLE", "Binskim"},
+                    expectedOutput: "'CredentialScanner', 'SEMMLE' and 'Binskim'"),
+
+                new PhraseToolNamesTestCase(
+                    input: new List<string>() {"", "CredentialScanner"},
+                    expectedOutput: "'CredentialScanner'"),
+            });
+
+        [Fact]
+        public void SarifWorkItemExtensions_PhraseToolNames_ConstructPhraseCorrectly()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            foreach (PhraseToolNamesTestCase testCase in s_phraseToolNamesTestCases)
+            {
+                string actualOutput = testCase.Input.ToAndPhrase();
+
+                bool succeeded = (testCase.ExpectedOutput == null && actualOutput == null)
+                    || (actualOutput?.Equals(testCase.ExpectedOutput, StringComparison.Ordinal) == true);
+
+                if (!succeeded)
+                {
+                    sb.AppendLine($"    Input: {Utilities.SafeFormat(string.Join(" ", testCase.Input.ToArray()))} Expected: {Utilities.SafeFormat(testCase.ExpectedOutput)} Actual: {Utilities.SafeFormat(actualOutput)}");
+                }
+            }
+
+            sb.Length.Should().Be(0,
+                $"all test cases should pass, but the following test cases failed:\n{sb.ToString()}");
         }
 
         [Fact]
-        public void SarifWorkItemExtensions_ComputeToolResultCounts_CountsMultipleToolsMultipleResults()
+        public void SarifWorkItemExtensions_GetAggregateResultCount_ComputeResultCountsFromLogs()
         {
-            SarifLog sarifLog = TestData.CreateTwoRunThreeResultLog();
-            Dictionary<Run, int> resultsCounts = sarifLog.ComputeRunResultCounts();
-            resultsCounts.Keys.Should().HaveCount(2);
-            resultsCounts.Keys.Should().Contain(sarifLog.Runs[0]);
-            resultsCounts.Keys.Should().Contain(sarifLog.Runs[1]);
-            resultsCounts[sarifLog.Runs[0]].Should().Be(2);
-            resultsCounts[sarifLog.Runs[1]].Should().Be(1);
+            var context = new SarifWorkItemContext();
+            SarifLog sarifLog = TestData.CreateOneIdThreeLocations();
+
+            int resultCount = sarifLog.GetAggregateResultCount();
+            resultCount.Should().Be(1);
+
+            sarifLog = TestData.CreateTwoRunThreeResultLog();
+            resultCount = sarifLog.GetAggregateResultCount();
+            resultCount.Should().Be(3);
+
+            sarifLog = TestData.CreateEmptyRun();
+            resultCount = sarifLog.GetAggregateResultCount();
+            resultCount.Should().Be(0);
+
+        }
+
+        [Fact]
+        public void SarifWorkItemExtensions_GetRunToolNames_FetchesAllRunToolNames()
+        {
+            var context = new SarifWorkItemContext();
+            SarifLog sarifLog = TestData.CreateOneIdThreeLocations();
+
+            List<string> toolNames = sarifLog.GetToolNames();
+            toolNames.Count.Should().Be(1);
+            toolNames.Should().Contain(TestData.TestToolName);
+
+            sarifLog = TestData.CreateTwoRunThreeResultLog();
+            toolNames = sarifLog.GetToolNames();
+            toolNames.Count.Should().Be(2);
+            toolNames.Should().Contain(TestData.TestToolName);
+            toolNames.Should().Contain(TestData.SecondTestToolName);
+
+            sarifLog = TestData.CreateEmptyRun();
+            toolNames = sarifLog.GetToolNames();
+            toolNames.Count.Should().Be(0);
         }
 
         private static readonly string ToolName = Guid.NewGuid().ToString();

@@ -102,6 +102,29 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Message { Text = text };
         }
 
+        public static string ToAndPhrase(this List<string> words)
+        {
+            words = words.Where(r => !string.IsNullOrWhiteSpace(r)).ToList();
+            if (words.Count == 0)
+            {
+                return "''";
+            }
+            else if (words.Count == 1)
+            {
+                return string.Format("'{0}'", words[0]);
+            }
+            else
+            {
+                string phrasedWithAnd = string.Format("'{0}'", words[0]);
+                for (int j = 1; j < words.Count - 1; j++)
+                {
+                    phrasedWithAnd = string.Join(", ", phrasedWithAnd, string.Format("'{0}'", words[j]));
+                }
+                phrasedWithAnd = string.Join(" and ", phrasedWithAnd, string.Format("'{0}'", words[words.Count - 1]));
+                return phrasedWithAnd;
+            }
+        }
+
         public static OptionallyEmittedData ToFlags(this IEnumerable<OptionallyEmittedData> optionallyEmittedData)
         {
             OptionallyEmittedData convertedToFlags = OptionallyEmittedData.None;
