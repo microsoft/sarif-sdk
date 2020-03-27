@@ -104,7 +104,6 @@ function Invoke-BuildSample {
 
 function Invoke-BuildExtensions {
     $solutionFullPath = Join-Path $SourceRoot $ExtensionsSolutionFile
-    Write-Host $solutionFullPath
     if (Test-Path -Path $solutionFullPath) {
         Invoke-DotNetBuild $ExtensionsSolutionFile
     }
