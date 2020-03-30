@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -61,8 +62,27 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
             string fullRuleId = ConstructFullRuleIdentifier(firstResult.GetRule(run));
 
+            string titlePrefix = "[" + run.Tool.Driver.Name + ":" +
+                    firstResult.Level.ToString() + "]: " +
+                    fullRuleId;
+
+            // In ADO, the title cannot be longer than 128 characters
+            const string ellipsis = "...";
+            const int maxChars = 128;
+            int remainingChars = maxChars - titlePrefix.Length - 6; // " ({0})".Length == 6
+
             // We encapsulate logical names in apostrophes to help indicate they are a symbol
             string locationName = "'" + firstResult.Locations?[0].LogicalLocation?.FullyQualifiedName + "'";
+
+            if (locationName.Length > remainingChars)
+            { 
+                locationName = "'" + Path.GetFileName(firstResult.Locations?[0].LogicalLocation?.FullyQualifiedName) + "'";
+
+                if (locationName.Length > remainingChars)
+                {
+                    locationName = "'" + firstResult.Locations?[0].LogicalLocation?.FullyQualifiedName.Substring(0, remainingChars - ellipsis.Length - 2) + ellipsis + "'";
+                }
+            }
 
             if (locationName.Equals("''"))
             {
@@ -70,6 +90,11 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 //
                 // Lines of code like this that inspire strong feelings in SARIF consumers as far as its design.
                 locationName = firstResult.Locations?[0].PhysicalLocation?.ArtifactLocation?.Resolve(run)?.Uri?.OriginalString;
+
+                if (locationName?.Length > remainingChars)
+                {
+                    locationName = locationName.Substring(0, remainingChars - ellipsis.Length) + ellipsis;
+                }
             }
 
             // Returns strings like:
@@ -77,19 +102,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             // [Tool:Warning] RULE3067 (in 'Namespace.Type.MyMethod()')
             // [Tool:Error] RULE2001: Null derefernece (in c:\src\build.cpp)
 
-            string title = "[" + run.Tool.Driver.Name + ":" +
-                    firstResult.Level.ToString() + "]: " +
-                    fullRuleId +
-                    (locationName == null ? "" : " (in " + locationName + ")");
-
-            // In ADO, the title cannot be longer than 128 characters
-            // Do not include the location if the limit is exceeded.
-            if (title.Length > 128)
-            {
-                title = "[" + run.Tool.Driver.Name + ":" +
-                        firstResult.Level.ToString() + "]: " +
-                        fullRuleId;
-            }
+            string title = titlePrefix + (locationName == null ? "" : " (in " + locationName + ")");
 
             return title;
         }

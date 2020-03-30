@@ -54,12 +54,13 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         }
 
         [Fact]
-        public void SarifWorkItemExtensions_CreateWorkItemTitle_LongTitle()
+        public void SarifWorkItemExtensions_CreateWorkItemTitle_LongTitleFromUrl()
         {
             string ruleId = "TestRuleId";
+            string expected = ":Warning]: TestRuleId (in alaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...)";
 
             Result result = new Result();
-            ArtifactLocation artifactLocation = new ArtifactLocation(new Uri(new string('a', 1024), UriKind.Relative), string.Empty, 0, new Message(), new Dictionary<string, SerializedPropertyInfo>());
+            ArtifactLocation artifactLocation = new ArtifactLocation(new Uri("al" + new string('a', 1024), UriKind.Relative), string.Empty, 0, new Message(), new Dictionary<string, SerializedPropertyInfo>());
             PhysicalLocation physicalLocation = new PhysicalLocation(new Address(), artifactLocation, new Region(), new Region(), new Dictionary<string, SerializedPropertyInfo>());
             Location location = new Location(0, physicalLocation, null, null, null, null, null);
             result.Locations = new List<Location>();
@@ -72,7 +73,40 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
             string title = sarifLog.Runs[0].CreateWorkItemTitle();
 
-            title.Should().EndWith(ruleId);
+            title.Should().EndWith(expected);
+        }
+
+        [Fact]
+        public void SarifWorkItemExtensions_CreateWorkItemTitle_LongTitleFromLogicalLocation()
+        {
+            Result result = new Result();
+            LogicalLocation logicaLocation = new LogicalLocation(null, 0, string.Empty, null, 0, null, null);
+            Location location = new Location(0, null, new[] { logicaLocation }, null, null, null, null);
+            result.Locations = new List<Location>();
+            result.Locations.Add(location);
+            result.RuleId = "TestRuleId";
+            
+            SarifLog sarifLog = CreateLogWithEmptyRun();
+            Run run = sarifLog.Runs[0];
+            run.Results.Add(result);
+
+            // A logical location longer than 128 char is truncated with ellipses
+            string expected = ":Warning]: TestRuleId (in 'llbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb...')";
+            result.Locations[0].LogicalLocation.FullyQualifiedName = "ll" + new string('b', 1024);
+            string title = sarifLog.Runs[0].CreateWorkItemTitle();
+            title.Should().EndWith(expected);
+
+            // A logical location that's a path is truncated to it's file name
+            expected = ":Warning]: TestRuleId (in '0123456789')";
+            result.Locations[0].LogicalLocation.FullyQualifiedName = "ll" + new string('b', 1024) + "\\0123456789";
+            title = sarifLog.Runs[0].CreateWorkItemTitle();
+            title.Should().EndWith(expected);
+
+            // A logical location that's a path is truncated using its full path
+            expected = ":Warning]: TestRuleId (in 'll0123456789\\cccccccccccccccccccccccccccccccccccccccccccccc...')";
+            result.Locations[0].LogicalLocation.FullyQualifiedName = "ll0123456789\\" + new string('c', 1024);
+            title = sarifLog.Runs[0].CreateWorkItemTitle();
+            title.Should().EndWith(expected);
         }
 
         private class PhraseToolNamesTestCase
