@@ -24,6 +24,20 @@ namespace Test.EndToEnd.Baselining
             return value;
         }
 
+        public static string FirstPartialFingerprint(this Result result, int lengthLimit = -1)
+        {
+            string value = result?.PartialFingerprints?.Values?.FirstOrDefault() ?? "";
+            if (lengthLimit > 0 && value.Length > lengthLimit) { value = value.Substring(0, lengthLimit); }
+            return value;
+        }
+
+        public static string FirstFingerprint(this Result result, int lengthLimit = -1)
+        {
+            string value = result?.Fingerprints?.Values?.FirstOrDefault() ?? "";
+            if (lengthLimit > 0 && value.Length > lengthLimit) { value = value.Substring(0, lengthLimit); }
+            return value;
+        }
+
         public static string Snippet(this Result result, int lengthLimit = -1)
         {
             string value = result?.EnumeratePhysicalLocations().FirstOrDefault()?.Region?.Snippet?.Text ?? "";
