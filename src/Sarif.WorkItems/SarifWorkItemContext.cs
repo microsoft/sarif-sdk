@@ -1,19 +1,25 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
-using Microsoft.WorkItems;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
+using Microsoft.WorkItems;
 
 namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 {
     public class SarifWorkItemContext : PropertiesDictionary
     {
-        public SarifWorkItemContext() { }
+        public SarifWorkItemContext()
+        {
+            this.AssemblyLocationMap = new Dictionary<string, string>();
+        }
 
         public SarifWorkItemContext(SarifWorkItemContext initializer) : base(initializer) { }
 
         public FilingClient.SourceControlProvider CurrentProvider { get; set; }
+
+        public Dictionary<string, string> AssemblyLocationMap { get; }
 
         public Uri HostUri
         {
@@ -78,15 +84,30 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             {
                 this.workItemModelTransformers = new List<SarifWorkItemModelTransformer>();
 
+                Dictionary<string, Assembly> loadedAssemblies = new Dictionary<string, Assembly>();
+
                 foreach (string assemblyLocation in this.GetProperty(PluginAssemblyLocations))
                 {
-                    Assembly.LoadFrom(assemblyLocation);
+                    Assembly a = Assembly.LoadFrom(assemblyLocation);
+                    loadedAssemblies.Add(a.FullName, a);
+                    this.AssemblyLocationMap.Add(a.FullName, Path.GetDirectoryName(Path.GetFullPath(a.Location)));
+
+                    AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
                 }
 
                 StringSet assemblyAndTypeNames = this.GetProperty(PluginAssemblyQualifiedNames);
                 foreach (string assemblyAndTypeName in assemblyAndTypeNames)
                 {
                     Type type = Type.GetType(assemblyAndTypeName);
+
+                    if (type == null)
+                    {
+                        string assemblyName = assemblyAndTypeName.Substring(assemblyAndTypeName.IndexOf(',') + 1).Trim();
+                        if (loadedAssemblies.TryGetValue(assemblyName, out Assembly loadedAssembly))
+                        {
+                            type = loadedAssembly.GetType(assemblyAndTypeName);
+                        }
+                    }
 
                     SarifWorkItemModelTransformer workItemModelTransformer =
                         (SarifWorkItemModelTransformer)Activator.CreateInstance(type);
@@ -95,6 +116,23 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 }
             }
             return this.workItemModelTransformers.AsReadOnly();
+        }
+
+        private Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
+        {
+            if (this.AssemblyLocationMap.TryGetValue(args.RequestingAssembly.FullName, out string basePath))
+            {
+                string assemblyFileName = args.Name.Substring(0, args.Name.IndexOf(',')) + ".dll";
+                string assemblyFullPath = Path.Combine(basePath, assemblyFileName);
+
+                if (File.Exists(assemblyFullPath))
+                {
+                    Assembly a = Assembly.Load(assemblyFullPath);
+                    return a;
+                }
+            }
+
+            return null;
         }
 
         internal static PerLanguageOption<Uri> HostUriOption { get; } =
