@@ -281,6 +281,8 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                     { "openCount", ruleMetrics.OpenCount },
                     { "reviewCount", ruleMetrics.ReviewCount }
                 };
+
+                this.Logger.LogMetrics(EventIds.WorkItemFiledDetailMetrics, workItemMetrics);
             }
         }
 
