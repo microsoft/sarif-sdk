@@ -4,6 +4,8 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace Microsoft.WorkItems
 {
@@ -20,6 +22,11 @@ namespace Microsoft.WorkItems
             AzureDevOps
         }
 
+        public FilingClient()
+        {
+            this.Logger = ServiceProviderFactory.ServiceProvider.GetService<ILogger<FilingClient>>();
+        }
+
         /// <summary>
         /// The current source control provider.
         /// </summary>
@@ -34,6 +41,11 @@ namespace Microsoft.WorkItems
         /// The Azure DevOps project or GitHub repository name.
         /// </summary>
         public string ProjectOrRepository { get; set; }
+
+        /// <summary>
+        /// The logger to send telemetry to Application Insights.
+        /// </summary>
+        public ILogger Logger { get; }
 
         /// <summary>
         /// Connect to the project in which work items will be filed.

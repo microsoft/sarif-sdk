@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 
 using Microsoft.CodeAnalysis.Sarif;
+using Newtonsoft.Json;
 
 namespace SarifToCsv
 {
@@ -16,7 +17,7 @@ namespace SarifToCsv
     /// </summary>
     public static class SarifCsvColumnWriters
     {
-        private static Dictionary<string, Action<WriteContext>> _writers;
+        private static readonly Dictionary<string, Action<WriteContext>> _writers;
 
         static SarifCsvColumnWriters()
         {
@@ -44,7 +45,44 @@ namespace SarifToCsv
                 string propertyName = columnName.Substring("Properties.".Length);
                 return (c) =>
                 {
-                    if (!c.Result.TryGetProperty(propertyName, out string value)) { value = ""; }
+                    string value = "";
+
+                    if (c.Result.PropertyNames.Contains(propertyName))
+                    {
+                        value = c.Result.GetSerializedPropertyValue(propertyName) ?? "";
+                        if (value.StartsWith("\"")) { value = JsonConvert.DeserializeObject<string>(value); }
+                    }
+
+                    c.Writer.Write(value);
+                };
+            }
+            else if (columnName.StartsWith("PartialFingerprints.", StringComparison.OrdinalIgnoreCase))
+            {
+                string propertyName = columnName.Substring("PartialFingerprints.".Length);
+                return (c) =>
+                {
+                    string value;
+
+                    if (!c.Result.PartialFingerprints.TryGetValue(propertyName, out value))
+                    {
+                        value = "";
+                    }
+                    
+                    c.Writer.Write(value);
+                };
+            }
+            else if (columnName.StartsWith("Fingerprints.", StringComparison.OrdinalIgnoreCase))
+            {
+                string propertyName = columnName.Substring("Fingerprints.".Length);
+                return (c) =>
+                {
+                    string value;
+
+                    if (!c.Result.Fingerprints.TryGetValue(propertyName, out value))
+                    {
+                        value = "";
+                    }
+
                     c.Writer.Write(value);
                 };
             }

@@ -160,7 +160,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No security token was provided. Populate the &apos;SarifWorkItemFilingSecurityToken&apos; environment variable with a valid personal access token or pass a token in a configuration file using the --configuration option.
+        ///   Looks up a localized string similar to No security token was provided. Populate the &apos;SarifWorkItemFilingSecurityPat&apos; environment variable with a valid personal access token or pass a token in a configuration file using the --configuration option.
         /// </summary>
         internal static string WorkItemFiling_NoPatFound {
             get {

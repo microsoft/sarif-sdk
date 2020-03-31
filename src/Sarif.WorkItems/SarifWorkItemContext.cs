@@ -1,19 +1,25 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
-using Microsoft.WorkItems;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
+using Microsoft.WorkItems;
 
 namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 {
-    public class SarifWorkItemContext : PropertiesDictionary
+    public class SarifWorkItemContext : PropertiesDictionary, IDisposable
     {
-        public SarifWorkItemContext() { }
+        public SarifWorkItemContext()
+        {
+            this.AssemblyLocationMap = new Dictionary<string, string>();
+        }
 
         public SarifWorkItemContext(SarifWorkItemContext initializer) : base(initializer) { }
 
         public FilingClient.SourceControlProvider CurrentProvider { get; set; }
+
+        protected Dictionary<string, string> AssemblyLocationMap { get; }
 
         public Uri HostUri
         {
@@ -76,11 +82,17 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         {
             if (this.workItemModelTransformers == null)
             {
+                AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
+
                 this.workItemModelTransformers = new List<SarifWorkItemModelTransformer>();
+
+                var loadedAssemblies = new Dictionary<string, Assembly>();
 
                 foreach (string assemblyLocation in this.GetProperty(PluginAssemblyLocations))
                 {
-                    Assembly.LoadFrom(assemblyLocation);
+                    Assembly a = Assembly.LoadFrom(assemblyLocation);
+                    loadedAssemblies.Add(a.FullName, a);
+                    this.AssemblyLocationMap.Add(a.FullName, Path.GetDirectoryName(Path.GetFullPath(a.Location)));
                 }
 
                 StringSet assemblyAndTypeNames = this.GetProperty(PluginAssemblyQualifiedNames);
@@ -88,13 +100,58 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 {
                     Type type = Type.GetType(assemblyAndTypeName);
 
+                    if (type == null)
+                    {
+                        string assemblyName = assemblyAndTypeName.Substring(assemblyAndTypeName.IndexOf(',') + 1).Trim();
+                        if (loadedAssemblies.TryGetValue(assemblyName, out Assembly loadedAssembly))
+                        {
+                            type = loadedAssembly.GetType(assemblyAndTypeName);
+                        }
+                    }
+
                     SarifWorkItemModelTransformer workItemModelTransformer =
                         (SarifWorkItemModelTransformer)Activator.CreateInstance(type);
 
                     workItemModelTransformers.Add(workItemModelTransformer);
                 }
             }
+
             return this.workItemModelTransformers.AsReadOnly();
+        }
+
+        private Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
+        {
+            // TODO: Thoughtfully instrument this location and others
+            //       in pipeline via current logging mechanism.
+            // 
+            // https://github.com/microsoft/sarif-sdk/issues/1836
+
+            Assembly a = null;
+
+            if (this.AssemblyLocationMap.TryGetValue(args.RequestingAssembly.FullName, out string basePath))
+            {
+                string assemblyFileName = args.Name.Substring(0, args.Name.IndexOf(',')) + ".dll";
+                string assemblyFullPath = Path.Combine(basePath, assemblyFileName);
+
+                if (File.Exists(assemblyFullPath))
+                {
+                    try
+                    {
+                        a = Assembly.Load(assemblyFullPath);
+                    }
+                    catch (IOException) { }
+                    catch (TypeLoadException) { }
+                    catch (BadImageFormatException) { }
+                    catch (UnauthorizedAccessException) { }
+                }
+            }
+
+            return a;
+        }
+
+        public void Dispose()
+        {
+            AppDomain.CurrentDomain.AssemblyResolve -= CurrentDomain_AssemblyResolve;
         }
 
         internal static PerLanguageOption<Uri> HostUriOption { get; } =

@@ -151,6 +151,6 @@
     <value>No host URI was provided via the --host-uri option or as part of an input file specified via --configuration.</value>
   </data>
   <data name="WorkItemFiling_NoPatFound" xml:space="preserve">
-    <value>No security token was provided. Populate the 'SarifWorkItemFilingSecurityToken' environment variable with a valid personal access token or pass a token in a configuration file using the --configuration option</value>
+    <value>No security token was provided. Populate the 'SarifWorkItemFilingPat' environment variable with a valid personal access token or pass a token in a configuration file using the --configuration option</value>
   </data>
 </root>

@@ -35,7 +35,7 @@ namespace Test.EndToEnd.Baselining
             DeleteAndCreateDirectory(Path.Combine(rootPath, OutputDebugFolderName));
 
             // Run all series
-            BaseliningSummary overallSummary = RunUnder(Path.Combine(rootPath, InputFolderName));
+            BaseliningSummary overallSummary = RunUnder(Path.Combine(rootPath, InputFolderName), InputFolderName);
 
             // Write overall summary
             using (StreamWriter writer = File.CreateText(Path.Combine(rootPath, OutputFolderName, SummaryFileName)))
@@ -43,31 +43,38 @@ namespace Test.EndToEnd.Baselining
                 overallSummary.Write(writer);
             }
 
+            Console.WriteLine(overallSummary);
+
+            // Write investigation and accept instructions
+            Console.WriteLine();
+            Console.WriteLine($"REVIEW: windiff \"{Path.GetFullPath(Path.Combine(rootPath, BaseliningTester.ExpectedDebugFolderName))}\" \"{Path.GetFullPath(Path.Combine(rootPath, BaseliningTester.OutputDebugFolderName))}\"");
+            Console.WriteLine($"ACCEPT: robocopy /MIR \"{Path.GetFullPath(Path.Combine(rootPath, BaseliningTester.OutputFolderName))}\" \"{Path.GetFullPath(Path.Combine(rootPath, BaseliningTester.ExpectedFolderName))}\"");
+
             return overallSummary;
         }
 
-        public BaseliningSummary RunUnder(string folderPath)
+        public BaseliningSummary RunUnder(string folderPath, string reportingName)
         {
             BaseliningSummary folderSummary = new BaseliningSummary(Path.GetFileName(folderPath));
 
             // Recurse on subfolders, if found
             foreach (string subfolder in Directory.EnumerateDirectories(folderPath, "*", SearchOption.TopDirectoryOnly))
             {
-                BaseliningSummary part = RunUnder(subfolder);
+                BaseliningSummary part = RunUnder(subfolder, Path.Combine(reportingName, Path.GetFileName(subfolder)));
                 folderSummary.AddComponent(part);
             }
 
-            // Look for logs and sort in Ordinal order
+            // Run series for leaf folders
             if (Directory.EnumerateFiles(folderPath).Any())
             {
-                BaseliningSummary seriesSummary = RunSeries(folderPath);
+                BaseliningSummary seriesSummary = RunSeries(folderPath, reportingName);
                 folderSummary.AddCounts(seriesSummary);
             }
 
             return folderSummary;
         }
 
-        public BaseliningSummary RunSeries(string seriesPath, int debugLogIndex = -1, int debugResultIndex = -1)
+        public BaseliningSummary RunSeries(string seriesPath, string reportingName, int debugLogIndex = -1, int debugResultIndex = -1)
         {
             string outputLogPath = Path.ChangeExtension(seriesPath.Replace($"\\{InputFolderName}\\", $"\\{OutputFolderName}\\"), ".log");
             BaseliningSummary seriesSummary = new BaseliningSummary(Path.GetFileName(seriesPath));
@@ -100,7 +107,7 @@ namespace Test.EndToEnd.Baselining
                     BaseliningSummary fileSummary = new BaseliningSummary(Path.GetFileNameWithoutExtension(current.FilePath));
                     fileSummary.Add(newBaseline, baseline, current.Log);
                     seriesSummary.AddCounts(fileSummary);
-                    logger.Write(newBaseline, baseline, current.Log, fileSummary);
+                    logger.Write(newBaseline, baseline, fileSummary);
 
                     baseline = newBaseline;
                 }
@@ -109,7 +116,7 @@ namespace Test.EndToEnd.Baselining
             EnrichSeries(seriesPath);
 
             string comparisonResult = CompareToExpected(outputLogPath);
-            Console.WriteLine($"{comparisonResult}{seriesSummary.ToString(seriesPath)}");
+            Console.WriteLine($" - {comparisonResult}{seriesSummary.ToString(reportingName)}");
             return seriesSummary;
         }
 
