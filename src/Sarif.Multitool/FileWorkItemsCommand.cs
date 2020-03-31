@@ -179,7 +179,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             if (string.IsNullOrEmpty(workItemFilingConfiguration.PersonalAccessToken))
             {
-                // "No security token was provided. Populate the 'SarifWorkItemFilingPath' environment 
+                // "No security token was provided. Populate the 'SarifWorkItemFilingPat' environment 
                 // variable with a valid personal access token or pass a token in a configuration file using
                 // the --configuration arguement."
                 Console.Error.WriteLine(MultitoolResources.WorkItemFiling_NoPatFound);
