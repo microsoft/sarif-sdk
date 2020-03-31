@@ -21,29 +21,29 @@ namespace Microsoft.WorkItems
         [Fact]
         public void CreateFilingTarget_ThrowsIfUriPatternIsNotRecognized()
         {
-            Uri projectUri = new Uri("https://www.example.com/myOrg/myProject");
+            Uri hostUri = new Uri("https://www.example.com/myOrg/myProject");
 
-            Action action = () => FilingClientFactory.Create(projectUri);
+            Action action = () => FilingClientFactory.Create(hostUri);
 
-            action.Should().Throw<ArgumentException>().WithMessage($"*{projectUri}*");
+            action.Should().Throw<ArgumentException>().WithMessage($"*{hostUri}*");
         }
 
         [Fact]
         public void CreateFilingTarget_ThrowsIfUriIncludesAdditionalPathSegments()
         {
-            Uri projectUri = new Uri("https://github.com/myOrg/myProject/issues");
+            Uri hostUri = new Uri("https://github.com/myOrg/myProject/issues");
 
-            Action action = () => FilingClientFactory.Create(projectUri);
+            Action action = () => FilingClientFactory.Create(hostUri);
 
-            action.Should().Throw<ArgumentException>().WithMessage($"*{projectUri}*");
+            action.Should().Throw<ArgumentException>().WithMessage($"*{hostUri}*");
         }
 
         [Fact]
         public void CreateFilingTarget_CreatesGitHubFilingTarget()
         {
-            Uri projectUri = new Uri("https://github.com/myOrg/myProject");
+            Uri hostUri = new Uri("https://github.com/myOrg/myProject");
 
-            FilingClient filingTarget = FilingClientFactory.Create(projectUri);
+            FilingClient filingTarget = FilingClientFactory.Create(hostUri);
 
             filingTarget.Should().BeOfType<GitHubFilingClient>();
             string.IsNullOrEmpty(filingTarget.ProjectOrRepository).Should().BeFalse();
@@ -53,9 +53,9 @@ namespace Microsoft.WorkItems
         [Fact]
         public void CreateFilingTarget_CreatesAzureDevOpsFilingTarget()
         {
-            Uri projectUri = new Uri("https://dev.azure.com/myOrg/myProject");
+            Uri hostUri = new Uri("https://dev.azure.com/myOrg/myProject");
 
-            FilingClient filingTarget = FilingClientFactory.Create(projectUri);
+            FilingClient filingTarget = FilingClientFactory.Create(hostUri);
 
             filingTarget.Should().BeOfType<AzureDevOpsFilingClient>();
             string.IsNullOrEmpty(filingTarget.ProjectOrRepository).Should().BeFalse();
@@ -65,9 +65,9 @@ namespace Microsoft.WorkItems
         [Fact]
         public void CreateFilingTarget_CreatesLegacyAzureDevOpsFilingTarget()
         {
-            Uri projectUri = new Uri("https://myorg.visualstudio.com/myProject");
+            Uri hostUri = new Uri("https://myorg.visualstudio.com/myProject");
 
-            FilingClient filingTarget = FilingClientFactory.Create(projectUri);
+            FilingClient filingTarget = FilingClientFactory.Create(hostUri);
 
             filingTarget.ProjectOrRepository.Should().NotBeNull();
             string.IsNullOrEmpty(filingTarget.ProjectOrRepository).Should().BeFalse();

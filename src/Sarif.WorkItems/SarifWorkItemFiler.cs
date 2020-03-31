@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.ApplicationInsights.Channel;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
@@ -178,46 +179,27 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             // based on the current sarif log file that we're processing.
             // First intializes the contexts provider to the value in the current filing client.
             filingContext.CurrentProvider = filingClient.Provider;
-            var workItemModel = new SarifWorkItemModel(sarifLog, filingContext);
+            var sarifWorkItemModel = new SarifWorkItemModel(sarifLog, filingContext);
 
             try
             {
                 // Populate the work item with the target organization/repository information.
                 // In ADO, certain fields (such as the area path) will defaut to the 
                 // project name and so this information is used in at least that context.
-                workItemModel.OwnerOrAccount = filingClient.AccountOrOrganization;
-                workItemModel.RepositoryOrProject = filingClient.ProjectOrRepository;
+                sarifWorkItemModel.OwnerOrAccount = filingClient.AccountOrOrganization;
+                sarifWorkItemModel.RepositoryOrProject = filingClient.ProjectOrRepository;
 
-                foreach (SarifWorkItemModelTransformer transformer in workItemModel.Context.Transformers)
+                foreach (SarifWorkItemModelTransformer transformer in sarifWorkItemModel.Context.Transformers)
                 {
-                    transformer.Transform(workItemModel);
+                    transformer.Transform(sarifWorkItemModel);
                 }
 
-                Task<IEnumerable<WorkItemModel>> task = filingClient.FileWorkItems(new[] { workItemModel });
+                Task<IEnumerable<WorkItemModel>> task = filingClient.FileWorkItems(new[] { sarifWorkItemModel });
                 task.Wait();
-
-                var workItemMetrics = new Dictionary<string, object>
-                {
-                    { "result", task.Result.ToString() },
-                    { "area", workItemModel.Area },
-                    { "assignees", workItemModel.Assignees },
-                    { "bodyOrDescription", workItemModel.BodyOrDescription },
-                    { "commentOrDiscussion", workItemModel.CommentOrDiscussion },
-                    { "context", workItemModel.Context },
-                    { "htmlURI", workItemModel.HtmlUri },
-                    { "iteration", workItemModel.Iteration },
-                    { "labelsOrTags", workItemModel.LabelsOrTags.ToString() },
-                    { "locationUri", workItemModel.LocationUri },
-                    { "milestone", workItemModel.Milestone },
-                    { "ownerOrAccount", workItemModel.OwnerOrAccount },
-                    { "repositoryOrProject", workItemModel.RepositoryOrProject },
-                    { "title", workItemModel.Title },
-                    { "uri", workItemModel.Uri },
-                };
-
-                this.Logger.LogMetrics(EventIds.WorkItemMetrics, workItemMetrics);
-
                 this.FiledWorkItems.AddRange(task.Result);
+
+                LogMetricsForFiledWorkItem(sarifWorkItemModel);
+
 
                 // IMPORTANT: as we update our partitioned logs, we are actually modifying the input log file 
                 // as well. That's because our partitioning is configured to reuse references to existing
@@ -225,24 +207,8 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 // This approach also us to update the original log file with the filed work item details
                 // without requiring us to build a map of results between the original log and its
                 // partioned log files.
-
-                foreach (Run run in sarifLog.Runs)
-                {
-                    if (run.Results == null) { continue; }
-
-                    foreach (Result result in run.Results)
-                    {
-                        result.WorkItemUris ??= new List<Uri>();
-                        result.WorkItemUris.Add(workItemModel.HtmlUri);
-
-                        result.TryGetProperty(PROGRAMMABLE_URIS_PROPERTY_NAME, out List<Uri> programmableUris);
-
-                        programmableUris ??= new List<Uri>();
-                        programmableUris.Add(workItemModel.Uri);
-
-                        result.SetProperty(PROGRAMMABLE_URIS_PROPERTY_NAME, programmableUris);
-                    }
-                }
+                //
+                UpdateLogWithWorkItemDetails(sarifLog, sarifWorkItemModel.HtmlUri, sarifWorkItemModel.Uri);
 
                 this.FilingSucceeded = true;
             }
@@ -250,6 +216,50 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             {
                 Console.Error.WriteLine(ex);
             }
+        }
+
+        private static void UpdateLogWithWorkItemDetails(SarifLog sarifLog, Uri htmlUri, Uri uri)
+        {
+            foreach (Run run in sarifLog.Runs)
+            {
+                if (run.Results == null) { continue; }
+
+                foreach (Result result in run.Results)
+                {
+                    result.WorkItemUris ??= new List<Uri>();
+                    result.WorkItemUris.Add(htmlUri);
+
+                    result.TryGetProperty(PROGRAMMABLE_URIS_PROPERTY_NAME, out List<Uri> programmableUris);
+
+                    programmableUris ??= new List<Uri>();
+                    programmableUris.Add(uri);
+
+                    result.SetProperty(PROGRAMMABLE_URIS_PROPERTY_NAME, programmableUris);
+                }
+            }
+        }
+
+        private void LogMetricsForFiledWorkItem(SarifWorkItemModel sarifWorkItemModel)
+        {
+            var workItemMetrics = new Dictionary<string, object>
+                {
+                    { "area", sarifWorkItemModel.Area },
+                    { "assignees", sarifWorkItemModel.Assignees },
+                    { "bodyOrDescription", sarifWorkItemModel.BodyOrDescription },
+                    { "commentOrDiscussion", sarifWorkItemModel.CommentOrDiscussion },
+                    { "context", sarifWorkItemModel.Context },
+                    { "htmlUri", sarifWorkItemModel.HtmlUri },
+                    { "iteration", sarifWorkItemModel.Iteration },
+                    { "labelsOrTags", sarifWorkItemModel.LabelsOrTags.ToString() },
+                    { "locationUri", sarifWorkItemModel.LocationUri },
+                    { "milestone", sarifWorkItemModel.Milestone },
+                    { "ownerOrAccount", sarifWorkItemModel.OwnerOrAccount },
+                    { "repositoryOrProject", sarifWorkItemModel.RepositoryOrProject },
+                    { "title", sarifWorkItemModel.Title },
+                    { "uri", sarifWorkItemModel.Uri },
+                };
+
+            this.Logger.LogMetrics(EventIds.WorkItemMetrics, workItemMetrics);
         }
 
         public void Dispose()

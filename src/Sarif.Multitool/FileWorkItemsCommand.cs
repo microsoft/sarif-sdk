@@ -113,7 +113,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             // If it succeeds, we can assign the result to a Uri-valued property (persisted in the
             // context object); if it fails, we can produce a helpful error message.
 
-            valid &= ValidateProjectUri(options.ProjectUri, sarifWorkItemContext);
+            valid &= ValidateHostUri(options.HostUri, sarifWorkItemContext);
 
             valid &= options.ValidateOutputOptions();
 
@@ -127,18 +127,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             return valid;
         }
 
-        private static bool ValidateProjectUri(string projectUriString, SarifWorkItemContext workItemFilingConfiguration)
+        private static bool ValidateHostUri(string hostUriString, SarifWorkItemContext workItemFilingConfiguration)
         {
-            if (string.IsNullOrEmpty(projectUriString) && workItemFilingConfiguration.HostUri == null)
+            if (string.IsNullOrEmpty(hostUriString) && workItemFilingConfiguration.HostUri == null)
             {
                 // No project URI was provided via the --project-uri argument or as
                 // part of an input file specified via --configuration.
-                Console.Error.WriteLine(MultitoolResources.WorkItemFiling_NoProjectUriSpecified);
+                Console.Error.WriteLine(MultitoolResources.WorkItemFiling_NoHostUriSpecified);
                 return false;
             }
 
-            Uri projectUri = null;
-            if (!string.IsNullOrEmpty(projectUriString) && !Uri.TryCreate(projectUriString, UriKind.RelativeOrAbsolute, out projectUri))
+            Uri hostUri = null;
+            if (!string.IsNullOrEmpty(hostUriString) && !Uri.TryCreate(hostUriString, UriKind.RelativeOrAbsolute, out hostUri))
             {
                 // A valid URI could not be created from the value '{0}' of the '{1}' option.
                 Console.Error.WriteLine(MultitoolResources.WorkItemFiling_ErrorUriIsNotLegal);
@@ -146,12 +146,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
 
             // Any command-line argument that's provided overrides values specified in the configuration.
-            workItemFilingConfiguration.HostUri = projectUri ?? workItemFilingConfiguration.HostUri;
+            workItemFilingConfiguration.HostUri = hostUri ?? workItemFilingConfiguration.HostUri;
 
 
             if (!workItemFilingConfiguration.HostUri.IsAbsoluteUri)
             {
-                string optionDescription = projectUri != null ? "--project-uri" : "--configuration";
+                string optionDescription = hostUri != null ? "--project-uri" : "--configuration";
 
                 // The value '{0}' of the '{1}' option is not an absolute URI.
                 Console.Error.WriteLine(

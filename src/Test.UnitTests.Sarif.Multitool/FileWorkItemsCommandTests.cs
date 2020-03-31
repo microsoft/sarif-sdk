@@ -184,7 +184,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 },
 
                 new TestCase {
-                    Title = "Missing projectUri",
+                    Title = "Missing hostUri",
                     Args = new string[] {
                         "file-work-items",
                         "--inline",
@@ -205,10 +205,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 },
 
                 new TestCase {
-                    Title = "Relative projectUri",
+                    Title = "Relative hostUri",
                     Args = new string[] {
                         "file-work-items",
-                       "--project-uri",
+                       "--host-uri",
                         "dev.azure.com/my-org/my-project",
                         "--inline",
                         "test.sarif"
