@@ -196,6 +196,27 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 Task<IEnumerable<WorkItemModel>> task = filingClient.FileWorkItems(new[] { workItemModel });
                 task.Wait();
 
+                var workItemMetrics = new Dictionary<string, object>
+                {
+                    { "result", task.Result.ToString() },
+                    { "area", workItemModel.Area },
+                    { "assignees", workItemModel.Assignees },
+                    { "bodyOrDescription", workItemModel.BodyOrDescription },
+                    { "commentOrDiscussion", workItemModel.CommentOrDiscussion },
+                    { "context", workItemModel.Context },
+                    { "htmlURI", workItemModel.HtmlUri },
+                    { "iteration", workItemModel.Iteration },
+                    { "labelsOrTags", workItemModel.LabelsOrTags.ToString() },
+                    { "locationUri", workItemModel.LocationUri },
+                    { "milestone", workItemModel.Milestone },
+                    { "ownerOrAccount", workItemModel.OwnerOrAccount },
+                    { "repositoryOrProject", workItemModel.RepositoryOrProject },
+                    { "title", workItemModel.Title },
+                    { "uri", workItemModel.Uri },
+                };
+
+                this.Logger.LogMetrics(EventIds.WorkItemMetrics, workItemMetrics);
+
                 this.FiledWorkItems.AddRange(task.Result);
 
                 // IMPORTANT: as we update our partitioned logs, we are actually modifying the input log file 

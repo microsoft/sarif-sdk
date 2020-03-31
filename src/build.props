@@ -24,7 +24,7 @@
       NOTE: Version in scripts/BuildMultitoolForNpm.ps1 also has to be updated for each release
       until it adopts the same versions as the SDK itself.
     -->
-    <VersionPrefix>2.2.2</VersionPrefix>
+    <VersionPrefix>2.2.3</VersionPrefix>
     <PreviousVersionPrefix>2.2.1</PreviousVersionPrefix>
 
      <!-- SchemaVersionAsPublishedToSchemaStoreOrg identifies the current published version on json schema store at https://schemastore.azurewebsites.net/schemas/json/ -->
