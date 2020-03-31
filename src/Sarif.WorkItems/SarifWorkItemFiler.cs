@@ -198,8 +198,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 task.Wait();
                 this.FiledWorkItems.AddRange(task.Result);
 
-                LogMetricsForFiledWorkItem(sarifWorkItemModel);
-
+                LogMetricsForFiledWorkItem(sarifLog, sarifWorkItemModel);
 
                 // IMPORTANT: as we update our partitioned logs, we are actually modifying the input log file 
                 // as well. That's because our partitioning is configured to reuse references to existing
@@ -239,10 +238,14 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             }
         }
 
-        private void LogMetricsForFiledWorkItem(SarifWorkItemModel sarifWorkItemModel)
+        private void LogMetricsForFiledWorkItem(SarifLog sarifLog, SarifWorkItemModel sarifWorkItemModel)
         {
+            string guid = Guid.NewGuid().ToString();
+            string tags = string.Join(",", sarifWorkItemModel.LabelsOrTags);
+
             var workItemMetrics = new Dictionary<string, object>
                 {
+                    { "correlatingGuid", guid },
                     { "area", sarifWorkItemModel.Area },
                     { "assignees", sarifWorkItemModel.Assignees },
                     { "bodyOrDescription", sarifWorkItemModel.BodyOrDescription },
@@ -250,7 +253,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                     { "context", sarifWorkItemModel.Context },
                     { "htmlUri", sarifWorkItemModel.HtmlUri },
                     { "iteration", sarifWorkItemModel.Iteration },
-                    { "labelsOrTags", sarifWorkItemModel.LabelsOrTags.ToString() },
+                    { "labelsOrTags", tags },
                     { "locationUri", sarifWorkItemModel.LocationUri },
                     { "milestone", sarifWorkItemModel.Milestone },
                     { "ownerOrAccount", sarifWorkItemModel.OwnerOrAccount },
@@ -259,7 +262,98 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                     { "uri", sarifWorkItemModel.Uri },
                 };
 
-            this.Logger.LogMetrics(EventIds.WorkItemMetrics, workItemMetrics);
+            this.Logger.LogMetrics(EventIds.WorkItemFiledCoreMetrics, workItemMetrics);
+
+            Dictionary<string, RuleMetrics> ruleIdToMetricsMap = CreateRuleMetricsMap(sarifLog);
+
+            foreach (string tool in ruleIdToMetricsMap.Keys)
+            {
+                RuleMetrics ruleMetrics = ruleIdToMetricsMap[tool];
+
+                var workItemDetailMetrics = new Dictionary<string, object>
+                {
+                    { "correlatingGuid", guid },
+                    { "tool", sarifWorkItemModel.Area },
+                    { "ruleId", sarifWorkItemModel.Assignees },
+                    { "errorCount", ruleMetrics.ErrorCount },
+                    { "warningCount", ruleMetrics.WarningCount },
+                    { "noteCount", ruleMetrics.NoteCount },
+                    { "openCount", ruleMetrics.OpenCount },
+                    { "reviewCount", ruleMetrics.ReviewCount }
+                };
+            }
+        }
+
+        private static Dictionary<string, RuleMetrics> CreateRuleMetricsMap(SarifLog sarifLog)
+        {
+            var ruleIdToRuleMetricsMap = new Dictionary<string, RuleMetrics>();
+
+            foreach (Run run in sarifLog.Runs)
+            {
+                if (run.Results == null) { continue; }
+
+                string toolName = run.Tool.Driver.Name;
+
+                foreach (Result result in run.Results)
+                {
+                    // Our system expects that results which should not be
+                    // filed have been filtered from the log file
+                    Debug.Assert(result.ShouldBeFiled());
+
+                    string ruleId = result.GetRule(run).Id;
+                    string key = toolName + ruleId;
+
+                    if (!ruleIdToRuleMetricsMap.TryGetValue(key, out RuleMetrics ruleMetrics))
+                    {
+                        ruleIdToRuleMetricsMap[key] = ruleMetrics = new RuleMetrics();
+                    }
+
+                    if (result.Kind == ResultKind.Open)
+                    {
+                        ruleMetrics.OpenCount++;
+                        continue;
+                    }
+
+                    if (result.Kind == ResultKind.Review)
+                    {
+                        ruleMetrics.ReviewCount++;
+                        continue;
+                    }
+
+                    switch (result.Level)
+                    {
+                        case FailureLevel.Error:
+                        {
+                            ruleMetrics.ErrorCount++;
+                            break;
+                        }
+                        case FailureLevel.Warning:
+                        {
+                            ruleMetrics.WarningCount++;
+                            break;
+                        }
+                        case FailureLevel.Note:
+                        {
+                            ruleMetrics.NoteCount++;
+                            break;
+                        }
+                        case FailureLevel.None:
+                        {
+                            throw new InvalidOperationException();
+                        }
+                    }
+                }
+            }
+            return ruleIdToRuleMetricsMap;
+        }
+
+        private class RuleMetrics
+        {
+            public int ErrorCount;
+            public int WarningCount;
+            public int NoteCount;
+            public int OpenCount;
+            public int ReviewCount;
         }
 
         public void Dispose()

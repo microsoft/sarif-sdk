@@ -8,6 +8,7 @@ namespace Microsoft.WorkItems.Logging
     public static class EventIds
     {
         public static EventId LogsToProcessMetrics => new EventId(9001, nameof(LogsToProcessMetrics));
-        public static EventId WorkItemMetrics => new EventId(9002, nameof(WorkItemMetrics));
+        public static EventId WorkItemFiledCoreMetrics => new EventId(9002, nameof(WorkItemFiledCoreMetrics));
+        public static EventId WorkItemFiledDetailMetrics => new EventId(9003, nameof(WorkItemFiledDetailMetrics));
     }
 }

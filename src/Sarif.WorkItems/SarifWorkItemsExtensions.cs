@@ -98,24 +98,6 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 .Select(r => r?.Results?.Count)
                 .Sum() ?? 0;
         }
-
-        public static ISet<string> GetAggregateRuleIds(this SarifLog log)
-        {
-            HashSet<string> ruleIds = new HashSet<string>();
-
-            if (log.Runs == null) { return ruleIds; };
-
-            foreach (Run run in log.Runs)
-            {
-                if (run.Results == null) { continue; }
-
-                foreach (Result result in run.Results)
-                {
-                    ruleIds.Add(result.GetRule(run).Id);
-                }
-            }
-            return ruleIds;
-        }
         
         public static string CreateWorkItemDescription(this SarifLog log, Uri locationUri)
         {

@@ -52,7 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     Title = "AzureDevOps host",
                     Args = new string[] {
                         "file-work-items",
-                        "--project-uri",
+                        "--host-uri",
                         "https://github.com/my-org/my-project",
                         "--inline",
                         "test.sarif"
@@ -64,7 +64,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     Title = "GitHub host",
                     Args = new string[] {
                         "file-work-items",
-                        "--project-uri",
+                        "--host-uri",
                         "https://dev.azure.com/my-org/my-project",
                         "--inline",
                         "test.sarif"
@@ -76,7 +76,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     Title = "Output file",
                     Args = new string[] {
                         "file-work-items",
-                        "--project-uri",
+                        "--host-uri",
                         "https://dev.azure.com/my-org/my-project",
                         "--output",
                         "test-output.sarif",
@@ -90,7 +90,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     Title = "Implicit splitting strategy",
                     Args = new string[] {
                         "file-work-items",
-                        "--project-uri",
+                        "--host-uri",
                         "https://github.com/my-org/my-project",
                         "--inline",
                         "test.sarif"
@@ -102,7 +102,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     Title = "Explicit 'PerResult' splitting strategy",
                     Args = new string[] {
                         "file-work-items",
-                        "--project-uri",
+                        "--host-uri",
                         "https://github.com/my-org/my-project",
                         "--inline",
                         "test.sarif",
@@ -116,7 +116,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     Title = "Explicit 'PerRun' splitting strategy",
                     Args = new string[] {
                         "file-work-items",
-                        "--project-uri",
+                        "--host-uri",
                         "https://github.com/my-org/my-project",
                         "--inline",
                         "test.sarif",
@@ -130,7 +130,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     Title = "Explicit 'None' splitting strategy",
                     Args = new string[] {
                         "file-work-items",
-                        "--project-uri",
+                        "--host-uri",
                         "https://github.com/my-org/my-project",
                         "--inline",
                         "test.sarif",
@@ -144,7 +144,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     Title = "PerRunPerRule splitting strategy",
                     Args = new string[] {
                         "file-work-items",
-                        "--project-uri",
+                        "--host-uri",
                         "https://github.com/my-org/my-project",
                         "--inline",
                         "test.sarif",
@@ -158,7 +158,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     Title = "PerRunPerTargetPerRun splitting strategy",
                     Args = new string[] {
                         "file-work-items",
-                        "--project-uri",
+                        "--host-uri",
                         "https://github.com/my-org/my-project",
                         "--inline",
                         "test.sarif",
@@ -173,7 +173,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     Title = "Non-existent splitting strategy",
                     Args = new string[] {
                         "file-work-items",
-                        "--project-uri",
+                        "--host-uri",
                         "https://github.com/my-org/my-project",
                         "--inline",
                         "test.sarif",
@@ -197,7 +197,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     Title = "Missing inputFile",
                     Args = new string[] {
                         "file-work-items",
-                        "--project-uri",
+                        "--host-uri",
                         "https://dev.azure.com/my-org/my-project",
                         "--inline"
                     },
@@ -220,7 +220,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     Title = "Both output and inline",
                     Args = new string[] {
                         "file-work-items",
-                        "--project-uri",
+                        "--host-uri",
                         "https://dev.azure.com/my-org/my-project",
                         "--output",
                         "test-output.sarif",
@@ -234,7 +234,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     Title = "Neither output nor inline",
                     Args = new string[] {
                         "file-work-items",
-                        "--project-uri",
+                        "--host-uri",
                         "https://dev.azure.com/my-org/my-project",
                         "test.sarif"
                     },
