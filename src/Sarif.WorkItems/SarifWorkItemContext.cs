@@ -8,7 +8,7 @@ using Microsoft.WorkItems;
 
 namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 {
-    public class SarifWorkItemContext : PropertiesDictionary
+    public class SarifWorkItemContext : PropertiesDictionary, IDisposable
     {
         public SarifWorkItemContext()
         {
@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
         public FilingClient.SourceControlProvider CurrentProvider { get; set; }
 
-        public Dictionary<string, string> AssemblyLocationMap { get; }
+        protected Dictionary<string, string> AssemblyLocationMap { get; }
 
         public Uri HostUri
         {
@@ -82,17 +82,17 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         {
             if (this.workItemModelTransformers == null)
             {
+                AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
+
                 this.workItemModelTransformers = new List<SarifWorkItemModelTransformer>();
 
-                Dictionary<string, Assembly> loadedAssemblies = new Dictionary<string, Assembly>();
+                var loadedAssemblies = new Dictionary<string, Assembly>();
 
                 foreach (string assemblyLocation in this.GetProperty(PluginAssemblyLocations))
                 {
                     Assembly a = Assembly.LoadFrom(assemblyLocation);
                     loadedAssemblies.Add(a.FullName, a);
                     this.AssemblyLocationMap.Add(a.FullName, Path.GetDirectoryName(Path.GetFullPath(a.Location)));
-
-                    AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
                 }
 
                 StringSet assemblyAndTypeNames = this.GetProperty(PluginAssemblyQualifiedNames);
@@ -115,11 +115,19 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                     workItemModelTransformers.Add(workItemModelTransformer);
                 }
             }
+
             return this.workItemModelTransformers.AsReadOnly();
         }
 
         private Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
         {
+            // TODO: Thoughtfully instrument this location and others
+            //       in pipeline via current logging mechanism.
+            // 
+            // https://github.com/microsoft/sarif-sdk/issues/1836
+
+            Assembly a = null;
+
             if (this.AssemblyLocationMap.TryGetValue(args.RequestingAssembly.FullName, out string basePath))
             {
                 string assemblyFileName = args.Name.Substring(0, args.Name.IndexOf(',')) + ".dll";
@@ -127,12 +135,23 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
                 if (File.Exists(assemblyFullPath))
                 {
-                    Assembly a = Assembly.Load(assemblyFullPath);
-                    return a;
+                    try
+                    {
+                        a = Assembly.Load(assemblyFullPath);
+                    }
+                    catch (IOException) { }
+                    catch (TypeLoadException) { }
+                    catch (BadImageFormatException) { }
+                    catch (UnauthorizedAccessException) { }
                 }
             }
 
-            return null;
+            return a;
+        }
+
+        public void Dispose()
+        {
+            AppDomain.CurrentDomain.AssemblyResolve -= CurrentDomain_AssemblyResolve;
         }
 
         internal static PerLanguageOption<Uri> HostUriOption { get; } =

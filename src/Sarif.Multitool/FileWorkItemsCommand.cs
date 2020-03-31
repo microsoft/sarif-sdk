@@ -35,56 +35,58 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public int Run(FileWorkItemsOptions options, IFileSystem fileSystem)
         {
-            var filingContext = new SarifWorkItemContext();
-            if (!string.IsNullOrEmpty(options.ConfigurationFilePath))
+            using (var filingContext = new SarifWorkItemContext())
             {
-                filingContext.LoadFromXml(options.ConfigurationFilePath);
-            }
+                if (!string.IsNullOrEmpty(options.ConfigurationFilePath))
+                {
+                    filingContext.LoadFromXml(options.ConfigurationFilePath);
+                }
 
-            if (!ValidateOptions(options, filingContext, fileSystem))
-            {
-                return FAILURE;
-            }
+                if (!ValidateOptions(options, filingContext, fileSystem))
+                {
+                    return FAILURE;
+                }
 
-            // For unit tests: allow us to just validate the options and return.
-            if (s_validateOptionsOnly) { return SUCCESS; }
+                // For unit tests: allow us to just validate the options and return.
+                if (s_validateOptionsOnly) { return SUCCESS; }
 
-            string logFileContents = fileSystem.ReadAllText(options.InputFilePath);
-            EnsureValidSarifLogFile(logFileContents, options.InputFilePath);
+                string logFileContents = fileSystem.ReadAllText(options.InputFilePath);
+                EnsureValidSarifLogFile(logFileContents, options.InputFilePath);
 
-            if (options.SplittingStrategy != SplittingStrategy.None)
-            {
-                filingContext.SplittingStrategy = options.SplittingStrategy;
-            }
+                if (options.SplittingStrategy != SplittingStrategy.None)
+                {
+                    filingContext.SplittingStrategy = options.SplittingStrategy;
+                }
 
-            if (options.DataToRemove.ToFlags() != OptionallyEmittedData.None)
-            {
-                filingContext.DataToRemove = options.DataToRemove.ToFlags();
-            }
+                if (options.DataToRemove.ToFlags() != OptionallyEmittedData.None)
+                {
+                    filingContext.DataToRemove = options.DataToRemove.ToFlags();
+                }
 
-            if (options.DataToInsert.ToFlags() != OptionallyEmittedData.None)
-            {
-                filingContext.DataToInsert = options.DataToInsert.ToFlags();
-            }
+                if (options.DataToInsert.ToFlags() != OptionallyEmittedData.None)
+                {
+                    filingContext.DataToInsert = options.DataToInsert.ToFlags();
+                }
 
-            SarifLog sarifLog = null;
-            using (var filer = new SarifWorkItemFiler(filingContext.HostUri, filingContext))
-            {
-                sarifLog = filer.FileWorkItems(logFileContents);
-            }
+                SarifLog sarifLog = null;
+                using (var filer = new SarifWorkItemFiler(filingContext.HostUri, filingContext))
+                {
+                    sarifLog = filer.FileWorkItems(logFileContents);
+                }
 
-            // By the time we're here, we have updated options.OutputFilePath with the 
-            // options.InputFilePath argument (in the presence of --inline) and validated
-            // that we can write to this location with one exception: we do not currently
-            // handle inlining to a read-only location.
-            string outputFilePath = options.OutputFilePath;
-            if (!string.IsNullOrEmpty(outputFilePath))
-            {
-                Formatting formatting = options.PrettyPrint ? Formatting.Indented : Formatting.None;
+                // By the time we're here, we have updated options.OutputFilePath with the 
+                // options.InputFilePath argument (in the presence of --inline) and validated
+                // that we can write to this location with one exception: we do not currently
+                // handle inlining to a read-only location.
+                string outputFilePath = options.OutputFilePath;
+                if (!string.IsNullOrEmpty(outputFilePath))
+                {
+                    Formatting formatting = options.PrettyPrint ? Formatting.Indented : Formatting.None;
 
-                string sarifLogText = JsonConvert.SerializeObject(sarifLog, formatting);
+                    string sarifLogText = JsonConvert.SerializeObject(sarifLog, formatting);
 
-                fileSystem.WriteAllText(outputFilePath, sarifLogText);                
+                    fileSystem.WriteAllText(outputFilePath, sarifLogText);
+                }
             }
 
             return SUCCESS;
