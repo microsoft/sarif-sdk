@@ -94,12 +94,12 @@ namespace Test.EndToEnd.Baselining
         // (There are too many to include all of them all the time)
         private string DetailsHeading()
         {
-            return $"{PadTo(17, "RID")} | RuleID    | {PadTo(40, "Uri+Region")} | Hash     | Snippet";
+            return $"{PadTo(17, "RID")} | RuleID    | {PadTo(70, "Uri+Region")} | {PadTo(8, "Hash")} | {PadTo(60, "Snippet")}";
         }
 
         private string Details(Result result)
         {
-            return $" | {result.ResolvedRuleId(result.Run)} | {PadTo(40, result.FirstLocation())} | {result.PartialFingerprint("SecretHash/v1", 8)} | {result.Snippet(16)}";
+            return $" | {result.ResolvedRuleId(result.Run)} | {PadTo(70, result.FirstLocation())} | {result.FirstPartialFingerprint(8)} | {result.Snippet(60)}";
         }
 
         private string PadTo(int length, string value)

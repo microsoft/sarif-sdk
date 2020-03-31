@@ -45,7 +45,7 @@ namespace Test.EndToEnd.Baselining
             }
         }
 
-        public void Write(SarifLog newBaselineLog, SarifLog baselineLog, SarifLog currentLog, BaseliningSummary summary)
+        public void Write(SarifLog newBaselineLog, SarifLog baselineLog, BaseliningSummary summary)
         {
             Dictionary<string, Result> baselineResultsByGuid = new Dictionary<string, Result>();
             foreach(Result result in baselineLog.EnumerateResults())
