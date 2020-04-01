@@ -73,6 +73,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="TestData\Readers\elfie-arriba-utf8-bom.sarif" />
     <EmbeddedResource Include="TestData\Baseline\elfie-arriba.sarif" />
     <EmbeddedResource Include="TestData\Baseline\SuppressionTestCurrent.sarif" />
     <EmbeddedResource Include="TestData\Baseline\SuppressionTestPrevious.sarif" />

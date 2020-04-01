@@ -250,7 +250,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
             var indexRemappingVisitor = new RemapIndicesVisitor(currentArtifacts: null, currentLogicalLocations: null);
 
-            properties = properties ?? new Dictionary<string, SerializedPropertyInfo>();
+            properties ??= new Dictionary<string, SerializedPropertyInfo>();
 
             List<Result> newRunResults = new List<Result>();
             foreach (MatchedResults resultPair in results)
@@ -274,18 +274,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                     if (reportingDescriptors.TryGetValue(ruleId, out int ruleIndex))
                     {
                         result.RuleIndex = ruleIndex;
-                        result.RuleId = ruleId;
                     }
                     else
                     {
                         ReportingDescriptor rule = result.GetRule(resultPair.Run);
+                        int newIndex = reportingDescriptors.Count;
 
-                        result.RuleIndex = reportingDescriptors.Count;
-                        reportingDescriptors[ruleId] = reportingDescriptors.Count;
+                        reportingDescriptors[ruleId] = newIndex;
 
-                        run.Tool.Driver.Rules = run.Tool.Driver.Rules ?? new List<ReportingDescriptor>();
+                        run.Tool.Driver.Rules ??= new List<ReportingDescriptor>();
                         run.Tool.Driver.Rules.Add(rule);
+
+                        result.RuleIndex = newIndex;
                     }
+
+                    result.RuleId = ruleId;
                 }
 
                 newRunResults.Add(result);

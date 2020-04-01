@@ -46,7 +46,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             ReportingDescriptor rule = null;
 
             // Build lookup if not built or possibly out-of-date
-            if (_cachedRulesByGuid == null || !_cachedRulesByGuid.TryGetValue(ruleGuid, out rule))
+            if (_cachedRulesByGuid?.TryGetValue(ruleGuid, out rule) != true)
             {
                 BuildRuleCaches();
                 _cachedRulesByGuid.TryGetValue(ruleGuid, out rule);

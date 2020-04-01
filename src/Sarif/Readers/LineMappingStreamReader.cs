@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
     ///  in the part of the file currently read. This allows it to map a line and char back to a byte offset
     ///  to allow consumers to seek back to the position later.
     /// </summary>
-    public class LineMappingStreamReader : StreamReader
+    internal class LineMappingStreamReader : StreamReader
     {
         // Track bytes read before the current read (to return absolute line offsets) and in the current read
         private long _bytesReadPreviously;
