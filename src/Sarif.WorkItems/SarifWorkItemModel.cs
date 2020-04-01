@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
-using Microsoft.TeamFoundation.Common;
 using Microsoft.WorkItems;
 using Newtonsoft.Json;
 
