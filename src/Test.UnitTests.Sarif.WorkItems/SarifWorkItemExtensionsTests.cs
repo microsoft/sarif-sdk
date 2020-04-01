@@ -57,7 +57,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         public void SarifWorkItemExtensions_CreateWorkItemTitle_LongTitleFromUrl()
         {
             string ruleId = "TestRuleId";
-            string expected = ":Warning]: TestRuleId (in alaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...)";
+            string expected = ":Warning]: TestRuleId: Test Rule (in alaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...)";
 
             Result result = new Result();
             ArtifactLocation artifactLocation = new ArtifactLocation(new Uri("al" + new string('a', 1024), UriKind.Relative), string.Empty, 0, new Message(), new Dictionary<string, SerializedPropertyInfo>());
@@ -91,19 +91,19 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             run.Results.Add(result);
 
             // A logical location longer than 128 char is truncated with ellipses
-            string expected = ":Warning]: TestRuleId (in 'llbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb...')";
+            string expected = ":Warning]: TestRuleId: Test Rule (in 'llbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb...')";
             result.Locations[0].LogicalLocation.FullyQualifiedName = "ll" + new string('b', 1024);
             string title = sarifLog.Runs[0].CreateWorkItemTitle();
             title.Should().EndWith(expected);
 
             // A logical location that's a path is truncated to it's file name
-            expected = ":Warning]: TestRuleId (in '0123456789')";
+            expected = ":Warning]: TestRuleId: Test Rule (in '0123456789')";
             result.Locations[0].LogicalLocation.FullyQualifiedName = "ll" + new string('b', 1024) + "\\0123456789";
             title = sarifLog.Runs[0].CreateWorkItemTitle();
             title.Should().EndWith(expected);
 
             // A logical location that's a path is truncated using its full path
-            expected = ":Warning]: TestRuleId (in 'll0123456789\\cccccccccccccccccccccccccccccccccccccccccccccc...')";
+            expected = ":Warning]: TestRuleId: Test Rule (in 'll0123456789\\ccccccccccccccccccccccccccccccccccc...')";
             result.Locations[0].LogicalLocation.FullyQualifiedName = "ll0123456789\\" + new string('c', 1024);
             title = sarifLog.Runs[0].CreateWorkItemTitle();
             title.Should().EndWith(expected);
