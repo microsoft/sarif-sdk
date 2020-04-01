@@ -247,10 +247,8 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 {
                     { "correlatingGuid", guid },
                     { "area", sarifWorkItemModel.Area },
-                    { "assignees", sarifWorkItemModel.Assignees },
                     { "bodyOrDescription", sarifWorkItemModel.BodyOrDescription },
                     { "commentOrDiscussion", sarifWorkItemModel.CommentOrDiscussion },
-                    { "context", sarifWorkItemModel.Context },
                     { "htmlUri", sarifWorkItemModel.HtmlUri },
                     { "iteration", sarifWorkItemModel.Iteration },
                     { "labelsOrTags", tags },
