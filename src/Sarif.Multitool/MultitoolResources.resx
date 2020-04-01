@@ -147,10 +147,10 @@
   <data name="WorkItemFiling_ErrorUriIsNotLegal" xml:space="preserve">
     <value>A valid URI could not be created from the value '{0}' of the '{1}' option.</value>
   </data>
+  <data name="WorkItemFiling_NoHostUriSpecified" xml:space="preserve">
+    <value>No host URI was provided via the --host-uri option or as part of an input file specified via --configuration.</value>
+  </data>
   <data name="WorkItemFiling_NoPatFound" xml:space="preserve">
     <value>No security token was provided. Populate the 'SarifWorkItemFilingPat' environment variable with a valid personal access token or pass a token in a configuration file using the --configuration option</value>
-  </data>
-  <data name="WorkItemFiling_NoProjectUriSpecified" xml:space="preserve">
-    <value>No project URI was provided via the --project-uri option or as part of an input file specified via --configuration.</value>
   </data>
 </root>

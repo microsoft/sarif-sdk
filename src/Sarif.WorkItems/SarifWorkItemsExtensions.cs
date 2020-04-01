@@ -109,16 +109,20 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
         public static List<string> GetToolNames(this SarifLog log)
         {
-            return log?.Runs?.Where(r => r?.Results?.Count > 0).Select(r => r.Tool?.Driver?.Name).Distinct().ToList();
+            return log?.Runs?
+                .Where(r => r?.Results?.Count > 0)
+                .Select(r => r.Tool?.Driver?.Name)
+                .Distinct()
+                .ToList();
         }
 
         public static int GetAggregateResultCount(this SarifLog log)
         {
-            return log?.Runs?.Select(r => r?.Results?.Count).Sum() ?? 0;
+            return log?.Runs?
+                .Select(r => r?.Results?.Count)
+                .Sum() ?? 0;
         }
-
         
-
         public static string CreateWorkItemDescription(this SarifLog log, Uri locationUri)
         {
             int totalResults = log.GetAggregateResultCount();
