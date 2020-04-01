@@ -271,14 +271,14 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
         {
             // If there's a PartialFingerprint which is useless (the same for every result),
             // the baseliner needs to recognize the situation and disregard that partialFingerprint. 
-            
+
             // Spam had this issue with CanonicalLogicalLocation in JSON files where
             // all user content is in one place (WorkItemHyperLink -> "url")
 
             Run firstRun = SampleRun.DeepClone();
             Run secondRun = SampleRun.DeepClone();
 
-            foreach(Result result in firstRun.Results)
+            foreach (Result result in firstRun.Results)
             {
                 // Give each result a unique (non-matching) and constant fingerprint
                 result.PartialFingerprints.Clear();
@@ -359,6 +359,55 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
 
             existingResultNewlyUnsuppressed.Suppressions.Should().BeNull();
             AssertMatchedRunInvariants(matchedRun);
+        }
+
+        [Fact]
+        public void V2ResultMatcher_RuleLookupAndPorting()
+        {
+            // Verify all Results have RuleId and RuleIndex set after baselining (this log has RuleId only)
+            Run matchedRun = CreateMatchedRun(SuppressionTestPreviousLog, SuppressionTestCurrentLog);
+            VerifyResultRules(matchedRun);
+
+            // Change Results to correct RuleIndex only
+            SarifLog indexOnlyRun = SuppressionTestCurrentLog.DeepClone();
+            SetResultRuleIndexOnly(indexOnlyRun.Runs[0]);
+
+            // Baseline with RuleIndex only and verify RuleId and RuleIndex set after baselining
+            matchedRun = CreateMatchedRun(indexOnlyRun, SuppressionTestCurrentLog);
+            VerifyResultRules(matchedRun);
+        }
+
+        private void VerifyResultRules(Run run)
+        {
+            Assert.NotNull(run?.Tool?.Driver?.Rules);
+
+            foreach (Result result in run.Results)
+            {
+                // Verify all Results have had RuleId and RuleIndex set
+                Assert.NotNull(result.RuleId);
+                Assert.True(result.RuleIndex >= 0);
+
+                // Verify the correct Rule (with matching Id) is at the specified index
+                Assert.Equal(result.RuleId, run.Tool.Driver.Rules[result.RuleIndex].Id);
+            }
+        }
+
+        private void SetResultRuleIndexOnly(Run run)
+        {
+            Dictionary<string, int> ruleIndexByRuleId = new Dictionary<string, int>();
+
+            for (int i = 0; i < run.Tool.Driver.Rules.Count; ++i)
+            {
+                ReportingDescriptor rule = run.Tool.Driver.Rules[i];
+                ruleIndexByRuleId[rule.Id] = i;
+            }
+
+            foreach (Result result in run.Results)
+            {
+                result.RuleIndex = ruleIndexByRuleId[result.ResolvedRuleId(run)];
+                result.RuleId = null;
+                result.Rule = null;
+            }
         }
 
         /// <summary>

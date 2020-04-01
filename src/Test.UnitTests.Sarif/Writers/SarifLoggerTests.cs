@@ -129,7 +129,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 string commandLine = Environment.CommandLine;
                 string lowerCaseCommandLine = commandLine.ToLower();
 
-                if (lowerCaseCommandLine.Contains("testhost.dll") || lowerCaseCommandLine.Contains("\\xunit.console") || lowerCaseCommandLine.Contains("testhost.x86.exe"))
+                if (lowerCaseCommandLine.Contains("testhost.") || lowerCaseCommandLine.Contains("\\xunit.console"))
                 {
                     int index = commandLine.LastIndexOf("\\");
                     string argumentToRedact = commandLine.Substring(0, index + 1);

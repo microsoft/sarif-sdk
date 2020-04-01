@@ -41,13 +41,53 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         // Track and attempt to correct for it.
         private readonly OverflowCorrector _overflowCorrector;
 
-        public LineMappingStreamReader(Stream stream) : base(stream)
+        public LineMappingStreamReader(Stream stream) : base(FindBomWidth(stream, out int bomWidth))
         {
+            // Record the width of any BOM, so that byte offsets we return are correct (base StreamReader will read and hide BOM)
+            _bytesReadPreviously = bomWidth;
+
             // (1, 1) is the 0th byte, so the line number before the read is 1 and there is one character (the newline before the first line) before the first read.
             _firstLineNumber = 1;
             _firstLineCharsBeforeBuffer = 1;
 
             _overflowCorrector = new OverflowCorrector();
+        }
+
+        private static Stream FindBomWidth(Stream stream, out int bomWidth)
+        {
+            long previousPosition = stream.Position;
+
+            // Read four bytes
+            byte[] buffer = new byte[4];
+            stream.Seek(0, SeekOrigin.Begin);
+            int countRead = stream.Read(buffer, 0, 4);
+
+            // Check for BOMs and record byte count
+            if (buffer[0] == 0xFE && buffer[1] == 0xFF)
+            {
+                bomWidth = 2;
+            }
+            else if(buffer[0] == 0xFF && buffer[1] == 0xFE)
+            {
+                bomWidth = 2;
+            }
+            else if(buffer[0] == 0xEF && buffer[1] == 0xBB && buffer[2] == 0xBF)
+            {
+                bomWidth = 3;
+            }
+            else if(buffer[0] == 0x00 && buffer[1] == 0x00 && buffer[2] == 0xFE && buffer[3] == 0xFF)
+            {
+                bomWidth = 4;
+            }
+            else
+            {
+                bomWidth = 0;
+            }
+
+            // Restore the stream to the prior position
+            stream.Seek(previousPosition, SeekOrigin.Begin);
+
+            return stream;
         }
 
         public long LineAndCharToOffset(int line, long charInLine)

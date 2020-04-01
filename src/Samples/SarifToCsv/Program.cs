@@ -40,6 +40,7 @@ namespace SarifToCsv
                 string csvFilePath = (args.Length > 1 ? args[1] : Path.ChangeExtension(args[0], ".csv"));
                 IEnumerable<string> columnNames = (args.Length > 2 ? args[2] : ConfigurationManager.AppSettings["ColumnNames"]).Split(',').Select((value) => value.Trim());
                 bool removeNewlines = bool.Parse(ValueOrDefault(ConfigurationManager.AppSettings["RemoveNewlines"], "false"));
+                bool loadDeferred = bool.Parse(ValueOrDefault(ConfigurationManager.AppSettings["LoadDeferred"], "true"));
 
                 IEnumerable<Action<WriteContext>> selectedWriters = columnNames.Select((name) => SarifCsvColumnWriters.GetWriter(name)).ToArray();
 
@@ -47,7 +48,10 @@ namespace SarifToCsv
                 Stopwatch w = Stopwatch.StartNew();
 
                 JsonSerializer serializer = new JsonSerializer();
-                serializer.ContractResolver = new SarifDeferredContractResolver();
+                if (loadDeferred)
+                {
+                    serializer.ContractResolver = new SarifDeferredContractResolver();
+                }
 
                 using (CsvWriter writer = new CsvWriter(csvFilePath))
                 {

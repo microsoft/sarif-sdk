@@ -67,24 +67,25 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return GetRuleByIndex(rules, this.RuleIndex);
                 }
 
-                // Look up by this.RuleDescriptor.Index, if present
+                // Look up by this.Rule.Index, if present
                 if (this.Rule?.Index >= 0)
                 {
                     return GetRuleByIndex(rules, this.Rule.Index);
                 }
 
-                // Look up by this.RuleDescriptor, Guid, if present
-                if (!string.IsNullOrEmpty(this.Rule?.Guid))
+                // Look up by this.Rule.Guid, if present
+                if (!string.IsNullOrEmpty(this.Rule?.Guid) && rules != null)
                 {
-                    if (rules != null)
-                    {
-                        foreach (ReportingDescriptor rule in rules)
-                        {
-                            if (rule.Guid == this.Rule.Guid) { return rule; }
-                        }
+                    ReportingDescriptor rule = component.GetRuleByGuid(this.Rule.Guid);
+                    if (rule != null) { return rule; }
+                }
 
-                        throw new ArgumentException($"ReportingDescriptorReference referred to Guid {this.Rule.Guid}, which was not found in toolComponent.Rules.");
-                    }
+                // Look up by this.RuleId or this.Rule.Id, if present
+                string ruleId = this.RuleId ?? this.Rule?.Id;
+                if (ruleId != null && rules != null)
+                {
+                    ReportingDescriptor rule = component.GetRuleById(ruleId);
+                    if (rule != null) { return rule; }
                 }
             }
 

@@ -107,5 +107,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                 return (JObject)serializer.Deserialize(jsonReader);
             }
         }
+
+        [Fact]
+        public void LineMappingStreamReader_BomHandling()
+        {
+            string sampleFilePath = "elfie-arriba-utf8-bom.sarif";
+            ResourceExtractor extractor = new ResourceExtractor(typeof(LineMappingStreamReaderTests));
+            File.WriteAllBytes(sampleFilePath, extractor.GetResourceBytes("elfie-arriba-utf8-bom.sarif"));
+
+            // Read the Json with a LineMappingStreamReader
+            using (LineMappingStreamReader streamReader = new LineMappingStreamReader(File.OpenRead(sampleFilePath)))
+            using (JsonTextReader jsonReader = new JsonTextReader(streamReader))
+            {
+                // Get into the top object
+                jsonReader.Read();
+
+                // Root element - index 3 (due to three BOM bytes)
+                long position = streamReader.LineAndCharToOffset(jsonReader.LineNumber, jsonReader.LinePosition);
+
+                Assert.Equal(3, position);
+            }
+        }
     }
 }

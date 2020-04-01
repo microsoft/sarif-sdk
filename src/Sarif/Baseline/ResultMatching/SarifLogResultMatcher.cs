@@ -246,11 +246,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 properties = currentRuns.Last().Properties;
             }
 
-            var reportingDescriptors = new Dictionary<ReportingDescriptor, int>(ReportingDescriptor.ValueComparer);
+            var reportingDescriptors = new Dictionary<string, int>();
 
             var indexRemappingVisitor = new RemapIndicesVisitor(currentArtifacts: null, currentLogicalLocations: null);
 
-            properties = properties ?? new Dictionary<string, SerializedPropertyInfo>();
+            properties ??= new Dictionary<string, SerializedPropertyInfo>();
 
             List<Result> newRunResults = new List<Result>();
             foreach (MatchedResults resultPair in results)
@@ -268,24 +268,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 indexRemappingVisitor.HistoricalLogicalLocations = resultPair.Run.LogicalLocations;
                 indexRemappingVisitor.VisitResult(result);
 
-                if (result.RuleIndex != -1)
+                string ruleId = result.ResolvedRuleId(resultPair.Run);
+                if (!string.IsNullOrEmpty(ruleId))
                 {
-                    ReportingDescriptor rule = result.GetRule(resultPair.Run);
-                    if (rule != null)
+                    if (reportingDescriptors.TryGetValue(ruleId, out int ruleIndex))
                     {
-                        if (reportingDescriptors.TryGetValue(rule, out int ruleIndex))
-                        {
-                            result.RuleIndex = ruleIndex;
-                        }
-                        else
-                        {
-                            result.RuleIndex = reportingDescriptors.Count;
-                            reportingDescriptors[rule] = reportingDescriptors.Count;
-
-                            run.Tool.Driver.Rules = run.Tool.Driver.Rules ?? new List<ReportingDescriptor>();
-                            run.Tool.Driver.Rules.Add(rule);
-                        }
+                        result.RuleIndex = ruleIndex;
                     }
+                    else
+                    {
+                        ReportingDescriptor rule = result.GetRule(resultPair.Run);
+                        int newIndex = reportingDescriptors.Count;
+
+                        reportingDescriptors[ruleId] = newIndex;
+
+                        run.Tool.Driver.Rules ??= new List<ReportingDescriptor>();
+                        run.Tool.Driver.Rules.Add(rule);
+
+                        result.RuleIndex = newIndex;
+                    }
+
+                    result.RuleId = ruleId;
                 }
 
                 newRunResults.Add(result);
