@@ -80,10 +80,10 @@ namespace Microsoft.WorkItems.Logging
 
             values.Count.Should().Be(customDimensions.Count);
 
-            string sentinalValue = "<empty>";
-            ((IEnumerable<KeyValuePair<string, object>>)values).Single(v => v.Key == "Empty").Value.Should().Be(sentinalValue);
-            ((IEnumerable<KeyValuePair<string, object>>)values).Single(v => v.Key == "Null1").Value.Should().Be(sentinalValue);
-            ((IEnumerable<KeyValuePair<string, object>>)values).Single(v => v.Key == "Null2").Value.Should().Be(sentinalValue);
+            string sentinelValue = "<empty>";
+            ((IEnumerable<KeyValuePair<string, object>>)values).Single(v => v.Key == "Empty").Value.Should().Be(sentinelValue);
+            ((IEnumerable<KeyValuePair<string, object>>)values).Single(v => v.Key == "Null1").Value.Should().Be(sentinelValue);
+            ((IEnumerable<KeyValuePair<string, object>>)values).Single(v => v.Key == "Null2").Value.Should().Be(sentinelValue);
             ((IEnumerable<KeyValuePair<string, object>>)values).Single(v => v.Key == "HasValue").Value.Should().Be(3);
         }
     }
