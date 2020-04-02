@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using FluentAssertions;
 using Microsoft.ApplicationInsights.DataContracts;
 using Microsoft.Extensions.Logging;
@@ -62,6 +63,28 @@ namespace Microsoft.WorkItems.Logging
             {
                 kvp.Value.Should().Be(customDimensions[kvp.Key]);
             }
+        }
+
+        [Fact]
+        public void MetricsLogValues_NullOrEmptyAllCustomDimensions()
+        {
+            string message = "Original";
+            EventId eventId = new EventId(1);
+            Dictionary<string, object> customDimensions = new Dictionary<string, object>();
+            customDimensions.Add("Empty", "");
+            customDimensions.Add("Null1", (string)null);
+            customDimensions.Add("Null2", (object)null);
+            customDimensions.Add("HasValue", 3);
+
+            MetricsLogValues values = new MetricsLogValues(message, eventId, customDimensions);
+
+            values.Count.Should().Be(customDimensions.Count);
+
+            string sentinelValue = "<empty>";
+            ((IEnumerable<KeyValuePair<string, object>>)values).Single(v => v.Key == "Empty").Value.Should().Be(sentinelValue);
+            ((IEnumerable<KeyValuePair<string, object>>)values).Single(v => v.Key == "Null1").Value.Should().Be(sentinelValue);
+            ((IEnumerable<KeyValuePair<string, object>>)values).Single(v => v.Key == "Null2").Value.Should().Be(sentinelValue);
+            ((IEnumerable<KeyValuePair<string, object>>)values).Single(v => v.Key == "HasValue").Value.Should().Be(3);
         }
     }
 }

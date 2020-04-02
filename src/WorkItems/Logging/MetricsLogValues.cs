@@ -43,6 +43,19 @@ namespace Microsoft.WorkItems.Logging
                 throw new ArgumentOutOfRangeException(nameof(values), $"The {nameof(values)} dictionary cannot be null or empty.");
             }
 
+            foreach (string key in values.Keys.ToArray())
+            {
+                object value = values[key];
+
+                if (value == null || value is string)
+                {
+                    if (string.IsNullOrEmpty(value as string))
+                    {
+                        values[key] = "<empty>";
+                    }
+                }
+            }
+
             _originalMessage = format;
             _values = values.ToList();
             _eventId = eventId;
