@@ -87,10 +87,17 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 this.workItemModelTransformers = new List<SarifWorkItemModelTransformer>();
 
                 var loadedAssemblies = new Dictionary<string, Assembly>();
+                var thisAssemblyDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
                 foreach (string assemblyLocation in this.GetProperty(PluginAssemblyLocations))
                 {
-                    Assembly a = Assembly.LoadFrom(assemblyLocation);
+                    string assemblyPath = assemblyLocation;
+                    if (!Path.IsPathRooted(assemblyLocation))
+                    {
+                        assemblyPath = Path.GetFullPath(Path.Combine(thisAssemblyDirectory, assemblyLocation));
+                    }
+
+                    Assembly a = Assembly.LoadFrom(assemblyPath);
                     loadedAssemblies.Add(a.FullName, a);
                     this.AssemblyLocationMap.Add(a.FullName, Path.GetDirectoryName(Path.GetFullPath(a.Location)));
                 }
