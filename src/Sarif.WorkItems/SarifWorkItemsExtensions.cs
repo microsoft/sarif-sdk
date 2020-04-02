@@ -116,16 +116,17 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 .ToList();
         }
 
-        public static int GetAggregateResultCount(this SarifLog log)
+        public static int GetAggregateFilableResultsCount(this SarifLog log)
         {
             return log?.Runs?
-                .Select(r => r?.Results?.Count)
+                .Select(run => run?.Results?
+                    .Select(result => result.ShouldBeFiled() ? 1 : 0).Sum())
                 .Sum() ?? 0;
         }
         
         public static string CreateWorkItemDescription(this SarifLog log, Uri locationUri)
         {
-            int totalResults = log.GetAggregateResultCount();
+            int totalResults = log.GetAggregateFilableResultsCount();
             List<string> toolNames = log.GetToolNames();
             string phrasedToolNames = toolNames.ToAndPhrase();
             string multipleToolsFooter = toolNames.Count > 1 ? WorkItemsResources.MultipleToolsFooter : string.Empty;

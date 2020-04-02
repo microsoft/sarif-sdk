@@ -12,7 +12,9 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 {
     public class SarifWorkItemModel : WorkItemModel<SarifWorkItemContext>
     {
-        public Uri LocationUri { get; private set; }
+        public SarifLog SarifLog { get; private set; }
+
+        public IList<Uri> LocationUris { get; private set; }
 
         // The sarifLog parameter contains exactly a set of results that are intended to be filed as a single work item 
         // and this log will be attached to the work item.
@@ -20,16 +22,18 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         {
             if (sarifLog == null) { throw new ArgumentNullException(nameof(sarifLog)); }
 
+            this.SarifLog = sarifLog;
             this.Context = context ?? new SarifWorkItemContext();
 
             var visitor = new ExtractAllArtifactLocationsVisitor();
             visitor.VisitSarifLog(sarifLog);
+
             foreach (ArtifactLocation location in visitor.AllArtifactLocations)
             {
                 if (location?.Uri != null)
                 {
-                    LocationUri = location.Uri;
-                    break;
+                    LocationUris ??= new List<Uri>();
+                    LocationUris.Add(location.Uri);
                 }
             }
 
@@ -58,7 +62,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             this.CommentOrDiscussion = $"Default {nameof(this.CommentOrDiscussion)}";
 
             string descriptionFooter = !string.IsNullOrEmpty(this.Context.BugFooter) ? this.Context.BugFooter : CreateBugFooter(); 
-            this.BodyOrDescription = string.Join(Environment.NewLine, sarifLog.CreateWorkItemDescription(LocationUri), descriptionFooter);
+            this.BodyOrDescription = string.Join(Environment.NewLine, sarifLog.CreateWorkItemDescription(LocationUris[0]), descriptionFooter);
 
             // These properties are Azure DevOps-specific. All ADO work item board
             // area paths are rooted by the project name, as are iterations.
