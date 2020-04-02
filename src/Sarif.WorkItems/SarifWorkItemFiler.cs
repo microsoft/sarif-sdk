@@ -262,6 +262,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             string workItemGuid = Guid.NewGuid().ToString();
             string logGuid = sarifLog.GetProperty<Guid>("guid").ToString();
             string tags = string.Join(",", sarifWorkItemModel.LabelsOrTags);
+            string uris = string.Join(",", sarifWorkItemModel.LocationUris);
 
             var workItemMetrics = new Dictionary<string, object>
                 {
@@ -274,7 +275,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                     { "htmlUri", sarifWorkItemModel.HtmlUri },
                     { "iteration", sarifWorkItemModel.Iteration },
                     { "labelsOrTags", tags },
-                    { "locationUri", sarifWorkItemModel.LocationUris },
+                    { "locationUri", uris },
                     { "milestone", sarifWorkItemModel.Milestone },
                     { "ownerOrAccount", sarifWorkItemModel.OwnerOrAccount },
                     { "repositoryOrProject", sarifWorkItemModel.RepositoryOrProject },
