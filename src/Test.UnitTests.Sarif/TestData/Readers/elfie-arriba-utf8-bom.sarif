@@ -1,0 +1,236 @@
+﻿{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.4.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "results": [
+        {
+          "ruleId": "CSCAN0050/0",
+          "ruleIndex": 0,
+          "message": {
+            "text": "An apparent PFX certificate file was found in 'server.key'."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Code/elfie-arriba/XForm/XForm.Web/node_modules/node-gyp/test/fixtures/server.key",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 20,
+                  "charOffset": 0,
+                  "charLength": 20,
+                  "snippet": {
+                    "text": "-----BEGIN PRIVATE K"
+                  }
+                }
+              }
+            }
+          ],
+          "guid": "d0e26f09-c783-4abf-a195-e634778c59c3",
+          "partialFingerprints": {
+            "SecretHash/v1": "ZpQcXkWWtAe4lPc64hZnbn+1O+Uv2v3o/7iZojeBd5o=",
+            "SecretHash/v2": "187bc5ee853e84fae5764c5abbf3c170d0ce417465d7b3817fea30908be3fc82"
+          }
+        },
+        {
+          "ruleId": "CSCAN0060/0",
+          "ruleIndex": 1,
+          "message": {
+            "text": "An apparent PEM certificate file with private key was found in 'key.pem'."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Code/elfie-arriba/XForm/XForm.Web/node_modules/eventsource/test/key.pem",
+                  "index": 1
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 31,
+                  "charOffset": 0,
+                  "charLength": 31,
+                  "snippet": {
+                    "text": "-----BEGIN RSA PRIVATE KEY-----"
+                  }
+                }
+              }
+            }
+          ],
+          "guid": "e3d5c8f3-fddf-414a-874a-590e52ccd46e",
+          "partialFingerprints": {
+            "SecretHash/v1": "fdZwTjfxyQHIYf+BmyPXyLEOqdG4U2NLBuFNLckqc/s=",
+            "SecretHash/v2": "31a9d2ebe99fda6bb960be39abf9219b38ddfacb7d790f3e968b86da13f51a34"
+          }
+        },
+        {
+          "ruleId": "CSCAN0060/0",
+          "ruleIndex": 1,
+          "message": {
+            "text": "An apparent PEM certificate file with private key was found in 'test_key.pem'."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Code/elfie-arriba/XForm/XForm.Web/node_modules/public-encrypt/test/test_key.pem",
+                  "index": 2
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 31,
+                  "charOffset": 0,
+                  "charLength": 31,
+                  "snippet": {
+                    "text": "-----BEGIN RSA PRIVATE KEY-----"
+                  }
+                }
+              }
+            }
+          ],
+          "guid": "42a15196-8657-4735-abfe-d029fef1d54c",
+          "partialFingerprints": {
+            "SecretHash/v1": "fdZwTjfxyQHIYf+BmyPXyLEOqdG4U2NLBuFNLckqc/s=",
+            "SecretHash/v2": "31a9d2ebe99fda6bb960be39abf9219b38ddfacb7d790f3e968b86da13f51a34"
+          }
+        },
+        {
+          "ruleId": "CSCAN0060/0",
+          "ruleIndex": 1,
+          "message": {
+            "text": "An apparent PEM certificate file with private key was found in 'test_rsa_privkey.pem'."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Code/elfie-arriba/XForm/XForm.Web/node_modules/public-encrypt/test/test_rsa_privkey.pem",
+                  "index": 3
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 31,
+                  "charOffset": 0,
+                  "charLength": 31,
+                  "snippet": {
+                    "text": "-----BEGIN RSA PRIVATE KEY-----"
+                  }
+                }
+              }
+            }
+          ],
+          "guid": "cca22fc9-7f58-4656-9947-563dc85fadfc",
+          "partialFingerprints": {
+            "SecretHash/v1": "fdZwTjfxyQHIYf+BmyPXyLEOqdG4U2NLBuFNLckqc/s=",
+            "SecretHash/v2": "31a9d2ebe99fda6bb960be39abf9219b38ddfacb7d790f3e968b86da13f51a34"
+          }
+        },
+        {
+          "ruleId": "CSCAN0060/0",
+          "ruleIndex": 1,
+          "message": {
+            "text": "An apparent PEM certificate file with private key was found in 'test_rsa_privkey_encrypted.pem'."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Code/elfie-arriba/XForm/XForm.Web/node_modules/public-encrypt/test/test_rsa_privkey_encrypted.pem",
+                  "index": 4
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 31,
+                  "charOffset": 0,
+                  "charLength": 31,
+                  "snippet": {
+                    "text": "-----BEGIN RSA PRIVATE KEY-----"
+                  }
+                }
+              }
+            }
+          ],
+          "guid": "5fa3d8b7-9762-483e-a455-8b529ae8b0cb",
+          "partialFingerprints": {
+            "SecretHash/v1": "fdZwTjfxyQHIYf+BmyPXyLEOqdG4U2NLBuFNLckqc/s=",
+            "SecretHash/v2": "31a9d2ebe99fda6bb960be39abf9219b38ddfacb7d790f3e968b86da13f51a34"
+          }
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "Spam",
+          "fullName": "Spam 1.2.23.0",
+          "version": "1.2.23.0",
+          "semanticVersion": "1.2.23",
+          "rules": [
+            {
+              "id": "CSCAN0050",
+              "name": "PfxFile"
+            },
+            {
+              "id": "CSCAN0060",
+              "name": "PemFile"
+            }
+          ],
+          "properties": {
+            "CompanyName": "Microsoft",
+            "ProductName": "Spam"
+          }
+        }
+      },
+      "invocations": [
+        {
+          "commandLine": "C:\\Code\\spam\\src\\bin\\Debug\\netcoreapp2.1\\win-x64\\Spam.dll C:\\Code\\elfie-arriba C:\\Code\\elfie-arriba.sarif",
+          "startTimeUtc": "2020-03-04T22:18:23.634Z",
+          "endTimeUtc": "2020-03-04T22:18:23.837Z",
+          "executionSuccessful": true,
+          "workingDirectory": {
+            "uri": "file:///C:/Code/spam/src/bin/Debug/netcoreapp2.1/win-x64"
+          }
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///C:/Code/elfie-arriba/XForm/XForm.Web/node_modules/node-gyp/test/fixtures/server.key"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/Code/elfie-arriba/XForm/XForm.Web/node_modules/eventsource/test/key.pem"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/Code/elfie-arriba/XForm/XForm.Web/node_modules/public-encrypt/test/test_key.pem"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/Code/elfie-arriba/XForm/XForm.Web/node_modules/public-encrypt/test/test_rsa_privkey.pem"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/Code/elfie-arriba/XForm/XForm.Web/node_modules/public-encrypt/test/test_rsa_privkey_encrypted.pem"
+          }
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}

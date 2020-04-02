@@ -5,7 +5,26 @@
     {
       "tool": {
         "driver": {
-          "name": "CodeScanner"
+          "name": "CodeScanner",
+          "rules": [
+            {
+              "id": "TST0001",
+              "fullDescription": { "text": "Rule 001" }
+            },
+            {
+              "id": "TST0002",
+              "fullDescription": { "text": "Rule 002" }
+            },
+            {
+              "id": "TST0003",
+              "fullDescription": { "text": "Rule 003" }
+            },
+            {
+              "id": "TST0004",
+              "fullDescription": { "text": "Rule 004" }
+            }
+
+          ]
         }
       },
       "results": [

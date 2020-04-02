@@ -102,7 +102,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             title.Should().EndWith(expected);
 
             // A logical location that's a path is truncated to it's file name
-            expected = ":Warning]: TestRuleId (in '0123456789')";
+            expected = ":Warning]: TestRuleId: Test Rule (in '0123456789')";
             result.Locations[0].LogicalLocation.FullyQualifiedName = "ll" + new string('b', 1024) + "\\0123456789";
             title = sarifLog.Runs[0].CreateWorkItemTitle();
             title.Should().EndWith(expected);
