@@ -56,7 +56,7 @@ namespace Microsoft.WorkItems.Logging
 
         private static void LogMessage(this ILogger logger, LogLevel logLevel, string message, IDictionary<string, object> customDimensions, Exception exception = null)
         {
-            if (!string.IsNullOrEmpty(message))
+            if (string.IsNullOrEmpty(message))
             {
                 throw new ArgumentNullException(nameof(message));
             }
