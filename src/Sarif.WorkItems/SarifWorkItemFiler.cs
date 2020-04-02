@@ -262,7 +262,9 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             string workItemGuid = Guid.NewGuid().ToString();
             string logGuid = sarifLog.GetProperty<Guid>("guid").ToString();
             string tags = string.Join(",", sarifWorkItemModel.LabelsOrTags);
-            string uris = string.Join(",", sarifWorkItemModel.LocationUris);
+            string uris = sarifWorkItemModel.LocationUris?.Count > 0
+                ? string.Join(",", sarifWorkItemModel.LocationUris)
+                : "";
 
             var workItemMetrics = new Dictionary<string, object>
                 {
