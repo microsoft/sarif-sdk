@@ -191,15 +191,15 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             var context = new SarifWorkItemContext();
             SarifLog sarifLog = TestData.CreateOneIdThreeLocations();
 
-            int resultCount = sarifLog.GetAggregateResultCount();
+            int resultCount = sarifLog.GetAggregateFilableResultsCount();
             resultCount.Should().Be(1);
 
             sarifLog = TestData.CreateTwoRunThreeResultLog();
-            resultCount = sarifLog.GetAggregateResultCount();
+            resultCount = sarifLog.GetAggregateFilableResultsCount();
             resultCount.Should().Be(3);
 
             sarifLog = TestData.CreateEmptyRun();
-            resultCount = sarifLog.GetAggregateResultCount();
+            resultCount = sarifLog.GetAggregateFilableResultsCount();
             resultCount.Should().Be(0);
 
         }

@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
+using Microsoft.CodeAnalysis.WorkItems;
 using Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models;
 using Microsoft.VisualStudio.Services.WebApi;
 using Microsoft.VisualStudio.Services.WebApi.Patch.Json;
@@ -175,7 +176,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             // for exceptions and other negative conditions. I wouldn't expect this
             // little helper to survive but it closes the loop for the current
             // rudimentary in-flight implementation.
-            filer.FilingSucceeded.Should().BeTrue();
+            filer.FilingResult.Should().Be(FilingResult.Succeeded);
 
             filer.FiledWorkItems.Count.Should().Be(expectedWorkItemsCount);
 

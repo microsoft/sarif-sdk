@@ -102,11 +102,13 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
         public class Munger : SarifWorkItemModelTransformer
         {
-            public override void Transform(SarifWorkItemModel workItemModel)
+            public override SarifWorkItemModel Transform(SarifWorkItemModel workItemModel)
             {
                 string newAreaPath = workItemModel.Context.GetProperty(NewAreaPath);
 
                 workItemModel.Area = !string.IsNullOrEmpty(newAreaPath) ? newAreaPath : workItemModel.Area;
+
+                return workItemModel;
             }
 
             public static PerLanguageOption<string> NewAreaPath { get; } =
@@ -117,11 +119,13 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
         public class AreaPathFromUri : SarifWorkItemModelTransformer
         {
-            public override void Transform(SarifWorkItemModel workItemModel)
+            public override SarifWorkItemModel Transform(SarifWorkItemModel workItemModel)
             {
-                string newAreaPath = workItemModel.LocationUri?.OriginalString;
+                string newAreaPath = workItemModel.LocationUris?[0]?.OriginalString;
 
                 workItemModel.Area = !string.IsNullOrEmpty(newAreaPath) ? newAreaPath : workItemModel.Area;
+
+                return workItemModel;
             }
         }
     }

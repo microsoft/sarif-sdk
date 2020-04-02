@@ -9,7 +9,7 @@ namespace Microsoft.CodeAnalysis.Test.Plugins
 {
     public class TestWorkItemModelTransformer : SarifWorkItemModelTransformer
     {
-        public override void Transform(SarifWorkItemModel workItemModel)
+        public override SarifWorkItemModel Transform(SarifWorkItemModel workItemModel)
         {
             workItemModel.LabelsOrTags = workItemModel.LabelsOrTags ?? new List<string>();
 
@@ -17,6 +17,8 @@ namespace Microsoft.CodeAnalysis.Test.Plugins
             {
                 workItemModel.LabelsOrTags.Add(additionalTag);
             }
+
+            return workItemModel;
         }
 
         internal static PerLanguageOption<StringSet> AdditionalTags { get; } =

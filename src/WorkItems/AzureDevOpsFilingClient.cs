@@ -150,7 +150,7 @@ namespace Microsoft.WorkItems
                     string workItemKind = "Bug";
 
                     Console.WriteLine($"Creating work item: {workItemModel.Title}");
-                    workItem = await _witClient.CreateWorkItemAsync(patchDocument, project: this.ProjectOrRepository, workItemKind);
+                    workItem = await _witClient.CreateWorkItemAsync(patchDocument, project: workItemModel.RepositoryOrProject, workItemKind);
                     workItemModel.Uri = new Uri(workItem.Url, UriKind.Absolute);
                 }
                 catch (Exception e)

@@ -19,6 +19,6 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         // TODO: make this async in the next iteration of the pipeline design
         //
         // 
-        public abstract void Transform(SarifWorkItemModel workItemModel);
+        public abstract SarifWorkItemModel Transform(SarifWorkItemModel workItemModel);
     }
 }

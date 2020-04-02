@@ -5,10 +5,10 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.ApplicationInsights.Channel;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
+using Microsoft.CodeAnalysis.WorkItems;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.WorkItems;
@@ -54,7 +54,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
         public List<WorkItemModel> FiledWorkItems { get; private set; }
 
-        public bool FilingSucceeded { get; private set; }
+        public FilingResult FilingResult { get; private set; }
 
         internal ILogger Logger { get; }
 
@@ -90,9 +90,13 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
         public virtual SarifLog FileWorkItems(SarifLog sarifLog)
         {
+            sarifLog = sarifLog ?? throw new ArgumentNullException(nameof(sarifLog));
+
+            sarifLog.SetProperty("guid", Guid.NewGuid());
+
             using (Logger.BeginScope(nameof(FileWorkItems)))
             {
-                this.FilingSucceeded = false;
+                this.FilingResult = FilingResult.None;
                 this.FiledWorkItems = new List<WorkItemModel>();
 
                 sarifLog = sarifLog ?? throw new ArgumentNullException(nameof(sarifLog));
@@ -174,6 +178,8 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
         private void FileWorkItemsHelper(SarifLog sarifLog, SarifWorkItemContext filingContext, FilingClient filingClient)
         {
+            string logGuid = sarifLog.GetProperty<Guid>("guid").ToString();
+
             // The helper below will initialize the sarif work item model with a copy
             // of the root pipeline filing context. This context will then be initialized
             // based on the current sarif log file that we're processing.
@@ -191,14 +197,23 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
                 foreach (SarifWorkItemModelTransformer transformer in sarifWorkItemModel.Context.Transformers)
                 {
-                    transformer.Transform(sarifWorkItemModel);
+                    if (sarifWorkItemModel == null) { break; }
+
+                    sarifWorkItemModel = transformer.Transform(sarifWorkItemModel);
+                }
+
+                // If a transformer has set the model to null, that indicates 
+                // it should be pulled from the work flow (i.e., not filed).
+                if (sarifWorkItemModel == null)
+                {
+                    LogMetricsForFiledWorkItem(sarifLog, sarifWorkItemModel, FilingResult.Canceled);
+                    return;
                 }
 
                 Task<IEnumerable<WorkItemModel>> task = filingClient.FileWorkItems(new[] { sarifWorkItemModel });
                 task.Wait();
                 this.FiledWorkItems.AddRange(task.Result);
 
-                LogMetricsForFiledWorkItem(sarifLog, sarifWorkItemModel);
 
                 // IMPORTANT: as we update our partitioned logs, we are actually modifying the input log file 
                 // as well. That's because our partitioning is configured to reuse references to existing
@@ -209,11 +224,13 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 //
                 UpdateLogWithWorkItemDetails(sarifLog, sarifWorkItemModel.HtmlUri, sarifWorkItemModel.Uri);
 
-                this.FilingSucceeded = true;
+                LogMetricsForFiledWorkItem(sarifLog, sarifWorkItemModel, FilingResult.Succeeded);
             }
             catch (Exception ex)
             {
+                this.Logger.LogError(ex, "An exception was raised filing log '{logGuid}'.", logGuid);
                 Console.Error.WriteLine(ex);
+                LogMetricsForFiledWorkItem(sarifLog, sarifWorkItemModel, FilingResult.ExceptionRaised);
             }
         }
 
@@ -238,21 +255,29 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             }
         }
 
-        private void LogMetricsForFiledWorkItem(SarifLog sarifLog, SarifWorkItemModel sarifWorkItemModel)
+        private void LogMetricsForFiledWorkItem(SarifLog sarifLog, SarifWorkItemModel sarifWorkItemModel, FilingResult filingResult)
         {
-            string guid = Guid.NewGuid().ToString();
+            this.FilingResult = filingResult;
+
+            string workItemGuid = Guid.NewGuid().ToString();
+            string logGuid = sarifLog.GetProperty<Guid>("guid").ToString();
             string tags = string.Join(",", sarifWorkItemModel.LabelsOrTags);
+            string uris = sarifWorkItemModel.LocationUris?.Count > 0
+                ? string.Join(",", sarifWorkItemModel.LocationUris)
+                : "";
 
             var workItemMetrics = new Dictionary<string, object>
                 {
-                    { "correlatingGuid", guid },
+                    { "logGuid", logGuid },
+                    { "workItemGuid", workItemGuid },
                     { "area", sarifWorkItemModel.Area },
                     { "bodyOrDescription", sarifWorkItemModel.BodyOrDescription },
+                    { "filingResult", filingResult.ToString() },
                     { "commentOrDiscussion", sarifWorkItemModel.CommentOrDiscussion },
                     { "htmlUri", sarifWorkItemModel.HtmlUri },
                     { "iteration", sarifWorkItemModel.Iteration },
                     { "labelsOrTags", tags },
-                    { "locationUri", sarifWorkItemModel.LocationUri },
+                    { "locationUri", uris },
                     { "milestone", sarifWorkItemModel.Milestone },
                     { "ownerOrAccount", sarifWorkItemModel.OwnerOrAccount },
                     { "repositoryOrProject", sarifWorkItemModel.RepositoryOrProject },
@@ -270,14 +295,16 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
                 var workItemDetailMetrics = new Dictionary<string, object>
                 {
-                    { "correlatingGuid", guid },
-                    { "tool", sarifWorkItemModel.Area },
-                    { "ruleId", sarifWorkItemModel.Assignees },
+                    { "logGuid", logGuid },
+                    { "workItemGuid", workItemGuid },
+                    { "tool", ruleMetrics.Tool },
+                    { "ruleId", ruleMetrics.RuleId },
                     { "errorCount", ruleMetrics.ErrorCount },
                     { "warningCount", ruleMetrics.WarningCount },
                     { "noteCount", ruleMetrics.NoteCount },
                     { "openCount", ruleMetrics.OpenCount },
-                    { "reviewCount", ruleMetrics.ReviewCount }
+                    { "reviewCount", ruleMetrics.ReviewCount },
+                    { "suppressedByTransformerCount", ruleMetrics.SuppressedByTransformerCount }
                 };
 
                 this.Logger.LogMetrics(EventIds.WorkItemFiledDetailMetrics, workItemMetrics);
@@ -296,16 +323,22 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
                 foreach (Result result in run.Results)
                 {
-                    // Our system expects that results which should not be
-                    // filed have been filtered from the log file
-                    Debug.Assert(result.ShouldBeFiled());
+                    // In our current design, input log files contain only candidate results
+                    // to file. A transformer, however, might suppress a result as part of its
+                    // operation.
+                    Debug.Assert(result.ShouldBeFiled() || result.Suppressions?.Count > 0);
 
                     string ruleId = result.GetRule(run).Id;
                     string key = toolName + ruleId;
 
                     if (!ruleIdToRuleMetricsMap.TryGetValue(key, out RuleMetrics ruleMetrics))
                     {
-                        ruleIdToRuleMetricsMap[key] = ruleMetrics = new RuleMetrics();
+                        ruleIdToRuleMetricsMap[key] = ruleMetrics =
+                            new RuleMetrics
+                            {
+                                Tool = toolName,
+                                RuleId = ruleId
+                            };
                     }
 
                     if (result.Kind == ResultKind.Open)
@@ -317,6 +350,12 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                     if (result.Kind == ResultKind.Review)
                     {
                         ruleMetrics.ReviewCount++;
+                        continue;
+                    }
+
+                    if (result.Suppressions?.Count > 0)
+                    {
+                        ruleMetrics.SuppressedByTransformerCount++;
                         continue;
                     }
 
@@ -349,11 +388,14 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
         private class RuleMetrics
         {
+            public string Tool;
+            public string RuleId;
             public int ErrorCount;
             public int WarningCount;
             public int NoteCount;
             public int OpenCount;
             public int ReviewCount;
+            public int SuppressedByTransformerCount;
         }
 
         public void Dispose()
