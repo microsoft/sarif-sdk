@@ -90,6 +90,8 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
         public virtual SarifLog FileWorkItems(SarifLog sarifLog)
         {
+            sarifLog = sarifLog ?? throw new ArgumentNullException(nameof(sarifLog));
+
             sarifLog.SetProperty("guid", Guid.NewGuid());
 
             using (Logger.BeginScope(nameof(FileWorkItems)))
@@ -255,8 +257,6 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
         private void LogMetricsForFiledWorkItem(SarifLog sarifLog, SarifWorkItemModel sarifWorkItemModel, FilingResult filingResult)
         {
-            Debug.Assert(this.FilingResult == FilingResult.None);
-
             this.FilingResult = filingResult;
 
             string workItemGuid = Guid.NewGuid().ToString();

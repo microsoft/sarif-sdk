@@ -62,7 +62,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             this.CommentOrDiscussion = $"Default {nameof(this.CommentOrDiscussion)}";
 
             string descriptionFooter = !string.IsNullOrEmpty(this.Context.BugFooter) ? this.Context.BugFooter : CreateBugFooter(); 
-            this.BodyOrDescription = string.Join(Environment.NewLine, sarifLog.CreateWorkItemDescription(LocationUris[0]), descriptionFooter);
+            this.BodyOrDescription = string.Join(Environment.NewLine, sarifLog.CreateWorkItemDescription(LocationUris?[0]), descriptionFooter);
 
             // These properties are Azure DevOps-specific. All ADO work item board
             // area paths are rooted by the project name, as are iterations.
