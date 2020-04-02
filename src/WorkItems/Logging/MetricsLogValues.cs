@@ -43,7 +43,7 @@ namespace Microsoft.WorkItems.Logging
                 throw new ArgumentOutOfRangeException(nameof(values), $"The {nameof(values)} dictionary cannot be null or empty.");
             }
 
-            foreach (string key in values.Keys)
+            foreach (string key in values.Keys.ToArray())
             {
                 object value = values[key];
 
