@@ -66,9 +66,9 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                     firstResult.Level.ToString() + "]: " +
                     fullRuleId;
 
-            // In ADO, the title cannot be longer than 128 characters
+            // In ADO, the title cannot be longer than 256 characters
             const string ellipsis = "...";
-            const int maxChars = 128;
+            const int maxChars = 256;
             int remainingChars = maxChars - titlePrefix.Length - 6; // " ({0})".Length == 6
 
             // We encapsulate logical names in apostrophes to help indicate they are a symbol
