@@ -59,8 +59,8 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         {
             int maxLength = 256;
             string ruleId = "TestRuleId";
-            string expectedTemplate = "[aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa:Warning]: TestRuleId (in al...)";
-            string expected = $":Warning]: TestRuleId (in al" + new string('a', maxLength - expectedTemplate.Length) + "...)";
+            string expectedTemplate = "[aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa:Warning]: TestRuleId: Test Rule (in al...)";
+            string expected = $":Warning]: TestRuleId: Test Rule (in al" + new string('a', maxLength - expectedTemplate.Length) + "...)";
 
             Result result = new Result();
             ArtifactLocation artifactLocation = new ArtifactLocation(new Uri("al" + new string('a', 1024), UriKind.Relative), string.Empty, 0, new Message(), new Dictionary<string, SerializedPropertyInfo>());
@@ -95,8 +95,8 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
             // A logical location longer than 128 char is truncated with ellipses
             int maxLength = 256;
-            string expectedTemplate = "[aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa:Warning]: TestRuleId (in 'll...')";
-            string expected = $":Warning]: TestRuleId (in 'll" + new string('b', maxLength - expectedTemplate.Length) + "...')";
+            string expectedTemplate = "[aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa:Warning]: TestRuleId: Test Rule (in 'll...')";
+            string expected = $":Warning]: TestRuleId: Test Rule (in 'll" + new string('b', maxLength - expectedTemplate.Length) + "...')";
             result.Locations[0].LogicalLocation.FullyQualifiedName = "ll" + new string('b', 1024);
             string title = sarifLog.Runs[0].CreateWorkItemTitle();
             title.Should().EndWith(expected);
@@ -108,8 +108,8 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             title.Should().EndWith(expected);
 
             // A logical location that's a path is truncated using its full path
-            expectedTemplate = "[aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa:Warning]: TestRuleId (in 'll0123456789\\...')";
-            expected = $":Warning]: TestRuleId (in 'll0123456789\\" + new string('c', maxLength - expectedTemplate.Length) + "...')";
+            expectedTemplate = "[aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa:Warning]: TestRuleId: Test Rule (in 'll0123456789\\...')";
+            expected = $":Warning]: TestRuleId: Test Rule (in 'll0123456789\\" + new string('c', maxLength - expectedTemplate.Length) + "...')";
             result.Locations[0].LogicalLocation.FullyQualifiedName = "ll0123456789\\" + new string('c', 1024);
             title = sarifLog.Runs[0].CreateWorkItemTitle();
             title.Should().EndWith(expected);
