@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.ApplicationInsights.Channel;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
@@ -46,6 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             this.FilingClient = FilingClientFactory.Create(this.FilingContext.HostUri);
 
             this.Logger = ServiceProviderFactory.ServiceProvider.GetService<ILogger<FilingClient>>();
+            Assembly.GetExecutingAssembly().LogIdentity();
         }
 
         public FilingClient FilingClient { get; set; }
@@ -171,6 +173,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                     FileWorkItemsHelper(splitLog, this.FilingContext, this.FilingClient);
                 }
             }
+
             return sarifLog;
         }
 
@@ -197,17 +200,19 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
                 foreach (SarifWorkItemModelTransformer transformer in sarifWorkItemModel.Context.Transformers)
                 {
-                    if (sarifWorkItemModel == null) { break; }
+                    SarifWorkItemModel updatedSarifWorkItemModel = transformer.Transform(sarifWorkItemModel);
 
-                    sarifWorkItemModel = transformer.Transform(sarifWorkItemModel);
-                }
+                    // If a transformer has set the model to null, that indicates 
+                    // it should be pulled from the work flow (i.e., not filed).
+                    if (updatedSarifWorkItemModel == null)
+                    {
+                        Dictionary<string, object> customDimentions = new Dictionary<string, object>();
+                        customDimentions.Add("TransformerType", transformer.GetType().FullName);
+                        LogMetricsForProcessedModel(sarifLog, sarifWorkItemModel, FilingResult.Canceled, customDimentions);
+                        return;
+                    }
 
-                // If a transformer has set the model to null, that indicates 
-                // it should be pulled from the work flow (i.e., not filed).
-                if (sarifWorkItemModel == null)
-                {
-                    LogMetricsForFiledWorkItem(sarifLog, sarifWorkItemModel, FilingResult.Canceled);
-                    return;
+                    sarifWorkItemModel = updatedSarifWorkItemModel;
                 }
 
                 Task<IEnumerable<WorkItemModel>> task = filingClient.FileWorkItems(new[] { sarifWorkItemModel });
@@ -224,13 +229,17 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 //
                 UpdateLogWithWorkItemDetails(sarifLog, sarifWorkItemModel.HtmlUri, sarifWorkItemModel.Uri);
 
-                LogMetricsForFiledWorkItem(sarifLog, sarifWorkItemModel, FilingResult.Succeeded);
+                LogMetricsForProcessedModel(sarifLog, sarifWorkItemModel, FilingResult.Succeeded);
             }
             catch (Exception ex)
             {
                 this.Logger.LogError(ex, "An exception was raised filing log '{logGuid}'.", logGuid);
-                Console.Error.WriteLine(ex);
-                LogMetricsForFiledWorkItem(sarifLog, sarifWorkItemModel, FilingResult.ExceptionRaised);
+
+                Dictionary<string, object> customDimentions = new Dictionary<string, object>();
+                customDimentions.Add("ExceptionType", ex.GetType().FullName);
+                customDimentions.Add("ExceptionMessage", ex.Message);
+                customDimentions.Add("ExceptionStackTrace", ex.ToString());
+                LogMetricsForProcessedModel(sarifLog, sarifWorkItemModel, FilingResult.ExceptionRaised, customDimentions);
             }
         }
 
@@ -255,11 +264,12 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             }
         }
 
-        private void LogMetricsForFiledWorkItem(SarifLog sarifLog, SarifWorkItemModel sarifWorkItemModel, FilingResult filingResult)
+        private void LogMetricsForProcessedModel(SarifLog sarifLog, SarifWorkItemModel sarifWorkItemModel, FilingResult filingResult, Dictionary<string, object> additionalCustomDimensions = null)
         {
+            additionalCustomDimensions ??= new Dictionary<string, object>();
+
             this.FilingResult = filingResult;
 
-            string workItemGuid = Guid.NewGuid().ToString();
             string logGuid = sarifLog.GetProperty<Guid>("guid").ToString();
             string tags = string.Join(",", sarifWorkItemModel.LabelsOrTags);
             string uris = sarifWorkItemModel.LocationUris?.Count > 0
@@ -268,24 +278,43 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
             var workItemMetrics = new Dictionary<string, object>
                 {
-                    { "logGuid", logGuid },
-                    { "workItemGuid", workItemGuid },
-                    { "area", sarifWorkItemModel.Area },
-                    { "bodyOrDescription", sarifWorkItemModel.BodyOrDescription },
-                    { "filingResult", filingResult.ToString() },
-                    { "commentOrDiscussion", sarifWorkItemModel.CommentOrDiscussion },
-                    { "htmlUri", sarifWorkItemModel.HtmlUri },
-                    { "iteration", sarifWorkItemModel.Iteration },
-                    { "labelsOrTags", tags },
-                    { "locationUri", uris },
-                    { "milestone", sarifWorkItemModel.Milestone },
-                    { "ownerOrAccount", sarifWorkItemModel.OwnerOrAccount },
-                    { "repositoryOrProject", sarifWorkItemModel.RepositoryOrProject },
-                    { "title", sarifWorkItemModel.Title },
-                    { "uri", sarifWorkItemModel.Uri },
+                    { "LogGuid", logGuid },
+                    { "WorkItemModelGuid", sarifWorkItemModel.Guid },
+                    { nameof(sarifWorkItemModel.Area), sarifWorkItemModel.Area },
+                    { nameof(sarifWorkItemModel.BodyOrDescription), sarifWorkItemModel.BodyOrDescription },
+                    { "FilingResult", filingResult.ToString() },
+                    { nameof(sarifWorkItemModel.CommentOrDiscussion), sarifWorkItemModel.CommentOrDiscussion },
+                    { nameof(sarifWorkItemModel.HtmlUri), sarifWorkItemModel.HtmlUri },
+                    { nameof(sarifWorkItemModel.Iteration), sarifWorkItemModel.Iteration },
+                    { "LabelsOrTags", tags },
+                    { "LocationUri", uris },
+                    { nameof(sarifWorkItemModel.Milestone), sarifWorkItemModel.Milestone },
+                    { nameof(sarifWorkItemModel.OwnerOrAccount), sarifWorkItemModel.OwnerOrAccount },
+                    { nameof(sarifWorkItemModel.RepositoryOrProject), sarifWorkItemModel.RepositoryOrProject },
+                    { nameof(sarifWorkItemModel.Title), sarifWorkItemModel.Title },
+                    { nameof(sarifWorkItemModel.Uri), sarifWorkItemModel.Uri },
                 };
 
-            this.Logger.LogMetrics(EventIds.WorkItemFiledCoreMetrics, workItemMetrics);
+            foreach (string key in additionalCustomDimensions.Keys)
+            {
+                workItemMetrics.Add(key, additionalCustomDimensions[key]);
+            }
+
+            EventId coreEventId;
+            switch (filingResult)
+            {
+                case FilingResult.Canceled:
+                    coreEventId = EventIds.WorkItemCanceledCoreMetrics;
+                    break;
+                case FilingResult.ExceptionRaised:
+                    coreEventId = EventIds.WorkItemExceptionCoreMetrics;
+                    break;
+                default:
+                    coreEventId = EventIds.WorkItemFiledCoreMetrics;
+                    break;
+            }
+
+            this.Logger.LogMetrics(coreEventId, workItemMetrics);
 
             Dictionary<string, RuleMetrics> ruleIdToMetricsMap = CreateRuleMetricsMap(sarifLog);
 
@@ -295,16 +324,16 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
                 var workItemDetailMetrics = new Dictionary<string, object>
                 {
-                    { "logGuid", logGuid },
-                    { "workItemGuid", workItemGuid },
-                    { "tool", ruleMetrics.Tool },
-                    { "ruleId", ruleMetrics.RuleId },
-                    { "errorCount", ruleMetrics.ErrorCount },
-                    { "warningCount", ruleMetrics.WarningCount },
-                    { "noteCount", ruleMetrics.NoteCount },
-                    { "openCount", ruleMetrics.OpenCount },
-                    { "reviewCount", ruleMetrics.ReviewCount },
-                    { "suppressedByTransformerCount", ruleMetrics.SuppressedByTransformerCount }
+                    { "LogGuid", logGuid },
+                    { "WorkItemModelGuid", sarifWorkItemModel.Guid },
+                    { nameof(ruleMetrics.Tool), ruleMetrics.Tool },
+                    { nameof(ruleMetrics.RuleId), ruleMetrics.RuleId },
+                    { nameof(ruleMetrics.ErrorCount), ruleMetrics.ErrorCount },
+                    { nameof(ruleMetrics.WarningCount), ruleMetrics.WarningCount },
+                    { nameof(ruleMetrics.NoteCount), ruleMetrics.NoteCount },
+                    { nameof(ruleMetrics.OpenCount), ruleMetrics.OpenCount },
+                    { nameof(ruleMetrics.ReviewCount), ruleMetrics.ReviewCount },
+                    { nameof(ruleMetrics.SuppressedByTransformerCount), ruleMetrics.SuppressedByTransformerCount }
                 };
 
                 this.Logger.LogMetrics(EventIds.WorkItemFiledDetailMetrics, workItemMetrics);
