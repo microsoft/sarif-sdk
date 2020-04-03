@@ -287,21 +287,21 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
             var workItemMetrics = new Dictionary<string, object>
                 {
-                    { "logGuid", logGuid },
-                    { "workItemGuid", sarifWorkItemModel.Id },
-                    { "area", sarifWorkItemModel.Area },
-                    { "bodyOrDescription", sarifWorkItemModel.BodyOrDescription },
-                    { "filingResult", filingResult.ToString() },
-                    { "commentOrDiscussion", sarifWorkItemModel.CommentOrDiscussion },
-                    { "htmlUri", sarifWorkItemModel.HtmlUri },
-                    { "iteration", sarifWorkItemModel.Iteration },
-                    { "labelsOrTags", tags },
-                    { "locationUri", uris },
-                    { "milestone", sarifWorkItemModel.Milestone },
-                    { "ownerOrAccount", sarifWorkItemModel.OwnerOrAccount },
-                    { "repositoryOrProject", sarifWorkItemModel.RepositoryOrProject },
-                    { "title", sarifWorkItemModel.Title },
-                    { "uri", sarifWorkItemModel.Uri },
+                    { "LogGuid", logGuid },
+                    { "WorkItemModelId", sarifWorkItemModel.Id },
+                    { "Area", sarifWorkItemModel.Area },
+                    { "BodyOrDescription", sarifWorkItemModel.BodyOrDescription },
+                    { "FilingResult", filingResult.ToString() },
+                    { "CommentOrDiscussion", sarifWorkItemModel.CommentOrDiscussion },
+                    { "HtmlUri", sarifWorkItemModel.HtmlUri },
+                    { "Iteration", sarifWorkItemModel.Iteration },
+                    { "LabelsOrTags", tags },
+                    { "LocationUri", uris },
+                    { "Milestone", sarifWorkItemModel.Milestone },
+                    { "OwnerOrAccount", sarifWorkItemModel.OwnerOrAccount },
+                    { "RepositoryOrProject", sarifWorkItemModel.RepositoryOrProject },
+                    { "Title", sarifWorkItemModel.Title },
+                    { "Uri", sarifWorkItemModel.Uri },
                 };
 
             foreach (string key in additionalCustomDimensions.Keys)
@@ -333,16 +333,16 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
                 var workItemDetailMetrics = new Dictionary<string, object>
                 {
-                    { "logGuid", logGuid },
-                    { "workItemGuid", sarifWorkItemModel.Id },
-                    { "tool", ruleMetrics.Tool },
-                    { "ruleId", ruleMetrics.RuleId },
-                    { "errorCount", ruleMetrics.ErrorCount },
-                    { "warningCount", ruleMetrics.WarningCount },
-                    { "noteCount", ruleMetrics.NoteCount },
-                    { "openCount", ruleMetrics.OpenCount },
-                    { "reviewCount", ruleMetrics.ReviewCount },
-                    { "suppressedByTransformerCount", ruleMetrics.SuppressedByTransformerCount }
+                    { "LogGuid", logGuid },
+                    { "WorkItemModelId", sarifWorkItemModel.Id },
+                    { "Tool", ruleMetrics.Tool },
+                    { "RuleId", ruleMetrics.RuleId },
+                    { "ErrorCount", ruleMetrics.ErrorCount },
+                    { "WarningCount", ruleMetrics.WarningCount },
+                    { "NoteCount", ruleMetrics.NoteCount },
+                    { "OpenCount", ruleMetrics.OpenCount },
+                    { "ReviewCount", ruleMetrics.ReviewCount },
+                    { "SuppressedByTransformerCount", ruleMetrics.SuppressedByTransformerCount }
                 };
 
                 this.Logger.LogMetrics(EventIds.WorkItemFiledDetailMetrics, workItemMetrics);
