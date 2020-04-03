@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.ApplicationInsights.Channel;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
@@ -46,6 +47,15 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             this.FilingClient = FilingClientFactory.Create(this.FilingContext.HostUri);
 
             this.Logger = ServiceProviderFactory.ServiceProvider.GetService<ILogger<FilingClient>>();
+
+            Assembly currentAssembly = Assembly.GetExecutingAssembly();
+            AssemblyName assemblyName = currentAssembly.GetName();
+            FileInfo assemblyFileInfo = new FileInfo(currentAssembly.Location);
+            Dictionary<string, object> assemblyMetrics = new Dictionary<string, object>();
+            assemblyMetrics.Add("Name", assemblyName.Name);
+            assemblyMetrics.Add("Version", assemblyName.Version);
+            assemblyMetrics.Add("CreationTime", assemblyFileInfo.CreationTime.ToUniversalTime().ToString());
+            this.Logger.LogMetrics(EventIds.AssemblyVersion, assemblyMetrics);
         }
 
         public FilingClient FilingClient { get; set; }
@@ -171,6 +181,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                     FileWorkItemsHelper(splitLog, this.FilingContext, this.FilingClient);
                 }
             }
+
             return sarifLog;
         }
 
@@ -197,17 +208,17 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
                 foreach (SarifWorkItemModelTransformer transformer in sarifWorkItemModel.Context.Transformers)
                 {
-                    if (sarifWorkItemModel == null) { break; }
-
                     sarifWorkItemModel = transformer.Transform(sarifWorkItemModel);
-                }
 
-                // If a transformer has set the model to null, that indicates 
-                // it should be pulled from the work flow (i.e., not filed).
-                if (sarifWorkItemModel == null)
-                {
-                    LogMetricsForFiledWorkItem(sarifLog, sarifWorkItemModel, FilingResult.Canceled);
-                    return;
+                    // If a transformer has set the model to null, that indicates 
+                    // it should be pulled from the work flow (i.e., not filed).
+                    if (sarifWorkItemModel == null) 
+                    {
+                        Dictionary<string, object> customDimentions = new Dictionary<string, object>();
+                        customDimentions.Add("TransformerType", transformer.GetType().FullName);
+                        LogMetricsForProcessedModel(sarifLog, sarifWorkItemModel, FilingResult.Canceled, customDimentions);
+                        return;
+                    }
                 }
 
                 Task<IEnumerable<WorkItemModel>> task = filingClient.FileWorkItems(new[] { sarifWorkItemModel });
@@ -224,13 +235,18 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 //
                 UpdateLogWithWorkItemDetails(sarifLog, sarifWorkItemModel.HtmlUri, sarifWorkItemModel.Uri);
 
-                LogMetricsForFiledWorkItem(sarifLog, sarifWorkItemModel, FilingResult.Succeeded);
+                LogMetricsForProcessedModel(sarifLog, sarifWorkItemModel, FilingResult.Succeeded, null);
             }
             catch (Exception ex)
             {
                 this.Logger.LogError(ex, "An exception was raised filing log '{logGuid}'.", logGuid);
                 Console.Error.WriteLine(ex);
-                LogMetricsForFiledWorkItem(sarifLog, sarifWorkItemModel, FilingResult.ExceptionRaised);
+
+                Dictionary<string, object> customDimentions = new Dictionary<string, object>();
+                customDimentions.Add("ExceptionType", ex.GetType().FullName);
+                customDimentions.Add("ExceptionMessage", ex.Message);
+                customDimentions.Add("ExceptionStackTrace", ex.ToString());
+                LogMetricsForProcessedModel(sarifLog, sarifWorkItemModel, FilingResult.ExceptionRaised, customDimentions);
             }
         }
 
@@ -255,8 +271,10 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             }
         }
 
-        private void LogMetricsForFiledWorkItem(SarifLog sarifLog, SarifWorkItemModel sarifWorkItemModel, FilingResult filingResult)
+        private void LogMetricsForProcessedModel(SarifLog sarifLog, SarifWorkItemModel sarifWorkItemModel, FilingResult filingResult, Dictionary<string, object> additionalCustomDimensions)
         {
+            additionalCustomDimensions ??= new Dictionary<string, object>();
+
             this.FilingResult = filingResult;
 
             string workItemGuid = Guid.NewGuid().ToString();
@@ -285,7 +303,26 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                     { "uri", sarifWorkItemModel.Uri },
                 };
 
-            this.Logger.LogMetrics(EventIds.WorkItemFiledCoreMetrics, workItemMetrics);
+            foreach (string key in additionalCustomDimensions.Keys)
+            {
+                workItemMetrics.Add(key, additionalCustomDimensions[key]);
+            }
+
+            EventId coreEventId;
+            switch (filingResult)
+            {
+                case FilingResult.Canceled:
+                    coreEventId = EventIds.WorkItemCanceledCoreMetrics;
+                    break;
+                case FilingResult.ExceptionRaised:
+                    coreEventId = EventIds.WorkItemExceptionCoreMetrics;
+                    break;
+                default:
+                    coreEventId = EventIds.WorkItemFiledCoreMetrics;
+                    break;
+            }
+
+            this.Logger.LogMetrics(coreEventId, workItemMetrics);
 
             Dictionary<string, RuleMetrics> ruleIdToMetricsMap = CreateRuleMetricsMap(sarifLog);
 

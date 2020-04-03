@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
     {
         public SarifWorkItemModelTransformer()
         {
-            this.Logger = ServiceProviderFactory.ServiceProvider.GetService<ILogger<ILogger>>();
+            this.Logger = ServiceProviderFactory.ServiceProvider.GetService<ILogger<FilingClient>>();
         }
 
         protected ILogger Logger { get; }
