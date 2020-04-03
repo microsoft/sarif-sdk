@@ -47,15 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             this.FilingClient = FilingClientFactory.Create(this.FilingContext.HostUri);
 
             this.Logger = ServiceProviderFactory.ServiceProvider.GetService<ILogger<FilingClient>>();
-
-            Assembly currentAssembly = Assembly.GetExecutingAssembly();
-            AssemblyName assemblyName = currentAssembly.GetName();
-            FileInfo assemblyFileInfo = new FileInfo(currentAssembly.Location);
-            Dictionary<string, object> assemblyMetrics = new Dictionary<string, object>();
-            assemblyMetrics.Add("Name", assemblyName.Name);
-            assemblyMetrics.Add("Version", assemblyName.Version);
-            assemblyMetrics.Add("CreationTime", assemblyFileInfo.CreationTime.ToUniversalTime().ToString());
-            this.Logger.LogMetrics(EventIds.AssemblyVersion, assemblyMetrics);
+            Assembly.GetExecutingAssembly().LogIdentity();
         }
 
         public FilingClient FilingClient { get; set; }
@@ -237,12 +229,11 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 //
                 UpdateLogWithWorkItemDetails(sarifLog, sarifWorkItemModel.HtmlUri, sarifWorkItemModel.Uri);
 
-                LogMetricsForProcessedModel(sarifLog, sarifWorkItemModel, FilingResult.Succeeded, null);
+                LogMetricsForProcessedModel(sarifLog, sarifWorkItemModel, FilingResult.Succeeded);
             }
             catch (Exception ex)
             {
                 this.Logger.LogError(ex, "An exception was raised filing log '{logGuid}'.", logGuid);
-                Console.Error.WriteLine(ex);
 
                 Dictionary<string, object> customDimentions = new Dictionary<string, object>();
                 customDimentions.Add("ExceptionType", ex.GetType().FullName);
@@ -273,7 +264,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             }
         }
 
-        private void LogMetricsForProcessedModel(SarifLog sarifLog, SarifWorkItemModel sarifWorkItemModel, FilingResult filingResult, Dictionary<string, object> additionalCustomDimensions)
+        private void LogMetricsForProcessedModel(SarifLog sarifLog, SarifWorkItemModel sarifWorkItemModel, FilingResult filingResult, Dictionary<string, object> additionalCustomDimensions = null)
         {
             additionalCustomDimensions ??= new Dictionary<string, object>();
 
