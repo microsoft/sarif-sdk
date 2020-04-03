@@ -279,7 +279,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             var workItemMetrics = new Dictionary<string, object>
                 {
                     { "LogGuid", logGuid },
-                    { "WorkItemModelId", sarifWorkItemModel.Id },
+                    { "WorkItemModelGuid", sarifWorkItemModel.Guid },
                     { nameof(sarifWorkItemModel.Area), sarifWorkItemModel.Area },
                     { nameof(sarifWorkItemModel.BodyOrDescription), sarifWorkItemModel.BodyOrDescription },
                     { "FilingResult", filingResult.ToString() },
@@ -325,7 +325,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 var workItemDetailMetrics = new Dictionary<string, object>
                 {
                     { "LogGuid", logGuid },
-                    { "WorkItemModelId", sarifWorkItemModel.Id },
+                    { "WorkItemModelGuid", sarifWorkItemModel.Guid },
                     { nameof(ruleMetrics.Tool), ruleMetrics.Tool },
                     { nameof(ruleMetrics.RuleId), ruleMetrics.RuleId },
                     { nameof(ruleMetrics.ErrorCount), ruleMetrics.ErrorCount },

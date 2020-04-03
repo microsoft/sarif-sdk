@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
         public IList<Uri> LocationUris { get; private set; }
 
-        public Guid Id { get; }
+        public Guid Guid { get; }
 
         // The sarifLog parameter contains exactly a set of results that are intended to be filed as a single work item 
         // and this log will be attached to the work item.
@@ -27,7 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             this.SarifLog = sarifLog;
             this.Context = context ?? new SarifWorkItemContext();
 
-            this.Id = (id == default(Guid)) ? Guid.NewGuid() : id;
+            this.Guid = (id == default(Guid)) ? Guid.NewGuid() : id;
 
             var visitor = new ExtractAllArtifactLocationsVisitor();
             visitor.VisitSarifLog(sarifLog);
