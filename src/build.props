@@ -102,7 +102,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\..\triskelion.png" Pack="true" PackagePath="\"/>
+    <None Include="$(MsBuildThisFileDirectory)..\triskelion.png" Pack="true" PackagePath="\"/>
   </ItemGroup>
 
   <ItemGroup>
