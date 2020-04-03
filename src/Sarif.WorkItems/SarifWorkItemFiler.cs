@@ -279,7 +279,6 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
             this.FilingResult = filingResult;
 
-            string workItemGuid = Guid.NewGuid().ToString();
             string logGuid = sarifLog.GetProperty<Guid>("guid").ToString();
             string tags = string.Join(",", sarifWorkItemModel.LabelsOrTags);
             string uris = sarifWorkItemModel.LocationUris?.Count > 0
@@ -289,7 +288,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             var workItemMetrics = new Dictionary<string, object>
                 {
                     { "logGuid", logGuid },
-                    { "workItemGuid", workItemGuid },
+                    { "workItemGuid", sarifWorkItemModel.Id },
                     { "area", sarifWorkItemModel.Area },
                     { "bodyOrDescription", sarifWorkItemModel.BodyOrDescription },
                     { "filingResult", filingResult.ToString() },
@@ -335,7 +334,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 var workItemDetailMetrics = new Dictionary<string, object>
                 {
                     { "logGuid", logGuid },
-                    { "workItemGuid", workItemGuid },
+                    { "workItemGuid", sarifWorkItemModel.Id },
                     { "tool", ruleMetrics.Tool },
                     { "ruleId", ruleMetrics.RuleId },
                     { "errorCount", ruleMetrics.ErrorCount },
