@@ -208,17 +208,19 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
                 foreach (SarifWorkItemModelTransformer transformer in sarifWorkItemModel.Context.Transformers)
                 {
-                    sarifWorkItemModel = transformer.Transform(sarifWorkItemModel);
+                    SarifWorkItemModel updatedSarifWorkItemModel = transformer.Transform(sarifWorkItemModel);
 
                     // If a transformer has set the model to null, that indicates 
                     // it should be pulled from the work flow (i.e., not filed).
-                    if (sarifWorkItemModel == null) 
+                    if (updatedSarifWorkItemModel == null)
                     {
                         Dictionary<string, object> customDimentions = new Dictionary<string, object>();
                         customDimentions.Add("TransformerType", transformer.GetType().FullName);
                         LogMetricsForProcessedModel(sarifLog, sarifWorkItemModel, FilingResult.Canceled, customDimentions);
                         return;
                     }
+
+                    sarifWorkItemModel = updatedSarifWorkItemModel;
                 }
 
                 Task<IEnumerable<WorkItemModel>> task = filingClient.FileWorkItems(new[] { sarifWorkItemModel });
