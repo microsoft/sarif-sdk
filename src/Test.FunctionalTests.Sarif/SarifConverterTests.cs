@@ -145,7 +145,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private string RunConverter(StringBuilder sb, string toolFormat, string inputFileName)
         {
-            string expectedFileName = inputFileName + ".sarif";
+            string expectedFileName = inputFileName + SarifConstants.SarifFileExtension;
             string generatedFileName = Path.Combine("Actual", expectedFileName);
             Directory.CreateDirectory(Path.GetDirectoryName(generatedFileName));
 

@@ -42,7 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             const string InputFolderPath = @"C:\input";
             string targetFileSpecifier = Path.Combine(InputFolderPath, inputResourceName);
 
-            string outputFileName = Guid.NewGuid().ToString() + ".sarif";
+            string outputFileName = Guid.NewGuid().ToString() + SarifConstants.SarifFileExtension;
             string outputFilePath = Path.Combine(OutputFolderPath, outputFileName);
 
             var mockFileSystem = new Mock<IFileSystem>();

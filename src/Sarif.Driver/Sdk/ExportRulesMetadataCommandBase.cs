@@ -29,7 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 switch (extension)
                 {
                     case (".json"):
-                    case (".sarif"):
+                    case (SarifConstants.SarifFileExtension):
                     {
                         format = "SARIF";
                         OutputSarifRulesMetada(outputFilePath, skimmers);

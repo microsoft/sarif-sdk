@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             get
             {
-                return Path.GetExtension(TargetUri.LocalPath).Equals(".sarif", StringComparison.OrdinalIgnoreCase) ||
+                return Path.GetExtension(TargetUri.LocalPath).Equals(SarifConstants.SarifFileExtension, StringComparison.OrdinalIgnoreCase) ||
                        Path.GetExtension(TargetUri.LocalPath).Equals(".json", StringComparison.OrdinalIgnoreCase);
             }
         }

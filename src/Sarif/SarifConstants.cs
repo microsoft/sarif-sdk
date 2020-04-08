@@ -5,6 +5,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class SarifConstants
     {
+        /// <summary>
+        /// The standard file extension for SARIF files.
+        /// </summary>
+        public const string SarifFileExtension = ".sarif";
+
         // <summary>
         // When used with Guid.ToString(string format), this format produces the
         // GUID format required by SARIF: 32 digits separated by hyphens.
