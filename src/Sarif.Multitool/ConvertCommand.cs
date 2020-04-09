@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             {
                 if (string.IsNullOrEmpty(convertOptions.OutputFilePath))
                 {
-                    convertOptions.OutputFilePath = convertOptions.InputFilePath + ".sarif";
+                    convertOptions.OutputFilePath = convertOptions.InputFilePath + SarifConstants.SarifFileExtension;
                 }
 
                 if (fileSystem.DirectoryExists(convertOptions.OutputFilePath))

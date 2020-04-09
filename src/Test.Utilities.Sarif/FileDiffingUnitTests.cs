@@ -89,7 +89,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             // the name has the ".sarif" extension. This is necessary for testing classes such as the
             // Fortify converter whose input is not SARIF. In the other overload of RunTest, this is
             // not necessary because, again, the output resource names are specified explicitly.
-            expectedOutputResourceName = Path.GetFileNameWithoutExtension(expectedOutputResourceName) + ".sarif";
+            expectedOutputResourceName = Path.GetFileNameWithoutExtension(expectedOutputResourceName) + SarifConstants.SarifFileExtension;
             string expectedSarifText = GetExpectedSarifTextFromResource(expectedOutputResourceName);
 
             string actualSarifText = ConstructTestOutputFromInputResource(ConstructFullInputResourceName(inputResourceName), parameter);
@@ -245,7 +245,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         protected string GetOutputFilePath(string directory, string resourceName)
         {
-            string fileName = Path.GetFileNameWithoutExtension(resourceName) + ".sarif";
+            string fileName = Path.GetFileNameWithoutExtension(resourceName) + SarifConstants.SarifFileExtension;
             return Path.Combine(OutputFolderPath, directory, fileName);
         }
 

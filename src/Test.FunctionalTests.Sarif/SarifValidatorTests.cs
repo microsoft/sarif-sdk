@@ -137,7 +137,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             // Guid here simply creates a verifiably non-existent file name. This name is only
             // used in validation reporting, there's no code that attempts to access the file.
-            Result[] errors = validator.Validate(toValidate, Guid.NewGuid().ToString() + ".sarif");
+            Result[] errors = validator.Validate(toValidate, Guid.NewGuid().ToString() + SarifConstants.SarifFileExtension);
 
             var sb = new StringBuilder();
 
