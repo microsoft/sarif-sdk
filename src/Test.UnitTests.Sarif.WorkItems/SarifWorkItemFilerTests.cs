@@ -16,6 +16,7 @@ using Microsoft.VisualStudio.Services.WebApi.Patch.Json;
 using Microsoft.WorkItems;
 using Moq;
 using Newtonsoft.Json;
+using Octokit;
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.WorkItems
@@ -39,6 +40,23 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         }
 
         [Fact]
+        public void WorkItemFiler_PerRunSplitStrategyPartitionsProperlyGithub()
+        {
+            SarifWorkItemContext context = GitHubTestContext;
+
+            SarifLog sarifLog = TestData.CreateSimpleLog();
+
+            // Our default splitting strategy is PerRun, that is, one
+            // work item (and corresponding attachment) should be filed 
+            // for each run in the log file.
+            int numberOfRuns = sarifLog.Runs.Count;
+            context.SetProperty(ExpectedWorkItemsCount, numberOfRuns);
+
+            TestWorkItemFiler(sarifLog, context);
+        }
+
+
+        [Fact]
         public void WorkItemFiler_PerResultSplitStrategyPartitionsProperly()
         {
             SarifLog sarifLog = TestData.CreateSimpleLog();
@@ -54,6 +72,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
         private void TestWorkItemFiler(SarifLog sarifLog, SarifWorkItemContext context)
         {
+            bool adoClient = false;
             // ONE. Create test data that the low-level ADO client mocks
             //      will flow back to the SARIF work item filer. 
             var attachmentReference = new AttachmentReference()
@@ -111,13 +130,16 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             //       and retrieval of the ADO filing client. We are required to put this
             //       mock behind an interface due to an inability 
 
-            var vssConnectionMock = new Mock<IVssConnection>();
-            vssConnectionMock
-                .Setup(x => x.ConnectAsync(It.IsAny<Uri>(), It.IsAny<string>()))
-                .Returns(Task.CompletedTask)
-                .Callback<Uri, string>(
-                    (uri, pat) =>
-                    {
+            FilingClient filingClient;
+            if (adoClient == true)
+            {
+                var vssConnectionMock = new Mock<IVssConnection>();
+                vssConnectionMock
+                    .Setup(x => x.ConnectAsync(It.IsAny<Uri>(), It.IsAny<string>()))
+                    .Returns(Task.CompletedTask)
+                    .Callback<Uri, string>(
+                        (uri, pat) =>
+                        {
                         // The following data values flow to us via test constants which are
                         // captured in the default context object that initialized the filer.
                         pat.Should().Be(TestData.NotActuallyASecret);
@@ -130,32 +152,73 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
                         // Verify that we received the connection request.
                         connectCalled = true;
-                    });
+                        });
 
-            // Our GetClientAsync is overridden to provide our low-level ADO mock.
-            vssConnectionMock
-                .Setup(x => x.GetClientAsync())
-                .ReturnsAsync(workItemTrackingHttpClientMock.Object);
+                // Our GetClientAsync is overridden to provide our low-level ADO mock.
+                vssConnectionMock
+                    .Setup(x => x.GetClientAsync())
+                    .ReturnsAsync(workItemTrackingHttpClientMock.Object);
 
-            // FIVE. We are required to inject the low level ADO connection wrapper. We are 
-            //       required to do so due to the complexity of creating and initializing
-            //       required objects. MOQ cannot override constructors and (related)
-            //       in general cannot instantiate a type without a parameterless ctor.
-            //       Even when a concrete class can be instantiated, its various properties
-            //       might not be easily stubbed (as for a non-virtual property accessor).
-            //       For these cases, we need to insert an interface in our system, and 
-            //       create wrappers around those concrete types, where the interface is
-            //       directly mapped or otherwise adapted to the concrete type's methods.
-            //       Moq can then simply manufacture a class that implements that interface
-            //       in order to control behaviors.
-            //
-            //       Rather than introducing a type factory or more sophisticated pattern
-            //       of injection, we use the very simple expedient of declaring an internal
-            //       property to hold a mock instance. In production, if that property is null,
-            //       the system instantiates a wrapper around the standard types for use.
+                // FIVE. We are required to inject the low level ADO connection wrapper. We are 
+                //       required to do so due to the complexity of creating and initializing
+                //       required objects. MOQ cannot override constructors and (related)
+                //       in general cannot instantiate a type without a parameterless ctor.
+                //       Even when a concrete class can be instantiated, its various properties
+                //       might not be easily stubbed (as for a non-virtual property accessor).
+                //       For these cases, we need to insert an interface in our system, and 
+                //       create wrappers around those concrete types, where the interface is
+                //       directly mapped or otherwise adapted to the concrete type's methods.
+                //       Moq can then simply manufacture a class that implements that interface
+                //       in order to control behaviors.
+                //
+                //       Rather than introducing a type factory or more sophisticated pattern
+                //       of injection, we use the very simple expedient of declaring an internal
+                //       property to hold a mock instance. In production, if that property is null,
+                //       the system instantiates a wrapper around the standard types for use.
 
-            var adoFilingClient = (AzureDevOpsFilingClient)filer.FilingClient;
-            adoFilingClient._vssConection = vssConnectionMock.Object;
+                filingClient = (AzureDevOpsFilingClient)filer.FilingClient;
+                ((AzureDevOpsFilingClient)filingClient)._vssConection = vssConnectionMock.Object;
+            }
+
+            else
+            {
+                int createIssueCalled = 0;
+                int updateIssueCalled = 0;
+                Issue testIssue = new Issue();
+                var gitHubClientWrapperMock = new Mock<IGitHubClientWrapper>();
+                gitHubClientWrapperMock
+                    .Setup(x => x.CreateWorkItemAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<NewIssue>()))
+                    .ReturnsAsync(testIssue)
+                    .Callback<string, string, NewIssue>(
+                        (org, repository, issue) =>
+                        {
+                            createIssueCalled++;
+                        });
+
+                gitHubClientWrapperMock
+                    .Setup(x => x.UpdateWorkItemAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<IssueUpdate>()))
+                    .ReturnsAsync(testIssue)
+                    .Callback<string, string, int, IssueUpdate>(
+                        (org, repository, issueNumber, issue) =>
+                        {
+                            updateIssueCalled++;
+                        });
+
+                var gitHubConnectionMock = new Mock<IGitHubConnection>();
+                gitHubConnectionMock
+                    .Setup(x => x.ConnectAsync(It.IsAny<string>(), It.IsAny<string>()))
+                    .ReturnsAsync(gitHubClientWrapperMock.Object)
+                    .Callback<string, string>(
+                        (org, repo) =>
+                        {
+                            GitHubFilingUri.OriginalString.Contains(org.ToString()).Should().BeTrue();
+
+                        });
+
+                filingClient = (GitHubFilingClient)filer.FilingClient;
+                ((GitHubFilingClient)filingClient)._gitHubConnection = gitHubConnectionMock.Object;
+            }
+
 
 
             string sarifLogText = JsonConvert.SerializeObject(sarifLog);

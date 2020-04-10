@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.VisualStudio.Services.WebApi;
 using Octokit;
 using Octokit.Internal;
 
@@ -14,17 +15,14 @@ namespace Microsoft.WorkItems
     /// </summary>
     public class GitHubFilingClient : FilingClient
     {
-        private GitHubClient gitHubClient;
+        internal IGitHubConnection _gitHubConnection;
+        internal IGitHubClientWrapper _gitHubClient;
 
         public override async Task Connect(string personalAccessToken)
         {
-            var credentials = new Credentials(this.AccountOrOrganization, personalAccessToken);
-            var credentialsStore = new InMemoryCredentialStore(credentials);
+            _gitHubConnection = _gitHubConnection ?? new GitHubConnectionFacade();
 
-            await Task.Run(() =>
-            {
-                this.gitHubClient = new GitHubClient(new ProductHeaderValue(this.AccountOrOrganization), credentialsStore);
-            });
+            _gitHubClient = await _gitHubConnection.ConnectAsync(this.AccountOrOrganization, personalAccessToken);
         }
 
         public override async Task<IEnumerable<WorkItemModel>> FileWorkItems(IEnumerable<WorkItemModel> workItemModels)
@@ -36,7 +34,7 @@ namespace Microsoft.WorkItems
                     Body = workItemModel.BodyOrDescription,
                 };
 
-                Issue issue = await this.gitHubClient.Issue.Create(
+                Issue issue = await _gitHubClient.CreateWorkItemAsync(
                     this.AccountOrOrganization,
                     this.ProjectOrRepository,
                     newIssue);
@@ -54,7 +52,7 @@ namespace Microsoft.WorkItems
                         issueUpdate.AddLabel(tag);
                     }
 
-                    await this.gitHubClient.Issue.Update(
+                    await _gitHubClient.UpdateWorkItemAsync(
                         this.AccountOrOrganization,
                         this.ProjectOrRepository,
                         issue.Number,
