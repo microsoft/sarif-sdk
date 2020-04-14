@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             int numberOfRuns = sarifLog.Runs.Count;
             context.SetProperty(ExpectedWorkItemsCount, numberOfRuns);
 
-            TestWorkItemFiler(sarifLog, context);
+            TestWorkItemFiler(sarifLog, context, true);
         }
 
         [Fact]
@@ -52,7 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             int numberOfRuns = sarifLog.Runs.Count;
             context.SetProperty(ExpectedWorkItemsCount, numberOfRuns);
 
-            TestWorkItemFiler(sarifLog, context);
+            TestWorkItemFiler(sarifLog, context, false);
         }
 
 
@@ -67,12 +67,11 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             int numberOfResults = sarifLog.Runs.Sum(run => run.Results.Count);
             context.SetProperty(ExpectedWorkItemsCount, numberOfResults);
 
-            TestWorkItemFiler(sarifLog, context);
+            TestWorkItemFiler(sarifLog, context, true);
         }
 
-        private void TestWorkItemFiler(SarifLog sarifLog, SarifWorkItemContext context)
+        private void TestWorkItemFiler(SarifLog sarifLog, SarifWorkItemContext context, bool adoClient)
         {
-            bool adoClient = false;
             // ONE. Create test data that the low-level ADO client mocks
             //      will flow back to the SARIF work item filer. 
             var attachmentReference = new AttachmentReference()
@@ -97,9 +96,9 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             workItem.Url = bugUriText;
             workItem.Links.AddLink("html", bugHtmlUriText);
 
-            // TWO. Define variables to capture whether we enter all expected ADO client methods.
-            bool connectCalled = false;
-            int createWorkItemCalled = 0, createAttachmentCalled = 0;
+        // TWO. Define variables to capture whether we enter all expected ADO client methods.
+        bool connectCalled = false;
+            int createWorkItemCalled = 0, createAttachmentCount = 0, updateIssueCalled = 0;
 
             // THREE. Create a default mock SARIF filer and client, configured by an AzureDevOps context
             //        (which creates a default ADO filing client underneath).
@@ -113,7 +112,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                     (stream, fileName, uploadType, areaPath, userState, cancellationToken) =>
                     {
                         // Verify that the ADO client receives the request to create an attachment
-                        createAttachmentCalled++;
+                        createAttachmentCount++;
                     });
 
             workItemTrackingHttpClientMock
@@ -182,22 +181,22 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
             else
             {
-                int createIssueCalled = 0;
-                int updateIssueCalled = 0;
-                Issue testIssue = new Issue();
+                Issue testGithubIssue = new Issue(bugUriText, bugHtmlUriText, bugUriText + "comments", bugUriText + "events",
+                    111111, ItemState.Open, "TestTitle", "TestBody", new User(), new User(), null, new User(), null, new Milestone(1), 0, new PullRequest(), null,
+                    new DateTimeOffset(DateTime.Now), null, 111111, null, false, null, null);
                 var gitHubClientWrapperMock = new Mock<IGitHubClientWrapper>();
                 gitHubClientWrapperMock
                     .Setup(x => x.CreateWorkItemAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<NewIssue>()))
-                    .ReturnsAsync(testIssue)
+                    .ReturnsAsync(testGithubIssue)
                     .Callback<string, string, NewIssue>(
                         (org, repository, issue) =>
                         {
-                            createIssueCalled++;
+                            createWorkItemCalled++;
                         });
 
                 gitHubClientWrapperMock
                     .Setup(x => x.UpdateWorkItemAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<IssueUpdate>()))
-                    .ReturnsAsync(testIssue)
+                    .ReturnsAsync(testGithubIssue)
                     .Callback<string, string, int, IssueUpdate>(
                         (org, repository, issueNumber, issue) =>
                         {
@@ -209,17 +208,16 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                     .Setup(x => x.ConnectAsync(It.IsAny<string>(), It.IsAny<string>()))
                     .ReturnsAsync(gitHubClientWrapperMock.Object)
                     .Callback<string, string>(
-                        (org, repo) =>
+                        (org, pat) =>
                         {
+                            connectCalled = true;
+                            pat.Should().Be(TestData.NotActuallyASecret);
                             GitHubFilingUri.OriginalString.Contains(org.ToString()).Should().BeTrue();
-
                         });
 
                 filingClient = (GitHubFilingClient)filer.FilingClient;
                 ((GitHubFilingClient)filingClient)._gitHubConnection = gitHubConnectionMock.Object;
             }
-
-
 
             string sarifLogText = JsonConvert.SerializeObject(sarifLog);
             SarifLog updatedSarifLog = filer.FileWorkItems(sarifLogText);
@@ -230,7 +228,15 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             int expectedWorkItemsCount = context.GetProperty(ExpectedWorkItemsCount);
 
             createWorkItemCalled.Should().Be(expectedWorkItemsCount);
-            createAttachmentCalled.Should().Be(expectedWorkItemsCount);
+
+            if (adoClient == true)
+            {
+                createAttachmentCount.Should().Be(expectedWorkItemsCount);
+            }
+            else
+            {
+                createAttachmentCount.Should().Be(0);
+            }
 
             // This property is a naive mechanism to ensure that the code
             // executed comprehensively (i.e., that execution was not limited
