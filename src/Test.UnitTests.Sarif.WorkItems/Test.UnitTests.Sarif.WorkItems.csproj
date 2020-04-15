@@ -52,4 +52,10 @@
     <ProjectReference Include="..\Test.Utilities.Sarif\Test.Utilities.Sarif.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Octokit">
+      <HintPath>..\..\refs\Octokit.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
