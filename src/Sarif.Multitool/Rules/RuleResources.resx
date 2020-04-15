@@ -198,4 +198,10 @@
   <data name="SARIF1018_InvalidUriInOriginalUriBaseIds" xml:space="preserve">
     <value>In the artifactLocation objects contained in run.originalUriBaseIds, if uriBaseId is absent, then uri must either be an absolute URI or it must be absent.</value>
   </data>
+  <data name="SARIF1019_Default" xml:space="preserve">
+    <value>{0}: The URI '{1}' associated with the originalUriBaseId symbol '{2}' does not end with a slash.</value>
+  </data>
+  <data name="SARIF1019_OriginalUriBaseIdMustEndWithSlash" xml:space="preserve">
+    <value>The SARIF specification requires every URI in originalUriBaseIds to end with a slash. When a URI that does not end with a slash (for example, "file:///C:/code/src") is combined with a relative path (for example, "io/kb.c"), the trailing component ("src") will be interpreted as a file name and removed, producing "file:///C:/code/io/kb", which is incorrect. Adding the trailing slash ensures that the combined URI will be "file:///C:/code/src/io/kb.c", as expected.</value>
+  </data>
 </root>

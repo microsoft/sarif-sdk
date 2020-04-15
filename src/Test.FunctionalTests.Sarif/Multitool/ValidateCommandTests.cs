@@ -124,6 +124,18 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
         public void SARIF1018_InvalidUriInOriginalUriBaseIds_Invalid()
             => RunTest(MakeInvalidTestFileName(RuleId.InvalidUriInOriginalUriBaseIds, nameof(RuleId.InvalidUriInOriginalUriBaseIds)));
 
+/******************
+ * Another set of tests which would run afoul of the MAX_PATH limit.
+ ******************/
+        [Fact]
+        public void SARIF1019_OriginalUriBaseIdMustEndWithSlash_Valid()
+            => RunTest(MakeValidTestFileName(RuleId.OriginalUriBaseIdMustEndWithSlash, "OriginalUriBaseIdSlash"));
+
+        [Fact]
+        public void SARIF1019_OriginalUriBaseIdMustEndWithSlash_Invalid()
+            => RunTest(MakeInvalidTestFileName(RuleId.OriginalUriBaseIdMustEndWithSlash, "OriginalUriBaseIdSlash"));
+/********** END PROBLEMATIC TESTS*******/
+
         private const string ValidTestFileNameSuffix = "_Valid.sarif";
         private const string InvalidTestFileNameSuffix = "_Invalid.sarif";
 
