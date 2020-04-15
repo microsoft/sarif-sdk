@@ -1,5 +1,8 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
+## **v2.2.4** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.2.4) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.2.4) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.2.4) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.2.4)
+* FEATURE: Add new validation rule `OriginalUriBaseIdMustEndWithSlash` [#1854](https://github.com/microsoft/sarif-sdk/issues/1854)
+
 ## **v2.2.3** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.2.3) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.2.3) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.2.3) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.2.3)
 * BUGFIX: Result.GetRule will look up by RuleId if RuleIndex not present.
 * BUGFIX: Baselining will properly persist Run.Tool.Driver.Rules if Results reference by RuleId.

@@ -20,12 +20,8 @@
     having all the relevant values in one place. This property is actually used by the PowerShell
     script that hides ("delists") the previous package versions on nuget.org.
     -->
-    <!-- 
-      NOTE: Version in scripts/BuildMultitoolForNpm.ps1 also has to be updated for each release
-      until it adopts the same versions as the SDK itself.
-    -->
-    <VersionPrefix>2.2.3</VersionPrefix>
-    <PreviousVersionPrefix>2.2.2</PreviousVersionPrefix>
+    <VersionPrefix>2.2.4</VersionPrefix>
+    <PreviousVersionPrefix>2.2.3</PreviousVersionPrefix>
 
      <!-- SchemaVersionAsPublishedToSchemaStoreOrg identifies the current published version on json schema store at https://schemastore.azurewebsites.net/schemas/json/ -->
     <SchemaVersionAsPublishedToSchemaStoreOrg>2.1.0-rtm.5</SchemaVersionAsPublishedToSchemaStoreOrg>
