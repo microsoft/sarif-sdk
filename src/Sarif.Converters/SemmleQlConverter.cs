@@ -6,8 +6,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Text;
-using CsvHelper;
-using CsvHelper.Configuration;
+
+using Microsoft.CodeAnalysis.Sarif.Converters.TextFormats;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
@@ -16,9 +16,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
     /// </summary>
     public class SemmleQLConverter : ToolFileConverterBase
     {
-        // Semmle logs are CSV files
-        private static readonly string[] s_delimiters = new[] { "," };
-
         // The fields are as follows:
         private enum FieldIndex
         {
@@ -34,7 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             EndColumn
         }
 
-        private CsvParser _parser;
+        private CsvReader _parser;
         private List<Notification> _toolNotifications;
 
         public override string ToolName { get { return "Semmle QL"; } }
@@ -66,7 +63,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             _toolNotifications = new List<Notification>();
 
-            Result[] results = GetResultsFromStream(input);
+            List<Result> results = GetResultsFromStream(input);
 
             PersistResults(output, results);
 
@@ -80,31 +77,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
         }
 
-        private Result[] GetResultsFromStream(Stream input)
+        private List<Result> GetResultsFromStream(Stream input)
         {
             var results = new List<Result>();
-            using (var reader = new StreamReader(input))
-            {
-                var csvConfiguration = new CsvConfiguration(CultureInfo.InvariantCulture)
-                {
-                    Delimiter = ","
-                };
 
-                using (var fieldReader = new CsvFieldReader(reader, csvConfiguration, true))
-                using (_parser = new CsvParser(fieldReader))
+            using (_parser = new CsvReader(input))
+            {
+                while (_parser.NextRow())
                 {
-                    string[] row = null;
-                    while ((row = _parser.Read()) != null)
-                    {
-                        results.Add(ParseResult(row));
-                    }
+                    results.Add(ParseResult(_parser.Current()));
                 }
             }
 
-            return results.ToArray();
+            return results;
         }
 
-        private Result ParseResult(string[] fields)
+        private Result ParseResult(List<string> fields)
         {
             string rawMessage = fields[(int)FieldIndex.Message];
             string normalizedMessage;
@@ -267,7 +255,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <returns>
         /// A Region object that contains only those properties required by the SARIF spec.
         /// </returns>
-        private Region MakeRegion(string[] fields)
+        private Region MakeRegion(List<string> fields)
         {
             Region region = new Region
             {
@@ -293,12 +281,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             return region;
         }
 
-        private static string GetString(string[] fields, FieldIndex fieldIndex)
+        private static string GetString(List<string> fields, FieldIndex fieldIndex)
         {
             return fields[(int)fieldIndex];
         }
 
-        private int GetInteger(string[] fields, FieldIndex fieldIndex)
+        private int GetInteger(List<string> fields, FieldIndex fieldIndex)
         {
             string field = GetString(fields, fieldIndex);
             int value;
@@ -349,7 +337,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             // When the parser read the offending line, it incremented the line number,
             // so report the previous line.
-            long lineNumber = _parser.Context.Row - 1;
+            long lineNumber = _parser.RowCountRead;
             string messageWithLineNumber = string.Format(
                 CultureInfo.CurrentCulture,
                 ConverterResources.SemmleNotificationFormat,

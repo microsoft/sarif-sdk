@@ -5,6 +5,7 @@
 * BUGFIX: Baselining will properly persist Run.Tool.Driver.Rules if Results reference by RuleId.
 * BUGFIX: DeferredOM will properly load files with a BOM. (LineMappingStreamReader fix)
 * FEATURE: Introduce `SarifConstants.SarifFileExtension` with value `".sarif"`.
+* BUGFIX: Remove CsvHelper dependency to avoid assembly load problem in Sarif.Multitool NPM package.
 
 ## **v2.2.2** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.2.2) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.2.2) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.2.2) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.2.2)
 * BUGFIX: `dotnet tool install` command for Multitool now produces a working installation rather than reporting missing `Sarif.Converters` binary.
