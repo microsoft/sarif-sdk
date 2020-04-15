@@ -197,9 +197,11 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
                 foreach (SarifWorkItemModelTransformer transformer in sarifWorkItemModel.Context.Transformers)
                 {
-                    if (sarifWorkItemModel == null) { break; }
+                    SarifWorkItemModel updatedWorkItemModel = transformer.Transform(sarifWorkItemModel);
 
-                    sarifWorkItemModel = transformer.Transform(sarifWorkItemModel);
+                    if (updatedWorkItemModel == null) { break; }
+
+                    sarifWorkItemModel = updatedWorkItemModel;
                 }
 
                 // If a transformer has set the model to null, that indicates 
