@@ -11,8 +11,7 @@ namespace Microsoft.WorkItems
         // TODO: Provide a meaningful representation of work item state in the model.
         //       https://github.com/microsoft/sarif-sdk/issues/1758
 
-        // TODO: provide a meaningful unique identifier for work items, that allows
-        //       consumers to locate filed items again in the future.
+        public Guid Guid { get; set; }
 
         public string OwnerOrAccount { get; set; }
 

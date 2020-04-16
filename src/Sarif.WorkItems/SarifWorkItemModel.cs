@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
 using Microsoft.WorkItems;
 using Newtonsoft.Json;
@@ -15,8 +14,6 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         public SarifLog SarifLog { get; private set; }
 
         public IList<Uri> LocationUris { get; private set; }
-
-        public Guid Guid { get; }
 
         // The sarifLog parameter contains exactly a set of results that are intended to be filed as a single work item 
         // and this log will be attached to the work item.
@@ -43,7 +40,12 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
             // Shared GitHub/Azure DevOps concepts
 
-            this.LabelsOrTags = new List<string> { $"default{nameof(this.LabelsOrTags)}" };
+            this.LabelsOrTags = new List<string>();
+
+            foreach (string tag in context.AdditionalTags)
+            {
+                this.LabelsOrTags.Add(tag);
+            }
 
             // Note that we provide a simple file name here. The filers will
             // add a prefix to the file name that includes other details,
@@ -54,9 +56,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 Text = JsonConvert.SerializeObject(sarifLog, Formatting.Indented),
             };
 
-            string title = sarifLog.Runs?[0]?.CreateWorkItemTitle();
-
-            this.Title = title ?? "[ERROR GENERATING TITLE]";
+            this.Title = sarifLog.Runs?[0]?.CreateWorkItemTitle();
 
             // TODO: Provide a useful SARIF-derived discussion entry 
             //       for the preliminary filing operation.
@@ -65,8 +65,12 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             //
             this.CommentOrDiscussion = $"Default {nameof(this.CommentOrDiscussion)}";
 
-            string descriptionFooter = !string.IsNullOrEmpty(this.Context.BugFooter) ? this.Context.BugFooter : CreateBugFooter(); 
-            this.BodyOrDescription = string.Join(Environment.NewLine, sarifLog.CreateWorkItemDescription(LocationUris?[0]), descriptionFooter);
+            string descriptionFooter = this.Context.DescriptionFooter; 
+
+            this.BodyOrDescription = 
+                Environment.NewLine + 
+                sarifLog.CreateWorkItemDescription(LocationUris?[0]) +
+                descriptionFooter;
 
             // These properties are Azure DevOps-specific. All ADO work item board
             // area paths are rooted by the project name, as are iterations.
@@ -85,22 +89,6 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             // non-generalized needs, there are no useful defaults we can provide.
             //
             // this.CustomFields
-        }
-
-        private string CreateBugFooter()
-        {
-            if(this.Context.CurrentProvider == FilingClient.SourceControlProvider.AzureDevOps)
-            {
-                StringBuilder azureDevOpsFooter = new StringBuilder();
-                azureDevOpsFooter.Append(WorkItemsResources.AdoViewingOptions);
-                azureDevOpsFooter.Append(WorkItemsResources.AdoSarifAddInMessage);
-                azureDevOpsFooter.Append(WorkItemsResources.AdoSarifViewerMessage);
-                return azureDevOpsFooter.ToString();
-            }
-            else
-            {
-                return WorkItemsResources.GeneralFooterText;
-            }
         }
     }
 }

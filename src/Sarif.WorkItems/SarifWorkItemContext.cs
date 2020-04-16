@@ -12,6 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
     {
         public SarifWorkItemContext()
         {
+            this.CurrentProvider = FilingClient.SourceControlProvider.AzureDevOps;
             this.AssemblyLocationMap = new Dictionary<string, string>();
         }
 
@@ -27,10 +28,26 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             set { this.SetProperty(HostUriOption, value); }
         }
 
-        public string BugFooter
+        public string DescriptionFooter
         {
-            get { return this.GetProperty(BugFooterOption); }
-            set { this.SetProperty(BugFooterOption, value); }
+            get {
+                return 
+                    CurrentProvider == FilingClient.SourceControlProvider.AzureDevOps
+                        ? AzureDevOpsDescriptionFooter
+                        : GitHubDescriptionFooter;
+            }
+        }
+
+        public string AzureDevOpsDescriptionFooter
+        {
+            get { return this.GetProperty(AzureDevOpsDescriptionFooterOption); }
+            set { this.SetProperty(AzureDevOpsDescriptionFooterOption, value); }
+        }
+
+        public string GitHubDescriptionFooter
+        {
+            get { return this.GetProperty(GitHubDescriptionFooterOption); }
+            set { this.SetProperty(GitHubDescriptionFooterOption, value); }
         }
 
         public string PersonalAccessToken
@@ -57,10 +74,15 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             set { this.SetProperty(DataToInsertOption, value); }
         }
 
-        private List<SarifWorkItemModelTransformer> workItemModelTransformers;
         public IReadOnlyList<SarifWorkItemModelTransformer> Transformers
         {
             get { return PopulateWorkItemModelTransformers(); }
+        }
+
+        public StringSet AdditionalTags
+        {
+            get { return this.GetProperty(AdditionalTagsOption); }
+            set { this.SetProperty(AdditionalTagsOption, value); }
         }
 
         public void AddWorkItemModelTransformer(SarifWorkItemModelTransformer workItemModelTransformer)
@@ -78,6 +100,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             this.workItemModelTransformers.Add(workItemModelTransformer);
         }
 
+        private List<SarifWorkItemModelTransformer> workItemModelTransformers;
         private IReadOnlyList<SarifWorkItemModelTransformer> PopulateWorkItemModelTransformers()
         {
             if (this.workItemModelTransformers == null)
@@ -87,7 +110,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 this.workItemModelTransformers = new List<SarifWorkItemModelTransformer>();
 
                 var loadedAssemblies = new Dictionary<string, Assembly>();
-                var thisAssemblyDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+                string thisAssemblyDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
                 foreach (string assemblyLocation in this.GetProperty(PluginAssemblyLocations))
                 {
@@ -196,10 +219,19 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 "Extensibility", nameof(SplittingStrategy),
                 defaultValue: () => { return 0; });
 
-        public static PerLanguageOption<string> BugFooterOption { get; } =
+        public static PerLanguageOption<string> AzureDevOpsDescriptionFooterOption { get; } =
             new PerLanguageOption<string>(
-                "Extensibility", nameof(BugFooter),
-                defaultValue: () => { return string.Empty; });
+                "Extensibility", nameof(AzureDevOpsDescriptionFooter),
+                defaultValue: () => { return WorkItemsResources.AzureDevOpsDefaultDescriptionFooter; });
 
+        public static PerLanguageOption<string> GitHubDescriptionFooterOption { get; } =
+            new PerLanguageOption<string>(
+                "Extensibility", nameof(GitHubDescriptionFooter),
+                defaultValue: () => { return WorkItemsResources.GitHubDefaultDescriptionFooter; });
+
+        internal static PerLanguageOption<StringSet> AdditionalTagsOption { get; } =
+            new PerLanguageOption<StringSet>(
+                "Extensibility", nameof(AdditionalTags),
+                defaultValue: () => { return new StringSet(); });
     }
 }
