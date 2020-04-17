@@ -129,11 +129,11 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
  ******************/
         [Fact]
         public void SARIF1019_OriginalUriBaseIdMustEndWithSlash_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.OriginalUriBaseIdMustEndWithSlash, "OriginalUriBaseIdSlash"));
+            => RunTest(MakeValidTestFileName(RuleId.DirectoryUriMustEndWithSlash, "DirectoryUriSlash"));
 
         [Fact]
         public void SARIF1019_OriginalUriBaseIdMustEndWithSlash_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.OriginalUriBaseIdMustEndWithSlash, "OriginalUriBaseIdSlash"));
+            => RunTest(MakeInvalidTestFileName(RuleId.DirectoryUriMustEndWithSlash, "DirectoryUriSlash"));
 /********** END PROBLEMATIC TESTS*******/
 
         private const string ValidTestFileNameSuffix = "_Valid.sarif";

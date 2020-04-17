@@ -9,7 +9,7 @@
           "rules": [
             {
               "id": "SARIF1019",
-              "name": "OriginalUriBaseIdMustEndWithSlash",
+              "name": "DirectoryUriMustEndWithSlash",
               "shortDescription": {
                 "text": "The SARIF specification requires every URI in originalUriBaseIds to end with a slash."
               },
@@ -34,7 +34,7 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1019.OriginalUriBaseIdSlash_Invalid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1019.DirectoryUriSlash_Invalid.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }

@@ -315,9 +315,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         /// <summary>
         ///   Looks up a localized string similar to The SARIF specification requires every URI in originalUriBaseIds to end with a slash. When a URI that does not end with a slash (for example, &quot;file:///C:/code/src&quot;) is combined with a relative path (for example, &quot;io/kb.c&quot;), the trailing component (&quot;src&quot;) will be interpreted as a file name and removed, producing &quot;file:///C:/code/io/kb&quot;, which is incorrect. Adding the trailing slash ensures that the combined URI will be &quot;file:///C:/code/src/io/kb.c&quot;, as expected..
         /// </summary>
-        internal static string SARIF1019_OriginalUriBaseIdMustEndWithSlash {
+        internal static string SARIF1019_DirectoryUriMustEndWithSlash {
             get {
-                return ResourceManager.GetString("SARIF1019_OriginalUriBaseIdMustEndWithSlash", resourceCulture);
+                return ResourceManager.GetString("SARIF1019_DirectoryUriMustEndWithSlash", resourceCulture);
             }
         }
     }

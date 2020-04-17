@@ -7,11 +7,11 @@ using System.Collections.Generic;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class OriginalUriBaseIdMustEndWithSlash : SarifValidationSkimmerBase
+    public class DirectoryUriMustEndWithSlash : SarifValidationSkimmerBase
     {
         private readonly MultiformatMessageString _fullDescription = new MultiformatMessageString
         {
-            Text = RuleResources.SARIF1019_OriginalUriBaseIdMustEndWithSlash
+            Text = RuleResources.SARIF1019_DirectoryUriMustEndWithSlash
         };
 
         public override MultiformatMessageString FullDescription => _fullDescription;
@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// <summary>
         /// SARIF1019
         /// </summary>
-        public override string Id => RuleId.OriginalUriBaseIdMustEndWithSlash;
+        public override string Id => RuleId.DirectoryUriMustEndWithSlash;
 
         protected override IEnumerable<string> MessageResourceNames => new string[]
         {
