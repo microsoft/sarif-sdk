@@ -295,7 +295,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to In this artifactLocation object contained in run.originalUriBaseIds, the uri property &apos;{0}&apos; does not end with a slash..
+        ///   Looks up a localized string similar to {0}: The URI &apos;{1}&apos; belonging to the &apos;{2}&apos; element of run.originalUriBaseIds does not end with a slash..
         /// </summary>
         internal static string SARIF1018_LacksTrailingSlash {
             get {
@@ -304,7 +304,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to In this artifactLocation object contained in run.originalUriBaseIds, uriBaseId is absent, but the uri property &apos;{0}&apos; is not an absolute URI..
+        ///   Looks up a localized string similar to {0}: The URI &apos;{1}&apos; belonging to the &apos;{2}&apos; element of run.originalUriBaseIds is not an absolute URI..
         /// </summary>
         internal static string SARIF1018_NotAbsolute {
             get {

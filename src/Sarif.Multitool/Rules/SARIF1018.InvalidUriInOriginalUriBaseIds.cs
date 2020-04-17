@@ -35,14 +35,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 string originalUriBaseIdsPointer = runPointer.AtProperty(SarifPropertyName.OriginalUriBaseIds);
 
-                foreach (string key in run.OriginalUriBaseIds.Keys)
+                foreach (string uriBaseId in run.OriginalUriBaseIds.Keys)
                 {
-                    AnalyzeOriginalUriBaseIdsEntry(run.OriginalUriBaseIds[key], originalUriBaseIdsPointer.AtProperty(key));
+                    AnalyzeOriginalUriBaseIdsEntry(uriBaseId, run.OriginalUriBaseIds[uriBaseId], originalUriBaseIdsPointer.AtProperty(uriBaseId));
                 }
             }
         }
 
-        private void AnalyzeOriginalUriBaseIdsEntry(ArtifactLocation artifactLocation, string pointer)
+        private void AnalyzeOriginalUriBaseIdsEntry(string uriBaseId, ArtifactLocation artifactLocation, string pointer)
         {
             // If uriBaseId is present, the uri must be relative. But this is true for _all_
             // artifactLocation objects, not just the ones in run.originalUriBaseIds, so we
@@ -69,12 +69,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 Uri uri = new Uri(uriString, UriKind.RelativeOrAbsolute);
                 if (!uri.IsAbsoluteUri)
                 {
-                    LogResult(pointer, nameof(RuleResources.SARIF1018_NotAbsolute), uriString);
+                    LogResult(pointer, nameof(RuleResources.SARIF1018_NotAbsolute), uriString, uriBaseId);
                 }
 
                 if (!uriString.EndsWith("/"))
                 {
-                    LogResult(pointer, nameof(RuleResources.SARIF1018_LacksTrailingSlash), uriString);
+                    LogResult(pointer, nameof(RuleResources.SARIF1018_LacksTrailingSlash), uriString, uriBaseId);
                 }
             }
         }
