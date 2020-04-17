@@ -64,7 +64,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             string uriString = artifactLocation.Uri.OriginalString;
             if (uriString != null && Uri.IsWellFormedUriString(uriString, UriKind.RelativeOrAbsolute))
             {
-                // Ok, it's a well-formed URI of some kind. If it's not absolute or it it doesn not
+                // Ok, it's a well-formed URI of some kind. If it's not absolute or if it does not
                 // end with a slash, _now_ we can report it.
                 Uri uri = new Uri(uriString, UriKind.RelativeOrAbsolute);
                 if (!uri.IsAbsoluteUri)
