@@ -25,7 +25,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override IEnumerable<string> MessageResourceNames => new string[]
         {
-            nameof(RuleResources.SARIF1018_Default)
+            nameof(RuleResources.SARIF1018_NotAbsolute),
+            nameof(RuleResources.SARIF1018_LacksTrailingSlash)
         };
 
         protected override void Analyze(Run run, string runPointer)
@@ -63,12 +64,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             string uriString = artifactLocation.Uri.OriginalString;
             if (uriString != null && Uri.IsWellFormedUriString(uriString, UriKind.RelativeOrAbsolute))
             {
-                // Ok, it's a well-formed URI of some kind. If it's not absolute, _now_ we
-                // can report it.
+                // Ok, it's a well-formed URI of some kind. If it's not absolute or it it doesn not
+                // end with a slash, _now_ we can report it.
                 Uri uri = new Uri(uriString, UriKind.RelativeOrAbsolute);
                 if (!uri.IsAbsoluteUri)
                 {
-                    LogResult(pointer, nameof(RuleResources.SARIF1018_Default), uriString);
+                    LogResult(pointer, nameof(RuleResources.SARIF1018_NotAbsolute), uriString);
+                }
+
+                if (!uriString.EndsWith("/"))
+                {
+                    LogResult(pointer, nameof(RuleResources.SARIF1018_LacksTrailingSlash), uriString);
                 }
             }
         }

@@ -14,11 +14,14 @@
                 "text": "In the artifactLocation objects contained in run."
               },
               "fullDescription": {
-                "text": "In the artifactLocation objects contained in run.originalUriBaseIds, if uriBaseId is absent, then uri must either be an absolute URI or it must be absent."
+                "text": "In the artifactLocation objects contained in run.originalUriBaseIds, if uriBaseId is absent, then uri must either be an absolute URI or it must be absent. Also, uri must end with a slash, so that it can safely be combined with the relative URIs in artifactLocation objects elsewhere in the log file."
               },
               "messageStrings": {
-                "Default": {
-                  "text": "In this artifactLocation object contained in run.originalUriBaseIds, uriBaseId is absent, but uri is '{0}', which is a relative URI."
+                "NotAbsolute": {
+                  "text": "In this artifactLocation object contained in run.originalUriBaseIds, uriBaseId is absent, but the uri property '{0}' is not an absolute URI."
+                },
+                "LacksTrailingSlash": {
+                  "text": "In this artifactLocation object contained in run.originalUriBaseIds, the uri property '{0}' does not end with a slash."
                 }
               },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
@@ -45,10 +48,35 @@
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "Default",
+            "id": "NotAbsolute",
             "arguments": [
               "runs[0].originalUriBaseIds.PROJECT_ROOT",
-              "project/"
+              "project"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 12,
+                  "startColumn": 25
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1018",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "LacksTrailingSlash",
+            "arguments": [
+              "runs[0].originalUriBaseIds.PROJECT_ROOT",
+              "project"
             ]
           },
           "locations": [

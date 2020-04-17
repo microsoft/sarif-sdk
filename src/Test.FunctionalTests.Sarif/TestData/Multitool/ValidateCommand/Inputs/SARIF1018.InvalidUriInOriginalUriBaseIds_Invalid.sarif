@@ -11,9 +11,9 @@
       "originalUriBaseIds": {
         "PROJECT_ROOT": {
           "description": {
-            "text": "This artifactLocation has no uriBaseId, so its uri, if present, must be absolute. But it isn't."
+            "text": "This artifactLocation has no uriBaseId, so its uri, if present, must be absolute. But it isn't. It also doesn't end with a slash."
           },
-          "uri": "project/"
+          "uri": "project"
         }
       },
       "results": [],

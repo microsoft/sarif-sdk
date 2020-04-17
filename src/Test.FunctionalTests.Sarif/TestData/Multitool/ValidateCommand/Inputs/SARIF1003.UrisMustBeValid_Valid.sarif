@@ -28,7 +28,7 @@
         }
       },
       "originalUriBaseIds": {
-        "SRCROOT": "file:///c:/Code/sarif-sdk/src"
+        "SRCROOT": "file:///c:/Code/sarif-sdk/src/"
       },
       "resources": {
         "rules": {
