@@ -45,6 +45,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected void LogResult(string jPointer, string formatId, params string[] args)
         {
+            LogResult(jPointer, formatId, DefaultLevel, args);
+        }
+
+        protected void LogResult(string jPointer, string formatId, FailureLevel level, params string[] args)
+        {
             Region region = GetRegionFromJPointer(jPointer);
 
             // All messages start with "In {file}, at {jPointer}, ...". Prepend the jPointer to the args.
@@ -53,7 +58,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             argsWithPointer[0] = JsonPointerToJavaScript(jPointer);
 
             Context.Logger.Log(this,
-                RuleUtilities.BuildResult(DefaultLevel, Context, region, formatId, argsWithPointer));
+                RuleUtilities.BuildResult(level, Context, region, formatId, argsWithPointer));
         }
 
         protected virtual void Analyze(Address address, string addressPointer)

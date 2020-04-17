@@ -17,8 +17,11 @@
                 "text": "The SARIF specification requires every URI in originalUriBaseIds to end with a slash. When a URI that does not end with a slash (for example, \"file:///C:/code/src\") is combined with a relative path (for example, \"io/kb.c\"), the trailing component (\"src\") will be interpreted as a file name and removed, producing \"file:///C:/code/io/kb\", which is incorrect. Adding the trailing slash ensures that the combined URI will be \"file:///C:/code/src/io/kb.c\", as expected."
               },
               "messageStrings": {
-                "Default": {
+                "OriginalUriBaseId": {
                   "text": "{0}: The URI '{1}' associated with the originalUriBaseId symbol '{2}' does not end with a slash."
+                },
+                "WorkingDirectory": {
+                  "text": "{0}: The workingDirectory URI '{1}' does not end with a slash."
                 }
               },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
@@ -45,11 +48,36 @@
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "Default",
+            "id": "OriginalUriBaseId",
             "arguments": [
-              "runs[0].originalUriBaseIds.PROJECT_ROOT",
+              "runs[0].originalUriBaseIds.PROJECT_ROOT.uri",
               "file:///C:/code/src",
               "PROJECT_ROOT"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 12,
+                  "startColumn": 25
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1019",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "id": "WorkingDirectory",
+            "arguments": [
+              "runs[0].invocations[0].workingDirectory.uri",
+              "file:///C:/code"
             ]
           },
           "locations": [

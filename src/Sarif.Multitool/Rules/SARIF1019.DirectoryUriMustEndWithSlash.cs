@@ -9,6 +9,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class DirectoryUriMustEndWithSlash : SarifValidationSkimmerBase
     {
+        private const string Slash = "/";
+
         private readonly MultiformatMessageString _fullDescription = new MultiformatMessageString
         {
             Text = RuleResources.SARIF1019_DirectoryUriMustEndWithSlash
@@ -25,7 +27,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override IEnumerable<string> MessageResourceNames => new string[]
         {
-            nameof(RuleResources.SARIF1019_Default)
+            nameof(RuleResources.SARIF1019_OriginalUriBaseId),
+            nameof(RuleResources.SARIF1019_WorkingDirectory)
         };
 
         protected override void Analyze(Run run, string runPointer)
@@ -38,6 +41,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 {
                     AnalyzeOriginalUriBaseIdsEntry(key, run.OriginalUriBaseIds[key], originalUriBaseIdsPointer.AtProperty(key));
                 }
+            }
+        }
+
+        protected override void Analyze(Invocation invocation, string pointer)
+        {
+            string uriString = invocation?.WorkingDirectory?.Uri?.OriginalString;
+
+            // CAUTION: Do not change this test to 'uriString?.EndsWith(Slash") != true'.
+            // That would fire if uriString were null. We only want to fire if it is non-null
+            // but does not end with a slash.
+            if (uriString != null && !uriString.EndsWith(Slash))
+            {
+                LogResult(
+                    pointer.AtProperty(SarifPropertyName.WorkingDirectory).AtProperty(SarifPropertyName.Uri),
+                    nameof(RuleResources.SARIF1019_WorkingDirectory),
+                    FailureLevel.Warning,
+                    uriString);
             }
         }
 
@@ -55,12 +75,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 // Ok, it's a well-formed URI. If it doesn't end with a slash, _now_ we can report it.
 
-                // CAUTION: Do not change this test to 'uriString?.EndsWith("/") != true'.
+                // CAUTION: Do not change this test to 'uriString?.EndsWith(Slash") != true'.
                 // That would fire if uriString were null. We only want to fire if it is non-null
                 // but does not end with a slash.
-                if (uriString != null && !uriString.EndsWith("/"))
+                if (uriString != null && !uriString.EndsWith(Slash))
                 {
-                    LogResult(pointer, nameof(RuleResources.SARIF1019_Default), uriString, originalUriBaseId);
+                    LogResult(
+                        pointer.AtProperty(SarifPropertyName.Uri),
+                        nameof(RuleResources.SARIF1019_OriginalUriBaseId),
+                        uriString, originalUriBaseId);
                 }
             }
         }

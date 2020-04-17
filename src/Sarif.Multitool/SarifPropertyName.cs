@@ -95,6 +95,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public const string WebRequests = "webRequests";
         public const string WebResponse = "webResponse";
         public const string WebResponses = "webResponses";
+        public const string WorkingDirectory = "workingDirectory";
         public const string WorkItemUris = "workItemUris";
     }
 }

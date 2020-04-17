@@ -13,6 +13,14 @@
           "uri": "file:///C:/code/src/"
         }
       },
+      "invocations": [
+        {
+          "workingDirectory": {
+            "uri": "file:///C:/code/"
+          },
+          "executionSuccessful": true
+        }
+      ],
       "results": [],
       "columnKind": "utf16CodeUnits"
     }
