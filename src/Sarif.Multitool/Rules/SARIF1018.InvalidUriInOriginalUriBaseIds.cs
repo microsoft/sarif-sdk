@@ -25,7 +25,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override IEnumerable<string> MessageResourceNames => new string[]
         {
-            nameof(RuleResources.SARIF1018_Default)
+            nameof(RuleResources.SARIF1018_NotAbsolute),
+            nameof(RuleResources.SARIF1018_LacksTrailingSlash)
         };
 
         protected override void Analyze(Run run, string runPointer)
@@ -34,14 +35,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 string originalUriBaseIdsPointer = runPointer.AtProperty(SarifPropertyName.OriginalUriBaseIds);
 
-                foreach (string key in run.OriginalUriBaseIds.Keys)
+                foreach (string uriBaseId in run.OriginalUriBaseIds.Keys)
                 {
-                    AnalyzeOriginalUriBaseIdsEntry(run.OriginalUriBaseIds[key], originalUriBaseIdsPointer.AtProperty(key));
+                    AnalyzeOriginalUriBaseIdsEntry(uriBaseId, run.OriginalUriBaseIds[uriBaseId], originalUriBaseIdsPointer.AtProperty(uriBaseId));
                 }
             }
         }
 
-        private void AnalyzeOriginalUriBaseIdsEntry(ArtifactLocation artifactLocation, string pointer)
+        private void AnalyzeOriginalUriBaseIdsEntry(string uriBaseId, ArtifactLocation artifactLocation, string pointer)
         {
             // If uriBaseId is present, the uri must be relative. But this is true for _all_
             // artifactLocation objects, not just the ones in run.originalUriBaseIds, so we
@@ -63,12 +64,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             string uriString = artifactLocation.Uri.OriginalString;
             if (uriString != null && Uri.IsWellFormedUriString(uriString, UriKind.RelativeOrAbsolute))
             {
-                // Ok, it's a well-formed URI of some kind. If it's not absolute, _now_ we
-                // can report it.
+                // Ok, it's a well-formed URI of some kind. If it's not absolute or if it does not
+                // end with a slash, _now_ we can report it.
                 Uri uri = new Uri(uriString, UriKind.RelativeOrAbsolute);
                 if (!uri.IsAbsoluteUri)
                 {
-                    LogResult(pointer, nameof(RuleResources.SARIF1018_Default), uriString);
+                    LogResult(pointer, nameof(RuleResources.SARIF1018_NotAbsolute), uriString, uriBaseId);
+                }
+
+                if (!uriString.EndsWith("/"))
+                {
+                    LogResult(pointer, nameof(RuleResources.SARIF1018_LacksTrailingSlash), uriString, uriBaseId);
                 }
             }
         }

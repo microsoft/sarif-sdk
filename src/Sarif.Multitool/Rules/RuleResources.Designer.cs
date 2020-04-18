@@ -286,20 +286,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to In this artifactLocation object contained in run.originalUriBaseIds, uriBaseId is absent, but uri is &apos;{0}&apos;, which is a relative URI..
-        /// </summary>
-        internal static string SARIF1018_Default {
-            get {
-                return ResourceManager.GetString("SARIF1018_Default", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to In the artifactLocation objects contained in run.originalUriBaseIds, if uriBaseId is absent, then uri must either be an absolute URI or it must be absent..
+        ///   Looks up a localized string similar to In the artifactLocation objects contained in run.originalUriBaseIds, if uriBaseId is absent, then uri must either be an absolute URI or it must be absent. Also, uri must end with a slash, so that it can safely be combined with the relative URIs in artifactLocation objects elsewhere in the log file..
         /// </summary>
         internal static string SARIF1018_InvalidUriInOriginalUriBaseIds {
             get {
                 return ResourceManager.GetString("SARIF1018_InvalidUriInOriginalUriBaseIds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The URI &apos;{1}&apos; belonging to the &apos;{2}&apos; element of run.originalUriBaseIds does not end with a slash..
+        /// </summary>
+        internal static string SARIF1018_LacksTrailingSlash {
+            get {
+                return ResourceManager.GetString("SARIF1018_LacksTrailingSlash", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The URI &apos;{1}&apos; belonging to the &apos;{2}&apos; element of run.originalUriBaseIds is not an absolute URI..
+        /// </summary>
+        internal static string SARIF1018_NotAbsolute {
+            get {
+                return ResourceManager.GetString("SARIF1018_NotAbsolute", resourceCulture);
             }
         }
     }
