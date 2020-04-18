@@ -100,7 +100,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             // Returns strings like:
             //
             // [Tool:Warning] RULE3067 (in 'Namespace.Type.MyMethod()')
-            // [Tool:Error] RULE2001: Null derefernece (in c:\src\build.cpp)
+            // [Tool:Error] RULE2001: Null dereference (in c:\src\build.cpp)
 
             string title = titlePrefix + (locationName == null ? "" : " (in " + locationName + ")");
 
@@ -133,12 +133,17 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
             Uri runRepositoryUri = log?.Runs.FirstOrDefault()?.VersionControlProvenance?.FirstOrDefault().RepositoryUri;
             string detectionLocation = !string.IsNullOrEmpty(runRepositoryUri?.OriginalString) ? runRepositoryUri?.OriginalString : locationUri?.OriginalString;
-          
-            var descriptionBuilder = new StringBuilder(string.Format(WorkItemsResources.WorkItemBodyTemplateText, totalResults, phrasedToolNames, detectionLocation, multipleToolsFooter));
-            descriptionBuilder.Append(WorkItemsResources.ViewScansTabResults);
-            descriptionBuilder.AppendLine();
 
-            return descriptionBuilder.ToString();
+            // This work item contains {0} {1} issue(s) detected in {2}{3}. Click the 'Scans' tab to review results.
+            string description =
+                string.Format(
+                    WorkItemsResources.WorkItemBodyTemplateText, // This work item contains
+                    totalResults,                                // {0}
+                    phrasedToolNames,                            // {1} issue(s) detected in
+                    detectionLocation,                           // {2}
+                    multipleToolsFooter);                        // {3}. Click the 'Scans' tab to review results.\r\n
+
+            return description;
         }
 
         private static string ConstructFullRuleIdentifier(ReportingDescriptor reportingDescriptor)

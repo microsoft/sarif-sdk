@@ -61,38 +61,26 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;li&gt;Load the attached log file in the &lt;a href=&quot;&quot;https://marketplace.visualstudio.com/_apis/public/gallery/publishers/WDGIS/vsextensions/MicrosoftSarifViewer/2.1.7/vspackage&quot;&quot;&gt;Visual Studio SARIF add-in.&lt;/a&gt;&lt;/li&gt;.
+        ///   Looks up a localized string similar to &lt;br&gt;&lt;br&gt;For another viewing option, load the attached SARIF log file in: &lt;br&gt;
+        ///&lt;li&gt;The &lt;a href=&quot;&quot;https://marketplace.visualstudio.com/_apis/public/gallery/publishers/WDGIS/vsextensions/MicrosoftSarifViewer/2.1.7/vspackage&quot;&quot;&gt;Visual Studio SARIF add-in&lt;/a&gt;.&lt;/li&gt;
+        ///&lt;li&gt;The &lt;a href=&quot;&quot;https://marketplace.visualstudio.com/items?itemName=MS-SarifVSCode.sarif-viewer&quot;&quot;&gt;VS Code SARIF extension&lt;/a&gt;.&lt;/li&gt;
+        ///&lt;li&gt;The browser-hosted &lt;a href=&quot;&quot;https://microsoft.github.io/sarif-web-component/&quot;&quot;&gt;SARIF web control&lt;/a&gt;.&lt;/li&gt;.
         /// </summary>
-        internal static string AdoSarifAddInMessage {
+        internal static string AzureDevOpsDefaultDescriptionFooter {
             get {
-                return ResourceManager.GetString("AdoSarifAddInMessage", resourceCulture);
+                return ResourceManager.GetString("AzureDevOpsDefaultDescriptionFooter", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;li&gt;Load the attached log file in the &lt;a href=&quot;&quot;https://marketplace.visualstudio.com/items?itemName=MS-SarifVSCode.sarif-viewer&quot;&quot;&gt;VS Code SARIF extension.&lt;/a&gt;&lt;/li&gt;.
+        ///   Looks up a localized string similar to **For another viewing option, load the referenced SARIF log file in:**
+        ///- The [Visual Studio SARIF add-in](https://marketplace.visualstudio.com/_apis/public/gallery/publishers/WDGIS/vsextensions/MicrosoftSarifViewer/2.1.7/vspackage)
+        ///- The [VS Code SARIF extension](https://marketplace.visualstudio.com/items?itemName=MS-SarifVSCode.sarif-viewer)
+        ///- The browser-hosted [SARIF web control](&quot;https://microsoft.github.io/sarif-web-component/).
         /// </summary>
-        internal static string AdoSarifViewerMessage {
+        internal static string GitHubDefaultDescriptionFooter {
             get {
-                return ResourceManager.GetString("AdoSarifViewerMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;br&gt;&lt;br&gt;Other viewing options:&lt;br&gt;.
-        /// </summary>
-        internal static string AdoViewingOptions {
-            get {
-                return ResourceManager.GetString("AdoViewingOptions", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Details for the above issues can be found in the attachment filed with this issue..
-        /// </summary>
-        internal static string GeneralFooterText {
-            get {
-                return ResourceManager.GetString("GeneralFooterText", resourceCulture);
+                return ResourceManager.GetString("GitHubDefaultDescriptionFooter", resourceCulture);
             }
         }
         
@@ -115,16 +103,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Click the &apos;Scans&apos; tab to review results..
-        /// </summary>
-        internal static string ViewScansTabResults {
-            get {
-                return ResourceManager.GetString("ViewScansTabResults", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to This work item contains {0} {1} issue(s) detected in &apos;{2}&apos;{3}.  .
+        ///   Looks up a localized string similar to This work item contains {0} {1} issue(s) detected in {2}{3}. Click the &apos;Scans&apos; tab to review results..
         /// </summary>
         internal static string WorkItemBodyTemplateText {
             get {

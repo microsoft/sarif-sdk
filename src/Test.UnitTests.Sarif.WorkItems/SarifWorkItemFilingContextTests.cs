@@ -56,7 +56,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             var context = new SarifWorkItemContext();
 
             string customBugFooter = "This text is important to all my bugs.";
-            context.BugFooter = customBugFooter;
+            context.AzureDevOpsDescriptionFooter = customBugFooter;
             var workItemModel = new SarifWorkItemModel(sarifLog: TestData.CreateSimpleLog(), context);
 
             workItemModel.BodyOrDescription.Should().Contain(customBugFooter);
