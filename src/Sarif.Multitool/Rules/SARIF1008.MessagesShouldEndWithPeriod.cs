@@ -36,13 +36,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override void Analyze(ReportingDescriptor reportingDescriptor, string reportingDescriptorPointer)
         {
-            AnalyzeMessageStrings(reportingDescriptor.MessageStrings, reportingDescriptorPointer, SarifPropertyName.MessageStrings);
+            AnalyzeMessageStrings(reportingDescriptor.MessageStrings, reportingDescriptorPointer);
         }
 
         private void AnalyzeMessageStrings(
             IDictionary<string, MultiformatMessageString> messageStrings,
-            string reportingDescriptorPointer,
-            string propertyName)
+            string reportingDescriptorPointer)
         {
             if (messageStrings != null)
             {
@@ -55,7 +54,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     string messageStringPointer = messageStringsPointer.AtProperty(key);
 
                     AnalyzeMessageString(messageString.Text, messageStringPointer, SarifPropertyName.Text);
-                    AnalyzeMessageString(messageString.Markdown, messageStringPointer, SarifPropertyName.Markdown);
                 }
             }
         }
@@ -63,13 +61,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         protected override void Analyze(MultiformatMessageString multiformatMessageString, string multiformatMessageStringPointer)
         {
             AnalyzeMessageString(multiformatMessageString.Text, multiformatMessageStringPointer, SarifPropertyName.Text);
-            AnalyzeMessageString(multiformatMessageString.Markdown, multiformatMessageStringPointer, SarifPropertyName.Markdown);
         }
 
         protected override void Analyze(Message message, string messagePointer)
         {
             AnalyzeMessageString(message.Text, messagePointer, SarifPropertyName.Text);
-            AnalyzeMessageString(message.Markdown, messagePointer, SarifPropertyName.Markdown);
         }
 
         private void AnalyzeMessageString(

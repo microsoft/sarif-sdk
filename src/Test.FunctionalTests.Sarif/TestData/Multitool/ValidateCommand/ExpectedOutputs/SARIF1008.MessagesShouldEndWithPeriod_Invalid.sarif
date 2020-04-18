@@ -70,30 +70,6 @@
           "message": {
             "id": "Default",
             "arguments": [
-              "runs[0].results[0].attachments[0].description.markdown",
-              "_Rich_ attachment description without period"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 137,
-                  "startColumn": 74
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF1008",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Default",
-            "arguments": [
               "runs[0].results[0].attachments[0].rectangles[0].message.text",
               "rectangle message without period"
             ]
@@ -107,30 +83,6 @@
                 "region": {
                   "startLine": 147,
                   "startColumn": 62
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF1008",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Default",
-            "arguments": [
-              "runs[0].results[0].attachments[0].rectangles[0].message.markdown",
-              "_Rich_ rectangle message without period"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 148,
-                  "startColumn": 73
                 }
               }
             }
@@ -166,30 +118,6 @@
           "message": {
             "id": "Default",
             "arguments": [
-              "runs[0].results[0].locations[0].message.markdown",
-              "_Rich_ location message without period"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 76,
-                  "startColumn": 68
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF1008",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Default",
-            "arguments": [
               "runs[0].results[0].locations[0].physicalLocation.region.message.text",
               "region message without period"
             ]
@@ -203,30 +131,6 @@
                 "region": {
                   "startLine": 69,
                   "startColumn": 59
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF1008",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Default",
-            "arguments": [
-              "runs[0].results[0].locations[0].physicalLocation.region.message.markdown",
-              "_Rich_ region message without period"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 70,
-                  "startColumn": 70
                 }
               }
             }
@@ -262,30 +166,6 @@
           "message": {
             "id": "Default",
             "arguments": [
-              "runs[0].results[0].codeFlows[0].message.markdown",
-              "_Rich_ codeFlow message without period"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 102,
-                  "startColumn": 68
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF1008",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Default",
-            "arguments": [
               "runs[0].results[0].codeFlows[0].threadFlows[0].message.text",
               "threadFlow message without period"
             ]
@@ -299,30 +179,6 @@
                 "region": {
                   "startLine": 107,
                   "startColumn": 63
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF1008",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Default",
-            "arguments": [
-              "runs[0].results[0].codeFlows[0].threadFlows[0].message.markdown",
-              "_Rich_ threadFlow message without period"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 108,
-                  "startColumn": 74
                 }
               }
             }
@@ -358,30 +214,6 @@
           "message": {
             "id": "Default",
             "arguments": [
-              "runs[0].results[0].codeFlows[0].threadFlows[0].locations[0].location.message.markdown",
-              "_Rich_ ThreadFlow location message without period"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 124,
-                  "startColumn": 89
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF1008",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Default",
-            "arguments": [
               "runs[0].results[0].message.text",
               "result message without period"
             ]
@@ -395,30 +227,6 @@
                 "region": {
                   "startLine": 57,
                   "startColumn": 51
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF1008",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Default",
-            "arguments": [
-              "runs[0].results[0].message.markdown",
-              "_Rich_ result message without period"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 58,
-                  "startColumn": 62
                 }
               }
             }
@@ -454,30 +262,6 @@
           "message": {
             "id": "Default",
             "arguments": [
-              "runs[0].results[0].stacks[0].frames[0].location.message.markdown",
-              "_Rich_ frame message without period"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 91,
-                  "startColumn": 71
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF1008",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Default",
-            "arguments": [
               "runs[0].results[0].stacks[0].message.text",
               "stack message without period"
             ]
@@ -491,30 +275,6 @@
                 "region": {
                   "startLine": 83,
                   "startColumn": 54
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF1008",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Default",
-            "arguments": [
-              "runs[0].results[0].stacks[0].message.markdown",
-              "_Rich_ stack message without period"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 84,
-                  "startColumn": 65
                 }
               }
             }
@@ -550,30 +310,6 @@
           "message": {
             "id": "Default",
             "arguments": [
-              "runs[0].results[0].fixes[0].description.markdown",
-              "_Rich_ fix description without period"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 158,
-                  "startColumn": 67
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF1008",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Default",
-            "arguments": [
               "runs[0].invocations[0].toolExecutionNotifications[0].message.text",
               "toolNotification message without period"
             ]
@@ -587,30 +323,6 @@
                 "region": {
                   "startLine": 35,
                   "startColumn": 65
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF1008",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Default",
-            "arguments": [
-              "runs[0].invocations[0].toolExecutionNotifications[0].message.markdown",
-              "_Rich_ toolNotification message without period"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 36,
-                  "startColumn": 76
                 }
               }
             }
@@ -646,30 +358,6 @@
           "message": {
             "id": "Default",
             "arguments": [
-              "runs[0].invocations[0].toolConfigurationNotifications[0].message.markdown",
-              "_Rich_ configuratioNotification message without period"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 44,
-                  "startColumn": 84
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF1008",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Default",
-            "arguments": [
               "runs[0].tool.driver.rules[0].messageStrings.Default.text",
               "rule message without period"
             ]
@@ -683,30 +371,6 @@
                 "region": {
                   "startLine": 22,
                   "startColumn": 55
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF1008",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Default",
-            "arguments": [
-              "runs[0].tool.driver.rules[0].messageStrings.Default.markdown",
-              "_Rich_ rule message without period"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 23,
-                  "startColumn": 66
                 }
               }
             }
@@ -742,30 +406,6 @@
           "message": {
             "id": "Default",
             "arguments": [
-              "runs[0].tool.driver.rules[0].shortDescription.markdown",
-              "_Rich_ short rule description without period"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 14,
-                  "startColumn": 74
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF1008",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Default",
-            "arguments": [
               "runs[0].tool.driver.rules[0].fullDescription.text",
               "Short full rule description without period"
             ]
@@ -779,30 +419,6 @@
                 "region": {
                   "startLine": 17,
                   "startColumn": 68
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF1008",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Default",
-            "arguments": [
-              "runs[0].tool.driver.rules[0].fullDescription.markdown",
-              "_Rich_ full rule description without period"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 18,
-                  "startColumn": 73
                 }
               }
             }
