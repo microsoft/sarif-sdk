@@ -167,7 +167,16 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 this.Logger.LogMetrics(EventIds.LogsToProcessMetrics, logsToProcessMetrics);
                 splittingStopwatch.Stop();
 
-                for (int splitFileIndex = 0; splitFileIndex < logsToProcess.Count; splitFileIndex++)
+                int logsToProcessCount = logsToProcess.Count;
+
+#if DEBUG
+                if (!int.TryParse(Environment.GetEnvironmentVariable("SARIFTEST_FILINGLIMIT"), out logsToProcessCount))
+                {
+                    logsToProcessCount = logsToProcess.Count;
+                }
+#endif
+
+                for (int splitFileIndex = 0; splitFileIndex < logsToProcessCount; splitFileIndex++)
                 {
                     SarifLog splitLog = logsToProcess[splitFileIndex];
                     FileWorkItemsHelper(splitLog, this.FilingContext, this.FilingClient);
