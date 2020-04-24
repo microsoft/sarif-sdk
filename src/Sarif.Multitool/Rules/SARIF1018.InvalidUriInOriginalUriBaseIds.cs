@@ -44,17 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         private void AnalyzeOriginalUriBaseIdsEntry(string uriBaseId, ArtifactLocation artifactLocation, string pointer)
         {
-            // If uriBaseId is present, the uri must be relative. But this is true for _all_
-            // artifactLocation objects, not just the ones in run.originalUriBaseIds, so we
-            // will not verify it here. There will be a separate validation rule to enforce
-            // this condition. See https://github.com/microsoft/sarif-sdk/issues/1643.
-            if (artifactLocation.UriBaseId != null) { return; }
-
-            // We know that uriBaseId is absent. In this case, uri must _either_ be an absolute
-            // URI, or it must be absent.
             if (artifactLocation.Uri == null) { return; }
-
-            // We know that uri is present, so now we can verify that it's an absolute URI.
 
             // If it's not a well-formed URI of _any_ kind, then don't bother triggering this rule.
             // Rule SARIF1003, UrisMustBeValid, will catch it.
@@ -64,10 +54,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             string uriString = artifactLocation.Uri.OriginalString;
             if (uriString != null && Uri.IsWellFormedUriString(uriString, UriKind.RelativeOrAbsolute))
             {
-                // Ok, it's a well-formed URI of some kind. If it's not absolute or if it does not
-                // end with a slash, _now_ we can report it.
-                Uri uri = new Uri(uriString, UriKind.RelativeOrAbsolute);
-                if (!uri.IsAbsoluteUri)
+                var uri = new Uri(uriString, UriKind.RelativeOrAbsolute);
+
+                if (artifactLocation.UriBaseId == null && !uri.IsAbsoluteUri)
                 {
                     LogResult(pointer, nameof(RuleResources.SARIF1018_NotAbsolute), uriString, uriBaseId);
                 }

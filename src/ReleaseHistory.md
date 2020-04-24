@@ -1,10 +1,14 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
+## **v2.2.4** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.2.4) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.2.4) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.2.4) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.2.4)
+* BUGFIX: Validation rule SARIF1018 was not checking for a trailing slash on `uri` properties in `originalUriBaseIds` if `uriBaseId` was present.
+
 ## **v2.2.3** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.2.3) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.2.3) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.2.3) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.2.3)
+* FEATURE: Introduce `SarifConstants.SarifFileExtension` with value `".sarif"`.
+* FEATURE: In validation rule SARIF1018, require `uri` values in `originalUriBaseIds` to end with a slash, per the SARIF spec.
 * BUGFIX: Result.GetRule will look up by RuleId if RuleIndex not present.
 * BUGFIX: Baselining will properly persist Run.Tool.Driver.Rules if Results reference by RuleId.
 * BUGFIX: DeferredOM will properly load files with a BOM. (LineMappingStreamReader fix)
-* FEATURE: Introduce `SarifConstants.SarifFileExtension` with value `".sarif"`.
 * BUGFIX: Remove CsvHelper dependency to avoid assembly load problem in Sarif.Multitool NPM package.
 
 ## **v2.2.2** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.2.2) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.2.2) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.2.2) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.2.2)

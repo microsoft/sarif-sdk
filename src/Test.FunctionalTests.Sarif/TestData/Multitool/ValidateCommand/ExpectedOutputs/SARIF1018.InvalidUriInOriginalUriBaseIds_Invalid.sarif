@@ -94,6 +94,32 @@
               }
             }
           ]
+        },
+        {
+          "ruleId": "SARIF1018",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "LacksTrailingSlash",
+            "arguments": [
+              "runs[0].originalUriBaseIds.SOURCE_ROOT",
+              "src",
+              "SOURCE_ROOT"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 18,
+                  "startColumn": 24
+                }
+              }
+            }
+          ]
         }
       ],
       "columnKind": "utf16CodeUnits"
