@@ -14,6 +14,13 @@
             "text": "This artifactLocation has no uriBaseId, so its uri, if present, must be absolute. But it isn't. It also doesn't end with a slash."
           },
           "uri": "project"
+        },
+        "SOURCE_ROOT": {
+          "description": {
+            "text": "This is a regression test for Bug #1862, where we were not checking for a trailing slash on relative URIs."
+          },
+          "uri": "src",
+          "uriBaseId": "PROJECT_ROOT"
         }
       },
       "results": [],
