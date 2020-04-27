@@ -12,7 +12,8 @@
     -->
 
     <!-- Publish trimmed single-file exe -->
-    <PublishTrimmed Condition="'$(RuntimeIdentifier)' != ''">true</PublishTrimmed>
+    <!-- Seeing assembly load failures with trimmed exe, but not without. On some machines, for some commands. :/ -->
+    <!-- <PublishTrimmed Condition="'$(RuntimeIdentifier)' != ''">true</PublishTrimmed> -->
     <PublishSingleFile Condition="'$(RuntimeIdentifier)' != ''">true</PublishSingleFile>
 
     <!-- Publish 'ready-to-run' on Windows (Linux/Mac not yet supported) -->

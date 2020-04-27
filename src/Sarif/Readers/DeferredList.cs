@@ -40,12 +40,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
         private Func<T, T> _transformer;
 
+        private T _lastItem;
+        private int _lastItemIndex;
+
         public DeferredList(JsonSerializer jsonSerializer, JsonPositionedTextReader reader, bool buildPositionsNow = true)
         {
             _jsonSerializer = jsonSerializer;
             _streamProvider = reader.StreamProvider;
             _start = reader.TokenPosition;
             _count = -1;
+            _lastItemIndex = -1;
 
             if (buildPositionsNow)
             {
@@ -149,6 +153,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
                 if (index < 0 || index > _itemPositions.Length) { throw new IndexOutOfRangeException("index"); }
 
+                // Return last, if re-requested
+                if (index == _lastItemIndex) { return _lastItem; }
+
                 // Seek to the item
                 long position = _itemPositions[index];
                 _stream.Seek(position, SeekOrigin.Begin);
@@ -162,12 +169,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                     // Deserialize and transform the item, if required
                     T item = _jsonSerializer.Deserialize<T>(reader);
                     if (_transformer != null) { item = _transformer(item); }
-                    return item;
 
+                    _lastItemIndex = index;
+                    _lastItem = item;
+                    return item;
                 }
             }
 
-            set => throw new NotSupportedException();
+            set
+            {
+                // Don't throw if setting same instance getter returned (SarifRewritingVisitor on DeferredList)
+                if (index == _lastItemIndex && object.ReferenceEquals(value, _lastItem)) { return; }
+
+                throw new NotSupportedException();
+            }
         }
 
         public void CopyTo(T[] array, int arrayIndex)
