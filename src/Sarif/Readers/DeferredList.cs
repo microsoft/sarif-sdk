@@ -40,12 +40,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
         private Func<T, T> _transformer;
 
+        private T _lastAccessedItem;
+        private int _lastAccessedItemIndex;
+
         public DeferredList(JsonSerializer jsonSerializer, JsonPositionedTextReader reader, bool buildPositionsNow = true)
         {
             _jsonSerializer = jsonSerializer;
             _streamProvider = reader.StreamProvider;
             _start = reader.TokenPosition;
             _count = -1;
+            _lastAccessedItemIndex = -1;
 
             if (buildPositionsNow)
             {
@@ -149,6 +153,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
                 if (index < 0 || index > _itemPositions.Length) { throw new IndexOutOfRangeException("index"); }
 
+                // Return last, if re-requested
+                if (index == _lastAccessedItemIndex) { return _lastAccessedItem; }
+
                 // Seek to the item
                 long position = _itemPositions[index];
                 _stream.Seek(position, SeekOrigin.Begin);
@@ -162,12 +169,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                     // Deserialize and transform the item, if required
                     T item = _jsonSerializer.Deserialize<T>(reader);
                     if (_transformer != null) { item = _transformer(item); }
-                    return item;
 
+                    _lastAccessedItemIndex = index;
+                    _lastAccessedItem = item;
+                    return item;
                 }
             }
 
-            set => throw new NotSupportedException();
+            set
+            {
+                // Don't throw if setting same instance getter returned (SarifRewritingVisitor on DeferredList)
+                if (index == _lastAccessedItemIndex && object.ReferenceEquals(value, _lastAccessedItem)) { return; }
+
+                throw new NotSupportedException();
+            }
         }
 
         public void CopyTo(T[] array, int arrayIndex)
@@ -232,11 +247,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
         public void Dispose()
         {
-            if (_stream != null)
-            {
-                _stream.Dispose();
-                _stream = null;
-            }
+            Dispose(true);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            _stream?.Dispose();
+            _stream = null;
         }
 
         private class JsonDeferredListEnumerator<U> : IEnumerator<U>

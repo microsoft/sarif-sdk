@@ -2,6 +2,8 @@
 
 ## **v2.2.4** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.2.4) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.2.4) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.2.4) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.2.4)
 * BUGFIX: Validation rule SARIF1018 was not checking for a trailing slash on `uri` properties in `originalUriBaseIds` if `uriBaseId` was present.
+* BUGFIX: Build Sarif.Multitool NPM package non-trimmed to avoid more assembly load problems.
+* FEATURE: DeferredList will cache last item returned and won't throw if same instance written. (SarifRewritingVisitor + Deferred OM usable)
 
 ## **v2.2.3** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.2.3) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.2.3) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.2.3) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.2.3)
 * FEATURE: Introduce `SarifConstants.SarifFileExtension` with value `".sarif"`.

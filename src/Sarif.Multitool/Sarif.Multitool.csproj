@@ -11,9 +11,11 @@
       We use [Condition="'$(RuntimeIdentifier)' != ''"] to identify settings used only for these builds.      
     -->
 
-    <!-- Publish trimmed single-file exe -->
-    <PublishTrimmed Condition="'$(RuntimeIdentifier)' != ''">true</PublishTrimmed>
+    <!-- Publish single-file exe -->
     <PublishSingleFile Condition="'$(RuntimeIdentifier)' != ''">true</PublishSingleFile>
+
+    <!-- Seeing assembly load failures with trimmed exe, but not without. On some machines, for some commands. :/ -->
+    <!-- <PublishTrimmed Condition="'$(RuntimeIdentifier)' != ''">true</PublishTrimmed> -->
 
     <!-- Publish 'ready-to-run' on Windows (Linux/Mac not yet supported) -->
     <PublishReadyToRun Condition="'$(RuntimeIdentifier)' == 'win-x64'">true</PublishReadyToRun>   
