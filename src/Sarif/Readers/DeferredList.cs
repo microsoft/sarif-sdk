@@ -40,8 +40,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
         private Func<T, T> _transformer;
 
-        private T _lastItem;
-        private int _lastItemIndex;
+        private T _lastAccessedItem;
+        private int _lastAccessedItemIndex;
 
         public DeferredList(JsonSerializer jsonSerializer, JsonPositionedTextReader reader, bool buildPositionsNow = true)
         {
@@ -49,7 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             _streamProvider = reader.StreamProvider;
             _start = reader.TokenPosition;
             _count = -1;
-            _lastItemIndex = -1;
+            _lastAccessedItemIndex = -1;
 
             if (buildPositionsNow)
             {
@@ -154,7 +154,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                 if (index < 0 || index > _itemPositions.Length) { throw new IndexOutOfRangeException("index"); }
 
                 // Return last, if re-requested
-                if (index == _lastItemIndex) { return _lastItem; }
+                if (index == _lastAccessedItemIndex) { return _lastAccessedItem; }
 
                 // Seek to the item
                 long position = _itemPositions[index];
@@ -170,8 +170,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                     T item = _jsonSerializer.Deserialize<T>(reader);
                     if (_transformer != null) { item = _transformer(item); }
 
-                    _lastItemIndex = index;
-                    _lastItem = item;
+                    _lastAccessedItemIndex = index;
+                    _lastAccessedItem = item;
                     return item;
                 }
             }
@@ -179,7 +179,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             set
             {
                 // Don't throw if setting same instance getter returned (SarifRewritingVisitor on DeferredList)
-                if (index == _lastItemIndex && object.ReferenceEquals(value, _lastItem)) { return; }
+                if (index == _lastAccessedItemIndex && object.ReferenceEquals(value, _lastAccessedItem)) { return; }
 
                 throw new NotSupportedException();
             }
@@ -247,11 +247,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
         public void Dispose()
         {
-            if (_stream != null)
-            {
-                _stream.Dispose();
-                _stream = null;
-            }
+            Dispose(true);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            _stream?.Dispose();
+            _stream = null;
         }
 
         private class JsonDeferredListEnumerator<U> : IEnumerator<U>
