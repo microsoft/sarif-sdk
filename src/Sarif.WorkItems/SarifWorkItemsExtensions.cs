@@ -124,7 +124,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 .Sum() ?? 0;
         }
         
-        public static string CreateWorkItemDescription(this SarifLog log, Uri locationUri)
+        public static string CreateWorkItemDescription(this SarifLog log, SarifWorkItemContext context, Uri locationUri)
         {
             int totalResults = log.GetAggregateFilableResultsCount();
             List<string> toolNames = log.GetToolNames();
@@ -132,7 +132,20 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             string multipleToolsFooter = toolNames.Count > 1 ? WorkItemsResources.MultipleToolsFooter : string.Empty;
 
             Uri runRepositoryUri = log?.Runs.FirstOrDefault()?.VersionControlProvenance?.FirstOrDefault().RepositoryUri;
-            string detectionLocation = !string.IsNullOrEmpty(runRepositoryUri?.OriginalString) ? runRepositoryUri?.OriginalString : locationUri?.OriginalString;
+            Uri detectionLocationUri = !string.IsNullOrEmpty(runRepositoryUri?.OriginalString) ? runRepositoryUri : locationUri;
+
+            string detectionLocation = string.Empty;
+            if (detectionLocationUri?.Scheme == "https")
+            {
+                if (context.CurrentProvider == Microsoft.WorkItems.FilingClient.SourceControlProvider.AzureDevOps)
+                {
+                    detectionLocation = string.Format(WorkItemsResources.HtmlLinkTemplate, detectionLocationUri.OriginalString, detectionLocationUri?.OriginalString);
+                }
+                else
+                {
+                    detectionLocation = string.Format(WorkItemsResources.MarkdownLinkTemplate, detectionLocationUri.OriginalString, detectionLocationUri?.OriginalString);
+                }
+            }
 
             // This work item contains {0} {1} issue(s) detected in {2}{3}. Click the 'Scans' tab to review results.
             string description =

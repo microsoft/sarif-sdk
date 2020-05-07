@@ -62,9 +62,9 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;br&gt;&lt;br&gt;For another viewing option, load the attached SARIF log file in: &lt;br&gt;
-        ///&lt;li&gt;The &lt;a href=&quot;&quot;https://marketplace.visualstudio.com/_apis/public/gallery/publishers/WDGIS/vsextensions/MicrosoftSarifViewer/2.1.7/vspackage&quot;&quot;&gt;Visual Studio SARIF add-in&lt;/a&gt;.&lt;/li&gt;
-        ///&lt;li&gt;The &lt;a href=&quot;&quot;https://marketplace.visualstudio.com/items?itemName=MS-SarifVSCode.sarif-viewer&quot;&quot;&gt;VS Code SARIF extension&lt;/a&gt;.&lt;/li&gt;
-        ///&lt;li&gt;The browser-hosted &lt;a href=&quot;&quot;https://microsoft.github.io/sarif-web-component/&quot;&quot;&gt;SARIF web control&lt;/a&gt;.&lt;/li&gt;.
+        ///&lt;li&gt;The &lt;a href=&quot;https://marketplace.visualstudio.com/_apis/public/gallery/publishers/WDGIS/vsextensions/MicrosoftSarifViewer/2.1.7/vspackage&quot;&gt;Visual Studio SARIF add-in&lt;/a&gt;.&lt;/li&gt;
+        ///&lt;li&gt;The &lt;a href=&quot;https://marketplace.visualstudio.com/items?itemName=MS-SarifVSCode.sarif-viewer&quot;&gt;VS Code SARIF extension&lt;/a&gt;.&lt;/li&gt;
+        ///&lt;li&gt;The browser-hosted &lt;a href=&quot;https://microsoft.github.io/sarif-web-component/&quot;&gt;SARIF web control&lt;/a&gt;.&lt;/li&gt;.
         /// </summary>
         internal static string AzureDevOpsDefaultDescriptionFooter {
             get {
@@ -85,11 +85,29 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;a href=&quot;{1}&quot;&gt;{0}&lt;/a&gt;.
+        /// </summary>
+        internal static string HtmlLinkTemplate {
+            get {
+                return ResourceManager.GetString("HtmlLinkTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Inconsistent URIs were provided in &apos;filingContext&apos; and &apos;filingUri&apos; arguments..
         /// </summary>
         internal static string InconsistentHostUrisProvided {
             get {
                 return ResourceManager.GetString("InconsistentHostUrisProvided", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [{0}]({1}).
+        /// </summary>
+        internal static string MarkdownLinkTemplate {
+            get {
+                return ResourceManager.GetString("MarkdownLinkTemplate", resourceCulture);
             }
         }
         
