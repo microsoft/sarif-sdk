@@ -119,9 +119,9 @@
   </resheader>
   <data name="AzureDevOpsDefaultDescriptionFooter" xml:space="preserve">
     <value>&lt;br&gt;&lt;br&gt;For another viewing option, load the attached SARIF log file in: &lt;br&gt;
-&lt;li&gt;The &lt;a href=""https://marketplace.visualstudio.com/_apis/public/gallery/publishers/WDGIS/vsextensions/MicrosoftSarifViewer/2.1.7/vspackage""&gt;Visual Studio SARIF add-in&lt;/a&gt;.&lt;/li&gt;
-&lt;li&gt;The &lt;a href=""https://marketplace.visualstudio.com/items?itemName=MS-SarifVSCode.sarif-viewer""&gt;VS Code SARIF extension&lt;/a&gt;.&lt;/li&gt;
-&lt;li&gt;The browser-hosted &lt;a href=""https://microsoft.github.io/sarif-web-component/""&gt;SARIF web control&lt;/a&gt;.&lt;/li&gt;</value>
+&lt;li&gt;The &lt;a href="https://marketplace.visualstudio.com/_apis/public/gallery/publishers/WDGIS/vsextensions/MicrosoftSarifViewer/2.1.7/vspackage"&gt;Visual Studio SARIF add-in&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;The &lt;a href="https://marketplace.visualstudio.com/items?itemName=MS-SarifVSCode.sarif-viewer"&gt;VS Code SARIF extension&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;The browser-hosted &lt;a href="https://microsoft.github.io/sarif-web-component/"&gt;SARIF web control&lt;/a&gt;.&lt;/li&gt;</value>
   </data>
   <data name="GitHubDefaultDescriptionFooter" xml:space="preserve">
     <value>**For another viewing option, load the referenced SARIF log file in:**
@@ -129,8 +129,14 @@
 - The [VS Code SARIF extension](https://marketplace.visualstudio.com/items?itemName=MS-SarifVSCode.sarif-viewer)
 - The browser-hosted [SARIF web control]("https://microsoft.github.io/sarif-web-component/)</value>
   </data>
+  <data name="HtmlLinkTemplate" xml:space="preserve">
+    <value>&lt;a href="{1}"&gt;{0}&lt;/a&gt;</value>
+  </data>
   <data name="InconsistentHostUrisProvided" xml:space="preserve">
     <value>Inconsistent URIs were provided in 'filingContext' and 'filingUri' arguments.</value>
+  </data>
+  <data name="MarkdownLinkTemplate" xml:space="preserve">
+    <value>[{0}]({1})</value>
   </data>
   <data name="MultipleToolsFooter" xml:space="preserve">
     <value> (and other locations)</value>
