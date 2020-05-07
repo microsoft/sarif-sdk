@@ -134,7 +134,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             Uri runRepositoryUri = log?.Runs.FirstOrDefault()?.VersionControlProvenance?.FirstOrDefault().RepositoryUri;
             Uri detectionLocationUri = !string.IsNullOrEmpty(runRepositoryUri?.OriginalString) ? runRepositoryUri : locationUri;
 
-            string detectionLocation = string.Empty;
+            string detectionLocation;
             if (detectionLocationUri?.Scheme == "https")
             {
                 if (context.CurrentProvider == Microsoft.WorkItems.FilingClient.SourceControlProvider.AzureDevOps)
@@ -145,6 +145,10 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 {
                     detectionLocation = string.Format(WorkItemsResources.MarkdownLinkTemplate, detectionLocationUri.OriginalString, detectionLocationUri?.OriginalString);
                 }
+            }
+            else
+            {
+                detectionLocation = detectionLocationUri?.OriginalString;
             }
 
             // This work item contains {0} {1} issue(s) detected in {2}{3}. Click the 'Scans' tab to review results.
