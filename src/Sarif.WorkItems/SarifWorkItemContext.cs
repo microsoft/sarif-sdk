@@ -85,6 +85,18 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             set { this.SetProperty(AdditionalTagsOption, value); }
         }
 
+        public string CreateLinkText(string text, string url)
+        {
+            if (this.CurrentProvider == Microsoft.WorkItems.FilingClient.SourceControlProvider.AzureDevOps)
+            {
+                return string.Format(WorkItemsResources.HtmlLinkTemplate, text, url);
+            }
+            else
+            {
+                return string.Format(WorkItemsResources.MarkdownLinkTemplate, text, url);
+            }
+        }
+
         public void AddWorkItemModelTransformer(SarifWorkItemModelTransformer workItemModelTransformer)
         {
             StringSet assemblies = this.GetProperty(PluginAssemblyLocations);

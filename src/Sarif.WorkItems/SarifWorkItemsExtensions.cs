@@ -134,22 +134,9 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             Uri runRepositoryUri = log?.Runs.FirstOrDefault()?.VersionControlProvenance?.FirstOrDefault().RepositoryUri;
             Uri detectionLocationUri = !string.IsNullOrEmpty(runRepositoryUri?.OriginalString) ? runRepositoryUri : locationUri;
 
-            string detectionLocation;
-            if (detectionLocationUri?.Scheme == "https")
-            {
-                if (context.CurrentProvider == Microsoft.WorkItems.FilingClient.SourceControlProvider.AzureDevOps)
-                {
-                    detectionLocation = string.Format(WorkItemsResources.HtmlLinkTemplate, detectionLocationUri.OriginalString, detectionLocationUri?.OriginalString);
-                }
-                else
-                {
-                    detectionLocation = string.Format(WorkItemsResources.MarkdownLinkTemplate, detectionLocationUri.OriginalString, detectionLocationUri?.OriginalString);
-                }
-            }
-            else
-            {
-                detectionLocation = detectionLocationUri?.OriginalString;
-            }
+            string detectionLocation = detectionLocationUri?.Scheme == "https"
+                ? context.CreateLinkText(detectionLocationUri.OriginalString, detectionLocationUri?.OriginalString)
+                : detectionLocationUri?.OriginalString;
 
             // This work item contains {0} {1} issue(s) detected in {2}{3}. Click the 'Scans' tab to review results.
             string description =
