@@ -9,6 +9,7 @@ using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif;
 using Newtonsoft.Json;
 using Xunit;
+using Xunit.Sdk;
 
 namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif
 {
@@ -35,6 +36,12 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif
             [DataMember(Name = "nonEmptyUriList", IsRequired = false, EmitDefaultValue = false)]
             [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.UriConverter))]
             public IList<Uri> NonEmptyUriList { get; set; }
+        }
+
+        private class SingleUri
+        {
+            [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.UriConverter))]
+            public Uri Uri { get; set; }
         }
 
         [Fact]
@@ -75,6 +82,73 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif
             };
 
             JsonConvert.SerializeObject(testObject, settings).Should().Be(s_testFileText);
+        }
+
+        [Theory]
+        [InlineData("http://github.com/Microsoft/sarif-sdk")]
+        [InlineData("src/Program.cs")]
+        [InlineData("file:/src/Program.cs")]
+        [InlineData("file:/../../src/Program.cs")]
+        [InlineData("file://Code/src/Program.cs")]
+        [InlineData("file:///C:/Code/src/sarif-sdk/Program.cs")]
+        [InlineData("file:///new%2Dhost/share/folder/file.cs")]
+        [InlineData("file:///new%5Fhost/share/folder/file.cs")]
+        [InlineData("file:///new-host/share/folder%20with%20spaces/file.cs")]
+        [InlineData("file:///new-host/share/folder/%28surrounding-parens%29.cs")]
+        [InlineData("file:///%28new-host%29/share/folder/file.cs")]
+        [InlineData("file:///Local.wiki/WIKI/Engineering/Running%2DTests.md")]
+        [InlineData("http://www.example.com/dir/file.c")]
+        [InlineData("http://www.example.com/dir/file name.c")]
+        [InlineData("http://www.example.com/dir/file%20name.c")]
+        [InlineData(@"C:\dir\file.c")]
+        [InlineData(@"C:\dir\file name.c")]
+        [InlineData("/dir/file.c")]
+        [InlineData("/dir/file name.c")]
+        [InlineData("/dir/file%20name.c")]
+        [InlineData("file:///C:/dir/file.c")]
+        [InlineData("file:///C:/dir/file name.c")]
+        [InlineData("file:///C:/dir/file%20name.c")]
+        [InlineData(@"dir\file.c")]
+        [InlineData("dir/file.c")]
+        [InlineData(@"dir\file name.c")]
+        [InlineData("dir/file%20name.c")]
+        [InlineData("dir/file name.c")]
+        [InlineData(@"..\..\.\.\..\dir1\dir2\file.c")]
+        [InlineData("../../../dir1/dir2/file.c")]
+        [InlineData(@"..\..")]
+        [InlineData("../..")]
+        public void Uri_RoundTripping(string value)
+        {
+            // Framework Bug: Uris with certain escaped unreserved characters are doubled by Uri.TryCreate
+            // https://github.com/dotnet/runtime/issues/36288
+
+            SarifRoundTrip(new Uri(value, UriKind.RelativeOrAbsolute));
+            //DirectRoundTrip(new Uri(value, UriKind.RelativeOrAbsolute));
+        }
+
+        private Uri SarifRoundTrip(Uri value)
+        {
+            // Put in a class with a Uri using the Sarif 'UriConverter'
+            SingleUri sample = new SingleUri();
+            sample.Uri = value;
+
+            // Serialize and Deserialize
+            string json = JsonConvert.SerializeObject(sample);
+            SingleUri roundTripped = JsonConvert.DeserializeObject<SingleUri>(json);
+
+            roundTripped.Uri.Should().Be(value);
+            return roundTripped.Uri;
+        }
+
+        private Uri DirectRoundTrip(Uri value)
+        {
+            // .NET can return the string used to construct.
+            // This seems like the safest way to roundtrip reliably
+            string serialized = value.OriginalString;
+            Uri result = new Uri(serialized, UriKind.RelativeOrAbsolute);
+
+            result.Should().Be(value);
+            return result;
         }
     }
 }
