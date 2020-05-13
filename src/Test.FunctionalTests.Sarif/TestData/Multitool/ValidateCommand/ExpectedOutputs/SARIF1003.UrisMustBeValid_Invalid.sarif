@@ -48,7 +48,7 @@
             "id": "Default",
             "arguments": [
               "runs[0].originalUriBaseIds.SRCROOT.uri",
-              "fi%25le:///c:/Code/sarif-sdk/src"
+              "fi%le:///c:/Code/sarif-sdk/src"
             ]
           },
           "locations": [
@@ -59,7 +59,7 @@
                 },
                 "region": {
                   "startLine": 35,
-                  "startColumn": 51
+                  "startColumn": 49
                 }
               }
             }
@@ -123,7 +123,7 @@
             "id": "Default",
             "arguments": [
               "runs[0].artifacts[0].location.uri",
-              "fi%25le:///c:/src/file.c"
+              "fi%le:///c:/src/file.c"
             ]
           },
           "locations": [
@@ -134,7 +134,7 @@
                 },
                 "region": {
                   "startLine": 41,
-                  "startColumn": 45
+                  "startColumn": 43
                 }
               }
             }
@@ -173,7 +173,7 @@
             "id": "Default",
             "arguments": [
               "runs[0].tool.driver.notifications[0].helpUri",
-              "ht%25tp://www.example.com/rules/msg0001.html"
+              "ht%tp://www.example.com/rules/msg0001.html"
             ]
           },
           "locations": [
@@ -184,7 +184,7 @@
                 },
                 "region": {
                   "startLine": 13,
-                  "startColumn": 71
+                  "startColumn": 69
                 }
               }
             }
@@ -198,7 +198,7 @@
             "id": "Default",
             "arguments": [
               "runs[0].tool.driver.notifications[1].helpUri",
-              "ht%25tp://www.example.com/rules/msg0002.html"
+              "ht%tp://www.example.com/rules/msg0002.html"
             ]
           },
           "locations": [
@@ -209,7 +209,7 @@
                 },
                 "region": {
                   "startLine": 17,
-                  "startColumn": 71
+                  "startColumn": 69
                 }
               }
             }
@@ -223,7 +223,7 @@
             "id": "Default",
             "arguments": [
               "runs[0].tool.driver.rules[0].helpUri",
-              "ht%25tp://www.example.com/rules/tst0001.html"
+              "ht%tp://www.example.com/rules/tst0001.html"
             ]
           },
           "locations": [
@@ -234,7 +234,7 @@
                 },
                 "region": {
                   "startLine": 23,
-                  "startColumn": 71
+                  "startColumn": 69
                 }
               }
             }
@@ -248,7 +248,7 @@
             "id": "Default",
             "arguments": [
               "runs[0].versionControlProvenance[0].repositoryUri",
-              "ht%25tps://example.com/my-project"
+              "ht%tps://example.com/my-project"
             ]
           },
           "locations": [
@@ -259,7 +259,7 @@
                 },
                 "region": {
                   "startLine": 30,
-                  "startColumn": 62
+                  "startColumn": 60
                 }
               }
             }
