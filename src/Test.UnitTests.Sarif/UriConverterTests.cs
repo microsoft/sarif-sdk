@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.Text;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif;
 using Newtonsoft.Json;
@@ -84,71 +85,72 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif
             JsonConvert.SerializeObject(testObject, settings).Should().Be(s_testFileText);
         }
 
-        [Theory]
-        [InlineData("http://github.com/Microsoft/sarif-sdk")]
-        [InlineData("src/Program.cs")]
-        [InlineData("file:/src/Program.cs")]
-        [InlineData("file:/../../src/Program.cs")]
-        [InlineData("file://Code/src/Program.cs")]
-        [InlineData("file:///C:/Code/src/sarif-sdk/Program.cs")]
-        [InlineData("file:///new%2Dhost/share/folder/file.cs")]
-        [InlineData("file:///new%5Fhost/share/folder/file.cs")]
-        [InlineData("file:///new-host/share/folder%20with%20spaces/file.cs")]
-        [InlineData("file:///new-host/share/folder/%28surrounding-parens%29.cs")]
-        [InlineData("file:///%28new-host%29/share/folder/file.cs")]
-        [InlineData("file:///Local.wiki/WIKI/Engineering/Running%2DTests.md")]
-        [InlineData("http://www.example.com/dir/file.c")]
-        [InlineData("http://www.example.com/dir/file name.c")]
-        [InlineData("http://www.example.com/dir/file%20name.c")]
-        [InlineData(@"C:\dir\file.c")]
-        [InlineData(@"C:\dir\file name.c")]
-        [InlineData("/dir/file.c")]
-        [InlineData("/dir/file name.c")]
-        [InlineData("/dir/file%20name.c")]
-        [InlineData("file:///C:/dir/file.c")]
-        [InlineData("file:///C:/dir/file name.c")]
-        [InlineData("file:///C:/dir/file%20name.c")]
-        [InlineData(@"dir\file.c")]
-        [InlineData("dir/file.c")]
-        [InlineData(@"dir\file name.c")]
-        [InlineData("dir/file%20name.c")]
-        [InlineData("dir/file name.c")]
-        [InlineData(@"..\..\.\.\..\dir1\dir2\file.c")]
-        [InlineData("../../../dir1/dir2/file.c")]
-        [InlineData(@"..\..")]
-        [InlineData("../..")]
-        public void Uri_RoundTripping(string value)
+        [Fact]
+        public void Uri_RoundTripping_Direct()
         {
             // Framework Bug: Uris with certain escaped unreserved characters are doubled by Uri.TryCreate
             // https://github.com/dotnet/runtime/issues/36288
 
-            SarifRoundTrip(new Uri(value, UriKind.RelativeOrAbsolute));
-            //DirectRoundTrip(new Uri(value, UriKind.RelativeOrAbsolute));
+            StringBuilder errors = new StringBuilder();
+
+            SarifUriRoundTrip("http://github.com/Microsoft/sarif-sdk", errors);
+            SarifUriRoundTrip("src/Program.cs", errors);
+            SarifUriRoundTrip("file:/src/Program.cs", errors);
+            SarifUriRoundTrip("file:/../../src/Program.cs", errors);
+            SarifUriRoundTrip("file://Code/src/Program.cs", errors);
+            SarifUriRoundTrip("file:///C:/Code/src/sarif-sdk/Program.cs", errors);
+            SarifUriRoundTrip("file:///new%2Dhost/share/folder/file.cs", errors);
+            SarifUriRoundTrip("file:///new%5Fhost/share/folder/file.cs", errors);
+            SarifUriRoundTrip("file:///new-host/share/folder%20with%20spaces/file.cs", errors);
+            SarifUriRoundTrip("file:///new-host/share/folder/%28surrounding-parens%29.cs", errors);
+            SarifUriRoundTrip("file:///%28new-host%29/share/folder/file.cs", errors);
+            SarifUriRoundTrip("file:///Local.wiki/WIKI/Engineering/Running%2DTests.md", errors);
+            SarifUriRoundTrip("http://www.example.com/dir/file.c", errors);
+            SarifUriRoundTrip("http://www.example.com/dir/file name.c", errors);
+            SarifUriRoundTrip("http://www.example.com/dir/file%20name.c", errors);
+            SarifUriRoundTrip(@"C:\dir\file.c", errors);
+            SarifUriRoundTrip(@"C:\dir\file name.c", errors);
+            SarifUriRoundTrip("/dir/file.c", errors);
+            SarifUriRoundTrip("/dir/file name.c", errors);
+            SarifUriRoundTrip("/dir/file%20name.c", errors);
+            SarifUriRoundTrip("file:///C:/dir/file.c", errors);
+            SarifUriRoundTrip("file:///C:/dir/file name.c", errors);
+            SarifUriRoundTrip("file:///C:/dir/file%20name.c", errors);
+            SarifUriRoundTrip(@"dir\file.c", errors);
+            SarifUriRoundTrip("dir/file.c", errors);
+            SarifUriRoundTrip(@"dir\file name.c", errors);
+            SarifUriRoundTrip("dir/file%20name.c", errors);
+            SarifUriRoundTrip("dir/file name.c", errors);
+            SarifUriRoundTrip(@"..\..\.\.\..\dir1\dir2\file.c", errors);
+            SarifUriRoundTrip("../../../dir1/dir2/file.c", errors);
+            SarifUriRoundTrip(@"..\..", errors);
+            SarifUriRoundTrip("../..", errors);
+
+            errors.ToString().Should().BeEmpty();
         }
 
-        private Uri SarifRoundTrip(Uri value)
+        private void SarifUriRoundTrip(string value, StringBuilder errors)
         {
             // Put in a class with a Uri using the Sarif 'UriConverter'
             SingleUri sample = new SingleUri();
-            sample.Uri = value;
+            sample.Uri = new Uri(value, UriKind.RelativeOrAbsolute);
 
             // Serialize and Deserialize
             string json = JsonConvert.SerializeObject(sample);
             SingleUri roundTripped = JsonConvert.DeserializeObject<SingleUri>(json);
 
-            roundTripped.Uri.Should().Be(value);
-            return roundTripped.Uri;
+            if (!roundTripped.Uri.Equals(sample.Uri)) { errors.AppendLine(value); }
         }
 
-        private Uri DirectRoundTrip(Uri value)
+        private void DirectUriRoundTrip(string value, StringBuilder errors)
         {
             // .NET can return the string used to construct.
             // This seems like the safest way to roundtrip reliably
-            string serialized = value.OriginalString;
+            Uri original = new Uri(value, UriKind.RelativeOrAbsolute);
+            string serialized = original.OriginalString;
             Uri result = new Uri(serialized, UriKind.RelativeOrAbsolute);
 
-            result.Should().Be(value);
-            return result;
+            if (!result.Equals(original)) { errors.AppendLine(value); }
         }
     }
 }
