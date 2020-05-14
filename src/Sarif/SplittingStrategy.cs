@@ -45,5 +45,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// I.e., the total number of log files created is the sum of the unique targets in each run.
         /// </summary>
         PerRunPerTarget,
+
+        /// <summary>
+        /// A grouping strategy that splits SARIF log files into a single log per run, per organization per entity type per partial fingerprint.
+        /// I.e., the total number of log files created is the sum of the unique fingerprint by organization and entity type.
+        /// </summary>
+        PerRunPerOrgPerEntityTypePerPartialFingerprint,
     }
 }

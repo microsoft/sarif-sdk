@@ -69,7 +69,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
             this.BodyOrDescription = 
                 Environment.NewLine + 
-                sarifLog.CreateWorkItemDescription(this.Context, LocationUris?[0]) +
+                sarifLog.CreateWorkItemDescription(this.Context, LocationUris) +
                 descriptionFooter;
 
             // These properties are Azure DevOps-specific. All ADO work item board

@@ -146,6 +146,11 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                         partitionFunction = (result) => result.ShouldBeFiled() ? Guid.NewGuid().ToString() : null;
                         break;
                     }
+                    case SplittingStrategy.PerRunPerOrgPerEntityTypePerPartialFingerprint:
+                    {
+                        partitionFunction = (result) => result.ShouldBeFiled() ? result.GetFingerprintSplittingStrategyId() : null;
+                        break;
+                    }
                     default:
                     {
                         throw new ArgumentOutOfRangeException($"SplittingStrategy: {splittingStrategy}");
