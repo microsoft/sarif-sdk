@@ -62,6 +62,12 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             set { this.SetProperty(SplittingStrategyOption, value); }
         }
 
+        public bool ShouldFileUnchanged
+        {
+            get { return this.GetProperty(ShouldFileUnchangedOption); }
+            set { this.SetProperty(ShouldFileUnchangedOption, value); }
+        }
+
         public OptionallyEmittedData DataToRemove
         {
             get { return this.GetProperty(DataToRemoveOption); }
@@ -230,6 +236,11 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             new PerLanguageOption<SplittingStrategy>(
                 "Extensibility", nameof(SplittingStrategy),
                 defaultValue: () => { return 0; });
+
+        public static PerLanguageOption<bool> ShouldFileUnchangedOption { get; } =
+            new PerLanguageOption<bool>(
+                "Extensibility", nameof(ShouldFileUnchanged),
+                defaultValue: () => { return false; });
 
         public static PerLanguageOption<string> AzureDevOpsDescriptionFooterOption { get; } =
             new PerLanguageOption<string>(

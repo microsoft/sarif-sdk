@@ -138,17 +138,17 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 {
                     case SplittingStrategy.PerRun:
                     {
-                        partitionFunction = (result) => result.ShouldBeFiled() ? "Include" : null;
+                        partitionFunction = (result) => result.ShouldBeFiled(this.FilingContext.ShouldFileUnchanged) ? "Include" : null;
                         break;
                     }
                     case SplittingStrategy.PerResult:
                     {
-                        partitionFunction = (result) => result.ShouldBeFiled() ? Guid.NewGuid().ToString() : null;
+                        partitionFunction = (result) => result.ShouldBeFiled(this.FilingContext.ShouldFileUnchanged) ? Guid.NewGuid().ToString() : null;
                         break;
                     }
                     case SplittingStrategy.PerRunPerOrgPerEntityTypePerPartialFingerprint:
                     {
-                        partitionFunction = (result) => result.ShouldBeFiled() ? result.GetFingerprintSplittingStrategyId() : null;
+                        partitionFunction = (result) => result.ShouldBeFiled(this.FilingContext.ShouldFileUnchanged) ? result.GetFingerprintSplittingStrategyId() : null;
                         break;
                     }
                     default:
@@ -354,7 +354,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             }
         }
 
-        private static Dictionary<string, RuleMetrics> CreateRuleMetricsMap(SarifLog sarifLog)
+        private Dictionary<string, RuleMetrics> CreateRuleMetricsMap(SarifLog sarifLog)
         {
             var ruleIdToRuleMetricsMap = new Dictionary<string, RuleMetrics>();
 
@@ -369,7 +369,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                     // In our current design, input log files contain only candidate results
                     // to file. A transformer, however, might suppress a result as part of its
                     // operation.
-                    Debug.Assert(result.ShouldBeFiled() || result.Suppressions?.Count > 0);
+                    Debug.Assert(result.ShouldBeFiled(this.FilingContext.ShouldFileUnchanged) || result.Suppressions?.Count > 0);
 
                     string ruleId = result.GetRule(run).Id;
                     string key = toolName + ruleId;
