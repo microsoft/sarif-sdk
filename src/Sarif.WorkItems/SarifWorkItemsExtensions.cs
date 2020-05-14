@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 {
     public static class SarifWorkItemsExtensions
     {
-        public static bool ShouldBeFiled(this Result result, bool shouldFileUnchanged = false)
+        public static bool ShouldBeFiled(this Result result, bool shouldFileUnchanged)
         {
             if (result.BaselineState != BaselineState.None &&
                 result.BaselineState != BaselineState.New)
@@ -50,7 +50,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             return $"{result.GetProperty("OrganizationName")}:{result.GetProperty("EtlEntity")}:{result.PartialFingerprints["SecretHash/v1"]}";
         }
 
-        public static string CreateWorkItemTitle(this Run run, bool shouldFileUnchanged = false)
+        public static string CreateWorkItemTitle(this Run run, bool shouldFileUnchanged)
         {
             if (run == null) { throw new ArgumentNullException(nameof(run)); }
             if (run.Results == null) { throw new ArgumentNullException(nameof(run.Results)); }
@@ -125,7 +125,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 .ToList();
         }
 
-        public static int GetAggregateFilableResultsCount(this SarifLog log, bool shouldFileUnchanged = false)
+        public static int GetAggregateFilableResultsCount(this SarifLog log, bool shouldFileUnchanged)
         {
             return log?.Runs?
                 .Select(run => run?.Results?
