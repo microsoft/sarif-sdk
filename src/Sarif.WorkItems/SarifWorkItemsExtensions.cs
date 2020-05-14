@@ -41,6 +41,11 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             // Informational: a strictly informational message was emitted.
         }
 
+        public static string GetFingerprintSplittingStrategyId(this Result result)
+        {
+            return $"{result.GetProperty("OrganizationName")}:{result.GetProperty("EtlEntity")}:{result.PartialFingerprints["SecretHash/v1"]}";
+        }
+
         public static string CreateWorkItemTitle(this Run run)
         {
             if (run == null) { throw new ArgumentNullException(nameof(run)); }
@@ -124,7 +129,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 .Sum() ?? 0;
         }
         
-        public static string CreateWorkItemDescription(this SarifLog log, SarifWorkItemContext context, Uri locationUri)
+        public static string CreateWorkItemDescription(this SarifLog log, SarifWorkItemContext context, IList<Uri> locationUris)
         {
             int totalResults = log.GetAggregateFilableResultsCount();
             List<string> toolNames = log.GetToolNames();
@@ -132,11 +137,17 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             string multipleToolsFooter = toolNames.Count > 1 ? WorkItemsResources.MultipleToolsFooter : string.Empty;
 
             Uri runRepositoryUri = log?.Runs.FirstOrDefault()?.VersionControlProvenance?.FirstOrDefault().RepositoryUri;
-            Uri detectionLocationUri = !string.IsNullOrEmpty(runRepositoryUri?.OriginalString) ? runRepositoryUri : locationUri;
+            Uri detectionLocationUri = !string.IsNullOrEmpty(runRepositoryUri?.OriginalString) ? runRepositoryUri : locationUris?[0];
 
             string detectionLocation = detectionLocationUri?.Scheme == "https"
                 ? context.CreateLinkText(detectionLocationUri.OriginalString, detectionLocationUri?.OriginalString)
                 : detectionLocationUri?.OriginalString;
+
+            if (locationUris?.Count > 1)
+            {
+                int additionalLocations = locationUris.Count - 1;
+                detectionLocation = $"{detectionLocation} (+{additionalLocations} locations)";
+            }
 
             // This work item contains {0} {1} issue(s) detected in {2}{3}. Click the 'Scans' tab to review results.
             string description =
