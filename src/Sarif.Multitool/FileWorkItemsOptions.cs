@@ -23,6 +23,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public SplittingStrategy SplittingStrategy { get; internal set; }
 
         [Option(
+            "file-unchanged",
+            HelpText = "File work items for both new and unchanged baseline state results.",
+            Default = null)]
+        public bool? ShouldFileUnchanged { get; internal set; }
+
+        [Option(
             'c',
             "configuration",
             HelpText = "A path to an XML configuration file that will be used to drive work item creation.")]

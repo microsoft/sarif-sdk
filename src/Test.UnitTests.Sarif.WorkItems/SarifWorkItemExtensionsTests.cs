@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 Run run = sarifLog.Runs[0];
                 run.Results.Add(tuple.Item2);
 
-                string title = sarifLog.Runs[0].CreateWorkItemTitle();
+                string title = sarifLog.Runs[0].CreateWorkItemTitle(false);
                 string ruleId = result.ResolvedRuleId(run);
 
                 if (!title.Contains(ToolName))
@@ -74,7 +74,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             Run run = sarifLog.Runs[0];
             run.Results.Add(result);
 
-            string title = sarifLog.Runs[0].CreateWorkItemTitle();
+            string title = sarifLog.Runs[0].CreateWorkItemTitle(false);
 
             title.Should().EndWith(expected);
         }
@@ -98,20 +98,20 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             string expectedTemplate = "[aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa:Warning]: TestRuleId: Test Rule (in 'll...')";
             string expected = $":Warning]: TestRuleId: Test Rule (in 'll" + new string('b', maxLength - expectedTemplate.Length) + "...')";
             result.Locations[0].LogicalLocation.FullyQualifiedName = "ll" + new string('b', 1024);
-            string title = sarifLog.Runs[0].CreateWorkItemTitle();
+            string title = sarifLog.Runs[0].CreateWorkItemTitle(false);
             title.Should().EndWith(expected);
 
             // A logical location that's a path is truncated to it's file name
             expected = ":Warning]: TestRuleId: Test Rule (in '0123456789')";
             result.Locations[0].LogicalLocation.FullyQualifiedName = "ll" + new string('b', 1024) + "\\0123456789";
-            title = sarifLog.Runs[0].CreateWorkItemTitle();
+            title = sarifLog.Runs[0].CreateWorkItemTitle(false);
             title.Should().EndWith(expected);
 
             // A logical location that's a path is truncated using its full path
             expectedTemplate = "[aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa:Warning]: TestRuleId: Test Rule (in 'll0123456789\\...')";
             expected = $":Warning]: TestRuleId: Test Rule (in 'll0123456789\\" + new string('c', maxLength - expectedTemplate.Length) + "...')";
             result.Locations[0].LogicalLocation.FullyQualifiedName = "ll0123456789\\" + new string('c', 1024);
-            title = sarifLog.Runs[0].CreateWorkItemTitle();
+            title = sarifLog.Runs[0].CreateWorkItemTitle(false);
             title.Should().EndWith(expected);
         }
 
@@ -191,15 +191,15 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             var context = new SarifWorkItemContext();
             SarifLog sarifLog = TestData.CreateOneIdThreeLocations();
 
-            int resultCount = sarifLog.GetAggregateFilableResultsCount();
+            int resultCount = sarifLog.GetAggregateFilableResultsCount(false);
             resultCount.Should().Be(1);
 
             sarifLog = TestData.CreateTwoRunThreeResultLog();
-            resultCount = sarifLog.GetAggregateFilableResultsCount();
+            resultCount = sarifLog.GetAggregateFilableResultsCount(false);
             resultCount.Should().Be(3);
 
             sarifLog = TestData.CreateEmptyRun();
-            resultCount = sarifLog.GetAggregateFilableResultsCount();
+            resultCount = sarifLog.GetAggregateFilableResultsCount(false);
             resultCount.Should().Be(0);
 
         }
