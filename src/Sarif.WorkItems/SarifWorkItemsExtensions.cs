@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 result.BaselineState != BaselineState.New)
             {
                 if (result.BaselineState != BaselineState.Unchanged ||
-                    (result.BaselineState == BaselineState.Unchanged && !shouldFileUnchanged))
+                    (result.BaselineState == BaselineState.Unchanged && result.WorkItemUris?.Count > 0 && !shouldFileUnchanged))
                 {
                     return false;
                 }
