@@ -50,6 +50,14 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             return $"{result.GetProperty("OrganizationName")}:{result.GetProperty("EtlEntity")}:{result.PartialFingerprints["SecretHash/v1"]}";
         }
 
+        public static string GetPerRepositoryFingerprintSplittingStrategyId(this Result result)
+        {
+            string repositoryId = string.Empty;
+            result.TryGetProperty("RepositoryId", out repositoryId);
+
+            return $"{result.GetProperty("OrganizationName")}:{result.GetProperty("EtlEntity")}:{repositoryId ?? string.Empty}:{result.PartialFingerprints["SecretHash/v1"]}";
+        }
+
         public static string CreateWorkItemTitle(this Run run, bool shouldFileUnchanged)
         {
             if (run == null) { throw new ArgumentNullException(nameof(run)); }
