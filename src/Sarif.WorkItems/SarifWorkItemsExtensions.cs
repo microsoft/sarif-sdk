@@ -52,10 +52,13 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
         public static string GetPerRepositoryFingerprintSplittingStrategyId(this Result result)
         {
+            string projectId = string.Empty;
+            result.TryGetProperty("ProjectId", out projectId);
+
             string repositoryId = string.Empty;
             result.TryGetProperty("RepositoryId", out repositoryId);
 
-            return $"{result.GetProperty("OrganizationName")}:{result.GetProperty("EtlEntity")}:{repositoryId ?? string.Empty}:{result.PartialFingerprints["SecretHash/v1"]}";
+            return $"{result.GetProperty("OrganizationName")}:{projectId ?? string.Empty}:{result.GetProperty("EtlEntity")}:{repositoryId ?? string.Empty}:{result.PartialFingerprints["SecretHash/v1"]}";
         }
 
         public static string CreateWorkItemTitle(this Run run, bool shouldFileUnchanged)
