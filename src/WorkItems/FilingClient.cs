@@ -24,7 +24,7 @@ namespace Microsoft.WorkItems
 
         public FilingClient()
         {
-            this.Logger = ServiceProviderFactory.ServiceProvider.GetService<ILogger<FilingClient>>();
+            this.Logger = ServiceProviderFactory.ServiceProvider.GetService<ILogger>();
         }
 
         /// <summary>

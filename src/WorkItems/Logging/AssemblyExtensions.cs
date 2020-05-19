@@ -13,7 +13,7 @@ namespace Microsoft.WorkItems.Logging
     {
         public static void LogIdentity(this Assembly assembly, EventId customEventId = default(EventId), IDictionary<string, object> customDimensions = null)
         {
-            ILogger logger = ServiceProviderFactory.ServiceProvider.GetService<ILogger<FilingClient>>();
+            ILogger logger = ServiceProviderFactory.ServiceProvider.GetService<ILogger>();
 
             EventId eventId = (customEventId == default(EventId)) ? EventIds.AssemblyVersion : customEventId;
             customDimensions ??= new Dictionary<string, object>();
