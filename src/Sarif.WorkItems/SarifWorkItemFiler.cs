@@ -46,7 +46,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
             this.FilingClient = FilingClientFactory.Create(this.FilingContext.HostUri);
 
-            this.Logger = ServiceProviderFactory.ServiceProvider.GetService<ILogger<FilingClient>>();
+            this.Logger = ServiceProviderFactory.ServiceProvider.GetService<ILogger>();
             Assembly.GetExecutingAssembly().LogIdentity();
         }
 

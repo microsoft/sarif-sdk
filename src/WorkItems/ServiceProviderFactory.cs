@@ -7,6 +7,7 @@ using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.VisualStudio.Services.Identity;
 using Microsoft.WorkItems.Logging;
 
 namespace Microsoft.WorkItems
@@ -19,9 +20,14 @@ namespace Microsoft.WorkItems
         private const string LoggingApplicationInsightsInstrumentationKey = "Sarif-WorkItems:Logging:ApplicationInsights:InstrumentationKey";
         private const string LoggingConsoleSection = "Sarif-WorkItems:Logging:Console";
 
-        public static IServiceProvider ServiceProvider { get; }
+        public static IServiceProvider ServiceProvider { get; private set; }
 
         static ServiceProviderFactory()
+        {
+            Initialize(customLogger: null);
+        }
+
+        public static void Initialize(ILogger customLogger)
         {
             IServiceCollection services = new ServiceCollection();
 
@@ -31,23 +37,30 @@ namespace Microsoft.WorkItems
             ITelemetryChannel channel = new InMemoryChannel();
             services.AddSingleton(typeof(ITelemetryChannel), channel);
 
-            services.AddLogging(builder =>
+            if (customLogger == null)
             {
-                if (config.GetSection(LoggingConsoleSection).Exists())
+                services.AddLogging(builder =>
                 {
-                    builder.AddConsole();
-                }
-
-                if (config.GetSection(LoggingApplicationInsightsSection).Exists())
-                {
-                    if (!string.IsNullOrEmpty(config[LoggingApplicationInsightsInstrumentationKey]))
+                    if (config.GetSection(LoggingConsoleSection).Exists())
                     {
-                        builder.AddApplicationInsights(config[LoggingApplicationInsightsInstrumentationKey], options => options.FlushOnDispose = true);
+                        builder.AddConsole();
                     }
-                }
 
-                builder.AddConfiguration(config.GetSection(LoggingSection));
-            });
+                    if (config.GetSection(LoggingApplicationInsightsSection).Exists())
+                    {
+                        if (!string.IsNullOrEmpty(config[LoggingApplicationInsightsInstrumentationKey]))
+                        {
+                            builder.AddApplicationInsights(config[LoggingApplicationInsightsInstrumentationKey], options => options.FlushOnDispose = true);
+                        }
+                    }
+
+                    builder.AddConfiguration(config.GetSection(LoggingSection));
+                });
+            }
+            else
+            {
+                services.AddSingleton(typeof(ILogger), customLogger);
+            }
 
             services.Configure<TelemetryConfiguration>((o) =>
             {
@@ -57,6 +70,16 @@ namespace Microsoft.WorkItems
             });
 
             ServiceProvider = services.BuildServiceProvider();
+
+            // The logging in the application uses an ILogger, not a ILogger<T>. So if the ILogger is not
+            // present, re-register the service.
+            ILogger baseLogger = ServiceProviderFactory.ServiceProvider.GetService<ILogger>();
+            if (baseLogger == null)
+            {
+                ILogger categoryLogger = ServiceProviderFactory.ServiceProvider.GetService<ILogger<ILogger>>();
+                services.AddSingleton(typeof(ILogger), categoryLogger);
+                ServiceProvider = services.BuildServiceProvider();
+            }
         }
 
         internal static string GetAppSettingsFilePath()
