@@ -154,7 +154,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             Uri runRepositoryUri = log?.Runs.FirstOrDefault()?.VersionControlProvenance?.FirstOrDefault().RepositoryUri;
             Uri detectionLocationUri = !string.IsNullOrEmpty(runRepositoryUri?.OriginalString) ? runRepositoryUri : locationUris?[0];
 
-            string detectionLocation = (detectionLocationUri.IsAbsoluteUri && detectionLocationUri?.Scheme == "https")
+            string detectionLocation = (detectionLocationUri?.IsAbsoluteUri == true && detectionLocationUri?.Scheme == "https")
                 ? context.CreateLinkText(detectionLocationUri.OriginalString, detectionLocationUri?.OriginalString)
                 : detectionLocationUri?.OriginalString;
 
