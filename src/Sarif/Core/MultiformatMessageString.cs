@@ -7,6 +7,6 @@ namespace Microsoft.CodeAnalysis.Sarif
     {
         public bool ShouldSerializeMarkdown() { return !string.IsNullOrWhiteSpace(this.Markdown); }
 
-        public bool ShouldSerializeText() { return !string.IsNullOrWhiteSpace(this.Text); }
+        public bool ShouldSerializeText() { return true; }
     }
 }
