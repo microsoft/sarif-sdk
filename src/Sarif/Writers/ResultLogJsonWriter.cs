@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Writers
@@ -245,10 +246,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 throw new ArgumentNullException(nameof(results));
             }
 
-            foreach (Result result in results)
+            if (results.Any())
             {
-                WriteResult(result);
+                foreach (Result result in results)
+                {
+                    WriteResult(result);
+                }
             }
+            else
+            {
+                OpenResults();
+
+                CloseResults();
+            }            
         }
 
         public void CloseResults()

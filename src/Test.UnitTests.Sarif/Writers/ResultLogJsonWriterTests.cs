@@ -29,6 +29,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         }
 
         [Fact]
+        public void ResultLogJsonWriter_AcceptsEmptyResultList()
+        {
+            string expected = CreateCurrentV2SarifLogText(resultCount: 0, null, true);
+
+            string actual = GetJson(uut =>
+            {
+                var run = new Run() { Tool = DefaultTool };
+                uut.Initialize(run);
+                uut.WriteResults(new Result[0]);
+            });
+
+            actual.Should().BeCrossPlatformEquivalent<SarifLog>(expected);
+        }
+
+        [Fact]
         public void ResultLogJsonWriter_DoNotInitializeMoreThanOnce()
         {
             Assert.Throws<InvalidOperationException>(() =>
