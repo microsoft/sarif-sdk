@@ -29,6 +29,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             return this.DeprecatedNames.HasAtLeastOneNonNullValue();
         }
 
+        public bool ShouldSerializeFullDescription()
+        {
+            return this.FullDescription.HasAtLeastOneNonNullEmptyValue();
+        }
+
         public bool ShouldSerializeRelationships()
         {
             return this.Relationships.HasAtLeastOneNonDefaultValue(ReportingDescriptorRelationship.ValueComparer);

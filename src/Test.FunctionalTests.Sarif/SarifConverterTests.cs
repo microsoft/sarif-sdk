@@ -2,6 +2,7 @@
 // license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Text;
@@ -88,6 +89,45 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         public void PyLintConverter_EndToEnd()
         {
             BatchRunConverter(ToolFormat.Pylint, "*.json");
+        }
+
+        [Fact]
+        public void JsonConvert_EndToEnd()
+        {
+            var sarifLog = new SarifLog
+            {
+                Runs = new List<Run>
+                {
+                    new Run
+                    {
+                        Tool = new Tool
+                        {
+                            Driver = new ToolComponent
+                            {
+                                Name = "DefaultTool",
+                                Rules = new List<ReportingDescriptor>
+                                {
+                                    new ReportingDescriptor
+                                    {
+                                        FullDescription = new MultiformatMessageString
+                                        {
+                                            Text = null
+                                        }
+                                    }
+                                }
+                            },
+                        },
+                    }
+                }
+            };
+
+            string jsonSarifLog = JsonConvert.SerializeObject(sarifLog);
+
+            SarifLog newSarifLog = JsonConvert.DeserializeObject<SarifLog>(jsonSarifLog);
+
+            string newJsonSarifLog = JsonConvert.SerializeObject(newSarifLog);
+
+            Assert.Equal(jsonSarifLog, newJsonSarifLog);
         }
 
         private readonly ToolFormatConverter converter = new ToolFormatConverter();

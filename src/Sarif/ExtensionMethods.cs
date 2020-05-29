@@ -40,6 +40,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             return collection != null && collection.Any((m) => m != null);
         }
 
+        public static bool HasAtLeastOneNonNullEmptyValue(this MultiformatMessageString multiformatMessageString)
+        {
+            return !string.IsNullOrEmpty(multiformatMessageString?.Text);
+        }
+
         public static bool HasAtLeastOneNonDefaultValue<T>(this IEnumerable<T> collection, IEqualityComparer<T> comparer) where T : new()
         {
             var defaultInstance = new T();
