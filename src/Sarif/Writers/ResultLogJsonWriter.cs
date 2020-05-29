@@ -259,8 +259,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 {
                     OpenResults();
                 }
-
-                CloseResults();
             }            
         }
 
