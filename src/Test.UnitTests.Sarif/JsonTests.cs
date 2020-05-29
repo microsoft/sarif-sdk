@@ -31,7 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return result.ToString();
         }
 
-        protected static SarifLog CreateCurrentV2SarifLog(int resultCount = 0)
+        protected static SarifLog CreateCurrentV2SarifLog(int resultCount = 0, bool createResultsTag = false)
         {
             var sarifLog = new SarifLog
             {
@@ -50,9 +50,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             };
 
+            if (createResultsTag || resultCount > 0)
+            {
+                sarifLog.Runs[0].Results = new List<Result>();
+            }
+
             for (int i = 0; i < resultCount; i++)
             {
-                sarifLog.Runs[0].Results = sarifLog.Runs[0].Results ?? new List<Result>();
                 var result = new Result
                 {
                     Message = new Message
@@ -66,9 +70,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             return sarifLog;
         }
 
-        protected static string CreateCurrentV2SarifLogText(int resultCount = 0, Action<SarifLog> sarifLogAction = null)
+        protected static string CreateCurrentV2SarifLogText(int resultCount = 0, Action<SarifLog> sarifLogAction = null, bool createResultsTag = false)
         {
-            SarifLog sarifLog = CreateCurrentV2SarifLog(resultCount);
+            SarifLog sarifLog = CreateCurrentV2SarifLog(resultCount, createResultsTag);
 
             sarifLogAction?.Invoke(sarifLog);
 
