@@ -258,8 +258,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 if ((_writeConditions & Conditions.ResultsInitialized) != Conditions.ResultsInitialized)
                 {
                     OpenResults();
-                    CloseResults();
                 }
+
+                CloseResults();
             }            
         }
 
