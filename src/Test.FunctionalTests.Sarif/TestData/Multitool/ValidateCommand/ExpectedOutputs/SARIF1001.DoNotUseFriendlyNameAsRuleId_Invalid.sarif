@@ -11,7 +11,7 @@
               "id": "SARIF1001",
               "name": "DoNotUseFriendlyNameAsRuleId",
               "shortDescription": {
-                "text": "Do not use the same string for a rule's id and name properties. The id property ..."
+                "text": "Do not use the same string for a rule's id and name properties."
               },
               "fullDescription": {
                 "text": "Do not use the same string for a rule's id and name properties. The id property must be a stable, opaque identifer such as \"SARIF1001\". The name property should be a string that is understandable to an end user, such as \"DoNotUserFriendlyNameAsRuleId\"."
