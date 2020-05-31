@@ -201,4 +201,13 @@
   <data name="SARIF1018_NotAbsolute" xml:space="preserve">
     <value>{0}: The URI '{1}' belonging to the '{2}' element of run.originalUriBaseIds is not an absolute URI.</value>
   </data>
+  <data name="SARIF1019_InconsistentResultRuleId" xml:space="preserve">
+    <value>{0}: The result contains both the ruleId property '{1}' and the rule.id property '{2}', and they are not equal.</value>
+  </data>
+  <data name="SARIF1019_MissingResultRuleId" xml:space="preserve">
+    <value>{0}: The result contains neither result.ruleId nor result.rule.id.</value>
+  </data>
+  <data name="SARIF1019_RuleIdMustBePresentAndConsistent" xml:space="preserve">
+    <value>In every result, at least one of the properties result.ruleId and result.rule.id must be present. If both are present, they must be equal.</value>
+  </data>
 </root>

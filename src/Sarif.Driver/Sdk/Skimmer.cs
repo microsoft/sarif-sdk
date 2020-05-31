@@ -13,15 +13,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             this.Options = new Dictionary<string, string>();
         }
+
         private IDictionary<string, MultiformatMessageString> multiformatMessageStrings;
 
-        virtual protected ResourceManager ResourceManager => null;
+        protected virtual ResourceManager ResourceManager => null;
 
-        virtual protected IEnumerable<string> MessageResourceNames => throw new NotImplementedException();
+        protected virtual IEnumerable<string> MessageResourceNames => throw new NotImplementedException();
 
         virtual public FailureLevel DefaultLevel { get { return FailureLevel.Warning; } }
 
-        override public IDictionary<string, MultiformatMessageString> MessageStrings
+        public override IDictionary<string, MultiformatMessageString> MessageStrings
         {
             get
             {
@@ -43,38 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public override MultiformatMessageString FullDescription => throw new InvalidOperationException($"The {nameof(FullDescription)} property must be overridden in the SkimmerBase-derived class.");
 
-        public override MultiformatMessageString ShortDescription
-        {
-            get { return new MultiformatMessageString { Text = FirstSentence(FullDescription.Text) }; }
-        }
-
-        internal static string FirstSentence(string fullDescription)
-        {
-            int charCount = 0;
-            bool withinApostrophe = false;
-
-            foreach (char ch in fullDescription)
-            {
-                charCount++;
-                switch (ch)
-                {
-                    case '\'':
-                    {
-                        withinApostrophe = !withinApostrophe;
-                        continue;
-                    }
-
-                    case '.':
-                    {
-                        if (withinApostrophe) { continue; }
-                        return fullDescription.Substring(0, charCount);
-                    }
-                }
-            }
-            int length = Math.Min(fullDescription.Length, 80);
-            bool truncated = length < fullDescription.Length;
-            return fullDescription.Substring(0, length) + (truncated ? "..." : "");
-        }
+        public override MultiformatMessageString ShortDescription => new MultiformatMessageString { Text = ExtensionMethods.GetFirstSentence(FullDescription.Text) };
 
         public override string Name => this.GetType().Name;
 

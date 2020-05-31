@@ -8,17 +8,20 @@
           "name": "SARIF Functional Testing",
           "rules": [
             {
-              "id": "SARIF1001",
-              "name": "DoNotUseFriendlyNameAsRuleId",
+              "id": "SARIF1019",
+              "name": "RuleIdMustBePresentAndConsistent",
               "shortDescription": {
-                "text": "Do not use the same string for a rule's id and name properties."
+                "text": "In every result, at least one of the properties result.ruleId and result.rule.id must be present."
               },
               "fullDescription": {
-                "text": "Do not use the same string for a rule's id and name properties. The id property must be a stable, opaque identifer such as \"SARIF1001\". The name property should be a string that is understandable to an end user, such as \"DoNotUserFriendlyNameAsRuleId\"."
+                "text": "In every result, at least one of the properties result.ruleId and result.rule.id must be present. If both are present, they must be equal."
               },
               "messageStrings": {
-                "Default": {
-                  "text": "{0}: The name and id properties of rule \"{1}\" are the same."
+                "InconsistentResultRuleId": {
+                  "text": "{0}: The result contains both the ruleId property '{1}' and the rule.id property '{2}', and they are not equal."
+                },
+                "MissingResultRuleId": {
+                  "text": "{0}: The result contains neither result.ruleId nor result.rule.id."
                 }
               },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
@@ -34,20 +37,22 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1001.DoNotUseFriendlyNameAsRuleId_Invalid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1019.RuleIdMustBePresentAndConsistent_Invalid.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }
       ],
       "results": [
         {
-          "ruleId": "SARIF1001",
+          "ruleId": "SARIF1019",
           "ruleIndex": 0,
+          "level": "error",
           "message": {
-            "id": "Default",
+            "id": "InconsistentResultRuleId",
             "arguments": [
-              "runs[0].tool.driver.rules[0]",
-              "RULE0001"
+              "runs[0].results[0]",
+              null,
+              null
             ]
           },
           "locations": [
@@ -57,21 +62,23 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 10,
-                  "startColumn": 13
+                  "startLine": 12,
+                  "startColumn": 9
                 }
               }
             }
           ]
         },
         {
-          "ruleId": "SARIF1001",
+          "ruleId": "SARIF1019",
           "ruleIndex": 0,
+          "level": "error",
           "message": {
-            "id": "Default",
+            "id": "MissingResultRuleId",
             "arguments": [
-              "runs[0].tool.driver.rules[1]",
-              "RULE0002"
+              "runs[0].results[1]",
+              "TST0001",
+              "TST0002"
             ]
           },
           "locations": [
@@ -81,8 +88,8 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 14,
-                  "startColumn": 13
+                  "startLine": 17,
+                  "startColumn": 9
                 }
               }
             }

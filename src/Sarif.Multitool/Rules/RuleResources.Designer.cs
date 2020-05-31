@@ -311,5 +311,32 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
                 return ResourceManager.GetString("SARIF1018_NotAbsolute", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The result contains both the ruleId property &apos;{1}&apos; and the rule.id property &apos;{2}&apos;, and they are not equal..
+        /// </summary>
+        internal static string SARIF1019_InconsistentResultRuleId {
+            get {
+                return ResourceManager.GetString("SARIF1019_InconsistentResultRuleId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The result contains neither result.ruleId nor result.rule.id..
+        /// </summary>
+        internal static string SARIF1019_MissingResultRuleId {
+            get {
+                return ResourceManager.GetString("SARIF1019_MissingResultRuleId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to In every result, at least one of the properties result.ruleId and result.rule.id must be present. If both are present, they must be equal..
+        /// </summary>
+        internal static string SARIF1019_RuleIdMustBePresentAndConsistent {
+            get {
+                return ResourceManager.GetString("SARIF1019_RuleIdMustBePresentAndConsistent", resourceCulture);
+            }
+        }
     }
 }
