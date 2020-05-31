@@ -207,4 +207,7 @@
   <data name="SARIF1019_MissingResultRuleId" xml:space="preserve">
     <value>{0}: The result contains neither result.ruleId nor result.rule.id.</value>
   </data>
+  <data name="SARIF1019_RuleIdMustBePresentAndConsistent" xml:space="preserve">
+    <value>In every result, at least one of the properties result.ruleId and result.rule.id must be present. If both are present, they must be equal.</value>
+  </data>
 </root>

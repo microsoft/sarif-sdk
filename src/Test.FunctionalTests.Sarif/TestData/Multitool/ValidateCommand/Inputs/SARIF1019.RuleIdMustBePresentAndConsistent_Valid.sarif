@@ -8,68 +8,28 @@
           "name": "Sarif Functional Testing"
         }
       },
-      "logicalLocations": [
-        {
-          "name": "A"
-        },
-        {
-          "name": "B"
-        }
-      ],
       "results": [
         {
           "ruleId": "TST0001",
           "message": {
-            "text": "Message."
-          },
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "index": 1
-                }
-              ]
-            }
-          ],
-          "rule": {
-            "index": 1
+            "text": "This result contains only a ruleId property."
           }
         },
         {
           "ruleId": "TST0002",
           "message": {
-            "text": "Message."
+            "text": "This result contains both a ruleId and a rule.id property, and they are the same."
           },
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "index": 1
-                }
-              ]
-            }
-          ],
           "rule": {
-            "id": "TST0002",
-            "index": 1
+            "id": "TST0002"
           }
         },
         {
           "message": {
-            "text": "Message."
+            "text": "this result contains only a rule.id property."
           },
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "index": 1
-                }
-              ]
-            }
-          ],
           "rule": {
-            "id": "TST0003",
-            "index": 1
+            "id": "TST0003"
           }
         }
       ],

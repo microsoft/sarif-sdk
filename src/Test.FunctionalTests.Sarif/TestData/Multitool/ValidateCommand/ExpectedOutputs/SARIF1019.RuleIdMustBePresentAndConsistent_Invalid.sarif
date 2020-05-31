@@ -11,10 +11,10 @@
               "id": "SARIF1019",
               "name": "RuleIdMustBePresentAndConsistent",
               "shortDescription": {
-                "text": "{0}: The result contains neither result."
+                "text": "In every result, at least one of the properties result."
               },
               "fullDescription": {
-                "text": "{0}: The result contains neither result.ruleId nor result.rule.id."
+                "text": "In every result, at least one of the properties result.ruleId and result.rule.id must be present. If both are present, they must be equal."
               },
               "messageStrings": {
                 "InconsistentResultRuleId": {
@@ -62,7 +62,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 20,
+                  "startLine": 12,
                   "startColumn": 9
                 }
               }
@@ -88,7 +88,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 37,
+                  "startLine": 17,
                   "startColumn": 9
                 }
               }

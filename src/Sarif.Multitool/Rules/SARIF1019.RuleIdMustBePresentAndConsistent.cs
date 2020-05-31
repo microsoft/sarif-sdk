@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
     {
         private readonly MultiformatMessageString _fullDescription = new MultiformatMessageString
         {
-            Text = RuleResources.SARIF1019_MissingResultRuleId
+            Text = RuleResources.SARIF1019_RuleIdMustBePresentAndConsistent
         };
 
         public override MultiformatMessageString FullDescription => _fullDescription;
