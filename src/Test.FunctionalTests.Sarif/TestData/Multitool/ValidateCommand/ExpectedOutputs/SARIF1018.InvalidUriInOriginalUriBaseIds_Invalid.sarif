@@ -11,7 +11,7 @@
               "id": "SARIF1018",
               "name": "InvalidUriInOriginalUriBaseIds",
               "shortDescription": {
-                "text": "In the artifactLocation objects contained in run."
+                "text": "In the artifactLocation objects contained in run.originalUriBaseIds, if uriBaseId is absent, then uri must either be an absolute URI or it must be absent."
               },
               "fullDescription": {
                 "text": "In the artifactLocation objects contained in run.originalUriBaseIds, if uriBaseId is absent, then uri must either be an absolute URI or it must be absent. Also, uri must end with a slash, so that it can safely be combined with the relative URIs in artifactLocation objects elsewhere in the log file."
