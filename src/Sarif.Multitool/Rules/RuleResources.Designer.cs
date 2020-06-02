@@ -338,7 +338,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
                 return ResourceManager.GetString("SARIF1019_RuleIdMustBePresentAndConsistent", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to {0}: The $schema property value &apos;{1}&apos; does not refer to the final version of the SARIF 2.1.0 schema. If you are using an earlier version of the SARIF format, consider upgrading your analysis tool to produce the final version. If this file does in fact conform to the final version of the schema, upgrade the tool to populate the $schema property with a URL that refers to the final version of the schema..
         /// </summary>
@@ -363,6 +363,50 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         internal static string SARIF1020_SchemaReferenceMissing {
             get {
                 return ResourceManager.GetString("SARIF1020_SchemaReferenceMissing", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Prefer message.id instead of message.text.
+        /// </summary>
+        internal static string SARIF1022_PreferMessageIdInsteadOfMessageText
+        {
+            get
+            {
+                return ResourceManager.GetString("SARIF1022_PreferMessageIdInsteadOfMessageText", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The result should use message.id instead of message.text value &apos;{1}&apos;.
+        /// </summary>
+        internal static string SARIF1022_ResultShouldUseMessageIdInsteadOfMessageText
+        {
+            get
+            {
+                return ResourceManager.GetString("SARIF1022_ResultShouldUseMessageIdInsteadOfMessageText", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The rule metadata doesn&apos;t include the message id value &apos;{1}&apos;.
+        /// </summary>
+        internal static string SARIF1022_RuleMetadataDoesntIncludeMessageId
+        {
+            get
+            {
+                return ResourceManager.GetString("SARIF1022_RuleMetadataDoesntIncludeMessageId", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The rule metadata text &apos;{1}&apos; contains invalid quantity of arguments &apos;{2}&apos;.
+        /// </summary>
+        internal static string SARIF1022_RuleMetadataIsNotConsistentWithArguments
+        {
+            get
+            {
+                return ResourceManager.GetString("SARIF1022_RuleMetadataIsNotConsistentWithArguments", resourceCulture);
             }
         }
     }
