@@ -5,6 +5,7 @@
     {
       "tool": {
         "name": "CodeScanner",
+        "version": "1.0.0",
         "downloadUri": "http://www.example.com/tools/codescanner/download.html"
       },
       "results": [

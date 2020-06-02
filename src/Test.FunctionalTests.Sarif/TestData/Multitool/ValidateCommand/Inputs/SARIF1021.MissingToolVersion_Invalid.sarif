@@ -5,8 +5,14 @@
     {
       "tool": {
         "driver": {
-          "name": "Sarif Functional Testing",
-          "version": "1.0.0"
+          "name": "Sarif Functional Testing"
+        }
+      },
+      "conversion": {
+        "tool": {
+          "driver": {
+            "name": "Sarif Functional Testing"
+          }
         }
       },
       "results": [],

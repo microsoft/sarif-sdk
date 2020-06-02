@@ -5,7 +5,8 @@
     {
       "tool": {
         "driver": {
-          "name": "Sarif Functional Testing"
+          "name": "Sarif Functional Testing",
+          "version": "1.0.0"
         }
       },
       "results": [

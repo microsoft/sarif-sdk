@@ -140,6 +140,14 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
         public void SARIF1020_SchemaMustBePresentAndConsistent_Invalid()
             => RunTest(MakeInvalidTestFileName(RuleId.ReferToFinalSchema, nameof(RuleId.ReferToFinalSchema)));
 
+        [Fact]
+        public void SARIF1021_MissingToolVersion_Valid()
+    => RunTest(MakeValidTestFileName(RuleId.MissingToolVersion, nameof(RuleId.MissingToolVersion)));
+
+        [Fact]
+        public void SARIF1021_MissingToolVersion_Invalid()
+            => RunTest(MakeInvalidTestFileName(RuleId.MissingToolVersion, nameof(RuleId.MissingToolVersion)));
+
         private const string ValidTestFileNameSuffix = "_Valid.sarif";
         private const string InvalidTestFileNameSuffix = "_Invalid.sarif";
 

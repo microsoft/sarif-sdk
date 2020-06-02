@@ -3,11 +3,11 @@
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class MissingRunToolVersion : SarifValidationSkimmerBase
+    public class MissingToolVersion : SarifValidationSkimmerBase
     {
         private readonly MultiformatMessageString _fullDescription = new MultiformatMessageString
         {
-            //Text = RuleResources.SARIF1021_MissingRunToolVersion
+            Text = RuleResources.SARIF1021_MissingToolVersion
         };
 
         public override MultiformatMessageString FullDescription => _fullDescription;
@@ -17,11 +17,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// <summary>
         /// SARIF1021
         /// </summary>
-        public override string Id => RuleId.MissingRunToolVersion;
+        public override string Id => RuleId.MissingToolVersion;
 
-        protected override void Analyze(Run run, string runPointer)
+        protected override void Analyze(Tool tool, string pointer)
         {
-            //
+            if (tool.Driver.Version == null)
+            {
+                LogResult(pointer, nameof(RuleResources.SARIF1021_MissingToolVersion));
+                return;
+            }
+            
         }
 }
 }

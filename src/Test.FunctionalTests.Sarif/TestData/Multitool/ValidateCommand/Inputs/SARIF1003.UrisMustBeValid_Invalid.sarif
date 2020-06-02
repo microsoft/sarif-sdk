@@ -4,25 +4,26 @@
   "runs": [
     {
       "tool": {
-          "name": "CodeScanner",
-          "downloadUri": "ht%tp://www.example.com/tools/codescanner/download.html",
-          "rules": [
-            {
-              "id": "TST0001",
-              "helpUri": "ht%tp://www.example.com/rules/tst0001.html"
-            }
-          ],
-          "notifications": [
-            {
-              "id": "MSG0001",
-              "helpUri": "ht%tp://www.example.com/rules/msg0001.html"
-            },
-            {
-              "id": "MSG0002",
-              "helpUri": "ht%tp://www.example.com/rules/msg0002.html"
-            }
-          ]
-        },
+        "name": "CodeScanner",
+        "version": "1.0.0",
+        "downloadUri": "ht%tp://www.example.com/tools/codescanner/download.html",
+        "rules": [
+          {
+            "id": "TST0001",
+            "helpUri": "ht%tp://www.example.com/rules/tst0001.html"
+          }
+        ],
+        "notifications": [
+          {
+            "id": "MSG0001",
+            "helpUri": "ht%tp://www.example.com/rules/msg0001.html"
+          },
+          {
+            "id": "MSG0002",
+            "helpUri": "ht%tp://www.example.com/rules/msg0002.html"
+          }
+        ]
+      },
       "originalUriBaseIds": {
         "SRCROOT": {
           "uri": "fi%le:///c:/Code/sarif-sdk/src"

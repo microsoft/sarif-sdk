@@ -4,7 +4,10 @@
   "runs": [
     {
       "tool": {
-        "driver": { "name": "CodeScanner" }
+        "driver": {
+          "name": "CodeScanner",
+          "version": "1.0.0"
+        }
       },
       "results": [
         {

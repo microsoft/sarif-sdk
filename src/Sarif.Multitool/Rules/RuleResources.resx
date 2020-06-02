@@ -219,7 +219,7 @@
   <data name="SARIF1020_SchemaReferenceMissing" xml:space="preserve">
     <value>{0}: The SARIF log file does not contain a $schema property. Add a $schema property that refers to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.</value>
   </data>
-  <data name="SARIF1021_MissingRunToolVersion" xml:space="preserve">
+  <data name="SARIF1021_MissingToolVersion" xml:space="preserve">
     <value>{0}: The tool version is missing.</value>
   </data>
 </root>

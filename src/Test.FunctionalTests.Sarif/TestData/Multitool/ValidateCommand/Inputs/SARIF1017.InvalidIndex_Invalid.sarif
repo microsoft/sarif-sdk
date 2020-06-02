@@ -6,6 +6,7 @@
       "tool": {
         "driver": {
           "name": "SARIF Functional Testing",
+          "version": "1.0.0",
           "notifications": [
             {
               "id": "CNOT0001"

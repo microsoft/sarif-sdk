@@ -9,6 +9,14 @@
           "version": "1.0.0"
         }
       },
+      "conversion": {
+        "tool": {
+          "driver": {
+            "name": "Sarif Functional Testing",
+            "version": "0.0.5"
+          }
+        }
+      },
       "results": [],
       "columnKind": "utf16CodeUnits"
     }

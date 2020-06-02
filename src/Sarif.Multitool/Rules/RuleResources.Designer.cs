@@ -365,5 +365,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
                 return ResourceManager.GetString("SARIF1020_SchemaReferenceMissing", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The tool version is missing..
+        /// </summary>
+        internal static string SARIF1021_MissingToolVersion {
+            get {
+                return ResourceManager.GetString("SARIF1021_MissingToolVersion", resourceCulture);
+            }
+        }
     }
 }

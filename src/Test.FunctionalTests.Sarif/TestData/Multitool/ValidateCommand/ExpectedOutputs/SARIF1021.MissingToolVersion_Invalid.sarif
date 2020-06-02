@@ -8,19 +8,15 @@
           "name": "SARIF Functional Testing",
           "rules": [
             {
-              "id": "JSON1002",
-              "name": "RequiredPropertyMissing",
+              "id": "SARIF1021",
+              "name": "MissingRunToolVersion",
+              "shortDescription": {
+                "text": "{0}: The tool version is missing."
+              },
               "fullDescription": {
-                "text": "A property required by the schema's \"required\" property is missing."
+                "text": "{0}: The tool version is missing."
               },
-              "messageStrings": {
-                "default": {
-                  "text": "at \"{0}\": The required property \"{1}\" is missing."
-                }
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              }
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
             }
           ]
         }
@@ -33,21 +29,20 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.JSON1002.DeserializationError.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1021.MissingToolVersion_Invalid.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }
       ],
       "results": [
         {
-          "ruleId": "JSON1002",
+          "ruleId": "SARIF1021",
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "default",
+            "id": "SARIF1019_MissingResultRuleId",
             "arguments": [
-              "runs[0].results[0].stacks[0]",
-              "frames"
+              "runs[0].tool"
             ]
           },
           "locations": [
@@ -57,15 +52,12 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 16,
-                  "startColumn": 13
+                  "startLine": 6,
+                  "startColumn": 15
                 }
               }
             }
-          ],
-          "properties": {
-            "jsonPath": "runs[0].results[0].stacks[0]"
-          }
+          ]
         }
       ],
       "columnKind": "utf16CodeUnits"
