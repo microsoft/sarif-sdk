@@ -379,7 +379,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                     { nameof(ruleMetrics.SuppressedByTransformerCount), ruleMetrics.SuppressedByTransformerCount }
                 };
 
-                this.Logger.LogMetrics(EventIds.WorkItemFiledDetailMetrics, workItemMetrics);
+                this.Logger.LogMetrics(EventIds.WorkItemFiledDetailMetrics, workItemDetailMetrics);
             }
         }
 
