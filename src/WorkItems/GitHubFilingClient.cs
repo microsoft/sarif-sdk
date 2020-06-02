@@ -84,5 +84,10 @@ namespace Microsoft.WorkItems
             }
             return workItemModels;
         }
+
+        public override Task<WorkItemModel> GetWorkItemMetadata(WorkItemModel workItemModel)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
