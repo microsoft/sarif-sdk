@@ -94,7 +94,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         {
             sarifLog = sarifLog ?? throw new ArgumentNullException(nameof(sarifLog));
 
-            IReadOnlyList<SarifLog> logsToProcess = PreprocessLog(sarifLog);
+            IReadOnlyList<SarifLog> logsToProcess = SplitLogFile(sarifLog);
 
             int logsToProcessCount = logsToProcess.Count;
 
@@ -108,7 +108,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             for (int splitFileIndex = 0; splitFileIndex < logsToProcessCount; splitFileIndex++)
             {
                 SarifLog splitLog = logsToProcess[splitFileIndex];
-                SarifWorkItemModel sarifWorkItemModel = FileWorkItemsHelper(splitLog, this.FilingContext, this.FilingClient);
+                SarifWorkItemModel sarifWorkItemModel = FileWorkItem(splitLog, this.FilingContext, this.FilingClient);
 
                 // IMPORTANT: as we update our partitioned logs, we are actually modifying the input log file 
                 // as well. That's because our partitioning is configured to reuse references to existing
@@ -132,7 +132,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             return sarifLog;
         }
 
-        public virtual IReadOnlyList<SarifLog> PreprocessLog(SarifLog sarifLog)
+        public virtual IReadOnlyList<SarifLog> SplitLogFile(SarifLog sarifLog)
         {
             sarifLog = sarifLog ?? throw new ArgumentNullException(nameof(sarifLog));
 
@@ -223,7 +223,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
         internal const string PROGRAMMABLE_URIS_PROPERTY_NAME = "programmableWorkItemUris";
 
-        public SarifWorkItemModel FileWorkItemsHelper(SarifLog sarifLog, SarifWorkItemContext filingContext, FilingClient filingClient)
+        public SarifWorkItemModel FileWorkItem(SarifLog sarifLog, SarifWorkItemContext filingContext, FilingClient filingClient)
         {
             string logGuid = sarifLog.GetProperty<Guid>("guid").ToString();
 
