@@ -51,6 +51,9 @@
       "results": [
         {
           "ruleId": "TST0001",
+          "message": {
+            "text": "Message 1.1."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -66,10 +69,7 @@
                 }
               }
             }
-          ],
-          "message": {
-            "text": "Message 1.1."
-          }
+          ]
         },
         {
           "ruleId": "TST0002",
