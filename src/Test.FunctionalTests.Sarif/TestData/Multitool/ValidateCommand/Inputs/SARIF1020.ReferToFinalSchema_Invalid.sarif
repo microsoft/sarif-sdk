@@ -8,31 +8,7 @@
           "name": "Sarif Functional Testing"
         }
       },
-      "results": [
-        {
-          "ruleId": "TST0001",
-          "message": {
-            "text": "This result contains only a ruleId property."
-          }
-        },
-        {
-          "ruleId": "TST0002",
-          "message": {
-            "text": "This result contains both a ruleId and a rule.id property, and they are the same."
-          },
-          "rule": {
-            "id": "TST0002"
-          }
-        },
-        {
-          "message": {
-            "text": "this result contains only a rule.id property."
-          },
-          "rule": {
-            "id": "TST0003"
-          }
-        }
-      ],
+      "results": [],
       "columnKind": "utf16CodeUnits"
     }
   ]
