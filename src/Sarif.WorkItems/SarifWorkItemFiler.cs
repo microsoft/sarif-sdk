@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.ApplicationInsights.Channel;
@@ -48,6 +49,8 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
             this.Logger = ServiceProviderFactory.ServiceProvider.GetService<ILogger>();
             Assembly.GetExecutingAssembly().LogIdentity();
+
+            this.FiledWorkItems = new List<WorkItemModel>();
         }
 
         public FilingClient FilingClient { get; set; }
@@ -83,10 +86,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
         public virtual SarifLog FileWorkItems(string sarifLogFileContents)
         {
-            sarifLogFileContents = sarifLogFileContents ?? throw new ArgumentNullException(nameof(sarifLogFileContents));
-
-            SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(sarifLogFileContents);
-
+            SarifLog sarifLog = ConvertToSarifLog(sarifLogFileContents);
             return FileWorkItems(sarifLog);
         }
 
@@ -94,6 +94,49 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         {
             sarifLog = sarifLog ?? throw new ArgumentNullException(nameof(sarifLog));
 
+            IReadOnlyList<SarifLog> logsToProcess = PreprocessLog(sarifLog);
+
+            int logsToProcessCount = logsToProcess.Count;
+
+#if DEBUG
+            if (!int.TryParse(Environment.GetEnvironmentVariable("SARIFTEST_FILINGLIMIT"), out logsToProcessCount))
+            {
+                logsToProcessCount = logsToProcess.Count;
+            }
+#endif
+
+            for (int splitFileIndex = 0; splitFileIndex < logsToProcessCount; splitFileIndex++)
+            {
+                SarifLog splitLog = logsToProcess[splitFileIndex];
+                SarifWorkItemModel sarifWorkItemModel = FileWorkItemsHelper(splitLog, this.FilingContext, this.FilingClient);
+
+                // IMPORTANT: as we update our partitioned logs, we are actually modifying the input log file 
+                // as well. That's because our partitioning is configured to reuse references to existing
+                // run and result objects, even though they are partitioned into a separate log file. 
+                // This approach also us to update the original log file with the filed work item details
+                // without requiring us to build a map of results between the original log and its
+                // partioned log files.
+                //
+                UpdateLogWithWorkItemDetails(sarifLog, sarifWorkItemModel.HtmlUri, sarifWorkItemModel.Uri);
+            }
+
+            return sarifLog;
+        }
+
+        public static SarifLog ConvertToSarifLog(string sarifLogFileContents)
+        {
+            sarifLogFileContents = sarifLogFileContents ?? throw new ArgumentNullException(nameof(sarifLogFileContents));
+
+            SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(sarifLogFileContents);
+
+            return sarifLog;
+        }
+
+        public virtual IReadOnlyList<SarifLog> PreprocessLog(SarifLog sarifLog)
+        {
+            sarifLog = sarifLog ?? throw new ArgumentNullException(nameof(sarifLog));
+
+            IList<SarifLog> logsToProcess;
             sarifLog.SetProperty("guid", Guid.NewGuid());
 
             using (Logger.BeginScope(nameof(FileWorkItems)))
@@ -124,16 +167,13 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
                 if (splittingStrategy == SplittingStrategy.None)
                 {
-                    FileWorkItemsHelper(sarifLog, this.FilingContext, this.FilingClient);
-                    return sarifLog;
+                    return new[] { sarifLog };
                 }
-
-                IList<SarifLog> logsToProcess;
 
                 PartitionFunction<string> partitionFunction = null;
 
                 Stopwatch splittingStopwatch = Stopwatch.StartNew();
-                
+
                 switch (splittingStrategy)
                 {
                     case SplittingStrategy.PerRun:
@@ -176,29 +216,14 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
                 this.Logger.LogMetrics(EventIds.LogsToProcessMetrics, logsToProcessMetrics);
                 splittingStopwatch.Stop();
-
-                int logsToProcessCount = logsToProcess.Count;
-
-#if DEBUG
-                if (!int.TryParse(Environment.GetEnvironmentVariable("SARIFTEST_FILINGLIMIT"), out logsToProcessCount))
-                {
-                    logsToProcessCount = logsToProcess.Count;
-                }
-#endif
-
-                for (int splitFileIndex = 0; splitFileIndex < logsToProcessCount; splitFileIndex++)
-                {
-                    SarifLog splitLog = logsToProcess[splitFileIndex];
-                    FileWorkItemsHelper(splitLog, this.FilingContext, this.FilingClient);
-                }
             }
 
-            return sarifLog;
+            return logsToProcess.ToArray();
         }
 
         internal const string PROGRAMMABLE_URIS_PROPERTY_NAME = "programmableWorkItemUris";
 
-        private void FileWorkItemsHelper(SarifLog sarifLog, SarifWorkItemContext filingContext, FilingClient filingClient)
+        public SarifWorkItemModel FileWorkItemsHelper(SarifLog sarifLog, SarifWorkItemContext filingContext, FilingClient filingClient)
         {
             string logGuid = sarifLog.GetProperty<Guid>("guid").ToString();
 
@@ -228,7 +253,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                         Dictionary<string, object> customDimentions = new Dictionary<string, object>();
                         customDimentions.Add("TransformerType", transformer.GetType().FullName);
                         LogMetricsForProcessedModel(sarifLog, sarifWorkItemModel, FilingResult.Canceled, customDimentions);
-                        return;
+                        return null;
                     }
 
                     sarifWorkItemModel = updatedSarifWorkItemModel;
@@ -237,16 +262,6 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 Task<IEnumerable<WorkItemModel>> task = filingClient.FileWorkItems(new[] { sarifWorkItemModel });
                 task.Wait();
                 this.FiledWorkItems.AddRange(task.Result);
-
-
-                // IMPORTANT: as we update our partitioned logs, we are actually modifying the input log file 
-                // as well. That's because our partitioning is configured to reuse references to existing
-                // run and result objects, even though they are partitioned into a separate log file. 
-                // This approach also us to update the original log file with the filed work item details
-                // without requiring us to build a map of results between the original log and its
-                // partioned log files.
-                //
-                UpdateLogWithWorkItemDetails(sarifLog, sarifWorkItemModel.HtmlUri, sarifWorkItemModel.Uri);
 
                 LogMetricsForProcessedModel(sarifLog, sarifWorkItemModel, FilingResult.Succeeded);
             }
@@ -260,9 +275,11 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 customDimentions.Add("ExceptionStackTrace", ex.ToString());
                 LogMetricsForProcessedModel(sarifLog, sarifWorkItemModel, FilingResult.ExceptionRaised, customDimentions);
             }
+
+            return sarifWorkItemModel;
         }
 
-        private static void UpdateLogWithWorkItemDetails(SarifLog sarifLog, Uri htmlUri, Uri uri)
+        public static void UpdateLogWithWorkItemDetails(SarifLog sarifLog, Uri htmlUri, Uri uri)
         {
             foreach (Run run in sarifLog.Runs)
             {
