@@ -38,7 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
             if (schemaUri == null)
             {
-                LogResult(pointer.AtProperty(SarifPropertyName.Schema), nameof(RuleResources.SARIF1020_SchemaReferenceMissing));
+                LogResult(pointer, nameof(RuleResources.SARIF1020_SchemaReferenceMissing));
                 return;
             }
 
