@@ -50,8 +50,7 @@
           "message": {
             "id": "ReferenceToOldSchemaVersion",
             "arguments": [
-              "",
-              "/$schema",
+              "$schema",
               "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.4.json"
             ]
           },
@@ -62,8 +61,8 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 1,
-                  "startColumn": 1
+                  "startLine": 2,
+                  "startColumn": 88
                 }
               }
             }

@@ -47,7 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 && !schemaUri.OriginalString.EndsWith(VersionConstants.SchemaVersionAsPublishedToSchemaStoreOrg)
                 && !schemaUri.OriginalString.EndsWith($"{VersionConstants.SchemaVersionAsPublishedToSchemaStoreOrg}.json"))
             {
-                LogResult(pointer, nameof(RuleResources.SARIF1020_ReferenceToOldSchemaVersion), pointer.AtProperty(SarifPropertyName.Schema), schemaUri.OriginalString);
+                LogResult(pointer.AtProperty(SarifPropertyName.Schema), nameof(RuleResources.SARIF1020_ReferenceToOldSchemaVersion), schemaUri.OriginalString);
                 return;
             }
         }
