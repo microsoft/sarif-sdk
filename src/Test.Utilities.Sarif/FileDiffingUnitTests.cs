@@ -70,13 +70,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         // shouldn't have to supply even an empty implementation of the one that they don't use.
         // Therefore this class implements both of those methods to throw NotImplementedException
         // so you don't accidentally call the wrong one.
-        protected virtual string ConstructTestOutputFromInputResource(string inputResourceName, object parameter, bool useSchemaVersionFromFile = false)
+        protected virtual string ConstructTestOutputFromInputResource(string inputResourceName, object parameter)
             => throw new NotImplementedException(nameof(ConstructTestOutputFromInputResource));
 
         protected virtual IDictionary<string, string> ConstructTestOutputsFromInputResources(IEnumerable<string> inputResourceNames, object parameter)
             => throw new NotImplementedException(nameof(ConstructTestOutputsFromInputResources));
 
-        protected virtual void RunTest(string inputResourceName, string expectedOutputResourceName = null, object parameter = null, bool useSchemaVersionFromFile = false)
+        protected virtual void RunTest(string inputResourceName, string expectedOutputResourceName = null, object parameter = null)
         {
             // In the simple case of one input file and one output file, the output resource name
             // can be inferred from the input resource name. In the case of arbitrary numbers of
@@ -92,7 +92,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             expectedOutputResourceName = Path.GetFileNameWithoutExtension(expectedOutputResourceName) + SarifConstants.SarifFileExtension;
             string expectedSarifText = GetExpectedSarifTextFromResource(expectedOutputResourceName);
 
-            string actualSarifText = ConstructTestOutputFromInputResource(ConstructFullInputResourceName(inputResourceName), parameter, useSchemaVersionFromFile);
+            string actualSarifText = ConstructTestOutputFromInputResource(ConstructFullInputResourceName(inputResourceName), parameter);
 
             // The comparison code is shared between this one-input-to-one-output method and the
             // overload that takes multiple inputs and multiple outputs. So set up the lists and

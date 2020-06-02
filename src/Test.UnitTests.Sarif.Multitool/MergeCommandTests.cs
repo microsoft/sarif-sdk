@@ -37,7 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             RunTest("NoInputFiles.sarif");
         }
 
-        protected override string ConstructTestOutputFromInputResource(string inputResourceName, object parameter, bool useSchemaVersionFromFile = false)
+        protected override string ConstructTestOutputFromInputResource(string inputResourceName, object parameter)
         {
             const string InputFolderPath = @"C:\input";
             string targetFileSpecifier = Path.Combine(InputFolderPath, inputResourceName);

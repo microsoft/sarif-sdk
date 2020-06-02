@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
         }
 
-        protected override string ConstructTestOutputFromInputResource(string inputResourceName, object parameter, bool useSchemaVersionFromFile = false)
+        protected override string ConstructTestOutputFromInputResource(string inputResourceName, object parameter)
         {
             PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(
                 GetResourceText(inputResourceName),
