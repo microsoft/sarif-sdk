@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
         public SarifCurrentToVersionOneVisitorTests(ITestOutputHelper outputHelper)
             : base(outputHelper, testProducesSarifCurrentVersion: false) { }
 
-        protected override string ConstructTestOutputFromInputResource(string inputResource, object parameter)
+        protected override string ConstructTestOutputFromInputResource(string inputResource, object parameter, bool useSchemaVersionFromFile = false)
         {
             string v2LogText = GetResourceText(inputResource);
             PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(v2LogText, formatting: Formatting.Indented, out v2LogText);

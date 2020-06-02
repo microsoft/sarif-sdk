@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public PrereleaseCompatibilityTransformerTests(ITestOutputHelper outputHelper) : base(outputHelper) { }
 
-        protected override string ConstructTestOutputFromInputResource(string inputResourceName, object parameter)
+        protected override string ConstructTestOutputFromInputResource(string inputResourceName, object parameter, bool useSchemaVersionFromFile = false)
         {
             string inputResourceText = GetResourceText(inputResourceName);
 

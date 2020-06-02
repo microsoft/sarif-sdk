@@ -34,7 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             RunTest(testFilePath);
         }
 
-        protected override string ConstructTestOutputFromInputResource(string testFilePath, object parameter)
+        protected override string ConstructTestOutputFromInputResource(string testFilePath, object parameter, bool useSchemaVersionFromFile = false)
         {
             return RunRebaseUriCommand(testFilePath, this.options);
         }

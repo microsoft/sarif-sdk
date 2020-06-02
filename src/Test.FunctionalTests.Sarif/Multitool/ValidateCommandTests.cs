@@ -132,6 +132,14 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
         public void SARIF1019_RuleIdMustBePresentAndConsistent_Invalid()
             => RunTest(MakeInvalidTestFileName(RuleId.RuleIdMustBePresentAndConsistent, nameof(RuleId.RuleIdMustBePresentAndConsistent)));
 
+        [Fact]
+        public void SARIF1020_SchemaMustBePresentAndConsistent_Valid()
+            => RunTest(MakeValidTestFileName(RuleId.ReferToFinalSchema, nameof(RuleId.ReferToFinalSchema)), parameter: null, useSchemaVersionFromFile: true);
+
+        [Fact]
+        public void SARIF1020_SchemaMustBePresentAndConsistent_Invalid()
+            => RunTest(MakeInvalidTestFileName(RuleId.ReferToFinalSchema, nameof(RuleId.ReferToFinalSchema)), parameter: null, useSchemaVersionFromFile: true);
+
         private const string ValidTestFileNameSuffix = "_Valid.sarif";
         private const string InvalidTestFileNameSuffix = "_Invalid.sarif";
 
@@ -141,7 +149,7 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
         private string MakeInvalidTestFileName(string ruleId, string ruleName)
             => $"{ruleId}.{ruleName}{InvalidTestFileNameSuffix}";
 
-        protected override string ConstructTestOutputFromInputResource(string inputResourceName, object parameter)
+        protected override string ConstructTestOutputFromInputResource(string inputResourceName, object parameter, bool useSchemaVersionFromFile = false)
         {
             string v2LogText = GetResourceText(inputResourceName);
 
@@ -157,6 +165,11 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
             // All rules with JSON prefix are low level syntax/deserialization checks.
             // We can't transform these test inputs as that operation fixes up erros in the file.
             bool updateInputsToCurrentSarif = ruleUnderTest.StartsWith("SARIF") ? true : false;
+
+            if (useSchemaVersionFromFile)
+            {
+                updateInputsToCurrentSarif = false;
+            }
 
             var validateOptions = new ValidateOptions
             {

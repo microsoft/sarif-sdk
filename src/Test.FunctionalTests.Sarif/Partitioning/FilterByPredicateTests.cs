@@ -44,7 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Partitioning
             RunTest("FilterByPredicate.sarif", "RuleIdPredicate.sarif", predicate);
         }
 
-        protected override string ConstructTestOutputFromInputResource(string inputResourceName, object parameter)
+        protected override string ConstructTestOutputFromInputResource(string inputResourceName, object parameter, bool useSchemaVersionFromFile = false)
         {
             var predicate = (FilteringVisitor.IncludeResultPredicate)parameter;
 
