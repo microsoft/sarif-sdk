@@ -132,6 +132,14 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
         public void SARIF1019_RuleIdMustBePresentAndConsistent_Invalid()
             => RunTest(MakeInvalidTestFileName(RuleId.RuleIdMustBePresentAndConsistent, nameof(RuleId.RuleIdMustBePresentAndConsistent)));
 
+        [Fact]
+        public void SARIF1020_SchemaMustBePresentAndConsistent_Valid()
+            => RunTest(MakeValidTestFileName(RuleId.ReferToFinalSchema, nameof(RuleId.ReferToFinalSchema)));
+
+        [Fact]
+        public void SARIF1020_SchemaMustBePresentAndConsistent_Invalid()
+            => RunTest(MakeInvalidTestFileName(RuleId.ReferToFinalSchema, nameof(RuleId.ReferToFinalSchema)));
+
         private const string ValidTestFileNameSuffix = "_Valid.sarif";
         private const string InvalidTestFileNameSuffix = "_Invalid.sarif";
 
@@ -156,7 +164,10 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
             // All SARIF rule prefixes require update to current release.
             // All rules with JSON prefix are low level syntax/deserialization checks.
             // We can't transform these test inputs as that operation fixes up erros in the file.
-            bool updateInputsToCurrentSarif = ruleUnderTest.StartsWith("SARIF") ? true : false;
+            // Also, don't transform the tests for SARIF1020, because that rule examines the actual contents of the $schema
+            // property, so we can't change it.
+            bool updateInputsToCurrentSarif = ruleUnderTest.StartsWith("SARIF") 
+                && ruleUnderTest != "SARIF1020" ? true : false;
 
             var validateOptions = new ValidateOptions
             {

@@ -3,7 +3,9 @@
 ## **v2.2.6** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.2.6) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.2.6) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.2.6) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.2.6)
 * BUGFIX: `ResultLogJsonWriter` now creates an empty `results` array if there are no results, rather than leaving `results` as `null`. [#1821](https://github.com/microsoft/sarif-sdk/issues/1821)
 * BUGFIX: In validation rules, `shortDescription` is now calculated by `GetFirstSentence` method, fixing a bug in sentence breaking. [#1887](https://github.com/microsoft/sarif-sdk/issues/1887)
+* BUGFIX: `WorkItemFiler` now logs correctly the details for `LogMetricsForProcessedModel` method [#1896](https://github.com/microsoft/sarif-sdk/issues/1896)
 * FEATURE: Add validation rule `SARIF1019`, which requires every result to have at least one of `result.ruleId` and `result.rule.id`. If both are present, they must be equal. [#1880](https://github.com/microsoft/sarif-sdk/issues/1880)
+* FEATURE: Add validation rule `SARIF1020`, which requires that the $schema property should be present, and must refer to the final version of the SARIF 2.1.0 schema.  [#1890](https://github.com/microsoft/sarif-sdk/issues/1890)
 
 ## **v2.2.5** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.2.5) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.2.5) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.2.5) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.2.5)
 * BUGFIX: Fix SDK doubling Uris with certain escaped characters (ex: '-' and '_') on every Load/Save cycle (cause: https://github.com/dotnet/runtime/issues/36288)

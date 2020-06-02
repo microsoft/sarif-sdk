@@ -48,11 +48,9 @@
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "InconsistentResultRuleId",
+            "id": "MissingResultRuleId",
             "arguments": [
-              "runs[0].results[0]",
-              null,
-              null
+              "runs[0].results[0]"
             ]
           },
           "locations": [
@@ -74,7 +72,7 @@
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "MissingResultRuleId",
+            "id": "InconsistentResultRuleId",
             "arguments": [
               "runs[0].results[1]",
               "TST0001",
