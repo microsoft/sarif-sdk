@@ -23,10 +23,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public SplittingStrategy SplittingStrategy { get; internal set; }
 
         [Option(
-            "update-if-existing",
-            HelpText = "If work item to be created already has existing work item, update existing work item instead of creating new.",
+            "sync-workitem-metadata",
+            HelpText = "Enrich work item to be created with existing work item metadata for any result workItemUri.",
             Default = null)]
-        public bool? ShouldUpdateIfExisting { get; internal set; }
+        public bool? SyncWorkItemMetadata { get; internal set; }
 
         [Option(
             "file-unchanged",

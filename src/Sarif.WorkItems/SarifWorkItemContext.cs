@@ -62,10 +62,10 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             set { this.SetProperty(SplittingStrategyOption, value); }
         }
 
-        public bool ShouldUpdateIfExisting
+        public bool SyncWorkItemMetadata
         {
-            get { return this.GetProperty(ShouldUpdateIfExistingOption); }
-            set { this.SetProperty(ShouldUpdateIfExistingOption, value); }
+            get { return this.GetProperty(SyncWorkItemMetadataOption); }
+            set { this.SetProperty(SyncWorkItemMetadataOption, value); }
         }
 
         public bool ShouldFileUnchanged
@@ -248,9 +248,9 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 "Extensibility", nameof(ShouldFileUnchanged),
                 defaultValue: () => { return false; });
 
-        public static PerLanguageOption<bool> ShouldUpdateIfExistingOption { get; } =
+        public static PerLanguageOption<bool> SyncWorkItemMetadataOption { get; } =
             new PerLanguageOption<bool>(
-                "Extensibility", nameof(ShouldUpdateIfExisting),
+                "Extensibility", nameof(SyncWorkItemMetadata),
                 defaultValue: () => { return false; });
 
         public static PerLanguageOption<string> AzureDevOpsDescriptionFooterOption { get; } =

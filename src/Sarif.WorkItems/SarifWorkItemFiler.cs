@@ -217,7 +217,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 sarifWorkItemModel.OwnerOrAccount = filingClient.AccountOrOrganization;
                 sarifWorkItemModel.RepositoryOrProject = filingClient.ProjectOrRepository;
 
-                if (filingContext.ShouldUpdateIfExisting)
+                if (filingContext.SyncWorkItemMetadata)
                 {
                     Task<WorkItemModel> getMetadataTask = filingClient.GetWorkItemMetadata(sarifWorkItemModel);
                     getMetadataTask.Wait();
