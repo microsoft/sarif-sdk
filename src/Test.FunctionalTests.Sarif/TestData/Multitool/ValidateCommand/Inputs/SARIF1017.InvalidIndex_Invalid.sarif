@@ -17,6 +17,20 @@
           "rules": [
             {
               "id": "TST0001",
+              "shortDescription": {
+                "text": "Some testing occurred."
+              },
+              "fullDescription": {
+                "text": "Some testing occurred. Full text."
+              },
+              "messageStrings": {
+                "RuleId": {
+                  "text": "Some testing occurred."
+                },
+                "SchemaReferenceMissing": {
+                  "text": "{0}: The SARIF log file does not contain a $schema property. Add a $schema property that refers to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files."
+                }
+              },
               "relationships": [
                 {
                   "target": {
@@ -142,7 +156,7 @@
             "index": 3
           },
           "message": {
-            "text": "LogicalLocations is absent. Artifacts is present but index is out of range."
+            "id": "RuleId"
           },
           "locations": [
             {
@@ -219,26 +233,26 @@
         },
         {
           "rule": {
-            "id": "EXTR0002",
+            "id": "TST0001",
             "index": 1,
             "toolComponent": {
               "index": 0
             }
           },
           "message": {
-            "text": "Message from extension."
+            "id": "RuleId"
           }
         },
         {
           "rule": {
-            "id": "EXTR1001",
+            "id": "TST0001",
             "index": 1,
             "toolComponent": {
               "index": 2
             }
           },
           "message": {
-            "text": "Message from missing extension."
+            "id": "RuleId"
           }
         }
       ],

@@ -48,7 +48,7 @@
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "MissingResultRuleId",
+            "text": "{0}: The result contains neither result.ruleId nor result.rule.id.",
             "arguments": [
               "runs[0].results[0]"
             ]
@@ -60,7 +60,33 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 32,
+                  "startLine": 12,
+                  "startColumn": 9
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1019",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "RuleDoesntExist",
+            "arguments": [
+              "runs[0].results[1]",
+              "TST0001",
+              "TST0002"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 17,
                   "startColumn": 9
                 }
               }
@@ -75,8 +101,7 @@
             "id": "InconsistentResultRuleId",
             "arguments": [
               "runs[0].results[1]",
-              "TST0001",
-              "TST0002"
+              "TST0001"
             ]
           },
           "locations": [
@@ -86,7 +111,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 37,
+                  "startLine": 17,
                   "startColumn": 9
                 }
               }

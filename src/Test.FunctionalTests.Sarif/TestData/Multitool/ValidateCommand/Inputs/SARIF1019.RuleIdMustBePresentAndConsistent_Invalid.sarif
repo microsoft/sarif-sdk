@@ -5,19 +5,39 @@
     {
       "tool": {
         "driver": {
-          "name": "Sarif Functional Testing"
+          "name": "Sarif Functional Testing",
+          "rules": [
+            {
+              "id": "TST0001",
+              "helpUri": "http://www.example.com/rules/tst0001.html",
+              "shortDescription": {
+                "text": "Some testing occurred."
+              },
+              "fullDescription": {
+                "text": "Some testing occurred. Full text."
+              },
+              "messageStrings": {
+                "RuleId": {
+                  "text": "Some testing occurred."
+                },
+                "SchemaReferenceMissing": {
+                  "text": "{0}: The SARIF log file does not contain a $schema property. Add a $schema property that refers to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files."
+                }
+              }
+            }
+          ]
         }
       },
       "results": [
         {
           "message": {
-            "text": "This result contains neither result.ruleId nor result.rule.id."
+            "id": "RuleId"
           }
         },
         {
           "ruleId": "TST0001",
           "message": {
-            "text": "This result contains both a ruleId and a rule.id property, but they are different."
+            "id": "RuleId"
           },
           "rule": {
             "id": "TST0002"

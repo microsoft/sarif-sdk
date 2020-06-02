@@ -1,0 +1,129 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "SARIF Functional Testing",
+          "rules": [
+            {
+              "id": "SARIF1022",
+              "name": "PreferMessageIdInsteadOfMessageText",
+              "shortDescription": {
+                "text": "Prefer message.id instead of message.text."
+              },
+              "fullDescription": {
+                "text": "Prefer message.id instead of message.text"
+              },
+              "messageStrings": {
+                "RuleMetadataDoesntIncludeMessageId": {
+                  "text": "{0}: The rule metadata doesn't include the message id value '{1}'"
+                },
+                "RuleMetadataIsNotConsistentWithArguments": {
+                  "text": "{0}: The rule metadata text '{1}' contains invalid quantity of arguments '{2}'"
+                },
+                "ResultShouldUseMessageIdInsteadOfMessageText": {
+                  "text": "{0}: The result should use message.id instead of message.text value '{1}'"
+                }
+              },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+            }
+          ]
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1022.PreferMessageIdInsteadOfMessageText_Invalid.sarif",
+            "uriBaseId": "TEST_DIR"
+          }
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "SARIF1022",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "ResultShouldUseMessageIdInsteadOfMessageText",
+            "arguments": [
+              "runs[0].results[0]",
+              "{0}: The result contains neither result.ruleId nor result.rule.id."
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 46,
+                  "startColumn": 9
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1022",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "RuleMetadataDoesntIncludeMessageId",
+            "arguments": [
+              "runs[0].results[1]",
+              "RuleDoesntExist"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 70,
+                  "startColumn": 9
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1022",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "RuleMetadataIsNotConsistentWithArguments",
+            "arguments": [
+              "runs[0].results[2]",
+              "{0}: The result contains both the ruleId property '{1}' and the rule.id property '{2}', and they are not equal.",
+              "2"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 96,
+                  "startColumn": 9
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}

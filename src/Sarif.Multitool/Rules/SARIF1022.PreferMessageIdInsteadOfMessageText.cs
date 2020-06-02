@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
@@ -25,9 +26,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override string Id => RuleId.PreferMessageIdInsteadOfMessageText;
 
-        protected override void Analyze(Tool tool, string toolPointer)
+        protected override IEnumerable<string> MessageResourceNames => new string[]
         {
-            this.currentRules = tool?.Driver?.Rules;
+            nameof(RuleResources.SARIF1022_RuleMetadataDoesntIncludeMessageId),
+            nameof(RuleResources.SARIF1022_RuleMetadataIsNotConsistentWithArguments),
+            nameof(RuleResources.SARIF1022_ResultShouldUseMessageIdInsteadOfMessageText)
+        };
+
+        protected override void Analyze(Run run, string runPointer)
+        {
+            this.currentRules = run?.Tool?.Driver?.Rules;
         }
 
         protected override void Analyze(Result result, string resultPointer)
@@ -53,7 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 string messageText = this.currentRules
                     .First(r => r.MessageStrings.ContainsKey(result.Message.Id))
                     .MessageStrings[result.Message.Id].Text;
-                if (!IsPlacehodlerInTextValid(messageText, result.Message.Arguments.Count))
+                if (!IsPlacehodlerInTextValid(messageText, result.Message.Arguments?.Count ?? 0))
                 {
                     LogResult(resultPointer, nameof(RuleResources.SARIF1022_RuleMetadataIsNotConsistentWithArguments), messageText, result.Message.Arguments.Count.ToString());
                     return;
@@ -63,9 +71,32 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         private bool IsPlacehodlerInTextValid(string text, int arguments)
         {
-            for (int i = 0; i < arguments; i++)
+            for (int i = 0; i < arguments - 1; i++)
             {
                 if (!text.Contains($"{i}"))
+                {
+                    return false;
+                }
+            }
+
+            // checking the quantity of matches with quantity of arguments
+            MatchCollection matchCollection = Regex.Matches(text, "{\\d+}");
+            if (matchCollection.Count != arguments)
+            {
+                return false;
+            }
+
+            // checking if the index of the placeholders are right {0} {2} and 2 arguments is invalid
+            int index = 0;
+            var matches = new Match[matchCollection.Count];
+            matchCollection.CopyTo(matches, 0);
+            foreach (Match match in matches.OrderBy(q => q.Value))
+            {
+                if (match.Value == $"{{{index}}}")
+                {
+                    index++;
+                }
+                else
                 {
                     return false;
                 }
