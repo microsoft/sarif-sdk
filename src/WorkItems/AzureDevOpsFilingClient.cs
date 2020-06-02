@@ -292,6 +292,19 @@ namespace Microsoft.WorkItems
                 {
                     WorkItem workItem = await _witClient.GetWorkItemAsync(workItemModel.RepositoryOrProject, workItemId);
                     workItemModel.State = $"{workItem.Fields[AzureDevOpsFieldNames.State]}";
+
+                    if (workItem.Fields.ContainsKey(AzureDevOpsFieldNames.Tags))
+                    {
+                        string tagsList = $"{workItem.Fields[AzureDevOpsFieldNames.Tags]}";
+                        if (!string.IsNullOrWhiteSpace(tagsList))
+                        {
+                            string[] tags = tagsList.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+                            foreach (string tag in tags)
+                            {
+                                workItemModel.LabelsOrTags.Add(tag.Trim());
+                            }
+                        }
+                    }
                 }
                 catch (Exception e)
                 {
