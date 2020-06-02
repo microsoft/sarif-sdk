@@ -97,17 +97,7 @@
           ]
         }
       ],
-      "columnKind": "utf16CodeUnits",
-      "properties": {
-        "expectedResults": {
-  "resultLocationPointers": [
-    "runs[0].results[0].locations[0].physicalLocation.region.endLine",
-    "runs[0].results[0].relatedLocations[0].physicalLocation.region.endLine",
-    "runs[0].results[0].codeFlows[0].threadFlows[0].locations[0].location.physicalLocation.region.endLine",
-    "runs[0].results[0].stacks[0].frames[0].location.physicalLocation.region.endLine"
-  ]
-}
-      }
+      "columnKind": "utf16CodeUnits"
     }
   ]
 }

@@ -17,15 +17,7 @@
         }
       ],
       "results": [],
-      "columnKind": "utf16CodeUnits",
-      "properties": {
-        "expectedResults": {
-  "resultLocationPointers": [
-    "version",
-    "runs[0].invocations[0].endTimeUtc"
-  ]
-}
-      }
+      "columnKind": "utf16CodeUnits"
     }
   ]
 }

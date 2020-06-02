@@ -176,45 +176,7 @@
           ]
         }
       ],
-      "columnKind": "utf16CodeUnits",
-      "properties": {
-        "expectedResults": {
-  "resultLocationPointers": [
-    "runs[0].results[0].message.text",
-    "runs[0].results[0].message.markdown",
-    "runs[0].results[0].locations[0].message.text",
-    "runs[0].results[0].locations[0].message.markdown",
-    "runs[0].results[0].locations[0].physicalLocation.region.message.text",
-    "runs[0].results[0].locations[0].physicalLocation.region.message.markdown",
-    "runs[0].results[0].attachments[0].description.text",
-    "runs[0].results[0].attachments[0].description.markdown",
-    "runs[0].results[0].attachments[0].rectangles[0].message.text",
-    "runs[0].results[0].attachments[0].rectangles[0].message.markdown",
-    "runs[0].results[0].codeFlows[0].message.text",
-    "runs[0].results[0].codeFlows[0].message.markdown",
-    "runs[0].results[0].codeFlows[0].threadFlows[0].message.text",
-    "runs[0].results[0].codeFlows[0].threadFlows[0].message.markdown",
-    "runs[0].results[0].codeFlows[0].threadFlows[0].locations[0].location.message.text",
-    "runs[0].results[0].codeFlows[0].threadFlows[0].locations[0].location.message.markdown",
-    "runs[0].results[0].stacks[0].message.text",
-    "runs[0].results[0].stacks[0].message.markdown",
-    "runs[0].results[0].stacks[0].frames[0].location.message.text",
-    "runs[0].results[0].stacks[0].frames[0].location.message.markdown",
-    "runs[0].results[0].fixes[0].description.text",
-    "runs[0].results[0].fixes[0].description.markdown",
-    "runs[0].invocations[0].toolConfigurationNotifications[0].message.text",
-    "runs[0].invocations[0].toolConfigurationNotifications[0].message.markdown",
-    "runs[0].invocations[0].toolExecutionNotifications[0].message.text",
-    "runs[0].invocations[0].toolExecutionNotifications[0].message.markdown",
-    "runs[0].tool.driver.rules[0].shortDescription.text",
-    "runs[0].tool.driver.rules[0].shortDescription.markdown",
-    "runs[0].tool.driver.rules[0].fullDescription.text",
-    "runs[0].tool.driver.rules[0].fullDescription.markdown",
-    "runs[0].tool.driver.rules[0].messageStrings.Default.text",
-    "runs[0].tool.driver.rules[0].messageStrings.Default.markdown"
-  ]
-}
-      }
+      "columnKind": "utf16CodeUnits"
     }
   ]
 }

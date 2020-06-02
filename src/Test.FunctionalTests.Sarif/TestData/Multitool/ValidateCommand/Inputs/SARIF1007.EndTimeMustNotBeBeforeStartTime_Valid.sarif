@@ -33,14 +33,7 @@
         }
       ],
       "results": [],
-      "columnKind": "utf16CodeUnits",
-      "properties": {
-        "expectedResults": {
-  "resultLocationPointers": [
-    "version"
-  ]
-}
-      }
+      "columnKind": "utf16CodeUnits"
     }
   ]
 }

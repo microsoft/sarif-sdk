@@ -19,15 +19,7 @@
         }
       },
       "results": [],
-      "columnKind": "utf16CodeUnits",
-      "properties": {
-        "expectedResults": {
-  "resultLocationPointers": [
-    "runs[0].tool.driver.rules[0]",
-    "runs[0].tool.driver.rules[1]"
-  ]
-}
-      }
+      "columnKind": "utf16CodeUnits"
     }
   ]
 }

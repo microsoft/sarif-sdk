@@ -30,14 +30,7 @@
           ]
         }
       ],
-      "columnKind": "utf16CodeUnits",
-      "properties": {
-        "expectedResults": {
-  "resultLocationPointers": [
-    "runs[0].results[0].locations[0].physicalLocation"
-  ]
-}
-      }
+      "columnKind": "utf16CodeUnits"
     }
   ]
 }
