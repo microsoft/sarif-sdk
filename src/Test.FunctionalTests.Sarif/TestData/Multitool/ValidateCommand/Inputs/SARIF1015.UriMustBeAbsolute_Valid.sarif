@@ -36,8 +36,8 @@
       "columnKind": "utf16CodeUnits",
       "properties": {
         "expectedResults": {
-          "resultLocationPointers": []
-        }
+  "resultLocationPointers": []
+}
       }
     }
   ]
