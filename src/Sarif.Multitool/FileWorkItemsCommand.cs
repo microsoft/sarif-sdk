@@ -58,6 +58,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     filingContext.SplittingStrategy = options.SplittingStrategy;
                 }
 
+                if (options.ShouldUpdateIfExisting != null)
+                {
+                    filingContext.ShouldUpdateIfExisting = options.ShouldUpdateIfExisting.Value;
+                }
+
                 if (options.ShouldFileUnchanged != null)
                 {
                     filingContext.ShouldFileUnchanged = options.ShouldFileUnchanged.Value;

@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
 using Microsoft.WorkItems;
 using Newtonsoft.Json;
@@ -36,6 +37,13 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                     LocationUris ??= new List<Uri>();
                     LocationUris.Add(location.Uri);
                 }
+            }
+
+            bool? resultContainsWorkItemUri = sarifLog.Runs?.Any(run => run.Results.Any(result => result.WorkItemUris?.Count > 0));
+            if (resultContainsWorkItemUri == true)
+            {
+                Uri workItemUri = sarifLog.Runs?.Select(run => run.Results?.Select(result => result.WorkItemUris?.FirstOrDefault()))?.FirstOrDefault()?.FirstOrDefault();
+                this.Uri = workItemUri;
             }
 
             // Shared GitHub/Azure DevOps concepts

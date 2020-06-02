@@ -217,6 +217,13 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 sarifWorkItemModel.OwnerOrAccount = filingClient.AccountOrOrganization;
                 sarifWorkItemModel.RepositoryOrProject = filingClient.ProjectOrRepository;
 
+                if (filingContext.ShouldUpdateIfExisting)
+                {
+                    Task<WorkItemModel> getMetadataTask = filingClient.GetWorkItemMetadata(sarifWorkItemModel);
+                    getMetadataTask.Wait();
+                    sarifWorkItemModel = (SarifWorkItemModel)getMetadataTask.Result;
+                }
+
                 foreach (SarifWorkItemModelTransformer transformer in sarifWorkItemModel.Context.Transformers)
                 {
                     SarifWorkItemModel updatedSarifWorkItemModel = transformer.Transform(sarifWorkItemModel);

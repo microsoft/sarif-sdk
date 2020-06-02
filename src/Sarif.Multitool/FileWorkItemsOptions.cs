@@ -23,6 +23,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public SplittingStrategy SplittingStrategy { get; internal set; }
 
         [Option(
+            "update-if-existing",
+            HelpText = "If work item to be created already has existing work item, update existing work item instead of creating new.",
+            Default = null)]
+        public bool? ShouldUpdateIfExisting { get; internal set; }
+
+        [Option(
             "file-unchanged",
             HelpText = "File work items for both new and unchanged baseline state results. " + 
                        "If an unchanged result already has an associated work item, a new work item will not be created.",
