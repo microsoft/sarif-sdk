@@ -23,6 +23,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public SplittingStrategy SplittingStrategy { get; internal set; }
 
         [Option(
+            "sync-workitem-metadata",
+            HelpText = "Enrich work item to be created with existing work item metadata for any result workItemUri.",
+            Default = null)]
+        public bool? SyncWorkItemMetadata { get; internal set; }
+
+        [Option(
             "file-unchanged",
             HelpText = "File work items for both new and unchanged baseline state results. " + 
                        "If an unchanged result already has an associated work item, a new work item will not be created.",
