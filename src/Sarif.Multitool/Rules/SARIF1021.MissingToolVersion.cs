@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using Microsoft.Json.Pointer;
 using System.Collections.Generic;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
@@ -31,7 +32,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             // 'Driver' is a required property, hence we do not need a null check for it. 
             if (string.IsNullOrWhiteSpace(tool.Driver.Version))
             {
-                LogResult(pointer, nameof(RuleResources.SARIF1021_MissingToolVersion), tool.Driver.Name);
+                LogResult(pointer.AtProperty(SarifPropertyName.Driver), nameof(RuleResources.SARIF1021_MissingToolVersion), tool.Driver.Name);
                 return;
             }
         }

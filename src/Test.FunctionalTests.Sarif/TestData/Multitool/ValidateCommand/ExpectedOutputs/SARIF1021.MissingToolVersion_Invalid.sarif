@@ -46,7 +46,7 @@
           "message": {
             "id": "MissingToolVersion",
             "arguments": [
-              "runs[0].conversion.tool",
+              "runs[0].conversion.tool.driver",
               "Sarif Functional Testing"
             ]
           },
@@ -57,8 +57,8 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 12,
-                  "startColumn": 17
+                  "startLine": 13,
+                  "startColumn": 21
                 }
               }
             }
@@ -70,7 +70,7 @@
           "message": {
             "id": "MissingToolVersion",
             "arguments": [
-              "runs[0].tool",
+              "runs[0].tool.driver",
               "Sarif Functional Testing"
             ]
           },
@@ -81,8 +81,8 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 6,
-                  "startColumn": 15
+                  "startLine": 7,
+                  "startColumn": 19
                 }
               }
             }
