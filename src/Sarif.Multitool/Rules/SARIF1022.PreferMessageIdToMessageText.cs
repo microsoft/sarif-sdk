@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -12,12 +11,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
     {
         private IList<ReportingDescriptor> currentRules;
 
-        private readonly MultiformatMessageString _fullDescription = new MultiformatMessageString
+        public override MultiformatMessageString FullDescription => new MultiformatMessageString
         {
             Text = RuleResources.SARIF1022_PreferMessageIdToMessageText
         };
-
-        public override MultiformatMessageString FullDescription => _fullDescription;
 
         public override FailureLevel DefaultLevel => FailureLevel.Error;
 
@@ -70,19 +67,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                         resultPointer,
                         nameof(RuleResources.SARIF1022_IncorrectResultMessageArgumentsCount),
                         result.Message.Arguments.Count.ToString(),
-                        (result.RuleId ?? result.Rule?.Id),
+                        result.RuleId ?? result.Rule?.Id,
                         placeholdersCount.ToString(),
                         messageText);
                     return;
                 }
 
+                // we have rules, we find it but, we couldnt find the index
                 if (!CheckNonConsecutivePlaceholders(messageText, result.Message.Arguments?.Count ?? 0, out int index))
                 {
                     LogResult(
                         resultPointer,
                         nameof(RuleResources.SARIF1022_NonConsecutiveMessageStringPlaceholders),
                         messageText,
-                        (result.RuleId ?? result.Rule?.Id),
+                        result.RuleId ?? result.Rule?.Id,
                         result.Message.Arguments.Count.ToString(),
                         index.ToString());
                     return;
