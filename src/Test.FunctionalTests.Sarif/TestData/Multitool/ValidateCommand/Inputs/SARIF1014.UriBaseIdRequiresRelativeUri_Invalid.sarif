@@ -1,10 +1,12 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-11-28",
-  "version": "2.0.0-csd.2.beta.2018-11-28",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "version": "2.1.0",
   "runs": [
     {
       "tool": {
-        "name": "CodeScanner"
+        "driver": {
+          "name": "CodeScanner"
+        }
       },
       "invocations": [
         {
@@ -14,32 +16,41 @@
               "uriBaseId": "%SRCROOT%"
             }
           ],
-          "toolNotifications": [
+          "toolExecutionNotifications": [
             {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "file:///C:/src/file.c",
-                  "uriBaseId": "%SRCROOT%"
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "artifactLocation": {
+                      "uri": "file:///C:/src/file.c",
+                      "uriBaseId": "%SRCROOT%"
+                    }
+                  }
                 }
-              },
+              ],
               "message": {
                 "text": "Message."
               }
             }
           ],
-          "configurationNotifications": [
+          "toolConfigurationNotifications": [
             {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "file:///C:/src/file.c",
-                  "uriBaseId": "%SRCROOT%"
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "artifactLocation": {
+                      "uri": "file:///C:/src/file.c",
+                      "uriBaseId": "%SRCROOT%"
+                    }
+                  }
                 }
-              },
+              ],
               "message": {
                 "text": "Message."
               }
             }
           ],
+          "executionSuccessful": true,
           "executableLocation": {
             "uri": "file:///C:/src/file.c",
             "uriBaseId": "%SRCROOT%"
@@ -64,7 +75,9 @@
       ],
       "conversion": {
         "tool": {
-          "name": "ConversionTool"
+          "driver": {
+            "name": "ConversionTool"
+          }
         },
         "analysisToolLogFiles": [
           {
@@ -178,7 +191,7 @@
           },
           "fixes": [
             {
-              "fileChanges": [
+              "artifactChanges": [
                 {
                   "artifactLocation": {
                     "uri": "file:///C:/src/file.c",
@@ -197,32 +210,7 @@
           ]
         }
       ],
-      "columnKind": "utf16CodeUnits",
-      "properties": {
-        "expectedResults": {
-          "resultLocationPointers": [
-            "runs[0].conversion.analysisToolLogFiles[0].uri",
-            "runs[0].artifacts[0].location.uri",
-            "runs[0].invocations[0].toolConfigurationNotifications[0].physicalLocation.artifactLocation.uri",
-            "runs[0].invocations[0].executableLocation.uri",
-            "runs[0].invocations[0].responseFiles[0].uri",
-            "runs[0].invocations[0].stdin.uri",
-            "runs[0].invocations[0].stdout.uri",
-            "runs[0].invocations[0].stderr.uri",
-            "runs[0].invocations[0].stdoutStderr.uri",
-            "runs[0].invocations[0].toolExecutionNotifications[0].physicalLocation.artifactLocation.uri",
-            "runs[0].results[0].analysisTarget.uri",
-            "runs[0].results[0].attachments[0].artifactLocation.uri",
-            "runs[0].results[0].provenance.conversionSources[0].artifactLocation.uri",
-            "runs[0].results[0].locations[0].physicalLocation.artifactLocation.uri",
-            "runs[0].results[0].relatedLocations[0].physicalLocation.artifactLocation.uri",
-            "runs[0].results[0].codeFlows[0].threadFlows[0].locations[0].location.physicalLocation.artifactLocation.uri",
-            "runs[0].results[0].stacks[0].frames[0].location.physicalLocation.artifactLocation.uri",
-            "runs[0].results[0].fixes[0].changes[0].artifactLocation.uri",
-            "runs[0].versionControlProvenance[0].mappedTo.uri"
-          ]
-        }
-      }
+      "columnKind": "utf16CodeUnits"
     }
   ]
 }
