@@ -5,8 +5,7 @@
   "runs": [
     {
       "tool": {
-        "name": "CodeScanner",
-        "version": "1.0.0"
+        "name": "CodeScanner"
       },
       "results": [
       ]

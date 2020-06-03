@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         public override MultiformatMessageString FullDescription => _fullDescription;
 
-        public override FailureLevel DefaultLevel => FailureLevel.Error;
+        public override FailureLevel DefaultLevel => FailureLevel.Warning;
 
         /// <summary>
         /// SARIF1021
@@ -31,7 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             // 'Driver' is a required property, hence we do not need a null check for it. 
             if (string.IsNullOrWhiteSpace(tool.Driver.Version))
             {
-                LogResult(pointer, nameof(RuleResources.SARIF1021_MissingToolVersion));
+                LogResult(pointer, nameof(RuleResources.SARIF1021_MissingToolVersion), tool.Driver.Name);
                 return;
             }
         }

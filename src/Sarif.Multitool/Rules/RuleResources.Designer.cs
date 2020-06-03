@@ -367,7 +367,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The tool driver version is missing..
+        ///   Looks up a localized string similar to {0}: The description of the tool &apos;{1}&apos; does not include a &apos;version&apos; property. This property is important in workflows that must verify the version of the tool being used..
         /// </summary>
         internal static string SARIF1021_Default {
             get {
@@ -376,7 +376,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The &apos;version&apos; property for tool driver should be present..
+        ///   Looks up a localized string similar to The property &apos;tool.driver.version&apos; should be present. This property is important in workflows that must verify the version of the tool being used..
         /// </summary>
         internal static string SARIF1021_MissingToolVersion {
             get {
