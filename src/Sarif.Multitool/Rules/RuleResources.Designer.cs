@@ -367,7 +367,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The tool version is missing..
+        ///   Looks up a localized string similar to {0}: The tool driver version is missing..
+        /// </summary>
+        internal static string SARIF1021_Default {
+            get {
+                return ResourceManager.GetString("SARIF1021_Default", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The &apos;version&apos; property for tool driver should be present..
         /// </summary>
         internal static string SARIF1021_MissingToolVersion {
             get {

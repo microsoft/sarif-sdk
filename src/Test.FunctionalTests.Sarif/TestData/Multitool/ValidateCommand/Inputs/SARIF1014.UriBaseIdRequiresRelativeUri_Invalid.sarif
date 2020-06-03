@@ -65,7 +65,8 @@
       ],
       "conversion": {
         "tool": {
-          "name": "ConversionTool"
+          "name": "ConversionTool",
+          "version": "0.0.0"
         },
         "analysisToolLogFiles": [
           {

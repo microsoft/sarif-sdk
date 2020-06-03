@@ -9,12 +9,17 @@
           "rules": [
             {
               "id": "SARIF1021",
-              "name": "MissingRunToolVersion",
+              "name": "MissingToolVersion",
               "shortDescription": {
-                "text": "{0}: The tool version is missing."
+                "text": "The 'version' property for tool driver should be present."
               },
               "fullDescription": {
-                "text": "{0}: The tool version is missing."
+                "text": "The 'version' property for tool driver should be present."
+              },
+              "messageStrings": {
+                "Default": {
+                  "text": "{0}: The tool driver version is missing."
+                }
               },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
             }
@@ -40,7 +45,31 @@
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "SARIF1019_MissingResultRuleId",
+            "id": "MissingToolVersion",
+            "arguments": [
+              "runs[0].conversion.tool"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 12,
+                  "startColumn": 17
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1021",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "MissingToolVersion",
             "arguments": [
               "runs[0].tool"
             ]

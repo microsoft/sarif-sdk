@@ -387,6 +387,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     Visit(conversion.AnalysisToolLogFiles[i], analysisToolLogFilesPointer.AtIndex(i));
                 }
             }
+
+            if (conversion.Tool != null)
+            {
+                Visit(conversion.Tool, conversionPointer.AtProperty(SarifPropertyName.Tool));
+            }
         }
 
         private void Visit(Edge edge, string edgePointer)
