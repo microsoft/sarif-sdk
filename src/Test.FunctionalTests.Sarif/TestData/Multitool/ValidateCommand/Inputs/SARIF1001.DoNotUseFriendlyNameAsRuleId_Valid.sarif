@@ -6,6 +6,7 @@
       "tool": {
         "driver": {
           "name": "CodeScanner",
+          "version": "1.0.0",
           "rules": [
             {
               "id": "RULE0001",
