@@ -1,57 +1,95 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0",
-  "version": "2.0.0",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "version": "2.1.0",
   "runs": [
     {
       "tool": {
-        "name": "CodeScanner"
+        "driver": {
+          "name": "CodeScanner",
+          "rules": [
+            {
+              "id": "TST0001",
+              "shortDescription": {
+                "text": "Short rule description with period.",
+                "markdown": "_Rich_ short rule description with period."
+              },
+              "fullDescription": {
+                "text": "Short full rule description with period.",
+                "markdown": "_Rich_ full rule description with period."
+              },
+              "messageStrings": {
+                "Default": {
+                  "text": "rule message with period.",
+                  "markdown": "_Rich_ rule message with period."
+                }
+              }
+            }
+          ]
+        }
       },
+      "invocations": [
+        {
+          "toolExecutionNotifications": [
+            {
+              "message": {
+                "text": "toolNotification message with period.",
+                "markdown": "_Rich_ toolNotification message with period."
+              }
+            }
+          ],
+          "toolConfigurationNotifications": [
+            {
+              "message": {
+                "text": "configurationNotification message with period.",
+                "markdown": "_Rich_ configuratioNotification message with period."
+              }
+            }
+          ],
+          "executionSuccessful": true
+        }
+      ],
       "results": [
         {
           "ruleId": "TST0001",
+          "ruleIndex": 0,
           "level": "error",
           "message": {
             "text": "result message with period.",
-            "richText": "_Rich_ result message with period."
+            "markdown": "_Rich_ result message with period."
           },
           "locations": [
             {
-              "message": {
-                "text": "location message with period.",
-                "richText": "_Rich_ location message with period."
-              },
               "physicalLocation": {
-                "fileLocation": {
+                "artifactLocation": {
                   "uri": "file:///c:/src/file.c"
                 },
                 "region": {
                   "startLine": 1,
                   "message": {
                     "text": "region message with period.",
-                    "richText": "_Rich_ region message with period."
+                    "markdown": "_Rich_ region message with period."
                   }
                 }
+              },
+              "message": {
+                "text": "location message with period.",
+                "markdown": "_Rich_ location message with period."
               }
             }
           ],
-          "attachments": [
+          "stacks": [
             {
-              "fileLocation": {
-                "uri": "file:///c:/output/screenshot.png"
+              "message": {
+                "text": "stack message with period.",
+                "markdown": "_Rich_ stack message with period."
               },
-              "description": {
-                "text": "attachment description with period.",
-                "richText": "_Rich_ attachment description with period."
-              },
-              "rectangles": [
+              "frames": [
                 {
-                  "top": 0,
-                  "bottom": 0,
-                  "left": 100,
-                  "right": 100,
-                  "message": {
-                    "text": "rectangle message with period.",
-                    "richText": "_Rich_ rectangle message with period."
+                  "location": {
+                    "message": {
+                      "text": "frame message with period.",
+                      "markdown": "_Rich_ frame message with period."
+                    }
                   }
                 }
               ]
@@ -61,29 +99,29 @@
             {
               "message": {
                 "text": "codeFlow message with period.",
-                "richText": "_Rich_ codeFlow message with period."
+                "markdown": "_Rich_ codeFlow message with period."
               },
               "threadFlows": [
                 {
                   "message": {
                     "text": "threadFlow message with period.",
-                    "richText": "_Rich_ threadFlow message with period."
+                    "markdown": "_Rich_ threadFlow message with period."
                   },
                   "locations": [
                     {
                       "location": {
-                        "message": {
-                          "text": "ThreadFlow location message with period.",
-                          "richText": "_Rich_ ThreadFlow location message with period."
-                        },
                         "physicalLocation": {
-                          "fileLocation": {
+                          "artifactLocation": {
                             "uri": "file:///c:/src/file.c"
                           },
                           "region": {
                             "startLine": 42,
                             "startColumn": 12
                           }
+                        },
+                        "message": {
+                          "text": "ThreadFlow location message with period.",
+                          "markdown": "_Rich_ ThreadFlow location message with period."
                         }
                       }
                     }
@@ -92,19 +130,22 @@
               ]
             }
           ],
-          "stacks": [
+          "attachments": [
             {
-              "message": {
-                "text": "stack message with period.",
-                "richText": "_Rich_ stack message with period."
+              "description": {
+                "text": "attachment description with period.",
+                "markdown": "_Rich_ attachment description with period."
               },
-              "frames": [
+              "artifactLocation": {
+                "uri": "file:///c:/output/screenshot.png"
+              },
+              "rectangles": [
                 {
-                  "location": {
-                    "message": {
-                      "text": "frame message with period.",
-                      "richText": "_Rich_ frame message with period."
-                    }
+                  "left": 100.0,
+                  "right": 100.0,
+                  "message": {
+                    "text": "rectangle message with period.",
+                    "markdown": "_Rich_ rectangle message with period."
                   }
                 }
               ]
@@ -114,11 +155,11 @@
             {
               "description": {
                 "text": "fix description with period.",
-                "richText": "_Rich_ fix description with period."
+                "markdown": "_Rich_ fix description with period."
               },
-              "fileChanges": [
+              "artifactChanges": [
                 {
-                  "fileLocation": {
+                  "artifactLocation": {
                     "uri": "file:///c:/src/file.c"
                   },
                   "replacements": [
@@ -135,52 +176,7 @@
           ]
         }
       ],
-      "invocations": [
-        {
-          "configurationNotifications": [
-            {
-              "message": {
-                "text": "configurationNotification message with period.",
-                "richText": "_Rich_ configuratioNotification message with period."
-              }
-            }
-          ],
-          "toolNotifications": [
-            {
-              "message": {
-                "text": "toolNotification message with period.",
-                "richText": "_Rich_ toolNotification message with period."
-              }
-            }
-          ]
-        }
-      ],
-      "resources": {
-        "rules": {
-          "TST0001": {
-            "id": "TST0001",
-            "shortDescription": {
-              "text": "Short rule description with period.",
-              "richText": "_Rich_ short rule description with period."
-            },
-            "fullDescription": {
-              "text": "Short full rule description with period.",
-              "richText": "_Rich_ full rule description with period."
-            },
-            "messageStrings": {
-              "Default": "rule message with period."
-            },
-            "richMessageStrings": {
-              "Default": "_Rich_ rule message with period."
-            }
-          }
-        }
-      },
-      "properties": {
-        "expectedResults": {
-          "resultLocationPointers": []
-        }
-      }
+      "columnKind": "utf16CodeUnits"
     }
   ]
 }

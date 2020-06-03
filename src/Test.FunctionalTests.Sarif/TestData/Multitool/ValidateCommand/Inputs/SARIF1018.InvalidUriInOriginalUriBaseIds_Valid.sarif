@@ -15,17 +15,17 @@
           }
         },
         "RULES_ROOT": {
+          "uri": "file:///C:/rules/",
           "description": {
             "text": "This artifactLocation has no uriBaseId, so its uri, if present, must be absolute."
-          },
-          "uri": "file:///C:/rules/"
+          }
         },
         "SOURCE_ROOT": {
+          "uri": "src/",
+          "uriBaseId": "PROJECT_ROOT",
           "description": {
             "text": "This artifactLocation has a uriBaseId so its uri must be relative. But that is not enforced by SARIF1018; it will be enforced by a separate rule."
-          },
-          "uri": "src/",
-          "uriBaseId": "PROJECT_ROOT"
+          }
         }
       },
       "results": [],

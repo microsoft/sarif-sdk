@@ -1,17 +1,12 @@
 {
   "$schema": "ht%tp://json.schemastore.org/sarif-2.0.0",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "runs": [
     {
       "tool": {
+        "driver": {
           "name": "CodeScanner",
           "downloadUri": "ht%tp://www.example.com/tools/codescanner/download.html",
-          "rules": [
-            {
-              "id": "TST0001",
-              "helpUri": "ht%tp://www.example.com/rules/tst0001.html"
-            }
-          ],
           "notifications": [
             {
               "id": "MSG0001",
@@ -21,18 +16,40 @@
               "id": "MSG0002",
               "helpUri": "ht%tp://www.example.com/rules/msg0002.html"
             }
+          ],
+          "rules": [
+            {
+              "id": "TST0001",
+              "helpUri": "ht%tp://www.example.com/rules/tst0001.html"
+            }
           ]
-        },
+        }
+      },
+      "versionControlProvenance": [
+        {
+          "repositoryUri": "ht%tps://example.com/my-project"
+        }
+      ],
       "originalUriBaseIds": {
         "SRCROOT": {
           "uri": "fi%le:///c:/Code/sarif-sdk/src"
         }
       },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "fi%le:///c:/src/file.c"
+          },
+          "mimeType": "text/x-c"
+        }
+      ],
       "results": [
         {
-          "message": { "text": "Some testing occurred." },
           "ruleId": "TST0001",
           "level": "error",
+          "message": {
+            "text": "Some testing occurred."
+          },
           "analysisTarget": {
             "uri": "fi&le:///c:/src/file.c"
           },
@@ -41,33 +58,7 @@
           ]
         }
       ],
-      "artifacts": [
-        {
-          "location": { "uri": "fi%le:///c:/src/file.c" },
-          "mimeType": "text/x-c"
-        }
-      ],
-      "versionControlProvenance": [
-        {
-          "repositoryUri": "ht%tps://example.com/my-project"
-        }
-      ],
-      "properties": {
-        "expectedResults": {
-          "resultLocationPointers": [
-            "$schema",
-            "runs[0].tool.driver.downloadUri",
-            "runs[0].tool.driver.rules[0].helpUri",
-            "runs[0].tool.driver.notifications[0].helpUri",
-            "runs[0].tool.driver.notifications[1].helpUri",
-            "runs[0].originalUriBaseIds.SRCROOT.uri",
-            "runs[0].results[0].analysisTarget.uri",
-            "runs[0].results[0].workItemUris[0]",
-            "runs[0].artifacts[0].location.uri",
-            "runs[0].versionControlProvenance[0].repositoryUri"
-          ]
-        }
-      }
+      "columnKind": "utf16CodeUnits"
     }
   ]
 }

@@ -21,8 +21,8 @@
           },
           "message": "Exception evaluating rule \"C2152\". Rule disabled; run continues.",
           "level": "error",
-          "time": "2016-07-16T14:18:43.119Z",
           "threadId": 52,
+          "time": "2016-07-16T14:18:43.119Z",
           "exception": {
             "kind": "ExecutionEngine.RuleFailureException",
             "message": "Unhandled exception during rule evaluation.",
