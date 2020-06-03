@@ -146,10 +146,10 @@
       ],
       "results": [
         {
-          "ruleId": "TST0004",
+          "ruleId": "TST0001",
           "ruleIndex": 3,
           "rule": {
-            "id": "TST0004",
+            "id": "TST0001",
             "index": 3
           },
           "message": {

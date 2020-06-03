@@ -16,7 +16,7 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1022.PreferMessageIdInsteadOfMessageText_Valid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1022.PreferMessageIdToMessageText_Valid.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }

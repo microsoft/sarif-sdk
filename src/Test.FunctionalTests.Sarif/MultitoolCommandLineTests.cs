@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.Test.FunctionalTests.Sarif
             string multitoolPath = Path.GetFullPath(
                 Path.Combine(
                     Directory.GetCurrentDirectory(),
-                    @"..\..\Sarif.Multitool\netcoreapp2.1\Sarif.Multitool.dll"));
+                    @"..\..\Sarif.Multitool\net461\Sarif.Multitool.exe"));
 
             ProcessStartInfo startInfo = new ProcessStartInfo(multitoolPath, @"validate v2\ConverterTestData\ContrastSecurity\WebGoat.xml.sarif")
             {

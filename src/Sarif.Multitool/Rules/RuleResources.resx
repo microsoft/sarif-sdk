@@ -210,17 +210,17 @@
   <data name="SARIF1019_RuleIdMustBePresentAndConsistent" xml:space="preserve">
     <value>In every result, at least one of the properties result.ruleId and result.rule.id must be present. If both are present, they must be equal.</value>
   </data>
-  <data name="SARIF1022_PreferMessageIdInsteadOfMessageText" xml:space="preserve">
-    <value>Prefer message.id instead of message.text</value>
+  <data name="SARIF1022_PreferMessageIdToMessageText" xml:space="preserve">
+    <value>In result messages, prefer the use of message.id and message.arguments to message.text and message.markdown. This allows you to improve the message text (for example, fixing a typo) by editing the rule metadata, without affecting the contents of the result object. This is important in applications such as automated bug filing, where you must compare results between one run and the next to ensure that you only file bugs for new results. In addition, using message.id and message.arguments can make the SARIF file smaller, and it enables the use of SARIF's localization feature, which allows the same results to be displayed in multiple languages.</value>
   </data>
-  <data name="SARIF1022_ResultShouldUseMessageIdInsteadOfMessageText" xml:space="preserve">
+  <data name="SARIF1022_ResultMessageUsesTextProperty" xml:space="preserve">
     <value>{0}: The result should use message.id instead of message.text value '{1}'</value>
   </data>
-  <data name="SARIF1022_RuleMetadataDoesntIncludeMessageId" xml:space="preserve">
-    <value>{0}: The rule metadata doesn't include the message id value '{1}'</value>
+  <data name="SARIF1022_RuleMetadataDoeNotIncludeMessageId" xml:space="preserve">
+    <value>{0}: The result message specifies the id value '{1}', but the metadata for rule '{2}' does not contain a message string with that id.</value>
   </data>
   <data name="SARIF1022_RuleMetadataIsNotConsistentWithArguments" xml:space="preserve">
-    <value>{0}: The rule metadata text '{1}' contains invalid quantity of arguments '{2}'</value>
+    <value>{0}: The result message contains {1} message arguments for the message string with id '{2}', but the metadata for rule '{3}' defines message string '{2}' to take {4} arguments: '{5}'.</value>
   </data>
   <data name="SARIF1020_ReferenceToOldSchemaVersion" xml:space="preserve">
     <value>{0}: The $schema property value '{1}' does not refer to the final version of the SARIF 2.1.0 schema. If you are using an earlier version of the SARIF format, consider upgrading your analysis tool to produce the final version. If this file does in fact conform to the final version of the schema, upgrade the tool to populate the $schema property with a URL that refers to the final version of the schema.</value>

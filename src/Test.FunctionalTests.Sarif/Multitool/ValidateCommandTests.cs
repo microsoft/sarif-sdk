@@ -141,12 +141,12 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
             => RunTest(MakeInvalidTestFileName(RuleId.ReferToFinalSchema, nameof(RuleId.ReferToFinalSchema)));
 
         [Fact]
-        public void SARIF1022_PreferMessageIdInsteadOfMessageText_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.PreferMessageIdInsteadOfMessageText, nameof(RuleId.PreferMessageIdInsteadOfMessageText)));
+        public void SARIF1022_PreferMessageIdToMessageText_Valid()
+            => RunTest(MakeValidTestFileName(RuleId.PreferMessageIdToMessageText, nameof(RuleId.PreferMessageIdToMessageText)));
 
         [Fact]
-        public void SARIF1022_PreferMessageIdInsteadOfMessageText_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.PreferMessageIdInsteadOfMessageText, nameof(RuleId.PreferMessageIdInsteadOfMessageText)));
+        public void SARIF1022_PreferMessageIdToMessageText_Invalid()
+            => RunTest(MakeInvalidTestFileName(RuleId.PreferMessageIdToMessageText, nameof(RuleId.PreferMessageIdToMessageText)));
 
         private const string ValidTestFileNameSuffix = "_Valid.sarif";
         private const string InvalidTestFileNameSuffix = "_Invalid.sarif";
