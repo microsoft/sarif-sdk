@@ -214,30 +214,6 @@
           "message": {
             "id": "Default",
             "arguments": [
-              "runs[0].results[0].message.text",
-              "result message without period"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 57,
-                  "startColumn": 51
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF1008",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Default",
-            "arguments": [
               "runs[0].results[0].stacks[0].frames[0].location.message.text",
               "frame message without period"
             ]

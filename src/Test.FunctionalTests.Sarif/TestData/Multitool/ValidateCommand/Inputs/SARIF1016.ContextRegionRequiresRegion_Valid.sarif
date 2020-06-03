@@ -5,7 +5,24 @@
     {
       "tool": {
         "driver": {
-          "name": "CodeScanner"
+          "name": "CodeScanner",
+          "rules": [
+            {
+              "id": "TST0001",
+              "helpUri": "http://www.example.com/rules/tst0001.html",
+              "shortDescription": {
+                "text": "Some testing occurred."
+              },
+              "fullDescription": {
+                "text": "Some testing occurred. Full text."
+              },
+              "messageStrings": {
+                "RuleId": {
+                  "text": "Some testing occurred."
+                }
+              }
+            }
+          ]
         }
       },
       "results": [
@@ -13,7 +30,7 @@
           "ruleId": "TST0001",
           "level": "error",
           "message": {
-            "text": "Some testing occurred."
+            "id": "RuleId"
           },
           "locations": [
             {

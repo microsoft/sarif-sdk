@@ -20,7 +20,18 @@
           "rules": [
             {
               "id": "TST0001",
-              "helpUri": "ht%tp://www.example.com/rules/tst0001.html"
+              "helpUri": "ht%tp://www.example.com/rules/tst0001.html",
+              "shortDescription": {
+                "text": "Some testing occurred."
+              },
+              "fullDescription": {
+                "text": "Some testing occurred. Full text."
+              },
+              "messageStrings": {
+                "RuleId": {
+                  "text": "Some testing occurred."
+                }
+              }
             }
           ]
         }
@@ -48,7 +59,7 @@
           "ruleId": "TST0001",
           "level": "error",
           "message": {
-            "text": "Some testing occurred."
+            "id": "RuleId"
           },
           "analysisTarget": {
             "uri": "fi&le:///c:/src/file.c"

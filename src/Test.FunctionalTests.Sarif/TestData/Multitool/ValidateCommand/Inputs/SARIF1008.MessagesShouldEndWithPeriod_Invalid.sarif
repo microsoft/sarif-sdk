@@ -54,7 +54,7 @@
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "text": "result message without period",
+            "id": "Default",
             "markdown": "_Rich_ result message without period"
           },
           "locations": [

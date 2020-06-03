@@ -22,8 +22,8 @@ namespace Microsoft.CodeAnalysis.Test.FunctionalTests.Sarif
 
             ProcessStartInfo startInfo = new ProcessStartInfo(multitoolPath, @"validate v2\ConverterTestData\ContrastSecurity\WebGoat.xml.sarif")
             {
-                WindowStyle = ProcessWindowStyle.Hidden,
-                CreateNoWindow = true
+                WindowStyle = ProcessWindowStyle.Normal,
+                CreateNoWindow = false
             };
 
             using (Process process = Process.Start(startInfo))
