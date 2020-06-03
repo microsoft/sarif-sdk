@@ -18,7 +18,7 @@
                 "text": "Some testing occurred. Full text."
               },
               "messageStrings": {
-                "RuleId": {
+                "Default": {
                   "text": "Some testing occurred."
                 }
               }
@@ -58,7 +58,7 @@
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "RuleId"
+            "id": "Default"
           },
           "analysisTarget": {
             "uri": "file:///c:/src/file.c",

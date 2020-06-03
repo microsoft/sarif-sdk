@@ -17,7 +17,7 @@
                 "text": "Some testing occurred. Full text."
               },
               "messageStrings": {
-                "RuleId": {
+                "Default": {
                   "text": "Some testing occurred."
                 }
               }
@@ -30,7 +30,7 @@
           "ruleId": "TST0001",
           "level": "error",
           "message": {
-            "id": "RuleId"
+            "id": "Default"
           },
           "locations": [
             {

@@ -367,6 +367,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}: The result message contains {1} message arguments for the message string with id &apos;{2}&apos;, but the metadata for rule &apos;{3}&apos; defines message string &apos;{2}&apos; to take {4} arguments: &apos;{5}&apos;..
+        /// </summary>
+        internal static string SARIF1022_IncorrectResultMessageArgumentsCount {
+            get {
+                return ResourceManager.GetString("SARIF1022_IncorrectResultMessageArgumentsCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The placeholders in the message string &apos;{1}&apos; in the metadata for rule &apos;{2}&apos; (&apos;{3}&apos;) are non-consecutive: there is no placeholder for index {4}..
+        /// </summary>
+        internal static string SARIF1022_NonConsecutiveMessageStringPlaceholders {
+            get {
+                return ResourceManager.GetString("SARIF1022_NonConsecutiveMessageStringPlaceholders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to In result messages, prefer the use of message.id and message.arguments to message.text and message.markdown. This allows you to improve the message text (for example, fixing a typo) by editing the rule metadata, without affecting the contents of the result object. This is important in applications such as automated bug filing, where you must compare results between one run and the next to ensure that you only file bugs for new results. In addition, using message.id and message.arguments can make the SARIF f [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SARIF1022_PreferMessageIdToMessageText {
@@ -390,15 +408,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         internal static string SARIF1022_RuleMetadataDoeNotIncludeMessageId {
             get {
                 return ResourceManager.GetString("SARIF1022_RuleMetadataDoeNotIncludeMessageId", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}: The result message contains {1} message arguments for the message string with id &apos;{2}&apos;, but the metadata for rule &apos;{3}&apos; defines message string &apos;{2}&apos; to take {4} arguments: &apos;{5}&apos;..
-        /// </summary>
-        internal static string SARIF1022_RuleMetadataIsNotConsistentWithArguments {
-            get {
-                return ResourceManager.GetString("SARIF1022_RuleMetadataIsNotConsistentWithArguments", resourceCulture);
             }
         }
     }

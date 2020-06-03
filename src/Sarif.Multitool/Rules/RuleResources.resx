@@ -219,7 +219,7 @@
   <data name="SARIF1022_RuleMetadataDoeNotIncludeMessageId" xml:space="preserve">
     <value>{0}: The result message specifies the id value '{1}', but the metadata for rule '{2}' does not contain a message string with that id.</value>
   </data>
-  <data name="SARIF1022_RuleMetadataIsNotConsistentWithArguments" xml:space="preserve">
+  <data name="SARIF1022_IncorrectResultMessageArgumentsCount" xml:space="preserve">
     <value>{0}: The result message contains {1} message arguments for the message string with id '{2}', but the metadata for rule '{3}' defines message string '{2}' to take {4} arguments: '{5}'.</value>
   </data>
   <data name="SARIF1020_ReferenceToOldSchemaVersion" xml:space="preserve">
@@ -230,5 +230,8 @@
   </data>
   <data name="SARIF1020_SchemaReferenceMissing" xml:space="preserve">
     <value>{0}: The SARIF log file does not contain a $schema property. Add a $schema property that refers to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.</value>
+  </data>
+  <data name="SARIF1022_NonConsecutiveMessageStringPlaceholders" xml:space="preserve">
+    <value>{0}: The placeholders in the message string '{1}' in the metadata for rule '{2}' ('{3}') are non-consecutive: there is no placeholder for index {4}.</value>
   </data>
 </root>
