@@ -22,6 +22,25 @@
                 }
               },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+            },
+            {
+              "id": "SARIF1020",
+              "name": "ReferToFinalSchema",
+              "shortDescription": {
+                "text": "The $schema property should be present, and must refer to the final version of the SARIF 2.1.0 schema."
+              },
+              "fullDescription": {
+                "text": "The $schema property should be present, and must refer to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files."
+              },
+              "messageStrings": {
+                "ReferenceToOldSchemaVersion": {
+                  "text": "{0}: The $schema property value '{1}' does not refer to the final version of the SARIF 2.1.0 schema. If you are using an earlier version of the SARIF format, consider upgrading your analysis tool to produce the final version. If this file does in fact conform to the final version of the schema, upgrade the tool to populate the $schema property with a URL that refers to the final version of the schema."
+                },
+                "SchemaReferenceMissing": {
+                  "text": "{0}: The SARIF log file does not contain a $schema property. Add a $schema property that refers to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files."
+                }
+              },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
             }
           ]
         }
@@ -47,8 +66,33 @@
           "message": {
             "id": "Default",
             "arguments": [
+              "$schema",
+              "ht%tp://json.schemastore.org/sarif-2.0.0"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 2,
+                  "startColumn": 55
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1003",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Default",
+            "arguments": [
               "runs[0].originalUriBaseIds.SRCROOT.uri",
-              "fi%25le:///c:/Code/sarif-sdk/src"
+              "fi%le:///c:/Code/sarif-sdk/src"
             ]
           },
           "locations": [
@@ -59,7 +103,7 @@
                 },
                 "region": {
                   "startLine": 35,
-                  "startColumn": 51
+                  "startColumn": 49
                 }
               }
             }
@@ -123,7 +167,7 @@
             "id": "Default",
             "arguments": [
               "runs[0].artifacts[0].location.uri",
-              "fi%25le:///c:/src/file.c"
+              "fi%le:///c:/src/file.c"
             ]
           },
           "locations": [
@@ -134,7 +178,7 @@
                 },
                 "region": {
                   "startLine": 41,
-                  "startColumn": 45
+                  "startColumn": 43
                 }
               }
             }
@@ -173,7 +217,7 @@
             "id": "Default",
             "arguments": [
               "runs[0].tool.driver.notifications[0].helpUri",
-              "ht%25tp://www.example.com/rules/msg0001.html"
+              "ht%tp://www.example.com/rules/msg0001.html"
             ]
           },
           "locations": [
@@ -184,7 +228,7 @@
                 },
                 "region": {
                   "startLine": 13,
-                  "startColumn": 71
+                  "startColumn": 69
                 }
               }
             }
@@ -198,7 +242,7 @@
             "id": "Default",
             "arguments": [
               "runs[0].tool.driver.notifications[1].helpUri",
-              "ht%25tp://www.example.com/rules/msg0002.html"
+              "ht%tp://www.example.com/rules/msg0002.html"
             ]
           },
           "locations": [
@@ -209,7 +253,7 @@
                 },
                 "region": {
                   "startLine": 17,
-                  "startColumn": 71
+                  "startColumn": 69
                 }
               }
             }
@@ -223,7 +267,7 @@
             "id": "Default",
             "arguments": [
               "runs[0].tool.driver.rules[0].helpUri",
-              "ht%25tp://www.example.com/rules/tst0001.html"
+              "ht%tp://www.example.com/rules/tst0001.html"
             ]
           },
           "locations": [
@@ -234,7 +278,7 @@
                 },
                 "region": {
                   "startLine": 23,
-                  "startColumn": 71
+                  "startColumn": 69
                 }
               }
             }
@@ -248,7 +292,7 @@
             "id": "Default",
             "arguments": [
               "runs[0].versionControlProvenance[0].repositoryUri",
-              "ht%25tps://example.com/my-project"
+              "ht%tps://example.com/my-project"
             ]
           },
           "locations": [
@@ -259,7 +303,32 @@
                 },
                 "region": {
                   "startLine": 30,
-                  "startColumn": 62
+                  "startColumn": 60
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1020",
+          "ruleIndex": 1,
+          "level": "error",
+          "message": {
+            "id": "ReferenceToOldSchemaVersion",
+            "arguments": [
+              "$schema",
+              "ht%tp://json.schemastore.org/sarif-2.0.0"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 2,
+                  "startColumn": 55
                 }
               }
             }

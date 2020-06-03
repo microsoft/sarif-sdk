@@ -1,5 +1,5 @@
 {
-  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "$schema": "ht%tp://json.schemastore.org/sarif-2.0.0",
   "version": "2.1.0",
   "runs": [
     {
@@ -10,35 +10,35 @@
           "notifications": [
             {
               "id": "MSG0001",
-              "helpUri": "ht%25tp://www.example.com/rules/msg0001.html"
+              "helpUri": "ht%tp://www.example.com/rules/msg0001.html"
             },
             {
               "id": "MSG0002",
-              "helpUri": "ht%25tp://www.example.com/rules/msg0002.html"
+              "helpUri": "ht%tp://www.example.com/rules/msg0002.html"
             }
           ],
           "rules": [
             {
               "id": "TST0001",
-              "helpUri": "ht%25tp://www.example.com/rules/tst0001.html"
+              "helpUri": "ht%tp://www.example.com/rules/tst0001.html"
             }
           ]
         }
       },
       "versionControlProvenance": [
         {
-          "repositoryUri": "ht%25tps://example.com/my-project"
+          "repositoryUri": "ht%tps://example.com/my-project"
         }
       ],
       "originalUriBaseIds": {
         "SRCROOT": {
-          "uri": "fi%25le:///c:/Code/sarif-sdk/src"
+          "uri": "fi%le:///c:/Code/sarif-sdk/src"
         }
       },
       "artifacts": [
         {
           "location": {
-            "uri": "fi%25le:///c:/src/file.c"
+            "uri": "fi%le:///c:/src/file.c"
           },
           "mimeType": "text/x-c"
         }
