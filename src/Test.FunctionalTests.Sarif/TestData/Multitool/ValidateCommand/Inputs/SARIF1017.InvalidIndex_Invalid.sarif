@@ -37,14 +37,14 @@
           },
           {
             "name": "AnotherExtension",
-            "rules": [
-              {
-                "id": "EXTR0001"
-              }
-            ],
             "notifications": [
               {
                 "id": "EXTN0001"
+              }
+            ],
+            "rules": [
+              {
+                "id": "EXTR0001"
               }
             ],
             "taxa": [
@@ -189,8 +189,8 @@
           ],
           "graphs": [
             {
-              "edges": [],
-              "nodes": []
+              "nodes": [],
+              "edges": []
             }
           ],
           "graphTraversals": [
