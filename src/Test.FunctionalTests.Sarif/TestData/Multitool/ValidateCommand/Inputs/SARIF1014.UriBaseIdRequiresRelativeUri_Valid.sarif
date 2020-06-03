@@ -77,7 +77,8 @@
       "conversion": {
         "tool": {
           "driver": {
-            "name": "ConversionTool"
+            "name": "ConversionTool",
+            "version": "1.0.0"
           }
         },
         "analysisToolLogFiles": [

@@ -142,7 +142,7 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
 
         [Fact]
         public void SARIF1021_MissingToolVersion_Valid()
-    => RunTest(MakeValidTestFileName(RuleId.MissingToolVersion, nameof(RuleId.MissingToolVersion)));
+            => RunTest(MakeValidTestFileName(RuleId.MissingToolVersion, nameof(RuleId.MissingToolVersion)));
 
         [Fact]
         public void SARIF1021_MissingToolVersion_Invalid()

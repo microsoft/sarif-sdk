@@ -29,12 +29,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         protected override void Analyze(Tool tool, string pointer)
         {
             // 'Driver' is a required property, hence we do not need a null check for it. 
-            if (tool.Driver.Version == null)
+            if (string.IsNullOrWhiteSpace(tool.Driver.Version))
             {
                 LogResult(pointer, nameof(RuleResources.SARIF1021_MissingToolVersion));
                 return;
             }
-            
         }
-}
+    }
 }

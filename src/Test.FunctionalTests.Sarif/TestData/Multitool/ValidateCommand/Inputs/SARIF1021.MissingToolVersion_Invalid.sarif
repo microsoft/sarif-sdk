@@ -11,7 +11,8 @@
       "conversion": {
         "tool": {
           "driver": {
-            "name": "Sarif Functional Testing"
+            "name": "Sarif Functional Testing",
+            "version": " "
           }
         }
       },
