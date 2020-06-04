@@ -10,23 +10,23 @@ Keep these principles in mind when defining, implementing, and maintaining a SAR
 
 - Combine all requirements on a given property into one analyzer.
 
-  Example: The requirements "`run.$schema` should be present" and "`run.$schema` should refer to the final version of the SARIF specification" belong in a single analyzer, `ReferToFinalSchema`.
+  Example: The requirements "`run.$schema` should be present." and "`run.$schema` should refer to the final version of the SARIF specification." belong in a single analyzer, `ReferToFinalSchema`.
 
 - Combine all requirements on a given property _type_ (_e.g._, "uri", or "result message string") into one analyzer.
 
-  Example: "The requirements "Result message strings should contain dynamic data" and "Result message strings should end with a period" belong in a single analyzer, `AuthorHighQualityResultMessages`.
+  Example: "The requirements "Result message strings should contain dynamic data." and "Result message strings should end with a period." belong in a single analyzer, `AuthorHighQualityResultMessages`.
 
 - Combine all consistency constraints among the properties of a given object into one analyzer.
 
-  Example: The requirements "`region.startLine` should not be greater than `region.endLine`" and "`region.startColumn` should not be greater than `region.endColumn`" belong in a single analyzer, `ProvideConsistentRegionProperties`.
+  Example: The requirements "`region.startLine` should not be greater than `region.endLine`." and "`region.startColumn` should not be greater than `region.endColumn`." belong in a single analyzer, `ProvideConsistentRegionProperties`.
 
 - Combine highly granular quality constraints on the properties of a single object into one analyzer.
 
-  Example: The requirements "`toolComponent.version` should be present" and "`toolComponent.name` should be no more than three words long" belong in a single analyzer, `ProvideStandardToolMetadata`.
+  Example: The requirements "`toolComponent.version` should be present." and "`toolComponent.name` should be no more than three words long." belong in a single analyzer, `ProvideStandardToolMetadata`.
 
 - Combine similar formatting recommendations into one analyzer.
 
-  Example: The requirements "`rule.id` should follow conventional format (_e.g._ 'CA1001')" and "
+  Example: The requirements "`rule.id` should follow conventional format (_e.g._ 'CA1001')." and "Use conventional names for `uriBaseIds` (_e.g_, 'SRCROOT')." belong in a single analyzer, `UseConventionalSymbolicNames`.
 
 ## Specify concise, informative, uniform friendly rule names
 
