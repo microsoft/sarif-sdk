@@ -405,9 +405,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         /// <summary>
         ///   Looks up a localized string similar to {0}: The result message specifies the id value &apos;{1}&apos;, but the metadata for rule &apos;{2}&apos; does not contain a message string with that id..
         /// </summary>
-        internal static string SARIF1022_RuleMetadataDoeNotIncludeMessageId {
+        internal static string SARIF1022_RuleMetadataDoesNotIncludeMessageId {
             get {
-                return ResourceManager.GetString("SARIF1022_RuleMetadataDoeNotIncludeMessageId", resourceCulture);
+                return ResourceManager.GetString("SARIF1022_RuleMetadataDoesNotIncludeMessageId", resourceCulture);
             }
         }
     }

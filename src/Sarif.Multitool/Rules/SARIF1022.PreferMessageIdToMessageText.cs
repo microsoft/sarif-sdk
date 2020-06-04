@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             nameof(RuleResources.SARIF1022_IncorrectResultMessageArgumentsCount),
             nameof(RuleResources.SARIF1022_NonConsecutiveMessageStringPlaceholders),
             nameof(RuleResources.SARIF1022_ResultMessageUsesTextProperty),
-            nameof(RuleResources.SARIF1022_RuleMetadataDoeNotIncludeMessageId)
+            nameof(RuleResources.SARIF1022_RuleMetadataDoesNotIncludeMessageId)
         };
 
         protected override void Analyze(Run run, string runPointer)
@@ -53,7 +53,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     || rule == null
                     || !rule.MessageStrings.ContainsKey(result.Message.Id))
                 {
-                    LogResult(resultPointer, nameof(RuleResources.SARIF1022_ResultMessageUsesTextProperty), result.Message.Id, (result.RuleId ?? result.Rule?.Id ?? "null"));
+                    LogResult(resultPointer, nameof(RuleResources.SARIF1022_RuleMetadataDoesNotIncludeMessageId), result.Message.Id, result.RuleId ?? result.Rule?.Id ?? "null");
                     return;
                 }
 
@@ -67,6 +67,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                         resultPointer,
                         nameof(RuleResources.SARIF1022_IncorrectResultMessageArgumentsCount),
                         result.Message.Arguments.Count.ToString(),
+                        result.Message.Id,
                         result.RuleId ?? result.Rule?.Id,
                         placeholdersCount.ToString(),
                         messageText);

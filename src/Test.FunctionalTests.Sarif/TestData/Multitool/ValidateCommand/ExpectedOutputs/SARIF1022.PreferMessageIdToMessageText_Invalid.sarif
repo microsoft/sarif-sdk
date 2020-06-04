@@ -26,7 +26,7 @@
                 "ResultMessageUsesTextProperty": {
                   "text": "{0}: The result should use message.id instead of message.text value '{1}'"
                 },
-                "RuleMetadataDoeNotIncludeMessageId": {
+                "RuleMetadataDoesNotIncludeMessageId": {
                   "text": "{0}: The result message specifies the id value '{1}', but the metadata for rule '{2}' does not contain a message string with that id."
                 }
               },
@@ -79,7 +79,7 @@
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "ResultMessageUsesTextProperty",
+            "id": "RuleMetadataDoesNotIncludeMessageId",
             "arguments": [
               "runs[0].results[1]",
               "RuleDoesntExist",
@@ -109,6 +109,7 @@
             "arguments": [
               "runs[0].results[2]",
               "2",
+              "InconsistentResultRuleId",
               "SARIF1019",
               "3",
               "{0}: The result contains both the ruleId property '{1}' and the rule.id property '{2}', and they are not equal."
