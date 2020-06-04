@@ -174,7 +174,7 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
             // We can't transform these test inputs as that operation fixes up erros in the file.
             // Also, don't transform the tests for SARIF1020, because that rule examines the actual contents of the $schema
             // property, so we can't change it.
-            bool updateInputsToCurrentSarif = ruleUnderTest.StartsWith("SARIF") 
+            bool updateInputsToCurrentSarif = ruleUnderTest.StartsWith("SARIF")
                 && ruleUnderTest != "SARIF1020" ? true : false;
 
             var validateOptions = new ValidateOptions
