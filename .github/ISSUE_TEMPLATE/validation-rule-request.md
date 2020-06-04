@@ -7,7 +7,7 @@ assignees   : ''
 
 ---
 
-***********************************************************************************************************
+---
 
 # Rule Proposal: [Friendly Rule Name]
 - *Synopsis*                : [Brief summary of the rule, include code snippets if possible.]
@@ -16,7 +16,7 @@ assignees   : ''
 
 - *[No Violation Example]*  : [Optional, Include code snippet which demostrates ideal condition (no violation).]
 
-***********************************************************************************************************
+---
 
 ### Rule metadata
 - [*Id*]                : [Should be formatted as `SARIF1nnn`, leave blank if unsure]
@@ -33,7 +33,7 @@ assignees   : ''
     - *[SecondMessage]* : [Optional, Any conditional user facing string(s).]
     - *[ThirdMessage]*    : [Optional, Any conditional user facing string(s).]
 
-***********************************************************************************************************
+---
 
 ### Links/Additional Information
 *[Optional, any Links/Additional Information.]*
@@ -44,4 +44,4 @@ assignees   : ''
 ### How to resolve
 *[Optional, any tips on how to resolve the violation.]*
 
-***********************************************************************************************************
+---
