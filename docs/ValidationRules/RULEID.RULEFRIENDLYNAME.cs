@@ -10,14 +10,14 @@ using System.Collections.Generic;
  * - Replace `RULEID` with a valid value.
  *      It should be start with a prefix "SARIF", followed by 
  *      a 4 digit number which is the next sequential number available
- *      to use in ~\Sarif.Multitool\Rules\ directory.
+ *      to use in ~\Sarif.Multitool\Rules\RuleId.cs file.
  *      Example:
  *          SARIF1023
  *
  * - Replace `RULEFRIENDLYNAME` with a valid value.
  *      RULEFRIENDLYNAME should concisely define the purpose of this rule.
- *      Where possible, prefer using Imperative language, like `UseAbsoluteUri`
- *      instead of Indicative language, like `UriIsNotAbsolute`.
+ *      Where possible, prefer using imperative language, like `UseAbsoluteUri`
+ *      instead of indicative language, like `UriIsNotAbsolute`.
  *      Examples:
  *          DoNotUseFriendlyNameAsRuleId
  *          ReferToFinalSchema
@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class RULEFRIENDLYNAME : SarifValidationSkimmerBase
     {
-        private readonly MultiformatMessageString _fullDescription = new MultiformatMessageString
+        private readonly MultiformatMessageString FullDescription = new MultiformatMessageString
         {
             /*
              * INSTRUCTIONS:
@@ -55,8 +55,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             Text = RuleResources.RULEID_RULEFRIENDLYNAME_Description
         };
 
-        public override MultiformatMessageString FullDescription => _fullDescription;
-
         /*
          * INSTRUCTIONS:
          * Decide the appropriate FailureLevel for this rule as appropriate.
@@ -78,19 +76,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
          */
         public override FailureLevel DefaultLevel => FailureLevel.Warning;
 
-
         /*
          * INSTRUCTIONS:
-         * Add a new property in ~\src\Sarif.Multitool\Rules\RuleId.cs with 
+         * Add a new property in ~\Sarif.Multitool\Rules\RuleId.cs with 
          * the name as RULEFRIENDLYNAME and 
          * the value as RULEID.
          * 
          * Example:
          *      public const string ReferToFinalSchema = "SARIF1020";
          */
-        /// <summary>
-        /// RULEID
-        /// </summary>
         public override string Id => RuleId.RULEFRIENDLYNAME;
 
         protected override IEnumerable<string> MessageResourceNames => new string[]
@@ -98,7 +92,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             /*
             * INSTRUCTIONS:
             * Each rule has one or more result message strings, each with symbolic name 
-            * in PascalCase. Add atleast one new key-value pair for user messages
+            * in PascalCase. Add at least one new key-value pair for user messages
             * in ~\Sarif.Multitool\Rules\RuleResources.resx.
             *
             * Key: 
@@ -117,6 +111,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             *      Key      : SARIF1018_LacksTrailingSlash
             *      Value    : {0}: The URI '{1}' belonging to the '{2}' element of 
             *                 run.originalUriBaseIds does not end with a slash.
+            * 
+            * Notes:
+            *       Provide a meaningful symbolic name for each message, even if there is only one 
+            *       in this rule. Do not use a generic name like "default" for a single message.
             */
             nameof(RuleResources.RULEID_Default)
         };
