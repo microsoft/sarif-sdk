@@ -10,13 +10,13 @@ using System.Collections.Generic;
  * - Replace `RULEID` with a valid value.
  *      It should start with a prefix "SARIF", followed by 
  *      a 4 digit number which is the next sequential number available
- *      to use in ~\Sarif.Multitool\Rules\RuleId.cs file.
+ *      to use in ~\src\Sarif.Multitool\Rules\RuleId.cs file.
  *      Example:
  *          SARIF1023
  *
  * - Replace `RULEFRIENDLYNAME` with a valid value.
  *      RULEFRIENDLYNAME should concisely define the purpose of this rule.
- *      Where possible, prefer using imperative language, like `UseAbsoluteUri`
+ *      Use imperative language, like `UseAbsoluteUri`
  *      instead of indicative language, like `UriIsNotAbsolute`.
  *      Examples:
  *          DoNotUseFriendlyNameAsRuleId
@@ -34,7 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
             /*
              * INSTRUCTIONS:
-             * Add a new key-value pair in ~\Sarif.Multitool\Rules\RuleResources.resx.
+             * Add a new key-value pair in ~\src\Sarif.Multitool\Rules\RuleResources.resx.
              * 
              * Key: 
              *      RULEID_RULEFRIENDLYNAME
@@ -43,11 +43,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
              *      Provide a brief description with atleast two sentences, both ending in a period.
              *      The first sentence should be a short description of the rule.
              *      The second sentence must describe the utility/usage of the rule.
-             *      
+             * 
              * Example:
              *      The $schema property should be present, and must refer to the final version 
              *      of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.
-             *      
+             * 
              * Notes:
              *      The first sentence will be used as a `ShortDescription` for this rule.
              *      All sentences together will be used as a `LongDescription` for this rule.
@@ -67,7 +67,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
          *      SARIF1019.RuleIdMustBePresentAndConsistent
          *      Per spec, at least one of result.ruleId and result.rule.id must be present, 
          *      and if both are present, they must be the same.
-         *      
+         * 
          * Warning:
          *      In general, a `Warning` is a good practice which should be followed, but it
          *      does not violate the SARIF spec.
@@ -78,7 +78,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         /*
          * INSTRUCTIONS:
-         * Add a new property in ~\Sarif.Multitool\Rules\RuleId.cs with 
+         * Add a new property in ~\src\Sarif.Multitool\Rules\RuleId.cs with 
          * the name as RULEFRIENDLYNAME and 
          * the value as RULEID.
          * 
@@ -93,7 +93,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             * INSTRUCTIONS:
             * Each rule has one or more result message strings, each with symbolic name 
             * in PascalCase. Add at least one new key-value pair for user messages
-            * in ~\Sarif.Multitool\Rules\RuleResources.resx.
+            * in ~\src\Sarif.Multitool\Rules\RuleResources.resx.
             *
             * Key: 
             *       RULEID_USERMESSAGESYMBOLICNAME
