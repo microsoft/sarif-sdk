@@ -8,7 +8,7 @@ using System.Collections.Generic;
  * INSTRUCTIONS:
  * 
  * - Replace `RULEID` with a valid value.
- *      It should be start with a prefix "SARIF", followed by 
+ *      It should start with a prefix "SARIF", followed by 
  *      a 4 digit number which is the next sequential number available
  *      to use in ~\Sarif.Multitool\Rules\RuleId.cs file.
  *      Example:
