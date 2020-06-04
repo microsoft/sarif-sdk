@@ -22,11 +22,12 @@ assignees   : ''
 - [*Id*]                : [Should be formatted as `SARIF1nnn`, leave blank if unsure]
 - *Name*                : [Provide a friendly symbolic name for the rule in PascalCase.]
 - *Level*               : [Possible values are: `error`, `warning`, or `note`.]
-- *Short description*   : [Short description of the rule.]
-- *Full description*    : [Full description, should describe usage of the rule and any other relevant information.]
+- *Full description*    : [Provide atleast two sentences. The first sentence should be a short description of the rule.
+                          This will appear as  `Short Description` in rules metadata. The other sentence(s) should
+                          describe usage of the rule and any other relevant information.]
 
 - User-facing strings:
-  Each rule has one or more result message strings, each with symbolic name in PascalCase.
+  [Each rule has one or more result message strings, each with symbolic name in PascalCase.]
 
     - *FirstMessage*    : [Default user facing string.]
     - *[SecondMessage]* : [Optional, Any conditional user facing string(s).]
@@ -42,6 +43,5 @@ assignees   : ''
 
 ### How to resolve
 *[Optional, any tips on how to resolve the violation.]*
-
 
 ***********************************************************************************************************
