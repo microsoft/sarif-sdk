@@ -16,9 +16,11 @@ using System.Collections.Generic;
  *
  * - Replace `RULEFRIENDLYNAME` with a valid value.
  *      RULEFRIENDLYNAME should concisely define the purpose of this rule.
+ *      Where possible, prefer using Imperative language, like `UseAbsoluteUri`
+ *      instead of Indicative language, like `UriIsNotAbsolute`.
  *      Examples:
- *          UrisMustBeValid
- *          MessageShouldEndWithPeriod
+ *          DoNotUseFriendlyNameAsRuleId
+ *          ReferToFinalSchema
  *
  * - Rename this file as <RULEID>.<RULEFRIENDLYNAME>.cs.
  * 
@@ -30,14 +32,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
     {
         private readonly MultiformatMessageString _fullDescription = new MultiformatMessageString
         {
-            // TODO: we should standardize that all description resx keys end with _description.
-
             /*
              * INSTRUCTIONS:
              * Add a new key-value pair in ~\Sarif.Multitool\Rules\RuleResources.resx.
              * 
              * Key: 
-             *      RULEID_RULEFRIENDLYNAME_Description
+             *      RULEID_RULEFRIENDLYNAME
              *      
              * Value: 
              *      Provide a brief description with atleast two sentences, both ending in a period.
@@ -55,7 +55,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             Text = RuleResources.RULEID_RULEFRIENDLYNAME_Description
         };
 
-        // todo: can we remove this?
         public override MultiformatMessageString FullDescription => _fullDescription;
 
         /*
@@ -98,11 +97,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
             /*
             * INSTRUCTIONS:
-            * Add at least one (ending with `_default`) new key-value pair 
+            * Each rule has one or more result message strings, each with symbolic name 
+            * in PascalCase. Add atleast one new key-value pair for user messages
             * in ~\Sarif.Multitool\Rules\RuleResources.resx.
             *
             * Key: 
-            *       RULEID_Default
+            *       RULEID_USERMESSAGESYMBOLICNAME
             * 
             * Value: 
             *      Provide the default user message for this rule. It should be a dynamic string
@@ -112,10 +112,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             *      If the rule requires more than one user messages to be defined, define each as a
             *      key-value pair in resx file. The keys should be named as: RULEID_SHORTDESCRIPTION
             * 
-            * Examples:
-            *      Key      : SARIF1016_Default
-            *      value    : {0}: This "physicalLocation" object contains a "contextRegion"
-            *                 property, but it does not contain a "region" property.
+            * Example:
             * 
             *      Key      : SARIF1018_LacksTrailingSlash
             *      Value    : {0}: The URI '{1}' belonging to the '{2}' element of 
