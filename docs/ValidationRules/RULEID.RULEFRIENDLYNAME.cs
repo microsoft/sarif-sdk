@@ -52,7 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
              *      The first sentence will be used as a `ShortDescription` for this rule.
              *      All sentences together will be used as a `LongDescription` for this rule.
              */
-            Text = RuleResources.RULEID_RULEFRIENDLYNAME_Description
+            Text = RuleResources.RULEID_RULEFRIENDLYNAME
         };
 
         /*
