@@ -40,7 +40,7 @@ Another option to eliminate results from consideration is to suppress them.
 Define your result messages in such a way that it would be sensible for a team to suppress all
 results that produce that message.
 
-**NOTE** In future, if the validator represents the results from each result message as distinct sub-rules,
+**NOTE**: In future, if the validator represents the results from each result message as distinct sub-rules,
 it will be possible for a team to suppress results on a per-sub-rule basis.
 
 **NOTE**: At the time of this writing, the validator does not provide a way to disable rules,
@@ -98,7 +98,7 @@ Rule names should be concise, informative, and uniform in tone.
 - The friendly rule name SHOULD be use the imperative [grammatical mood](https://en.wikipedia.org/wiki/Grammatical_mood), telling the user what to do (for example, `UseAbsoluteUris`).
 
 - If the imperative mood produces an awkward name, try the indicative mood, describing the erroneous condition (for example, `EndTimeIsBeforeStartTime`). In this case, `DoNotSpecifyEndTimeBeforeStartTime` seems awkward.
-like this: `EndTimeMustNotPrecedeStartTime`.
+You might prefer a name like `EndTimeMustNotPrecedeStartTime`.
 
 ## Result message names
 
