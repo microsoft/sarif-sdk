@@ -71,7 +71,7 @@ Given these overarching principles, you might group validation logic into analyz
 
   Example: You might assign the requirements "`rule.id` should follow conventional format (_e.g._ 'CA1001')." and "Use conventional names for `uriBaseIds` (_e.g_, 'SRCROOT')." to a single analyzer, `UseConventionalSymbolicNames`.
 
-## Requirements and recommendations.
+## Requirements and recommendations
 
 The SARIF validator tool first checks that the file is syntactically valid JSON,
 and then checks that it conforms to the SARIF schema.
