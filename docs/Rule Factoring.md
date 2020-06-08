@@ -1,5 +1,5 @@
 
-# Rules that describe spec violations
+# Rules that describe serious violations
 
 Rules that describe violations of **SHALL**/**SHALL NOT** requirements of the [SARIF specification](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html) have numbers between 1000 and 1999, and always have level `"error"`.
 
