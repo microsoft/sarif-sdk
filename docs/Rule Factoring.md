@@ -155,6 +155,8 @@ Rules that describe violations of SARIF recommendations or best practices also h
 
 #### `UseMessageArguments`: warning
 
+---
+
 ## Rule `SARIF2002.UseConventionalSymbolicNames`
 
 ### Description
