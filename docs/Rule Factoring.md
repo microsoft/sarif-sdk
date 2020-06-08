@@ -1,7 +1,7 @@
 
 # Rules that describe spec violations
 
-Rules that describe violations of the [SARIF specification](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html) have numbers between 1000 and 1999, and have level `"error"` or `"warning"` (depending on whether the violation is of a **SHALL**/**SHALL NOT** requirement or a **SHOULD**/**SHOULD NOT** requirement).
+Rules that describe violations of **SHALL**/**SHALL NOT** requirements of the [SARIF specification](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html) have numbers between 1000 and 1999, and always have level `"error"`.
 
 ---
 
@@ -133,9 +133,11 @@ This validation rule is required because this constraint cannot be expressed in 
 
 ---
 
-# Rules that describe violations of recommendations or best practices
+# Rules that describe less serious violation
 
-Rules that describe violations of SARIF recommendations or best practices have numbers between 2000 and 2999, and have level `"warning"` or `"note"`.
+Rules that describe violations of **SHOULD**/**SHOULD NOT** requirements of the [SARIF specification](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html) have numbers between 2000 and 2999, and always have level `"warning"`.
+
+Rules that describe violations of SARIF recommendations or best practices also have numbers in this range. Some of those recommendations are expressed in the spec as **MAY** requirements; others are based on experience using the format. These rules have level `"warning"` or `"note"`, depending on the tool's opinion of the seriousness of the violation.
 
 ---
 
@@ -163,3 +165,6 @@ for example, 'CS2001' for a diagnostic from the Roslyn C# compiler. For uniformi
 #### `UseConventionalRuleIds`: note
 
 {0}: The 'name' property ' of the rule '{1}' does not follow the recommended format: a short string identifying the tool concatenated with a numeric rule number, for example, `CS2001`. Using a conventional format for the rule id provides a more uniform experience across tools.
+
+---
+
