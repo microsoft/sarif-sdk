@@ -85,7 +85,7 @@ SARIF can specify a 'region' (a contiguous portion of a file) in a variety of wa
 
 #### `EndColumnMustNotPrecedeStartColumn`: error
 
-#### `RegionStartPropertyMustBePresent`: error
+#### `RegionStartPropertyMustBePresent`: error (LJG additional proposal)
 
 ---
 
@@ -97,7 +97,7 @@ SARIF can specify a 'region' (a contiguous portion of a file) in a variety of wa
 
 #### `ContextRegionRequiresRegion`: error
 
-#### `ContextRegionMustBeProperSupersetOfRegion`: error
+#### `ContextRegionMustBeProperSupersetOfRegion`: error (LJG additional proposal)
 
 ---
 
@@ -109,11 +109,11 @@ SARIF can specify a 'region' (a contiguous portion of a file) in a variety of wa
 
 #### `TargetArrayMustExist`: error
 
-#### `TargetArrayMustBeLongEnough`: error
+#### `TargetArrayMustBeLongEnough`: error (LJG proposal to split message, doesn't feel strongly.)
 
 ---
 
-## Rule `SARIF1009.RuleIdMustBePresentAndConsistent`
+## Rule `SARIF1009.ResultMustContainConsistentRuleId`
 
 ### Description
 
@@ -242,3 +242,15 @@ for example, 'CS2001' for a diagnostic from the Roslyn C# compiler. For uniformi
 ### Messages
 
 #### `??`
+
+---
+
+## Rule `SARIF2009.ReferToFinalSchema`
+
+### Description
+
+### Messages
+
+#### `SchemaPropertyShouldBePresent`: warning
+
+#### `SchemaPropertyShouldReferToFinalSchema`: warning (**NOTE** Why isn't this an error? It can't possibly be ok.)
