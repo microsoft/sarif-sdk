@@ -69,7 +69,7 @@ SARIF rules have two identifiers. The required 'id' property must be a "stable, 
 
 ### Messages
 
-#### `EndTimeMustNotBeBeforeStartTime`: error
+#### `EndTimeMustNotPrecedeStartTime`: error
 
 ---
 
@@ -81,9 +81,9 @@ SARIF can specify a 'region' (a contiguous portion of a file) in a variety of wa
 
 ### Messages
 
-#### `EndLineMustNotBeBeforeStartLine`: error
+#### `EndLineMustNotPrecedeStartLine`: error
 
-#### `EndColumnMustNotBeBeforeStartColumnOnSameLine`: error
+#### `EndColumnMustNotPrecedeStartColumn`: error
 
 #### `RegionStartPropertyMustBePresent`: error
 
@@ -109,7 +109,7 @@ SARIF can specify a 'region' (a contiguous portion of a file) in a variety of wa
 
 #### `TargetArrayMustExist`: error
 
-#### `TargetArrayMustHaveEnoughElements`: error
+#### `TargetArrayMustBeLongEnough`: error
 
 ---
 
@@ -149,7 +149,11 @@ Rules that describe violations of SARIF recommendations or best practices also h
 
 #### `IncludeDynamicContent`: warning
 
+#### `EnquoteDynamicContent`: warning
+
 #### `TerminateWithPeriod`: warning
+
+#### `UseMessageArguments`: warning
 
 ## Rule `SARIF2002.UseConventionalSymbolicNames`
 
@@ -166,5 +170,73 @@ for example, 'CS2001' for a diagnostic from the Roslyn C# compiler. For uniformi
 
 {0}: The 'name' property ' of the rule '{1}' does not follow the recommended format: a short string identifying the tool concatenated with a numeric rule number, for example, `CS2001`. Using a conventional format for the rule id provides a more uniform experience across tools.
 
+#### `UseConventionalUriBaseIdNames`: note
 ---
 
+## Rule `SARIF2003.FacilitateAutomaticBugFiling`
+
+### Description
+
+### Messages
+
+#### `ProvideVersionControlProvenance`: note
+
+---
+
+## Rule `SARIF2004.FacilitateProblemResolution`
+
+### Description
+
+### Messages
+
+#### `ProvideCodeSnippets`: note
+
+#### `ProvideContextRegion`: note
+
+#### `EmbedFileContent`: note
+
+#### `ProvideRuleHelpUris`: note
+
+---
+
+## Rule `SARIF2005.ReduceFileSize`
+
+### Description
+
+### Messages
+
+#### `EliminateLocationOnlyArtifacts`: warning
+
+---
+
+## Rule `SARIF2006.ProvideHelpfulToolInformation`
+
+### Description
+
+### Messages
+
+#### `ProvideConciseToolName`: note
+
+#### `ProvideToolVersion`: note
+
+#### `UseNumericToolVersions`: note
+
+---
+
+## Rule `SARIF2007.ProvideUsableUris`
+
+### Description
+
+### Messages
+
+#### `UrisShouldBeReachable`
+
+---
+
+## Rule `SARIF2008.ExpressPathsRelativeToRepoRoot`
+
+### Description
+
+### Messages
+
+#### `??`
