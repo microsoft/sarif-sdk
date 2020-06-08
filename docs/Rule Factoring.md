@@ -31,7 +31,7 @@ SARIF rules have two identifiers. The required 'id' property must be a "stable, 
 
 #### `FileUrisMustNotIncludeDotDotSegments`: error
 
-#### `FileUrisWithoutHostNameShouldUseTripleSlashForm`: warning
+#### `FileUrisWithoutHostNameShouldUseTripleSlashForm`: warning (TODO: This can't be here. Different level.)
 
 ---
 
@@ -153,7 +153,7 @@ Rules that describe violations of SARIF recommendations or best practices also h
 
 #### `TerminateWithPeriod`: warning
 
-#### `UseMessageArguments`: warning
+#### `UseMessageArguments`: warning (TODO: This doesn't belong here. Separate concern; this is about _usage_.)
 
 ---
 
@@ -173,6 +173,7 @@ for example, 'CS2001' for a diagnostic from the Roslyn C# compiler. For uniformi
 {0}: The 'name' property ' of the rule '{1}' does not follow the recommended format: a short string identifying the tool concatenated with a numeric rule number, for example, `CS2001`. Using a conventional format for the rule id provides a more uniform experience across tools.
 
 #### `UseConventionalUriBaseIdNames`: note
+
 ---
 
 ## Rule `SARIF2003.FacilitateAutomaticBugFiling`
@@ -185,7 +186,7 @@ for example, 'CS2001' for a diagnostic from the Roslyn C# compiler. For uniformi
 
 ---
 
-## Rule `SARIF2004.FacilitateProblemResolution`
+## Rule `SARIF2004.FacilitateBugFixing`
 
 ### Description
 
@@ -209,6 +210,8 @@ for example, 'CS2001' for a diagnostic from the Roslyn C# compiler. For uniformi
 
 #### `EliminateLocationOnlyArtifacts`: warning
 
+#### `DoNotIncludeExtraIndexedObjectProperties`: warning (TODO: Needs a better name.)
+
 ---
 
 ## Rule `SARIF2006.ProvideHelpfulToolInformation`
@@ -225,7 +228,7 @@ for example, 'CS2001' for a diagnostic from the Roslyn C# compiler. For uniformi
 
 ---
 
-## Rule `SARIF2007.ProvideUsableUris`
+## Rule `SARIF2007.ProvideUsableUris` (TODO: Not a great name.)
 
 ### Description
 
