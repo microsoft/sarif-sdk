@@ -133,7 +133,7 @@ This validation rule is required because this constraint cannot be expressed in 
 
 ---
 
-# Rules that describe less serious violation
+# Rules that describe less serious violations
 
 Rules that describe violations of **SHOULD**/**SHOULD NOT** requirements of the [SARIF specification](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html) have numbers between 2000 and 2999, and always have level `"warning"`.
 
