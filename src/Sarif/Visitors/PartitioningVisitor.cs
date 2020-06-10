@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using Microsoft.Extensions.Logging;
+using Microsoft.WorkItems;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
@@ -87,6 +89,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         private Dictionary<T, SarifLog> partitionLogDictionary;
 
+        internal ILogger Logger { get; }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="PartitioningVisitor"/> class.
         /// </summary>
@@ -108,6 +112,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             this.partitionFunction = partitionFunction;
             this.deepClone = deepClone;
+
+            this.Logger = (ILogger)ServiceProviderFactory.ServiceProvider.GetService(typeof(ILogger));
         }
 
         /// <summary>
@@ -281,7 +287,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 };
             }
 
-            Console.WriteLine($"Cloned log {watch.ElapsedMilliseconds}"); ;
+            Logger.LogWarning($"Cloned log {watch.ElapsedMilliseconds}"); ;
 
             partitionLog.Runs = new List<Run>();
             partitionLog.SetProperty(PartitionValuePropertyName, partitionValue);
@@ -367,7 +373,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 }
             }
 
-            Console.WriteLine($"Added runs {watch.ElapsedMilliseconds}"); ;
+            Logger.LogWarning($"Added runs {watch.ElapsedMilliseconds}"); ;
 
             // Traverse the entire log, fixing the index mappings for indices that appear
             // in the remapping dictionaries.
@@ -375,7 +381,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             remappingVisitor.VisitSarifLog(partitionLog);
 
-            Console.WriteLine($"Remapped indexes {watch.ElapsedMilliseconds}"); ;
+            Logger.LogWarning($"Remapped indexes {watch.ElapsedMilliseconds}"); ;
 
             return partitionLog;
         }
