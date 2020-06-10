@@ -120,7 +120,10 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                     // without requiring us to build a map of results between the original log and its
                     // partioned log files.
                     //
-                    UpdateLogWithWorkItemDetails(splitLog, sarifWorkItemModel.HtmlUri, sarifWorkItemModel.Uri);
+                    if (sarifWorkItemModel != null)
+                    {
+                        UpdateLogWithWorkItemDetails(splitLog, sarifWorkItemModel.HtmlUri, sarifWorkItemModel.Uri);
+                    }
                 }
 
                 return sarifLog;
