@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
+using Microsoft.CodeAnalysis.Sarif.Visitors;
 using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
 using Microsoft.CodeAnalysis.WorkItems;
 using Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models;
@@ -339,7 +340,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 .CallBase();
 
             mockFiler
-                .Setup(x => x.SplitLogFile(It.IsAny<SarifLog>()))
+                .Setup(x => x.SplitLogFile(It.IsAny<SarifLog>(), out It.Ref<PartitioningVisitor<string>>.IsAny))
                 .CallBase();
 
             return mockFiler;

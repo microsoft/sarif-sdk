@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
@@ -82,7 +83,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         // The set of all partition values encountered on all results in all runs of the original
         // log file.
-        private HashSet<T> partitionValues;
+        public HashSet<T> PartitionValues { get; set; }
 
         private Dictionary<T, SarifLog> partitionLogDictionary;
 
@@ -135,7 +136,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             currentRunIndex = -1;
             currentPartitionValue = null;
             inResult = false;
-            partitionValues = new HashSet<T>();
+            PartitionValues = new HashSet<T>();
             partitionRunInfos = new List<PartitionRunInfo>();
             partitionLogDictionary = null;
 
@@ -165,7 +166,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             currentPartitionValue = partitionFunction(node);
             if (currentPartitionValue != null)
             {
-                partitionValues.Add(currentPartitionValue);
+                PartitionValues.Add(currentPartitionValue);
 
                 if (!partitionRunInfos[currentRunIndex].ResultDictionary.ContainsKey(currentPartitionValue))
                 {
@@ -251,12 +252,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         private void CreatePartitionLogDictionary()
         {
-            partitionLogDictionary = partitionValues.ToDictionary(
+            partitionLogDictionary = PartitionValues.ToDictionary(
                 keySelector: pv => pv,
                 elementSelector: CreatePartitionLog);
         }
 
-        private SarifLog CreatePartitionLog(T partitionValue)
+        public SarifLog CreatePartitionLog(T partitionValue)
         {
             SarifLog partitionLog;
             if (deepClone)

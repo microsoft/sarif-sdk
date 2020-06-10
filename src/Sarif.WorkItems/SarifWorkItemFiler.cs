@@ -94,10 +94,9 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         {
             using (Logger.BeginScopeContext(nameof(FileWorkItems)))
             {
-
                 sarifLog = sarifLog ?? throw new ArgumentNullException(nameof(sarifLog));
 
-                IReadOnlyList<SarifLog> logsToProcess = SplitLogFile(sarifLog);
+                IReadOnlyList<string> logsToProcess = SplitLogFile(sarifLog, out PartitioningVisitor<string> partitioningVisitor);
 
                 int logsToProcessCount = logsToProcess.Count;
 
@@ -110,7 +109,18 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
                 for (int splitFileIndex = 0; splitFileIndex < logsToProcessCount; splitFileIndex++)
                 {
-                    SarifLog splitLog = logsToProcess[splitFileIndex];
+                    string splitKey = logsToProcess[splitFileIndex];
+                    SarifLog splitLog;
+
+                    if (string.IsNullOrEmpty(splitKey))
+                    {
+                        splitLog = sarifLog;
+                    }
+                    else
+                    {
+                        splitLog = partitioningVisitor.CreatePartitionLog(splitKey);
+                    }
+
                     SarifWorkItemModel sarifWorkItemModel = FileWorkItemInternal(splitLog, this.FilingContext, this.FilingClient);
 
                     // IMPORTANT: as we update our partitioned logs, we are actually modifying the input log file 
@@ -139,9 +149,9 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             return sarifLog;
         }
 
-        public virtual IReadOnlyList<SarifLog> SplitLogFile(SarifLog sarifLog)
+        public virtual IReadOnlyList<string> SplitLogFile(SarifLog sarifLog, out PartitioningVisitor<string> partitioningVisitor)
         {
-            IList<SarifLog> logsToProcess;
+            IList<string> logsToProcess;
 
             using (Logger.BeginScopeContext(nameof(SplitLogFile)))
             {
@@ -180,7 +190,8 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
                     if (splittingStrategy == SplittingStrategy.None)
                     {
-                        return new[] { sarifLog };
+                        partitioningVisitor = null;
+                        return new[] { string.Empty };
                     }
 
                     PartitionFunction<string> partitionFunction = null;
@@ -216,11 +227,12 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                     }
 
                     Logger.LogDebug("Begin splitting logs");
-                    var partitioningVisitor = new PartitioningVisitor<string>(partitionFunction, deepClone: false);
+                    partitioningVisitor = new PartitioningVisitor<string>(partitionFunction, deepClone: false);
                     partitioningVisitor.VisitSarifLog(sarifLog);
 
                     Logger.LogDebug("Begin retrieving split logs");
-                    logsToProcess = new List<SarifLog>(partitioningVisitor.GetPartitionLogs().Values);
+                    //logsToProcess = new List<SarifLog>(partitioningVisitor.GetPartitionLogs().Values);
+                    logsToProcess = partitioningVisitor.PartitionValues.ToList();
 
                     Logger.LogDebug("End retrieving split logs");
 
