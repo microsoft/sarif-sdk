@@ -29,11 +29,14 @@ namespace Microsoft.WorkItems
 
         public override async Task Connect(string personalAccessToken)
         {
-            _vssConection = _vssConection ?? new VssConnectionFacade();
+            using (Logger.BeginScopeContext(nameof(Connect)))
+            {
+                _vssConection = _vssConection ?? new VssConnectionFacade();
 
-            await _vssConection.ConnectAsync(this.AccountUri, personalAccessToken);
-            
-            _witClient = await _vssConection.GetClientAsync();
+                await _vssConection.ConnectAsync(this.AccountUri, personalAccessToken);
+
+                _witClient = await _vssConection.GetClientAsync();
+            }
         }
 
         public override async Task<IEnumerable<WorkItemModel>> FileWorkItems(IEnumerable<WorkItemModel> workItemModels)
