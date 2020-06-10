@@ -258,10 +258,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         private void CreatePartitionLogDictionary()
         {
+            clonedLogTotal = 0;
+            addedRunsTotal = 0;
+            remappedIndexesTotal = 0;
+
             partitionLogDictionary = partitionValues.ToDictionary(
                 keySelector: pv => pv,
                 elementSelector: CreatePartitionLog);
         }
+
+        private long clonedLogTotal;
+        private long addedRunsTotal;
+        private long remappedIndexesTotal;
 
         private SarifLog CreatePartitionLog(T partitionValue)
         {
@@ -287,7 +295,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 };
             }
 
-            Logger.LogWarning($"Cloned log {watch.ElapsedMilliseconds}"); ;
+            long clonedLogTime = watch.ElapsedMilliseconds;
+            clonedLogTotal += clonedLogTime;
+            Logger.LogWarning($"Cloned log {clonedLogTime} ({clonedLogTotal})"); ;
+            watch.Restart();
 
             partitionLog.Runs = new List<Run>();
             partitionLog.SetProperty(PartitionValuePropertyName, partitionValue);
@@ -373,7 +384,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 }
             }
 
-            Logger.LogWarning($"Added runs {watch.ElapsedMilliseconds}"); ;
+            long addedRunsTime = watch.ElapsedMilliseconds;
+            addedRunsTotal += addedRunsTime;
+            Logger.LogWarning($"Added runs {addedRunsTime} ({addedRunsTotal})"); ;
+            watch.Restart();
 
             // Traverse the entire log, fixing the index mappings for indices that appear
             // in the remapping dictionaries.
@@ -381,7 +395,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             remappingVisitor.VisitSarifLog(partitionLog);
 
-            Logger.LogWarning($"Remapped indexes {watch.ElapsedMilliseconds}"); ;
+            long remappedRunsTime = watch.ElapsedMilliseconds;
+            remappedIndexesTotal += remappedRunsTime;
+            Logger.LogWarning($"Remapped indexes {remappedRunsTime} ({remappedIndexesTotal})"); ;
+            watch.Restart();
 
             return partitionLog;
         }
