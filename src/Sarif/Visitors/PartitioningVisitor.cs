@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
@@ -258,6 +259,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         private SarifLog CreatePartitionLog(T partitionValue)
         {
+            Stopwatch watch = Stopwatch.StartNew();
+
             SarifLog partitionLog;
             if (deepClone)
             {
@@ -277,6 +280,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Runs = null
                 };
             }
+
+            Console.WriteLine($"Cloned log {watch.ElapsedMilliseconds}"); ;
 
             partitionLog.Runs = new List<Run>();
             partitionLog.SetProperty(PartitionValuePropertyName, partitionValue);
@@ -362,11 +367,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 }
             }
 
+            Console.WriteLine($"Added runs {watch.ElapsedMilliseconds}"); ;
+
             // Traverse the entire log, fixing the index mappings for indices that appear
             // in the remapping dictionaries.
             var remappingVisitor = new PartitionedIndexRemappingVisitor(artifactIndexRemappingDictionaries);
 
             remappingVisitor.VisitSarifLog(partitionLog);
+
+            Console.WriteLine($"Remapped indexes {watch.ElapsedMilliseconds}"); ;
 
             return partitionLog;
         }
