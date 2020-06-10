@@ -1,53 +1,55 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0",
-  "version": "2.0.0",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "version": "2.1.0",
   "runs": [
     {
       "tool": {
-        "name": "CodeScanner"
+        "driver": {
+          "name": "CodeScanner"
+        }
       },
       "results": [
         {
           "ruleId": "TST0001",
           "level": "error",
+          "message": {
+            "text": "[No message provided]."
+          },
           "locations": [
             {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///c:/src/file.c"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 5,
+                  "endLine": 1,
+                  "endColumn": 5
+                }
+              },
               "message": {
                 "text": "endColumn equals startColumn."
-              },
+              }
+            },
+            {
               "physicalLocation": {
-                "fileLocation": {
+                "artifactLocation": {
                   "uri": "file:///c:/src/file.c"
                 },
                 "region": {
                   "startLine": 1,
-                  "endLine": 1,
                   "startColumn": 5,
                   "endColumn": 5
                 }
-              }
-            },
-            {
+              },
               "message": {
                 "text": "endColumn equals startColumn; endLine not specified."
-              },
-              "physicalLocation": {
-                "fileLocation": {
-                  "uri": "file:///c:/src/file.c"
-                },
-                "region": {
-                  "startLine": 1,
-                  "startColumn": 5,
-                  "endColumn": 5
-                }
               }
             },
             {
-              "message": {
-                "text": "endColumn greater than startColumn."
-              },
               "physicalLocation": {
-                "fileLocation": {
+                "artifactLocation": {
                   "uri": "file:///c:/src/file.c"
                 },
                 "region": {
@@ -55,30 +57,29 @@
                   "startColumn": 1,
                   "endColumn": 2
                 }
+              },
+              "message": {
+                "text": "endColumn greater than startColumn."
               }
             },
             {
-              "message": {
-                "text": "endColumn not specified."
-              },
               "physicalLocation": {
-                "fileLocation": {
+                "artifactLocation": {
                   "uri": "file:///c:/src/file.c"
                 },
                 "region": {
                   "startLine": 1,
                   "startColumn": 2
                 }
+              },
+              "message": {
+                "text": "endColumn not specified."
               }
             }
           ]
         }
       ],
-      "properties": {
-        "expectedResults": {
-          "resultLocationPointers": []
-        }
-      }
+      "columnKind": "utf16CodeUnits"
     }
   ]
 }

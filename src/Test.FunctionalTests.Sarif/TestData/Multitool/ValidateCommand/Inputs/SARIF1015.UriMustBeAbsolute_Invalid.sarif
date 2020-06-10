@@ -1,5 +1,5 @@
 {
-  "$schema": "json.schemastore.org/sarif-2.1.0-beta.0",
+  "$schema": "json.schemastore.org/sarif-2.1.0-rtm.5",
   "version": "2.1.0",
   "runs": [
     {
@@ -42,21 +42,7 @@
           ]
         }
       ],
-      "columnKind": "utf16CodeUnits",
-      "properties": {
-        "expectedResults": {
-  "resultLocationPointers": [
-    "$schema",
-    "runs[0].tool.driver.downloadUri",
-    "runs[0].results[0].workItemUris[0]",
-    "runs[0].originalUriBaseIds.SRCROOT",
-    "runs[0].tool.driver.notifications[0].helpUri",
-    "runs[0].tool.driver.notifications[1].helpUri",
-    "runs[0].tool.driver.rules[0].helpUri",
-    "runs[0].versionControlProvenance[0].repositoryUri"
-  ]
-}
-      }
+      "columnKind": "utf16CodeUnits"
     }
   ]
 }

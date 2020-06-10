@@ -319,13 +319,19 @@ namespace Microsoft.WorkItems
                     {
                         Console.Error.WriteLine(e);
                         this.Logger.LogError(e, "Getting work item: {workItemModel.Uri.OriginalString}", workItemModel.Uri.OriginalString);
+
+                        // Two scenarios for this exception, either we do not have access to the work item or the work item 
+                        // no longer exists.  In either case, setting Uri to null to pass through for further processing.
+                        if (workItemModel != null)
+                        {
+                            workItemModel.Uri = null;
+                        }
                     }
                 }
-
-                return workItemModel;
             }
-        }
 
+            return workItemModel;
+        }
         public override void Dispose()
         {
             this._vssConection?.Dispose();

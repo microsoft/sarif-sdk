@@ -10,15 +10,6 @@
       },
       "results": [],
       "columnKind": "utf16CodeUnits"
-    },
-    {
-      "tool": {
-        "driver": {
-          "name": "Sarif Functional Testing"
-        }
-      },
-      "results": [],
-      "columnKind": "utf16CodeUnits"
     }
   ]
 }

@@ -5,15 +5,20 @@
     {
       "tool": {
         "driver": {
-          "name": "CodeScanner"
+          "name": "SARIF Functional Testing"
         }
       },
       "invocations": [
         {
-          "commandLine": "CodeScanner.exe *.dll end time before start time",
-          "startTimeUtc": "2016-08-25T21:26:42.049Z",
-          "endTimeUtc": "2016-08-25T21:26:40.051Z",
           "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1020.ReferToFinalSchema_Valid.sarif",
+            "uriBaseId": "TEST_DIR"
+          }
         }
       ],
       "results": [],

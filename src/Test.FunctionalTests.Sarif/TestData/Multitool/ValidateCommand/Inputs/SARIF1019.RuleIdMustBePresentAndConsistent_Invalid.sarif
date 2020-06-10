@@ -16,11 +16,11 @@
         },
         {
           "ruleId": "TST0001",
-          "message": {
-            "text": "This result contains both a ruleId and a rule.id property, but they are different."
-          },
           "rule": {
             "id": "TST0002"
+          },
+          "message": {
+            "text": "This result contains both a ruleId and a rule.id property, but they are different."
           }
         }
       ],
