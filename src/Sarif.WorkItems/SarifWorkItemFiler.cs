@@ -191,22 +191,22 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                     {
                         case SplittingStrategy.PerRun:
                         {
-                            partitionFunction = (result) => result.ShouldBeFiled(this.FilingContext.ShouldFileUnchanged) ? "Include" : null;
+                            partitionFunction = (result) => result.ShouldBeFiled() ? "Include" : null;
                             break;
                         }
                         case SplittingStrategy.PerResult:
                         {
-                            partitionFunction = (result) => result.ShouldBeFiled(this.FilingContext.ShouldFileUnchanged) ? Guid.NewGuid().ToString() : null;
+                            partitionFunction = (result) => result.ShouldBeFiled() ? Guid.NewGuid().ToString() : null;
                             break;
                         }
                         case SplittingStrategy.PerRunPerOrgPerEntityTypePerPartialFingerprint:
                         {
-                            partitionFunction = (result) => result.ShouldBeFiled(this.FilingContext.ShouldFileUnchanged) ? result.GetFingerprintSplittingStrategyId() : null;
+                            partitionFunction = (result) => result.ShouldBeFiled() ? result.GetFingerprintSplittingStrategyId() : null;
                             break;
                         }
                         case SplittingStrategy.PerRunPerOrgPerEntityTypePerRepositoryPerPartialFingerprint:
                         {
-                            partitionFunction = (result) => result.ShouldBeFiled(this.FilingContext.ShouldFileUnchanged) ? result.GetPerRepositoryFingerprintSplittingStrategyId() : null;
+                            partitionFunction = (result) => result.ShouldBeFiled() ? result.GetPerRepositoryFingerprintSplittingStrategyId() : null;
                             break;
                         }
                         default:
@@ -234,6 +234,12 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                     this.Logger.LogMetrics(EventIds.LogsToProcessMetrics, logsToProcessMetrics);
                     splittingStopwatch.Stop();
                 }
+            }
+
+            if (logsToProcess != null && !this.FilingContext.ShouldFileUnchanged)
+            {
+                // Remove any logs that do not contain at least one result with a New or None baselinestate.
+                logsToProcess = logsToProcess.Where(log => log?.Runs?.Any(run => run.Results?.Any(result => result.BaselineState == BaselineState.New || result.BaselineState == BaselineState.None) == true) == true).ToList();
             }
 
             return logsToProcess.ToArray();
@@ -422,7 +428,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                     // In our current design, input log files contain only candidate results
                     // to file. A transformer, however, might suppress a result as part of its
                     // operation.
-                    Debug.Assert(result.ShouldBeFiled(this.FilingContext.ShouldFileUnchanged) || result.Suppressions?.Count > 0);
+                    Debug.Assert(result.ShouldBeFiled() || result.Suppressions?.Count > 0);
 
                     string ruleId = result.GetRule(run).Id;
                     string key = toolName + ruleId;
