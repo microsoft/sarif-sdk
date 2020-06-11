@@ -66,7 +66,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 Text = JsonConvert.SerializeObject(sarifLog, Formatting.Indented),
             };
 
-            this.Title = sarifLog.Runs?[0]?.CreateWorkItemTitle(this.Context.ShouldFileUnchanged);
+            this.Title = sarifLog.Runs?[0]?.CreateWorkItemTitle();
 
             // TODO: Provide a useful SARIF-derived discussion entry 
             //       for the preliminary filing operation.
