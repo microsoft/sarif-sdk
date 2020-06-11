@@ -239,7 +239,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             if (logsToProcess != null && !this.FilingContext.ShouldFileUnchanged)
             {
                 // Remove any logs that do not contain at least one result with a New or None baselinestate.
-                logsToProcess = logsToProcess.Where(log => log?.Runs?[0].Results?.Any(result => result.BaselineState == BaselineState.New || result.BaselineState == BaselineState.None) == true).ToList();
+                logsToProcess = logsToProcess.Where(log => log?.Runs?.Any(run => run.Results?.Any(result => result.BaselineState == BaselineState.New || result.BaselineState == BaselineState.None) == true).ToList();
             }
 
             return logsToProcess.ToArray();
