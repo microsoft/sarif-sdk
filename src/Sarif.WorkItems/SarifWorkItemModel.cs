@@ -42,7 +42,9 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             bool? resultContainsWorkItemUri = sarifLog.Runs?.Any(run => run.Results.Any(result => result.WorkItemUris?.Count > 0));
             if (resultContainsWorkItemUri == true)
             {
-                Uri workItemUri = sarifLog.Runs?.Select(run => run.Results?.Select(result => result.WorkItemUris?.FirstOrDefault()))?.FirstOrDefault()?.FirstOrDefault();
+                Uri workItemUri = sarifLog.Runs?.Where(run => run.Results != null && run.Results.Any(result => result.WorkItemUris?.Count > 0)).LastOrDefault()
+                    .Results.Where(result => result.WorkItemUris != null && result.WorkItemUris.Count > 0).LastOrDefault()
+                    .WorkItemUris.LastOrDefault();
                 this.Uri = workItemUri;
             }
 
@@ -64,7 +66,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 Text = JsonConvert.SerializeObject(sarifLog, Formatting.Indented),
             };
 
-            this.Title = sarifLog.Runs?[0]?.CreateWorkItemTitle(this.Context.ShouldFileUnchanged);
+            this.Title = sarifLog.Runs?[0]?.CreateWorkItemTitle();
 
             // TODO: Provide a useful SARIF-derived discussion entry 
             //       for the preliminary filing operation.
