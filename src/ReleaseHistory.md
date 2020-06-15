@@ -1,6 +1,6 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
-## **v2.2.6** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.2.6) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.2.6) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.2.6) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.2.6)
+## **v2.3.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.0) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.0)
 * BUGFIX: `ResultLogJsonWriter` now creates an empty `results` array if there are no results, rather than leaving `results` as `null`. [#1821](https://github.com/microsoft/sarif-sdk/issues/1821)
 * BUGFIX: In validation rules, `shortDescription` is now calculated by `GetFirstSentence` method, fixing a bug in sentence breaking. [#1887](https://github.com/microsoft/sarif-sdk/issues/1887)
 * BUGFIX: `WorkItemFiler` now logs correctly the details for `LogMetricsForProcessedModel` method [#1896](https://github.com/microsoft/sarif-sdk/issues/1896)
