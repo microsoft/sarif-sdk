@@ -25,14 +25,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
     /// </remarks>
     public class RunMergingVisitor : SarifRewritingVisitor
     {
-        private List<Result> Results { get; set; }
-        private List<Artifact> Artifacts { get; set; }
-        private List<LogicalLocation> LogicalLocations { get; set; }
-        private List<ReportingDescriptor> Rules { get; set; }
+        private List<Result> Results { get; }
+        private List<Artifact> Artifacts { get; }
+        private List<LogicalLocation> LogicalLocations { get; }
+        private List<ReportingDescriptor> Rules { get; }
 
-        private Dictionary<string, int> RuleIdToIndex { get; set; }
-        private Dictionary<OrderSensitiveValueComparisonList<LogicalLocation>, int> LogicalLocationToIndex { get; set; }
-        private Dictionary<OrderSensitiveValueComparisonList<Artifact>, int> ArtifactToIndex { get; set; }
+        private Dictionary<string, int> RuleIdToIndex { get; }
+        private Dictionary<OrderSensitiveValueComparisonList<LogicalLocation>, int> LogicalLocationToIndex { get; }
+        private Dictionary<OrderSensitiveValueComparisonList<Artifact>, int> ArtifactToIndex { get; }
 
         public Run CurrentRun { get; set; }
 
