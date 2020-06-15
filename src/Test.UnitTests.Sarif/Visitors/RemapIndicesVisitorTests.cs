@@ -2,16 +2,17 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Collections.Generic;
+
 using FluentAssertions;
+
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
-    public class RemapIndicesVisitorTests
+    public class RunMergingVisitorTests
     {
-
         [Fact]
-        public void RemapIndicesVisitor_RemapsNestedFilesProperly()
+        public void RunMergingVisitor_RemapsNestedFilesProperly()
         {
             // This run has a single result that points to a doubly nested file.
             var baselineRun = new Run
@@ -74,90 +75,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 }
             };
 
+            // Use the RunMergingVisitor to merge two runs
+            var visitor = new RunMergingVisitor();
+
             Run mergedRun = currentRun.DeepClone();
-
-            // How does this remapping work? First, we initialize the indices remapper
-            // with a set of existing files (analagous to the files list of the most
-            // recent log in a baselining situation). Next, visit a set of results
-            // from the baseline itself, providing the historical set of file data
-            // objects from the baseline. The visit does two things: 1) updates the
-            // visitor files table with the superset of file data objects between
-            // the baseline and current run, 2) updates individual results from the
-            // baseline so that their file index values are correct.
-
-            // 1. At this point the merged run consists of a copy of the current run.
-            //    After visitor construction, we should see that the visitor's
-            //    CurrentFiles property is equivalent to mergedRun.Files. The visitor
-            //    has also been initialized with a dictionary that uses the complete
-            //    file hierarchy as a key into the files array
-            var visitor = new RemapIndicesVisitor(mergedRun.Artifacts, currentLogicalLocations: null);
-            visitor.CurrentArtifacts.Should().BeEquivalentTo(mergedRun.Artifacts);
-            visitor.RemappedArtifacts.Count.Should().Be(mergedRun.Artifacts.Count);
-
-
-            // 2. We set HistoricalFiles to point to the old files array from the
-            //    baseline run, then visit each baseline result. After each result
-            //    visit, any file data objects (including parent files) for the
-            //    result have been added to visitor.CurrentFiles, if missing. Each
-            //    result fileIndex data is updated. We move the updated result
-            //    objects to the merged run.
-
-            // Various operations mutate state. We will make a copy so that we can
-            // compare our ulitmate results to an unaltered original baseline.
             Run baselineRunCopy = baselineRun.DeepClone();
 
-            visitor.HistoricalFiles = baselineRunCopy.Artifacts;
-            foreach (Result result in baselineRunCopy.Results)
-            {
-                visitor.VisitResult(result);
-                mergedRun.Results.Add(result);
-            }
+            visitor.VisitRun(mergedRun);
+            visitor.VisitRun(baselineRunCopy);
 
-            // 3. After completing the results array visit, we'll grab the 
-            //    files array that represents all merged files from the runs.
-            mergedRun.Artifacts = visitor.CurrentArtifacts;
+            visitor.PopulateWithMerged(mergedRun);
 
-            // The artifacts in the merged run are the union of the artifacts from the baseline and
-            // current runs. In this test case, there are no artifacts in common between the two
-            // runs, so the number of artifacts in the merged run is just the sum of the baseline
-            // and current runs.
+            // Confirm that Artifacts (including indirectly referenced ones) were all copied to the destination Run
             mergedRun.Artifacts.Count.Should().Be(baselineRun.Artifacts.Count + currentRun.Artifacts.Count);
-
-            // Every artifact in the merged run's artifacts array has an index that points to its
-            // own location in the array, even though the artifacts that came from the baseline run
-            // originally resided at a different index.
+            
+            // Confirm that Artifacts have consistent indices in the merged Run 
             for (int i = 0; i < mergedRun.Artifacts.Count; i++)
             {
                 mergedRun.Artifacts[i].Location.Index.Should().Be(i);
             }
 
-            // The artifacts from the current run are in the same place as before. The artifacts
-            // from the baseline run have moved to the end of the merged array. Verify this by
-            // matching up their text contents.
-            for (int i = 0; i < currentRun.Artifacts.Count; i++)
-            {
-                int oldIndex = i;
-                int newIndex = i;
-
-                currentRun.Artifacts[oldIndex].Contents.Text.Should().Be(mergedRun.Artifacts[newIndex].Contents.Text);
-            }
-
-            for (int i = 0; i < baselineRun.Artifacts.Count; i++)
-            {
-                int oldIndex = i;
-                int newIndex = i + currentRun.Artifacts.Count;
-
-                baselineRun.Artifacts[oldIndex].Contents.Text.Should().Be(mergedRun.Artifacts[newIndex].Contents.Text);
-            }
-
-            // The artifact index in the merged run's results have been adjusted as well.
-            for (int i = 0; i < currentRun.Results.Count; ++i)
-            {
-                int oldIndex = currentRun.Results[i].Locations[0].PhysicalLocation.ArtifactLocation.Index;
-                int newIndex = mergedRun.Results[i].Locations[0].PhysicalLocation.ArtifactLocation.Index;
-
-                mergedRun.Artifacts[newIndex].Contents.Text.Should().Be(currentRun.Artifacts[oldIndex].Contents.Text);
-            }
+            // Verify each merged Run Result ArtifactIndex points to an Artifact with the same
+            // text as the corresponding original Result
+            VerifyArtifactMatches(mergedRun, currentRun, 0);
+            VerifyArtifactMatches(mergedRun, baselineRun, currentRun.Results.Count);
 
             // Verify that the parent index chain for the nested artifacts was updated properly
             // Recall that visitor placed the artifacts from the baseline run at the end of the
@@ -174,8 +115,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             artifact.ParentIndex.Should().Be(-1);
         }
 
+        private void VerifyArtifactMatches(Run mergedRun, Run sourceRun, int firstResultIndex)
+        {
+            for (int i = 0; i < sourceRun.Results.Count; ++i)
+            {
+                int previousArtifactIndex = sourceRun.Results[i].Locations[0].PhysicalLocation.ArtifactLocation.Index;
+                Artifact previousArtifact = sourceRun.Artifacts[previousArtifactIndex];
+
+                int newArtifactIndex = mergedRun.Results[firstResultIndex].Locations[0].PhysicalLocation.ArtifactLocation.Index;
+                Artifact newArtifact = mergedRun.Artifacts[newArtifactIndex];
+
+                newArtifact.Contents.Text.Should().Be(previousArtifact.Contents.Text);
+
+                firstResultIndex++;
+            }
+        }
+
         [Fact]
-        public void RemapIndicesVisitor_RemapsLogicalLocations()
+        public void RunMergingVisitor_RemapsLogicalLocations()
         {
             var baselineRun = new Run
             {
@@ -288,29 +245,119 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             };
 
             Run mergedRun = currentRun.DeepClone();
-
-            var visitor = new RemapIndicesVisitor(currentArtifacts: null, currentLogicalLocations: mergedRun.LogicalLocations);
-            visitor.CurrentLogicalLocations.Should().BeEquivalentTo(mergedRun.LogicalLocations);
-            visitor.RemappedLogicalLocations.Count.Should().Be(mergedRun.LogicalLocations.Count);
-
             Run baselineRunCopy = baselineRun.DeepClone();
 
-            visitor.HistoricalLogicalLocations = baselineRunCopy.LogicalLocations;
-            foreach (Result result in baselineRunCopy.Results)
-            {
-                visitor.VisitResult(result);
-                mergedRun.Results.Add(result);
-            }
+            // Merge Results from the Current and Baseline Run
+            var visitor = new RunMergingVisitor();
 
-            mergedRun.LogicalLocations = visitor.CurrentLogicalLocations;
+            visitor.VisitRun(mergedRun);
+            visitor.VisitRun(baselineRunCopy);
+
+            visitor.PopulateWithMerged(mergedRun);
+
+            // Verify each Result points to a LogicalLocation with the same FullyQualifiedName as before
+            VerifyLogicalLocationMatches(mergedRun, currentRun, 0);
+            VerifyLogicalLocationMatches(mergedRun, baselineRun, currentRun.Results.Count);
 
             // The logical locations in the merged run are the union of the logical locations from
             // the baseline and current runs. In this test case, there are no logical locations in
             // common between the two runs, so the number of logical locations in the merged run is
             // just the sum of the baseline and current runs.
-            visitor.CurrentLogicalLocations.Count.Should().Be(baselineRun.LogicalLocations.Count + currentRun.LogicalLocations.Count);
+            mergedRun.LogicalLocations.Count.Should().Be(baselineRun.LogicalLocations.Count + currentRun.LogicalLocations.Count);
+        }
 
-            // TODO: Add the rest of the tests in analogy to the artifacts test above.
+        private void VerifyLogicalLocationMatches(Run mergedRun, Run sourceRun, int firstResultIndex)
+        {
+            for (int i = 0; i < sourceRun.Results.Count; ++i)
+            {
+                int previousIndex = sourceRun.Results[i].Locations[0].LogicalLocation.Index;
+                LogicalLocation previousLocation = sourceRun.LogicalLocations[previousIndex];
+
+                int newIndex = mergedRun.Results[firstResultIndex].Locations[0].LogicalLocation.Index;
+                LogicalLocation newLocation = mergedRun.LogicalLocations[newIndex];
+
+                newLocation.FullyQualifiedName.Should().Be(previousLocation.FullyQualifiedName);
+
+                firstResultIndex++;
+            }
+        }
+
+        [Fact]
+        public void RunMergingVisitor_MapsRulesProperly()
+        {
+            var baselineRun = new Run
+            {
+                Tool = new Tool 
+                {
+                    Driver = new ToolComponent 
+                    { 
+                        Name = "Test Tool",
+                        Rules = new List<ReportingDescriptor>()
+                        { 
+                            new ReportingDescriptor() { Id = "Rule001" },
+                            new ReportingDescriptor() { Id = "Rule002" },
+                        }
+                    } ,
+                },
+                Results = new List<Result>
+                {
+                    new Result { RuleIndex = 1 },
+                    new Result { RuleIndex = 0 },
+                    new Result { RuleIndex = 1 }
+                }
+            };
+
+            var currentRun = new Run
+            {
+                Tool = new Tool
+                {
+                    Driver = new ToolComponent
+                    {
+                        Name = "Test Tool",
+                        Rules = new List<ReportingDescriptor>()
+                        {
+                            new ReportingDescriptor() { Id = "Rule001" },
+                            new ReportingDescriptor() { Id = "Rule003" },
+                            new ReportingDescriptor() { Id = "Rule004" },
+                        }
+                    },
+                },
+                Results = new List<Result>
+                {
+                    new Result { RuleIndex = 0 },
+                    new Result { RuleIndex = 1 },
+                    new Result { RuleIndex = 1 }
+                }
+            };
+
+            // Use the RunMergingVisitor to merge two runs, via Run.MergeResultsFrom
+            Run mergedRun = currentRun.DeepClone();
+            Run baselineRunCopy = baselineRun.DeepClone();
+
+            mergedRun.MergeResultsFrom(baselineRunCopy);
+
+            // We should get RuleId001, 002, 003. Rule004 wasn't referenced. Rule001 was used in both Runs.
+            mergedRun.Tool.Driver.Rules.Count.Should().Be(3);
+
+            // Verify each merged Run Result ArtifactIndex points to an Artifact with the same
+            // text as the corresponding original Result
+            VerifyRuleMatches(mergedRun, currentRun, 0);
+            VerifyRuleMatches(mergedRun, baselineRun, currentRun.Results.Count);
+        }
+
+        private void VerifyRuleMatches(Run mergedRun, Run sourceRun, int firstResultIndex)
+        {
+            for (int i = 0; i < sourceRun.Results.Count; ++i)
+            {
+                Result previous = sourceRun.Results[i];
+                Result newResult = mergedRun.Results[firstResultIndex];
+
+                string expectedRuleId = previous.GetRule(sourceRun).Id;
+                newResult.RuleId.Should().Be(expectedRuleId);
+                newResult.GetRule(mergedRun).Id.Should().Be(expectedRuleId);
+
+                firstResultIndex++;
+            }
         }
     }
 }
