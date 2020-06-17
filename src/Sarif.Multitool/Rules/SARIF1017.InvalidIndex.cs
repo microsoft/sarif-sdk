@@ -16,9 +16,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         public override FailureLevel DefaultLevel => FailureLevel.Error;
 
-        /// <summary>
-        /// SARIF1017
-        /// </summary>
         public override string Id => RuleId.InvalidIndex;
 
         protected override IEnumerable<string> MessageResourceNames => new string[]

@@ -5,7 +5,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public static class RuleId
     {
-        public const string DoNotUseFriendlyNameAsRuleId = "SARIF1001";
+        public const string RuleIdentifiersMustBeValid = "SARIF1001";
         public const string UrisMustBeValid = "SARIF1003";
         public const string EndTimeMustNotBeBeforeStartTime = "SARIF1007";
         public const string MessagesShouldEndWithPeriod = "SARIF1008";

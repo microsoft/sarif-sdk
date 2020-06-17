@@ -16,9 +16,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         public override FailureLevel DefaultLevel => FailureLevel.Error;
 
-        /// <summary>
-        /// SARIF1016
-        /// </summary>
         public override string Id => RuleId.ContextRegionRequiresRegion;
 
         protected override IEnumerable<string> MessageResourceNames => new string[]

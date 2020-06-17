@@ -17,9 +17,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         public override FailureLevel DefaultLevel => FailureLevel.Error;
 
-        /// <summary>
-        /// SARIF1012
-        /// </summary>
         public override string Id => RuleId.EndLineMustNotBeLessThanStartLine;
 
         protected override IEnumerable<string> MessageResourceNames => new string[]

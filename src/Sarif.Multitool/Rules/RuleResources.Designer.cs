@@ -61,20 +61,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The name and id properties of rule &quot;{1}&quot; are the same..
+        ///   Looks up a localized string similar to Do not use the same string for a rule&apos;s id and name properties. The id property must be a stable, opaque identifer such as &quot;SARIF1001&quot;. The name property should be a string that is understandable to an end user, such as &quot;DoNotUserFriendlyNameAsRuleId&quot;..
         /// </summary>
-        internal static string SARIF1001_Default {
+        internal static string SARIF1001_DistinguishRuleIdFromRuleName {
             get {
-                return ResourceManager.GetString("SARIF1001_Default", resourceCulture);
+                return ResourceManager.GetString("SARIF1001_DistinguishRuleIdFromRuleName", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Do not use the same string for a rule&apos;s id and name properties. The id property must be a stable, opaque identifer such as &quot;SARIF1001&quot;. The name property should be a string that is understandable to an end user, such as &quot;DoNotUserFriendlyNameAsRuleId&quot;..
+        ///   Looks up a localized string similar to {0}: The name and id properties of rule &quot;{1}&quot; are the same..
         /// </summary>
-        internal static string SARIF1001_DoNotUseFriendlyNameAsRuleIdDescription {
+        internal static string SARIF1001_RuleIdentifiersMustBeValid {
             get {
-                return ResourceManager.GetString("SARIF1001_DoNotUseFriendlyNameAsRuleIdDescription", resourceCulture);
+                return ResourceManager.GetString("SARIF1001_RuleIdentifiersMustBeValid", resourceCulture);
             }
         }
         

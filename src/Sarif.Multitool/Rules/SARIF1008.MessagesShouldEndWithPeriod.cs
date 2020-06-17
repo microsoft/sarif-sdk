@@ -18,9 +18,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         public override FailureLevel DefaultLevel => FailureLevel.Warning;
 
-        /// <summary>
-        /// SARIF1008
-        /// </summary>
         public override string Id => RuleId.MessagesShouldEndWithPeriod;
 
         protected override IEnumerable<string> MessageResourceNames

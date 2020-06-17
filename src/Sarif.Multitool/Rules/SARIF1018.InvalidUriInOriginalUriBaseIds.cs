@@ -18,9 +18,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         public override FailureLevel DefaultLevel => FailureLevel.Error;
 
-        /// <summary>
-        /// SARIF1018
-        /// </summary>
         public override string Id => RuleId.InvalidUriInOriginalUriBaseIds;
 
         protected override IEnumerable<string> MessageResourceNames => new string[]

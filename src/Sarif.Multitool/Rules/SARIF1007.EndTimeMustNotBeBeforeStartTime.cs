@@ -19,9 +19,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         public override FailureLevel DefaultLevel => FailureLevel.Error;
 
-        /// <summary>
-        /// SARIF1007
-        /// </summary>
         public override string Id => RuleId.EndTimeMustNotBeBeforeStartTime;
 
         protected override IEnumerable<string> MessageResourceNames => new string[]
