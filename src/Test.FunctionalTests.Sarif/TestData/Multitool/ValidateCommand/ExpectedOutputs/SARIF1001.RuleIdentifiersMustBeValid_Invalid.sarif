@@ -17,7 +17,7 @@
                 "text": "Do not use the same string for a rule's id and name properties. The id property must be a stable, opaque identifer such as \"SARIF1001\". The name property should be a string that is understandable to an end user, such as \"DoNotUserFriendlyNameAsRuleId\"."
               },
               "messageStrings": {
-                "RuleIdentifiersMustBeValid_Error_Default_Text": {
+                "Error_Default": {
                   "text": "{0}: The name and id properties of rule \"{1}\" are the same."
                 }
               },
@@ -44,7 +44,7 @@
           "ruleId": "SARIF1001",
           "ruleIndex": 0,
           "message": {
-            "id": "RuleIdentifiersMustBeValid_Error_Default_Text",
+            "id": "Error_Default",
             "arguments": [
               "runs[0].tool.driver.rules[0]",
               "RULE0001"
@@ -68,7 +68,7 @@
           "ruleId": "SARIF1001",
           "ruleIndex": 0,
           "message": {
-            "id": "RuleIdentifiersMustBeValid_Error_Default_Text",
+            "id": "Error_Default",
             "arguments": [
               "runs[0].tool.driver.rules[1]",
               "RULE0002"
