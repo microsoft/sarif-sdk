@@ -81,36 +81,37 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         /// <summary>
         ///   Looks up a localized string similar to {0}: The string &quot;{1}&quot; is not a valid URI reference..
         /// </summary>
-        internal static string SARIF1002_Default {
+        internal static string SARIF1002_UrisMustBeValid_Error_UrisMustConformToRfc3986_Text {
             get {
-                return ResourceManager.GetString("SARIF1002_Default", resourceCulture);
+                return ResourceManager.GetString("SARIF1002_UrisMustBeValid_Error_UrisMustConformToRfc3986_Text", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Specify a valid URI reference for every URI-valued property..
         /// </summary>
-        internal static string SARIF1002_UrisMustBeValid {
+        internal static string SARIF1002_UrisMustBeValid_FullDescription_Text {
             get {
-                return ResourceManager.GetString("SARIF1002_UrisMustBeValid", resourceCulture);
+                return ResourceManager.GetString("SARIF1002_UrisMustBeValid_FullDescription_Text", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to {0}: The end time &quot;{1}&quot; is before the start time &quot;{2}&quot;..
         /// </summary>
-        internal static string SARIF1006_Default {
+        internal static string SARIF1006_InvocationPropertiesMustBeConsistent_Error_EndTimeMustNotPrecedeStartTime_Text {
             get {
-                return ResourceManager.GetString("SARIF1006_Default", resourceCulture);
+                return ResourceManager.GetString("SARIF1006_InvocationPropertiesMustBeConsistent_Error_EndTimeMustNotPrecedeStartTi" +
+                        "me_Text", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to The end time of a run must not precede the start time. To allow for the possibility that the duration of the run is less than the resolution of the string representation of the time, the start time and the end time may be equal..
         /// </summary>
-        internal static string SARIF1006_EndTimeMustNotBeBeforeStartTime {
+        internal static string SARIF1006_InvocationPropertiesMustBeConsistent_FullDescription_Text {
             get {
-                return ResourceManager.GetString("SARIF1006_EndTimeMustNotBeBeforeStartTime", resourceCulture);
+                return ResourceManager.GetString("SARIF1006_InvocationPropertiesMustBeConsistent_FullDescription_Text", resourceCulture);
             }
         }
         
@@ -304,20 +305,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The message &quot;{1}&quot; does not end with a period..
+        ///   Looks up a localized string similar to Messages should consist of one or more complete sentences, ending with a period..
         /// </summary>
-        internal static string SARIF2001_Default {
+        internal static string SARIF2001_AuthorHighQualityMessages_FullDescription_Text {
             get {
-                return ResourceManager.GetString("SARIF2001_Default", resourceCulture);
+                return ResourceManager.GetString("SARIF2001_AuthorHighQualityMessages_FullDescription_Text", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Messages should consist of one or more complete sentences, ending with a period..
+        ///   Looks up a localized string similar to {0}: The message &quot;{1}&quot; does not end with a period..
         /// </summary>
-        internal static string SARIF2001_MessagesShouldEndWithPeriod {
+        internal static string SARIF2001_AuthorHighQualityMessages_Warning_TerminateWithPeriod_Text {
             get {
-                return ResourceManager.GetString("SARIF2001_MessagesShouldEndWithPeriod", resourceCulture);
+                return ResourceManager.GetString("SARIF2001_AuthorHighQualityMessages_Warning_TerminateWithPeriod_Text", resourceCulture);
             }
         }
     }
