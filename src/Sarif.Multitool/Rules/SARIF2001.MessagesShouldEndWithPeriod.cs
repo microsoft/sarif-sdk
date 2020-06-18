@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
     {
         public override MultiformatMessageString FullDescription => new MultiformatMessageString
         {
-            Text = RuleResources.SARIF1008_MessagesShouldEndWithPeriod
+            Text = RuleResources.SARIF2001_MessagesShouldEndWithPeriod
         };
 
         public override FailureLevel DefaultLevel => FailureLevel.Warning;
@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 return new string[]
                 {
-                    nameof(RuleResources.SARIF1008_Default)
+                    nameof(RuleResources.SARIF2001_Default)
                 };
             }
         }
@@ -74,7 +74,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
                 LogResult(
                     textPointer,
-                    nameof(RuleResources.SARIF1008_Default),
+                    nameof(RuleResources.SARIF2001_Default),
                     messageString);
             }
         }

@@ -8,7 +8,7 @@
           "name": "SARIF Functional Testing",
           "rules": [
             {
-              "id": "SARIF1003",
+              "id": "SARIF1002",
               "name": "UrisMustBeValid",
               "shortDescription": {
                 "text": "Specify a valid URI reference for every URI-valued property."
@@ -53,14 +53,14 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1003.UrisMustBeValid_Invalid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1002.UrisMustBeValid_Invalid.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }
       ],
       "results": [
         {
-          "ruleId": "SARIF1003",
+          "ruleId": "SARIF1002",
           "ruleIndex": 0,
           "level": "error",
           "message": {
@@ -85,7 +85,7 @@
           ]
         },
         {
-          "ruleId": "SARIF1003",
+          "ruleId": "SARIF1002",
           "ruleIndex": 0,
           "level": "error",
           "message": {
@@ -110,7 +110,7 @@
           ]
         },
         {
-          "ruleId": "SARIF1003",
+          "ruleId": "SARIF1002",
           "ruleIndex": 0,
           "level": "error",
           "message": {
@@ -135,7 +135,7 @@
           ]
         },
         {
-          "ruleId": "SARIF1003",
+          "ruleId": "SARIF1002",
           "ruleIndex": 0,
           "level": "error",
           "message": {
@@ -160,7 +160,7 @@
           ]
         },
         {
-          "ruleId": "SARIF1003",
+          "ruleId": "SARIF1002",
           "ruleIndex": 0,
           "level": "error",
           "message": {
@@ -185,7 +185,7 @@
           ]
         },
         {
-          "ruleId": "SARIF1003",
+          "ruleId": "SARIF1002",
           "ruleIndex": 0,
           "level": "error",
           "message": {
@@ -210,7 +210,7 @@
           ]
         },
         {
-          "ruleId": "SARIF1003",
+          "ruleId": "SARIF1002",
           "ruleIndex": 0,
           "level": "error",
           "message": {
@@ -235,7 +235,7 @@
           ]
         },
         {
-          "ruleId": "SARIF1003",
+          "ruleId": "SARIF1002",
           "ruleIndex": 0,
           "level": "error",
           "message": {
@@ -260,7 +260,7 @@
           ]
         },
         {
-          "ruleId": "SARIF1003",
+          "ruleId": "SARIF1002",
           "ruleIndex": 0,
           "level": "error",
           "message": {
@@ -285,7 +285,7 @@
           ]
         },
         {
-          "ruleId": "SARIF1003",
+          "ruleId": "SARIF1002",
           "ruleIndex": 0,
           "level": "error",
           "message": {

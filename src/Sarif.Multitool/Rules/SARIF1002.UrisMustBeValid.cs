@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
     {
         public override MultiformatMessageString FullDescription => new MultiformatMessageString
         {
-            Text = RuleResources.SARIF1003_UrisMustBeValid
+            Text = RuleResources.SARIF1002_UrisMustBeValid
         };
 
         public override FailureLevel DefaultLevel => FailureLevel.Error;
@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override IEnumerable<string> MessageResourceNames => new string[]
         {
-            nameof(RuleResources.SARIF1003_Default)
+            nameof(RuleResources.SARIF1002_Default)
         };
 
         protected override void Analyze(SarifLog log, string logPointer)
@@ -87,7 +87,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 if (!Uri.IsWellFormedUriString(uri, UriKind.RelativeOrAbsolute))
                 {
-                    LogResult(pointer, nameof(RuleResources.SARIF1003_Default), uri);
+                    LogResult(pointer, nameof(RuleResources.SARIF1002_Default), uri);
                 }
             }
         }

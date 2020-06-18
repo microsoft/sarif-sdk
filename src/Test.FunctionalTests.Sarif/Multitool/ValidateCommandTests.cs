@@ -40,26 +40,26 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
             => RunTest(MakeInvalidTestFileName(RuleId.RuleIdentifiersMustBeValid, nameof(RuleId.RuleIdentifiersMustBeValid)));
 
         [Fact]
-        public void SARIF1003_UrisMustBeValid_Valid()
+        public void SARIF1002_UrisMustBeValid_Valid()
             => RunTest(MakeValidTestFileName(RuleId.UrisMustBeValid, nameof(RuleId.UrisMustBeValid)));
 
         [Fact]
-        public void SARIF1003_UrisMustBeValid_Invalid()
+        public void SARIF1002_UrisMustBeValid_Invalid()
             => RunTest(MakeInvalidTestFileName(RuleId.UrisMustBeValid, nameof(RuleId.UrisMustBeValid)));
 
         [Fact]
-        public void SARIF1007_EndTimeMustNotBeBeforeStartTime_Valid()
+        public void SARIF1006_EndTimeMustNotBeBeforeStartTime_Valid()
             => RunTest(MakeValidTestFileName(RuleId.EndTimeMustNotBeBeforeStartTime, nameof(RuleId.EndTimeMustNotBeBeforeStartTime)));
 
         [Fact]
-        public void SARIF1007_EndTimeMustNotBeBeforeStartTime_Invalid()
+        public void SARIF1006_EndTimeMustNotBeBeforeStartTime_Invalid()
             => RunTest(MakeInvalidTestFileName(RuleId.EndTimeMustNotBeBeforeStartTime, nameof(RuleId.EndTimeMustNotBeBeforeStartTime)));
         [Fact]
-        public void SARIF1008_MessagesShouldEndWithPeriod_Valid()
+        public void SARIF2001_MessagesShouldEndWithPeriod_Valid()
             => RunTest(MakeValidTestFileName(RuleId.MessagesShouldEndWithPeriod, nameof(RuleId.MessagesShouldEndWithPeriod)));
 
         [Fact]
-        public void SARIF1008_MessagesShouldEndWithPeriod_Invalid()
+        public void SARIF2001_MessagesShouldEndWithPeriod_Invalid()
             => RunTest(MakeInvalidTestFileName(RuleId.MessagesShouldEndWithPeriod, nameof(RuleId.MessagesShouldEndWithPeriod)));
 
         /******************

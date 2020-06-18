@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
     {
         public override MultiformatMessageString FullDescription => new MultiformatMessageString
         {
-            Text = RuleResources.SARIF1007_EndTimeMustNotBeBeforeStartTime
+            Text = RuleResources.SARIF1006_EndTimeMustNotBeBeforeStartTime
         };
 
         public override FailureLevel DefaultLevel => FailureLevel.Error;
@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override IEnumerable<string> MessageResourceNames => new string[]
         {
-            nameof(RuleResources.SARIF1007_Default)
+            nameof(RuleResources.SARIF1006_Default)
         };
 
         protected override void Analyze(Invocation invocation, string invocationPointer)
@@ -35,7 +35,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
                 LogResult(
                     endTimePointer,
-                    nameof(RuleResources.SARIF1007_Default),
+                    nameof(RuleResources.SARIF1006_Default),
                     FormatDateTime(invocation.EndTimeUtc),
                     FormatDateTime(invocation.StartTimeUtc));
             }

@@ -8,7 +8,7 @@
           "name": "SARIF Functional Testing",
           "rules": [
             {
-              "id": "SARIF1008",
+              "id": "SARIF2001",
               "name": "MessagesShouldEndWithPeriod",
               "shortDescription": {
                 "text": "Messages should consist of one or more complete sentences, ending with a period."
@@ -34,14 +34,14 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1008.MessagesShouldEndWithPeriod_Invalid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF2001.MessagesShouldEndWithPeriod_Invalid.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }
       ],
       "results": [
         {
-          "ruleId": "SARIF1008",
+          "ruleId": "SARIF2001",
           "ruleIndex": 0,
           "message": {
             "id": "Default",
@@ -65,7 +65,7 @@
           ]
         },
         {
-          "ruleId": "SARIF1008",
+          "ruleId": "SARIF2001",
           "ruleIndex": 0,
           "message": {
             "id": "Default",
@@ -89,7 +89,7 @@
           ]
         },
         {
-          "ruleId": "SARIF1008",
+          "ruleId": "SARIF2001",
           "ruleIndex": 0,
           "message": {
             "id": "Default",
@@ -113,7 +113,7 @@
           ]
         },
         {
-          "ruleId": "SARIF1008",
+          "ruleId": "SARIF2001",
           "ruleIndex": 0,
           "message": {
             "id": "Default",
@@ -137,7 +137,7 @@
           ]
         },
         {
-          "ruleId": "SARIF1008",
+          "ruleId": "SARIF2001",
           "ruleIndex": 0,
           "message": {
             "id": "Default",
@@ -161,7 +161,7 @@
           ]
         },
         {
-          "ruleId": "SARIF1008",
+          "ruleId": "SARIF2001",
           "ruleIndex": 0,
           "message": {
             "id": "Default",
@@ -185,7 +185,7 @@
           ]
         },
         {
-          "ruleId": "SARIF1008",
+          "ruleId": "SARIF2001",
           "ruleIndex": 0,
           "message": {
             "id": "Default",
@@ -209,7 +209,7 @@
           ]
         },
         {
-          "ruleId": "SARIF1008",
+          "ruleId": "SARIF2001",
           "ruleIndex": 0,
           "message": {
             "id": "Default",
@@ -233,7 +233,7 @@
           ]
         },
         {
-          "ruleId": "SARIF1008",
+          "ruleId": "SARIF2001",
           "ruleIndex": 0,
           "message": {
             "id": "Default",
@@ -257,7 +257,7 @@
           ]
         },
         {
-          "ruleId": "SARIF1008",
+          "ruleId": "SARIF2001",
           "ruleIndex": 0,
           "message": {
             "id": "Default",
@@ -281,7 +281,7 @@
           ]
         },
         {
-          "ruleId": "SARIF1008",
+          "ruleId": "SARIF2001",
           "ruleIndex": 0,
           "message": {
             "id": "Default",
@@ -305,7 +305,7 @@
           ]
         },
         {
-          "ruleId": "SARIF1008",
+          "ruleId": "SARIF2001",
           "ruleIndex": 0,
           "message": {
             "id": "Default",
@@ -329,7 +329,7 @@
           ]
         },
         {
-          "ruleId": "SARIF1008",
+          "ruleId": "SARIF2001",
           "ruleIndex": 0,
           "message": {
             "id": "Default",
@@ -353,7 +353,7 @@
           ]
         },
         {
-          "ruleId": "SARIF1008",
+          "ruleId": "SARIF2001",
           "ruleIndex": 0,
           "message": {
             "id": "Default",
@@ -377,7 +377,7 @@
           ]
         },
         {
-          "ruleId": "SARIF1008",
+          "ruleId": "SARIF2001",
           "ruleIndex": 0,
           "message": {
             "id": "Default",
@@ -401,7 +401,7 @@
           ]
         },
         {
-          "ruleId": "SARIF1008",
+          "ruleId": "SARIF2001",
           "ruleIndex": 0,
           "message": {
             "id": "Default",
