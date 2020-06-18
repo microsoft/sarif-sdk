@@ -10,12 +10,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class UrisMustBeValid : SarifValidationSkimmerBase
     {
-        private readonly MultiformatMessageString _fullDescription = new MultiformatMessageString
+        public override MultiformatMessageString FullDescription => new MultiformatMessageString
         {
             Text = RuleResources.SARIF1003_UrisMustBeValid
         };
-
-        public override MultiformatMessageString FullDescription => _fullDescription;
 
         public override FailureLevel DefaultLevel => FailureLevel.Error;
 

@@ -8,12 +8,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class RuleIdentifiersMustBeValid : SarifValidationSkimmerBase
     {
-        private readonly MultiformatMessageString _fullDescription = new MultiformatMessageString
+        public override MultiformatMessageString FullDescription => new MultiformatMessageString
         {
             Text = RuleResources.SARIF1001_DistinguishRuleIdFromRuleName
         };
-
-        public override MultiformatMessageString FullDescription => _fullDescription;
 
         public override FailureLevel DefaultLevel => FailureLevel.Warning;
 
