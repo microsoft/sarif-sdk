@@ -32,11 +32,11 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
             => RunTest("JSON1002.DeserializationError.sarif");
 
         [Fact]
-        public void SARIF1001_DistinguishRuleIdFromRuleName_Valid()
+        public void SARIF1001_RuleIdentifiersMustBeValid_Valid()
             => RunTest(MakeValidTestFileName(RuleId.RuleIdentifiersMustBeValid, nameof(RuleId.RuleIdentifiersMustBeValid)));
 
         [Fact]
-        public void SARIF1001_DistinguishRuleIdFromRuleName_Invalid()
+        public void SARIF1001_RuleIdentifiersMustBeValid_Invalid()
             => RunTest(MakeInvalidTestFileName(RuleId.RuleIdentifiersMustBeValid, nameof(RuleId.RuleIdentifiersMustBeValid)));
 
         [Fact]

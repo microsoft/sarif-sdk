@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
     {
         public override MultiformatMessageString FullDescription => new MultiformatMessageString
         {
-            Text = RuleResources.SARIF1001_DistinguishRuleIdFromRuleName
+            Text = RuleResources.SARIF1001_RuleIdentifiersMustBeValid_FullDescription_Text
         };
 
         public override FailureLevel DefaultLevel => FailureLevel.Warning;
@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override IEnumerable<string> MessageResourceNames => new string[]
         {
-            nameof(RuleResources.SARIF1001_RuleIdentifiersMustBeValid)
+            nameof(RuleResources.SARIF1001_RuleIdentifiersMustBeValid_Error_Default_Text)
         };
 
         protected override void Analyze(ReportingDescriptor reportingDescriptor, string reportingDescriptorPointer)
@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 LogResult(
                     reportingDescriptorPointer,
-                    nameof(RuleResources.SARIF1001_RuleIdentifiersMustBeValid),
+                    nameof(RuleResources.SARIF1001_RuleIdentifiersMustBeValid_Error_Default_Text),
                     reportingDescriptor.Id);
             }
         }
