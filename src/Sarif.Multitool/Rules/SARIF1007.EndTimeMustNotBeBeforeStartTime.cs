@@ -10,18 +10,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class EndTimeMustNotBeBeforeStartTime : SarifValidationSkimmerBase
     {
-        private readonly MultiformatMessageString _fullDescription = new MultiformatMessageString
+        public override MultiformatMessageString FullDescription => new MultiformatMessageString
         {
             Text = RuleResources.SARIF1007_EndTimeMustNotBeBeforeStartTime
         };
 
-        public override MultiformatMessageString FullDescription => _fullDescription;
-
         public override FailureLevel DefaultLevel => FailureLevel.Error;
 
-        /// <summary>
-        /// SARIF1007
-        /// </summary>
         public override string Id => RuleId.EndTimeMustNotBeBeforeStartTime;
 
         protected override IEnumerable<string> MessageResourceNames => new string[]

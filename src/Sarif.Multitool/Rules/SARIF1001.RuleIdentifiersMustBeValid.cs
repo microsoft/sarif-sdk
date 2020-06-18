@@ -6,25 +6,20 @@ using System.Collections.Generic;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class DoNotUseFriendlyNameAsRuleId : SarifValidationSkimmerBase
+    public class RuleIdentifiersMustBeValid : SarifValidationSkimmerBase
     {
-        private readonly MultiformatMessageString _fullDescription = new MultiformatMessageString
+        public override MultiformatMessageString FullDescription => new MultiformatMessageString
         {
-            Text = RuleResources.SARIF1001_DoNotUseFriendlyNameAsRuleIdDescription
+            Text = RuleResources.SARIF1001_RuleIdentifiersMustBeValid_FullDescription_Text
         };
-
-        public override MultiformatMessageString FullDescription => _fullDescription;
 
         public override FailureLevel DefaultLevel => FailureLevel.Warning;
 
-        /// <summary>
-        /// SARIF1001
-        /// </summary>
-        public override string Id => RuleId.DoNotUseFriendlyNameAsRuleId;
+        public override string Id => RuleId.RuleIdentifiersMustBeValid;
 
         protected override IEnumerable<string> MessageResourceNames => new string[]
         {
-            nameof(RuleResources.SARIF1001_Default)
+            nameof(RuleResources.SARIF1001_RuleIdentifiersMustBeValid_Error_Default_Text)
         };
 
         protected override void Analyze(ReportingDescriptor reportingDescriptor, string reportingDescriptorPointer)
@@ -35,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 LogResult(
                     reportingDescriptorPointer,
-                    nameof(RuleResources.SARIF1001_Default),
+                    nameof(RuleResources.SARIF1001_RuleIdentifiersMustBeValid_Error_Default_Text),
                     reportingDescriptor.Id);
             }
         }

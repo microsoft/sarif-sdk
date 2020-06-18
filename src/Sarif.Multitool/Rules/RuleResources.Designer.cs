@@ -63,18 +63,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         /// <summary>
         ///   Looks up a localized string similar to {0}: The name and id properties of rule &quot;{1}&quot; are the same..
         /// </summary>
-        internal static string SARIF1001_Default {
+        internal static string SARIF1001_RuleIdentifiersMustBeValid_Error_Default_Text {
             get {
-                return ResourceManager.GetString("SARIF1001_Default", resourceCulture);
+                return ResourceManager.GetString("SARIF1001_RuleIdentifiersMustBeValid_Error_Default_Text", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Do not use the same string for a rule&apos;s id and name properties. The id property must be a stable, opaque identifer such as &quot;SARIF1001&quot;. The name property should be a string that is understandable to an end user, such as &quot;DoNotUserFriendlyNameAsRuleId&quot;..
         /// </summary>
-        internal static string SARIF1001_DoNotUseFriendlyNameAsRuleIdDescription {
+        internal static string SARIF1001_RuleIdentifiersMustBeValid_FullDescription_Text {
             get {
-                return ResourceManager.GetString("SARIF1001_DoNotUseFriendlyNameAsRuleIdDescription", resourceCulture);
+                return ResourceManager.GetString("SARIF1001_RuleIdentifiersMustBeValid_FullDescription_Text", resourceCulture);
             }
         }
         
@@ -93,24 +93,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         internal static string SARIF1003_UrisMustBeValid {
             get {
                 return ResourceManager.GetString("SARIF1003_UrisMustBeValid", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}: The array contains multiple objects with the value &quot;{1}&quot; for the algorithm property..
-        /// </summary>
-        internal static string SARIF1006_Default {
-            get {
-                return ResourceManager.GetString("SARIF1006_Default", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to In any given &quot;file&quot; object, every element of the &quot;hashes&quot; array must have a different value for its &quot;algorithm&quot; property. .
-        /// </summary>
-        internal static string SARIF1006_HashAlgorithmsMustBeUnique {
-            get {
-                return ResourceManager.GetString("SARIF1006_HashAlgorithmsMustBeUnique", resourceCulture);
             }
         }
         
@@ -147,33 +129,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         internal static string SARIF1008_MessagesShouldEndWithPeriod {
             get {
                 return ResourceManager.GetString("SARIF1008_MessagesShouldEndWithPeriod", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}: The value of the &quot;step&quot; property should be {1}, but is {2}. The step values must form a 1-based sequence starting at the first threadFlowLocation in the thread flow..
-        /// </summary>
-        internal static string SARIF1009_InvalidStepValue {
-            get {
-                return ResourceManager.GetString("SARIF1009_InvalidStepValue", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}: The &quot;step&quot; property is absent. The &quot;step&quot; property is present on some but not all threadFlowLocations in this threadFlow. If the &quot;step&quot; property is used on any threadFlowLocation in a threadFlow, it must be present on every threadFlowLocation in that threadFlow..
-        /// </summary>
-        internal static string SARIF1009_StepNotPresentOnAllLocations {
-            get {
-                return ResourceManager.GetString("SARIF1009_StepNotPresentOnAllLocations", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to If the &quot;step&quot; property is used on any threadFlowLocation in a threadFlow, then it must be present for every threadFlowLocation in the threadFlow, its value must be 1 for the first threadFlowLocation, and its value must increase by 1 for each succeeding threadFlowLocation..
-        /// </summary>
-        internal static string SARIF1009_StepValuesMustFormOneBasedSequence {
-            get {
-                return ResourceManager.GetString("SARIF1009_StepValuesMustFormOneBasedSequence", resourceCulture);
             }
         }
         

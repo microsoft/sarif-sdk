@@ -7,18 +7,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class ContextRegionRequiresRegion : SarifValidationSkimmerBase
     {
-        private readonly MultiformatMessageString _fullDescription = new MultiformatMessageString
+        public override MultiformatMessageString FullDescription => new MultiformatMessageString
         {
             Text = RuleResources.SARIF1016_ContextRegionRequiresRegion
         };
 
-        public override MultiformatMessageString FullDescription => _fullDescription;
-
         public override FailureLevel DefaultLevel => FailureLevel.Error;
 
-        /// <summary>
-        /// SARIF1016
-        /// </summary>
         public override string Id => RuleId.ContextRegionRequiresRegion;
 
         protected override IEnumerable<string> MessageResourceNames => new string[]

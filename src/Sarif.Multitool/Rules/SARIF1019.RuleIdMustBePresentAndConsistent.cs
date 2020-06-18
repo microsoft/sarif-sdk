@@ -8,18 +8,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class RuleIdMustBePresentAndConsistent : SarifValidationSkimmerBase
     {
-        private readonly MultiformatMessageString _fullDescription = new MultiformatMessageString
+        public override MultiformatMessageString FullDescription => new MultiformatMessageString
         {
             Text = RuleResources.SARIF1019_RuleIdMustBePresentAndConsistent
         };
 
-        public override MultiformatMessageString FullDescription => _fullDescription;
-
         public override FailureLevel DefaultLevel => FailureLevel.Error;
 
-        /// <summary>
-        /// SARIF1019
-        /// </summary>
         public override string Id => RuleId.RuleIdMustBePresentAndConsistent;
 
         protected override IEnumerable<string> MessageResourceNames => new string[]

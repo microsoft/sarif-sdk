@@ -9,18 +9,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class InvalidUriInOriginalUriBaseIds : SarifValidationSkimmerBase
     {
-        private readonly MultiformatMessageString _fullDescription = new MultiformatMessageString
+        public override MultiformatMessageString FullDescription => new MultiformatMessageString
         {
             Text = RuleResources.SARIF1018_InvalidUriInOriginalUriBaseIds
         };
 
-        public override MultiformatMessageString FullDescription => _fullDescription;
-
         public override FailureLevel DefaultLevel => FailureLevel.Error;
 
-        /// <summary>
-        /// SARIF1018
-        /// </summary>
         public override string Id => RuleId.InvalidUriInOriginalUriBaseIds;
 
         protected override IEnumerable<string> MessageResourceNames => new string[]
