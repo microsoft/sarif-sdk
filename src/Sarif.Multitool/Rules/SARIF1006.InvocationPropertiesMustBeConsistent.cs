@@ -8,20 +8,20 @@ using Microsoft.Json.Pointer;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class EndTimeMustNotBeBeforeStartTime : SarifValidationSkimmerBase
+    public class InvocationPropertiesMustBeConsistent : SarifValidationSkimmerBase
     {
         public override MultiformatMessageString FullDescription => new MultiformatMessageString
         {
-            Text = RuleResources.SARIF1007_EndTimeMustNotBeBeforeStartTime
+            Text = RuleResources.SARIF1006_InvocationPropertiesMustBeConsistent_FullDescription_Text
         };
 
         public override FailureLevel DefaultLevel => FailureLevel.Error;
 
-        public override string Id => RuleId.EndTimeMustNotBeBeforeStartTime;
+        public override string Id => RuleId.InvocationPropertiesMustBeConsistent;
 
         protected override IEnumerable<string> MessageResourceNames => new string[]
         {
-            nameof(RuleResources.SARIF1007_Default)
+            nameof(RuleResources.SARIF1006_InvocationPropertiesMustBeConsistent_Error_EndTimeMustNotPrecedeStartTime_Text)
         };
 
         protected override void Analyze(Invocation invocation, string invocationPointer)
@@ -35,7 +35,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
                 LogResult(
                     endTimePointer,
-                    nameof(RuleResources.SARIF1007_Default),
+                    nameof(RuleResources.SARIF1006_InvocationPropertiesMustBeConsistent_Error_EndTimeMustNotPrecedeStartTime_Text),
                     FormatDateTime(invocation.EndTimeUtc),
                     FormatDateTime(invocation.StartTimeUtc));
             }

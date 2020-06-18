@@ -8,8 +8,8 @@
           "name": "SARIF Functional Testing",
           "rules": [
             {
-              "id": "SARIF1008",
-              "name": "MessagesShouldEndWithPeriod",
+              "id": "SARIF2001",
+              "name": "AuthorHighQualityMessages",
               "shortDescription": {
                 "text": "Messages should consist of one or more complete sentences, ending with a period."
               },
@@ -17,7 +17,7 @@
                 "text": "Messages should consist of one or more complete sentences, ending with a period."
               },
               "messageStrings": {
-                "Default": {
+                "Warning_TerminateWithPeriod": {
                   "text": "{0}: The message \"{1}\" does not end with a period."
                 }
               },
@@ -34,17 +34,17 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1008.MessagesShouldEndWithPeriod_Invalid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF2001.AuthorHighQualityMessages_Invalid.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }
       ],
       "results": [
         {
-          "ruleId": "SARIF1008",
+          "ruleId": "SARIF2001",
           "ruleIndex": 0,
           "message": {
-            "id": "Default",
+            "id": "Warning_TerminateWithPeriod",
             "arguments": [
               "runs[0].results[0].attachments[0].description.text",
               "attachment description without period"
@@ -65,10 +65,10 @@
           ]
         },
         {
-          "ruleId": "SARIF1008",
+          "ruleId": "SARIF2001",
           "ruleIndex": 0,
           "message": {
-            "id": "Default",
+            "id": "Warning_TerminateWithPeriod",
             "arguments": [
               "runs[0].results[0].attachments[0].rectangles[0].message.text",
               "rectangle message without period"
@@ -89,10 +89,10 @@
           ]
         },
         {
-          "ruleId": "SARIF1008",
+          "ruleId": "SARIF2001",
           "ruleIndex": 0,
           "message": {
-            "id": "Default",
+            "id": "Warning_TerminateWithPeriod",
             "arguments": [
               "runs[0].results[0].locations[0].message.text",
               "location message without period"
@@ -113,10 +113,10 @@
           ]
         },
         {
-          "ruleId": "SARIF1008",
+          "ruleId": "SARIF2001",
           "ruleIndex": 0,
           "message": {
-            "id": "Default",
+            "id": "Warning_TerminateWithPeriod",
             "arguments": [
               "runs[0].results[0].locations[0].physicalLocation.region.message.text",
               "region message without period"
@@ -137,10 +137,10 @@
           ]
         },
         {
-          "ruleId": "SARIF1008",
+          "ruleId": "SARIF2001",
           "ruleIndex": 0,
           "message": {
-            "id": "Default",
+            "id": "Warning_TerminateWithPeriod",
             "arguments": [
               "runs[0].results[0].codeFlows[0].message.text",
               "codeFlow message without period"
@@ -161,10 +161,10 @@
           ]
         },
         {
-          "ruleId": "SARIF1008",
+          "ruleId": "SARIF2001",
           "ruleIndex": 0,
           "message": {
-            "id": "Default",
+            "id": "Warning_TerminateWithPeriod",
             "arguments": [
               "runs[0].results[0].codeFlows[0].threadFlows[0].message.text",
               "threadFlow message without period"
@@ -185,10 +185,10 @@
           ]
         },
         {
-          "ruleId": "SARIF1008",
+          "ruleId": "SARIF2001",
           "ruleIndex": 0,
           "message": {
-            "id": "Default",
+            "id": "Warning_TerminateWithPeriod",
             "arguments": [
               "runs[0].results[0].codeFlows[0].threadFlows[0].locations[0].location.message.text",
               "ThreadFlow location message without period"
@@ -209,10 +209,10 @@
           ]
         },
         {
-          "ruleId": "SARIF1008",
+          "ruleId": "SARIF2001",
           "ruleIndex": 0,
           "message": {
-            "id": "Default",
+            "id": "Warning_TerminateWithPeriod",
             "arguments": [
               "runs[0].results[0].message.text",
               "result message without period"
@@ -233,10 +233,10 @@
           ]
         },
         {
-          "ruleId": "SARIF1008",
+          "ruleId": "SARIF2001",
           "ruleIndex": 0,
           "message": {
-            "id": "Default",
+            "id": "Warning_TerminateWithPeriod",
             "arguments": [
               "runs[0].results[0].stacks[0].frames[0].location.message.text",
               "frame message without period"
@@ -257,10 +257,10 @@
           ]
         },
         {
-          "ruleId": "SARIF1008",
+          "ruleId": "SARIF2001",
           "ruleIndex": 0,
           "message": {
-            "id": "Default",
+            "id": "Warning_TerminateWithPeriod",
             "arguments": [
               "runs[0].results[0].stacks[0].message.text",
               "stack message without period"
@@ -281,10 +281,10 @@
           ]
         },
         {
-          "ruleId": "SARIF1008",
+          "ruleId": "SARIF2001",
           "ruleIndex": 0,
           "message": {
-            "id": "Default",
+            "id": "Warning_TerminateWithPeriod",
             "arguments": [
               "runs[0].results[0].fixes[0].description.text",
               "fix description without period"
@@ -305,10 +305,10 @@
           ]
         },
         {
-          "ruleId": "SARIF1008",
+          "ruleId": "SARIF2001",
           "ruleIndex": 0,
           "message": {
-            "id": "Default",
+            "id": "Warning_TerminateWithPeriod",
             "arguments": [
               "runs[0].invocations[0].toolExecutionNotifications[0].message.text",
               "toolNotification message without period"
@@ -329,10 +329,10 @@
           ]
         },
         {
-          "ruleId": "SARIF1008",
+          "ruleId": "SARIF2001",
           "ruleIndex": 0,
           "message": {
-            "id": "Default",
+            "id": "Warning_TerminateWithPeriod",
             "arguments": [
               "runs[0].invocations[0].toolConfigurationNotifications[0].message.text",
               "configurationNotification message without period"
@@ -353,10 +353,10 @@
           ]
         },
         {
-          "ruleId": "SARIF1008",
+          "ruleId": "SARIF2001",
           "ruleIndex": 0,
           "message": {
-            "id": "Default",
+            "id": "Warning_TerminateWithPeriod",
             "arguments": [
               "runs[0].tool.driver.rules[0].messageStrings.Default.text",
               "rule message without period"
@@ -377,10 +377,10 @@
           ]
         },
         {
-          "ruleId": "SARIF1008",
+          "ruleId": "SARIF2001",
           "ruleIndex": 0,
           "message": {
-            "id": "Default",
+            "id": "Warning_TerminateWithPeriod",
             "arguments": [
               "runs[0].tool.driver.rules[0].shortDescription.text",
               "Short rule description without period"
@@ -401,10 +401,10 @@
           ]
         },
         {
-          "ruleId": "SARIF1008",
+          "ruleId": "SARIF2001",
           "ruleIndex": 0,
           "message": {
-            "id": "Default",
+            "id": "Warning_TerminateWithPeriod",
             "arguments": [
               "runs[0].tool.driver.rules[0].fullDescription.text",
               "Short full rule description without period"

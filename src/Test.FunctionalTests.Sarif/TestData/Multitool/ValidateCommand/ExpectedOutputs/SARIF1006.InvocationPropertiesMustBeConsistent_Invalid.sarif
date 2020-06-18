@@ -8,8 +8,8 @@
           "name": "SARIF Functional Testing",
           "rules": [
             {
-              "id": "SARIF1007",
-              "name": "EndTimeMustNotBeBeforeStartTime",
+              "id": "SARIF1006",
+              "name": "InvocationPropertiesMustBeConsistent",
               "shortDescription": {
                 "text": "The end time of a run must not precede the start time."
               },
@@ -17,7 +17,7 @@
                 "text": "The end time of a run must not precede the start time. To allow for the possibility that the duration of the run is less than the resolution of the string representation of the time, the start time and the end time may be equal."
               },
               "messageStrings": {
-                "Default": {
+                "Error_EndTimeMustNotPrecedeStartTime": {
                   "text": "{0}: The end time \"{1}\" is before the start time \"{2}\"."
                 }
               },
@@ -34,18 +34,18 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1007.EndTimeMustNotBeBeforeStartTime_Invalid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1006.InvocationPropertiesMustBeConsistent_Invalid.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }
       ],
       "results": [
         {
-          "ruleId": "SARIF1007",
+          "ruleId": "SARIF1006",
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "Default",
+            "id": "Error_EndTimeMustNotPrecedeStartTime",
             "arguments": [
               "runs[0].invocations[0].endTimeUtc",
               "2016-08-25T21:26:40.051Z",

@@ -8,7 +8,7 @@
           "name": "SARIF Functional Testing",
           "rules": [
             {
-              "id": "SARIF1003",
+              "id": "SARIF1002",
               "name": "UrisMustBeValid",
               "shortDescription": {
                 "text": "Specify a valid URI reference for every URI-valued property."
@@ -17,7 +17,7 @@
                 "text": "Specify a valid URI reference for every URI-valued property."
               },
               "messageStrings": {
-                "Default": {
+                "Error_UrisMustConformToRfc3986": {
                   "text": "{0}: The string \"{1}\" is not a valid URI reference."
                 }
               },
@@ -53,18 +53,18 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1003.UrisMustBeValid_Invalid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1002.UrisMustBeValid_Invalid.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }
       ],
       "results": [
         {
-          "ruleId": "SARIF1003",
+          "ruleId": "SARIF1002",
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "Default",
+            "id": "Error_UrisMustConformToRfc3986",
             "arguments": [
               "$schema",
               "ht%tp://json.schemastore.org/sarif-2.0.0"
@@ -85,11 +85,11 @@
           ]
         },
         {
-          "ruleId": "SARIF1003",
+          "ruleId": "SARIF1002",
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "Default",
+            "id": "Error_UrisMustConformToRfc3986",
             "arguments": [
               "runs[0].originalUriBaseIds.SRCROOT.uri",
               "fi%le:///c:/Code/sarif-sdk/src"
@@ -110,11 +110,11 @@
           ]
         },
         {
-          "ruleId": "SARIF1003",
+          "ruleId": "SARIF1002",
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "Default",
+            "id": "Error_UrisMustConformToRfc3986",
             "arguments": [
               "runs[0].results[0].workItemUris[0]",
               "ht&tp://example.com/my-project/issues/42"
@@ -135,11 +135,11 @@
           ]
         },
         {
-          "ruleId": "SARIF1003",
+          "ruleId": "SARIF1002",
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "Default",
+            "id": "Error_UrisMustConformToRfc3986",
             "arguments": [
               "runs[0].results[0].analysisTarget.uri",
               "fi&le:///c:/src/file.c"
@@ -160,11 +160,11 @@
           ]
         },
         {
-          "ruleId": "SARIF1003",
+          "ruleId": "SARIF1002",
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "Default",
+            "id": "Error_UrisMustConformToRfc3986",
             "arguments": [
               "runs[0].artifacts[0].location.uri",
               "fi%le:///c:/src/file.c"
@@ -185,11 +185,11 @@
           ]
         },
         {
-          "ruleId": "SARIF1003",
+          "ruleId": "SARIF1002",
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "Default",
+            "id": "Error_UrisMustConformToRfc3986",
             "arguments": [
               "runs[0].tool.driver.downloadUri",
               "ht%tp://www.example.com/tools/codescanner/download.html"
@@ -210,11 +210,11 @@
           ]
         },
         {
-          "ruleId": "SARIF1003",
+          "ruleId": "SARIF1002",
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "Default",
+            "id": "Error_UrisMustConformToRfc3986",
             "arguments": [
               "runs[0].tool.driver.notifications[0].helpUri",
               "ht%tp://www.example.com/rules/msg0001.html"
@@ -235,11 +235,11 @@
           ]
         },
         {
-          "ruleId": "SARIF1003",
+          "ruleId": "SARIF1002",
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "Default",
+            "id": "Error_UrisMustConformToRfc3986",
             "arguments": [
               "runs[0].tool.driver.notifications[1].helpUri",
               "ht%tp://www.example.com/rules/msg0002.html"
@@ -260,11 +260,11 @@
           ]
         },
         {
-          "ruleId": "SARIF1003",
+          "ruleId": "SARIF1002",
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "Default",
+            "id": "Error_UrisMustConformToRfc3986",
             "arguments": [
               "runs[0].tool.driver.rules[0].helpUri",
               "ht%tp://www.example.com/rules/tst0001.html"
@@ -285,11 +285,11 @@
           ]
         },
         {
-          "ruleId": "SARIF1003",
+          "ruleId": "SARIF1002",
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "Default",
+            "id": "Error_UrisMustConformToRfc3986",
             "arguments": [
               "runs[0].versionControlProvenance[0].repositoryUri",
               "ht%tps://example.com/my-project"

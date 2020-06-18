@@ -40,27 +40,27 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
             => RunTest(MakeInvalidTestFileName(RuleId.RuleIdentifiersMustBeValid, nameof(RuleId.RuleIdentifiersMustBeValid)));
 
         [Fact]
-        public void SARIF1003_UrisMustBeValid_Valid()
+        public void SARIF1002_UrisMustBeValid_Valid()
             => RunTest(MakeValidTestFileName(RuleId.UrisMustBeValid, nameof(RuleId.UrisMustBeValid)));
 
         [Fact]
-        public void SARIF1003_UrisMustBeValid_Invalid()
+        public void SARIF1002_UrisMustBeValid_Invalid()
             => RunTest(MakeInvalidTestFileName(RuleId.UrisMustBeValid, nameof(RuleId.UrisMustBeValid)));
 
         [Fact]
-        public void SARIF1007_EndTimeMustNotBeBeforeStartTime_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.EndTimeMustNotBeBeforeStartTime, nameof(RuleId.EndTimeMustNotBeBeforeStartTime)));
+        public void SARIF1006_InvocationPropertiesMustBeConsistent_Valid()
+            => RunTest(MakeValidTestFileName(RuleId.InvocationPropertiesMustBeConsistent, nameof(RuleId.InvocationPropertiesMustBeConsistent)));
 
         [Fact]
-        public void SARIF1007_EndTimeMustNotBeBeforeStartTime_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.EndTimeMustNotBeBeforeStartTime, nameof(RuleId.EndTimeMustNotBeBeforeStartTime)));
+        public void SARIF1006_InvocationPropertiesMustBeConsistent_Invalid()
+            => RunTest(MakeInvalidTestFileName(RuleId.InvocationPropertiesMustBeConsistent, nameof(RuleId.InvocationPropertiesMustBeConsistent)));
         [Fact]
-        public void SARIF1008_MessagesShouldEndWithPeriod_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.MessagesShouldEndWithPeriod, nameof(RuleId.MessagesShouldEndWithPeriod)));
+        public void SARIF2001_AuthorHighQualityMessages_Valid()
+            => RunTest(MakeValidTestFileName(RuleId.AuthorHighQualityMessages, nameof(RuleId.AuthorHighQualityMessages)));
 
         [Fact]
-        public void SARIF1008_MessagesShouldEndWithPeriod_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.MessagesShouldEndWithPeriod, nameof(RuleId.MessagesShouldEndWithPeriod)));
+        public void SARIF2001_AuthorHighQualityMessages_Invalid()
+            => RunTest(MakeInvalidTestFileName(RuleId.AuthorHighQualityMessages, nameof(RuleId.AuthorHighQualityMessages)));
 
         /******************
          * This set of tests constructs a full file path that exceeds MAX_PATH when running in some AzureDevOps build and test

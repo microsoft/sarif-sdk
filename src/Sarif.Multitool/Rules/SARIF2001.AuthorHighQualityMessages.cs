@@ -7,16 +7,16 @@ using Microsoft.Json.Pointer;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class MessagesShouldEndWithPeriod : SarifValidationSkimmerBase
+    public class AuthorHighQualityMessages : SarifValidationSkimmerBase
     {
         public override MultiformatMessageString FullDescription => new MultiformatMessageString
         {
-            Text = RuleResources.SARIF1008_MessagesShouldEndWithPeriod
+            Text = RuleResources.SARIF2001_AuthorHighQualityMessages_FullDescription_Text
         };
 
         public override FailureLevel DefaultLevel => FailureLevel.Warning;
 
-        public override string Id => RuleId.MessagesShouldEndWithPeriod;
+        public override string Id => RuleId.AuthorHighQualityMessages;
 
         protected override IEnumerable<string> MessageResourceNames
         {
@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 return new string[]
                 {
-                    nameof(RuleResources.SARIF1008_Default)
+                    nameof(RuleResources.SARIF2001_AuthorHighQualityMessages_Warning_TerminateWithPeriod_Text)
                 };
             }
         }
@@ -74,7 +74,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
                 LogResult(
                     textPointer,
-                    nameof(RuleResources.SARIF1008_Default),
+                    nameof(RuleResources.SARIF2001_AuthorHighQualityMessages_Warning_TerminateWithPeriod_Text),
                     messageString);
             }
         }
