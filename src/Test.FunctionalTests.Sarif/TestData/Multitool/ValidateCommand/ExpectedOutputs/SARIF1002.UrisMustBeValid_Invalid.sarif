@@ -24,20 +24,17 @@
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
             },
             {
-              "id": "SARIF1020",
-              "name": "ReferToFinalSchema",
+              "id": "SARIF1011",
+              "name": "ReferenceFinalSchema",
               "shortDescription": {
-                "text": "The $schema property should be present, and must refer to the final version of the SARIF 2.1.0 schema."
+                "text": "The $schema property must refer to the final version of the SARIF 2.1.0 schema."
               },
               "fullDescription": {
-                "text": "The $schema property should be present, and must refer to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files."
+                "text": "The $schema property must refer to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files."
               },
               "messageStrings": {
-                "ReferenceToOldSchemaVersion": {
+                "Error_Default": {
                   "text": "{0}: The $schema property value '{1}' does not refer to the final version of the SARIF 2.1.0 schema. If you are using an earlier version of the SARIF format, consider upgrading your analysis tool to produce the final version. If this file does in fact conform to the final version of the schema, upgrade the tool to populate the $schema property with a URL that refers to the final version of the schema."
-                },
-                "SchemaReferenceMissing": {
-                  "text": "{0}: The SARIF log file does not contain a $schema property. Add a $schema property that refers to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files."
                 }
               },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
@@ -310,11 +307,11 @@
           ]
         },
         {
-          "ruleId": "SARIF1020",
+          "ruleId": "SARIF1011",
           "ruleIndex": 1,
           "level": "error",
           "message": {
-            "id": "ReferenceToOldSchemaVersion",
+            "id": "Error_Default",
             "arguments": [
               "$schema",
               "ht%tp://json.schemastore.org/sarif-2.0.0"

@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif.Multitool;
 using Microsoft.CodeAnalysis.Sarif.Multitool.Rules;
@@ -133,12 +134,20 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
             => RunTest(MakeInvalidTestFileName(RuleId.RuleIdMustBeConsistent, nameof(RuleId.RuleIdMustBeConsistent)));
 
         [Fact]
-        public void SARIF1020_SchemaMustBePresentAndConsistent_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.ReferToFinalSchema, nameof(RuleId.ReferToFinalSchema)));
+        public void SARIF1011_ReferenceFinalSchema_Valid()
+            => RunTest(MakeValidTestFileName(RuleId.ReferenceFinalSchema, nameof(RuleId.ReferenceFinalSchema)));
 
         [Fact]
-        public void SARIF1020_SchemaMustBePresentAndConsistent_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.ReferToFinalSchema, nameof(RuleId.ReferToFinalSchema)));
+        public void SARIF1011_ReferenceFinalSchema_Invalid()
+            => RunTest(MakeInvalidTestFileName(RuleId.ReferenceFinalSchema, nameof(RuleId.ReferenceFinalSchema)));
+
+        [Fact]
+        public void SARIF2008_ProvideSchema_Valid()
+            => RunTest(MakeValidTestFileName(RuleId.ProvideSchema, nameof(RuleId.ProvideSchema)));
+
+        [Fact]
+        public void SARIF2008_ProvideSchema_Invalid()
+            => RunTest(MakeInvalidTestFileName(RuleId.ProvideSchema, nameof(RuleId.ProvideSchema)));
 
         private const string ValidTestFileNameSuffix = "_Valid.sarif";
         private const string InvalidTestFileNameSuffix = "_Invalid.sarif";
@@ -163,11 +172,14 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
 
             // All SARIF rule prefixes require update to current release.
             // All rules with JSON prefix are low level syntax/deserialization checks.
-            // We can't transform these test inputs as that operation fixes up erros in the file.
-            // Also, don't transform the tests for SARIF1020, because that rule examines the actual contents of the $schema
-            // property, so we can't change it.
+            // We can't transform these test inputs as that operation fixes up errors in the file.
+            // Also, don't transform the tests for SARIF1011 or SARIF2008, because these rules
+            // examine the actual contents of the $schema property.
+
+            string[] shouldNotTransform = { "SARIF1011", "SARIF2008" };
+
             bool updateInputsToCurrentSarif = ruleUnderTest.StartsWith("SARIF") 
-                && ruleUnderTest != "SARIF1020" ? true : false;
+                && !shouldNotTransform.Contains(ruleUnderTest);
 
             var validateOptions = new ValidateOptions
             {
@@ -200,7 +212,8 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
 
             returnCode.Should().Be(0);
 
-            SarifLog actualLog = JsonConvert.DeserializeObject<SarifLog>(File.ReadAllText(actualLogFilePath));
+            string actualLogFileContents = File.ReadAllText(actualLogFilePath);
+            SarifLog actualLog = JsonConvert.DeserializeObject<SarifLog>(actualLogFileContents);
 
             // First, we'll strip any validation results that don't originate with the rule under test
             var newResults = new List<Result>();

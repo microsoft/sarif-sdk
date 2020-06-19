@@ -195,16 +195,19 @@
   <data name="SARIF1010_RuleIdMustBeConsistent_FullDescription_Text" xml:space="preserve">
     <value>In every result, at least one of the properties result.ruleId and result.rule.id must be present. If both are present, they must be equal.</value>
   </data>
-  <data name="SARIF1020_ReferenceToOldSchemaVersion" xml:space="preserve">
+  <data name="SARIF1011_ReferenceFinalSchema_Error_Default_Text" xml:space="preserve">
     <value>{0}: The $schema property value '{1}' does not refer to the final version of the SARIF 2.1.0 schema. If you are using an earlier version of the SARIF format, consider upgrading your analysis tool to produce the final version. If this file does in fact conform to the final version of the schema, upgrade the tool to populate the $schema property with a URL that refers to the final version of the schema.</value>
   </data>
-  <data name="SARIF1020_ReferToFinalSchema" xml:space="preserve">
-    <value>The $schema property should be present, and must refer to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.</value>
-  </data>
-  <data name="SARIF1020_SchemaReferenceMissing" xml:space="preserve">
-    <value>{0}: The SARIF log file does not contain a $schema property. Add a $schema property that refers to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.</value>
+  <data name="SARIF1011_ReferenceFinalSchema_FullDescription_Text" xml:space="preserve">
+    <value>The $schema property must refer to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.</value>
   </data>
   <data name="SARIF1009_IndexPropertiesMustBeConsistentWithArrays_Error_TargetArrayMustExist_Text" xml:space="preserve">
     <value>{0}: This "{1}" object contains a property "{2}" with value {3}, but "{4}" is absent.</value>
+  </data>
+  <data name="SARIF2008_ProvideSchema_FullDescription_Text" xml:space="preserve">
+    <value>The $schema property should be present.  This enables IDEs to provide Intellisense for SARIF log files.</value>
+  </data>
+  <data name="SARIF2008_ProvideSchema_Warning_Default_Text" xml:space="preserve">
+    <value>{0}: The SARIF log file does not contain a $schema property. Add a $schema property that refers to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.</value>
   </data>
 </root>
