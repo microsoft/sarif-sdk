@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override IEnumerable<string> MessageResourceNames => new string[]
         {
-            nameof(RuleResources.SARIF1011_ReferenceToOldSchemaVersion),
+            nameof(RuleResources.SARIF1011_ReferenceFinalSchema_Error_Default_Text),
             nameof(RuleResources.SARIF1011_SchemaReferenceMissing)
         };
 
@@ -42,7 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 && !schemaUri.OriginalString.EndsWith(VersionConstants.SchemaVersionAsPublishedToSchemaStoreOrg)
                 && !schemaUri.OriginalString.EndsWith($"{VersionConstants.SchemaVersionAsPublishedToSchemaStoreOrg}.json"))
             {
-                LogResult(pointer.AtProperty(SarifPropertyName.Schema), nameof(RuleResources.SARIF1011_ReferenceToOldSchemaVersion), schemaUri.OriginalString);
+                LogResult(pointer.AtProperty(SarifPropertyName.Schema), nameof(RuleResources.SARIF1011_ReferenceFinalSchema_Error_Default_Text), schemaUri.OriginalString);
                 return;
             }
         }
