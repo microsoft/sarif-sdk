@@ -8,7 +8,7 @@
           "name": "SARIF Functional Testing",
           "rules": [
             {
-              "id": "SARIF1016",
+              "id": "SARIF1008",
               "name": "ContextRegionRequiresRegion",
               "shortDescription": {
                 "text": "If the \"contextRegion\" property is present, the \"region\" property must also be present."
@@ -34,14 +34,14 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1016.ContextRegionRequiresRegion_Invalid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1008.ContextRegionRequiresRegion_Invalid.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }
       ],
       "results": [
         {
-          "ruleId": "SARIF1016",
+          "ruleId": "SARIF1008",
           "ruleIndex": 0,
           "level": "error",
           "message": {

@@ -9,7 +9,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
     {
         public override MultiformatMessageString FullDescription => new MultiformatMessageString
         {
-            Text = RuleResources.SARIF1017_InvalidIndex
+            Text = RuleResources.SARIF1009_InvalidIndex
         };
 
         public override FailureLevel DefaultLevel => FailureLevel.Error;
@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override IEnumerable<string> MessageResourceNames => new string[]
         {
-            nameof(RuleResources.SARIF1017_Default)
+            nameof(RuleResources.SARIF1009_Default)
         };
 
         protected override void Analyze(Address address, string addressPointer)
@@ -167,7 +167,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 LogResult(
                     jsonPointer,
-                    nameof(RuleResources.SARIF1017_Default),
+                    nameof(RuleResources.SARIF1009_Default),
                     objectName,
                     propertyName,
                     index.ToInvariantString(),

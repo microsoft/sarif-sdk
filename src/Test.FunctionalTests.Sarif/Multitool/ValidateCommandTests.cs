@@ -93,27 +93,27 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
             => RunTest(MakeInvalidTestFileName(RuleId.UriBaseIdRequiresRelativeUri, nameof(RuleId.UriBaseIdRequiresRelativeUri)));
 
         [Fact]
-        public void SARIF1015_UriMustBeAbsolute_Valid()
+        public void SARIF1005_UriMustBeAbsolute_Valid()
             => RunTest(MakeValidTestFileName(RuleId.UriMustBeAbsolute, nameof(RuleId.UriMustBeAbsolute)));
 
         [Fact]
-        public void SARIF1015_UriMustBeAbsolute_Invalid()
+        public void SARIF1005_UriMustBeAbsolute_Invalid()
             => RunTest(MakeInvalidTestFileName(RuleId.UriMustBeAbsolute, nameof(RuleId.UriMustBeAbsolute)));
 
         [Fact]
-        public void SARIF1016_ContextRegionRequiresRegion_Valid()
+        public void SARIF1008_ContextRegionRequiresRegion_Valid()
             => RunTest(MakeValidTestFileName(RuleId.ContextRegionRequiresRegion, nameof(RuleId.ContextRegionRequiresRegion)));
 
         [Fact]
-        public void SARIF1016_ContextRegionRequiresRegion_Invalid()
+        public void SARIF1008_ContextRegionRequiresRegion_Invalid()
             => RunTest(MakeInvalidTestFileName(RuleId.ContextRegionRequiresRegion, nameof(RuleId.ContextRegionRequiresRegion)));
 
         [Fact]
-        public void SARIF1017_InvalidIndex_Valid()
+        public void SARIF1009_InvalidIndex_Valid()
             => RunTest(MakeValidTestFileName(RuleId.InvalidIndex, nameof(RuleId.InvalidIndex)));
 
         [Fact]
-        public void SARIF1017_InvalidIndex_Invalid()
+        public void SARIF1009_InvalidIndex_Invalid()
             => RunTest(MakeInvalidTestFileName(RuleId.InvalidIndex, nameof(RuleId.InvalidIndex)));
 
         [Fact]
@@ -125,11 +125,11 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
             => RunTest(MakeInvalidTestFileName(RuleId.InvalidUriInOriginalUriBaseIds, nameof(RuleId.InvalidUriInOriginalUriBaseIds)));
 
         [Fact]
-        public void SARIF1019_RuleIdMustBePresentAndConsistent_Valid()
+        public void SARIF1010_RuleIdMustBePresentAndConsistent_Valid()
             => RunTest(MakeValidTestFileName(RuleId.RuleIdMustBePresentAndConsistent, nameof(RuleId.RuleIdMustBePresentAndConsistent)));
 
         [Fact]
-        public void SARIF1019_RuleIdMustBePresentAndConsistent_Invalid()
+        public void SARIF1010_RuleIdMustBePresentAndConsistent_Invalid()
             => RunTest(MakeInvalidTestFileName(RuleId.RuleIdMustBePresentAndConsistent, nameof(RuleId.RuleIdMustBePresentAndConsistent)));
 
         [Fact]

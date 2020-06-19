@@ -8,7 +8,7 @@
           "name": "SARIF Functional Testing",
           "rules": [
             {
-              "id": "SARIF1017",
+              "id": "SARIF1009",
               "name": "InvalidIndex",
               "shortDescription": {
                 "text": "If an object contains a property that is used as an array index, then that array must be present and must contain at least \"index + 1\" elements."
@@ -34,14 +34,14 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1009.InvalidIndex_Invalid.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }
       ],
       "results": [
         {
-          "ruleId": "SARIF1017",
+          "ruleId": "SARIF1009",
           "ruleIndex": 0,
           "level": "error",
           "message": {
@@ -70,7 +70,7 @@
           ]
         },
         {
-          "ruleId": "SARIF1017",
+          "ruleId": "SARIF1009",
           "ruleIndex": 0,
           "level": "error",
           "message": {
@@ -99,7 +99,7 @@
           ]
         },
         {
-          "ruleId": "SARIF1017",
+          "ruleId": "SARIF1009",
           "ruleIndex": 0,
           "level": "error",
           "message": {
@@ -128,7 +128,7 @@
           ]
         },
         {
-          "ruleId": "SARIF1017",
+          "ruleId": "SARIF1009",
           "ruleIndex": 0,
           "level": "error",
           "message": {
@@ -157,7 +157,7 @@
           ]
         },
         {
-          "ruleId": "SARIF1017",
+          "ruleId": "SARIF1009",
           "ruleIndex": 0,
           "level": "error",
           "message": {
@@ -186,7 +186,7 @@
           ]
         },
         {
-          "ruleId": "SARIF1017",
+          "ruleId": "SARIF1009",
           "ruleIndex": 0,
           "level": "error",
           "message": {
@@ -215,7 +215,7 @@
           ]
         },
         {
-          "ruleId": "SARIF1017",
+          "ruleId": "SARIF1009",
           "ruleIndex": 0,
           "level": "error",
           "message": {
@@ -244,7 +244,7 @@
           ]
         },
         {
-          "ruleId": "SARIF1017",
+          "ruleId": "SARIF1009",
           "ruleIndex": 0,
           "level": "error",
           "message": {
@@ -273,7 +273,7 @@
           ]
         },
         {
-          "ruleId": "SARIF1017",
+          "ruleId": "SARIF1009",
           "ruleIndex": 0,
           "level": "error",
           "message": {
@@ -302,7 +302,7 @@
           ]
         },
         {
-          "ruleId": "SARIF1017",
+          "ruleId": "SARIF1009",
           "ruleIndex": 0,
           "level": "error",
           "message": {
@@ -331,7 +331,7 @@
           ]
         },
         {
-          "ruleId": "SARIF1017",
+          "ruleId": "SARIF1009",
           "ruleIndex": 0,
           "level": "error",
           "message": {
@@ -360,7 +360,7 @@
           ]
         },
         {
-          "ruleId": "SARIF1017",
+          "ruleId": "SARIF1009",
           "ruleIndex": 0,
           "level": "error",
           "message": {
@@ -389,7 +389,7 @@
           ]
         },
         {
-          "ruleId": "SARIF1017",
+          "ruleId": "SARIF1009",
           "ruleIndex": 0,
           "level": "error",
           "message": {
@@ -418,7 +418,7 @@
           ]
         },
         {
-          "ruleId": "SARIF1017",
+          "ruleId": "SARIF1009",
           "ruleIndex": 0,
           "level": "error",
           "message": {
@@ -447,7 +447,7 @@
           ]
         },
         {
-          "ruleId": "SARIF1017",
+          "ruleId": "SARIF1009",
           "ruleIndex": 0,
           "level": "error",
           "message": {

@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
     {
         public override MultiformatMessageString FullDescription => new MultiformatMessageString
         {
-            Text = RuleResources.SARIF1019_RuleIdMustBePresentAndConsistent
+            Text = RuleResources.SARIF1010_RuleIdMustBePresentAndConsistent
         };
 
         public override FailureLevel DefaultLevel => FailureLevel.Error;
@@ -19,8 +19,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override IEnumerable<string> MessageResourceNames => new string[]
         {
-            nameof(RuleResources.SARIF1019_InconsistentResultRuleId),
-            nameof(RuleResources.SARIF1019_MissingResultRuleId)
+            nameof(RuleResources.SARIF1010_InconsistentResultRuleId),
+            nameof(RuleResources.SARIF1010_MissingResultRuleId)
         };
 
         protected override void Analyze(Result result, string resultPointer)
@@ -33,14 +33,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             // At least one of result.ruleId or result.rule.id must be present
             if (string.IsNullOrWhiteSpace(result.RuleId) && string.IsNullOrWhiteSpace(result.Rule?.Id))
             {
-                LogResult(pointer, nameof(RuleResources.SARIF1019_MissingResultRuleId));
+                LogResult(pointer, nameof(RuleResources.SARIF1010_MissingResultRuleId));
             }
             // if both are present, they must be equal.
             else if (!string.IsNullOrWhiteSpace(result.RuleId)
                 && !string.IsNullOrWhiteSpace(result.Rule?.Id)
                 && !result.RuleId.Equals(result.Rule?.Id, StringComparison.OrdinalIgnoreCase))
             {
-                LogResult(pointer, nameof(RuleResources.SARIF1019_InconsistentResultRuleId), result.RuleId, result.Rule?.Id);
+                LogResult(pointer, nameof(RuleResources.SARIF1010_InconsistentResultRuleId), result.RuleId, result.Rule?.Id);
             }
         }
     }

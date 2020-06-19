@@ -8,7 +8,7 @@
           "name": "SARIF Functional Testing",
           "rules": [
             {
-              "id": "SARIF1015",
+              "id": "SARIF1005",
               "name": "UriMustBeAbsolute",
               "shortDescription": {
                 "text": "Certain URIs are required to be absolute."
@@ -34,14 +34,14 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1015.UriMustBeAbsolute_Invalid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1005.UriMustBeAbsolute_Invalid.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }
       ],
       "results": [
         {
-          "ruleId": "SARIF1015",
+          "ruleId": "SARIF1005",
           "ruleIndex": 0,
           "level": "error",
           "message": {
@@ -66,7 +66,7 @@
           ]
         },
         {
-          "ruleId": "SARIF1015",
+          "ruleId": "SARIF1005",
           "ruleIndex": 0,
           "level": "error",
           "message": {
@@ -91,7 +91,7 @@
           ]
         },
         {
-          "ruleId": "SARIF1015",
+          "ruleId": "SARIF1005",
           "ruleIndex": 0,
           "level": "error",
           "message": {
@@ -116,7 +116,7 @@
           ]
         },
         {
-          "ruleId": "SARIF1015",
+          "ruleId": "SARIF1005",
           "ruleIndex": 0,
           "level": "error",
           "message": {
@@ -141,7 +141,7 @@
           ]
         },
         {
-          "ruleId": "SARIF1015",
+          "ruleId": "SARIF1005",
           "ruleIndex": 0,
           "level": "error",
           "message": {
@@ -166,7 +166,7 @@
           ]
         },
         {
-          "ruleId": "SARIF1015",
+          "ruleId": "SARIF1005",
           "ruleIndex": 0,
           "level": "error",
           "message": {
@@ -191,7 +191,7 @@
           ]
         },
         {
-          "ruleId": "SARIF1015",
+          "ruleId": "SARIF1005",
           "ruleIndex": 0,
           "level": "error",
           "message": {

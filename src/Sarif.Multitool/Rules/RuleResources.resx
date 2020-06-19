@@ -159,22 +159,22 @@
   <data name="SARIF1014_UriBaseIdRequiresRelativeUri" xml:space="preserve">
     <value>If a fileLocation object contains a "uriBaseId" property, the value of the "uri" property must be a relative URI reference.</value>
   </data>
-  <data name="SARIF1015_Default" xml:space="preserve">
+  <data name="SARIF1005_Default" xml:space="preserve">
     <value>{0}: The value of this property is required to be an absolute URI, but "{1}" is a relative URI reference.</value>
   </data>
-  <data name="SARIF1015_UriMustBeAbsolute" xml:space="preserve">
+  <data name="SARIF1005_UriMustBeAbsolute" xml:space="preserve">
     <value>Certain URIs are required to be absolute.</value>
   </data>
-  <data name="SARIF1016_ContextRegionRequiresRegion" xml:space="preserve">
+  <data name="SARIF1008_ContextRegionRequiresRegion" xml:space="preserve">
     <value>If the "contextRegion" property is present, the "region" property must also be present.</value>
   </data>
-  <data name="SARIF1016_Default" xml:space="preserve">
+  <data name="SARIF1008_Default" xml:space="preserve">
     <value>{0}: This "physicalLocation" object contains a "contextRegion" property, but it does not contain a "region" property.</value>
   </data>
-  <data name="SARIF1017_Default" xml:space="preserve">
+  <data name="SARIF1009_Default" xml:space="preserve">
     <value>{0}: This "{1}" object contains a property "{2}" with value {3}, but either "{4}" is absent, or it has fewer than {5} elements.</value>
   </data>
-  <data name="SARIF1017_InvalidIndex" xml:space="preserve">
+  <data name="SARIF1009_InvalidIndex" xml:space="preserve">
     <value>If an object contains a property that is used as an array index, then that array must be present and must contain at least "index + 1" elements.</value>
   </data>
   <data name="SARIF1018_InvalidUriInOriginalUriBaseIds" xml:space="preserve">
@@ -186,13 +186,13 @@
   <data name="SARIF1018_NotAbsolute" xml:space="preserve">
     <value>{0}: The URI '{1}' belonging to the '{2}' element of run.originalUriBaseIds is not an absolute URI.</value>
   </data>
-  <data name="SARIF1019_InconsistentResultRuleId" xml:space="preserve">
+  <data name="SARIF1010_InconsistentResultRuleId" xml:space="preserve">
     <value>{0}: The result contains both the ruleId property '{1}' and the rule.id property '{2}', and they are not equal.</value>
   </data>
-  <data name="SARIF1019_MissingResultRuleId" xml:space="preserve">
+  <data name="SARIF1010_MissingResultRuleId" xml:space="preserve">
     <value>{0}: The result contains neither result.ruleId nor result.rule.id.</value>
   </data>
-  <data name="SARIF1019_RuleIdMustBePresentAndConsistent" xml:space="preserve">
+  <data name="SARIF1010_RuleIdMustBePresentAndConsistent" xml:space="preserve">
     <value>In every result, at least one of the properties result.ruleId and result.rule.id must be present. If both are present, they must be equal.</value>
   </data>
   <data name="SARIF1020_ReferenceToOldSchemaVersion" xml:space="preserve">

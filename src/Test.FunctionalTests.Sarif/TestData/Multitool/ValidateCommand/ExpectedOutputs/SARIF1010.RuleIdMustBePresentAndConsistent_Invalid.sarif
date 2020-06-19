@@ -8,7 +8,7 @@
           "name": "SARIF Functional Testing",
           "rules": [
             {
-              "id": "SARIF1019",
+              "id": "SARIF1010",
               "name": "RuleIdMustBePresentAndConsistent",
               "shortDescription": {
                 "text": "In every result, at least one of the properties result.ruleId and result.rule.id must be present."
@@ -37,14 +37,14 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1019.RuleIdMustBePresentAndConsistent_Invalid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1010.RuleIdMustBePresentAndConsistent_Invalid.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }
       ],
       "results": [
         {
-          "ruleId": "SARIF1019",
+          "ruleId": "SARIF1010",
           "ruleIndex": 0,
           "level": "error",
           "message": {
@@ -68,7 +68,7 @@
           ]
         },
         {
-          "ruleId": "SARIF1019",
+          "ruleId": "SARIF1010",
           "ruleIndex": 0,
           "level": "error",
           "message": {
