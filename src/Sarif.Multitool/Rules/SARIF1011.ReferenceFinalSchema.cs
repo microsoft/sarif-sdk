@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
     {
         public override MultiformatMessageString FullDescription => new MultiformatMessageString
         {
-            Text = RuleResources.SARIF1011_ReferenceFinalSchema
+            Text = RuleResources.SARIF1011_ReferenceFinalSchema_FullDescription_Text
         };
 
         public override FailureLevel DefaultLevel => FailureLevel.Error;
