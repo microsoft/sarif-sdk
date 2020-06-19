@@ -141,11 +141,11 @@
   <data name="SARIF2001_AuthorHighQualityMessages_FullDescription_Text" xml:space="preserve">
     <value>Messages should consist of one or more complete sentences, ending with a period.</value>
   </data>
-  <data name="SARIF1014_Default" xml:space="preserve">
+  <data name="SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdRequiresRelativeUri_Text" xml:space="preserve">
     <value>{0}: This fileLocation object contains a "uriBaseId" property, which means that the value of the "uri" property must be a relative URI reference, but "{1}" is an absolute URI reference.</value>
   </data>
-  <data name="SARIF1014_UriBaseIdRequiresRelativeUri" xml:space="preserve">
-    <value>If a fileLocation object contains a "uriBaseId" property, the value of the "uri" property must be a relative URI reference.</value>
+  <data name="SARIF1004_ExpressUriBaseIdsCorrectly_FullDescription_Text" xml:space="preserve">
+    <value>Placeholder_SARIF1004_ExpressUriBaseIdsCorrectly_FullDescription_Text</value>
   </data>
   <data name="SARIF1005_UriMustBeAbsolute_Error_Default_Text" xml:space="preserve">
     <value>{0}: The value of this property is required to be an absolute URI, but "{1}" is a relative URI reference.</value>
@@ -165,13 +165,10 @@
   <data name="SARIF1009_IndexPropertiesMustBeConsistentWithArrays_FullDescription_Text" xml:space="preserve">
     <value>If an object contains a property that is used as an array index, then that array must be present and must contain at least "index + 1" elements.</value>
   </data>
-  <data name="SARIF1018_InvalidUriInOriginalUriBaseIds" xml:space="preserve">
-    <value>In the artifactLocation objects contained in run.originalUriBaseIds, if uriBaseId is absent, then uri must either be an absolute URI or it must be absent. Also, uri must end with a slash, so that it can safely be combined with the relative URIs in artifactLocation objects elsewhere in the log file.</value>
-  </data>
-  <data name="SARIF1018_LacksTrailingSlash" xml:space="preserve">
+  <data name="SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdValueMustEndWithSlash_Text" xml:space="preserve">
     <value>{0}: The URI '{1}' belonging to the '{2}' element of run.originalUriBaseIds does not end with a slash.</value>
   </data>
-  <data name="SARIF1018_NotAbsolute" xml:space="preserve">
+  <data name="SARIF1004_ExpressUriBaseIdsCorrectly_Error_TopLevelUriBaseIdMustBeAbsolute_Text" xml:space="preserve">
     <value>{0}: The URI '{1}' belonging to the '{2}' element of run.originalUriBaseIds is not an absolute URI.</value>
   </data>
   <data name="SARIF1010_RuleIdMustBeConsistent_Error_ResultRuleIdMustBeConsistent_Text" xml:space="preserve">

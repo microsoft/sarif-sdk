@@ -8,11 +8,31 @@
           "name": "CodeScanner"
         }
       },
+      "originalUriBaseIds": {
+        "PROJECT_ROOT": {
+          "description": {
+            "text": "This artifactLocation has neither a uri nor a uriBaseId. This is fine."
+          }
+        },
+        "RULES_ROOT": {
+          "uri": "file:///C:/rules/",
+          "description": {
+            "text": "This artifactLocation has no uriBaseId, so its uri, if present, must be absolute."
+          }
+        },
+        "SOURCE_ROOT": {
+          "uri": "src/",
+          "uriBaseId": "PROJECT_ROOT",
+          "description": {
+            "text": "This artifactLocation has a uriBaseId so its uri must be relative."
+          }
+        }
+      },
       "invocations": [
         {
           "responseFiles": [
             {
-              "uri": "file:///C:/src/file.c",
+              "uri": "file.c",
               "uriBaseId": "%SRCROOT%"
             }
           ],
@@ -22,7 +42,7 @@
                 {
                   "physicalLocation": {
                     "artifactLocation": {
-                      "uri": "file:///C:/src/file.c",
+                      "uri": "file.c",
                       "uriBaseId": "%SRCROOT%"
                     }
                   }
@@ -39,7 +59,7 @@
                 {
                   "physicalLocation": {
                     "artifactLocation": {
-                      "uri": "file:///C:/src/file.c",
+                      "uri": "file.c",
                       "uriBaseId": "%SRCROOT%"
                     }
                   }
@@ -52,23 +72,23 @@
           ],
           "executionSuccessful": true,
           "executableLocation": {
-            "uri": "file:///C:/src/file.c",
+            "uri": "file.c",
             "uriBaseId": "%SRCROOT%"
           },
           "stdin": {
-            "uri": "file:///c:/log/in.txt",
+            "uri": "/c:/log/in.txt",
             "uriBaseId": "%SRCROOT%"
           },
           "stdout": {
-            "uri": "file:///c:/log/out.txt",
+            "uri": "/c:/log/out.txt",
             "uriBaseId": "%SRCROOT%"
           },
           "stderr": {
-            "uri": "file:///c:/log/err.txt",
+            "uri": "/c:/log/err.txt",
             "uriBaseId": "%SRCROOT%"
           },
           "stdoutStderr": {
-            "uri": "file:///c:/log/out-err.txt",
+            "uri": "/c:/log/out-err.txt",
             "uriBaseId": "%SRCROOT%"
           }
         }
@@ -81,7 +101,7 @@
         },
         "analysisToolLogFiles": [
           {
-            "uri": "file:///C:/src/file.c",
+            "uri": "file.c",
             "uriBaseId": "%SRCROOT%"
           }
         ]
@@ -91,7 +111,7 @@
           "repositoryUri": "https://github.com/example-corp/browser",
           "revisionId": "de67ef7",
           "mappedTo": {
-            "uri": "file:///C:/src/file.c",
+            "uri": "/browser",
             "uriBaseId": "%SRCROOT%"
           }
         }
@@ -99,8 +119,8 @@
       "artifacts": [
         {
           "location": {
-            "uri": "file:///C:/src/file.c",
-            "uriBaseId": "%SRCROOT%"
+            "uri": "file.c",
+            "index": 0
           }
         }
       ],
@@ -112,14 +132,14 @@
             "text": "[No message provided]."
           },
           "analysisTarget": {
-            "uri": "file:///C:/src/file.c",
+            "uri": "file.c",
             "uriBaseId": "%SRCROOT%"
           },
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///C:/src/file.c",
+                  "uri": "file.c",
                   "uriBaseId": "%SRCROOT%"
                 }
               }
@@ -132,7 +152,7 @@
                   "location": {
                     "physicalLocation": {
                       "artifactLocation": {
-                        "uri": "file:///C:/src/file.c",
+                        "uri": "file.c",
                         "uriBaseId": "%SRCROOT%"
                       }
                     }
@@ -150,7 +170,7 @@
                       "location": {
                         "physicalLocation": {
                           "artifactLocation": {
-                            "uri": "file:///C:/src/file.c",
+                            "uri": "file.c",
                             "uriBaseId": "%SRCROOT%"
                           }
                         }
@@ -165,7 +185,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///C:/src/file.c",
+                  "uri": "file.c",
                   "uriBaseId": "%SRCROOT%"
                 }
               }
@@ -174,7 +194,7 @@
           "attachments": [
             {
               "artifactLocation": {
-                "uri": "file:///C:/src/file.c",
+                "uri": "file.c",
                 "uriBaseId": "%SRCROOT%"
               }
             }
@@ -183,7 +203,7 @@
             "conversionSources": [
               {
                 "artifactLocation": {
-                  "uri": "file:///C:/src/file.c",
+                  "uri": "file.c",
                   "uriBaseId": "%SRCROOT%"
                 }
               }
@@ -194,12 +214,13 @@
               "artifactChanges": [
                 {
                   "artifactLocation": {
-                    "uri": "file:///C:/src/file.c",
+                    "uri": "file.c",
                     "uriBaseId": "%SRCROOT%"
                   },
                   "replacements": [
                     {
                       "deletedRegion": {
+                        "charOffset": 0,
                         "charLength": 1
                       }
                     }

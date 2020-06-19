@@ -16,7 +16,7 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1018.InvalidUriInOriginalUriBaseIds_Valid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1004.ExpressUriBaseIdsCorrectly_Valid.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }
