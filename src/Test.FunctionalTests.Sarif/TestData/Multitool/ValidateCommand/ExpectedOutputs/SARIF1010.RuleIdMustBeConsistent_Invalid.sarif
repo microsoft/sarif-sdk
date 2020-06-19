@@ -17,10 +17,10 @@
                 "text": "In every result, at least one of the properties result.ruleId and result.rule.id must be present. If both are present, they must be equal."
               },
               "messageStrings": {
-                "InconsistentResultRuleId": {
+                "Error_ResultRuleIdMustBeConsistent": {
                   "text": "{0}: The result contains both the ruleId property '{1}' and the rule.id property '{2}', and they are not equal."
                 },
-                "MissingResultRuleId": {
+                "Error_ResultMustSpecifyRuleId": {
                   "text": "{0}: The result contains neither result.ruleId nor result.rule.id."
                 }
               },
@@ -48,7 +48,7 @@
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "MissingResultRuleId",
+            "id": "Error_ResultMustSpecifyRuleId",
             "arguments": [
               "runs[0].results[0]"
             ]
@@ -72,7 +72,7 @@
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "InconsistentResultRuleId",
+            "id": "Error_ResultRuleIdMustBeConsistent",
             "arguments": [
               "runs[0].results[1]",
               "TST0001",

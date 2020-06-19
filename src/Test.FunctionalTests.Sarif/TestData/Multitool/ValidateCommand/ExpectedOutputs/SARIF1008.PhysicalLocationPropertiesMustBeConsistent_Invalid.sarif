@@ -17,7 +17,7 @@
                 "text": "If the \"contextRegion\" property is present, the \"region\" property must also be present."
               },
               "messageStrings": {
-                "Default": {
+                "Error_ContextRegionRequiresRegion": {
                   "text": "{0}: This \"physicalLocation\" object contains a \"contextRegion\" property, but it does not contain a \"region\" property."
                 }
               },
@@ -45,7 +45,7 @@
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "Default",
+            "id": "Error_ContextRegionRequiresRegion",
             "arguments": [
               "runs[0].results[0].locations[0].physicalLocation"
             ]

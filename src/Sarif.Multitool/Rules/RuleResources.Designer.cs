@@ -99,18 +99,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         /// <summary>
         ///   Looks up a localized string similar to {0}: The value of this property is required to be an absolute URI, but &quot;{1}&quot; is a relative URI reference..
         /// </summary>
-        internal static string SARIF1005_Default {
+        internal static string SARIF1005_UriMustBeAbsolute_Error_Default_Text {
             get {
-                return ResourceManager.GetString("SARIF1005_Default", resourceCulture);
+                return ResourceManager.GetString("SARIF1005_UriMustBeAbsolute_Error_Default_Text", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Certain URIs are required to be absolute..
         /// </summary>
-        internal static string SARIF1005_UriMustBeAbsolute {
+        internal static string SARIF1005_UriMustBeAbsolute_FullDescription_Text {
             get {
-                return ResourceManager.GetString("SARIF1005_UriMustBeAbsolute", resourceCulture);
+                return ResourceManager.GetString("SARIF1005_UriMustBeAbsolute_FullDescription_Text", resourceCulture);
             }
         }
         
@@ -136,63 +136,65 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         /// <summary>
         ///   Looks up a localized string similar to {0}: This &quot;physicalLocation&quot; object contains a &quot;contextRegion&quot; property, but it does not contain a &quot;region&quot; property..
         /// </summary>
-        internal static string SARIF1008_Default {
+        internal static string SARIF1008_PhysicalLocationPropertiesMustBeConsistent_Error_ContextRegionRequiresRegion_Text {
             get {
-                return ResourceManager.GetString("SARIF1008_Default", resourceCulture);
+                return ResourceManager.GetString("SARIF1008_PhysicalLocationPropertiesMustBeConsistent_Error_ContextRegionRequiresR" +
+                        "egion_Text", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to If the &quot;contextRegion&quot; property is present, the &quot;region&quot; property must also be present..
         /// </summary>
-        internal static string SARIF1008_PhysicalLocationPropertiesMustBeConsistent {
+        internal static string SARIF1008_PhysicalLocationPropertiesMustBeConsistent_FullDescription_Text {
             get {
-                return ResourceManager.GetString("SARIF1008_PhysicalLocationPropertiesMustBeConsistent", resourceCulture);
+                return ResourceManager.GetString("SARIF1008_PhysicalLocationPropertiesMustBeConsistent_FullDescription_Text", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to {0}: This &quot;{1}&quot; object contains a property &quot;{2}&quot; with value {3}, but either &quot;{4}&quot; is absent, or it has fewer than {5} elements..
         /// </summary>
-        internal static string SARIF1009_Default {
+        internal static string SARIF1009_IndexPropertiesMustBeConsistentWithArrays_Error_TargetArrayMustBeLongEnough_Text {
             get {
-                return ResourceManager.GetString("SARIF1009_Default", resourceCulture);
+                return ResourceManager.GetString("SARIF1009_IndexPropertiesMustBeConsistentWithArrays_Error_TargetArrayMustBeLongEn" +
+                        "ough_Text", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to If an object contains a property that is used as an array index, then that array must be present and must contain at least &quot;index + 1&quot; elements..
         /// </summary>
-        internal static string SARIF1009_IndexPropertiesMustBeConsistentWithArrays {
+        internal static string SARIF1009_IndexPropertiesMustBeConsistentWithArrays_FullDescription_Text {
             get {
-                return ResourceManager.GetString("SARIF1009_IndexPropertiesMustBeConsistentWithArrays", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}: The result contains both the ruleId property &apos;{1}&apos; and the rule.id property &apos;{2}&apos;, and they are not equal..
-        /// </summary>
-        internal static string SARIF1010_InconsistentResultRuleId {
-            get {
-                return ResourceManager.GetString("SARIF1010_InconsistentResultRuleId", resourceCulture);
+                return ResourceManager.GetString("SARIF1009_IndexPropertiesMustBeConsistentWithArrays_FullDescription_Text", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to {0}: The result contains neither result.ruleId nor result.rule.id..
         /// </summary>
-        internal static string SARIF1010_MissingResultRuleId {
+        internal static string SARIF1010_RuleIdMustBeConsistent_Error_ResultMustSpecifyRuleId_Text {
             get {
-                return ResourceManager.GetString("SARIF1010_MissingResultRuleId", resourceCulture);
+                return ResourceManager.GetString("SARIF1010_RuleIdMustBeConsistent_Error_ResultMustSpecifyRuleId_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The result contains both the ruleId property &apos;{1}&apos; and the rule.id property &apos;{2}&apos;, and they are not equal..
+        /// </summary>
+        internal static string SARIF1010_RuleIdMustBeConsistent_Error_ResultRuleIdMustBeConsistent_Text {
+            get {
+                return ResourceManager.GetString("SARIF1010_RuleIdMustBeConsistent_Error_ResultRuleIdMustBeConsistent_Text", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to In every result, at least one of the properties result.ruleId and result.rule.id must be present. If both are present, they must be equal..
         /// </summary>
-        internal static string SARIF1010_RuleIdMustBeConsistent {
+        internal static string SARIF1010_RuleIdMustBeConsistent_FullDescription_Text {
             get {
-                return ResourceManager.GetString("SARIF1010_RuleIdMustBeConsistent", resourceCulture);
+                return ResourceManager.GetString("SARIF1010_RuleIdMustBeConsistent_FullDescription_Text", resourceCulture);
             }
         }
         

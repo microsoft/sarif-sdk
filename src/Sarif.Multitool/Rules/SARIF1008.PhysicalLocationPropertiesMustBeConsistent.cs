@@ -9,7 +9,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
     {
         public override MultiformatMessageString FullDescription => new MultiformatMessageString
         {
-            Text = RuleResources.SARIF1008_PhysicalLocationPropertiesMustBeConsistent
+            Text = RuleResources.SARIF1008_PhysicalLocationPropertiesMustBeConsistent_FullDescription_Text
         };
 
         public override FailureLevel DefaultLevel => FailureLevel.Error;
@@ -18,14 +18,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override IEnumerable<string> MessageResourceNames => new string[]
         {
-            nameof(RuleResources.SARIF1008_Default)
+            nameof(RuleResources.SARIF1008_PhysicalLocationPropertiesMustBeConsistent_Error_ContextRegionRequiresRegion_Text)
         };
 
         protected override void Analyze(PhysicalLocation physicalLocation, string physicalLocationPointer)
         {
             if (physicalLocation.ContextRegion != null && physicalLocation.Region == null)
             {
-                LogResult(physicalLocationPointer, nameof(RuleResources.SARIF1008_Default));
+                LogResult(physicalLocationPointer, nameof(RuleResources.SARIF1008_PhysicalLocationPropertiesMustBeConsistent_Error_ContextRegionRequiresRegion_Text));
             }
         }
     }
