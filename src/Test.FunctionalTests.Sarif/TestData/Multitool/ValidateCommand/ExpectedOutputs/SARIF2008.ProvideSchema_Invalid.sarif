@@ -5,7 +5,25 @@
     {
       "tool": {
         "driver": {
-          "name": "SARIF Functional Testing"
+          "name": "SARIF Functional Testing",
+          "rules": [
+            {
+              "id": "SARIF2008",
+              "name": "ProvideSchema",
+              "shortDescription": {
+                "text": "The $schema property should be present."
+              },
+              "fullDescription": {
+                "text": "The $schema property should be present.  This enables IDEs to provide Intellisense for SARIF log files."
+              },
+              "messageStrings": {
+                "Warning_Default": {
+                  "text": "{0}: The SARIF log file does not contain a $schema property. Add a $schema property that refers to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files."
+                }
+              },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+            }
+          ]
         }
       },
       "invocations": [
@@ -21,7 +39,31 @@
           }
         }
       ],
-      "results": [],
+      "results": [
+        {
+          "ruleId": "SARIF2008",
+          "ruleIndex": 0,
+          "message": {
+            "id": "Warning_Default",
+            "arguments": [
+              ""
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1
+                }
+              }
+            }
+          ]
+        }
+      ],
       "columnKind": "utf16CodeUnits"
     }
   ]
