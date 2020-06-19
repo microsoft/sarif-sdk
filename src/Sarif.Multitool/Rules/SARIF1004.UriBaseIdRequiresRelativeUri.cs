@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
     {
         public override MultiformatMessageString FullDescription => new MultiformatMessageString
         {
-            Text = RuleResources.SARIF1014_UriBaseIdRequiresRelativeUri
+            Text = RuleResources.SARIF1004_UriBaseIdRequiresRelativeUri
         };
 
         public override FailureLevel DefaultLevel => FailureLevel.Error;
@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override IEnumerable<string> MessageResourceNames => new string[]
         {
-            nameof(RuleResources.SARIF1014_Default)
+            nameof(RuleResources.SARIF1004_Default)
         };
 
         protected override void Analyze(ArtifactLocation fileLocation, string fileLocationPointer)
@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 LogResult(
                     fileLocationPointer.AtProperty(SarifPropertyName.Uri),
-                    nameof(RuleResources.SARIF1014_Default),
+                    nameof(RuleResources.SARIF1004_Default),
                     fileLocation.Uri.OriginalString);
             }
         }

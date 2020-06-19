@@ -80,11 +80,11 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
         /********** END PROBLEMATIC TESTS*******/
 
         [Fact]
-        public void SARIF1014_UriBaseIdRequiresRelativeUri_Valid()
+        public void SARIF1004_UriBaseIdRequiresRelativeUri_Valid()
             => RunTest(MakeValidTestFileName(RuleId.UriBaseIdRequiresRelativeUri, nameof(RuleId.UriBaseIdRequiresRelativeUri)));
 
         [Fact]
-        public void SARIF1014_UriBaseIdRequiresRelativeUri_Invalid()
+        public void SARIF1004_UriBaseIdRequiresRelativeUri_Invalid()
             => RunTest(MakeInvalidTestFileName(RuleId.UriBaseIdRequiresRelativeUri, nameof(RuleId.UriBaseIdRequiresRelativeUri)));
 
         [Fact]

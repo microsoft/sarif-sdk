@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public const string InvocationPropertiesMustBeConsistent = "SARIF1006";
         public const string AuthorHighQualityMessages = "SARIF2001";
         public const string RegionPropertiesMustBeConsistent = "SARIF1007";
-        public const string UriBaseIdRequiresRelativeUri = "SARIF1014";
+        public const string UriBaseIdRequiresRelativeUri = "SARIF1004";
         public const string UriMustBeAbsolute = "SARIF1005";
         public const string PhysicalLocationPropertiesMustBeConsistent = "SARIF1008";
         public const string IndexPropertiesMustBeConsistentWithArrays = "SARIF1009";
