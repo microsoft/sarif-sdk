@@ -60,6 +60,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             if (!string.IsNullOrEmpty(sarifText))
             {
+                // DISCUSS IN PR: Deserializing the object here injects "$Schema" property, corrupting our test for
+                // SARIF2008_ProvideSchema
                 context.InputLogContents = sarifText;
                 context.InputLog = context.InputLogContents != null ? Deserialize(context.InputLogContents) : null;
 

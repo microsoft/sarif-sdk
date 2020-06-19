@@ -218,20 +218,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The $schema property should be present, and must refer to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files..
+        ///   Looks up a localized string similar to The $schema property must refer to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files..
         /// </summary>
         internal static string SARIF1011_ReferenceFinalSchema_FullDescription_Text {
             get {
                 return ResourceManager.GetString("SARIF1011_ReferenceFinalSchema_FullDescription_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}: The SARIF log file does not contain a $schema property. Add a $schema property that refers to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files..
-        /// </summary>
-        internal static string SARIF1011_SchemaReferenceMissing {
-            get {
-                return ResourceManager.GetString("SARIF1011_SchemaReferenceMissing", resourceCulture);
             }
         }
         
@@ -331,6 +322,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         internal static string SARIF2001_AuthorHighQualityMessages_Warning_TerminateWithPeriod_Text {
             get {
                 return ResourceManager.GetString("SARIF2001_AuthorHighQualityMessages_Warning_TerminateWithPeriod_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The $schema property should be present.  This enables IDEs to provide Intellisense for SARIF log files..
+        /// </summary>
+        internal static string SARIF2008_ProvideSchema_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("SARIF2008_ProvideSchema_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The SARIF log file does not contain a $schema property. Add a $schema property that refers to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files..
+        /// </summary>
+        internal static string SARIF2008_ProvideSchema_Warning_Default_Text {
+            get {
+                return ResourceManager.GetString("SARIF2008_ProvideSchema_Warning_Default_Text", resourceCulture);
             }
         }
     }
