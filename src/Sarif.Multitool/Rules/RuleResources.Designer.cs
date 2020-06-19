@@ -108,9 +108,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         /// <summary>
         ///   Looks up a localized string similar to If a fileLocation object contains a &quot;uriBaseId&quot; property, the value of the &quot;uri&quot; property must be a relative URI reference..
         /// </summary>
-        internal static string SARIF1004_ExpressUriBaseIdsCorrectly {
+        internal static string SARIF1004_ExpressUriBaseIdsCorrectly_FullDescription_Text {
             get {
-                return ResourceManager.GetString("SARIF1004_ExpressUriBaseIdsCorrectly", resourceCulture);
+                return ResourceManager.GetString("SARIF1004_ExpressUriBaseIdsCorrectly_FullDescription_Text", resourceCulture);
             }
         }
         

@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
     {
         public override MultiformatMessageString FullDescription => new MultiformatMessageString
         {
-            Text = RuleResources.SARIF1004_ExpressUriBaseIdsCorrectly
+            Text = RuleResources.SARIF1004_ExpressUriBaseIdsCorrectly_FullDescription_Text
         };
 
         public override FailureLevel DefaultLevel => FailureLevel.Error;

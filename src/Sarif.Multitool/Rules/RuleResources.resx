@@ -144,7 +144,7 @@
   <data name="SARIF1004_Default" xml:space="preserve">
     <value>{0}: This fileLocation object contains a "uriBaseId" property, which means that the value of the "uri" property must be a relative URI reference, but "{1}" is an absolute URI reference.</value>
   </data>
-  <data name="SARIF1004_ExpressUriBaseIdsCorrectly" xml:space="preserve">
+  <data name="SARIF1004_ExpressUriBaseIdsCorrectly_FullDescription_Text" xml:space="preserve">
     <value>If a fileLocation object contains a "uriBaseId" property, the value of the "uri" property must be a relative URI reference.</value>
   </data>
   <data name="SARIF1005_UriMustBeAbsolute_Error_Default_Text" xml:space="preserve">
