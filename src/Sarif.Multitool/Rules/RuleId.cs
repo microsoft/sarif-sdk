@@ -13,10 +13,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public const string EndColumnMustNotBeLessThanStartColumn = "SARIF1013";
         public const string UriBaseIdRequiresRelativeUri = "SARIF1014";
         public const string UriMustBeAbsolute = "SARIF1005";
-        public const string ContextRegionRequiresRegion = "SARIF1008";
-        public const string InvalidIndex = "SARIF1009";
+        public const string PhysicalLocationPropertiesMustBeConsistent = "SARIF1008";
+        public const string IndexPropertiesMustBeConsistentWithArrays = "SARIF1009";
         public const string InvalidUriInOriginalUriBaseIds = "SARIF1018";
-        public const string RuleIdMustBePresentAndConsistent = "SARIF1010";
+        public const string RuleIdMustBeConsistent = "SARIF1010";
         public const string ReferToFinalSchema = "SARIF1020";
     }
 }

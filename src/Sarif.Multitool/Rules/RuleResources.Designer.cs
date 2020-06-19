@@ -134,20 +134,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If the &quot;contextRegion&quot; property is present, the &quot;region&quot; property must also be present..
-        /// </summary>
-        internal static string SARIF1008_ContextRegionRequiresRegion {
-            get {
-                return ResourceManager.GetString("SARIF1008_ContextRegionRequiresRegion", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to {0}: This &quot;physicalLocation&quot; object contains a &quot;contextRegion&quot; property, but it does not contain a &quot;region&quot; property..
         /// </summary>
         internal static string SARIF1008_Default {
             get {
                 return ResourceManager.GetString("SARIF1008_Default", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If the &quot;contextRegion&quot; property is present, the &quot;region&quot; property must also be present..
+        /// </summary>
+        internal static string SARIF1008_PhysicalLocationPropertiesMustBeConsistent {
+            get {
+                return ResourceManager.GetString("SARIF1008_PhysicalLocationPropertiesMustBeConsistent", resourceCulture);
             }
         }
         
@@ -163,9 +163,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         /// <summary>
         ///   Looks up a localized string similar to If an object contains a property that is used as an array index, then that array must be present and must contain at least &quot;index + 1&quot; elements..
         /// </summary>
-        internal static string SARIF1009_InvalidIndex {
+        internal static string SARIF1009_IndexPropertiesMustBeConsistentWithArrays {
             get {
-                return ResourceManager.GetString("SARIF1009_InvalidIndex", resourceCulture);
+                return ResourceManager.GetString("SARIF1009_IndexPropertiesMustBeConsistentWithArrays", resourceCulture);
             }
         }
         
@@ -190,9 +190,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         /// <summary>
         ///   Looks up a localized string similar to In every result, at least one of the properties result.ruleId and result.rule.id must be present. If both are present, they must be equal..
         /// </summary>
-        internal static string SARIF1010_RuleIdMustBePresentAndConsistent {
+        internal static string SARIF1010_RuleIdMustBeConsistent {
             get {
-                return ResourceManager.GetString("SARIF1010_RuleIdMustBePresentAndConsistent", resourceCulture);
+                return ResourceManager.GetString("SARIF1010_RuleIdMustBeConsistent", resourceCulture);
             }
         }
         

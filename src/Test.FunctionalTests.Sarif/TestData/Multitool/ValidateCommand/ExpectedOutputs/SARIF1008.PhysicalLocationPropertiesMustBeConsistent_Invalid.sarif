@@ -9,7 +9,7 @@
           "rules": [
             {
               "id": "SARIF1008",
-              "name": "ContextRegionRequiresRegion",
+              "name": "PhysicalLocationPropertiesMustBeConsistent",
               "shortDescription": {
                 "text": "If the \"contextRegion\" property is present, the \"region\" property must also be present."
               },
@@ -34,7 +34,7 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1008.ContextRegionRequiresRegion_Invalid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1008.PhysicalLocationPropertiesMustBeConsistent_Invalid.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }

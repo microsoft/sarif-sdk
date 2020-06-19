@@ -5,16 +5,16 @@ using System.Collections.Generic;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class ContextRegionRequiresRegion : SarifValidationSkimmerBase
+    public class PhysicalLocationPropertiesMustBeConsistent : SarifValidationSkimmerBase
     {
         public override MultiformatMessageString FullDescription => new MultiformatMessageString
         {
-            Text = RuleResources.SARIF1008_ContextRegionRequiresRegion
+            Text = RuleResources.SARIF1008_PhysicalLocationPropertiesMustBeConsistent
         };
 
         public override FailureLevel DefaultLevel => FailureLevel.Error;
 
-        public override string Id => RuleId.ContextRegionRequiresRegion;
+        public override string Id => RuleId.PhysicalLocationPropertiesMustBeConsistent;
 
         protected override IEnumerable<string> MessageResourceNames => new string[]
         {

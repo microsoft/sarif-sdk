@@ -9,7 +9,7 @@
           "rules": [
             {
               "id": "SARIF1010",
-              "name": "RuleIdMustBePresentAndConsistent",
+              "name": "RuleIdMustBeConsistent",
               "shortDescription": {
                 "text": "In every result, at least one of the properties result.ruleId and result.rule.id must be present."
               },
@@ -37,7 +37,7 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1010.RuleIdMustBePresentAndConsistent_Invalid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1010.RuleIdMustBeConsistent_Invalid.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }

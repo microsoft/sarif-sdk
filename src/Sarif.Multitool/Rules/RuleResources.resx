@@ -165,7 +165,7 @@
   <data name="SARIF1005_UriMustBeAbsolute" xml:space="preserve">
     <value>Certain URIs are required to be absolute.</value>
   </data>
-  <data name="SARIF1008_ContextRegionRequiresRegion" xml:space="preserve">
+  <data name="SARIF1008_PhysicalLocationPropertiesMustBeConsistent" xml:space="preserve">
     <value>If the "contextRegion" property is present, the "region" property must also be present.</value>
   </data>
   <data name="SARIF1008_Default" xml:space="preserve">
@@ -174,7 +174,7 @@
   <data name="SARIF1009_Default" xml:space="preserve">
     <value>{0}: This "{1}" object contains a property "{2}" with value {3}, but either "{4}" is absent, or it has fewer than {5} elements.</value>
   </data>
-  <data name="SARIF1009_InvalidIndex" xml:space="preserve">
+  <data name="SARIF1009_IndexPropertiesMustBeConsistentWithArrays" xml:space="preserve">
     <value>If an object contains a property that is used as an array index, then that array must be present and must contain at least "index + 1" elements.</value>
   </data>
   <data name="SARIF1018_InvalidUriInOriginalUriBaseIds" xml:space="preserve">
@@ -192,7 +192,7 @@
   <data name="SARIF1010_MissingResultRuleId" xml:space="preserve">
     <value>{0}: The result contains neither result.ruleId nor result.rule.id.</value>
   </data>
-  <data name="SARIF1010_RuleIdMustBePresentAndConsistent" xml:space="preserve">
+  <data name="SARIF1010_RuleIdMustBeConsistent" xml:space="preserve">
     <value>In every result, at least one of the properties result.ruleId and result.rule.id must be present. If both are present, they must be equal.</value>
   </data>
   <data name="SARIF1020_ReferenceToOldSchemaVersion" xml:space="preserve">

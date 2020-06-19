@@ -5,16 +5,16 @@ using System.Collections.Generic;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class InvalidIndex : SarifValidationSkimmerBase
+    public class IndexPropertiesMustBeConsistentWithArrays : SarifValidationSkimmerBase
     {
         public override MultiformatMessageString FullDescription => new MultiformatMessageString
         {
-            Text = RuleResources.SARIF1009_InvalidIndex
+            Text = RuleResources.SARIF1009_IndexPropertiesMustBeConsistentWithArrays
         };
 
         public override FailureLevel DefaultLevel => FailureLevel.Error;
 
-        public override string Id => RuleId.InvalidIndex;
+        public override string Id => RuleId.IndexPropertiesMustBeConsistentWithArrays;
 
         protected override IEnumerable<string> MessageResourceNames => new string[]
         {

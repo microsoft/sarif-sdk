@@ -6,16 +6,16 @@ using System.Collections.Generic;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class RuleIdMustBePresentAndConsistent : SarifValidationSkimmerBase
+    public class RuleIdMustBeConsistent : SarifValidationSkimmerBase
     {
         public override MultiformatMessageString FullDescription => new MultiformatMessageString
         {
-            Text = RuleResources.SARIF1010_RuleIdMustBePresentAndConsistent
+            Text = RuleResources.SARIF1010_RuleIdMustBeConsistent
         };
 
         public override FailureLevel DefaultLevel => FailureLevel.Error;
 
-        public override string Id => RuleId.RuleIdMustBePresentAndConsistent;
+        public override string Id => RuleId.RuleIdMustBeConsistent;
 
         protected override IEnumerable<string> MessageResourceNames => new string[]
         {
