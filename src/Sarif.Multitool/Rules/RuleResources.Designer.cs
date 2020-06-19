@@ -134,12 +134,38 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}: The value of the &quot;endColumn&quot; property is {1}, which is less than the value of the &quot;startColumn&quot; property, which is {2}..
+        /// </summary>
+        internal static string SARIF1007_RegionPropertiesMustBeConsistent_Error_EndColumnMustNotPrecedeStartColumn_Text {
+            get {
+                return ResourceManager.GetString("SARIF1007_RegionPropertiesMustBeConsistent_Error_EndColumnMustNotPrecedeStartColumn_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The value of the &quot;endLine&quot; property is {1}, which is less than the value of the &quot;startLine&quot; property, which is {2}..
+        /// </summary>
+        internal static string SARIF1007_RegionPropertiesMustBeConsistent_Error_EndLineMustNotPrecedeStartLine_Text {
+            get {
+                return ResourceManager.GetString("SARIF1007_RegionPropertiesMustBeConsistent_Error_EndLineMustNotPrecedeStartLine_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Placeholder_SARIF1007_RegionPropertiesMustBeConsistent_FullDescription_Text.
+        /// </summary>
+        internal static string SARIF1007_RegionPropertiesMustBeConsistent_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("SARIF1007_RegionPropertiesMustBeConsistent_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}: This &quot;physicalLocation&quot; object contains a &quot;contextRegion&quot; property, but it does not contain a &quot;region&quot; property..
         /// </summary>
         internal static string SARIF1008_PhysicalLocationPropertiesMustBeConsistent_Error_ContextRegionRequiresRegion_Text {
             get {
-                return ResourceManager.GetString("SARIF1008_PhysicalLocationPropertiesMustBeConsistent_Error_ContextRegionRequiresR" +
-                        "egion_Text", resourceCulture);
+                return ResourceManager.GetString("SARIF1008_PhysicalLocationPropertiesMustBeConsistent_Error_ContextRegionRequiresRegion_Text", resourceCulture);
             }
         }
         
@@ -157,8 +183,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         /// </summary>
         internal static string SARIF1009_IndexPropertiesMustBeConsistentWithArrays_Error_TargetArrayMustBeLongEnough_Text {
             get {
-                return ResourceManager.GetString("SARIF1009_IndexPropertiesMustBeConsistentWithArrays_Error_TargetArrayMustBeLongEn" +
-                        "ough_Text", resourceCulture);
+                return ResourceManager.GetString("SARIF1009_IndexPropertiesMustBeConsistentWithArrays_Error_TargetArrayMustBeLongEnough_Text", resourceCulture);
             }
         }
         
@@ -167,8 +192,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         /// </summary>
         internal static string SARIF1009_IndexPropertiesMustBeConsistentWithArrays_Error_TargetArrayMustExist_Text {
             get {
-                return ResourceManager.GetString("SARIF1009_IndexPropertiesMustBeConsistentWithArrays_Error_TargetArrayMustExist_Te" +
-                        "xt", resourceCulture);
+                return ResourceManager.GetString("SARIF1009_IndexPropertiesMustBeConsistentWithArrays_Error_TargetArrayMustExist_Text", resourceCulture);
             }
         }
         
@@ -223,42 +247,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         internal static string SARIF1011_ReferenceFinalSchema_FullDescription_Text {
             get {
                 return ResourceManager.GetString("SARIF1011_ReferenceFinalSchema_FullDescription_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}: The value of the &quot;endLine&quot; property is {1}, which is less than the value of the &quot;startLine&quot; property, which is {2}..
-        /// </summary>
-        internal static string SARIF1012_Default {
-            get {
-                return ResourceManager.GetString("SARIF1012_Default", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The &quot;endLine&quot; property of a region object must not be less than the &quot;startLine&quot; property..
-        /// </summary>
-        internal static string SARIF1012_EndLineMustNotBeLessThanStartLine {
-            get {
-                return ResourceManager.GetString("SARIF1012_EndLineMustNotBeLessThanStartLine", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}: The value of the &quot;endColumn&quot; property is {1}, which is less than the value of the &quot;startColumn&quot; property, which is {2}..
-        /// </summary>
-        internal static string SARIF1013_Default {
-            get {
-                return ResourceManager.GetString("SARIF1013_Default", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The &quot;endColumn&quot; property of a region object must not be less than the &quot;startColumn&quot; property..
-        /// </summary>
-        internal static string SARIF1013_EndColumnMustNotBeLessThanStartColumn {
-            get {
-                return ResourceManager.GetString("SARIF1013_EndColumnMustNotBeLessThanStartColumn", resourceCulture);
             }
         }
         

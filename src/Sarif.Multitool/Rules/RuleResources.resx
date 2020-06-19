@@ -141,18 +141,6 @@
   <data name="SARIF2001_AuthorHighQualityMessages_FullDescription_Text" xml:space="preserve">
     <value>Messages should consist of one or more complete sentences, ending with a period.</value>
   </data>
-  <data name="SARIF1012_Default" xml:space="preserve">
-    <value>{0}: The value of the "endLine" property is {1}, which is less than the value of the "startLine" property, which is {2}.</value>
-  </data>
-  <data name="SARIF1012_EndLineMustNotBeLessThanStartLine" xml:space="preserve">
-    <value>The "endLine" property of a region object must not be less than the "startLine" property.</value>
-  </data>
-  <data name="SARIF1013_Default" xml:space="preserve">
-    <value>{0}: The value of the "endColumn" property is {1}, which is less than the value of the "startColumn" property, which is {2}.</value>
-  </data>
-  <data name="SARIF1013_EndColumnMustNotBeLessThanStartColumn" xml:space="preserve">
-    <value>The "endColumn" property of a region object must not be less than the "startColumn" property.</value>
-  </data>
   <data name="SARIF1014_Default" xml:space="preserve">
     <value>{0}: This fileLocation object contains a "uriBaseId" property, which means that the value of the "uri" property must be a relative URI reference, but "{1}" is an absolute URI reference.</value>
   </data>
@@ -209,5 +197,14 @@
   </data>
   <data name="SARIF2008_ProvideSchema_Warning_Default_Text" xml:space="preserve">
     <value>{0}: The SARIF log file does not contain a $schema property. Add a $schema property that refers to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.</value>
+  </data>
+  <data name="SARIF1007_RegionPropertiesMustBeConsistent_Error_EndColumnMustNotPrecedeStartColumn_Text" xml:space="preserve">
+    <value>{0}: The value of the "endColumn" property is {1}, which is less than the value of the "startColumn" property, which is {2}.</value>
+  </data>
+  <data name="SARIF1007_RegionPropertiesMustBeConsistent_Error_EndLineMustNotPrecedeStartLine_Text" xml:space="preserve">
+    <value>{0}: The value of the "endLine" property is {1}, which is less than the value of the "startLine" property, which is {2}.</value>
+  </data>
+  <data name="SARIF1007_RegionPropertiesMustBeConsistent_FullDescription_Text" xml:space="preserve">
+    <value>Placeholder_SARIF1007_RegionPropertiesMustBeConsistent_FullDescription_Text</value>
   </data>
 </root>
