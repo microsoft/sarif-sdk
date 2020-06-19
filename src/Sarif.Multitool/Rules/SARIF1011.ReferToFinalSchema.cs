@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
     {
         public override MultiformatMessageString FullDescription => new MultiformatMessageString
         {
-            Text = RuleResources.SARIF1020_ReferToFinalSchema
+            Text = RuleResources.SARIF1011_ReferToFinalSchema
         };
 
         public override FailureLevel DefaultLevel => FailureLevel.Error;
@@ -20,8 +20,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override IEnumerable<string> MessageResourceNames => new string[]
         {
-            nameof(RuleResources.SARIF1020_ReferenceToOldSchemaVersion),
-            nameof(RuleResources.SARIF1020_SchemaReferenceMissing)
+            nameof(RuleResources.SARIF1011_ReferenceToOldSchemaVersion),
+            nameof(RuleResources.SARIF1011_SchemaReferenceMissing)
         };
 
         protected override void Analyze(SarifLog log, string logPointer)
@@ -33,7 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
             if (schemaUri == null)
             {
-                LogResult(pointer, nameof(RuleResources.SARIF1020_SchemaReferenceMissing));
+                LogResult(pointer, nameof(RuleResources.SARIF1011_SchemaReferenceMissing));
                 return;
             }
 
@@ -42,7 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 && !schemaUri.OriginalString.EndsWith(VersionConstants.SchemaVersionAsPublishedToSchemaStoreOrg)
                 && !schemaUri.OriginalString.EndsWith($"{VersionConstants.SchemaVersionAsPublishedToSchemaStoreOrg}.json"))
             {
-                LogResult(pointer.AtProperty(SarifPropertyName.Schema), nameof(RuleResources.SARIF1020_ReferenceToOldSchemaVersion), schemaUri.OriginalString);
+                LogResult(pointer.AtProperty(SarifPropertyName.Schema), nameof(RuleResources.SARIF1011_ReferenceToOldSchemaVersion), schemaUri.OriginalString);
                 return;
             }
         }

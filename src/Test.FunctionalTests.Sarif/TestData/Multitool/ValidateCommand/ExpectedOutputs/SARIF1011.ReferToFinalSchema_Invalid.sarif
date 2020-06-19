@@ -8,7 +8,7 @@
           "name": "SARIF Functional Testing",
           "rules": [
             {
-              "id": "SARIF1020",
+              "id": "SARIF1011",
               "name": "ReferToFinalSchema",
               "shortDescription": {
                 "text": "The $schema property should be present, and must refer to the final version of the SARIF 2.1.0 schema."
@@ -37,14 +37,14 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1020.ReferToFinalSchema_Invalid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1011.ReferToFinalSchema_Invalid.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }
       ],
       "results": [
         {
-          "ruleId": "SARIF1020",
+          "ruleId": "SARIF1011",
           "ruleIndex": 0,
           "level": "error",
           "message": {

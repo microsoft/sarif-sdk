@@ -292,27 +292,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         /// <summary>
         ///   Looks up a localized string similar to {0}: The $schema property value &apos;{1}&apos; does not refer to the final version of the SARIF 2.1.0 schema. If you are using an earlier version of the SARIF format, consider upgrading your analysis tool to produce the final version. If this file does in fact conform to the final version of the schema, upgrade the tool to populate the $schema property with a URL that refers to the final version of the schema..
         /// </summary>
-        internal static string SARIF1020_ReferenceToOldSchemaVersion {
+        internal static string SARIF1011_ReferenceToOldSchemaVersion {
             get {
-                return ResourceManager.GetString("SARIF1020_ReferenceToOldSchemaVersion", resourceCulture);
+                return ResourceManager.GetString("SARIF1011_ReferenceToOldSchemaVersion", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to The $schema property should be present, and must refer to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files..
         /// </summary>
-        internal static string SARIF1020_ReferToFinalSchema {
+        internal static string SARIF1011_ReferToFinalSchema {
             get {
-                return ResourceManager.GetString("SARIF1020_ReferToFinalSchema", resourceCulture);
+                return ResourceManager.GetString("SARIF1011_ReferToFinalSchema", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to {0}: The SARIF log file does not contain a $schema property. Add a $schema property that refers to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files..
         /// </summary>
-        internal static string SARIF1020_SchemaReferenceMissing {
+        internal static string SARIF1011_SchemaReferenceMissing {
             get {
-                return ResourceManager.GetString("SARIF1020_SchemaReferenceMissing", resourceCulture);
+                return ResourceManager.GetString("SARIF1011_SchemaReferenceMissing", resourceCulture);
             }
         }
         
