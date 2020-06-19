@@ -25,7 +25,7 @@
             },
             {
               "id": "SARIF1011",
-              "name": "ReferToFinalSchema",
+              "name": "ReferenceFinalSchema",
               "shortDescription": {
                 "text": "The $schema property should be present, and must refer to the final version of the SARIF 2.1.0 schema."
               },

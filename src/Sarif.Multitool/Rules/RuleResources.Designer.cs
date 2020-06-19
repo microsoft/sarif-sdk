@@ -301,9 +301,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         /// <summary>
         ///   Looks up a localized string similar to The $schema property should be present, and must refer to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files..
         /// </summary>
-        internal static string SARIF1011_ReferToFinalSchema {
+        internal static string SARIF1011_ReferenceFinalSchema {
             get {
-                return ResourceManager.GetString("SARIF1011_ReferToFinalSchema", resourceCulture);
+                return ResourceManager.GetString("SARIF1011_ReferenceFinalSchema", resourceCulture);
             }
         }
         

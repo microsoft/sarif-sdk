@@ -7,16 +7,16 @@ using System.Collections.Generic;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class ReferToFinalSchema : SarifValidationSkimmerBase
+    public class ReferenceFinalSchema : SarifValidationSkimmerBase
     {
         public override MultiformatMessageString FullDescription => new MultiformatMessageString
         {
-            Text = RuleResources.SARIF1011_ReferToFinalSchema
+            Text = RuleResources.SARIF1011_ReferenceFinalSchema
         };
 
         public override FailureLevel DefaultLevel => FailureLevel.Error;
 
-        public override string Id => RuleId.ReferToFinalSchema;
+        public override string Id => RuleId.ReferenceFinalSchema;
 
         protected override IEnumerable<string> MessageResourceNames => new string[]
         {
