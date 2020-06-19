@@ -97,6 +97,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}: The value of this property is required to be an absolute URI, but &quot;{1}&quot; is a relative URI reference..
+        /// </summary>
+        internal static string SARIF1005_UriMustBeAbsolute_Error_Default_Text {
+            get {
+                return ResourceManager.GetString("SARIF1005_UriMustBeAbsolute_Error_Default_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Certain URIs are required to be absolute..
+        /// </summary>
+        internal static string SARIF1005_UriMustBeAbsolute_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("SARIF1005_UriMustBeAbsolute_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}: The end time &quot;{1}&quot; is before the start time &quot;{2}&quot;..
         /// </summary>
         internal static string SARIF1006_InvocationPropertiesMustBeConsistent_Error_EndTimeMustNotPrecedeStartTime_Text {
@@ -112,6 +130,81 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         internal static string SARIF1006_InvocationPropertiesMustBeConsistent_FullDescription_Text {
             get {
                 return ResourceManager.GetString("SARIF1006_InvocationPropertiesMustBeConsistent_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: This &quot;physicalLocation&quot; object contains a &quot;contextRegion&quot; property, but it does not contain a &quot;region&quot; property..
+        /// </summary>
+        internal static string SARIF1008_PhysicalLocationPropertiesMustBeConsistent_Error_ContextRegionRequiresRegion_Text {
+            get {
+                return ResourceManager.GetString("SARIF1008_PhysicalLocationPropertiesMustBeConsistent_Error_ContextRegionRequiresR" +
+                        "egion_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If the &quot;contextRegion&quot; property is present, the &quot;region&quot; property must also be present..
+        /// </summary>
+        internal static string SARIF1008_PhysicalLocationPropertiesMustBeConsistent_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("SARIF1008_PhysicalLocationPropertiesMustBeConsistent_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: This &quot;{1}&quot; object contains a property &quot;{2}&quot; with value {3}, but &quot;{4}&quot; has fewer than {5} elements..
+        /// </summary>
+        internal static string SARIF1009_IndexPropertiesMustBeConsistentWithArrays_Error_TargetArrayMustBeLongEnough_Text {
+            get {
+                return ResourceManager.GetString("SARIF1009_IndexPropertiesMustBeConsistentWithArrays_Error_TargetArrayMustBeLongEn" +
+                        "ough_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: This &quot;{1}&quot; object contains a property &quot;{2}&quot; with value {3}, but &quot;{4}&quot; is absent..
+        /// </summary>
+        internal static string SARIF1009_IndexPropertiesMustBeConsistentWithArrays_Error_TargetArrayMustExist_Text {
+            get {
+                return ResourceManager.GetString("SARIF1009_IndexPropertiesMustBeConsistentWithArrays_Error_TargetArrayMustExist_Te" +
+                        "xt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If an object contains a property that is used as an array index, then that array must be present and must contain at least &quot;index + 1&quot; elements..
+        /// </summary>
+        internal static string SARIF1009_IndexPropertiesMustBeConsistentWithArrays_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("SARIF1009_IndexPropertiesMustBeConsistentWithArrays_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The result contains neither result.ruleId nor result.rule.id..
+        /// </summary>
+        internal static string SARIF1010_RuleIdMustBeConsistent_Error_ResultMustSpecifyRuleId_Text {
+            get {
+                return ResourceManager.GetString("SARIF1010_RuleIdMustBeConsistent_Error_ResultMustSpecifyRuleId_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The result contains both the ruleId property &apos;{1}&apos; and the rule.id property &apos;{2}&apos;, and they are not equal..
+        /// </summary>
+        internal static string SARIF1010_RuleIdMustBeConsistent_Error_ResultRuleIdMustBeConsistent_Text {
+            get {
+                return ResourceManager.GetString("SARIF1010_RuleIdMustBeConsistent_Error_ResultRuleIdMustBeConsistent_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to In every result, at least one of the properties result.ruleId and result.rule.id must be present. If both are present, they must be equal..
+        /// </summary>
+        internal static string SARIF1010_RuleIdMustBeConsistent_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("SARIF1010_RuleIdMustBeConsistent_FullDescription_Text", resourceCulture);
             }
         }
         
@@ -170,60 +263,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The value of this property is required to be an absolute URI, but &quot;{1}&quot; is a relative URI reference..
-        /// </summary>
-        internal static string SARIF1015_Default {
-            get {
-                return ResourceManager.GetString("SARIF1015_Default", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Certain URIs are required to be absolute..
-        /// </summary>
-        internal static string SARIF1015_UriMustBeAbsolute {
-            get {
-                return ResourceManager.GetString("SARIF1015_UriMustBeAbsolute", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to If the &quot;contextRegion&quot; property is present, the &quot;region&quot; property must also be present..
-        /// </summary>
-        internal static string SARIF1016_ContextRegionRequiresRegion {
-            get {
-                return ResourceManager.GetString("SARIF1016_ContextRegionRequiresRegion", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}: This &quot;physicalLocation&quot; object contains a &quot;contextRegion&quot; property, but it does not contain a &quot;region&quot; property..
-        /// </summary>
-        internal static string SARIF1016_Default {
-            get {
-                return ResourceManager.GetString("SARIF1016_Default", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}: This &quot;{1}&quot; object contains a property &quot;{2}&quot; with value {3}, but either &quot;{4}&quot; is absent, or it has fewer than {5} elements..
-        /// </summary>
-        internal static string SARIF1017_Default {
-            get {
-                return ResourceManager.GetString("SARIF1017_Default", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to If an object contains a property that is used as an array index, then that array must be present and must contain at least &quot;index + 1&quot; elements..
-        /// </summary>
-        internal static string SARIF1017_InvalidIndex {
-            get {
-                return ResourceManager.GetString("SARIF1017_InvalidIndex", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to In the artifactLocation objects contained in run.originalUriBaseIds, if uriBaseId is absent, then uri must either be an absolute URI or it must be absent. Also, uri must end with a slash, so that it can safely be combined with the relative URIs in artifactLocation objects elsewhere in the log file..
         /// </summary>
         internal static string SARIF1018_InvalidUriInOriginalUriBaseIds {
@@ -247,33 +286,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         internal static string SARIF1018_NotAbsolute {
             get {
                 return ResourceManager.GetString("SARIF1018_NotAbsolute", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}: The result contains both the ruleId property &apos;{1}&apos; and the rule.id property &apos;{2}&apos;, and they are not equal..
-        /// </summary>
-        internal static string SARIF1019_InconsistentResultRuleId {
-            get {
-                return ResourceManager.GetString("SARIF1019_InconsistentResultRuleId", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}: The result contains neither result.ruleId nor result.rule.id..
-        /// </summary>
-        internal static string SARIF1019_MissingResultRuleId {
-            get {
-                return ResourceManager.GetString("SARIF1019_MissingResultRuleId", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to In every result, at least one of the properties result.ruleId and result.rule.id must be present. If both are present, they must be equal..
-        /// </summary>
-        internal static string SARIF1019_RuleIdMustBePresentAndConsistent {
-            get {
-                return ResourceManager.GetString("SARIF1019_RuleIdMustBePresentAndConsistent", resourceCulture);
             }
         }
         

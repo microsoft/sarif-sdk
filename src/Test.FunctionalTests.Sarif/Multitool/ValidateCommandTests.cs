@@ -93,28 +93,28 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
             => RunTest(MakeInvalidTestFileName(RuleId.UriBaseIdRequiresRelativeUri, nameof(RuleId.UriBaseIdRequiresRelativeUri)));
 
         [Fact]
-        public void SARIF1015_UriMustBeAbsolute_Valid()
+        public void SARIF1005_UriMustBeAbsolute_Valid()
             => RunTest(MakeValidTestFileName(RuleId.UriMustBeAbsolute, nameof(RuleId.UriMustBeAbsolute)));
 
         [Fact]
-        public void SARIF1015_UriMustBeAbsolute_Invalid()
+        public void SARIF1005_UriMustBeAbsolute_Invalid()
             => RunTest(MakeInvalidTestFileName(RuleId.UriMustBeAbsolute, nameof(RuleId.UriMustBeAbsolute)));
 
         [Fact]
-        public void SARIF1016_ContextRegionRequiresRegion_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.ContextRegionRequiresRegion, nameof(RuleId.ContextRegionRequiresRegion)));
+        public void SARIF1008_PhysicalLocationPropertiesMustBeConsistent_Valid()
+            => RunTest(MakeValidTestFileName(RuleId.PhysicalLocationPropertiesMustBeConsistent, nameof(RuleId.PhysicalLocationPropertiesMustBeConsistent)));
 
         [Fact]
-        public void SARIF1016_ContextRegionRequiresRegion_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.ContextRegionRequiresRegion, nameof(RuleId.ContextRegionRequiresRegion)));
+        public void SARIF1008_PhysicalLocationPropertiesMustBeConsistent_Invalid()
+            => RunTest(MakeInvalidTestFileName(RuleId.PhysicalLocationPropertiesMustBeConsistent, nameof(RuleId.PhysicalLocationPropertiesMustBeConsistent)));
 
         [Fact]
-        public void SARIF1017_InvalidIndex_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.InvalidIndex, nameof(RuleId.InvalidIndex)));
+        public void SARIF1009_IndexPropertiesMustBeConsistentWithArrays_Valid()
+            => RunTest(MakeValidTestFileName(RuleId.IndexPropertiesMustBeConsistentWithArrays, nameof(RuleId.IndexPropertiesMustBeConsistentWithArrays)));
 
         [Fact]
-        public void SARIF1017_InvalidIndex_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.InvalidIndex, nameof(RuleId.InvalidIndex)));
+        public void SARIF1009_IndexPropertiesMustBeConsistentWithArrays_Invalid()
+            => RunTest(MakeInvalidTestFileName(RuleId.IndexPropertiesMustBeConsistentWithArrays, nameof(RuleId.IndexPropertiesMustBeConsistentWithArrays)));
 
         [Fact]
         public void SARIF1018_InvalidUriInOriginalUriBaseIds_Valid()
@@ -125,12 +125,12 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
             => RunTest(MakeInvalidTestFileName(RuleId.InvalidUriInOriginalUriBaseIds, nameof(RuleId.InvalidUriInOriginalUriBaseIds)));
 
         [Fact]
-        public void SARIF1019_RuleIdMustBePresentAndConsistent_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.RuleIdMustBePresentAndConsistent, nameof(RuleId.RuleIdMustBePresentAndConsistent)));
+        public void SARIF1010_RuleIdMustBeConsistent_Valid()
+            => RunTest(MakeValidTestFileName(RuleId.RuleIdMustBeConsistent, nameof(RuleId.RuleIdMustBeConsistent)));
 
         [Fact]
-        public void SARIF1019_RuleIdMustBePresentAndConsistent_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.RuleIdMustBePresentAndConsistent, nameof(RuleId.RuleIdMustBePresentAndConsistent)));
+        public void SARIF1010_RuleIdMustBeConsistent_Invalid()
+            => RunTest(MakeInvalidTestFileName(RuleId.RuleIdMustBeConsistent, nameof(RuleId.RuleIdMustBeConsistent)));
 
         [Fact]
         public void SARIF1020_SchemaMustBePresentAndConsistent_Valid()

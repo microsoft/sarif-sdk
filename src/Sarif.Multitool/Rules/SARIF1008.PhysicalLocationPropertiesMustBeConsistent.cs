@@ -5,27 +5,27 @@ using System.Collections.Generic;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class ContextRegionRequiresRegion : SarifValidationSkimmerBase
+    public class PhysicalLocationPropertiesMustBeConsistent : SarifValidationSkimmerBase
     {
         public override MultiformatMessageString FullDescription => new MultiformatMessageString
         {
-            Text = RuleResources.SARIF1016_ContextRegionRequiresRegion
+            Text = RuleResources.SARIF1008_PhysicalLocationPropertiesMustBeConsistent_FullDescription_Text
         };
 
         public override FailureLevel DefaultLevel => FailureLevel.Error;
 
-        public override string Id => RuleId.ContextRegionRequiresRegion;
+        public override string Id => RuleId.PhysicalLocationPropertiesMustBeConsistent;
 
         protected override IEnumerable<string> MessageResourceNames => new string[]
         {
-            nameof(RuleResources.SARIF1016_Default)
+            nameof(RuleResources.SARIF1008_PhysicalLocationPropertiesMustBeConsistent_Error_ContextRegionRequiresRegion_Text)
         };
 
         protected override void Analyze(PhysicalLocation physicalLocation, string physicalLocationPointer)
         {
             if (physicalLocation.ContextRegion != null && physicalLocation.Region == null)
             {
-                LogResult(physicalLocationPointer, nameof(RuleResources.SARIF1016_Default));
+                LogResult(physicalLocationPointer, nameof(RuleResources.SARIF1008_PhysicalLocationPropertiesMustBeConsistent_Error_ContextRegionRequiresRegion_Text));
             }
         }
     }

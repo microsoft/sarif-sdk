@@ -8,8 +8,8 @@
           "name": "SARIF Functional Testing",
           "rules": [
             {
-              "id": "SARIF1016",
-              "name": "ContextRegionRequiresRegion",
+              "id": "SARIF1008",
+              "name": "PhysicalLocationPropertiesMustBeConsistent",
               "shortDescription": {
                 "text": "If the \"contextRegion\" property is present, the \"region\" property must also be present."
               },
@@ -17,7 +17,7 @@
                 "text": "If the \"contextRegion\" property is present, the \"region\" property must also be present."
               },
               "messageStrings": {
-                "Default": {
+                "Error_ContextRegionRequiresRegion": {
                   "text": "{0}: This \"physicalLocation\" object contains a \"contextRegion\" property, but it does not contain a \"region\" property."
                 }
               },
@@ -34,18 +34,18 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1016.ContextRegionRequiresRegion_Invalid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1008.PhysicalLocationPropertiesMustBeConsistent_Invalid.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }
       ],
       "results": [
         {
-          "ruleId": "SARIF1016",
+          "ruleId": "SARIF1008",
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "Default",
+            "id": "Error_ContextRegionRequiresRegion",
             "arguments": [
               "runs[0].results[0].locations[0].physicalLocation"
             ]

@@ -8,8 +8,8 @@
           "name": "SARIF Functional Testing",
           "rules": [
             {
-              "id": "SARIF1017",
-              "name": "InvalidIndex",
+              "id": "SARIF1009",
+              "name": "IndexPropertiesMustBeConsistentWithArrays",
               "shortDescription": {
                 "text": "If an object contains a property that is used as an array index, then that array must be present and must contain at least \"index + 1\" elements."
               },
@@ -17,8 +17,11 @@
                 "text": "If an object contains a property that is used as an array index, then that array must be present and must contain at least \"index + 1\" elements."
               },
               "messageStrings": {
-                "Default": {
-                  "text": "{0}: This \"{1}\" object contains a property \"{2}\" with value {3}, but either \"{4}\" is absent, or it has fewer than {5} elements."
+                "Error_TargetArrayMustExist": {
+                  "text": "{0}: This \"{1}\" object contains a property \"{2}\" with value {3}, but \"{4}\" is absent."
+                },
+                "Error_TargetArrayMustBeLongEnough": {
+                  "text": "{0}: This \"{1}\" object contains a property \"{2}\" with value {3}, but \"{4}\" has fewer than {5} elements."
                 }
               },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
@@ -34,18 +37,18 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1009.IndexPropertiesMustBeConsistentWithArrays_Invalid.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }
       ],
       "results": [
         {
-          "ruleId": "SARIF1017",
+          "ruleId": "SARIF1009",
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "Default",
+            "id": "Error_TargetArrayMustBeLongEnough",
             "arguments": [
               "runs[0].results[0]",
               "result",
@@ -70,11 +73,11 @@
           ]
         },
         {
-          "ruleId": "SARIF1017",
+          "ruleId": "SARIF1009",
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "Default",
+            "id": "Error_TargetArrayMustBeLongEnough",
             "arguments": [
               "runs[0].results[0].locations[0].physicalLocation.address",
               "address",
@@ -99,11 +102,11 @@
           ]
         },
         {
-          "ruleId": "SARIF1017",
+          "ruleId": "SARIF1009",
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "Default",
+            "id": "Error_TargetArrayMustBeLongEnough",
             "arguments": [
               "runs[0].results[0].locations[0].physicalLocation.artifactLocation",
               "artifactLocation",
@@ -128,18 +131,17 @@
           ]
         },
         {
-          "ruleId": "SARIF1017",
+          "ruleId": "SARIF1009",
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "Default",
+            "id": "Error_TargetArrayMustExist",
             "arguments": [
               "runs[0].results[0].locations[0].logicalLocations[0]",
               "logicalLocation",
               "index",
               "0",
-              "runs[0].logicalLocations",
-              "1"
+              "runs[0].logicalLocations"
             ]
           },
           "locations": [
@@ -157,18 +159,17 @@
           ]
         },
         {
-          "ruleId": "SARIF1017",
+          "ruleId": "SARIF1009",
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "Default",
+            "id": "Error_TargetArrayMustExist",
             "arguments": [
               "runs[0].results[0].locations[0].logicalLocations[0]",
               "logicalLocation",
               "parentIndex",
               "1",
-              "runs[0].logicalLocations",
-              "2"
+              "runs[0].logicalLocations"
             ]
           },
           "locations": [
@@ -186,18 +187,17 @@
           ]
         },
         {
-          "ruleId": "SARIF1017",
+          "ruleId": "SARIF1009",
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "Default",
+            "id": "Error_TargetArrayMustExist",
             "arguments": [
               "runs[0].results[0].codeFlows[0].threadFlows[0].locations[0]",
               "threadFlowLocation",
               "index",
               "0",
-              "runs[0].threadFlowLocations",
-              "1"
+              "runs[0].threadFlowLocations"
             ]
           },
           "locations": [
@@ -215,18 +215,17 @@
           ]
         },
         {
-          "ruleId": "SARIF1017",
+          "ruleId": "SARIF1009",
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "Default",
+            "id": "Error_TargetArrayMustExist",
             "arguments": [
               "runs[0].results[0].codeFlows[0].threadFlows[0].locations[0].webRequest",
               "webRequest",
               "index",
               "0",
-              "runs[0].webRequests",
-              "1"
+              "runs[0].webRequests"
             ]
           },
           "locations": [
@@ -244,18 +243,17 @@
           ]
         },
         {
-          "ruleId": "SARIF1017",
+          "ruleId": "SARIF1009",
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "Default",
+            "id": "Error_TargetArrayMustExist",
             "arguments": [
               "runs[0].results[0].codeFlows[0].threadFlows[0].locations[0].webResponse",
               "webResponse",
               "index",
               "0",
-              "runs[0].webResponses",
-              "1"
+              "runs[0].webResponses"
             ]
           },
           "locations": [
@@ -273,11 +271,11 @@
           ]
         },
         {
-          "ruleId": "SARIF1017",
+          "ruleId": "SARIF1009",
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "Default",
+            "id": "Error_TargetArrayMustBeLongEnough",
             "arguments": [
               "runs[0].results[0].provenance",
               "resultProvenance",
@@ -302,11 +300,11 @@
           ]
         },
         {
-          "ruleId": "SARIF1017",
+          "ruleId": "SARIF1009",
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "Default",
+            "id": "Error_TargetArrayMustBeLongEnough",
             "arguments": [
               "runs[0].results[0].graphTraversals[0]",
               "graphTraversal",
@@ -331,18 +329,17 @@
           ]
         },
         {
-          "ruleId": "SARIF1017",
+          "ruleId": "SARIF1009",
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "Default",
+            "id": "Error_TargetArrayMustExist",
             "arguments": [
               "runs[0].results[0].graphTraversals[1]",
               "graphTraversal",
               "runGraphIndex",
               "0",
-              "runs[0].graphTraversals",
-              "1"
+              "runs[0].graphTraversals"
             ]
           },
           "locations": [
@@ -360,18 +357,17 @@
           ]
         },
         {
-          "ruleId": "SARIF1017",
+          "ruleId": "SARIF1009",
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "Default",
+            "id": "Error_TargetArrayMustExist",
             "arguments": [
               "runs[0].results[0].webRequest",
               "webRequest",
               "index",
               "0",
-              "runs[0].webRequests",
-              "1"
+              "runs[0].webRequests"
             ]
           },
           "locations": [
@@ -389,18 +385,17 @@
           ]
         },
         {
-          "ruleId": "SARIF1017",
+          "ruleId": "SARIF1009",
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "Default",
+            "id": "Error_TargetArrayMustExist",
             "arguments": [
               "runs[0].results[0].webResponse",
               "webResponse",
               "index",
               "0",
-              "runs[0].webResponses",
-              "1"
+              "runs[0].webResponses"
             ]
           },
           "locations": [
@@ -418,11 +413,11 @@
           ]
         },
         {
-          "ruleId": "SARIF1017",
+          "ruleId": "SARIF1009",
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "Default",
+            "id": "Error_TargetArrayMustBeLongEnough",
             "arguments": [
               "runs[0].addresses[0]",
               "address",
@@ -447,11 +442,11 @@
           ]
         },
         {
-          "ruleId": "SARIF1017",
+          "ruleId": "SARIF1009",
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "Default",
+            "id": "Error_TargetArrayMustBeLongEnough",
             "arguments": [
               "runs[0].artifacts[0]",
               "artifact",

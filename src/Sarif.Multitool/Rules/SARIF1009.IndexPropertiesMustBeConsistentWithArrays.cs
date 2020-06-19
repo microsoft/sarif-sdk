@@ -5,20 +5,21 @@ using System.Collections.Generic;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class InvalidIndex : SarifValidationSkimmerBase
+    public class IndexPropertiesMustBeConsistentWithArrays : SarifValidationSkimmerBase
     {
         public override MultiformatMessageString FullDescription => new MultiformatMessageString
         {
-            Text = RuleResources.SARIF1017_InvalidIndex
+            Text = RuleResources.SARIF1009_IndexPropertiesMustBeConsistentWithArrays_FullDescription_Text
         };
 
         public override FailureLevel DefaultLevel => FailureLevel.Error;
 
-        public override string Id => RuleId.InvalidIndex;
+        public override string Id => RuleId.IndexPropertiesMustBeConsistentWithArrays;
 
         protected override IEnumerable<string> MessageResourceNames => new string[]
         {
-            nameof(RuleResources.SARIF1017_Default)
+            nameof(RuleResources.SARIF1009_IndexPropertiesMustBeConsistentWithArrays_Error_TargetArrayMustExist_Text),
+            nameof(RuleResources.SARIF1009_IndexPropertiesMustBeConsistentWithArrays_Error_TargetArrayMustBeLongEnough_Text)
         };
 
         protected override void Analyze(Address address, string addressPointer)
@@ -163,11 +164,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             string propertyName,
             string arrayName)
         {
+            if (index == -1)
+            {
+                return;
+            }
+
+            if (container == null)
+            {
+                LogResult(
+                    jsonPointer,
+                    nameof(RuleResources.SARIF1009_IndexPropertiesMustBeConsistentWithArrays_Error_TargetArrayMustExist_Text),
+                    objectName,
+                    propertyName,
+                    index.ToInvariantString(),
+                    arrayName);
+                return;
+            }
+
             if (!IndexIsValid(index, container))
             {
                 LogResult(
                     jsonPointer,
-                    nameof(RuleResources.SARIF1017_Default),
+                    nameof(RuleResources.SARIF1009_IndexPropertiesMustBeConsistentWithArrays_Error_TargetArrayMustBeLongEnough_Text),
                     objectName,
                     propertyName,
                     index.ToInvariantString(),
@@ -177,6 +195,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         }
 
         private static bool IndexIsValid<T>(int index, IList<T> container)
-                => index == -1 || (index >= 0 && container?.Count > index);
+                => index >= 0 && container.Count > index;
     }
 }

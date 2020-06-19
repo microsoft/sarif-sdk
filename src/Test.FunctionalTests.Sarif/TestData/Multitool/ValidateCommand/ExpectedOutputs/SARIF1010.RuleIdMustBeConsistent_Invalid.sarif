@@ -8,8 +8,8 @@
           "name": "SARIF Functional Testing",
           "rules": [
             {
-              "id": "SARIF1019",
-              "name": "RuleIdMustBePresentAndConsistent",
+              "id": "SARIF1010",
+              "name": "RuleIdMustBeConsistent",
               "shortDescription": {
                 "text": "In every result, at least one of the properties result.ruleId and result.rule.id must be present."
               },
@@ -17,10 +17,10 @@
                 "text": "In every result, at least one of the properties result.ruleId and result.rule.id must be present. If both are present, they must be equal."
               },
               "messageStrings": {
-                "InconsistentResultRuleId": {
+                "Error_ResultRuleIdMustBeConsistent": {
                   "text": "{0}: The result contains both the ruleId property '{1}' and the rule.id property '{2}', and they are not equal."
                 },
-                "MissingResultRuleId": {
+                "Error_ResultMustSpecifyRuleId": {
                   "text": "{0}: The result contains neither result.ruleId nor result.rule.id."
                 }
               },
@@ -37,18 +37,18 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1019.RuleIdMustBePresentAndConsistent_Invalid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1010.RuleIdMustBeConsistent_Invalid.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }
       ],
       "results": [
         {
-          "ruleId": "SARIF1019",
+          "ruleId": "SARIF1010",
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "MissingResultRuleId",
+            "id": "Error_ResultMustSpecifyRuleId",
             "arguments": [
               "runs[0].results[0]"
             ]
@@ -68,11 +68,11 @@
           ]
         },
         {
-          "ruleId": "SARIF1019",
+          "ruleId": "SARIF1010",
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "InconsistentResultRuleId",
+            "id": "Error_ResultRuleIdMustBeConsistent",
             "arguments": [
               "runs[0].results[1]",
               "TST0001",
