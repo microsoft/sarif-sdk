@@ -70,19 +70,13 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
          * test file names in TestData\Inputs and TestData\ExpectedOutputs.
          ******************/
         [Fact]
-        public void SARIF1012_EndLineMustNotBeLessThanStartLine_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.EndLineMustNotBeLessThanStartLine, "EndLineMustNotBeLessThanStart"));
+        public void SARIF1007_RegionPropertiesMustBeConsistent_Valid()
+            => RunTest(MakeValidTestFileName(RuleId.RegionPropertiesMustBeConsistent, "RegionPropertiesMustBeConsistent"));
 
         [Fact]
-        public void SARIF1012_EndLineMustNotBeLessThanStartLine_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.EndLineMustNotBeLessThanStartLine, "EndLineMustNotBeLessThanStart"));
-        [Fact]
-        public void SARIF1013_EndColumnMustNotBeLessThanStartColumn_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.EndColumnMustNotBeLessThanStartColumn, "EndColumnMustNotBeLessThanStart"));
+        public void SARIF1007_RegionPropertiesMustBeConsistent_Invalid()
+            => RunTest(MakeInvalidTestFileName(RuleId.RegionPropertiesMustBeConsistent, "RegionPropertiesMustBeConsistent"));
 
-        [Fact]
-        public void SARIF1013_EndColumnMustNotBeLessThanStartColumn_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.EndColumnMustNotBeLessThanStartColumn, "EndColumnMustNotBeLessThanStart"));
         /********** END PROBLEMATIC TESTS*******/
 
         [Fact]

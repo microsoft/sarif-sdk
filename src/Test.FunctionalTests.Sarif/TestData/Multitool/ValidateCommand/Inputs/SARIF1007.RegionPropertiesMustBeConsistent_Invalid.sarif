@@ -13,6 +13,97 @@
           "ruleId": "TST0001",
           "level": "error",
           "message": {
+            "text": "[No message provided]."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///c:/src/file.c"
+                },
+                "region": {
+                  "startLine": 2,
+                  "startColumn": 2,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "endColumn less than startColumn in result location."
+              }
+            }
+          ],
+          "stacks": [
+            {
+              "frames": [
+                {
+                  "location": {
+                    "physicalLocation": {
+                      "artifactLocation": {
+                        "uri": "file:///c:/src/file.c"
+                      },
+                      "region": {
+                        "startLine": 2,
+                        "startColumn": 2,
+                        "endColumn": 1
+                      }
+                    },
+                    "message": {
+                      "text": "endColumn less than startColumn in stackFrame."
+                    }
+                  }
+                }
+              ]
+            }
+          ],
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///c:/src/file.c"
+                          },
+                          "region": {
+                            "startLine": 2,
+                            "startColumn": 2,
+                            "endColumn": 1
+                          }
+                        },
+                        "message": {
+                          "text": "endColumn less than startColumn in threadFlow location."
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///c:/src/file.c"
+                },
+                "region": {
+                  "startLine": 2,
+                  "startColumn": 2,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "endColumn less than startColumn in related location."
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "TST0001",
+          "level": "error",
+          "message": {
             "text": "Result message."
           },
           "locations": [
