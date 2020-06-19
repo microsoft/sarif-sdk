@@ -165,9 +165,6 @@
   <data name="SARIF1009_IndexPropertiesMustBeConsistentWithArrays_FullDescription_Text" xml:space="preserve">
     <value>If an object contains a property that is used as an array index, then that array must be present and must contain at least "index + 1" elements.</value>
   </data>
-  <data name="SARIF1018_InvalidUriInOriginalUriBaseIds" xml:space="preserve">
-    <value>In the artifactLocation objects contained in run.originalUriBaseIds, if uriBaseId is absent, then uri must either be an absolute URI or it must be absent. Also, uri must end with a slash, so that it can safely be combined with the relative URIs in artifactLocation objects elsewhere in the log file.</value>
-  </data>
   <data name="SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdValueMustEndWithSlash_Text" xml:space="preserve">
     <value>{0}: The URI '{1}' belonging to the '{2}' element of run.originalUriBaseIds does not end with a slash.</value>
   </data>

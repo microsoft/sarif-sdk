@@ -49,19 +49,28 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
             => RunTest(MakeInvalidTestFileName(RuleId.UrisMustBeValid, nameof(RuleId.UrisMustBeValid)));
 
         [Fact]
+        public void SARIF1004_ExpressUriBaseIdsCorrectly_Valid()
+            => RunTest(MakeValidTestFileName(RuleId.ExpressUriBaseIdsCorrectly, nameof(RuleId.ExpressUriBaseIdsCorrectly)));
+
+        [Fact]
+        public void SARIF1004_ExpressUriBaseIdsCorrectly_Invalid()
+            => RunTest(MakeInvalidTestFileName(RuleId.ExpressUriBaseIdsCorrectly, nameof(RuleId.ExpressUriBaseIdsCorrectly)));
+
+        [Fact]
+        public void SARIF1005_UriMustBeAbsolute_Valid()
+            => RunTest(MakeValidTestFileName(RuleId.UriMustBeAbsolute, nameof(RuleId.UriMustBeAbsolute)));
+
+        [Fact]
+        public void SARIF1005_UriMustBeAbsolute_Invalid()
+            => RunTest(MakeInvalidTestFileName(RuleId.UriMustBeAbsolute, nameof(RuleId.UriMustBeAbsolute)));
+
+        [Fact]
         public void SARIF1006_InvocationPropertiesMustBeConsistent_Valid()
             => RunTest(MakeValidTestFileName(RuleId.InvocationPropertiesMustBeConsistent, nameof(RuleId.InvocationPropertiesMustBeConsistent)));
 
         [Fact]
         public void SARIF1006_InvocationPropertiesMustBeConsistent_Invalid()
             => RunTest(MakeInvalidTestFileName(RuleId.InvocationPropertiesMustBeConsistent, nameof(RuleId.InvocationPropertiesMustBeConsistent)));
-        [Fact]
-        public void SARIF2001_AuthorHighQualityMessages_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.AuthorHighQualityMessages, nameof(RuleId.AuthorHighQualityMessages)));
-
-        [Fact]
-        public void SARIF2001_AuthorHighQualityMessages_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.AuthorHighQualityMessages, nameof(RuleId.AuthorHighQualityMessages)));
 
         /******************
          * This set of tests constructs a full file path that exceeds MAX_PATH when running in some AzureDevOps build and test
@@ -78,22 +87,6 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
             => RunTest(MakeInvalidTestFileName(RuleId.RegionPropertiesMustBeConsistent, "RegionPropertiesMustBeConsistent"));
 
         /********** END PROBLEMATIC TESTS*******/
-
-        [Fact]
-        public void SARIF1004_ExpressUriBaseIdsCorrectly_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.ExpressUriBaseIdsCorrectly, nameof(RuleId.ExpressUriBaseIdsCorrectly)));
-
-        [Fact]
-        public void SARIF1004_ExpressUriBaseIdsCorrectly_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.ExpressUriBaseIdsCorrectly, nameof(RuleId.ExpressUriBaseIdsCorrectly)));
-
-        [Fact]
-        public void SARIF1005_UriMustBeAbsolute_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.UriMustBeAbsolute, nameof(RuleId.UriMustBeAbsolute)));
-
-        [Fact]
-        public void SARIF1005_UriMustBeAbsolute_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.UriMustBeAbsolute, nameof(RuleId.UriMustBeAbsolute)));
 
         [Fact]
         public void SARIF1008_PhysicalLocationPropertiesMustBeConsistent_Valid()
@@ -126,6 +119,14 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
         [Fact]
         public void SARIF1011_ReferenceFinalSchema_Invalid()
             => RunTest(MakeInvalidTestFileName(RuleId.ReferenceFinalSchema, nameof(RuleId.ReferenceFinalSchema)));
+
+        [Fact]
+        public void SARIF2001_AuthorHighQualityMessages_Valid()
+    => RunTest(MakeValidTestFileName(RuleId.AuthorHighQualityMessages, nameof(RuleId.AuthorHighQualityMessages)));
+
+        [Fact]
+        public void SARIF2001_AuthorHighQualityMessages_Invalid()
+            => RunTest(MakeInvalidTestFileName(RuleId.AuthorHighQualityMessages, nameof(RuleId.AuthorHighQualityMessages)));
 
         [Fact]
         public void SARIF2008_ProvideSchema_Valid()

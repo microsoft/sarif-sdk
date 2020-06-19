@@ -292,15 +292,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to In the artifactLocation objects contained in run.originalUriBaseIds, if uriBaseId is absent, then uri must either be an absolute URI or it must be absent. Also, uri must end with a slash, so that it can safely be combined with the relative URIs in artifactLocation objects elsewhere in the log file..
-        /// </summary>
-        internal static string SARIF1018_InvalidUriInOriginalUriBaseIds {
-            get {
-                return ResourceManager.GetString("SARIF1018_InvalidUriInOriginalUriBaseIds", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Messages should consist of one or more complete sentences, ending with a period..
         /// </summary>
         internal static string SARIF2001_AuthorHighQualityMessages_FullDescription_Text {
