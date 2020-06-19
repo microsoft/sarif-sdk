@@ -18,6 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override IEnumerable<string> MessageResourceNames => new string[]
         {
+            nameof(RuleResources.SARIF1009_IndexPropertiesMustBeConsistentWithArrays_Error_TargetArrayMustExist_Text),
             nameof(RuleResources.SARIF1009_IndexPropertiesMustBeConsistentWithArrays_Error_TargetArrayMustBeLongEnough_Text)
         };
 
@@ -163,6 +164,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             string propertyName,
             string arrayName)
         {
+            if (index == -1)
+            {
+                return;
+            }
+
+            if (container == null)
+            {
+                LogResult(
+                    jsonPointer,
+                    nameof(RuleResources.SARIF1009_IndexPropertiesMustBeConsistentWithArrays_Error_TargetArrayMustExist_Text),
+                    objectName,
+                    propertyName,
+                    index.ToInvariantString(),
+                    arrayName);
+                return;
+            }
+
             if (!IndexIsValid(index, container))
             {
                 LogResult(
@@ -177,6 +195,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         }
 
         private static bool IndexIsValid<T>(int index, IList<T> container)
-                => index == -1 || (index >= 0 && container?.Count > index);
+                => index >= 0 && container.Count > index;
     }
 }

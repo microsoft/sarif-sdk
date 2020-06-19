@@ -17,8 +17,11 @@
                 "text": "If an object contains a property that is used as an array index, then that array must be present and must contain at least \"index + 1\" elements."
               },
               "messageStrings": {
+                "Error_TargetArrayMustExist": {
+                  "text": "{0}: This \"{1}\" object contains a property \"{2}\" with value {3}, but \"{4}\" is absent."
+                },
                 "Error_TargetArrayMustBeLongEnough": {
-                  "text": "{0}: This \"{1}\" object contains a property \"{2}\" with value {3}, but either \"{4}\" is absent, or it has fewer than {5} elements."
+                  "text": "{0}: This \"{1}\" object contains a property \"{2}\" with value {3}, but \"{4}\" has fewer than {5} elements."
                 }
               },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
@@ -132,14 +135,13 @@
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "Error_TargetArrayMustBeLongEnough",
+            "id": "Error_TargetArrayMustExist",
             "arguments": [
               "runs[0].results[0].locations[0].logicalLocations[0]",
               "logicalLocation",
               "index",
               "0",
-              "runs[0].logicalLocations",
-              "1"
+              "runs[0].logicalLocations"
             ]
           },
           "locations": [
@@ -161,14 +163,13 @@
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "Error_TargetArrayMustBeLongEnough",
+            "id": "Error_TargetArrayMustExist",
             "arguments": [
               "runs[0].results[0].locations[0].logicalLocations[0]",
               "logicalLocation",
               "parentIndex",
               "1",
-              "runs[0].logicalLocations",
-              "2"
+              "runs[0].logicalLocations"
             ]
           },
           "locations": [
@@ -190,14 +191,13 @@
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "Error_TargetArrayMustBeLongEnough",
+            "id": "Error_TargetArrayMustExist",
             "arguments": [
               "runs[0].results[0].codeFlows[0].threadFlows[0].locations[0]",
               "threadFlowLocation",
               "index",
               "0",
-              "runs[0].threadFlowLocations",
-              "1"
+              "runs[0].threadFlowLocations"
             ]
           },
           "locations": [
@@ -219,14 +219,13 @@
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "Error_TargetArrayMustBeLongEnough",
+            "id": "Error_TargetArrayMustExist",
             "arguments": [
               "runs[0].results[0].codeFlows[0].threadFlows[0].locations[0].webRequest",
               "webRequest",
               "index",
               "0",
-              "runs[0].webRequests",
-              "1"
+              "runs[0].webRequests"
             ]
           },
           "locations": [
@@ -248,14 +247,13 @@
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "Error_TargetArrayMustBeLongEnough",
+            "id": "Error_TargetArrayMustExist",
             "arguments": [
               "runs[0].results[0].codeFlows[0].threadFlows[0].locations[0].webResponse",
               "webResponse",
               "index",
               "0",
-              "runs[0].webResponses",
-              "1"
+              "runs[0].webResponses"
             ]
           },
           "locations": [
@@ -335,14 +333,13 @@
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "Error_TargetArrayMustBeLongEnough",
+            "id": "Error_TargetArrayMustExist",
             "arguments": [
               "runs[0].results[0].graphTraversals[1]",
               "graphTraversal",
               "runGraphIndex",
               "0",
-              "runs[0].graphTraversals",
-              "1"
+              "runs[0].graphTraversals"
             ]
           },
           "locations": [
@@ -364,14 +361,13 @@
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "Error_TargetArrayMustBeLongEnough",
+            "id": "Error_TargetArrayMustExist",
             "arguments": [
               "runs[0].results[0].webRequest",
               "webRequest",
               "index",
               "0",
-              "runs[0].webRequests",
-              "1"
+              "runs[0].webRequests"
             ]
           },
           "locations": [
@@ -393,14 +389,13 @@
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "Error_TargetArrayMustBeLongEnough",
+            "id": "Error_TargetArrayMustExist",
             "arguments": [
               "runs[0].results[0].webResponse",
               "webResponse",
               "index",
               "0",
-              "runs[0].webResponses",
-              "1"
+              "runs[0].webResponses"
             ]
           },
           "locations": [
