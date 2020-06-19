@@ -6,16 +6,16 @@ using Microsoft.Json.Pointer;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class UriBaseIdRequiresRelativeUri : SarifValidationSkimmerBase
+    public class ExpressUriBaseIdsCorrectly : SarifValidationSkimmerBase
     {
         public override MultiformatMessageString FullDescription => new MultiformatMessageString
         {
-            Text = RuleResources.SARIF1004_UriBaseIdRequiresRelativeUri
+            Text = RuleResources.SARIF1004_ExpressUriBaseIdsCorrectly
         };
 
         public override FailureLevel DefaultLevel => FailureLevel.Error;
 
-        public override string Id => RuleId.UriBaseIdRequiresRelativeUri;
+        public override string Id => RuleId.ExpressUriBaseIdsCorrectly;
 
         protected override IEnumerable<string> MessageResourceNames => new string[]
         {
