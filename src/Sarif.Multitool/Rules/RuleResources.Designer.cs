@@ -97,16 +97,34 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: This fileLocation object contains a &quot;uriBaseId&quot; property, which means that the value of the &quot;uri&quot; property must be a relative URI reference, but &quot;{1}&quot; is an absolute URI reference..
+        ///   Looks up a localized string similar to {0}: The URI &apos;{1}&apos; belonging to the &apos;{2}&apos; element of run.originalUriBaseIds is not an absolute URI..
         /// </summary>
-        internal static string SARIF1004_Default {
+        internal static string SARIF1004_ExpressUriBaseIdsCorrectly_Error_TopLevelUriBaseIdMustBeAbsolute_Text {
             get {
-                return ResourceManager.GetString("SARIF1004_Default", resourceCulture);
+                return ResourceManager.GetString("SARIF1004_ExpressUriBaseIdsCorrectly_Error_TopLevelUriBaseIdMustBeAbsolute_Text", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If a fileLocation object contains a &quot;uriBaseId&quot; property, the value of the &quot;uri&quot; property must be a relative URI reference..
+        ///   Looks up a localized string similar to {0}: This fileLocation object contains a &quot;uriBaseId&quot; property, which means that the value of the &quot;uri&quot; property must be a relative URI reference, but &quot;{1}&quot; is an absolute URI reference..
+        /// </summary>
+        internal static string SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdRequiresRelativeUri_Text {
+            get {
+                return ResourceManager.GetString("SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdRequiresRelativeUri_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The URI &apos;{1}&apos; belonging to the &apos;{2}&apos; element of run.originalUriBaseIds does not end with a slash..
+        /// </summary>
+        internal static string SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdValueMustEndWithSlash_Text {
+            get {
+                return ResourceManager.GetString("SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdValueMustEndWithSlash_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Placeholder_SARIF1004_ExpressUriBaseIdsCorrectly_FullDescription_Text.
         /// </summary>
         internal static string SARIF1004_ExpressUriBaseIdsCorrectly_FullDescription_Text {
             get {
@@ -279,24 +297,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         internal static string SARIF1018_InvalidUriInOriginalUriBaseIds {
             get {
                 return ResourceManager.GetString("SARIF1018_InvalidUriInOriginalUriBaseIds", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}: The URI &apos;{1}&apos; belonging to the &apos;{2}&apos; element of run.originalUriBaseIds does not end with a slash..
-        /// </summary>
-        internal static string SARIF1018_LacksTrailingSlash {
-            get {
-                return ResourceManager.GetString("SARIF1018_LacksTrailingSlash", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}: The URI &apos;{1}&apos; belonging to the &apos;{2}&apos; element of run.originalUriBaseIds is not an absolute URI..
-        /// </summary>
-        internal static string SARIF1018_NotAbsolute {
-            get {
-                return ResourceManager.GetString("SARIF1018_NotAbsolute", resourceCulture);
             }
         }
         

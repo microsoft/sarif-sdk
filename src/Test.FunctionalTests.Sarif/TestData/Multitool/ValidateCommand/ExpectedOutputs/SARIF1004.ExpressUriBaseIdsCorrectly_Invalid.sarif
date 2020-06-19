@@ -11,14 +11,20 @@
               "id": "SARIF1004",
               "name": "ExpressUriBaseIdsCorrectly",
               "shortDescription": {
-                "text": "If a fileLocation object contains a \"uriBaseId\" property, the value of the \"uri\" property must be a relative URI reference."
+                "text": "Placeholder_SARIF1004_ExpressUriBaseIdsCorrectly_FullDescription_Text."
               },
               "fullDescription": {
-                "text": "If a fileLocation object contains a \"uriBaseId\" property, the value of the \"uri\" property must be a relative URI reference."
+                "text": "Placeholder_SARIF1004_ExpressUriBaseIdsCorrectly_FullDescription_Text"
               },
               "messageStrings": {
-                "Default": {
+                "Error_UriBaseIdRequiresRelativeUri": {
                   "text": "{0}: This fileLocation object contains a \"uriBaseId\" property, which means that the value of the \"uri\" property must be a relative URI reference, but \"{1}\" is an absolute URI reference."
+                },
+                "Error_TopLevelUriBaseIdMustBeAbsolute": {
+                  "text": "{0}: The URI '{1}' belonging to the '{2}' element of run.originalUriBaseIds is not an absolute URI."
+                },
+                "Error_UriBaseIdValueMustEndWithSlash": {
+                  "text": "{0}: The URI '{1}' belonging to the '{2}' element of run.originalUriBaseIds does not end with a slash."
                 }
               },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
@@ -45,7 +51,85 @@
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "Default",
+            "id": "Error_TopLevelUriBaseIdMustBeAbsolute",
+            "arguments": [
+              "runs[0].originalUriBaseIds.PROJECT_ROOT",
+              "project",
+              "PROJECT_ROOT"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 100,
+                  "startColumn": 25
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1004",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_UriBaseIdValueMustEndWithSlash",
+            "arguments": [
+              "runs[0].originalUriBaseIds.PROJECT_ROOT",
+              "project",
+              "PROJECT_ROOT"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 100,
+                  "startColumn": 25
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1004",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_UriBaseIdValueMustEndWithSlash",
+            "arguments": [
+              "runs[0].originalUriBaseIds.SOURCE_ROOT",
+              "src",
+              "SOURCE_ROOT"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 106,
+                  "startColumn": 24
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1004",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_UriBaseIdRequiresRelativeUri",
             "arguments": [
               "runs[0].conversion.analysisToolLogFiles[0].uri",
               "file:///C:/src/file.c"
@@ -70,7 +154,7 @@
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "Default",
+            "id": "Error_UriBaseIdRequiresRelativeUri",
             "arguments": [
               "runs[0].results[0].analysisTarget.uri",
               "file:///C:/src/file.c"
@@ -83,7 +167,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 115,
+                  "startLine": 130,
                   "startColumn": 42
                 }
               }
@@ -95,7 +179,7 @@
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "Default",
+            "id": "Error_UriBaseIdRequiresRelativeUri",
             "arguments": [
               "runs[0].results[0].attachments[0].artifactLocation.uri",
               "file:///C:/src/file.c"
@@ -108,7 +192,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 177,
+                  "startLine": 192,
                   "startColumn": 46
                 }
               }
@@ -120,7 +204,7 @@
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "Default",
+            "id": "Error_UriBaseIdRequiresRelativeUri",
             "arguments": [
               "runs[0].results[0].locations[0].physicalLocation.artifactLocation.uri",
               "file:///C:/src/file.c"
@@ -133,7 +217,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 122,
+                  "startLine": 137,
                   "startColumn": 48
                 }
               }
@@ -145,7 +229,7 @@
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "Default",
+            "id": "Error_UriBaseIdRequiresRelativeUri",
             "arguments": [
               "runs[0].results[0].codeFlows[0].threadFlows[0].locations[0].location.physicalLocation.artifactLocation.uri",
               "file:///C:/src/file.c"
@@ -158,7 +242,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 153,
+                  "startLine": 168,
                   "startColumn": 58
                 }
               }
@@ -170,7 +254,7 @@
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "Default",
+            "id": "Error_UriBaseIdRequiresRelativeUri",
             "arguments": [
               "runs[0].results[0].provenance.conversionSources[0].artifactLocation.uri",
               "file:///C:/src/file.c"
@@ -183,7 +267,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 186,
+                  "startLine": 201,
                   "startColumn": 48
                 }
               }
@@ -195,7 +279,7 @@
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "Default",
+            "id": "Error_UriBaseIdRequiresRelativeUri",
             "arguments": [
               "runs[0].results[0].stacks[0].frames[0].location.physicalLocation.artifactLocation.uri",
               "file:///C:/src/file.c"
@@ -208,7 +292,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 135,
+                  "startLine": 150,
                   "startColumn": 54
                 }
               }
@@ -220,7 +304,7 @@
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "Default",
+            "id": "Error_UriBaseIdRequiresRelativeUri",
             "arguments": [
               "runs[0].results[0].relatedLocations[0].physicalLocation.artifactLocation.uri",
               "file:///C:/src/file.c"
@@ -233,7 +317,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 168,
+                  "startLine": 183,
                   "startColumn": 48
                 }
               }
@@ -245,7 +329,7 @@
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "Default",
+            "id": "Error_UriBaseIdRequiresRelativeUri",
             "arguments": [
               "runs[0].results[0].fixes[0].artifactChanges[0].artifactLocation.uri",
               "file:///C:/src/file.c"
@@ -258,7 +342,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 197,
+                  "startLine": 212,
                   "startColumn": 50
                 }
               }
@@ -270,7 +354,7 @@
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "Default",
+            "id": "Error_UriBaseIdRequiresRelativeUri",
             "arguments": [
               "runs[0].artifacts[0].location.uri",
               "file:///C:/src/file.c"
@@ -283,7 +367,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 102,
+                  "startLine": 117,
                   "startColumn": 42
                 }
               }
@@ -295,7 +379,7 @@
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "Default",
+            "id": "Error_UriBaseIdRequiresRelativeUri",
             "arguments": [
               "runs[0].invocations[0].executableLocation.uri",
               "file:///C:/src/file.c"
@@ -320,7 +404,7 @@
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "Default",
+            "id": "Error_UriBaseIdRequiresRelativeUri",
             "arguments": [
               "runs[0].invocations[0].responseFiles[0].uri",
               "file:///C:/src/file.c"
@@ -345,7 +429,7 @@
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "Default",
+            "id": "Error_UriBaseIdRequiresRelativeUri",
             "arguments": [
               "runs[0].invocations[0].stdin.uri",
               "file:///c:/log/in.txt"
@@ -370,7 +454,7 @@
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "Default",
+            "id": "Error_UriBaseIdRequiresRelativeUri",
             "arguments": [
               "runs[0].invocations[0].stdout.uri",
               "file:///c:/log/out.txt"
@@ -395,7 +479,7 @@
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "Default",
+            "id": "Error_UriBaseIdRequiresRelativeUri",
             "arguments": [
               "runs[0].invocations[0].stderr.uri",
               "file:///c:/log/err.txt"
@@ -420,7 +504,7 @@
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "Default",
+            "id": "Error_UriBaseIdRequiresRelativeUri",
             "arguments": [
               "runs[0].invocations[0].stdoutStderr.uri",
               "file:///c:/log/out-err.txt"
@@ -445,7 +529,7 @@
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "Default",
+            "id": "Error_UriBaseIdRequiresRelativeUri",
             "arguments": [
               "runs[0].invocations[0].toolExecutionNotifications[0].locations[0].physicalLocation.artifactLocation.uri",
               "file:///C:/src/file.c"
@@ -470,7 +554,7 @@
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "Default",
+            "id": "Error_UriBaseIdRequiresRelativeUri",
             "arguments": [
               "runs[0].invocations[0].toolConfigurationNotifications[0].locations[0].physicalLocation.artifactLocation.uri",
               "file:///C:/src/file.c"
@@ -495,7 +579,7 @@
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "Default",
+            "id": "Error_UriBaseIdRequiresRelativeUri",
             "arguments": [
               "runs[0].versionControlProvenance[0].mappedTo.uri",
               "file:///C:/src/file.c"

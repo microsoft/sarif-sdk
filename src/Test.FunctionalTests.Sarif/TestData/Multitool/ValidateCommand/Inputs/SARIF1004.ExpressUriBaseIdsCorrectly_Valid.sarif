@@ -8,6 +8,26 @@
           "name": "CodeScanner"
         }
       },
+      "originalUriBaseIds": {
+        "PROJECT_ROOT": {
+          "description": {
+            "text": "This artifactLocation has neither a uri nor a uriBaseId. This is fine."
+          }
+        },
+        "RULES_ROOT": {
+          "uri": "file:///C:/rules/",
+          "description": {
+            "text": "This artifactLocation has no uriBaseId, so its uri, if present, must be absolute."
+          }
+        },
+        "SOURCE_ROOT": {
+          "uri": "src/",
+          "uriBaseId": "PROJECT_ROOT",
+          "description": {
+            "text": "This artifactLocation has a uriBaseId so its uri must be relative."
+          }
+        }
+      },
       "invocations": [
         {
           "responseFiles": [

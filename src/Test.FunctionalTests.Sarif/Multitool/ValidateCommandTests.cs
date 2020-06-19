@@ -112,14 +112,6 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
             => RunTest(MakeInvalidTestFileName(RuleId.IndexPropertiesMustBeConsistentWithArrays, nameof(RuleId.IndexPropertiesMustBeConsistentWithArrays)));
 
         [Fact]
-        public void SARIF1018_InvalidUriInOriginalUriBaseIds_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.InvalidUriInOriginalUriBaseIds, nameof(RuleId.InvalidUriInOriginalUriBaseIds)));
-
-        [Fact]
-        public void SARIF1018_InvalidUriInOriginalUriBaseIds_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.InvalidUriInOriginalUriBaseIds, nameof(RuleId.InvalidUriInOriginalUriBaseIds)));
-
-        [Fact]
         public void SARIF1010_RuleIdMustBeConsistent_Valid()
             => RunTest(MakeValidTestFileName(RuleId.RuleIdMustBeConsistent, nameof(RuleId.RuleIdMustBeConsistent)));
 
