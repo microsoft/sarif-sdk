@@ -10,16 +10,12 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 {
     public static class SarifWorkItemsExtensions
     {
-        public static bool ShouldBeFiled(this Result result, bool shouldFileUnchanged)
+        public static bool ShouldBeFiled(this Result result)
         {
-            if (result.BaselineState != BaselineState.None &&
-                result.BaselineState != BaselineState.New)
+            if (result.BaselineState == BaselineState.Absent ||
+                result.BaselineState == BaselineState.Updated)
             {
-                if (result.BaselineState != BaselineState.Unchanged ||
-                    (result.BaselineState == BaselineState.Unchanged && !shouldFileUnchanged))
-                {
-                    return false;
-                }
+                return false;
             }
                         
             if (result.Suppressions?.Count > 0) { return false; }
@@ -61,7 +57,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             return $"{result.GetProperty("OrganizationName")}:{projectId ?? string.Empty}:{result.GetProperty("EtlEntity")}:{repositoryId ?? string.Empty}:{result.PartialFingerprints["SecretHash/v1"]}";
         }
 
-        public static string CreateWorkItemTitle(this Run run, bool shouldFileUnchanged)
+        public static string CreateWorkItemTitle(this Run run)
         {
             if (run == null) { throw new ArgumentNullException(nameof(run)); }
             if (run.Results == null) { throw new ArgumentNullException(nameof(run.Results)); }
@@ -70,7 +66,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
             foreach (Result result in run?.Results)
             {
-                if (result.ShouldBeFiled(shouldFileUnchanged))
+                if (result.ShouldBeFiled())
                 {
                     firstResult = result;
                     break;
@@ -136,17 +132,17 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 .ToList();
         }
 
-        public static int GetAggregateFilableResultsCount(this SarifLog log, bool shouldFileUnchanged)
+        public static int GetAggregateFilableResultsCount(this SarifLog log)
         {
             return log?.Runs?
                 .Select(run => run?.Results?
-                    .Select(result => result.ShouldBeFiled(shouldFileUnchanged) ? 1 : 0).Sum())
+                    .Select(result => result.ShouldBeFiled() ? 1 : 0).Sum())
                 .Sum() ?? 0;
         }
         
         public static string CreateWorkItemDescription(this SarifLog log, SarifWorkItemContext context, IList<Uri> locationUris)
         {
-            int totalResults = log.GetAggregateFilableResultsCount(context.ShouldFileUnchanged);
+            int totalResults = log.GetAggregateFilableResultsCount();
             List<string> toolNames = log.GetToolNames();
             string phrasedToolNames = toolNames.ToAndPhrase();
             string multipleToolsFooter = toolNames.Count > 1 ? WorkItemsResources.MultipleToolsFooter : string.Empty;

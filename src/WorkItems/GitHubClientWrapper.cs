@@ -1,19 +1,14 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using System.IO;
-using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.TeamFoundation.WorkItemTracking.WebApi;
-using Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models;
-using Microsoft.VisualStudio.Services.WebApi.Patch.Json;
 using Octokit;
 
 namespace Microsoft.WorkItems
 {
     internal class GitHubClientWrapper : IGitHubClientWrapper
     {
-        private GitHubClient gitHubClient;
+        private readonly GitHubClient gitHubClient;
 
         public GitHubClientWrapper(GitHubClient gitHubClient)
         {
@@ -36,6 +31,5 @@ namespace Microsoft.WorkItems
         {
             return this.gitHubClient.Issue.Update(organization, repository, issueNumber, issueUpdate);
         }
-
     }
 }
