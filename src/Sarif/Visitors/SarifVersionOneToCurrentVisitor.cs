@@ -40,8 +40,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             SarifLog = new SarifLog(SarifVersion.Current.ConvertToSchemaUri(),
                                     SarifVersion.Current,
                                     new List<Run>(),
-                                    null,
-                                    properties: null);
+                                    null);
 
             foreach (RunVersionOne v1Run in v1SarifLog.Runs)
             {
@@ -444,9 +443,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                                          Uri uri,
                                          string uriBaseId,
                                          int column,
-                                         int line,
-                                         int address,
-                                         int offset)
+                                         int line)
         {
             var location = new Location
             {
@@ -1185,9 +1182,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                                                  v1StackFrame.Uri,
                                                  v1StackFrame.UriBaseId,
                                                  v1StackFrame.Column,
-                                                 v1StackFrame.Line,
-                                                 v1StackFrame.Address,
-                                                 v1StackFrame.Offset);
+                                                 v1StackFrame.Line);
 
             return stackFrame;
         }

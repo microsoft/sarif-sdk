@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
             {
                 IEnumerable<ArtifactContent> xContextRegions = x.Result.Locations.Select(loc => loc.PhysicalLocation.ContextRegion.Snippet);
 
-                HashSet<ArtifactContent> yContextRegions = new HashSet<ArtifactContent>(ArtifactContentEqualityComparer.Instance);
+                HashSet<ArtifactContent> yContextRegions = new HashSet<ArtifactContent>();
                 foreach (ArtifactContent content in y.Result.Locations.Select(loc => loc.PhysicalLocation.ContextRegion.Snippet))
                 {
                     yContextRegions.Add(content);
@@ -46,7 +46,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
                 IEnumerable<ArtifactContent> contextRegions = obj.Result.Locations.Select(loc => loc.PhysicalLocation.ContextRegion.Snippet);
                 foreach (ArtifactContent content in contextRegions)
                 {
-                    hashCode ^= ArtifactContentEqualityComparer.Instance.GetHashCode(content);
+                    hashCode ^= content.GetHashCode();
                 }
 
                 return hashCode;

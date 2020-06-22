@@ -78,12 +78,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
 
             public bool Equals(Result x, Result y)
             {
-                return ResultEqualityComparer.Instance.Equals(CreateMaskedResult(x), CreateMaskedResult(y));
+                return x.Equals(y);
             }
 
             public int GetHashCode(Result obj)
             {
-                return ResultEqualityComparer.Instance.GetHashCode(CreateMaskedResult(obj));
+                return CreateMaskedResult(obj).GetHashCode();
             }
 
             /// <summary>
