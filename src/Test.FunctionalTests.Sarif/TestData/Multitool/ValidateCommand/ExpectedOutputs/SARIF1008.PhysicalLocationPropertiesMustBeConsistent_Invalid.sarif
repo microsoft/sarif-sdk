@@ -11,14 +11,17 @@
               "id": "SARIF1008",
               "name": "PhysicalLocationPropertiesMustBeConsistent",
               "shortDescription": {
-                "text": "If the \"contextRegion\" property is present, the \"region\" property must also be present."
+                "text": "A SARIF 'physicalLocation' object has two related properties 'region' and 'contextRegion'."
               },
               "fullDescription": {
-                "text": "If the \"contextRegion\" property is present, the \"region\" property must also be present."
+                "text": "A SARIF 'physicalLocation' object has two related properties 'region' and 'contextRegion'. If 'contextRegion' is present, then 'region' must also be present, and 'contextRegion' must be a \"proper superset\" of 'region'. That is, 'contextRegion' must completely contain 'region', and it must be larger than 'region'. To understand why this is so we must understand the roles of the 'region' and 'contextRegion' properties.\r\n\r\n'region' allows both users and tools to distinguish similar results within the same artifact. If a SARIF viewer has access to the artifact, it can display it, and highlight the location identified by the analysis tool. If the region has a 'snippet' property, then even if the viewer doesn't have access to the artifact (which might be the case for a web-based viewer), it can still display the faulty code.\r\n\r\n'contextRegion' provides users with a broader view of the result location. Typically, it consists of a range starting a few lines before 'region' and ending a few lines after. Again, if a SARIF viewer has access to the artifact, it can display it, and highlight the context region (perhaps in a lighter shade than the region itself). This isn't terribly useful since the user can already see the whole file, with the 'region' already highlighted. But if 'contextRegion' has a 'snippet' property, then even a viewer without access to the artifact can display a few lines of code surrounding the actual result, which is helpful to users.\r\n\r\nIf the SARIF validator reports that 'contextRegion' is present but 'region' is absent, then it's possible that the tool should have populated 'region' rather than 'contextRegion', or that it simply neglected to populate 'region'. If the validator reports that 'contextRegion' is not a proper superset of 'region', then it's possible that the tool reversed 'region' and 'contextRegion'. If 'region' and 'contextRegion' are identical, the tool should simply omit 'contextRegion'."
               },
               "messageStrings": {
                 "Error_ContextRegionRequiresRegion": {
-                  "text": "{0}: This \"physicalLocation\" object contains a \"contextRegion\" property, but it does not contain a \"region\" property."
+                  "text": "{0}: This 'physicalLocation' object contains a 'contextRegion' property, but it does not contain a 'region' property. This is invalid because the purpose of 'contextRegion' is to provide a viewing context around the 'region' which is the location of the result. If the tool incorrectly populated 'contextRegion' instead of 'region', then fix it so that it populates only the 'region'. If the tool simply neglected to populate 'region', then fix it so that it does."
+                },
+                "Error_ContextRegionMustBeProperSupersetOfRegion": {
+                  "text": "{0}: This 'physicalLocation' object contains both a 'region' and a 'contextRegion' property, but 'contextRegion' is not a proper superset of 'region'. This is invalid because the purpose of 'contextRegion' is to provide a viewing context around the 'region' which is the location of the result. If the tool simply reversed 'region', then fix it puts the correct values in the correct properties. If 'region' and 'contextRegion' are identical, the 'contextRegion' is unnecessary, and (by the spec) the tool must not populate it."
                 }
               },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
@@ -58,6 +61,150 @@
                 },
                 "region": {
                   "startLine": 20,
+                  "startColumn": 35
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1008",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_ContextRegionMustBeProperSupersetOfRegion",
+            "arguments": [
+              "runs[0].results[1].locations[0].physicalLocation"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 40,
+                  "startColumn": 35
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1008",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_ContextRegionMustBeProperSupersetOfRegion",
+            "arguments": [
+              "runs[0].results[2].locations[0].physicalLocation"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 68,
+                  "startColumn": 35
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1008",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_ContextRegionMustBeProperSupersetOfRegion",
+            "arguments": [
+              "runs[0].results[3].locations[0].physicalLocation"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 92,
+                  "startColumn": 35
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1008",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_ContextRegionMustBeProperSupersetOfRegion",
+            "arguments": [
+              "runs[0].results[4].locations[0].physicalLocation"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 116,
+                  "startColumn": 35
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1008",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_ContextRegionMustBeProperSupersetOfRegion",
+            "arguments": [
+              "runs[0].results[5].locations[0].physicalLocation"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 140,
+                  "startColumn": 35
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1008",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_ContextRegionMustBeProperSupersetOfRegion",
+            "arguments": [
+              "runs[0].results[6].locations[0].physicalLocation"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 164,
                   "startColumn": 35
                 }
               }
