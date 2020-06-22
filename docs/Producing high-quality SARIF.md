@@ -1,4 +1,4 @@
-# Rules and Guidelines for producing high-quality SARIF output
+# Rules and guidelines for producing high-quality SARIF
 
 ## Introduction
 
@@ -66,21 +66,21 @@ Rules that describe violations of **SHALL**/**SHALL NOT** requirements of the [S
 
 ---
 
-### Rule `SARIF1001.RuleIdentifiersMustBeValid`
+### Rule`SARIF1001.RuleIdentifiersMustBeValid`
 
 #### Description
 
-SARIF rules have two identifiers. The required 'id' property must be a "stable, opaque identifier" (the SARIF specification ([§3.49.3](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317839)) explains the reasons for this). The optional 'name' property ([§3.49.7](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317843)) is an identifer that is understandable to an end user. Therefore if both 'id' and 'name' are present, they must be different.
+SARIF rules have two identifiers. The required 'id' property must be a "stable, opaque identifier" (the SARIF specification ([§3.49.3](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317839)) explains the reasons for this). The optional 'name' property ([§3.49.7](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317843)) is an identifer that is understandable to an end user. Therefore if both 'id' and 'name' are present, they must be different. If both 'name' and 'id' are opaque identifiers, omit the 'name' property. If both 'name' and 'id' are human-readable identifiers, then consider assigning an opaque identifier to each rule, but in the meantime, omit the 'name' property.
 
 #### Messages
 
-##### `DistinguishRuleIdFromRuleName`: error
+##### `Default`: error
 
 {0}: The rule '{1}' has a 'name' property that is identical to its 'id' property. The required 'id' property must be a "stable, opaque identifier" (the SARIF specification ([§3.49.3](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317839)) explains the reasons for this). The optional 'name' property ([§3.49.7](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317843)) is an identifer that is understandable to an end user. Therefore if both 'id' and 'name' are present, they must be different.
 
 ---
 
-### Rule `SARIF1002.UrisMustBeValid`
+### Rule`SARIF1002.UrisMustBeValid`
 
 #### Description
 
@@ -91,12 +91,15 @@ SARIF rules have two identifiers. The required 'id' property must be a "stable, 
 ##### `FileUrisMustConformToRfc8089`: error
 
 ##### `FileUrisMustNotIncludeDotDotSegments`: error
+---
 
-##### `FileUrisWithoutHostNameShouldUseTripleSlashForm`: warning (TODO: This can't be here. Different level.)
+### Rule`SARIF1003.UrisShouldUseConventionalForm`
+
+##### `FileUrisWithoutHostNameShouldUseTripleSlashForm`: warning
 
 ---
 
-### Rule `SARIF1003.UseUriBaseIdsCorrectly`
+### Rule`SARIF1004.ExpressUriBaseIdsCorrectly`
 
 #### Description
 
@@ -114,17 +117,17 @@ SARIF rules have two identifiers. The required 'id' property must be a "stable, 
 
 ---
 
-### Rule `SARIF1004.CertainUrisMustBeAbsolute`
+### Rule`SARIF1005.UriMustBeAbsolute`
 
 #### Description
 
 #### Messages
 
-##### `UriMustBeAbsolute`: error
+##### `Default`: error
 
 ---
 
-### Rule `SARIF1005.InvocationPropertiesMustBeConsistent`
+### Rule`SARIF1006.InvocationPropertiesMustBeConsistent`
 
 #### Description
 
@@ -134,7 +137,7 @@ SARIF rules have two identifiers. The required 'id' property must be a "stable, 
 
 ---
 
-### Rule `SARIF1006.RegionPropertiesMustBeConsistent`
+### Rule`SARIF1007.RegionPropertiesMustBeConsistent`
 
 #### Description
 
@@ -146,23 +149,35 @@ SARIF can specify a 'region' (a contiguous portion of a file) in a variety of wa
 
 ##### `EndColumnMustNotPrecedeStartColumn`: error
 
-##### `RegionStartPropertyMustBePresent`: error (LJG additional proposal)
+##### `RegionStartPropertyMustBePresent`: error
 
 ---
 
-### Rule `SARIF1007.ContextRegionMustEncloseRegion`
+### Rule`SARIF1008.PhysicalLocationPropertiesMustBeConsistent`
 
 #### Description
+
+A SARIF 'physicalLocation' object has two related properties 'region' and 'contextRegion'. If 'contextRegion' is present, then 'region' must also be present, and 'contextRegion' must be a "proper superset" of 'region'. That is, 'contextRegion' must completely contain 'region', and it must be larger than 'region'. To understand why this is so we must understand the roles of the 'region' and 'contextRegion' properties.
+
+'region' allows both users and tools to distinguish similar results within the same artifact. If a SARIF viewer has access to the artifact, it can display it, and highlight the location identified by the analysis tool. If the region has a 'snippet' property, then even if the viewer doesn't have access to the artifact (which might be the case for a web-based viewer), it can still display the faulty code.
+
+'contextRegion' provides users with a broader view of the result location. Typically, it consists of a range starting a few lines before 'region' and ending a few lines after. Again, if a SARIF viewer has access to the artifact, it can display it, and highlight the context region (perhaps in a lighter shade than the region itself). This isn't terribly useful since the user can already see the whole file, with the 'region' already highlighted. But if 'contextRegion' has a 'snippet' property, then even a viewer without access to the artifact can display a few lines of code surrounding the actual result, which is helpful to users.
+
+If the SARIF validator reports that 'contextRegion' is present but 'region' is absent, then it's possible that the tool should have populated 'region' rather than 'contextRegion', or that it simply neglected to populate 'region'. If the validator reports that 'contextRegion' is not a proper superset of 'region', then it's possible that the tool reversed 'region' and 'contextRegion'. If 'region' and 'contextRegion' are identical, the tool should simply omit 'contextRegion'.
 
 #### Messages
 
 ##### `ContextRegionRequiresRegion`: error
 
-##### `ContextRegionMustBeProperSupersetOfRegion`: error (LJG additional proposal)
+{0}: This 'physicalLocation' object contains a 'contextRegion' property, but it does not contain a 'region' property. This is invalid because the purpose of 'contextRegion' is to provide a viewing context around the 'region' which is the location of the result. If the tool incorrectly populated 'contextRegion' instead of 'region', then fix it so that it populates only the 'region'. If the tool simply neglected to populate 'region', then fix it so that it does.
+
+##### `ContextRegionMustBeProperSupersetOfRegion`: error
+
+{0}: This 'physicalLocation' object contains both a 'region' and a 'contextRegion' property, but 'contextRegion' is not a proper superset of 'region'. This is invalid because the purpose of 'contextRegion' is to provide a viewing context around the 'region' which is the location of the result. If the tool simply reversed 'region', then fix it puts the correct values in the correct properties. If 'region' and 'contextRegion' are identical, the 'contextRegion' is unnecessary, and (by the spec) the tool must not populate it.
 
 ---
 
-### Rule `SARIF1008.IndexPropertiesMustBeConsistentWithArrays`
+### Rule`SARIF1009.IndexPropertiesMustBeConsistentWithArrays`
 
 #### Description
 
@@ -170,11 +185,11 @@ SARIF can specify a 'region' (a contiguous portion of a file) in a variety of wa
 
 ##### `TargetArrayMustExist`: error
 
-##### `TargetArrayMustBeLongEnough`: error (LJG proposal to split message, doesn't feel strongly.)
+##### `TargetArrayMustBeLongEnough`: error
 
 ---
 
-### Rule `SARIF1009.ResultMustContainConsistentRuleId`
+### Rule`SARIF1010.RuleIdMustBeConsistent`
 
 #### Description
 
@@ -184,13 +199,33 @@ This validation rule is required because this constraint cannot be expressed in 
 
 #### Messages
 
-##### `ResultMustSpecifyRuleId`
+##### `ResultMustSpecifyRuleId`: error
 
 {0}: This result contains neither of the properties 'ruleId' or 'rule.id'. The SARIF specification ([§3.27.5](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317643)) requires at least one of these properties to be present.
 
-##### `ResultRuleIdMustBeConsistent`
+##### `ResultRuleIdMustBeConsistent`: error
 
 {0}: This result contains both the 'ruleId' property '{1}' and the 'rule.id' property '{2}', but they are not equal. The SARIF specification ([§3.27.5](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317643)) requires that if both of these properties are present, they must be equal.
+
+---
+
+### Rule`SARIF1011.ReferenceFinalSchema`
+
+#### Description
+
+#### Messages
+
+##### `Default`: error
+
+---
+
+### Rule`SARIF1012.MessagePropertiesMustBeConsistent`
+
+#### Description
+
+#### Messages
+
+##### `SupplyCorrectNumberOfArguments`: error
 
 ---
 
@@ -202,7 +237,7 @@ Rules that describe violations of SARIF recommendations or best practices also h
 
 ---
 
-### Rule `SARIF2001.AuthorHighQualityMessages`
+### Rule`SARIF2001.AuthorHighQualityMessages`
 
 #### Description
 
@@ -214,11 +249,93 @@ Rules that describe violations of SARIF recommendations or best practices also h
 
 ##### `TerminateWithPeriod`: warning
 
-##### `UseMessageArguments`: warning (TODO: This doesn't belong here. Separate concern; this is about _usage_.)
+---
+
+### Rule`SARIF2002.UseMessageArguments`
+
+#### Description
+
+#### Messages
+
+##### `Default`: warning
 
 ---
 
-### Rule `SARIF2002.UseConventionalSymbolicNames`
+### Rule`SARIF2003.ProduceEnrichedSarif`
+
+#### Description
+
+#### Messages
+
+##### `ProvideVersionControlProvenance`: note
+
+##### `ProvideCodeSnippets`: note
+
+##### `ProvideContextRegion`: note
+
+##### `ProvideHelpUris`: note
+
+##### `EmbedFileContent`: note
+
+---
+
+### Rule`SARIF2004.OptimizeFileSize`
+
+#### Description
+
+#### Messages
+
+##### `EliminateLocationOnlyArtifacts`: warning
+
+##### `DoNotIncludeExtraIndexedObjectProperties`: warning
+
+---
+
+### Rule`SARIF2005.ProvideHelpfulToolInformation`
+
+#### Description
+
+#### Messages
+
+##### `ProvideConciseToolName`: note
+
+##### `ProvideToolVersion`: warning
+
+##### `UseNumericToolVersions`: warning
+
+---
+
+### Rule`SARIF2006.UrisShouldBeReachable`
+
+#### Description
+
+#### Messages
+
+##### `Default`: warning
+
+---
+
+### Rule`SARIF2007.ExpressPathsRelativeToRepoRoot`
+
+#### Description
+
+#### Messages
+
+##### `Default`: warning
+
+---
+
+### Rule`SARIF2008.ProvideSchema`
+
+#### Description
+
+#### Messages
+
+##### `Default`: warning
+
+---
+
+### Rule`SARIF2009.UseConventionalSymbolicNames`
 
 #### Description
 
@@ -226,6 +343,8 @@ SARIF uses symbolic names in various contexts. This rule proposes uniform naming
 
 Many tools follow a conventional format for the 'reportingDescriptor.id' property: a short string identifying the tool concatenated with a numeric rule number,
 for example, 'CS2001' for a diagnostic from the Roslyn C# compiler. For uniformity of experience across tools, we recommend this format.
+
+Many tool use similar names for 'uriBaseId' symbols. We suggest 'REPOROOT' for the root of a repository, 'SRCROOT' for the root of the directory containing all source code, 'TESTROOT' for the root of the directory containing all test code (if your repository is organized in that way), and 'BINROOT' for the root of the directory containing build output (if your project places all build output in a common directory).
 
 #### Messages
 
@@ -235,86 +354,6 @@ for example, 'CS2001' for a diagnostic from the Roslyn C# compiler. For uniformi
 
 ##### `UseConventionalUriBaseIdNames`: note
 
----
-
-### Rule `SARIF2003.FacilitateAutomaticBugFiling`
-
-#### Description
-
-#### Messages
-
-##### `ProvideVersionControlProvenance`: note
+{0}: The 'originalUriBaseIds' symbol '{1}' is not one of the conventional symbols. We suggest 'REPOROOT' for the root of a repository, 'SRCROOT' for the root of the directory containing all source code, 'TESTROOT' for the root of the directory containing all test code (if your repository is organized in that way), and 'BINROOT' for the root of the directory containing build output (if your project places all build output in a common directory).
 
 ---
-
-### Rule `SARIF2004.FacilitateBugFixing`
-
-#### Description
-
-#### Messages
-
-##### `ProvideCodeSnippets`: note
-
-##### `ProvideContextRegion`: note
-
-##### `EmbedFileContent`: note
-
-##### `ProvideRuleHelpUris`: note
-
----
-
-### Rule `SARIF2005.ReduceFileSize`
-
-#### Description
-
-#### Messages
-
-##### `EliminateLocationOnlyArtifacts`: warning
-
-##### `DoNotIncludeExtraIndexedObjectProperties`: warning (TODO: Needs a better name.)
-
----
-
-### Rule `SARIF2006.ProvideHelpfulToolInformation`
-
-#### Description
-
-#### Messages
-
-##### `ProvideConciseToolName`: note
-
-##### `ProvideToolVersion`: note
-
-##### `UseNumericToolVersions`: note
-
----
-
-### Rule `SARIF2007.ProvideUsableUris` (TODO: Not a great name.)
-
-#### Description
-
-#### Messages
-
-##### `UrisShouldBeReachable`
-
----
-
-### Rule `SARIF2008.ExpressPathsRelativeToRepoRoot`
-
-#### Description
-
-#### Messages
-
-##### `??`
-
----
-
-## Rule `SARIF2009.ReferToFinalSchema`
-
-#### Description
-
-#### Messages
-
-##### `SchemaPropertyShouldBePresent`: warning
-
-##### `SchemaPropertyShouldReferToFinalSchema`: warning (**NOTE** Why isn't this an error? It can't possibly be ok.)
