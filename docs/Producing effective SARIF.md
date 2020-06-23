@@ -60,7 +60,7 @@ First come the rules that detect serious violations of the SARIF spec (rules whi
 
 Then come the rules that detect either less serious violations of the SARIF spec (rules which the validator would report as `"warning"` or `"note"`). They have numbers in the range 2000-2999, for example, `SARIF2001.AuthorHighQualityMessages`.
 
-Each rule has a description that describes its purpose, followed by one or more messages that can appear in a SARIF result object that reports a violation of this rule.
+Each rule has a description that describes its purpose, followed by one or more messages that can appear in a SARIF result object that reports a violation of this rule. Each message includes one or more replacement sequences (`{0}`, `{1}`, _etc._). The first one (`{0}`) is always a JSON path expression that describes the location of the result. For example, `/runs/0/results/0/locations/0/physicalLocation` specifies the `physicalLocation` property of the first location of the first result in the first run in the log file.
 
 ## Rules that describe serious violations
 
@@ -259,9 +259,13 @@ Rules that describe violations of SARIF recommendations or best practices also h
 
 #### Description
 
+In result messages, use the 'message.id' and 'message.arguments' properties rather than 'message.text'. This has several advantages. If 'text' is lengthy, using 'id' and 'arguments' makes the SARIF file smaller. If the rule metadata is stored externally to the SARIF log file, the message text can be improved (for example, by adding more text, clarifying the phrasing, or fixing typos), and the result messages will pick up the improvements the next time it is displayed. Finally, SARIF supports localizing messages into different languages, which is possible if the SARIF file contains 'message.id' and 'message.arguments', but not if it contains 'message.text' directly.
+
 #### Messages
 
 ##### `Default`: warning
+
+{0}: The 'message' property of this result contains a 'text' property. Consider replacing it with 'id' and 'arguments' properties. This potentially reduces the log file size, allows the message text to be improved without modifying the log file, and enables localization.
 
 ---
 
