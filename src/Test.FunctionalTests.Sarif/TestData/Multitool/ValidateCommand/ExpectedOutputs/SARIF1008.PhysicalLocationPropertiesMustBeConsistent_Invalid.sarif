@@ -21,7 +21,7 @@
                   "text": "{0}: This 'physicalLocation' object contains a 'contextRegion' property, but it does not contain a 'region' property. This is invalid because the purpose of 'contextRegion' is to provide a viewing context around the 'region' which is the location of the result. If the tool incorrectly populated 'contextRegion' instead of 'region', then fix it so that it populates only the 'region'. If the tool simply neglected to populate 'region', then fix it so that it does."
                 },
                 "Error_ContextRegionMustBeProperSupersetOfRegion": {
-                  "text": "{0}: This 'physicalLocation' object contains both a 'region' and a 'contextRegion' property, but 'contextRegion' is not a proper superset of 'region'. This is invalid because the purpose of 'contextRegion' is to provide a viewing context around the 'region' which is the location of the result. If the tool simply reversed 'region', then fix it puts the correct values in the correct properties. If 'region' and 'contextRegion' are identical, the 'contextRegion' is unnecessary, and (by the spec) the tool must not populate it."
+                  "text": "{0}: This 'physicalLocation' object contains both a 'region' and a 'contextRegion' property, but 'contextRegion' is not a proper superset of 'region'. This is invalid because the purpose of 'contextRegion' is to provide a viewing context around the 'region' which is the location of the result. If the tool simply reversed 'region' and 'contextRegion', then fix it so it puts the correct values in the correct properties. If 'region' and 'contextRegion' are identical, the 'contextRegion' is unnecessary, and (by the spec) the tool must not populate it."
                 }
               },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
@@ -205,6 +205,150 @@
                 },
                 "region": {
                   "startLine": 164,
+                  "startColumn": 35
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1008",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_ContextRegionMustBeProperSupersetOfRegion",
+            "arguments": [
+              "runs[0].results[7].locations[0].physicalLocation"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 188,
+                  "startColumn": 35
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1008",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_ContextRegionMustBeProperSupersetOfRegion",
+            "arguments": [
+              "runs[0].results[8].locations[0].physicalLocation"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 212,
+                  "startColumn": 35
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1008",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_ContextRegionMustBeProperSupersetOfRegion",
+            "arguments": [
+              "runs[0].results[9].locations[0].physicalLocation"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 236,
+                  "startColumn": 35
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1008",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_ContextRegionMustBeProperSupersetOfRegion",
+            "arguments": [
+              "runs[0].results[10].locations[0].physicalLocation"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 260,
+                  "startColumn": 35
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1008",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_ContextRegionMustBeProperSupersetOfRegion",
+            "arguments": [
+              "runs[0].results[11].locations[0].physicalLocation"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 284,
+                  "startColumn": 35
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1008",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_ContextRegionMustBeProperSupersetOfRegion",
+            "arguments": [
+              "runs[0].results[12].locations[0].physicalLocation"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 308,
                   "startColumn": 35
                 }
               }
