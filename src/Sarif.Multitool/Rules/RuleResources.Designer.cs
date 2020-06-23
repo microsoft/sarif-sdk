@@ -310,6 +310,42 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Placeholder.
+        /// </summary>
+        internal static string SARIF2005_ProvideHelpfulToolInformation_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("SARIF2005_ProvideHelpfulToolInformation_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: Placeholder {1} {2}.
+        /// </summary>
+        internal static string SARIF2005_ProvideHelpfulToolInformation_Warning_ProvideConciseToolName_Text {
+            get {
+                return ResourceManager.GetString("SARIF2005_ProvideHelpfulToolInformation_Warning_ProvideConciseToolName_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: Placeholder.
+        /// </summary>
+        internal static string SARIF2005_ProvideHelpfulToolInformation_Warning_ProvideToolVersion_Text {
+            get {
+                return ResourceManager.GetString("SARIF2005_ProvideHelpfulToolInformation_Warning_ProvideToolVersion_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: Placeholder {1}.
+        /// </summary>
+        internal static string SARIF2005_ProvideHelpfulToolInformation_Warning_UseNumericToolVersions_Text {
+            get {
+                return ResourceManager.GetString("SARIF2005_ProvideHelpfulToolInformation_Warning_UseNumericToolVersions_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The $schema property should be present.  This enables IDEs to provide Intellisense for SARIF log files..
         /// </summary>
         internal static string SARIF2008_ProvideSchema_FullDescription_Text {
