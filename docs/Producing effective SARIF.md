@@ -1,10 +1,12 @@
-# Rules and guidelines for producing high-quality SARIF
+# Rules and guidelines for producing effective SARIF
 
 ## Introduction
 
-This document is for creators of static analysis tools who want to produce the best possible SARIF output.
+This document is for creators of static analysis tools who want to produce SARIF output that's useful to SARIF consumers, both human and automated.
 
 Teams can use SARIF log files in many ways. They can view the results in an IDE extension such as the [SARIF extension for VS Code](https://marketplace.visualstudio.com/items?itemName=MS-SarifVSCode.sarif-viewer) or the [SARIF Viewer VSIX for Visual Studio](https://marketplace.visualstudio.com/items?itemName=WDGIS.MicrosoftSarifViewer), or in a [web-based viewer](https://microsoft.github.io/sarif-web-component/). They can import it into a static analysis results database, or use it to drive automatic bug fiing. Most important, developers use the information in a SARIF log file to understand and fix the problems it reports.
+
+Because of this variety of usage scenarios, a SARIF log file that is useful  one scenario might not be useful in another. Ideally, static analysis tools will provide options to let their users specify the output that meets their needs.
 
 The [SARIF specification](https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html) defines dozens of objects with hundreds of properties. It can be hard to decide which ones are important (aside from the few that the spec says are mandatory). What information is most helpful to developers? What information should you include if you want to file useful bugs from the SARIF log?
 
@@ -66,7 +68,7 @@ Rules that describe violations of **SHALL**/**SHALL NOT** requirements of the [S
 
 ---
 
-### Rule`SARIF1001.RuleIdentifiersMustBeValid`
+### Rule `SARIF1001.RuleIdentifiersMustBeValid`
 
 #### Description
 
