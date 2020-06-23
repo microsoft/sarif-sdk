@@ -211,6 +211,6 @@ If the SARIF validator reports that 'contextRegion' is present but 'region' is a
     <value>Placeholder_SARIF1007_RegionPropertiesMustBeConsistent_FullDescription_Text</value>
   </data>
   <data name="SARIF1008_PhysicalLocationPropertiesMustBeConsistent_Error_ContextRegionMustBeProperSupersetOfRegion_Text" xml:space="preserve">
-    <value>{0}: This 'physicalLocation' object contains both a 'region' and a 'contextRegion' property, but 'contextRegion' is not a proper superset of 'region'. This is invalid because the purpose of 'contextRegion' is to provide a viewing context around the 'region' which is the location of the result. If the tool simply reversed 'region', then fix it puts the correct values in the correct properties. If 'region' and 'contextRegion' are identical, the 'contextRegion' is unnecessary, and (by the spec) the tool must not populate it.</value>
+    <value>{0}: This 'physicalLocation' object contains both a 'region' and a 'contextRegion' property, but 'contextRegion' is not a proper superset of 'region'. This is invalid because the purpose of 'contextRegion' is to provide a viewing context around the 'region' which is the location of the result. If the tool simply reversed 'region' and 'contextRegion', then fix it so it puts the correct values in the correct properties. If 'region' and 'contextRegion' are identical, the 'contextRegion' is unnecessary, and (by the spec) the tool must not populate it.</value>
   </data>
 </root>

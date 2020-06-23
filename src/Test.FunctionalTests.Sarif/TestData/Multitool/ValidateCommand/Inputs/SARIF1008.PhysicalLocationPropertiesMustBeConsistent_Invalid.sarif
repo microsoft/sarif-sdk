@@ -30,10 +30,10 @@
           ]
         },
         {
-          "ruleId": "TST0002",
+          "ruleId": "TST0001",
           "level": "error",
           "message": {
-            "text": "Bad result - partially overlapping region and contextregion (line/column based)."
+            "text": "Bad result - partially overlapping region and contextregion (text and line/column based)."
           },
           "locations": [
             {
@@ -45,23 +45,23 @@
                   "startLine": 1,
                   "startColumn": 5,
                   "endLine": 10,
-                  "endColumn": 5
+                  "endColumn": 15
                 },
                 "contextRegion": {
                   "startLine": 1,
                   "startColumn": 1,
                   "endLine": 10,
-                  "endColumn":15
+                  "endColumn": 5
                 }
               }
             }
           ]
         },
         {
-          "ruleId": "TST0003",
+          "ruleId": "TST0001",
           "level": "error",
           "message": {
-            "text": "Bad result - non-overlapping region and contextregion (line/column based)."
+            "text": "Bad result - non-overlapping region and contextregion (text and line/column based)."
           },
           "locations": [
             {
@@ -82,10 +82,10 @@
           ]
         },
         {
-          "ruleId": "TST0004",
+          "ruleId": "TST0001",
           "level": "error",
           "message": {
-            "text": "Bad result - fully overlapping region and contextregion (line/column based)."
+            "text": "Bad result - identical region and contextregion (text and line/column based)."
           },
           "locations": [
             {
@@ -106,10 +106,10 @@
           ]
         },
         {
-          "ruleId": "TST0005",
+          "ruleId": "TST0001",
           "level": "error",
           "message": {
-            "text": "Bad result - text contextregion smaller than region (offset based)."
+            "text": "Bad result - contextregion smaller than region (text and line/column based)."
           },
           "locations": [
             {
@@ -118,22 +118,22 @@
                   "uri": "src/test.c"
                 },
                 "region": {
-                  "charOffset": 15,
-                  "charLength": 30
+                  "startLine": 2,
+                  "endLine": 5
                 },
                 "contextRegion": {
-                  "charOffset": 15,
-                  "charLength": 20
+                  "startLine": 3,
+                  "endLine": 4
                 }
               }
             }
           ]
         },
         {
-          "ruleId": "TST0006",
+          "ruleId": "TST0001",
           "level": "error",
           "message": {
-            "text": "Bad result - non overlapping text region and contextregion (offset based)."
+            "text": "Bad result - partially overlapping region and contextregion (text and offset based)."
           },
           "locations": [
             {
@@ -142,22 +142,118 @@
                   "uri": "src/test.c"
                 },
                 "region": {
-                  "charOffset": 1,
-                  "charLength": 10
+                  "charOffset": 5,
+                  "charLength": 25
                 },
                 "contextRegion": {
-                  "charOffset": 15,
-                  "charLength": 20
+                  "charOffset": 10,
+                  "charLength": 25
                 }
               }
             }
           ]
         },
         {
-          "ruleId": "TST0007",
+          "ruleId": "TST0001",
           "level": "error",
           "message": {
-            "text": "Bad result - fully overlapping binary region and contextregion (offset based)."
+            "text": "Bad result - non-overlapping region and contextregion (text and offset based)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/test.c"
+                },
+                "region": {
+                  "charOffset": 10,
+                  "charLength": 25
+                },
+                "contextRegion": {
+                  "charOffset": 37,
+                  "charLength": 25
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "TST0001",
+          "level": "error",
+          "message": {
+            "text": "Bad result - identical region and contextregion (text and offset based)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/test.c"
+                },
+                "region": {
+                  "charOffset": 10,
+                  "charLength": 25
+                },
+                "contextRegion": {
+                  "charOffset": 10,
+                  "charLength": 25
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "TST0001",
+          "level": "error",
+          "message": {
+            "text": "Bad result - contextregion smaller than region (text and offset based)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/test.c"
+                },
+                "region": {
+                  "charOffset": 5,
+                  "charLength": 20
+                },
+                "contextRegion": {
+                  "charOffset": 10,
+                  "charLength": 5
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "TST0001",
+          "level": "error",
+          "message": {
+            "text": "Bad result - partially overlapping region and contextregion (binary offset based)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/test.c"
+                },
+                "region": {
+                  "byteOffset": 5,
+                  "byteLength": 25
+                },
+                "contextRegion": {
+                  "byteOffset": 10,
+                  "byteLength": 25
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "TST0001",
+          "level": "error",
+          "message": {
+            "text": "Bad result - non-overlapping region and contextregion (binary offset based)."
           },
           "locations": [
             {
@@ -167,11 +263,59 @@
                 },
                 "region": {
                   "byteOffset": 10,
-                  "byteLength": 100
+                  "byteLength": 25
+                },
+                "contextRegion": {
+                  "byteOffset": 35,
+                  "byteLength": 25
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "TST0001",
+          "level": "error",
+          "message": {
+            "text": "Bad result - identical region and contextregion (binary offset based)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/test.c"
+                },
+                "region": {
+                  "byteOffset": 10,
+                  "byteLength": 25
                 },
                 "contextRegion": {
                   "byteOffset": 10,
-                  "byteLength": 100
+                  "byteLength": 25
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "TST0001",
+          "level": "error",
+          "message": {
+            "text": "Bad result - contextregion smaller than region (binary offset based)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/test.c"
+                },
+                "region": {
+                  "byteOffset": 10,
+                  "byteLength": 25
+                },
+                "contextRegion": {
+                  "byteOffset": 15,
+                  "byteLength": 5
                 }
               }
             }

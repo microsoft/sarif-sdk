@@ -57,7 +57,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 IsOffsetBasedTextRegion(subRegion) &&
                 !IsOffsetBasedTextRegionProperSupetSet(superRegion, subRegion))
             {
-
                 return false;
             }
 
@@ -72,22 +71,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             // and it is not possible to judge validity without looking at the actual content.
             // It is a potential false negative.
             return true;
-
-        }
-
-        private static bool IsBinaryRegionProperSuperset(Region superRegion, Region subRegion)
-        {
-            if (superRegion.ByteOffset > subRegion.ByteOffset)
-            {
-                return false;
-            }
-
-            if (superRegion.ByteOffset == subRegion.ByteOffset && superRegion.ByteLength <= subRegion.ByteLength)
-            {
-                return false;
-            }
-
-            return true;
         }
 
         private static bool IsLineColumnBasedTextRegionProperSuperset(Region superRegion, Region subRegion)
@@ -97,12 +80,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 return false;
             }
 
-            if (superRegion.StartLine == subRegion.StartLine && superRegion.StartColumn < subRegion.StartColumn)
+            if (superRegion.StartLine == subRegion.StartLine && superRegion.StartColumn > subRegion.StartColumn)
             {
                 return false;
             }
 
-            if (superRegion.EndLine == subRegion.EndLine && superRegion.EndColumn > subRegion.EndColumn)
+            if (superRegion.EndLine == subRegion.EndLine && superRegion.EndColumn < subRegion.EndColumn)
             {
                 return false;
             }
@@ -118,9 +101,34 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             return true;
         }
 
+        private static bool IsBinaryRegionProperSuperset(Region superRegion, Region subRegion)
+        {
+            if (superRegion.ByteOffset > subRegion.ByteOffset)
+            {
+                return false;
+            }
+
+            if (GetByteEndOffset(superRegion) < GetByteEndOffset(subRegion))
+            {
+                return false;
+            }
+
+            if (superRegion.ByteOffset == subRegion.ByteOffset && superRegion.ByteLength <= subRegion.ByteLength)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         private static bool IsOffsetBasedTextRegionProperSupetSet(Region superRegion, Region subRegion)
         {
             if (superRegion.CharOffset > subRegion.CharOffset)
+            {
+                return false;
+            }
+
+            if (GetCharEndOffset(superRegion) < GetCharEndOffset(subRegion))
             {
                 return false;
             }
@@ -129,6 +137,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 return false;
             }
+
             return true;
         }
 
@@ -145,6 +154,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         private static bool IsBinaryRegion(Region region)
         {
             return region.ByteOffset >= 0;
+        }
+
+        private static int GetCharEndOffset(Region region)
+        {
+            return region.CharOffset + region.CharLength;
+        }
+
+        private static int GetByteEndOffset(Region region)
+        {
+            return region.ByteOffset + region.ByteLength;
         }
     }
 }

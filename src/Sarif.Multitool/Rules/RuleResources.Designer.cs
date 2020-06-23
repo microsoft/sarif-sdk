@@ -199,7 +199,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: This &apos;physicalLocation&apos; object contains both a &apos;region&apos; and a &apos;contextRegion&apos; property, but &apos;contextRegion&apos; is not a proper superset of &apos;region&apos;. This is invalid because the purpose of &apos;contextRegion&apos; is to provide a viewing context around the &apos;region&apos; which is the location of the result. If the tool simply reversed &apos;region&apos;, then fix it puts the correct values in the correct properties. If &apos;region&apos; and &apos;contextRegion&apos; are identical, the &apos;contextRegion&apos; is unnecessary, and (by the spec) the tool must n [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to {0}: This &apos;physicalLocation&apos; object contains both a &apos;region&apos; and a &apos;contextRegion&apos; property, but &apos;contextRegion&apos; is not a proper superset of &apos;region&apos;. This is invalid because the purpose of &apos;contextRegion&apos; is to provide a viewing context around the &apos;region&apos; which is the location of the result. If the tool simply reversed &apos;region&apos; and &apos;contextRegion&apos;, then fix it so it puts the correct values in the correct properties. If &apos;region&apos; and &apos;contextRegion&apos; are identical, the &apos;contextRegion&apos; is unnecessary, and (by [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SARIF1008_PhysicalLocationPropertiesMustBeConsistent_Error_ContextRegionMustBeProperSupersetOfRegion_Text {
             get {
