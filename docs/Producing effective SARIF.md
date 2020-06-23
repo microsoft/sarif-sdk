@@ -227,9 +227,15 @@ This validation rule is required because this constraint cannot be expressed in 
 
 #### Description
 
+Ensure consistency among the properties of a 'message' object.
+
+When a tool creates a 'message' object that uses the 'id' and 'arguments' properties, it must ensure that the 'arguments' array has enough elements to provide values for every replacement sequence in the message specified by 'id'. For example, if the highest numbered replacement sequence in the specified message string is '{3}', then the 'arguments' array must contain 4 elements.
+
 #### Messages
 
 ##### `SupplyCorrectNumberOfArguments`: error
+
+{0}: The message with id '{1}' in rule '{2}' requires {3} arguments, but the 'arguments' array in this message object has only {4} elements. When a tool creates 'message' objects that use the 'id' and 'arguments' properties, it must ensure that the 'arguments' array has enough elements to provide values for every replacement sequence in the message specified by 'id'. For example, if the highest numbered replacement sequence in the specified message string is '{{3}}', then the 'arguments' array must contain 4 elements.
 
 ---
 
