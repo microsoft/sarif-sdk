@@ -185,6 +185,20 @@
               "message": {
                 "text": "endLine less than startLine in related location."
               }
+            },
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///c:/src/file.c"
+                },
+                "region": {
+                  "endLine": 1,
+                  "charLength": 9
+                }
+              },
+              "message": {
+                "text": "region start properties are absent."
+              }
             }
           ]
         }

@@ -23,7 +23,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override IEnumerable<string> MessageResourceNames => new string[] {
                     nameof(RuleResources.SARIF1007_RegionPropertiesMustBeConsistent_Error_EndLineMustNotPrecedeStartLine_Text),
-                    nameof(RuleResources.SARIF1007_RegionPropertiesMustBeConsistent_Error_EndColumnMustNotPrecedeStartColumn_Text)
+                    nameof(RuleResources.SARIF1007_RegionPropertiesMustBeConsistent_Error_EndColumnMustNotPrecedeStartColumn_Text),
+                    nameof(RuleResources.SARIF1007_RegionPropertiesMustBeConsistent_Error_RegionStartPropertyMustBePresent_Text)
                 };
 
         public override FailureLevel DefaultLevel => FailureLevel.Error;
@@ -32,6 +33,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
             var jsonPointer = new JsonPointer(regionPointer);
             JToken regionToken = jsonPointer.Evaluate(Context.InputLogToken);
+
+            if (!region.IsBinaryRegion &&
+                !region.IsLineColumnBasedTextRegion &&
+                !region.IsOffsetBasedTextRegion)
+            {
+                // {0}: Placeholder_SARIF1007_RegionPropertiesMustBeConsistent_Error_RegionStartPropertyMustBePresent_Text
+                LogResult(
+                    regionPointer,
+                    nameof(RuleResources.SARIF1007_RegionPropertiesMustBeConsistent_Error_RegionStartPropertyMustBePresent_Text));
+            }
 
             if (regionToken.HasProperty(SarifPropertyName.EndLine) &&
                 region.EndLine < region.StartLine)
