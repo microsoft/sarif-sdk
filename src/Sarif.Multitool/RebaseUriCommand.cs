@@ -7,6 +7,8 @@ using System.IO;
 using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Processors;
+using Microsoft.CodeAnalysis.Sarif.Visitors;
+
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
@@ -49,8 +51,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     ? Formatting.Indented
                     : Formatting.None;
 
+                OptionallyEmittedData dataToRemove = rebaseOptions.DataToRemove.ToFlags();
+                OptionallyEmittedData dataToInsert = rebaseOptions.DataToInsert.ToFlags();
+
+                Console.WriteLine($"DATATOINSERT: {dataToInsert}");
+
                 foreach (RebaseUriFile rebaseUriFile in rebaseUriFiles)
                 {
+                    if (dataToRemove != 0)
+                    {
+                        rebaseUriFile.Log = new RemoveOptionalDataVisitor(dataToRemove).VisitSarifLog(rebaseUriFile.Log);
+                    }
+
+                    if (dataToInsert != 0)
+                    {
+                        rebaseUriFile.Log = new InsertOptionalDataVisitor(dataToInsert).VisitSarifLog(rebaseUriFile.Log);
+                    }
+
                     rebaseUriFile.Log = rebaseUriFile.Log.RebaseUri(rebaseOptions.BasePathToken, rebaseOptions.RebaseRelativeUris, baseUri);
 
                     WriteSarifFile(_fileSystem, rebaseUriFile.Log, rebaseUriFile.OutputFilePath, formatting);
