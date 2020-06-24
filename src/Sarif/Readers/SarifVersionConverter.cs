@@ -6,9 +6,29 @@ using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Readers
 {
-    public class SarifVersionConverter : JsonConverter
+    public class SarifVersionConverter : JsonToSarifVersion
     {
         public static readonly SarifVersionConverter Instance = new SarifVersionConverter();
+    }
+
+    public class JsonToSarifVersion : JsonConverter
+    {
+        public static SarifVersion Read<TRoot>(JsonReader reader, TRoot root)
+        {
+            return Read(reader);
+        }
+
+        public static SarifVersion Read(JsonReader reader)
+        {
+            string sarifVersionText = (string)reader.Value;
+            return sarifVersionText.ConvertToSarifVersion();
+        }
+
+        public static void Write(JsonWriter writer, SarifVersion value)
+        {
+            string sarifVersionText = value.ConvertToText();
+            writer.WriteRawValue(@"""" + sarifVersionText + @"""");
+        }
 
         public override bool CanConvert(Type objectType)
         {
@@ -17,24 +37,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            if (reader == null)
-            {
-                throw new ArgumentNullException(nameof(reader));
-            }
-
-            string sarifVersionText = (string)reader.Value;
-            return sarifVersionText.ConvertToSarifVersion();
+            return Read(reader);
         }
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            if (writer == null)
-            {
-                throw new ArgumentNullException(nameof(writer));
-            }
-
-            string sarifVersionText = ((SarifVersion)value).ConvertToText();
-            writer.WriteRawValue(@"""" + sarifVersionText + @"""");
+            Write(writer, (SarifVersion)value);
         }
     }
 }

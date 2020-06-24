@@ -31,7 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return $"{Runs.Sum((run) => run?.Results?.Count ?? 0):n0} {nameof(Result)}s";
         }
 
-        internal static SarifFormat FormatForFileName(string filePath)
+        public static SarifFormat FormatForFileName(string filePath)
         {
             return (Path.GetExtension(filePath).ToLowerInvariant() == ".bsoa" ? SarifFormat.BSOA : SarifFormat.JSON);
         }
@@ -44,13 +44,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <returns>SarifLog instance for file</returns>
         public static SarifLog LoadDeferred(string sarifFilePath)
         {
-            JsonSerializer serializer = new JsonSerializer();
-            serializer.ContractResolver = new SarifDeferredContractResolver();
-
-            using (JsonPositionedTextReader jptr = new JsonPositionedTextReader(sarifFilePath))
-            {
-                return serializer.Deserialize<SarifLog>(jptr);
-            }
+            // Not supported (yet) with BSOA; fall back to normal load
+            return Load(sarifFilePath);
         }
 
         /// <summary>
@@ -65,6 +60,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 return Load(stream, FormatForFileName(sarifFilePath));
             }
+        }
+
+        public static SarifLog Load(Stream stream, string fileName)
+        {
+            return Load(stream, FormatForFileName(fileName));
         }
 
         /// <summary>

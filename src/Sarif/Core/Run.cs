@@ -150,28 +150,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         public void SetRunOnResults()
         {
-            if (this.Results != null)
-            {
-                DeferredList<Result> deferredResults = this.Results as DeferredList<Result>;
-
-                if (deferredResults != null)
-                {
-                    // On deferred object model, must change Results as they're read, since they are discarded after each enumeration
-                    deferredResults.AddTransformer((result) =>
-                    {
-                        result.Run = this;
-                        return result;
-                    });
-                }
-                else
-                {
-                    // Otherwise, just set the Result.Run property on each Result now
-                    foreach (Result result in this.Results)
-                    {
-                        result.Run = this;
-                    }
-                }
-            }
+            // Nothing: BSOA getter will handle
         }
 
         public void MergeResultsFrom(Run additional)

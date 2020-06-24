@@ -6,5 +6,11 @@
   "PropertyBag\\ :\\ PropertyBagHolder,\\ ": "PropertyBag : ",
 
   /* Base class defines Properties, so entities must declare as 'internal override' */
-  "public virtual IDictionary<String, SerializedPropertyInfo> Properties": "internal override IDictionary<String, SerializedPropertyInfo> Properties"
+  "public virtual IDictionary<String, SerializedPropertyInfo> Properties": "internal override IDictionary<String, SerializedPropertyInfo> Properties",
+
+  /* Use custom reader for SarifVersion enum */
+  "JsonToEnum<SarifVersion>.Read\\(reader, root\\)": "Readers.JsonToSarifVersion.Read(reader, root)",
+
+  /* Auto-Set Result.Run on Results */
+  "_table.Database.Result.List\\(_table.Results\\[_index\\]\\)": "new ResultList(this, _table.Database.Result, _table.Results[_index])"
 }
