@@ -4,25 +4,28 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using Microsoft.Json.Pointer;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class UrisMustBeValid : SarifValidationSkimmerBase
     {
-        public override MultiformatMessageString FullDescription => new MultiformatMessageString
-        {
-            Text = RuleResources.SARIF1002_UrisMustBeValid_FullDescription_Text
-        };
-
-        public override FailureLevel DefaultLevel => FailureLevel.Error;
-
+        /// <summary>
+        /// SARIF1002
+        /// </summary>
         public override string Id => RuleId.UrisMustBeValid;
 
-        protected override IEnumerable<string> MessageResourceNames => new string[]
-        {
-            nameof(RuleResources.SARIF1002_UrisMustBeValid_Error_UrisMustConformToRfc3986_Text)
-        };
+        /// <summary>
+        /// Specify a valid URI reference for every URI-valued property.
+        /// </summary>
+        public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF1002_UrisMustBeValid_FullDescription_Text };
+
+        protected override IEnumerable<string> MessageResourceNames => new string[] {
+                    nameof(RuleResources.SARIF1002_UrisMustBeValid_Error_UrisMustConformToRfc3986_Text)
+                };
+
+        public override FailureLevel DefaultLevel => FailureLevel.Error;
 
         protected override void Analyze(SarifLog log, string logPointer)
         {
@@ -85,9 +88,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
             if (uri != null)
             {
+                // UrisMustConformToRfc3986: URIs must conform to Rfc3986.
                 if (!Uri.IsWellFormedUriString(uri, UriKind.RelativeOrAbsolute))
                 {
-                    LogResult(pointer, nameof(RuleResources.SARIF1002_UrisMustBeValid_Error_UrisMustConformToRfc3986_Text), uri);
+                    // {0}: The string "{1}" is not a valid URI reference.
+                    LogResult(
+                        pointer,
+                        nameof(RuleResources.SARIF1002_UrisMustBeValid_Error_UrisMustConformToRfc3986_Text),
+                        uri);
                 }
             }
         }
