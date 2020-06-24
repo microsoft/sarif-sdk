@@ -29,8 +29,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         public override FailureLevel DefaultLevel => FailureLevel.Warning;
 
-        private static readonly Regex s_dynamicContentRegex = new Regex(@"{[0-9]+}", RegexOptions.Compiled | RegexOptions.CultureInvariant);
-        private static readonly Regex s_enquoteDynamicContentRegex = new Regex(@"'{[0-9]+}'", RegexOptions.Compiled | RegexOptions.CultureInvariant);
+        private static readonly Regex s_dynamicContentRegex = new Regex(@"\{[0-9]+\}", RegexOptions.Compiled | RegexOptions.CultureInvariant);
+        private static readonly Regex s_nonEnquotedDynamicContextRegex = new Regex(@"(^|[^'])\{[0-9]+\}", RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
         protected override void Analyze(Tool tool, string toolPointer)
         {
@@ -85,7 +85,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             }
 
             // EnquoteDynamicContent: check if messageString has enquoted dynamic content.
-            if (!s_enquoteDynamicContentRegex.IsMatch(messageString))
+            if (s_nonEnquotedDynamicContextRegex.IsMatch(messageString))
             {
                 // {0}: Placeholder '{1}' '{2}'
                 LogResult(
