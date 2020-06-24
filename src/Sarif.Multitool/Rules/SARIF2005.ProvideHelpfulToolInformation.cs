@@ -39,16 +39,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             // ProvideConciseToolName: Ensure that tool.driver.name isn't more than 3 words long
             if (!string.IsNullOrEmpty(toolComponent.Name))
             {
-                const int maxWordCount = 3;
-                int wordCount = toolComponent.Name.Split(' ', StringSplitOptions.RemoveEmptyEntries).Length;
-                if (wordCount > maxWordCount)
+                const int MaxWords = 3;
+                int wordCount = toolComponent.Name.Split(' ', (char)StringSplitOptions.RemoveEmptyEntries).Length;
+                if (wordCount > MaxWords)
                 {
-                    string namePointer = toolDriverPointer.AtProperty(SarifPropertyName.Name);
+                    string driverNamePointer = toolDriverPointer.AtProperty(SarifPropertyName.Name);
                     LogResult(
-                        namePointer,
+                        driverNamePointer,
                         nameof(RuleResources.SARIF2005_ProvideHelpfulToolInformation_Warning_ProvideConciseToolName_Text),
                         wordCount.ToString(),
-                        maxWordCount.ToString());
+                        MaxWords.ToString());
                 }
             }
 

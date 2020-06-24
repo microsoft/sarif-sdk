@@ -21,10 +21,10 @@
                   "text": "{0}: Placeholder"
                 },
                 "Warning_ProvideConciseToolName": {
-                  "text": "{0}: Placeholder {1} {2}"
+                  "text": "{0}: Placeholder '{1}' '{2}'"
                 },
                 "Warning_UseNumericToolVersions": {
-                  "text": "{0}: Placeholder {1}"
+                  "text": "{0}: Placeholder '{1}'"
                 }
               },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"

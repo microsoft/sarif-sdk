@@ -122,7 +122,7 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
 
         [Fact]
         public void SARIF2001_AuthorHighQualityMessages_Valid()
-    => RunTest(MakeValidTestFileName(RuleId.AuthorHighQualityMessages, nameof(RuleId.AuthorHighQualityMessages)));
+            => RunTest(MakeValidTestFileName(RuleId.AuthorHighQualityMessages, nameof(RuleId.AuthorHighQualityMessages)));
 
         [Fact]
         public void SARIF2001_AuthorHighQualityMessages_Invalid()
