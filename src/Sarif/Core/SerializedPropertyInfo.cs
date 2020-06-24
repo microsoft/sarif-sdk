@@ -1,8 +1,6 @@
-﻿// Copyright (c) Microsoft. All rights reserved.
+// Copyright (c) Microsoft.  All Rights Reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-
-using Microsoft.CodeAnalysis.Sarif.Readers;
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -11,7 +9,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Describes a single entry in a JSON property bag (a JSON object whose keys have
     /// arbitrary names and whose values may be any JSON values).
     /// </summary>
-    [JsonConverter(typeof(SerializedPropertyInfoConverter))]
+    [JsonConverter(typeof(JsonToSerializedPropertyInfo))]
     public class SerializedPropertyInfo
     {
         /// <summary>

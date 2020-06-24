@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.CodeDom.Compiler;
+using System.Runtime.Serialization;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -12,7 +13,11 @@ namespace Microsoft.CodeAnalysis.Sarif
     public enum SarifVersion
     {
         Unknown,
+
+        [EnumMember(Value = SarifUtilities.V1_0_0)]
         OneZeroZero,
+
+        [EnumMember(Value = VersionConstants.StableSarifVersion)]
         Current
     }
 }

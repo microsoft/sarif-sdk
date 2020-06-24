@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.
+// Copyright (c) Microsoft.  All Rights Reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
@@ -184,34 +184,5 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             visitor.PopulateWithMerged(this);
         }
-
-        public bool ShouldSerializeColumnKind()
-        {
-            // This serialization helper does two things. 
-            // 
-            // First, if ColumnKind has not been 
-            // explicitly set, we will set it to the value that works for the Microsoft 
-            // platform (which is not the specified SARIF default). This makes sure that
-            // the value is set appropriate for code running on the Microsoft platform, 
-            // even if the SARIF producer is not aware of this rather obscure value. 
-            if (this.ColumnKind == ColumnKind.None)
-            {
-                this.ColumnKind = ColumnKind.Utf16CodeUnits;
-            }
-
-            // Second, we will always explicitly serialize this value. Otherwise, we can't easily
-            // distinguish between earlier versions of the format for which this property was typically absent.
-            return true;
-        }
-
-        public bool ShouldSerializeArtifacts() { return this.Artifacts.HasAtLeastOneNonDefaultValue(Artifact.ValueComparer); }
-
-        public bool ShouldSerializeGraphs() { return this.Graphs.HasAtLeastOneNonDefaultValue(Graph.ValueComparer); }
-
-        public bool ShouldSerializeInvocations() { return this.Invocations.HasAtLeastOneNonNullValue(); }
-
-        public bool ShouldSerializeLogicalLocations() { return this.LogicalLocations.HasAtLeastOneNonDefaultValue(LogicalLocation.ValueComparer); }
-
-        public bool ShouldSerializeNewlineSequences() { return this.NewlineSequences.HasAtLeastOneNonNullValue(); }
     }
 }

@@ -222,7 +222,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     logicalLocation.Name = null;
                     logicalLocation.ParentIndex = -1;
                     logicalLocation.Properties?.Clear();
-                    logicalLocation.Tags?.Clear();
                 }
             }
         }
@@ -247,7 +246,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     artifactLocation.Uri = null;
                     artifactLocation.UriBaseId = null;
                     artifactLocation.Description = null;
-                    artifactLocation.Tags?.Clear();
                     artifactLocation.Properties?.Clear();
                 }
             }

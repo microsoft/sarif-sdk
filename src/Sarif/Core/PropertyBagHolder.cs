@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.
+// Copyright (c) Microsoft.  All Rights Reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
@@ -6,8 +6,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
+
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
+
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -17,11 +19,6 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// </summary>
     public class PropertyBagHolder : IPropertyBagHolder
     {
-        protected PropertyBagHolder()
-        {
-            Tags = new TagsCollection(this);
-        }
-
         [JsonIgnore]
         public IList<string> PropertyNames
         {
@@ -34,8 +31,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Key/value pairs that provide additional information about the run.
         /// </summary>
-        [JsonConverter(typeof(PropertyBagConverter))]
-        [JsonProperty("properties", DefaultValueHandling = DefaultValueHandling.Ignore)]
         internal virtual IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         public bool TryGetProperty(string propertyName, out string value)
@@ -222,7 +217,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [JsonIgnore]
-        public TagsCollection Tags { get; }
+        public TagsCollection Tags => new TagsCollection(this);
 
         public virtual bool ShouldSerializeProperties()
         {

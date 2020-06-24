@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.
+// Copyright (c) Microsoft.  All Rights Reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
-    public class TagsCollection : ISet<string>, ICollection<string>
+    public struct TagsCollection : ISet<string>, ICollection<string>
     {
         internal const string TagsPropertyName = "tags";
         private static readonly ISet<string> Empty = ImmutableHashSet<string>.Empty;

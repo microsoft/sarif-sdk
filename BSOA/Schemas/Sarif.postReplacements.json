@@ -1,0 +1,10 @@
+{
+  /* SchemaUri writes as "$schema" in file */
+  "\"schemaUri\"": "\"$schema\"",
+
+  /* PropertyBag shouldn't inherit from itself */ 
+  "PropertyBag\\ :\\ PropertyBagHolder,\\ ": "PropertyBag : ",
+
+  /* Base class defines Properties, so entities must declare as 'internal override' */
+  "public virtual IDictionary<String, SerializedPropertyInfo> Properties": "internal override IDictionary<String, SerializedPropertyInfo> Properties"
+}

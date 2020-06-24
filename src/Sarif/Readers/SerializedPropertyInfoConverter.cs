@@ -1,5 +1,5 @@
-// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License.
+// Copyright (c) Microsoft.  All Rights Reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
 using System.IO;
@@ -9,8 +9,13 @@ using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
-    public class SerializedPropertyInfoConverter : JsonConverter
+    public class JsonToSerializedPropertyInfo : JsonConverter
     {
+        public static SerializedPropertyInfo Read<TRoot>(JsonReader reader, TRoot root)
+        {
+            return Read(reader);
+        }
+
         public static SerializedPropertyInfo Read(JsonReader reader)
         {
             if (reader.TokenType == JsonToken.Null)
@@ -19,8 +24,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
             else
             {
-                bool wasString = (reader.TokenType == JsonToken.String);
-
                 StringBuilder builder = new StringBuilder();
                 using (StringWriter w = new StringWriter(builder))
                 using (JsonTextWriter writer = new JsonTextWriter(w))
@@ -28,7 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     writer.WriteToken(reader);
                 }
 
-                return new SerializedPropertyInfo(builder.ToString(), wasString);
+                return new SerializedPropertyInfo(builder.ToString(), false);
             }
         }
 
