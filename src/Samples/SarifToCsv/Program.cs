@@ -29,7 +29,7 @@ namespace SarifToCsv
             {
                 Console.WriteLine("Usage: SarifToCsv [sarifFileOrFolderPath] [csvFilePath?] [columnNamesCommaDelimited?]");
                 Console.WriteLine("  Column Names are configured in SarifToCsv.exe.config, in the 'ColumnNames' property.");
-                Console.WriteLine($"  Available Column Names:\r\n\t{String.Join("\r\n\t", SarifCsvColumnWriters.SupportedColumns)}");
+                Console.WriteLine($"  Available Column Names:\r\n\t{string.Join("\r\n\t", SarifCsvColumnWriters.SupportedColumns)}");
 
                 return;
             }
@@ -40,18 +40,11 @@ namespace SarifToCsv
                 string csvFilePath = (args.Length > 1 ? args[1] : Path.ChangeExtension(args[0], ".csv"));
                 IEnumerable<string> columnNames = (args.Length > 2 ? args[2] : ConfigurationManager.AppSettings["ColumnNames"]).Split(',').Select((value) => value.Trim());
                 bool removeNewlines = bool.Parse(ValueOrDefault(ConfigurationManager.AppSettings["RemoveNewlines"], "false"));
-                bool loadDeferred = bool.Parse(ValueOrDefault(ConfigurationManager.AppSettings["LoadDeferred"], "true"));
 
                 IEnumerable<Action<WriteContext>> selectedWriters = columnNames.Select((name) => SarifCsvColumnWriters.GetWriter(name)).ToArray();
 
                 Console.WriteLine($"Converting \"{sarifFilePath}\" to \"{csvFilePath}\"...");
                 Stopwatch w = Stopwatch.StartNew();
-
-                JsonSerializer serializer = new JsonSerializer();
-                if (loadDeferred)
-                {
-                    serializer.ContractResolver = new SarifDeferredContractResolver();
-                }
 
                 using (CsvWriter writer = new CsvWriter(csvFilePath))
                 {
@@ -63,12 +56,12 @@ namespace SarifToCsv
                     {
                         foreach (string filePath in Directory.GetFiles(sarifFilePath, "*.sarif", SearchOption.AllDirectories))
                         {
-                            ConvertSarifLog(serializer, filePath, writer, selectedWriters);
+                            ConvertSarifLog(filePath, writer, selectedWriters);
                         }
                     }
                     else
                     {
-                        ConvertSarifLog(serializer, sarifFilePath, writer, selectedWriters);
+                        ConvertSarifLog(sarifFilePath, writer, selectedWriters);
                     }
 
                     Console.WriteLine();
@@ -82,15 +75,9 @@ namespace SarifToCsv
             }
         }
 
-        public static void ConvertSarifLog(JsonSerializer serializer, string sarifFilePath, CsvWriter writer, IEnumerable<Action<WriteContext>> selectedWriters)
+        public static void ConvertSarifLog(string sarifFilePath, CsvWriter writer, IEnumerable<Action<WriteContext>> selectedWriters)
         {
-            SarifLog log = null;
-
-            // Read the SarifLog with the deferred reader
-            using (JsonPositionedTextReader jtr = new JsonPositionedTextReader(sarifFilePath))
-            {
-                log = serializer.Deserialize<SarifLog>(jtr);
-            }
+            SarifLog log = SarifLog.Load(sarifFilePath);
 
             WriteContext context = new WriteContext();
             context.Writer = writer;
