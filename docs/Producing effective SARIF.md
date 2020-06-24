@@ -309,13 +309,27 @@ In result messages, use the 'message.id' and 'message.arguments' properties rath
 
 #### Description
 
+Provide information that makes it easy to identify the name and version of your tool.
+
+The tool's 'name' property should be no more than three words long. This makes it easy to remember and allows it to fit into a narrow column when displaying a list of results. If you need to provide more information about your tool, use the 'fullName' property.
+
+The tool should provide either or both of the 'version' and 'semanticVersion' properties. This enables the log file consumer to determine whether the file was produced by an up to date version, and to avoid accidentally comparing log files produced by different tool versions.
+
+If 'version' is used, facilitate comparison between versions by specifying it with at least two dot-separated integer components, optionally followed by any desired characters.
+
 #### Messages
 
 ##### `ProvideConciseToolName`: note
 
+{0}: The tool name '{1}' contains {2} words, which is more than the recommended maximum of {3} words. A short tool name is easy to remember and fits into a narrow column when displaying a list of results. If you need to provide more information about your tool, use the 'fullName' property.
+
 ##### `ProvideToolVersion`: warning
 
+{0}: The tool '{1}' provides neither a 'version' property nor a 'semanticVersion' property. Providing a version enables the log file consumer to determine whether the file was produced by an up to date version, and to avoid accidentally comparing log files produced by different tool versions.
+
 ##### `UseNumericToolVersions`: warning
+
+{0}: The tool '{1}' contains the 'version' property '{2}', which is not numeric. To facilitate comparison between versions, specify a 'version' that starts with at least two dot-separated integer components, optionally followed by any desired characters.
 
 ---
 
