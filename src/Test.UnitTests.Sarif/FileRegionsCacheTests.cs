@@ -58,7 +58,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
         private readonly static Region s_Insertion_Beginning_Of_OffsetBased_Text_File =
             new Region()
             {
-                Snippet = null,
+                Snippet = new ArtifactContent() { Text = INSERTION_POINT },
                 StartLine = 1,
                 StartColumn = 1,
                 EndLine = 1,
