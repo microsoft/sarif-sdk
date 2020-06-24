@@ -219,11 +219,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         [JsonIgnore]
         public TagsCollection Tags => new TagsCollection(this);
 
-        public virtual bool ShouldSerializeProperties()
-        {
-            return PropertyBagHasAtLeastOneNonNullValue(this.Properties);
-        }
-
         public static bool PropertyBagHasAtLeastOneNonNullValue(IDictionary<string, SerializedPropertyInfo> properties)
         {
             return properties != null && properties.Any();

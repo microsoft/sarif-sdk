@@ -54,15 +54,5 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             return rule;
         }
-
-        public bool ShouldSerializeRules()
-        {
-            return this.Rules.HasAtLeastOneNonNullValue();
-        }
-
-        public bool ShouldSerializeNotifications()
-        {
-            return this.Notifications.HasAtLeastOneNonNullValue();
-        }
     }
 }

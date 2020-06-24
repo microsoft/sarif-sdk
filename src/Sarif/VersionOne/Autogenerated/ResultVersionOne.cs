@@ -334,7 +334,5 @@ namespace Microsoft.CodeAnalysis.Sarif.VersionOne
                 Properties = new Dictionary<string, SerializedPropertyInfo>(properties);
             }
         }
-
-        public bool ShouldSerializeLevel() { return this.Level != ResultLevelVersionOne.Warning; }
     }
 }

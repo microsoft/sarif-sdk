@@ -4,6 +4,9 @@
   <PropertyGroup>
     <TargetFrameworks>netcoreapp2.1</TargetFrameworks>
     <LangVersion>8.0</LangVersion>
+
+    <!-- BSOA Version Referenced; used by projects consuming package and generator logic -->
+    <BsoaVersion>0.5.0</BsoaVersion>
   </PropertyGroup>
 
   <PropertyGroup Label="AssemblyAttributes">

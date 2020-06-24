@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -16,10 +15,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         ///  Used to look up Result details which may be on Run collections (ex: Run.Tool.Driver.Rules)
         /// </remarks>
         public Run Run { get; set; }
-
-        public bool ShouldSerializeWorkItemUris() { return this.WorkItemUris != null && this.WorkItemUris.Any((s) => s != null); }
-
-        public bool ShouldSerializeLevel() { return this.Level != FailureLevel.Warning; }
 
         public void EnsureRunProvided()
         {

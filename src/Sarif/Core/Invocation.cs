@@ -12,7 +12,6 @@ namespace Microsoft.CodeAnalysis.Sarif
     public partial class Invocation
     {
         private IEnumerable<string> _propertiesToLog;
-        private bool _suppressNonDeterministicProperties;
 
         public static Invocation Create(
             bool emitMachineEnvironment = false,
@@ -21,7 +20,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             var invocation = new Invocation
             {
-                _suppressNonDeterministicProperties = !emitTimestamps,
                 _propertiesToLog = propertiesToLog?.Select(p => p.ToUpperInvariant()).ToList()
             };
 
@@ -79,32 +77,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         private bool ShouldLog(string propertyName)
         {
             return _propertiesToLog != null && _propertiesToLog.Contains(propertyName.ToUpperInvariant());
-        }
-
-        public bool ShouldSerializeArguments()
-        {
-            return this.Arguments != null &&
-                (this.Arguments.Where((e) => { return e != null; }).Count() == this.Arguments.Count);
-        }
-
-        public bool ShouldSerializeToolExecutionNotifications()
-        {
-            return this.ToolExecutionNotifications.HasAtLeastOneNonNullValue();
-        }
-
-        public bool ShouldSerializeToolConfigurationNotifications()
-        {
-            return this.ToolConfigurationNotifications.HasAtLeastOneNonNullValue();
-        }
-
-        public bool ShouldSerializeStartTimeUtc()
-        {
-            return !_suppressNonDeterministicProperties;
-        }
-
-        public bool ShouldSerializeEndTimeUtc()
-        {
-            return !_suppressNonDeterministicProperties;
         }
     }
 }

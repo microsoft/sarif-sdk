@@ -180,7 +180,5 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             return sb.ToString();
         }
-
-        public bool ShouldSerializeParameters() { return this.Parameters.HasAtLeastOneNonNullValue(); }
     }
 }

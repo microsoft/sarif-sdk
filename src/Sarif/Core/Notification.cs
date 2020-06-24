@@ -5,8 +5,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public partial class Notification
     {
-        public bool ShouldSerializeLocations() { return this.Locations.HasAtLeastOneNonDefaultValue(Location.ValueComparer); }
-
 #if DEBUG
         public override string ToString()
         {
