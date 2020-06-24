@@ -13,21 +13,38 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public override string Id => RuleId.PhysicalLocationPropertiesMustBeConsistent;
 
         /// <summary>
-        /// A SARIF 'physicalLocation' object has two related properties 'region' and 'contextRegion'. If 'contextRegion' is present, then 'region' must also be present, and 'contextRegion' must be a "proper superset" of 'region'. That is, 'contextRegion' must completely contain 'region', and it must be larger than 'region'. To understand why this is so we must understand the roles of the 'region' and 'contextRegion' properties. 
+        /// A SARIF 'physicalLocation' object has two related properties 'region' and 'contextRegion'.
+        /// If 'contextRegion' is present, then 'region' must also be present, and 'contextRegion' must
+        /// be a "proper superset" of 'region'. That is, 'contextRegion' must completely contain 'region',
+        /// and it must be larger than 'region'. To understand why this is so we must understand the
+        /// roles of the 'region' and 'contextRegion' properties. 
         ///
-        /// 'region' allows both users and tools to distinguish similar results within the same artifact.If a SARIF viewer has access to the artifact, it can display it, and highlight the location identified by the analysis tool.If the region has a 'snippet' property, then even if the viewer doesn't have access to the artifact (which might be the case for a web-based viewer), it can still display the faulty code.
+        /// 'region' allows both users and tools to distinguish similar results within the same artifact.
+        /// If a SARIF viewer has access to the artifact, it can display it, and highlight the location 
+        /// identified by the analysis tool.If the region has a 'snippet' property, then even if the viewer
+        /// doesn't have access to the artifact (which might be the case for a web-based viewer), it can
+        /// still display the faulty code.
         /// 
-        /// 'contextRegion' provides users with a broader view of the result location. Typically, it consists of a range starting a few lines before 'region' and ending a few lines after. Again, if a SARIF viewer has access to the artifact, it can display it, and highlight the context region (perhaps in a lighter shade than the region itself). This isn't terribly useful since the user can already see the whole file, with the 'region' already highlighted. But if 'contextRegion' has a 'snippet' property, then even a viewer without access to the artifact can display a few lines of code surrounding the actual result, which is helpful to users.
+        /// 'contextRegion' provides users with a broader view of the result location. Typically, it consists
+        /// of a range starting a few lines before 'region' and ending a few lines after. Again, if a SARIF
+        /// viewer has access to the artifact, it can display it, and highlight the context region (perhaps in
+        /// a lighter shade than the region itself). This isn't terribly useful since the user can already see
+        /// the whole file, with the 'region' already highlighted. But if 'contextRegion' has a 'snippet'
+        /// property, then even a viewer without access to the artifact can display a few lines of code surrounding
+        /// the actual result, which is helpful to users.
         /// 
-        /// If the SARIF validator reports that 'contextRegion' is present but 'region' is absent, then it's possible that the tool should have populated 'region' rather than 'contextRegion', or that it simply neglected to populate 'region'. If the validator reports that 'contextRegion' is not a proper superset of 'region', then it's possible that the tool reversed 'region' and 'contextRegion'. If 'region' and 'contextRegion' are identical, the tool should simply omit
+        /// If the SARIF validator reports that 'contextRegion' is present but 'region' is absent, then it's
+        /// possible that the tool should have populated 'region' rather than 'contextRegion', or that it simply
+        /// neglected to populate 'region'. If the validator reports that 'contextRegion' is not a proper superset
+        /// of 'region', then it's possible that the tool reversed 'region' and 'contextRegion'. If 'region' and
+        /// 'contextRegion' are identical, the tool should simply omit
         /// </summary>
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF1008_PhysicalLocationPropertiesMustBeConsistent_FullDescription_Text };
 
-        protected override IEnumerable<string> MessageResourceNames => new string[]
-        {
-            nameof(RuleResources.SARIF1008_PhysicalLocationPropertiesMustBeConsistent_Error_ContextRegionRequiresRegion_Text),
-            nameof(RuleResources.SARIF1008_PhysicalLocationPropertiesMustBeConsistent_Error_ContextRegionMustBeProperSupersetOfRegion_Text)
-        };
+        protected override IEnumerable<string> MessageResourceNames => new string[] {
+                    nameof(RuleResources.SARIF1008_PhysicalLocationPropertiesMustBeConsistent_Error_ContextRegionRequiresRegion_Text),
+                    nameof(RuleResources.SARIF1008_PhysicalLocationPropertiesMustBeConsistent_Error_ContextRegionMustBeProperSupersetOfRegion_Text)
+                };
 
         public override FailureLevel DefaultLevel => FailureLevel.Error;
 
@@ -41,7 +58,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             // ContextRegionRequiresRegion: If 'contextRegion' is present, then 'region' must also be present.
             if (physicalLocation.Region == null)
             {
-                // {0}: This 'physicalLocation' object contains a 'contextRegion' property, but it does not contain a 'region' property. This is invalid because the purpose of 'contextRegion' is to provide a viewing context around the 'region' which is the location of the result. If the tool incorrectly populated 'contextRegion' instead of 'region', then fix it so that it populates only the 'region'. If the tool simply neglected to populate 'region', then fix it so that it does.
+                // {0}: This 'physicalLocation' object contains a 'contextRegion' property, but it does
+                // not contain a 'region' property. This is invalid because the purpose of 'contextRegion'
+                // is to provide a viewing context around the 'region' which is the location of the result.
+                // If the tool incorrectly populated 'contextRegion' instead of 'region', then fix it so
+                // that it populates only the 'region'. If the tool simply neglected to populate 'region',
+                // then fix it so that it does.
                 LogResult(physicalLocationPointer, nameof(RuleResources.SARIF1008_PhysicalLocationPropertiesMustBeConsistent_Error_ContextRegionRequiresRegion_Text));
                 return;
             }
@@ -49,7 +71,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             // ContextRegionMustBeProperSupersetOfRegion: 'contextRegion' must be a proper superset of 'region'.
             if (!physicalLocation.ContextRegion.IsProperSupersetOf(physicalLocation.Region))
             {
-                // {0}: This 'physicalLocation' object contains both a 'region' and a 'contextRegion' property, but 'contextRegion' is not a proper superset of 'region'. This is invalid because the purpose of 'contextRegion' is to provide a viewing context around the 'region' which is the location of the result. If the tool simply reversed 'region' and 'contextRegion', then fix it so it puts the correct values in the correct properties. If 'region' and 'contextRegion' are identical, the 'contextRegion' is unnecessary, and (by the spec) the tool must not populate it.
+                // {0}: This 'physicalLocation' object contains both a 'region' and a 'contextRegion'
+                // property, but 'contextRegion' is not a proper superset of 'region'. This is invalid
+                // because the purpose of 'contextRegion' is to provide a viewing context around the
+                // 'region' which is the location of the result. If the tool simply reversed 'region'
+                // and 'contextRegion', then fix it so it puts the correct values in the correct
+                // properties. If 'region' and 'contextRegion' are identical, the 'contextRegion' is
+                // unnecessary, and (by the spec) the tool must not populate it.
                 LogResult(physicalLocationPointer, nameof(RuleResources.SARIF1008_PhysicalLocationPropertiesMustBeConsistent_Error_ContextRegionMustBeProperSupersetOfRegion_Text));
             }
         }
