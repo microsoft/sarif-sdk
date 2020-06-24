@@ -6,7 +6,7 @@
       "tool": {
         "driver": {
           "name": "SARIF Functional Testing",
-          "version": "1.2.3"
+          "version": "1.2.3s"
         }
       },
       "results": [],

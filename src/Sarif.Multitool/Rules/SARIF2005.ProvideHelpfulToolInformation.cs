@@ -10,6 +10,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class ProvideHelpfulToolInformation : SarifValidationSkimmerBase
     {
+        private static readonly Regex s_versionRegex = new Regex(@"^\d+\.\d+.*", RegexOptions.Compiled | RegexOptions.CultureInvariant);
+        
         public override MultiformatMessageString FullDescription => new MultiformatMessageString
         {
             Text = RuleResources.SARIF2005_ProvideHelpfulToolInformation_FullDescription_Text
@@ -40,7 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             if (!string.IsNullOrEmpty(toolComponent.Name))
             {
                 const int MaxWords = 3;
-                int wordCount = toolComponent.Name.Split(' ', (char)StringSplitOptions.RemoveEmptyEntries).Length;
+                int wordCount = toolComponent.Name.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).Length;
                 if (wordCount > MaxWords)
                 {
                     string driverNamePointer = toolDriverPointer.AtProperty(SarifPropertyName.Name);
@@ -66,18 +68,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 {
                     AnalyzeVersion(toolComponent.Version, toolDriverPointer.AtProperty(SarifPropertyName.Version));
                 }
-                else
-                {
-                    AnalyzeVersion(toolComponent.SemanticVersion, toolDriverPointer.AtProperty(SarifPropertyName.SemanticVersion));
-                }
             }
         }
 
         private void AnalyzeVersion(string version, string pointer)
         {
-            Regex regex = new Regex(@"^\d+\.\d+.*");
-            Match match = regex.Match(version);
-            if (!match.Success)
+            if (!s_versionRegex.IsMatch(version))
             {
                 LogResult(
                         pointer,
