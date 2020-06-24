@@ -22,6 +22,9 @@
                 },
                 "Error_EndColumnMustNotPrecedeStartColumn": {
                   "text": "{0}: The value of the \"endColumn\" property is {1}, which is less than the value of the \"startColumn\" property, which is {2}."
+                },
+                "Error_RegionStartPropertyMustBePresent": {
+                  "text": "{0}: Placeholder_SARIF1007_RegionPropertiesMustBeConsistent_Error_RegionStartPropertyMustBePresent_Text"
                 }
               },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
@@ -246,6 +249,30 @@
                 "region": {
                   "startLine": 182,
                   "startColumn": 30
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1007",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_RegionStartPropertyMustBePresent",
+            "arguments": [
+              "runs[0].results[1].relatedLocations[1].physicalLocation.region"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 194,
+                  "startColumn": 27
                 }
               }
             }
