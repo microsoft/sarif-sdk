@@ -54,8 +54,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 OptionallyEmittedData dataToRemove = rebaseOptions.DataToRemove.ToFlags();
                 OptionallyEmittedData dataToInsert = rebaseOptions.DataToInsert.ToFlags();
 
-                Console.WriteLine($"DATATOINSERT: {dataToInsert}");
-
                 foreach (RebaseUriFile rebaseUriFile in rebaseUriFiles)
                 {
                     if (dataToRemove != 0)
