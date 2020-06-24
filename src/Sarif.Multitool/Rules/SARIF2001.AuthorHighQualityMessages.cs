@@ -42,28 +42,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         private void AnalyzeToolDriver(ToolComponent toolComponent, string toolDriverPointer)
         {
-            if (toolComponent.Rules != null && toolComponent.Rules.Count > 0)
+            if (toolComponent.Rules != null)
             {
-                foreach (ReportingDescriptor rule in toolComponent.Rules)
+                string rulesPointer = toolDriverPointer.AtProperty(SarifPropertyName.Rules);
+                for (int i = 0; i < toolComponent.Rules.Count; i++)
                 {
-                    AnalyzeReportingDescriptor(rule, toolDriverPointer.AtProperty(SarifPropertyName.Rules));
+                    AnalyzeReportingDescriptor(toolComponent.Rules[i], rulesPointer.AtIndex(i));
                 }
             }
         }
 
         private void AnalyzeReportingDescriptor(ReportingDescriptor rule, string reportingDescriptorPointer)
         {
-            if (rule.MessageStrings != null && rule.MessageStrings.Count > 0)
+            if (rule.MessageStrings != null)
             {
                 string messageStringsPointer = reportingDescriptorPointer.AtProperty(SarifPropertyName.MessageStrings);
                 foreach (KeyValuePair<string, MultiformatMessageString> message in rule.MessageStrings)
                 {
-                    AnalyzeMessageString(message.Value.Text, messageStringsPointer.AtProperty(message.Key));
+                    AnalyzeMessageString(message.Value.Text, message.Key, messageStringsPointer.AtProperty(message.Key));
                 }
             }
         }
 
-        private void AnalyzeMessageString(string messageString, string messagePointer)
+        private void AnalyzeMessageString(string messageString, string messageKey, string messagePointer)
         {
             if (string.IsNullOrEmpty(messageString))
             {
@@ -72,36 +73,37 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
             string textPointer = messagePointer.AtProperty(SarifPropertyName.Text);
 
-            // IncludeDynamicContent: check if messageString has dynamic content
+            // IncludeDynamicContent: check if messageString has dynamic content.
             if (!s_dynamicContentRegex.IsMatch(messageString))
             {
-                // {0}: Placeholder '{1}'
+                // {0}: Placeholder '{1}' '{2}'
                 LogResult(
                     textPointer,
                     nameof(RuleResources.SARIF2001_AuthorHighQualityMessages_Warning_IncludeDynamicContent_Text),
-                    messageString
-                    );
+                    messageString,
+                    messageKey);
             }
 
-            // EnquoteDynamicContent: check if messageString has enquoted dynamic content
+            // EnquoteDynamicContent: check if messageString has enquoted dynamic content.
             if (!s_enquoteDynamicContentRegex.IsMatch(messageString))
             {
-                // {0}: Placeholder '{1}'
+                // {0}: Placeholder '{1}' '{2}'
                 LogResult(
                     textPointer,
                     nameof(RuleResources.SARIF2001_AuthorHighQualityMessages_Warning_EnquoteDynamicContent_Text),
-                    messageString
-                    );
+                    messageString,
+                    messageKey);
             }
 
-            // TerminateWithPeriod: check if messageString ends with period
+            // TerminateWithPeriod: check if messageString ends with period.
             if (!messageString.EndsWith(".", StringComparison.Ordinal))
             {
-                // {0}: Placeholder '{1}'
+                // {0}: Placeholder '{1}' '{2}'
                 LogResult(
                     textPointer,
                     nameof(RuleResources.SARIF2001_AuthorHighQualityMessages_Warning_TerminateWithPeriod_Text),
-                    messageString);
+                    messageString,
+                    messageKey);
             }
         }
     }

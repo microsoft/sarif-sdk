@@ -17,8 +17,14 @@
                 "text": "Messages should consist of one or more complete sentences, ending with a period."
               },
               "messageStrings": {
+                "Warning_EnquoteDynamicContent": {
+                  "text": "{0}: Placeholder '{1}' '{2}'"
+                },
+                "Warning_IncludeDynamicContent": {
+                  "text": "{0}: Placeholder '{1}' '{2}'"
+                },
                 "Warning_TerminateWithPeriod": {
-                  "text": "{0}: The message \"{1}\" does not end with a period."
+                  "text": "{0}: Placeholder '{1}' '{2}'"
                 }
               },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
@@ -46,8 +52,9 @@
           "message": {
             "id": "Warning_TerminateWithPeriod",
             "arguments": [
-              "runs[0].results[0].attachments[0].description.text",
-              "attachment description without period"
+              "runs[0].tool.driver.rules[0].messageStrings.Warning_DontTerminateWithPeriod.text",
+              "{0}: Placeholder '{1}'",
+              "Warning_DontTerminateWithPeriod"
             ]
           },
           "locations": [
@@ -57,8 +64,58 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 137,
-                  "startColumn": 63
+                  "startLine": 22,
+                  "startColumn": 50
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF2001",
+          "ruleIndex": 0,
+          "message": {
+            "id": "Warning_IncludeDynamicContent",
+            "arguments": [
+              "runs[0].tool.driver.rules[0].messageStrings.Warning_DontHavePlaceholders.text",
+              "Placeholder text",
+              "Warning_DontHavePlaceholders"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 25,
+                  "startColumn": 44
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF2001",
+          "ruleIndex": 0,
+          "message": {
+            "id": "Warning_EnquoteDynamicContent",
+            "arguments": [
+              "runs[0].tool.driver.rules[0].messageStrings.Warning_DontHavePlaceholders.text",
+              "Placeholder text",
+              "Warning_DontHavePlaceholders"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 25,
+                  "startColumn": 44
                 }
               }
             }
@@ -70,8 +127,9 @@
           "message": {
             "id": "Warning_TerminateWithPeriod",
             "arguments": [
-              "runs[0].results[0].attachments[0].rectangles[0].message.text",
-              "rectangle message without period"
+              "runs[0].tool.driver.rules[0].messageStrings.Warning_DontHavePlaceholders.text",
+              "Placeholder text",
+              "Warning_DontHavePlaceholders"
             ]
           },
           "locations": [
@@ -81,8 +139,33 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 148,
-                  "startColumn": 62
+                  "startLine": 25,
+                  "startColumn": 44
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF2001",
+          "ruleIndex": 0,
+          "message": {
+            "id": "Warning_EnquoteDynamicContent",
+            "arguments": [
+              "runs[0].tool.driver.rules[0].messageStrings.Warning_DontHaveEnquotedPlaceholders.text",
+              "{0}: Placeholder {1}",
+              "Warning_DontHaveEnquotedPlaceholders"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 28,
+                  "startColumn": 48
                 }
               }
             }
@@ -94,8 +177,9 @@
           "message": {
             "id": "Warning_TerminateWithPeriod",
             "arguments": [
-              "runs[0].results[0].locations[0].message.text",
-              "location message without period"
+              "runs[0].tool.driver.rules[0].messageStrings.Warning_DontHaveEnquotedPlaceholders.text",
+              "{0}: Placeholder {1}",
+              "Warning_DontHaveEnquotedPlaceholders"
             ]
           },
           "locations": [
@@ -105,320 +189,8 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 76,
-                  "startColumn": 57
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF2001",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Warning_TerminateWithPeriod",
-            "arguments": [
-              "runs[0].results[0].locations[0].physicalLocation.region.message.text",
-              "region message without period"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 70,
-                  "startColumn": 59
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF2001",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Warning_TerminateWithPeriod",
-            "arguments": [
-              "runs[0].results[0].codeFlows[0].message.text",
-              "codeFlow message without period"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 102,
-                  "startColumn": 57
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF2001",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Warning_TerminateWithPeriod",
-            "arguments": [
-              "runs[0].results[0].codeFlows[0].threadFlows[0].message.text",
-              "threadFlow message without period"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 108,
-                  "startColumn": 63
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF2001",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Warning_TerminateWithPeriod",
-            "arguments": [
-              "runs[0].results[0].codeFlows[0].threadFlows[0].locations[0].location.message.text",
-              "ThreadFlow location message without period"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 124,
-                  "startColumn": 78
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF2001",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Warning_TerminateWithPeriod",
-            "arguments": [
-              "runs[0].results[0].message.text",
-              "result message without period"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 58,
-                  "startColumn": 51
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF2001",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Warning_TerminateWithPeriod",
-            "arguments": [
-              "runs[0].results[0].stacks[0].frames[0].location.message.text",
-              "frame message without period"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 91,
-                  "startColumn": 60
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF2001",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Warning_TerminateWithPeriod",
-            "arguments": [
-              "runs[0].results[0].stacks[0].message.text",
-              "stack message without period"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 84,
-                  "startColumn": 54
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF2001",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Warning_TerminateWithPeriod",
-            "arguments": [
-              "runs[0].results[0].fixes[0].description.text",
-              "fix description without period"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 158,
-                  "startColumn": 56
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF2001",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Warning_TerminateWithPeriod",
-            "arguments": [
-              "runs[0].invocations[0].toolExecutionNotifications[0].message.text",
-              "toolNotification message without period"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 36,
-                  "startColumn": 65
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF2001",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Warning_TerminateWithPeriod",
-            "arguments": [
-              "runs[0].invocations[0].toolConfigurationNotifications[0].message.text",
-              "configurationNotification message without period"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 44,
-                  "startColumn": 74
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF2001",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Warning_TerminateWithPeriod",
-            "arguments": [
-              "runs[0].tool.driver.rules[0].messageStrings.Default.text",
-              "rule message without period"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 23,
-                  "startColumn": 55
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF2001",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Warning_TerminateWithPeriod",
-            "arguments": [
-              "runs[0].tool.driver.rules[0].shortDescription.text",
-              "Short rule description without period"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 14,
-                  "startColumn": 63
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF2001",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Warning_TerminateWithPeriod",
-            "arguments": [
-              "runs[0].tool.driver.rules[0].fullDescription.text",
-              "Short full rule description without period"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 18,
-                  "startColumn": 68
+                  "startLine": 28,
+                  "startColumn": 48
                 }
               }
             }

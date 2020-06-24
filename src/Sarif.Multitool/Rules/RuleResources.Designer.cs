@@ -301,7 +301,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: Placeholder &apos;{1}&apos;.
+        ///   Looks up a localized string similar to {0}: Placeholder &apos;{1}&apos; &apos;{2}&apos;.
         /// </summary>
         internal static string SARIF2001_AuthorHighQualityMessages_Warning_EnquoteDynamicContent_Text {
             get {
@@ -310,7 +310,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: Placeholder &apos;{1}&apos;.
+        ///   Looks up a localized string similar to {0}: Placeholder &apos;{1}&apos; &apos;{2}&apos;.
         /// </summary>
         internal static string SARIF2001_AuthorHighQualityMessages_Warning_IncludeDynamicContent_Text {
             get {
@@ -319,7 +319,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: Placeholder &apos;{1}&apos;.
+        ///   Looks up a localized string similar to {0}: Placeholder &apos;{1}&apos; &apos;{2}&apos;.
         /// </summary>
         internal static string SARIF2001_AuthorHighQualityMessages_Warning_TerminateWithPeriod_Text {
             get {
