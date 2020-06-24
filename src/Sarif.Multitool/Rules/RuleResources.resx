@@ -239,4 +239,7 @@ If 'version' is used, facilitate comparison between versions by specifying it ei
   <data name="SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdValueMustNotContainQueryOrFragment_Text" xml:space="preserve">
     <value>{0}: '{1}' '{2}' Placeholder: SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdValueMustNotContainQueryOrFragment_Text</value>
   </data>
+  <data name="SARIF1002_UrisMustBeValid_Error_FileUrisMustNotIncludeDotDotSegments_Text" xml:space="preserve">
+    <value>{0}: '{1}' Placeholder_SARIF1002_UrisMustBeValid_Error_FileUrisMustNotIncludeDotDotSegments_Text</value>
+  </data>
 </root>

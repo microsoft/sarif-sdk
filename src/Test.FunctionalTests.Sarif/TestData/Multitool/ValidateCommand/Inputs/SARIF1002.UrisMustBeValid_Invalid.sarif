@@ -57,6 +57,19 @@
           "workItemUris": [
             "ht&tp://example.com/my-project/issues/42"
           ]
+        },
+        {
+          "ruleId": "TST0001",
+          "level": "error",
+          "message": {
+            "text": "Bad result: file uri has dot dot segment."
+          },
+          "analysisTarget": {
+            "uri": "file:///c:/src/src2/src3/../../file.c"
+          },
+          "workItemUris": [
+            "http://example.com/my-project/issues/42"
+          ]
         }
       ],
       "columnKind": "utf16CodeUnits"

@@ -19,6 +19,9 @@
               "messageStrings": {
                 "Error_UrisMustConformToRfc3986": {
                   "text": "{0}: The string \"{1}\" is not a valid URI reference."
+                },
+                "Error_FileUrisMustNotIncludeDotDotSegments": {
+                  "text": "{0}: '{1}' Placeholder_SARIF1002_UrisMustBeValid_Error_FileUrisMustNotIncludeDotDotSegments_Text"
                 }
               },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
@@ -151,6 +154,31 @@
                 "region": {
                   "startLine": 55,
                   "startColumn": 43
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1002",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_FileUrisMustNotIncludeDotDotSegments",
+            "arguments": [
+              "runs[0].results[1].analysisTarget.uri",
+              "file:///c:/src/src2/src3/../../file.c"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 68,
+                  "startColumn": 58
                 }
               }
             }
