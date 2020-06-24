@@ -11,20 +11,20 @@
               "id": "SARIF2005",
               "name": "ProvideHelpfulToolInformation",
               "shortDescription": {
-                "text": "Placeholder."
+                "text": "Provide information that makes it easy to identify the name and version of your tool."
               },
               "fullDescription": {
-                "text": "Placeholder"
+                "text": "Provide information that makes it easy to identify the name and version of your tool.\r\n\r\nThe tool's 'name' property should be no more than three words long. This makes it easy to remember and allows it to fit into a narrow column when displaying a list of results. If you need to provide more information about your tool, use the 'fullName' property.\r\n\r\nThe tool should provide either or both of the 'version' and 'semanticVersion' properties. This enables the log file consumer to determine whether the file was produced by an up to date version, and to avoid accidentally comparing log files produced by different tool versions.\r\n\r\nIf 'version' is used, facilitate comparison between versions by specifying it either with an integer, or with at least two dot-separated integer components, optionally followed by any desired characters."
               },
               "messageStrings": {
                 "Warning_ProvideToolVersion": {
-                  "text": "{0}: Placeholder"
+                  "text": "{0}: The tool '{1}' provides neither a 'version' property nor a 'semanticVersion' property. Providing a version enables the log file consumer to determine whether the file was produced by an up to date version, and to avoid accidentally comparing log files produced by different tool versions."
                 },
                 "Warning_ProvideConciseToolName": {
-                  "text": "{0}: Placeholder '{1}' '{2}' '{3}'"
+                  "text": "{0}: The tool name '{1}' contains {2} words, which is more than the recommended maximum of {3} words. A short tool name is easy to remember and fits into a narrow column when displaying a list of results. If you need to provide more information about your tool, use the 'fullName' property."
                 },
                 "Warning_UseNumericToolVersions": {
-                  "text": "{0}: Placeholder '{1}'"
+                  "text": "{0}: The tool '{1}' contains the 'version' property '{2}', which is not numeric. To facilitate comparison between versions, specify a 'version' that starts with at least two dot-separated integer components, optionally followed by any desired characters."
                 }
               },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
@@ -79,7 +79,8 @@
             "id": "Warning_UseNumericToolVersions",
             "arguments": [
               "runs[0].tool.driver.version",
-              "1"
+              "SARIF Functional Testing Long",
+              "x"
             ]
           },
           "locations": [
