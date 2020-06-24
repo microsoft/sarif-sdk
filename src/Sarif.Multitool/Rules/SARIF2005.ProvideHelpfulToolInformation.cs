@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Microsoft.Json.Pointer;
@@ -27,27 +28,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override void Analyze(Tool tool, string toolPointer)
         {
-            if (tool == null)
-            {
-                return;
-            }
-
             if (tool.Driver != null)
             {
                 AnalyzeToolDriver(tool.Driver, toolPointer.AtProperty(SarifPropertyName.Driver));
             }
         }
 
-        private void AnalyzeToolDriver(ToolComponent toolComponent, string driverPointer)
+        private void AnalyzeToolDriver(ToolComponent toolComponent, string toolDriverPointer)
         {
             // ProvideConciseToolName: Ensure that tool.driver.name isn't more than 3 words long
             if (!string.IsNullOrEmpty(toolComponent.Name))
             {
                 const int maxWordCount = 3;
-                int wordCount = toolComponent.Name.Split(' ').Length;
+                int wordCount = toolComponent.Name.Split(' ', StringSplitOptions.RemoveEmptyEntries).Length;
                 if (wordCount > maxWordCount)
                 {
-                    string namePointer = driverPointer.AtProperty(SarifPropertyName.Name);
+                    string namePointer = toolDriverPointer.AtProperty(SarifPropertyName.Name);
                     LogResult(
                         namePointer,
                         nameof(RuleResources.SARIF2005_ProvideHelpfulToolInformation_Warning_ProvideConciseToolName_Text),
@@ -60,7 +56,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             if (string.IsNullOrWhiteSpace(toolComponent.Version) && string.IsNullOrWhiteSpace(toolComponent.SemanticVersion))
             {
                 LogResult(
-                        driverPointer,
+                        toolDriverPointer,
                         nameof(RuleResources.SARIF2005_ProvideHelpfulToolInformation_Warning_ProvideToolVersion_Text));
             }
             else
@@ -68,11 +64,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 // UseNumericToolVersions
                 if (!string.IsNullOrWhiteSpace(toolComponent.Version))
                 {
-                    AnalyzeVersion(toolComponent.Version, driverPointer.AtProperty(SarifPropertyName.Version));
+                    AnalyzeVersion(toolComponent.Version, toolDriverPointer.AtProperty(SarifPropertyName.Version));
                 }
                 else
                 {
-                    AnalyzeVersion(toolComponent.SemanticVersion, driverPointer.AtProperty(SarifPropertyName.SemanticVersion));
+                    AnalyzeVersion(toolComponent.SemanticVersion, toolDriverPointer.AtProperty(SarifPropertyName.SemanticVersion));
                 }
             }
         }
