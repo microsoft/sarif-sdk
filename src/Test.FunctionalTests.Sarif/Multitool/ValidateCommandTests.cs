@@ -144,6 +144,14 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
         public void SARIF2008_ProvideSchema_Invalid()
             => RunTest(MakeInvalidTestFileName(RuleId.ProvideSchema, nameof(RuleId.ProvideSchema)));
 
+        [Fact]
+        public void SARIF2009_UseConventionalSymbolicNames_Valid()
+            => RunTest(MakeValidTestFileName(RuleId.UseConventionalSymbolicNames, nameof(RuleId.UseConventionalSymbolicNames)));
+
+        [Fact]
+        public void SARIF2009_UseConventionalSymbolicNames_Invalid()
+            => RunTest(MakeInvalidTestFileName(RuleId.UseConventionalSymbolicNames, nameof(RuleId.UseConventionalSymbolicNames)));
+
         private const string ValidTestFileNameSuffix = "_Valid.sarif";
         private const string InvalidTestFileNameSuffix = "_Invalid.sarif";
 

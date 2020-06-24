@@ -19,5 +19,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public const string AuthorHighQualityMessages = "SARIF2001";
         public const string ProvideHelpfulToolInformation = "SARIF2005";
         public const string ProvideSchema = "SARIF2008";
+        public const string UseConventionalSymbolicNames = "SARIF2009";
     }
 }
