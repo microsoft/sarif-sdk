@@ -22,7 +22,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         protected override IEnumerable<string> MessageResourceNames => new string[] {
                     nameof(RuleResources.SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdRequiresRelativeUri_Text),
                     nameof(RuleResources.SARIF1004_ExpressUriBaseIdsCorrectly_Error_TopLevelUriBaseIdMustBeAbsolute_Text),
-                    nameof(RuleResources.SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdValueMustEndWithSlash_Text)
+                    nameof(RuleResources.SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdValueMustEndWithSlash_Text),
+                    nameof(RuleResources.SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdValueMustNotContainDotDotSegment_Text),
+                    nameof(RuleResources.SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdValueMustNotContainQueryOrFragment_Text)
                 };
 
         public override FailureLevel DefaultLevel => FailureLevel.Error;
@@ -68,7 +70,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 var uri = new Uri(uriString, UriKind.RelativeOrAbsolute);
 
-                // TopLevelUriBaseIdMustBeAbsolute: TODO
+                // TopLevelUriBaseIdMustBeAbsolute: Top level uriBaseId must be absolute.
                 if (artifactLocation.UriBaseId == null && !uri.IsAbsoluteUri)
                 {
                     // {0}: The URI '{1}' belonging to the '{2}' element of run.originalUriBaseIds is not an absolute URI.
@@ -79,13 +81,35 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                         uriBaseId);
                 }
 
-                // UriBaseIdValueMustEndWithSlash: TODO
+                // UriBaseIdValueMustEndWithSlash: uriBaseIds must end with a slash.
                 if (!uriString.EndsWith("/"))
                 {
                     // {0}: The URI '{1}' belonging to the '{2}' element of run.originalUriBaseIds does not end with a slash.
                     LogResult(
                         pointer,
                         nameof(RuleResources.SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdValueMustEndWithSlash_Text),
+                        uriString,
+                        uriBaseId);
+                }
+
+                // UriBaseIdValueMustNotContainDotDotSegment: uriBaseIds must not contain `..` segment(s).
+                if (uriString.Contains(".."))
+                {
+                    // {0}: '{1}' '{2}' Placeholder: SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdValueMustNotContainDotDotSegment_Text
+                    LogResult(
+                        pointer,
+                        nameof(RuleResources.SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdValueMustNotContainDotDotSegment_Text),
+                        uriString,
+                        uriBaseId);
+                }
+
+                // UriBaseIdValueMustNotContainQueryOrFragment: uriBaseIds must not contain any query or fragments.
+                if (uri.IsAbsoluteUri && (!string.IsNullOrEmpty(uri.Fragment) || !string.IsNullOrEmpty(uri.Query)))
+                {
+                    // {0}: '{1}' '{2}' Placeholder: SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdValueMustNotContainQueryOrFragment_Text
+                    LogResult(
+                        pointer,
+                        nameof(RuleResources.SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdValueMustNotContainQueryOrFragment_Text),
                         uriString,
                         uriBaseId);
                 }

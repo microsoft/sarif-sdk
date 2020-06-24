@@ -25,6 +25,12 @@
                 },
                 "Error_UriBaseIdValueMustEndWithSlash": {
                   "text": "{0}: The URI '{1}' belonging to the '{2}' element of run.originalUriBaseIds does not end with a slash."
+                },
+                "Error_UriBaseIdValueMustNotContainDotDotSegment": {
+                  "text": "{0}: '{1}' '{2}' Placeholder: SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdValueMustNotContainDotDotSegment_Text"
+                },
+                "Error_UriBaseIdValueMustNotContainQueryOrFragment": {
+                  "text": "{0}: '{1}' '{2}' Placeholder: SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdValueMustNotContainQueryOrFragment_Text"
                 }
               },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
@@ -129,6 +135,136 @@
           "ruleIndex": 0,
           "level": "error",
           "message": {
+            "id": "Error_UriBaseIdValueMustNotContainDotDotSegment",
+            "arguments": [
+              "runs[0].originalUriBaseIds.BAD_URI_CONTAINING_DOTDOT",
+              "file:///C:/rules/dir1/dir2/../",
+              "BAD_URI_CONTAINING_DOTDOT"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 114,
+                  "startColumn": 38
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1004",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_UriBaseIdValueMustEndWithSlash",
+            "arguments": [
+              "runs[0].originalUriBaseIds.BAD_URI_CONTAINING_QUERY",
+              "http://www.contoso.com/catalog/shownew.htm?date=today",
+              "BAD_URI_CONTAINING_QUERY"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 120,
+                  "startColumn": 37
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1004",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_UriBaseIdValueMustNotContainQueryOrFragment",
+            "arguments": [
+              "runs[0].originalUriBaseIds.BAD_URI_CONTAINING_QUERY",
+              "http://www.contoso.com/catalog/shownew.htm?date=today",
+              "BAD_URI_CONTAINING_QUERY"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 120,
+                  "startColumn": 37
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1004",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_UriBaseIdValueMustEndWithSlash",
+            "arguments": [
+              "runs[0].originalUriBaseIds.BAD_URI_CONTAINING_FRAGMENT",
+              "http://www.contoso.com/index.htm#search",
+              "BAD_URI_CONTAINING_FRAGMENT"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 126,
+                  "startColumn": 40
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1004",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_UriBaseIdValueMustNotContainQueryOrFragment",
+            "arguments": [
+              "runs[0].originalUriBaseIds.BAD_URI_CONTAINING_FRAGMENT",
+              "http://www.contoso.com/index.htm#search",
+              "BAD_URI_CONTAINING_FRAGMENT"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 126,
+                  "startColumn": 40
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1004",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
             "id": "Error_UriBaseIdRequiresRelativeUri",
             "arguments": [
               "runs[0].conversion.analysisToolLogFiles[0].uri",
@@ -167,7 +303,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 131,
+                  "startLine": 149,
                   "startColumn": 42
                 }
               }
@@ -192,7 +328,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 193,
+                  "startLine": 211,
                   "startColumn": 46
                 }
               }
@@ -217,7 +353,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 138,
+                  "startLine": 156,
                   "startColumn": 48
                 }
               }
@@ -242,7 +378,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 169,
+                  "startLine": 187,
                   "startColumn": 58
                 }
               }
@@ -267,7 +403,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 202,
+                  "startLine": 220,
                   "startColumn": 48
                 }
               }
@@ -292,7 +428,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 151,
+                  "startLine": 169,
                   "startColumn": 54
                 }
               }
@@ -317,7 +453,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 184,
+                  "startLine": 202,
                   "startColumn": 48
                 }
               }
@@ -342,7 +478,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 213,
+                  "startLine": 231,
                   "startColumn": 50
                 }
               }
@@ -367,7 +503,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 118,
+                  "startLine": 136,
                   "startColumn": 42
                 }
               }
