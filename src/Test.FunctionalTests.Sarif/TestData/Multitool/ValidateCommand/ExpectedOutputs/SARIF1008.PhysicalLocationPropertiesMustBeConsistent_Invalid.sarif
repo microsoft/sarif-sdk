@@ -204,7 +204,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 164,
+                  "startLine": 163,
                   "startColumn": 35
                 }
               }
@@ -348,7 +348,103 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 308,
+                  "startLine": 307,
+                  "startColumn": 35
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1008",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_ContextRegionMustBeProperSupersetOfRegion",
+            "arguments": [
+              "runs[0].results[13].locations[0].physicalLocation"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 331,
+                  "startColumn": 35
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1008",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_ContextRegionMustBeProperSupersetOfRegion",
+            "arguments": [
+              "runs[0].results[14].locations[0].physicalLocation"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 355,
+                  "startColumn": 35
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1008",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_ContextRegionMustBeProperSupersetOfRegion",
+            "arguments": [
+              "runs[0].results[15].locations[0].physicalLocation"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 379,
+                  "startColumn": 35
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1008",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_ContextRegionMustBeProperSupersetOfRegion",
+            "arguments": [
+              "runs[0].results[16].locations[0].physicalLocation"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 403,
                   "startColumn": 35
                 }
               }

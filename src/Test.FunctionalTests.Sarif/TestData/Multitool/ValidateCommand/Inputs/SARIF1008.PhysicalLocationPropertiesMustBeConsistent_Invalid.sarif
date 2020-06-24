@@ -133,6 +133,54 @@
           "ruleId": "TST0001",
           "level": "error",
           "message": {
+            "text": "Bad result - default populated endLine (same as startLine) (text and line/column based)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/test.c"
+                },
+                "region": {
+                  "startLine": 5
+                },
+                "contextRegion": {
+                  "startLine": 5,
+                  "endLine": 5
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "TST0001",
+          "level": "error",
+          "message": {
+            "text": "Bad result - default populated endColumn (int.maxvalue) (text and line/column based)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/test.c"
+                },
+                "region": {
+                  "startLine": 2,
+                  "startColumn": 5
+                },
+                "contextRegion": {
+                  "startLine": 2,
+                  "startColumn": 5,
+                  "endColumn": 8
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "TST0001",
+          "level": "error",
+          "message": {
             "text": "Bad result - partially overlapping region and contextregion (text and offset based)."
           },
           "locations": [
@@ -229,6 +277,29 @@
           "ruleId": "TST0001",
           "level": "error",
           "message": {
+            "text": "Bad result - default populated charLength (0) (text and offset based)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/test.c"
+                },
+                "region": {
+                  "charOffset": 5,
+                  "charLength": 20
+                },
+                "contextRegion": {
+                  "charOffset": 5
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "TST0001",
+          "level": "error",
+          "message": {
             "text": "Bad result - partially overlapping region and contextregion (binary offset based)."
           },
           "locations": [
@@ -316,6 +387,29 @@
                 "contextRegion": {
                   "byteOffset": 15,
                   "byteLength": 5
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "TST0001",
+          "level": "error",
+          "message": {
+            "text": "Bad result - default populated byteLength (0) (binary offset based)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/test.c"
+                },
+                "region": {
+                  "byteOffset": 5,
+                  "byteLength": 20
+                },
+                "contextRegion": {
+                  "byteOffset": 5
                 }
               }
             }
