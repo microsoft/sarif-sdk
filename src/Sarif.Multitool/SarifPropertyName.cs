@@ -51,6 +51,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public const string Markdown = "markdown";
         public const string Message = "message";
         public const string MessageStrings = "messageStrings";
+        public const string Name = "name";
         public const string Nodes = "nodes";
         public const string NotificationConfigurationOverrides = "notificationConfigurationOverrides";
         public const string Notifications = "notifications";
@@ -74,6 +75,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public const string RunGraphIndex = "runGraphIndex";
         public const string Runs = "runs";
         public const string Schema = "$schema";
+        public const string SemanticVersion = "semanticVersion";
         public const string ShortDescription = "shortDescription";
         public const string Stacks = "stacks";
         public const string Stdin = "stdin";
@@ -90,6 +92,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public const string ToolConfigurationNotifications = "toolConfigurationNotifications";
         public const string ToolExecutionNotifications = "toolExecutionNotifications";
         public const string Uri = "uri";
+        public const string Version = "version";
         public const string VersionControlProvenance = "versionControlProvenance";
         public const string WebRequest = "webRequest";
         public const string WebRequests = "webRequests";

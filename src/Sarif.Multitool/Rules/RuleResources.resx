@@ -204,4 +204,16 @@
   <data name="SARIF1007_RegionPropertiesMustBeConsistent_FullDescription_Text" xml:space="preserve">
     <value>Placeholder_SARIF1007_RegionPropertiesMustBeConsistent_FullDescription_Text</value>
   </data>
+  <data name="SARIF2005_ProvideHelpfulToolInformation_FullDescription_Text" xml:space="preserve">
+    <value>Placeholder</value>
+  </data>
+  <data name="SARIF2005_ProvideHelpfulToolInformation_Warning_ProvideConciseToolName_Text" xml:space="preserve">
+    <value>{0}: Placeholder '{1}' '{2}' '{3}'</value>
+  </data>
+  <data name="SARIF2005_ProvideHelpfulToolInformation_Warning_ProvideToolVersion_Text" xml:space="preserve">
+    <value>{0}: Placeholder</value>
+  </data>
+  <data name="SARIF2005_ProvideHelpfulToolInformation_Warning_UseNumericToolVersions_Text" xml:space="preserve">
+    <value>{0}: Placeholder '{1}'</value>
+  </data>
 </root>

@@ -5,7 +5,8 @@
     {
       "tool": {
         "driver": {
-          "name": "CodeScanner"
+          "name": "CodeScanner",
+          "version": "1.0"
         }
       },
       "invocations": [
