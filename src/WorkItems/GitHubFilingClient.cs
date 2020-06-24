@@ -4,9 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.VisualStudio.Services.WebApi;
 using Octokit;
-using Octokit.Internal;
 
 namespace Microsoft.WorkItems
 {
@@ -31,33 +29,21 @@ namespace Microsoft.WorkItems
             {
                 var newIssue = new NewIssue(workItemModel.Title)
                 {
-                    Body = workItemModel.BodyOrDescription,
+                    Body = workItemModel.BodyOrDescription
                 };
+
+                if (workItemModel.LabelsOrTags?.Count != 0)
+                {
+                    foreach (string tag in workItemModel.LabelsOrTags)
+                    {
+                        newIssue.Labels.Add(tag);
+                    }
+                }
 
                 Issue issue = await _gitHubClient.CreateWorkItemAsync(
                     this.AccountOrOrganization,
                     this.ProjectOrRepository,
                     newIssue);
-
-                // TODO: Can we collapse GH issue creation to a single operation?
-                // 
-                // https://github.com/microsoft/sarif-sdk/issues/1790
-
-                if (workItemModel.LabelsOrTags?.Count != 0)
-                {
-                    var issueUpdate = new IssueUpdate();
-
-                    foreach (string tag in workItemModel.LabelsOrTags)
-                    {
-                        issueUpdate.AddLabel(tag);
-                    }
-
-                    await _gitHubClient.UpdateWorkItemAsync(
-                        this.AccountOrOrganization,
-                        this.ProjectOrRepository,
-                        issue.Number,
-                        issueUpdate);
-                }
 
                 workItemModel.Uri = new Uri(issue.Url, UriKind.Absolute);
                 workItemModel.HtmlUri = new Uri(issue.HtmlUrl, UriKind.Absolute);
