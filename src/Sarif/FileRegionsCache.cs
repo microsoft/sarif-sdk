@@ -132,7 +132,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             Assert(!region.IsBinaryRegion);
             Assert(region.StartLine == 0);
-            Assert(region.CharLength > 0 || region.CharOffset > 0);
+            Assert(region.CharLength >= 0 || region.CharOffset >= 0);
 
             int startLine, startColumn, endLine, endColumn;
 
