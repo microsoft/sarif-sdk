@@ -3,6 +3,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
+
 using Microsoft.Json.Pointer;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
@@ -15,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public override string Id => RuleId.ExpressUriBaseIdsCorrectly;
 
         /// <summary>
-        /// 
+        /// Placeholder_SARIF1004_ExpressUriBaseIdsCorrectly_FullDescription_Text
         /// </summary>
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF1004_ExpressUriBaseIdsCorrectly_FullDescription_Text };
 
@@ -93,7 +95,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 }
 
                 // UriBaseIdValueMustNotContainDotDotSegment: uriBaseIds must not contain `..` segment(s).
-                if (uriString.Contains(".."))
+                if (uriString.Split("/").Any( x => x.Equals("..")))
                 {
                     // {0}: '{1}' '{2}' Placeholder: SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdValueMustNotContainDotDotSegment_Text
                     LogResult(
