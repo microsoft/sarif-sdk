@@ -3,85 +3,108 @@
 
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
+
 using Microsoft.Json.Pointer;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class AuthorHighQualityMessages : SarifValidationSkimmerBase
     {
-        public override MultiformatMessageString FullDescription => new MultiformatMessageString
-        {
-            Text = RuleResources.SARIF2001_AuthorHighQualityMessages_FullDescription_Text
+        /// <summary>
+        /// SARIF2001
+        /// </summary>
+        public override string Id => RuleId.AuthorHighQualityMessages;
+
+        /// <summary>
+        /// Placeholder (full description).
+        /// </summary>
+        public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF2001_AuthorHighQualityMessages_FullDescription_Text };
+
+        protected override IEnumerable<string> MessageResourceNames => new string[] {
+            nameof(RuleResources.SARIF2001_AuthorHighQualityMessages_Warning_EnquoteDynamicContent_Text),
+            nameof(RuleResources.SARIF2001_AuthorHighQualityMessages_Warning_IncludeDynamicContent_Text),
+            nameof(RuleResources.SARIF2001_AuthorHighQualityMessages_Warning_TerminateWithPeriod_Text)
         };
 
         public override FailureLevel DefaultLevel => FailureLevel.Warning;
 
-        public override string Id => RuleId.AuthorHighQualityMessages;
+        private static readonly Regex s_dynamicContentRegex = new Regex(@"\{[0-9]+\}", RegexOptions.Compiled | RegexOptions.CultureInvariant);
+        private static readonly Regex s_nonEnquotedDynamicContextRegex = new Regex(@"(^|[^'])\{[0-9]+\}", RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
-        protected override IEnumerable<string> MessageResourceNames
+        protected override void Analyze(Tool tool, string toolPointer)
         {
-            get
+            if (tool.Driver != null)
             {
-                return new string[]
-                {
-                    nameof(RuleResources.SARIF2001_AuthorHighQualityMessages_Warning_TerminateWithPeriod_Text)
-                };
+                AnalyzeToolDriver(tool.Driver, toolPointer.AtProperty(SarifPropertyName.Driver));
             }
         }
 
-        protected override void Analyze(ReportingDescriptor reportingDescriptor, string reportingDescriptorPointer)
+        private void AnalyzeToolDriver(ToolComponent toolComponent, string toolDriverPointer)
         {
-            AnalyzeMessageStrings(reportingDescriptor.MessageStrings, reportingDescriptorPointer);
-        }
-
-        private void AnalyzeMessageStrings(
-            IDictionary<string, MultiformatMessageString> messageStrings,
-            string reportingDescriptorPointer)
-        {
-            if (messageStrings != null)
+            if (toolComponent.Rules != null)
             {
-                string messageStringsPointer = reportingDescriptorPointer.AtProperty(SarifPropertyName.MessageStrings);
-
-                foreach (string key in messageStrings.Keys)
+                string rulesPointer = toolDriverPointer.AtProperty(SarifPropertyName.Rules);
+                for (int i = 0; i < toolComponent.Rules.Count; i++)
                 {
-                    MultiformatMessageString messageString = messageStrings[key];
-
-                    string messageStringPointer = messageStringsPointer.AtProperty(key);
-
-                    AnalyzeMessageString(messageString.Text, messageStringPointer, SarifPropertyName.Text);
+                    AnalyzeReportingDescriptor(toolComponent.Rules[i], rulesPointer.AtIndex(i));
                 }
             }
         }
 
-        protected override void Analyze(MultiformatMessageString multiformatMessageString, string multiformatMessageStringPointer)
+        private void AnalyzeReportingDescriptor(ReportingDescriptor rule, string reportingDescriptorPointer)
         {
-            AnalyzeMessageString(multiformatMessageString.Text, multiformatMessageStringPointer, SarifPropertyName.Text);
-        }
-
-        protected override void Analyze(Message message, string messagePointer)
-        {
-            AnalyzeMessageString(message.Text, messagePointer, SarifPropertyName.Text);
-        }
-
-        private void AnalyzeMessageString(
-            string messageString,
-            string messagePointer,
-            string propertyName)
-        {
-            if (!string.IsNullOrEmpty(messageString) && DoesNotEndWithPeriod(messageString))
+            if (rule.MessageStrings != null)
             {
-                string textPointer = messagePointer.AtProperty(propertyName);
-
-                LogResult(
-                    textPointer,
-                    nameof(RuleResources.SARIF2001_AuthorHighQualityMessages_Warning_TerminateWithPeriod_Text),
-                    messageString);
+                string messageStringsPointer = reportingDescriptorPointer.AtProperty(SarifPropertyName.MessageStrings);
+                foreach (KeyValuePair<string, MultiformatMessageString> message in rule.MessageStrings)
+                {
+                    AnalyzeMessageString(message.Value.Text, message.Key, messageStringsPointer.AtProperty(message.Key));
+                }
             }
         }
 
-        private static bool DoesNotEndWithPeriod(string message)
+        private void AnalyzeMessageString(string messageString, string messageKey, string messagePointer)
         {
-            return message != null && !message.EndsWith(".", StringComparison.Ordinal);
+            if (string.IsNullOrEmpty(messageString))
+            {
+                return;
+            }
+
+            string textPointer = messagePointer.AtProperty(SarifPropertyName.Text);
+
+            // IncludeDynamicContent: check if messageString has dynamic content.
+            if (!s_dynamicContentRegex.IsMatch(messageString))
+            {
+                // {0}: Placeholder '{1}' '{2}'
+                LogResult(
+                    textPointer,
+                    nameof(RuleResources.SARIF2001_AuthorHighQualityMessages_Warning_IncludeDynamicContent_Text),
+                    messageString,
+                    messageKey);
+            }
+
+            // EnquoteDynamicContent: check if messageString has enquoted dynamic content.
+            if (s_nonEnquotedDynamicContextRegex.IsMatch(messageString))
+            {
+                // {0}: Placeholder '{1}' '{2}'
+                LogResult(
+                    textPointer,
+                    nameof(RuleResources.SARIF2001_AuthorHighQualityMessages_Warning_EnquoteDynamicContent_Text),
+                    messageString,
+                    messageKey);
+            }
+
+            // TerminateWithPeriod: check if messageString ends with period.
+            if (!messageString.EndsWith(".", StringComparison.Ordinal))
+            {
+                // {0}: Placeholder '{1}' '{2}'
+                LogResult(
+                    textPointer,
+                    nameof(RuleResources.SARIF2001_AuthorHighQualityMessages_Warning_TerminateWithPeriod_Text),
+                    messageString,
+                    messageKey);
+            }
         }
     }
 }
