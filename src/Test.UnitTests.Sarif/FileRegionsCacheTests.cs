@@ -55,7 +55,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
         private const string LINES_2_AND_3 = "efg\r\nhijk";
         private const string CARRIAGE_RETURN_NEW_LINE = "\r\n";
 
-        private readonly static Region s_Insertion_Beginning_Of_Binary_File =
+        private readonly static Region s_Insertion_Beginning_Of_OffsetBased_Text_File =
             new Region()
             {
                 Snippet = null,
@@ -67,7 +67,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
                 CharLength = 0
             };
 
-        private readonly static Region s_Insertion_Beginning_Of_Text_File =
+        private readonly static Region s_Insertion_Beginning_Of_LineColumnBased_Text_File =
             new Region()
             {
                 Snippet = new ArtifactContent() { Text = INSERTION_POINT },
@@ -273,13 +273,15 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
             new ReadOnlyCollection<TestCaseData>(new TestCaseData[]
             {   
                 // Insertion point at beginning of binary file
-                new TestCaseData(outputRegion : s_Insertion_Beginning_Of_Binary_File,
+                new TestCaseData(outputRegion : s_Insertion_Beginning_Of_OffsetBased_Text_File,
                     inputRegion: new Region() { CharOffset = 0}),
 
                 // Insertion point at beginning of text file, can only
                 // be denoted by use of startLine
-                new TestCaseData(outputRegion : s_Insertion_Beginning_Of_Text_File,
+                new TestCaseData(outputRegion : s_Insertion_Beginning_Of_LineColumnBased_Text_File,
                     inputRegion: new Region() { StartLine = 1, StartColumn = 1, EndColumn = 1, CharOffset = 0 }),
+
+                // TODO: binary file test add
 
                 new TestCaseData(outputRegion : s_Insertion_End_Of_File,
                     inputRegion: new Region() { CharOffset = 20 }),
