@@ -4,25 +4,29 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using Microsoft.Json.Pointer;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class UrisMustBeValid : SarifValidationSkimmerBase
     {
-        public override MultiformatMessageString FullDescription => new MultiformatMessageString
-        {
-            Text = RuleResources.SARIF1002_UrisMustBeValid_FullDescription_Text
-        };
-
-        public override FailureLevel DefaultLevel => FailureLevel.Error;
-
+        /// <summary>
+        /// SARIF1002
+        /// </summary>
         public override string Id => RuleId.UrisMustBeValid;
 
-        protected override IEnumerable<string> MessageResourceNames => new string[]
-        {
-            nameof(RuleResources.SARIF1002_UrisMustBeValid_Error_UrisMustConformToRfc3986_Text)
-        };
+        /// <summary>
+        /// Specify a valid URI reference for every URI-valued property.
+        /// </summary>
+        public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF1002_UrisMustBeValid_FullDescription_Text };
+
+        protected override IEnumerable<string> MessageResourceNames => new string[] {
+                    nameof(RuleResources.SARIF1002_UrisMustBeValid_Error_UrisMustConformToRfc3986_Text),
+                    nameof(RuleResources.SARIF1002_UrisMustBeValid_Error_FileUrisMustNotIncludeDotDotSegments_Text)
+                };
+
+        public override FailureLevel DefaultLevel => FailureLevel.Error;
 
         protected override void Analyze(SarifLog log, string logPointer)
         {
@@ -78,16 +82,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         private void AnalyzeUri(Uri uri, string pointer)
         {
-            AnalyzeUri(uri?.OriginalString, pointer);
-        }
-
-        private void AnalyzeUri(string uri, string pointer)
-        {
-            if (uri != null)
+            string uriString = uri?.OriginalString;
+            if (uriString != null)
             {
-                if (!Uri.IsWellFormedUriString(uri, UriKind.RelativeOrAbsolute))
+                if (!Uri.IsWellFormedUriString(uriString, UriKind.RelativeOrAbsolute))
                 {
-                    LogResult(pointer, nameof(RuleResources.SARIF1002_UrisMustBeValid_Error_UrisMustConformToRfc3986_Text), uri);
+                    // {0}: The string "{1}" is not a valid URI reference.
+                    LogResult(
+                        pointer,
+                        nameof(RuleResources.SARIF1002_UrisMustBeValid_Error_UrisMustConformToRfc3986_Text),
+                        uriString);
+                }
+
+                if (uri.IsAbsoluteUri && uri.IsFile)
+                {
+                    if (uriString.Split('/').Any(x => x.Equals("..")))
+                    {
+                        // {0}: '{1}' Placeholder_SARIF1002_UrisMustBeValid_Error_FileUrisMustNotIncludeDotDotSegments_Text
+                        LogResult(
+                            pointer,
+                            nameof(RuleResources.SARIF1002_UrisMustBeValid_Error_FileUrisMustNotIncludeDotDotSegments_Text),
+                            uriString);
+                    }
                 }
             }
         }

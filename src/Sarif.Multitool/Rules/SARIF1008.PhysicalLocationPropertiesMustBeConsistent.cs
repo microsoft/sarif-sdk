@@ -56,7 +56,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 return;
             }
 
-            // ContextRegionRequiresRegion: If 'contextRegion' is present, then 'region' must also be present.
             if (physicalLocation.Region == null)
             {
                 // {0}: This 'physicalLocation' object contains a 'contextRegion' property, but it
@@ -70,7 +69,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 return;
             }
 
-            // ContextRegionMustBeProperSupersetOfRegion: 'contextRegion' must be a proper superset of 'region'.
             if (!physicalLocation.ContextRegion.IsProperSupersetOf(physicalLocation.Region))
             {
                 // {0}: This 'physicalLocation' object contains both a 'region' and a 'contextRegion'

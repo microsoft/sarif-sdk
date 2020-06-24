@@ -79,6 +79,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}: &apos;{1}&apos; Placeholder_SARIF1002_UrisMustBeValid_Error_FileUrisMustNotIncludeDotDotSegments_Text.
+        /// </summary>
+        internal static string SARIF1002_UrisMustBeValid_Error_FileUrisMustNotIncludeDotDotSegments_Text {
+            get {
+                return ResourceManager.GetString("SARIF1002_UrisMustBeValid_Error_FileUrisMustNotIncludeDotDotSegments_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}: The string &quot;{1}&quot; is not a valid URI reference..
         /// </summary>
         internal static string SARIF1002_UrisMustBeValid_Error_UrisMustConformToRfc3986_Text {
