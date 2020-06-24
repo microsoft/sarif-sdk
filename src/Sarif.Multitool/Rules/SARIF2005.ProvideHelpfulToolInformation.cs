@@ -60,7 +60,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 }
             }
 
-            // ProvideToolVersion: Either tool.driver.version or tool.driver.semanticVersion should be there.
             if (string.IsNullOrWhiteSpace(toolComponent.Version) && string.IsNullOrWhiteSpace(toolComponent.SemanticVersion))
             {
                 // {0}: Placeholder
@@ -70,7 +69,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             }
             else
             {
-                // UseNumericToolVersions
                 if (!string.IsNullOrWhiteSpace(toolComponent.Version))
                 {
                     AnalyzeVersion(toolComponent.Version, toolDriverPointer.AtProperty(SarifPropertyName.Version));

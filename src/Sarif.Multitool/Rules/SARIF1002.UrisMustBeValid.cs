@@ -85,7 +85,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             string uriString = uri?.OriginalString;
             if (uriString != null)
             {
-                // UrisMustConformToRfc3986: URIs must conform to Rfc3986.
                 if (!Uri.IsWellFormedUriString(uriString, UriKind.RelativeOrAbsolute))
                 {
                     // {0}: The string "{1}" is not a valid URI reference.
@@ -97,7 +96,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
                 if (uri.IsAbsoluteUri && uri.IsFile)
                 {
-                    // FileUrisMustNotIncludeDotDotSegments
                     if (uriString.Split('/').Any(x => x.Equals("..")))
                     {
                         // {0}: '{1}' Placeholder_SARIF1002_UrisMustBeValid_Error_FileUrisMustNotIncludeDotDotSegments_Text
