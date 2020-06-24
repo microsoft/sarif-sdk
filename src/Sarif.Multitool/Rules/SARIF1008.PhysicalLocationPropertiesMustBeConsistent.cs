@@ -38,7 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 return;
             }
 
-            if (!Region.IsProperSuperset(physicalLocation.ContextRegion, physicalLocation.Region))
+            if (!physicalLocation.ContextRegion.IsProperSupersetOf(physicalLocation.Region))
             {
                 LogResult(physicalLocationPointer, nameof(RuleResources.SARIF1008_PhysicalLocationPropertiesMustBeConsistent_Error_ContextRegionMustBeProperSupersetOfRegion_Text));
             }

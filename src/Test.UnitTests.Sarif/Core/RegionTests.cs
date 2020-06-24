@@ -107,7 +107,22 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             region.IsLineColumnBasedTextRegion.Should().BeFalse();
             region.IsOffsetBasedTextRegion.Should().BeTrue();
             region.IsBinaryRegion.Should().BeFalse();
+        }
 
+        [Fact]
+        public void Region_HasAllRegionTypes_ComputesPropertiesCorrectly()
+        {
+            var region = new Region
+            {
+                StartLine = 23,
+                CharOffset = 15,
+                ByteOffset = 15
+
+            };
+
+            region.IsLineColumnBasedTextRegion.Should().BeTrue();
+            region.IsOffsetBasedTextRegion.Should().BeTrue();
+            region.IsBinaryRegion.Should().BeTrue();
         }
     }
 }

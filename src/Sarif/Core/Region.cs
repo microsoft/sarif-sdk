@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public bool IsLineColumnBasedTextRegion => this.StartLine >= 1;
 
-        public bool IsOffsetBasedTextRegion => this.CharOffset > 0;
+        public bool IsOffsetBasedTextRegion => this.CharOffset >= 0;
 
         public override string ToString()
         {
@@ -71,28 +71,28 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        public static bool IsProperSuperset(Region superRegion, Region subRegion)
+        public bool IsProperSupersetOf(Region subRegion)
         {
-            superRegion.PopulateDefaults();
+            this.PopulateDefaults();
             subRegion.PopulateDefaults();
 
-            if (superRegion.IsLineColumnBasedTextRegion &&
+            if (this.IsLineColumnBasedTextRegion &&
                 subRegion.IsLineColumnBasedTextRegion &&
-                !IsLineColumnBasedTextRegionProperSuperset(superRegion, subRegion))
+                !IsLineColumnBasedTextRegionProperSupersetOf(subRegion))
             {
                 return false;
             }
 
-            if (superRegion.IsOffsetBasedTextRegion &&
+            if (this.IsOffsetBasedTextRegion &&
                 subRegion.IsOffsetBasedTextRegion &&
-                !IsOffsetBasedTextRegionProperSupetSet(superRegion, subRegion))
+                !IsOffsetBasedTextRegionProperSupetSetOf(subRegion))
             {
                 return false;
             }
 
-            if (superRegion.IsBinaryRegion &&
+            if (this.IsBinaryRegion &&
                 subRegion.IsBinaryRegion &&
-                !IsBinaryRegionProperSuperset(superRegion, subRegion))
+                !IsBinaryRegionProperSupersetOf(subRegion))
             {
                 return false;
             }
@@ -103,27 +103,27 @@ namespace Microsoft.CodeAnalysis.Sarif
             return true;
         }
 
-        private static bool IsLineColumnBasedTextRegionProperSuperset(Region superRegion, Region subRegion)
+        private bool IsLineColumnBasedTextRegionProperSupersetOf(Region subRegion)
         {
-            if (superRegion.StartLine > subRegion.StartLine || superRegion.EndLine < subRegion.EndLine)
+            if (this.StartLine > subRegion.StartLine || this.EndLine < subRegion.EndLine)
             {
                 return false;
             }
 
-            if (superRegion.StartLine == subRegion.StartLine && superRegion.StartColumn > subRegion.StartColumn)
+            if (this.StartLine == subRegion.StartLine && this.StartColumn > subRegion.StartColumn)
             {
                 return false;
             }
 
-            if (superRegion.EndLine == subRegion.EndLine && superRegion.EndColumn < subRegion.EndColumn)
+            if (this.EndLine == subRegion.EndLine && this.EndColumn < subRegion.EndColumn)
             {
                 return false;
             }
 
-            if (superRegion.StartLine == subRegion.StartLine &&
-                superRegion.EndLine == subRegion.EndLine &&
-                superRegion.StartColumn == subRegion.StartColumn &&
-                superRegion.EndColumn == subRegion.EndColumn)
+            if (this.StartLine == subRegion.StartLine &&
+                this.EndLine == subRegion.EndLine &&
+                this.StartColumn == subRegion.StartColumn &&
+                this.EndColumn == subRegion.EndColumn)
             {
                 return false;
             }
@@ -131,19 +131,19 @@ namespace Microsoft.CodeAnalysis.Sarif
             return true;
         }
 
-        private static bool IsBinaryRegionProperSuperset(Region superRegion, Region subRegion)
+        private bool IsBinaryRegionProperSupersetOf(Region subRegion)
         {
-            if (superRegion.ByteOffset > subRegion.ByteOffset)
+            if (this.ByteOffset > subRegion.ByteOffset)
             {
                 return false;
             }
 
-            if (GetByteEndOffset(superRegion) < GetByteEndOffset(subRegion))
+            if (GetByteEndOffset(this) < GetByteEndOffset(subRegion))
             {
                 return false;
             }
 
-            if (superRegion.ByteOffset == subRegion.ByteOffset && superRegion.ByteLength <= subRegion.ByteLength)
+            if (this.ByteOffset == subRegion.ByteOffset && this.ByteLength <= subRegion.ByteLength)
             {
                 return false;
             }
@@ -151,19 +151,19 @@ namespace Microsoft.CodeAnalysis.Sarif
             return true;
         }
 
-        private static bool IsOffsetBasedTextRegionProperSupetSet(Region superRegion, Region subRegion)
+        private bool IsOffsetBasedTextRegionProperSupetSetOf(Region subRegion)
         {
-            if (superRegion.CharOffset > subRegion.CharOffset)
+            if (this.CharOffset > subRegion.CharOffset)
             {
                 return false;
             }
 
-            if (GetCharEndOffset(superRegion) < GetCharEndOffset(subRegion))
+            if (GetCharEndOffset(this) < GetCharEndOffset(subRegion))
             {
                 return false;
             }
 
-            if (superRegion.CharOffset == subRegion.CharOffset && superRegion.CharLength <= subRegion.CharLength)
+            if (this.CharOffset == subRegion.CharOffset && this.CharLength <= subRegion.CharLength)
             {
                 return false;
             }
