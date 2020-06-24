@@ -124,6 +124,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}: &apos;{1}&apos; &apos;{2}&apos; Placeholder: SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdValueMustNotContainDotDotSegment_Text.
+        /// </summary>
+        internal static string SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdValueMustNotContainDotDotSegment_Text {
+            get {
+                return ResourceManager.GetString("SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdValueMustNotContainDotDotSegm" +
+                        "ent_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: &apos;{1}&apos; &apos;{2}&apos; Placeholder: SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdValueMustNotContainQueryOrFragment_Text.
+        /// </summary>
+        internal static string SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdValueMustNotContainQueryOrFragment_Text {
+            get {
+                return ResourceManager.GetString("SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdValueMustNotContainQueryOrFra" +
+                        "gment_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Placeholder_SARIF1004_ExpressUriBaseIdsCorrectly_FullDescription_Text.
         /// </summary>
         internal static string SARIF1004_ExpressUriBaseIdsCorrectly_FullDescription_Text {
@@ -342,7 +362,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Placeholder.
+        ///   Looks up a localized string similar to Provide information that makes it easy to identify the name and version of your tool.
+        ///
+        ///The tool&apos;s &apos;name&apos; property should be no more than three words long. This makes it easy to remember and allows it to fit into a narrow column when displaying a list of results. If you need to provide more information about your tool, use the &apos;fullName&apos; property.
+        ///
+        ///The tool should provide either or both of the &apos;version&apos; and &apos;semanticVersion&apos; properties. This enables the log file consumer to determine whether the file was [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SARIF2005_ProvideHelpfulToolInformation_FullDescription_Text {
             get {
@@ -351,7 +375,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: Placeholder &apos;{1}&apos; &apos;{2}&apos; &apos;{3}&apos;.
+        ///   Looks up a localized string similar to {0}: The tool name &apos;{1}&apos; contains {2} words, which is more than the recommended maximum of {3} words. A short tool name is easy to remember and fits into a narrow column when displaying a list of results. If you need to provide more information about your tool, use the &apos;fullName&apos; property..
         /// </summary>
         internal static string SARIF2005_ProvideHelpfulToolInformation_Warning_ProvideConciseToolName_Text {
             get {
@@ -360,7 +384,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: Placeholder.
+        ///   Looks up a localized string similar to {0}: The tool &apos;{1}&apos; provides neither a &apos;version&apos; property nor a &apos;semanticVersion&apos; property. Providing a version enables the log file consumer to determine whether the file was produced by an up to date version, and to avoid accidentally comparing log files produced by different tool versions..
         /// </summary>
         internal static string SARIF2005_ProvideHelpfulToolInformation_Warning_ProvideToolVersion_Text {
             get {
@@ -369,7 +393,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: Placeholder &apos;{1}&apos;.
+        ///   Looks up a localized string similar to {0}: The tool &apos;{1}&apos; contains the &apos;version&apos; property &apos;{2}&apos;, which is not numeric. To facilitate comparison between versions, specify a &apos;version&apos; that starts with at least two dot-separated integer components, optionally followed by any desired characters..
         /// </summary>
         internal static string SARIF2005_ProvideHelpfulToolInformation_Warning_UseNumericToolVersions_Text {
             get {

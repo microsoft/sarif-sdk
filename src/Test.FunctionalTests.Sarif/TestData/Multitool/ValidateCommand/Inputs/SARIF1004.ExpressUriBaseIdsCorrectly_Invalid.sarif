@@ -22,6 +22,24 @@
           "description": {
             "text": "This is a regression test for Bug #1862, where we were not checking for a trailing slash on relative URIs."
           }
+        },
+        "BAD_URI_CONTAINING_DOTDOT": {
+          "uri": "file:///C:/rules/dir1/dir2/../",
+          "description": {
+            "text": "Uri contains dot dot segment."
+          }
+        },
+        "BAD_URI_CONTAINING_QUERY": {
+          "uri": "http://www.contoso.com/catalog/shownew.htm?date=today",
+          "description": {
+            "text": "Uri contains a query."
+          }
+        },
+        "BAD_URI_CONTAINING_FRAGMENT": {
+          "uri": "http://www.contoso.com/index.htm#search",
+          "description": {
+            "text": "URI contains a fragment."
+          }
         }
       },
       "invocations": [

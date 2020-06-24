@@ -216,16 +216,28 @@ If the validator reports that 'contextRegion' is not a proper superset of 'regio
     <value>{0}: This 'physicalLocation' object contains both a 'region' and a 'contextRegion' property, but 'contextRegion' is not a proper superset of 'region'. This is invalid because the purpose of 'contextRegion' is to provide a viewing context around the 'region' which is the location of the result. It's possible that the tool reversed 'region' and 'contextRegion'. If 'region' and 'contextRegion' are identical, the tool must omit 'contextRegion'.</value>
   </data>
   <data name="SARIF2005_ProvideHelpfulToolInformation_FullDescription_Text" xml:space="preserve">
-    <value>Placeholder</value>
+    <value>Provide information that makes it easy to identify the name and version of your tool.
+
+The tool's 'name' property should be no more than three words long. This makes it easy to remember and allows it to fit into a narrow column when displaying a list of results. If you need to provide more information about your tool, use the 'fullName' property.
+
+The tool should provide either or both of the 'version' and 'semanticVersion' properties. This enables the log file consumer to determine whether the file was produced by an up to date version, and to avoid accidentally comparing log files produced by different tool versions.
+
+If 'version' is used, facilitate comparison between versions by specifying it either with an integer, or with at least two dot-separated integer components, optionally followed by any desired characters.</value>
   </data>
   <data name="SARIF2005_ProvideHelpfulToolInformation_Warning_ProvideConciseToolName_Text" xml:space="preserve">
-    <value>{0}: Placeholder '{1}' '{2}' '{3}'</value>
+    <value>{0}: The tool name '{1}' contains {2} words, which is more than the recommended maximum of {3} words. A short tool name is easy to remember and fits into a narrow column when displaying a list of results. If you need to provide more information about your tool, use the 'fullName' property.</value>
   </data>
   <data name="SARIF2005_ProvideHelpfulToolInformation_Warning_ProvideToolVersion_Text" xml:space="preserve">
-    <value>{0}: Placeholder</value>
+    <value>{0}: The tool '{1}' provides neither a 'version' property nor a 'semanticVersion' property. Providing a version enables the log file consumer to determine whether the file was produced by an up to date version, and to avoid accidentally comparing log files produced by different tool versions.</value>
   </data>
   <data name="SARIF2005_ProvideHelpfulToolInformation_Warning_UseNumericToolVersions_Text" xml:space="preserve">
-    <value>{0}: Placeholder '{1}'</value>
+    <value>{0}: The tool '{1}' contains the 'version' property '{2}', which is not numeric. To facilitate comparison between versions, specify a 'version' that starts with at least two dot-separated integer components, optionally followed by any desired characters.</value>
+  </data>
+  <data name="SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdValueMustNotContainDotDotSegment_Text" xml:space="preserve">
+    <value>{0}: '{1}' '{2}' Placeholder: SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdValueMustNotContainDotDotSegment_Text</value>
+  </data>
+  <data name="SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdValueMustNotContainQueryOrFragment_Text" xml:space="preserve">
+    <value>{0}: '{1}' '{2}' Placeholder: SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdValueMustNotContainQueryOrFragment_Text</value>
   </data>
   <data name="SARIF2001_AuthorHighQualityMessages_Warning_EnquoteDynamicContent_Text" xml:space="preserve">
     <value>{0}: Placeholder '{1}' '{2}'</value>
