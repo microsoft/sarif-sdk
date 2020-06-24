@@ -64,7 +64,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 // If the tool incorrectly populated 'contextRegion' instead of 'region', then fix it so
                 // that it populates only the 'region'. If the tool simply neglected to populate 'region',
                 // then fix it so that it does.
-                LogResult(physicalLocationPointer, nameof(RuleResources.SARIF1008_PhysicalLocationPropertiesMustBeConsistent_Error_ContextRegionRequiresRegion_Text));
+                LogResult(
+                    physicalLocationPointer,
+                    nameof(RuleResources.SARIF1008_PhysicalLocationPropertiesMustBeConsistent_Error_ContextRegionRequiresRegion_Text));
                 return;
             }
 
@@ -78,7 +80,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 // and 'contextRegion', then fix it so it puts the correct values in the correct
                 // properties. If 'region' and 'contextRegion' are identical, the 'contextRegion' is
                 // unnecessary, and (by the spec) the tool must not populate it.
-                LogResult(physicalLocationPointer, nameof(RuleResources.SARIF1008_PhysicalLocationPropertiesMustBeConsistent_Error_ContextRegionMustBeProperSupersetOfRegion_Text));
+                LogResult(
+                    physicalLocationPointer,
+                    nameof(RuleResources.SARIF1008_PhysicalLocationPropertiesMustBeConsistent_Error_ContextRegionMustBeProperSupersetOfRegion_Text));
             }
         }
     }
