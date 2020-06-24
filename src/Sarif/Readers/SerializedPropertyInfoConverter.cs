@@ -1,14 +1,50 @@
-﻿// Copyright (c) Microsoft. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License.
 
 using System;
+using System.IO;
+using System.Text;
+
 using Newtonsoft.Json;
 
-namespace Microsoft.CodeAnalysis.Sarif.Readers
+namespace Microsoft.CodeAnalysis.Sarif
 {
     public class SerializedPropertyInfoConverter : JsonConverter
     {
-        public static readonly SerializedPropertyInfoConverter Instance = new SerializedPropertyInfoConverter();
+        public static SerializedPropertyInfo Read(JsonReader reader)
+        {
+            if (reader.TokenType == JsonToken.Null)
+            {
+                return null;
+            }
+            else
+            {
+                bool wasString = (reader.TokenType == JsonToken.String);
+
+                StringBuilder builder = new StringBuilder();
+                using (StringWriter w = new StringWriter(builder))
+                using (JsonTextWriter writer = new JsonTextWriter(w))
+                {
+                    writer.WriteToken(reader);
+                }
+
+                return new SerializedPropertyInfo(builder.ToString(), wasString);
+            }
+        }
+
+        public static void Write(JsonWriter writer, SerializedPropertyInfo value)
+        {
+            SerializedPropertyInfo spi = (SerializedPropertyInfo)value;
+
+            if (spi == null || spi.SerializedValue == null)
+            {
+                writer.WriteNull();
+            }
+            else
+            {
+                writer.WriteRawValue(spi.SerializedValue);
+            }
+        }
 
         public override bool CanConvert(Type objectType)
         {
@@ -17,32 +53,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            if (reader == null)
-            {
-                throw new ArgumentNullException(nameof(reader));
-            }
-
-            var serializedPropertyInfo = (SerializedPropertyInfo)reader.Value;
-            return serializedPropertyInfo.SerializedValue;
+            return Read(reader);
         }
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            if (writer == null)
-            {
-                throw new ArgumentNullException(nameof(writer));
-            }
-
-            string serializedValue = ((SerializedPropertyInfo)value).SerializedValue;
-
-            if (serializedValue.StartsWith("\""))
-            {
-                writer.WriteRawValue(serializedValue);
-            }
-            else
-            {
-                writer.WriteRawValue(@"""" + serializedValue + @"""");
-            }
+            Write(writer, (SerializedPropertyInfo)value);
         }
     }
 }
