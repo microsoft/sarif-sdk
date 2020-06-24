@@ -4,29 +4,32 @@
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+
 using Microsoft.Json.Pointer;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class ProvideHelpfulToolInformation : SarifValidationSkimmerBase
     {
-        private static readonly Regex s_versionRegex = new Regex(@"^\d+\.\d+.*", RegexOptions.Compiled | RegexOptions.CultureInvariant);
-        
-        public override MultiformatMessageString FullDescription => new MultiformatMessageString
-        {
-            Text = RuleResources.SARIF2005_ProvideHelpfulToolInformation_FullDescription_Text
-        };
+        /// <summary>
+        /// SARIF2005
+        /// </summary>
+        public override string Id => RuleId.ProvideHelpfulToolInformation;
+
+        /// <summary>
+        /// Placeholder (full description).
+        /// </summary>
+        public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF2005_ProvideHelpfulToolInformation_FullDescription_Text };
+
+        protected override IEnumerable<string> MessageResourceNames => new string[] {
+                    nameof(RuleResources.SARIF2005_ProvideHelpfulToolInformation_Warning_ProvideToolVersion_Text),
+                    nameof(RuleResources.SARIF2005_ProvideHelpfulToolInformation_Warning_ProvideConciseToolName_Text),
+                    nameof(RuleResources.SARIF2005_ProvideHelpfulToolInformation_Warning_UseNumericToolVersions_Text)
+                };
 
         public override FailureLevel DefaultLevel => FailureLevel.Warning;
 
-        public override string Id => RuleId.ProvideHelpfulToolInformation;
-
-        protected override IEnumerable<string> MessageResourceNames => new string[]
-        {
-            nameof(RuleResources.SARIF2005_ProvideHelpfulToolInformation_Warning_ProvideToolVersion_Text),
-            nameof(RuleResources.SARIF2005_ProvideHelpfulToolInformation_Warning_ProvideConciseToolName_Text),
-            nameof(RuleResources.SARIF2005_ProvideHelpfulToolInformation_Warning_UseNumericToolVersions_Text)
-        };
+        private static readonly Regex s_versionRegex = new Regex(@"^\d+\.\d+.*", RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
         protected override void Analyze(Tool tool, string toolPointer)
         {
@@ -46,6 +49,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 if (wordCount > MaxWords)
                 {
                     string driverNamePointer = toolDriverPointer.AtProperty(SarifPropertyName.Name);
+
+                    // {0}: Placeholder '{1}' '{2}' '{3}'
                     LogResult(
                         driverNamePointer,
                         nameof(RuleResources.SARIF2005_ProvideHelpfulToolInformation_Warning_ProvideConciseToolName_Text),
@@ -58,9 +63,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             // ProvideToolVersion: Either tool.driver.version or tool.driver.semanticVersion should be there.
             if (string.IsNullOrWhiteSpace(toolComponent.Version) && string.IsNullOrWhiteSpace(toolComponent.SemanticVersion))
             {
+                // {0}: Placeholder
                 LogResult(
-                        toolDriverPointer,
-                        nameof(RuleResources.SARIF2005_ProvideHelpfulToolInformation_Warning_ProvideToolVersion_Text));
+                    toolDriverPointer,
+                    nameof(RuleResources.SARIF2005_ProvideHelpfulToolInformation_Warning_ProvideToolVersion_Text));
             }
             else
             {
@@ -76,10 +82,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
             if (!s_versionRegex.IsMatch(version))
             {
+                // {0}: Placeholder '{1}'
                 LogResult(
-                        pointer,
-                        nameof(RuleResources.SARIF2005_ProvideHelpfulToolInformation_Warning_UseNumericToolVersions_Text),
-                        version);
+                    pointer,
+                    nameof(RuleResources.SARIF2005_ProvideHelpfulToolInformation_Warning_UseNumericToolVersions_Text),
+                    version);
             }
         }
     }
