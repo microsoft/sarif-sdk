@@ -22,7 +22,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF1002_UrisMustBeValid_FullDescription_Text };
 
         protected override IEnumerable<string> MessageResourceNames => new string[] {
-                    nameof(RuleResources.SARIF1002_UrisMustBeValid_Error_UrisMustConformToRfc3986_Text)
+                    nameof(RuleResources.SARIF1002_UrisMustBeValid_Error_UrisMustConformToRfc3986_Text),
+                    nameof(RuleResources.SARIF1002_UrisMustBeValid_Error_FileUrisMustNotIncludeDotDotSegments_Text)
                 };
 
         public override FailureLevel DefaultLevel => FailureLevel.Error;
@@ -81,21 +82,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         private void AnalyzeUri(Uri uri, string pointer)
         {
-            AnalyzeUri(uri?.OriginalString, pointer);
-        }
-
-        private void AnalyzeUri(string uri, string pointer)
-        {
-            if (uri != null)
+            string uriString = uri?.OriginalString;
+            if (uriString != null)
             {
                 // UrisMustConformToRfc3986: URIs must conform to Rfc3986.
-                if (!Uri.IsWellFormedUriString(uri, UriKind.RelativeOrAbsolute))
+                if (!Uri.IsWellFormedUriString(uriString, UriKind.RelativeOrAbsolute))
                 {
                     // {0}: The string "{1}" is not a valid URI reference.
                     LogResult(
                         pointer,
                         nameof(RuleResources.SARIF1002_UrisMustBeValid_Error_UrisMustConformToRfc3986_Text),
-                        uri);
+                        uriString);
+                }
+
+                if (uri.IsAbsoluteUri && uri.IsFile)
+                {
+                    // FileUrisMustNotIncludeDotDotSegments
+                    if (uriString.Split('/').Any(x => x.Equals("..")))
+                    {
+                        // {0}: '{1}' Placeholder_SARIF1002_UrisMustBeValid_Error_FileUrisMustNotIncludeDotDotSegments_Text
+                        LogResult(
+                            pointer,
+                            nameof(RuleResources.SARIF1002_UrisMustBeValid_Error_FileUrisMustNotIncludeDotDotSegments_Text),
+                            uriString);
+                    }
                 }
             }
         }
