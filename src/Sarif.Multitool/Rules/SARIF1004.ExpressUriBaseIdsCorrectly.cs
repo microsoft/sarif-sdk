@@ -95,7 +95,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 }
 
                 // UriBaseIdValueMustNotContainDotDotSegment: uriBaseIds must not contain `..` segment(s).
-                if (uriString.Split("/").Any( x => x.Equals("..")))
+                if (uriString.Split("/").Any(x => x.Equals("..")))
                 {
                     // {0}: '{1}' '{2}' Placeholder: SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdValueMustNotContainDotDotSegment_Text
                     LogResult(
