@@ -122,11 +122,19 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
 
         [Fact]
         public void SARIF2001_AuthorHighQualityMessages_Valid()
-    => RunTest(MakeValidTestFileName(RuleId.AuthorHighQualityMessages, nameof(RuleId.AuthorHighQualityMessages)));
+            => RunTest(MakeValidTestFileName(RuleId.AuthorHighQualityMessages, nameof(RuleId.AuthorHighQualityMessages)));
 
         [Fact]
         public void SARIF2001_AuthorHighQualityMessages_Invalid()
             => RunTest(MakeInvalidTestFileName(RuleId.AuthorHighQualityMessages, nameof(RuleId.AuthorHighQualityMessages)));
+
+        [Fact]
+        public void SARIF2005_ProvideHelpfulToolInformation_Valid()
+            => RunTest(MakeValidTestFileName(RuleId.ProvideHelpfulToolInformation, nameof(RuleId.ProvideHelpfulToolInformation)));
+
+        [Fact]
+        public void SARIF2005_ProvideHelpfulToolInformation_Invalid()
+            => RunTest(MakeInvalidTestFileName(RuleId.ProvideHelpfulToolInformation, nameof(RuleId.ProvideHelpfulToolInformation)));
 
         [Fact]
         public void SARIF2008_ProvideSchema_Valid()

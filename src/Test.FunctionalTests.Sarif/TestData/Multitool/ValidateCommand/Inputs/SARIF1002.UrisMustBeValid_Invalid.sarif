@@ -6,6 +6,7 @@
       "tool": {
         "driver": {
           "name": "CodeScanner",
+          "version": "1.0",
           "downloadUri": "ht%tp://www.example.com/tools/codescanner/download.html",
           "notifications": [
             {

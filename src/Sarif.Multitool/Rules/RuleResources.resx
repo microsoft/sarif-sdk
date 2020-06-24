@@ -215,4 +215,16 @@ If the validator reports that 'contextRegion' is not a proper superset of 'regio
   <data name="SARIF1008_PhysicalLocationPropertiesMustBeConsistent_Error_ContextRegionMustBeProperSupersetOfRegion_Text" xml:space="preserve">
     <value>{0}: This 'physicalLocation' object contains both a 'region' and a 'contextRegion' property, but 'contextRegion' is not a proper superset of 'region'. This is invalid because the purpose of 'contextRegion' is to provide a viewing context around the 'region' which is the location of the result. It's possible that the tool reversed 'region' and 'contextRegion'. If 'region' and 'contextRegion' are identical, the tool must omit 'contextRegion'.</value>
   </data>
+  <data name="SARIF2005_ProvideHelpfulToolInformation_FullDescription_Text" xml:space="preserve">
+    <value>Placeholder</value>
+  </data>
+  <data name="SARIF2005_ProvideHelpfulToolInformation_Warning_ProvideConciseToolName_Text" xml:space="preserve">
+    <value>{0}: Placeholder '{1}' '{2}' '{3}'</value>
+  </data>
+  <data name="SARIF2005_ProvideHelpfulToolInformation_Warning_ProvideToolVersion_Text" xml:space="preserve">
+    <value>{0}: Placeholder</value>
+  </data>
+  <data name="SARIF2005_ProvideHelpfulToolInformation_Warning_UseNumericToolVersions_Text" xml:space="preserve">
+    <value>{0}: Placeholder '{1}'</value>
+  </data>
 </root>

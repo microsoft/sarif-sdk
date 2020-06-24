@@ -8,20 +8,23 @@
           "name": "SARIF Functional Testing",
           "rules": [
             {
-              "id": "SARIF1010",
-              "name": "RuleIdMustBeConsistent",
+              "id": "SARIF2005",
+              "name": "ProvideHelpfulToolInformation",
               "shortDescription": {
-                "text": "In every result, at least one of the properties result.ruleId and result.rule.id must be present."
+                "text": "Placeholder."
               },
               "fullDescription": {
-                "text": "In every result, at least one of the properties result.ruleId and result.rule.id must be present. If both are present, they must be equal."
+                "text": "Placeholder"
               },
               "messageStrings": {
-                "Error_ResultRuleIdMustBeConsistent": {
-                  "text": "{0}: The result contains both the ruleId property '{1}' and the rule.id property '{2}', and they are not equal."
+                "Warning_ProvideToolVersion": {
+                  "text": "{0}: Placeholder"
                 },
-                "Error_ResultMustSpecifyRuleId": {
-                  "text": "{0}: The result contains neither result.ruleId nor result.rule.id."
+                "Warning_ProvideConciseToolName": {
+                  "text": "{0}: Placeholder '{1}' '{2}' '{3}'"
+                },
+                "Warning_UseNumericToolVersions": {
+                  "text": "{0}: Placeholder '{1}'"
                 }
               },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
@@ -37,20 +40,22 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1010.RuleIdMustBeConsistent_Invalid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF2005.ProvideHelpfulToolInformation_Invalid.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }
       ],
       "results": [
         {
-          "ruleId": "SARIF1010",
+          "ruleId": "SARIF2005",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
-            "id": "Error_ResultMustSpecifyRuleId",
+            "id": "Warning_ProvideConciseToolName",
             "arguments": [
-              "runs[0].results[0]"
+              "runs[0].tool.driver.name",
+              "SARIF Functional Testing Long",
+              "4",
+              "3"
             ]
           },
           "locations": [
@@ -60,23 +65,21 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 13,
-                  "startColumn": 9
+                  "startLine": 8,
+                  "startColumn": 49
                 }
               }
             }
           ]
         },
         {
-          "ruleId": "SARIF1010",
+          "ruleId": "SARIF2005",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
-            "id": "Error_ResultRuleIdMustBeConsistent",
+            "id": "Warning_UseNumericToolVersions",
             "arguments": [
-              "runs[0].results[1]",
-              "TST0001",
-              "TST0002"
+              "runs[0].tool.driver.version",
+              "1"
             ]
           },
           "locations": [
@@ -86,8 +89,8 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 18,
-                  "startColumn": 9
+                  "startLine": 9,
+                  "startColumn": 24
                 }
               }
             }
