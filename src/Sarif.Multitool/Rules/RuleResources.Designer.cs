@@ -199,7 +199,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: This &quot;physicalLocation&quot; object contains a &quot;contextRegion&quot; property, but it does not contain a &quot;region&quot; property..
+        ///   Looks up a localized string similar to {0}: This &apos;physicalLocation&apos; object contains both a &apos;region&apos; and a &apos;contextRegion&apos; property, but &apos;contextRegion&apos; is not a proper superset of &apos;region&apos;. This is invalid because the purpose of &apos;contextRegion&apos; is to provide a viewing context around the &apos;region&apos; which is the location of the result. It&apos;s possible that the tool reversed &apos;region&apos; and &apos;contextRegion&apos;. If &apos;region&apos; and &apos;contextRegion&apos; are identical, the tool must omit &apos;contextRegion&apos;..
+        /// </summary>
+        internal static string SARIF1008_PhysicalLocationPropertiesMustBeConsistent_Error_ContextRegionMustBeProperSupersetOfRegion_Text {
+            get {
+                return ResourceManager.GetString("SARIF1008_PhysicalLocationPropertiesMustBeConsistent_Error_ContextRegionMustBePro" +
+                        "perSupersetOfRegion_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: This &apos;physicalLocation&apos; object contains a &apos;contextRegion&apos; property, but it does not contain a &apos;region&apos; property. This is invalid because the purpose of &apos;contextRegion&apos; is to provide a viewing context around the &apos;region&apos; which is the location of the result. If a tool associates only one region with a result, it must populate &apos;region&apos;, not &apos;contextRegion&apos;..
         /// </summary>
         internal static string SARIF1008_PhysicalLocationPropertiesMustBeConsistent_Error_ContextRegionRequiresRegion_Text {
             get {
@@ -209,7 +219,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If the &quot;contextRegion&quot; property is present, the &quot;region&quot; property must also be present..
+        ///   Looks up a localized string similar to Ensure consistency among the properties of a &apos;physicalLocation&apos; object.
+        ///
+        ///A SARIF &apos;physicalLocation&apos; object has two related properties &apos;region&apos; and &apos;contextRegion&apos;. If &apos;contextRegion&apos; is present, then &apos;region&apos; must also be present, and &apos;contextRegion&apos; must be a &quot;proper superset&quot; of &apos;region&apos;. That is, &apos;contextRegion&apos; must completely contain &apos;region&apos;, and it must be larger than &apos;region&apos;. To understand why this is so we must understand the roles of the &apos;region&apos; and &apos;contextRegion&apos; properties.
+        ///
+        ///&apos;region&apos; allo [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SARIF1008_PhysicalLocationPropertiesMustBeConsistent_FullDescription_Text {
             get {
