@@ -315,7 +315,7 @@ The tool's 'name' property should be no more than three words long. This makes i
 
 The tool should provide either or both of the 'version' and 'semanticVersion' properties. This enables the log file consumer to determine whether the file was produced by an up to date version, and to avoid accidentally comparing log files produced by different tool versions.
 
-If 'version' is used, facilitate comparison between versions by specifying it with at least two dot-separated integer components, optionally followed by any desired characters.
+If 'version' is used, facilitate comparison between versions by specifying it either with an integer, or with at least two dot-separated integer components, optionally followed by any desired characters.
 
 #### Messages
 
