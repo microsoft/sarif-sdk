@@ -59,10 +59,10 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
             new Region()
             {
                 Snippet = null,
-                StartLine = 0,
-                StartColumn = 0,
-                EndLine = 0,
-                EndColumn = 0,
+                StartLine = 1,
+                StartColumn = 1,
+                EndLine = 1,
+                EndColumn = 1,
                 CharOffset = 0,
                 CharLength = 0
             };
