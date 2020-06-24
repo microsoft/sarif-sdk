@@ -49,6 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     LogResult(
                         driverNamePointer,
                         nameof(RuleResources.SARIF2005_ProvideHelpfulToolInformation_Warning_ProvideConciseToolName_Text),
+                        toolComponent.Name,
                         wordCount.ToString(),
                         MaxWords.ToString());
                 }

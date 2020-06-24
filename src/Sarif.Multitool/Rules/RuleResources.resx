@@ -208,7 +208,7 @@
     <value>Placeholder</value>
   </data>
   <data name="SARIF2005_ProvideHelpfulToolInformation_Warning_ProvideConciseToolName_Text" xml:space="preserve">
-    <value>{0}: Placeholder '{1}' '{2}'</value>
+    <value>{0}: Placeholder '{1}' '{2}' '{3}'</value>
   </data>
   <data name="SARIF2005_ProvideHelpfulToolInformation_Warning_ProvideToolVersion_Text" xml:space="preserve">
     <value>{0}: Placeholder</value>

@@ -21,7 +21,7 @@
                   "text": "{0}: Placeholder"
                 },
                 "Warning_ProvideConciseToolName": {
-                  "text": "{0}: Placeholder '{1}' '{2}'"
+                  "text": "{0}: Placeholder '{1}' '{2}' '{3}'"
                 },
                 "Warning_UseNumericToolVersions": {
                   "text": "{0}: Placeholder '{1}'"
@@ -53,6 +53,7 @@
             "id": "Warning_ProvideConciseToolName",
             "arguments": [
               "runs[0].tool.driver.name",
+              "SARIF Functional Testing Long",
               "4",
               "3"
             ]

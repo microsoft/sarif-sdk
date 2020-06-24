@@ -319,7 +319,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: Placeholder &apos;{1}&apos; &apos;{2}&apos;.
+        ///   Looks up a localized string similar to {0}: Placeholder &apos;{1}&apos; &apos;{2}&apos; &apos;{3}&apos;.
         /// </summary>
         internal static string SARIF2005_ProvideHelpfulToolInformation_Warning_ProvideConciseToolName_Text {
             get {
