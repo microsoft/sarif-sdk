@@ -136,7 +136,7 @@
     <value>The end time of a run must not precede the start time. To allow for the possibility that the duration of the run is less than the resolution of the string representation of the time, the start time and the end time may be equal.</value>
   </data>
   <data name="SARIF2001_AuthorHighQualityMessages_Warning_TerminateWithPeriod_Text" xml:space="preserve">
-    <value>{0}: The message "{1}" does not end with a period.</value>
+    <value>{0}: Placeholder '{1}'</value>
   </data>
   <data name="SARIF2001_AuthorHighQualityMessages_FullDescription_Text" xml:space="preserve">
     <value>Messages should consist of one or more complete sentences, ending with a period.</value>
@@ -214,6 +214,12 @@
     <value>{0}: Placeholder</value>
   </data>
   <data name="SARIF2005_ProvideHelpfulToolInformation_Warning_UseNumericToolVersions_Text" xml:space="preserve">
+    <value>{0}: Placeholder '{1}'</value>
+  </data>
+  <data name="SARIF2001_AuthorHighQualityMessages_Warning_EnquoteDynamicContent_Text" xml:space="preserve">
+    <value>{0}: Placeholder '{1}'</value>
+  </data>
+  <data name="SARIF2001_AuthorHighQualityMessages_Warning_IncludeDynamicContent_Text" xml:space="preserve">
     <value>{0}: Placeholder '{1}'</value>
   </data>
 </root>

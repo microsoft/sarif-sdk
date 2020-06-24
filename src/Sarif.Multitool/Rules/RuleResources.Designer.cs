@@ -301,7 +301,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The message &quot;{1}&quot; does not end with a period..
+        ///   Looks up a localized string similar to {0}: Placeholder &apos;{1}&apos;.
+        /// </summary>
+        internal static string SARIF2001_AuthorHighQualityMessages_Warning_EnquoteDynamicContent_Text {
+            get {
+                return ResourceManager.GetString("SARIF2001_AuthorHighQualityMessages_Warning_EnquoteDynamicContent_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: Placeholder &apos;{1}&apos;.
+        /// </summary>
+        internal static string SARIF2001_AuthorHighQualityMessages_Warning_IncludeDynamicContent_Text {
+            get {
+                return ResourceManager.GetString("SARIF2001_AuthorHighQualityMessages_Warning_IncludeDynamicContent_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: Placeholder &apos;{1}&apos;.
         /// </summary>
         internal static string SARIF2001_AuthorHighQualityMessages_Warning_TerminateWithPeriod_Text {
             get {
