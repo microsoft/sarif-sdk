@@ -10,18 +10,18 @@
         }
       },
       "originalUriBaseIds": {
-        "PROJECT_ROOT": {
+        "REPOROOT": {
           "description": {
             "text": "This artifactLocation has neither a uri nor a uriBaseId. This is fine."
           }
         },
-        "RULES_ROOT": {
+        "TESTROOT": {
           "uri": "file:///C:/rules/",
           "description": {
             "text": "This artifactLocation has no uriBaseId, so its uri, if present, must be absolute."
           }
         },
-        "SOURCE_ROOT": {
+        "SRCROOT": {
           "uri": "src/",
           "uriBaseId": "PROJECT_ROOT",
           "description": {

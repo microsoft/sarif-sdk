@@ -47,7 +47,7 @@
           "ruleId": "SARIF2009",
           "ruleIndex": 0,
           "message": {
-            "id": "Warning_IncludeDynamicContent",
+            "id": "Warning_UseConventionalUriBaseIdNames",
             "arguments": [
               "runs[0].originalUriBaseIds.SRCINVALID",
               "SRCINVALID"
@@ -71,7 +71,7 @@
           "ruleId": "SARIF2009",
           "ruleIndex": 0,
           "message": {
-            "id": "Warning_IncludeDynamicContent",
+            "id": "Warning_UseConventionalRuleIds",
             "arguments": [
               "runs[0].tool.driver.rules[0].id",
               "Wrong Rule 00001"
