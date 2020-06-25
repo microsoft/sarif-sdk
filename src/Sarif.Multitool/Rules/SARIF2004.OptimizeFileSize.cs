@@ -3,6 +3,8 @@
 
 using System.Collections.Generic;
 
+using Microsoft.Json.Pointer;
+
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class OptimizeFileSize : SarifValidationSkimmerBase
@@ -23,17 +25,41 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         public override FailureLevel DefaultLevel => FailureLevel.Warning;
 
-        protected override void Analyze(ArtifactLocation artifactLocation, string artifactLocationPointer)
+        protected override void Analyze(Run run, string runPointer)
         {
-            Result firstResult = Context.CurrentRun.Results[0];
+            // We only verify first item in the results and artifacts array,
+            // since tools will typically generate similar nodes.
+            // This approach may cause false negatives.
+            ArtifactLocation firstLocationInArtifactsArray = run.Artifacts[0].Location;
+            ArtifactLocation firstlocationInResults = run.Results[0].Locations[0].PhysicalLocation.ArtifactLocation;
 
-            //if ()
-            //{
-            //    // {0}: Placeholder_SARIF2004_OptimizeFileSize_Warning_EliminateLocationOnlyArtifacts_Text
-            //    LogResult(
-            //        regionPointer,
-            //        nameof(RuleResources.SARIF2004_OptimizeFileSize_Warning_EliminateLocationOnlyArtifacts_Text));
-            //}
+            if (!ArrayBasedLocationHasAdditionalInfo(firstLocationInArtifactsArray, firstlocationInResults))
+            {
+                // {0}: Placeholder_SARIF2004_OptimizeFileSize_Warning_EliminateLocationOnlyArtifacts_Text
+                LogResult(
+                    runPointer.AtProperty(SarifPropertyName.Artifacts),
+                    nameof(RuleResources.SARIF2004_OptimizeFileSize_Warning_EliminateLocationOnlyArtifacts_Text));
+            }
+        }
+
+        private bool ArrayBasedLocationHasAdditionalInfo(ArtifactLocation arrayBasedLocation, ArtifactLocation resultBasedLocation)
+        {
+            if (resultBasedLocation.Uri == null && arrayBasedLocation.Uri != null)
+            {
+                return true;
+            }
+
+            if (resultBasedLocation.UriBaseId == null && arrayBasedLocation.UriBaseId != null)
+            {
+                return true;
+            }
+
+            if (resultBasedLocation.Description == null && arrayBasedLocation.Description != null)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }
