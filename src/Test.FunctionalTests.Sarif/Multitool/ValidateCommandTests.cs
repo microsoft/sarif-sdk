@@ -145,12 +145,12 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
             => RunTest(MakeInvalidTestFileName(RuleId.ProvideSchema, nameof(RuleId.ProvideSchema)));
 
         [Fact]
-        public void SARIF2009_UseConventionalSymbolicNames_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.UseConventionalSymbolicNames, nameof(RuleId.UseConventionalSymbolicNames)));
+        public void SARIF2009_ConsiderUsingConventionalNames_Valid()
+            => RunTest(MakeValidTestFileName(RuleId.ConsiderUsingConventionalNames, nameof(RuleId.ConsiderUsingConventionalNames)), parameter: true);
 
         [Fact]
-        public void SARIF2009_UseConventionalSymbolicNames_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.UseConventionalSymbolicNames, nameof(RuleId.UseConventionalSymbolicNames)));
+        public void SARIF2009_ConsiderUsingConventionalNames_Invalid()
+            => RunTest(MakeInvalidTestFileName(RuleId.ConsiderUsingConventionalNames, nameof(RuleId.ConsiderUsingConventionalNames)), parameter: true);
 
         private const string ValidTestFileNameSuffix = "_Valid.sarif";
         private const string InvalidTestFileNameSuffix = "_Invalid.sarif";
@@ -194,6 +194,11 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
                 PrettyPrint = true,
                 Optimize = true
             };
+
+            if (parameter != null && parameter is bool boolean)
+            {
+                validateOptions.Verbose = boolean;
+            }
 
             var mockFileSystem = new Mock<IFileSystem>();
 

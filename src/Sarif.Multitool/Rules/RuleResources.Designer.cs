@@ -446,28 +446,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         ///
         ///Many tool use similar names for &apos;uriBaseId&apos; symbols. We suggest &apos;REPOROOT&apos; for the root of a repository, &apos;SRCROOT&apos; for [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string SARIF2009_UseConventionalSymbolicNames_FullDescription_Text {
+        internal static string SARIF2009_ConsiderUsingConventionalNames_FullDescription_Text {
             get {
-                return ResourceManager.GetString("SARIF2009_UseConventionalSymbolicNames_FullDescription_Text", resourceCulture);
+                return ResourceManager.GetString("SARIF2009_ConsiderUsingConventionalNames_FullDescription_Text", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to {0}: The &apos;id&apos; property of the rule &apos;{1}&apos; does not follow the recommended format: a short string identifying the tool concatenated with a numeric rule number, for example, `CS2001`. Using a conventional format for the rule id provides a more uniform experience across tools..
         /// </summary>
-        internal static string SARIF2009_UseConventionalSymbolicNames_Warning_UseConventionalRuleIds_Text {
+        internal static string SARIF2009_ConsiderUsingConventionalNames_Note_UseConventionalRuleIds_Text {
             get {
-                return ResourceManager.GetString("SARIF2009_UseConventionalSymbolicNames_Warning_UseConventionalRuleIds_Text", resourceCulture);
+                return ResourceManager.GetString("SARIF2009_ConsiderUsingConventionalNames_Note_UseConventionalRuleIds_Text", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to {0}: The &apos;originalUriBaseIds&apos; symbol &apos;{1}&apos; is not one of the conventional symbols. We suggest &apos;REPOROOT&apos; for the root of a repository, &apos;SRCROOT&apos; for the root of the directory containing all source code, &apos;TESTROOT&apos; for the root of the directory containing all test code (if your repository is organized in that way), and &apos;BINROOT&apos; for the root of the directory containing build output (if your project places all build output in a common directory)..
         /// </summary>
-        internal static string SARIF2009_UseConventionalSymbolicNames_Warning_UseConventionalUriBaseIdNames_Text {
+        internal static string SARIF2009_ConsiderUsingConventionalNames_Note_UseConventionalUriBaseIdNames_Text {
             get {
-                return ResourceManager.GetString("SARIF2009_UseConventionalSymbolicNames_Warning_UseConventionalUriBaseIdNames_Text" +
-                        "", resourceCulture);
+                return ResourceManager.GetString("SARIF2009_ConsiderUsingConventionalNames_Note_UseConventionalUriBaseIdNames_Text", resourceCulture);
             }
         }
     }
