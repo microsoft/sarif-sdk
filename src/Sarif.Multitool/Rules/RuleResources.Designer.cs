@@ -201,7 +201,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The value of the &quot;endColumn&quot; property is {1}, which is less than the value of the &quot;startColumn&quot; property, which is {2}..
+        ///   Looks up a localized string similar to {0}: In this &apos;region&apos; object, the &apos;endColumn&apos; property &apos;{1}&apos; is less than the &apos;startColumn&apos; property &apos;{2}&apos;. The properties of a &apos;region&apos; object must be internally consistent..
         /// </summary>
         internal static string SARIF1007_RegionPropertiesMustBeConsistent_Error_EndColumnMustNotPrecedeStartColumn_Text {
             get {
@@ -211,7 +211,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The value of the &quot;endLine&quot; property is {1}, which is less than the value of the &quot;startLine&quot; property, which is {2}..
+        ///   Looks up a localized string similar to {0}: In this &apos;region&apos; object, the &apos;endLine&apos; property &apos;{1}&apos; is less than the &apos;startLine&apos; property &apos;{2}&apos;. The properties of a &apos;region&apos; object must be internally consistent..
         /// </summary>
         internal static string SARIF1007_RegionPropertiesMustBeConsistent_Error_EndLineMustNotPrecedeStartLine_Text {
             get {
@@ -221,7 +221,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: Placeholder_SARIF1007_RegionPropertiesMustBeConsistent_Error_RegionStartPropertyMustBePresent_Text.
+        ///   Looks up a localized string similar to {0}: This &apos;region&apos; object does not specify &apos;startLine&apos;, &apos;charOffset&apos;, or &apos;byteOffset&apos;. As a result, it is impossible to determine whether this &apos;region&apos; object describes a line/column text region, a character offset/length text region, or a binary region..
         /// </summary>
         internal static string SARIF1007_RegionPropertiesMustBeConsistent_Error_RegionStartPropertyMustBePresent_Text {
             get {
@@ -231,7 +231,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Placeholder_SARIF1007_RegionPropertiesMustBeConsistent_FullDescription_Text.
+        ///   Looks up a localized string similar to The properties of a &apos;region&apos; object must be consistent.
+        ///
+        ///SARIF can specify a &apos;region&apos; (a contiguous portion of a file) in a variety of ways: with line and column numbers, with a character offset and count, or with a byte offset and count. The specification states certain constraints on these properties, both within each property group (for example, the start line cannot be greater than end line) and between the groups (for example, if more than one group is present, they must independently specify the sam [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SARIF1007_RegionPropertiesMustBeConsistent_FullDescription_Text {
             get {
