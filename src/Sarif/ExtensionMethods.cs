@@ -335,7 +335,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 text = GetFirstSentence(text);
                 if (text.Length > maxLength)
                 {
-                    text = text.Substring(0, maxLength) + "\u2026";
+                    text = text.Substring(0, maxLength) + "\u2026"; // \u2026 is Unicode "horizontal ellipsis".
                 }
             }
 
