@@ -22,6 +22,8 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
             base(outputHelper, testProducesSarifCurrentVersion)
         { }
 
+        const bool Verbose = true;
+
         protected override string IntermediateTestFolder => @"Multitool";
 
         [Fact]
@@ -145,12 +147,12 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
             => RunTest(MakeInvalidTestFileName(RuleId.ProvideSchema, nameof(RuleId.ProvideSchema)));
 
         [Fact]
-        public void SARIF2009_ConsiderUsingConventionalNames_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.ConsiderUsingConventionalNames, nameof(RuleId.ConsiderUsingConventionalNames)), parameter: true);
+        public void SARIF2009_ConsiderConventionalIdentifierValues_Valid()
+            => RunTest(MakeValidTestFileName(RuleId.ConsiderConventionalIdentifierValues, nameof(RuleId.ConsiderConventionalIdentifierValues)), parameter: Verbose);
 
         [Fact]
-        public void SARIF2009_ConsiderUsingConventionalNames_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.ConsiderUsingConventionalNames, nameof(RuleId.ConsiderUsingConventionalNames)), parameter: true);
+        public void SARIF2009_ConsiderConventionalIdentifierValues_Invalid()
+            => RunTest(MakeInvalidTestFileName(RuleId.ConsiderConventionalIdentifierValues, nameof(RuleId.ConsiderConventionalIdentifierValues)), parameter: Verbose);
 
         private const string ValidTestFileNameSuffix = "_Valid.sarif";
         private const string InvalidTestFileNameSuffix = "_Invalid.sarif";
@@ -195,9 +197,9 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
                 Optimize = true
             };
 
-            if (parameter != null && parameter is bool boolean)
+            if (parameter != null && parameter is bool verbose)
             {
-                validateOptions.Verbose = boolean;
+                validateOptions.Verbose = verbose;
             }
 
             var mockFileSystem = new Mock<IFileSystem>();

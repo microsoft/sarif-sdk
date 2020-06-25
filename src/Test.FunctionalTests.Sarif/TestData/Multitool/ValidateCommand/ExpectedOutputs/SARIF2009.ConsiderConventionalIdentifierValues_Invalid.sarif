@@ -9,7 +9,7 @@
           "rules": [
             {
               "id": "SARIF2009",
-              "name": "ConsiderUsingConventionalNames",
+              "name": "ConsiderConventionalIdentifierValues",
               "shortDescription": {
                 "text": "Adopt uniform naming conventions for the symbolic names that SARIF uses various contexts."
               },
@@ -37,7 +37,7 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF2009.ConsiderUsingConventionalNames_Invalid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF2009.ConsiderConventionalIdentifierValues_Invalid.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }

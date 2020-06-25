@@ -10,12 +10,12 @@ using Microsoft.Json.Pointer;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class ConsiderUsingConventionalNames : SarifValidationSkimmerBase
+    public class ConsiderConventionalIdentifierValues : SarifValidationSkimmerBase
     {
         /// <summary>
         /// SARIF2009
         /// </summary>
-        public override string Id => RuleId.ConsiderUsingConventionalNames;
+        public override string Id => RuleId.ConsiderConventionalIdentifierValues;
 
         /// <summary>
         /// Adopt uniform naming conventions for the symbolic names that SARIF uses various contexts.
@@ -31,11 +31,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// repository is organized in that way), and 'BINROOT' for the root of the directory
         /// containing build output(if your project places all build output in a common directory).
         /// </summary>
-        public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF2009_ConsiderUsingConventionalNames_FullDescription_Text };
+        public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF2009_ConsiderConventionalIdentifierValues_FullDescription_Text };
 
         protected override IEnumerable<string> MessageResourceNames => new string[] {
-            nameof(RuleResources.SARIF2009_ConsiderUsingConventionalNames_Note_UseConventionalRuleIds_Text),
-            nameof(RuleResources.SARIF2009_ConsiderUsingConventionalNames_Note_UseConventionalUriBaseIdNames_Text)
+            nameof(RuleResources.SARIF2009_ConsiderConventionalIdentifierValues_Note_UseConventionalRuleIds_Text),
+            nameof(RuleResources.SARIF2009_ConsiderConventionalIdentifierValues_Note_UseConventionalUriBaseIdNames_Text)
         };
 
         public override FailureLevel DefaultLevel => FailureLevel.Note;
@@ -86,7 +86,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 // uniform experience across tools.
                 LogResult(
                     reportingDescriptorPointer.AtProperty(SarifPropertyName.Id),
-                    nameof(RuleResources.SARIF2009_ConsiderUsingConventionalNames_Note_UseConventionalRuleIds_Text),
+                    nameof(RuleResources.SARIF2009_ConsiderConventionalIdentifierValues_Note_UseConventionalRuleIds_Text),
                     reportingDescriptor.Name);
             }
         }
@@ -105,7 +105,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     // build output in a common directory).
                     LogResult(
                         originalUriBaseIdsPointer.AtProperty(originalUriBaseId.Key),
-                        nameof(RuleResources.SARIF2009_ConsiderUsingConventionalNames_Note_UseConventionalUriBaseIdNames_Text),
+                        nameof(RuleResources.SARIF2009_ConsiderConventionalIdentifierValues_Note_UseConventionalUriBaseIdNames_Text),
                         originalUriBaseId.Key);
                 }
             }

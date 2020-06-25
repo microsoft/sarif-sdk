@@ -363,7 +363,7 @@ If 'version' is used, facilitate comparison between versions by specifying it ei
 
 ---
 
-### Rule`SARIF2009.UseConventionalSymbolicNames`
+### Rule`SARIF2009.ConsiderConventionalIdentifierValues`
 
 #### Description
 
