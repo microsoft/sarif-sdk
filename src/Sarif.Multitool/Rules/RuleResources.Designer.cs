@@ -79,7 +79,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: &apos;{1}&apos; Placeholder_SARIF1002_UrisMustBeValid_Error_FileUrisMustNotIncludeDotDotSegments_Text.
+        ///   Looks up a localized string similar to {0}: The &apos;file&apos; URI &apos;{1}&apos; contains a &apos;..&apos; segment. This is dangerous because if symbolic links are present, &apos;..&apos; might have different meanings on the machine that produced the log file and the machine where an end user or a tool consumes it..
         /// </summary>
         internal static string SARIF1002_UrisMustBeValid_Error_FileUrisMustNotIncludeDotDotSegments_Text {
             get {
@@ -88,7 +88,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The string &quot;{1}&quot; is not a valid URI reference..
+        ///   Looks up a localized string similar to {0}: The string &apos;{1}&apos; is not a valid URI reference. URIs must conform to [RFC 3986](https://tools.ietf.org/html/rfc3986)..
         /// </summary>
         internal static string SARIF1002_UrisMustBeValid_Error_UrisMustConformToRfc3986_Text {
             get {
@@ -97,7 +97,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Specify a valid URI reference for every URI-valued property..
+        ///   Looks up a localized string similar to Specify a valid URI reference for every URI-valued property.
+        ///
+        ///URIs must conform to [RFC 3986](https://tools.ietf.org/html/rfc3986). In addition, &apos;file&apos; URIs must not include &apos;..&apos; segments. If symbolic links are present, &apos;..&apos; might have different meanings on the machine that produced the log file and the machine where an end user or a tool consumes it..
         /// </summary>
         internal static string SARIF1002_UrisMustBeValid_FullDescription_Text {
             get {

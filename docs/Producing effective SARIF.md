@@ -86,13 +86,22 @@ The two identity-related properties of a SARIF rule must be consistent. The requ
 
 #### Description
 
+Specify a valid URI reference for every URI-valued property.
+
+URIs must conform to [RFC 3986](https://tools.ietf.org/html/rfc3986). In addition, 'file' URIs must not include '..' segments. If symbolic links are present, '..' might have different meanings on the machine that produced the log file and the machine where an end user or a tool consumes it.
+
 #### Messages
 
 ##### `UrisMustConformToRfc3986`: error
 
+{0}: The string '{1}' is not a valid URI reference. URIs must conform to [RFC 3986](https://tools.ietf.org/html/rfc3986).
+
 ##### `FileUrisMustConformToRfc8089`: error
 
 ##### `FileUrisMustNotIncludeDotDotSegments`: error
+
+{0}: The 'file' URI '{1}' contains a '..' segment. This is dangerous because if symbolic links are present, '..' might have different meanings on the machine that produced the log file and the machine where an end user or a tool consumes it.
+
 ---
 
 ### Rule `SARIF1003.UrisShouldUseConventionalForm`

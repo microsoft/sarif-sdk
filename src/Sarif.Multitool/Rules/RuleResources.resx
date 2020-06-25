@@ -124,10 +124,12 @@
     <value>The two identity-related properties of a SARIF rule must be consistent. The required 'id' property must be a "stable, opaque identifier" (the SARIF specification ([3.49.3](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317839)) explains the reasons for this). The optional 'name' property ([3.49.7](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317843)) is an identifer that is understandable to an end user. Therefore if both 'id' and 'name' are present, they must be different. If both 'name' and 'id' are opaque identifiers, omit the 'name' property. If both 'name' and 'id' are human-readable identifiers, then consider assigning an opaque identifier to each rule, but in the meantime, omit the 'name' property.</value>
   </data>
   <data name="SARIF1002_UrisMustBeValid_Error_UrisMustConformToRfc3986_Text" xml:space="preserve">
-    <value>{0}: The string "{1}" is not a valid URI reference.</value>
+    <value>{0}: The string '{1}' is not a valid URI reference. URIs must conform to [RFC 3986](https://tools.ietf.org/html/rfc3986).</value>
   </data>
   <data name="SARIF1002_UrisMustBeValid_FullDescription_Text" xml:space="preserve">
-    <value>Specify a valid URI reference for every URI-valued property.</value>
+    <value>Specify a valid URI reference for every URI-valued property.
+
+URIs must conform to [RFC 3986](https://tools.ietf.org/html/rfc3986). In addition, 'file' URIs must not include '..' segments. If symbolic links are present, '..' might have different meanings on the machine that produced the log file and the machine where an end user or a tool consumes it.</value>
   </data>
   <data name="SARIF1006_InvocationPropertiesMustBeConsistent_Error_EndTimeMustNotPrecedeStartTime_Text" xml:space="preserve">
     <value>{0}: The end time "{1}" is before the start time "{2}".</value>
@@ -246,7 +248,7 @@ If 'version' is used, facilitate comparison between versions by specifying it ei
     <value>{0}: Placeholder '{1}' '{2}'</value>
   </data>
   <data name="SARIF1002_UrisMustBeValid_Error_FileUrisMustNotIncludeDotDotSegments_Text" xml:space="preserve">
-    <value>{0}: '{1}' Placeholder_SARIF1002_UrisMustBeValid_Error_FileUrisMustNotIncludeDotDotSegments_Text</value>
+    <value>{0}: The 'file' URI '{1}' contains a '..' segment. This is dangerous because if symbolic links are present, '..' might have different meanings on the machine that produced the log file and the machine where an end user or a tool consumes it.</value>
   </data>
   <data name="SARIF2009_ConsiderConventionalIdentifierValues_FullDescription_Text" xml:space="preserve">
     <value>Adopt uniform naming conventions for the symbolic names that SARIF uses various contexts.

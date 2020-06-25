@@ -18,6 +18,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         /// <summary>
         /// Specify a valid URI reference for every URI-valued property.
+        ///
+        /// URIs must conform to [RFC 3986](https://tools.ietf.org/html/rfc3986). In addition,
+        /// 'file:' URIs must not include '..' segments. If symbolic links are present, '..'
+        /// might have different meanings on the machine that produced the log file and the
+        /// machine where an end user or a tool consumes it.
         /// </summary>
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF1002_UrisMustBeValid_FullDescription_Text };
 
@@ -87,7 +92,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 if (!Uri.IsWellFormedUriString(uriString, UriKind.RelativeOrAbsolute))
                 {
-                    // {0}: The string "{1}" is not a valid URI reference.
+                    // {0}: The string '{1}' is not a valid URI reference. URIs must conform to
+                    // [RFC 3986](https://tools.ietf.org/html/rfc3986).
                     LogResult(
                         pointer,
                         nameof(RuleResources.SARIF1002_UrisMustBeValid_Error_UrisMustConformToRfc3986_Text),
@@ -98,7 +104,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 {
                     if (uriString.Split('/').Any(x => x.Equals("..")))
                     {
-                        // {0}: '{1}' Placeholder_SARIF1002_UrisMustBeValid_Error_FileUrisMustNotIncludeDotDotSegments_Text
+                        // {0}: The 'file' URI '{1}' contains a '..' segment. This is dangerous because
+                        // if symbolic links are present, '..' might have different meanings on the
+                        // machine that produced the log file and the machine where an end user or
+                        // a tool consumes it.
                         LogResult(
                             pointer,
                             nameof(RuleResources.SARIF1002_UrisMustBeValid_Error_FileUrisMustNotIncludeDotDotSegments_Text),
