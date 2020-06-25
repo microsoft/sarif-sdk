@@ -1,5 +1,7 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
+
 ## **v2.3.1** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.1) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.1) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.1) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.1)
+* FEATURE: Allow result messages to be truncated for display. [#1915](https://github.com/microsoft/sarif-sdk/issues/1915)
 * BUGFIX: Rebase URI command now honors `--insert` and `--remove` arguments for injecting or eliding optional data (such as region snippets).
 
 ## **v2.3.1** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.1) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.1) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.1) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.1)
