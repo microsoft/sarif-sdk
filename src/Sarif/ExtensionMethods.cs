@@ -288,7 +288,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return GetMessageText(result, rule, concise: false);
         }
 
-        public static string GetMessageText(this Result result, ReportingDescriptor rule, bool concise = false, int maxLength = 200)
+        public static string GetMessageText(this Result result, ReportingDescriptor rule, bool concise = false, int maxLength = 120)
         {
             if (result == null)
             {
@@ -335,7 +335,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 text = GetFirstSentence(text);
                 if (text.Length > maxLength)
                 {
-                    text = text.Substring(0, maxLength) + "...";
+                    text = text.Substring(0, maxLength) + "\u2026";
                 }
             }
 

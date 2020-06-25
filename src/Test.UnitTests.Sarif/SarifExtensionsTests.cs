@@ -133,8 +133,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             };
 
-            const string Expected = "First sentence is ve...";
-            string actual = result.GetMessageText(rule, concise: true, maxLength: 20);
+            string Expected = "First sentence is ve\u2026";
+            int maxLength = Expected.Length - 1;    // The -1 is for the ellipsis character.
+            string actual = result.GetMessageText(rule, concise: true, maxLength);
             Assert.Equal(Expected, actual);
         }
     }
