@@ -2,7 +2,8 @@
 SETLOCAL
 
 SET SampleFolderPath=C:\Download\Demo\V2
-SET SampleFileName=CodeAsData.50M
+SET SampleFileName=CodeAsData
+IF NOT "%1"=="" (SET SampleFileName=%1)
 
 SET SarifToCsv="%~dp0..\SarifToCsv\bin\Release\netcoreapp3.1\SarifToCsv.exe"
 SET SarifToCsv.Old="%~dp0bin\SarifToCsv_SDK_v2.0\SarifToCsv.exe"
