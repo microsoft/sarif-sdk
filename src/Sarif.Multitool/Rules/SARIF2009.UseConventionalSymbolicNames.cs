@@ -81,8 +81,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             if (!s_conventionalIdRegex.IsMatch(reportingDescriptor.Id))
             {
                 // {0}: The 'id' property of the rule '{1}' does not follow the recommended format:
-                // a short string identifying the tool concatenated with a numeric rule number, for example, `CS2001`.
-                // Using a conventional format for the rule id provides a more uniform experience across tools.
+                // a short string identifying the tool concatenated with a numeric rule number, for
+                // example, `CS2001`. Using a conventional format for the rule id provides a more
+                // uniform experience across tools.
                 LogResult(
                     reportingDescriptorPointer.AtProperty(SarifPropertyName.Id),
                     nameof(RuleResources.SARIF2009_UseConventionalSymbolicNames_Warning_UseConventionalRuleIds_Text),
@@ -97,10 +98,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 if (!s_conventionalSymbols.Contains(originalUriBaseId.Key))
                 {
                     // {0}: The 'originalUriBaseIds' symbol '{1}' is not one of the conventional symbols. 
-                    // We suggest 'REPOROOT' for the root of a repository, 'SRCROOT' for the root of the directory
-                    // containing all source code, 'TESTROOT' for the root of the directory containing all test code
-                    // (if your repository is organized in that way), and 'BINROOT' for the root of the directory
-                    // containing build output (if your project places all build output in a common directory).
+                    // We suggest 'REPOROOT' for the root of a repository, 'SRCROOT' for the root of the
+                    // directory containing all source code, 'TESTROOT' for the root of the directory
+                    // containing all test code (if your repository is organized in that way), and 'BINROOT'
+                    // for the root of the directory containing build output (if your project places all
+                    // build output in a common directory).
                     LogResult(
                         originalUriBaseIdsPointer.AtProperty(originalUriBaseId.Key),
                         nameof(RuleResources.SARIF2009_UseConventionalSymbolicNames_Warning_UseConventionalUriBaseIdNames_Text),
