@@ -103,9 +103,9 @@
           "message": {
             "id": "Error_TopLevelUriBaseIdMustBeAbsolute",
             "arguments": [
-              "runs[0].originalUriBaseIds.PROJECT_ROOT",
-              "project",
-              "PROJECT_ROOT"
+              "runs[0].originalUriBaseIds.REPO_ROOT",
+              "repository",
+              "REPO_ROOT"
             ]
           },
           "locations": [
@@ -116,7 +116,7 @@
                 },
                 "region": {
                   "startLine": 101,
-                  "startColumn": 25
+                  "startColumn": 22
                 }
               }
             }
@@ -129,9 +129,9 @@
           "message": {
             "id": "Error_UriBaseIdValueMustEndWithSlash",
             "arguments": [
-              "runs[0].originalUriBaseIds.PROJECT_ROOT",
-              "project",
-              "PROJECT_ROOT"
+              "runs[0].originalUriBaseIds.REPO_ROOT",
+              "repository",
+              "REPO_ROOT"
             ]
           },
           "locations": [
@@ -142,7 +142,7 @@
                 },
                 "region": {
                   "startLine": 101,
-                  "startColumn": 25
+                  "startColumn": 22
                 }
               }
             }

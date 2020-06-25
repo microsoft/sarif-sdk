@@ -87,7 +87,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 LogResult(
                     reportingDescriptorPointer.AtProperty(SarifPropertyName.Id),
                     nameof(RuleResources.SARIF2009_ConsiderConventionalIdentifierValues_Note_UseConventionalRuleIds_Text),
-                    reportingDescriptor.Name);
+                    reportingDescriptor.Id);
             }
         }
 

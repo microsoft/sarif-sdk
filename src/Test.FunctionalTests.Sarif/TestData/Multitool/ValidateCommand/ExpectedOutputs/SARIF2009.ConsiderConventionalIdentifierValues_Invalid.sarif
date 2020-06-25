@@ -76,7 +76,7 @@
             "id": "Note_UseConventionalRuleIds",
             "arguments": [
               "runs[0].tool.driver.rules[0].id",
-              "Wrong Rule 00001"
+              "WRONG00001"
             ]
           },
           "locations": [
