@@ -82,7 +82,7 @@ The two identity-related properties of a SARIF rule must be consistent. The requ
 
 ---
 
-### Rule`SARIF1002.UrisMustBeValid`
+### Rule `SARIF1002.UrisMustBeValid`
 
 #### Description
 
@@ -95,13 +95,13 @@ The two identity-related properties of a SARIF rule must be consistent. The requ
 ##### `FileUrisMustNotIncludeDotDotSegments`: error
 ---
 
-### Rule`SARIF1003.UrisShouldUseConventionalForm`
+### Rule `SARIF1003.UrisShouldUseConventionalForm`
 
 ##### `FileUrisWithoutHostNameShouldUseTripleSlashForm`: warning
 
 ---
 
-### Rule`SARIF1004.ExpressUriBaseIdsCorrectly`
+### Rule `SARIF1004.ExpressUriBaseIdsCorrectly`
 
 #### Description
 
@@ -119,7 +119,7 @@ The two identity-related properties of a SARIF rule must be consistent. The requ
 
 ---
 
-### Rule`SARIF1005.UriMustBeAbsolute`
+### Rule `SARIF1005.UriMustBeAbsolute`
 
 #### Description
 
@@ -129,7 +129,7 @@ The two identity-related properties of a SARIF rule must be consistent. The requ
 
 ---
 
-### Rule`SARIF1006.InvocationPropertiesMustBeConsistent`
+### Rule `SARIF1006.InvocationPropertiesMustBeConsistent`
 
 #### Description
 
@@ -139,7 +139,7 @@ The two identity-related properties of a SARIF rule must be consistent. The requ
 
 ---
 
-### Rule`SARIF1007.RegionPropertiesMustBeConsistent`
+### Rule `SARIF1007.RegionPropertiesMustBeConsistent`
 
 #### Description
 
@@ -155,7 +155,7 @@ SARIF can specify a 'region' (a contiguous portion of a file) in a variety of wa
 
 ---
 
-### Rule`SARIF1008.PhysicalLocationPropertiesMustBeConsistent`
+### Rule `SARIF1008.PhysicalLocationPropertiesMustBeConsistent`
 
 #### Description
 
@@ -181,7 +181,7 @@ If the validator reports that 'contextRegion' is not a proper superset of 'regio
 
 ---
 
-### Rule`SARIF1009.IndexPropertiesMustBeConsistentWithArrays`
+### Rule `SARIF1009.IndexPropertiesMustBeConsistentWithArrays`
 
 #### Description
 
@@ -193,7 +193,7 @@ If the validator reports that 'contextRegion' is not a proper superset of 'regio
 
 ---
 
-### Rule`SARIF1010.RuleIdMustBeConsistent`
+### Rule `SARIF1010.RuleIdMustBeConsistent`
 
 #### Description
 
@@ -213,7 +213,7 @@ This validation rule is required because this constraint cannot be expressed in 
 
 ---
 
-### Rule`SARIF1011.ReferenceFinalSchema`
+### Rule `SARIF1011.ReferenceFinalSchema`
 
 #### Description
 
@@ -223,7 +223,7 @@ This validation rule is required because this constraint cannot be expressed in 
 
 ---
 
-### Rule`SARIF1012.MessagePropertiesMustBeConsistent`
+### Rule `SARIF1012.MessagePropertiesMustBeConsistent`
 
 #### Description
 
@@ -247,7 +247,7 @@ Rules that describe violations of SARIF recommendations or best practices also h
 
 ---
 
-### Rule`SARIF2001.AuthorHighQualityMessages`
+### Rule `SARIF2001.AuthorHighQualityMessages`
 
 #### Description
 
@@ -261,7 +261,7 @@ Rules that describe violations of SARIF recommendations or best practices also h
 
 ---
 
-### Rule`SARIF2002.UseMessageArguments`
+### Rule `SARIF2002.UseMessageArguments`
 
 #### Description
 
@@ -275,7 +275,7 @@ In result messages, use the 'message.id' and 'message.arguments' properties rath
 
 ---
 
-### Rule`SARIF2003.ProduceEnrichedSarif`
+### Rule `SARIF2003.ProduceEnrichedSarif`
 
 #### Description
 
@@ -293,7 +293,7 @@ In result messages, use the 'message.id' and 'message.arguments' properties rath
 
 ---
 
-### Rule`SARIF2004.OptimizeFileSize`
+### Rule `SARIF2004.OptimizeFileSize`
 
 #### Description
 
@@ -305,7 +305,7 @@ In result messages, use the 'message.id' and 'message.arguments' properties rath
 
 ---
 
-### Rule`SARIF2005.ProvideHelpfulToolInformation`
+### Rule `SARIF2005.ProvideHelpfulToolInformation`
 
 #### Description
 
@@ -333,7 +333,7 @@ If 'version' is used, facilitate comparison between versions by specifying it ei
 
 ---
 
-### Rule`SARIF2006.UrisShouldBeReachable`
+### Rule `SARIF2006.UrisShouldBeReachable`
 
 #### Description
 
@@ -343,7 +343,7 @@ If 'version' is used, facilitate comparison between versions by specifying it ei
 
 ---
 
-### Rule`SARIF2007.ExpressPathsRelativeToRepoRoot`
+### Rule `SARIF2007.ExpressPathsRelativeToRepoRoot`
 
 #### Description
 
@@ -353,7 +353,7 @@ If 'version' is used, facilitate comparison between versions by specifying it ei
 
 ---
 
-### Rule`SARIF2008.ProvideSchema`
+### Rule `SARIF2008.ProvideSchema`
 
 #### Description
 
@@ -363,7 +363,7 @@ If 'version' is used, facilitate comparison between versions by specifying it ei
 
 ---
 
-### Rule`SARIF2009.ConsiderConventionalIdentifierValues`
+### Rule `SARIF2009.ConsiderConventionalIdentifierValues`
 
 #### Description
 

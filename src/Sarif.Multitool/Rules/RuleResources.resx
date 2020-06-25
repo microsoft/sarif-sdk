@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="SARIF1001_RuleIdentifiersMustBeValid_Error_Default_Text" xml:space="preserve">
-    <value>{0}: The name and id properties of rule "{1}" are the same.</value>
+    <value>{0}: The rule '{1}' has a 'name' property that is identical to its 'id' property. The required 'id' property must be a "stable, opaque identifier" (the SARIF specification ([3.49.3](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317839)) explains the reasons for this). The optional 'name' property ([3.49.7](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317843)) is an identifer that is understandable to an end user. Therefore if both 'id' and 'name' are present, they must be different. If they are identical, the tool must omit the 'name' property.</value>
   </data>
   <data name="SARIF1001_RuleIdentifiersMustBeValid_FullDescription_Text" xml:space="preserve">
-    <value>Do not use the same string for a rule's id and name properties. The id property must be a stable, opaque identifer such as "SARIF1001". The name property should be a string that is understandable to an end user, such as "DoNotUserFriendlyNameAsRuleId".</value>
+    <value>The two identity-related properties of a SARIF rule must be consistent. The required 'id' property must be a "stable, opaque identifier" (the SARIF specification ([3.49.3](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317839)) explains the reasons for this). The optional 'name' property ([3.49.7](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317843)) is an identifer that is understandable to an end user. Therefore if both 'id' and 'name' are present, they must be different. If both 'name' and 'id' are opaque identifiers, omit the 'name' property. If both 'name' and 'id' are human-readable identifiers, then consider assigning an opaque identifier to each rule, but in the meantime, omit the 'name' property.</value>
   </data>
   <data name="SARIF1002_UrisMustBeValid_Error_UrisMustConformToRfc3986_Text" xml:space="preserve">
     <value>{0}: The string "{1}" is not a valid URI reference.</value>
