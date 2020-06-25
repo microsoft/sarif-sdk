@@ -251,4 +251,10 @@ If 'version' is used, facilitate comparison between versions by specifying it ei
   <data name="SARIF1007_RegionPropertiesMustBeConsistent_Error_RegionStartPropertyMustBePresent_Text" xml:space="preserve">
     <value>{0}: Placeholder_SARIF1007_RegionPropertiesMustBeConsistent_Error_RegionStartPropertyMustBePresent_Text</value>
   </data>
+  <data name="SARIF2004_OptimizeFileSize_FullDescription_Text" xml:space="preserve">
+    <value>Placeholder_SARIF2004_OptimizeFileSize_FullDescription_Text</value>
+  </data>
+  <data name="SARIF2004_OptimizeFileSize_Warning_EliminateLocationOnlyArtifacts_Text" xml:space="preserve">
+    <value>{0}: Placeholder_SARIF2004_OptimizeFileSize_Warning_EliminateLocationOnlyArtifacts_Text</value>
+  </data>
 </root>
