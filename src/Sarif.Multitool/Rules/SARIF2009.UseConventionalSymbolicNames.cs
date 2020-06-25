@@ -21,14 +21,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// Adopt uniform naming conventions for the symbolic names that SARIF uses various contexts.
         /// 
         /// Many tools follow a conventional format for the 'reportingDescriptor.id' property:
-        /// a short string identifying the tool concatenated with a numeric rule number,
-        /// for example, 'CS2001' for a diagnostic from the Roslyn C# compiler.
-        /// For uniformity of experience across tools, we recommend this format.
+        /// a short string identifying the tool concatenated with a numeric rule number, for
+        /// example, 'CS2001' for a diagnostic from the Roslyn C# compiler. For uniformity of
+        /// experience across tools, we recommend this format.
         /// 
-        /// Many tool use similar names for 'uriBaseId' symbols.We suggest 'REPOROOT'
-        /// for the root of a repository, 'SRCROOT' for the root of the directory containing
-        /// all source code, 'TESTROOT' for the root of the directory containing all test code
-        /// (if your repository is organized in that way), and 'BINROOT' for the root of the directory
+        /// Many tool use similar names for 'uriBaseId' symbols.We suggest 'REPOROOT' for the
+        /// root of a repository, 'SRCROOT' for the root of the directory containing all source
+        /// code, 'TESTROOT' for the root of the directory containing all test code (if your
+        /// repository is organized in that way), and 'BINROOT' for the root of the directory
         /// containing build output(if your project places all build output in a common directory).
         /// </summary>
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF2009_UseConventionalSymbolicNames_FullDescription_Text };
