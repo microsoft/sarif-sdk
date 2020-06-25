@@ -363,7 +363,7 @@ If 'version' is used, facilitate comparison between versions by specifying it ei
 
 ---
 
-### Rule`SARIF2009.UseConventionalSymbolicNames`
+### Rule`SARIF2009.ConsiderConventionalIdentifierValues`
 
 #### Description
 
@@ -378,7 +378,7 @@ Many tool use similar names for 'uriBaseId' symbols. We suggest 'REPOROOT' for t
 
 ##### `UseConventionalRuleIds`: note
 
-{0}: The 'name' property ' of the rule '{1}' does not follow the recommended format: a short string identifying the tool concatenated with a numeric rule number, for example, `CS2001`. Using a conventional format for the rule id provides a more uniform experience across tools.
+{0}: The 'id' property of the rule '{1}' does not follow the recommended format: a short string identifying the tool concatenated with a numeric rule number, for example, `CS2001`. Using a conventional format for the rule id provides a more uniform experience across tools.
 
 ##### `UseConventionalUriBaseIdNames`: note
 
