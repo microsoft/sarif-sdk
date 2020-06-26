@@ -2,8 +2,11 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Collections.Generic;
+using System.Linq;
 
 using Microsoft.Json.Pointer;
+
+using Newtonsoft.Json.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
@@ -29,37 +32,47 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
             // We only verify first item in the results and artifacts array,
             // since tools will typically generate similar nodes.
-            // This approach may cause false negatives.
-            ArtifactLocation firstLocationInArtifactsArray = run.Artifacts[0].Location;
-            ArtifactLocation firstlocationInResults = run.Results[0].Locations[0].PhysicalLocation.ArtifactLocation;
+            // This approach may cause occasional false negatives.
+            ArtifactLocation firstLocationInArtifactsArray = run?.Artifacts?.FirstOrDefault()?.Location;
+            ArtifactLocation firstlocationInResults = run?.Results?.FirstOrDefault()?.Locations?.FirstOrDefault()?.PhysicalLocation?.ArtifactLocation;
 
-            if (!ArrayBasedLocationHasAdditionalInfo(firstLocationInArtifactsArray, firstlocationInResults))
+            if (firstLocationInArtifactsArray == null || firstlocationInResults == null)
+            {
+                return;
+            }
+
+            string firstArtifactPointer = runPointer
+                .AtProperty(SarifPropertyName.Artifacts).AtIndex(0);
+
+            string firstResultLocationPointer = runPointer
+                .AtProperty(SarifPropertyName.Results).AtIndex(0)
+                .AtProperty(SarifPropertyName.Locations).AtIndex(0)
+                .AtProperty(SarifPropertyName.PhysicalLocation)
+                .AtProperty(SarifPropertyName.ArtifactLocation);
+
+            if (HasResultLocationsWithUriAndIndex(firstResultLocationPointer) && HasLocationOnlyArtifacts(firstArtifactPointer))
             {
                 // {0}: Placeholder_SARIF2004_OptimizeFileSize_Warning_EliminateLocationOnlyArtifacts_Text
                 LogResult(
-                    runPointer.AtProperty(SarifPropertyName.Artifacts),
+                    firstArtifactPointer,
                     nameof(RuleResources.SARIF2004_OptimizeFileSize_Warning_EliminateLocationOnlyArtifacts_Text));
             }
         }
 
-        private bool ArrayBasedLocationHasAdditionalInfo(ArtifactLocation arrayBasedLocation, ArtifactLocation resultBasedLocation)
+        private bool HasResultLocationsWithUriAndIndex(string resultPointer)
         {
-            if (resultBasedLocation.Uri == null && arrayBasedLocation.Uri != null)
-            {
-                return true;
-            }
+            JToken resultToken = resultPointer.ToJToken(Context.InputLogToken);
+            return
+                resultToken.HasProperty(SarifPropertyName.Uri) &&
+                resultToken.HasProperty(SarifPropertyName.Index);
+        }
 
-            if (resultBasedLocation.UriBaseId == null && arrayBasedLocation.UriBaseId != null)
-            {
-                return true;
-            }
-
-            if (resultBasedLocation.Description == null && arrayBasedLocation.Description != null)
-            {
-                return true;
-            }
-
-            return false;
+        private bool HasLocationOnlyArtifacts(string artifactPointer)
+        {
+            JToken artifactToken = artifactPointer.ToJToken(Context.InputLogToken);
+            return
+                artifactToken.HasProperty(SarifPropertyName.Location) &&
+                artifactToken.Children().Count() == 1;
         }
     }
 }

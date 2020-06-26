@@ -46,7 +46,7 @@
           "message": {
             "id": "Warning_EliminateLocationOnlyArtifacts",
             "arguments": [
-              "runs[0].artifacts"
+              "runs[0].artifacts[0]"
             ]
           },
           "locations": [
@@ -56,8 +56,8 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 18,
-                  "startColumn": 20
+                  "startLine": 19,
+                  "startColumn": 9
                 }
               }
             }
