@@ -4,25 +4,28 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using Microsoft.Json.Pointer;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class UriMustBeAbsolute : SarifValidationSkimmerBase
     {
-        public override MultiformatMessageString FullDescription => new MultiformatMessageString
-        {
-            Text = RuleResources.SARIF1005_UriMustBeAbsolute_FullDescription_Text
-        };
-
-        public override FailureLevel DefaultLevel => FailureLevel.Error;
-
+        /// <summary>
+        /// SARIF1005
+        /// </summary>
         public override string Id => RuleId.UriMustBeAbsolute;
 
-        protected override IEnumerable<string> MessageResourceNames => new string[]
-        {
-            nameof(RuleResources.SARIF1005_UriMustBeAbsolute_Error_Default_Text)
-        };
+        /// <summary>
+        /// Placeholder
+        /// </summary>
+        public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF1005_UriMustBeAbsolute_FullDescription_Text };
+
+        protected override IEnumerable<string> MessageResourceNames => new string[] {
+                nameof(RuleResources.SARIF1005_UriMustBeAbsolute_Error_Default_Text)
+            };
+
+        public override FailureLevel DefaultLevel => FailureLevel.Error;
 
         protected override void Analyze(SarifLog log, string logPointer)
         {
@@ -77,6 +80,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 Uri uri = new Uri(uriString, UriKind.RelativeOrAbsolute);
                 if (!uri.IsAbsoluteUri)
                 {
+                    // Placeholder
                     LogResult(pointer, nameof(RuleResources.SARIF1005_UriMustBeAbsolute_Error_Default_Text), uriString);
                 }
             }

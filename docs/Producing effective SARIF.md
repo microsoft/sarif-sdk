@@ -6,7 +6,7 @@ This document is for creators of static analysis tools who want to produce SARIF
 
 Teams can use SARIF log files in many ways. They can view the results in an IDE extension such as the [SARIF extension for VS Code](https://marketplace.visualstudio.com/items?itemName=MS-SarifVSCode.sarif-viewer) or the [SARIF Viewer VSIX for Visual Studio](https://marketplace.visualstudio.com/items?itemName=WDGIS.MicrosoftSarifViewer), or in a [web-based viewer](https://microsoft.github.io/sarif-web-component/). They can import it into a static analysis results database, or use it to drive automatic bug fiing. Most important, developers use the information in a SARIF log file to understand and fix the problems it reports.
 
-Because of this variety of usage scenarios, a SARIF log file that is useful  one scenario might not be useful in another. Ideally, static analysis tools will provide options to let their users specify the output that meets their needs.
+Because of this variety of usage scenarios, a SARIF log file that is useful in one scenario might not be useful in another. Ideally, static analysis tools will provide options to let their users specify the output that meets their needs.
 
 The [SARIF specification](https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html) defines dozens of objects with hundreds of properties. It can be hard to decide which ones are important (aside from the few that the spec says are mandatory). What information is most helpful to developers? What information should you include if you want to file useful bugs from the SARIF log?
 
@@ -14,13 +14,16 @@ On top of all that, the spec is written in format language that's hard to read. 
 
 The purpose of this document is to cut through the confusion and provide clear guidance on what information your tool should include in a SARIF file, and how to make that information as helpful and usable as possible.
 
-## TODO: Conceptual values
+## Principles for producing effective SARIF
 
-- Readable
-- Compact
-- Version tools/serviceable
-- Essential data for some scenarios
-- etc
+This document contains dozens of individual rules and guidelines for producing effective SARIF, but they all derive from a handful of bedrock principles:
+
+### Readability/Understandability/Actionability
+
+### Compactness
+
+### Serviceability
+
 
 Here's how SARIF can accomplish those goals...
 
