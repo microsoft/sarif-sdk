@@ -17,6 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public const string ReferenceFinalSchema = "SARIF1011";
 
         public const string AuthorHighQualityMessages = "SARIF2001";
+        public const string OptimizeFileSize = "SARIF2004";
         public const string ProvideHelpfulToolInformation = "SARIF2005";
         public const string ProvideSchema = "SARIF2008";
         public const string ConsiderConventionalIdentifierValues = "SARIF2009";

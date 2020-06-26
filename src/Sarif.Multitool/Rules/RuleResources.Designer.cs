@@ -385,6 +385,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Placeholder_SARIF2004_OptimizeFileSize_FullDescription_Text.
+        /// </summary>
+        internal static string SARIF2004_OptimizeFileSize_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("SARIF2004_OptimizeFileSize_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: Placeholder_SARIF2004_OptimizeFileSize_Warning_EliminateLocationOnlyArtifacts_Text.
+        /// </summary>
+        internal static string SARIF2004_OptimizeFileSize_Warning_EliminateLocationOnlyArtifacts_Text {
+            get {
+                return ResourceManager.GetString("SARIF2004_OptimizeFileSize_Warning_EliminateLocationOnlyArtifacts_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Provide information that makes it easy to identify the name and version of your tool.
         ///
         ///The tool&apos;s &apos;name&apos; property should be no more than three words long. This makes it easy to remember and allows it to fit into a narrow column when displaying a list of results. If you need to provide more information about your tool, use the &apos;fullName&apos; property.
