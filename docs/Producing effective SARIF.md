@@ -20,24 +20,24 @@ This document contains dozens of individual rules and guidelines for producing e
 
 ### Readability/Understandability/Actionability
 
-The most important elements of a SARIF log file are the "result messages". A result messages must be readable, understandable, and actionable. It must describe exactly what went wrong, why it's a problem, and how to fix it -- and it must do all of that in one, compact, well-written plain-text paragraph. (You can supply Markdown messages as well, but the plain-text message is required because not every SARIF consumer can interpret Markdown).
+The most important elements of a SARIF log file are the "result messages". A result messages must be readable, understandable, and actionable. It must describe exactly what went wrong, why it's a problem, and how to fix it -- and it must do all of that in one compact, well-written plain-text paragraph. (You can supply Markdown messages as well, but the plain-text message is required because not every SARIF consumer can interpret Markdown.)
 
 ### Fitness for purpose
 
 The SARIF format has many optional properties. Some of them depend on what kind of analysis tool you are writing. For example, a Web analyzer will probably emit `run.webRequests` and `.webResponses`; a crash dump analyzer might emit `run.addresses`.
 
-Other optional properties are more or less useful depending how end users or downstream systems plan to use the logs:
+Other optional properties are more or less useful depending how end users or downstream systems plan to use the logs. For example:
 - If you plan to use SARIF log files as the input to an automated bug filing system, you'll want to populate `result.partialFingerprints` to make it easier to determine which results are new in each run.
 - If you plan to view the results in an environment where you don't have access to the source code (for example, in a Web-based SARIF viewer), you'll want to populate `physicalLocation.contextRegion` so that the viewer can display a few lines of code around the actual location of the result. You might even want to populate `run.artifacts[].contents`, which contains the entire contents of the artifact that was analyzed.
-- If you plan to use SARIF files as an input to a compliance system, you might want to populate `run.tool.driver.rules` with the complete set of rules that were run, even if most of them didn't produce any results. Similarly, you might want to populate `run.artifacts` with the complete set of files that were analyzed, even if most of them didn't contain any results.
+- If you plan to use SARIF files as an input to a compliance system, you might want to populate `run.tool.driver.rules` with the complete set of rules that were run, even if most of them didn't produce any results. Similarly, you might want to populate `run.artifacts` with the complete list of files that were analyzed, even if most of them didn't contain any results.
 
 ### Compactness
 
-SARIF files from large projects can be huge: multiple Gigabytes in size, with over a million results. Even the a great deal of work has been and is being done to compress SARIF files and make them faster to access, it's still important not to unnecessarily increase log file size.
+SARIF files from large projects can be huge: multiple gigabytes in size, with over a million results. Even though a great deal of work has been and is being done to compress SARIF files and make them faster to access, it's still important not to unnecessarily increase log file size.
 
 Some optional SARIF properties can take up alot of space, most notably `artifact.contents`.
 
-In some cases, SARIF can represent the same information in multiple places in the log file. For example, a `result` object can (and usually does) specify the result's location with a URI, but that same URI appears in the `run.artifacts` array. Deciding which duplicative information to include is a trade-off between file size, on the one hand, and what we might call "local readability" on the other.
+In some cases, SARIF can represent the same information in multiple places in the log file. For example, a `result` object can (and usually does) specify the result's location with a URI, but that same URI appears in the `run.artifacts` array. Deciding which duplicative information to include is a trade-off between file size on the one hand and what we might call "local readability" on the other.
 
 In short, both "fitness for purpose" and "compactness" are important values, they are in tension with each other, and so it's important for analysis tools to provide flexibility in which properties they emit.
 
@@ -51,15 +51,15 @@ SARIF files are often used in scenarios where it's important to know which tool,
 
 The remainder of this document will present a set of specific rules and guidelines, all of them aimed at producing SARIF that conforms to these principles.
 
-### Structural requirements
+## Structural requirements
 
 Many of SARIF's structural requirements are expressed in a [JSON schema](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/schemas/sarif-schema-2.1.0.json), but the schema can't express all the structural requirements. In addition to providing helpful, useful information, it's important for tools to produce SARIF that meet all the structural requirements, even the ones that the schema can't express.
 
-### The SARIF validation tool
+## The SARIF validation tool
 
 The SARIF validation tool (the "validator") helps ensure that a SARIF file conforms to SARIF's structural requirements as well as to the guidelines for producing high-quality SARIF output.
 
-#### What the validator does
+### What the validator does
 
 Here's how the validator process a SARIF log file:
 
@@ -74,7 +74,7 @@ The analysis rules in Step 3 fall into two categories:
 
 The validator is incomplete: it does not enforce every structural condition in the spec, nor every guideline for producing high quality SARIF. We hope to continue to add analysis rules in both those areas.
 
-#### Installing and using the validator
+### Installing and using the validator
 
 To install the validator, run the command
 ```
@@ -89,7 +89,7 @@ The SARIF Multitool can do many things besides validate a SARIF file (that's why
 sarif
 ```
 
-### How this document is organized
+## How this document is organized
 
 This document expresses each structural requirement and guideline as a validator analysis rule. At the time of this writing, not all of those rules actually exist. Those that do not are labled "(NYI)".
 
