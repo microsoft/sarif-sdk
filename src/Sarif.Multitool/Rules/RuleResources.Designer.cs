@@ -61,7 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The name and id properties of rule &quot;{1}&quot; are the same..
+        ///   Looks up a localized string similar to {0}: The rule &apos;{1}&apos; has a &apos;name&apos; property that is identical to its &apos;id&apos; property. The required &apos;id&apos; property must be a &quot;stable, opaque identifier&quot; (the SARIF specification ([3.49.3](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317839)) explains the reasons for this). The optional &apos;name&apos; property ([3.49.7](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317843)) is an identifer that is understandable to an end user. Therefore if both &apos;id&apos; and &apos;name [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SARIF1001_RuleIdentifiersMustBeValid_Error_Default_Text {
             get {
@@ -70,7 +70,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Do not use the same string for a rule&apos;s id and name properties. The id property must be a stable, opaque identifer such as &quot;SARIF1001&quot;. The name property should be a string that is understandable to an end user, such as &quot;DoNotUserFriendlyNameAsRuleId&quot;..
+        ///   Looks up a localized string similar to The two identity-related properties of a SARIF rule must be consistent. The required &apos;id&apos; property must be a &quot;stable, opaque identifier&quot; (the SARIF specification ([3.49.3](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317839)) explains the reasons for this). The optional &apos;name&apos; property ([3.49.7](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317843)) is an identifer that is understandable to an end user. Therefore if both &apos;id&apos; and &apos;name&apos; are pres [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SARIF1001_RuleIdentifiersMustBeValid_FullDescription_Text {
             get {
@@ -79,7 +79,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: &apos;{1}&apos; Placeholder_SARIF1002_UrisMustBeValid_Error_FileUrisMustNotIncludeDotDotSegments_Text.
+        ///   Looks up a localized string similar to {0}: The &apos;file&apos; URI &apos;{1}&apos; contains a &apos;..&apos; segment. This is dangerous because if symbolic links are present, &apos;..&apos; might have different meanings on the machine that produced the log file and the machine where an end user or a tool consumes it..
         /// </summary>
         internal static string SARIF1002_UrisMustBeValid_Error_FileUrisMustNotIncludeDotDotSegments_Text {
             get {
@@ -88,7 +88,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The string &quot;{1}&quot; is not a valid URI reference..
+        ///   Looks up a localized string similar to {0}: The string &apos;{1}&apos; is not a valid URI reference. URIs must conform to [RFC 3986](https://tools.ietf.org/html/rfc3986)..
         /// </summary>
         internal static string SARIF1002_UrisMustBeValid_Error_UrisMustConformToRfc3986_Text {
             get {
@@ -97,7 +97,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Specify a valid URI reference for every URI-valued property..
+        ///   Looks up a localized string similar to Specify a valid URI reference for every URI-valued property.
+        ///
+        ///URIs must conform to [RFC 3986](https://tools.ietf.org/html/rfc3986). In addition, &apos;file&apos; URIs must not include &apos;..&apos; segments. If symbolic links are present, &apos;..&apos; might have different meanings on the machine that produced the log file and the machine where an end user or a tool consumes it..
         /// </summary>
         internal static string SARIF1002_UrisMustBeValid_FullDescription_Text {
             get {
@@ -199,7 +201,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The value of the &quot;endColumn&quot; property is {1}, which is less than the value of the &quot;startColumn&quot; property, which is {2}..
+        ///   Looks up a localized string similar to {0}: In this &apos;region&apos; object, the &apos;endColumn&apos; property &apos;{1}&apos; is less than the &apos;startColumn&apos; property &apos;{2}&apos;. The properties of a &apos;region&apos; object must be internally consistent..
         /// </summary>
         internal static string SARIF1007_RegionPropertiesMustBeConsistent_Error_EndColumnMustNotPrecedeStartColumn_Text {
             get {
@@ -209,7 +211,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The value of the &quot;endLine&quot; property is {1}, which is less than the value of the &quot;startLine&quot; property, which is {2}..
+        ///   Looks up a localized string similar to {0}: In this &apos;region&apos; object, the &apos;endLine&apos; property &apos;{1}&apos; is less than the &apos;startLine&apos; property &apos;{2}&apos;. The properties of a &apos;region&apos; object must be internally consistent..
         /// </summary>
         internal static string SARIF1007_RegionPropertiesMustBeConsistent_Error_EndLineMustNotPrecedeStartLine_Text {
             get {
@@ -219,7 +221,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: Placeholder_SARIF1007_RegionPropertiesMustBeConsistent_Error_RegionStartPropertyMustBePresent_Text.
+        ///   Looks up a localized string similar to {0}: This &apos;region&apos; object does not specify &apos;startLine&apos;, &apos;charOffset&apos;, or &apos;byteOffset&apos;. As a result, it is impossible to determine whether this &apos;region&apos; object describes a line/column text region, a character offset/length text region, or a binary region..
         /// </summary>
         internal static string SARIF1007_RegionPropertiesMustBeConsistent_Error_RegionStartPropertyMustBePresent_Text {
             get {
@@ -229,7 +231,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Placeholder_SARIF1007_RegionPropertiesMustBeConsistent_FullDescription_Text.
+        ///   Looks up a localized string similar to The properties of a &apos;region&apos; object must be consistent.
+        ///
+        ///SARIF can specify a &apos;region&apos; (a contiguous portion of a file) in a variety of ways: with line and column numbers, with a character offset and count, or with a byte offset and count. The specification states certain constraints on these properties, both within each property group (for example, the start line cannot be greater than end line) and between the groups (for example, if more than one group is present, they must independently specify the sam [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SARIF1007_RegionPropertiesMustBeConsistent_FullDescription_Text {
             get {
@@ -405,36 +409,36 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         ///
         ///The tool should provide either or both of the &apos;version&apos; and &apos;semanticVersion&apos; properties. This enables the log file consumer to determine whether the file was [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string SARIF2005_ProvideHelpfulToolInformation_FullDescription_Text {
+        internal static string SARIF2005_ProvideToolProperties_FullDescription_Text {
             get {
-                return ResourceManager.GetString("SARIF2005_ProvideHelpfulToolInformation_FullDescription_Text", resourceCulture);
+                return ResourceManager.GetString("SARIF2005_ProvideToolProperties_FullDescription_Text", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to {0}: The tool name &apos;{1}&apos; contains {2} words, which is more than the recommended maximum of {3} words. A short tool name is easy to remember and fits into a narrow column when displaying a list of results. If you need to provide more information about your tool, use the &apos;fullName&apos; property..
         /// </summary>
-        internal static string SARIF2005_ProvideHelpfulToolInformation_Warning_ProvideConciseToolName_Text {
+        internal static string SARIF2005_ProvideToolProperties_Warning_ProvideConciseToolName_Text {
             get {
-                return ResourceManager.GetString("SARIF2005_ProvideHelpfulToolInformation_Warning_ProvideConciseToolName_Text", resourceCulture);
+                return ResourceManager.GetString("SARIF2005_ProvideToolProperties_Warning_ProvideConciseToolName_Text", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to {0}: The tool &apos;{1}&apos; provides neither a &apos;version&apos; property nor a &apos;semanticVersion&apos; property. Providing a version enables the log file consumer to determine whether the file was produced by an up to date version, and to avoid accidentally comparing log files produced by different tool versions..
         /// </summary>
-        internal static string SARIF2005_ProvideHelpfulToolInformation_Warning_ProvideToolVersion_Text {
+        internal static string SARIF2005_ProvideToolProperties_Warning_ProvideToolVersion_Text {
             get {
-                return ResourceManager.GetString("SARIF2005_ProvideHelpfulToolInformation_Warning_ProvideToolVersion_Text", resourceCulture);
+                return ResourceManager.GetString("SARIF2005_ProvideToolProperties_Warning_ProvideToolVersion_Text", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to {0}: The tool &apos;{1}&apos; contains the &apos;version&apos; property &apos;{2}&apos;, which is not numeric. To facilitate comparison between versions, specify a &apos;version&apos; that starts with at least two dot-separated integer components, optionally followed by any desired characters..
         /// </summary>
-        internal static string SARIF2005_ProvideHelpfulToolInformation_Warning_UseNumericToolVersions_Text {
+        internal static string SARIF2005_ProvideToolProperties_Warning_UseNumericToolVersions_Text {
             get {
-                return ResourceManager.GetString("SARIF2005_ProvideHelpfulToolInformation_Warning_UseNumericToolVersions_Text", resourceCulture);
+                return ResourceManager.GetString("SARIF2005_ProvideToolProperties_Warning_UseNumericToolVersions_Text", resourceCulture);
             }
         }
         
@@ -453,6 +457,39 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         internal static string SARIF2008_ProvideSchema_Warning_Default_Text {
             get {
                 return ResourceManager.GetString("SARIF2008_ProvideSchema_Warning_Default_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adopt uniform naming conventions for the symbolic names that SARIF uses various contexts.
+        ///
+        ///Many tools follow a conventional format for the &apos;reportingDescriptor.id&apos; property: a short string identifying the tool concatenated with a numeric rule number,
+        ///for example, &apos;CS2001&apos; for a diagnostic from the Roslyn C# compiler. For uniformity of experience across tools, we recommend this format.
+        ///
+        ///Many tool use similar names for &apos;uriBaseId&apos; symbols. We suggest &apos;REPOROOT&apos; for the root of a repository, &apos;SRCROOT&apos; for [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string SARIF2009_ConsiderConventionalIdentifierValues_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("SARIF2009_ConsiderConventionalIdentifierValues_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The &apos;id&apos; property of the rule &apos;{1}&apos; does not follow the recommended format: a short string identifying the tool concatenated with a numeric rule number, for example, `CS2001`. Using a conventional format for the rule id provides a more uniform experience across tools..
+        /// </summary>
+        internal static string SARIF2009_ConsiderConventionalIdentifierValues_Note_UseConventionalRuleIds_Text {
+            get {
+                return ResourceManager.GetString("SARIF2009_ConsiderConventionalIdentifierValues_Note_UseConventionalRuleIds_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The &apos;originalUriBaseIds&apos; symbol &apos;{1}&apos; is not one of the conventional symbols. We suggest &apos;REPOROOT&apos; for the root of a repository, &apos;SRCROOT&apos; for the root of the directory containing all source code, &apos;TESTROOT&apos; for the root of the directory containing all test code (if your repository is organized in that way), and &apos;BINROOT&apos; for the root of the directory containing build output (if your project places all build output in a common directory)..
+        /// </summary>
+        internal static string SARIF2009_ConsiderConventionalIdentifierValues_Note_UseConventionalUriBaseIdNames_Text {
+            get {
+                return ResourceManager.GetString("SARIF2009_ConsiderConventionalIdentifierValues_Note_UseConventionalUriBaseIdNames" +
+                        "_Text", resourceCulture);
             }
         }
     }

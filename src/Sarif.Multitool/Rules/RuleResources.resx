@@ -118,16 +118,18 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="SARIF1001_RuleIdentifiersMustBeValid_Error_Default_Text" xml:space="preserve">
-    <value>{0}: The name and id properties of rule "{1}" are the same.</value>
+    <value>{0}: The rule '{1}' has a 'name' property that is identical to its 'id' property. The required 'id' property must be a "stable, opaque identifier" (the SARIF specification ([3.49.3](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317839)) explains the reasons for this). The optional 'name' property ([3.49.7](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317843)) is an identifer that is understandable to an end user. Therefore if both 'id' and 'name' are present, they must be different. If they are identical, the tool must omit the 'name' property.</value>
   </data>
   <data name="SARIF1001_RuleIdentifiersMustBeValid_FullDescription_Text" xml:space="preserve">
-    <value>Do not use the same string for a rule's id and name properties. The id property must be a stable, opaque identifer such as "SARIF1001". The name property should be a string that is understandable to an end user, such as "DoNotUserFriendlyNameAsRuleId".</value>
+    <value>The two identity-related properties of a SARIF rule must be consistent. The required 'id' property must be a "stable, opaque identifier" (the SARIF specification ([3.49.3](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317839)) explains the reasons for this). The optional 'name' property ([3.49.7](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317843)) is an identifer that is understandable to an end user. Therefore if both 'id' and 'name' are present, they must be different. If both 'name' and 'id' are opaque identifiers, omit the 'name' property. If both 'name' and 'id' are human-readable identifiers, then consider assigning an opaque identifier to each rule, but in the meantime, omit the 'name' property.</value>
   </data>
   <data name="SARIF1002_UrisMustBeValid_Error_UrisMustConformToRfc3986_Text" xml:space="preserve">
-    <value>{0}: The string "{1}" is not a valid URI reference.</value>
+    <value>{0}: The string '{1}' is not a valid URI reference. URIs must conform to [RFC 3986](https://tools.ietf.org/html/rfc3986).</value>
   </data>
   <data name="SARIF1002_UrisMustBeValid_FullDescription_Text" xml:space="preserve">
-    <value>Specify a valid URI reference for every URI-valued property.</value>
+    <value>Specify a valid URI reference for every URI-valued property.
+
+URIs must conform to [RFC 3986](https://tools.ietf.org/html/rfc3986). In addition, 'file' URIs must not include '..' segments. If symbolic links are present, '..' might have different meanings on the machine that produced the log file and the machine where an end user or a tool consumes it.</value>
   </data>
   <data name="SARIF1006_InvocationPropertiesMustBeConsistent_Error_EndTimeMustNotPrecedeStartTime_Text" xml:space="preserve">
     <value>{0}: The end time "{1}" is before the start time "{2}".</value>
@@ -204,18 +206,20 @@ If the validator reports that 'contextRegion' is not a proper superset of 'regio
     <value>{0}: The SARIF log file does not contain a $schema property. Add a $schema property that refers to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.</value>
   </data>
   <data name="SARIF1007_RegionPropertiesMustBeConsistent_Error_EndColumnMustNotPrecedeStartColumn_Text" xml:space="preserve">
-    <value>{0}: The value of the "endColumn" property is {1}, which is less than the value of the "startColumn" property, which is {2}.</value>
+    <value>{0}: In this 'region' object, the 'endColumn' property '{1}' is less than the 'startColumn' property '{2}'. The properties of a 'region' object must be internally consistent.</value>
   </data>
   <data name="SARIF1007_RegionPropertiesMustBeConsistent_Error_EndLineMustNotPrecedeStartLine_Text" xml:space="preserve">
-    <value>{0}: The value of the "endLine" property is {1}, which is less than the value of the "startLine" property, which is {2}.</value>
+    <value>{0}: In this 'region' object, the 'endLine' property '{1}' is less than the 'startLine' property '{2}'. The properties of a 'region' object must be internally consistent.</value>
   </data>
   <data name="SARIF1007_RegionPropertiesMustBeConsistent_FullDescription_Text" xml:space="preserve">
-    <value>Placeholder_SARIF1007_RegionPropertiesMustBeConsistent_FullDescription_Text</value>
+    <value>The properties of a 'region' object must be consistent.
+
+SARIF can specify a 'region' (a contiguous portion of a file) in a variety of ways: with line and column numbers, with a character offset and count, or with a byte offset and count. The specification states certain constraints on these properties, both within each property group (for example, the start line cannot be greater than end line) and between the groups (for example, if more than one group is present, they must independently specify the same portion of the file). See the SARIF specification ([3.30](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317685)).</value>
   </data>
   <data name="SARIF1008_PhysicalLocationPropertiesMustBeConsistent_Error_ContextRegionMustBeProperSupersetOfRegion_Text" xml:space="preserve">
     <value>{0}: This 'physicalLocation' object contains both a 'region' and a 'contextRegion' property, but 'contextRegion' is not a proper superset of 'region'. This is invalid because the purpose of 'contextRegion' is to provide a viewing context around the 'region' which is the location of the result. It's possible that the tool reversed 'region' and 'contextRegion'. If 'region' and 'contextRegion' are identical, the tool must omit 'contextRegion'.</value>
   </data>
-  <data name="SARIF2005_ProvideHelpfulToolInformation_FullDescription_Text" xml:space="preserve">
+  <data name="SARIF2005_ProvideToolProperties_FullDescription_Text" xml:space="preserve">
     <value>Provide information that makes it easy to identify the name and version of your tool.
 
 The tool's 'name' property should be no more than three words long. This makes it easy to remember and allows it to fit into a narrow column when displaying a list of results. If you need to provide more information about your tool, use the 'fullName' property.
@@ -224,13 +228,13 @@ The tool should provide either or both of the 'version' and 'semanticVersion' pr
 
 If 'version' is used, facilitate comparison between versions by specifying it either with an integer, or with at least two dot-separated integer components, optionally followed by any desired characters.</value>
   </data>
-  <data name="SARIF2005_ProvideHelpfulToolInformation_Warning_ProvideConciseToolName_Text" xml:space="preserve">
+  <data name="SARIF2005_ProvideToolProperties_Warning_ProvideConciseToolName_Text" xml:space="preserve">
     <value>{0}: The tool name '{1}' contains {2} words, which is more than the recommended maximum of {3} words. A short tool name is easy to remember and fits into a narrow column when displaying a list of results. If you need to provide more information about your tool, use the 'fullName' property.</value>
   </data>
-  <data name="SARIF2005_ProvideHelpfulToolInformation_Warning_ProvideToolVersion_Text" xml:space="preserve">
+  <data name="SARIF2005_ProvideToolProperties_Warning_ProvideToolVersion_Text" xml:space="preserve">
     <value>{0}: The tool '{1}' provides neither a 'version' property nor a 'semanticVersion' property. Providing a version enables the log file consumer to determine whether the file was produced by an up to date version, and to avoid accidentally comparing log files produced by different tool versions.</value>
   </data>
-  <data name="SARIF2005_ProvideHelpfulToolInformation_Warning_UseNumericToolVersions_Text" xml:space="preserve">
+  <data name="SARIF2005_ProvideToolProperties_Warning_UseNumericToolVersions_Text" xml:space="preserve">
     <value>{0}: The tool '{1}' contains the 'version' property '{2}', which is not numeric. To facilitate comparison between versions, specify a 'version' that starts with at least two dot-separated integer components, optionally followed by any desired characters.</value>
   </data>
   <data name="SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdValueMustNotContainDotDotSegment_Text" xml:space="preserve">
@@ -246,10 +250,24 @@ If 'version' is used, facilitate comparison between versions by specifying it ei
     <value>{0}: Placeholder '{1}' '{2}'</value>
   </data>
   <data name="SARIF1002_UrisMustBeValid_Error_FileUrisMustNotIncludeDotDotSegments_Text" xml:space="preserve">
-    <value>{0}: '{1}' Placeholder_SARIF1002_UrisMustBeValid_Error_FileUrisMustNotIncludeDotDotSegments_Text</value>
+    <value>{0}: The 'file' URI '{1}' contains a '..' segment. This is dangerous because if symbolic links are present, '..' might have different meanings on the machine that produced the log file and the machine where an end user or a tool consumes it.</value>
+  </data>
+  <data name="SARIF2009_ConsiderConventionalIdentifierValues_FullDescription_Text" xml:space="preserve">
+    <value>Adopt uniform naming conventions for the symbolic names that SARIF uses various contexts.
+
+Many tools follow a conventional format for the 'reportingDescriptor.id' property: a short string identifying the tool concatenated with a numeric rule number,
+for example, 'CS2001' for a diagnostic from the Roslyn C# compiler. For uniformity of experience across tools, we recommend this format.
+
+Many tool use similar names for 'uriBaseId' symbols. We suggest 'REPOROOT' for the root of a repository, 'SRCROOT' for the root of the directory containing all source code, 'TESTROOT' for the root of the directory containing all test code (if your repository is organized in that way), and 'BINROOT' for the root of the directory containing build output (if your project places all build output in a common directory).</value>
+  </data>
+  <data name="SARIF2009_ConsiderConventionalIdentifierValues_Note_UseConventionalRuleIds_Text" xml:space="preserve">
+    <value>{0}: The 'id' property of the rule '{1}' does not follow the recommended format: a short string identifying the tool concatenated with a numeric rule number, for example, `CS2001`. Using a conventional format for the rule id provides a more uniform experience across tools.</value>
+  </data>
+  <data name="SARIF2009_ConsiderConventionalIdentifierValues_Note_UseConventionalUriBaseIdNames_Text" xml:space="preserve">
+    <value>{0}: The 'originalUriBaseIds' symbol '{1}' is not one of the conventional symbols. We suggest 'REPOROOT' for the root of a repository, 'SRCROOT' for the root of the directory containing all source code, 'TESTROOT' for the root of the directory containing all test code (if your repository is organized in that way), and 'BINROOT' for the root of the directory containing build output (if your project places all build output in a common directory).</value>
   </data>
   <data name="SARIF1007_RegionPropertiesMustBeConsistent_Error_RegionStartPropertyMustBePresent_Text" xml:space="preserve">
-    <value>{0}: Placeholder_SARIF1007_RegionPropertiesMustBeConsistent_Error_RegionStartPropertyMustBePresent_Text</value>
+    <value>{0}: This 'region' object does not specify 'startLine', 'charOffset', or 'byteOffset'. As a result, it is impossible to determine whether this 'region' object describes a line/column text region, a character offset/length text region, or a binary region.</value>
   </data>
   <data name="SARIF2004_OptimizeFileSize_FullDescription_Text" xml:space="preserve">
     <value>Placeholder_SARIF2004_OptimizeFileSize_FullDescription_Text</value>

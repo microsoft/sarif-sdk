@@ -22,6 +22,9 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
             base(outputHelper, testProducesSarifCurrentVersion)
         { }
 
+        // Pass this parameter to RunTest for those rules that can produce "pass"-level results.
+        private const bool Verbose = true;
+
         protected override string IntermediateTestFolder => @"Multitool";
 
         [Fact]
@@ -137,11 +140,11 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
             => RunTest(MakeInvalidTestFileName(RuleId.OptimizeFileSize, nameof(RuleId.OptimizeFileSize)));
 
         [Fact]
-        public void SARIF2005_ProvideHelpfulToolInformation_Valid()
+        public void SARIF2005_ProvideToolProperties_Valid()
             => RunTest(MakeValidTestFileName(RuleId.ProvideHelpfulToolInformation, nameof(RuleId.ProvideHelpfulToolInformation)));
 
         [Fact]
-        public void SARIF2005_ProvideHelpfulToolInformation_Invalid()
+        public void SARIF2005_ProvideToolProperties_Invalid()
             => RunTest(MakeInvalidTestFileName(RuleId.ProvideHelpfulToolInformation, nameof(RuleId.ProvideHelpfulToolInformation)));
 
         [Fact]
@@ -151,6 +154,14 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
         [Fact]
         public void SARIF2008_ProvideSchema_Invalid()
             => RunTest(MakeInvalidTestFileName(RuleId.ProvideSchema, nameof(RuleId.ProvideSchema)));
+
+        [Fact]
+        public void SARIF2009_ConsiderConventionalIdentifierValues_Valid()
+            => RunTest(MakeValidTestFileName(RuleId.ConsiderConventionalIdentifierValues, nameof(RuleId.ConsiderConventionalIdentifierValues)), parameter: Verbose);
+
+        [Fact]
+        public void SARIF2009_ConsiderConventionalIdentifierValues_Invalid()
+            => RunTest(MakeInvalidTestFileName(RuleId.ConsiderConventionalIdentifierValues, nameof(RuleId.ConsiderConventionalIdentifierValues)), parameter: Verbose);
 
         private const string ValidTestFileNameSuffix = "_Valid.sarif";
         private const string InvalidTestFileNameSuffix = "_Invalid.sarif";
@@ -194,6 +205,11 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
                 PrettyPrint = true,
                 Optimize = true
             };
+
+            if (parameter != null && parameter is bool verbose)
+            {
+                validateOptions.Verbose = verbose;
+            }
 
             var mockFileSystem = new Mock<IFileSystem>();
 

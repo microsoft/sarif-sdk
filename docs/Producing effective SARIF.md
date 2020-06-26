@@ -82,26 +82,35 @@ The two identity-related properties of a SARIF rule must be consistent. The requ
 
 ---
 
-### Rule`SARIF1002.UrisMustBeValid`
+### Rule `SARIF1002.UrisMustBeValid`
 
 #### Description
+
+Specify a valid URI reference for every URI-valued property.
+
+URIs must conform to [RFC 3986](https://tools.ietf.org/html/rfc3986). In addition, 'file' URIs must not include '..' segments. If symbolic links are present, '..' might have different meanings on the machine that produced the log file and the machine where an end user or a tool consumes it.
 
 #### Messages
 
 ##### `UrisMustConformToRfc3986`: error
 
+{0}: The string '{1}' is not a valid URI reference. URIs must conform to [RFC 3986](https://tools.ietf.org/html/rfc3986).
+
 ##### `FileUrisMustConformToRfc8089`: error
 
 ##### `FileUrisMustNotIncludeDotDotSegments`: error
+
+{0}: The 'file' URI '{1}' contains a '..' segment. This is dangerous because if symbolic links are present, '..' might have different meanings on the machine that produced the log file and the machine where an end user or a tool consumes it.
+
 ---
 
-### Rule`SARIF1003.UrisShouldUseConventionalForm`
+### Rule `SARIF1003.UrisShouldUseConventionalForm`
 
 ##### `FileUrisWithoutHostNameShouldUseTripleSlashForm`: warning
 
 ---
 
-### Rule`SARIF1004.ExpressUriBaseIdsCorrectly`
+### Rule `SARIF1004.ExpressUriBaseIdsCorrectly`
 
 #### Description
 
@@ -119,7 +128,7 @@ The two identity-related properties of a SARIF rule must be consistent. The requ
 
 ---
 
-### Rule`SARIF1005.UriMustBeAbsolute`
+### Rule `SARIF1005.UriMustBeAbsolute`
 
 #### Description
 
@@ -129,7 +138,7 @@ The two identity-related properties of a SARIF rule must be consistent. The requ
 
 ---
 
-### Rule`SARIF1006.InvocationPropertiesMustBeConsistent`
+### Rule `SARIF1006.InvocationPropertiesMustBeConsistent`
 
 #### Description
 
@@ -139,23 +148,31 @@ The two identity-related properties of a SARIF rule must be consistent. The requ
 
 ---
 
-### Rule`SARIF1007.RegionPropertiesMustBeConsistent`
+### Rule `SARIF1007.RegionPropertiesMustBeConsistent`
 
 #### Description
 
-SARIF can specify a 'region' (a contiguous portion of a file) in a variety of ways: with line and column numbers, with a character offset and count, or with a byte offset and count. The specification states certain constraints on these properties, both within each property groups (for example, the start line cannot be greater than end line) and between the groups (for example, if more than one group is present, they must independently specify the exact same portion of the file). See the SARIF specification ([§3.30](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317685)).
+The properties of a 'region' object must be consistent.
+
+SARIF can specify a 'region' (a contiguous portion of a file) in a variety of ways: with line and column numbers, with a character offset and count, or with a byte offset and count. The specification states certain constraints on these properties, both within each property group (for example, the start line cannot be greater than end line) and between the groups (for example, if more than one group is present, they must independently specify the same portion of the file). See the SARIF specification ([3.30](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317685)).
 
 #### Messages
 
 ##### `EndLineMustNotPrecedeStartLine`: error
 
+{0}: In this 'region' object, the 'endLine' property '{1}' is less than the 'startLine' property '{2}'. The properties of a 'region' object must be internally consistent.
+
 ##### `EndColumnMustNotPrecedeStartColumn`: error
+
+{0}: In this 'region' object, the 'endColumn' property '{1}' is less than the 'startColumn' property '{2}'. The properties of a 'region' object must be internally consistent.
 
 ##### `RegionStartPropertyMustBePresent`: error
 
+{0}: This 'region' object does not specify 'startLine', 'charOffset', or 'byteOffset'. As a result, it is impossible to determine whether this 'region' object describes a line/column text region, a character offset/length text region, or a binary region.
+
 ---
 
-### Rule`SARIF1008.PhysicalLocationPropertiesMustBeConsistent`
+### Rule `SARIF1008.PhysicalLocationPropertiesMustBeConsistent`
 
 #### Description
 
@@ -181,7 +198,7 @@ If the validator reports that 'contextRegion' is not a proper superset of 'regio
 
 ---
 
-### Rule`SARIF1009.IndexPropertiesMustBeConsistentWithArrays`
+### Rule `SARIF1009.IndexPropertiesMustBeConsistentWithArrays`
 
 #### Description
 
@@ -193,7 +210,7 @@ If the validator reports that 'contextRegion' is not a proper superset of 'regio
 
 ---
 
-### Rule`SARIF1010.RuleIdMustBeConsistent`
+### Rule `SARIF1010.RuleIdMustBeConsistent`
 
 #### Description
 
@@ -213,7 +230,7 @@ This validation rule is required because this constraint cannot be expressed in 
 
 ---
 
-### Rule`SARIF1011.ReferenceFinalSchema`
+### Rule `SARIF1011.ReferenceFinalSchema`
 
 #### Description
 
@@ -223,7 +240,7 @@ This validation rule is required because this constraint cannot be expressed in 
 
 ---
 
-### Rule`SARIF1012.MessagePropertiesMustBeConsistent`
+### Rule `SARIF1012.MessagePropertiesMustBeConsistent`
 
 #### Description
 
@@ -247,7 +264,7 @@ Rules that describe violations of SARIF recommendations or best practices also h
 
 ---
 
-### Rule`SARIF2001.AuthorHighQualityMessages`
+### Rule `SARIF2001.AuthorHighQualityMessages`
 
 #### Description
 
@@ -261,7 +278,7 @@ Rules that describe violations of SARIF recommendations or best practices also h
 
 ---
 
-### Rule`SARIF2002.UseMessageArguments`
+### Rule `SARIF2002.UseMessageArguments`
 
 #### Description
 
@@ -275,7 +292,7 @@ In result messages, use the 'message.id' and 'message.arguments' properties rath
 
 ---
 
-### Rule`SARIF2003.ProduceEnrichedSarif`
+### Rule `SARIF2003.ProduceEnrichedSarif`
 
 #### Description
 
@@ -293,7 +310,7 @@ In result messages, use the 'message.id' and 'message.arguments' properties rath
 
 ---
 
-### Rule`SARIF2004.OptimizeFileSize`
+### Rule `SARIF2004.OptimizeFileSize`
 
 #### Description
 
@@ -305,7 +322,7 @@ In result messages, use the 'message.id' and 'message.arguments' properties rath
 
 ---
 
-### Rule`SARIF2005.ProvideHelpfulToolInformation`
+### Rule `SARIF2005.ProvideToolProperties`
 
 #### Description
 
@@ -333,7 +350,7 @@ If 'version' is used, facilitate comparison between versions by specifying it ei
 
 ---
 
-### Rule`SARIF2006.UrisShouldBeReachable`
+### Rule `SARIF2006.UrisShouldBeReachable`
 
 #### Description
 
@@ -343,7 +360,7 @@ If 'version' is used, facilitate comparison between versions by specifying it ei
 
 ---
 
-### Rule`SARIF2007.ExpressPathsRelativeToRepoRoot`
+### Rule `SARIF2007.ExpressPathsRelativeToRepoRoot`
 
 #### Description
 
@@ -353,7 +370,7 @@ If 'version' is used, facilitate comparison between versions by specifying it ei
 
 ---
 
-### Rule`SARIF2008.ProvideSchema`
+### Rule `SARIF2008.ProvideSchema`
 
 #### Description
 
@@ -363,7 +380,7 @@ If 'version' is used, facilitate comparison between versions by specifying it ei
 
 ---
 
-### Rule`SARIF2009.UseConventionalSymbolicNames`
+### Rule `SARIF2009.ConsiderConventionalIdentifierValues`
 
 #### Description
 
@@ -378,7 +395,7 @@ Many tool use similar names for 'uriBaseId' symbols. We suggest 'REPOROOT' for t
 
 ##### `UseConventionalRuleIds`: note
 
-{0}: The 'name' property ' of the rule '{1}' does not follow the recommended format: a short string identifying the tool concatenated with a numeric rule number, for example, `CS2001`. Using a conventional format for the rule id provides a more uniform experience across tools.
+{0}: The 'id' property of the rule '{1}' does not follow the recommended format: a short string identifying the tool concatenated with a numeric rule number, for example, `CS2001`. Using a conventional format for the rule id provides a more uniform experience across tools.
 
 ##### `UseConventionalUriBaseIdNames`: note
 

@@ -32,12 +32,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// at least two dot-separated integer components, optionally followed by any desired
         /// characters.
         /// </summary>
-        public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF2005_ProvideHelpfulToolInformation_FullDescription_Text };
+        public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF2005_ProvideToolProperties_FullDescription_Text };
 
         protected override IEnumerable<string> MessageResourceNames => new string[] {
-                    nameof(RuleResources.SARIF2005_ProvideHelpfulToolInformation_Warning_ProvideToolVersion_Text),
-                    nameof(RuleResources.SARIF2005_ProvideHelpfulToolInformation_Warning_ProvideConciseToolName_Text),
-                    nameof(RuleResources.SARIF2005_ProvideHelpfulToolInformation_Warning_UseNumericToolVersions_Text)
+                    nameof(RuleResources.SARIF2005_ProvideToolProperties_Warning_ProvideToolVersion_Text),
+                    nameof(RuleResources.SARIF2005_ProvideToolProperties_Warning_ProvideConciseToolName_Text),
+                    nameof(RuleResources.SARIF2005_ProvideToolProperties_Warning_UseNumericToolVersions_Text)
                 };
 
         public override FailureLevel DefaultLevel => FailureLevel.Warning;
@@ -68,7 +68,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     // information about your tool, use the 'fullName' property.
                     LogResult(
                         driverNamePointer,
-                        nameof(RuleResources.SARIF2005_ProvideHelpfulToolInformation_Warning_ProvideConciseToolName_Text),
+                        nameof(RuleResources.SARIF2005_ProvideToolProperties_Warning_ProvideConciseToolName_Text),
                         toolComponent.Name,
                         wordCount.ToString(),
                         MaxWords.ToString());
@@ -84,7 +84,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 LogResult(
                     toolDriverPointer,
                     toolComponent.Name,
-                    nameof(RuleResources.SARIF2005_ProvideHelpfulToolInformation_Warning_ProvideToolVersion_Text));
+                    nameof(RuleResources.SARIF2005_ProvideToolProperties_Warning_ProvideToolVersion_Text));
             }
             else
             {
@@ -105,7 +105,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 // characters.
                 LogResult(
                     pointer,
-                    nameof(RuleResources.SARIF2005_ProvideHelpfulToolInformation_Warning_UseNumericToolVersions_Text),
+                    nameof(RuleResources.SARIF2005_ProvideToolProperties_Warning_UseNumericToolVersions_Text),
                     name,
                     version);
             }
