@@ -6,10 +6,10 @@ SET SampleFileName=CodeAsData
 IF NOT "%1"=="" (SET SampleFileName=%1)
 
 SET SarifToCsv="%~dp0..\SarifToCsv\bin\Release\netcoreapp3.1\SarifToCsv.exe"
-SET SarifToCsv.Old="%~dp0bin\SarifToCsv_SDK_v2.0\SarifToCsv.exe"
+SET SarifToCsv.Old="%~dp0SarifToCsv_SDK_v2.0\SarifToCsv.exe"
 
 SET SarifMultitool="%~dp0..\..\..\bld\bin\AnyCPU_Release\Sarif.Multitool\netcoreapp3.0\Sarif.Multitool.exe"
-SET SarifMultitool.Old="%~dp0bin\SarifMultitool_SDK_v2.3.1\Sarif.Multitool.exe"
+SET SarifMultitool.Old="%~dp0SarifMultitool_SDK_v2.3.0\Sarif.Multitool.exe"
 
 CALL :setESC
 

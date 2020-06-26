@@ -6,6 +6,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Examples\Message.cs" />
+    <Compile Remove="Examples\Result1.cs" />
+    <Compile Remove="Examples\Result2.cs" />
+    <Compile Remove="Examples\SarifLogDatabase.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Examples\Message.cs" />
+    <None Include="Examples\Result1.cs" />
+    <None Include="Examples\Result2.cs" />
+    <None Include="Examples\SarifLogDatabase.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\Sarif\Sarif.csproj" />
   </ItemGroup>
 
