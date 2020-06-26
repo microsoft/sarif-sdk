@@ -14,6 +14,16 @@ On top of all that, the spec is written in format language that's hard to read. 
 
 The purpose of this document is to cut through the confusion and provide clear guidance on what information your tool should include in a SARIF file, and how to make that information as helpful and usable as possible.
 
+## TODO: Conceptual values
+
+- Readable
+- Compact
+- Version tools/serviceable
+- Essential data for some scenarios
+- etc
+
+Here's how SARIF can accomplish those goals...
+
 ### Structural requirements
 
 Many of SARIF's structural requirements are expressed in a [JSON schema](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/schemas/sarif-schema-2.1.0.json), but the schema can't express all the structural requirements. In addition to providing helpful, useful information, it's important for tools to produce SARIF that meet all the structural requirements, even the ones that the schema can't express.
@@ -212,7 +222,11 @@ If the validator reports that 'contextRegion' is not a proper superset of 'regio
 
 ##### `TargetArrayMustExist`: error
 
+{0}: This '{1}' object contains a property '{2}' with value {3}, but '{4}' does not exist. An index-valued property always refers to an array, so the array must be present.
+
 ##### `TargetArrayMustBeLongEnough`: error
+
+{0}: This '{1}' object contains a property '{2}' with value {3}, but '{4}' has fewer than {5} elements. An index-valued properties must be valid for the array that it refers to.
 
 ---
 

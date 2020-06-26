@@ -7,20 +7,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class IndexPropertiesMustBeConsistentWithArrays : SarifValidationSkimmerBase
     {
-        public override MultiformatMessageString FullDescription => new MultiformatMessageString
-        {
-            Text = RuleResources.SARIF1009_IndexPropertiesMustBeConsistentWithArrays_FullDescription_Text
-        };
-
-        public override FailureLevel DefaultLevel => FailureLevel.Error;
-
+        /// <summary>
+        /// SARIF1009
+        /// </summary>
         public override string Id => RuleId.IndexPropertiesMustBeConsistentWithArrays;
 
-        protected override IEnumerable<string> MessageResourceNames => new string[]
-        {
-            nameof(RuleResources.SARIF1009_IndexPropertiesMustBeConsistentWithArrays_Error_TargetArrayMustExist_Text),
-            nameof(RuleResources.SARIF1009_IndexPropertiesMustBeConsistentWithArrays_Error_TargetArrayMustBeLongEnough_Text)
-        };
+        /// <summary>
+        /// If an object contains a property that is used as an array index (an "index-valued
+        /// property"), then that array must be present and must contain at least "index + 1"
+        /// elements.
+        /// </summary>
+        public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF1009_IndexPropertiesMustBeConsistentWithArrays_FullDescription_Text };
+
+        protected override IEnumerable<string> MessageResourceNames => new string[] {
+                nameof(RuleResources.SARIF1009_IndexPropertiesMustBeConsistentWithArrays_Error_TargetArrayMustExist_Text),
+                nameof(RuleResources.SARIF1009_IndexPropertiesMustBeConsistentWithArrays_Error_TargetArrayMustBeLongEnough_Text)
+            };
+
+        public override FailureLevel DefaultLevel => FailureLevel.Error;
 
         protected override void Analyze(Address address, string addressPointer)
         {
@@ -171,6 +175,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
             if (container == null)
             {
+                // {0}: This '{1}' object contains a property '{2}' with value {3}, but '{4}' does
+                // not exist. An index-valued property always refers to an array, so the array must
+                // be present.
                 LogResult(
                     jsonPointer,
                     nameof(RuleResources.SARIF1009_IndexPropertiesMustBeConsistentWithArrays_Error_TargetArrayMustExist_Text),
@@ -183,6 +190,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
             if (!IndexIsValid(index, container))
             {
+                // {0}: This '{1}' object contains a property '{2}' with value {3}, but '{4}' has
+                // fewer than {5} elements. An index-valued properties must be valid for the array
+                // that it refers to.
                 LogResult(
                     jsonPointer,
                     nameof(RuleResources.SARIF1009_IndexPropertiesMustBeConsistentWithArrays_Error_TargetArrayMustBeLongEnough_Text),

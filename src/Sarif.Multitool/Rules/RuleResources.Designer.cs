@@ -277,7 +277,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: This &quot;{1}&quot; object contains a property &quot;{2}&quot; with value {3}, but &quot;{4}&quot; has fewer than {5} elements..
+        ///   Looks up a localized string similar to {0}: This &apos;{1}&apos; object contains a property &apos;{2}&apos; with value {3}, but &apos;{4}&apos; has fewer than {5} elements. An index-valued properties must be valid for the array that it refers to..
         /// </summary>
         internal static string SARIF1009_IndexPropertiesMustBeConsistentWithArrays_Error_TargetArrayMustBeLongEnough_Text {
             get {
@@ -287,7 +287,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: This &quot;{1}&quot; object contains a property &quot;{2}&quot; with value {3}, but &quot;{4}&quot; is absent..
+        ///   Looks up a localized string similar to {0}: This &apos;{1}&apos; object contains a property &apos;{2}&apos; with value {3}, but &apos;{4}&apos; does not exist. An index-valued property always refers to an array, so the array must be present..
         /// </summary>
         internal static string SARIF1009_IndexPropertiesMustBeConsistentWithArrays_Error_TargetArrayMustExist_Text {
             get {
@@ -297,7 +297,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If an object contains a property that is used as an array index, then that array must be present and must contain at least &quot;index + 1&quot; elements..
+        ///   Looks up a localized string similar to If an object contains a property that is used as an array index (an &quot;index-valued property&quot;), then that array must be present and must contain at least &quot;index + 1&quot; elements..
         /// </summary>
         internal static string SARIF1009_IndexPropertiesMustBeConsistentWithArrays_FullDescription_Text {
             get {
