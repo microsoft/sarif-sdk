@@ -218,6 +218,8 @@ If the validator reports that 'contextRegion' is not a proper superset of 'regio
 
 #### Description
 
+If an object contains a property that is used as an array index (an "index-valued property"), then that array must be present and must contain at least "index + 1" elements.
+
 #### Messages
 
 ##### `TargetArrayMustExist`: error
