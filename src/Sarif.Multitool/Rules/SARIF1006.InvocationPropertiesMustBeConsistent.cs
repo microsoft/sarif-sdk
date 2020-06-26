@@ -4,25 +4,33 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+
 using Microsoft.Json.Pointer;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class InvocationPropertiesMustBeConsistent : SarifValidationSkimmerBase
     {
-        public override MultiformatMessageString FullDescription => new MultiformatMessageString
-        {
-            Text = RuleResources.SARIF1006_InvocationPropertiesMustBeConsistent_FullDescription_Text
-        };
-
-        public override FailureLevel DefaultLevel => FailureLevel.Error;
-
+        /// <summary>
+        /// SARIF1006
+        /// </summary>
         public override string Id => RuleId.InvocationPropertiesMustBeConsistent;
 
-        protected override IEnumerable<string> MessageResourceNames => new string[]
-        {
-            nameof(RuleResources.SARIF1006_InvocationPropertiesMustBeConsistent_Error_EndTimeMustNotPrecedeStartTime_Text)
-        };
+        /// <summary>
+        /// The properties of an 'invocation' object must be consistent.
+        ///
+        /// If the 'invocation' object specifies both 'startTimeUtc' and 'endTimeUtc', then 'endTimeUtc'
+        /// must not precede 'startTimeUtc'. To allow for the possibility that the duration of the run
+        /// is less than the resolution of the string representation of the time, the start time and
+        /// the end time may be equal.
+        /// </summary>
+        public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF1006_InvocationPropertiesMustBeConsistent_FullDescription_Text };
+
+        protected override IEnumerable<string> MessageResourceNames => new string[] {
+                nameof(RuleResources.SARIF1006_InvocationPropertiesMustBeConsistent_Error_EndTimeMustNotPrecedeStartTime_Text)
+            };
+
+        public override FailureLevel DefaultLevel => FailureLevel.Error;
 
         protected override void Analyze(Invocation invocation, string invocationPointer)
         {
@@ -33,6 +41,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 string endTimePointer = invocationPointer.AtProperty(SarifPropertyName.EndTimeUtc);
 
+                // {0}: The 'endTimeUtc' value '{1}' precedes the 'startTimeUtc' value '{2}'.
+                // The properties of an 'invocation' object must be internally consistent.
                 LogResult(
                     endTimePointer,
                     nameof(RuleResources.SARIF1006_InvocationPropertiesMustBeConsistent_Error_EndTimeMustNotPrecedeStartTime_Text),

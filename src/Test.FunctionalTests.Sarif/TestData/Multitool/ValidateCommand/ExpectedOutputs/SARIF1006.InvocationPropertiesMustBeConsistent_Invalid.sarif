@@ -11,14 +11,14 @@
               "id": "SARIF1006",
               "name": "InvocationPropertiesMustBeConsistent",
               "shortDescription": {
-                "text": "The end time of a run must not precede the start time."
+                "text": "The properties of an 'invocation' object must be consistent."
               },
               "fullDescription": {
-                "text": "The end time of a run must not precede the start time. To allow for the possibility that the duration of the run is less than the resolution of the string representation of the time, the start time and the end time may be equal."
+                "text": "The properties of an 'invocation' object must be consistent.\r\n\r\nIf the 'invocation' object specifies both 'startTimeUtc' and 'endTimeUtc', then 'endTimeUtc' must not precede 'startTimeUtc'. To allow for the possibility that the duration of the run is less than the resolution of the string representation of the time, the start time and the end time may be equal."
               },
               "messageStrings": {
                 "Error_EndTimeMustNotPrecedeStartTime": {
-                  "text": "{0}: The end time \"{1}\" is before the start time \"{2}\"."
+                  "text": "{0}: The 'endTimeUtc' value '{1}' precedes the 'startTimeUtc' value '{2}'. The properties of an 'invocation' object must be internally consistent."
                 }
               },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"

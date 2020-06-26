@@ -140,11 +140,17 @@ URIs must conform to [RFC 3986](https://tools.ietf.org/html/rfc3986). In additio
 
 ### Rule `SARIF1006.InvocationPropertiesMustBeConsistent`
 
+The properties of an 'invocation' object must be consistent.
+
+If the 'invocation' object specifies both 'startTimeUtc' and 'endTimeUtc', then 'endTimeUtc' must not precede 'startTimeUtc'. To allow for the possibility that the duration of the run is less than the resolution of the string representation of the time, the start time and the end time may be equal.
+
 #### Description
 
 #### Messages
 
 ##### `EndTimeMustNotPrecedeStartTime`: error
+
+{0}: The 'endTimeUtc' value '{1}' precedes the 'startTimeUtc' value '{2}'. The properties of an 'invocation' object must be internally consistent.
 
 ---
 

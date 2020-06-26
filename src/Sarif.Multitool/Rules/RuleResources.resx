@@ -132,10 +132,12 @@
 URIs must conform to [RFC 3986](https://tools.ietf.org/html/rfc3986). In addition, 'file' URIs must not include '..' segments. If symbolic links are present, '..' might have different meanings on the machine that produced the log file and the machine where an end user or a tool consumes it.</value>
   </data>
   <data name="SARIF1006_InvocationPropertiesMustBeConsistent_Error_EndTimeMustNotPrecedeStartTime_Text" xml:space="preserve">
-    <value>{0}: The end time "{1}" is before the start time "{2}".</value>
+    <value>{0}: The 'endTimeUtc' value '{1}' precedes the 'startTimeUtc' value '{2}'. The properties of an 'invocation' object must be internally consistent.</value>
   </data>
   <data name="SARIF1006_InvocationPropertiesMustBeConsistent_FullDescription_Text" xml:space="preserve">
-    <value>The end time of a run must not precede the start time. To allow for the possibility that the duration of the run is less than the resolution of the string representation of the time, the start time and the end time may be equal.</value>
+    <value>The properties of an 'invocation' object must be consistent.
+
+If the 'invocation' object specifies both 'startTimeUtc' and 'endTimeUtc', then 'endTimeUtc' must not precede 'startTimeUtc'. To allow for the possibility that the duration of the run is less than the resolution of the string representation of the time, the start time and the end time may be equal.</value>
   </data>
   <data name="SARIF2001_AuthorHighQualityMessages_Warning_TerminateWithPeriod_Text" xml:space="preserve">
     <value>{0}: In rule '{1}', the message with id '{2}' does not end in a period. Write rule messages as complete sentences.</value>

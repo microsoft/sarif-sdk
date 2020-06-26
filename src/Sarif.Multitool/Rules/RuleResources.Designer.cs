@@ -182,7 +182,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The end time &quot;{1}&quot; is before the start time &quot;{2}&quot;..
+        ///   Looks up a localized string similar to {0}: The &apos;endTimeUtc&apos; value &apos;{1}&apos; precedes the &apos;startTimeUtc&apos; value &apos;{2}&apos;. The properties of an &apos;invocation&apos; object must be internally consistent..
         /// </summary>
         internal static string SARIF1006_InvocationPropertiesMustBeConsistent_Error_EndTimeMustNotPrecedeStartTime_Text {
             get {
@@ -192,7 +192,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The end time of a run must not precede the start time. To allow for the possibility that the duration of the run is less than the resolution of the string representation of the time, the start time and the end time may be equal..
+        ///   Looks up a localized string similar to The properties of an &apos;invocation&apos; object must be consistent.
+        ///
+        ///If the &apos;invocation&apos; object specifies both &apos;startTimeUtc&apos; and &apos;endTimeUtc&apos;, then &apos;endTimeUtc&apos; must not precede &apos;startTimeUtc&apos;. To allow for the possibility that the duration of the run is less than the resolution of the string representation of the time, the start time and the end time may be equal..
         /// </summary>
         internal static string SARIF1006_InvocationPropertiesMustBeConsistent_FullDescription_Text {
             get {
