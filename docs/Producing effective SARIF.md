@@ -322,7 +322,7 @@ In result messages, use the 'message.id' and 'message.arguments' properties rath
 
 ---
 
-### Rule `SARIF2005.ProvideHelpfulToolInformation`
+### Rule `SARIF2005.ProvideToolProperties`
 
 #### Description
 
