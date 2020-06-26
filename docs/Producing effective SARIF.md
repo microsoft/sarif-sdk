@@ -45,7 +45,7 @@ Having said that, the SARIF MultiTool can "enrich" SARIF files with additional p
 
 ### Serviceability
 
-SARIF files are often used in scenarios where it's important to know which tool, and which _version_ of the tool, produced the results.
+SARIF files are often used in scenarios where it's important to know which tool, and which _version_ of the tool, produced the results. Therefore it's important for your tool to populate `run.tool.driver` with enough information to identify your tool and its version.
 
 ### What's next
 
