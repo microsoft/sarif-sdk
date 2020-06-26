@@ -11,20 +11,20 @@
               "id": "SARIF2001",
               "name": "AuthorHighQualityMessages",
               "shortDescription": {
-                "text": "Messages should consist of one or more complete sentences, ending with a period."
+                "text": "Follow authoring practices that make your rule messages readable, understandable, and actionable."
               },
               "fullDescription": {
-                "text": "Messages should consist of one or more complete sentences, ending with a period."
+                "text": "Follow authoring practices that make your rule messages readable, understandable, and actionable.\r\n\r\nIncluding \"dynamic content\" (information that varies among results from the same rule) makes your messages more specific. It avoids the \"wall of bugs\" phenomenon, where hundreds of occurrences of the same message appear unapproachable.\r\n\r\nPlacing dynamic content in quotes sets it off from the static text, making it easier to spot. It's especially helpful when the dynamic content is a string that might contain spaces, and most especially when the string might be empty (and so would be invisible if it weren't for the quotes). We recommend single quotes for a less cluttered appearance, even though English usage would require double quotes.\r\n\r\nFinally, write in complete sentences and end each sentence with a period. This guidance does not apply to Markdown messages, which might include formatting that makes the punctuation unnecessary."
               },
               "messageStrings": {
                 "Warning_EnquoteDynamicContent": {
-                  "text": "{0}: Placeholder '{1}' '{2}'"
+                  "text": "{0}: In rule '{1}', the message with id '{2}' includes dynamic content that is not enclosed in single quotes. Enquoting dynamic content makes it easier to spot, and single quotes give a less cluttered appearance."
                 },
                 "Warning_IncludeDynamicContent": {
-                  "text": "{0}: Placeholder '{1}' '{2}'"
+                  "text": "{0}: In rule '{1}', the message with id '{2}' does not include any dynamic content. Dynamic content makes your messages more specific and avoids the \"wall of bugs\" phenomenon."
                 },
                 "Warning_TerminateWithPeriod": {
-                  "text": "{0}: Placeholder '{1}' '{2}'"
+                  "text": "{0}: In rule '{1}', the message with id '{2}' does not end in a period. Write rule messages as complete sentences."
                 }
               },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
@@ -52,9 +52,9 @@
           "message": {
             "id": "Warning_EnquoteDynamicContent",
             "arguments": [
-              "runs[0].tool.driver.rules[0].messageStrings.Warning_DontTerminateWithPeriod.text",
-              "{0}: Placeholder '{1}'",
-              "Warning_DontTerminateWithPeriod"
+              "runs[0].tool.driver.rules[0].messageStrings.NotEnquoted.text",
+              "TST0001",
+              "NotEnquoted"
             ]
           },
           "locations": [
@@ -64,33 +64,8 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 22,
-                  "startColumn": 50
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF2001",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Warning_TerminateWithPeriod",
-            "arguments": [
-              "runs[0].tool.driver.rules[0].messageStrings.Warning_DontTerminateWithPeriod.text",
-              "{0}: Placeholder '{1}'",
-              "Warning_DontTerminateWithPeriod"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 22,
-                  "startColumn": 50
+                  "startLine": 18,
+                  "startColumn": 91
                 }
               }
             }
@@ -102,9 +77,9 @@
           "message": {
             "id": "Warning_IncludeDynamicContent",
             "arguments": [
-              "runs[0].tool.driver.rules[0].messageStrings.Warning_DontHavePlaceholders.text",
-              "Placeholder text",
-              "Warning_DontHavePlaceholders"
+              "runs[0].tool.driver.rules[0].messageStrings.NoPlaceholders.text",
+              "TST0001",
+              "NoPlaceholders"
             ]
           },
           "locations": [
@@ -114,8 +89,8 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 25,
-                  "startColumn": 44
+                  "startLine": 21,
+                  "startColumn": 74
                 }
               }
             }
@@ -127,9 +102,9 @@
           "message": {
             "id": "Warning_TerminateWithPeriod",
             "arguments": [
-              "runs[0].tool.driver.rules[0].messageStrings.Warning_DontHavePlaceholders.text",
-              "Placeholder text",
-              "Warning_DontHavePlaceholders"
+              "runs[0].tool.driver.rules[0].messageStrings.NoPeriod.text",
+              "TST0001",
+              "NoPeriod"
             ]
           },
           "locations": [
@@ -139,58 +114,8 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 25,
-                  "startColumn": 44
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF2001",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Warning_EnquoteDynamicContent",
-            "arguments": [
-              "runs[0].tool.driver.rules[0].messageStrings.Warning_DontHaveEnquotedPlaceholders.text",
-              "{0}: Placeholder {1}",
-              "Warning_DontHaveEnquotedPlaceholders"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 28,
-                  "startColumn": 48
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF2001",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Warning_TerminateWithPeriod",
-            "arguments": [
-              "runs[0].tool.driver.rules[0].messageStrings.Warning_DontHaveEnquotedPlaceholders.text",
-              "{0}: Placeholder {1}",
-              "Warning_DontHaveEnquotedPlaceholders"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 28,
-                  "startColumn": 48
+                  "startLine": 24,
+                  "startColumn": 111
                 }
               }
             }

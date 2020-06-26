@@ -5,31 +5,7 @@
     {
       "tool": {
         "driver": {
-          "name": "SARIF Functional Testing",
-          "rules": [
-            {
-              "id": "SARIF2001",
-              "name": "AuthorHighQualityMessages",
-              "shortDescription": {
-                "text": "Messages should consist of one or more complete sentences, ending with a period."
-              },
-              "fullDescription": {
-                "text": "Messages should consist of one or more complete sentences, ending with a period."
-              },
-              "messageStrings": {
-                "Warning_EnquoteDynamicContent": {
-                  "text": "{0}: Placeholder '{1}' '{2}'"
-                },
-                "Warning_IncludeDynamicContent": {
-                  "text": "{0}: Placeholder '{1}' '{2}'"
-                },
-                "Warning_TerminateWithPeriod": {
-                  "text": "{0}: Placeholder '{1}' '{2}'"
-                }
-              },
-              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
-            }
-          ]
+          "name": "SARIF Functional Testing"
         }
       },
       "invocations": [
@@ -45,33 +21,7 @@
           }
         }
       ],
-      "results": [
-        {
-          "ruleId": "SARIF2001",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Warning_EnquoteDynamicContent",
-            "arguments": [
-              "runs[0].tool.driver.rules[0].messageStrings.Warning_TerminateWithPeriod.text",
-              "{0}: Placeholder '{1}'.",
-              "Warning_TerminateWithPeriod"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 22,
-                  "startColumn": 51
-                }
-              }
-            }
-          ]
-        }
-      ],
+      "results": [],
       "columnKind": "utf16CodeUnits"
     }
   ]

@@ -9,17 +9,13 @@
           "version": "1.2",
           "rules": [
             {
-              "id": "SARIF2001",
-              "name": "AuthorHighQualityMessages",
-              "shortDescription": {
-                "text": "Messages should consist of one or more complete sentences, ending with a period."
-              },
+              "id": "TST0001",
               "fullDescription": {
-                "text": "Messages should consist of one or more complete sentences, ending with a period."
+                "text": "This is a test."
               },
               "messageStrings": {
-                "Warning_TerminateWithPeriod": {
-                  "text": "{0}: Placeholder '{1}'."
+                "Default": {
+                  "text": "This string has enquoted dynamic content '{0}' and '{1}', and ends with a period."
                 }
               },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"

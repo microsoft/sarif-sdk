@@ -6,26 +6,22 @@
       "tool": {
         "driver": {
           "name": "SARIF Functional Testing",
-          "version": "1.2",
+          "version": "1",
           "rules": [
             {
-              "id": "SARIF2001",
-              "name": "AuthorHighQualityMessages",
-              "shortDescription": {
-                "text": "Messages should consist of one or more complete sentences, ending with a period."
-              },
+              "id": "TST0001",
               "fullDescription": {
-                "text": "Messages should consist of one or more complete sentences, ending with a period."
+                "text": "This is a test."
               },
               "messageStrings": {
-                "Warning_DontTerminateWithPeriod": {
-                  "text": "{0}: Placeholder '{1}'"
+                "NotEnquoted": {
+                  "text": "This message contains dynamic content {0} that is not enquoted."
                 },
-                "Warning_DontHavePlaceholders": {
-                  "text": "Placeholder text"
+                "NoPlaceholders": {
+                  "text": "This message does not contain dynamic content."
                 },
-                "Warning_DontHaveEnquotedPlaceholders": {
-                  "text": "{0}: Placeholder {1}"
+                "NoPeriod": {
+                  "text": "This message contains enquoted dynamic content '{0}' but does not end with a period"
                 }
               },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
