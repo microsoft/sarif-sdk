@@ -148,6 +148,14 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
             => RunTest(MakeInvalidTestFileName(RuleId.ProvideHelpfulToolInformation, nameof(RuleId.ProvideHelpfulToolInformation)));
 
         [Fact]
+        public void SARIF2006_UrisShouldBeReachable_Valid()
+            => RunTest(MakeValidTestFileName(RuleId.UrisShouldBeReachable, nameof(RuleId.UrisShouldBeReachable)));
+
+        [Fact]
+        public void SARIF2006_UrisShouldBeReachable_Invalid()
+            => RunTest(MakeInvalidTestFileName(RuleId.UrisShouldBeReachable, nameof(RuleId.UrisShouldBeReachable)));
+
+        [Fact]
         public void SARIF2008_ProvideSchema_Valid()
             => RunTest(MakeValidTestFileName(RuleId.ProvideSchema, nameof(RuleId.ProvideSchema)));
 

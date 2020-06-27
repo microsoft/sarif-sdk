@@ -34,7 +34,7 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1002.UrisMustBeValid_Valid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF2006.UrisShouldBeReachable_Invalid.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }
@@ -57,7 +57,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 58,
+                  "startLine": 33,
                   "startColumn": 54
                 }
               }
