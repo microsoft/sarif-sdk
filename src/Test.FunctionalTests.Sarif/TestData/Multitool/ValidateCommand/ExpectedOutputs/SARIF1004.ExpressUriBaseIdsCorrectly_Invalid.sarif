@@ -53,22 +53,6 @@
                 }
               },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
-            },
-            {
-              "id": "SARIF2006",
-              "name": "UrisShouldBeReachable",
-              "shortDescription": {
-                "text": "Placeholder."
-              },
-              "fullDescription": {
-                "text": "Placeholder"
-              },
-              "messageStrings": {
-                "Warning_Default": {
-                  "text": "{0}: Placeholder {1}"
-                }
-              },
-              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
             }
           ]
         }
@@ -790,30 +774,6 @@
                 "region": {
                   "startLine": 95,
                   "startColumn": 42
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF2006",
-          "ruleIndex": 2,
-          "message": {
-            "id": "Error_Default",
-            "arguments": [
-              "runs[0].versionControlProvenance[0].repositoryUri",
-              "https://github.com/example-corp/browser"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 92,
-                  "startColumn": 68
                 }
               }
             }

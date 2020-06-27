@@ -7,18 +7,18 @@
         "driver": {
           "name": "CodeScanner",
           "version": "1.0",
-          "downloadUri": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html",
+          "downloadUri": "https://github.com/microsoft/sarif-sdk",
           "rules": [
             {
               "id": "TST0001",
-              "helpUri": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+              "helpUri": "https://github.com/microsoft/sarif-sdk"
             }
           ]
         }
       },
       "versionControlProvenance": [
         {
-          "repositoryUri": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+          "repositoryUri": "https://github.com/microsoft/sarif-sdk"
         }
       ],
       "results": [
@@ -30,7 +30,7 @@
             "text": "Some testing occurred."
           },
           "workItemUris": [
-            "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+            "https://github.com/microsoft/sarif-sdk"
           ]
         }
       ],

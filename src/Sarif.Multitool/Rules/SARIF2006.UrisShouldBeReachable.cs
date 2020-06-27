@@ -72,17 +72,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         private void AnalyzeUri(string uriString, string pointer)
         {
-            // If it's not a well-formed URI of _any_ kind, then don't bother triggering this rule.
-            // Rule SARIF1003, UrisMustBeValid, will catch it.
+            // If it's not a well-formed URI, or if it's not absolute, then don't bother triggering this rule.
+            // If it's not well-formed, SARIF1003.UrisMustBeValid will catch it, and if it's not absolute,
+            // SARIF1005.UriMustBeAbsolute will catch it.
+            //
             // Check for well-formedness first, before attempting to create a Uri object, to
             // avoid having to do a try/catch. Unfortunately Uri.TryCreate will return true
             // even for a malformed URI string.
-            if (uriString != null && Uri.IsWellFormedUriString(uriString, UriKind.RelativeOrAbsolute))
+            if (uriString != null && Uri.IsWellFormedUriString(uriString, UriKind.Absolute))
             {
-                // Ok, it's a well-formed URI of some kind. If it's not absolute, _now_ we
-                // can report it.
-                Uri uri = new Uri(uriString, UriKind.RelativeOrAbsolute);
-                if (uri.IsAbsoluteUri && !IsUriReachable(uri.AbsoluteUri))
+                // Ok, it's a well-formed absolute URI. If it's not reachable, _now_ we can report it.
+                Uri uri = new Uri(uriString, UriKind.Absolute);
+                if (!IsUriReachable(uri.AbsoluteUri))
                 {
                     // Placeholder
                     LogResult(pointer, nameof(RuleResources.SARIF1005_UriMustBeAbsolute_Error_Default_Text), uriString);

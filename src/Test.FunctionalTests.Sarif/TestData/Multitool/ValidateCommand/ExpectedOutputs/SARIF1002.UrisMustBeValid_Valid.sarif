@@ -5,25 +5,7 @@
     {
       "tool": {
         "driver": {
-          "name": "SARIF Functional Testing",
-          "rules": [
-            {
-              "id": "SARIF2006",
-              "name": "UrisShouldBeReachable",
-              "shortDescription": {
-                "text": "Placeholder."
-              },
-              "fullDescription": {
-                "text": "Placeholder"
-              },
-              "messageStrings": {
-                "Warning_Default": {
-                  "text": "{0}: Placeholder {1}"
-                }
-              },
-              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
-            }
-          ]
+          "name": "SARIF Functional Testing"
         }
       },
       "invocations": [
@@ -39,104 +21,7 @@
           }
         }
       ],
-      "results": [
-        {
-          "ruleId": "SARIF2006",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Error_Default",
-            "arguments": [
-              "runs[0].results[0].workItemUris[0]",
-              "https://example.com/my-project/issues/42"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 58,
-                  "startColumn": 54
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF2006",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Error_Default",
-            "arguments": [
-              "runs[0].tool.driver.downloadUri",
-              "http://www.example.com/tools/codescanner/download.html"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 10,
-                  "startColumn": 81
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF2006",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Error_Default",
-            "arguments": [
-              "runs[0].tool.driver.rules[0].helpUri",
-              "http://www.example.com/rules/tst0001.html"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 14,
-                  "startColumn": 68
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF2006",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Error_Default",
-            "arguments": [
-              "runs[0].versionControlProvenance[0].repositoryUri",
-              "https://example.com/my-project"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 21,
-                  "startColumn": 59
-                }
-              }
-            }
-          ]
-        }
-      ],
+      "results": [],
       "columnKind": "utf16CodeUnits"
     }
   ]
