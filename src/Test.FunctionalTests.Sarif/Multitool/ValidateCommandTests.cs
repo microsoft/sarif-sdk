@@ -27,9 +27,6 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
             base(outputHelper, testProducesSarifCurrentVersion)
         { }
 
-        // Pass this parameter to RunTest for those rules that can produce "pass"-level results.
-        private const bool Verbose = true;
-
         protected override string IntermediateTestFolder => @"Multitool";
 
         private class TestParameters
@@ -236,6 +233,18 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
                 MakeInvalidTestFileName(RuleId.ProvideContextRegion, nameof(RuleId.ProvideContextRegion)),
                 parameter: new TestParameters(verbose: true));
 
+        [Fact]
+        public void SARIF2012_ProvideHelpUris_Valid()
+            => RunTest(
+                MakeValidTestFileName(RuleId.ProvideHelpUris, nameof(RuleId.ProvideHelpUris)),
+                parameter: new TestParameters(verbose: true));
+
+        [Fact]
+        public void SARIF2012_ProvideHelpUris_Invalid()
+            => RunTest(
+                MakeInvalidTestFileName(RuleId.ProvideHelpUris, nameof(RuleId.ProvideHelpUris)),
+                parameter: new TestParameters(verbose: true));
+        
         [Fact]
         public void SARIF2014_ProvideDynamicMessageContent_Valid()
             => RunTest(MakeValidTestFileName(RuleId.ProvideDynamicMessageContent, nameof(RuleId.ProvideDynamicMessageContent)),
