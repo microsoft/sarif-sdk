@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
@@ -48,7 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 SplitSarifLogs.Add(sarifLog);
             }
 
-            ArtifactLocation artifactLocation = node.Locations?[0].PhysicalLocation?.ArtifactLocation;
+            ArtifactLocation artifactLocation = node.Locations?.FirstOrDefault()?.PhysicalLocation?.ArtifactLocation;
 
             if (artifactLocation != null && artifactLocation.Index > -1)
             {

@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
@@ -38,7 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 ruleId = node.RuleId.Substring(0, lastIndexOf >= 0 ? lastIndexOf : node.RuleId.Length);
             }
 
-            ArtifactLocation artifactLocation = node.Locations?[0]?.PhysicalLocation?.ArtifactLocation ?? s_emptyArtifactLocation;
+            ArtifactLocation artifactLocation = node.Locations?.FirstOrDefault()?.PhysicalLocation?.ArtifactLocation ?? s_emptyArtifactLocation;
 
             if (!_targetToRuleMap.TryGetValue(artifactLocation.Uri.ToString(), out Dictionary<string, SarifLog> ruleToSarifLogMap))
             {

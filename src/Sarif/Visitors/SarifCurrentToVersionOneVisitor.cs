@@ -363,7 +363,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Id = v2Notification.Descriptor?.Id,
                     Level = Utilities.CreateNotificationLevelVersionOne(v2Notification.Level),
                     Message = v2Notification.Message?.Text,
-                    PhysicalLocation = CreatePhysicalLocationVersionOne(v2Notification.Locations?[0].PhysicalLocation),
+                    PhysicalLocation = CreatePhysicalLocationVersionOne(v2Notification.Locations?.FirstOrDefault()?.PhysicalLocation),
                     Properties = v2Notification.Properties,
                     RuleId = v2Notification.AssociatedRule?.Id,
                     ThreadId = v2Notification.ThreadId,
@@ -784,7 +784,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Message = v2Result.Message?.Text,
                     Properties = v2Result.Properties,
                     RelatedLocations = v2Result.RelatedLocations?.Select(CreateAnnotatedCodeLocationVersionOne).ToList(),
-                    Snippet = v2Result.Locations?[0]?.PhysicalLocation?.Region?.Snippet?.Text,
+                    Snippet = v2Result.Locations?.FirstOrDefault()?.PhysicalLocation?.Region?.Snippet?.Text,
                     Stacks = v2Result.Stacks?.Select(CreateStackVersionOne).ToList(),
                     SuppressionStates = Utilities.CreateSuppressionStatesVersionOne(v2Result.Suppressions),
                     ToolFingerprintContribution = CreateToolFingerprintContributionVersionOne(v2Result.PartialFingerprints)
@@ -906,7 +906,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                     run.StableId = v2Run.AutomationDetails?.InstanceIdLogicalComponent();
 
-                    run.Invocation = CreateInvocationVersionOne(v2Run.Invocations?[0]);
+                    run.Invocation = CreateInvocationVersionOne(v2Run.Invocations?.FirstOrDefault());
                     run.LogicalLocations = CreateLogicalLocationVersionOneDictionary(v2Run.LogicalLocations);
                     run.Properties = v2Run.Properties;
                     run.Results = new List<ResultVersionOne>();

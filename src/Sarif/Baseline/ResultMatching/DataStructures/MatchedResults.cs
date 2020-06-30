@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 {
@@ -111,9 +112,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             }
 
             // Potentially temporary -- we persist the "originally found date" forward, and this sets it.
-            if (CurrentResult.OriginalRun?.Invocations?[0]?.StartTimeUtc != null)
+            DateTime? invocationStart = CurrentResult.OriginalRun?.Invocations?.FirstOrDefault()?.StartTimeUtc;
+            if (invocationStart != null)
             {
-                resultMatchingProperties.Add(MatchedResults.MatchResultMetadata_FoundDateName, CurrentResult.OriginalRun.Invocations[0].StartTimeUtc);
+                resultMatchingProperties.Add(MatchedResults.MatchResultMetadata_FoundDateName, invocationStart.Value);
             }
 
             Run = CurrentResult.OriginalRun;
@@ -206,7 +208,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             }
             else
             {
-                Invocation invocation = extractedResult.OriginalRun?.Invocations?[0];
+                Invocation invocation = extractedResult.OriginalRun?.Invocations?.FirstOrDefault();
                 if (invocation != null)
                 {
                     firstDetectionTime = invocation.EndTimeUtc != default

@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Microsoft.  All Rights Reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System.Linq;
+
 namespace Microsoft.CodeAnalysis.Sarif
 {
     public partial class Notification
@@ -10,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             var sb = new System.Text.StringBuilder();
 
-            sb.Append(this.Locations?[0].PhysicalLocation?.ArtifactLocation?.Uri);
+            sb.Append(this.Locations?.FirstOrDefault()?.PhysicalLocation?.ArtifactLocation?.Uri);
             sb.Append(" : " + this.Descriptor.Id);
             sb.Append(" : " + this.AssociatedRule?.Id);
             sb.Append(" : " + this.Level);
