@@ -18,5 +18,9 @@
   "JsonToEnum<(ArtifactRoles)>.Read": "Readers.FlagsEnumConverter.Instance.Read<$1>",
   "JsonToEnum<(ArtifactRoles)>.Write": "Readers.FlagsEnumConverter.Instance.Write<$1>",
   "JsonToEnum<(ToolComponentContents)>.Read": "Readers.FlagsEnumConverter.Instance.Read<$1>",
-  "JsonToEnum<(ToolComponentContents)>.Write": "Readers.FlagsEnumConverter.Instance.Write<$1>"
+  "JsonToEnum<(ToolComponentContents)>.Write": "Readers.FlagsEnumConverter.Instance.Write<$1>",
+
+  /* Result.Kind and Level have inter-related logic */
+  "(public virtual ResultKind Kind.*?)(set => [^\\r\\n]+)": "$1set { _table.Kind[_index] = (int)value; if (value != ResultKind.Fail) { Level = FailureLevel.None; } }",
+  "(public virtual ResultKind Kind.*?public virtual FailureLevel Level.*?)(set => [^\\r\\n]+)": "$1set { _table.Level[_index] = (int)value; if (value != FailureLevel.None) { Kind = ResultKind.Fail; } }"
 }
