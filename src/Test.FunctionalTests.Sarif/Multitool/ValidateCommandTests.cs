@@ -150,6 +150,7 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
         public void SARIF1012_MessageArgumentsMustBeConsistentWithRule_Invalid()
             => RunTest(MakeInvalidTestFileName(RuleId.MessageArgumentsMustBeConsistentWithRule, nameof(RuleId.MessageArgumentsMustBeConsistentWithRule)));
 
+        [Fact]
         public void SARIF2001_TerminateMessagesWithPeriod_Valid()
             => RunTest(MakeValidTestFileName(RuleId.TerminateMessagesWithPeriod, nameof(RuleId.TerminateMessagesWithPeriod)));
 
@@ -225,19 +226,19 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
 
         [Fact]
         public void SARIF2014_ProvideDynamicMessageContent_Valid()
-    => RunTest(MakeValidTestFileName(RuleId.ProvideDynamicMessageContent, nameof(RuleId.ProvideDynamicMessageContent)), parameter: Verbose);
+            => RunTest(MakeValidTestFileName(RuleId.ProvideDynamicMessageContent, nameof(RuleId.ProvideDynamicMessageContent)));
 
         [Fact]
         public void SARIF2014_ProvideDynamicMessageContent_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.ProvideDynamicMessageContent, nameof(RuleId.ProvideDynamicMessageContent)), parameter: Verbose);
+            => RunTest(MakeInvalidTestFileName(RuleId.ProvideDynamicMessageContent, nameof(RuleId.ProvideDynamicMessageContent)));
 
         [Fact]
         public void SARIF2015_EnquoteDynamicMessageContent_Valid()
-    => RunTest(MakeValidTestFileName(RuleId.EnquoteDynamicMessageContent, nameof(RuleId.EnquoteDynamicMessageContent)), parameter: Verbose);
+            => RunTest(MakeValidTestFileName(RuleId.EnquoteDynamicMessageContent, nameof(RuleId.EnquoteDynamicMessageContent)));
 
         [Fact]
         public void SARIF2015_EnquoteDynamicMessageContent_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.EnquoteDynamicMessageContent, nameof(RuleId.EnquoteDynamicMessageContent)), parameter: Verbose);
+            => RunTest(MakeInvalidTestFileName(RuleId.EnquoteDynamicMessageContent, nameof(RuleId.EnquoteDynamicMessageContent)));
 
         private const string ValidTestFileNameSuffix = "_Valid.sarif";
         private const string InvalidTestFileNameSuffix = "_Invalid.sarif";
