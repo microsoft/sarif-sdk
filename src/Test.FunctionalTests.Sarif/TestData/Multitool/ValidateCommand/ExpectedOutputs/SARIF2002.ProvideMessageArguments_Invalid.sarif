@@ -8,17 +8,17 @@
           "name": "SARIF Functional Testing",
           "rules": [
             {
-              "id": "SARIF1006",
-              "name": "InvocationPropertiesMustBeConsistent",
+              "id": "SARIF2002",
+              "name": "ProvideMessageArguments",
               "shortDescription": {
-                "text": "The properties of an 'invocation' object must be consistent."
+                "text": "Placeholder_SARIF2002_ProvideMessageArguments_FullDescription_Text."
               },
               "fullDescription": {
-                "text": "The properties of an 'invocation' object must be consistent.\r\n\r\nIf the 'invocation' object specifies both 'startTimeUtc' and 'endTimeUtc', then 'endTimeUtc' must not precede 'startTimeUtc'. To allow for the possibility that the duration of the run is less than the resolution of the string representation of the time, the start time and the end time may be equal."
+                "text": "Placeholder_SARIF2002_ProvideMessageArguments_FullDescription_Text"
               },
               "messageStrings": {
-                "Error_EndTimeMustNotPrecedeStartTime": {
-                  "text": "{0}: The 'endTimeUtc' value '{1}' precedes the 'startTimeUtc' value '{2}'. The properties of an 'invocation' object must be internally consistent."
+                "Warning_Default": {
+                  "text": "{0}: Placeholder"
                 }
               },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
@@ -29,14 +29,6 @@
       "invocations": [
         {
           "toolConfigurationNotifications": [
-            {
-              "message": {
-                "text": "Rule 'SARIF2002' was explicitly disabled by the user. As result, this tool run cannot be used for compliance or other auditing processes that require a comprehensive analysis."
-              },
-              "descriptor": {
-                "id": "WRN999.RuleExplicitlyDisabled"
-              }
-            },
             {
               "message": {
                 "text": "Rule 'SARIF2006' was explicitly disabled by the user. As result, this tool run cannot be used for compliance or other auditing processes that require a comprehensive analysis."
@@ -52,22 +44,19 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1006.InvocationPropertiesMustBeConsistent_Invalid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF2002.ProvideMessageArguments_Invalid.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }
       ],
       "results": [
         {
-          "ruleId": "SARIF1006",
+          "ruleId": "SARIF2002",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
-            "id": "Error_EndTimeMustNotPrecedeStartTime",
+            "id": "Warning_Default",
             "arguments": [
-              "runs[0].invocations[0].endTimeUtc",
-              "2016-08-25T21:26:40.051Z",
-              "2016-08-25T21:26:42.049Z"
+              "runs[0].results[0].message"
             ]
           },
           "locations": [
@@ -77,8 +66,8 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 16,
-                  "startColumn": 50
+                  "startLine": 15,
+                  "startColumn": 22
                 }
               }
             }

@@ -287,7 +287,7 @@ Many tool use similar names for 'uriBaseId' symbols. We suggest 'REPOROOT' for t
     <value>Placeholder_SARIF2002_ProvideMessageArguments_FullDescription_Text</value>
   </data>
   <data name="SARIF2002_ProvideMessageArguments_Warning_Default_Text" xml:space="preserve">
-    <value>Placeholder_SARIF2002_ProvideMessageArguments_Warning_Default_Text</value>
+    <value>{0}: Placeholder</value>
   </data>
   <data name="SARIF2003_ProvideVersionControlProvenance_FullDescription_Text" xml:space="preserve">
     <value>Placeholder_SARIF2003_ProvideVersionControlProvenance_FullDescription_Text</value>
