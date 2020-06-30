@@ -12,5 +12,11 @@
   "JsonToEnum<SarifVersion>.Read\\(reader, root\\)": "Readers.JsonToSarifVersion.Read(reader, root)",
 
   /* Auto-Set Result.Run on Results */
-  "_table.Database.Result.List\\(_table.Results\\[_index\\]\\)": "new ResultList(this, _table.Database.Result, _table.Results[_index])"
+  "_table.Database.Result.List\\(_table.Results\\[_index\\]\\)": "new ResultList(this, _table.Database.Result, _table.Results[_index])",
+
+  /* FlagsEnum representation is non-standard */
+  "JsonToEnum<(ArtifactRoles)>.Read": "Readers.FlagsEnumConverter.Instance.Read<$1>",
+  "JsonToEnum<(ArtifactRoles)>.Write": "Readers.FlagsEnumConverter.Instance.Write<$1>",
+  "JsonToEnum<(ToolComponentContents)>.Read": "Readers.FlagsEnumConverter.Instance.Read<$1>",
+  "JsonToEnum<(ToolComponentContents)>.Write": "Readers.FlagsEnumConverter.Instance.Write<$1>"
 }

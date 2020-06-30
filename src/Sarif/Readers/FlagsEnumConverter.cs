@@ -65,5 +65,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
             writer.WriteRawValue("[\"" + string.Join("\",\"", tokens) + "\"]");
         }
+
+        public T Read<T>(JsonReader reader, object root)
+        {
+            return (T)ReadJson(reader, typeof(T), null, null);
+        }
+
+        public void Write<T>(JsonWriter writer, string propertyName, T item, T defaultValue)
+        {
+            if (!item.Equals(defaultValue))
+            {
+                writer.WritePropertyName(propertyName);
+                WriteJson(writer, item, null);
+            }
+        }
     }
 }
