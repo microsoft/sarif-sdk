@@ -143,15 +143,21 @@ URIs must conform to [RFC 3986](https://tools.ietf.org/html/rfc3986). In additio
 
 #### Description
 
-Every URI reference in 'run.originalUriBaseIds' must resolve to an absolute URI, in the manner described in the SARIF specification 
+Every URI reference in 'originalUriBaseIds' must resolve to an absolute URI, in the manner described in the SARIF specification [3.14.14](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317498), because the purpose of 'uriBaseIds' is to enable the resolution of relative references to absolute locations.
 
 #### Messages
 
 ##### `UriBaseIdRequiresRelativeUri`: error
 
+{0}: This fileLocation object contains a "uriBaseId" property, which means that the value of the "uri" property must be a relative URI reference, but "{1}" is an absolute URI reference. REWRITE
+
 ##### `TopLevelUriBaseIdMustBeAbsolute`: error
 
+{0}: The '{1}' element of 'originalUriBaseIds' has no 'uriBaseId' property, but its 'uri' property '{2}' is not an absolute URI. According to the SARIF specification, every such "top-level" entry in 'originalUriBaseIds' must specify an absolute URI, because the purpose of 'originalUriBaseIds' is to enable the resolution of relative references to absolute locations.
+
 ##### `UriBaseIdValueMustEndWithSlash`: error
+
+{0}: The '{1}' element of 'run.originalUriBaseIds' has no 'uriBaseId' property, but its 'uri' property '{2}' is not an absolute URI. According to the SARIF specification, every such "top-level" entry in 'run.originalUriBaseIds' must specify an absolute URI.
 
 ##### `UriBaseIdValueMustNotContainDotDotSegment`: error
 
