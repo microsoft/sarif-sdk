@@ -331,31 +331,19 @@ Rules that describe violations of SARIF recommendations or best practices also h
 
 ---
 
-### Rule `SARIF2001.AuthorHighQualityMessages`
+### Rule `SARIF2001.TerminateMessagesWithPeriod`
 
 #### Description
 
-Follow authoring practices that make your rule messages readable, understandable, and actionable.
+Express plain text result messages as complete sentences and end each sentence with a period. This guidance does not apply to Markdown messages, which might include formatting that makes the punctuation unnecessary.
 
-Including "dynamic content" (information that varies among results from the same rule) makes your messages more specific. It avoids the "wall of bugs" phenomenon, where hundreds of occurrences of the same message appear unapproachable.
-
-Placing dynamic content in quotes sets it off from the static text, making it easier to spot. It's especially helpful when the dynamic content is a string that might contain spaces, and most especially when the string might be empty (and so would be invisible if it weren't for the quotes). We recommend single quotes for a less cluttered appearance, even though English usage would require double quotes.
-
-Finally, write in complete sentences and end each sentence with a period. This guidance does not apply to Markdown messages, which might include formatting that makes the punctuation unnecessary.
+This is part of a set of authoring practices that make your rule messages more readable, understandable, and actionable. See also `SARIF2014.ProvideDynamicMessageContent` and `SARIF2015.EnquoteDynamicMessageContent`.
 
 #### Messages
 
-##### `IncludeDynamicContent`: warning
+##### `Default`: warning
 
-{0}: In rule '{1}', the message with id '{2}' does not include any dynamic content. Dynamic content makes your messages more specific and avoids the "wall of bugs" phenomenon.
-
-##### `EnquoteDynamicContent`: warning
-
-{0}: In rule '{1}', the message with id '{2}' includes dynamic content that is not enclosed in single quotes. Enquoting dynamic content makes it easier to spot, and single quotes give a less cluttered appearance.
-
-##### `TerminateWithPeriod`: warning
-
-{0}: In rule '{1}', the message with id '{2}' does not end in a period. Write rule messages as complete sentences.
+{0}: In rule '{1}', the message with id '{2}' does not end in a period. Express plain text rule messages as complete sentences. This guidance does not apply to Markdown messages, which might include formatting that makes the punctuation unnecessary.
 
 ---
 
@@ -479,3 +467,33 @@ Many tool use similar names for 'uriBaseId' symbols. We suggest 'REPOROOT' for t
 {0}: The 'id' property of the rule '{1}' does not follow the recommended format: a short string identifying the tool concatenated with a numeric rule number, for example, `CS2001`. Using a conventional format for the rule id provides a more uniform experience across tools.
 
 ---
+
+### Rule `SARIF2014.ProvideDynamicMessageContent`
+
+#### Description
+
+Include "dynamic content" (information that varies among results from the same rule) to makes your messages more specific, and to avoid the "wall of bugs" phenomenon, where hundreds of occurrences of the same message appear unapproachable.
+
+This is part of a set of authoring practices that make your rule messages more readable, understandable, and actionable. See also `SARIF2001.TerminateMessagesWithPeriod` and `SARIF2015.EnquoteDynamicMessageContent`.
+
+#### Messages
+
+##### `Default`: note
+
+{0}: In rule '{1}', the message with id '{2}' does not include any dynamic content. Dynamic content makes your messages more specific and avoids the "wall of bugs" phenomenon, where hundreds of occurrences of the same message appear unapproachable.
+
+---
+
+### Rule `SARIF2015.EnquoteDynamicMessageContent`
+
+#### Description
+
+Place dynamic content in single quotes to set it off from the static text and to make it easier to spot. It's especially helpful when the dynamic content is a string that might contain spaces, and most especially when the string might be empty (and so would be invisible if it weren't for the quotes). We recommend single quotes for a less cluttered appearance, even though US English usage would require double quotes.
+
+This is part of a set of authoring practices that make your rule messages more readable, understandable, and actionable. See also `SARIF2001.TerminateMessagesWithPeriod` and `SARIF2014.ProvideDynamicMessageContent`.
+
+#### Messages
+
+##### `Default`: note
+
+{0}: In rule '{1}', the message with id '{2}' includes dynamic content that is not enclosed in single quotes. Enquoting dynamic content makes it easier to spot, and single quotes give a less cluttered appearance.
