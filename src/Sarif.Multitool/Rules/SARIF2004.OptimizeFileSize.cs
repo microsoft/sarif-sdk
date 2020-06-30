@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override IEnumerable<string> MessageResourceNames => new string[] {
                     nameof(RuleResources.SARIF2004_OptimizeFileSize_Warning_EliminateLocationOnlyArtifacts_Text),
-                                        nameof(RuleResources.SARIF2004_OptimizeFileSize_Warning_EliminateIdOnlyRules_Text)
+                    nameof(RuleResources.SARIF2004_OptimizeFileSize_Warning_EliminateIdOnlyRules_Text)
                 };
 
         public override FailureLevel DefaultLevel => FailureLevel.Warning;
@@ -41,8 +41,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             // We only verify first item in the results and artifacts array,
             // since tools will typically generate similar nodes.
             // This approach may cause occasional false negatives.
-            ArtifactLocation firstLocationInArtifactsArray = run?.Artifacts?.FirstOrDefault()?.Location;
-            ArtifactLocation firstlocationInResults = run?.Results?.FirstOrDefault()?.Locations?.FirstOrDefault()?.PhysicalLocation?.ArtifactLocation;
+            ArtifactLocation firstLocationInArtifactsArray = run.Artifacts?.FirstOrDefault()?.Location;
+            ArtifactLocation firstlocationInResults = run.Results?.FirstOrDefault()?.Locations?.FirstOrDefault()?.PhysicalLocation?.ArtifactLocation;
 
             if (firstLocationInArtifactsArray == null || firstlocationInResults == null)
             {
@@ -77,7 +77,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         private bool HasLocationOnlyArtifacts(string artifactPointer)
         {
-            var artifactToken = artifactPointer.ToJToken(Context.InputLogToken);
+            JToken artifactToken = artifactPointer.ToJToken(Context.InputLogToken);
             return
                 artifactToken.HasProperty(SarifPropertyName.Location) &&
                 artifactToken.Children().Count() == 1;
@@ -88,8 +88,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             // We only verify first item in the rules array,
             // since tools will typically generate similar nodes.
             // This approach may cause occasional false negatives.
-
-            ReportingDescriptor firstRule = run?.Tool?.Driver?.Rules?.FirstOrDefault();
+            // Also, `tool` and `driver` are mandatory fields, hence
+            // null check in not required.
+            ReportingDescriptor firstRule = run.Tool.Driver.Rules?.FirstOrDefault();
 
             if (firstRule == null)
             {
@@ -113,7 +114,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         private bool HasIdOnlyRules(string rulePointer)
         {
-            var ruleToken = rulePointer.ToJToken(Context.InputLogToken);
+            JToken ruleToken = rulePointer.ToJToken(Context.InputLogToken);
             return
                 ruleToken.HasProperty(SarifPropertyName.Id) &&
                 ruleToken.Children().Count() == 1;
