@@ -28,13 +28,11 @@
                   "uri": "src/test.c"
                 },
                 "region": {
-                  "startLine": 3,
-                  "snippet": { "text": "region code snippet" }
+                  "startLine": 3
                 },
                 "contextRegion": {
                   "startLine": 2,
-                  "endLine": 4,
-                  "snippet": { "text": "context region code snippet. More context here." }
+                  "endLine": 4
                 }
               }
             }
