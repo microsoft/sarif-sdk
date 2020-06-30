@@ -13,11 +13,7 @@
         {
           "ruleId": "TEST1001",
           "message": {
-            "text": "Test 1001 full description.",
-            "arguments": [
-              "runs[0].originalUriBaseIds.SRCINVALID",
-              "SRCINVALID"
-            ]
+            "text": "Test 1001 full description."
           }
         }
       ],
