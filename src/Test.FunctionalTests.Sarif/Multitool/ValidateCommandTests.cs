@@ -124,6 +124,14 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
             => RunTest(MakeInvalidTestFileName(RuleId.ReferenceFinalSchema, nameof(RuleId.ReferenceFinalSchema)));
 
         [Fact]
+        public void SARIF1012_MessageArgumentsMustBeConsistentWithRule_Valid()
+            => RunTest(MakeValidTestFileName(RuleId.MessageArgumentsMustBeConsistentWithRule, nameof(RuleId.MessageArgumentsMustBeConsistentWithRule)));
+
+        [Fact]
+        public void SARIF1012_MessageArgumentsMustBeConsistentWithRule_Invalid()
+            => RunTest(MakeInvalidTestFileName(RuleId.MessageArgumentsMustBeConsistentWithRule, nameof(RuleId.MessageArgumentsMustBeConsistentWithRule)));
+
+        [Fact]
         public void SARIF2001_AuthorHighQualityMessages_Valid()
             => RunTest(MakeValidTestFileName(RuleId.AuthorHighQualityMessages, nameof(RuleId.AuthorHighQualityMessages)));
 
