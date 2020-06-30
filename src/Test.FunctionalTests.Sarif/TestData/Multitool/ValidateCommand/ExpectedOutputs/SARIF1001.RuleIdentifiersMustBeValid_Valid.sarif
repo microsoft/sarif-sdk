@@ -10,6 +10,16 @@
       },
       "invocations": [
         {
+          "toolConfigurationNotifications": [
+            {
+              "message": {
+                "text": "Rule 'SARIF2006' was explicitly disabled by the user. As result, this tool run cannot be used for compliance or other auditing processes that require a comprehensive analysis."
+              },
+              "descriptor": {
+                "id": "WRN999.RuleExplicitlyDisabled"
+              }
+            }
+          ],
           "executionSuccessful": true
         }
       ],

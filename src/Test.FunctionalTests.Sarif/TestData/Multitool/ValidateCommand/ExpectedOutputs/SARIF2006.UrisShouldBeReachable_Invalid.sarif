@@ -11,10 +11,10 @@
               "id": "SARIF2006",
               "name": "UrisShouldBeReachable",
               "shortDescription": {
-                "text": "Placeholder."
+                "text": "Placeholder_SARIF2006_UrisShouldBeReachable_FullDescription_Text."
               },
               "fullDescription": {
-                "text": "Placeholder"
+                "text": "Placeholder_SARIF2006_UrisShouldBeReachable_FullDescription_Text"
               },
               "messageStrings": {
                 "Warning_Default": {
