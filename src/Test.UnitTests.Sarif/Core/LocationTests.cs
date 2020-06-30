@@ -77,8 +77,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             };
 
             location.LogicalLocation = null;
-
-            location.LogicalLocations.Should().BeNull();
+            location.LogicalLocations.Should().BeEmpty();
         }
     }
 }

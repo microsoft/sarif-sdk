@@ -27,7 +27,7 @@ Accept-Language: en, mi
 
             webRequest.Method.Should().Be("GET");
             webRequest.Target.Should().Be("/hello.txt");
-            webRequest.Parameters.Should().BeNull();
+            webRequest.Parameters.Should().BeEmpty();
             webRequest.Protocol.Should().Be("HTTP");
             webRequest.Version.Should().Be("1.1");
             webRequest.Headers.Count.Should().Be(3);
@@ -55,7 +55,7 @@ Line 2.
 
             webRequest.Method.Should().Be("GET");
             webRequest.Target.Should().Be("/hello.txt");
-            webRequest.Parameters.Should().BeNull();
+            webRequest.Parameters.Should().BeEmpty();
             webRequest.Protocol.Should().Be("HTTP");
             webRequest.Version.Should().Be("1.1");
             webRequest.Headers.Count.Should().Be(3);
@@ -163,7 +163,7 @@ User-Agent: my-agent
             succeeded.Should().BeTrue();
             webRequest.Method.Should().Be("GET");
             webRequest.Target.Should().Be("/hello.txt");
-            webRequest.Parameters.Should().BeNull();
+            webRequest.Parameters.Should().BeEmpty();
             webRequest.Protocol.Should().Be("HTTP");
             webRequest.Version.Should().Be("1.1");
             webRequest.Headers.Count.Should().Be(1);
