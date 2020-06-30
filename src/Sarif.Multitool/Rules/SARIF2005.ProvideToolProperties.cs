@@ -35,10 +35,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF2005_ProvideToolProperties_FullDescription_Text };
 
         protected override IEnumerable<string> MessageResourceNames => new string[] {
-                    nameof(RuleResources.SARIF2005_ProvideToolProperties_Warning_ProvideToolVersion_Text),
-                    nameof(RuleResources.SARIF2005_ProvideToolProperties_Warning_ProvideConciseToolName_Text),
-                    nameof(RuleResources.SARIF2005_ProvideToolProperties_Warning_UseNumericToolVersions_Text)
-                };
+            nameof(RuleResources.SARIF2005_ProvideToolProperties_Warning_ProvideToolVersion_Text),
+            nameof(RuleResources.SARIF2005_ProvideToolProperties_Warning_ProvideConciseToolName_Text),
+            nameof(RuleResources.SARIF2005_ProvideToolProperties_Warning_UseNumericToolVersions_Text)
+        };
 
         public override FailureLevel DefaultLevel => FailureLevel.Warning;
 
