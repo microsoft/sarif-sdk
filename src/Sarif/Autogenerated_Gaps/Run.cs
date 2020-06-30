@@ -8,6 +8,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         partial void Init()
         {
             Language = "en-US";
+            ColumnKind = ColumnKind.Utf16CodeUnits;
         }
     }
 }
