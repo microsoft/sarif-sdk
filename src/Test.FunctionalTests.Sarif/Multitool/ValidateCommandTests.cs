@@ -230,7 +230,7 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
         [Fact]
         public void SARIF2010_ProvideCodeSnippets_Invalid()
             => RunTest(
-                MakeValidTestFileName(RuleId.ProvideCodeSnippets, nameof(RuleId.ProvideCodeSnippets)),
+                MakeInvalidTestFileName(RuleId.ProvideCodeSnippets, nameof(RuleId.ProvideCodeSnippets)),
                 parameter: new TestParameters(verbose: true));
 
         [Fact]

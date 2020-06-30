@@ -28,7 +28,8 @@
                   "uri": "src/test.c"
                 },
                 "region": {
-                  "startLine": 3
+                  "startLine": 3,
+                  "snippet": {"text": "region snippet"}
                 }
               }
             }

@@ -40,29 +40,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         private void AnalyzeResultLocation(Location location, string locationPointer)
         {
-            Region region = location.PhysicalLocation?.Region;
-            Region contextRegion = location.PhysicalLocation?.ContextRegion;
+            AnalyzeRegion(
+                location.PhysicalLocation?.Region,
+                locationPointer
+                    .AtProperty(SarifPropertyName.PhysicalLocation)
+                    .AtProperty(SarifPropertyName.Region));
 
-            if (region != null && contextRegion != null)
-            {
-                AnalyzeRegion(
-                    region,
-                    locationPointer
-                        .AtProperty(SarifPropertyName.PhysicalLocation)
-                        .AtProperty(SarifPropertyName.Region));
-
-                AnalyzeRegion(
-                    contextRegion,
-                    locationPointer
-                        .AtProperty(SarifPropertyName.PhysicalLocation)
-                        .AtProperty(SarifPropertyName.ContextRegion));
-            }
+            AnalyzeRegion(
+                location.PhysicalLocation?.ContextRegion,
+                locationPointer
+                    .AtProperty(SarifPropertyName.PhysicalLocation)
+                    .AtProperty(SarifPropertyName.ContextRegion));
         }
 
         private void AnalyzeRegion(Region region, string regionPointer)
         {
 
-            if (region.Snippet == null)
+            if (region != null && region.Snippet == null)
             {
                 // Placeholder_SARIF2010_ProvideCodeSnippets_Note_Default_Text
                 LogResult(

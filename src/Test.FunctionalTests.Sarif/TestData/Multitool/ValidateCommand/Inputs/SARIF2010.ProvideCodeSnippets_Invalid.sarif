@@ -37,6 +37,73 @@
               }
             }
           ]
+        },
+        {
+          "ruleId": "TST0001",
+          "level": "error",
+          "message": {
+            "text": "Some testing occurred."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/test.c"
+                },
+                "region": {
+                  "startLine": 3,
+                  "snippet": {"text": "snippet here."}
+                },
+                "contextRegion": {
+                  "startLine": 2,
+                  "endLine": 4
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "TST0001",
+          "level": "error",
+          "message": {
+            "text": "Some testing occurred."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/test.c"
+                },
+                "region": {
+                  "startLine": 3
+                },
+                "contextRegion": {
+                  "startLine": 2,
+                  "endLine": 4,
+                  "snippet": { "text": "context snippet here." }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "TST0001",
+          "level": "error",
+          "message": {
+            "text": "Some testing occurred."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/test.c"
+                },
+                "region": {
+                  "startLine": 3
+                }
+              }
+            }
+          ]
         }
       ],
       "columnKind": "utf16CodeUnits"
