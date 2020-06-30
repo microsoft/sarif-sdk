@@ -41,7 +41,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         private static readonly Regex s_conventionalIdRegex = new Regex(@"^[A-Z]{1,5}[0-9]{1,4}$", RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
-        protected override void Analyze(Tool tool, string toolPointer)
+        protected override void Analyze(Run run, string runPointer)
+        {
+            AnalyzeTool(run.Tool, runPointer.AtProperty(SarifPropertyName.Tool));
+        }
+
+        private void AnalyzeTool(Tool tool, string toolPointer)
         {
             if (tool.Driver != null)
             {

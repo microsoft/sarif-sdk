@@ -58,13 +58,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 string messageStringsPointer = reportingDescriptorPointer.AtProperty(SarifPropertyName.MessageStrings);
                 foreach (KeyValuePair<string, MultiformatMessageString> message in rule.MessageStrings)
                 {
-                    AnalyzeString(rule.Id, message.Value.Text, message.Key, messageStringsPointer.AtProperty(message.Key), SarifPropertyName.Text);
-                    AnalyzeString(rule.Id, message.Value.Markdown, message.Key, messageStringsPointer.AtProperty(message.Key), SarifPropertyName.Markdown);
+                    AnalyzeMessageString(rule.Id, message.Value.Text, message.Key, messageStringsPointer.AtProperty(message.Key), SarifPropertyName.Text);
+                    AnalyzeMessageString(rule.Id, message.Value.Markdown, message.Key, messageStringsPointer.AtProperty(message.Key), SarifPropertyName.Markdown);
                 }
             }
         }
 
-        private void AnalyzeString(string ruleId, string messageString, string messageKey, string messagePointer, string propertyName)
+        private void AnalyzeMessageString(string ruleId, string messageString, string messageKey, string messagePointer, string propertyName)
         {
             if (string.IsNullOrEmpty(messageString))
             {
