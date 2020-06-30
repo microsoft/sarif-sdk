@@ -41,9 +41,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
             if (location.PhysicalLocation?.Region != null)
             {
-                string physicalLocation = locationPointer.AtProperty(SarifPropertyName.PhysicalLocation);
                 if (location.PhysicalLocation?.ContextRegion == null)
                 {
+                    string physicalLocation = locationPointer.AtProperty(SarifPropertyName.PhysicalLocation);
+
                     // {0}: Placeholder
                     LogResult(
                         physicalLocation,
