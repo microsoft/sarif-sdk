@@ -124,6 +124,14 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
             => RunTest(MakeInvalidTestFileName(RuleId.ReferenceFinalSchema, nameof(RuleId.ReferenceFinalSchema)));
 
         [Fact]
+        public void SARIF1012_MessageArgumentsMustBeConsistentWithRule_Valid()
+            => RunTest(MakeValidTestFileName(RuleId.MessageArgumentsMustBeConsistentWithRule, nameof(RuleId.MessageArgumentsMustBeConsistentWithRule)));
+
+        [Fact]
+        public void SARIF1012_MessageArgumentsMustBeConsistentWithRule_Invalid()
+            => RunTest(MakeInvalidTestFileName(RuleId.MessageArgumentsMustBeConsistentWithRule, nameof(RuleId.MessageArgumentsMustBeConsistentWithRule)));
+
+        [Fact]
         public void SARIF2001_AuthorHighQualityMessages_Valid()
             => RunTest(MakeValidTestFileName(RuleId.AuthorHighQualityMessages, nameof(RuleId.AuthorHighQualityMessages)));
 
@@ -141,11 +149,11 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
 
         [Fact]
         public void SARIF2005_ProvideToolProperties_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.ProvideHelpfulToolInformation, nameof(RuleId.ProvideHelpfulToolInformation)));
+            => RunTest(MakeValidTestFileName(RuleId.ProvideToolProperties, nameof(RuleId.ProvideToolProperties)));
 
         [Fact]
         public void SARIF2005_ProvideToolProperties_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.ProvideHelpfulToolInformation, nameof(RuleId.ProvideHelpfulToolInformation)));
+            => RunTest(MakeInvalidTestFileName(RuleId.ProvideToolProperties, nameof(RuleId.ProvideToolProperties)));
 
         [Fact]
         public void SARIF2006_UrisShouldBeReachable_Valid()

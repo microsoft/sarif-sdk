@@ -9,7 +9,7 @@
           "rules": [
             {
               "id": "SARIF2005",
-              "name": "ProvideHelpfulToolInformation",
+              "name": "ProvideToolProperties",
               "shortDescription": {
                 "text": "Provide information that makes it easy to identify the name and version of your tool."
               },
@@ -40,7 +40,7 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF2005.ProvideHelpfulToolInformation_Invalid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF2005.ProvideToolProperties_Invalid.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }
