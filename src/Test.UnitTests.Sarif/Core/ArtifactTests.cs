@@ -33,7 +33,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             {
                 File.WriteAllText(filePath, fileContents);
                 Artifact fileData = Artifact.Create(uri, OptionallyEmittedData.Hashes);
-                fileData.Location.Should().Be(null);
+                fileData.Location.Should().BeNull();
                 HashData hashes = HashUtilities.ComputeHashes(filePath);
                 fileData.Contents.Should().BeNull();
                 fileData.Hashes.Count.Should().Be(3);
@@ -86,11 +86,11 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
 
                 if (dataToInsert.HasFlag(OptionallyEmittedData.Hashes))
                 {
-                    fileData.Hashes.Should().NotBeNull();
+                    fileData.Hashes.Should().NotBeEmpty();
                 }
                 else
                 {
-                    fileData.Hashes.Should().BeNull();
+                    fileData.Hashes.Should().BeEmpty();
                 }
 
                 string encodedFileContents = Convert.ToBase64String(File.ReadAllBytes(filePath));
@@ -125,8 +125,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             {
                 File.WriteAllBytes(filePath, fileContents);
                 Artifact fileData = Artifact.Create(uri, OptionallyEmittedData.TextFiles, encoding: encoding);
-                fileData.Location.Should().Be(null);
-                fileData.Hashes.Should().BeNull();
+                fileData.Location.Should().BeNull();
+                fileData.Hashes.Should().BeEmpty();
 
                 string encodedFileContents = encoding.GetString(fileContents);
                 fileData.Contents.Text.Should().Be(encodedFileContents);
@@ -145,8 +145,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             string filePath = Path.GetTempFileName();
             Uri uri = new Uri(filePath);
             Artifact fileData = Artifact.Create(uri, OptionallyEmittedData.TextFiles);
-            fileData.Location.Should().Be(null);
-            fileData.Hashes.Should().BeNull();
+            fileData.Location.Should().BeNull();
+            fileData.Hashes.Should().BeEmpty();
             fileData.Contents.Should().BeNull();
         }
 
@@ -163,8 +163,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
                 using (FileStream exclusiveAccessReader = File.Open(filePath, FileMode.Open, FileAccess.Read, FileShare.None))
                 {
                     Artifact fileData = Artifact.Create(uri, OptionallyEmittedData.TextFiles);
-                    fileData.Location.Should().Be(null);
-                    fileData.Hashes.Should().BeNull();
+                    fileData.Location.Should().BeNull();
+                    fileData.Hashes.Should().BeEmpty();
                     fileData.Contents.Should().BeNull();
                 }
             }

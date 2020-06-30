@@ -276,8 +276,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void SarifLogger_WritesRunProperties()
         {
-            SarifLog container = new SarifLog();
-
             string propertyName = "numberValue";
             double propertyValue = 3.14;
             string logicalId = nameof(logicalId) + ":" + Guid.NewGuid().ToString();

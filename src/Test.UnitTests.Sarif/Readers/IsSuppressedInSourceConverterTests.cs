@@ -69,7 +69,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             actual.Should().BeCrossPlatformEquivalent<SarifLog>(expected);
 
             SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(actual);
-            Assert.Null(sarifLog.Runs[0].Results[0].Suppressions);
+            Assert.Empty(sarifLog.Runs[0].Results[0].Suppressions);
             Assert.Equal(BaselineState.None, sarifLog.Runs[0].Results[0].BaselineState);
         }
 
@@ -104,7 +104,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             actual.Should().BeCrossPlatformEquivalent<SarifLog>(expected);
 
             SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(actual);
-            Assert.Null(sarifLog.Runs[0].Results[0].Suppressions);
+            Assert.Empty(sarifLog.Runs[0].Results[0].Suppressions);
             Assert.Equal(BaselineState.Unchanged, sarifLog.Runs[0].Results[0].BaselineState);
             Assert.Equal(BaselineState.Updated, sarifLog.Runs[0].Results[1].BaselineState);
         }
