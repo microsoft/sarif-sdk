@@ -1,0 +1,152 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "SARIF Functional Testing",
+          "rules": [
+            {
+              "id": "SARIF1012",
+              "name": "MessageArgumentsMustBeConsistentWithRule",
+              "shortDescription": {
+                "text": "Placeholder."
+              },
+              "fullDescription": {
+                "text": "Placeholder"
+              },
+              "messageStrings": {
+                "Error_MessageIdMustExist": {
+                  "text": "{0}: Placeholder '{1}' '{2}'"
+                },
+                "Error_SupplyEnoughMessageArguments": {
+                  "text": "{0}: Placeholder '{1}' '{2}' '{3}' '{4}' '{5}'"
+                }
+              },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+            },
+            {
+              "id": "SARIF2001",
+              "name": "AuthorHighQualityMessages",
+              "shortDescription": {
+                "text": "Follow authoring practices that make your rule messages readable, understandable, and actionable."
+              },
+              "fullDescription": {
+                "text": "Follow authoring practices that make your rule messages readable, understandable, and actionable.\r\n\r\nIncluding \"dynamic content\" (information that varies among results from the same rule) makes your messages more specific. It avoids the \"wall of bugs\" phenomenon, where hundreds of occurrences of the same message appear unapproachable.\r\n\r\nPlacing dynamic content in quotes sets it off from the static text, making it easier to spot. It's especially helpful when the dynamic content is a string that might contain spaces, and most especially when the string might be empty (and so would be invisible if it weren't for the quotes). We recommend single quotes for a less cluttered appearance, even though English usage would require double quotes.\r\n\r\nFinally, write in complete sentences and end each sentence with a period. This guidance does not apply to Markdown messages, which might include formatting that makes the punctuation unnecessary."
+              },
+              "messageStrings": {
+                "Warning_EnquoteDynamicContent": {
+                  "text": "{0}: In rule '{1}', the message with id '{2}' includes dynamic content that is not enclosed in single quotes. Enquoting dynamic content makes it easier to spot, and single quotes give a less cluttered appearance."
+                },
+                "Warning_IncludeDynamicContent": {
+                  "text": "{0}: In rule '{1}', the message with id '{2}' does not include any dynamic content. Dynamic content makes your messages more specific and avoids the \"wall of bugs\" phenomenon."
+                },
+                "Warning_TerminateWithPeriod": {
+                  "text": "{0}: In rule '{1}', the message with id '{2}' does not end in a period. Write rule messages as complete sentences."
+                }
+              },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+            }
+          ]
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1012.MessageArgumentsMustBeConsistentWithRule_Invalid.sarif",
+            "uriBaseId": "TEST_DIR"
+          }
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "SARIF1012",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_MessageIdMustExist",
+            "arguments": [
+              "runs[0].results[0]",
+              "DoesNotExist",
+              "0"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 44,
+                  "startColumn": 9
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1012",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_SupplyEnoughMessageArguments",
+            "arguments": [
+              "runs[0].results[1]",
+              "1",
+              "DoesExist",
+              "0",
+              "3",
+              "{0}: Placeholder {1} {2}."
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 69,
+                  "startColumn": 9
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF2001",
+          "ruleIndex": 1,
+          "message": {
+            "id": "Warning_EnquoteDynamicContent",
+            "arguments": [
+              "runs[0].tool.driver.rules[0].messageStrings.DoesExist.text",
+              "TEST1001",
+              "DoesExist"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 22,
+                  "startColumn": 53
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}

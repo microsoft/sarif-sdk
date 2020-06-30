@@ -351,7 +351,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Placeholder_SARIF1012_MessageArgumentsMustBeConsistentWithRule_Error_MessageIdMustExist_Text.
+        ///   Looks up a localized string similar to {0}: Placeholder &apos;{1}&apos; &apos;{2}&apos;.
         /// </summary>
         internal static string SARIF1012_MessageArgumentsMustBeConsistentWithRule_Error_MessageIdMustExist_Text {
             get {
@@ -360,7 +360,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Placeholder_SARIF1012_MessageArgumentsMustBeConsistentWithRule_Error_SupplyEnoughMessageArguments_Text.
+        ///   Looks up a localized string similar to {0}: Placeholder &apos;{1}&apos; &apos;{2}&apos; &apos;{3}&apos; &apos;{4}&apos; &apos;{5}&apos;.
         /// </summary>
         internal static string SARIF1012_MessageArgumentsMustBeConsistentWithRule_Error_SupplyEnoughMessageArguments_Text {
             get {
@@ -370,7 +370,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Placeholder_SARIF1012_MessageArgumentsMustBeConsistentWithRule_FullDescription_Text.
+        ///   Looks up a localized string similar to Placeholder.
         /// </summary>
         internal static string SARIF1012_MessageArgumentsMustBeConsistentWithRule_FullDescription_Text {
             get {
