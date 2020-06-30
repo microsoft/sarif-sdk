@@ -24,12 +24,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            var dictionary = (existingValue as IDictionary<string, SerializedPropertyInfo> ?? new Dictionary<string, SerializedPropertyInfo>());
+            IDictionary<string, SerializedPropertyInfo> dictionary = (existingValue as IDictionary<string, SerializedPropertyInfo> ?? new Dictionary<string, SerializedPropertyInfo>());
 
             reader.Expect(JsonToken.StartObject);
             reader.Read();
 
-            while(reader.TokenType == JsonToken.PropertyName)
+            while (reader.TokenType == JsonToken.PropertyName)
             {
                 string name = (string)reader.Value;
                 reader.Read();
