@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
             if (run.Artifacts != null && run.Artifacts.All(artifact => artifact.Contents == null))
             {
-                // {0}: Placeholder '{1}'
+                // {0}: Placeholder
                 LogResult(
                     runPointer,
                     nameof(RuleResources.SARIF2013_ProvideEmbeddedFileContent_Note_Default_Text));
