@@ -57,7 +57,7 @@ Many of SARIF's structural requirements are expressed in a [JSON schema](https:/
 
 ## The SARIF validation tool
 
-The SARIF validation tool (the "validator") helps ensure that a SARIF file conforms to SARIF's structural requirements as well as to the guidelines for producing high-quality SARIF output.
+The SARIF validation tool (the "validator") helps ensure that a SARIF file conforms to SARIF's structural requirements as well as to the guidelines for producing effective SARIF output.
 
 ### What the validator does
 
@@ -70,9 +70,9 @@ Here's how the validator process a SARIF log file:
 The analysis rules in Step 3 fall into two categories:
 
 1. Rules that detect structural problems that the schema can't express.
-2. Rules that enforce guidelines for producing high quality SARIF.
+2. Rules that enforce guidelines for producing effective SARIF.
 
-The validator is incomplete: it does not enforce every structural condition in the spec, nor every guideline for producing high quality SARIF. We hope to continue to add analysis rules in both those areas.
+The validator is incomplete: it does not enforce every structural condition in the spec, nor every guideline for producing effective SARIF. We hope to continue to add analysis rules in both those areas.
 
 ### Installing and using the validator
 
@@ -95,7 +95,7 @@ This document expresses each structural requirement and guideline as a validator
 
 First come the rules that detect serious violations of the SARIF spec (rules which the validator would report as `"error"`). They have numbers in the range 1000-1999, for example, `SARIF1001.RuleIdentifiersMustBeValid`.
 
-Then come the rules that detect either less serious violations of the SARIF spec (rules which the validator would report as `"warning"` or `"note"`). They have numbers in the range 2000-2999, for example, `SARIF2001.AuthorHighQualityMessages`.
+Then come the rules that detect either less serious violations of the SARIF spec (rules which the validator would report as `"warning"` or `"note"`), or guidance based on integrating SARIF into a wide variety of static analysis tools. They have numbers in the range 2000-2999, for example, `SARIF2005.ProvideToolProperties`.
 
 Each rule has a description that describes its purpose, followed by one or more messages that can appear in a SARIF result object that reports a violation of this rule. Each message includes one or more replacement sequences (`{0}`, `{1}`, _etc._). The first one (`{0}`) is always a JSON path expression that describes the location of the result. For example, `/runs/0/results/0/locations/0/physicalLocation` specifies the `physicalLocation` property of the first location of the first result in the first run in the log file.
 
@@ -323,11 +323,13 @@ When a result's 'message' object uses the 'id' and 'arguments' properties (which
 
 ---
 
-## Rules that describe less serious violations
+## Rules that describe less serious violations and guidelines for effective SARIF
 
 Rules that describe violations of **SHOULD**/**SHOULD NOT** requirements of the [SARIF specification](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html) have numbers between 2000 and 2999, and always have level `"warning"`.
 
 Rules that describe violations of SARIF recommendations or best practices also have numbers in this range. Some of those recommendations are expressed in the spec as **MAY** requirements; others are based on experience using the format. These rules have level `"warning"` or `"note"`, depending on the tool's opinion of the seriousness of the violation.
+
+This section also includes guidelines which, although not found in the spec text, are based on experience in integrating SARIF into a wide variety of static analysis tools.
 
 ---
 
