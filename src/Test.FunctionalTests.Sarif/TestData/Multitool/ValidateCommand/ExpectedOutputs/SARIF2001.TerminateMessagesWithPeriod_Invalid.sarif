@@ -11,13 +11,13 @@
               "id": "SARIF2001",
               "name": "TerminateMessagesWithPeriod",
               "shortDescription": {
-                "text": "Follow authoring practices that make your rule messages readable, understandable, and actionable."
+                "text": "Write in complete sentences and end each sentence with a period."
               },
               "fullDescription": {
-                "text": "Follow authoring practices that make your rule messages readable, understandable, and actionable.\r\n\r\nIncluding \"dynamic content\" (information that varies among results from the same rule) makes your messages more specific. It avoids the \"wall of bugs\" phenomenon, where hundreds of occurrences of the same message appear unapproachable.\r\n\r\nPlacing dynamic content in quotes sets it off from the static text, making it easier to spot. It's especially helpful when the dynamic content is a string that might contain spaces, and most especially when the string might be empty (and so would be invisible if it weren't for the quotes). We recommend single quotes for a less cluttered appearance, even though English usage would require double quotes.\r\n\r\nFinally, write in complete sentences and end each sentence with a period. This guidance does not apply to Markdown messages, which might include formatting that makes the punctuation unnecessary."
+                "text": "Write in complete sentences and end each sentence with a period. This guidance does not apply to Markdown messages, which might include formatting that makes the punctuation unnecessary."
               },
               "messageStrings": {
-                "Warning_TerminateWithPeriod": {
+                "Warning_Default": {
                   "text": "{0}: In rule '{1}', the message with id '{2}' does not end in a period. Write rule messages as complete sentences."
                 }
               },
@@ -44,7 +44,7 @@
           "ruleId": "SARIF2001",
           "ruleIndex": 0,
           "message": {
-            "id": "Warning_TerminateWithPeriod",
+            "id": "Warning_Default",
             "arguments": [
               "runs[0].tool.driver.rules[0].messageStrings.NoPeriod.text",
               "TST0001",

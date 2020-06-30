@@ -11,13 +11,13 @@
               "id": "SARIF2015",
               "name": "EnquoteDynamicMessageContent",
               "shortDescription": {
-                "text": "Follow authoring practices that make your rule messages readable, understandable, and actionable."
+                "text": "Placing dynamic content in quotes sets it off from the static text, making it easier to spot."
               },
               "fullDescription": {
-                "text": "Follow authoring practices that make your rule messages readable, understandable, and actionable.\r\n\r\nIncluding \"dynamic content\" (information that varies among results from the same rule) makes your messages more specific. It avoids the \"wall of bugs\" phenomenon, where hundreds of occurrences of the same message appear unapproachable.\r\n\r\nPlacing dynamic content in quotes sets it off from the static text, making it easier to spot. It's especially helpful when the dynamic content is a string that might contain spaces, and most especially when the string might be empty (and so would be invisible if it weren't for the quotes). We recommend single quotes for a less cluttered appearance, even though English usage would require double quotes.\r\n\r\nFinally, write in complete sentences and end each sentence with a period. This guidance does not apply to Markdown messages, which might include formatting that makes the punctuation unnecessary."
+                "text": "Placing dynamic content in quotes sets it off from the static text, making it easier to spot. It's especially helpful when the dynamic content is a string that might contain spaces, and most especially when the string might be empty (and so would be invisible if it weren't for the quotes). We recommend single quotes for a less cluttered appearance, even though English usage would require double quotes."
               },
               "messageStrings": {
-                "Warning_EnquoteDynamicContent": {
+                "Note_Default": {
                   "text": "{0}: In rule '{1}', the message with id '{2}' includes dynamic content that is not enclosed in single quotes. Enquoting dynamic content makes it easier to spot, and single quotes give a less cluttered appearance."
                 }
               },
@@ -45,7 +45,7 @@
           "ruleIndex": 0,
           "level": "note",
           "message": {
-            "id": "Warning_EnquoteDynamicContent",
+            "id": "Note_Default",
             "arguments": [
               "runs[0].tool.driver.rules[0].messageStrings.NotEnquoted.text",
               "TST0001",

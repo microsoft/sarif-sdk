@@ -139,17 +139,11 @@ URIs must conform to [RFC 3986](https://tools.ietf.org/html/rfc3986). In additio
 
 If the 'invocation' object specifies both 'startTimeUtc' and 'endTimeUtc', then 'endTimeUtc' must not precede 'startTimeUtc'. To allow for the possibility that the duration of the run is less than the resolution of the string representation of the time, the start time and the end time may be equal.</value>
   </data>
-  <data name="SARIF2001_TerminateMessagesWithPeriod_Warning_TerminateWithPeriod_Text" xml:space="preserve">
+  <data name="SARIF2001_TerminateMessagesWithPeriod_Warning_Default_Text" xml:space="preserve">
     <value>{0}: In rule '{1}', the message with id '{2}' does not end in a period. Write rule messages as complete sentences.</value>
   </data>
   <data name="SARIF2001_TerminateMessagesWithPeriod_FullDescription_Text" xml:space="preserve">
-    <value>Follow authoring practices that make your rule messages readable, understandable, and actionable.
-
-Including "dynamic content" (information that varies among results from the same rule) makes your messages more specific. It avoids the "wall of bugs" phenomenon, where hundreds of occurrences of the same message appear unapproachable.
-
-Placing dynamic content in quotes sets it off from the static text, making it easier to spot. It's especially helpful when the dynamic content is a string that might contain spaces, and most especially when the string might be empty (and so would be invisible if it weren't for the quotes). We recommend single quotes for a less cluttered appearance, even though English usage would require double quotes.
-
-Finally, write in complete sentences and end each sentence with a period. This guidance does not apply to Markdown messages, which might include formatting that makes the punctuation unnecessary.</value>
+    <value>Write in complete sentences and end each sentence with a period. This guidance does not apply to Markdown messages, which might include formatting that makes the punctuation unnecessary.</value>
   </data>
   <data name="SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdRequiresRelativeUri_Text" xml:space="preserve">
     <value>{0}: This fileLocation object contains a "uriBaseId" property, which means that the value of the "uri" property must be a relative URI reference, but "{1}" is an absolute URI reference.</value>
@@ -251,12 +245,6 @@ If 'version' is used, facilitate comparison between versions by specifying it ei
   <data name="SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdValueMustNotContainQueryOrFragment_Text" xml:space="preserve">
     <value>{0}: '{1}' '{2}' Placeholder: SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdValueMustNotContainQueryOrFragment_Text</value>
   </data>
-  <data name="SARIF2001_TerminateMessagesWithPeriod_Warning_EnquoteDynamicContent_Text" xml:space="preserve">
-    <value>{0}: In rule '{1}', the message with id '{2}' includes dynamic content that is not enclosed in single quotes. Enquoting dynamic content makes it easier to spot, and single quotes give a less cluttered appearance.</value>
-  </data>
-  <data name="SARIF2001_TerminateMessagesWithPeriod_Warning_IncludeDynamicContent_Text" xml:space="preserve">
-    <value>{0}: In rule '{1}', the message with id '{2}' does not include any dynamic content. Dynamic content makes your messages more specific and avoids the "wall of bugs" phenomenon.</value>
-  </data>
   <data name="SARIF1002_UrisMustBeValid_Error_FileUrisMustNotIncludeDotDotSegments_Text" xml:space="preserve">
     <value>{0}: The 'file' URI '{1}' contains a '..' segment. This is dangerous because if symbolic links are present, '..' might have different meanings on the machine that produced the log file and the machine where an end user or a tool consumes it.</value>
   </data>
@@ -344,15 +332,15 @@ Many tool use similar names for 'uriBaseId' symbols. We suggest 'REPOROOT' for t
     <value>Placeholder_SARIF2013_ProvideEmbeddedFileContent_Note_Default_Text</value>
   </data>
   <data name="SARIF2014_ProvideDynamicMessageContent_FullDescription_Text" xml:space="preserve">
-    <value>Placeholder_SARIF2014_ProvideDynamicMessageContent_FullDescription_Text</value>
+    <value>Including "dynamic content" (information that varies among results from the same rule) makes your messages more specific. It avoids the "wall of bugs" phenomenon, where hundreds of occurrences of the same message appear unapproachable.</value>
   </data>
   <data name="SARIF2014_ProvideDynamicMessageContent_Note_Default_Text" xml:space="preserve">
-    <value>Placeholder_SARIF2014_ProvideDynamicMessageContent_Note_Default_Text</value>
+    <value>{0}: In rule '{1}', the message with id '{2}' does not include any dynamic content. Dynamic content makes your messages more specific and avoids the "wall of bugs" phenomenon.</value>
   </data>
   <data name="SARIF2015_EnquoteDynamicMessageContent_FullDescription_Text" xml:space="preserve">
-    <value>Placeholder_SARIF2015_EnquoteDynamicMessageContent_FullDescription_Text</value>
+    <value>Placing dynamic content in quotes sets it off from the static text, making it easier to spot. It's especially helpful when the dynamic content is a string that might contain spaces, and most especially when the string might be empty (and so would be invisible if it weren't for the quotes). We recommend single quotes for a less cluttered appearance, even though English usage would require double quotes.</value>
   </data>
   <data name="SARIF2015_EnquoteDynamicMessageContent_Note_Default_Text" xml:space="preserve">
-    <value>Placeholder_SARIF2015_EnquoteDynamicMessageContent_Note_Default_Text</value>
+    <value>{0}: In rule '{1}', the message with id '{2}' includes dynamic content that is not enclosed in single quotes. Enquoting dynamic content makes it easier to spot, and single quotes give a less cluttered appearance.</value>
   </data>
 </root>
