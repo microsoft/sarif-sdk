@@ -127,12 +127,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             SerializedPropertyInfo propValue = null;
             if (Properties?.TryGetValue(propertyName, out propValue) ?? false)
             {
-                serializedValue = null;
-                return false;
+                serializedValue = propValue?.SerializedValue;
+                return true;
             }
 
-            serializedValue = propValue?.SerializedValue;
-            return true;
+            serializedValue = null;
+            return false;
         }
 
         public string GetSerializedPropertyValue(string propertyName)
