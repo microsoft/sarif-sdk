@@ -30,7 +30,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public override FailureLevel DefaultLevel => FailureLevel.Note;
 
         private static readonly Regex s_dynamicContentRegex = new Regex(@"\{[0-9]+\}", RegexOptions.Compiled | RegexOptions.CultureInvariant);
-        private static readonly Regex s_nonEnquotedDynamicContextRegex = new Regex(@"(^|[^'])\{[0-9]+\}", RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
         protected override void Analyze(Tool tool, string toolPointer)
         {

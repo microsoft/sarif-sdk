@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
     public class EnquoteDynamicMessageContent : SarifValidationSkimmerBase
     {
         /// <summary>
-        /// SARIF2001
+        /// SARIF2015
         /// </summary>
         public override string Id => RuleId.EnquoteDynamicMessageContent;
 

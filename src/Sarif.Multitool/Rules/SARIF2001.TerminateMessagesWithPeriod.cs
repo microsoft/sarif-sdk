@@ -17,8 +17,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public override string Id => RuleId.TerminateMessagesWithPeriod;
 
         /// <summary>
-        /// Write in complete sentences and end each sentence with a period.This guidance
-        /// does not apply to Markdown messages, which might include formatting that makes the punctuation
+        /// Write in complete sentences and end each sentence with a period.This guidance does not
+        /// apply to Markdown messages, which might include formatting that makes the punctuation
         /// unnecessary.
         /// </summary>
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF2001_TerminateMessagesWithPeriod_FullDescription_Text };
