@@ -8,17 +8,17 @@
           "name": "SARIF Functional Testing",
           "rules": [
             {
-              "id": "SARIF1006",
-              "name": "InvocationPropertiesMustBeConsistent",
+              "id": "SARIF2003",
+              "name": "ProvideVersionControlProvenance",
               "shortDescription": {
-                "text": "The properties of an 'invocation' object must be consistent."
+                "text": "Placeholder_SARIF2003_ProvideVersionControlProvenance_FullDescription_Text."
               },
               "fullDescription": {
-                "text": "The properties of an 'invocation' object must be consistent.\r\n\r\nIf the 'invocation' object specifies both 'startTimeUtc' and 'endTimeUtc', then 'endTimeUtc' must not precede 'startTimeUtc'. To allow for the possibility that the duration of the run is less than the resolution of the string representation of the time, the start time and the end time may be equal."
+                "text": "Placeholder_SARIF2003_ProvideVersionControlProvenance_FullDescription_Text"
               },
               "messageStrings": {
-                "Error_EndTimeMustNotPrecedeStartTime": {
-                  "text": "{0}: The 'endTimeUtc' value '{1}' precedes the 'startTimeUtc' value '{2}'. The properties of an 'invocation' object must be internally consistent."
+                "Note_Default": {
+                  "text": "{0}: Placeholder"
                 }
               },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
@@ -52,22 +52,20 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1006.InvocationPropertiesMustBeConsistent_Invalid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF2003.ProvideVersionControlProvenance_Invalid.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }
       ],
       "results": [
         {
-          "ruleId": "SARIF1006",
+          "ruleId": "SARIF2003",
           "ruleIndex": 0,
-          "level": "error",
+          "level": "note",
           "message": {
-            "id": "Error_EndTimeMustNotPrecedeStartTime",
+            "id": "Note_Default",
             "arguments": [
-              "runs[0].invocations[0].endTimeUtc",
-              "2016-08-25T21:26:40.051Z",
-              "2016-08-25T21:26:42.049Z"
+              "runs[0]"
             ]
           },
           "locations": [
@@ -77,8 +75,8 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 16,
-                  "startColumn": 50
+                  "startLine": 5,
+                  "startColumn": 5
                 }
               }
             }

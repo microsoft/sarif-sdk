@@ -91,6 +91,9 @@
     <None Remove="TestData\Partitioning\Partition\ExpectedOutputs\TST0002.sarif" />
     <None Remove="TestData\Partitioning\Partition\ExpectedOutputs\TST9999.sarif" />
     <None Remove="TestData\Partitioning\Partition\Inputs\Partition.sarif" />
+    <Content Include="..\Sarif.Multitool\default.configuration.xml" Link="default.configuration.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="v1\ConverterTestData\StaticDriverVerifier\cancelspinlock_bug1.tt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -352,6 +355,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Update="enable2002.configuration.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="enable2006.configuration.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="v1\ConverterTestData\Pylint\PyLint-01.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

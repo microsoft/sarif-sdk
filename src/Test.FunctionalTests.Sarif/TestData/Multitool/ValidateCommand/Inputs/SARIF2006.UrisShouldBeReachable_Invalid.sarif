@@ -10,8 +10,7 @@
           "downloadUri": "http://www.example.com/tools/codescanner/download.html",
           "rules": [
             {
-              "id": "WRONG00001",
-              "name": "Wrong Rule 00001",
+              "id": "TST0001",
               "helpUri": "http://www.example.com/rules/tst0001.html"
             }
           ]
@@ -19,14 +18,22 @@
       },
       "versionControlProvenance": [
         {
-          "repositoryUri": "https://github.com/microsoft/sarif-sdk"
+          "repositoryUri": "https://example.com/my-project"
         }
       ],
-      "originalUriBaseIds": {
-        "SRCINVALID": {
-          "uri": "file:///c:/Code/sarif-sdk/src/"
+      "results": [
+        {
+          "ruleId": "TST0001",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "text": "Some testing occurred."
+          },
+          "workItemUris": [
+            "https://example.com/my-project/issues/42"
+          ]
         }
-      },
+      ],
       "columnKind": "utf16CodeUnits"
     }
   ]
