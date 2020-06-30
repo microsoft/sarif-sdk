@@ -18,7 +18,7 @@
               },
               "messageStrings": {
                 "Note_Default": {
-                  "text": "{0}: In rule '{1}', the message with id '{2}' does not include any dynamic content. Dynamic content makes your messages more specific and avoids the \"wall of bugs\" phenomenon."
+                  "text": "{0}: In rule '{1}', the '{2}' property of the message with id '{3}' does not include any dynamic content. Dynamic content makes your messages more specific and avoids the \"wall of bugs\" phenomenon."
                 }
               },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
@@ -67,6 +67,7 @@
             "arguments": [
               "runs[0].tool.driver.rules[0].messageStrings.NoPlaceholders.text",
               "TST0001",
+              "text",
               "NoPlaceholders"
             ]
           },

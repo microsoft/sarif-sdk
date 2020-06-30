@@ -58,29 +58,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 string messageStringsPointer = reportingDescriptorPointer.AtProperty(SarifPropertyName.MessageStrings);
                 foreach (KeyValuePair<string, MultiformatMessageString> message in rule.MessageStrings)
                 {
-                    AnalyzeMessageString(rule.Id, message.Value.Text, message.Key, messageStringsPointer.AtProperty(message.Key));
+                    AnalyzeMessageString(rule.Id, message.Value.Text, message.Key, messageStringsPointer.AtProperty(message.Key), SarifPropertyName.Text);
+                    AnalyzeMessageString(rule.Id, message.Value.Markdown, message.Key, messageStringsPointer.AtProperty(message.Key), SarifPropertyName.Markdown);
                 }
             }
         }
 
-        private void AnalyzeMessageString(string ruleId, string messageString, string messageKey, string messagePointer)
+        private void AnalyzeMessageString(string ruleId, string messageString, string messageKey, string messagePointer, string propertyName)
         {
             if (string.IsNullOrEmpty(messageString))
             {
                 return;
             }
 
-            string textPointer = messagePointer.AtProperty(SarifPropertyName.Text);
+            string pointer = messagePointer.AtProperty(propertyName);
 
             if (!s_dynamicContentRegex.IsMatch(messageString))
             {
-                // {0}: In rule '{1}', the message with id '{2}' does not include any dynamic content.
-                // Dynamic content makes your messages more specific and avoids the "wall of bugs"
-                // phenomenon.
+                // {0}: In rule '{1}', the '{2}' property of the message with id '{3}' does not include
+                // any dynamic content. Dynamic content makes your messages more specific and avoids the
+                // "wall of bugs" phenomenon.
                 LogResult(
-                    textPointer,
+                    pointer,
                     nameof(RuleResources.SARIF2014_ProvideDynamicMessageContent_Note_Default_Text),
                     ruleId,
+                    propertyName,
                     messageKey);
             }
         }

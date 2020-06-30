@@ -32,10 +32,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         private void AnalyzeTool(Tool tool, string toolPointer)
         {
-            if (tool.Driver != null)
-            {
-                AnalyzeToolDriver(tool.Driver, toolPointer.AtProperty(SarifPropertyName.Driver));
-            }
+            AnalyzeToolDriver(tool.Driver, toolPointer.AtProperty(SarifPropertyName.Driver));
         }
 
         private void AnalyzeToolDriver(ToolComponent toolComponent, string toolDriverPointer)
