@@ -173,9 +173,13 @@ Every URI reference in 'originalUriBaseIds' must resolve to an absolute URI, in 
 
 #### Description
 
+Certain URIs are required to be absolute. For the most part, these are URIs that refer to http addresses, such as work items or rule help topics.
+
 #### Messages
 
 ##### `Default`: error
+
+{0}: The value of this property is required to be an absolute URI, but '{1}' is a relative URI reference.
 
 ---
 
