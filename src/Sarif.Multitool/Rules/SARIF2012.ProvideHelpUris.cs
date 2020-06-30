@@ -25,7 +25,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         public override FailureLevel DefaultLevel => FailureLevel.Note;
 
-        protected override void Analyze(Tool tool, string toolPointer)
+        protected override void Analyze(Run run, string runPointer)
+        {
+            AnalyzeTool(run.Tool, runPointer.AtProperty(SarifPropertyName.Tool));
+        }
+
+        private void AnalyzeTool(Tool tool, string toolPointer)
         {
             if (tool.Driver != null)
             {
