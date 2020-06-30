@@ -85,8 +85,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 Uri uri = new Uri(uriString, UriKind.Absolute);
                 if (!IsUriReachable(uri.AbsoluteUri))
                 {
-                    // Placeholder
-                    LogResult(pointer, nameof(RuleResources.SARIF1005_UriMustBeAbsolute_Error_Default_Text), uriString);
+                    // {0}: Placeholder '{1}'
+                    LogResult(
+                        pointer, 
+                        nameof(RuleResources.SARIF1005_UriMustBeAbsolute_Error_Default_Text), 
+                        uriString);
                 }
             }
         }
