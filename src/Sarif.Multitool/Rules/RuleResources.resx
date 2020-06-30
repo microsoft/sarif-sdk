@@ -320,7 +320,7 @@ Many tool use similar names for 'uriBaseId' symbols. We suggest 'REPOROOT' for t
     <value>Placeholder_SARIF2011_ProvideContextRegion_FullDescription_Text</value>
   </data>
   <data name="SARIF2011_ProvideContextRegion_Note_Default_Text" xml:space="preserve">
-    <value>Placeholder_SARIF2011_ProvideContextRegion_Note_Default_Text</value>
+    <value>{0}: Placeholder</value>
   </data>
   <data name="SARIF1012_MessageArgumentsMustBeConsistentWithRule_Error_MessageIdMustExist_Text" xml:space="preserve">
     <value>{0}: Placeholder '{1}' '{2}'</value>
