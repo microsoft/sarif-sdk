@@ -29,7 +29,7 @@
                 },
                 "region": {
                   "startLine": 3,
-                  "snippet": { "text": "region code snippet" }
+                  "snippet": {"text": "region code snippet"}
                 },
                 "contextRegion": {
                   "startLine": 2,

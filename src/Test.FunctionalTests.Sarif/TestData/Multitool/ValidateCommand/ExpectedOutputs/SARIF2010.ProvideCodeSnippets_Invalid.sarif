@@ -1,0 +1,225 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "SARIF Functional Testing",
+          "rules": [
+            {
+              "id": "SARIF2010",
+              "name": "ProvideCodeSnippets",
+              "shortDescription": {
+                "text": "Placeholder_SARIF2010_ProvideCodeSnippets_FullDescription_Text."
+              },
+              "fullDescription": {
+                "text": "Placeholder_SARIF2010_ProvideCodeSnippets_FullDescription_Text"
+              },
+              "messageStrings": {
+                "Note_Default": {
+                  "text": "Placeholder_SARIF2010_ProvideCodeSnippets_Note_Default_Text"
+                }
+              },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+            },
+            {
+              "id": "SARIF2011",
+              "name": "ProvideContextRegion",
+              "shortDescription": {
+                "text": "Placeholder_SARIF2011_ProvideContextRegion_FullDescription_Text."
+              },
+              "fullDescription": {
+                "text": "Placeholder_SARIF2011_ProvideContextRegion_FullDescription_Text"
+              },
+              "messageStrings": {
+                "Note_Default": {
+                  "text": "{0}: Placeholder"
+                }
+              },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+            }
+          ]
+        }
+      },
+      "invocations": [
+        {
+          "toolConfigurationNotifications": [
+            {
+              "message": {
+                "text": "Rule 'SARIF2002' was explicitly disabled by the user. As result, this tool run cannot be used for compliance or other auditing processes that require a comprehensive analysis."
+              },
+              "descriptor": {
+                "id": "WRN999.RuleExplicitlyDisabled"
+              }
+            },
+            {
+              "message": {
+                "text": "Rule 'SARIF2006' was explicitly disabled by the user. As result, this tool run cannot be used for compliance or other auditing processes that require a comprehensive analysis."
+              },
+              "descriptor": {
+                "id": "WRN999.RuleExplicitlyDisabled"
+              }
+            }
+          ],
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF2010.ProvideCodeSnippets_Invalid.sarif",
+            "uriBaseId": "TEST_DIR"
+          }
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "SARIF2010",
+          "ruleIndex": 0,
+          "level": "note",
+          "message": {
+            "id": "Note_Default",
+            "arguments": [
+              "runs[0].results[0].locations[0].physicalLocation.region"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 30,
+                  "startColumn": 27
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF2010",
+          "ruleIndex": 0,
+          "level": "note",
+          "message": {
+            "id": "Note_Default",
+            "arguments": [
+              "runs[0].results[0].locations[0].physicalLocation.contextRegion"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 33,
+                  "startColumn": 34
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF2010",
+          "ruleIndex": 0,
+          "level": "note",
+          "message": {
+            "id": "Note_Default",
+            "arguments": [
+              "runs[0].results[1].locations[0].physicalLocation.contextRegion"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 59,
+                  "startColumn": 34
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF2010",
+          "ruleIndex": 0,
+          "level": "note",
+          "message": {
+            "id": "Note_Default",
+            "arguments": [
+              "runs[0].results[2].locations[0].physicalLocation.region"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 79,
+                  "startColumn": 27
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF2010",
+          "ruleIndex": 0,
+          "level": "note",
+          "message": {
+            "id": "Note_Default",
+            "arguments": [
+              "runs[0].results[3].locations[0].physicalLocation.region"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 105,
+                  "startColumn": 27
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF2011",
+          "ruleIndex": 1,
+          "level": "note",
+          "message": {
+            "id": "Note_Default",
+            "arguments": [
+              "runs[0].results[3].locations[0].physicalLocation"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 101,
+                  "startColumn": 35
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}

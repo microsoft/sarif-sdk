@@ -222,6 +222,18 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
                 parameter: new TestParameters(verbose: true));
 
         [Fact]
+        public void SARIF2010_ProvideCodeSnippets_Valid()
+            => RunTest(
+                MakeValidTestFileName(RuleId.ProvideCodeSnippets, nameof(RuleId.ProvideCodeSnippets)),
+                parameter: new TestParameters(verbose: true));
+
+        [Fact]
+        public void SARIF2010_ProvideCodeSnippets_Invalid()
+            => RunTest(
+                MakeInvalidTestFileName(RuleId.ProvideCodeSnippets, nameof(RuleId.ProvideCodeSnippets)),
+                parameter: new TestParameters(verbose: true));
+
+        [Fact]
         public void SARIF2011_ProvideContextRegion_Valid()
             => RunTest(
                 MakeValidTestFileName(RuleId.ProvideContextRegion, nameof(RuleId.ProvideContextRegion)),
