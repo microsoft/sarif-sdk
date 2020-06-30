@@ -351,6 +351,34 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}: Placeholder &apos;{1}&apos; &apos;{2}&apos;.
+        /// </summary>
+        internal static string SARIF1012_MessageArgumentsMustBeConsistentWithRule_Error_MessageIdMustExist_Text {
+            get {
+                return ResourceManager.GetString("SARIF1012_MessageArgumentsMustBeConsistentWithRule_Error_MessageIdMustExist_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: Placeholder &apos;{1}&apos; &apos;{2}&apos; &apos;{3}&apos; &apos;{4}&apos; &apos;{5}&apos;.
+        /// </summary>
+        internal static string SARIF1012_MessageArgumentsMustBeConsistentWithRule_Error_SupplyEnoughMessageArguments_Text {
+            get {
+                return ResourceManager.GetString("SARIF1012_MessageArgumentsMustBeConsistentWithRule_Error_SupplyEnoughMessageArgum" +
+                        "ents_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Placeholder.
+        /// </summary>
+        internal static string SARIF1012_MessageArgumentsMustBeConsistentWithRule_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("SARIF1012_MessageArgumentsMustBeConsistentWithRule_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Follow authoring practices that make your rule messages readable, understandable, and actionable.
         ///
         ///Including &quot;dynamic content&quot; (information that varies among results from the same rule) makes your messages more specific. It avoids the &quot;wall of bugs&quot; phenomenon, where hundreds of occurrences of the same message appear unapproachable.
@@ -391,11 +419,56 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Placeholder_SARIF2002_ProvideMessageArguments_FullDescription_Text.
+        /// </summary>
+        internal static string SARIF2002_ProvideMessageArguments_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("SARIF2002_ProvideMessageArguments_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Placeholder_SARIF2002_ProvideMessageArguments_Warning_Default_Text.
+        /// </summary>
+        internal static string SARIF2002_ProvideMessageArguments_Warning_Default_Text {
+            get {
+                return ResourceManager.GetString("SARIF2002_ProvideMessageArguments_Warning_Default_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Placeholder_SARIF2003_ProvideVersionControlProvenance_FullDescription_Text.
+        /// </summary>
+        internal static string SARIF2003_ProvideVersionControlProvenance_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("SARIF2003_ProvideVersionControlProvenance_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Placeholder_SARIF2003_ProvideVersionControlProvenance_Note_Default_Text.
+        /// </summary>
+        internal static string SARIF2003_ProvideVersionControlProvenance_Note_Default_Text {
+            get {
+                return ResourceManager.GetString("SARIF2003_ProvideVersionControlProvenance_Note_Default_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Placeholder_SARIF2004_OptimizeFileSize_FullDescription_Text.
         /// </summary>
         internal static string SARIF2004_OptimizeFileSize_FullDescription_Text {
             get {
                 return ResourceManager.GetString("SARIF2004_OptimizeFileSize_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Placeholder_SARIF2004_OptimizeFileSize_Warning_EliminateIdOnlyRules_Text.
+        /// </summary>
+        internal static string SARIF2004_OptimizeFileSize_Warning_EliminateIdOnlyRules_Text {
+            get {
+                return ResourceManager.GetString("SARIF2004_OptimizeFileSize_Warning_EliminateIdOnlyRules_Text", resourceCulture);
             }
         }
         
@@ -449,6 +522,42 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Placeholder_SARIF2006_UrisShouldBeReachable_FullDescription_Text.
+        /// </summary>
+        internal static string SARIF2006_UrisShouldBeReachable_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("SARIF2006_UrisShouldBeReachable_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Placeholder_SARIF2006_UrisShouldBeReachable_Warning_Default_Text.
+        /// </summary>
+        internal static string SARIF2006_UrisShouldBeReachable_Warning_Default_Text {
+            get {
+                return ResourceManager.GetString("SARIF2006_UrisShouldBeReachable_Warning_Default_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Placeholder_SARIF2007_ExpressPathsRelativeToRepoRoot_FullDescription_Text.
+        /// </summary>
+        internal static string SARIF2007_ExpressPathsRelativeToRepoRoot_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("SARIF2007_ExpressPathsRelativeToRepoRoot_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Placeholder_SARIF2007_ExpressPathsRelativeToRepoRoot_Warning_Default_Text.
+        /// </summary>
+        internal static string SARIF2007_ExpressPathsRelativeToRepoRoot_Warning_Default_Text {
+            get {
+                return ResourceManager.GetString("SARIF2007_ExpressPathsRelativeToRepoRoot_Warning_Default_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The $schema property should be present.  This enables IDEs to provide Intellisense for SARIF log files..
         /// </summary>
         internal static string SARIF2008_ProvideSchema_FullDescription_Text {
@@ -496,6 +605,87 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
             get {
                 return ResourceManager.GetString("SARIF2009_ConsiderConventionalIdentifierValues_Note_UseConventionalUriBaseIdNames" +
                         "_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Placeholder_SARIF2010_ProvideCodeSnippets_FullDescription_Text.
+        /// </summary>
+        internal static string SARIF2010_ProvideCodeSnippets_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("SARIF2010_ProvideCodeSnippets_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Placeholder_SARIF2010_ProvideCodeSnippets_Note_Default_Text.
+        /// </summary>
+        internal static string SARIF2010_ProvideCodeSnippets_Note_Default_Text {
+            get {
+                return ResourceManager.GetString("SARIF2010_ProvideCodeSnippets_Note_Default_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Placeholder_SARIF2011_ProvideContextRegion_FullDescription_Text.
+        /// </summary>
+        internal static string SARIF2011_ProvideContextRegion_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("SARIF2011_ProvideContextRegion_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Placeholder_SARIF2011_ProvideContextRegion_Note_Default_Text.
+        /// </summary>
+        internal static string SARIF2011_ProvideContextRegion_Note_Default_Text {
+            get {
+                return ResourceManager.GetString("SARIF2011_ProvideContextRegion_Note_Default_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Placeholder_SARIF2013_ProvideEmbeddedFileContent_Note_Default_Text.
+        /// </summary>
+        internal static string SARIF2013_ProvideEmbeddedFileContent_Note_Default_Text {
+            get {
+                return ResourceManager.GetString("SARIF2013_ProvideEmbeddedFileContent_Note_Default_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Placeholder_SARIF2014_ProvideDynamicMessageContent_FullDescription_Text.
+        /// </summary>
+        internal static string SARIF2014_ProvideDynamicMessageContent_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("SARIF2014_ProvideDynamicMessageContent_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Placeholder_SARIF2014_ProvideDynamicMessageContent_Note_Default_Text.
+        /// </summary>
+        internal static string SARIF2014_ProvideDynamicMessageContent_Note_Default_Text {
+            get {
+                return ResourceManager.GetString("SARIF2014_ProvideDynamicMessageContent_Note_Default_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Placeholder_SARIF2015_EnquoteDynamicMessageContent_FullDescription_Text.
+        /// </summary>
+        internal static string SARIF2015_EnquoteDynamicMessageContent_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("SARIF2015_EnquoteDynamicMessageContent_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Placeholder_SARIF2015_EnquoteDynamicMessageContent_Note_Default_Text.
+        /// </summary>
+        internal static string SARIF2015_EnquoteDynamicMessageContent_Note_Default_Text {
+            get {
+                return ResourceManager.GetString("SARIF2015_EnquoteDynamicMessageContent_Note_Default_Text", resourceCulture);
             }
         }
     }

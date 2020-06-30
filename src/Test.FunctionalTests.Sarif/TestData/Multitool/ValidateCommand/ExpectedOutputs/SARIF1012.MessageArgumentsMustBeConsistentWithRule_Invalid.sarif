@@ -1,0 +1,76 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "SARIF Functional Testing",
+          "rules": [
+            {
+              "id": "SARIF1012",
+              "name": "MessageArgumentsMustBeConsistentWithRule",
+              "shortDescription": {
+                "text": "Placeholder."
+              },
+              "fullDescription": {
+                "text": "Placeholder"
+              },
+              "messageStrings": {
+                "Error_MessageIdMustExist": {
+                  "text": "{0}: Placeholder '{1}' '{2}'"
+                },
+                "Error_SupplyEnoughMessageArguments": {
+                  "text": "{0}: Placeholder '{1}' '{2}' '{3}' '{4}' '{5}'"
+                }
+              },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+            }
+          ]
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1012.MessageArgumentsMustBeConsistentWithRule_Invalid.sarif",
+            "uriBaseId": "TEST_DIR"
+          }
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "SARIF1012",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_MessageIdMustExist",
+            "arguments": [
+              "runs[0].results[1]",
+              "DoesNotExist",
+              "TEST1001"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 36,
+                  "startColumn": 9
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}
