@@ -159,6 +159,16 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
             => RunTest(MakeInvalidTestFileName(RuleId.AuthorHighQualityMessages, nameof(RuleId.AuthorHighQualityMessages)));
 
         [Fact]
+        public void SARIF2002_ProvideMessageArguments_Valid()
+            => RunTest(MakeValidTestFileName(RuleId.ProvideMessageArguments, nameof(RuleId.ProvideMessageArguments)),
+                parameter: new TestParameters(configFileName: "enable2002.configuration.xml"));
+
+        [Fact]
+        public void SARIF2002_ProvideMessageArguments_Invalid()
+            => RunTest(MakeInvalidTestFileName(RuleId.ProvideMessageArguments, nameof(RuleId.ProvideMessageArguments)),
+                parameter: new TestParameters(configFileName: "enable2002.configuration.xml"));
+
+        [Fact]
         public void SARIF2004_OptimizeFileSize_Valid()
             => RunTest(MakeValidTestFileName(RuleId.OptimizeFileSize, nameof(RuleId.OptimizeFileSize)));
 

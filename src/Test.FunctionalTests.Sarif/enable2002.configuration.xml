@@ -4,7 +4,4 @@ This file contains the rule configurations used for running the functional tests
 These are the only tests for which SARIF2006 should be enabled. Note that "enabled" is the default.
 -->
 <Properties>
-  <Properties Key="SARIF2002.ProvideMessageArguments.Options">
-    <Property Key="RuleEnabled" Value="Disabled" />
-  </Properties>
 </Properties>

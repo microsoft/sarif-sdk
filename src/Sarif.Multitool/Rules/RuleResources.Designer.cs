@@ -428,7 +428,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Placeholder_SARIF2002_ProvideMessageArguments_Warning_Default_Text.
+        ///   Looks up a localized string similar to {0}: Placeholder.
         /// </summary>
         internal static string SARIF2002_ProvideMessageArguments_Warning_Default_Text {
             get {
