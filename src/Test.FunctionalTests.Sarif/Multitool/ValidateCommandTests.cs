@@ -169,6 +169,16 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
                 parameter: new TestParameters(configFileName: "enable2002.configuration.xml"));
 
         [Fact]
+        public void SARIF2003_ProvideVersionControlProvenance_Valid()
+            => RunTest(MakeValidTestFileName(RuleId.ProvideVersionControlProvenance, nameof(RuleId.ProvideVersionControlProvenance)),
+                parameter: new TestParameters(configFileName: "enable2002.configuration.xml"));
+
+        [Fact]
+        public void SARIF2003_ProvideVersionControlProvenance_Invalid()
+            => RunTest(MakeInvalidTestFileName(RuleId.ProvideVersionControlProvenance, nameof(RuleId.ProvideVersionControlProvenance)),
+                parameter: new TestParameters(verbose: true));
+
+        [Fact]
         public void SARIF2004_OptimizeFileSize_Valid()
             => RunTest(MakeValidTestFileName(RuleId.OptimizeFileSize, nameof(RuleId.OptimizeFileSize)));
 
