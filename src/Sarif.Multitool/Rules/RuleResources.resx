@@ -259,9 +259,6 @@ Many tool use similar names for 'uriBaseId' symbols. We suggest 'REPOROOT' for t
   <data name="SARIF2009_ConsiderConventionalIdentifierValues_Note_UseConventionalRuleIds_Text" xml:space="preserve">
     <value>{0}: The 'id' property of the rule '{1}' does not follow the recommended format: a short string identifying the tool concatenated with a numeric rule number, for example, `CS2001`. Using a conventional format for the rule id provides a more uniform experience across tools.</value>
   </data>
-  <data name="SARIF2009_ConsiderConventionalIdentifierValues_Note_UseConventionalUriBaseIdNames_Text" xml:space="preserve">
-    <value>{0}: The 'originalUriBaseIds' symbol '{1}' is not one of the conventional symbols. We suggest 'REPOROOT' for the root of a repository, 'SRCROOT' for the root of the directory containing all source code, 'TESTROOT' for the root of the directory containing all test code (if your repository is organized in that way), and 'BINROOT' for the root of the directory containing build output (if your project places all build output in a common directory).</value>
-  </data>
   <data name="SARIF1007_RegionPropertiesMustBeConsistent_Error_RegionStartPropertyMustBePresent_Text" xml:space="preserve">
     <value>{0}: This 'region' object does not specify 'startLine', 'charOffset', or 'byteOffset'. As a result, it is impossible to determine whether this 'region' object describes a line/column text region, a character offset/length text region, or a binary region.</value>
   </data>
@@ -326,7 +323,7 @@ Many tool use similar names for 'uriBaseId' symbols. We suggest 'REPOROOT' for t
     <value>Including "dynamic content" (information that varies among results from the same rule) makes your messages more specific. It avoids the "wall of bugs" phenomenon, where hundreds of occurrences of the same message appear unapproachable.</value>
   </data>
   <data name="SARIF2014_ProvideDynamicMessageContent_Note_Default_Text" xml:space="preserve">
-    <value>{0}: In rule '{1}', the message with id '{2}' does not include any dynamic content. Dynamic content makes your messages more specific and avoids the "wall of bugs" phenomenon.</value>
+    <value>{0}: In rule '{1}', the '{2}' property of the message with id '{3}' does not include any dynamic content. Dynamic content makes your messages more specific and avoids the "wall of bugs" phenomenon.</value>
   </data>
   <data name="SARIF2015_EnquoteDynamicMessageContent_FullDescription_Text" xml:space="preserve">
     <value>Placing dynamic content in quotes sets it off from the static text, making it easier to spot. It's especially helpful when the dynamic content is a string that might contain spaces, and most especially when the string might be empty (and so would be invisible if it weren't for the quotes). We recommend single quotes for a less cluttered appearance, even though English usage would require double quotes.</value>

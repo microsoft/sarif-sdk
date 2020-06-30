@@ -34,22 +34,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF2009_ConsiderConventionalIdentifierValues_FullDescription_Text };
 
         protected override IEnumerable<string> MessageResourceNames => new string[] {
-            nameof(RuleResources.SARIF2009_ConsiderConventionalIdentifierValues_Note_UseConventionalRuleIds_Text),
-            nameof(RuleResources.SARIF2009_ConsiderConventionalIdentifierValues_Note_UseConventionalUriBaseIdNames_Text)
+            nameof(RuleResources.SARIF2009_ConsiderConventionalIdentifierValues_Note_UseConventionalRuleIds_Text)
         };
 
         public override FailureLevel DefaultLevel => FailureLevel.Note;
 
-        private static readonly string[] s_conventionalSymbols = new string[] { "REPOROOT", "SRCROOT", "TESTROOT", "BINROOT" };
         private static readonly Regex s_conventionalIdRegex = new Regex(@"^[A-Z]{1,5}[0-9]{1,4}$", RegexOptions.Compiled | RegexOptions.CultureInvariant);
-
-        protected override void Analyze(Run run, string runPointer)
-        {
-            if (run.OriginalUriBaseIds != null)
-            {
-                AnalyzeOriginalUriBaseIds(run.OriginalUriBaseIds, runPointer.AtProperty(SarifPropertyName.OriginalUriBaseIds));
-            }
-        }
 
         protected override void Analyze(Tool tool, string toolPointer)
         {
@@ -88,26 +78,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     reportingDescriptorPointer.AtProperty(SarifPropertyName.Id),
                     nameof(RuleResources.SARIF2009_ConsiderConventionalIdentifierValues_Note_UseConventionalRuleIds_Text),
                     reportingDescriptor.Id);
-            }
-        }
-
-        private void AnalyzeOriginalUriBaseIds(IDictionary<string, ArtifactLocation> originalUriBaseIds, string originalUriBaseIdsPointer)
-        {
-            foreach (KeyValuePair<string, ArtifactLocation> originalUriBaseId in originalUriBaseIds)
-            {
-                if (!s_conventionalSymbols.Contains(originalUriBaseId.Key))
-                {
-                    // {0}: The 'originalUriBaseIds' symbol '{1}' is not one of the conventional symbols. 
-                    // We suggest 'REPOROOT' for the root of a repository, 'SRCROOT' for the root of the
-                    // directory containing all source code, 'TESTROOT' for the root of the directory
-                    // containing all test code (if your repository is organized in that way), and 'BINROOT'
-                    // for the root of the directory containing build output (if your project places all
-                    // build output in a common directory).
-                    LogResult(
-                        originalUriBaseIdsPointer.AtProperty(originalUriBaseId.Key),
-                        nameof(RuleResources.SARIF2009_ConsiderConventionalIdentifierValues_Note_UseConventionalUriBaseIdNames_Text),
-                        originalUriBaseId.Key);
-                }
             }
         }
     }

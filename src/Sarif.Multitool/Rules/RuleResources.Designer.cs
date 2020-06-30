@@ -577,16 +577,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The &apos;originalUriBaseIds&apos; symbol &apos;{1}&apos; is not one of the conventional symbols. We suggest &apos;REPOROOT&apos; for the root of a repository, &apos;SRCROOT&apos; for the root of the directory containing all source code, &apos;TESTROOT&apos; for the root of the directory containing all test code (if your repository is organized in that way), and &apos;BINROOT&apos; for the root of the directory containing build output (if your project places all build output in a common directory)..
-        /// </summary>
-        internal static string SARIF2009_ConsiderConventionalIdentifierValues_Note_UseConventionalUriBaseIdNames_Text {
-            get {
-                return ResourceManager.GetString("SARIF2009_ConsiderConventionalIdentifierValues_Note_UseConventionalUriBaseIdNames" +
-                        "_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Placeholder_SARIF2010_ProvideCodeSnippets_FullDescription_Text.
         /// </summary>
         internal static string SARIF2010_ProvideCodeSnippets_FullDescription_Text {
@@ -668,7 +658,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: In rule &apos;{1}&apos;, the message with id &apos;{2}&apos; does not include any dynamic content. Dynamic content makes your messages more specific and avoids the &quot;wall of bugs&quot; phenomenon..
+        ///   Looks up a localized string similar to {0}: In rule &apos;{1}&apos;, the &apos;{2}&apos; property of the message with id &apos;{3}&apos; does not include any dynamic content. Dynamic content makes your messages more specific and avoids the &quot;wall of bugs&quot; phenomenon..
         /// </summary>
         internal static string SARIF2014_ProvideDynamicMessageContent_Note_Default_Text {
             get {
