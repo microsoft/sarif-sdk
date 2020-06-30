@@ -681,7 +681,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &gt;&gt;&gt;&gt;&gt;&gt;&gt; features/sarif-validation-rules.
+        ///   Looks up a localized string similar to Placeholder_SARIF2015_EnquoteDynamicMessageContent_Note_Default_Text.
         /// </summary>
         internal static string SARIF2015_EnquoteDynamicMessageContent_Note_Default_Text {
             get {

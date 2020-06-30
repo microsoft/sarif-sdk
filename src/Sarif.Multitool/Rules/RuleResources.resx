@@ -344,6 +344,6 @@ Many tool use similar names for 'uriBaseId' symbols. We suggest 'REPOROOT' for t
     <value>Placeholder_SARIF2015_EnquoteDynamicMessageContent_FullDescription_Text</value>
   </data>
   <data name="SARIF2015_EnquoteDynamicMessageContent_Note_Default_Text" xml:space="preserve">
-    <value>&gt;&gt;&gt;&gt;&gt;&gt;&gt; features/sarif-validation-rules</value>
+    <value>Placeholder_SARIF2015_EnquoteDynamicMessageContent_Note_Default_Text</value>
   </data>
 </root>

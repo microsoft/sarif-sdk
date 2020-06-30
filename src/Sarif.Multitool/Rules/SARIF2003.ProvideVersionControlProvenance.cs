@@ -27,6 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
             if (run.VersionControlProvenance == null || run.VersionControlProvenance.Count == 0)
             {
+                // {0}: Placeholder
                 LogResult(
                     runPointer,
                     nameof(RuleResources.SARIF2003_ProvideVersionControlProvenance_Note_Default_Text));

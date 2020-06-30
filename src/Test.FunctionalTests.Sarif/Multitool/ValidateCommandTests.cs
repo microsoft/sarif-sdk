@@ -171,7 +171,7 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
         [Fact]
         public void SARIF2003_ProvideVersionControlProvenance_Valid()
             => RunTest(MakeValidTestFileName(RuleId.ProvideVersionControlProvenance, nameof(RuleId.ProvideVersionControlProvenance)),
-                parameter: new TestParameters(configFileName: "enable2002.configuration.xml"));
+                parameter: new TestParameters(verbose: true));
 
         [Fact]
         public void SARIF2003_ProvideVersionControlProvenance_Invalid()
