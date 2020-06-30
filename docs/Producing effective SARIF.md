@@ -149,7 +149,7 @@ Every URI reference in 'originalUriBaseIds' must resolve to an absolute URI, in 
 
 ##### `UriBaseIdRequiresRelativeUri`: error
 
-{0}: The '{1}' element of 'originalUriBaseIds' has a 'uriBaseId' property, but its 'uri' property '{2}' is an absolute URI. Since the purpose of the 'uriBaseId' property is to help resolve a relative reference to an absolute URI, it is not allowed when the 'uri' property is already an absolute URIa.
+{0}: The '{1}' element of 'originalUriBaseIds' has a 'uriBaseId' property '{2}', but its 'uri' property '{3}' is an absolute URI. Since the purpose of the 'uriBaseId' property is to help resolve a relative reference to an absolute URI, it is not allowed when the 'uri' property is already an absolute URIa.
 
 ##### `TopLevelUriBaseIdMustBeAbsolute`: error
 
@@ -463,9 +463,5 @@ Many tool use similar names for 'uriBaseId' symbols. We suggest 'REPOROOT' for t
 ##### `UseConventionalRuleIds`: note
 
 {0}: The 'id' property of the rule '{1}' does not follow the recommended format: a short string identifying the tool concatenated with a numeric rule number, for example, `CS2001`. Using a conventional format for the rule id provides a more uniform experience across tools.
-
-##### `UseConventionalUriBaseIdNames`: note
-
-{0}: The 'originalUriBaseIds' symbol '{1}' is not one of the conventional symbols. We suggest 'REPOROOT' for the root of a repository, 'SRCROOT' for the root of the directory containing all source code, 'TESTROOT' for the root of the directory containing all test code (if your repository is organized in that way), and 'BINROOT' for the root of the directory containing build output (if your project places all build output in a common directory).
 
 ---
