@@ -139,17 +139,11 @@ URIs must conform to [RFC 3986](https://tools.ietf.org/html/rfc3986). In additio
 
 {0}: The 'file' URI '{1}' contains a '..' segment. This is dangerous because if symbolic links are present, '..' might have different meanings on the machine that produced the log file and the machine where an end user or a tool consumes it.
 
----
-
-### Rule `SARIF1003.UrisShouldUseConventionalForm`
-
-##### `FileUrisWithoutHostNameShouldUseTripleSlashForm`: warning
-
----
-
 ### Rule `SARIF1004.ExpressUriBaseIdsCorrectly`
 
 #### Description
+
+Every URI reference in 'run.originalUriBaseIds' must resolve to an absolute URI, in the manner described in the SARIF specification 
 
 #### Messages
 
