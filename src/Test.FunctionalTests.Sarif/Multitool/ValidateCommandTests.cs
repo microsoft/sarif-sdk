@@ -151,12 +151,12 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
             => RunTest(MakeInvalidTestFileName(RuleId.MessageArgumentsMustBeConsistentWithRule, nameof(RuleId.MessageArgumentsMustBeConsistentWithRule)));
 
         [Fact]
-        public void SARIF2001_AuthorHighQualityMessages_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.AuthorHighQualityMessages, nameof(RuleId.AuthorHighQualityMessages)));
+        public void SARIF2001_TerminateMessagesWithPeriod_Valid()
+            => RunTest(MakeValidTestFileName(RuleId.TerminateMessagesWithPeriod, nameof(RuleId.TerminateMessagesWithPeriod)));
 
         [Fact]
-        public void SARIF2001_AuthorHighQualityMessages_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.AuthorHighQualityMessages, nameof(RuleId.AuthorHighQualityMessages)));
+        public void SARIF2001_TerminateMessagesWithPeriod_Invalid()
+            => RunTest(MakeInvalidTestFileName(RuleId.TerminateMessagesWithPeriod, nameof(RuleId.TerminateMessagesWithPeriod)));
 
         [Fact]
         public void SARIF2002_ProvideMessageArguments_Valid()
@@ -222,6 +222,38 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
         public void SARIF2009_ConsiderConventionalIdentifierValues_Invalid()
             => RunTest(
                 MakeInvalidTestFileName(RuleId.ConsiderConventionalIdentifierValues, nameof(RuleId.ConsiderConventionalIdentifierValues)),
+                parameter: new TestParameters(verbose: true));
+
+        [Fact]
+        public void SARIF2011_ProvideContextRegion_Valid()
+            => RunTest(
+                MakeValidTestFileName(RuleId.ProvideContextRegion, nameof(RuleId.ProvideContextRegion)),
+                parameter: new TestParameters(verbose: true));
+
+        [Fact]
+        public void SARIF2011_ProvideContextRegion_Invalid()
+            => RunTest(
+                MakeInvalidTestFileName(RuleId.ProvideContextRegion, nameof(RuleId.ProvideContextRegion)),
+                parameter: new TestParameters(verbose: true));
+
+        [Fact]
+        public void SARIF2014_ProvideDynamicMessageContent_Valid()
+            => RunTest(MakeValidTestFileName(RuleId.ProvideDynamicMessageContent, nameof(RuleId.ProvideDynamicMessageContent)),
+                parameter: new TestParameters(verbose: true));
+
+        [Fact]
+        public void SARIF2014_ProvideDynamicMessageContent_Invalid()
+            => RunTest(MakeInvalidTestFileName(RuleId.ProvideDynamicMessageContent, nameof(RuleId.ProvideDynamicMessageContent)),
+                parameter: new TestParameters(verbose: true));
+
+        [Fact]
+        public void SARIF2015_EnquoteDynamicMessageContent_Valid()
+            => RunTest(MakeValidTestFileName(RuleId.EnquoteDynamicMessageContent, nameof(RuleId.EnquoteDynamicMessageContent)),
+                parameter: new TestParameters(verbose: true));
+
+        [Fact]
+        public void SARIF2015_EnquoteDynamicMessageContent_Invalid()
+            => RunTest(MakeInvalidTestFileName(RuleId.EnquoteDynamicMessageContent, nameof(RuleId.EnquoteDynamicMessageContent)),
                 parameter: new TestParameters(verbose: true));
 
         private const string ValidTestFileNameSuffix = "_Valid.sarif";
