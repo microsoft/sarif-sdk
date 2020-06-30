@@ -6,19 +6,11 @@
       "tool": {
         "driver": {
           "name": "SARIF Functional Testing",
-          "version": "1",
+          "version": "1.0.0",
           "rules": [
             {
-              "id": "TST0001",
-              "fullDescription": {
-                "text": "This is a test."
-              },
-              "messageStrings": {
-                "NoPlaceholders": {
-                  "text": "This message does not contain dynamic content."
-                }
-              },
-              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+              "id": "SARIF2009",
+              "name": "ConsiderConventionalIdentifierValues"
             }
           ]
         }

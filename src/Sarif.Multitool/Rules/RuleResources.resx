@@ -334,4 +334,10 @@ Many tool use similar names for 'uriBaseId' symbols. We suggest 'REPOROOT' for t
   <data name="SARIF2015_EnquoteDynamicMessageContent_Note_Default_Text" xml:space="preserve">
     <value>{0}: In rule '{1}', the message with id '{2}' includes dynamic content that is not enclosed in single quotes. Enquoting dynamic content makes it easier to spot, and single quotes give a less cluttered appearance.</value>
   </data>
+  <data name="SARIF2012_ProvideHelpUris_FullDescription_Text" xml:space="preserve">
+    <value>Placeholder</value>
+  </data>
+  <data name="SARIF2012_ProvideHelpUris_Note_Default_Text" xml:space="preserve">
+    <value>{0}: Placeholder</value>
+  </data>
 </root>
