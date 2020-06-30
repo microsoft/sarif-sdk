@@ -158,7 +158,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public string ToString(StackFormat stackFormat)
         {
-            if (this.Frames == null) { return "[No frames]"; }
+            if (this.Frames == null || this.Frames.Count == 0) { return "[No frames]"; }
 
             StringBuilder sb = new StringBuilder(255);
 
