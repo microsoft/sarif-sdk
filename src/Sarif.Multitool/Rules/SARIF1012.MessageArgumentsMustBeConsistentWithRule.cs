@@ -27,10 +27,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public override FailureLevel DefaultLevel => FailureLevel.Error;
 
         private IList<ReportingDescriptor> currentRules;
+        private Run run;
 
         protected override void Analyze(Run run, string runPointer)
         {
-            this.currentRules = run?.Tool?.Driver?.Rules;
+            this.run = run;
+            this.currentRules = run.Tool.Driver?.Rules;
         }
 
         protected override void Analyze(Result result, string resultPointer)
@@ -38,12 +40,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             // if message.id is not null, we have to check if that exists in rules
             if (!string.IsNullOrEmpty(result.Message.Id))
             {
-                ReportingDescriptor rule = result.RuleIndex >= 0
-                    ? (this.currentRules?[result.RuleIndex])
-                    : (this.currentRules?.FirstOrDefault(r => r.Id == (result.RuleId ?? result.Rule?.Id)));
+                ReportingDescriptor rule = result.GetRule(this.run);
 
                 if (this.currentRules == null
-                    || rule == null
+                    || rule.MessageStrings == null
                     || !rule.MessageStrings.ContainsKey(result.Message.Id))
                 {
                     // {0}: Placeholder {1} {2}
@@ -51,9 +51,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                         resultPointer,
                         nameof(RuleResources.SARIF1012_MessageArgumentsMustBeConsistentWithRule_Error_MessageIdMustExist_Text),
                         result.Message.Id,
-                        (result.RuleIndex >= 0
-                        ? result.RuleIndex.ToString()
-                        : (result.RuleId ?? result.Rule?.Id ?? "null")));
+                        result.ResolvedRuleId(run) ?? "null");
                     return;
                 }
 
@@ -68,9 +66,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                         nameof(RuleResources.SARIF1012_MessageArgumentsMustBeConsistentWithRule_Error_SupplyEnoughMessageArguments_Text),
                         result.Message.Arguments.Count.ToString(),
                         result.Message.Id,
-                        (result.RuleIndex >= 0
-                        ? result.RuleIndex.ToString()
-                        : (result.RuleId ?? result.Rule?.Id ?? "null")),
+                        result.ResolvedRuleId(run) ?? "null",
                         countOfPlaceholders.ToString(),
                         messageText);
                 }
