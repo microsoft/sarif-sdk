@@ -163,6 +163,22 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
         public void SARIF2009_ConsiderConventionalIdentifierValues_Invalid()
             => RunTest(MakeInvalidTestFileName(RuleId.ConsiderConventionalIdentifierValues, nameof(RuleId.ConsiderConventionalIdentifierValues)), parameter: Verbose);
 
+        [Fact]
+        public void SARIF2014_ProvideDynamicMessageContent_Valid()
+    => RunTest(MakeValidTestFileName(RuleId.ProvideDynamicMessageContent, nameof(RuleId.ProvideDynamicMessageContent)), parameter: Verbose);
+
+        [Fact]
+        public void SARIF2014_ProvideDynamicMessageContent_Invalid()
+            => RunTest(MakeInvalidTestFileName(RuleId.ProvideDynamicMessageContent, nameof(RuleId.ProvideDynamicMessageContent)), parameter: Verbose);
+
+        [Fact]
+        public void SARIF2015_EnquoteDynamicMessageContent_Valid()
+    => RunTest(MakeValidTestFileName(RuleId.EnquoteDynamicMessageContent, nameof(RuleId.EnquoteDynamicMessageContent)), parameter: Verbose);
+
+        [Fact]
+        public void SARIF2015_EnquoteDynamicMessageContent_Invalid()
+            => RunTest(MakeInvalidTestFileName(RuleId.EnquoteDynamicMessageContent, nameof(RuleId.EnquoteDynamicMessageContent)), parameter: Verbose);
+
         private const string ValidTestFileNameSuffix = "_Valid.sarif";
         private const string InvalidTestFileNameSuffix = "_Invalid.sarif";
 
