@@ -35,19 +35,31 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public bool TryGetProperty(string propertyName, out string value)
         {
-            if (Properties != null && Properties.Keys.Contains(propertyName))
+            value = null;
+            SerializedPropertyInfo propValue = null;
+
+            if (Properties?.TryGetValue(propertyName, out propValue) ?? false)
             {
-                value = GetProperty(propertyName);
+                if (propValue == null) { return true; }
+
+                if (!propValue.IsString)
+                {
+                    throw new InvalidOperationException(SdkResources.CallGenericGetProperty);
+                }
+
+                // Remove the quotes around the serialized value ("x" => x).
+                value = propValue.SerializedValue.Substring(1, propValue.SerializedValue.Length - 2);
                 return true;
             }
 
-            value = null;
             return false;
         }
 
         public string GetProperty(string propertyName)
         {
-            if (Properties?.ContainsKey(propertyName) != true)
+            string value;
+
+            if (!TryGetProperty(propertyName, out value))
             {
                 throw new InvalidOperationException(
                     string.Format(
@@ -56,34 +68,47 @@ namespace Microsoft.CodeAnalysis.Sarif
                         propertyName));
             }
 
-            if (Properties[propertyName] == null) { return null; }
-
-            if (!Properties[propertyName].IsString)
-            {
-                throw new InvalidOperationException(SdkResources.CallGenericGetProperty);
-            }
-
-            string value = Properties[propertyName].SerializedValue;
-
-            // Remove the quotes around the serialized value ("x" => x).
-            return value.Substring(1, value.Length - 2);
+            return value;
         }
 
         public bool TryGetProperty<T>(string propertyName, out T value)
         {
-            if (Properties?.ContainsKey(propertyName) == true)
+            value = default;
+
+            SerializedPropertyInfo propValue = null;
+            if (Properties?.TryGetValue(propertyName, out propValue) ?? false)
             {
-                value = GetProperty<T>(propertyName);
+                if (propValue == null)
+                {
+                    if (typeof(T).IsValueType)
+                    {
+                        throw new InvalidOperationException(
+                            string.Format(
+                                CultureInfo.CurrentCulture,
+                                SdkResources.PropertyOfValueTypeCannotBeNull,
+                                propertyName,
+                                typeof(T).FullName));
+                    }
+
+                    // This will return null for reference types. Could not set null here b/c T could be a value type as well.
+                    value = default;
+                }
+                else
+                {
+                    value = JsonConvert.DeserializeObject<T>(propValue.SerializedValue);
+                }
+
                 return true;
             }
 
-            value = default;
             return false;
         }
 
         public T GetProperty<T>(string propertyName)
         {
-            if (Properties?.ContainsKey(propertyName) != true)
+            T value = default;
+
+            if (!TryGetProperty<T>(propertyName, out value))
             {
                 throw new InvalidOperationException(
                     string.Format(
@@ -92,43 +117,25 @@ namespace Microsoft.CodeAnalysis.Sarif
                         propertyName));
             }
 
-            SerializedPropertyInfo propValue = Properties[propertyName];
-            if (propValue == null)
-            {
-                if (typeof(T).IsValueType)
-                {
-                    throw new InvalidOperationException(
-                        string.Format(
-                            CultureInfo.CurrentCulture,
-                            SdkResources.PropertyOfValueTypeCannotBeNull,
-                            propertyName,
-                            typeof(T).FullName));
-                }
-
-                // This will return null for reference types. Could not set null here b/c T could be a value type as well.
-                return default;
-            }
-            else
-            {
-                return JsonConvert.DeserializeObject<T>(propValue.SerializedValue);
-            }
+            return value;
         }
 
         public bool TryGetSerializedPropertyValue(string propertyName, out string serializedValue)
         {
-            if (Properties?.ContainsKey(propertyName) == true)
+            SerializedPropertyInfo propValue = null;
+            if (Properties?.TryGetValue(propertyName, out propValue) ?? false)
             {
-                serializedValue = GetSerializedPropertyValue(propertyName);
-                return true;
+                serializedValue = null;
+                return false;
             }
 
-            serializedValue = null;
-            return false;
+            serializedValue = propValue?.SerializedValue;
+            return true;
         }
 
         public string GetSerializedPropertyValue(string propertyName)
         {
-            if (Properties?.ContainsKey(propertyName) != true)
+            if (!TryGetSerializedPropertyValue(propertyName, out string serializedValue))
             {
                 throw new InvalidOperationException(
                     string.Format(
@@ -137,7 +144,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         propertyName));
             }
 
-            return Properties[propertyName]?.SerializedValue;
+            return serializedValue;
         }
 
         private static readonly JsonSerializerSettings s_settingsWithComprehensiveV2ContractResolver = new JsonSerializerSettings
