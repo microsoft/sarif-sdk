@@ -363,21 +363,13 @@ In result messages, use the 'message.id' and 'message.arguments' properties rath
 
 ---
 
-### Rule `SARIF2003.ProduceEnrichedSarif`
+### Rule `SARIF2003.ProvideVersionControlProvenance`
 
 #### Description
 
 #### Messages
 
-##### `ProvideVersionControlProvenance`: note
-
-##### `ProvideCodeSnippets`: note
-
-##### `ProvideContextRegion`: note
-
-##### `ProvideHelpUris`: note
-
-##### `EmbedFileContent`: note
+##### `Default`: note
 
 ---
 
@@ -389,7 +381,7 @@ In result messages, use the 'message.id' and 'message.arguments' properties rath
 
 ##### `EliminateLocationOnlyArtifacts`: warning
 
-##### `DoNotIncludeExtraIndexedObjectProperties`: warning
+##### `EliminateIdOnlyRules`: warning
 
 ---
 
@@ -467,6 +459,40 @@ Many tool use similar names for 'uriBaseId' symbols. We suggest 'REPOROOT' for t
 ##### `UseConventionalRuleIds`: note
 
 {0}: The 'id' property of the rule '{1}' does not follow the recommended format: a short string identifying the tool concatenated with a numeric rule number, for example, `CS2001`. Using a conventional format for the rule id provides a more uniform experience across tools.
+
+---
+
+### Rule `SARIF2010.ProvideCodeSnippets`
+
+#### Description
+
+#### Messages
+
+##### `Default`: note
+
+---
+
+### Rule `SARIF2011.ProvideContextRegion`
+
+#### Description
+
+##### `Default`: note
+
+---
+
+### Rule `SARIF2012.ProvideHelpUris`
+
+#### Description
+
+##### `Default`: note
+
+---
+
+### Rule `SARIF2013.ProvideEmbeddedFileContent`
+
+#### Description
+
+##### `Default`: note
 
 ---
 
