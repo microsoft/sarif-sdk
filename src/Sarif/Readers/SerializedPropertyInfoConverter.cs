@@ -24,6 +24,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
             else
             {
+                bool wasString = (reader.TokenType == JsonToken.String);
+
                 StringBuilder builder = new StringBuilder();
                 using (StringWriter w = new StringWriter(builder))
                 using (JsonTextWriter writer = new JsonTextWriter(w))
@@ -31,7 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     writer.WriteToken(reader);
                 }
 
-                return new SerializedPropertyInfo(builder.ToString(), false);
+                return new SerializedPropertyInfo(builder.ToString(), wasString);
             }
         }
 

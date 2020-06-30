@@ -120,11 +120,11 @@ namespace BSOA.Generator.Templates
 
             // <EqualsList>
             //  <Equals>
-            if (this.Id != other.Id) { return false; }
+            if (!object.Equals(this.Id, other.Id)) { return false; }
             //  </Equals>
-            if (this.JoinPolicy != other.JoinPolicy) { return false; }
-            if (this.Owner != other.Owner) { return false; }
-            if (this.Employees != other.Employees) { return false; }
+            if (!object.Equals(this.JoinPolicy, other.JoinPolicy)) { return false; }
+            if (!object.Equals(this.Owner, other.Owner)) { return false; }
+            if (!object.Equals(this.Members, other.Members)) { return false; }
             // </EqualsList>
 
             return true;

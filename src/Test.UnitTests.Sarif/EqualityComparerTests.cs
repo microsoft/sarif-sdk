@@ -97,7 +97,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             };
 
             Assert.NotSame(result1, result2);
-            Assert.NotEqual(result1, result2);
             Assert.True(result1.ValueEquals(result2));
         }
 
@@ -127,7 +126,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             };
 
             Assert.NotSame(result1, result2);
-            Assert.NotEqual(result1, result2);
             Assert.False(result1.ValueEquals(result2));
         }
     }
