@@ -623,6 +623,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Placeholder.
+        /// </summary>
+        internal static string SARIF2012_ProvideHelpUris_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("SARIF2012_ProvideHelpUris_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: Placeholder &apos;{1}&apos;.
+        /// </summary>
+        internal static string SARIF2012_ProvideHelpUris_Note_Default_Text {
+            get {
+                return ResourceManager.GetString("SARIF2012_ProvideHelpUris_Note_Default_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Placeholder_SARIF2013_ProvideEmbeddedFileContent_Note_Default_Text.
         /// </summary>
         internal static string SARIF2013_ProvideEmbeddedFileContent_Note_Default_Text {

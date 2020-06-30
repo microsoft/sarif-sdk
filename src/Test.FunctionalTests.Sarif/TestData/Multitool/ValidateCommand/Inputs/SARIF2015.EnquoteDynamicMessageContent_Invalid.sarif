@@ -17,7 +17,8 @@
                 "NotEnquoted": {
                   "text": "This message contains dynamic content {0} that is not enquoted."
                 }
-              }
+              },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
             }
           ]
         }
