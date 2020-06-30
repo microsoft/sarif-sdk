@@ -283,15 +283,6 @@ Many tool use similar names for 'uriBaseId' symbols. We suggest 'REPOROOT' for t
   <data name="SARIF2004_OptimizeFileSize_Warning_EliminateLocationOnlyArtifacts_Text" xml:space="preserve">
     <value>{0}: Placeholder_SARIF2004_OptimizeFileSize_Warning_EliminateLocationOnlyArtifacts_Text</value>
   </data>
-  <data name="SARIF1012_MessageArgumentsMustBeConsistentWithRule_Error_MessageIdMustExist_Text" xml:space="preserve">
-    <value>Placeholder_SARIF1012_MessageArgumentsMustBeConsistentWithRule_Error_MessageIdMustExist_Text</value>
-  </data>
-  <data name="SARIF1012_MessageArgumentsMustBeConsistentWithRule_Error_SupplyEnoughMessageArguments_Text" xml:space="preserve">
-    <value>Placeholder_SARIF1012_MessageArgumentsMustBeConsistentWithRule_Error_SupplyEnoughMessageArguments_Text</value>
-  </data>
-  <data name="SARIF1012_MessageArgumentsMustBeConsistentWithRule_FullDescription_Text" xml:space="preserve">
-    <value>Placeholder_SARIF1012_MessageArgumentsMustBeConsistentWithRule_FullDescription_Text</value>
-  </data>
   <data name="SARIF2002_ProvideMessageArguments_FullDescription_Text" xml:space="preserve">
     <value>Placeholder_SARIF2002_ProvideMessageArguments_FullDescription_Text</value>
   </data>
