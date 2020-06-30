@@ -244,7 +244,19 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
             => RunTest(
                 MakeInvalidTestFileName(RuleId.ProvideHelpUris, nameof(RuleId.ProvideHelpUris)),
                 parameter: new TestParameters(verbose: true));
-        
+
+        [Fact]
+        public void SARIF2013_ProvideEmbeddedFileContent_Valid()
+            => RunTest(
+                MakeValidTestFileName(RuleId.ProvideEmbeddedFileContent, nameof(RuleId.ProvideEmbeddedFileContent)),
+                parameter: new TestParameters(verbose: true));
+
+        [Fact]
+        public void SARIF2013_ProvideEmbeddedFileContent_Invalid()
+            => RunTest(
+                MakeInvalidTestFileName(RuleId.ProvideEmbeddedFileContent, nameof(RuleId.ProvideEmbeddedFileContent)),
+                parameter: new TestParameters(verbose: true));
+
         [Fact]
         public void SARIF2014_ProvideDynamicMessageContent_Valid()
             => RunTest(MakeValidTestFileName(RuleId.ProvideDynamicMessageContent, nameof(RuleId.ProvideDynamicMessageContent)),

@@ -340,4 +340,7 @@ Many tool use similar names for 'uriBaseId' symbols. We suggest 'REPOROOT' for t
   <data name="SARIF2012_ProvideHelpUris_Note_Default_Text" xml:space="preserve">
     <value>{0}: Placeholder '{1}'</value>
   </data>
+  <data name="SARIF2013_ProvideEmbeddedFileContent_FullDescription_Text" xml:space="preserve">
+    <value>Placeholder</value>
+  </data>
 </root>
