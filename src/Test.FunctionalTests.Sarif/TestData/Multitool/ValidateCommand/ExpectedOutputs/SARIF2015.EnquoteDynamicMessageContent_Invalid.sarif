@@ -8,8 +8,8 @@
           "name": "SARIF Functional Testing",
           "rules": [
             {
-              "id": "SARIF2001",
-              "name": "TerminateMessagesWithPeriod",
+              "id": "SARIF2015",
+              "name": "EnquoteDynamicMessageContent",
               "shortDescription": {
                 "text": "Follow authoring practices that make your rule messages readable, understandable, and actionable."
               },
@@ -19,12 +19,6 @@
               "messageStrings": {
                 "Warning_EnquoteDynamicContent": {
                   "text": "{0}: In rule '{1}', the message with id '{2}' includes dynamic content that is not enclosed in single quotes. Enquoting dynamic content makes it easier to spot, and single quotes give a less cluttered appearance."
-                },
-                "Warning_IncludeDynamicContent": {
-                  "text": "{0}: In rule '{1}', the message with id '{2}' does not include any dynamic content. Dynamic content makes your messages more specific and avoids the \"wall of bugs\" phenomenon."
-                },
-                "Warning_TerminateWithPeriod": {
-                  "text": "{0}: In rule '{1}', the message with id '{2}' does not end in a period. Write rule messages as complete sentences."
                 }
               },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
@@ -40,15 +34,16 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF2001.TerminateMessagesWithPeriod_Invalid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF2015.EnquoteDynamicMessageContent_Invalid.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }
       ],
       "results": [
         {
-          "ruleId": "SARIF2001",
+          "ruleId": "SARIF2015",
           "ruleIndex": 0,
+          "level": "note",
           "message": {
             "id": "Warning_EnquoteDynamicContent",
             "arguments": [
@@ -66,56 +61,6 @@
                 "region": {
                   "startLine": 18,
                   "startColumn": 91
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF2001",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Warning_IncludeDynamicContent",
-            "arguments": [
-              "runs[0].tool.driver.rules[0].messageStrings.NoPlaceholders.text",
-              "TST0001",
-              "NoPlaceholders"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 21,
-                  "startColumn": 74
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF2001",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Warning_TerminateWithPeriod",
-            "arguments": [
-              "runs[0].tool.driver.rules[0].messageStrings.NoPeriod.text",
-              "TST0001",
-              "NoPeriod"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 24,
-                  "startColumn": 111
                 }
               }
             }

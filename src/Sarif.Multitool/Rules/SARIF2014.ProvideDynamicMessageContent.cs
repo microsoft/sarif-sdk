@@ -37,12 +37,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF2001_TerminateMessagesWithPeriod_FullDescription_Text };
 
         protected override IEnumerable<string> MessageResourceNames => new string[] {
-            nameof(RuleResources.SARIF2001_TerminateMessagesWithPeriod_Warning_EnquoteDynamicContent_Text),
-            nameof(RuleResources.SARIF2001_TerminateMessagesWithPeriod_Warning_IncludeDynamicContent_Text),
-            nameof(RuleResources.SARIF2001_TerminateMessagesWithPeriod_Warning_TerminateWithPeriod_Text)
+            nameof(RuleResources.SARIF2001_TerminateMessagesWithPeriod_Warning_IncludeDynamicContent_Text)
         };
 
-        public override FailureLevel DefaultLevel => FailureLevel.Warning;
+        public override FailureLevel DefaultLevel => FailureLevel.Note;
 
         private static readonly Regex s_dynamicContentRegex = new Regex(@"\{[0-9]+\}", RegexOptions.Compiled | RegexOptions.CultureInvariant);
         private static readonly Regex s_nonEnquotedDynamicContextRegex = new Regex(@"(^|[^'])\{[0-9]+\}", RegexOptions.Compiled | RegexOptions.CultureInvariant);
@@ -96,29 +94,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 LogResult(
                     textPointer,
                     nameof(RuleResources.SARIF2001_TerminateMessagesWithPeriod_Warning_IncludeDynamicContent_Text),
-                    ruleId,
-                    messageKey);
-            }
-
-            if (s_nonEnquotedDynamicContextRegex.IsMatch(messageString))
-            {
-                // {0}: In rule '{1}', the message with id '{2}' includes dynamic content that is not
-                // enclosed in single quotes. Enquoting dynamic content makes it easier to spot, and
-                // single quotes give a less cluttered appearance.
-                LogResult(
-                    textPointer,
-                    nameof(RuleResources.SARIF2001_TerminateMessagesWithPeriod_Warning_EnquoteDynamicContent_Text),
-                    ruleId,
-                    messageKey);
-            }
-
-            if (!messageString.EndsWith(".", StringComparison.Ordinal))
-            {
-                // {0}: In rule '{1}', the message with id '{2}' does not end in a period. Write rule
-                // messages as complete sentences.
-                LogResult(
-                    textPointer,
-                    nameof(RuleResources.SARIF2001_TerminateMessagesWithPeriod_Warning_TerminateWithPeriod_Text),
                     ruleId,
                     messageKey);
             }
