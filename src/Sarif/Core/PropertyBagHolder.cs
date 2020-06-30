@@ -31,6 +31,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Key/value pairs that provide additional information about the run.
         /// </summary>
+        [JsonConverter(typeof(PropertyBagConverter))]
+        [JsonProperty("properties", DefaultValueHandling = DefaultValueHandling.Ignore)]
         internal virtual IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         public bool TryGetProperty(string propertyName, out string value)
