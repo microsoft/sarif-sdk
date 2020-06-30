@@ -9,16 +9,27 @@ namespace Microsoft.CodeAnalysis.Sarif
     {
         public LogicalLocation LogicalLocation
         {
-            get { return LogicalLocations?[0]; }
-            set
+            get
             {
-                if (value != null)
+                IList<LogicalLocation> locations = LogicalLocations;
+                if (locations != null && locations.Count > 0)
                 {
-                    LogicalLocations = new List<LogicalLocation> { value };
+                    return locations[0];
                 }
                 else
                 {
-                    LogicalLocations = null;
+                    return null;
+                }
+            }
+
+            set
+            {
+                IList<LogicalLocation> locations = LogicalLocations;
+                locations.Clear();
+
+                if (value != null)
+                {
+                    locations.Add(value);
                 }
             }
         }

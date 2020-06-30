@@ -244,7 +244,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 string output = sb.ToString();
                 SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(output);
-                sarifLog.Runs[0].Artifacts.Should().BeNull();
+                sarifLog.Runs[0].Artifacts.Should().BeEmpty();
             }
         }
 
@@ -276,6 +276,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void SarifLogger_WritesRunProperties()
         {
+            SarifLog container = new SarifLog();
+
             string propertyName = "numberValue";
             double propertyValue = 3.14;
             string logicalId = nameof(logicalId) + ":" + Guid.NewGuid().ToString();
@@ -607,7 +609,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             string logText = sb.ToString();
             SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
 
-            sarifLog.Runs[0].Artifacts.Should().BeNull();
+            sarifLog.Runs[0].Artifacts.Should().BeEmpty();
         }
 
         [Fact]
