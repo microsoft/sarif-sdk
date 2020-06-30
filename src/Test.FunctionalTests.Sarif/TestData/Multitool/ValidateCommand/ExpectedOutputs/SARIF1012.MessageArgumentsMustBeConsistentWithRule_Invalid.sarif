@@ -74,7 +74,7 @@
             "arguments": [
               "runs[0].results[0]",
               "DoesNotExist",
-              "0"
+              "TEST1001"
             ]
           },
           "locations": [
@@ -101,8 +101,8 @@
               "runs[0].results[1]",
               "1",
               "DoesExist",
-              "0",
-              "3",
+              "TEST1001",
+              "2",
               "{0}: Placeholder {1} {2}."
             ]
           },

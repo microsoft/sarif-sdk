@@ -43,8 +43,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 ReportingDescriptor rule = result.GetRule(this.run);
 
                 if (this.currentRules == null
-                    || rule.MessageStrings == null
-                    || !rule.MessageStrings.ContainsKey(result.Message.Id))
+                    || rule.MessageStrings?.ContainsKey(result.Message.Id) == false)
                 {
                     // {0}: Placeholder {1} {2}
                     LogResult(
@@ -57,8 +56,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
                 // we have rules, we find it but, the count of parameters are invalid
                 string messageText = rule.MessageStrings[result.Message.Id].Text;
-                int countOfPlaceholders = CountOfPlaceholders(messageText);
-                if (countOfPlaceholders > (result.Message.Arguments?.Count ?? 0))
+                int placeholderMaxPosition = PlaceholderMaxPosition(messageText);
+                if (placeholderMaxPosition > (result.Message.Arguments?.Count ?? 0))
                 {
                     // {0}: Placeholder {1} {2} {3} {4} {5}
                     LogResult(
@@ -67,22 +66,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                         result.Message.Arguments.Count.ToString(),
                         result.Message.Id,
                         result.ResolvedRuleId(run) ?? "null",
-                        countOfPlaceholders.ToString(),
+                        placeholderMaxPosition.ToString(),
                         messageText);
                 }
             }
         }
 
-        private int CountOfPlaceholders(string text)
+        private int PlaceholderMaxPosition(string text)
         {
             MatchCollection matchCollection = Regex.Matches(text, "{\\d+}");
-            HashSet<string> matches = new HashSet<string>();
+            int max = -1;
             foreach (Match match in matchCollection)
             {
-                matches.Add(match.Value);
+                if (int.TryParse(match.Value.Replace("{", string.Empty).Replace("}", string.Empty), out int temp))
+                {
+                    if (max < temp)
+                    {
+                        max = temp;
+                    }
+                }
             }
 
-            return matches.Count;
+            return max++;
         }
     }
 }
