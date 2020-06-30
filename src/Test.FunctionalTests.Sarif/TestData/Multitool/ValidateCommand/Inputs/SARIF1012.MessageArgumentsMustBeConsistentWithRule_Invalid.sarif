@@ -19,7 +19,7 @@
               },
               "messageStrings": {
                 "DoesExist": {
-                  "text": "{0}: Placeholder {1} {2}."
+                  "text": "'{0}': Placeholder '{1}' '{2}'."
                 }
               },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"

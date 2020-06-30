@@ -9,20 +9,17 @@
           "version": "1.2.3",
           "rules": [
             {
-              "id": "SARIF2009",
-              "name": "ConsiderConventionalIdentifierValues",
+              "id": "TEST1001",
+              "name": "Test 1001",
               "shortDescription": {
-                "text": "Adopt uniform naming conventions for the symbolic names that SARIF uses various contexts."
+                "text": "Test 1001 short description."
               },
               "fullDescription": {
-                "text": "Adopt uniform naming conventions for the symbolic names that SARIF uses various contexts.\r\n\r\nMany tools follow a conventional format for the 'reportingDescriptor.id' property: a short string identifying the tool concatenated with a numeric rule number,\r\nfor example, 'CS2001' for a diagnostic from the Roslyn C# compiler. For uniformity of experience across tools, we recommend this format.\r\n\r\nMany tool use similar names for 'uriBaseId' symbols. We suggest 'REPOROOT' for the root of a repository, 'SRCROOT' for the root of the directory containing all source code, 'TESTROOT' for the root of the directory containing all test code (if your repository is organized in that way), and 'BINROOT' for the root of the directory containing build output (if your project places all build output in a common directory)."
+                "text": "Test 1001 full description."
               },
               "messageStrings": {
-                "Note_UseConventionalRuleIds": {
-                  "text": "{0}: The 'id' property of the rule '{1}' does not follow the recommended format: a short string identifying the tool concatenated with a numeric rule number, for example, `CS2001`. Using a conventional format for the rule id provides a more uniform experience across tools."
-                },
-                "Note_UseConventionalUriBaseIdNames": {
-                  "text": "{0}: The 'originalUriBaseIds' symbol '{1}' is not one of the conventional symbols. We suggest 'REPOROOT' for the root of a repository, 'SRCROOT' for the root of the directory containing all source code, 'TESTROOT' for the root of the directory containing all test code (if your repository is organized in that way), and 'BINROOT' for the root of the directory containing build output (if your project places all build output in a common directory)."
+                "DoesExist": {
+                  "text": "'{0}': Placeholder '{1}'."
                 }
               },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
@@ -45,11 +42,11 @@
       ],
       "results": [
         {
-          "ruleId": "SARIF2009",
+          "ruleId": "TEST1001",
           "ruleIndex": 0,
           "level": "note",
           "message": {
-            "id": "Note_UseConventionalUriBaseIdNames",
+            "id": "DoesExist",
             "arguments": [
               "runs[0].originalUriBaseIds.SRCINVALID",
               "SRCINVALID"
@@ -64,31 +61,6 @@
                 "region": {
                   "startLine": 21,
                   "startColumn": 23
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF2009",
-          "ruleIndex": 0,
-          "level": "note",
-          "message": {
-            "id": "Note_UseConventionalRuleIds",
-            "arguments": [
-              "runs[0].tool.driver.rules[0].id",
-              "WRONG00001"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 13,
-                  "startColumn": 32
                 }
               }
             }
