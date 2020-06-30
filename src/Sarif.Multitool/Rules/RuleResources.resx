@@ -338,6 +338,6 @@ Many tool use similar names for 'uriBaseId' symbols. We suggest 'REPOROOT' for t
     <value>Placeholder</value>
   </data>
   <data name="SARIF2012_ProvideHelpUris_Note_Default_Text" xml:space="preserve">
-    <value>{0}: Placeholder</value>
+    <value>{0}: Placeholder '{1}'</value>
   </data>
 </root>

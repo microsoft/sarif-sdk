@@ -18,7 +18,7 @@
               },
               "messageStrings": {
                 "Note_Default": {
-                  "text": "{0}: Placeholder"
+                  "text": "{0}: Placeholder '{1}'"
                 }
               },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
@@ -65,7 +65,8 @@
           "message": {
             "id": "Note_Default",
             "arguments": [
-              "runs[0].tool.driver.rules[0]"
+              "runs[0].tool.driver.rules[0]",
+              "SARIF2009.ConsiderConventionalIdentifierValues"
             ]
           },
           "locations": [

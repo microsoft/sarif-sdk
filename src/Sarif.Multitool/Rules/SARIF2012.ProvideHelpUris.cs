@@ -3,6 +3,8 @@
 
 using System.Collections.Generic;
 
+using Microsoft.Json.Pointer;
+
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class ProvideHelpUris : SarifValidationSkimmerBase
@@ -23,14 +25,41 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         public override FailureLevel DefaultLevel => FailureLevel.Note;
 
-        protected override void Analyze(ReportingDescriptor reportingDescriptor, string reportingDescriptorPointer)
+        protected override void Analyze(Tool tool, string toolPointer)
+        {
+            if (tool.Driver != null)
+            {
+                AnalyzeToolDriver(tool.Driver, toolPointer.AtProperty(SarifPropertyName.Driver));
+            }
+        }
+
+        private void AnalyzeToolDriver(ToolComponent toolComponent, string toolDriverPointer)
+        {
+            if (toolComponent.Rules != null)
+            {
+                string rulesPointer = toolDriverPointer.AtProperty(SarifPropertyName.Rules);
+                for (int i = 0; i < toolComponent.Rules.Count; i++)
+                {
+                    AnalyzeReportingDescriptor(toolComponent.Rules[i], rulesPointer.AtIndex(i));
+                }
+            }
+        }
+
+        private void AnalyzeReportingDescriptor(ReportingDescriptor reportingDescriptor, string reportingDescriptorPointer)
         {
             if (reportingDescriptor.HelpUri == null)
             {
-                // {0}: Placeholder
+                string ruleMoniker = reportingDescriptor.Id;
+                if (!string.IsNullOrWhiteSpace(reportingDescriptor.Name))
+                {
+                    ruleMoniker += $".{reportingDescriptor.Name}";
+                }
+
+                // {0}: Placeholder '{1}'
                 LogResult(
                     reportingDescriptorPointer,
-                    nameof(RuleResources.SARIF2011_ProvideContextRegion_Note_Default_Text));
+                    nameof(RuleResources.SARIF2012_ProvideHelpUris_Note_Default_Text),
+                    ruleMoniker);
             }
         }
     }
