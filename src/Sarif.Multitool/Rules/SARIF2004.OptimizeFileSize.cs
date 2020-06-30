@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -23,12 +24,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF2004_OptimizeFileSize_FullDescription_Text };
 
         protected override IEnumerable<string> MessageResourceNames => new string[] {
-                    nameof(RuleResources.SARIF2004_OptimizeFileSize_Warning_EliminateLocationOnlyArtifacts_Text)
+                    nameof(RuleResources.SARIF2004_OptimizeFileSize_Warning_EliminateLocationOnlyArtifacts_Text),
+                                        nameof(RuleResources.SARIF2004_OptimizeFileSize_Warning_EliminateIdOnlyRules_Text)
                 };
 
         public override FailureLevel DefaultLevel => FailureLevel.Warning;
 
         protected override void Analyze(Run run, string runPointer)
+        {
+            AnalyzeLocationOnlyArtifacts(run, runPointer);
+            AnalyzeIdOnlyRules(run, runPointer);
+        }
+
+        private void AnalyzeLocationOnlyArtifacts(Run run, string runPointer)
         {
             // We only verify first item in the results and artifacts array,
             // since tools will typically generate similar nodes.
@@ -69,10 +77,46 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         private bool HasLocationOnlyArtifacts(string artifactPointer)
         {
-            JToken artifactToken = artifactPointer.ToJToken(Context.InputLogToken);
+            var artifactToken = artifactPointer.ToJToken(Context.InputLogToken);
             return
                 artifactToken.HasProperty(SarifPropertyName.Location) &&
                 artifactToken.Children().Count() == 1;
+        }
+
+        private void AnalyzeIdOnlyRules(Run run, string runPointer)
+        {
+            // We only verify first item in the rules array,
+            // since tools will typically generate similar nodes.
+            // This approach may cause occasional false negatives.
+
+            ReportingDescriptor firstRule = run?.Tool?.Driver?.Rules?.FirstOrDefault();
+
+            if (firstRule == null)
+            {
+                return;
+            }
+
+            string firstRulePointer = runPointer
+                .AtProperty(SarifPropertyName.Tool)
+                .AtProperty(SarifPropertyName.Driver)
+                .AtProperty(SarifPropertyName.Rules)
+                .AtIndex(0);
+
+            if (HasIdOnlyRules(firstRulePointer))
+            {
+                // {0}: SARIF2004_OptimizeFileSize_Warning_EliminateIdOnlyRules_Text
+                LogResult(
+                    firstRulePointer,
+                    nameof(RuleResources.SARIF2004_OptimizeFileSize_Warning_EliminateIdOnlyRules_Text));
+            }
+        }
+
+        private bool HasIdOnlyRules(string rulePointer)
+        {
+            var ruleToken = rulePointer.ToJToken(Context.InputLogToken);
+            return
+                ruleToken.HasProperty(SarifPropertyName.Id) &&
+                ruleToken.Children().Count() == 1;
         }
     }
 }

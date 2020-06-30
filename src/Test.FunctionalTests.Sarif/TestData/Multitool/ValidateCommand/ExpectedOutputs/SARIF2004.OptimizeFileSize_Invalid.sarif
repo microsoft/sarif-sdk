@@ -19,6 +19,9 @@
               "messageStrings": {
                 "Warning_EliminateLocationOnlyArtifacts": {
                   "text": "{0}: Placeholder_SARIF2004_OptimizeFileSize_Warning_EliminateLocationOnlyArtifacts_Text"
+                },
+                "Warning_EliminateIdOnlyRules": {
+                  "text": "Placeholder_SARIF2004_OptimizeFileSize_Warning_EliminateIdOnlyRules_Text"
                 }
               },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
@@ -74,8 +77,31 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 19,
+                  "startLine": 18,
                   "startColumn": 9
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF2004",
+          "ruleIndex": 0,
+          "message": {
+            "id": "Warning_EliminateIdOnlyRules",
+            "arguments": [
+              "runs[0].tool.driver.rules[0]"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 11,
+                  "startColumn": 13
                 }
               }
             }
