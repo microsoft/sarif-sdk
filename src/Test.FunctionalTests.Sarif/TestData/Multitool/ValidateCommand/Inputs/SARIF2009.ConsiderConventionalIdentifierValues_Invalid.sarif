@@ -17,6 +17,11 @@
           ]
         }
       },
+      "versionControlProvenance": [
+        {
+          "repositoryUri": "https://github.com/microsoft/sarif-sdk"
+        }
+      ],
       "originalUriBaseIds": {
         "SRCINVALID": {
           "uri": "file:///c:/Code/sarif-sdk/src/"
