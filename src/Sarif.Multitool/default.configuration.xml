@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--
+This file contains the default rule configurations for the SARIF validator tool.
+-->
+<Properties>
+  <Properties Key="SARIF2006.UrisShouldBeReachable.Options">
+    <Property Key="RuleEnabled" Value="Disabled" />
+  </Properties>
+</Properties>

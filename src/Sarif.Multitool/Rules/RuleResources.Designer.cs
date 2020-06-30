@@ -531,7 +531,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Placeholder_SARIF2006_UrisShouldBeReachable_Warning_Default_Text.
+        ///   Looks up a localized string similar to {0}: Placeholder {1}.
         /// </summary>
         internal static string SARIF2006_UrisShouldBeReachable_Warning_Default_Text {
             get {
@@ -681,7 +681,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Placeholder_SARIF2015_EnquoteDynamicMessageContent_Note_Default_Text.
+        ///   Looks up a localized string similar to &gt;&gt;&gt;&gt;&gt;&gt;&gt; features/sarif-validation-rules.
         /// </summary>
         internal static string SARIF2015_EnquoteDynamicMessageContent_Note_Default_Text {
             get {

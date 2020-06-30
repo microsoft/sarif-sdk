@@ -5,12 +5,17 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+
 using FluentAssertions;
+
 using Microsoft.CodeAnalysis.Sarif.Multitool;
 using Microsoft.CodeAnalysis.Sarif.Multitool.Rules;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
+
 using Moq;
+
 using Newtonsoft.Json;
+
 using Xunit;
 using Xunit.Abstractions;
 
@@ -26,6 +31,20 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
         private const bool Verbose = true;
 
         protected override string IntermediateTestFolder => @"Multitool";
+
+        private class TestParameters
+        {
+            internal bool Verbose { get; }
+            internal string ConfigFileName { get; }
+
+            internal TestParameters(bool verbose = false, string configFileName = null)
+            {
+                Verbose = verbose;
+                ConfigFileName = configFileName ?? Path.Combine(Directory.GetCurrentDirectory(), "default.configuration.xml");
+            }
+        }
+
+        private static readonly TestParameters s_defaultTestParameters = new TestParameters();
 
         [Fact]
         public void JSON1001_SyntaxError()
@@ -156,6 +175,16 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
             => RunTest(MakeInvalidTestFileName(RuleId.ProvideToolProperties, nameof(RuleId.ProvideToolProperties)));
 
         [Fact]
+        public void SARIF2006_UrisShouldBeReachable_Valid()
+            => RunTest(MakeValidTestFileName(RuleId.UrisShouldBeReachable, nameof(RuleId.UrisShouldBeReachable)),
+                parameter: new TestParameters(configFileName: "enable2006.configuration.xml"));
+
+        [Fact]
+        public void SARIF2006_UrisShouldBeReachable_Invalid()
+            => RunTest(MakeInvalidTestFileName(RuleId.UrisShouldBeReachable, nameof(RuleId.UrisShouldBeReachable)),
+                parameter: new TestParameters(configFileName: "enable2006.configuration.xml"));
+
+        [Fact]
         public void SARIF2008_ProvideSchema_Valid()
             => RunTest(MakeValidTestFileName(RuleId.ProvideSchema, nameof(RuleId.ProvideSchema)));
 
@@ -165,11 +194,15 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
 
         [Fact]
         public void SARIF2009_ConsiderConventionalIdentifierValues_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.ConsiderConventionalIdentifierValues, nameof(RuleId.ConsiderConventionalIdentifierValues)), parameter: Verbose);
+            => RunTest(
+                MakeValidTestFileName(RuleId.ConsiderConventionalIdentifierValues, nameof(RuleId.ConsiderConventionalIdentifierValues)),
+                parameter: new TestParameters(verbose: true));
 
         [Fact]
         public void SARIF2009_ConsiderConventionalIdentifierValues_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.ConsiderConventionalIdentifierValues, nameof(RuleId.ConsiderConventionalIdentifierValues)), parameter: Verbose);
+            => RunTest(
+                MakeInvalidTestFileName(RuleId.ConsiderConventionalIdentifierValues, nameof(RuleId.ConsiderConventionalIdentifierValues)),
+                parameter: new TestParameters(verbose: true));
 
         private const string ValidTestFileNameSuffix = "_Valid.sarif";
         private const string InvalidTestFileNameSuffix = "_Invalid.sarif";
@@ -203,6 +236,10 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
             bool updateInputsToCurrentSarif = ruleUnderTest.StartsWith("SARIF") 
                 && !shouldNotTransform.Contains(ruleUnderTest);
 
+            TestParameters testParameters = parameter != null
+                ? (TestParameters)parameter
+                : s_defaultTestParameters;
+
             var validateOptions = new ValidateOptions
             {
                 SarifOutputVersion = SarifVersion.Current,
@@ -211,13 +248,10 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
                 Quiet = true,
                 UpdateInputsToCurrentSarif = updateInputsToCurrentSarif,
                 PrettyPrint = true,
-                Optimize = true
+                Optimize = true,
+                Verbose = testParameters.Verbose,
+                ConfigurationFilePath = testParameters.ConfigFileName
             };
-
-            if (parameter != null && parameter is bool verbose)
-            {
-                validateOptions.Verbose = verbose;
-            }
 
             var mockFileSystem = new Mock<IFileSystem>();
 
@@ -227,6 +261,7 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
             mockFileSystem.Setup(x => x.ReadAllText(inputLogFilePath)).Returns(v2LogText);
             mockFileSystem.Setup(x => x.ReadAllText(It.IsNotIn<string>(inputLogFilePath))).Returns<string>(path => File.ReadAllText(path));
             mockFileSystem.Setup(x => x.WriteAllText(It.IsAny<string>(), It.IsAny<string>()));
+            mockFileSystem.Setup(x => x.FileExists(validateOptions.ConfigurationFilePath)).Returns(true);
 
             var validateCommand = new ValidateCommand(mockFileSystem.Object);
 

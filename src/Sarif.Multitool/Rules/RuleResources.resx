@@ -302,7 +302,7 @@ Many tool use similar names for 'uriBaseId' symbols. We suggest 'REPOROOT' for t
     <value>Placeholder_SARIF2006_UrisShouldBeReachable_FullDescription_Text</value>
   </data>
   <data name="SARIF2006_UrisShouldBeReachable_Warning_Default_Text" xml:space="preserve">
-    <value>Placeholder_SARIF2006_UrisShouldBeReachable_Warning_Default_Text</value>
+    <value>{0}: Placeholder {1}</value>
   </data>
   <data name="SARIF2007_ExpressPathsRelativeToRepoRoot_FullDescription_Text" xml:space="preserve">
     <value>Placeholder_SARIF2007_ExpressPathsRelativeToRepoRoot_FullDescription_Text</value>
@@ -345,5 +345,6 @@ Many tool use similar names for 'uriBaseId' symbols. We suggest 'REPOROOT' for t
   </data>
   <data name="SARIF2015_EnquoteDynamicMessageContent_Note_Default_Text" xml:space="preserve">
     <value>Placeholder_SARIF2015_EnquoteDynamicMessageContent_Note_Default_Text</value>
+>>>>>>> features/sarif-validation-rules
   </data>
 </root>

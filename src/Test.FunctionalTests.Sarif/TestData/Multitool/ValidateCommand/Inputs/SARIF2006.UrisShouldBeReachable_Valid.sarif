@@ -1,0 +1,40 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "CodeScanner",
+          "version": "1.0",
+          "downloadUri": "https://github.com/microsoft/sarif-sdk",
+          "rules": [
+            {
+              "id": "TST0001",
+              "helpUri": "https://github.com/microsoft/sarif-sdk"
+            }
+          ]
+        }
+      },
+      "versionControlProvenance": [
+        {
+          "repositoryUri": "https://github.com/microsoft/sarif-sdk"
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "TST0001",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "text": "Some testing occurred."
+          },
+          "workItemUris": [
+            "https://github.com/microsoft/sarif-sdk"
+          ]
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}
