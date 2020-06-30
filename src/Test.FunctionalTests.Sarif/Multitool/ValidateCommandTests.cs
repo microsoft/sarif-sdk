@@ -226,19 +226,23 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
 
         [Fact]
         public void SARIF2014_ProvideDynamicMessageContent_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.ProvideDynamicMessageContent, nameof(RuleId.ProvideDynamicMessageContent)));
+            => RunTest(MakeValidTestFileName(RuleId.ProvideDynamicMessageContent, nameof(RuleId.ProvideDynamicMessageContent)),
+                parameter: new TestParameters(verbose: true));
 
         [Fact]
         public void SARIF2014_ProvideDynamicMessageContent_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.ProvideDynamicMessageContent, nameof(RuleId.ProvideDynamicMessageContent)));
+            => RunTest(MakeInvalidTestFileName(RuleId.ProvideDynamicMessageContent, nameof(RuleId.ProvideDynamicMessageContent)),
+                parameter: new TestParameters(verbose: true));
 
         [Fact]
         public void SARIF2015_EnquoteDynamicMessageContent_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.EnquoteDynamicMessageContent, nameof(RuleId.EnquoteDynamicMessageContent)));
+            => RunTest(MakeValidTestFileName(RuleId.EnquoteDynamicMessageContent, nameof(RuleId.EnquoteDynamicMessageContent)),
+                parameter: new TestParameters(verbose: true));
 
         [Fact]
         public void SARIF2015_EnquoteDynamicMessageContent_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.EnquoteDynamicMessageContent, nameof(RuleId.EnquoteDynamicMessageContent)));
+            => RunTest(MakeInvalidTestFileName(RuleId.EnquoteDynamicMessageContent, nameof(RuleId.EnquoteDynamicMessageContent)),
+                parameter: new TestParameters(verbose: true));
 
         private const string ValidTestFileNameSuffix = "_Valid.sarif";
         private const string InvalidTestFileNameSuffix = "_Invalid.sarif";

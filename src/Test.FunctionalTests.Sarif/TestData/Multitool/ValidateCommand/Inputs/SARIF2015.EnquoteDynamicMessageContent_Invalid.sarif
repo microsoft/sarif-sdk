@@ -22,6 +22,11 @@
           ]
         }
       },
+      "versionControlProvenance": [
+        {
+          "repositoryUri": "https://github.com/microsoft/sarif-sdk"
+        }
+      ],
       "columnKind": "utf16CodeUnits"
     }
   ]
