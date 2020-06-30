@@ -55,7 +55,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         private void AnalyzeRegion(Region region, string regionPointer)
         {
-
             if (region != null && region.Snippet == null)
             {
                 // Placeholder_SARIF2010_ProvideCodeSnippets_Note_Default_Text
