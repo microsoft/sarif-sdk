@@ -9,12 +9,12 @@ using Microsoft.Json.Pointer;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class ProvideHelpfulToolInformation : SarifValidationSkimmerBase
+    public class ProvideToolProperties : SarifValidationSkimmerBase
     {
         /// <summary>
         /// SARIF2005
         /// </summary>
-        public override string Id => RuleId.ProvideHelpfulToolInformation;
+        public override string Id => RuleId.ProvideToolProperties;
 
         /// <summary>
         /// Provide information that makes it easy to identify the name and version of your tool.

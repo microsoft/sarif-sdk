@@ -141,11 +141,11 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
 
         [Fact]
         public void SARIF2005_ProvideToolProperties_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.ProvideHelpfulToolInformation, nameof(RuleId.ProvideHelpfulToolInformation)));
+            => RunTest(MakeValidTestFileName(RuleId.ProvideToolProperties, nameof(RuleId.ProvideToolProperties)));
 
         [Fact]
         public void SARIF2005_ProvideToolProperties_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.ProvideHelpfulToolInformation, nameof(RuleId.ProvideHelpfulToolInformation)));
+            => RunTest(MakeInvalidTestFileName(RuleId.ProvideToolProperties, nameof(RuleId.ProvideToolProperties)));
 
         [Fact]
         public void SARIF2008_ProvideSchema_Valid()
