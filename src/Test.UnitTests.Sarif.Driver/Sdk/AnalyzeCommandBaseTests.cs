@@ -1018,12 +1018,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             runWithCaching.Results.Should().BeEquivalentTo(runWithoutCaching.Results);
 
             // Tool configuration errors, such as 'Could not locate scan target PDB.'
-            runWithoutCaching.Invocations?[0].ToolConfigurationNotifications?.Should()
-                .BeEquivalentTo(runWithCaching.Invocations?[0].ToolConfigurationNotifications);
+            runWithoutCaching.Invocations?.FirstOrDefault()?.ToolConfigurationNotifications?.Should()
+                .BeEquivalentTo(runWithCaching.Invocations?.FirstOrDefault()?.ToolConfigurationNotifications);
 
             // Not yet explicitly tested
-            runWithoutCaching.Invocations?[0].ToolExecutionNotifications?.Should()
-                .BeEquivalentTo(runWithCaching.Invocations?[0].ToolExecutionNotifications);
+            runWithoutCaching.Invocations?.FirstOrDefault()?.ToolExecutionNotifications?.Should()
+                .BeEquivalentTo(runWithCaching.Invocations?.FirstOrDefault()?.ToolExecutionNotifications);
         }
 
         private static IFileSystem CreateDefaultFileSystemForResultsCaching(IList<string> files)
