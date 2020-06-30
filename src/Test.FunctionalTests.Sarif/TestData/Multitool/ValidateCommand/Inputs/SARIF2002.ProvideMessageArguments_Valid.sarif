@@ -11,7 +11,7 @@
             {
               "id": "TEST1001",
               "fullDescription": {
-                "text": "Test 1001 full description."
+                "text": "Test message."
               },
               "messageStrings": {
                 "DoesExist": {
