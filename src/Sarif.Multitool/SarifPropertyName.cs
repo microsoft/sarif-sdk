@@ -17,6 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public const string ArtifactChanges = "artifactChanges";
         public const string CodeFlows = "codeFlows";
         public const string Configuration = "configuration";
+        public const string ContextRegion = "contextRegion";
         public const string Conversion = "conversion";
         public const string ConversionSources = "conversionSources";
         public const string Description = "description";
