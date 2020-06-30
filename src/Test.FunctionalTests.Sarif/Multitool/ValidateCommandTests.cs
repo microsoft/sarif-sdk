@@ -224,6 +224,18 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
                 MakeInvalidTestFileName(RuleId.ConsiderConventionalIdentifierValues, nameof(RuleId.ConsiderConventionalIdentifierValues)),
                 parameter: new TestParameters(verbose: true));
 
+        [Fact]
+        public void SARIF2011_ProvideContextRegion_Valid()
+            => RunTest(
+                MakeValidTestFileName(RuleId.ProvideContextRegion, nameof(RuleId.ProvideContextRegion)),
+                parameter: new TestParameters(verbose: true));
+
+        [Fact]
+        public void SARIF2011_ProvideContextRegion_Invalid()
+            => RunTest(
+                MakeInvalidTestFileName(RuleId.ProvideContextRegion, nameof(RuleId.ProvideContextRegion)),
+                parameter: new TestParameters(verbose: true));
+
         private const string ValidTestFileNameSuffix = "_Valid.sarif";
         private const string InvalidTestFileNameSuffix = "_Invalid.sarif";
 
