@@ -225,6 +225,18 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
                 parameter: new TestParameters(verbose: true));
 
         [Fact]
+        public void SARIF2011_ProvideContextRegion_Valid()
+            => RunTest(
+                MakeValidTestFileName(RuleId.ProvideContextRegion, nameof(RuleId.ProvideContextRegion)),
+                parameter: new TestParameters(verbose: true));
+
+        [Fact]
+        public void SARIF2011_ProvideContextRegion_Invalid()
+            => RunTest(
+                MakeInvalidTestFileName(RuleId.ProvideContextRegion, nameof(RuleId.ProvideContextRegion)),
+                parameter: new TestParameters(verbose: true));
+
+        [Fact]
         public void SARIF2014_ProvideDynamicMessageContent_Valid()
             => RunTest(MakeValidTestFileName(RuleId.ProvideDynamicMessageContent, nameof(RuleId.ProvideDynamicMessageContent)),
                 parameter: new TestParameters(verbose: true));
