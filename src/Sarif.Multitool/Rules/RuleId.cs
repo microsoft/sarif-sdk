@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public const string ReferenceFinalSchema = "SARIF1011";
         public const string MessageArgumentsMustBeConsistentWithRule = "SARIF1012";
 
-        public const string AuthorHighQualityMessages = "SARIF2001"; //TODO: rename and split into multiple
+        public const string TerminateMessagesWithPeriod = "SARIF2001";
         public const string ProvideMessageArguments = "SARIF2002";
         public const string ProvideVersionControlProvenance = "SARIF2003";
         public const string OptimizeFileSize = "SARIF2004";

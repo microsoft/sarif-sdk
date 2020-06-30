@@ -139,10 +139,10 @@ URIs must conform to [RFC 3986](https://tools.ietf.org/html/rfc3986). In additio
 
 If the 'invocation' object specifies both 'startTimeUtc' and 'endTimeUtc', then 'endTimeUtc' must not precede 'startTimeUtc'. To allow for the possibility that the duration of the run is less than the resolution of the string representation of the time, the start time and the end time may be equal.</value>
   </data>
-  <data name="SARIF2001_AuthorHighQualityMessages_Warning_TerminateWithPeriod_Text" xml:space="preserve">
+  <data name="SARIF2001_TerminateMessagesWithPeriod_Warning_TerminateWithPeriod_Text" xml:space="preserve">
     <value>{0}: In rule '{1}', the message with id '{2}' does not end in a period. Write rule messages as complete sentences.</value>
   </data>
-  <data name="SARIF2001_AuthorHighQualityMessages_FullDescription_Text" xml:space="preserve">
+  <data name="SARIF2001_TerminateMessagesWithPeriod_FullDescription_Text" xml:space="preserve">
     <value>Follow authoring practices that make your rule messages readable, understandable, and actionable.
 
 Including "dynamic content" (information that varies among results from the same rule) makes your messages more specific. It avoids the "wall of bugs" phenomenon, where hundreds of occurrences of the same message appear unapproachable.
@@ -251,10 +251,10 @@ If 'version' is used, facilitate comparison between versions by specifying it ei
   <data name="SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdValueMustNotContainQueryOrFragment_Text" xml:space="preserve">
     <value>{0}: '{1}' '{2}' Placeholder: SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdValueMustNotContainQueryOrFragment_Text</value>
   </data>
-  <data name="SARIF2001_AuthorHighQualityMessages_Warning_EnquoteDynamicContent_Text" xml:space="preserve">
+  <data name="SARIF2001_TerminateMessagesWithPeriod_Warning_EnquoteDynamicContent_Text" xml:space="preserve">
     <value>{0}: In rule '{1}', the message with id '{2}' includes dynamic content that is not enclosed in single quotes. Enquoting dynamic content makes it easier to spot, and single quotes give a less cluttered appearance.</value>
   </data>
-  <data name="SARIF2001_AuthorHighQualityMessages_Warning_IncludeDynamicContent_Text" xml:space="preserve">
+  <data name="SARIF2001_TerminateMessagesWithPeriod_Warning_IncludeDynamicContent_Text" xml:space="preserve">
     <value>{0}: In rule '{1}', the message with id '{2}' does not include any dynamic content. Dynamic content makes your messages more specific and avoids the "wall of bugs" phenomenon.</value>
   </data>
   <data name="SARIF1002_UrisMustBeValid_Error_FileUrisMustNotIncludeDotDotSegments_Text" xml:space="preserve">

@@ -124,12 +124,12 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
             => RunTest(MakeInvalidTestFileName(RuleId.ReferenceFinalSchema, nameof(RuleId.ReferenceFinalSchema)));
 
         [Fact]
-        public void SARIF2001_AuthorHighQualityMessages_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.AuthorHighQualityMessages, nameof(RuleId.AuthorHighQualityMessages)));
+        public void SARIF2001_TerminateMessagesWithPeriod_Valid()
+            => RunTest(MakeValidTestFileName(RuleId.TerminateMessagesWithPeriod, nameof(RuleId.TerminateMessagesWithPeriod)));
 
         [Fact]
-        public void SARIF2001_AuthorHighQualityMessages_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.AuthorHighQualityMessages, nameof(RuleId.AuthorHighQualityMessages)));
+        public void SARIF2001_TerminateMessagesWithPeriod_Invalid()
+            => RunTest(MakeInvalidTestFileName(RuleId.TerminateMessagesWithPeriod, nameof(RuleId.TerminateMessagesWithPeriod)));
 
         [Fact]
         public void SARIF2004_OptimizeFileSize_Valid()

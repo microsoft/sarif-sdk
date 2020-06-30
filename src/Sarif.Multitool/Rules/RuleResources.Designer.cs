@@ -385,36 +385,36 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         ///
         ///Placing dynamic content in quotes sets it off from the static text, making it easier to spot. It&apos;s especially helpful when the dynamic content is a string that might contai [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string SARIF2001_AuthorHighQualityMessages_FullDescription_Text {
+        internal static string SARIF2001_TerminateMessagesWithPeriod_FullDescription_Text {
             get {
-                return ResourceManager.GetString("SARIF2001_AuthorHighQualityMessages_FullDescription_Text", resourceCulture);
+                return ResourceManager.GetString("SARIF2001_TerminateMessagesWithPeriod_FullDescription_Text", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to {0}: In rule &apos;{1}&apos;, the message with id &apos;{2}&apos; includes dynamic content that is not enclosed in single quotes. Enquoting dynamic content makes it easier to spot, and single quotes give a less cluttered appearance..
         /// </summary>
-        internal static string SARIF2001_AuthorHighQualityMessages_Warning_EnquoteDynamicContent_Text {
+        internal static string SARIF2001_TerminateMessagesWithPeriod_Warning_EnquoteDynamicContent_Text {
             get {
-                return ResourceManager.GetString("SARIF2001_AuthorHighQualityMessages_Warning_EnquoteDynamicContent_Text", resourceCulture);
+                return ResourceManager.GetString("SARIF2001_TerminateMessagesWithPeriod_Warning_EnquoteDynamicContent_Text", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to {0}: In rule &apos;{1}&apos;, the message with id &apos;{2}&apos; does not include any dynamic content. Dynamic content makes your messages more specific and avoids the &quot;wall of bugs&quot; phenomenon..
         /// </summary>
-        internal static string SARIF2001_AuthorHighQualityMessages_Warning_IncludeDynamicContent_Text {
+        internal static string SARIF2001_TerminateMessagesWithPeriod_Warning_IncludeDynamicContent_Text {
             get {
-                return ResourceManager.GetString("SARIF2001_AuthorHighQualityMessages_Warning_IncludeDynamicContent_Text", resourceCulture);
+                return ResourceManager.GetString("SARIF2001_TerminateMessagesWithPeriod_Warning_IncludeDynamicContent_Text", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to {0}: In rule &apos;{1}&apos;, the message with id &apos;{2}&apos; does not end in a period. Write rule messages as complete sentences..
         /// </summary>
-        internal static string SARIF2001_AuthorHighQualityMessages_Warning_TerminateWithPeriod_Text {
+        internal static string SARIF2001_TerminateMessagesWithPeriod_Warning_TerminateWithPeriod_Text {
             get {
-                return ResourceManager.GetString("SARIF2001_AuthorHighQualityMessages_Warning_TerminateWithPeriod_Text", resourceCulture);
+                return ResourceManager.GetString("SARIF2001_TerminateMessagesWithPeriod_Warning_TerminateWithPeriod_Text", resourceCulture);
             }
         }
         

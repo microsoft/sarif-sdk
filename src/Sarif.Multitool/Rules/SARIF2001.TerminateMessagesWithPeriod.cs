@@ -9,12 +9,12 @@ using Microsoft.Json.Pointer;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class AuthorHighQualityMessages : SarifValidationSkimmerBase
+    public class TerminateMessagesWithPeriod : SarifValidationSkimmerBase
     {
         /// <summary>
         /// SARIF2001
         /// </summary>
-        public override string Id => RuleId.AuthorHighQualityMessages;
+        public override string Id => RuleId.TerminateMessagesWithPeriod;
 
         /// <summary>
         /// Follow authoring practices that make your rule messages readable, understandable, and
@@ -34,12 +34,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// does not apply to Markdown messages, which might include formatting that makes the punctuation
         /// unnecessary.
         /// </summary>
-        public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF2001_AuthorHighQualityMessages_FullDescription_Text };
+        public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF2001_TerminateMessagesWithPeriod_FullDescription_Text };
 
         protected override IEnumerable<string> MessageResourceNames => new string[] {
-            nameof(RuleResources.SARIF2001_AuthorHighQualityMessages_Warning_EnquoteDynamicContent_Text),
-            nameof(RuleResources.SARIF2001_AuthorHighQualityMessages_Warning_IncludeDynamicContent_Text),
-            nameof(RuleResources.SARIF2001_AuthorHighQualityMessages_Warning_TerminateWithPeriod_Text)
+            nameof(RuleResources.SARIF2001_TerminateMessagesWithPeriod_Warning_EnquoteDynamicContent_Text),
+            nameof(RuleResources.SARIF2001_TerminateMessagesWithPeriod_Warning_IncludeDynamicContent_Text),
+            nameof(RuleResources.SARIF2001_TerminateMessagesWithPeriod_Warning_TerminateWithPeriod_Text)
         };
 
         public override FailureLevel DefaultLevel => FailureLevel.Warning;
@@ -95,7 +95,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 // phenomenon.
                 LogResult(
                     textPointer,
-                    nameof(RuleResources.SARIF2001_AuthorHighQualityMessages_Warning_IncludeDynamicContent_Text),
+                    nameof(RuleResources.SARIF2001_TerminateMessagesWithPeriod_Warning_IncludeDynamicContent_Text),
                     ruleId,
                     messageKey);
             }
@@ -107,7 +107,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 // single quotes give a less cluttered appearance.
                 LogResult(
                     textPointer,
-                    nameof(RuleResources.SARIF2001_AuthorHighQualityMessages_Warning_EnquoteDynamicContent_Text),
+                    nameof(RuleResources.SARIF2001_TerminateMessagesWithPeriod_Warning_EnquoteDynamicContent_Text),
                     ruleId,
                     messageKey);
             }
@@ -118,7 +118,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 // messages as complete sentences.
                 LogResult(
                     textPointer,
-                    nameof(RuleResources.SARIF2001_AuthorHighQualityMessages_Warning_TerminateWithPeriod_Text),
+                    nameof(RuleResources.SARIF2001_TerminateMessagesWithPeriod_Warning_TerminateWithPeriod_Text),
                     ruleId,
                     messageKey);
             }
