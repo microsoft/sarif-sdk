@@ -9,8 +9,7 @@
           "version": "1.2.3",
           "rules": [
             {
-              "id": "TEST1001",
-              "name": "a test violation."
+              "id": "TEST1001"
             }
           ]
         }
