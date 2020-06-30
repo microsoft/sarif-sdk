@@ -11,84 +11,38 @@
             {
               "id": "TEST1001",
               "name": "Test 1001",
-              "shortDescription": {
-                "text": "Test 1001 short description."
-              },
               "fullDescription": {
                 "text": "Test 1001 full description."
               },
               "messageStrings": {
                 "DoesExist": {
-                  "text": "'{0}': Placeholder '{1}' '{2}'."
+                  "text": "'{0}': Placeholder '{1}'."
                 }
-              },
-              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+              }
             }
           ]
         }
       },
-      "invocations": [
-        {
-          "executionSuccessful": true
-        }
-      ],
-      "artifacts": [
-        {
-          "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF2009.ConsiderConventionalIdentifierValues_Invalid.sarif",
-            "uriBaseId": "TEST_DIR"
-          }
-        }
-      ],
       "results": [
         {
           "ruleId": "TEST1001",
           "ruleIndex": 0,
-          "level": "note",
           "message": {
-            "id": "DoesNotExist",
+            "id": "DoesExist",
             "arguments": [
-              "runs[0].originalUriBaseIds.SRCINVALID",
-              "SRCINVALID"
+              "runs[0].originalUriBaseIds.SRCINVALID"
             ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 21,
-                  "startColumn": 23
-                }
-              }
-            }
-          ]
+          }
         },
         {
           "ruleId": "TEST1001",
           "ruleIndex": 0,
-          "level": "note",
           "message": {
-            "id": "DoesExist",
+            "id": "DoesNotExist",
             "arguments": [
-              "runs[0].tool.driver.rules[0].id"
+              "runs[0].originalUriBaseIds.SRCINVALID"
             ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 13,
-                  "startColumn": 32
-                }
-              }
-            }
-          ]
+          }
         }
       ],
       "columnKind": "utf16CodeUnits"

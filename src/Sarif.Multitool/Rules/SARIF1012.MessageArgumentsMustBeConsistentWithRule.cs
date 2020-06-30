@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -26,6 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         public override FailureLevel DefaultLevel => FailureLevel.Error;
 
+        private static readonly Regex s_replacementSequenceRegex = new Regex(@"\{(<index>\d+)\}", RegexOptions.Compiled | RegexOptions.CultureInvariant);
         private IList<ReportingDescriptor> currentRules;
         private Run run;
 
@@ -37,7 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override void Analyze(Result result, string resultPointer)
         {
-            // if message.id is not null, we have to check if that exists in rules
+            // If message.id is present, check that a message with that id exists in the rule.
             if (!string.IsNullOrEmpty(result.Message.Id))
             {
                 ReportingDescriptor rule = result.GetRule(this.run);
@@ -54,7 +56,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     return;
                 }
 
-                // we have rules, we find it but, the count of parameters are invalid
+                // A message with the specified key is present in the rule. Check if the result supplied enough arguments.
                 string messageText = rule.MessageStrings[result.Message.Id].Text;
                 int placeholderMaxPosition = PlaceholderMaxPosition(messageText);
                 if (placeholderMaxPosition > (result.Message.Arguments?.Count ?? 0))
@@ -74,17 +76,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         private int PlaceholderMaxPosition(string text)
         {
-            MatchCollection matchCollection = Regex.Matches(text, "{\\d+}");
             int max = -1;
-            foreach (Match match in matchCollection)
+            foreach (Match match in s_replacementSequenceRegex.Matches(text))
             {
-                if (int.TryParse(match.Value.Replace("{", string.Empty).Replace("}", string.Empty), out int temp))
-                {
-                    if (max < temp)
-                    {
-                        max = temp;
-                    }
-                }
+                int index = int.Parse(match.Groups["index"].Value);
+                max = Math.Max(max, index);
             }
 
             return max++;

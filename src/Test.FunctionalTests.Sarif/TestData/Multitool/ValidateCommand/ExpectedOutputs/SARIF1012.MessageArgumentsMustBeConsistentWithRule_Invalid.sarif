@@ -50,7 +50,7 @@
           "message": {
             "id": "Error_MessageIdMustExist",
             "arguments": [
-              "runs[0].results[0]",
+              "runs[0].results[1]",
               "DoesNotExist",
               "TEST1001"
             ]
@@ -62,36 +62,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 44,
-                  "startColumn": 9
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF1012",
-          "ruleIndex": 0,
-          "level": "error",
-          "message": {
-            "id": "Error_SupplyEnoughMessageArguments",
-            "arguments": [
-              "runs[0].results[1]",
-              "1",
-              "DoesExist",
-              "TEST1001",
-              "2",
-              "'{0}': Placeholder '{1}' '{2}'."
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 69,
+                  "startLine": 37,
                   "startColumn": 9
                 }
               }
