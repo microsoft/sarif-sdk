@@ -10,7 +10,6 @@
           "rules": [
             {
               "id": "TEST1001",
-              "name": "Test 1001",
               "fullDescription": {
                 "text": "Test 1001 full description."
               },
