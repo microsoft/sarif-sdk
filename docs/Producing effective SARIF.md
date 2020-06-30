@@ -303,19 +303,23 @@ The SARIF standard was developed over several years, and many intermediate versi
 
 ---
 
-### Rule `SARIF1012.MessagePropertiesMustBeConsistent`
+### Rule `SARIF1012.MessageArgumentsMustBeConsistentWithRule`
 
 #### Description
 
-Ensure consistency among the properties of a 'message' object.
+The properties of a result's 'message' property must be consistent with the properties of the rule that the result refers to.
 
-When a tool creates a 'message' object that uses the 'id' and 'arguments' properties, it must ensure that the 'arguments' array has enough elements to provide values for every replacement sequence in the message specified by 'id'. For example, if the highest numbered replacement sequence in the specified message string is '{3}', then the 'arguments' array must contain 4 elements.
+When a result's 'message' object uses the 'id' and 'arguments' properties (which, by the way, is recommended: see SARIF), it must ensure that the rule actually defines a message string with that id, and that 'arguments' array has enough elements to provide values for every replacement sequence in the message specified by 'id'. For example, if the highest numbered replacement sequence in the specified message string is '{3}', then the 'arguments' array must contain at least 4 elements.
 
 #### Messages
 
 ##### `SupplyCorrectNumberOfArguments`: error
 
-{0}: The message with id '{1}' in rule '{2}' requires {3} arguments, but the 'arguments' array in this message object has only {4} elements. When a tool creates 'message' objects that use the 'id' and 'arguments' properties, it must ensure that the 'arguments' array has enough elements to provide values for every replacement sequence in the message specified by 'id'. For example, if the highest numbered replacement sequence in the specified message string is '{{3}}', then the 'arguments' array must contain 4 elements.
+{0}: The message with id '{1}' in rule '{2}' requires {3} arguments, but the 'arguments' array in this message object has only {4} elements. When a tool creates a result message that use the 'id' and 'arguments' properties, it must ensure that the 'arguments' array has enough elements to provide values for every replacement sequence in the message specified by 'id'. For example, if the highest numbered replacement sequence in the specified message string is '{{3}}', then the 'arguments' array must contain 4 elements.
+
+##### `MessageIdMustExist`: error
+
+{0}: This message object refers to the message with id '{1}' in rule '{2}, but that rule does not define a message with that id. When a tool creates a result message that uses the 'id' property, it must ensure that the specified rule actually has a message with that id.
 
 ---
 
