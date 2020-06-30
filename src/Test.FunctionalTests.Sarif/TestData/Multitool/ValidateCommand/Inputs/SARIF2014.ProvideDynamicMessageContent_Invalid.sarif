@@ -14,21 +14,19 @@
                 "text": "This is a test."
               },
               "messageStrings": {
-                "NotEnquoted": {
-                  "text": "This message contains dynamic content {0} that is not enquoted."
-                },
                 "NoPlaceholders": {
                   "text": "This message does not contain dynamic content."
-                },
-                "NoPeriod": {
-                  "text": "This message contains enquoted dynamic content '{0}' but does not end with a period"
                 }
-              },
-              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+              }
             }
           ]
         }
       },
+      "versionControlProvenance": [
+        {
+          "repositoryUri": "https://github.com/microsoft/sarif-sdk"
+        }
+      ],
       "columnKind": "utf16CodeUnits"
     }
   ]
