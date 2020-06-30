@@ -17,7 +17,8 @@
                 "Default": {
                   "text": "This string has enquoted dynamic content '{0}' and '{1}', and ends with a period."
                 }
-              }
+              },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
             }
           ]
         }
