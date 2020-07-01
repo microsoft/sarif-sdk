@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <!--
-This file contains the default rule configurations for the SARIF validator tool.
+This file contains the default rule configurations for the functional tests of the SARIF validator rule.
 -->
 <Properties>
   <Properties Key="SARIF2002.ProvideMessageArguments.Options">
