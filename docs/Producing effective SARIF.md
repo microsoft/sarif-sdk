@@ -149,7 +149,7 @@ Every URI reference in 'originalUriBaseIds' must resolve to an absolute URI, in 
 
 ##### `UriBaseIdRequiresRelativeUri`: error
 
-{0}: The '{1}' element of 'originalUriBaseIds' has a 'uriBaseId' property '{2}', but its 'uri' property '{3}' is an absolute URI. Since the purpose of the 'uriBaseId' property is to help resolve a relative reference to an absolute URI, it is not allowed when the 'uri' property is already an absolute URIa.
+{0}: The '{1}' element of 'originalUriBaseIds' has a 'uriBaseId' property '{2}', but its 'uri' property '{3}' is an absolute URI. Since the purpose of the 'uriBaseId' property is to help resolve a relative reference to an absolute URI, it is not allowed when the 'uri' property is already an absolute URI.
 
 ##### `TopLevelUriBaseIdMustBeAbsolute`: error
 
@@ -437,9 +437,13 @@ If 'version' is used, facilitate comparison between versions by specifying it ei
 
 #### Description
 
+A SARIF log file should contain, on the root object, a '$schema' property  that refers to the final, OASIS standard version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.
+
 #### Messages
 
 ##### `Default`: warning
+
+{0}: The SARIF log file does not contain a '$schema' property. Add a '$schema' property that refers to the final, OASIS standard version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.
 
 ---
 
