@@ -40,6 +40,13 @@
           "description": {
             "text": "URI contains a fragment."
           }
+        },
+        "BAD_URI_HAS_BASEID_BUT_ALSO_ABSOLUTE_URI": {
+          "uri": "file:///C:/rules/",
+          "uriBaseId": "SOURCE_ROOT",
+          "description": {
+            "text": "URI contains a fragment."
+          }
         }
       },
       "invocations": [

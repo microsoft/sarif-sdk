@@ -35,22 +35,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         public override FailureLevel DefaultLevel => FailureLevel.Error;
 
-        protected override void Analyze(ArtifactLocation fileLocation, string fileLocationPointer)
-        {
-            if (fileLocation.UriBaseId != null && fileLocation.Uri.IsAbsoluteUri)
-            {
-                // TODO: hakohlli - fix parameters.
-                // {0}: The '{1}' element of 'originalUriBaseIds' has a 'uriBaseId' property '{2}',
-                // but its 'uri' property '{3}' is an absolute URI. Since the purpose of the 'uriBaseId'
-                // property is to help resolve a relative reference to an absolute URI, it is not allowed
-                // when the 'uri' property is already an absolute URI.
-                LogResult(
-                    fileLocationPointer.AtProperty(SarifPropertyName.Uri),
-                    nameof(RuleResources.SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdRequiresRelativeUri_Text),
-                    fileLocation.Uri.OriginalString);
-            }
-        }
-
         protected override void Analyze(Run run, string runPointer)
         {
             if (run.OriginalUriBaseIds != null)
@@ -67,6 +51,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         private void AnalyzeOriginalUriBaseIdsEntry(string uriBaseId, ArtifactLocation artifactLocation, string pointer)
         {
             if (artifactLocation.Uri == null) { return; }
+
+            if (artifactLocation.UriBaseId != null && artifactLocation.Uri.IsAbsoluteUri)
+            {
+                // {0}: The '{1}' element of 'originalUriBaseIds' has a 'uriBaseId' property '{2}',
+                // but its 'uri' property '{3}' is an absolute URI. Since the purpose of the 'uriBaseId'
+                // property is to help resolve a relative reference to an absolute URI, it is not allowed
+                // when the 'uri' property is already an absolute URI.
+                LogResult(
+                    pointer,
+                    nameof(RuleResources.SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdRequiresRelativeUri_Text),
+                    uriBaseId,
+                    artifactLocation.UriBaseId,
+                    artifactLocation.Uri.OriginalString);
+            }
 
             // If it's not a well-formed URI of _any_ kind, then don't bother triggering this rule.
             // Rule SARIF1003, UrisMustBeValid, will catch it.
