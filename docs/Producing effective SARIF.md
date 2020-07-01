@@ -427,6 +427,10 @@ If 'version' is used, facilitate comparison between versions by specifying it ei
 
 #### Description
 
+Provide a `uriBaseId` symbol in `originalUriBaseIds` that is guaranteed to be associated with the root of the repository.
+
+It is often useful to express artifact URIs as relative references to the root of a repository. The `versionControlDetails` object contains a property `mappedTo` which defines the location on the local file system to which the repository root is mapped, and a `uriBaseId` symbol that refers to that location. It is helpful to populate that property, and to provide a value for that `uriBaseId` symbol in `originalUriBaseIds`.
+
 #### Messages
 
 ##### `Default`: warning
