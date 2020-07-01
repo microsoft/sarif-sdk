@@ -205,6 +205,10 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
         public void SARIF2007_ExpressPathsRelativeToRepoRoot_Valid()
             => RunTest(MakeValidTestFileName(RuleId.ExpressPathsRelativeToRepoRoot, nameof(RuleId.ExpressPathsRelativeToRepoRoot)),
                 parameter: new TestParameters(configFileName: "enable2007.configuration.xml"));
+        [Fact]
+        public void SARIF2007_ExpressPathsRelativeToRepoRoot_WithoutVersionControlProvenance_Valid()
+            => RunTest("SARIF2007.ExpressPathsRelativeToRepoRoot_WithoutVersionControlProvenance_Valid.sarif",
+                parameter: new TestParameters(configFileName: "enable2007.configuration.xml"));
 
         [Fact]
         public void SARIF2007_ExpressPathsRelativeToRepoRoot_Invalid()
