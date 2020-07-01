@@ -11,14 +11,14 @@
               "id": "SARIF2001",
               "name": "TerminateMessagesWithPeriod",
               "shortDescription": {
-                "text": "Write in complete sentences and end each sentence with a period."
+                "text": "The properties of a result's 'message' property must be consistent with the properties of the rule that the result refers to."
               },
               "fullDescription": {
-                "text": "Write in complete sentences and end each sentence with a period. This guidance does not apply to Markdown messages, which might include formatting that makes the punctuation unnecessary."
+                "text": "The properties of a result's 'message' property must be consistent with the properties of the rule that the result refers to.\r\n\r\nWhen a result's 'message' object uses the 'id' and 'arguments' properties (which, by the way, is recommended: see SARIF), it must ensure that the rule actually defines a message string with that id, and that 'arguments' array has enough elements to provide values for every replacement sequence in the message specified by 'id'. For example, if the highest numbered replacement sequence in the specified message string is '{3}', then the 'arguments' array must contain at least 4 elements."
               },
               "messageStrings": {
                 "Warning_Default": {
-                  "text": "{0}: In rule '{1}', the message with id '{2}' does not end in a period. Write rule messages as complete sentences."
+                  "text": "{0}: In rule '{1}', the message with id '{2}' does not end in a period. Express plain text rule messages as complete sentences. This guidance does not apply to Markdown messages, which might include formatting that makes the punctuation unnecessary."
                 }
               },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"

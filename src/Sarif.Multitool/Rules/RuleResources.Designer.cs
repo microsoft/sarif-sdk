@@ -306,7 +306,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The result contains neither result.ruleId nor result.rule.id..
+        ///   Looks up a localized string similar to {0}: This result contains neither of the properties &apos;ruleId&apos; or &apos;rule.id&apos;. The SARIF specification ([§3.27.5](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317643)) requires at least one of these properties to be present..
         /// </summary>
         internal static string SARIF1010_RuleIdMustBeConsistent_Error_ResultMustSpecifyRuleId_Text {
             get {
@@ -315,7 +315,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The result contains both the ruleId property &apos;{1}&apos; and the rule.id property &apos;{2}&apos;, and they are not equal..
+        ///   Looks up a localized string similar to {0}: This result contains both the &apos;ruleId&apos; property &apos;{1}&apos; and the &apos;rule.id&apos; property &apos;{2}&apos;, but they are not equal. The SARIF specification ([§3.27.5](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317643)) requires that if both of these properties are present, they must be equal..
         /// </summary>
         internal static string SARIF1010_RuleIdMustBeConsistent_Error_ResultRuleIdMustBeConsistent_Text {
             get {
@@ -324,7 +324,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to In every result, at least one of the properties result.ruleId and result.rule.id must be present. If both are present, they must be equal..
+        ///   Looks up a localized string similar to Every result must contain at least one of the properties &apos;ruleId&apos; and &apos;rule.id&apos;. If both are present, they must be equal. See the SARIF specification ([§3.27.5](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317643))..
         /// </summary>
         internal static string SARIF1010_RuleIdMustBeConsistent_FullDescription_Text {
             get {
@@ -333,7 +333,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The $schema property value &apos;{1}&apos; does not refer to the final version of the SARIF 2.1.0 schema. If you are using an earlier version of the SARIF format, consider upgrading your analysis tool to produce the final version. If this file does in fact conform to the final version of the schema, upgrade the tool to populate the $schema property with a URL that refers to the final version of the schema..
+        ///   Looks up a localized string similar to {0}: The &apos;$schema&apos; property value &apos;{1}&apos; does not refer to the final version of the SARIF 2.1.0 schema. If you are using an earlier version of the SARIF format, consider upgrading your analysis tool to produce the final version. If this file does in fact conform to the final version of the schema, upgrade the tool to populate the &apos;$schema&apos; property with a URL that refers to the final version of the schema..
         /// </summary>
         internal static string SARIF1011_ReferenceFinalSchema_Error_Default_Text {
             get {
@@ -342,7 +342,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The $schema property must refer to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files..
+        ///   Looks up a localized string similar to The &apos;$schema&apos; property must refer to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.
+        ///
+        ///The SARIF standard was developed over several years, and many intermediate versions of the schema were produced. Now that the standard is final, only the OASIS standard version of the schema is valid..
         /// </summary>
         internal static string SARIF1011_ReferenceFinalSchema_FullDescription_Text {
             get {
@@ -351,7 +353,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: Placeholder &apos;{1}&apos; &apos;{2}&apos;.
+        ///   Looks up a localized string similar to {0}: This message object refers to the message with id &apos;{1}&apos; in rule &apos;{2}&apos;, but that rule does not define a message with that id. When a tool creates a result message that uses the &apos;id&apos; property, it must ensure that the specified rule actually has a message with that id..
         /// </summary>
         internal static string SARIF1012_MessageArgumentsMustBeConsistentWithRule_Error_MessageIdMustExist_Text {
             get {
@@ -360,7 +362,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: Placeholder &apos;{1}&apos; &apos;{2}&apos; &apos;{3}&apos; &apos;{4}&apos; &apos;{5}&apos;.
+        ///   Looks up a localized string similar to {0}: The message with id &apos;{1}&apos; in rule &apos;{2}&apos; requires {3} arguments, but the &apos;arguments&apos; array in this message object has only {4} elements. When a tool creates a result message that use the &apos;id&apos; and &apos;arguments&apos; properties, it must ensure that the &apos;arguments&apos; array has enough elements to provide values for every replacement sequence in the message specified by &apos;id&apos;. For example, if the highest numbered replacement sequence in the specified message string is &apos;{{3}}&apos;, then the &apos;arguments&apos; array must contain 4 [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SARIF1012_MessageArgumentsMustBeConsistentWithRule_Error_SupplyEnoughMessageArguments_Text {
             get {
@@ -370,7 +372,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Placeholder.
+        ///   Looks up a localized string similar to The properties of a result&apos;s &apos;message&apos; property must be consistent with the properties of the rule that the result refers to.
+        ///
+        ///When a result&apos;s &apos;message&apos; object uses the &apos;id&apos; and &apos;arguments&apos; properties (which, by the way, is recommended: see SARIF), it must ensure that the rule actually defines a message string with that id, and that &apos;arguments&apos; array has enough elements to provide values for every replacement sequence in the message specified by &apos;id&apos;. For example, if the highest numbered replacement seque [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SARIF1012_MessageArgumentsMustBeConsistentWithRule_FullDescription_Text {
             get {
@@ -379,7 +383,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Write in complete sentences and end each sentence with a period. This guidance does not apply to Markdown messages, which might include formatting that makes the punctuation unnecessary..
+        ///   Looks up a localized string similar to The properties of a result&apos;s &apos;message&apos; property must be consistent with the properties of the rule that the result refers to.
+        ///
+        ///When a result&apos;s &apos;message&apos; object uses the &apos;id&apos; and &apos;arguments&apos; properties (which, by the way, is recommended: see SARIF), it must ensure that the rule actually defines a message string with that id, and that &apos;arguments&apos; array has enough elements to provide values for every replacement sequence in the message specified by &apos;id&apos;. For example, if the highest numbered replacement seque [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SARIF2001_TerminateMessagesWithPeriod_FullDescription_Text {
             get {
@@ -388,7 +394,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: In rule &apos;{1}&apos;, the message with id &apos;{2}&apos; does not end in a period. Write rule messages as complete sentences..
+        ///   Looks up a localized string similar to {0}: In rule &apos;{1}&apos;, the message with id &apos;{2}&apos; does not end in a period. Express plain text rule messages as complete sentences. This guidance does not apply to Markdown messages, which might include formatting that makes the punctuation unnecessary..
         /// </summary>
         internal static string SARIF2001_TerminateMessagesWithPeriod_Warning_Default_Text {
             get {
@@ -397,7 +403,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Placeholder_SARIF2002_ProvideMessageArguments_FullDescription_Text.
+        ///   Looks up a localized string similar to In result messages, use the &apos;message.id&apos; and &apos;message.arguments&apos; properties rather than &apos;message.text&apos;. This has several advantages. If &apos;text&apos; is lengthy, using &apos;id&apos; and &apos;arguments&apos; makes the SARIF file smaller. If the rule metadata is stored externally to the SARIF log file, the message text can be improved (for example, by adding more text, clarifying the phrasing, or fixing typos), and the result messages will pick up the improvements the next time it is displayed. Finally, SARIF supports localizing mess [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SARIF2002_ProvideMessageArguments_FullDescription_Text {
             get {
@@ -406,7 +412,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: Placeholder.
+        ///   Looks up a localized string similar to {0}: The &apos;message&apos; property of this result contains a &apos;text&apos; property. Consider replacing it with &apos;id&apos; and &apos;arguments&apos; properties. This potentially reduces the log file size, allows the message text to be improved without modifying the log file, and enables localization..
         /// </summary>
         internal static string SARIF2002_ProvideMessageArguments_Warning_Default_Text {
             get {

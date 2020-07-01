@@ -140,10 +140,12 @@ URIs must conform to [RFC 3986](https://tools.ietf.org/html/rfc3986). In additio
 If the 'invocation' object specifies both 'startTimeUtc' and 'endTimeUtc', then 'endTimeUtc' must not precede 'startTimeUtc'. To allow for the possibility that the duration of the run is less than the resolution of the string representation of the time, the start time and the end time may be equal.</value>
   </data>
   <data name="SARIF2001_TerminateMessagesWithPeriod_Warning_Default_Text" xml:space="preserve">
-    <value>{0}: In rule '{1}', the message with id '{2}' does not end in a period. Write rule messages as complete sentences.</value>
+    <value>{0}: In rule '{1}', the message with id '{2}' does not end in a period. Express plain text rule messages as complete sentences. This guidance does not apply to Markdown messages, which might include formatting that makes the punctuation unnecessary.</value>
   </data>
   <data name="SARIF2001_TerminateMessagesWithPeriod_FullDescription_Text" xml:space="preserve">
-    <value>Write in complete sentences and end each sentence with a period. This guidance does not apply to Markdown messages, which might include formatting that makes the punctuation unnecessary.</value>
+    <value>The properties of a result's 'message' property must be consistent with the properties of the rule that the result refers to.
+
+When a result's 'message' object uses the 'id' and 'arguments' properties (which, by the way, is recommended: see SARIF), it must ensure that the rule actually defines a message string with that id, and that 'arguments' array has enough elements to provide values for every replacement sequence in the message specified by 'id'. For example, if the highest numbered replacement sequence in the specified message string is '{3}', then the 'arguments' array must contain at least 4 elements.</value>
   </data>
   <data name="SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdRequiresRelativeUri_Text" xml:space="preserve">
     <value>{0}: This fileLocation object contains a "uriBaseId" property, which means that the value of the "uri" property must be a relative URI reference, but "{1}" is an absolute URI reference.</value>
@@ -184,19 +186,21 @@ If the validator reports that 'contextRegion' is not a proper superset of 'regio
     <value>{0}: The URI '{1}' belonging to the '{2}' element of run.originalUriBaseIds is not an absolute URI.</value>
   </data>
   <data name="SARIF1010_RuleIdMustBeConsistent_Error_ResultRuleIdMustBeConsistent_Text" xml:space="preserve">
-    <value>{0}: The result contains both the ruleId property '{1}' and the rule.id property '{2}', and they are not equal.</value>
+    <value>{0}: This result contains both the 'ruleId' property '{1}' and the 'rule.id' property '{2}', but they are not equal. The SARIF specification ([§3.27.5](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317643)) requires that if both of these properties are present, they must be equal.</value>
   </data>
   <data name="SARIF1010_RuleIdMustBeConsistent_Error_ResultMustSpecifyRuleId_Text" xml:space="preserve">
-    <value>{0}: The result contains neither result.ruleId nor result.rule.id.</value>
+    <value>{0}: This result contains neither of the properties 'ruleId' or 'rule.id'. The SARIF specification ([§3.27.5](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317643)) requires at least one of these properties to be present.</value>
   </data>
   <data name="SARIF1010_RuleIdMustBeConsistent_FullDescription_Text" xml:space="preserve">
-    <value>In every result, at least one of the properties result.ruleId and result.rule.id must be present. If both are present, they must be equal.</value>
+    <value>Every result must contain at least one of the properties 'ruleId' and 'rule.id'. If both are present, they must be equal. See the SARIF specification ([§3.27.5](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317643)).</value>
   </data>
   <data name="SARIF1011_ReferenceFinalSchema_Error_Default_Text" xml:space="preserve">
-    <value>{0}: The $schema property value '{1}' does not refer to the final version of the SARIF 2.1.0 schema. If you are using an earlier version of the SARIF format, consider upgrading your analysis tool to produce the final version. If this file does in fact conform to the final version of the schema, upgrade the tool to populate the $schema property with a URL that refers to the final version of the schema.</value>
+    <value>{0}: The '$schema' property value '{1}' does not refer to the final version of the SARIF 2.1.0 schema. If you are using an earlier version of the SARIF format, consider upgrading your analysis tool to produce the final version. If this file does in fact conform to the final version of the schema, upgrade the tool to populate the '$schema' property with a URL that refers to the final version of the schema.</value>
   </data>
   <data name="SARIF1011_ReferenceFinalSchema_FullDescription_Text" xml:space="preserve">
-    <value>The $schema property must refer to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.</value>
+    <value>The '$schema' property must refer to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.
+
+The SARIF standard was developed over several years, and many intermediate versions of the schema were produced. Now that the standard is final, only the OASIS standard version of the schema is valid.</value>
   </data>
   <data name="SARIF1009_IndexPropertiesMustBeConsistentWithArrays_Error_TargetArrayMustExist_Text" xml:space="preserve">
     <value>{0}: This '{1}' object contains a property '{2}' with value {3}, but '{4}' does not exist. An index-valued property always refers to an array, so the array must be present.</value>
@@ -269,10 +273,10 @@ Many tool use similar names for 'uriBaseId' symbols. We suggest 'REPOROOT' for t
     <value>{0}: Placeholder_SARIF2004_OptimizeFileSize_Warning_EliminateLocationOnlyArtifacts_Text</value>
   </data>
   <data name="SARIF2002_ProvideMessageArguments_FullDescription_Text" xml:space="preserve">
-    <value>Placeholder_SARIF2002_ProvideMessageArguments_FullDescription_Text</value>
+    <value>In result messages, use the 'message.id' and 'message.arguments' properties rather than 'message.text'. This has several advantages. If 'text' is lengthy, using 'id' and 'arguments' makes the SARIF file smaller. If the rule metadata is stored externally to the SARIF log file, the message text can be improved (for example, by adding more text, clarifying the phrasing, or fixing typos), and the result messages will pick up the improvements the next time it is displayed. Finally, SARIF supports localizing messages into different languages, which is possible if the SARIF file contains 'message.id' and 'message.arguments', but not if it contains 'message.text' directly.</value>
   </data>
   <data name="SARIF2002_ProvideMessageArguments_Warning_Default_Text" xml:space="preserve">
-    <value>{0}: Placeholder</value>
+    <value>{0}: The 'message' property of this result contains a 'text' property. Consider replacing it with 'id' and 'arguments' properties. This potentially reduces the log file size, allows the message text to be improved without modifying the log file, and enables localization.</value>
   </data>
   <data name="SARIF2003_ProvideVersionControlProvenance_FullDescription_Text" xml:space="preserve">
     <value>Placeholder_SARIF2003_ProvideVersionControlProvenance_FullDescription_Text</value>
@@ -308,13 +312,15 @@ Many tool use similar names for 'uriBaseId' symbols. We suggest 'REPOROOT' for t
     <value>{0}: Placeholder</value>
   </data>
   <data name="SARIF1012_MessageArgumentsMustBeConsistentWithRule_Error_MessageIdMustExist_Text" xml:space="preserve">
-    <value>{0}: Placeholder '{1}' '{2}'</value>
+    <value>{0}: This message object refers to the message with id '{1}' in rule '{2}', but that rule does not define a message with that id. When a tool creates a result message that uses the 'id' property, it must ensure that the specified rule actually has a message with that id.</value>
   </data>
   <data name="SARIF1012_MessageArgumentsMustBeConsistentWithRule_Error_SupplyEnoughMessageArguments_Text" xml:space="preserve">
-    <value>{0}: Placeholder '{1}' '{2}' '{3}' '{4}' '{5}'</value>
+    <value>{0}: The message with id '{1}' in rule '{2}' requires {3} arguments, but the 'arguments' array in this message object has only {4} elements. When a tool creates a result message that use the 'id' and 'arguments' properties, it must ensure that the 'arguments' array has enough elements to provide values for every replacement sequence in the message specified by 'id'. For example, if the highest numbered replacement sequence in the specified message string is '{{3}}', then the 'arguments' array must contain 4 elements.</value>
   </data>
   <data name="SARIF1012_MessageArgumentsMustBeConsistentWithRule_FullDescription_Text" xml:space="preserve">
-    <value>Placeholder</value>
+    <value>The properties of a result's 'message' property must be consistent with the properties of the rule that the result refers to.
+
+When a result's 'message' object uses the 'id' and 'arguments' properties (which, by the way, is recommended: see SARIF), it must ensure that the rule actually defines a message string with that id, and that 'arguments' array has enough elements to provide values for every replacement sequence in the message specified by 'id'. For example, if the highest numbered replacement sequence in the specified message string is '{3}', then the 'arguments' array must contain at least 4 elements.</value>
   </data>
   <data name="SARIF2013_ProvideEmbeddedFileContent_Note_Default_Text" xml:space="preserve">
     <value>Placeholder_SARIF2013_ProvideEmbeddedFileContent_Note_Default_Text</value>
