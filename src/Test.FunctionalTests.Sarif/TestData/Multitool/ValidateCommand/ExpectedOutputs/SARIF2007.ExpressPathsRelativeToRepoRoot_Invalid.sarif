@@ -8,17 +8,20 @@
           "name": "SARIF Functional Testing",
           "rules": [
             {
-              "id": "SARIF2006",
-              "name": "UrisShouldBeReachable",
+              "id": "SARIF2007",
+              "name": "ExpressPathsRelativeToRepoRoot",
               "shortDescription": {
-                "text": "Placeholder_SARIF2006_UrisShouldBeReachable_FullDescription_Text."
+                "text": "Placeholder_SARIF2007_ExpressPathsRelativeToRepoRoot_FullDescription_Text."
               },
               "fullDescription": {
-                "text": "Placeholder_SARIF2006_UrisShouldBeReachable_FullDescription_Text"
+                "text": "Placeholder_SARIF2007_ExpressPathsRelativeToRepoRoot_FullDescription_Text"
               },
               "messageStrings": {
-                "Warning_Default": {
-                  "text": "{0}: Placeholder {1}"
+                "Warning_ExpressResultLocationsRelativeToMappedTo": {
+                  "text": "{0}: Placeholder"
+                },
+                "Warning_ProvideUriBaseIdForMappedTo": {
+                  "text": "{0}: Placeholder"
                 }
               },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
@@ -39,7 +42,7 @@
             },
             {
               "message": {
-                "text": "Rule 'SARIF2007' was explicitly disabled by the user. As result, this tool run cannot be used for compliance or other auditing processes that require a comprehensive analysis."
+                "text": "Rule 'SARIF2006' was explicitly disabled by the user. As result, this tool run cannot be used for compliance or other auditing processes that require a comprehensive analysis."
               },
               "descriptor": {
                 "id": "WRN999.RuleExplicitlyDisabled"
@@ -52,20 +55,19 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF2006.UrisShouldBeReachable_Invalid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF2007.ExpressPathsRelativeToRepoRoot_Invalid.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }
       ],
       "results": [
         {
-          "ruleId": "SARIF2006",
+          "ruleId": "SARIF2007",
           "ruleIndex": 0,
           "message": {
-            "id": "Error_Default",
+            "id": "Warning_ProvideUriBaseIdForMappedTo",
             "arguments": [
-              "runs[0].results[0].workItemUris[0]",
-              "https://example.com/my-project/issues/42"
+              "runs[0].versionControlProvenance[1]"
             ]
           },
           "locations": [
@@ -76,20 +78,19 @@
                 },
                 "region": {
                   "startLine": 33,
-                  "startColumn": 54
+                  "startColumn": 9
                 }
               }
             }
           ]
         },
         {
-          "ruleId": "SARIF2006",
+          "ruleId": "SARIF2007",
           "ruleIndex": 0,
           "message": {
-            "id": "Error_Default",
+            "id": "Warning_ProvideUriBaseIdForMappedTo",
             "arguments": [
-              "runs[0].tool.driver.downloadUri",
-              "http://www.example.com/tools/codescanner/download.html"
+              "runs[0].versionControlProvenance[2]"
             ]
           },
           "locations": [
@@ -99,21 +100,20 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 10,
-                  "startColumn": 81
+                  "startLine": 39,
+                  "startColumn": 9
                 }
               }
             }
           ]
         },
         {
-          "ruleId": "SARIF2006",
+          "ruleId": "SARIF2007",
           "ruleIndex": 0,
           "message": {
-            "id": "Error_Default",
+            "id": "Warning_ExpressResultLocationsRelativeToMappedTo",
             "arguments": [
-              "runs[0].tool.driver.rules[0].helpUri",
-              "http://www.example.com/rules/tst0001.html"
+              "runs[0].results[0].locations[1].physicalLocation.artifactLocation"
             ]
           },
           "locations": [
@@ -123,21 +123,20 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 14,
-                  "startColumn": 68
+                  "startLine": 64,
+                  "startColumn": 37
                 }
               }
             }
           ]
         },
         {
-          "ruleId": "SARIF2006",
+          "ruleId": "SARIF2007",
           "ruleIndex": 0,
           "message": {
-            "id": "Error_Default",
+            "id": "Warning_ExpressResultLocationsRelativeToMappedTo",
             "arguments": [
-              "runs[0].versionControlProvenance[0].repositoryUri",
-              "https://example.com/my-project"
+              "runs[0].results[0].locations[2].physicalLocation.artifactLocation"
             ]
           },
           "locations": [
@@ -147,8 +146,8 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 21,
-                  "startColumn": 59
+                  "startLine": 72,
+                  "startColumn": 37
                 }
               }
             }

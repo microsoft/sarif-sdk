@@ -527,11 +527,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Placeholder_SARIF2007_ExpressPathsRelativeToRepoRoot_Warning_Default_Text.
+        ///   Looks up a localized string similar to {0}: Placeholder.
         /// </summary>
-        internal static string SARIF2007_ExpressPathsRelativeToRepoRoot_Warning_Default_Text {
+        internal static string SARIF2007_ExpressPathsRelativeToRepoRoot_Warning_ExpressResultLocationsRelativeToMappedTo_Text {
             get {
-                return ResourceManager.GetString("SARIF2007_ExpressPathsRelativeToRepoRoot_Warning_Default_Text", resourceCulture);
+                return ResourceManager.GetString("SARIF2007_ExpressPathsRelativeToRepoRoot_Warning_ExpressResultLocationsRelativeTo" +
+                        "MappedTo_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: Placeholder.
+        /// </summary>
+        internal static string SARIF2007_ExpressPathsRelativeToRepoRoot_Warning_ProvideUriBaseIdForMappedTo_Text {
+            get {
+                return ResourceManager.GetString("SARIF2007_ExpressPathsRelativeToRepoRoot_Warning_ProvideUriBaseIdForMappedTo_Text" +
+                        "", resourceCulture);
             }
         }
         
