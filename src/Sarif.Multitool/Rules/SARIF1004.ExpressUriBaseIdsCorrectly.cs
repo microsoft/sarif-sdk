@@ -17,7 +17,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public override string Id => RuleId.ExpressUriBaseIdsCorrectly;
 
         /// <summary>
-        /// Placeholder_SARIF1004_ExpressUriBaseIdsCorrectly_FullDescription_Text
+        /// Every URI reference in 'originalUriBaseIds' must resolve to an absolute URI,
+        /// in the manner described in the SARIF specification [3.14.14]
+        /// (https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317498).
+        /// This is because the purpose of 'uriBaseIds' is to enable the resolution of relative
+        /// references to absolute locations.
         /// </summary>
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF1004_ExpressUriBaseIdsCorrectly_FullDescription_Text };
 
@@ -33,11 +37,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override void Analyze(ArtifactLocation fileLocation, string fileLocationPointer)
         {
-            // UriBaseIdRequiresRelativeUri: The 'uri' property of 'fileLocation' must be a relative uri, since 'uriBaseId' is present.
             if (fileLocation.UriBaseId != null && fileLocation.Uri.IsAbsoluteUri)
             {
-                // {0}: This fileLocation object contains a "uriBaseId" property, which means that the value
-                // of the "uri" property must be a relative URI reference, but "{1}" is an absolute URI reference.
+                // TODO: hakohlli - fix parameters.
+                // {0}: The '{1}' element of 'originalUriBaseIds' has a 'uriBaseId' property '{2}',
+                // but its 'uri' property '{3}' is an absolute URI. Since the purpose of the 'uriBaseId'
+                // property is to help resolve a relative reference to an absolute URI, it is not allowed
+                // when the 'uri' property is already an absolute URI.
                 LogResult(
                     fileLocationPointer.AtProperty(SarifPropertyName.Uri),
                     nameof(RuleResources.SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdRequiresRelativeUri_Text),
@@ -74,7 +80,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
                 if (artifactLocation.UriBaseId == null && !uri.IsAbsoluteUri)
                 {
-                    // {0}: The URI '{1}' belonging to the '{2}' element of run.originalUriBaseIds is not an absolute URI.
+                    // {0}: The '{1}' element of 'originalUriBaseIds' has no 'uriBaseId' property, but its 'uri'
+                    // property '{2}' is not an absolute URI. According to the SARIF specification, every such
+                    // "top-level" entry in 'originalUriBaseIds' must specify an absolute URI, because the purpose
+                    // of 'originalUriBaseIds' is to enable the resolution of relative references to absolute URIs.
                     LogResult(
                         pointer,
                         nameof(RuleResources.SARIF1004_ExpressUriBaseIdsCorrectly_Error_TopLevelUriBaseIdMustBeAbsolute_Text),
@@ -84,7 +93,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
                 if (!uriString.EndsWith("/"))
                 {
-                    // {0}: The URI '{1}' belonging to the '{2}' element of run.originalUriBaseIds does not end with a slash.
+                    // {0}: The '{1}' element of 'originalUriBaseIds' has a 'uri' property '{2}' that does not
+                    // end with a slash. The trailing slash is required to minimize the likelihood of an error
+                    // when concatenating URI segments together.
                     LogResult(
                         pointer,
                         nameof(RuleResources.SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdValueMustEndWithSlash_Text),
@@ -94,7 +105,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
                 if (uriString.Split('/').Any(x => x.Equals("..")))
                 {
-                    // {0}: '{1}' '{2}' Placeholder: SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdValueMustNotContainDotDotSegment_Text
+                    // {0}: The '{1}' element of 'originalUriBaseIds' has a 'uri' property '{2}' that contains
+                    // a '..' segment. This is dangerous because if symbolic links are present, '..' might have
+                    // different meanings on the machine that produced the log file and the machine where an end
+                    // user or a tool consumes it.
                     LogResult(
                         pointer,
                         nameof(RuleResources.SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdValueMustNotContainDotDotSegment_Text),
@@ -104,7 +118,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
                 if (uri.IsAbsoluteUri && (!string.IsNullOrEmpty(uri.Fragment) || !string.IsNullOrEmpty(uri.Query)))
                 {
-                    // {0}: '{1}' '{2}' Placeholder: SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdValueMustNotContainQueryOrFragment_Text
+                    // {0}: The '{1}' element of 'originalUriBaseIds' has a 'uri' property '{2}' that contains a
+                    // query or a fragment. This is not valid because the purpose of the 'uriBaseId' property is
+                    // to help resolve a relative reference to an absolute URI by concatenating the relative
+                    // reference to the absolute base URI. This won't work if the base URI contains a query or a
+                    // fragment.
                     LogResult(
                         pointer,
                         nameof(RuleResources.SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdValueMustNotContainQueryOrFragment_Text),

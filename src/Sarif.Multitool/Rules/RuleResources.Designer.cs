@@ -108,7 +108,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The URI &apos;{1}&apos; belonging to the &apos;{2}&apos; element of run.originalUriBaseIds is not an absolute URI..
+        ///   Looks up a localized string similar to {0}: The &apos;{1}&apos; element of &apos;originalUriBaseIds&apos; has no &apos;uriBaseId&apos; property, but its &apos;uri&apos; property &apos;{2}&apos; is not an absolute URI. According to the SARIF specification, every such &quot;top-level&quot; entry in &apos;originalUriBaseIds&apos; must specify an absolute URI, because the purpose of &apos;originalUriBaseIds&apos; is to enable the resolution of relative references to absolute URIs..
         /// </summary>
         internal static string SARIF1004_ExpressUriBaseIdsCorrectly_Error_TopLevelUriBaseIdMustBeAbsolute_Text {
             get {
@@ -117,7 +117,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: This fileLocation object contains a &quot;uriBaseId&quot; property, which means that the value of the &quot;uri&quot; property must be a relative URI reference, but &quot;{1}&quot; is an absolute URI reference..
+        ///   Looks up a localized string similar to {0}: The &apos;{1}&apos; element of &apos;originalUriBaseIds&apos; has a &apos;uriBaseId&apos; property &apos;{2}&apos;, but its &apos;uri&apos; property &apos;{3}&apos; is an absolute URI. Since the purpose of the &apos;uriBaseId&apos; property is to help resolve a relative reference to an absolute URI, it is not allowed when the &apos;uri&apos; property is already an absolute URI..
         /// </summary>
         internal static string SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdRequiresRelativeUri_Text {
             get {
@@ -126,7 +126,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The URI &apos;{1}&apos; belonging to the &apos;{2}&apos; element of run.originalUriBaseIds does not end with a slash..
+        ///   Looks up a localized string similar to {0}: The &apos;{1}&apos; element of &apos;originalUriBaseIds&apos; has a &apos;uri&apos; property &apos;{2}&apos; that does not end with a slash. The trailing slash is required to minimize the likelihood of an error when concatenating URI segments together..
         /// </summary>
         internal static string SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdValueMustEndWithSlash_Text {
             get {
@@ -135,7 +135,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: &apos;{1}&apos; &apos;{2}&apos; Placeholder: SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdValueMustNotContainDotDotSegment_Text.
+        ///   Looks up a localized string similar to {0}: The &apos;{1}&apos; element of &apos;originalUriBaseIds&apos; has a &apos;uri&apos; property &apos;{2}&apos; that contains a &apos;..&apos; segment. This is dangerous because if symbolic links are present, &apos;..&apos; might have different meanings on the machine that produced the log file and the machine where an end user or a tool consumes it..
         /// </summary>
         internal static string SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdValueMustNotContainDotDotSegment_Text {
             get {
@@ -145,7 +145,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: &apos;{1}&apos; &apos;{2}&apos; Placeholder: SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdValueMustNotContainQueryOrFragment_Text.
+        ///   Looks up a localized string similar to {0}: The &apos;{1}&apos; element of &apos;originalUriBaseIds&apos; has a &apos;uri&apos; property &apos;{2}&apos; that contains a query or a fragment. This is not valid because the purpose of the &apos;uriBaseId&apos; property is to help resolve a relative reference to an absolute URI by concatenating the relative reference to the absolute base URI. This won&apos;t work if the base URI contains a query or a fragment..
         /// </summary>
         internal static string SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdValueMustNotContainQueryOrFragment_Text {
             get {
@@ -155,7 +155,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Placeholder_SARIF1004_ExpressUriBaseIdsCorrectly_FullDescription_Text.
+        ///   Looks up a localized string similar to Every URI reference in &apos;originalUriBaseIds&apos; must resolve to an absolute URI, in the manner described in the SARIF specification [3.14.14](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317498). This is because the purpose of &apos;uriBaseIds&apos; is to enable the resolution of relative references to absolute locations..
         /// </summary>
         internal static string SARIF1004_ExpressUriBaseIdsCorrectly_FullDescription_Text {
             get {
@@ -164,7 +164,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The value of this property is required to be an absolute URI, but &quot;{1}&quot; is a relative URI reference..
+        ///   Looks up a localized string similar to {0}: The value of this property is required to be an absolute URI, but &apos;{1}&apos; is a relative URI reference..
         /// </summary>
         internal static string SARIF1005_UriMustBeAbsolute_Error_Default_Text {
             get {
@@ -173,7 +173,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Certain URIs are required to be absolute..
+        ///   Looks up a localized string similar to Certain URIs are required to be absolute. For the most part, these are URIs that refer to http addresses, such as work items or rule help topics..
         /// </summary>
         internal static string SARIF1005_UriMustBeAbsolute_FullDescription_Text {
             get {
