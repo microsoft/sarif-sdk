@@ -149,7 +149,7 @@ Every URI reference in 'originalUriBaseIds' must resolve to an absolute URI, in 
 
 ##### `UriBaseIdRequiresRelativeUri`: error
 
-{0}: The '{1}' element of 'originalUriBaseIds' has a 'uriBaseId' property '{2}', but its 'uri' property '{3}' is an absolute URI. Since the purpose of the 'uriBaseId' property is to help resolve a relative reference to an absolute URI, it is not allowed when the 'uri' property is already an absolute URIa.
+{0}: The '{1}' element of 'originalUriBaseIds' has a 'uriBaseId' property '{2}', but its 'uri' property '{3}' is an absolute URI. Since the purpose of the 'uriBaseId' property is to help resolve a relative reference to an absolute URI, it is not allowed when the 'uri' property is already an absolute URI.
 
 ##### `TopLevelUriBaseIdMustBeAbsolute`: error
 
@@ -157,11 +157,11 @@ Every URI reference in 'originalUriBaseIds' must resolve to an absolute URI, in 
 
 ##### `UriBaseIdValueMustEndWithSlash`: error
 
-{0}: The '{1}' element of 'originalUriBaseIds' has no 'uriBaseId' property, but its 'uri' property '{2}' is not an absolute URI. According to the SARIF specification, every such "top-level" entry in 'run.originalUriBaseIds' must specify an absolute URI.
+{0}: The '{1}' element of 'originalUriBaseIds' has a 'uri' property '{2}' that does not end with a slash. The trailing slash is required to minimize the likelihood of an error when concatenating URI segments together.
 
 ##### `UriBaseIdValueMustNotContainDotDotSegment`: error
 
-{0}: The '{1}' element of 'originalUriBaseIds' has a 'uri' property '{2}' that does not end with a slash. The trailing slash is required to minimize the likelihood of an error when concatenating URI segments together.
+{0}: The '{1}' element of 'originalUriBaseIds' has a 'uri' property '{2}' that contains a '..' segment. This is dangerous because if symbolic links are present, '..' might have different meanings on the machine that produced the log file and the machine where an end user or a tool consumes it.
 
 ##### `UriBaseIdValueMustNotContainQueryOrFragment`: error
 
@@ -235,7 +235,7 @@ A SARIF 'physicalLocation' object has two related properties 'region' and 'conte
 
 'contextRegion' provides users with a broader view of the result location. Typically, it consists of a range starting a few lines before 'region' and ending a few lines after. Again, if a SARIF viewer has access to the artifact, it can display it, and highlight the context region (perhaps in a lighter shade than the region itself). This isn't terribly useful since the user can already see the whole file, with the 'region' already highlighted. But if 'contextRegion' has a 'snippet' property, then even a viewer without access to the artifact can display a few lines of code surrounding the actual result, which is helpful to users.
 
-If the validator reports that 'contextRegion' is not a proper superset of 'region', then it's possible that the tool reversed 'region' and 'contextRegion'. If 'region' and 'contextRegion' are identical, the tool should simply omit 'contextRegion'
+If the validator reports that 'contextRegion' is not a proper superset of 'region', then it's possible that the tool reversed 'region' and 'contextRegion'. If 'region' and 'contextRegion' are identical, the tool should simply omit 'contextRegion'.
 
 #### Messages
 
@@ -313,13 +313,13 @@ When a result's 'message' object uses the 'id' and 'arguments' properties (which
 
 #### Messages
 
-##### `SupplyCorrectNumberOfArguments`: error
+##### `SupplyEnoughMessageArguments`: error
 
 {0}: The message with id '{1}' in rule '{2}' requires {3} arguments, but the 'arguments' array in this message object has only {4} elements. When a tool creates a result message that use the 'id' and 'arguments' properties, it must ensure that the 'arguments' array has enough elements to provide values for every replacement sequence in the message specified by 'id'. For example, if the highest numbered replacement sequence in the specified message string is '{{3}}', then the 'arguments' array must contain 4 elements.
 
 ##### `MessageIdMustExist`: error
 
-{0}: This message object refers to the message with id '{1}' in rule '{2}, but that rule does not define a message with that id. When a tool creates a result message that uses the 'id' property, it must ensure that the specified rule actually has a message with that id.
+{0}: This message object refers to the message with id '{1}' in rule '{2}', but that rule does not define a message with that id. When a tool creates a result message that uses the 'id' property, it must ensure that the specified rule actually has a message with that id.
 
 ---
 
@@ -363,21 +363,13 @@ In result messages, use the 'message.id' and 'message.arguments' properties rath
 
 ---
 
-### Rule `SARIF2003.ProduceEnrichedSarif`
+### Rule `SARIF2003.ProvideVersionControlProvenance`
 
 #### Description
 
 #### Messages
 
-##### `ProvideVersionControlProvenance`: note
-
-##### `ProvideCodeSnippets`: note
-
-##### `ProvideContextRegion`: note
-
-##### `ProvideHelpUris`: note
-
-##### `EmbedFileContent`: note
+##### `Default`: note
 
 ---
 
@@ -389,7 +381,7 @@ In result messages, use the 'message.id' and 'message.arguments' properties rath
 
 ##### `EliminateLocationOnlyArtifacts`: warning
 
-##### `DoNotIncludeExtraIndexedObjectProperties`: warning
+##### `EliminateIdOnlyRules`: warning
 
 ---
 
@@ -435,6 +427,10 @@ If 'version' is used, facilitate comparison between versions by specifying it ei
 
 #### Description
 
+Provide a `uriBaseId` symbol in `originalUriBaseIds` that is guaranteed to be associated with the root of the repository.
+
+It is often useful to express artifact URIs as relative references to the root of a repository. The `versionControlDetails` object contains a property `mappedTo` which defines the location on the local file system to which the repository root is mapped, and a `uriBaseId` symbol that refers to that location. It is helpful to populate that property, and to provide a value for that `uriBaseId` symbol in `originalUriBaseIds`.
+
 #### Messages
 
 ##### `Default`: warning
@@ -445,9 +441,13 @@ If 'version' is used, facilitate comparison between versions by specifying it ei
 
 #### Description
 
+A SARIF log file should contain, on the root object, a '$schema' property  that refers to the final, OASIS standard version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.
+
 #### Messages
 
 ##### `Default`: warning
+
+{0}: The SARIF log file does not contain a '$schema' property. Add a '$schema' property that refers to the final, OASIS standard version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.
 
 ---
 
@@ -455,18 +455,50 @@ If 'version' is used, facilitate comparison between versions by specifying it ei
 
 #### Description
 
-Adopt uniform naming conventions for the symbolic names that SARIF uses various contexts.
+Adopt uniform naming conventions for rule ids.
 
 Many tools follow a conventional format for the 'reportingDescriptor.id' property: a short string identifying the tool concatenated with a numeric rule number,
 for example, 'CS2001' for a diagnostic from the Roslyn C# compiler. For uniformity of experience across tools, we recommend this format.
-
-Many tool use similar names for 'uriBaseId' symbols. We suggest 'REPOROOT' for the root of a repository, 'SRCROOT' for the root of the directory containing all source code, 'TESTROOT' for the root of the directory containing all test code (if your repository is organized in that way), and 'BINROOT' for the root of the directory containing build output (if your project places all build output in a common directory).
 
 #### Messages
 
 ##### `UseConventionalRuleIds`: note
 
 {0}: The 'id' property of the rule '{1}' does not follow the recommended format: a short string identifying the tool concatenated with a numeric rule number, for example, `CS2001`. Using a conventional format for the rule id provides a more uniform experience across tools.
+
+---
+
+### Rule `SARIF2010.ProvideCodeSnippets`
+
+#### Description
+
+#### Messages
+
+##### `Default`: note
+
+---
+
+### Rule `SARIF2011.ProvideContextRegion`
+
+#### Description
+
+##### `Default`: note
+
+---
+
+### Rule `SARIF2012.ProvideHelpUris`
+
+#### Description
+
+##### `Default`: note
+
+---
+
+### Rule `SARIF2013.ProvideEmbeddedFileContent`
+
+#### Description
+
+##### `Default`: note
 
 ---
 

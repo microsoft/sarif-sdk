@@ -20,13 +20,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// must be a "proper superset" of 'region'. That is, 'contextRegion' must completely contain
         /// 'region', and it must be larger than 'region'. To understand why this is so we must
         /// understand the roles of the 'region' and 'contextRegion' properties.
-        ///
+        /// 
         /// 'region' allows both users and tools to distinguish similar results within the same
-        /// 'artifact. If a SARIF viewer has access to the artifact, it can display it, and highlight
+        /// artifact. If a SARIF viewer has access to the artifact, it can display it, and highlight
         /// the location identified by the analysis tool.If the region has a 'snippet' property,
         /// then even if the viewer doesn't have access to the artifact (which might be the case
         /// for a web-based viewer), it can still display the faulty code.
-        ///
+        /// 
         /// 'contextRegion' provides users with a broader view of the result location. Typically,
         /// it consists of a range starting a few lines before 'region' and ending a few lines after.
         /// Again, if a SARIF viewer has access to the artifact, it can display it, and highlight
@@ -35,7 +35,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// already highlighted. But if 'contextRegion' has a 'snippet' property, then even a
         /// viewer without access to the artifact can display a few lines of code surrounding
         /// the actual result, which is helpful to users.
-        ///
+        /// 
         /// If the validator reports that 'contextRegion' is not a proper superset of 'region',
         /// then it's possible that the tool reversed 'region' and 'contextRegion'. If 'region'
         /// and 'contextRegion' are identical, the tool should simply omit 'contextRegion'.
