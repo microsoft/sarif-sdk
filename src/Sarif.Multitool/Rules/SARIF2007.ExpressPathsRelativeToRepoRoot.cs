@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Collections.Generic;
+using System.Linq;
 
 using Microsoft.Json.Pointer;
 
@@ -30,9 +31,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override void Analyze(Run run, string runPointer)
         {
+            this.uriBaseIds = new HashSet<string>();
+
             if (run.VersionControlProvenance != null)
             {
-                this.uriBaseIds = new HashSet<string>();
                 string versionControlProvenancePointer = runPointer.AtProperty(SarifPropertyName.VersionControlProvenance);
 
                 for (int i = 0; i < run.VersionControlProvenance.Count; i++)
@@ -55,7 +57,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override void Analyze(Result result, string resultPointer)
         {
-            if (result.Locations != null)
+            if (result.Locations != null && this.uriBaseIds.Any())
             {
                 string locationsPointer = resultPointer.AtProperty(SarifPropertyName.Locations);
                 for (int i = 0; i < result.Locations.Count; i++)
