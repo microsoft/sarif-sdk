@@ -7,7 +7,7 @@ These are the only tests for which SARIF2006 should be enabled. Note that "enabl
   <Properties Key="SARIF2002.ProvideMessageArguments.Options">
     <Property Key="RuleEnabled" Value="Disabled" />
   </Properties>
-  <Properties Key="SARIF2007.ExpressPathsRelativeToRepoRoot.Options">
+  <Properties Key="SARIF2006.UrisShouldBeReachable.Options">
     <Property Key="RuleEnabled" Value="Disabled" />
   </Properties>
 </Properties>
