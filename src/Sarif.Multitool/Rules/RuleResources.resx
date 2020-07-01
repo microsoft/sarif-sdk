@@ -166,7 +166,7 @@ A SARIF 'physicalLocation' object has two related properties 'region' and 'conte
 
 'contextRegion' provides users with a broader view of the result location. Typically, it consists of a range starting a few lines before 'region' and ending a few lines after. Again, if a SARIF viewer has access to the artifact, it can display it, and highlight the context region (perhaps in a lighter shade than the region itself). This isn't terribly useful since the user can already see the whole file, with the 'region' already highlighted. But if 'contextRegion' has a 'snippet' property, then even a viewer without access to the artifact can display a few lines of code surrounding the actual result, which is helpful to users.
 
-If the validator reports that 'contextRegion' is not a proper superset of 'region', then it's possible that the tool reversed 'region' and 'contextRegion'. If 'region' and 'contextRegion' are identical, the tool should simply omit 'contextRegion'.</value>
+If the validator reports that 'contextRegion' is not a proper superset of 'region', then it's possible that the tool reversed 'region' and 'contextRegion'. If 'region' and 'contextRegion' are identical, the tool should simply omit 'contextRegion'</value>
   </data>
   <data name="SARIF1008_PhysicalLocationPropertiesMustBeConsistent_Error_ContextRegionRequiresRegion_Text" xml:space="preserve">
     <value>{0}: This 'physicalLocation' object contains a 'contextRegion' property, but it does not contain a 'region' property. This is invalid because the purpose of 'contextRegion' is to provide a viewing context around the 'region' which is the location of the result. If a tool associates only one region with a result, it must populate 'region', not 'contextRegion'.</value>
@@ -184,13 +184,13 @@ If the validator reports that 'contextRegion' is not a proper superset of 'regio
     <value>{0}: The URI '{1}' belonging to the '{2}' element of run.originalUriBaseIds is not an absolute URI.</value>
   </data>
   <data name="SARIF1010_RuleIdMustBeConsistent_Error_ResultRuleIdMustBeConsistent_Text" xml:space="preserve">
-    <value>{0}: The result contains both the ruleId property '{1}' and the rule.id property '{2}', and they are not equal.</value>
+    <value>{0}: This result contains both the 'ruleId' property '{1}' and the 'rule.id' property '{2}', but they are not equal. The SARIF specification ([§3.27.5](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317643)) requires that if both of these properties are present, they must be equal.</value>
   </data>
   <data name="SARIF1010_RuleIdMustBeConsistent_Error_ResultMustSpecifyRuleId_Text" xml:space="preserve">
-    <value>{0}: The result contains neither result.ruleId nor result.rule.id.</value>
+    <value>{0}: This result contains neither of the properties 'ruleId' or 'rule.id'. The SARIF specification ([§3.27.5](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317643)) requires at least one of these properties to be present.</value>
   </data>
   <data name="SARIF1010_RuleIdMustBeConsistent_FullDescription_Text" xml:space="preserve">
-    <value>In every result, at least one of the properties result.ruleId and result.rule.id must be present. If both are present, they must be equal.</value>
+    <value>Every result must contain at least one of the properties 'ruleId' and 'rule.id'. If both are present, they must be equal. See the SARIF specification ([§3.27.5](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317643)).</value>
   </data>
   <data name="SARIF1011_ReferenceFinalSchema_Error_Default_Text" xml:space="preserve">
     <value>{0}: The $schema property value '{1}' does not refer to the final version of the SARIF 2.1.0 schema. If you are using an earlier version of the SARIF format, consider upgrading your analysis tool to produce the final version. If this file does in fact conform to the final version of the schema, upgrade the tool to populate the $schema property with a URL that refers to the final version of the schema.</value>
