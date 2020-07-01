@@ -157,11 +157,11 @@ Every URI reference in 'originalUriBaseIds' must resolve to an absolute URI, in 
 
 ##### `UriBaseIdValueMustEndWithSlash`: error
 
-{0}: The '{1}' element of 'originalUriBaseIds' has no 'uriBaseId' property, but its 'uri' property '{2}' is not an absolute URI. According to the SARIF specification, every such "top-level" entry in 'run.originalUriBaseIds' must specify an absolute URI.
+{0}: The '{1}' element of 'originalUriBaseIds' has a 'uri' property '{2}' that does not end with a slash. The trailing slash is required to minimize the likelihood of an error when concatenating URI segments together.
 
 ##### `UriBaseIdValueMustNotContainDotDotSegment`: error
 
-{0}: The '{1}' element of 'originalUriBaseIds' has a 'uri' property '{2}' that does not end with a slash. The trailing slash is required to minimize the likelihood of an error when concatenating URI segments together.
+{0}: The '{1}' element of 'originalUriBaseIds' has a 'uri' property '{2}' that contains a '..' segment. This is dangerous because if symbolic links are present, '..' might have different meanings on the machine that produced the log file and the machine where an end user or a tool consumes it.
 
 ##### `UriBaseIdValueMustNotContainQueryOrFragment`: error
 
