@@ -21,8 +21,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         ///
         /// If the 'invocation' object specifies both 'startTimeUtc' and 'endTimeUtc', then 'endTimeUtc'
         /// must not precede 'startTimeUtc'. To allow for the possibility that the duration of the run
-        /// is less than the resolution of the string representation of the time, the start time and
-        /// the end time may be equal.
+        /// is less than the resolution of the string representation of the time, the start time and the
+        /// end time may be equal.
         /// </summary>
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF1006_InvocationPropertiesMustBeConsistent_FullDescription_Text };
 

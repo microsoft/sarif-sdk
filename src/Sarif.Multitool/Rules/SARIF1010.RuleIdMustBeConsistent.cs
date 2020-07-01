@@ -12,9 +12,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// SARIF1010
         /// </summary>
         public override string Id => RuleId.RuleIdMustBeConsistent;
-        
+
         /// <summary>
-        /// Placeholder
+        /// Every result must contain at least one of the properties 'ruleId' and 'rule.id'.
+        /// If both are present, they must be equal. See the SARIF specification ([§3.27.5]
+        /// (https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317643)).
         /// </summary>
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF1010_RuleIdMustBeConsistent_FullDescription_Text };
 
@@ -34,7 +36,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             // At least one of result.ruleId or result.rule.id must be present
             if (string.IsNullOrWhiteSpace(result.RuleId) && string.IsNullOrWhiteSpace(result.Rule?.Id))
             {
-                // {0}: Placeholder
+                // {0}: This result contains neither of the properties 'ruleId' or 'rule.id'. The SARIF specification
+                // ([§3.27.5](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317643))
+                // requires at least one of these properties to be present.
                 LogResult(
                     pointer, 
                     nameof(RuleResources.SARIF1010_RuleIdMustBeConsistent_Error_ResultMustSpecifyRuleId_Text));
@@ -44,7 +48,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 && !string.IsNullOrWhiteSpace(result.Rule?.Id)
                 && !result.RuleId.Equals(result.Rule?.Id, StringComparison.OrdinalIgnoreCase))
             {
-                // {0}: Placeholder '{1}' '{2}' '{3}'
+                // {0}: This result contains both the 'ruleId' property '{1}' and the 'rule.id' property
+                // {2}', but they are not equal. The SARIF specification ([§3.27.5]
+                // (https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317643))
+                // requires that if both of these properties are present, they must be equal.
                 LogResult(
                     pointer, 
                     nameof(RuleResources.SARIF1010_RuleIdMustBeConsistent_Error_ResultRuleIdMustBeConsistent_Text), 

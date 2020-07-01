@@ -306,7 +306,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The result contains neither result.ruleId nor result.rule.id..
+        ///   Looks up a localized string similar to {0}: This result contains neither of the properties &apos;ruleId&apos; or &apos;rule.id&apos;. The SARIF specification ([§3.27.5](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317643)) requires at least one of these properties to be present..
         /// </summary>
         internal static string SARIF1010_RuleIdMustBeConsistent_Error_ResultMustSpecifyRuleId_Text {
             get {
@@ -315,7 +315,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The result contains both the ruleId property &apos;{1}&apos; and the rule.id property &apos;{2}&apos;, and they are not equal..
+        ///   Looks up a localized string similar to {0}: This result contains both the &apos;ruleId&apos; property &apos;{1}&apos; and the &apos;rule.id&apos; property &apos;{2}&apos;, but they are not equal. The SARIF specification ([§3.27.5](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317643)) requires that if both of these properties are present, they must be equal..
         /// </summary>
         internal static string SARIF1010_RuleIdMustBeConsistent_Error_ResultRuleIdMustBeConsistent_Text {
             get {
@@ -324,7 +324,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to In every result, at least one of the properties result.ruleId and result.rule.id must be present. If both are present, they must be equal..
+        ///   Looks up a localized string similar to Every result must contain at least one of the properties &apos;ruleId&apos; and &apos;rule.id&apos;. If both are present, they must be equal. See the SARIF specification ([§3.27.5](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317643))..
         /// </summary>
         internal static string SARIF1010_RuleIdMustBeConsistent_FullDescription_Text {
             get {
