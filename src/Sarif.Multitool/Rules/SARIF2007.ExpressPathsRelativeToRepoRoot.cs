@@ -32,7 +32,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
             if (run.VersionControlProvenance != null)
             {
-                uriBaseIds = new HashSet<string>();
+                this.uriBaseIds = new HashSet<string>();
                 string versionControlProvenancePointer = runPointer.AtProperty(SarifPropertyName.VersionControlProvenance);
 
                 for (int i = 0; i < run.VersionControlProvenance.Count; i++)
@@ -47,7 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     }
                     else
                     {
-                        uriBaseIds.Add(run.VersionControlProvenance[i].MappedTo.UriBaseId);
+                        this.uriBaseIds.Add(run.VersionControlProvenance[i].MappedTo.UriBaseId);
                     }
                 }
             }
@@ -74,7 +74,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 {
                     string artifactLocation = physicalLocation.AtProperty(SarifPropertyName.ArtifactLocation);
                     if (string.IsNullOrWhiteSpace(location.PhysicalLocation.ArtifactLocation.UriBaseId)
-                        || !uriBaseIds.Contains(location.PhysicalLocation.ArtifactLocation.UriBaseId))
+                        || !this.uriBaseIds.Contains(location.PhysicalLocation.ArtifactLocation.UriBaseId))
                     {
                         // {0}: Placeholder
                         LogResult(
