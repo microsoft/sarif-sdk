@@ -631,7 +631,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             string logText = sb.ToString();
             SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
 
-            Invocation invocation = sarifLog.Runs[0].Invocations?[0];
+            Invocation invocation = sarifLog.Runs[0].Invocations?.FirstOrDefault();
             invocation.StartTimeUtc.Should().NotBe(DateTime.MinValue);
             invocation.EndTimeUtc.Should().NotBe(DateTime.MinValue);
 
@@ -699,7 +699,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             string logText = sb.ToString();
             SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
 
-            Invocation invocation = sarifLog.Runs[0].Invocations?[0];
+            Invocation invocation = sarifLog.Runs[0].Invocations?.FirstOrDefault();
 
             // Specified properties should be logged.
             invocation.WorkingDirectory.Should().NotBeNull();

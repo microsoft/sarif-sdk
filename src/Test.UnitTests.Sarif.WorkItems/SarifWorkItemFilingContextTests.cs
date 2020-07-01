@@ -3,6 +3,8 @@
 
 using System;
 using System.IO;
+using System.Linq;
+
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
 using Xunit;
@@ -121,7 +123,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         {
             public override SarifWorkItemModel Transform(SarifWorkItemModel workItemModel)
             {
-                string newAreaPath = workItemModel.LocationUris?[0]?.OriginalString;
+                string newAreaPath = workItemModel.LocationUris?.FirstOrDefault()?.OriginalString;
 
                 workItemModel.Area = !string.IsNullOrEmpty(newAreaPath) ? newAreaPath : workItemModel.Area;
 

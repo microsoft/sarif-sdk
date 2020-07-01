@@ -1226,7 +1226,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             if (!IncludeSnippets) { return; }
 
-            if (result.Locations?[0]?.PhysicalLocation?.Region != null &&
+            if (result.Locations?.FirstOrDefault()?.PhysicalLocation?.Region != null &&
                 _snippetDictionary.TryGetValue(snippetId, out Snippet snippet) &&
                 !string.IsNullOrWhiteSpace(snippet.Region?.Snippet.Text))
             {

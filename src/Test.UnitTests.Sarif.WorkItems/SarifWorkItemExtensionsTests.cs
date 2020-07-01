@@ -3,7 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
+using System.Linq;
 using System.Text;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
@@ -44,7 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                     sb.AppendLine($"[Test case '{tuple.Item1}']: Title did not contain expected failure level '{level}'.");
                 }
 
-                string location = result.Locations?[0].PhysicalLocation?.ArtifactLocation?.Uri?.OriginalString;
+                string location = result.Locations?.FirstOrDefault()?.PhysicalLocation?.ArtifactLocation?.Uri?.OriginalString;
                 if (!string.IsNullOrEmpty(location) && !title.Contains(location))
                 {
                     sb.AppendLine($"[Test case '{tuple.Item1}']: Title did not contain expected location '{location}'.");

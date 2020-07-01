@@ -88,15 +88,15 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             int remainingChars = maxChars - titlePrefix.Length - 6; // " ({0})".Length == 6
 
             // We encapsulate logical names in apostrophes to help indicate they are a symbol
-            string locationName = "'" + firstResult.Locations?[0].LogicalLocation?.FullyQualifiedName + "'";
+            string locationName = "'" + firstResult.Locations?.FirstOrDefault()?.LogicalLocation?.FullyQualifiedName + "'";
 
             if (locationName.Length > remainingChars)
             { 
-                locationName = "'" + Path.GetFileName(firstResult.Locations?[0].LogicalLocation?.FullyQualifiedName) + "'";
+                locationName = "'" + Path.GetFileName(firstResult.Locations?.FirstOrDefault()?.LogicalLocation?.FullyQualifiedName) + "'";
 
                 if (locationName.Length > remainingChars)
                 {
-                    locationName = "'" + firstResult.Locations?[0].LogicalLocation?.FullyQualifiedName.Substring(0, remainingChars - ellipsis.Length - 2) + ellipsis + "'";
+                    locationName = "'" + firstResult.Locations?.FirstOrDefault()?.LogicalLocation?.FullyQualifiedName.Substring(0, remainingChars - ellipsis.Length - 2) + ellipsis + "'";
                 }
             }
 
@@ -105,7 +105,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 // We don't bother to wrap a file path or URL in apostrophes as these are self-evident
                 //
                 // Lines of code like this that inspire strong feelings in SARIF consumers as far as its design.
-                locationName = firstResult.Locations?[0].PhysicalLocation?.ArtifactLocation?.Resolve(run)?.Uri?.OriginalString;
+                locationName = firstResult.Locations?.FirstOrDefault()?.PhysicalLocation?.ArtifactLocation?.Resolve(run)?.Uri?.OriginalString;
 
                 if (locationName?.Length > remainingChars)
                 {
@@ -148,7 +148,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             string multipleToolsFooter = toolNames.Count > 1 ? WorkItemsResources.MultipleToolsFooter : string.Empty;
 
             Uri runRepositoryUri = log?.Runs.FirstOrDefault()?.VersionControlProvenance?.FirstOrDefault().RepositoryUri;
-            Uri detectionLocationUri = !string.IsNullOrEmpty(runRepositoryUri?.OriginalString) ? runRepositoryUri : locationUris?[0];
+            Uri detectionLocationUri = !string.IsNullOrEmpty(runRepositoryUri?.OriginalString) ? runRepositoryUri : locationUris?.FirstOrDefault();
 
             string detectionLocation = (detectionLocationUri?.IsAbsoluteUri == true && detectionLocationUri?.Scheme == "https")
                 ? context.CreateLinkText(detectionLocationUri.OriginalString, detectionLocationUri?.OriginalString)

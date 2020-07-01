@@ -54,7 +54,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     currentLog = ReadSarifFile<SarifLog>(_fileSystem, filePath);
 
                     // Compare each log with the previous one in the same group.
-                    if (currentGroup.Equals(previousGroup) && currentLog?.Runs?[0]?.Results.Count != 0 && previousLog?.Runs?[0]?.Results.Count != 0)
+                    if (currentGroup.Equals(previousGroup) && currentLog?.Runs?.FirstOrDefault()?.Results.Count != 0 && previousLog?.Runs?.FirstOrDefault()?.Results.Count != 0)
                     {
                         Console.WriteLine();
                         Console.WriteLine($"{previousFileName} -> {fileName}:");
