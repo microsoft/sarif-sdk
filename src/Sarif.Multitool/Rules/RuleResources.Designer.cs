@@ -383,9 +383,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The properties of a result&apos;s &apos;message&apos; property must be consistent with the properties of the rule that the result refers to.
+        ///   Looks up a localized string similar to Express plain text result messages as complete sentences and end each sentence with a period. This guidance does not apply to Markdown messages, which might include formatting that makes the punctuation unnecessary.
         ///
-        ///When a result&apos;s &apos;message&apos; object uses the &apos;id&apos; and &apos;arguments&apos; properties (which, by the way, is recommended: see SARIF), it must ensure that the rule actually defines a message string with that id, and that &apos;arguments&apos; array has enough elements to provide values for every replacement sequence in the message specified by &apos;id&apos;. For example, if the highest numbered replacement seque [rest of string was truncated]&quot;;.
+        ///This is part of a set of authoring practices that make your rule messages more readable, understandable, and actionable. See also `SARIF2014.ProvideDynamicMessageContent` and `SARIF2015.EnquoteDynamicMessageContent`..
         /// </summary>
         internal static string SARIF2001_TerminateMessagesWithPeriod_FullDescription_Text {
             get {
