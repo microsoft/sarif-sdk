@@ -309,7 +309,7 @@ The SARIF standard was developed over several years, and many intermediate versi
 
 The properties of a result's 'message' property must be consistent with the properties of the rule that the result refers to.
 
-When a result's 'message' object uses the 'id' and 'arguments' properties (which, by the way, is recommended: see SARIF), it must ensure that the rule actually defines a message string with that id, and that 'arguments' array has enough elements to provide values for every replacement sequence in the message specified by 'id'. For example, if the highest numbered replacement sequence in the specified message string is '{3}', then the 'arguments' array must contain at least 4 elements.
+When a result's 'message' object uses the 'id' and 'arguments' properties (which, by the way, is recommended: see SARIF2002.ProvideMessageArguments), it must ensure that the rule actually defines a message string with that id, and that 'arguments' array has enough elements to provide values for every replacement sequence in the message specified by 'id'. For example, if the highest numbered replacement sequence in the specified message string is '{3}', then the 'arguments' array must contain at least 4 elements.
 
 #### Messages
 
@@ -349,7 +349,7 @@ This is part of a set of authoring practices that make your rule messages more r
 
 ---
 
-### Rule `SARIF2002.UseMessageArguments`
+### Rule `SARIF2002.ProvideMessageArguments`
 
 #### Description
 
