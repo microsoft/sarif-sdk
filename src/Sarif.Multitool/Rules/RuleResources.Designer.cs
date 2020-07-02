@@ -536,7 +536,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The $schema property should be present.  This enables IDEs to provide Intellisense for SARIF log files..
+        ///   Looks up a localized string similar to A SARIF log file should contain, on the root object, a &apos;$schema&apos; property  that refers to the final, OASIS standard version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files..
         /// </summary>
         internal static string SARIF2008_ProvideSchema_FullDescription_Text {
             get {
@@ -545,7 +545,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The SARIF log file does not contain a $schema property. Add a $schema property that refers to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files..
+        ///   Looks up a localized string similar to {0}: The SARIF log file does not contain a &apos;$schema&apos; property. Add a &apos;$schema&apos; property that refers to the final, OASIS standard version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files..
         /// </summary>
         internal static string SARIF2008_ProvideSchema_Warning_Default_Text {
             get {
@@ -554,12 +554,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adopt uniform naming conventions for the symbolic names that SARIF uses various contexts.
+        ///   Looks up a localized string similar to Adopt uniform naming conventions for rule ids.
         ///
-        ///Many tools follow a conventional format for the &apos;reportingDescriptor.id&apos; property: a short string identifying the tool concatenated with a numeric rule number,
-        ///for example, &apos;CS2001&apos; for a diagnostic from the Roslyn C# compiler. For uniformity of experience across tools, we recommend this format.
-        ///
-        ///Many tool use similar names for &apos;uriBaseId&apos; symbols. We suggest &apos;REPOROOT&apos; for the root of a repository, &apos;SRCROOT&apos; for [rest of string was truncated]&quot;;.
+        ///Many tools follow a conventional format for the &apos;reportingDescriptor.id&apos; property: a short string identifying the tool concatenated with a numeric rule number, for example, &apos;CS2001&apos; for a diagnostic from the Roslyn C# compiler. For uniformity of experience across tools, we recommend this format..
         /// </summary>
         internal static string SARIF2009_ConsiderConventionalIdentifierValues_FullDescription_Text {
             get {

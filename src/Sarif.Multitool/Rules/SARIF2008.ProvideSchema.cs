@@ -11,9 +11,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// SARIF2008
         /// </summary>
         public override string Id => RuleId.ProvideSchema;
-        
+
         /// <summary>
-        /// Placeholder
+        /// A SARIF log file should contain, on the root object, a '$schema' property  that refers to
+        /// the final, OASIS standard version of the SARIF 2.1.0 schema. This enables IDEs to provide
+        /// Intellisense for SARIF log files.
         /// </summary>
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF2008_ProvideSchema_FullDescription_Text };
 
@@ -27,7 +29,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
             if (!Context.InputLogToken.HasProperty("$schema"))
             {
-                // {0}: Placeholder
+                // {0}: The SARIF log file does not contain a '$schema' property. Add a '$schema'
+                // property that refers to the final, OASIS standard version of the SARIF 2.1.0
+                // schema. This enables IDEs to provide Intellisense for SARIF log files.
                 LogResult(
                     logPointer, 
                     nameof(RuleResources.SARIF2008_ProvideSchema_Warning_Default_Text));

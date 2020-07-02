@@ -202,10 +202,10 @@ If the validator reports that 'contextRegion' is not a proper superset of 'regio
     <value>{0}: This '{1}' object contains a property '{2}' with value {3}, but '{4}' does not exist. An index-valued property always refers to an array, so the array must be present.</value>
   </data>
   <data name="SARIF2008_ProvideSchema_FullDescription_Text" xml:space="preserve">
-    <value>The $schema property should be present.  This enables IDEs to provide Intellisense for SARIF log files.</value>
+    <value>A SARIF log file should contain, on the root object, a '$schema' property  that refers to the final, OASIS standard version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.</value>
   </data>
   <data name="SARIF2008_ProvideSchema_Warning_Default_Text" xml:space="preserve">
-    <value>{0}: The SARIF log file does not contain a $schema property. Add a $schema property that refers to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.</value>
+    <value>{0}: The SARIF log file does not contain a '$schema' property. Add a '$schema' property that refers to the final, OASIS standard version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.</value>
   </data>
   <data name="SARIF1007_RegionPropertiesMustBeConsistent_Error_EndColumnMustNotPrecedeStartColumn_Text" xml:space="preserve">
     <value>{0}: In this 'region' object, the 'endColumn' property '{1}' is less than the 'startColumn' property '{2}'. The properties of a 'region' object must be internally consistent.</value>
@@ -249,12 +249,9 @@ If 'version' is used, facilitate comparison between versions by specifying it ei
     <value>{0}: The 'file' URI '{1}' contains a '..' segment. This is dangerous because if symbolic links are present, '..' might have different meanings on the machine that produced the log file and the machine where an end user or a tool consumes it.</value>
   </data>
   <data name="SARIF2009_ConsiderConventionalIdentifierValues_FullDescription_Text" xml:space="preserve">
-    <value>Adopt uniform naming conventions for the symbolic names that SARIF uses various contexts.
+    <value>Adopt uniform naming conventions for rule ids.
 
-Many tools follow a conventional format for the 'reportingDescriptor.id' property: a short string identifying the tool concatenated with a numeric rule number,
-for example, 'CS2001' for a diagnostic from the Roslyn C# compiler. For uniformity of experience across tools, we recommend this format.
-
-Many tool use similar names for 'uriBaseId' symbols. We suggest 'REPOROOT' for the root of a repository, 'SRCROOT' for the root of the directory containing all source code, 'TESTROOT' for the root of the directory containing all test code (if your repository is organized in that way), and 'BINROOT' for the root of the directory containing build output (if your project places all build output in a common directory).</value>
+Many tools follow a conventional format for the 'reportingDescriptor.id' property: a short string identifying the tool concatenated with a numeric rule number, for example, 'CS2001' for a diagnostic from the Roslyn C# compiler. For uniformity of experience across tools, we recommend this format.</value>
   </data>
   <data name="SARIF2009_ConsiderConventionalIdentifierValues_Note_UseConventionalRuleIds_Text" xml:space="preserve">
     <value>{0}: The 'id' property of the rule '{1}' does not follow the recommended format: a short string identifying the tool concatenated with a numeric rule number, for example, `CS2001`. Using a conventional format for the rule id provides a more uniform experience across tools.</value>
