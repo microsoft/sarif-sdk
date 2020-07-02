@@ -660,7 +660,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Including &quot;dynamic content&quot; (information that varies among results from the same rule) makes your messages more specific. It avoids the &quot;wall of bugs&quot; phenomenon, where hundreds of occurrences of the same message appear unapproachable..
+        ///   Looks up a localized string similar to Include &quot;dynamic content&quot; (information that varies among results from the same rule) to makes your messages more specific, and to avoid the &quot;wall of bugs&quot; phenomenon, where hundreds of occurrences of the same message appear unapproachable.
+        ///
+        ///This is part of a set of authoring practices that make your rule messages more readable, understandable, and actionable. See also `SARIF2001.TerminateMessagesWithPeriod` and `SARIF2015.EnquoteDynamicMessageContent`..
         /// </summary>
         internal static string SARIF2014_ProvideDynamicMessageContent_FullDescription_Text {
             get {
@@ -669,7 +671,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: In rule &apos;{1}&apos;, the &apos;{2}&apos; property of the message with id &apos;{3}&apos; does not include any dynamic content. Dynamic content makes your messages more specific and avoids the &quot;wall of bugs&quot; phenomenon..
+        ///   Looks up a localized string similar to {0}: In rule &apos;{1}&apos;, the message with id &apos;{2}&apos; does not include any dynamic content. Dynamic content makes your messages more specific and avoids the &quot;wall of bugs&quot; phenomenon, where hundreds of occurrences of the same message appear unapproachable..
         /// </summary>
         internal static string SARIF2014_ProvideDynamicMessageContent_Note_Default_Text {
             get {
@@ -678,7 +680,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Placing dynamic content in quotes sets it off from the static text, making it easier to spot. It&apos;s especially helpful when the dynamic content is a string that might contain spaces, and most especially when the string might be empty (and so would be invisible if it weren&apos;t for the quotes). We recommend single quotes for a less cluttered appearance, even though English usage would require double quotes..
+        ///   Looks up a localized string similar to Place dynamic content in single quotes to set it off from the static text and to make it easier to spot. It&apos;s especially helpful when the dynamic content is a string that might contain spaces, and most especially when the string might be empty (and so would be invisible if it weren&apos;t for the quotes). We recommend single quotes for a less cluttered appearance, even though US English usage would require double quotes.
+        ///
+        ///This is part of a set of authoring practices that make your rule messages more readable,  [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SARIF2015_EnquoteDynamicMessageContent_FullDescription_Text {
             get {
