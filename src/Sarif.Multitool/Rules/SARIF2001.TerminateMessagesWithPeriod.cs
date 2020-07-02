@@ -17,9 +17,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public override string Id => RuleId.TerminateMessagesWithPeriod;
 
         /// <summary>
-        /// Write in complete sentences and end each sentence with a period.This guidance does not
-        /// apply to Markdown messages, which might include formatting that makes the punctuation
-        /// unnecessary.
+        /// Express plain text result messages as complete sentences and end each sentence with a period.
+        /// This guidance does not apply to Markdown messages, which might include formatting that makes
+        /// the punctuation unnecessary.
+        ///
+        /// This is part of a set of authoring practices that make your rule messages more readable, 
+        /// understandable, and actionable.See also `SARIF2014.ProvideDynamicMessageContent` and 
+        /// `SARIF2015.EnquoteDynamicMessageContent`.
         /// </summary>
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF2001_TerminateMessagesWithPeriod_FullDescription_Text };
 
@@ -72,8 +76,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
             if (!messageString.EndsWith(".", StringComparison.Ordinal))
             {
-                // {0}: In rule '{1}', the message with id '{2}' does not end in a period. Write rule
-                // messages as complete sentences.
+                // {0}: In rule '{1}', the message with id '{2}' does not end in a period. Express plain
+                // text rule messages as complete sentences. This guidance does not apply to Markdown
+                // messages, which might include formatting that makes the punctuation unnecessary.
                 LogResult(
                     textPointer,
                     nameof(RuleResources.SARIF2001_TerminateMessagesWithPeriod_Warning_Default_Text),
