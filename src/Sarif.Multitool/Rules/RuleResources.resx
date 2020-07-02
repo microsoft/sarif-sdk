@@ -145,9 +145,6 @@ If the 'invocation' object specifies both 'startTimeUtc' and 'endTimeUtc', then 
   <data name="SARIF2001_TerminateMessagesWithPeriod_FullDescription_Text" xml:space="preserve">
     <value>Write in complete sentences and end each sentence with a period. This guidance does not apply to Markdown messages, which might include formatting that makes the punctuation unnecessary.</value>
   </data>
-  <data name="SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdRequiresRelativeUri_Text" xml:space="preserve">
-    <value>{0}: The '{1}' element of 'originalUriBaseIds' has a 'uriBaseId' property '{2}', but its 'uri' property '{3}' is an absolute URI. Since the purpose of the 'uriBaseId' property is to help resolve a relative reference to an absolute URI, it is not allowed when the 'uri' property is already an absolute URI.</value>
-  </data>
   <data name="SARIF1004_ExpressUriBaseIdsCorrectly_FullDescription_Text" xml:space="preserve">
     <value>Every URI reference in 'originalUriBaseIds' must resolve to an absolute URI, in the manner described in the SARIF specification [3.14.14](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317498). This is because the purpose of 'uriBaseIds' is to enable the resolution of relative references to absolute locations.</value>
   </data>
@@ -342,5 +339,11 @@ Many tool use similar names for 'uriBaseId' symbols. We suggest 'REPOROOT' for t
   </data>
   <data name="SARIF2007_ExpressPathsRelativeToRepoRoot_Warning_ExpressResultLocationsRelativeToMappedTo_Text" xml:space="preserve">
     <value>{0}: Placeholder</value>
+  </data>
+  <data name="SARIF1003_ArtifactLocationPropertiesMustBeConsistent_Error_UriBaseIdRequiresRelativeUri_Text" xml:space="preserve">
+    <value>{0}: {1} Placeholder_SARIF1003_ArtifactLocationPropertiesMustBeConsistent_Error_UriBaseIdRequiresRelativeUri_Text</value>
+  </data>
+  <data name="SARIF1003_ArtifactLocationPropertiesMustBeConsistent_FullDescription_Text" xml:space="preserve">
+    <value>Placeholder_SARIF1003_ArtifactLocationPropertiesMustBeConsistent_FullDescription_Text</value>
   </data>
 </root>

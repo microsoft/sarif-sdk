@@ -108,20 +108,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}: {1} Placeholder_SARIF1003_ArtifactLocationPropertiesMustBeConsistent_Error_UriBaseIdRequiresRelativeUri_Text.
+        /// </summary>
+        internal static string SARIF1003_ArtifactLocationPropertiesMustBeConsistent_Error_UriBaseIdRequiresRelativeUri_Text {
+            get {
+                return ResourceManager.GetString("SARIF1003_ArtifactLocationPropertiesMustBeConsistent_Error_UriBaseIdRequiresRelat" +
+                        "iveUri_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Placeholder_SARIF1003_ArtifactLocationPropertiesMustBeConsistent_FullDescription_Text.
+        /// </summary>
+        internal static string SARIF1003_ArtifactLocationPropertiesMustBeConsistent_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("SARIF1003_ArtifactLocationPropertiesMustBeConsistent_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}: The &apos;{1}&apos; element of &apos;originalUriBaseIds&apos; has no &apos;uriBaseId&apos; property, but its &apos;uri&apos; property &apos;{2}&apos; is not an absolute URI. According to the SARIF specification, every such &quot;top-level&quot; entry in &apos;originalUriBaseIds&apos; must specify an absolute URI, because the purpose of &apos;originalUriBaseIds&apos; is to enable the resolution of relative references to absolute URIs..
         /// </summary>
         internal static string SARIF1004_ExpressUriBaseIdsCorrectly_Error_TopLevelUriBaseIdMustBeAbsolute_Text {
             get {
                 return ResourceManager.GetString("SARIF1004_ExpressUriBaseIdsCorrectly_Error_TopLevelUriBaseIdMustBeAbsolute_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}: The &apos;{1}&apos; element of &apos;originalUriBaseIds&apos; has a &apos;uriBaseId&apos; property &apos;{2}&apos;, but its &apos;uri&apos; property &apos;{3}&apos; is an absolute URI. Since the purpose of the &apos;uriBaseId&apos; property is to help resolve a relative reference to an absolute URI, it is not allowed when the &apos;uri&apos; property is already an absolute URI..
-        /// </summary>
-        internal static string SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdRequiresRelativeUri_Text {
-            get {
-                return ResourceManager.GetString("SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdRequiresRelativeUri_Text", resourceCulture);
             }
         }
         

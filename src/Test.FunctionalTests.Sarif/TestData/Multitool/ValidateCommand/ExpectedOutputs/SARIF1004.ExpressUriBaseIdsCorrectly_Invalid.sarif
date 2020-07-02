@@ -36,9 +36,6 @@
                 "text": "Every URI reference in 'originalUriBaseIds' must resolve to an absolute URI, in the manner described in the SARIF specification [3.14.14](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317498). This is because the purpose of 'uriBaseIds' is to enable the resolution of relative references to absolute locations."
               },
               "messageStrings": {
-                "Error_UriBaseIdRequiresRelativeUri": {
-                  "text": "{0}: The '{1}' element of 'originalUriBaseIds' has a 'uriBaseId' property '{2}', but its 'uri' property '{3}' is an absolute URI. Since the purpose of the 'uriBaseId' property is to help resolve a relative reference to an absolute URI, it is not allowed when the 'uri' property is already an absolute URI."
-                },
                 "Error_TopLevelUriBaseIdMustBeAbsolute": {
                   "text": "{0}: The '{1}' element of 'originalUriBaseIds' has no 'uriBaseId' property, but its 'uri' property '{2}' is not an absolute URI. According to the SARIF specification, every such \"top-level\" entry in 'originalUriBaseIds' must specify an absolute URI, because the purpose of 'originalUriBaseIds' is to enable the resolution of relative references to absolute URIs."
                 },
@@ -115,7 +112,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 115,
+                  "startLine": 27,
                   "startColumn": 49
                 }
               }
@@ -141,7 +138,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 101,
+                  "startLine": 13,
                   "startColumn": 22
                 }
               }
@@ -167,7 +164,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 101,
+                  "startLine": 13,
                   "startColumn": 22
                 }
               }
@@ -193,7 +190,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 107,
+                  "startLine": 19,
                   "startColumn": 24
                 }
               }
@@ -219,7 +216,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 114,
+                  "startLine": 26,
                   "startColumn": 38
                 }
               }
@@ -245,7 +242,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 120,
+                  "startLine": 32,
                   "startColumn": 37
                 }
               }
@@ -271,7 +268,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 120,
+                  "startLine": 32,
                   "startColumn": 37
                 }
               }
@@ -297,7 +294,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 126,
+                  "startLine": 38,
                   "startColumn": 40
                 }
               }
@@ -323,35 +320,8 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 126,
+                  "startLine": 38,
                   "startColumn": 40
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF1004",
-          "ruleIndex": 1,
-          "level": "error",
-          "message": {
-            "id": "Error_UriBaseIdRequiresRelativeUri",
-            "arguments": [
-              "runs[0].originalUriBaseIds.BAD_URI_HAS_BASEID_BUT_ALSO_ABSOLUTE_URI",
-              "BAD_URI_HAS_BASEID_BUT_ALSO_ABSOLUTE_URI",
-              "SOURCE_ROOT",
-              "file:///C:/rules/"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 132,
-                  "startColumn": 53
                 }
               }
             }

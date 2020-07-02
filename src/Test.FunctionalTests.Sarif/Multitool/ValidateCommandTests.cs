@@ -68,6 +68,14 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
             => RunTest(MakeInvalidTestFileName(RuleId.UrisMustBeValid, nameof(RuleId.UrisMustBeValid)));
 
         [Fact]
+        public void SARIF1003_ArtifactLocationPropertiesMustBeConsistent_Valid()
+            => RunTest(MakeValidTestFileName(RuleId.ArtifactLocationPropertiesMustBeConsistent, nameof(RuleId.ArtifactLocationPropertiesMustBeConsistent)));
+
+        [Fact]
+        public void SARIF1003_ArtifactLocationPropertiesMustBeConsistent_Invalid()
+            => RunTest(MakeInvalidTestFileName(RuleId.ArtifactLocationPropertiesMustBeConsistent, nameof(RuleId.ArtifactLocationPropertiesMustBeConsistent)));
+
+        [Fact]
         public void SARIF1004_ExpressUriBaseIdsCorrectly_Valid()
             => RunTest(MakeValidTestFileName(RuleId.ExpressUriBaseIdsCorrectly, nameof(RuleId.ExpressUriBaseIdsCorrectly)));
 

@@ -7,6 +7,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
     {
         public const string RuleIdentifiersMustBeValid = "SARIF1001";
         public const string UrisMustBeValid = "SARIF1002";
+        public const string ArtifactLocationPropertiesMustBeConsistent = "SARIF1003";
         public const string ExpressUriBaseIdsCorrectly = "SARIF1004";
         public const string UriMustBeAbsolute = "SARIF1005";
 
