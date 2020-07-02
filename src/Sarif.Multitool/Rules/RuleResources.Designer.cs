@@ -374,7 +374,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         /// <summary>
         ///   Looks up a localized string similar to The properties of a result&apos;s &apos;message&apos; property must be consistent with the properties of the rule that the result refers to.
         ///
-        ///When a result&apos;s &apos;message&apos; object uses the &apos;id&apos; and &apos;arguments&apos; properties (which, by the way, is recommended: see SARIF), it must ensure that the rule actually defines a message string with that id, and that &apos;arguments&apos; array has enough elements to provide values for every replacement sequence in the message specified by &apos;id&apos;. For example, if the highest numbered replacement seque [rest of string was truncated]&quot;;.
+        ///When a result&apos;s &apos;message&apos; object uses the &apos;id&apos; and &apos;arguments&apos; properties (which, by the way, is recommended: see SARIF2002.ProvideMessageArguments), it must ensure that the rule actually defines a message string with that id, and that &apos;arguments&apos; array has enough elements to provide values for every replacement sequence in the message specified by &apos;id&apos;. For example, if the highes [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SARIF1012_MessageArgumentsMustBeConsistentWithRule_FullDescription_Text {
             get {

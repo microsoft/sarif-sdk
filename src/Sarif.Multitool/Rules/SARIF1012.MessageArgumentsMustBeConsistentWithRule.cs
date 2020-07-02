@@ -20,11 +20,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// of the rule that the result refers to.
         ///
         /// When a result's 'message' object uses the 'id' and 'arguments' properties (which, by the
-        /// way, is recommended: see SARIF), it must ensure that the rule actually defines a message
-        /// string with that id, and that 'arguments' array has enough elements to provide values for
-        /// every replacement sequence in the message specified by 'id'. For example, if the highest
-        /// numbered replacement sequence in the specified message string is '{3}', then the 'arguments'
-        /// array must contain at least 4 elements.
+        /// way, is recommended: see SARIF2002.ProvideMessageArguments), it must ensure that the rule
+        /// actually defines a message string with that id, and that 'arguments' array has enough
+        /// elements to provide values for every replacement sequence in the message specified by 'id'.
+        /// For example, if the highest numbered replacement sequence in the specified message string
+        /// is '{3}', then the 'arguments' array must contain at least 4 elements.
         /// </summary>
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF1012_MessageArgumentsMustBeConsistentWithRule_FullDescription_Text };
 
