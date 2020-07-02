@@ -59,9 +59,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 string endLinePointer = regionPointer.AtProperty(SarifPropertyName.EndLine);
 
-                // {0}: In this 'region' object, the 'endLine' property '{1}' is less than the
-                // 'startLine' property '{2}'. The properties of a 'region' object must be
-                // internally consistent.
+                // {0}: In this 'region' object, the 'endLine' property '{1}' is less than the 'startLine'
+                // property '{2}'. The properties of a 'region' object must be internally consistent.
                 LogResult(
                     endLinePointer,
                     nameof(RuleResources.SARIF1007_RegionPropertiesMustBeConsistent_Error_EndLineMustNotPrecedeStartLine_Text),
@@ -76,9 +75,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 string endColumnPointer = regionPointer.AtProperty(SarifPropertyName.EndColumn);
 
-                // {0}: In this 'region' object, the 'endColumn' property '{1}' is less than the
-                // 'startColumn'property '{2}'.The properties of a 'region' object must be
-                // internally consistent.
+                // {0}: In this 'region' object, the 'endColumn' property '{1}' is less than the 'startColumn'
+                // property '{2}'. The properties of a 'region' object must be internally consistent.
                 LogResult(
                     endColumnPointer,
                     nameof(RuleResources.SARIF1007_RegionPropertiesMustBeConsistent_Error_EndColumnMustNotPrecedeStartColumn_Text),

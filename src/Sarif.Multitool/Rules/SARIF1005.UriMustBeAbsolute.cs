@@ -17,7 +17,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public override string Id => RuleId.UriMustBeAbsolute;
 
         /// <summary>
-        /// Placeholder
+        /// Certain URIs are required to be absolute. For the most part, these are URIs that refer to http
+        /// addresses, such as work items or rule help topics.
         /// </summary>
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF1005_UriMustBeAbsolute_FullDescription_Text };
 
@@ -80,7 +81,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 Uri uri = new Uri(uriString, UriKind.RelativeOrAbsolute);
                 if (!uri.IsAbsoluteUri)
                 {
-                    // {0}: Placeholder '{1}'
+                    // {0}: The value of this property is required to be an absolute URI, but '{1}' is a relative URI reference.
                     LogResult(
                         pointer, 
                         nameof(RuleResources.SARIF1005_UriMustBeAbsolute_Error_Default_Text), 
