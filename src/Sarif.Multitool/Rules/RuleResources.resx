@@ -140,10 +140,12 @@ URIs must conform to [RFC 3986](https://tools.ietf.org/html/rfc3986). In additio
 If the 'invocation' object specifies both 'startTimeUtc' and 'endTimeUtc', then 'endTimeUtc' must not precede 'startTimeUtc'. To allow for the possibility that the duration of the run is less than the resolution of the string representation of the time, the start time and the end time may be equal.</value>
   </data>
   <data name="SARIF2001_TerminateMessagesWithPeriod_Warning_Default_Text" xml:space="preserve">
-    <value>{0}: In rule '{1}', the message with id '{2}' does not end in a period. Write rule messages as complete sentences.</value>
+    <value>{0}: In rule '{1}', the message with id '{2}' does not end in a period. Express plain text rule messages as complete sentences. This guidance does not apply to Markdown messages, which might include formatting that makes the punctuation unnecessary.</value>
   </data>
   <data name="SARIF2001_TerminateMessagesWithPeriod_FullDescription_Text" xml:space="preserve">
-    <value>Write in complete sentences and end each sentence with a period. This guidance does not apply to Markdown messages, which might include formatting that makes the punctuation unnecessary.</value>
+    <value>Express plain text result messages as complete sentences and end each sentence with a period. This guidance does not apply to Markdown messages, which might include formatting that makes the punctuation unnecessary.
+
+This is part of a set of authoring practices that make your rule messages more readable, understandable, and actionable. See also `SARIF2014.ProvideDynamicMessageContent` and `SARIF2015.EnquoteDynamicMessageContent`.</value>
   </data>
   <data name="SARIF1004_ExpressUriBaseIdsCorrectly_FullDescription_Text" xml:space="preserve">
     <value>Every URI reference in 'originalUriBaseIds' must resolve to an absolute URI, in the manner described in the SARIF specification [3.14.14](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317498). This is because the purpose of 'uriBaseIds' is to enable the resolution of relative references to absolute locations.</value>
@@ -190,19 +192,21 @@ If the validator reports that 'contextRegion' is not a proper superset of 'regio
     <value>Every result must contain at least one of the properties 'ruleId' and 'rule.id'. If both are present, they must be equal. See the SARIF specification ([§3.27.5](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317643)).</value>
   </data>
   <data name="SARIF1011_ReferenceFinalSchema_Error_Default_Text" xml:space="preserve">
-    <value>{0}: The $schema property value '{1}' does not refer to the final version of the SARIF 2.1.0 schema. If you are using an earlier version of the SARIF format, consider upgrading your analysis tool to produce the final version. If this file does in fact conform to the final version of the schema, upgrade the tool to populate the $schema property with a URL that refers to the final version of the schema.</value>
+    <value>{0}: The '$schema' property value '{1}' does not refer to the final version of the SARIF 2.1.0 schema. If you are using an earlier version of the SARIF format, consider upgrading your analysis tool to produce the final version. If this file does in fact conform to the final version of the schema, upgrade the tool to populate the '$schema' property with a URL that refers to the final version of the schema.</value>
   </data>
   <data name="SARIF1011_ReferenceFinalSchema_FullDescription_Text" xml:space="preserve">
-    <value>The $schema property must refer to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.</value>
+    <value>The '$schema' property must refer to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.
+
+The SARIF standard was developed over several years, and many intermediate versions of the schema were produced. Now that the standard is final, only the OASIS standard version of the schema is valid.</value>
   </data>
   <data name="SARIF1009_IndexPropertiesMustBeConsistentWithArrays_Error_TargetArrayMustExist_Text" xml:space="preserve">
     <value>{0}: This '{1}' object contains a property '{2}' with value {3}, but '{4}' does not exist. An index-valued property always refers to an array, so the array must be present.</value>
   </data>
   <data name="SARIF2008_ProvideSchema_FullDescription_Text" xml:space="preserve">
-    <value>The $schema property should be present.  This enables IDEs to provide Intellisense for SARIF log files.</value>
+    <value>A SARIF log file should contain, on the root object, a '$schema' property that refers to the final, OASIS standard version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.</value>
   </data>
   <data name="SARIF2008_ProvideSchema_Warning_Default_Text" xml:space="preserve">
-    <value>{0}: The SARIF log file does not contain a $schema property. Add a $schema property that refers to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.</value>
+    <value>{0}: The SARIF log file does not contain a '$schema' property. Add a '$schema' property that refers to the final, OASIS standard version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.</value>
   </data>
   <data name="SARIF1007_RegionPropertiesMustBeConsistent_Error_EndColumnMustNotPrecedeStartColumn_Text" xml:space="preserve">
     <value>{0}: In this 'region' object, the 'endColumn' property '{1}' is less than the 'startColumn' property '{2}'. The properties of a 'region' object must be internally consistent.</value>
@@ -225,7 +229,7 @@ The tool's 'name' property should be no more than three words long. This makes i
 
 The tool should provide either or both of the 'version' and 'semanticVersion' properties. This enables the log file consumer to determine whether the file was produced by an up to date version, and to avoid accidentally comparing log files produced by different tool versions.
 
-If 'version' is used, facilitate comparison between versions by specifying it either with an integer, or with at least two dot-separated integer components, optionally followed by any desired characters.</value>
+If 'version' is used, facilitate comparison between versions by specifying a version number that starts with an integer, optionally followed by any desired characters.</value>
   </data>
   <data name="SARIF2005_ProvideToolProperties_Warning_ProvideConciseToolName_Text" xml:space="preserve">
     <value>{0}: The tool name '{1}' contains {2} words, which is more than the recommended maximum of {3} words. A short tool name is easy to remember and fits into a narrow column when displaying a list of results. If you need to provide more information about your tool, use the 'fullName' property.</value>
@@ -234,7 +238,7 @@ If 'version' is used, facilitate comparison between versions by specifying it ei
     <value>{0}: The tool '{1}' provides neither a 'version' property nor a 'semanticVersion' property. Providing a version enables the log file consumer to determine whether the file was produced by an up to date version, and to avoid accidentally comparing log files produced by different tool versions.</value>
   </data>
   <data name="SARIF2005_ProvideToolProperties_Warning_UseNumericToolVersions_Text" xml:space="preserve">
-    <value>{0}: The tool '{1}' contains the 'version' property '{2}', which is not numeric. To facilitate comparison between versions, specify a 'version' that starts with at least two dot-separated integer components, optionally followed by any desired characters.</value>
+    <value>{0}: The tool '{1}' contains the 'version' property '{2}', which is not numeric. To facilitate comparison between versions, specify a 'version' that starts with an integer, optionally followed by any desired characters.</value>
   </data>
   <data name="SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdValueMustNotContainDotDotSegment_Text" xml:space="preserve">
     <value>{0}: The '{1}' element of 'originalUriBaseIds' has a 'uri' property '{2}' that contains a '..' segment. This is dangerous because if symbolic links are present, '..' might have different meanings on the machine that produced the log file and the machine where an end user or a tool consumes it.</value>
@@ -246,15 +250,12 @@ If 'version' is used, facilitate comparison between versions by specifying it ei
     <value>{0}: The 'file' URI '{1}' contains a '..' segment. This is dangerous because if symbolic links are present, '..' might have different meanings on the machine that produced the log file and the machine where an end user or a tool consumes it.</value>
   </data>
   <data name="SARIF2009_ConsiderConventionalIdentifierValues_FullDescription_Text" xml:space="preserve">
-    <value>Adopt uniform naming conventions for the symbolic names that SARIF uses various contexts.
+    <value>Adopt uniform naming conventions for rule ids.
 
-Many tools follow a conventional format for the 'reportingDescriptor.id' property: a short string identifying the tool concatenated with a numeric rule number,
-for example, 'CS2001' for a diagnostic from the Roslyn C# compiler. For uniformity of experience across tools, we recommend this format.
-
-Many tool use similar names for 'uriBaseId' symbols. We suggest 'REPOROOT' for the root of a repository, 'SRCROOT' for the root of the directory containing all source code, 'TESTROOT' for the root of the directory containing all test code (if your repository is organized in that way), and 'BINROOT' for the root of the directory containing build output (if your project places all build output in a common directory).</value>
+Many tools follow a conventional format for the 'reportingDescriptor.id' property: a short string identifying the tool concatenated with a numeric rule number, for example, 'CS2001' for a diagnostic from the Roslyn C# compiler. For uniformity of experience across tools, we recommend this format.</value>
   </data>
   <data name="SARIF2009_ConsiderConventionalIdentifierValues_Note_UseConventionalRuleIds_Text" xml:space="preserve">
-    <value>{0}: The 'id' property of the rule '{1}' does not follow the recommended format: a short string identifying the tool concatenated with a numeric rule number, for example, `CS2001`. Using a conventional format for the rule id provides a more uniform experience across tools.</value>
+    <value>{0}: The 'id' property of the rule '{1}' does not follow the recommended format: a short string identifying the tool concatenated with a numeric rule number, for example, 'CS2001'. Using a conventional format for the rule id provides a more uniform experience across tools.</value>
   </data>
   <data name="SARIF1007_RegionPropertiesMustBeConsistent_Error_RegionStartPropertyMustBePresent_Text" xml:space="preserve">
     <value>{0}: This 'region' object does not specify 'startLine', 'charOffset', or 'byteOffset'. As a result, it is impossible to determine whether this 'region' object describes a line/column text region, a character offset/length text region, or a binary region.</value>
@@ -266,10 +267,10 @@ Many tool use similar names for 'uriBaseId' symbols. We suggest 'REPOROOT' for t
     <value>{0}: Placeholder_SARIF2004_OptimizeFileSize_Warning_EliminateLocationOnlyArtifacts_Text</value>
   </data>
   <data name="SARIF2002_ProvideMessageArguments_FullDescription_Text" xml:space="preserve">
-    <value>Placeholder_SARIF2002_ProvideMessageArguments_FullDescription_Text</value>
+    <value>In result messages, use the 'message.id' and 'message.arguments' properties rather than 'message.text'. This has several advantages. If 'text' is lengthy, using 'id' and 'arguments' makes the SARIF file smaller. If the rule metadata is stored externally to the SARIF log file, the message text can be improved (for example, by adding more text, clarifying the phrasing, or fixing typos), and the result messages will pick up the improvements the next time it is displayed. Finally, SARIF supports localizing messages into different languages, which is possible if the SARIF file contains 'message.id' and 'message.arguments', but not if it contains 'message.text' directly.</value>
   </data>
   <data name="SARIF2002_ProvideMessageArguments_Warning_Default_Text" xml:space="preserve">
-    <value>{0}: Placeholder</value>
+    <value>{0}: The 'message' property of this result contains a 'text' property. Consider replacing it with 'id' and 'arguments' properties. This potentially reduces the log file size, allows the message text to be improved without modifying the log file, and enables localization.</value>
   </data>
   <data name="SARIF2003_ProvideVersionControlProvenance_FullDescription_Text" xml:space="preserve">
     <value>Placeholder_SARIF2003_ProvideVersionControlProvenance_FullDescription_Text</value>
@@ -305,25 +306,31 @@ Many tool use similar names for 'uriBaseId' symbols. We suggest 'REPOROOT' for t
     <value>{0}: Placeholder</value>
   </data>
   <data name="SARIF1012_MessageArgumentsMustBeConsistentWithRule_Error_MessageIdMustExist_Text" xml:space="preserve">
-    <value>{0}: Placeholder '{1}' '{2}'</value>
+    <value>{0}: This message object refers to the message with id '{1}' in rule '{2}', but that rule does not define a message with that id. When a tool creates a result message that uses the 'id' property, it must ensure that the specified rule actually has a message with that id.</value>
   </data>
   <data name="SARIF1012_MessageArgumentsMustBeConsistentWithRule_Error_SupplyEnoughMessageArguments_Text" xml:space="preserve">
-    <value>{0}: Placeholder '{1}' '{2}' '{3}' '{4}' '{5}'</value>
+    <value>{0}: The message with id '{1}' in rule '{2}' requires {3} arguments, but the 'arguments' array in this message object has only {4} elements. When a tool creates a result message that use the 'id' and 'arguments' properties, it must ensure that the 'arguments' array has enough elements to provide values for every replacement sequence in the message specified by 'id'. For example, if the highest numbered replacement sequence in the specified message string is '{{3}}', then the 'arguments' array must contain 4 elements.</value>
   </data>
   <data name="SARIF1012_MessageArgumentsMustBeConsistentWithRule_FullDescription_Text" xml:space="preserve">
-    <value>Placeholder</value>
+    <value>The properties of a result's 'message' property must be consistent with the properties of the rule that the result refers to.
+
+When a result's 'message' object uses the 'id' and 'arguments' properties (which, by the way, is recommended: see SARIF2002.ProvideMessageArguments), it must ensure that the rule actually defines a message string with that id, and that 'arguments' array has enough elements to provide values for every replacement sequence in the message specified by 'id'. For example, if the highest numbered replacement sequence in the specified message string is '{3}', then the 'arguments' array must contain at least 4 elements.</value>
   </data>
   <data name="SARIF2013_ProvideEmbeddedFileContent_Note_Default_Text" xml:space="preserve">
     <value>Placeholder_SARIF2013_ProvideEmbeddedFileContent_Note_Default_Text</value>
   </data>
   <data name="SARIF2014_ProvideDynamicMessageContent_FullDescription_Text" xml:space="preserve">
-    <value>Including "dynamic content" (information that varies among results from the same rule) makes your messages more specific. It avoids the "wall of bugs" phenomenon, where hundreds of occurrences of the same message appear unapproachable.</value>
+    <value>Include "dynamic content" (information that varies among results from the same rule) to makes your messages more specific, and to avoid the "wall of bugs" phenomenon, where hundreds of occurrences of the same message appear unapproachable.
+
+This is part of a set of authoring practices that make your rule messages more readable, understandable, and actionable. See also 'SARIF2001.TerminateMessagesWithPeriod' and 'SARIF2015.EnquoteDynamicMessageContent'.</value>
   </data>
   <data name="SARIF2014_ProvideDynamicMessageContent_Note_Default_Text" xml:space="preserve">
-    <value>{0}: In rule '{1}', the '{2}' property of the message with id '{3}' does not include any dynamic content. Dynamic content makes your messages more specific and avoids the "wall of bugs" phenomenon.</value>
+    <value>{0}: In rule '{1}', the message with id '{2}' does not include any dynamic content. Dynamic content makes your messages more specific and avoids the "wall of bugs" phenomenon, where hundreds of occurrences of the same message appear unapproachable.</value>
   </data>
   <data name="SARIF2015_EnquoteDynamicMessageContent_FullDescription_Text" xml:space="preserve">
-    <value>Placing dynamic content in quotes sets it off from the static text, making it easier to spot. It's especially helpful when the dynamic content is a string that might contain spaces, and most especially when the string might be empty (and so would be invisible if it weren't for the quotes). We recommend single quotes for a less cluttered appearance, even though English usage would require double quotes.</value>
+    <value>Place dynamic content in single quotes to set it off from the static text and to make it easier to spot. It's especially helpful when the dynamic content is a string that might contain spaces, and most especially when the string might be empty (and so would be invisible if it weren't for the quotes). We recommend single quotes for a less cluttered appearance, even though US English usage would require double quotes.
+
+This is part of a set of authoring practices that make your rule messages more readable, understandable, and actionable. See also 'SARIF2001.TerminateMessagesWithPeriod' and 'SARIF2014.ProvideDynamicMessageContent'.</value>
   </data>
   <data name="SARIF2015_EnquoteDynamicMessageContent_Note_Default_Text" xml:space="preserve">
     <value>{0}: In rule '{1}', the message with id '{2}' includes dynamic content that is not enclosed in single quotes. Enquoting dynamic content makes it easier to spot, and single quotes give a less cluttered appearance.</value>
