@@ -13,7 +13,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public override string Id => RuleId.ProvideVersionControlProvenance;
 
         /// <summary>
-        /// Placeholder
+        /// Provide 'versionControlProvenance' to record which version of the code was analyzed,
+        /// and to enable paths to be expressed relative to the root of the repository.
         /// </summary>
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF2003_ProvideVersionControlProvenance_FullDescription_Text };
 
@@ -27,7 +28,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
             if (run.VersionControlProvenance == null || run.VersionControlProvenance.Count == 0)
             {
-                // {0}: Placeholder
+                // {0}: This run does not provide 'versionControlProvenance'. As a result, it is
+                // not possible to determine which version of code was analyzed, nor to map
+                // relative paths to their locations within the repository.
                 LogResult(
                     runPointer,
                     nameof(RuleResources.SARIF2003_ProvideVersionControlProvenance_Note_Default_Text));

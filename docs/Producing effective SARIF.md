@@ -371,9 +371,13 @@ In result messages, use the 'message.id' and 'message.arguments' properties rath
 
 #### Description
 
+Provide 'versionControlProvenance' to record which version of the code was analyzed, and to enable paths to be expressed relative to the root of the repository.
+
 #### Messages
 
 ##### `Default`: note
+
+This run does not provide 'versionControlProvenance'. As a result, it is not possible to determine which version of code was analyzed, nor to map relative paths to their locations within the repository.
 
 ---
 

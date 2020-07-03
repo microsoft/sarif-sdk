@@ -11,14 +11,14 @@
               "id": "SARIF2003",
               "name": "ProvideVersionControlProvenance",
               "shortDescription": {
-                "text": "Placeholder_SARIF2003_ProvideVersionControlProvenance_FullDescription_Text."
+                "text": "Provide 'versionControlProvenance' to record which version of the code was analyzed, and to enable paths to be expressed relative to the root of the repository."
               },
               "fullDescription": {
-                "text": "Placeholder_SARIF2003_ProvideVersionControlProvenance_FullDescription_Text"
+                "text": "Provide 'versionControlProvenance' to record which version of the code was analyzed, and to enable paths to be expressed relative to the root of the repository."
               },
               "messageStrings": {
                 "Note_Default": {
-                  "text": "{0}: Placeholder"
+                  "text": "{0}: This run does not provide 'versionControlProvenance'. As a result, it is not possible to determine which version of code was analyzed, nor to map relative paths to their locations within the repository."
                 }
               },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
