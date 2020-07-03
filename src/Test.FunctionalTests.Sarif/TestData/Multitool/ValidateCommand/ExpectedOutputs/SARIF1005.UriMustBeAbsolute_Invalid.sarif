@@ -14,11 +14,11 @@
                 "text": "Certain URIs are required to be absolute."
               },
               "fullDescription": {
-                "text": "Certain URIs are required to be absolute."
+                "text": "Certain URIs are required to be absolute. For the most part, these are URIs that refer to http addresses, such as work items or rule help topics."
               },
               "messageStrings": {
                 "Error_Default": {
-                  "text": "{0}: The value of this property is required to be an absolute URI, but \"{1}\" is a relative URI reference."
+                  "text": "{0}: The value of this property is required to be an absolute URI, but '{1}' is a relative URI reference."
                 }
               },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"

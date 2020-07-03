@@ -11,14 +11,14 @@
               "id": "SARIF2008",
               "name": "ProvideSchema",
               "shortDescription": {
-                "text": "The $schema property should be present."
+                "text": "A SARIF log file should contain, on the root object, a '$schema' property that refers to the final, OASIS standard version of the SARIF 2.1.0 schema."
               },
               "fullDescription": {
-                "text": "The $schema property should be present.  This enables IDEs to provide Intellisense for SARIF log files."
+                "text": "A SARIF log file should contain, on the root object, a '$schema' property that refers to the final, OASIS standard version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files."
               },
               "messageStrings": {
                 "Warning_Default": {
-                  "text": "{0}: The SARIF log file does not contain a $schema property. Add a $schema property that refers to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files."
+                  "text": "{0}: The SARIF log file does not contain a '$schema' property. Add a '$schema' property that refers to the final, OASIS standard version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files."
                 }
               },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"

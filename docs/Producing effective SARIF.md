@@ -309,7 +309,7 @@ The SARIF standard was developed over several years, and many intermediate versi
 
 The properties of a result's 'message' property must be consistent with the properties of the rule that the result refers to.
 
-When a result's 'message' object uses the 'id' and 'arguments' properties (which, by the way, is recommended: see SARIF), it must ensure that the rule actually defines a message string with that id, and that 'arguments' array has enough elements to provide values for every replacement sequence in the message specified by 'id'. For example, if the highest numbered replacement sequence in the specified message string is '{3}', then the 'arguments' array must contain at least 4 elements.
+When a result's 'message' object uses the 'id' and 'arguments' properties (which, by the way, is recommended: see SARIF2002.ProvideMessageArguments), it must ensure that the rule actually defines a message string with that id, and that 'arguments' array has enough elements to provide values for every replacement sequence in the message specified by 'id'. For example, if the highest numbered replacement sequence in the specified message string is '{3}', then the 'arguments' array must contain at least 4 elements.
 
 #### Messages
 
@@ -349,7 +349,7 @@ This is part of a set of authoring practices that make your rule messages more r
 
 ---
 
-### Rule `SARIF2002.UseMessageArguments`
+### Rule `SARIF2002.ProvideMessageArguments`
 
 #### Description
 
@@ -395,7 +395,7 @@ The tool's 'name' property should be no more than three words long. This makes i
 
 The tool should provide either or both of the 'version' and 'semanticVersion' properties. This enables the log file consumer to determine whether the file was produced by an up to date version, and to avoid accidentally comparing log files produced by different tool versions.
 
-If 'version' is used, facilitate comparison between versions by specifying it either with an integer, or with at least two dot-separated integer components, optionally followed by any desired characters.
+If 'version' is used, facilitate comparison between versions by specifying a version number that starts with an integer, optionally followed by any desired characters.
 
 #### Messages
 
@@ -409,7 +409,7 @@ If 'version' is used, facilitate comparison between versions by specifying it ei
 
 ##### `UseNumericToolVersions`: warning
 
-{0}: The tool '{1}' contains the 'version' property '{2}', which is not numeric. To facilitate comparison between versions, specify a 'version' that starts with at least two dot-separated integer components, optionally followed by any desired characters.
+{0}: The tool '{1}' contains the 'version' property '{2}', which is not numeric. To facilitate comparison between versions, specify a 'version' that starts with an integer, optionally followed by any desired characters.
 
 ---
 
@@ -441,7 +441,7 @@ It is often useful to express artifact URIs as relative references to the root o
 
 #### Description
 
-A SARIF log file should contain, on the root object, a '$schema' property  that refers to the final, OASIS standard version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.
+A SARIF log file should contain, on the root object, a '$schema' property that refers to the final, OASIS standard version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.
 
 #### Messages
 
@@ -464,7 +464,7 @@ for example, 'CS2001' for a diagnostic from the Roslyn C# compiler. For uniformi
 
 ##### `UseConventionalRuleIds`: note
 
-{0}: The 'id' property of the rule '{1}' does not follow the recommended format: a short string identifying the tool concatenated with a numeric rule number, for example, `CS2001`. Using a conventional format for the rule id provides a more uniform experience across tools.
+{0}: The 'id' property of the rule '{1}' does not follow the recommended format: a short string identifying the tool concatenated with a numeric rule number, for example, 'CS2001'. Using a conventional format for the rule id provides a more uniform experience across tools.
 
 ---
 
