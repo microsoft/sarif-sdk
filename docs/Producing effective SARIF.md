@@ -143,13 +143,17 @@ URIs must conform to [RFC 3986](https://tools.ietf.org/html/rfc3986). In additio
 
 #### Description
 
-Every URI reference in 'originalUriBaseIds' must resolve to an absolute URI, in the manner described in the SARIF specification [3.14.14](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317498). This is because the purpose of 'uriBaseIds' is to enable the resolution of relative references to absolute locations.
+When using the 'uriBaseId' property, obey the requirements in the SARIF specification [3.4.4](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317431) that enable it to fulfill its purpose of resolving relative references to absolute locations. In particular:
+
+If an 'artifactLocation' object has a 'uriBaseId' property, its 'uri' property must be a relative reference, because if 'uri' is an absolute URI then 'uriBaseId' serves no purpose.
+
+Every URI reference in 'originalUriBaseIds' must resolve to an absolute URI in the manner described in the SARIF specification [3.14.14](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317498).
 
 #### Messages
 
 ##### `UriBaseIdRequiresRelativeUri`: error
 
-{0}: The '{1}' element of 'originalUriBaseIds' has a 'uriBaseId' property '{2}', but its 'uri' property '{3}' is an absolute URI. Since the purpose of the 'uriBaseId' property is to help resolve a relative reference to an absolute URI, it is not allowed when the 'uri' property is already an absolute URI.
+{0}: This 'artifactLocation' object has a 'uriBaseId' property '{1}', but its 'uri' property '{2}' is an absolute URI. Since the purpose of 'uriBaseId' is to resolve a relative reference to an absolute URI, it is not allowed when the 'uri' property is already an absolute URI.
 
 ##### `TopLevelUriBaseIdMustBeAbsolute`: error
 

@@ -17,7 +17,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public override string Id => RuleId.ExpressUriBaseIdsCorrectly;
 
         /// <summary>
-        /// Placeholder_SARIF1004_ExpressUriBaseIdsCorrectly_FullDescription_Text
+        /// When using the 'uriBaseId' property, obey the requirements in the SARIF specification
+        /// [3.4.4](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317431)
+        /// that enable it to fulfill its purpose of resolving relative references to absolute locations.
+        /// In particular:
+        ///
+        /// If an 'artifactLocation' object has a 'uriBaseId' property, its 'uri' property must be a
+        /// relative reference, because if 'uri' is an absolute URI then 'uriBaseId' serves no purpose.
+        ///
+        /// Every URI reference in 'originalUriBaseIds' must resolve to an absolute URI in the manner
+        /// described in the SARIF specification
+        /// [3.14.14] (https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317498).
         /// </summary>
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF1004_ExpressUriBaseIdsCorrectly_FullDescription_Text };
 
@@ -31,16 +41,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         public override FailureLevel DefaultLevel => FailureLevel.Error;
 
-        protected override void Analyze(ArtifactLocation fileLocation, string fileLocationPointer)
+        protected override void Analyze(ArtifactLocation artifactLocation, string artifactLocationPointer)
         {
-            // UriBaseIdRequiresRelativeUri: The 'uri' property of 'fileLocation' must be a relative uri, since 'uriBaseId' is present.
-            if (fileLocation.UriBaseId != null && fileLocation.Uri.IsAbsoluteUri)
+            if (artifactLocation.UriBaseId != null && artifactLocation.Uri.IsAbsoluteUri)
             {
-                //{0}: {1} Placeholder_SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdRequiresRelativeUri_Text
+                // {0}: This 'artifactLocation' object has a 'uriBaseId' property '{1}', but its
+                // 'uri' property '{2}' is an absolute URI. Since the purpose of 'uriBaseId' is
+                // to resolve a relative reference to an absolute URI, it is not allowed when
+                // the 'uri' property is already an absolute URI.
                 LogResult(
-                    fileLocationPointer.AtProperty(SarifPropertyName.Uri),
+                    artifactLocationPointer,
                     nameof(RuleResources.SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdRequiresRelativeUri_Text),
-                    fileLocation.Uri.OriginalString);
+                    artifactLocation.UriBaseId,
+                    artifactLocation.Uri.OriginalString);
             }
         }
 
@@ -80,8 +93,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     LogResult(
                         pointer,
                         nameof(RuleResources.SARIF1004_ExpressUriBaseIdsCorrectly_Error_TopLevelUriBaseIdMustBeAbsolute_Text),
-                        uriString,
-                        uriBaseId);
+                        uriBaseId,
+                        uriString);
                 }
 
                 if (!uriString.EndsWith("/"))
@@ -92,8 +105,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     LogResult(
                         pointer,
                         nameof(RuleResources.SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdValueMustEndWithSlash_Text),
-                        uriString,
-                        uriBaseId);
+                        uriBaseId,
+                        uriString);
                 }
 
                 if (uriString.Split('/').Any(x => x.Equals("..")))
@@ -105,8 +118,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     LogResult(
                         pointer,
                         nameof(RuleResources.SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdValueMustNotContainDotDotSegment_Text),
-                        uriString,
-                        uriBaseId);
+                        uriBaseId,
+                        uriString);
                 }
 
                 if (uri.IsAbsoluteUri && (!string.IsNullOrEmpty(uri.Fragment) || !string.IsNullOrEmpty(uri.Query)))
@@ -119,8 +132,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     LogResult(
                         pointer,
                         nameof(RuleResources.SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdValueMustNotContainQueryOrFragment_Text),
-                        uriString,
-                        uriBaseId);
+                        uriBaseId,
+                        uriString);
                 }
             }
         }
