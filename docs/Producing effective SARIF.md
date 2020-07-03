@@ -508,7 +508,7 @@ for example, 'CS2001' for a diagnostic from the Roslyn C# compiler. For uniformi
 
 Include "dynamic content" (information that varies among results from the same rule) to makes your messages more specific, and to avoid the "wall of bugs" phenomenon, where hundreds of occurrences of the same message appear unapproachable.
 
-This is part of a set of authoring practices that make your rule messages more readable, understandable, and actionable. See also `SARIF2001.TerminateMessagesWithPeriod` and `SARIF2015.EnquoteDynamicMessageContent`.
+This is part of a set of authoring practices that make your rule messages more readable, understandable, and actionable. See also 'SARIF2001.TerminateMessagesWithPeriod' and 'SARIF2015.EnquoteDynamicMessageContent'.
 
 #### Messages
 
@@ -524,7 +524,7 @@ This is part of a set of authoring practices that make your rule messages more r
 
 Place dynamic content in single quotes to set it off from the static text and to make it easier to spot. It's especially helpful when the dynamic content is a string that might contain spaces, and most especially when the string might be empty (and so would be invisible if it weren't for the quotes). We recommend single quotes for a less cluttered appearance, even though US English usage would require double quotes.
 
-This is part of a set of authoring practices that make your rule messages more readable, understandable, and actionable. See also `SARIF2001.TerminateMessagesWithPeriod` and `SARIF2014.ProvideDynamicMessageContent`.
+This is part of a set of authoring practices that make your rule messages more readable, understandable, and actionable. See also 'SARIF2001.TerminateMessagesWithPeriod' and 'SARIF2014.ProvideDynamicMessageContent'.
 
 #### Messages
 
