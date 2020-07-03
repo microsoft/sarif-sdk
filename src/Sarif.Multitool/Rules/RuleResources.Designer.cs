@@ -117,7 +117,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The &apos;{1}&apos; element of &apos;originalUriBaseIds&apos; has a &apos;uriBaseId&apos; property &apos;{2}&apos;, but its &apos;uri&apos; property &apos;{3}&apos; is an absolute URI. Since the purpose of the &apos;uriBaseId&apos; property is to help resolve a relative reference to an absolute URI, it is not allowed when the &apos;uri&apos; property is already an absolute URI..
+        ///   Looks up a localized string similar to {0}: {1} Placeholder_SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdRequiresRelativeUri_Text.
         /// </summary>
         internal static string SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdRequiresRelativeUri_Text {
             get {
@@ -155,7 +155,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Every URI reference in &apos;originalUriBaseIds&apos; must resolve to an absolute URI, in the manner described in the SARIF specification [3.14.14](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317498). This is because the purpose of &apos;uriBaseIds&apos; is to enable the resolution of relative references to absolute locations..
+        ///   Looks up a localized string similar to Placeholder_SARIF1004_ExpressUriBaseIdsCorrectly_FullDescription_Text.
         /// </summary>
         internal static string SARIF1004_ExpressUriBaseIdsCorrectly_FullDescription_Text {
             get {
