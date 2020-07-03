@@ -425,7 +425,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Placeholder_SARIF2003_ProvideVersionControlProvenance_FullDescription_Text.
+        ///   Looks up a localized string similar to Provide &apos;versionControlProvenance&apos; to record which version of the code was analyzed, and to enable paths to be expressed relative to the root of the repository..
         /// </summary>
         internal static string SARIF2003_ProvideVersionControlProvenance_FullDescription_Text {
             get {
@@ -434,7 +434,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: Placeholder.
+        ///   Looks up a localized string similar to {0}: This run does not provide &apos;versionControlProvenance&apos;. As a result, it is not possible to determine which version of code was analyzed, nor to map relative paths to their locations within the repository..
         /// </summary>
         internal static string SARIF2003_ProvideVersionControlProvenance_Note_Default_Text {
             get {

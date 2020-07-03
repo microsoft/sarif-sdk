@@ -280,10 +280,10 @@ Many tools follow a conventional format for the 'reportingDescriptor.id' propert
     <value>{0}: The 'message' property of this result contains a 'text' property. Consider replacing it with 'id' and 'arguments' properties. This potentially reduces the log file size, allows the message text to be improved without modifying the log file, and enables localization.</value>
   </data>
   <data name="SARIF2003_ProvideVersionControlProvenance_FullDescription_Text" xml:space="preserve">
-    <value>Placeholder_SARIF2003_ProvideVersionControlProvenance_FullDescription_Text</value>
+    <value>Provide 'versionControlProvenance' to record which version of the code was analyzed, and to enable paths to be expressed relative to the root of the repository.</value>
   </data>
   <data name="SARIF2003_ProvideVersionControlProvenance_Note_Default_Text" xml:space="preserve">
-    <value>{0}: Placeholder</value>
+    <value>{0}: This run does not provide 'versionControlProvenance'. As a result, it is not possible to determine which version of code was analyzed, nor to map relative paths to their locations within the repository.</value>
   </data>
   <data name="SARIF2004_OptimizeFileSize_Warning_EliminateIdOnlyRules_Text" xml:space="preserve">
     <value>Placeholder_SARIF2004_OptimizeFileSize_Warning_EliminateIdOnlyRules_Text</value>
