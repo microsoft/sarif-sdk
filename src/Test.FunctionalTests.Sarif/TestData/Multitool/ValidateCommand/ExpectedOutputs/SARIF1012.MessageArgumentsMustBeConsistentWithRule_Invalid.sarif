@@ -21,7 +21,7 @@
                   "text": "{0}: This message object refers to the message with id '{1}' in rule '{2}', but that rule does not define a message with that id. When a tool creates a result message that uses the 'id' property, it must ensure that the specified rule actually has a message with that id."
                 },
                 "Error_SupplyEnoughMessageArguments": {
-                  "text": "{0}: The message with id '{1}' in rule '{2}' requires {3} arguments, but the 'arguments' array in this message object has only {4} elements. When a tool creates a result message that use the 'id' and 'arguments' properties, it must ensure that the 'arguments' array has enough elements to provide values for every replacement sequence in the message specified by 'id'. For example, if the highest numbered replacement sequence in the specified message string is '{{3}}', then the 'arguments' array must contain 4 elements."
+                  "text": "{0}: The message with id '{1}' in rule '{2}' requires '{3}' arguments, but the 'arguments' array in this message object has only '{4}' element(s). When a tool creates a result message that use the 'id' and 'arguments' properties, it must ensure that the 'arguments' array has enough elements to provide values for every replacement sequence in the message specified by 'id'. For example, if the highest numbered replacement sequence in the specified message string is '{{3}}', then the 'arguments' array must contain 4 elements."
                 }
               },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
@@ -69,6 +69,35 @@
         }
       ],
       "results": [
+        {
+          "ruleId": "SARIF1012",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_SupplyEnoughMessageArguments",
+            "arguments": [
+              "runs[0].results[0]",
+              "DoesExist",
+              "TEST1001",
+              "2",
+              "1",
+              "'{0}': Placeholder '{1}'."
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 26,
+                  "startColumn": 9
+                }
+              }
+            }
+          ]
+        },
         {
           "ruleId": "SARIF1012",
           "ruleIndex": 0,

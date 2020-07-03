@@ -366,7 +366,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The message with id &apos;{1}&apos; in rule &apos;{2}&apos; requires {3} arguments, but the &apos;arguments&apos; array in this message object has only {4} elements. When a tool creates a result message that use the &apos;id&apos; and &apos;arguments&apos; properties, it must ensure that the &apos;arguments&apos; array has enough elements to provide values for every replacement sequence in the message specified by &apos;id&apos;. For example, if the highest numbered replacement sequence in the specified message string is &apos;{{3}}&apos;, then the &apos;arguments&apos; array must contain 4 [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to {0}: The message with id &apos;{1}&apos; in rule &apos;{2}&apos; requires &apos;{3}&apos; arguments, but the &apos;arguments&apos; array in this message object has only &apos;{4}&apos; element(s). When a tool creates a result message that use the &apos;id&apos; and &apos;arguments&apos; properties, it must ensure that the &apos;arguments&apos; array has enough elements to provide values for every replacement sequence in the message specified by &apos;id&apos;. For example, if the highest numbered replacement sequence in the specified message string is &apos;{{3}}&apos;, then the &apos;arguments&apos; array must con [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SARIF1012_MessageArgumentsMustBeConsistentWithRule_Error_SupplyEnoughMessageArguments_Text {
             get {

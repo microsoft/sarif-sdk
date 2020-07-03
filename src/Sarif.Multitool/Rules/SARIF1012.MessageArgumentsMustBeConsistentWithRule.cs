@@ -35,7 +35,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         public override FailureLevel DefaultLevel => FailureLevel.Error;
 
-        private static readonly Regex s_replacementSequenceRegex = new Regex(@"\{(<index>\d+)\}", RegexOptions.Compiled | RegexOptions.CultureInvariant);
+        private static readonly Regex s_replacementSequenceRegex = new Regex(@"\{(?<index>\d+)\}", RegexOptions.Compiled | RegexOptions.CultureInvariant);
         private IList<ReportingDescriptor> currentRules;
         private Run run;
 
@@ -69,11 +69,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
                 // A message with the specified key is present in the rule. Check if the result supplied enough arguments.
                 string messageText = rule.MessageStrings[result.Message.Id].Text;
-                int placeholderMaxPosition = PlaceholderMaxPosition(messageText);
-                if (placeholderMaxPosition > (result.Message.Arguments?.Count ?? 0))
+                int numArgsRequired = GetNumArgsRequired(messageText);
+                int numArgsPresent = result.Message.Arguments?.Count ?? 0;
+                if (numArgsRequired > numArgsPresent)
                 {
-                    // {0}: The message with id '{1}' in rule '{2}' requires {3} arguments, but the
-                    // 'arguments' array in this message object has only {4} elements. When a tool
+                    // {0}: The message with id '{1}' in rule '{2}' requires '{3}' arguments, but the
+                    // 'arguments' array in this message object has only '{4}' element(s). When a tool
                     // creates a result message that use the 'id' and 'arguments' properties, it must
                     // ensure that the 'arguments' array has enough elements to provide values for every
                     // replacement sequence in the message specified by 'id'. For example, if the highest
@@ -82,16 +83,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     LogResult(
                         resultPointer,
                         nameof(RuleResources.SARIF1012_MessageArgumentsMustBeConsistentWithRule_Error_SupplyEnoughMessageArguments_Text),
-                        result.Message.Arguments.Count.ToString(),
                         result.Message.Id,
                         result.ResolvedRuleId(run) ?? "null",
-                        placeholderMaxPosition.ToString(),
+                        numArgsRequired.ToString(),
+                        result.Message.Arguments.Count.ToString(),
                         messageText);
                 }
             }
         }
 
-        private int PlaceholderMaxPosition(string text)
+        private int GetNumArgsRequired(string text)
         {
             int max = -1;
             foreach (Match match in s_replacementSequenceRegex.Matches(text))
@@ -100,7 +101,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 max = Math.Max(max, index);
             }
 
-            return max++;
+            return max + 1;
         }
     }
 }
