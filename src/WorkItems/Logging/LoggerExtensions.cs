@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Collections.Generic;
+using Microsoft.CodeAnalysis.WorkItems.Logging;
 using Microsoft.Extensions.Logging;
 
 namespace Microsoft.WorkItems.Logging
@@ -25,6 +26,11 @@ namespace Microsoft.WorkItems.Logging
                 new MetricsLogValues(message, eventId, customDimensions),
                 exception: null, 
                 (state, error) => state.ToString());
+        }
+
+        public static LoggingContext BeginScopeContext(this ILogger logger, string scopeName)
+        {
+            return new LoggingContext(logger, scopeName);
         }
     }
 }

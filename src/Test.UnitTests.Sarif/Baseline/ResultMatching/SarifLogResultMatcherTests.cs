@@ -359,6 +359,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         [Fact]
         public void SarifLogResultMatcher_PreservesPropertiesProperly()
         {
+            // Verify that SarifLog matching keeps old or latest property values on matched Results
+            // depending on how it was configured.
+
+            // This test used to verify that old Artifact properties are also preserved, but this behavior
+            // doesn't make sense to us. If we need Artifacts to have property values from old runs, we
+            // will need to merge them carefully, keeping the latest URI, File Content, and Hashes, and only
+            // taking the older version of the Property Bag properties. (The latest merging code just took the
+            // old Artifact wholesale)
+
             Random random = RandomSarifLogGenerator.GenerateRandomAndLog(this.output);
             SarifLog baselineLog = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, 1);
             SarifLog currentLog = baselineLog.DeepClone();
@@ -366,34 +375,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             string baselinePropertyValue = Guid.NewGuid().ToString();
             string currentPropertyValue = Guid.NewGuid().ToString();
 
-            SetPropertyOnAllFileAndResultObjects(baselineLog, "Key", baselinePropertyValue);
-            SetPropertyOnAllFileAndResultObjects(currentLog, "Key", currentPropertyValue);
+            SetPropertyOnAllResultObjects(baselineLog, "Key", baselinePropertyValue);
+            SetPropertyOnAllResultObjects(currentLog, "Key", currentPropertyValue);
 
             SarifLog matchedLog = s_preserveOldestPropertyBagMatcher.Match(baselineLog.DeepClone(), currentLog.DeepClone());
             matchedLog.Runs[0].Results?.Where((r) => { return r.GetProperty("Key") == baselinePropertyValue; }).Count().Should().Be(matchedLog.Runs[0].Results.Count);
-            matchedLog.Runs[0].Artifacts?.Where((r) => { return r.GetProperty("Key") == baselinePropertyValue; }).Count().Should().Be(matchedLog.Runs[0].Artifacts.Count);
 
             // Retain property bag values from most current run
             matchedLog = s_preserveMostRecentPropertyBagMatcher.Match(baselineLog.DeepClone(), currentLog.DeepClone());
             matchedLog.Runs[0].Results?.Where((r) => { return r.GetProperty("Key") == currentPropertyValue; }).Count().Should().Be(matchedLog.Runs[0].Results.Count);
-            matchedLog.Runs[0].Artifacts?.Where((r) => { return r.GetProperty("Key") == currentPropertyValue; }).Count().Should().Be(matchedLog.Runs[0].Artifacts.Count);
         }
 
-        private void SetPropertyOnAllFileAndResultObjects(SarifLog sarifLog, string propertyKey, string propertyValue)
+        private void SetPropertyOnAllResultObjects(SarifLog sarifLog, string propertyKey, string propertyValue)
         {
             foreach (Run run in sarifLog.Runs)
             {
                 foreach (Result result in run.Results)
                 {
                     result.SetProperty(propertyKey, propertyValue);
-                }
-
-                if (run.Artifacts != null)
-                {
-                    foreach (Artifact file in run.Artifacts)
-                    {
-                        file.SetProperty(propertyKey, propertyValue);
-                    }
                 }
             }
         }

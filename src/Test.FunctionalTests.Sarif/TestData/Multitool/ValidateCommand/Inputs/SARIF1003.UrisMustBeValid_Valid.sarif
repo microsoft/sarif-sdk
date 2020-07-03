@@ -1,53 +1,64 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0",
-  "version": "2.0.0",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "version": "2.1.0",
   "runs": [
     {
       "tool": {
-        "name": "CodeScanner",
-        "downloadUri": "http://www.example.com/tools/codescanner/download.html"
+        "driver": {
+          "name": "CodeScanner",
+          "downloadUri": "http://www.example.com/tools/codescanner/download.html",
+          "rules": [
+            {
+              "id": "TST0001",
+              "helpUri": "http://www.example.com/rules/tst0001.html"
+            }
+          ]
+        }
       },
+      "versionControlProvenance": [
+        {
+          "repositoryUri": "https://example.com/my-project"
+        }
+      ],
+      "originalUriBaseIds": {
+        "SRCROOT": {
+          "uri": "file:///c:/Code/sarif-sdk/src/"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///c:/src/file.c",
+            "index": 0
+          },
+          "mimeType": "text/x-c"
+        },
+        {
+          "location": {
+            "uri": "src/file.c",
+            "uriBaseId": "SRCROOT",
+            "index": 1
+          }
+        }
+      ],
       "results": [
         {
-          "message": { "text": "Some testing occurred." },
           "ruleId": "TST0001",
+          "ruleIndex": 0,
           "level": "error",
+          "message": {
+            "text": "Some testing occurred."
+          },
           "analysisTarget": {
-            "uri": "file:///c:/src/file.c"
+            "uri": "file:///c:/src/file.c",
+            "index": 0
           },
           "workItemUris": [
             "https://example.com/my-project/issues/42"
           ]
         }
       ],
-      "files": {
-        "file:///c:/src/file.c": {
-          "mimeType": "text/x-c"
-        },
-        "#SRCROOT#src/file.c": {
-        }
-      },
-      "originalUriBaseIds": {
-        "SRCROOT": "file:///c:/Code/sarif-sdk/src/"
-      },
-      "resources": {
-        "rules": {
-          "TST0001": {
-            "id": "TST0001",
-            "helpUri": "http://www.example.com/rules/tst0001.html"
-          }
-        }
-      },
-      "versionControlProvenance": [
-        {
-          "uri": "https://example.com/my-project"
-        }
-      ],
-      "properties": {
-        "expectedResults": {
-          "resultLocationPointers": []
-        }
-      }
+      "columnKind": "utf16CodeUnits"
     }
   ]
 }

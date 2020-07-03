@@ -98,6 +98,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The Coordinated Universal Time (UTC) date and time at which this location was executed.
         /// </summary>
         [DataMember(Name = "executionTimeUtc", IsRequired = false, EmitDefaultValue = false)]
+        [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.DateTimeConverter))]
         public virtual DateTime ExecutionTimeUtc { get; set; }
 
         /// <summary>

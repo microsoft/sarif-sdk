@@ -222,7 +222,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 run.Language = firstRun.Language;
             }
 
-            IDictionary<string, SerializedPropertyInfo> properties = null;
 
             if (previousRuns != null && previousRuns.Count() != 0)
             {
@@ -231,13 +230,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 run.BaselineGuid = previousRuns.First().AutomationDetails?.Guid;
             }
 
-            bool initializeFromOldest = PropertyBagMergeBehavior.HasFlag(DictionaryMergeBehavior.InitializeFromOldest);
-            if (initializeFromOldest)
+            var visitor = new RunMergingVisitor();
+            
+            foreach (MatchedResults resultPair in results)
+            {
+                Result result = resultPair.CalculateBasedlinedResult(PropertyBagMergeBehavior);
+                Run contextRun = (result.BaselineState == BaselineState.Unchanged || result.BaselineState == BaselineState.Updated) ? resultPair.PreviousResult.OriginalRun : resultPair.Run;
+
+                visitor.CurrentRun = contextRun;
+                visitor.VisitResult(result);
+            }
+
+            visitor.PopulateWithMerged(run);
+
+            IDictionary<string, SerializedPropertyInfo> properties = null;
+            if (PropertyBagMergeBehavior.HasFlag(DictionaryMergeBehavior.InitializeFromOldest))
             {
                 // Find the 'oldest' log file and initialize properties from that log property bag.
-                properties = previousRuns.FirstOrDefault() != null
-                    ? previousRuns.First().Properties
-                    : currentRuns.First().Properties;
+                properties = previousRuns.FirstOrDefault()?.Properties ?? currentRuns.First().Properties;
             }
             else
             {
@@ -245,58 +255,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 // Find the 'oldest' log file and initialize properties from that log property bag.
                 properties = currentRuns.Last().Properties;
             }
-
-            var reportingDescriptors = new Dictionary<string, int>();
-
-            var indexRemappingVisitor = new RemapIndicesVisitor(currentArtifacts: null, currentLogicalLocations: null);
-
+            
             properties ??= new Dictionary<string, SerializedPropertyInfo>();
-
-            List<Result> newRunResults = new List<Result>();
-            foreach (MatchedResults resultPair in results)
-            {
-                Result result = resultPair.CalculateBasedlinedResult(PropertyBagMergeBehavior);
-
-                // TODO Shouldn't this just be HistoricalFiles = resultPair.Run.Artifacts?
-                IList<Artifact> files =
-                    (PropertyBagMergeBehavior.HasFlag(DictionaryMergeBehavior.InitializeFromOldest) &&
-                    (result.BaselineState == BaselineState.Unchanged || result.BaselineState == BaselineState.Updated))
-                    ? resultPair.PreviousResult.OriginalRun.Artifacts
-                    : resultPair.Run.Artifacts;
-
-                indexRemappingVisitor.HistoricalFiles = files;
-                indexRemappingVisitor.HistoricalLogicalLocations = resultPair.Run.LogicalLocations;
-                indexRemappingVisitor.VisitResult(result);
-
-                string ruleId = result.ResolvedRuleId(resultPair.Run);
-                if (!string.IsNullOrEmpty(ruleId))
-                {
-                    if (reportingDescriptors.TryGetValue(ruleId, out int ruleIndex))
-                    {
-                        result.RuleIndex = ruleIndex;
-                    }
-                    else
-                    {
-                        ReportingDescriptor rule = result.GetRule(resultPair.Run);
-                        int newIndex = reportingDescriptors.Count;
-
-                        reportingDescriptors[ruleId] = newIndex;
-
-                        run.Tool.Driver.Rules ??= new List<ReportingDescriptor>();
-                        run.Tool.Driver.Rules.Add(rule);
-
-                        result.RuleIndex = newIndex;
-                    }
-
-                    result.RuleId = ruleId;
-                }
-
-                newRunResults.Add(result);
-            }
-
-            run.Results = newRunResults;
-            run.Artifacts = indexRemappingVisitor.CurrentArtifacts;
-            run.LogicalLocations = indexRemappingVisitor.CurrentLogicalLocations;
 
             var graphs = new List<Graph>();
             var invocations = new List<Invocation>();
@@ -324,11 +284,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
             run.Graphs = graphs;
             run.Invocations = invocations;
-
-            if (properties != null && properties.Count > 0)
-            {
-                run.Properties = properties;
-            }
+            run.Properties = properties;
 
             return new SarifLog()
             {

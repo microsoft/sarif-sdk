@@ -1,82 +1,113 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
     /// <summary>
-    /// This class is used to update indices for data that is merged for various
-    /// reasons, including result matching operations.
+    ///  RunMergingVisitor merges Results from multiple Runs. 
+    ///  It gathers things referenced by the Results, remaps indices in the Results to the merged collections,
+    ///  and then populates the desired run with the merged sets.
+    ///  
+    ///  Used by Baselining and Run.MergeResultFrom(Run).
     /// </summary>
-    public class RemapIndicesVisitor : SarifRewritingVisitor
+    /// <remarks>
+    ///  Usage:
+    ///   var visitor = new RunMergingVisitor();
+    ///   
+    ///   visitor.VisitRun(primary);
+    ///   visitor.VisitRun(additional);
+    ///   
+    ///   visitor.PopulateMergedRun(primary);
+    /// </remarks>
+    public class RunMergingVisitor : SarifRewritingVisitor
     {
-        public RemapIndicesVisitor(
-            IList<Artifact> currentArtifacts,
-            IList<LogicalLocation> currentLogicalLocations)
-        {
-            CurrentArtifacts = new List<Artifact>();
-            CurrentLogicalLocations = new List<LogicalLocation>();
+        private List<Result> Results { get; }
+        private List<Artifact> Artifacts { get; }
+        private List<LogicalLocation> LogicalLocations { get; }
+        private List<ReportingDescriptor> Rules { get; }
 
-            RemapCurrentArtifacts(currentArtifacts);
-            RemapCurrentLogicalLocations(currentLogicalLocations);
+        private Dictionary<string, int> RuleIdToIndex { get; }
+        private Dictionary<OrderSensitiveValueComparisonList<LogicalLocation>, int> LogicalLocationToIndex { get; }
+        private Dictionary<OrderSensitiveValueComparisonList<Artifact>, int> ArtifactToIndex { get; }
+
+        public Run CurrentRun { get; set; }
+
+        public RunMergingVisitor()
+        {
+            Results = new List<Result>();
+            Artifacts = new List<Artifact>();
+            LogicalLocations = new List<LogicalLocation>();
+            Rules = new List<ReportingDescriptor>();
+
+            RuleIdToIndex = new Dictionary<string, int>();
+            LogicalLocationToIndex = new Dictionary<OrderSensitiveValueComparisonList<LogicalLocation>, int>();
+            ArtifactToIndex = new Dictionary<OrderSensitiveValueComparisonList<Artifact>, int>();
         }
 
-        private void RemapCurrentArtifacts(IList<Artifact> currentArtifacts)
+        public void PopulateWithMerged(Run targetRun)
         {
-            RemappedArtifacts = new Dictionary<OrderSensitiveValueComparisonList<Artifact>, int>();
+            targetRun.Results = Results;
+            targetRun.Artifacts = Artifacts;
+            targetRun.LogicalLocations = LogicalLocations;
 
-            if (currentArtifacts != null)
-            {
-                foreach (Artifact artifact in currentArtifacts)
-                {
-                    CacheArtifact(artifact, currentArtifacts);
-                }
-            }
+            targetRun.Tool ??= new Tool();
+            targetRun.Tool.Driver ??= new ToolComponent();
+            targetRun.Tool.Driver.Rules = Rules;
         }
 
-        private void RemapCurrentLogicalLocations(IList<LogicalLocation> currentLogicalLocations)
+        public override Run VisitRun(Run node)
         {
-            RemappedLogicalLocations = new Dictionary<OrderSensitiveValueComparisonList<LogicalLocation>, int>();
+            // Set CurrentRun, Visit Results, Clear Current Run
+            CurrentRun = node;
+            Run result = base.VisitRun(node);
+            CurrentRun = null;
 
-            if (currentLogicalLocations != null)
-            {
-                foreach (LogicalLocation logicalLocation in currentLogicalLocations)
-                {
-                    CacheLogicalLocation(logicalLocation, currentLogicalLocations);
-                }
-            }
+            return result;
         }
-
-        public IList<Artifact> CurrentArtifacts { get; set; }
-
-        public IList<LogicalLocation> CurrentLogicalLocations { get; set; }
-
-        public IList<Artifact> HistoricalFiles { get; set; }
-
-        public IList<LogicalLocation> HistoricalLogicalLocations { get; set; }
-
-        public IDictionary<OrderSensitiveValueComparisonList<LogicalLocation>, int> RemappedLogicalLocations { get; private set; }
-
-        public IDictionary<OrderSensitiveValueComparisonList<Artifact>, int> RemappedArtifacts { get; private set; }
 
         public override Result VisitResult(Result node)
         {
             // We suspend the visit if there's insufficient data to perform any work
-            if (HistoricalFiles == null && HistoricalLogicalLocations == null)
+            if (CurrentRun == null)
             {
-                return node;
+                throw new InvalidOperationException($"RemapIndicesVisitor requires CurrentRun to be set before Visiting Results.");
             }
 
-            return base.VisitResult(node);
+            // Cache RuleId and set Result.RuleIndex to the (new) index
+            string ruleId = node.ResolvedRuleId(CurrentRun);
+            if (!string.IsNullOrEmpty(ruleId))
+            {
+                if (RuleIdToIndex.TryGetValue(ruleId, out int ruleIndex))
+                {
+                    node.RuleIndex = ruleIndex;
+                }
+                else
+                {
+                    ReportingDescriptor rule = node.GetRule(CurrentRun);
+                    int newIndex = Rules.Count;
+                    Rules.Add(rule);
+
+                    RuleIdToIndex[ruleId] = newIndex;
+                    node.RuleIndex = newIndex;
+                }
+
+                node.RuleId = ruleId;
+            }
+
+            Result result = base.VisitResult(node);
+            Results.Add(result);
+            return result;
         }
 
         public override LogicalLocation VisitLogicalLocation(LogicalLocation node)
         {
-            if (node.Index != -1 && HistoricalLogicalLocations != null)
+            if (node.Index != -1 && CurrentRun.LogicalLocations != null)
             {
-                node.Index = CacheLogicalLocation(HistoricalLogicalLocations[node.Index], HistoricalLogicalLocations);
+                node.Index = CacheLogicalLocation(CurrentRun.LogicalLocations[node.Index], CurrentRun.LogicalLocations);
             }
 
             return base.VisitLogicalLocation(node);
@@ -93,15 +124,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 logicalLocation.ParentIndex = CacheLogicalLocation(currentLogicalLocations[parentIndex], currentLogicalLocations);
             }
 
-            OrderSensitiveValueComparisonList<LogicalLocation> logicalLocationChain = ConstructLogicalLocationsChain(logicalLocation, CurrentLogicalLocations);
+            OrderSensitiveValueComparisonList<LogicalLocation> logicalLocationChain = ConstructLogicalLocationsChain(logicalLocation, LogicalLocations);
 
-            if (!RemappedLogicalLocations.TryGetValue(logicalLocationChain, out int remappedIndex))
+            if (!LogicalLocationToIndex.TryGetValue(logicalLocationChain, out int remappedIndex))
             {
-                remappedIndex = RemappedLogicalLocations.Count;
+                remappedIndex = LogicalLocationToIndex.Count;
                 logicalLocation.Index = remappedIndex;
 
-                this.CurrentLogicalLocations.Add(logicalLocation);
-                RemappedLogicalLocations[logicalLocationChain] = remappedIndex;
+                this.LogicalLocations.Add(logicalLocation);
+                LogicalLocationToIndex[logicalLocationChain] = remappedIndex;
             }
 
             return remappedIndex;
@@ -109,9 +140,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         public override ArtifactLocation VisitArtifactLocation(ArtifactLocation node)
         {
-            if (node.Index != -1 && HistoricalFiles != null)
+            if (node.Index != -1 && CurrentRun.Artifacts != null)
             {
-                node.Index = CacheArtifact(HistoricalFiles[node.Index], HistoricalFiles);
+                node.Index = CacheArtifact(CurrentRun.Artifacts[node.Index], CurrentRun.Artifacts);
             }
 
             return base.VisitArtifactLocation(node);
@@ -133,16 +164,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             // Equally important, the artifact chain is a specially constructed key that
             // operates against the newly constructed files array in CurrentArtifacts.
-            OrderSensitiveValueComparisonList<Artifact> artifactChain = ConstructArtifactsChain(artifact, CurrentArtifacts);
+            OrderSensitiveValueComparisonList<Artifact> artifactChain = ConstructArtifactsChain(artifact, Artifacts);
 
-            if (!RemappedArtifacts.TryGetValue(artifactChain, out int remappedIndex))
+            if (!ArtifactToIndex.TryGetValue(artifactChain, out int remappedIndex))
             {
-                remappedIndex = RemappedArtifacts.Count;
+                remappedIndex = ArtifactToIndex.Count;
 
-                this.CurrentArtifacts.Add(artifact);
-                RemappedArtifacts[artifactChain] = remappedIndex;
+                this.Artifacts.Add(artifact);
+                ArtifactToIndex[artifactChain] = remappedIndex;
 
-                Debug.Assert(RemappedArtifacts.Count == this.CurrentArtifacts.Count);
+                Debug.Assert(ArtifactToIndex.Count == this.Artifacts.Count);
 
                 if (artifact.Location != null)
                 {

@@ -1,63 +1,60 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0",
-  "version": "2.0.0",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "version": "2.1.0",
   "runs": [
     {
       "tool": {
-        "name": "CodeScanner"
-      },
-      "conversion": {
-        "tool": {
-          "name": "ConversionTool"
-        },
-        "analysisToolLogFiles": [
-          {
-            "uri": "file.c",
-            "uriBaseId": "%SRCROOT%"
-          }
-        ]
-      },
-      "files": {
-        "file.c": {
-          "fileLocation": {
-            "uri": "file.c",
-            "uriBaseId": "%SRCROOT%"
-          }
+        "driver": {
+          "name": "CodeScanner"
         }
       },
       "invocations": [
         {
-          "attachments": [
-            {
-              "fileLocation": {
-                "uri": "file.c",
-                "uriBaseId": "%SRCROOT%"
-              }
-            }
-          ],
-          "configurationNotifications": [
-            {
-              "message": {
-                "text": "Message."
-              },
-              "physicalLocation": {
-                "fileLocation": {
-                  "uri": "file.c",
-                  "uriBaseId": "%SRCROOT%"
-                }
-              }
-            }
-          ],
-          "executableLocation": {
-            "uri": "file.c",
-            "uriBaseId": "%SRCROOT%"
-          },
           "responseFiles": [
             {
               "uri": "file.c",
               "uriBaseId": "%SRCROOT%"
             }
           ],
+          "toolExecutionNotifications": [
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "artifactLocation": {
+                      "uri": "file.c",
+                      "uriBaseId": "%SRCROOT%"
+                    }
+                  }
+                }
+              ],
+              "message": {
+                "text": "Message."
+              }
+            }
+          ],
+          "toolConfigurationNotifications": [
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "artifactLocation": {
+                      "uri": "file.c",
+                      "uriBaseId": "%SRCROOT%"
+                    }
+                  }
+                }
+              ],
+              "message": {
+                "text": "Message."
+              }
+            }
+          ],
+          "executionSuccessful": true,
+          "executableLocation": {
+            "uri": "file.c",
+            "uriBaseId": "%SRCROOT%"
+          },
           "stdin": {
             "uri": "/c:/log/in.txt",
             "uriBaseId": "%SRCROOT%"
@@ -73,66 +70,75 @@
           "stdoutStderr": {
             "uri": "/c:/log/out-err.txt",
             "uriBaseId": "%SRCROOT%"
-          },
-          "toolNotifications": [
-            {
-              "message": {
-                "text": "Message."
-              },
-              "physicalLocation": {
-                "fileLocation": {
-                  "uri": "file.c",
-                  "uriBaseId": "%SRCROOT%"
-                }
-              }
-            }
-          ]
+          }
+        }
+      ],
+      "conversion": {
+        "tool": {
+          "driver": {
+            "name": "ConversionTool"
+          }
+        },
+        "analysisToolLogFiles": [
+          {
+            "uri": "file.c",
+            "uriBaseId": "%SRCROOT%"
+          }
+        ]
+      },
+      "versionControlProvenance": [
+        {
+          "repositoryUri": "https://github.com/example-corp/browser",
+          "revisionId": "de67ef7",
+          "mappedTo": {
+            "uri": "/browser",
+            "uriBaseId": "%SRCROOT%"
+          }
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file.c",
+            "index": 0
+          }
         }
       ],
       "results": [
         {
           "ruleId": "TST0001",
           "level": "error",
+          "message": {
+            "text": "[No message provided]."
+          },
           "analysisTarget": {
             "uri": "file.c",
             "uriBaseId": "%SRCROOT%"
           },
-          "attachments": [
-            {
-              "fileLocation": {
-                "uri": "file.c",
-                "uriBaseId": "%SRCROOT%"
-              }
-            }
-          ],
-          "provenance": {
-            "conversionSources": [
-              {
-                "fileLocation": {
-                  "uri": "file.c",
-                  "uriBaseId": "%SRCROOT%"
-                }
-              }
-            ]
-          },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
+                "artifactLocation": {
                   "uri": "file.c",
                   "uriBaseId": "%SRCROOT%"
                 }
               }
             }
           ],
-          "relatedLocations": [
+          "stacks": [
             {
-              "physicalLocation": {
-                "fileLocation": {
-                  "uri": "file.c",
-                  "uriBaseId": "%SRCROOT%"
+              "frames": [
+                {
+                  "location": {
+                    "physicalLocation": {
+                      "artifactLocation": {
+                        "uri": "file.c",
+                        "uriBaseId": "%SRCROOT%"
+                      }
+                    }
+                  }
                 }
-              }
+              ]
             }
           ],
           "codeFlows": [
@@ -143,7 +149,7 @@
                     {
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
+                          "artifactLocation": {
                             "uri": "file.c",
                             "uriBaseId": "%SRCROOT%"
                           }
@@ -155,27 +161,39 @@
               ]
             }
           ],
-          "stacks": [
+          "relatedLocations": [
             {
-              "frames": [
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file.c",
-                        "uriBaseId": "%SRCROOT%"
-                      }
-                    }
-                  }
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file.c",
+                  "uriBaseId": "%SRCROOT%"
                 }
-              ]
+              }
             }
           ],
+          "attachments": [
+            {
+              "artifactLocation": {
+                "uri": "file.c",
+                "uriBaseId": "%SRCROOT%"
+              }
+            }
+          ],
+          "provenance": {
+            "conversionSources": [
+              {
+                "artifactLocation": {
+                  "uri": "file.c",
+                  "uriBaseId": "%SRCROOT%"
+                }
+              }
+            ]
+          },
           "fixes": [
             {
-              "fileChanges": [
+              "artifactChanges": [
                 {
-                  "fileLocation": {
+                  "artifactLocation": {
                     "uri": "file.c",
                     "uriBaseId": "%SRCROOT%"
                   },
@@ -193,21 +211,7 @@
           ]
         }
       ],
-      "versionControlProvenance": [
-        {
-          "repositoryUri": "https://github.com/example-corp/browser",
-          "revisionId": "de67ef7",
-          "mappedTo": {
-            "uri": "/browser",
-            "uriBaseId": "%SRCROOT%"
-          }
-        }
-      ],
-      "properties": {
-        "expectedResults": {
-          "resultLocationPointers": []
-        }
-      }
+      "columnKind": "utf16CodeUnits"
     }
   ]
 }

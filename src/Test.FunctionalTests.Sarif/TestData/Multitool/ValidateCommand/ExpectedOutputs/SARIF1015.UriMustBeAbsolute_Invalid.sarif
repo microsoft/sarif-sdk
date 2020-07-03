@@ -48,7 +48,7 @@
             "id": "Default",
             "arguments": [
               "$schema",
-              "json.schemastore.org/sarif-2.1.0-beta.0"
+              "json.schemastore.org/sarif-2.1.0-rtm.5"
             ]
           },
           "locations": [
@@ -59,7 +59,7 @@
                 },
                 "region": {
                   "startLine": 2,
-                  "startColumn": 54
+                  "startColumn": 53
                 }
               }
             }

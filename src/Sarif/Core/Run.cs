@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 
 using Microsoft.CodeAnalysis.Sarif.Readers;
+using Microsoft.CodeAnalysis.Sarif.Visitors;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -171,6 +172,17 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
             }
+        }
+
+        public void MergeResultsFrom(Run additional)
+        {
+            // Merge Results from the two Runs, building shared collections of result-referenced things
+            var visitor = new RunMergingVisitor();
+
+            visitor.VisitRun(this);
+            visitor.VisitRun(additional);
+
+            visitor.PopulateWithMerged(this);
         }
 
         public bool ShouldSerializeColumnKind()

@@ -62,6 +62,12 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             set { this.SetProperty(SplittingStrategyOption, value); }
         }
 
+        public bool SyncWorkItemMetadata
+        {
+            get { return this.GetProperty(SyncWorkItemMetadataOption); }
+            set { this.SetProperty(SyncWorkItemMetadataOption, value); }
+        }
+
         public bool ShouldFileUnchanged
         {
             get { return this.GetProperty(ShouldFileUnchangedOption); }
@@ -240,6 +246,11 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         public static PerLanguageOption<bool> ShouldFileUnchangedOption { get; } =
             new PerLanguageOption<bool>(
                 "Extensibility", nameof(ShouldFileUnchanged),
+                defaultValue: () => { return false; });
+
+        public static PerLanguageOption<bool> SyncWorkItemMetadataOption { get; } =
+            new PerLanguageOption<bool>(
+                "Extensibility", nameof(SyncWorkItemMetadata),
                 defaultValue: () => { return false; });
 
         public static PerLanguageOption<string> AzureDevOpsDescriptionFooterOption { get; } =

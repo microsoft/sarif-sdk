@@ -27,6 +27,8 @@ namespace Microsoft.WorkItems
 
         public string Iteration { get; set; }
 
+        public string State { get; set; }
+
         public IList<string> Assignees { get; set; }
 
         public string Milestone { get; set; }
@@ -46,6 +48,11 @@ namespace Microsoft.WorkItems
         /// URI to work item as rendered in browser to users.
         /// </summary>
         public Uri HtmlUri { get; set; }
+
+        /// <summary>
+        /// Operation to perform with the model. Ex: Create work item, Update work item.
+        /// </summary>
+        public WorkItemOperation Operation { get; set; }
     }
 
     /// <summary>

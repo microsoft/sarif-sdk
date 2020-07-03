@@ -293,7 +293,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return GetMessageText(result, rule, concise: false);
         }
 
-        public static string GetMessageText(this Result result, ReportingDescriptor rule, bool concise = false)
+        public static string GetMessageText(this Result result, ReportingDescriptor rule, bool concise = false, int maxLength = 120)
         {
             if (result == null)
             {
@@ -338,6 +338,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (concise)
             {
                 text = GetFirstSentence(text);
+                if (text.Length > maxLength)
+                {
+                    text = text.Substring(0, maxLength) + "\u2026"; // \u2026 is Unicode "horizontal ellipsis".
+                }
             }
 
             return text;
