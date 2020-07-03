@@ -11,14 +11,14 @@
               "id": "SARIF2006",
               "name": "UrisShouldBeReachable",
               "shortDescription": {
-                "text": "Placeholder_SARIF2006_UrisShouldBeReachable_FullDescription_Text."
+                "text": "URIs that refer to locations such as rule help pages and result-related work items should be reachable via an HTTP GET request."
               },
               "fullDescription": {
-                "text": "Placeholder_SARIF2006_UrisShouldBeReachable_FullDescription_Text"
+                "text": "URIs that refer to locations such as rule help pages and result-related work items should be reachable via an HTTP GET request."
               },
               "messageStrings": {
                 "Warning_Default": {
-                  "text": "{0}: Placeholder {1}"
+                  "text": "{0}: The URI '{1}' was not reachable via an HTTP GET request."
                 }
               },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"

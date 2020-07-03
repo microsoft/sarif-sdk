@@ -512,7 +512,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Placeholder_SARIF2006_UrisShouldBeReachable_FullDescription_Text.
+        ///   Looks up a localized string similar to URIs that refer to locations such as rule help pages and result-related work items should be reachable via an HTTP GET request..
         /// </summary>
         internal static string SARIF2006_UrisShouldBeReachable_FullDescription_Text {
             get {
@@ -521,7 +521,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: Placeholder {1}.
+        ///   Looks up a localized string similar to {0}: The URI &apos;{1}&apos; was not reachable via an HTTP GET request..
         /// </summary>
         internal static string SARIF2006_UrisShouldBeReachable_Warning_Default_Text {
             get {

@@ -293,10 +293,10 @@ Similarly, most 'result' objects contain at least one 'artifactLocation' object.
     <value>{0}: The 'rules' array contains no information beyond the ids of the rules. Removing this array might reduce the log file size without losing information. In some scenarios (for example, when assessing compliance with policy), the 'rules' array might be used to record the full set of rules that were evaluated. In such a scenario, the 'rules' array should be retained even if it contains only id information.</value>
   </data>
   <data name="SARIF2006_UrisShouldBeReachable_FullDescription_Text" xml:space="preserve">
-    <value>Placeholder_SARIF2006_UrisShouldBeReachable_FullDescription_Text</value>
+    <value>URIs that refer to locations such as rule help pages and result-related work items should be reachable via an HTTP GET request.</value>
   </data>
   <data name="SARIF2006_UrisShouldBeReachable_Warning_Default_Text" xml:space="preserve">
-    <value>{0}: Placeholder {1}</value>
+    <value>{0}: The URI '{1}' was not reachable via an HTTP GET request.</value>
   </data>
   <data name="SARIF2007_ExpressPathsRelativeToRepoRoot_FullDescription_Text" xml:space="preserve">
     <value>Placeholder_SARIF2007_ExpressPathsRelativeToRepoRoot_FullDescription_Text</value>
