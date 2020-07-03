@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
 using Microsoft.WorkItems;
 using Newtonsoft.Json;
@@ -38,6 +39,15 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 }
             }
 
+            bool? resultContainsWorkItemUri = sarifLog.Runs?.Any(run => run.Results.Any(result => result.WorkItemUris?.Count > 0));
+            if (resultContainsWorkItemUri == true)
+            {
+                Uri workItemUri = sarifLog.Runs?.Where(run => run.Results != null && run.Results.Any(result => result.WorkItemUris?.Count > 0)).LastOrDefault()
+                    .Results.Where(result => result.WorkItemUris != null && result.WorkItemUris.Count > 0).LastOrDefault()
+                    .WorkItemUris.LastOrDefault();
+                this.Uri = workItemUri;
+            }
+
             // Shared GitHub/Azure DevOps concepts
 
             this.LabelsOrTags = new List<string>();
@@ -56,7 +66,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 Text = JsonConvert.SerializeObject(sarifLog, Formatting.Indented),
             };
 
-            this.Title = sarifLog.Runs?[0]?.CreateWorkItemTitle(this.Context.ShouldFileUnchanged);
+            this.Title = sarifLog.Runs?[0]?.CreateWorkItemTitle();
 
             // TODO: Provide a useful SARIF-derived discussion entry 
             //       for the preliminary filing operation.

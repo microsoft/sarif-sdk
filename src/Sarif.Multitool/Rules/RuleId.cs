@@ -19,5 +19,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public const string InvalidIndex = "SARIF1017";
         public const string InvalidUriInOriginalUriBaseIds = "SARIF1018";
         public const string RuleIdMustBePresentAndConsistent = "SARIF1019";
+        public const string ReferToFinalSchema = "SARIF1020";
+
+        // TEMPLATE:
+        // public const string RULEFRIENDLYNAME = "RULEID";
     }
 }

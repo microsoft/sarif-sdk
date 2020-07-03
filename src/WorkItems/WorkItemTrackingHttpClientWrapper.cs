@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -41,6 +43,31 @@ namespace Microsoft.WorkItems
             CancellationToken cancellationToken = default)
         {
             return this.workItemTrackingHttpClient.CreateWorkItemAsync(document, project, type, validateOnly, bypassRules, suppressNotifications, userState, cancellationToken);
+        }
+
+        public Task<WorkItem> UpdateWorkItemAsync(
+            JsonPatchDocument document,
+            int id,
+            bool? validateOnly = null,
+            bool? bypassRules = null,
+            bool? suppressNotifications = null,
+            WorkItemExpand? expand = null,
+            object userState = null,
+            CancellationToken cancellationToken = default)
+        {
+            return this.workItemTrackingHttpClient.UpdateWorkItemAsync(document, id, validateOnly, bypassRules, suppressNotifications, expand, userState, cancellationToken);
+        }
+
+        public Task<WorkItem> GetWorkItemAsync(
+            string project,
+            int id,
+            IEnumerable<string> fields = null,
+            DateTime? asOf = null,
+            WorkItemExpand? expand = null,
+            object userState = null,
+            CancellationToken cancellationToken = default)
+        {
+            return this.workItemTrackingHttpClient.GetWorkItemAsync(project, id, fields, asOf, expand, userState, cancellationToken);
         }
 
         public void Dispose()

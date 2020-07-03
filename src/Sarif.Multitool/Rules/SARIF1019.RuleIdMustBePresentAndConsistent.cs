@@ -38,14 +38,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             // At least one of result.ruleId or result.rule.id must be present
             if (string.IsNullOrWhiteSpace(result.RuleId) && string.IsNullOrWhiteSpace(result.Rule?.Id))
             {
-                LogResult(pointer, nameof(RuleResources.SARIF1019_InconsistentResultRuleId), result.RuleId, result.Rule?.Id);
+                LogResult(pointer, nameof(RuleResources.SARIF1019_MissingResultRuleId));
             }
             // if both are present, they must be equal.
             else if (!string.IsNullOrWhiteSpace(result.RuleId)
                 && !string.IsNullOrWhiteSpace(result.Rule?.Id)
                 && !result.RuleId.Equals(result.Rule?.Id, StringComparison.OrdinalIgnoreCase))
             {
-                LogResult(pointer, nameof(RuleResources.SARIF1019_MissingResultRuleId), result.RuleId, result.Rule?.Id);
+                LogResult(pointer, nameof(RuleResources.SARIF1019_InconsistentResultRuleId), result.RuleId, result.Rule?.Id);
             }
         }
     }

@@ -338,6 +338,10 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 .Setup(x => x.FileWorkItems(It.IsAny<Uri>()))
                 .CallBase();
 
+            mockFiler
+                .Setup(x => x.SplitLogFile(It.IsAny<SarifLog>()))
+                .CallBase();
+
             return mockFiler;
         }
 

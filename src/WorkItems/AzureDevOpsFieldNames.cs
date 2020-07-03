@@ -26,6 +26,16 @@ namespace Microsoft.WorkItems
         public const string Title = "System.Title";
 
         /// <summary>
+        /// History field name.
+        /// </summary>
+        public const string History = "System.History";
+
+        /// <summary>
+        /// State field name.
+        /// </summary>
+        public const string State = "System.State";
+
+        /// <summary>
         /// ReproSteps filed name.
         /// </summary>
         public const string ReproSteps = "Microsoft.VSTS.TCM.ReproSteps";

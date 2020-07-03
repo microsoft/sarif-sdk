@@ -27,12 +27,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             return Path.GetFullPath(Path.Combine(@".\TestData", subdirectory));
         }
+        public static string GetProductDirectory()
+        {
+            return Path.GetFullPath($@"..\..\..\..\..\src\");
+        }
 
-        // Retrieving the source path of the tests is only used in developer ad hoc
-        // rebaselining scenarios. i.e., this path won't be consumed by AppVeyor.
         public static string GetProductTestDataDirectory(string testBinaryName, string subdirectory = "")
         {
-            return Path.GetFullPath(Path.Combine($@"..\..\..\..\..\src\{testBinaryName}\TestData", subdirectory));
+            return Path.GetFullPath(Path.Combine(GetProductDirectory(), $".\\{testBinaryName}\\TestData", subdirectory));
         }
 
         private readonly ITestOutputHelper _outputHelper;

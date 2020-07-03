@@ -272,10 +272,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
             else
             {
-                partitionLog = new SarifLog(originalLog)
-                {
-                    Runs = null
-                };
+                partitionLog = new SarifLog(originalLog.SchemaUri,
+                    originalLog.Version,
+                    runs: null,
+                    originalLog.InlineExternalProperties,
+                    originalLog.Properties);
             }
 
             partitionLog.Runs = new List<Run>();
@@ -307,11 +308,34 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     }
                     else
                     {
-                        partitionRun = new Run(originalRun)
-                        {
-                            Results = null,
-                            Artifacts = null
-                        };
+                        partitionRun = new Run(originalRun.Tool,
+                            originalRun.Invocations,
+                            originalRun.Conversion,
+                            originalRun.Language,
+                            originalRun.VersionControlProvenance,
+                            originalRun.OriginalUriBaseIds,
+                            artifacts: null,
+                            originalRun.LogicalLocations,
+                            originalRun.Graphs,
+                            results: null,
+                            originalRun.AutomationDetails,
+                            originalRun.RunAggregates,
+                            originalRun.BaselineGuid,
+                            originalRun.RedactionTokens,
+                            originalRun.DefaultEncoding,
+                            originalRun.DefaultSourceLanguage,
+                            originalRun.NewlineSequences,
+                            originalRun.ColumnKind,
+                            originalRun.ExternalPropertyFileReferences,
+                            originalRun.ThreadFlowLocations,
+                            originalRun.Taxonomies,
+                            originalRun.Addresses,
+                            originalRun.Translations,
+                            originalRun.Policies,
+                            originalRun.WebRequests,
+                            originalRun.WebResponses,
+                            originalRun.SpecialLocations,
+                            originalRun.Properties);
                     }
 
                     partitionRun.Results = results;

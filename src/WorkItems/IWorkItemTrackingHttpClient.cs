@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -24,7 +25,7 @@ namespace Microsoft.WorkItems
             CancellationToken cancellationToken = default);
 
         /// <summary>
-        /// Wraps Microsoft.TeamFoundation.WorkItemTracking.WebApi.CreateAttachmentAsync.
+        /// Wraps Microsoft.TeamFoundation.WorkItemTracking.WebApi.CreateWorkItemAsync.
         /// Creates a single work item.
         /// </summary>
         Task<WorkItem> CreateWorkItemAsync(
@@ -35,6 +36,33 @@ namespace Microsoft.WorkItems
             bool? bypassRules = null, 
             bool? suppressNotifications = null, 
             object userState = null, 
+            CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Wraps Microsoft.TeamFoundation.WorkItemTracking.WebApi.UpdateWorkItemAsync.
+        /// Updates a single work item.
+        /// </summary>
+        Task<WorkItem> UpdateWorkItemAsync(
+            JsonPatchDocument document,
+            int id,
+            bool? validateOnly = null,
+            bool? bypassRules = null,
+            bool? suppressNotifications = null,
+            WorkItemExpand? expand = null,
+            object userState = null,
+            CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Wraps Microsoft.TeamFoundation.WorkItemTracking.WebApi.GetWorkItemAsync.
+        /// Gets a single work item.
+        /// </summary>
+        Task<WorkItem> GetWorkItemAsync(
+            string project,
+            int id,
+            IEnumerable<string> fields = null,
+            DateTime? asOf = null,
+            WorkItemExpand? expand = null,
+            object userState = null,
             CancellationToken cancellationToken = default);
     }
 }

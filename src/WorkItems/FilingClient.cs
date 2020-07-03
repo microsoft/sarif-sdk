@@ -66,6 +66,17 @@ namespace Microsoft.WorkItems
         /// </returns>
         public abstract Task<IEnumerable<WorkItemModel>> FileWorkItems(IEnumerable<WorkItemModel> workItemModels);
 
+        /// <summary>
+        /// Asynchronously get file work item metadata for the specified results work item uris.
+        /// </summary>
+        /// <param name="workItemModel">
+        /// Describes the work items to be filed.
+        /// </param>
+        /// <returns>
+        /// An object that can be awaited to have updated work item models.
+        /// </returns>
+        public abstract Task<WorkItemModel> GetWorkItemMetadata(WorkItemModel workItemModel);
+
         public virtual void Dispose()
         {
             // This method isn't abstract because we don't required all derived classes to implement.
