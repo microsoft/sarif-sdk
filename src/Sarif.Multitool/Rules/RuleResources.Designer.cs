@@ -443,7 +443,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Placeholder_SARIF2004_OptimizeFileSize_FullDescription_Text.
+        ///   Looks up a localized string similar to Emit arrays only if they provide additional information.
+        ///
+        ///In several parts of a SARIF log file, a subset of information about an object appears in one place, and the full information describing all such objects appears in an array elsewhere in the log file. For example, each &apos;result&apos; object has a &apos;ruleId&apos; property that identifies the rule that was violated. Elsewhere in the log file, the array &apos;run.tool.driver.rules&apos; contains additional information about the rules. But if the elements of the &apos;rules&apos; array [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SARIF2004_OptimizeFileSize_FullDescription_Text {
             get {
@@ -452,7 +454,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Placeholder_SARIF2004_OptimizeFileSize_Warning_EliminateIdOnlyRules_Text.
+        ///   Looks up a localized string similar to {0}: The &apos;rules&apos; array contains no information beyond the ids of the rules. Removing this array might reduce the log file size without losing information. In some scenarios (for example, when assessing compliance with policy), the &apos;rules&apos; array might be used to record the full set of rules that were evaluated. In such a scenario, the &apos;rules&apos; array should be retained even if it contains only id information..
         /// </summary>
         internal static string SARIF2004_OptimizeFileSize_Warning_EliminateIdOnlyRules_Text {
             get {
@@ -461,7 +463,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: Placeholder_SARIF2004_OptimizeFileSize_Warning_EliminateLocationOnlyArtifacts_Text.
+        ///   Looks up a localized string similar to {0): The &apos;artifacts&apos; array contains no information beyond the locations of the artifacts. Removing this array might reduce the log file size without losing information. In some scenarios (for example, when assessing compliance with policy), the &apos;artifacts&apos; array might be used to record the full set of artifacts that were analyzed. In such a scenario, the &apos;artifacts&apos; array should be retained even if it contains only location information..
         /// </summary>
         internal static string SARIF2004_OptimizeFileSize_Warning_EliminateLocationOnlyArtifacts_Text {
             get {

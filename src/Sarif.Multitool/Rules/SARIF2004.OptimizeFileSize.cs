@@ -19,7 +19,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public override string Id => RuleId.OptimizeFileSize;
 
         /// <summary>
-        /// Placeholder_SARIF2004_OptimizeFileSize_FullDescription_Text
+        /// Emit arrays only if they provide additional information.
+        ///
+        /// In several parts of a SARIF log file, a subset of information about an object appears
+        /// in one place, and the full information describing all such objects appears in an array
+        /// elsewhere in the log file. For example, each 'result' object has a 'ruleId' property
+        /// that identifies the rule that was violated. Elsewhere in the log file, the array
+        /// 'run.tool.driver.rules' contains additional information about the rules. But if the
+        /// elements of the 'rules' array contained no information about the rules beyond their ids,
+        /// then there might be no reason to include the 'rules' array at all, and the log file
+        /// could be made smaller simply by omitting it. In some scenarios (for example, when
+        /// assessing compliance with policy), the 'rules' array might be used to record the full
+        /// set of rules that were evaluated. In such a scenario, the 'rules' array should be retained
+        /// even if it contains only id information.
+        ///
+        /// Similarly, most 'result' objects contain at least one 'artifactLocation' object. Elsewhere
+        /// in the log file, the array 'run.artifacts' contains additional information about the artifacts
+        /// that were analyzed. But if the elements of the 'artifacts' array contained not information
+        /// about the artifacts beyond their locations, then there might be no reason to include the
+        /// 'artifacts' array at all, and again the log file could be made smaller by omitting it. In
+        /// some scenarios (for example, when assessing compliance with policy), the 'artifacts' array
+        /// might be used to record the full set of artifacts that were analyzed. In such a scenario,
+        /// the 'artifacts' array should be retained even if it contains only location information.
         /// </summary>
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF2004_OptimizeFileSize_FullDescription_Text };
 
@@ -60,7 +81,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
             if (HasResultLocationsWithUriAndIndex(firstResultLocationPointer) && HasLocationOnlyArtifacts(firstArtifactPointer))
             {
-                // {0}: Placeholder_SARIF2004_OptimizeFileSize_Warning_EliminateLocationOnlyArtifacts_Text
+                // {0): The 'artifacts' array contains no information beyond the locations of the
+                // artifacts. Removing this array might  reduce the log file size without losing
+                // information. In some scenarios (for example, when assessing compliance with policy),
+                // the 'artifacts' array might be used to record the full set of artifacts that were
+                // analyzed. In such a scenario, the 'artifacts' array should be retained even if it
+                // contains only location information.
                 LogResult(
                     firstArtifactPointer,
                     nameof(RuleResources.SARIF2004_OptimizeFileSize_Warning_EliminateLocationOnlyArtifacts_Text));
@@ -105,7 +131,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
             if (HasIdOnlyRules(firstRulePointer))
             {
-                // {0}: SARIF2004_OptimizeFileSize_Warning_EliminateIdOnlyRules_Text
+                // {0}: The 'rules' array contains no information beyond the ids of the rules.
+                // Removing this array might reduce the log file size without losing information.
+                // In some scenarios (for example, when assessing compliance with policy), the
+                // 'rules' array might be used to record the full set of rules that were evaluated.
+                // In such a scenario, the 'rules' array should be retained even if it contains
+                // only id information.
                 LogResult(
                     firstRulePointer,
                     nameof(RuleResources.SARIF2004_OptimizeFileSize_Warning_EliminateIdOnlyRules_Text));
