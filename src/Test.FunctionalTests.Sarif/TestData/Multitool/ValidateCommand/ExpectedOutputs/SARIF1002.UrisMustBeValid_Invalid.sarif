@@ -117,31 +117,6 @@
           "message": {
             "id": "Error_UrisMustConformToRfc3986",
             "arguments": [
-              "runs[0].originalUriBaseIds.SRCROOT.uri",
-              "fi%le:///c:/Code/sarif-sdk/src"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 36,
-                  "startColumn": 49
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF1002",
-          "ruleIndex": 0,
-          "level": "error",
-          "message": {
-            "id": "Error_UrisMustConformToRfc3986",
-            "arguments": [
               "runs[0].results[0].workItemUris[0]",
               "ht&tp://example.com/my-project/issues/42"
             ]
@@ -355,6 +330,31 @@
                 "region": {
                   "startLine": 31,
                   "startColumn": 60
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1002",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_UrisMustConformToRfc3986",
+            "arguments": [
+              "runs[0].originalUriBaseIds.SRCROOT.uri",
+              "fi%le:///c:/Code/sarif-sdk/src"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 36,
+                  "startColumn": 49
                 }
               }
             }
