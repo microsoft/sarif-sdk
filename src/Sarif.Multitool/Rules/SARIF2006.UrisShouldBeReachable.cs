@@ -18,7 +18,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public override string Id => RuleId.UrisShouldBeReachable;
 
         /// <summary>
-        /// Placeholder
+        /// URIs that refer to locations such as rule help pages and result-related work items
+        /// should be reachable via an HTTP GET request.
         /// </summary>
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF2006_UrisShouldBeReachable_FullDescription_Text };
 
@@ -85,10 +86,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 Uri uri = new Uri(uriString, UriKind.Absolute);
                 if (!IsUriReachable(uri.AbsoluteUri))
                 {
-                    // {0}: Placeholder '{1}'
+                    // {0}: The URI '{1}' was not reachable via an HTTP GET request.
                     LogResult(
                         pointer, 
-                        nameof(RuleResources.SARIF1005_UriMustBeAbsolute_Error_Default_Text), 
+                        nameof(RuleResources.SARIF2006_UrisShouldBeReachable_Warning_Default_Text), 
                         uriString);
                 }
             }

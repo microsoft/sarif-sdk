@@ -435,9 +435,13 @@ If 'version' is used, facilitate comparison between versions by specifying a ver
 
 #### Description
 
+URIs that refer to locations such as rule help pages and result-related work items should be reachable via a GET request.
+
 #### Messages
 
 ##### `Default`: warning
+
+{0}: The URI '{1}' was not reachable via a GET request.
 
 ---
 
