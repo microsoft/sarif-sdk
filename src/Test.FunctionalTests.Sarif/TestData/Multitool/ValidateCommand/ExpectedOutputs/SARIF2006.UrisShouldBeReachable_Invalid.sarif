@@ -62,7 +62,7 @@
           "ruleId": "SARIF2006",
           "ruleIndex": 0,
           "message": {
-            "id": "Error_Default",
+            "id": "Warning_Default",
             "arguments": [
               "runs[0].results[0].workItemUris[0]",
               "https://example.com/my-project/issues/42"
@@ -86,7 +86,7 @@
           "ruleId": "SARIF2006",
           "ruleIndex": 0,
           "message": {
-            "id": "Error_Default",
+            "id": "Warning_Default",
             "arguments": [
               "runs[0].tool.driver.downloadUri",
               "http://www.example.com/tools/codescanner/download.html"
@@ -110,7 +110,7 @@
           "ruleId": "SARIF2006",
           "ruleIndex": 0,
           "message": {
-            "id": "Error_Default",
+            "id": "Warning_Default",
             "arguments": [
               "runs[0].tool.driver.rules[0].helpUri",
               "http://www.example.com/rules/tst0001.html"
@@ -134,7 +134,7 @@
           "ruleId": "SARIF2006",
           "ruleIndex": 0,
           "message": {
-            "id": "Error_Default",
+            "id": "Warning_Default",
             "arguments": [
               "runs[0].versionControlProvenance[0].repositoryUri",
               "https://example.com/my-project"

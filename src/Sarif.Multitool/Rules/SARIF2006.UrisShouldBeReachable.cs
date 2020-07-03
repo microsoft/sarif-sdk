@@ -89,7 +89,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     // {0}: The URI '{1}' was not reachable via an HTTP GET request.
                     LogResult(
                         pointer, 
-                        nameof(RuleResources.SARIF1005_UriMustBeAbsolute_Error_Default_Text), 
+                        nameof(RuleResources.SARIF2006_UrisShouldBeReachable_Warning_Default_Text), 
                         uriString);
                 }
             }
