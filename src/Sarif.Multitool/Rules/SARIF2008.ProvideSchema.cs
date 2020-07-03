@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public override string Id => RuleId.ProvideSchema;
 
         /// <summary>
-        /// A SARIF log file should contain, on the root object, a '$schema' property  that refers to
+        /// A SARIF log file should contain, on the root object, a '$schema' property that refers to
         /// the final, OASIS standard version of the SARIF 2.1.0 schema. This enables IDEs to provide
         /// Intellisense for SARIF log files.
         /// </summary>

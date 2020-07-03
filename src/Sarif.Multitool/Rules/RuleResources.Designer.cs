@@ -553,7 +553,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A SARIF log file should contain, on the root object, a &apos;$schema&apos; property  that refers to the final, OASIS standard version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files..
+        ///   Looks up a localized string similar to A SARIF log file should contain, on the root object, a &apos;$schema&apos; property that refers to the final, OASIS standard version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files..
         /// </summary>
         internal static string SARIF2008_ProvideSchema_FullDescription_Text {
             get {
@@ -582,7 +582,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The &apos;id&apos; property of the rule &apos;{1}&apos; does not follow the recommended format: a short string identifying the tool concatenated with a numeric rule number, for example, `CS2001`. Using a conventional format for the rule id provides a more uniform experience across tools..
+        ///   Looks up a localized string similar to {0}: The &apos;id&apos; property of the rule &apos;{1}&apos; does not follow the recommended format: a short string identifying the tool concatenated with a numeric rule number, for example, &apos;CS2001&apos;. Using a conventional format for the rule id provides a more uniform experience across tools..
         /// </summary>
         internal static string SARIF2009_ConsiderConventionalIdentifierValues_Note_UseConventionalRuleIds_Text {
             get {

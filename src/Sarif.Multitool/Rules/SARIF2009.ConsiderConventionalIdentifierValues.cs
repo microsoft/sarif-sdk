@@ -66,7 +66,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 // {0}: The 'id' property of the rule '{1}' does not follow the recommended format:
                 // a short string identifying the tool concatenated with a numeric rule number, for
-                // example, `CS2001`. Using a conventional format for the rule id provides a more
+                // example, 'CS2001'. Using a conventional format for the rule id provides a more
                 // uniform experience across tools.
                 LogResult(
                     reportingDescriptorPointer.AtProperty(SarifPropertyName.Id),
