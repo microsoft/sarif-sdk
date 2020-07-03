@@ -11,14 +11,14 @@
               "id": "SARIF1011",
               "name": "ReferenceFinalSchema",
               "shortDescription": {
-                "text": "The $schema property must refer to the final version of the SARIF 2.1.0 schema."
+                "text": "The '$schema' property must refer to the final version of the SARIF 2.1.0 schema."
               },
               "fullDescription": {
-                "text": "The $schema property must refer to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files."
+                "text": "The '$schema' property must refer to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.\r\n\r\nThe SARIF standard was developed over several years, and many intermediate versions of the schema were produced. Now that the standard is final, only the OASIS standard version of the schema is valid."
               },
               "messageStrings": {
                 "Error_Default": {
-                  "text": "{0}: The $schema property value '{1}' does not refer to the final version of the SARIF 2.1.0 schema. If you are using an earlier version of the SARIF format, consider upgrading your analysis tool to produce the final version. If this file does in fact conform to the final version of the schema, upgrade the tool to populate the $schema property with a URL that refers to the final version of the schema."
+                  "text": "{0}: The '$schema' property value '{1}' does not refer to the final version of the SARIF 2.1.0 schema. If you are using an earlier version of the SARIF format, consider upgrading your analysis tool to produce the final version. If this file does in fact conform to the final version of the schema, upgrade the tool to populate the '$schema' property with a URL that refers to the final version of the schema."
                 }
               },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
@@ -40,6 +40,14 @@
             {
               "message": {
                 "text": "Rule 'SARIF2006' was explicitly disabled by the user. As result, this tool run cannot be used for compliance or other auditing processes that require a comprehensive analysis."
+              },
+              "descriptor": {
+                "id": "WRN999.RuleExplicitlyDisabled"
+              }
+            },
+            {
+              "message": {
+                "text": "Rule 'SARIF2007' was explicitly disabled by the user. As result, this tool run cannot be used for compliance or other auditing processes that require a comprehensive analysis."
               },
               "descriptor": {
                 "id": "WRN999.RuleExplicitlyDisabled"

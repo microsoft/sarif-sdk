@@ -11,17 +11,17 @@
               "id": "SARIF1010",
               "name": "RuleIdMustBeConsistent",
               "shortDescription": {
-                "text": "In every result, at least one of the properties result.ruleId and result.rule.id must be present."
+                "text": "Every result must contain at least one of the properties 'ruleId' and 'rule.id'."
               },
               "fullDescription": {
-                "text": "In every result, at least one of the properties result.ruleId and result.rule.id must be present. If both are present, they must be equal."
+                "text": "Every result must contain at least one of the properties 'ruleId' and 'rule.id'. If both are present, they must be equal. See the SARIF specification ([§3.27.5](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317643))."
               },
               "messageStrings": {
                 "Error_ResultRuleIdMustBeConsistent": {
-                  "text": "{0}: The result contains both the ruleId property '{1}' and the rule.id property '{2}', and they are not equal."
+                  "text": "{0}: This result contains both the 'ruleId' property '{1}' and the 'rule.id' property '{2}', but they are not equal. The SARIF specification ([§3.27.5](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317643)) requires that if both of these properties are present, they must be equal."
                 },
                 "Error_ResultMustSpecifyRuleId": {
-                  "text": "{0}: The result contains neither result.ruleId nor result.rule.id."
+                  "text": "{0}: This result contains neither of the properties 'ruleId' or 'rule.id'. The SARIF specification ([§3.27.5](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317643)) requires at least one of these properties to be present."
                 }
               },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
@@ -43,6 +43,14 @@
             {
               "message": {
                 "text": "Rule 'SARIF2006' was explicitly disabled by the user. As result, this tool run cannot be used for compliance or other auditing processes that require a comprehensive analysis."
+              },
+              "descriptor": {
+                "id": "WRN999.RuleExplicitlyDisabled"
+              }
+            },
+            {
+              "message": {
+                "text": "Rule 'SARIF2007' was explicitly disabled by the user. As result, this tool run cannot be used for compliance or other auditing processes that require a comprehensive analysis."
               },
               "descriptor": {
                 "id": "WRN999.RuleExplicitlyDisabled"

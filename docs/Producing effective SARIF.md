@@ -235,7 +235,7 @@ A SARIF 'physicalLocation' object has two related properties 'region' and 'conte
 
 'contextRegion' provides users with a broader view of the result location. Typically, it consists of a range starting a few lines before 'region' and ending a few lines after. Again, if a SARIF viewer has access to the artifact, it can display it, and highlight the context region (perhaps in a lighter shade than the region itself). This isn't terribly useful since the user can already see the whole file, with the 'region' already highlighted. But if 'contextRegion' has a 'snippet' property, then even a viewer without access to the artifact can display a few lines of code surrounding the actual result, which is helpful to users.
 
-If the validator reports that 'contextRegion' is not a proper superset of 'region', then it's possible that the tool reversed 'region' and 'contextRegion'. If 'region' and 'contextRegion' are identical, the tool should simply omit 'contextRegion'
+If the validator reports that 'contextRegion' is not a proper superset of 'region', then it's possible that the tool reversed 'region' and 'contextRegion'. If 'region' and 'contextRegion' are identical, the tool should simply omit 'contextRegion'.
 
 #### Messages
 
@@ -309,17 +309,17 @@ The SARIF standard was developed over several years, and many intermediate versi
 
 The properties of a result's 'message' property must be consistent with the properties of the rule that the result refers to.
 
-When a result's 'message' object uses the 'id' and 'arguments' properties (which, by the way, is recommended: see SARIF), it must ensure that the rule actually defines a message string with that id, and that 'arguments' array has enough elements to provide values for every replacement sequence in the message specified by 'id'. For example, if the highest numbered replacement sequence in the specified message string is '{3}', then the 'arguments' array must contain at least 4 elements.
+When a result's 'message' object uses the 'id' and 'arguments' properties (which, by the way, is recommended: see SARIF2002.ProvideMessageArguments), it must ensure that the rule actually defines a message string with that id, and that 'arguments' array has enough elements to provide values for every replacement sequence in the message specified by 'id'. For example, if the highest numbered replacement sequence in the specified message string is '{3}', then the 'arguments' array must contain at least 4 elements.
 
 #### Messages
 
-##### `SupplyCorrectNumberOfArguments`: error
+##### `SupplyEnoughMessageArguments`: error
 
 {0}: The message with id '{1}' in rule '{2}' requires {3} arguments, but the 'arguments' array in this message object has only {4} elements. When a tool creates a result message that use the 'id' and 'arguments' properties, it must ensure that the 'arguments' array has enough elements to provide values for every replacement sequence in the message specified by 'id'. For example, if the highest numbered replacement sequence in the specified message string is '{{3}}', then the 'arguments' array must contain 4 elements.
 
 ##### `MessageIdMustExist`: error
 
-{0}: This message object refers to the message with id '{1}' in rule '{2}, but that rule does not define a message with that id. When a tool creates a result message that uses the 'id' property, it must ensure that the specified rule actually has a message with that id.
+{0}: This message object refers to the message with id '{1}' in rule '{2}', but that rule does not define a message with that id. When a tool creates a result message that uses the 'id' property, it must ensure that the specified rule actually has a message with that id.
 
 ---
 
@@ -349,7 +349,7 @@ This is part of a set of authoring practices that make your rule messages more r
 
 ---
 
-### Rule `SARIF2002.UseMessageArguments`
+### Rule `SARIF2002.ProvideMessageArguments`
 
 #### Description
 
@@ -395,7 +395,7 @@ The tool's 'name' property should be no more than three words long. This makes i
 
 The tool should provide either or both of the 'version' and 'semanticVersion' properties. This enables the log file consumer to determine whether the file was produced by an up to date version, and to avoid accidentally comparing log files produced by different tool versions.
 
-If 'version' is used, facilitate comparison between versions by specifying it either with an integer, or with at least two dot-separated integer components, optionally followed by any desired characters.
+If 'version' is used, facilitate comparison between versions by specifying a version number that starts with an integer, optionally followed by any desired characters.
 
 #### Messages
 
@@ -409,7 +409,7 @@ If 'version' is used, facilitate comparison between versions by specifying it ei
 
 ##### `UseNumericToolVersions`: warning
 
-{0}: The tool '{1}' contains the 'version' property '{2}', which is not numeric. To facilitate comparison between versions, specify a 'version' that starts with at least two dot-separated integer components, optionally followed by any desired characters.
+{0}: The tool '{1}' contains the 'version' property '{2}', which is not numeric. To facilitate comparison between versions, specify a 'version' that starts with an integer, optionally followed by any desired characters.
 
 ---
 

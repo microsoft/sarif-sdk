@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// Specify a valid URI reference for every URI-valued property.
         ///
         /// URIs must conform to [RFC 3986](https://tools.ietf.org/html/rfc3986). In addition,
-        /// 'file:' URIs must not include '..' segments. If symbolic links are present, '..'
+        /// 'file' URIs must not include '..' segments. If symbolic links are present, '..'
         /// might have different meanings on the machine that produced the log file and the
         /// machine where an end user or a tool consumes it.
         /// </summary>
