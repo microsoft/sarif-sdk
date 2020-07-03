@@ -323,13 +323,17 @@ When a result's 'message' object uses the 'id' and 'arguments' properties (which
     <value>Placeholder_SARIF2013_ProvideEmbeddedFileContent_Note_Default_Text</value>
   </data>
   <data name="SARIF2014_ProvideDynamicMessageContent_FullDescription_Text" xml:space="preserve">
-    <value>Including "dynamic content" (information that varies among results from the same rule) makes your messages more specific. It avoids the "wall of bugs" phenomenon, where hundreds of occurrences of the same message appear unapproachable.</value>
+    <value>Include "dynamic content" (information that varies among results from the same rule) to makes your messages more specific, and to avoid the "wall of bugs" phenomenon, where hundreds of occurrences of the same message appear unapproachable.
+
+This is part of a set of authoring practices that make your rule messages more readable, understandable, and actionable. See also 'SARIF2001.TerminateMessagesWithPeriod' and 'SARIF2015.EnquoteDynamicMessageContent'.</value>
   </data>
   <data name="SARIF2014_ProvideDynamicMessageContent_Note_Default_Text" xml:space="preserve">
-    <value>{0}: In rule '{1}', the '{2}' property of the message with id '{3}' does not include any dynamic content. Dynamic content makes your messages more specific and avoids the "wall of bugs" phenomenon.</value>
+    <value>{0}: In rule '{1}', the message with id '{2}' does not include any dynamic content. Dynamic content makes your messages more specific and avoids the "wall of bugs" phenomenon, where hundreds of occurrences of the same message appear unapproachable.</value>
   </data>
   <data name="SARIF2015_EnquoteDynamicMessageContent_FullDescription_Text" xml:space="preserve">
-    <value>Placing dynamic content in quotes sets it off from the static text, making it easier to spot. It's especially helpful when the dynamic content is a string that might contain spaces, and most especially when the string might be empty (and so would be invisible if it weren't for the quotes). We recommend single quotes for a less cluttered appearance, even though English usage would require double quotes.</value>
+    <value>Place dynamic content in single quotes to set it off from the static text and to make it easier to spot. It's especially helpful when the dynamic content is a string that might contain spaces, and most especially when the string might be empty (and so would be invisible if it weren't for the quotes). We recommend single quotes for a less cluttered appearance, even though US English usage would require double quotes.
+
+This is part of a set of authoring practices that make your rule messages more readable, understandable, and actionable. See also 'SARIF2001.TerminateMessagesWithPeriod' and 'SARIF2014.ProvideDynamicMessageContent'.</value>
   </data>
   <data name="SARIF2015_EnquoteDynamicMessageContent_Note_Default_Text" xml:space="preserve">
     <value>{0}: In rule '{1}', the message with id '{2}' includes dynamic content that is not enclosed in single quotes. Enquoting dynamic content makes it easier to spot, and single quotes give a less cluttered appearance.</value>
