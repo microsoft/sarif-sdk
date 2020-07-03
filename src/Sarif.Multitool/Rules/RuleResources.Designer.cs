@@ -665,7 +665,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         /// <summary>
         ///   Looks up a localized string similar to Include &quot;dynamic content&quot; (information that varies among results from the same rule) to makes your messages more specific, and to avoid the &quot;wall of bugs&quot; phenomenon, where hundreds of occurrences of the same message appear unapproachable.
         ///
-        ///This is part of a set of authoring practices that make your rule messages more readable, understandable, and actionable. See also `SARIF2001.TerminateMessagesWithPeriod` and `SARIF2015.EnquoteDynamicMessageContent`..
+        ///This is part of a set of authoring practices that make your rule messages more readable, understandable, and actionable. See also &apos;SARIF2001.TerminateMessagesWithPeriod&apos; and &apos;SARIF2015.EnquoteDynamicMessageContent&apos;..
         /// </summary>
         internal static string SARIF2014_ProvideDynamicMessageContent_FullDescription_Text {
             get {

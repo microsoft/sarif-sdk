@@ -22,9 +22,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// hundreds of occurrences of the same message appear unapproachable.
         ///
         /// This is part of a set of authoring practices that make your rule messages more readable,
-        /// understandable, and actionable.See also `SARIF2001.TerminateMessagesWithPeriod` and 
-        /// `SARIF2015.EnquoteDynamicMessageContent`.
-        /// SARIF2014
+        /// understandable, and actionable. See also 'SARIF2001.TerminateMessagesWithPeriod' and 
+        /// 'SARIF2015.EnquoteDynamicMessageContent'.
         /// </summary>
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF2014_ProvideDynamicMessageContent_FullDescription_Text };
 

@@ -24,8 +24,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// usage would require double quotes.
         /// 
         /// This is part of a set of authoring practices that make your rule messages more readable, 
-        /// understandable, and actionable.See also `SARIF2001.TerminateMessagesWithPeriod` and 
-        /// `SARIF2014.ProvideDynamicMessageContent`.
+        /// understandable, and actionable. See also 'SARIF2001.TerminateMessagesWithPeriod' and 
+        /// 'SARIF2014.ProvideDynamicMessageContent'.
         /// </summary>
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF2015_EnquoteDynamicMessageContent_FullDescription_Text };
 
