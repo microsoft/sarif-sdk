@@ -19,18 +19,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// <summary>
         /// Provide information that makes it easy to identify the name and version of your tool.
         ///
-        /// The tool's 'name' property should be no more than three words long. This makes it easy 
+        /// The tool's 'name' property should be no more than three words long. This makes it easy
         /// to remember and allows it to fit into a narrow column when displaying a list of results.
         /// If you need to provide more information about your tool, use the 'fullName' property.
-        ///
+        /// 
         /// The tool should provide either or both of the 'version' and 'semanticVersion' properties.
-        /// This enables the log file consumer to determine whether the file was produced by an up 
+        /// This enables the log file consumer to determine whether the file was produced by an up
         /// to date version, and to avoid accidentally comparing log files produced by different tool
         /// versions.
-        ///
-        /// If 'version' is used, facilitate comparison between versions by specifying it either with
-        /// an integer, or with at least two dot-separated integer components, optionally followed by 
-        /// any desired characters.
+        /// 
+        /// If 'version' is used, facilitate comparison between versions by specifying a version number
+        /// that starts with an integer, optionally followed by any desired characters.
         /// </summary>
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF2005_ProvideToolProperties_FullDescription_Text };
 
@@ -101,8 +100,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 // {0}: The tool '{1}' contains the 'version' property '{2}', which is not numeric.
                 // To facilitate comparison between versions, specify a 'version' that starts with
-                // at least two dot-separated integer components, optionally followed by any desired
-                // characters.
+                // an integer, optionally followed by any desired characters.
                 LogResult(
                     pointer,
                     nameof(RuleResources.SARIF2005_ProvideToolProperties_Warning_UseNumericToolVersions_Text),

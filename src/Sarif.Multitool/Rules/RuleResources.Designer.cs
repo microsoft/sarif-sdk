@@ -497,7 +497,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The tool &apos;{1}&apos; contains the &apos;version&apos; property &apos;{2}&apos;, which is not numeric. To facilitate comparison between versions, specify a &apos;version&apos; that starts with at least two dot-separated integer components, optionally followed by any desired characters..
+        ///   Looks up a localized string similar to {0}: The tool &apos;{1}&apos; contains the &apos;version&apos; property &apos;{2}&apos;, which is not numeric. To facilitate comparison between versions, specify a &apos;version&apos; that starts with an integer, optionally followed by any desired characters..
         /// </summary>
         internal static string SARIF2005_ProvideToolProperties_Warning_UseNumericToolVersions_Text {
             get {
