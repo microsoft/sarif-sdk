@@ -441,7 +441,7 @@ It is often useful to express artifact URIs as relative references to the root o
 
 #### Description
 
-A SARIF log file should contain, on the root object, a '$schema' property  that refers to the final, OASIS standard version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.
+A SARIF log file should contain, on the root object, a '$schema' property that refers to the final, OASIS standard version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.
 
 #### Messages
 
@@ -464,7 +464,7 @@ for example, 'CS2001' for a diagnostic from the Roslyn C# compiler. For uniformi
 
 ##### `UseConventionalRuleIds`: note
 
-{0}: The 'id' property of the rule '{1}' does not follow the recommended format: a short string identifying the tool concatenated with a numeric rule number, for example, `CS2001`. Using a conventional format for the rule id provides a more uniform experience across tools.
+{0}: The 'id' property of the rule '{1}' does not follow the recommended format: a short string identifying the tool concatenated with a numeric rule number, for example, 'CS2001'. Using a conventional format for the rule id provides a more uniform experience across tools.
 
 ---
 
