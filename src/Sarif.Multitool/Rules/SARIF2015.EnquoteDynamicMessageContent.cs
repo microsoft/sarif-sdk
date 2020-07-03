@@ -17,11 +17,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public override string Id => RuleId.EnquoteDynamicMessageContent;
 
         /// <summary>
-        /// Placing dynamic content in quotes sets it off from the static text, making it easier
-        /// to spot. It's especially helpful when the dynamic content is a string that might contain
-        /// spaces, and most especially when the string might be empty (and so would be invisible
-        /// if it weren't for the quotes). We recommend single quotes for a less cluttered appearance,
-        /// even though English usage would require double quotes.
+        /// Place dynamic content in single quotes to set it off from the static text and to make it easier
+        /// to spot. It's especially helpful when the dynamic content is a string that might contain spaces,
+        /// and most especially when the string might be empty (and so would be invisible if it weren't for
+        /// the quotes). We recommend single quotes for a less cluttered appearance, even though US English
+        /// usage would require double quotes.
+        /// 
+        /// This is part of a set of authoring practices that make your rule messages more readable, 
+        /// understandable, and actionable. See also 'SARIF2001.TerminateMessagesWithPeriod' and 
+        /// 'SARIF2014.ProvideDynamicMessageContent'.
         /// </summary>
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF2015_EnquoteDynamicMessageContent_FullDescription_Text };
 

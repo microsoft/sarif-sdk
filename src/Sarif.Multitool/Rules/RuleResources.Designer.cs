@@ -117,7 +117,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The &apos;{1}&apos; element of &apos;originalUriBaseIds&apos; has a &apos;uriBaseId&apos; property &apos;{2}&apos;, but its &apos;uri&apos; property &apos;{3}&apos; is an absolute URI. Since the purpose of the &apos;uriBaseId&apos; property is to help resolve a relative reference to an absolute URI, it is not allowed when the &apos;uri&apos; property is already an absolute URI..
+        ///   Looks up a localized string similar to {0}: {1} Placeholder_SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdRequiresRelativeUri_Text.
         /// </summary>
         internal static string SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdRequiresRelativeUri_Text {
             get {
@@ -155,7 +155,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Every URI reference in &apos;originalUriBaseIds&apos; must resolve to an absolute URI, in the manner described in the SARIF specification [3.14.14](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317498). This is because the purpose of &apos;uriBaseIds&apos; is to enable the resolution of relative references to absolute locations..
+        ///   Looks up a localized string similar to Placeholder_SARIF1004_ExpressUriBaseIdsCorrectly_FullDescription_Text.
         /// </summary>
         internal static string SARIF1004_ExpressUriBaseIdsCorrectly_FullDescription_Text {
             get {
@@ -663,7 +663,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Including &quot;dynamic content&quot; (information that varies among results from the same rule) makes your messages more specific. It avoids the &quot;wall of bugs&quot; phenomenon, where hundreds of occurrences of the same message appear unapproachable..
+        ///   Looks up a localized string similar to Include &quot;dynamic content&quot; (information that varies among results from the same rule) to makes your messages more specific, and to avoid the &quot;wall of bugs&quot; phenomenon, where hundreds of occurrences of the same message appear unapproachable.
+        ///
+        ///This is part of a set of authoring practices that make your rule messages more readable, understandable, and actionable. See also &apos;SARIF2001.TerminateMessagesWithPeriod&apos; and &apos;SARIF2015.EnquoteDynamicMessageContent&apos;..
         /// </summary>
         internal static string SARIF2014_ProvideDynamicMessageContent_FullDescription_Text {
             get {
@@ -672,7 +674,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: In rule &apos;{1}&apos;, the &apos;{2}&apos; property of the message with id &apos;{3}&apos; does not include any dynamic content. Dynamic content makes your messages more specific and avoids the &quot;wall of bugs&quot; phenomenon..
+        ///   Looks up a localized string similar to {0}: In rule &apos;{1}&apos;, the message with id &apos;{2}&apos; does not include any dynamic content. Dynamic content makes your messages more specific and avoids the &quot;wall of bugs&quot; phenomenon, where hundreds of occurrences of the same message appear unapproachable..
         /// </summary>
         internal static string SARIF2014_ProvideDynamicMessageContent_Note_Default_Text {
             get {
@@ -681,7 +683,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Placing dynamic content in quotes sets it off from the static text, making it easier to spot. It&apos;s especially helpful when the dynamic content is a string that might contain spaces, and most especially when the string might be empty (and so would be invisible if it weren&apos;t for the quotes). We recommend single quotes for a less cluttered appearance, even though English usage would require double quotes..
+        ///   Looks up a localized string similar to Place dynamic content in single quotes to set it off from the static text and to make it easier to spot. It&apos;s especially helpful when the dynamic content is a string that might contain spaces, and most especially when the string might be empty (and so would be invisible if it weren&apos;t for the quotes). We recommend single quotes for a less cluttered appearance, even though US English usage would require double quotes.
+        ///
+        ///This is part of a set of authoring practices that make your rule messages more readable,  [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SARIF2015_EnquoteDynamicMessageContent_FullDescription_Text {
             get {

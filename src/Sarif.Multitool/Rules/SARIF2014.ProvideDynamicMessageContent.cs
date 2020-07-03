@@ -17,9 +17,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public override string Id => RuleId.ProvideDynamicMessageContent;
 
         /// <summary>
-        /// Including "dynamic content" (information that varies among results from the same rule)
-        /// makes your messages more specific.It avoids the "wall of bugs" phenomenon, where hundreds
-        /// of occurrences of the same message appear unapproachable.
+        /// Include "dynamic content" (information that varies among results from the same rule) to 
+        /// makes your messages more specific, and to avoid the "wall of bugs" phenomenon, where 
+        /// hundreds of occurrences of the same message appear unapproachable.
+        ///
+        /// This is part of a set of authoring practices that make your rule messages more readable,
+        /// understandable, and actionable. See also 'SARIF2001.TerminateMessagesWithPeriod' and 
+        /// 'SARIF2015.EnquoteDynamicMessageContent'.
         /// </summary>
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF2014_ProvideDynamicMessageContent_FullDescription_Text };
 
@@ -75,9 +79,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
             if (!s_dynamicContentRegex.IsMatch(messageString))
             {
-                // {0}: In rule '{1}', the '{2}' property of the message with id '{3}' does not include
-                // any dynamic content. Dynamic content makes your messages more specific and avoids the
-                // "wall of bugs" phenomenon.
+                // {0}: In rule '{1}', the message with id '{2}' does not include any dynamic content.
+                // Dynamic content makes your messages more specific and avoids the "wall of bugs"
+                // phenomenon, where hundreds of occurrences of the same message appear unapproachable.
                 LogResult(
                     pointer,
                     nameof(RuleResources.SARIF2014_ProvideDynamicMessageContent_Note_Default_Text),
