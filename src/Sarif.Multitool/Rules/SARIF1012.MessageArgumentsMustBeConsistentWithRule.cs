@@ -86,8 +86,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                         result.Message.Id,
                         result.ResolvedRuleId(run) ?? "null",
                         numArgsRequired.ToString(),
-                        result.Message.Arguments.Count.ToString(),
-                        messageText);
+                        result.Message.Arguments.Count.ToString());
                 }
             }
         }
