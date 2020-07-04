@@ -82,8 +82,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 // log files produced by different tool versions.
                 LogResult(
                     toolDriverPointer,
-                    toolComponent.Name,
-                    nameof(RuleResources.SARIF2005_ProvideToolProperties_Warning_ProvideToolVersion_Text));
+                    nameof(RuleResources.SARIF2005_ProvideToolProperties_Warning_ProvideToolVersion_Text),
+                    toolComponent.Name);
             }
             else
             {
