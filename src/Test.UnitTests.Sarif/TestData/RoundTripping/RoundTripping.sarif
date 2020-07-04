@@ -23,31 +23,12 @@
             "true": true,
             "false": false,
             "null": null,
-            "dateTimeArray": [
-  "2019-09-26T15:52:02",
-  "2019-09-26T15:54",
-  "2019-09-26T15:55:05.1234567"
-],
-            "stringArray": [
-  "Thing One",
-  "Thing Two"
-],
-            "intArray": [
-  54,
-  -54
-],
-            "boolArray": [
-  true,
-  false
-],
-            "nullArray": [
-  null,
-  null
-],
-            "customObject": {
-  "DateTime": "1776-07-04T12:00",
-  "String": "The 4th"
-}
+            "dateTimeArray": ["2019-09-26T15:52:02","2019-09-26T15:54","2019-09-26T15:55:05.1234567"],
+            "stringArray": ["Thing One","Thing Two"],
+            "intArray": [54,-54],
+            "boolArray": [true,false],
+            "nullArray": [null,null],
+            "customObject": {"DateTime":"1776-07-04T12:00","String":"The 4th"}
           }
         }
       ],

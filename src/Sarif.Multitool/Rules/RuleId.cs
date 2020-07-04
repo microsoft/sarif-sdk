@@ -36,5 +36,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public const string ProvideEmbeddedFileContent = "SARIF2013";
         public const string ProvideDynamicMessageContent = "SARIF2014";
         public const string EnquoteDynamicMessageContent = "SARIF2015";
+
+        // TEMPLATE:
+        // public const string RuleFriendlyName = "SARIFnnnn";
     }
 }

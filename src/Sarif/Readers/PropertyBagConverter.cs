@@ -1,8 +1,9 @@
-﻿// Copyright (c) Microsoft. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License.
 
 using System;
 using System.Collections.Generic;
+
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Readers
@@ -23,69 +24,33 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            if (serializer == null)
+            IDictionary<string, SerializedPropertyInfo> dictionary = (existingValue as IDictionary<string, SerializedPropertyInfo> ?? new Dictionary<string, SerializedPropertyInfo>());
+
+            reader.Read();
+
+            while(reader.TokenType == JsonToken.PropertyName)
             {
-                throw new ArgumentNullException(nameof(serializer));
+                string name = (string)reader.Value;
+                reader.Read();
+
+                SerializedPropertyInfo value = SerializedPropertyInfoConverter.Read(reader);
+                reader.Read();
+
+                dictionary[name] = value;
             }
 
-            var objectDictionary = new Dictionary<string, object>();
-            serializer.Populate(reader, objectDictionary);
-
-            var propertyDictionary = new Dictionary<string, SerializedPropertyInfo>();
-            foreach (string key in objectDictionary.Keys)
-            {
-                object value = objectDictionary[key];
-                Type propertyType = value?.GetType();
-
-                string serializedValue = value?.ToString();
-                bool isString = false;
-
-                if (propertyType == typeof(bool))
-                {
-                    serializedValue = serializedValue.ToLowerInvariant();
-                }
-                else if (propertyType == typeof(string))
-                {
-                    serializedValue = JsonConvert.ToString(serializedValue);
-                    isString = true;
-                }
-                else if (propertyType == typeof(DateTime))
-                {
-                    // There's no need to worry about value being null here, because we know that
-                    // Newtonsoft.Json recognized the value as a string that looks like a DateTime.
-                    serializedValue = JsonConvert.SerializeObject(value);
-                }
-
-                SerializedPropertyInfo propInfo = value == null ? null : new SerializedPropertyInfo(serializedValue, isString);
-
-                propertyDictionary.Add(key, propInfo);
-            }
-
-            return propertyDictionary;
+            return dictionary;
         }
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            if (writer == null)
-            {
-                throw new ArgumentNullException(nameof(writer));
-            }
-
             writer.WriteStartObject();
-            var propertyDictionary = (Dictionary<string, SerializedPropertyInfo>)value;
-            foreach (string key in propertyDictionary.Keys)
-            {
-                writer.WritePropertyName(key);
-                string valueToSerialize = propertyDictionary[key]?.SerializedValue;
 
-                if (valueToSerialize == null)
-                {
-                    writer.WriteNull();
-                }
-                else
-                {
-                    writer.WriteRawValue(propertyDictionary[key].SerializedValue);
-                }
+            var propertyDictionary = (IDictionary<string, SerializedPropertyInfo>)value;
+            foreach (KeyValuePair<string, SerializedPropertyInfo> pair in propertyDictionary)
+            {
+                writer.WritePropertyName(pair.Key);
+                SerializedPropertyInfoConverter.Write(writer, pair.Value);
             }
 
             writer.WriteEndObject();

@@ -113,5 +113,30 @@ namespace Microsoft.CodeAnalysis.Sarif
             string actual = result.GetMessageText(rule, concise: true);
             Assert.Equal(expected, actual);
         }
+
+        [Fact]
+        public void SarifExtensions_Result_GetMessageText_Concise_Truncated()
+        {
+            var result = new Result
+            {
+                Message = new Message
+                {
+                    Id = "ruleStr1"
+                }
+            };
+
+            var rule = new ReportingDescriptor
+            {
+                MessageStrings = new Dictionary<string, MultiformatMessageString>
+                {
+                    ["ruleStr1"] = new MultiformatMessageString { Text = "First sentence is very long. Second sentence." }
+                }
+            };
+
+            const string Expected = "First sentence is ve\u2026"; // \u2026 is Unicode "horizontal ellipsis".
+            int maxLength = Expected.Length - 1;    // The -1 is for the ellipsis character.
+            string actual = result.GetMessageText(rule, concise: true, maxLength);
+            Assert.Equal(Expected, actual);
+        }
     }
 }
