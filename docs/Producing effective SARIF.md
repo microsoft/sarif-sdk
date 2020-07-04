@@ -395,7 +395,7 @@ Similarly, most 'result' objects contain at least one 'artifactLocation' object.
 
 ##### `EliminateLocationOnlyArtifacts`: warning
 
-{0): The 'artifacts' array contains no information beyond the locations of the artifacts. Removing this array might reduce the log file size without losing information. In some scenarios (for example, when assessing compliance with policy), the 'artifacts' array might be used to record the full set of artifacts that were analyzed. In such a scenario, the 'artifacts' array should be retained even if it contains only location information.
+{0}: The 'artifacts' array contains no information beyond the locations of the artifacts. Removing this array might reduce the log file size without losing information. In some scenarios (for example, when assessing compliance with policy), the 'artifacts' array might be used to record the full set of artifacts that were analyzed. In such a scenario, the 'artifacts' array should be retained even if it contains only location information.
 
 ##### `EliminateIdOnlyRules`: warning
 
