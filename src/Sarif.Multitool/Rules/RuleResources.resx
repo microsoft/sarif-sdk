@@ -307,10 +307,10 @@ Each element of the 'versionControlProvenance' array is a 'versionControlDetails
     <value>{0}: The 'versionControlDetails' object that describes the repository '{1}' does not provide 'mappedTo.uriBaseId'. As a result, it will not be possible to determine the repo-relative location of files containing analysis results for this repository.</value>
   </data>
   <data name="SARIF2010_ProvideCodeSnippets_FullDescription_Text" xml:space="preserve">
-    <value>Placeholder_SARIF2010_ProvideCodeSnippets_FullDescription_Text</value>
+    <value>Provide code snippets to enable users to see the source code that triggered the result, even if they are not enlisted in the code.</value>
   </data>
   <data name="SARIF2010_ProvideCodeSnippets_Note_Default_Text" xml:space="preserve">
-    <value>Placeholder_SARIF2010_ProvideCodeSnippets_Note_Default_Text</value>
+    <value>{0}: The 'region' object in this result location does not include a 'snippet' property. Providing code snippets enables users to see the source code that triggered the result, even if they are not enlisted in the code.</value>
   </data>
   <data name="SARIF2011_ProvideContextRegion_FullDescription_Text" xml:space="preserve">
     <value>Placeholder_SARIF2011_ProvideContextRegion_FullDescription_Text</value>

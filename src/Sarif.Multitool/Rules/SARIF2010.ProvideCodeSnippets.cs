@@ -2,7 +2,6 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 
 using Microsoft.Json.Pointer;
 
@@ -16,7 +15,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public override string Id => RuleId.ProvideCodeSnippets;
 
         /// <summary>
-        /// Placeholder_SARIF2010_ProvideCodeSnippets_FullDescription_Text
+        /// Provide code snippets to enable users to see the source code that triggered the result,
+        /// even if they are not enlisted in the code.
         /// </summary>
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF2010_ProvideCodeSnippets_FullDescription_Text };
 
@@ -57,7 +57,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
             if (region != null && region.Snippet == null)
             {
-                // Placeholder_SARIF2010_ProvideCodeSnippets_Note_Default_Text
+                // {0}: The 'region' object in this result location does not include a 'snippet'
+                // property. Providing code snippets enables users to see the source code that
+                // triggered the result, even if they are not enlisted in the code.
                 LogResult(
                     regionPointer,
                     nameof(RuleResources.SARIF2010_ProvideCodeSnippets_Note_Default_Text));

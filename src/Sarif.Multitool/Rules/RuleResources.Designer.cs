@@ -599,7 +599,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Placeholder_SARIF2010_ProvideCodeSnippets_FullDescription_Text.
+        ///   Looks up a localized string similar to Provide code snippets to enable users to see the source code that triggered the result, even if they are not enlisted in the code..
         /// </summary>
         internal static string SARIF2010_ProvideCodeSnippets_FullDescription_Text {
             get {
@@ -608,7 +608,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Placeholder_SARIF2010_ProvideCodeSnippets_Note_Default_Text.
+        ///   Looks up a localized string similar to {0}: The &apos;region&apos; object in this result location does not include a &apos;snippet&apos; property. Providing code snippets enables users to see the source code that triggered the result, even if they are not enlisted in the code..
         /// </summary>
         internal static string SARIF2010_ProvideCodeSnippets_Note_Default_Text {
             get {

@@ -500,9 +500,13 @@ for example, 'CS2001' for a diagnostic from the Roslyn C# compiler. For uniformi
 
 #### Description
 
+Provide code snippets to enable users to see the source code that triggered the result, even if they are not enlisted in the code.
+
 #### Messages
 
 ##### `Default`: note
+
+The 'region' object in this result location does not include a 'snippet' property. Providing code snippets enables users to see the source code that triggered the result, even if they are not enlisted in the code.
 
 ---
 
