@@ -22,22 +22,6 @@
                 }
               },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
-            },
-            {
-              "id": "SARIF2011",
-              "name": "ProvideContextRegion",
-              "shortDescription": {
-                "text": "Provide context regions to enable users to see a portion of the code that surrounds each result, even if they are not enlisted in the code."
-              },
-              "fullDescription": {
-                "text": "Provide context regions to enable users to see a portion of the code that surrounds each result, even if they are not enlisted in the code."
-              },
-              "messageStrings": {
-                "Note_Default": {
-                  "text": "{0}: This result location does not provide a 'contextRegion' property. Providing a context region enables users to see a portion of the code that surrounds the result, even if they are not enlisted in the code."
-                }
-              },
-              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
             }
           ]
         }
@@ -64,6 +48,14 @@
             {
               "message": {
                 "text": "Rule 'SARIF2007' was explicitly disabled by the user. As result, this tool run cannot be used for compliance or other auditing processes that require a comprehensive analysis."
+              },
+              "descriptor": {
+                "id": "WRN999.RuleExplicitlyDisabled"
+              }
+            },
+            {
+              "message": {
+                "text": "Rule 'SARIF2011' was explicitly disabled by the user. As result, this tool run cannot be used for compliance or other auditing processes that require a comprehensive analysis."
               },
               "descriptor": {
                 "id": "WRN999.RuleExplicitlyDisabled"
@@ -197,30 +189,6 @@
                 "region": {
                   "startLine": 105,
                   "startColumn": 27
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF2011",
-          "ruleIndex": 1,
-          "level": "note",
-          "message": {
-            "id": "Note_Default",
-            "arguments": [
-              "runs[0].results[3].locations[0].physicalLocation"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 101,
-                  "startColumn": 35
                 }
               }
             }
