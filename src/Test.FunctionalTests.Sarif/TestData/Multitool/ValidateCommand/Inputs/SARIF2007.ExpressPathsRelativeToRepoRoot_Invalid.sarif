@@ -22,22 +22,41 @@
           ]
         }
       },
+      "originalUriBaseIds": {
+        "PROJECT_ROOT": {
+          "uri": "file:///C:/project/"
+        }
+      },
       "versionControlProvenance": [
         {
-          "repositoryUri": "https://github.com/microsoft/sarif-sdk/",
+          "repositoryUri": "https://example.com/microsoft/repo1/",
           "mappedTo": {
-            "uri": "sarif-sdk/",
-            "uriBaseId": "SOURCE_ROOT"
+            "uri": ".",
+            "uriBaseId": "PROJECT_ROOT"
           }
         },
         {
-          "repositoryUri": "https://github.com/microsoft/sarif-sdk/",
+          "repositoryUri": "https://example.com/microsoft/repo2/",
           "mappedTo": {
-            "uri": "sarif-sdk/"
+            "uri": "."
           }
         },
         {
-          "repositoryUri": "https://github.com/microsoft/sarif-sdk/"
+          "repositoryUri": "https://example.com/microsoft/repo3/"
+        },
+        {
+          "repositoryUri": "https://example.com/microsoft/submodule",
+          "mappedTo": {
+            "uri": "sub/",
+            "uriBaseId": "PROJECT_ROOT"
+          }
+        },
+        {
+          "repositoryUri": "https://example.com/microsoft/other",
+          "mappedTo": {
+            "uri": "other/",
+            "uriBaseId": "OTHER_ROOT"
+          }
         }
       ],
       "results": [
@@ -54,15 +73,15 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "project/file.cs",
-                  "uriBaseId": "SOURCE_ROOT"
+                  "uri": "src/file.cs",
+                  "uriBaseId": "PROJECT_ROOT"
                 }
               }
             },
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "project/file.cs",
+                  "uri": "src/file.cs",
                   "uriBaseId": "TEST_ROOT"
                 }
               }
@@ -71,6 +90,14 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "file:///c:/project/file.cs"
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "sub/src/file.cs",
+                  "uriBaseId": "PROJECT_ROOT"
                 }
               }
             }

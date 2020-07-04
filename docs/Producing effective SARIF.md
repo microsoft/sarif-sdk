@@ -449,13 +449,19 @@ URIs that refer to locations such as rule help pages and result-related work ite
 
 #### Description
 
-Provide a `uriBaseId` symbol in `originalUriBaseIds` that is guaranteed to be associated with the root of the repository.
+Provide information that makes it possible to determine the repo-relative locations of files that contain analysis results.
 
-It is often useful to express artifact URIs as relative references to the root of a repository. The `versionControlDetails` object contains a property `mappedTo` which defines the location on the local file system to which the repository root is mapped, and a `uriBaseId` symbol that refers to that location. It is helpful to populate that property, and to provide a value for that `uriBaseId` symbol in `originalUriBaseIds`.
+Each element of the 'versionControlProvenance' array is a 'versionControlDetails' object that describes a repository containing files that were analyzed. 'versionControlDetails.mappedTo' defines the file system location to which the root of that repository is mapped. If 'mappedTo.uriBaseId' is present, and if result locations are expressed relative to that 'uriBaseId', then the repo-relative location of each result can be determined.
 
 #### Messages
 
-##### `Default`: warning
+##### `ProvideUriBaseIdForMappedTo`: warning
+
+{0}: The 'versionControlDetails' object that describes the repository '{1}' does not provide 'mappedTo.uriBaseId'. As a result, it will not be possible to determine the repo-relative location of files containing analysis results for this repository.
+
+##### `ExpressResultLocationsRelativeToMappedTo`: warning
+
+{0}: This result location does not provide any of the 'uriBaseId' values that specify repository locations: '{1}'. As a result, it will not be possible to determine the location of the file containing this result relative to the root of the repository that contains it.
 
 ---
 

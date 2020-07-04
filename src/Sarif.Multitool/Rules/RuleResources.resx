@@ -299,10 +299,12 @@ Similarly, most 'result' objects contain at least one 'artifactLocation' object.
     <value>{0}: The URI '{1}' was not reachable via an HTTP GET request.</value>
   </data>
   <data name="SARIF2007_ExpressPathsRelativeToRepoRoot_FullDescription_Text" xml:space="preserve">
-    <value>Placeholder_SARIF2007_ExpressPathsRelativeToRepoRoot_FullDescription_Text</value>
+    <value>Provide information that makes it possible to determine the repo-relative locations of files that contain analysis results.
+
+Each element of the 'versionControlProvenance' array is a 'versionControlDetails' object that describes a repository containing files that were analyzed. 'versionControlDetails.mappedTo' defines the file system location to which the root of that repository is mapped. If 'mappedTo.uriBaseId' is present, and if result locations are expressed relative to that 'uriBaseId', then the repo-relative location of each result can be determined.</value>
   </data>
   <data name="SARIF2007_ExpressPathsRelativeToRepoRoot_Warning_ProvideUriBaseIdForMappedTo_Text" xml:space="preserve">
-    <value>{0}: Placeholder</value>
+    <value>{0}: The 'versionControlDetails' object that describes the repository '{1}' does not provide 'mappedTo.uriBaseId'. As a result, it will not be possible to determine the repo-relative location of files containing analysis results for this repository.</value>
   </data>
   <data name="SARIF2010_ProvideCodeSnippets_FullDescription_Text" xml:space="preserve">
     <value>Placeholder_SARIF2010_ProvideCodeSnippets_FullDescription_Text</value>
@@ -356,6 +358,6 @@ This is part of a set of authoring practices that make your rule messages more r
     <value>Placeholder</value>
   </data>
   <data name="SARIF2007_ExpressPathsRelativeToRepoRoot_Warning_ExpressResultLocationsRelativeToMappedTo_Text" xml:space="preserve">
-    <value>{0}: Placeholder</value>
+    <value>{0}: This result location does not provide any of the 'uriBaseId' values that specify repository locations: '{1}'. As a result, it will not be possible to determine the location of the file containing this result relative to the root of the repository that contains it.</value>
   </data>
 </root>

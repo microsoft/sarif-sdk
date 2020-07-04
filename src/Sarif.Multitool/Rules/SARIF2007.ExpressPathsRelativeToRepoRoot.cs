@@ -14,9 +14,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// SARIF2007
         /// </summary>
         public override string Id => RuleId.ExpressPathsRelativeToRepoRoot;
-        
+
         /// <summary>
-        /// Placeholder
+        /// Provide information that makes it possible to determine the repo-relative locations of
+        /// files that contain analysis results.
+        ///
+        /// Each element of the 'versionControlProvenance' array is a 'versionControlDetails' object
+        /// that describes a repository containing files that were analyzed. 'versionControlDetails.mappedTo'
+        /// defines the file system location to which the root of that repository is mapped. If
+        /// 'mappedTo.uriBaseId' is present, and if result locations are expressed relative to that
+        /// 'uriBaseId', then the repo-relative location of each result can be determined.
         /// </summary>
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF2007_ExpressPathsRelativeToRepoRoot_FullDescription_Text };
 
@@ -42,10 +49,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     string versionControlDetailsPointer = versionControlProvenancePointer.AtIndex(i);
                     if (run.VersionControlProvenance[i].MappedTo == null || string.IsNullOrWhiteSpace(run.VersionControlProvenance[i].MappedTo.UriBaseId))
                     {
-                        // {0}: Placeholder
+                        // {0}: The 'versionControlDetails' object that describes the repository '{1}'
+                        // does not provide 'mappedTo.uriBaseId'. As a result, it will not be possible
+                        // to determine the repo-relative location of files containing analysis results
+                        // for this repository.
                         LogResult(
                             versionControlDetailsPointer,
-                            nameof(RuleResources.SARIF2007_ExpressPathsRelativeToRepoRoot_Warning_ProvideUriBaseIdForMappedTo_Text));
+                            nameof(RuleResources.SARIF2007_ExpressPathsRelativeToRepoRoot_Warning_ProvideUriBaseIdForMappedTo_Text),
+                            run.VersionControlProvenance[i].RepositoryUri.OriginalString);
                     }
                     else
                     {
@@ -69,7 +80,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         private void AnalyzeLocation(Location location, string locationPointer)
         {
-            if (location.PhysicalLocation != null)
+            if (this.uriBaseIds.Any() && location.PhysicalLocation != null)
             {
                 string physicalLocation = locationPointer.AtProperty(SarifPropertyName.PhysicalLocation);
                 if (location.PhysicalLocation.ArtifactLocation != null)
@@ -78,10 +89,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     if (string.IsNullOrWhiteSpace(location.PhysicalLocation.ArtifactLocation.UriBaseId)
                         || !this.uriBaseIds.Contains(location.PhysicalLocation.ArtifactLocation.UriBaseId))
                     {
-                        // {0}: Placeholder
+                        // {0}: This result location does not provide any of the 'uriBaseId' values
+                        // that specify repository locations: {1}. As a result, it will not be possible
+                        // to determine the location of the file containing this result relative to the
+                        // root of the repository that contains it.
                         LogResult(
                             artifactLocation,
-                            nameof(RuleResources.SARIF2007_ExpressPathsRelativeToRepoRoot_Warning_ExpressResultLocationsRelativeToMappedTo_Text));
+                            nameof(RuleResources.SARIF2007_ExpressPathsRelativeToRepoRoot_Warning_ExpressResultLocationsRelativeToMappedTo_Text),
+                            string.Join(", ", this.uriBaseIds));
                     }
                 }
             }
