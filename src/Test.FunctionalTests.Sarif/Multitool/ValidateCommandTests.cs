@@ -245,7 +245,7 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
         public void SARIF2010_ProvideCodeSnippets_Invalid()
             => RunTest(
                 MakeInvalidTestFileName(RuleId.ProvideCodeSnippets, nameof(RuleId.ProvideCodeSnippets)),
-                parameter: new TestParameters(verbose: true));
+                parameter: new TestParameters(verbose: true, configFileName: "disable2011.configuration.xml"));
 
         [Fact]
         public void SARIF2011_ProvideContextRegion_Valid()

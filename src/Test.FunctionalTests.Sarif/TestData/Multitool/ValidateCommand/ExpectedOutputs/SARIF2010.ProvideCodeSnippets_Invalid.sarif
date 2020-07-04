@@ -11,30 +11,14 @@
               "id": "SARIF2010",
               "name": "ProvideCodeSnippets",
               "shortDescription": {
-                "text": "Provide code snippets to enable users to see the source code that triggered the result, even if they are not enlisted in the code."
+                "text": "Provide code snippets to enable users to see the code that triggered each result, even if they are not enlisted in the code."
               },
               "fullDescription": {
-                "text": "Provide code snippets to enable users to see the source code that triggered the result, even if they are not enlisted in the code."
+                "text": "Provide code snippets to enable users to see the code that triggered each result, even if they are not enlisted in the code."
               },
               "messageStrings": {
                 "Note_Default": {
-                  "text": "{0}: The 'region' object in this result location does not include a 'snippet' property. Providing code snippets enables users to see the source code that triggered the result, even if they are not enlisted in the code."
-                }
-              },
-              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
-            },
-            {
-              "id": "SARIF2011",
-              "name": "ProvideContextRegion",
-              "shortDescription": {
-                "text": "Placeholder_SARIF2011_ProvideContextRegion_FullDescription_Text."
-              },
-              "fullDescription": {
-                "text": "Placeholder_SARIF2011_ProvideContextRegion_FullDescription_Text"
-              },
-              "messageStrings": {
-                "Note_Default": {
-                  "text": "{0}: Placeholder"
+                  "text": "{0}: The 'region' object in this result location does not provide a 'snippet' property. Providing a code snippet enables users to see the code that triggered the result, even if they are not enlisted in the code."
                 }
               },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
@@ -64,6 +48,14 @@
             {
               "message": {
                 "text": "Rule 'SARIF2007' was explicitly disabled by the user. As result, this tool run cannot be used for compliance or other auditing processes that require a comprehensive analysis."
+              },
+              "descriptor": {
+                "id": "WRN999.RuleExplicitlyDisabled"
+              }
+            },
+            {
+              "message": {
+                "text": "Rule 'SARIF2011' was explicitly disabled by the user. As result, this tool run cannot be used for compliance or other auditing processes that require a comprehensive analysis."
               },
               "descriptor": {
                 "id": "WRN999.RuleExplicitlyDisabled"
@@ -197,30 +189,6 @@
                 "region": {
                   "startLine": 105,
                   "startColumn": 27
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF2011",
-          "ruleIndex": 1,
-          "level": "note",
-          "message": {
-            "id": "Note_Default",
-            "arguments": [
-              "runs[0].results[3].locations[0].physicalLocation"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 101,
-                  "startColumn": 35
                 }
               }
             }
