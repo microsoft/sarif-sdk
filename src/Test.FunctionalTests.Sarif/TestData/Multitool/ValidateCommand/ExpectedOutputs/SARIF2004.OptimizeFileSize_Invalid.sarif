@@ -18,7 +18,7 @@
               },
               "messageStrings": {
                 "Warning_EliminateLocationOnlyArtifacts": {
-                  "text": "{0): The 'artifacts' array contains no information beyond the locations of the artifacts. Removing this array might reduce the log file size without losing information. In some scenarios (for example, when assessing compliance with policy), the 'artifacts' array might be used to record the full set of artifacts that were analyzed. In such a scenario, the 'artifacts' array should be retained even if it contains only location information."
+                  "text": "{0}: The 'artifacts' array contains no information beyond the locations of the artifacts. Removing this array might reduce the log file size without losing information. In some scenarios (for example, when assessing compliance with policy), the 'artifacts' array might be used to record the full set of artifacts that were analyzed. In such a scenario, the 'artifacts' array should be retained even if it contains only location information."
                 },
                 "Warning_EliminateIdOnlyRules": {
                   "text": "{0}: The 'rules' array contains no information beyond the ids of the rules. Removing this array might reduce the log file size without losing information. In some scenarios (for example, when assessing compliance with policy), the 'rules' array might be used to record the full set of rules that were evaluated. In such a scenario, the 'rules' array should be retained even if it contains only id information."

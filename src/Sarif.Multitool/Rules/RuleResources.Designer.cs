@@ -463,7 +463,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0): The &apos;artifacts&apos; array contains no information beyond the locations of the artifacts. Removing this array might reduce the log file size without losing information. In some scenarios (for example, when assessing compliance with policy), the &apos;artifacts&apos; array might be used to record the full set of artifacts that were analyzed. In such a scenario, the &apos;artifacts&apos; array should be retained even if it contains only location information..
+        ///   Looks up a localized string similar to {0}: The &apos;artifacts&apos; array contains no information beyond the locations of the artifacts. Removing this array might reduce the log file size without losing information. In some scenarios (for example, when assessing compliance with policy), the &apos;artifacts&apos; array might be used to record the full set of artifacts that were analyzed. In such a scenario, the &apos;artifacts&apos; array should be retained even if it contains only location information..
         /// </summary>
         internal static string SARIF2004_OptimizeFileSize_Warning_EliminateLocationOnlyArtifacts_Text {
             get {
