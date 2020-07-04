@@ -653,7 +653,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Placeholder.
+        ///   Looks up a localized string similar to Provide embedded file content so that users can examine results in their full context without having to enlist in the source repository. Embedding file content in a SARIF log file can dramatically increase its size, so consider the usage scenario when you decide whether to provide it..
         /// </summary>
         internal static string SARIF2013_ProvideEmbeddedFileContent_FullDescription_Text {
             get {
@@ -662,7 +662,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Placeholder_SARIF2013_ProvideEmbeddedFileContent_Note_Default_Text.
+        ///   Looks up a localized string similar to {0}: This run does not provide embedded file content. Providing embedded file content enables users to examine results in their full context without having to enlist in the source repository. Embedding file content in a SARIF log file can dramatically increase its size, so consider the usage scenario when you decide whether to provide it..
         /// </summary>
         internal static string SARIF2013_ProvideEmbeddedFileContent_Note_Default_Text {
             get {
