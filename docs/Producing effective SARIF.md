@@ -528,9 +528,13 @@ For each rule, provide a URI where users can find detailed information about the
 
 ### Rule `SARIF2013.ProvideEmbeddedFileContent`
 
+Provide embedded file content so that users can examine results in their full context without having to enlist in the source repository. Embedding file content in a SARIF log file can dramatically increase its size, so consider the usage scenario when you decide whether to provide it.
+
 #### Description
 
 ##### `Default`: note
+
+{0}: This run does not provide embedded file content. Providing embedded file content enables users to examine results in their full context without having to enlist in the source repository. Embedding file content in a SARIF log file can dramatically increase its size, so consider the usage scenario when you decide whether to provide it.
 
 ---
 

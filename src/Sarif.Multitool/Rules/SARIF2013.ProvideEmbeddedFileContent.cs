@@ -14,7 +14,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public override string Id => RuleId.ProvideEmbeddedFileContent;
 
         /// <summary>
-        /// Placeholder
+        /// Provide embedded file content so that users can examine results in their full context
+        /// without having to enlist in the source repository. Embedding file content in a SARIF
+        /// log file can dramatically increase its size, so consider the usage scenario when you
+        /// decide whether to provide it.
         /// </summary>
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF2013_ProvideEmbeddedFileContent_FullDescription_Text };
 
@@ -28,7 +31,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
             if (run.Artifacts != null && run.Artifacts.All(artifact => artifact.Contents == null))
             {
-                // {0}: Placeholder
+                // {0}: This run does not provide embedded file content. Providing embedded file
+                // content enables users to examine results in their full context without having
+                // to enlist in the source repository. Embedding file content in a SARIF log file
+                // can dramatically increase its size, so consider the usage scenario when you
+                // decide whether to provide it.
                 LogResult(
                     runPointer,
                     nameof(RuleResources.SARIF2013_ProvideEmbeddedFileContent_Note_Default_Text));
