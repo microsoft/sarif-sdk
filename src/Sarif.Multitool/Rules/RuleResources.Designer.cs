@@ -530,7 +530,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Placeholder_SARIF2007_ExpressPathsRelativeToRepoRoot_FullDescription_Text.
+        ///   Looks up a localized string similar to Provide information that makes it possible to determine the repo-relative locations of files that contain analysis results.
+        ///
+        ///Each element of the &apos;versionControlProvenance&apos; array is a &apos;versionControlDetails&apos; object that describes a repository containing files that were analyzed. &apos;versionControlDetails.mappedTo&apos; defines the file system location to which the root of that repository is mapped. If &apos;mappedTo.uriBaseId&apos; is present, and if result locations are expressed relative to that &apos;uriBaseId&apos;, then the repo [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SARIF2007_ExpressPathsRelativeToRepoRoot_FullDescription_Text {
             get {
@@ -539,7 +541,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: Placeholder.
+        ///   Looks up a localized string similar to {0}: This result location does not provide any of the &apos;uriBaseId&apos; values that specify repository locations: &apos;{1}&apos;. As a result, it will not be possible to determine the location of the file containing this result relative to the root of the repository that contains it..
         /// </summary>
         internal static string SARIF2007_ExpressPathsRelativeToRepoRoot_Warning_ExpressResultLocationsRelativeToMappedTo_Text {
             get {
@@ -549,7 +551,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: Placeholder.
+        ///   Looks up a localized string similar to {0}: The &apos;versionControlDetails&apos; object that describes the repository &apos;{1}&apos; does not provide &apos;mappedTo.uriBaseId&apos;. As a result, it will not be possible to determine the repo-relative location of files containing analysis results for this repository..
         /// </summary>
         internal static string SARIF2007_ExpressPathsRelativeToRepoRoot_Warning_ProvideUriBaseIdForMappedTo_Text {
             get {
