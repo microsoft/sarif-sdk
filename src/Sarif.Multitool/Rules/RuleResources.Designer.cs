@@ -635,7 +635,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Placeholder.
+        ///   Looks up a localized string similar to For each rule, provide a URI where users can find detailed information about the rule. This information should include a detailed description of the invalid pattern, an explanation of why the pattern is poor practice (particularly in contexts such as security or accessibility where driving considerations might not be readily apparent), guidance for resolving the problem (including describing circumstances in which ignoring the problem altogether might be appropriate), examples of invalid and valid patterns, [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SARIF2012_ProvideHelpUris_FullDescription_Text {
             get {
@@ -644,7 +644,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: Placeholder &apos;{1}&apos;.
+        ///   Looks up a localized string similar to {0}: The rule &apos;{1}&apos; does not provide a help URI. Providing a URI where users can find detailed information about the rule helps users to understand the result and how they can best address it..
         /// </summary>
         internal static string SARIF2012_ProvideHelpUris_Note_Default_Text {
             get {
