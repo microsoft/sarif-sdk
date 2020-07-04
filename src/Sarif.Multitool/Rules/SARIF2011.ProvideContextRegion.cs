@@ -15,7 +15,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public override string Id => RuleId.ProvideContextRegion;
 
         /// <summary>
-        /// Placeholder
+        /// Provide context regions to enable users to see a portion of the code that surrounds
+        /// each result, even if they are not enlisted in the code.
         /// </summary>
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF2011_ProvideContextRegion_FullDescription_Text };
 
@@ -45,7 +46,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 {
                     string physicalLocationPointer = locationPointer.AtProperty(SarifPropertyName.PhysicalLocation);
 
-                    // {0}: Placeholder
+                    // {0}: This result location does not provide a 'contextRegion' property. Providing
+                    // a context region enables users to see a portion of the code that surrounds the
+                    // result, even if they are not enlisted in the code.
                     LogResult(
                         physicalLocationPointer,
                         nameof(RuleResources.SARIF2011_ProvideContextRegion_Note_Default_Text));

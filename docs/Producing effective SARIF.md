@@ -500,13 +500,13 @@ for example, 'CS2001' for a diagnostic from the Roslyn C# compiler. For uniformi
 
 #### Description
 
-Provide code snippets to enable users to see the source code that triggered the result, even if they are not enlisted in the code.
+Provide code snippets to enable users to see the code that triggered each result, even if they are not enlisted in the code.
 
 #### Messages
 
 ##### `Default`: note
 
-The 'region' object in this result location does not include a 'snippet' property. Providing code snippets enables users to see the source code that triggered the result, even if they are not enlisted in the code.
+{0}: The 'region' object in this result location does not provide a 'snippet' property. Providing a code snippet enables users to see the source code that triggered the result, even if they are not enlisted in the code.
 
 ---
 
@@ -514,7 +514,11 @@ The 'region' object in this result location does not include a 'snippet' propert
 
 #### Description
 
+Provide context regions to enable users to see a portion of the code that surrounds each result, even if they are not enlisted in the code.
+
 ##### `Default`: note
+
+{0}: This result location does not provide a 'contextRegion' property. Providing a context region enables users to see a portion of the code that surrounds the result, even if they are not enlisted in the code.
 
 ---
 
