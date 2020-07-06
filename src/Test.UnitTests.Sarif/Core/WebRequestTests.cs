@@ -213,7 +213,7 @@ Cookie: ARRAffinity=somecode; .AspNet.Cookies=somecode
             // On my machine this takes about 7 msec. We leave a 50x safety factor. This is still
             // too long, but it should provide acceptable performance, and we can pursue further
             // optimizations later if necessary.
-            action.ExecutionTime().Should().BeLessOrEqualTo(350.Milliseconds());
+            action.ExecutionTime().Should().BeLessOrEqualTo(1000.Milliseconds());
         }
     }
 }
