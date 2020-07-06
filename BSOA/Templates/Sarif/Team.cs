@@ -71,8 +71,24 @@ namespace BSOA.Generator.Templates
             Id = other.Id;
             //  </OtherAssignment>
             JoinPolicy = other.JoinPolicy;
-            Owner = other.Owner;
-            Employees = other.Employees;
+            //  <RefOtherAssignment>
+
+            if (other.Owner != default)
+            {
+                Owner = new Employee(other.Owner);
+            }
+            //  </RefOtherAssignment>
+            //  <RefListOtherAssignment>
+
+            if (other.Members != default)
+            {
+                var members = Members;
+                foreach (Employee item in other.Members)
+                {
+                    members.Add(new Employee(item));
+                }
+            }
+            //  </RefListOtherAssignment>
             // </OtherAssignmentList>
         }
 
