@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             get
             {
-                return Properties != null ? Properties.Keys.ToList() : new List<string>();
+                return Properties?.Keys?.ToList() ?? new List<string>();
             }
         }
 
@@ -157,7 +157,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public void SetProperty<T>(string propertyName, T value)
         {
-            Properties = Properties ?? new Dictionary<string, SerializedPropertyInfo>();
+            IDictionary<string, SerializedPropertyInfo> props = Properties;
+            if (props == null) { props = Properties = new Dictionary<string, SerializedPropertyInfo>(); }
 
             bool isString = typeof(T) == typeof(string);
 
@@ -168,7 +169,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 // by deserializing a null from the log file or by calling SetProperty("aProp", null),
                 // the internal representation is the same: a null value in the Properties
                 // dictionary.
-                Properties[propertyName] = null;
+                props[propertyName] = null;
             }
             else
             {
@@ -195,7 +196,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     serializedValue = JsonConvert.SerializeObject(value, settings);
                 }
 
-                Properties[propertyName] = new SerializedPropertyInfo(serializedValue, isString);
+                props[propertyName] = new SerializedPropertyInfo(serializedValue, isString);
             }
         }
 
@@ -211,12 +212,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             PropertyBagHolder otherHolder = other as PropertyBagHolder;
             Debug.Assert(otherHolder != null);
 
-            Properties = other.PropertyNames.Count > 0 ? new Dictionary<string, SerializedPropertyInfo>() : null;
+            IDictionary<string, SerializedPropertyInfo> props = Properties;
+            props.Clear();
 
             foreach (string propertyName in other.PropertyNames)
             {
                 SerializedPropertyInfo otherInfo = otherHolder.Properties[propertyName];
-                Properties[propertyName] = new SerializedPropertyInfo(otherInfo.SerializedValue, otherInfo.IsString);
+                props[propertyName] = new SerializedPropertyInfo(otherInfo.SerializedValue, otherInfo.IsString);
             }
         }
 
