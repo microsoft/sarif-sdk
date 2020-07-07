@@ -340,8 +340,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string time = _reader.GetAttribute(_strings.TimeAttribute);
             if (!string.IsNullOrEmpty(date) && !string.IsNullOrEmpty(time))
             {
-                string dateTime = date + "T" + time;
-                _invocation.StartTimeUtc = DateTime.Parse(dateTime, CultureInfo.InvariantCulture);
+                string dateTime = date + "T" + time + "Z";
+                _invocation.StartTimeUtc = DateTime.Parse(dateTime, CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal | DateTimeStyles.AdjustToUniversal);
             }
 
             // Step past the empty element.
@@ -468,7 +468,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     result.RuleIndex = ruleIndex;
                     FailureLevel failureLevel = GetFailureLevelFromRuleMetadata(rule);
                     result.Level = failureLevel;
-                    rule.DefaultConfiguration.Level = failureLevel;
+
+                    if (failureLevel != FailureLevel.Warning)
+                    {
+                        if (rule.DefaultConfiguration == null) { rule.DefaultConfiguration = new ReportingConfiguration(); }
+                        rule.DefaultConfiguration.Level = failureLevel;
+                    }
                 }
                 else if (AtStartOfNonEmpty(_strings.Kingdom))
                 {
@@ -492,6 +497,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 }
                 else if (AtStartOfNonEmpty(_strings.DefaultSeverity))
                 {
+                    if (rule.DefaultConfiguration == null) { rule.DefaultConfiguration = new ReportingConfiguration(); }
                     rule.DefaultConfiguration.SetProperty(_strings.DefaultSeverity, _reader.ReadElementContentAsString());
                 }
                 else if (AtStartOfNonEmpty(_strings.InstanceSeverity))
@@ -1153,7 +1159,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     Guid = ruleId
                 };
 
-                rule.DefaultConfiguration = new ReportingConfiguration();
                 ruleIndex = _rules.Count;
                 _rules.Add(rule);
                 _ruleIdToIndexMap[ruleId] = ruleIndex;
