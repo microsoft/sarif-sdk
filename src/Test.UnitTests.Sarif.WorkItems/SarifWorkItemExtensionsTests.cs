@@ -82,15 +82,16 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         [Fact]
         public void SarifWorkItemExtensions_CreateWorkItemTitle_LongTitleFromLogicalLocation()
         {
+            SarifLog sarifLog = CreateLogWithEmptyRun();
+            Run run = sarifLog.Runs[0];
+
             Result result = new Result();
             LogicalLocation logicaLocation = new LogicalLocation(null, 0, string.Empty, null, 0, null, null);
             Location location = new Location(0, null, new[] { logicaLocation }, null, null, null, null);
+            
             result.Locations = new List<Location>();
             result.Locations.Add(location);
             result.RuleId = "TestRuleId";
-            
-            SarifLog sarifLog = CreateLogWithEmptyRun();
-            Run run = sarifLog.Runs[0];
             run.Results.Add(result);
 
             // A logical location longer than 128 char is truncated with ellipses

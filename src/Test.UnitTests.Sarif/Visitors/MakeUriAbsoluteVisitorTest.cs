@@ -158,7 +158,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             // Validate
             newLog.Runs.Should().HaveCount(2);
-            newLog.Runs[0].Artifacts.Should().NotIntersectWith(newLog.Runs[1].Artifacts);
+
+            // Verify rebased Uris are all distinct; Uris with a ParentIndex won't change and will have matching ParentIndicies across the two Runs
+            IEnumerable<Uri> artifactsA = newLog.Runs[0].Artifacts.Where((a) => a.ParentIndex == -1).Select((a) => a?.Location?.Uri);
+            IEnumerable<Uri> artifactsB = newLog.Runs[1].Artifacts.Where((a) => a.ParentIndex == -1).Select((a) => a?.Location?.Uri);
+            artifactsA.Should().NotIntersectWith(artifactsB);
         }
 
         [Fact]

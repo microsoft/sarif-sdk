@@ -63,11 +63,30 @@
       "arePlainText": true
     },
     {
-      "description": "Result.Message is required",
+      "description": "Result.Message and Notification.Message are required",
       "replace": "JsonToMessage.Write(writer, \"message\", item.Message)",
       "with": "JsonToMessage.Write(writer, \"message\", item.Message, required: true)",
       "files": "JsonTo(Result|Notification)\\.cs",
       "arePlainText": true
+    },
+    {
+      "description": "ToolComponent.Name is required",
+      "replace": "Write(writer, \"name\", item.Name, default)",
+      "with": "Write(writer, \"name\", item.Name, default, required: true)",
+      "files": "JsonToToolComponent\\.cs",
+      "arePlainText": true
+    },
+    {
+      "description": "ReportingDescriptor.Id is required",
+      "replace": "Write(writer, \"id\", item.Id, default)",
+      "with": "Write(writer, \"id\", item.Id, default, required: true)",
+      "files": "JsonToReportingDescriptor\\.cs",
+      "arePlainText": true
+    },
+    {
+      "description": "Invocation.ExecutionSuccessful is required",
+      "replace": "(\\.Write\\(writer, \"(executionSuccessful)\", ([^\\)]+))\\);",
+      "with": "$1, required: true);"
     }
   ]
 }

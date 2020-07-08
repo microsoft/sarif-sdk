@@ -468,7 +468,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             var visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.TextFiles);
             visitor.VisitRun(run);
 
-            run.OriginalUriBaseIds.Should().BeNull();
+            run.OriginalUriBaseIds.Should().BeEmpty();
             run.Artifacts.Count.Should().Be(1);
             run.Artifacts[0].Contents.Should().BeNull();
 

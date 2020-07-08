@@ -128,7 +128,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 bool workToDo = false;
                 bool overwriteExistingData = _dataToInsert.HasFlag(OptionallyEmittedData.OverwriteExistingData);
 
-                workToDo |= (node.Hashes == null || overwriteExistingData) && _dataToInsert.HasFlag(OptionallyEmittedData.Hashes);
+                workToDo |= (node.Hashes == null || node.Hashes.Count == 0 || overwriteExistingData) && _dataToInsert.HasFlag(OptionallyEmittedData.Hashes);
                 workToDo |= (node.Contents?.Text == null || overwriteExistingData) && _dataToInsert.HasFlag(OptionallyEmittedData.TextFiles);
                 workToDo |= (node.Contents?.Binary == null || overwriteExistingData) && _dataToInsert.HasFlag(OptionallyEmittedData.BinaryFiles);
 
