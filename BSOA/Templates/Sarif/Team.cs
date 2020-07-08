@@ -16,10 +16,10 @@ namespace BSOA.Generator.Templates
     ///  GENERATED: BSOA Entity for 'Team'
     /// </summary>
     [GeneratedCode("BSOA.Generator", "0.5.0")]
-    public partial class Team : PropertyBagHolder, ISarifNode, IRow
+    public partial class Team : PropertyBagHolder, ISarifNode, IRow<Team>, IEquatable<Team>
     {
-        private TeamTable _table;
-        private int _index;
+        private readonly TeamTable _table;
+        private readonly int _index;
 
         public Team() : this(CompanyDatabase.Current.Team)
         { }
@@ -27,9 +27,18 @@ namespace BSOA.Generator.Templates
         public Team(Company root) : this(root.Database.Team)
         { }
 
-        internal Team(TeamTable table) : this(table, table.Count)
+        public Team(Team other) : this(CompanyDatabase.Current.Team)
         {
-            table.Add();
+            CopyFrom(other);
+        }
+
+        public Team(Company root, Team other) : this(root.Database.Team)
+        {
+            CopyFrom(other);
+        }
+
+        internal Team(TeamTable table) : this(table, table.Add()._index)
+        {
             Init();
         }
 
@@ -61,35 +70,6 @@ namespace BSOA.Generator.Templates
             Owner = owner;
             Employees = members;
             // </AssignmentList>
-        }
-
-        public Team(Team other) 
-            : this(CompanyDatabase.Current.Team)
-        {
-            // <OtherAssignmentList>
-            //  <OtherAssignment>
-            Id = other.Id;
-            //  </OtherAssignment>
-            JoinPolicy = other.JoinPolicy;
-            //  <RefOtherAssignment>
-
-            if (other.Owner != default)
-            {
-                Owner = new Employee(other.Owner);
-            }
-            //  </RefOtherAssignment>
-            //  <RefListOtherAssignment>
-
-            if (other.Members != default)
-            {
-                var members = Members;
-                foreach (Employee item in other.Members)
-                {
-                    members.Add(new Employee(item));
-                }
-            }
-            //  </RefListOtherAssignment>
-            // </OtherAssignmentList>
         }
 
         partial void Init();
@@ -173,9 +153,9 @@ namespace BSOA.Generator.Templates
                     result = (result * 31) + Owner.GetHashCode();
                 }
 
-                if (Employees != default(IList<Employee>))
+                if (Members != default(IList<Employee>))
                 {
-                    result = (result * 31) + Employees.GetHashCode();
+                    result = (result * 31) + Members.GetHashCode();
                 }
                 // </GetHashCodeList>
             }
@@ -210,12 +190,19 @@ namespace BSOA.Generator.Templates
         #endregion
 
         #region IRow
-        ITable IRow.Table => _table;
-        int IRow.Index => _index;
+        ITable IRow<Team>.Table => _table;
+        int IRow<Team>.Index => _index;
 
-        void IRow.Next()
+        public void CopyFrom(Team other)
         {
-            _index++;
+            // <OtherAssignmentList>
+            //  <OtherAssignment>
+            Id = other.Id;
+            //  </OtherAssignment>
+            JoinPolicy = other.JoinPolicy;
+            Owner = other.Owner;
+            Members = other.Members;
+            // </OtherAssignmentList>
         }
         #endregion
 

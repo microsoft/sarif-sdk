@@ -4,7 +4,6 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
-using System.IO;
 
 using BSOA.IO;
 using BSOA.Model;
@@ -18,10 +17,10 @@ namespace BSOA.Generator.Templates
     ///  GENERATED: BSOA Root Entity for 'Company'
     /// </summary>
     [GeneratedCode("BSOA.Generator", "0.5.0")]
-    public partial class Company : PropertyBagHolder, ISarifNode, IRow
+    public partial class Company : PropertyBagHolder, ISarifNode, IRow<Company>, IEquatable<Company>
     {
-        private CompanyTable _table;
-        private int _index;
+        private readonly CompanyTable _table;
+        private readonly int _index;
 
         internal CompanyDatabase Database => _table.Database;
         public ITreeSerializable DB => _table.Database;
@@ -29,9 +28,13 @@ namespace BSOA.Generator.Templates
         public Company() : this(new CompanyDatabase().Company)
         { }
         
-        internal Company(CompanyTable table) : this(table, table.Count)
+        public Company(Company other) : this(new CompanyDatabase().Company)
         {
-            table.Add();
+            CopyFrom(other);
+        }
+
+        internal Company(CompanyTable table) : this(table, table.Add()._index)
+        {
             Init();
         }
 
@@ -64,35 +67,6 @@ namespace BSOA.Generator.Templates
             // </AssignmentList>
         }
 
-        public Company(Company other)
-            : this()
-        {
-            // <OtherAssignmentList>
-            //  <OtherAssignment>
-            Id = other.Id;
-            //  </OtherAssignment>
-            JoinPolicy = other.JoinPolicy;
-            //  <RefOtherAssignment>
-
-            if (other.Owner != default)
-            {
-                Owner = new Employee(other.Owner);
-            }
-            //  </RefOtherAssignment>
-            //  <RefListOtherAssignment>
-
-            if (other.Members != default)
-            {
-                var members = Members;
-                foreach (Employee item in other.Members)
-                {
-                    members.Add(new Employee(item));
-                }
-            }
-            //  </RefListOtherAssignment>
-            // </OtherAssignmentList>
-        }
-
         partial void Init();
 
         // <ColumnList>
@@ -116,7 +90,7 @@ namespace BSOA.Generator.Templates
         public virtual Employee Owner
         {
             get => _table.Database.Employee.Get(_table.Owner[_index]);
-            set => _table.Manager[_index] = _table.Database.Employee.LocalIndex(value);
+            set => _table.Owner[_index] = _table.Database.Employee.LocalIndex(value);
         }
 
         //   </RefColumn>
@@ -211,12 +185,19 @@ namespace BSOA.Generator.Templates
         #endregion
 
         #region IRow
-        ITable IRow.Table => _table;
-        int IRow.Index => _index;
+        ITable IRow<Company>.Table => _table;
+        int IRow<Company>.Index => _index;
 
-        void IRow.Next()
+        public void CopyFrom(Company other)
         {
-            _index++;
+            // <OtherAssignmentList>
+            //  <OtherAssignment>
+            Id = other.Id;
+            //  </OtherAssignment>
+            JoinPolicy = other.JoinPolicy;
+            Owner = other.Owner;
+            Members = other.Members;
+            // </OtherAssignmentList>
         }
         #endregion
 
@@ -243,7 +224,7 @@ namespace BSOA.Generator.Templates
         #endregion
 
         #region Easy Serialization
-        public void WriteBsoa(Stream stream)
+        public void WriteBsoa(System.IO.Stream stream)
         {
             using (BinaryTreeWriter writer = new BinaryTreeWriter(stream))
             {
@@ -253,10 +234,10 @@ namespace BSOA.Generator.Templates
 
         public void WriteBsoa(string filePath)
         {
-            WriteBsoa(File.Create(filePath));
+            WriteBsoa(System.IO.File.Create(filePath));
         }
 
-        public static Company ReadBsoa(Stream stream)
+        public static Company ReadBsoa(System.IO.Stream stream)
         {
             using (BinaryTreeReader reader = new BinaryTreeReader(stream))
             {
@@ -268,15 +249,15 @@ namespace BSOA.Generator.Templates
 
         public static Company ReadBsoa(string filePath)
         {
-            return ReadBsoa(File.OpenRead(filePath));
+            return ReadBsoa(System.IO.File.OpenRead(filePath));
         }
 
         public static TreeDiagnostics Diagnostics(string filePath)
         {
-            return Diagnostics(File.OpenRead(filePath));
+            return Diagnostics(System.IO.File.OpenRead(filePath));
         }
 
-        public static TreeDiagnostics Diagnostics(Stream stream)
+        public static TreeDiagnostics Diagnostics(System.IO.Stream stream)
         {
             using (BinaryTreeReader btr = new BinaryTreeReader(stream))
             using (TreeDiagnosticsReader reader = new TreeDiagnosticsReader(btr))
