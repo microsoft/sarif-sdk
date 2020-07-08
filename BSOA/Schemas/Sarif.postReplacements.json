@@ -1,26 +1,73 @@
 {
-  /* SchemaUri writes as "$schema" in file */
-  "\"schemaUri\"": "\"$schema\"",
-
-  /* PropertyBag shouldn't inherit from itself */ 
-  "PropertyBag\\ :\\ PropertyBagHolder,\\ ": "PropertyBag : ",
-
-  /* Base class defines Properties, so entities must declare as 'internal override' */
-  "public virtual IDictionary<String, SerializedPropertyInfo> Properties": "internal override IDictionary<String, SerializedPropertyInfo> Properties",
-
-  /* Use custom reader for SarifVersion enum */
-  "JsonToEnum<SarifVersion>.Read\\(reader, root\\)": "Readers.JsonToSarifVersion.Read(reader, root)",
-
-  /* Auto-Set Result.Run on Results */
-  "_table.Database.Result.List\\(_table.Results\\[_index\\]\\)": "new ResultList(this, _table.Database.Result, _table.Results[_index])",
-
-  /* FlagsEnum representation is non-standard */
-  "JsonToEnum<(ArtifactRoles)>.Read": "Readers.FlagsEnumConverter.Instance.Read<$1>",
-  "JsonToEnum<(ArtifactRoles)>.Write": "Readers.FlagsEnumConverter.Instance.Write<$1>",
-  "JsonToEnum<(ToolComponentContents)>.Read": "Readers.FlagsEnumConverter.Instance.Read<$1>",
-  "JsonToEnum<(ToolComponentContents)>.Write": "Readers.FlagsEnumConverter.Instance.Write<$1>",
-
-  /* Result.Kind and Level have inter-related logic */
-  "(public virtual ResultKind Kind.*?)(set => [^\\r\\n]+)": "$1set { _table.Kind[_index] = (int)value; if (value != ResultKind.Fail) { Level = FailureLevel.None; } }",
-  "(public virtual ResultKind Kind.*?public virtual FailureLevel Level.*?)(set => [^\\r\\n]+)": "$1set { _table.Level[_index] = (int)value; if (value != FailureLevel.None) { Kind = ResultKind.Fail; } }"
+  "replacements": [
+    {
+      "description": "SchemaUri writes as '$schema' in file",
+      "replace": "\"schemaUri\"",
+      "with": "\"$schema\"",
+      "arePlainText": true
+    },
+    {
+      "description": "PropertyBag shouldn't inherit from itself",
+      "replace": "PropertyBag : PropertyBagHolder, ",
+      "with": "PropertyBag : ",
+      "files": "PropertyBag\\.cs",
+      "arePlainText": true
+    },
+    {
+      "description": "Base class defines Properties, so entities must declare as 'internal override'",
+      "replace": "public virtual IDictionary<String, SerializedPropertyInfo> Properties",
+      "with": "internal override IDictionary<String, SerializedPropertyInfo> Properties",
+      "arePlainText": true
+    },
+    {
+      "description": "Use custom reader for SarifVersion enum",
+      "replace": "JsonToEnum<SarifVersion>.Read(reader, root)",
+      "with": "Readers.JsonToSarifVersion.Read(reader, root)",
+      "arePlainText": true
+    },
+    {
+      "description": "Auto-Set Result.Run on Results",
+      "replace": "_table.Database.Result.List(_table.Results[_index])",
+      "with": "new ResultList(this, _table.Database.Result, _table.Results[_index])",
+      "arePlainText": true
+    },
+    {
+      "description": "Result.Kind and Level have inter-related logic",
+      "replace": "(public virtual ResultKind Kind.*?)(set => [^\\r\\n]+)",
+      "with": "$1set { _table.Kind[_index] = (int)value; if (value != ResultKind.Fail) { Level = FailureLevel.None; } }",
+      "files": "Result\\.cs"
+    },
+    {
+      "description": "Result.Kind and Level have inter-related logic",
+      "replace": "(public virtual FailureLevel Level.*?)(set => [^\\r\\n]+)",
+      "with": "$1set { _table.Level[_index] = (int)value; if (value != FailureLevel.None) { Kind = ResultKind.Fail; } }",
+      "files": "Result\\.cs"
+    },
+    {
+      "description": "FlagsEnum representation is non-standard",
+      "replace": "JsonToEnum<(ArtifactRoles|ToolComponentContents)>.(Read|Write)",
+      "with": "Readers.FlagsEnumConverter.Instance.$2<$1>"
+    },
+    {
+      "description": "Run.Results is required",
+      "replace": "JsonToResult.Write)",
+      "with": "JsonToResult.Write, required: true)",
+      "files": "JsonToRun\\.cs",
+      "arePlainText": true
+    },
+    {
+      "description": "Run.Tool is required",
+      "replace": "JsonToTool.Write(writer, \"tool\", item.Tool)",
+      "with": "JsonToTool.Write(writer, \"tool\", item.Tool, required: true)",
+      "files": "JsonToRun\\.cs",
+      "arePlainText": true
+    },
+    {
+      "description": "Result.Message is required",
+      "replace": "JsonToMessage.Write(writer, \"message\", item.Message)",
+      "with": "JsonToMessage.Write(writer, \"message\", item.Message, required: true)",
+      "files": "JsonTo(Result|Notification)\\.cs",
+      "arePlainText": true
+    }
+  ]
 }
