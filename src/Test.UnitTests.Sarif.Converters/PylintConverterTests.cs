@@ -99,7 +99,7 @@ namespace Sarif.Converters.UnitTests
             mockWriter.Setup(writer => writer.WriteArtifacts(It.IsAny<IList<Artifact>>()));
             mockWriter.Setup(writer => writer.OpenResults());
             mockWriter.Setup(writer => writer.CloseResults());
-            mockWriter.Setup(writer => writer.WriteResults(It.IsAny<List<Result>>()));
+            mockWriter.Setup(writer => writer.WriteResults(It.IsAny<IList<Result>>()));
 
             var converter = new PylintConverter();
 
@@ -109,7 +109,7 @@ namespace Sarif.Converters.UnitTests
             mockWriter.Verify(writer => writer.WriteArtifacts(It.IsAny<IList<Artifact>>()), Times.Never);
             mockWriter.Verify(writer => writer.OpenResults(), Times.Once);
             mockWriter.Verify(writer => writer.CloseResults(), Times.Once);
-            mockWriter.Verify(writer => writer.WriteResults(It.IsAny<List<Result>>()), Times.Once);
+            mockWriter.Verify(writer => writer.WriteResults(It.IsAny<IList<Result>>()), Times.Once);
         }
 
         [Fact]

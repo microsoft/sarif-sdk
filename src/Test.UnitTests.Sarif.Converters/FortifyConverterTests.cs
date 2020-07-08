@@ -96,7 +96,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             builder.InstanceId = null; // IID is optional
             Result resultNull = FortifyConverter.ConvertFortifyIssueToSarifIssue(builder.ToImmutable());
-            Assert.Null(resultNull.PartialFingerprints);
+            Assert.Empty(resultNull.PartialFingerprints);
         }
 
         [Fact]
@@ -203,7 +203,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         public void FortifyConverter_Convert_DoesNotFillInCodeFlowWhenOnlyPrimaryIsPresent()
         {
             Result result = FortifyConverter.ConvertFortifyIssueToSarifIssue(GetBasicIssue());
-            Assert.Null(result.CodeFlows);
+            Assert.Empty(result.CodeFlows);
         }
 
         [Fact]

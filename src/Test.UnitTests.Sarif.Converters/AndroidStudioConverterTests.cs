@@ -139,7 +139,7 @@ Possible resolution: delete", result.Message.Text);
         {
             AndroidStudioProblem uut = AndroidStudioProblemTests.GetDefaultProblem();
             Result result = new AndroidStudioConverter().ConvertProblemToSarifResult(uut);
-            Assert.Null(result.Properties);
+            Assert.Empty(result.Properties);
         }
 
         [Fact]

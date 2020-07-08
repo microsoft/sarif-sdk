@@ -63,7 +63,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     }
                 }
             }, Location.ValueComparer).Should().BeTrue();
-            Assert.Null(result.CodeFlows);
+            Assert.Empty(result.CodeFlows);
         }
 
         [Fact]
