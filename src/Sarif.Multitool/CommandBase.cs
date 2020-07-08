@@ -36,7 +36,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public static T ReadSarifFile<T>(IFileSystem fileSystem, string filePath, IContractResolver contractResolver = null)
         {
-            return (T)(object)SarifLog.Load(fileSystem.OpenRead(filePath), filePath);
+            if (typeof(T) == typeof(SarifLog))
+            {
+                return (T)(object)SarifLog.Load(fileSystem.OpenRead(filePath), filePath);
+            }
+            else
+            {
+                var serializer = new JsonSerializer()
+                {
+                    ContractResolver = contractResolver
+                };
+
+                using (JsonTextReader reader = new JsonTextReader(new StreamReader(fileSystem.OpenRead(filePath))))
+                {
+                    return serializer.Deserialize<T>(reader);
+                }
+            }
         }
 
         public static void WriteSarifFile<T>(IFileSystem fileSystem, T sarifFile, string outputName, Formatting formatting = Formatting.None, IContractResolver contractResolver = null)
