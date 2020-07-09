@@ -196,7 +196,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             if (fullyQualifiedLogicalNameToIndexMap != null || fileLocationKeyToIndexMap != null || ruleKeyToIndexMap != null)
             {
-                transformedSarifLog = JsonConvert.DeserializeObject<SarifLog>(logObject.ToString());
+                string transformedText = logObject.ToString();
+                transformedSarifLog = JsonConvert.DeserializeObject<SarifLog>(transformedText);
 
                 var indexUpdatingVisitor = new UpdateIndicesFromLegacyDataVisitor(
                     fullyQualifiedLogicalNameToIndexMap,
@@ -734,6 +735,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 tool.Remove("language");
                 run.Add("language", language);
             }
+
+            // Remove run.conversion.tool.language, if found
+            tool = (JObject)run["conversion"]?["tool"];
+            if (tool?["language"] != null)
+            {
+                tool.Remove("language");
+            }
         }
 
         private static void RenameAllToolComponentDescriptors(JObject run)
@@ -1143,13 +1151,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             if (stackFrame["address"] is JToken stackFrameAddress)
             {
-                address.Add("baseAddress", stackFrameAddress);
+                address.Add("absoluteAddress", stackFrameAddress);
                 stackFrame.Remove("address");
             }
 
             if (stackFrame["offset"] is JToken stackFrameOffset)
             {
-                address.Add("offset", stackFrameOffset);
+                address.Add("offsetFromParent", stackFrameOffset);
                 stackFrame.Remove("offset");
             }
 
@@ -1408,7 +1416,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         ["richText"] = "markdown",
                         ["fileChange"] = "artifactChange",
                         ["fileLocation"] = "artifactLocation",
-                        ["fileIndex"] = "artifactIndex",
+                        ["fileIndex"] = "index",
                         ["fileChanges"] = "changes",
                     };
 

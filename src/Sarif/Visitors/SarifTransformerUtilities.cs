@@ -168,7 +168,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 case FailureLevel.Note:
                     return ResultLevelVersionOne.Note;
                 case FailureLevel.Warning:
-                    return ResultLevelVersionOne.Warning;
+                    return ResultLevelVersionOne.Default;
                 case FailureLevel.None:
                     return CreateResultLevelVersionOneFromResultKind(v2ResultKind);
                 default:

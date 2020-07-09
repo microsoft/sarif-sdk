@@ -9,7 +9,7 @@
       "files": {
         "http://localhost:34420/HtmlFixes.html": {
           "length": 43,
-          "enoding": "utf-8",
+          "encoding": "utf-8",
           "mimeType": "text/plain",
           "contents": {
             "text": "The quick brown fox jumps over the lazy dog",
