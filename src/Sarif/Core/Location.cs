@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             get
             {
                 IList<LogicalLocation> locations = LogicalLocations;
-                if (locations != null && locations.Count > 0)
+                if (locations?.Count > 0)
                 {
                     return locations[0];
                 }
@@ -24,12 +24,13 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             set
             {
-                IList<LogicalLocation> locations = LogicalLocations;
-                locations.Clear();
-
                 if (value != null)
                 {
-                    locations.Add(value);
+                    LogicalLocations = new List<LogicalLocation> { value };
+                }
+                else
+                {
+                    LogicalLocations = null;
                 }
             }
         }
