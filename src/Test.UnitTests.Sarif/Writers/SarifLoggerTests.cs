@@ -244,7 +244,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 string output = sb.ToString();
                 SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(output);
-                sarifLog.Runs[0].Artifacts.Should().BeEmpty();
+                sarifLog.Runs[0].Artifacts.Should().BeNull();
             }
         }
 
@@ -607,7 +607,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             string logText = sb.ToString();
             SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
 
-            sarifLog.Runs[0].Artifacts.Should().BeEmpty();
+            sarifLog.Runs[0].Artifacts.Should().BeNull();
         }
 
         [Fact]

@@ -292,6 +292,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             consolidator.Trim(result);
             Assert.True(Result.ValueComparer.Equals(expected, result));
+            Assert.NotNull(result.CodeFlows);
 
             consolidator.MessageLengthLimitChars = 128;
             consolidator.RemoveCodeFlows = true;
@@ -303,11 +304,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             consolidator.Trim(result);
             Assert.Equal(128 + 3, result.Message.Text.Length);  // Truncated + ellipse
-            Assert.Empty(result.CodeFlows);
-            Assert.Empty(result.Graphs);
-            Assert.Empty(result.GraphTraversals);
-            Assert.Empty(result.RelatedLocations);
-            Assert.Empty(result.Stacks);
+            Assert.Null(result.CodeFlows);
+            Assert.Null(result.Graphs);
+            Assert.Null(result.GraphTraversals);
+            Assert.Null(result.RelatedLocations);
+            Assert.Null(result.Stacks);
             Assert.Null(result.WebRequest);
             Assert.Null(result.WebResponse);
         }

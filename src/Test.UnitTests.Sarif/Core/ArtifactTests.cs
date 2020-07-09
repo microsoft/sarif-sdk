@@ -86,11 +86,11 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
 
                 if (dataToInsert.HasFlag(OptionallyEmittedData.Hashes))
                 {
-                    fileData.Hashes.Should().NotBeEmpty();
+                    fileData.Hashes.Should().NotBeNull();
                 }
                 else
                 {
-                    fileData.Hashes.Should().BeEmpty();
+                    fileData.Hashes.Should().BeNull();
                 }
 
                 string encodedFileContents = Convert.ToBase64String(File.ReadAllBytes(filePath));
@@ -126,7 +126,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
                 File.WriteAllBytes(filePath, fileContents);
                 Artifact fileData = Artifact.Create(uri, OptionallyEmittedData.TextFiles, encoding: encoding);
                 fileData.Location.Should().BeNull();
-                fileData.Hashes.Should().BeEmpty();
+                fileData.Hashes.Should().BeNull();
 
                 string encodedFileContents = encoding.GetString(fileContents);
                 fileData.Contents.Text.Should().Be(encodedFileContents);
@@ -146,7 +146,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             Uri uri = new Uri(filePath);
             Artifact fileData = Artifact.Create(uri, OptionallyEmittedData.TextFiles);
             fileData.Location.Should().BeNull();
-            fileData.Hashes.Should().BeEmpty();
+            fileData.Hashes.Should().BeNull();
             fileData.Contents.Should().BeNull();
         }
 
