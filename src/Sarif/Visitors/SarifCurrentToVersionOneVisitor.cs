@@ -114,7 +114,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 exceptionData = new ExceptionDataVersionOne
                 {
-                    InnerExceptions = IfNonEmpty(v2ExceptionData.InnerExceptions?.Select(CreateExceptionDataVersionOne).ToList()),
+                    InnerExceptions = v2ExceptionData.InnerExceptions?.Select(CreateExceptionDataVersionOne).ToList(),
                     Kind = v2ExceptionData.Kind,
                     Message = v2ExceptionData.Message,
                     Stack = CreateStackVersionOne(v2ExceptionData.Stack)
@@ -137,7 +137,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     fileChange = new FileChangeVersionOne
                     {
-                        Replacements = IfNonEmpty(v2FileChange.Replacements?.Select(r => CreateReplacementVersionOne(r, encoding)).ToList()),
+                        Replacements = v2FileChange.Replacements?.Select(r => CreateReplacementVersionOne(r, encoding)).ToList(),
                         Uri = v2FileChange.ArtifactLocation?.Uri,
                         UriBaseId = v2FileChange.ArtifactLocation?.UriBaseId
                     };
@@ -227,7 +227,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     fix = new FixVersionOne()
                     {
                         Description = v2Fix.Description?.Text,
-                        FileChanges = IfNonEmpty(v2Fix.ArtifactChanges?.Select(CreateFileChangeVersionOne).ToList())
+                        FileChanges = v2Fix.ArtifactChanges?.Select(CreateFileChangeVersionOne).ToList()
                     };
                 }
                 catch (UnknownEncodingException)
@@ -269,11 +269,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Account = v2Invocation.Account,
                     CommandLine = v2Invocation.CommandLine,
                     EndTime = v2Invocation.EndTimeUtc,
-                    EnvironmentVariables = IfNonEmpty(v2Invocation.EnvironmentVariables),
+                    EnvironmentVariables = v2Invocation.EnvironmentVariables,
                     FileName = v2Invocation.ExecutableLocation?.Uri?.OriginalString,
                     Machine = v2Invocation.Machine,
                     ProcessId = v2Invocation.ProcessId,
-                    Properties = IfNonEmpty(v2Invocation.Properties),
+                    Properties = v2Invocation.Properties,
                     ResponseFiles = CreateResponseFilesDictionary(v2Invocation.ResponseFiles),
                     StartTime = v2Invocation.StartTimeUtc,
                     WorkingDirectory = v2Invocation.WorkingDirectory?.Uri?.OriginalString
@@ -287,7 +287,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     }
 
                     IEnumerable<NotificationVersionOne> notifications = v2Invocation.ToolConfigurationNotifications.Select(CreateNotificationVersionOne);
-                    _currentRun.ConfigurationNotifications = IfNonEmpty(_currentRun.ConfigurationNotifications.Union(notifications).ToList());
+                    _currentRun.ConfigurationNotifications = _currentRun.ConfigurationNotifications.Union(notifications).ToList();
                 }
 
                 if (v2Invocation.ToolExecutionNotifications != null)
@@ -298,7 +298,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     }
 
                     List<NotificationVersionOne> notifications = v2Invocation.ToolExecutionNotifications.Select(CreateNotificationVersionOne).ToList();
-                    _currentRun.ToolNotifications = IfNonEmpty(_currentRun.ToolNotifications.Union(notifications).ToList());
+                    _currentRun.ToolNotifications = _currentRun.ToolNotifications.Union(notifications).ToList();
                 }
             }
 
@@ -779,15 +779,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 result = new ResultVersionOne
                 {
                     BaselineState = Utilities.CreateBaselineStateVersionOne(v2Result.BaselineState),
-                    Fixes = IfNonEmpty(v2Result.Fixes?.Select(CreateFixVersionOne).ToList()),
+                    Fixes = v2Result.Fixes?.Select(CreateFixVersionOne).ToList(),
                     Id = v2Result.Guid,
                     Level = Utilities.CreateResultLevelVersionOne(v2Result.Level, v2Result.Kind),
-                    Locations = IfNonEmpty(v2Result.Locations?.Select(CreateLocationVersionOne).ToList()),
+                    Locations = v2Result.Locations?.Select(CreateLocationVersionOne).ToList(),
                     Message = v2Result.Message?.Text,
                     Properties = IfNonEmpty(v2Result.Properties),
-                    RelatedLocations = IfNonEmpty(v2Result.RelatedLocations?.Select(CreateAnnotatedCodeLocationVersionOne).ToList()),
+                    RelatedLocations = v2Result.RelatedLocations?.Select(CreateAnnotatedCodeLocationVersionOne).ToList(),
                     Snippet = v2Result.Locations?.FirstOrDefault()?.PhysicalLocation?.Region?.Snippet?.Text,
-                    Stacks = IfNonEmpty(v2Result.Stacks?.Select(CreateStackVersionOne).ToList()),
+                    Stacks = v2Result.Stacks?.Select(CreateStackVersionOne).ToList(),
                     SuppressionStates = Utilities.CreateSuppressionStatesVersionOne(v2Result.Suppressions),
                     ToolFingerprintContribution = CreateToolFingerprintContributionVersionOne(v2Result.PartialFingerprints)
                 };
@@ -1155,7 +1155,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     // Address = v2StackFrame.Location?.PhysicalLocation?.Address?.AbsoluteAddress ?? 0,
                     Module = v2StackFrame.Module,
                     // Offset = v2StackFrame.Location?.PhysicalLocation?.Address?.OffsetFromParent ?? 0,
-                    Parameters = IfNonEmpty(v2StackFrame.Parameters),
+                    Parameters = v2StackFrame.Parameters,
                     Properties = IfNonEmpty(v2StackFrame.Properties),
                     ThreadId = v2StackFrame.ThreadId
                 };
@@ -1230,20 +1230,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
         }
 
-        public static IList<T> IfNonEmpty<T>(IList<T> list)
-        {
-            if (list == null)
-            {
-                return null;
-            }
-            else if (list.Count == 0)
-            {
-                return null;
-            }
-            else
-            {
-                return list;
-            }
-        }
+        //public static IList<T> IfNonEmpty<T>(IList<T> list)
+        //{
+        //    if (list == null)
+        //    {
+        //        return null;
+        //    }
+        //    else if (list.Count == 0)
+        //    {
+        //        return null;
+        //    }
+        //    else
+        //    {
+        //        return list;
+        //    }
+        //}
     }
 }
