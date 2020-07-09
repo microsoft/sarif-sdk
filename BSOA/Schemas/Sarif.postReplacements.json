@@ -27,8 +27,9 @@
     },
     {
       "description": "Auto-Set Result.Run on Results",
-      "replace": "_table.Database.Result.List(_table.Results[_index])",
-      "with": "new ResultList(this, _table.Database.Result, _table.Results[_index])",
+      "replace": "TypedList<Result>.Get(_table.Database.Result, _table.Results, _index)",
+      "with": "ResultList.Get(this, _table.Database.Result, _table.Results, _index)",
+      "files": "Run\\.cs",
       "arePlainText": true
     },
     {
@@ -53,6 +54,13 @@
       "replace": "JsonToResult.Write)",
       "with": "JsonToResult.Write, required: true)",
       "files": "JsonToRun\\.cs",
+      "arePlainText": true
+    },
+    {
+      "description": "Don't serialize default ReportingConfiguration",
+      "replace": "item != null",
+      "with": "(item != null && item != ReportingConfiguration.Empty)",
+      "files": "JsonToReportingConfiguration\\.cs",
       "arePlainText": true
     },
     {
