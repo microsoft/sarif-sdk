@@ -5,6 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 
+using BSOA.Collections;
 using BSOA.IO;
 using BSOA.Model;
 
@@ -97,8 +98,8 @@ namespace BSOA.Generator.Templates
         //   <RefListColumn>
         public virtual IList<Employee> Members
         {
-            get => _table.Database.Employee.List(_table.Members[_index]);
-            set => _table.Database.Employee.List(_table.Members[_index]).SetTo(value);
+            get => TypedList<Employee>.Get(_table.Database.Employee, _table.Members, _index);
+            set => TypedList<Employee>.Set(_table.Database.Employee, _table.Members, _index, value);
         }
 
         //   </RefListColumn>
