@@ -79,7 +79,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 annotatedCodeLocation.Importance = Utilities.CreateAnnotatedCodeLocationImportance(v2ThreadFlowLocation.Importance);
                 annotatedCodeLocation.Module = v2ThreadFlowLocation.Module;
-                annotatedCodeLocation.Properties = IfNonEmpty(v2ThreadFlowLocation.Properties);
+                annotatedCodeLocation.Properties = v2ThreadFlowLocation.Properties;
                 annotatedCodeLocation.State = ConvertToV1MessageStringsDictionary(v2ThreadFlowLocation.State);
                 annotatedCodeLocation.Step = v2ThreadFlowLocation.ExecutionOrder;
             }
@@ -200,7 +200,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     MimeType = v2FileData.MimeType,
                     Offset = v2FileData.Offset,
                     ParentKey = parentKey,
-                    Properties = IfNonEmpty(v2FileData.Properties),
+                    Properties = v2FileData.Properties,
                     Uri = v2FileData.Location?.Uri,
                     UriBaseId = v2FileData.Location?.UriBaseId
                 };
@@ -243,7 +243,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         internal IList<HashVersionOne> CreateHashVersionOneListFromV2Hashes(IDictionary<string, string> v2Hashes)
         {
-            if (v2Hashes == null || v2Hashes.Count == 0) { return null; }
+            if (v2Hashes == null) { return null; }
 
             var v1Hashes = new List<HashVersionOne>();
 
@@ -314,7 +314,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 location = new LocationVersionOne
                 {
                     FullyQualifiedLogicalName = v2Location.LogicalLocation?.FullyQualifiedName,
-                    Properties = IfNonEmpty(v2Location.Properties),
+                    Properties = v2Location.Properties,
                     ResultFile = CreatePhysicalLocationVersionOne(v2Location.PhysicalLocation)
                 };
 
@@ -335,7 +335,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             LogicalLocationVersionOne logicalLocation = null;
             string parentKey = null;
 
-            if (_currentV2Run.LogicalLocations?.Count > 0 && v2LogicalLocation.ParentIndex > -1)
+            if (_currentV2Run.LogicalLocations != null && v2LogicalLocation.ParentIndex > -1)
             {
                 parentKey = _currentV2Run.LogicalLocations[v2LogicalLocation.ParentIndex].FullyQualifiedName;
             }
@@ -366,7 +366,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Level = Utilities.CreateNotificationLevelVersionOne(v2Notification.Level),
                     Message = v2Notification.Message?.Text,
                     PhysicalLocation = CreatePhysicalLocationVersionOne(v2Notification.Locations?.FirstOrDefault()?.PhysicalLocation),
-                    Properties = IfNonEmpty(v2Notification.Properties),
+                    Properties = v2Notification.Properties,
                     RuleId = v2Notification.AssociatedRule?.Id,
                     ThreadId = v2Notification.ThreadId,
                     Time = v2Notification.TimeUtc
@@ -752,7 +752,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             Dictionary<string, string> responseFiles = null;
 
-            if (v2ResponseFilesList != null && v2ResponseFilesList.Count > 0)
+            if (v2ResponseFilesList != null)
             {
                 responseFiles = new Dictionary<string, string>();
 
@@ -784,7 +784,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Level = Utilities.CreateResultLevelVersionOne(v2Result.Level, v2Result.Kind),
                     Locations = v2Result.Locations?.Select(CreateLocationVersionOne).ToList(),
                     Message = v2Result.Message?.Text,
-                    Properties = IfNonEmpty(v2Result.Properties),
+                    Properties = v2Result.Properties,
                     RelatedLocations = v2Result.RelatedLocations?.Select(CreateAnnotatedCodeLocationVersionOne).ToList(),
                     Snippet = v2Result.Locations?.FirstOrDefault()?.PhysicalLocation?.Region?.Snippet?.Text,
                     Stacks = v2Result.Stacks?.Select(CreateStackVersionOne).ToList(),
@@ -792,7 +792,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     ToolFingerprintContribution = CreateToolFingerprintContributionVersionOne(v2Result.PartialFingerprints)
                 };
 
-                if (result.Fixes != null && result.Fixes.Count > 0)
+                if (result.Fixes != null)
                 {
                     // Null Fixes will be present in the case of unsupported encoding
                     (result.Fixes as List<FixVersionOne>).RemoveAll(f => f == null);
@@ -856,7 +856,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Id = v2ReportingDescriptor.Id,
                     MessageFormats = ConvertToV1MessageStringsDictionary(v2ReportingDescriptor.MessageStrings),
                     Name = v2ReportingDescriptor.Name,
-                    Properties = IfNonEmpty(v2ReportingDescriptor.Properties),
+                    Properties = v2ReportingDescriptor.Properties,
                     ShortDescription = v2ReportingDescriptor.ShortDescription?.Text
                 };
 
@@ -910,7 +910,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                     run.Invocation = CreateInvocationVersionOne(v2Run.Invocations?.FirstOrDefault());
                     run.LogicalLocations = CreateLogicalLocationVersionOneDictionary(v2Run.LogicalLocations);
-                    run.Properties = IfNonEmpty(v2Run.Properties);
+                    run.Properties = v2Run.Properties;
                     run.Results = new List<ResultVersionOne>();
 
                     run.Rules = ConvertRulesArrayToDictionary(_currentV2Run.Tool.Driver.Rules, _v2RuleIndexToV1KeyMap);
@@ -947,7 +947,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             fileKeyToIndexDictionary = null;
             fileIndexToKeyDictionary = null;
 
-            if (v2Files != null && v2Files.Count > 0)
+            if (v2Files != null)
             {
                 fileKeyToIndexDictionary = new Dictionary<string, int>();
                 fileIndexToKeyDictionary = new Dictionary<int, string>();
@@ -1017,7 +1017,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             Dictionary<string, FileDataVersionOne> filesVersionOne = null;
 
-            if (_v1FileKeyToV2IndexMap != null && _v1FileKeyToV2IndexMap.Count > 0)
+            if (_v1FileKeyToV2IndexMap != null)
             {
                 filesVersionOne = new Dictionary<string, FileDataVersionOne>();
                 foreach (KeyValuePair<string, int> entry in _v1FileKeyToV2IndexMap)
@@ -1045,7 +1045,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             Dictionary<string, LogicalLocationVersionOne> logicalLocationsVersionOne = null;
 
-            if (logicalLocations != null && logicalLocations.Count > 0)
+            if (logicalLocations != null)
             {
                 logicalLocationsVersionOne = new Dictionary<string, LogicalLocationVersionOne>();
                 foreach (LogicalLocation logicalLocation in logicalLocations)
@@ -1066,7 +1066,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             var v2RuleIndexToV1KeyMap = new Dictionary<int, string>();
 
-            if (rules != null && rules.Count > 0)
+            if (rules != null)
             {
                 // Keep track of how many distinct rules have each id.
                 var ruleIdToCountMap = new Dictionary<string, int>();
@@ -1107,7 +1107,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             IDictionary<string, RuleVersionOne> v1Rules = null;
 
-            if (v2Rules != null && v2Rules.Count > 0)
+            if (v2Rules != null)
             {
                 v1Rules = new Dictionary<string, RuleVersionOne>();
                 for (int i = 0; i < v2Rules.Count; ++i)
@@ -1133,7 +1133,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 stack = new StackVersionOne
                 {
                     Message = v2Stack.Message?.Text,
-                    Properties = IfNonEmpty(v2Stack.Properties),
+                    Properties = v2Stack.Properties,
                     Frames = v2Stack.Frames?.Select(CreateStackFrameVersionOne).ToList()
                 };
             }
@@ -1156,7 +1156,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Module = v2StackFrame.Module,
                     // Offset = v2StackFrame.Location?.PhysicalLocation?.Address?.OffsetFromParent ?? 0,
                     Parameters = v2StackFrame.Parameters,
-                    Properties = IfNonEmpty(v2StackFrame.Properties),
+                    Properties = v2StackFrame.Properties,
                     ThreadId = v2StackFrame.ThreadId
                 };
 
@@ -1205,7 +1205,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     FullName = v2Tool.Driver.FullName,
                     Language = language,
                     Name = v2Tool.Driver.Name,
-                    Properties = IfNonEmpty(v2Tool.Properties),
+                    Properties = v2Tool.Properties,
                     SemanticVersion = v2Tool.Driver.SemanticVersion,
                     Version = v2Tool.Driver.Version
                 };
@@ -1213,37 +1213,5 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             return tool;
         }
-
-        private static IDictionary<TKey, TValue> IfNonEmpty<TKey, TValue>(IDictionary<TKey, TValue> properties)
-        {
-            if (properties == null)
-            {
-                return null;
-            }
-            else if (properties.Count == 0)
-            {
-                return null;
-            }
-            else
-            {
-                return properties;
-            }
-        }
-
-        //public static IList<T> IfNonEmpty<T>(IList<T> list)
-        //{
-        //    if (list == null)
-        //    {
-        //        return null;
-        //    }
-        //    else if (list.Count == 0)
-        //    {
-        //        return null;
-        //    }
-        //    else
-        //    {
-        //        return list;
-        //    }
-        //}
     }
 }
