@@ -30,8 +30,8 @@
     <Exec Command="dotnet tool install BSOA.FromJSchema  --version &quot;$(BsoaVersion)&quot; --tool-path &quot;$(MSBuildThisFileDirectory)\bin&quot;" IgnoreExitCode="true" />
     
     <Message Importance="high" Text="Generating SARIF object model..." />
-    <Exec Command="&quot;$(BsoaFromJSchema)&quot; &quot;@(JsonSchemaFile)&quot; &quot;$(MSBuildThisFileDirectory)\Sarif.schema.json&quot; &quot;SarifLog&quot; &quot;Microsoft.CodeAnalysis.Sarif&quot;" />
-    <Exec Command="&quot;$(BsoaGenerator)&quot; &quot;$(MSBuildThisFileDirectory)\Sarif.schema.json&quot; &quot;$(_ObjectModelOutputDirectory)&quot; &quot;$(MSBuildThisFileDirectory)\Templates\Sarif&quot; &quot;$(MSBuildThisFileDirectory)\Schemas\Sarif.postReplacements.json&quot;" />
+    <Exec Command="&quot;$(BsoaFromJSchema)&quot; &quot;@(JsonSchemaFile)&quot; &quot;$(MSBuildThisFileDirectory)\Schemas\Sarif.schema.json&quot; &quot;SarifLog&quot; &quot;Microsoft.CodeAnalysis.Sarif&quot;" />
+    <Exec Command="&quot;$(BsoaGenerator)&quot; &quot;$(MSBuildThisFileDirectory)\Schemas\Sarif.schema.json&quot; &quot;$(_ObjectModelOutputDirectory)&quot; &quot;$(MSBuildThisFileDirectory)\Templates\Sarif&quot; &quot;$(MSBuildThisFileDirectory)\Schemas\Sarif.postReplacements.json&quot;" />
 
     <Message Text="Done. Generated classes from @(JsonSchemaFile) -> $(_ObjectModelOutputDirectory)"/>
 
