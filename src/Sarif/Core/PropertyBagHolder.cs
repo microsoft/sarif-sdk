@@ -158,7 +158,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         public void SetProperty<T>(string propertyName, T value)
         {
             IDictionary<string, SerializedPropertyInfo> props = Properties;
-            if (props == null) { props = Properties = new Dictionary<string, SerializedPropertyInfo>(); }
+            if (props == null) 
+            {
+                Properties = new Dictionary<string, SerializedPropertyInfo>();
+                props = Properties;
+            }
 
             bool isString = typeof(T) == typeof(string);
 
