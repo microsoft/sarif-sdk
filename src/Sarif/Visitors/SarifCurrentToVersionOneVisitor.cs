@@ -268,24 +268,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     Account = v2Invocation.Account,
                     CommandLine = v2Invocation.CommandLine,
+                    EndTime = v2Invocation.EndTimeUtc,
                     EnvironmentVariables = IfNonEmpty(v2Invocation.EnvironmentVariables),
                     FileName = v2Invocation.ExecutableLocation?.Uri?.OriginalString,
                     Machine = v2Invocation.Machine,
                     ProcessId = v2Invocation.ProcessId,
                     Properties = IfNonEmpty(v2Invocation.Properties),
                     ResponseFiles = CreateResponseFilesDictionary(v2Invocation.ResponseFiles),
+                    StartTime = v2Invocation.StartTimeUtc,
                     WorkingDirectory = v2Invocation.WorkingDirectory?.Uri?.OriginalString
                 };
-
-                if (v2Invocation.StartTimeUtc != DateTime.MinValue.ToUniversalTime())
-                {
-                    invocation.StartTime = v2Invocation.StartTimeUtc;
-                }
-
-                if (v2Invocation.EndTimeUtc != DateTime.MinValue.ToUniversalTime())
-                {
-                    invocation.EndTime = v2Invocation.EndTimeUtc;
-                }
 
                 if (v2Invocation.ToolConfigurationNotifications != null)
                 {
@@ -376,13 +368,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     PhysicalLocation = CreatePhysicalLocationVersionOne(v2Notification.Locations?.FirstOrDefault()?.PhysicalLocation),
                     Properties = IfNonEmpty(v2Notification.Properties),
                     RuleId = v2Notification.AssociatedRule?.Id,
-                    ThreadId = v2Notification.ThreadId
+                    ThreadId = v2Notification.ThreadId,
+                    Time = v2Notification.TimeUtc
                 };
-
-                if (v2Notification.TimeUtc != DateTime.MinValue.ToUniversalTime())
-                {
-                    notification.Time = v2Notification.TimeUtc;
-                }
             }
 
             return notification;
