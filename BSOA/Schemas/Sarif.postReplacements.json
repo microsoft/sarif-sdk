@@ -50,9 +50,9 @@
       "with": "Readers.FlagsEnumConverter.Instance.$2<$1>"
     },
     {
-      "description": "Run.Results is required",
+      "description": "Run.Results is should write if empty, but not null",
       "replace": "JsonToResult.Write)",
-      "with": "JsonToResult.Write, required: true)",
+      "with": "JsonToResult.Write, required: (item.Results != null))",
       "files": "JsonToRun\\.cs",
       "arePlainText": true
     },
