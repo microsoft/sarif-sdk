@@ -1,5 +1,7 @@
 ﻿using FluentAssertions;
+
 using Microsoft.CodeAnalysis.Sarif;
+
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
@@ -77,7 +79,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             };
 
             location.LogicalLocation = null;
-            location.LogicalLocations.Should().BeEmpty();
+
+            location.LogicalLocations.Should().BeNull();
         }
     }
 }

@@ -2,9 +2,12 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+
 using FluentAssertions;
 using FluentAssertions.Extensions;
+
 using Microsoft.CodeAnalysis.Sarif;
+
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
@@ -27,7 +30,7 @@ Accept-Language: en, mi
 
             webRequest.Method.Should().Be("GET");
             webRequest.Target.Should().Be("/hello.txt");
-            webRequest.Parameters.Should().BeEmpty();
+            webRequest.Parameters.Should().BeNull();
             webRequest.Protocol.Should().Be("HTTP");
             webRequest.Version.Should().Be("1.1");
             webRequest.Headers.Count.Should().Be(3);
@@ -55,7 +58,7 @@ Line 2.
 
             webRequest.Method.Should().Be("GET");
             webRequest.Target.Should().Be("/hello.txt");
-            webRequest.Parameters.Should().BeEmpty();
+            webRequest.Parameters.Should().BeNull();
             webRequest.Protocol.Should().Be("HTTP");
             webRequest.Version.Should().Be("1.1");
             webRequest.Headers.Count.Should().Be(3);
@@ -163,7 +166,7 @@ User-Agent: my-agent
             succeeded.Should().BeTrue();
             webRequest.Method.Should().Be("GET");
             webRequest.Target.Should().Be("/hello.txt");
-            webRequest.Parameters.Should().BeEmpty();
+            webRequest.Parameters.Should().BeNull();
             webRequest.Protocol.Should().Be("HTTP");
             webRequest.Version.Should().Be("1.1");
             webRequest.Headers.Count.Should().Be(1);

@@ -7,9 +7,11 @@ using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
 using System.Xml;
+
 using FluentAssertions;
 
 using Microsoft.CodeAnalysis.Sarif.Writers;
+
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
@@ -139,7 +141,7 @@ Possible resolution: delete", result.Message.Text);
         {
             AndroidStudioProblem uut = AndroidStudioProblemTests.GetDefaultProblem();
             Result result = new AndroidStudioConverter().ConvertProblemToSarifResult(uut);
-            Assert.Empty(result.Properties);
+            Assert.Null(result.Properties);
         }
 
         [Fact]

@@ -6,7 +6,9 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
+
 using FluentAssertions;
+
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
@@ -96,7 +98,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             builder.InstanceId = null; // IID is optional
             Result resultNull = FortifyConverter.ConvertFortifyIssueToSarifIssue(builder.ToImmutable());
-            Assert.Empty(resultNull.PartialFingerprints);
+            Assert.Null(resultNull.PartialFingerprints);
         }
 
         [Fact]
@@ -203,7 +205,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         public void FortifyConverter_Convert_DoesNotFillInCodeFlowWhenOnlyPrimaryIsPresent()
         {
             Result result = FortifyConverter.ConvertFortifyIssueToSarifIssue(GetBasicIssue());
-            Assert.Empty(result.CodeFlows);
+            Assert.Null(result.CodeFlows);
         }
 
         [Fact]

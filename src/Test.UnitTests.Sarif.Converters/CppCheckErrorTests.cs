@@ -5,7 +5,9 @@ using System;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Xml;
+
 using FluentAssertions;
+
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
@@ -63,7 +65,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     }
                 }
             }, Location.ValueComparer).Should().BeTrue();
-            Assert.Empty(result.CodeFlows);
+            Assert.Null(result.CodeFlows);
         }
 
         [Fact]

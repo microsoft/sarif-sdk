@@ -164,7 +164,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
                 {
                     Artifact fileData = Artifact.Create(uri, OptionallyEmittedData.TextFiles);
                     fileData.Location.Should().BeNull();
-                    fileData.Hashes.Should().BeEmpty();
+                    fileData.Hashes.Should().BeNull();
                     fileData.Contents.Should().BeNull();
                 }
             }
