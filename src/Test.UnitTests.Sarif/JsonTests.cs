@@ -12,11 +12,9 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public abstract class JsonTests
     {
-        private static readonly SarifLog _sampleRoot = new SarifLog();
-
-        protected static readonly Run DefaultRun = new Run(_sampleRoot);
-        protected static readonly Tool DefaultTool = new Tool(_sampleRoot) { Driver = new ToolComponent(_sampleRoot) { Name = "DefaultTool" } };
-        protected static readonly Result DefaultResult = new Result(_sampleRoot) { Message = new Message(_sampleRoot) { Text = "Some testing occurred." } };
+        protected static readonly Run DefaultRun = new Run();
+        protected static readonly Tool DefaultTool = new Tool() { Driver = new ToolComponent { Name = "DefaultTool" } };
+        protected static readonly Result DefaultResult = new Result { Message = new Message { Text = "Some testing occurred." } };
 
         protected static readonly ResourceExtractor ResourceExtractor = new ResourceExtractor(typeof(JsonTests));
 
