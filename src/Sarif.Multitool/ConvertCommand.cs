@@ -10,7 +10,7 @@ using Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
-    internal class ConvertCommand : CommandBase
+    public class ConvertCommand : CommandBase
     {
         public int Run(ConvertOptions convertOptions, IFileSystem fileSystem = null)
         {

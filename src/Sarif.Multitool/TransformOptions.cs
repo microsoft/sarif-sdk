@@ -7,7 +7,7 @@ using Microsoft.CodeAnalysis.Sarif.Driver;
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     [Verb("transform", HelpText = "Transform a SARIF log to a different version.")]
-    internal class TransformOptions : SingleFileOptionsBase
+    public class TransformOptions : SingleFileOptionsBase
     {
     }
 }

@@ -13,7 +13,7 @@ using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
-    internal class PageCommand : CommandBase
+    public class PageCommand : CommandBase
     {
         private readonly IFileSystem _fileSystem;
 

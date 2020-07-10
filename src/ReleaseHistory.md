@@ -1,5 +1,8 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
+## **v2.3.2** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.2) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.2) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.2) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.2)
+* FEATURE: The `Sarif.Multitool` command line verbs are now exposed programmatically. For example, the `validate` verb is exposed through the classes `ValidateCommand` and `ValidateOptions`.
+
 ## **v2.3.1** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.1) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.1) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.1) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.1)
 * FEATURE: Revised and improved validation rules in `Sarif.Multitool`.
 * FEATURE: Properties serialization performance improved (~20% faster load when Results use Properties).

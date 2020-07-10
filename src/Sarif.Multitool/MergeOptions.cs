@@ -7,7 +7,7 @@ using Microsoft.CodeAnalysis.Sarif.Driver;
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     [Verb("merge", HelpText = "Merge multiple SARIF files into one.")]
-    internal class MergeOptions : MultipleFilesOptionsBase
+    public class MergeOptions : MultipleFilesOptionsBase
     {
         [Option(
             "output-file",

@@ -13,7 +13,7 @@ using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
-    internal class ValidateCommand : AnalyzeCommandBase<SarifValidationContext, ValidateOptions>
+    public class ValidateCommand : AnalyzeCommandBase<SarifValidationContext, ValidateOptions>
     {
         private List<Assembly> _defaultPlugInAssemblies;
 
@@ -143,7 +143,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 string schemaResource = "Microsoft.CodeAnalysis.Sarif.Multitool.sarif-2.1.0.json";
 
                 using (Stream stream = this.GetType().Assembly.GetManifestResourceStream(schemaResource))
-                using (StreamReader reader = new StreamReader(stream))
+                using (var reader = new StreamReader(stream))
                 {
                     schemaText = reader.ReadToEnd();
                 }

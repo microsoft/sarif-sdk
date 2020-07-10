@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     ///  and shows results.
     /// </summary>
     [Verb("query", HelpText = "Find the matching subset of a SARIF file and output it or log it.")]
-    internal class QueryOptions
+    public class QueryOptions
     {
         [Value(0,
             MetaName = "<inputFile>",

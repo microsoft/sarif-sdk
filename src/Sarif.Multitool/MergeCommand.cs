@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
-    internal class MergeCommand : CommandBase
+    public class MergeCommand : CommandBase
     {
         private readonly IFileSystem _fileSystem;
 

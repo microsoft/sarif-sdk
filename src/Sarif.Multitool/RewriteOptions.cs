@@ -7,7 +7,7 @@ using Microsoft.CodeAnalysis.Sarif.Driver;
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     [Verb("rewrite", HelpText = "Transform a SARIF file to a reformatted version.")]
-    internal class RewriteOptions : SingleFileOptionsBase
+    public class RewriteOptions : SingleFileOptionsBase
     {
 
     }
