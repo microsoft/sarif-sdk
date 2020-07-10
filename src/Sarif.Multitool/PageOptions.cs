@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     ///    inline: We build a map of the input, so we don't want to write inline and immediately invalidate it.
     /// </remarks>
     [Verb("page", HelpText = "Extract a subset of results from a source SARIF file.")]
-    internal class PageOptions
+    public class PageOptions
     {
         [Value(0,
             MetaName = "<inputFile>",

@@ -10,7 +10,7 @@ using Microsoft.CodeAnalysis.Sarif.Driver;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
-    internal class ResultMatchingCommand : CommandBase
+    public class ResultMatchingCommand : CommandBase
     {
         private readonly IFileSystem _fileSystem;
 

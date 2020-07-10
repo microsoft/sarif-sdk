@@ -12,7 +12,7 @@ using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
-    internal class TransformCommand : CommandBase
+    public class TransformCommand : CommandBase
     {
         private readonly IFileSystem _fileSystem;
 

@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
-    internal class RewriteCommand : CommandBase
+    public class RewriteCommand : CommandBase
     {
         private readonly IFileSystem _fileSystem;
 

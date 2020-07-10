@@ -8,7 +8,7 @@ using Microsoft.CodeAnalysis.Sarif.Driver;
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     [Verb("match-results-forward", HelpText = "Track results run over run by persisting IDs and then matching them forward")]
-    internal class ResultMatchingOptions : CommonOptionsBase
+    public class ResultMatchingOptions : CommonOptionsBase
     {
         [Option(
             'r',

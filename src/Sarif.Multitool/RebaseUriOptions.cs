@@ -7,7 +7,7 @@ using Microsoft.CodeAnalysis.Sarif.Driver;
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     [Verb("rebaseuri", HelpText = "Rebase the URIs in one or more sarif files.")]
-    internal class RebaseUriOptions : MultipleFilesOptionsBase
+    public class RebaseUriOptions : MultipleFilesOptionsBase
     {
         [Option(
             'b',

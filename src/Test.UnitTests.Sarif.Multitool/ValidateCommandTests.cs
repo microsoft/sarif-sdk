@@ -19,9 +19,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
   ""type"": ""object""
 }";
         private const string SchemaFilePath = @"c:\schemas\SimpleSchemaForTest.json";
-        const string LogFileDirectory = @"C:\Users\John\logs";
-        const string LogFileName = "example.sarif";
-        const string OutputFilePath = @"C:\Users\John\output\example-validation.sarif";
+        private const string LogFileDirectory = @"C:\Users\John\logs";
+        private const string LogFileName = "example.sarif";
+        private const string OutputFilePath = @"C:\Users\John\output\example-validation.sarif";
 
         [Fact]
         [Trait(TestTraits.Bug, "https://github.com/microsoft/sarif-sdk/issues/1064")]

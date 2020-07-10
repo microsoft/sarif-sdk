@@ -7,7 +7,7 @@ using Microsoft.CodeAnalysis.Sarif.Driver;
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     [Verb("convert", HelpText = "Convert a tool output log to SARIF format.")]
-    internal class ConvertOptions : SingleFileOptionsBase
+    public class ConvertOptions : SingleFileOptionsBase
     {
         [Option(
             't',

@@ -13,7 +13,7 @@ using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
-    internal class RebaseUriCommand : CommandBase
+    public class RebaseUriCommand : CommandBase
     {
         private readonly IFileSystem _fileSystem;
 

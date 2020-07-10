@@ -13,7 +13,7 @@ using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
-    internal class QueryCommand : CommandBase
+    public class QueryCommand : CommandBase
     {
         private const int TOO_MANY_RESULTS = 2;
 

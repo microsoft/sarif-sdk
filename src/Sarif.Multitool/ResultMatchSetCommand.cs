@@ -13,7 +13,7 @@ using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
-    internal class ResultMatchSetCommand : CommandBase
+    public class ResultMatchSetCommand : CommandBase
     {
         private readonly IFileSystem _fileSystem;
 

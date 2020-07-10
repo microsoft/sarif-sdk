@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     /// configured options are valid, the command will instantiate an instance of 
     /// SarifWorkItemFiler in order to complete the work.
     /// </summary>
-    internal class FileWorkItemsCommand : CommandBase
+    public class FileWorkItemsCommand : CommandBase
     {
         [ThreadStatic]
         internal static bool s_validateOptionsOnly;

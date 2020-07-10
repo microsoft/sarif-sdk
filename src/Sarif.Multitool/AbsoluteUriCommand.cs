@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
-    internal class AbsoluteUriCommand : CommandBase
+    public class AbsoluteUriCommand : CommandBase
     {
         private readonly IFileSystem _fileSystem;
 
