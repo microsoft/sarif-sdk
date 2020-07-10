@@ -344,19 +344,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         internal static string GetFormattedMessage(string formatString, string[] arguments)
         {
-            string formattedMessage = null;
-
-#if DEBUG
-            int argumentsCount = arguments.Length;
-            for (int i = 0; i < argumentsCount; i++)
-            {
-                // If this assert fires, there are too many arguments for the specifier
-                // or there is an argument is skipped or not consumed in the specifier
-                Debug.Assert(formatString.Contains("{" + i.ToString(CultureInfo.InvariantCulture) + "}"));
-            }
-#endif
-
-            formattedMessage = string.Format(CultureInfo.InvariantCulture, formatString, arguments);
+            string formattedMessage = string.Format(CultureInfo.InvariantCulture, formatString, arguments);
 
             return formattedMessage ?? string.Empty;
         }

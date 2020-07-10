@@ -1,0 +1,209 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "CodeScanner",
+          "version": "1.0"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "TST0001",
+          "level": "error",
+          "message": {
+            "text": "[No message provided]."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///c:/src/file.c"
+                },
+                "region": {
+                  "startLine": 2,
+                  "startColumn": 2,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "endColumn less than startColumn in result location."
+              }
+            }
+          ],
+          "stacks": [
+            {
+              "frames": [
+                {
+                  "location": {
+                    "physicalLocation": {
+                      "artifactLocation": {
+                        "uri": "file:///c:/src/file.c"
+                      },
+                      "region": {
+                        "startLine": 2,
+                        "startColumn": 2,
+                        "endColumn": 1
+                      }
+                    },
+                    "message": {
+                      "text": "endColumn less than startColumn in stackFrame."
+                    }
+                  }
+                }
+              ]
+            }
+          ],
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///c:/src/file.c"
+                          },
+                          "region": {
+                            "startLine": 2,
+                            "startColumn": 2,
+                            "endColumn": 1
+                          }
+                        },
+                        "message": {
+                          "text": "endColumn less than startColumn in threadFlow location."
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///c:/src/file.c"
+                },
+                "region": {
+                  "startLine": 2,
+                  "startColumn": 2,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "endColumn less than startColumn in related location."
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "TST0001",
+          "level": "error",
+          "message": {
+            "text": "Result message."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///c:/src/file.c"
+                },
+                "region": {
+                  "startLine": 2,
+                  "endLine": 1
+                }
+              },
+              "message": {
+                "text": "endLine less than startLine in result location."
+              }
+            }
+          ],
+          "stacks": [
+            {
+              "frames": [
+                {
+                  "location": {
+                    "physicalLocation": {
+                      "artifactLocation": {
+                        "uri": "file:///c:/src/file.c"
+                      },
+                      "region": {
+                        "startLine": 2,
+                        "endLine": 1
+                      }
+                    },
+                    "message": {
+                      "text": "endLine less than startLine in stackFrame."
+                    }
+                  }
+                }
+              ]
+            }
+          ],
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///c:/src/file.c"
+                          },
+                          "region": {
+                            "startLine": 2,
+                            "endLine": 1
+                          }
+                        },
+                        "message": {
+                          "text": "endLine less than startLine in threadFlow location."
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///c:/src/file.c"
+                },
+                "region": {
+                  "startLine": 2,
+                  "endLine": 1
+                }
+              },
+              "message": {
+                "text": "endLine less than startLine in related location."
+              }
+            },
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///c:/src/file.c"
+                },
+                "region": {
+                  "endLine": 1,
+                  "charLength": 9
+                }
+              },
+              "message": {
+                "text": "region start properties are absent."
+              }
+            }
+          ]
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}

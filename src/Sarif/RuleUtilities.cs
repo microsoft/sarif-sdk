@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Resources;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -132,6 +133,24 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(ruleMessageId));
             }
 
+            // Per our convention, all message ids in validation rules
+            // should follow this naming scheme:
+            //
+            //      <RuleId>_<RuleName>_<Level>_<MessageName>_<Format>
+            //
+            // The message ids present in sarif file should follow this scheme:
+            //
+            //      <Level>_<MessageName>
+            //
+            string[] messageComponents = ruleMessageId.Split('_');
+            if (messageComponents.Count() == 5)
+            {
+                return $"{messageComponents[2]}_{messageComponents[3]}";
+            }
+
+            // TODO: Once we have migrated all the our messages to follow the convention,
+            // we should remove the rest of the conditions.
+            // The following code is for backward compatibility.
             if (!string.IsNullOrEmpty(ruleId) && ruleMessageId.StartsWith(ruleId + "_", StringComparison.Ordinal))
             {
                 ruleMessageId = ruleMessageId.Substring(ruleId.Length + 1);

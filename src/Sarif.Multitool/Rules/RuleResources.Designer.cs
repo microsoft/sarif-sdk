@@ -61,308 +61,652 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The name and id properties of rule &quot;{1}&quot; are the same..
+        ///   Looks up a localized string similar to {0}: The rule &apos;{1}&apos; has a &apos;name&apos; property that is identical to its &apos;id&apos; property. The required &apos;id&apos; property must be a &quot;stable, opaque identifier&quot; (the SARIF specification ([3.49.3](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317839)) explains the reasons for this). The optional &apos;name&apos; property ([3.49.7](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317843)) is an identifer that is understandable to an end user. Therefore if both &apos;id&apos; and &apos;name [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string SARIF1001_Default {
+        internal static string SARIF1001_RuleIdentifiersMustBeValid_Error_Default_Text {
             get {
-                return ResourceManager.GetString("SARIF1001_Default", resourceCulture);
+                return ResourceManager.GetString("SARIF1001_RuleIdentifiersMustBeValid_Error_Default_Text", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Do not use the same string for a rule&apos;s id and name properties. The id property must be a stable, opaque identifer such as &quot;SARIF1001&quot;. The name property should be a string that is understandable to an end user, such as &quot;DoNotUserFriendlyNameAsRuleId&quot;..
+        ///   Looks up a localized string similar to The two identity-related properties of a SARIF rule must be consistent. The required &apos;id&apos; property must be a &quot;stable, opaque identifier&quot; (the SARIF specification ([3.49.3](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317839)) explains the reasons for this). The optional &apos;name&apos; property ([3.49.7](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317843)) is an identifer that is understandable to an end user. Therefore if both &apos;id&apos; and &apos;name&apos; are pres [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string SARIF1001_DoNotUseFriendlyNameAsRuleIdDescription {
+        internal static string SARIF1001_RuleIdentifiersMustBeValid_FullDescription_Text {
             get {
-                return ResourceManager.GetString("SARIF1001_DoNotUseFriendlyNameAsRuleIdDescription", resourceCulture);
+                return ResourceManager.GetString("SARIF1001_RuleIdentifiersMustBeValid_FullDescription_Text", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The string &quot;{1}&quot; is not a valid URI reference..
+        ///   Looks up a localized string similar to {0}: The &apos;file&apos; URI &apos;{1}&apos; contains a &apos;..&apos; segment. This is dangerous because if symbolic links are present, &apos;..&apos; might have different meanings on the machine that produced the log file and the machine where an end user or a tool consumes it..
         /// </summary>
-        internal static string SARIF1003_Default {
+        internal static string SARIF1002_UrisMustBeValid_Error_FileUrisMustNotIncludeDotDotSegments_Text {
             get {
-                return ResourceManager.GetString("SARIF1003_Default", resourceCulture);
+                return ResourceManager.GetString("SARIF1002_UrisMustBeValid_Error_FileUrisMustNotIncludeDotDotSegments_Text", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Specify a valid URI reference for every URI-valued property..
+        ///   Looks up a localized string similar to {0}: The string &apos;{1}&apos; is not a valid URI reference. URIs must conform to [RFC 3986](https://tools.ietf.org/html/rfc3986)..
         /// </summary>
-        internal static string SARIF1003_UrisMustBeValid {
+        internal static string SARIF1002_UrisMustBeValid_Error_UrisMustConformToRfc3986_Text {
             get {
-                return ResourceManager.GetString("SARIF1003_UrisMustBeValid", resourceCulture);
+                return ResourceManager.GetString("SARIF1002_UrisMustBeValid_Error_UrisMustConformToRfc3986_Text", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The array contains multiple objects with the value &quot;{1}&quot; for the algorithm property..
+        ///   Looks up a localized string similar to Specify a valid URI reference for every URI-valued property.
+        ///
+        ///URIs must conform to [RFC 3986](https://tools.ietf.org/html/rfc3986). In addition, &apos;file&apos; URIs must not include &apos;..&apos; segments. If symbolic links are present, &apos;..&apos; might have different meanings on the machine that produced the log file and the machine where an end user or a tool consumes it..
         /// </summary>
-        internal static string SARIF1006_Default {
+        internal static string SARIF1002_UrisMustBeValid_FullDescription_Text {
             get {
-                return ResourceManager.GetString("SARIF1006_Default", resourceCulture);
+                return ResourceManager.GetString("SARIF1002_UrisMustBeValid_FullDescription_Text", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to In any given &quot;file&quot; object, every element of the &quot;hashes&quot; array must have a different value for its &quot;algorithm&quot; property. .
+        ///   Looks up a localized string similar to {0}: The &apos;{1}&apos; element of &apos;originalUriBaseIds&apos; has no &apos;uriBaseId&apos; property, but its &apos;uri&apos; property &apos;{2}&apos; is not an absolute URI. According to the SARIF specification, every such &quot;top-level&quot; entry in &apos;originalUriBaseIds&apos; must specify an absolute URI, because the purpose of &apos;originalUriBaseIds&apos; is to enable the resolution of relative references to absolute URIs..
         /// </summary>
-        internal static string SARIF1006_HashAlgorithmsMustBeUnique {
+        internal static string SARIF1004_ExpressUriBaseIdsCorrectly_Error_TopLevelUriBaseIdMustBeAbsolute_Text {
             get {
-                return ResourceManager.GetString("SARIF1006_HashAlgorithmsMustBeUnique", resourceCulture);
+                return ResourceManager.GetString("SARIF1004_ExpressUriBaseIdsCorrectly_Error_TopLevelUriBaseIdMustBeAbsolute_Text", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The end time &quot;{1}&quot; is before the start time &quot;{2}&quot;..
+        ///   Looks up a localized string similar to {0}: This &apos;artifactLocation&apos; object has a &apos;uriBaseId&apos; property &apos;{1}&apos;, but its &apos;uri&apos; property &apos;{2}&apos; is an absolute URI. Since the purpose of &apos;uriBaseId&apos; is to resolve a relative reference to an absolute URI, it is not allowed when the &apos;uri&apos; property is already an absolute URI..
         /// </summary>
-        internal static string SARIF1007_Default {
+        internal static string SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdRequiresRelativeUri_Text {
             get {
-                return ResourceManager.GetString("SARIF1007_Default", resourceCulture);
+                return ResourceManager.GetString("SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdRequiresRelativeUri_Text", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The end time of a run must not precede the start time. To allow for the possibility that the duration of the run is less than the resolution of the string representation of the time, the start time and the end time may be equal..
+        ///   Looks up a localized string similar to {0}: The &apos;{1}&apos; element of &apos;originalUriBaseIds&apos; has a &apos;uri&apos; property &apos;{2}&apos; that does not end with a slash. The trailing slash is required to minimize the likelihood of an error when concatenating URI segments together..
         /// </summary>
-        internal static string SARIF1007_EndTimeMustNotBeBeforeStartTime {
+        internal static string SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdValueMustEndWithSlash_Text {
             get {
-                return ResourceManager.GetString("SARIF1007_EndTimeMustNotBeBeforeStartTime", resourceCulture);
+                return ResourceManager.GetString("SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdValueMustEndWithSlash_Text", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The message &quot;{1}&quot; does not end with a period..
+        ///   Looks up a localized string similar to {0}: The &apos;{1}&apos; element of &apos;originalUriBaseIds&apos; has a &apos;uri&apos; property &apos;{2}&apos; that contains a &apos;..&apos; segment. This is dangerous because if symbolic links are present, &apos;..&apos; might have different meanings on the machine that produced the log file and the machine where an end user or a tool consumes it..
         /// </summary>
-        internal static string SARIF1008_Default {
+        internal static string SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdValueMustNotContainDotDotSegment_Text {
             get {
-                return ResourceManager.GetString("SARIF1008_Default", resourceCulture);
+                return ResourceManager.GetString("SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdValueMustNotContainDotDotSegm" +
+                        "ent_Text", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Messages should consist of one or more complete sentences, ending with a period..
+        ///   Looks up a localized string similar to {0}: The &apos;{1}&apos; element of &apos;originalUriBaseIds&apos; has a &apos;uri&apos; property &apos;{2}&apos; that contains a query or a fragment. This is not valid because the purpose of the &apos;uriBaseId&apos; property is to help resolve a relative reference to an absolute URI by concatenating the relative reference to the absolute base URI. This won&apos;t work if the base URI contains a query or a fragment..
         /// </summary>
-        internal static string SARIF1008_MessagesShouldEndWithPeriod {
+        internal static string SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdValueMustNotContainQueryOrFragment_Text {
             get {
-                return ResourceManager.GetString("SARIF1008_MessagesShouldEndWithPeriod", resourceCulture);
+                return ResourceManager.GetString("SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdValueMustNotContainQueryOrFra" +
+                        "gment_Text", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The value of the &quot;step&quot; property should be {1}, but is {2}. The step values must form a 1-based sequence starting at the first threadFlowLocation in the thread flow..
+        ///   Looks up a localized string similar to When using the &apos;uriBaseId&apos; property, obey the requirements in the SARIF specification [3.4.4](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317431) that enable it to fulfill its purpose of resolving relative references to absolute locations. In particular:
+        ///
+        ///If an &apos;artifactLocation&apos; object has a &apos;uriBaseId&apos; property, its &apos;uri&apos; property must be a relative reference, because if &apos;uri&apos; is an absolute URI then &apos;uriBaseId&apos; serves no purpose.
+        ///
+        ///Every URI reference in &apos;originalUriBa [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string SARIF1009_InvalidStepValue {
+        internal static string SARIF1004_ExpressUriBaseIdsCorrectly_FullDescription_Text {
             get {
-                return ResourceManager.GetString("SARIF1009_InvalidStepValue", resourceCulture);
+                return ResourceManager.GetString("SARIF1004_ExpressUriBaseIdsCorrectly_FullDescription_Text", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The &quot;step&quot; property is absent. The &quot;step&quot; property is present on some but not all threadFlowLocations in this threadFlow. If the &quot;step&quot; property is used on any threadFlowLocation in a threadFlow, it must be present on every threadFlowLocation in that threadFlow..
+        ///   Looks up a localized string similar to {0}: The value of this property is required to be an absolute URI, but &apos;{1}&apos; is a relative URI reference..
         /// </summary>
-        internal static string SARIF1009_StepNotPresentOnAllLocations {
+        internal static string SARIF1005_UriMustBeAbsolute_Error_Default_Text {
             get {
-                return ResourceManager.GetString("SARIF1009_StepNotPresentOnAllLocations", resourceCulture);
+                return ResourceManager.GetString("SARIF1005_UriMustBeAbsolute_Error_Default_Text", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If the &quot;step&quot; property is used on any threadFlowLocation in a threadFlow, then it must be present for every threadFlowLocation in the threadFlow, its value must be 1 for the first threadFlowLocation, and its value must increase by 1 for each succeeding threadFlowLocation..
+        ///   Looks up a localized string similar to Certain URIs are required to be absolute. For the most part, these are URIs that refer to http addresses, such as work items or rule help topics..
         /// </summary>
-        internal static string SARIF1009_StepValuesMustFormOneBasedSequence {
+        internal static string SARIF1005_UriMustBeAbsolute_FullDescription_Text {
             get {
-                return ResourceManager.GetString("SARIF1009_StepValuesMustFormOneBasedSequence", resourceCulture);
+                return ResourceManager.GetString("SARIF1005_UriMustBeAbsolute_FullDescription_Text", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The value of the &quot;endLine&quot; property is {1}, which is less than the value of the &quot;startLine&quot; property, which is {2}..
+        ///   Looks up a localized string similar to {0}: The &apos;endTimeUtc&apos; value &apos;{1}&apos; precedes the &apos;startTimeUtc&apos; value &apos;{2}&apos;. The properties of an &apos;invocation&apos; object must be internally consistent..
         /// </summary>
-        internal static string SARIF1012_Default {
+        internal static string SARIF1006_InvocationPropertiesMustBeConsistent_Error_EndTimeMustNotPrecedeStartTime_Text {
             get {
-                return ResourceManager.GetString("SARIF1012_Default", resourceCulture);
+                return ResourceManager.GetString("SARIF1006_InvocationPropertiesMustBeConsistent_Error_EndTimeMustNotPrecedeStartTi" +
+                        "me_Text", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The &quot;endLine&quot; property of a region object must not be less than the &quot;startLine&quot; property..
+        ///   Looks up a localized string similar to The properties of an &apos;invocation&apos; object must be consistent.
+        ///
+        ///If the &apos;invocation&apos; object specifies both &apos;startTimeUtc&apos; and &apos;endTimeUtc&apos;, then &apos;endTimeUtc&apos; must not precede &apos;startTimeUtc&apos;. To allow for the possibility that the duration of the run is less than the resolution of the string representation of the time, the start time and the end time may be equal..
         /// </summary>
-        internal static string SARIF1012_EndLineMustNotBeLessThanStartLine {
+        internal static string SARIF1006_InvocationPropertiesMustBeConsistent_FullDescription_Text {
             get {
-                return ResourceManager.GetString("SARIF1012_EndLineMustNotBeLessThanStartLine", resourceCulture);
+                return ResourceManager.GetString("SARIF1006_InvocationPropertiesMustBeConsistent_FullDescription_Text", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The value of the &quot;endColumn&quot; property is {1}, which is less than the value of the &quot;startColumn&quot; property, which is {2}..
+        ///   Looks up a localized string similar to {0}: In this &apos;region&apos; object, the &apos;endColumn&apos; property &apos;{1}&apos; is less than the &apos;startColumn&apos; property &apos;{2}&apos;. The properties of a &apos;region&apos; object must be internally consistent..
         /// </summary>
-        internal static string SARIF1013_Default {
+        internal static string SARIF1007_RegionPropertiesMustBeConsistent_Error_EndColumnMustNotPrecedeStartColumn_Text {
             get {
-                return ResourceManager.GetString("SARIF1013_Default", resourceCulture);
+                return ResourceManager.GetString("SARIF1007_RegionPropertiesMustBeConsistent_Error_EndColumnMustNotPrecedeStartColu" +
+                        "mn_Text", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The &quot;endColumn&quot; property of a region object must not be less than the &quot;startColumn&quot; property..
+        ///   Looks up a localized string similar to {0}: In this &apos;region&apos; object, the &apos;endLine&apos; property &apos;{1}&apos; is less than the &apos;startLine&apos; property &apos;{2}&apos;. The properties of a &apos;region&apos; object must be internally consistent..
         /// </summary>
-        internal static string SARIF1013_EndColumnMustNotBeLessThanStartColumn {
+        internal static string SARIF1007_RegionPropertiesMustBeConsistent_Error_EndLineMustNotPrecedeStartLine_Text {
             get {
-                return ResourceManager.GetString("SARIF1013_EndColumnMustNotBeLessThanStartColumn", resourceCulture);
+                return ResourceManager.GetString("SARIF1007_RegionPropertiesMustBeConsistent_Error_EndLineMustNotPrecedeStartLine_T" +
+                        "ext", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: This fileLocation object contains a &quot;uriBaseId&quot; property, which means that the value of the &quot;uri&quot; property must be a relative URI reference, but &quot;{1}&quot; is an absolute URI reference..
+        ///   Looks up a localized string similar to {0}: This &apos;region&apos; object does not specify &apos;startLine&apos;, &apos;charOffset&apos;, or &apos;byteOffset&apos;. As a result, it is impossible to determine whether this &apos;region&apos; object describes a line/column text region, a character offset/length text region, or a binary region..
         /// </summary>
-        internal static string SARIF1014_Default {
+        internal static string SARIF1007_RegionPropertiesMustBeConsistent_Error_RegionStartPropertyMustBePresent_Text {
             get {
-                return ResourceManager.GetString("SARIF1014_Default", resourceCulture);
+                return ResourceManager.GetString("SARIF1007_RegionPropertiesMustBeConsistent_Error_RegionStartPropertyMustBePresent" +
+                        "_Text", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If a fileLocation object contains a &quot;uriBaseId&quot; property, the value of the &quot;uri&quot; property must be a relative URI reference..
+        ///   Looks up a localized string similar to The properties of a &apos;region&apos; object must be consistent.
+        ///
+        ///SARIF can specify a &apos;region&apos; (a contiguous portion of a file) in a variety of ways: with line and column numbers, with a character offset and count, or with a byte offset and count. The specification states certain constraints on these properties, both within each property group (for example, the start line cannot be greater than end line) and between the groups (for example, if more than one group is present, they must independently specify the sam [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string SARIF1014_UriBaseIdRequiresRelativeUri {
+        internal static string SARIF1007_RegionPropertiesMustBeConsistent_FullDescription_Text {
             get {
-                return ResourceManager.GetString("SARIF1014_UriBaseIdRequiresRelativeUri", resourceCulture);
+                return ResourceManager.GetString("SARIF1007_RegionPropertiesMustBeConsistent_FullDescription_Text", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The value of this property is required to be an absolute URI, but &quot;{1}&quot; is a relative URI reference..
+        ///   Looks up a localized string similar to {0}: This &apos;physicalLocation&apos; object contains both a &apos;region&apos; and a &apos;contextRegion&apos; property, but &apos;contextRegion&apos; is not a proper superset of &apos;region&apos;. This is invalid because the purpose of &apos;contextRegion&apos; is to provide a viewing context around the &apos;region&apos; which is the location of the result. It&apos;s possible that the tool reversed &apos;region&apos; and &apos;contextRegion&apos;. If &apos;region&apos; and &apos;contextRegion&apos; are identical, the tool must omit &apos;contextRegion&apos;..
         /// </summary>
-        internal static string SARIF1015_Default {
+        internal static string SARIF1008_PhysicalLocationPropertiesMustBeConsistent_Error_ContextRegionMustBeProperSupersetOfRegion_Text {
             get {
-                return ResourceManager.GetString("SARIF1015_Default", resourceCulture);
+                return ResourceManager.GetString("SARIF1008_PhysicalLocationPropertiesMustBeConsistent_Error_ContextRegionMustBePro" +
+                        "perSupersetOfRegion_Text", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Certain URIs are required to be absolute..
+        ///   Looks up a localized string similar to {0}: This &apos;physicalLocation&apos; object contains a &apos;contextRegion&apos; property, but it does not contain a &apos;region&apos; property. This is invalid because the purpose of &apos;contextRegion&apos; is to provide a viewing context around the &apos;region&apos; which is the location of the result. If a tool associates only one region with a result, it must populate &apos;region&apos;, not &apos;contextRegion&apos;..
         /// </summary>
-        internal static string SARIF1015_UriMustBeAbsolute {
+        internal static string SARIF1008_PhysicalLocationPropertiesMustBeConsistent_Error_ContextRegionRequiresRegion_Text {
             get {
-                return ResourceManager.GetString("SARIF1015_UriMustBeAbsolute", resourceCulture);
+                return ResourceManager.GetString("SARIF1008_PhysicalLocationPropertiesMustBeConsistent_Error_ContextRegionRequiresR" +
+                        "egion_Text", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If the &quot;contextRegion&quot; property is present, the &quot;region&quot; property must also be present..
+        ///   Looks up a localized string similar to Ensure consistency among the properties of a &apos;physicalLocation&apos; object.
+        ///
+        ///A SARIF &apos;physicalLocation&apos; object has two related properties &apos;region&apos; and &apos;contextRegion&apos;. If &apos;contextRegion&apos; is present, then &apos;region&apos; must also be present, and &apos;contextRegion&apos; must be a &quot;proper superset&quot; of &apos;region&apos;. That is, &apos;contextRegion&apos; must completely contain &apos;region&apos;, and it must be larger than &apos;region&apos;. To understand why this is so we must understand the roles of the &apos;region&apos; and &apos;contextRegion&apos; properties.
+        ///
+        ///&apos;region&apos; allo [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string SARIF1016_ContextRegionRequiresRegion {
+        internal static string SARIF1008_PhysicalLocationPropertiesMustBeConsistent_FullDescription_Text {
             get {
-                return ResourceManager.GetString("SARIF1016_ContextRegionRequiresRegion", resourceCulture);
+                return ResourceManager.GetString("SARIF1008_PhysicalLocationPropertiesMustBeConsistent_FullDescription_Text", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: This &quot;physicalLocation&quot; object contains a &quot;contextRegion&quot; property, but it does not contain a &quot;region&quot; property..
+        ///   Looks up a localized string similar to {0}: This &apos;{1}&apos; object contains a property &apos;{2}&apos; with value {3}, but &apos;{4}&apos; has fewer than {5} elements. An index-valued properties must be valid for the array that it refers to..
         /// </summary>
-        internal static string SARIF1016_Default {
+        internal static string SARIF1009_IndexPropertiesMustBeConsistentWithArrays_Error_TargetArrayMustBeLongEnough_Text {
             get {
-                return ResourceManager.GetString("SARIF1016_Default", resourceCulture);
+                return ResourceManager.GetString("SARIF1009_IndexPropertiesMustBeConsistentWithArrays_Error_TargetArrayMustBeLongEn" +
+                        "ough_Text", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: This &quot;{1}&quot; object contains a property &quot;{2}&quot; with value {3}, but either &quot;{4}&quot; is absent, or it has fewer than {5} elements..
+        ///   Looks up a localized string similar to {0}: This &apos;{1}&apos; object contains a property &apos;{2}&apos; with value {3}, but &apos;{4}&apos; does not exist. An index-valued property always refers to an array, so the array must be present..
         /// </summary>
-        internal static string SARIF1017_Default {
+        internal static string SARIF1009_IndexPropertiesMustBeConsistentWithArrays_Error_TargetArrayMustExist_Text {
             get {
-                return ResourceManager.GetString("SARIF1017_Default", resourceCulture);
+                return ResourceManager.GetString("SARIF1009_IndexPropertiesMustBeConsistentWithArrays_Error_TargetArrayMustExist_Te" +
+                        "xt", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If an object contains a property that is used as an array index, then that array must be present and must contain at least &quot;index + 1&quot; elements..
+        ///   Looks up a localized string similar to If an object contains a property that is used as an array index (an &quot;index-valued property&quot;), then that array must be present and must contain at least &quot;index + 1&quot; elements..
         /// </summary>
-        internal static string SARIF1017_InvalidIndex {
+        internal static string SARIF1009_IndexPropertiesMustBeConsistentWithArrays_FullDescription_Text {
             get {
-                return ResourceManager.GetString("SARIF1017_InvalidIndex", resourceCulture);
+                return ResourceManager.GetString("SARIF1009_IndexPropertiesMustBeConsistentWithArrays_FullDescription_Text", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to In the artifactLocation objects contained in run.originalUriBaseIds, if uriBaseId is absent, then uri must either be an absolute URI or it must be absent. Also, uri must end with a slash, so that it can safely be combined with the relative URIs in artifactLocation objects elsewhere in the log file..
+        ///   Looks up a localized string similar to {0}: This result contains neither of the properties &apos;ruleId&apos; or &apos;rule.id&apos;. The SARIF specification ([§3.27.5](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317643)) requires at least one of these properties to be present..
         /// </summary>
-        internal static string SARIF1018_InvalidUriInOriginalUriBaseIds {
+        internal static string SARIF1010_RuleIdMustBeConsistent_Error_ResultMustSpecifyRuleId_Text {
             get {
-                return ResourceManager.GetString("SARIF1018_InvalidUriInOriginalUriBaseIds", resourceCulture);
+                return ResourceManager.GetString("SARIF1010_RuleIdMustBeConsistent_Error_ResultMustSpecifyRuleId_Text", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The URI &apos;{1}&apos; belonging to the &apos;{2}&apos; element of run.originalUriBaseIds does not end with a slash..
+        ///   Looks up a localized string similar to {0}: This result contains both the &apos;ruleId&apos; property &apos;{1}&apos; and the &apos;rule.id&apos; property &apos;{2}&apos;, but they are not equal. The SARIF specification ([§3.27.5](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317643)) requires that if both of these properties are present, they must be equal..
         /// </summary>
-        internal static string SARIF1018_LacksTrailingSlash {
+        internal static string SARIF1010_RuleIdMustBeConsistent_Error_ResultRuleIdMustBeConsistent_Text {
             get {
-                return ResourceManager.GetString("SARIF1018_LacksTrailingSlash", resourceCulture);
+                return ResourceManager.GetString("SARIF1010_RuleIdMustBeConsistent_Error_ResultRuleIdMustBeConsistent_Text", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The URI &apos;{1}&apos; belonging to the &apos;{2}&apos; element of run.originalUriBaseIds is not an absolute URI..
+        ///   Looks up a localized string similar to Every result must contain at least one of the properties &apos;ruleId&apos; and &apos;rule.id&apos;. If both are present, they must be equal. See the SARIF specification ([§3.27.5](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317643))..
         /// </summary>
-        internal static string SARIF1018_NotAbsolute {
+        internal static string SARIF1010_RuleIdMustBeConsistent_FullDescription_Text {
             get {
-                return ResourceManager.GetString("SARIF1018_NotAbsolute", resourceCulture);
+                return ResourceManager.GetString("SARIF1010_RuleIdMustBeConsistent_FullDescription_Text", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The result contains both the ruleId property &apos;{1}&apos; and the rule.id property &apos;{2}&apos;, and they are not equal..
+        ///   Looks up a localized string similar to {0}: The &apos;$schema&apos; property value &apos;{1}&apos; does not refer to the final version of the SARIF 2.1.0 schema. If you are using an earlier version of the SARIF format, consider upgrading your analysis tool to produce the final version. If this file does in fact conform to the final version of the schema, upgrade the tool to populate the &apos;$schema&apos; property with a URL that refers to the final version of the schema..
         /// </summary>
-        internal static string SARIF1019_InconsistentResultRuleId {
+        internal static string SARIF1011_ReferenceFinalSchema_Error_Default_Text {
             get {
-                return ResourceManager.GetString("SARIF1019_InconsistentResultRuleId", resourceCulture);
+                return ResourceManager.GetString("SARIF1011_ReferenceFinalSchema_Error_Default_Text", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The result contains neither result.ruleId nor result.rule.id..
+        ///   Looks up a localized string similar to The &apos;$schema&apos; property must refer to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.
+        ///
+        ///The SARIF standard was developed over several years, and many intermediate versions of the schema were produced. Now that the standard is final, only the OASIS standard version of the schema is valid..
         /// </summary>
-        internal static string SARIF1019_MissingResultRuleId {
+        internal static string SARIF1011_ReferenceFinalSchema_FullDescription_Text {
             get {
-                return ResourceManager.GetString("SARIF1019_MissingResultRuleId", resourceCulture);
+                return ResourceManager.GetString("SARIF1011_ReferenceFinalSchema_FullDescription_Text", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to In every result, at least one of the properties result.ruleId and result.rule.id must be present. If both are present, they must be equal..
+        ///   Looks up a localized string similar to {0}: This message object refers to the message with id &apos;{1}&apos; in rule &apos;{2}&apos;, but that rule does not define a message with that id. When a tool creates a result message that uses the &apos;id&apos; property, it must ensure that the specified rule actually has a message with that id..
         /// </summary>
-        internal static string SARIF1019_RuleIdMustBePresentAndConsistent {
+        internal static string SARIF1012_MessageArgumentsMustBeConsistentWithRule_Error_MessageIdMustExist_Text {
             get {
-                return ResourceManager.GetString("SARIF1019_RuleIdMustBePresentAndConsistent", resourceCulture);
+                return ResourceManager.GetString("SARIF1012_MessageArgumentsMustBeConsistentWithRule_Error_MessageIdMustExist_Text", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The $schema property value &apos;{1}&apos; does not refer to the final version of the SARIF 2.1.0 schema. If you are using an earlier version of the SARIF format, consider upgrading your analysis tool to produce the final version. If this file does in fact conform to the final version of the schema, upgrade the tool to populate the $schema property with a URL that refers to the final version of the schema..
+        ///   Looks up a localized string similar to {0}: The message with id &apos;{1}&apos; in rule &apos;{2}&apos; requires &apos;{3}&apos; arguments, but the &apos;arguments&apos; array in this message object has only &apos;{4}&apos; element(s). When a tool creates a result message that use the &apos;id&apos; and &apos;arguments&apos; properties, it must ensure that the &apos;arguments&apos; array has enough elements to provide values for every replacement sequence in the message specified by &apos;id&apos;. For example, if the highest numbered replacement sequence in the specified message string is &apos;{{3}}&apos;, then the &apos;arguments&apos; array must con [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string SARIF1020_ReferenceToOldSchemaVersion {
+        internal static string SARIF1012_MessageArgumentsMustBeConsistentWithRule_Error_SupplyEnoughMessageArguments_Text {
             get {
-                return ResourceManager.GetString("SARIF1020_ReferenceToOldSchemaVersion", resourceCulture);
+                return ResourceManager.GetString("SARIF1012_MessageArgumentsMustBeConsistentWithRule_Error_SupplyEnoughMessageArgum" +
+                        "ents_Text", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The $schema property should be present, and must refer to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files..
+        ///   Looks up a localized string similar to The properties of a result&apos;s &apos;message&apos; property must be consistent with the properties of the rule that the result refers to.
+        ///
+        ///When a result&apos;s &apos;message&apos; object uses the &apos;id&apos; and &apos;arguments&apos; properties (which, by the way, is recommended: see SARIF2002.ProvideMessageArguments), it must ensure that the rule actually defines a message string with that id, and that &apos;arguments&apos; array has enough elements to provide values for every replacement sequence in the message specified by &apos;id&apos;. For example, if the highes [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string SARIF1020_ReferToFinalSchema {
+        internal static string SARIF1012_MessageArgumentsMustBeConsistentWithRule_FullDescription_Text {
             get {
-                return ResourceManager.GetString("SARIF1020_ReferToFinalSchema", resourceCulture);
+                return ResourceManager.GetString("SARIF1012_MessageArgumentsMustBeConsistentWithRule_FullDescription_Text", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The SARIF log file does not contain a $schema property. Add a $schema property that refers to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files..
+        ///   Looks up a localized string similar to Express plain text result messages as complete sentences and end each sentence with a period. This guidance does not apply to Markdown messages, which might include formatting that makes the punctuation unnecessary.
+        ///
+        ///This is part of a set of authoring practices that make your rule messages more readable, understandable, and actionable. See also `SARIF2014.ProvideDynamicMessageContent` and `SARIF2015.EnquoteDynamicMessageContent`..
         /// </summary>
-        internal static string SARIF1020_SchemaReferenceMissing {
+        internal static string SARIF2001_TerminateMessagesWithPeriod_FullDescription_Text {
             get {
-                return ResourceManager.GetString("SARIF1020_SchemaReferenceMissing", resourceCulture);
+                return ResourceManager.GetString("SARIF2001_TerminateMessagesWithPeriod_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: In rule &apos;{1}&apos;, the message with id &apos;{2}&apos; does not end in a period. Express plain text rule messages as complete sentences. This guidance does not apply to Markdown messages, which might include formatting that makes the punctuation unnecessary..
+        /// </summary>
+        internal static string SARIF2001_TerminateMessagesWithPeriod_Warning_Default_Text {
+            get {
+                return ResourceManager.GetString("SARIF2001_TerminateMessagesWithPeriod_Warning_Default_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to In result messages, use the &apos;message.id&apos; and &apos;message.arguments&apos; properties rather than &apos;message.text&apos;. This has several advantages. If &apos;text&apos; is lengthy, using &apos;id&apos; and &apos;arguments&apos; makes the SARIF file smaller. If the rule metadata is stored externally to the SARIF log file, the message text can be improved (for example, by adding more text, clarifying the phrasing, or fixing typos), and the result messages will pick up the improvements the next time it is displayed. Finally, SARIF supports localizing mess [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string SARIF2002_ProvideMessageArguments_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("SARIF2002_ProvideMessageArguments_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The &apos;message&apos; property of this result contains a &apos;text&apos; property. Consider replacing it with &apos;id&apos; and &apos;arguments&apos; properties. This potentially reduces the log file size, allows the message text to be improved without modifying the log file, and enables localization..
+        /// </summary>
+        internal static string SARIF2002_ProvideMessageArguments_Warning_Default_Text {
+            get {
+                return ResourceManager.GetString("SARIF2002_ProvideMessageArguments_Warning_Default_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Provide &apos;versionControlProvenance&apos; to record which version of the code was analyzed, and to enable paths to be expressed relative to the root of the repository..
+        /// </summary>
+        internal static string SARIF2003_ProvideVersionControlProvenance_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("SARIF2003_ProvideVersionControlProvenance_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: This run does not provide &apos;versionControlProvenance&apos;. As a result, it is not possible to determine which version of code was analyzed, nor to map relative paths to their locations within the repository..
+        /// </summary>
+        internal static string SARIF2003_ProvideVersionControlProvenance_Note_Default_Text {
+            get {
+                return ResourceManager.GetString("SARIF2003_ProvideVersionControlProvenance_Note_Default_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Emit arrays only if they provide additional information.
+        ///
+        ///In several parts of a SARIF log file, a subset of information about an object appears in one place, and the full information describing all such objects appears in an array elsewhere in the log file. For example, each &apos;result&apos; object has a &apos;ruleId&apos; property that identifies the rule that was violated. Elsewhere in the log file, the array &apos;run.tool.driver.rules&apos; contains additional information about the rules. But if the elements of the &apos;rules&apos; array [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string SARIF2004_OptimizeFileSize_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("SARIF2004_OptimizeFileSize_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The &apos;rules&apos; array contains no information beyond the ids of the rules. Removing this array might reduce the log file size without losing information. In some scenarios (for example, when assessing compliance with policy), the &apos;rules&apos; array might be used to record the full set of rules that were evaluated. In such a scenario, the &apos;rules&apos; array should be retained even if it contains only id information..
+        /// </summary>
+        internal static string SARIF2004_OptimizeFileSize_Warning_EliminateIdOnlyRules_Text {
+            get {
+                return ResourceManager.GetString("SARIF2004_OptimizeFileSize_Warning_EliminateIdOnlyRules_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The &apos;artifacts&apos; array contains no information beyond the locations of the artifacts. Removing this array might reduce the log file size without losing information. In some scenarios (for example, when assessing compliance with policy), the &apos;artifacts&apos; array might be used to record the full set of artifacts that were analyzed. In such a scenario, the &apos;artifacts&apos; array should be retained even if it contains only location information..
+        /// </summary>
+        internal static string SARIF2004_OptimizeFileSize_Warning_EliminateLocationOnlyArtifacts_Text {
+            get {
+                return ResourceManager.GetString("SARIF2004_OptimizeFileSize_Warning_EliminateLocationOnlyArtifacts_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Provide information that makes it easy to identify the name and version of your tool.
+        ///
+        ///The tool&apos;s &apos;name&apos; property should be no more than three words long. This makes it easy to remember and allows it to fit into a narrow column when displaying a list of results. If you need to provide more information about your tool, use the &apos;fullName&apos; property.
+        ///
+        ///The tool should provide either or both of the &apos;version&apos; and &apos;semanticVersion&apos; properties. This enables the log file consumer to determine whether the file was [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string SARIF2005_ProvideToolProperties_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("SARIF2005_ProvideToolProperties_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The tool name &apos;{1}&apos; contains {2} words, which is more than the recommended maximum of {3} words. A short tool name is easy to remember and fits into a narrow column when displaying a list of results. If you need to provide more information about your tool, use the &apos;fullName&apos; property..
+        /// </summary>
+        internal static string SARIF2005_ProvideToolProperties_Warning_ProvideConciseToolName_Text {
+            get {
+                return ResourceManager.GetString("SARIF2005_ProvideToolProperties_Warning_ProvideConciseToolName_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The tool &apos;{1}&apos; provides neither a &apos;version&apos; property nor a &apos;semanticVersion&apos; property. Providing a version enables the log file consumer to determine whether the file was produced by an up to date version, and to avoid accidentally comparing log files produced by different tool versions..
+        /// </summary>
+        internal static string SARIF2005_ProvideToolProperties_Warning_ProvideToolVersion_Text {
+            get {
+                return ResourceManager.GetString("SARIF2005_ProvideToolProperties_Warning_ProvideToolVersion_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The tool &apos;{1}&apos; contains the &apos;version&apos; property &apos;{2}&apos;, which is not numeric. To facilitate comparison between versions, specify a &apos;version&apos; that starts with an integer, optionally followed by any desired characters..
+        /// </summary>
+        internal static string SARIF2005_ProvideToolProperties_Warning_UseNumericToolVersions_Text {
+            get {
+                return ResourceManager.GetString("SARIF2005_ProvideToolProperties_Warning_UseNumericToolVersions_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to URIs that refer to locations such as rule help pages and result-related work items should be reachable via an HTTP GET request..
+        /// </summary>
+        internal static string SARIF2006_UrisShouldBeReachable_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("SARIF2006_UrisShouldBeReachable_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The URI &apos;{1}&apos; was not reachable via an HTTP GET request..
+        /// </summary>
+        internal static string SARIF2006_UrisShouldBeReachable_Warning_Default_Text {
+            get {
+                return ResourceManager.GetString("SARIF2006_UrisShouldBeReachable_Warning_Default_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Provide information that makes it possible to determine the repo-relative locations of files that contain analysis results.
+        ///
+        ///Each element of the &apos;versionControlProvenance&apos; array is a &apos;versionControlDetails&apos; object that describes a repository containing files that were analyzed. &apos;versionControlDetails.mappedTo&apos; defines the file system location to which the root of that repository is mapped. If &apos;mappedTo.uriBaseId&apos; is present, and if result locations are expressed relative to that &apos;uriBaseId&apos;, then the repo [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string SARIF2007_ExpressPathsRelativeToRepoRoot_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("SARIF2007_ExpressPathsRelativeToRepoRoot_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: This result location does not provide any of the &apos;uriBaseId&apos; values that specify repository locations: &apos;{1}&apos;. As a result, it will not be possible to determine the location of the file containing this result relative to the root of the repository that contains it..
+        /// </summary>
+        internal static string SARIF2007_ExpressPathsRelativeToRepoRoot_Warning_ExpressResultLocationsRelativeToMappedTo_Text {
+            get {
+                return ResourceManager.GetString("SARIF2007_ExpressPathsRelativeToRepoRoot_Warning_ExpressResultLocationsRelativeTo" +
+                        "MappedTo_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The &apos;versionControlDetails&apos; object that describes the repository &apos;{1}&apos; does not provide &apos;mappedTo.uriBaseId&apos;. As a result, it will not be possible to determine the repo-relative location of files containing analysis results for this repository..
+        /// </summary>
+        internal static string SARIF2007_ExpressPathsRelativeToRepoRoot_Warning_ProvideUriBaseIdForMappedTo_Text {
+            get {
+                return ResourceManager.GetString("SARIF2007_ExpressPathsRelativeToRepoRoot_Warning_ProvideUriBaseIdForMappedTo_Text" +
+                        "", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A SARIF log file should contain, on the root object, a &apos;$schema&apos; property that refers to the final, OASIS standard version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files..
+        /// </summary>
+        internal static string SARIF2008_ProvideSchema_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("SARIF2008_ProvideSchema_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The SARIF log file does not contain a &apos;$schema&apos; property. Add a &apos;$schema&apos; property that refers to the final, OASIS standard version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files..
+        /// </summary>
+        internal static string SARIF2008_ProvideSchema_Warning_Default_Text {
+            get {
+                return ResourceManager.GetString("SARIF2008_ProvideSchema_Warning_Default_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adopt uniform naming conventions for rule ids.
+        ///
+        ///Many tools follow a conventional format for the &apos;reportingDescriptor.id&apos; property: a short string identifying the tool concatenated with a numeric rule number, for example, &apos;CS2001&apos; for a diagnostic from the Roslyn C# compiler. For uniformity of experience across tools, we recommend this format..
+        /// </summary>
+        internal static string SARIF2009_ConsiderConventionalIdentifierValues_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("SARIF2009_ConsiderConventionalIdentifierValues_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The &apos;id&apos; property of the rule &apos;{1}&apos; does not follow the recommended format: a short string identifying the tool concatenated with a numeric rule number, for example, &apos;CS2001&apos;. Using a conventional format for the rule id provides a more uniform experience across tools..
+        /// </summary>
+        internal static string SARIF2009_ConsiderConventionalIdentifierValues_Note_UseConventionalRuleIds_Text {
+            get {
+                return ResourceManager.GetString("SARIF2009_ConsiderConventionalIdentifierValues_Note_UseConventionalRuleIds_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Provide code snippets to enable users to see the code that triggered each result, even if they are not enlisted in the code..
+        /// </summary>
+        internal static string SARIF2010_ProvideCodeSnippets_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("SARIF2010_ProvideCodeSnippets_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The &apos;region&apos; object in this result location does not provide a &apos;snippet&apos; property. Providing a code snippet enables users to see the code that triggered the result, even if they are not enlisted in the code..
+        /// </summary>
+        internal static string SARIF2010_ProvideCodeSnippets_Note_Default_Text {
+            get {
+                return ResourceManager.GetString("SARIF2010_ProvideCodeSnippets_Note_Default_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Provide context regions to enable users to see a portion of the code that surrounds each result, even if they are not enlisted in the code..
+        /// </summary>
+        internal static string SARIF2011_ProvideContextRegion_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("SARIF2011_ProvideContextRegion_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: This result location does not provide a &apos;contextRegion&apos; property. Providing a context region enables users to see a portion of the code that surrounds the result, even if they are not enlisted in the code..
+        /// </summary>
+        internal static string SARIF2011_ProvideContextRegion_Note_Default_Text {
+            get {
+                return ResourceManager.GetString("SARIF2011_ProvideContextRegion_Note_Default_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to For each rule, provide a URI where users can find detailed information about the rule. This information should include a detailed description of the invalid pattern, an explanation of why the pattern is poor practice (particularly in contexts such as security or accessibility where driving considerations might not be readily apparent), guidance for resolving the problem (including describing circumstances in which ignoring the problem altogether might be appropriate), examples of invalid and valid patterns, [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string SARIF2012_ProvideHelpUris_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("SARIF2012_ProvideHelpUris_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The rule &apos;{1}&apos; does not provide a help URI. Providing a URI where users can find detailed information about the rule helps users to understand the result and how they can best address it..
+        /// </summary>
+        internal static string SARIF2012_ProvideHelpUris_Note_Default_Text {
+            get {
+                return ResourceManager.GetString("SARIF2012_ProvideHelpUris_Note_Default_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Provide embedded file content so that users can examine results in their full context without having to enlist in the source repository. Embedding file content in a SARIF log file can dramatically increase its size, so consider the usage scenario when you decide whether to provide it..
+        /// </summary>
+        internal static string SARIF2013_ProvideEmbeddedFileContent_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("SARIF2013_ProvideEmbeddedFileContent_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: This run does not provide embedded file content. Providing embedded file content enables users to examine results in their full context without having to enlist in the source repository. Embedding file content in a SARIF log file can dramatically increase its size, so consider the usage scenario when you decide whether to provide it..
+        /// </summary>
+        internal static string SARIF2013_ProvideEmbeddedFileContent_Note_Default_Text {
+            get {
+                return ResourceManager.GetString("SARIF2013_ProvideEmbeddedFileContent_Note_Default_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Include &quot;dynamic content&quot; (information that varies among results from the same rule) to makes your messages more specific, and to avoid the &quot;wall of bugs&quot; phenomenon, where hundreds of occurrences of the same message appear unapproachable.
+        ///
+        ///This is part of a set of authoring practices that make your rule messages more readable, understandable, and actionable. See also &apos;SARIF2001.TerminateMessagesWithPeriod&apos; and &apos;SARIF2015.EnquoteDynamicMessageContent&apos;..
+        /// </summary>
+        internal static string SARIF2014_ProvideDynamicMessageContent_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("SARIF2014_ProvideDynamicMessageContent_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: In rule &apos;{1}&apos;, the message with id &apos;{2}&apos; does not include any dynamic content. Dynamic content makes your messages more specific and avoids the &quot;wall of bugs&quot; phenomenon, where hundreds of occurrences of the same message appear unapproachable..
+        /// </summary>
+        internal static string SARIF2014_ProvideDynamicMessageContent_Note_Default_Text {
+            get {
+                return ResourceManager.GetString("SARIF2014_ProvideDynamicMessageContent_Note_Default_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Place dynamic content in single quotes to set it off from the static text and to make it easier to spot. It&apos;s especially helpful when the dynamic content is a string that might contain spaces, and most especially when the string might be empty (and so would be invisible if it weren&apos;t for the quotes). We recommend single quotes for a less cluttered appearance, even though US English usage would require double quotes.
+        ///
+        ///This is part of a set of authoring practices that make your rule messages more readable,  [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string SARIF2015_EnquoteDynamicMessageContent_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("SARIF2015_EnquoteDynamicMessageContent_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: In rule &apos;{1}&apos;, the message with id &apos;{2}&apos; includes dynamic content that is not enclosed in single quotes. Enquoting dynamic content makes it easier to spot, and single quotes give a less cluttered appearance..
+        /// </summary>
+        internal static string SARIF2015_EnquoteDynamicMessageContent_Note_Default_Text {
+            get {
+                return ResourceManager.GetString("SARIF2015_EnquoteDynamicMessageContent_Note_Default_Text", resourceCulture);
             }
         }
     }

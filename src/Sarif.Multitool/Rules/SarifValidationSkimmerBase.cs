@@ -1028,6 +1028,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     Visit(run.WebResponses[i], webResponsesPointer.AtIndex(i));
                 }
             }
+
+            if (run.OriginalUriBaseIds != null)
+            {
+                string originalUriBaseIdsPointer = runPointer.AtProperty(SarifPropertyName.OriginalUriBaseIds);
+
+                foreach (string uriBaseId in run.OriginalUriBaseIds.Keys)
+                {
+                    Visit(run.OriginalUriBaseIds[uriBaseId], originalUriBaseIdsPointer.AtProperty(uriBaseId));
+                }
+            }
         }
 
         private void Visit(Stack stack, string stackPointer)

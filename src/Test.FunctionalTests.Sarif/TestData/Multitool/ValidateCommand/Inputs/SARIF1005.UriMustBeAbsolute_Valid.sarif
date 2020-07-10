@@ -1,0 +1,40 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "CodeScanner",
+          "version": "1.0",
+          "downloadUri": "http://www.example.com/tools/codescanner/download.html",
+          "rules": [
+            {
+              "id": "TST0001",
+              "helpUri": "http://www.example.com/rules/tst0001.html"
+            }
+          ]
+        }
+      },
+      "versionControlProvenance": [
+        {
+          "repositoryUri": "https://example.com/my-project"
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "TST0001",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "text": "Some testing occurred."
+          },
+          "workItemUris": [
+            "https://example.com/my-project/issues/42"
+          ]
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "$schema": "ht%tp://json.schemastore.org/sarif-2.0.0",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "CodeScanner",
+          "version": "1.0",
+          "downloadUri": "ht%tp://www.example.com/tools/codescanner/download.html",
+          "notifications": [
+            {
+              "id": "MSG0001",
+              "helpUri": "ht%tp://www.example.com/rules/msg0001.html"
+            },
+            {
+              "id": "MSG0002",
+              "helpUri": "ht%tp://www.example.com/rules/msg0002.html"
+            }
+          ],
+          "rules": [
+            {
+              "id": "TST0001",
+              "helpUri": "ht%tp://www.example.com/rules/tst0001.html"
+            }
+          ]
+        }
+      },
+      "versionControlProvenance": [
+        {
+          "repositoryUri": "ht%tps://example.com/my-project"
+        }
+      ],
+      "originalUriBaseIds": {
+        "SRCROOT": {
+          "uri": "fi%le:///c:/Code/sarif-sdk/src"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "fi%le:///c:/src/file.c"
+          },
+          "mimeType": "text/x-c"
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "TST0001",
+          "level": "error",
+          "message": {
+            "text": "Some testing occurred."
+          },
+          "analysisTarget": {
+            "uri": "fi&le:///c:/src/file.c"
+          },
+          "workItemUris": [
+            "ht&tp://example.com/my-project/issues/42"
+          ]
+        },
+        {
+          "ruleId": "TST0001",
+          "level": "error",
+          "message": {
+            "text": "Bad result: file uri has dot dot segment."
+          },
+          "analysisTarget": {
+            "uri": "file:///c:/src/src2/src3/../../file.c"
+          },
+          "workItemUris": [
+            "http://example.com/my-project/issues/42"
+          ]
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}
