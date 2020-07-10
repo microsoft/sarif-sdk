@@ -26,6 +26,8 @@
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
     <PackageReference Include="System.Collections.Immutable" Version="1.5.0" />
+    <PackageReference Include="BSOA" Version="$(BsoaVersion)" />
+    <PackageReference Include="BSOA.Json" Version="$(BsoaVersion)" />
   </ItemGroup>
 
   <ItemGroup>
@@ -61,11 +63,6 @@
 
   <ItemGroup>
     <None Include="CopyrightNotice.txt" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\bion\csharp\BSOA\BSOA.Json\BSOA.Json.csproj" />
-    <ProjectReference Include="..\..\..\bion\csharp\BSOA\BSOA\BSOA.csproj" />
   </ItemGroup>
 
   <ItemGroup>
