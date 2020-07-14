@@ -4,6 +4,7 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.Linq;
 
 using BSOA.Collections;
 using BSOA.Model;
@@ -34,6 +35,11 @@ namespace BSOA.Generator.Templates
         }
 
         public Team(Company root, Team other) : this(root.Database.Team)
+        {
+            CopyFrom(other);
+        }
+
+        internal Team(CompanyDatabase database, Team other) : this(database.Team)
         {
             CopyFrom(other);
         }
@@ -201,8 +207,12 @@ namespace BSOA.Generator.Templates
             Id = other.Id;
             //  </OtherAssignment>
             JoinPolicy = other.JoinPolicy;
-            Owner = other.Owner;
-            Members = other.Members;
+            //  <RefOtherAssignment>
+            Owner = Employee.DeepClone(_table.Database, other.Owner);
+            //  </RefOtherAssignment>
+            //  <RefListOtherAssignment>
+            Members = other.Members?.Select((item) => Employee.DeepClone(_table.Database, item)).ToList();
+            //  </RefListOtherAssignment>
             // </OtherAssignmentList>
         }
         #endregion
@@ -226,6 +236,11 @@ namespace BSOA.Generator.Templates
         private ISarifNode DeepCloneCore()
         {
             return new Team(this);
+        }
+
+        internal static Team DeepClone(CompanyDatabase db, Team other)
+        {
+            return (other == null ? null : new Team(db, other));
         }
         #endregion
 

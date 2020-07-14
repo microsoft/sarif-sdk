@@ -60,7 +60,8 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
 
         private Run SerializeAndDeserialize(Run run)
         {
-            return JsonConvert.DeserializeObject<Run>(JsonConvert.SerializeObject(run));
+            string serializedJson = JsonConvert.SerializeObject(run);
+            return JsonConvert.DeserializeObject<Run>(serializedJson);
         }
     }
 }

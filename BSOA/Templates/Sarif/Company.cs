@@ -4,6 +4,7 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.Linq;
 
 using BSOA.Collections;
 using BSOA.IO;
@@ -196,8 +197,12 @@ namespace BSOA.Generator.Templates
             Id = other.Id;
             //  </OtherAssignment>
             JoinPolicy = other.JoinPolicy;
-            Owner = other.Owner;
-            Members = other.Members;
+            //  <RefOtherAssignment>
+            Owner = Employee.DeepClone(_table.Database, other.Owner);
+            //  </RefOtherAssignment>
+            //  <RefListOtherAssignment>
+            Members = other.Members?.Select((item) => Employee.DeepClone(_table.Database, item)).ToList();
+            //  </RefListOtherAssignment>
             // </OtherAssignmentList>
         }
         #endregion
