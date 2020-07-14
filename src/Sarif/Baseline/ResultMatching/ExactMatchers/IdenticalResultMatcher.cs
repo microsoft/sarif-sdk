@@ -78,7 +78,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
 
             public bool Equals(Result x, Result y)
             {
-                return x.Equals(y);
+                return CreateMaskedResult(x).Equals(CreateMaskedResult(y));
             }
 
             public int GetHashCode(Result obj)
