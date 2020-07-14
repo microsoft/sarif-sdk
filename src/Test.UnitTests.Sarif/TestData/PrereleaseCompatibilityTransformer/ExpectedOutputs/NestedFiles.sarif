@@ -31,13 +31,15 @@
       "artifacts": [
         {
           "location": {
-            "uri": "file:///c:/archive_one.zip"
+            "uri": "file:///c:/archive_one.zip",
+            "index": 0
           },
           "mimeType": "application/zip"
         },
         {
           "location": {
-            "uri": "/file.txt"
+            "uri": "/file.txt",
+            "index": 1
           },
           "parentIndex": 0,
           "mimeType": "text/plain"
@@ -59,14 +61,16 @@
         },
         {
           "location": {
-            "uri": "/archive_two.zip"
+            "uri": "/archive_two.zip",
+            "index": 4
           },
           "parentIndex": 0,
           "mimeType": "application/zip"
         },
         {
           "location": {
-            "uri": "/file.txt"
+            "uri": "/file.txt",
+            "index": 5
           },
           "parentIndex": 4,
           "mimeType": "text/plain"

@@ -37,23 +37,12 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
             run.Invocations.Should().BeNull();
             run.LogicalLocations.Should().BeNull();
 
-            // If arrays are non-empty but only contain object instances
-            // that consist of nothing but default values, these also 
-            // should not be persisted to disk
-            run.Graphs = new Graph[] { new Graph() };
-            run.Artifacts = new Artifact[] { new Artifact() };
-            run.LogicalLocations = new LogicalLocation[] { new LogicalLocation() };
-
             // Invocations are special, they have a required property,
             // ExecutionSuccessful. This means even an entirely default instance
             // should be retained when serialized.
             run.Invocations = new Invocation[] { new Invocation() };
 
             run = SerializeAndDeserialize(run);
-
-            run.Graphs.Should().BeNull();
-            run.Artifacts.Should().BeNull();
-            run.LogicalLocations.Should().BeNull();
 
             run.Invocations.Should().NotBeNull();
         }

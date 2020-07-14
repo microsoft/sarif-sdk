@@ -1527,8 +1527,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             // 4. Persist extracted data as tool.driver and place back on run.
             tool["driver"] = driver;
 
-            // 5. run.richTextMimeType renamed to run.markdownMessageMimeType.
-            RenameProperty(run, "richTextMimeType", "markdownMessageMimeType");
+            // 5. Remove run.richTextMimeType
+            run.Remove("richTextMimeType");
 
             run["tool"] = tool;
 
