@@ -76,35 +76,6 @@
           "message": {
             "id": "Error_TargetArrayMustBeLongEnough",
             "arguments": [
-              "runs[0].results[0]",
-              "result",
-              "ruleIndex",
-              "3",
-              "runs[0].tool.driver.rules",
-              "4"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 138,
-                  "startColumn": 9
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF1009",
-          "ruleIndex": 0,
-          "level": "error",
-          "message": {
-            "id": "Error_TargetArrayMustBeLongEnough",
-            "arguments": [
               "runs[0].results[0].locations[0].physicalLocation.address",
               "address",
               "index",
@@ -120,7 +91,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 151,
+                  "startLine": 152,
                   "startColumn": 28
                 }
               }
@@ -149,7 +120,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 154,
+                  "startLine": 155,
                   "startColumn": 37
                 }
               }
@@ -177,7 +148,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 159,
+                  "startLine": 160,
                   "startColumn": 17
                 }
               }
@@ -205,7 +176,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 159,
+                  "startLine": 160,
                   "startColumn": 17
                 }
               }
@@ -233,7 +204,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 171,
+                  "startLine": 172,
                   "startColumn": 21
                 }
               }
@@ -261,7 +232,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 178,
+                  "startLine": 179,
                   "startColumn": 37
                 }
               }
@@ -289,7 +260,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 181,
+                  "startLine": 182,
                   "startColumn": 38
                 }
               }
@@ -318,7 +289,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 206,
+                  "startLine": 207,
                   "startColumn": 25
                 }
               }
@@ -347,7 +318,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 197,
+                  "startLine": 198,
                   "startColumn": 13
                 }
               }
@@ -375,7 +346,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 201,
+                  "startLine": 202,
                   "startColumn": 13
                 }
               }
@@ -403,7 +374,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 214,
+                  "startLine": 215,
                   "startColumn": 25
                 }
               }
@@ -431,7 +402,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 217,
+                  "startLine": 218,
                   "startColumn": 26
                 }
               }
@@ -460,7 +431,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 248,
+                  "startLine": 249,
                   "startColumn": 9
                 }
               }

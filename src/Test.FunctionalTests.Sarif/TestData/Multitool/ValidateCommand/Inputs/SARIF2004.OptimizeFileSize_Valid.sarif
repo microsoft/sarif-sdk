@@ -42,6 +42,25 @@
               }
             }
           ]
+        },
+        {
+          "ruleIndex": -1,
+          "rule": {
+            "id": "TEST1001",
+            "toolComponent": { "name": "Plugin01" }
+          },
+          "message": { "text": "Good result: artifacts array provides additional useful information." }
+        },
+        {
+          "ruleId": "TEST1001",
+          "ruleIndex": 0,
+          "locations": [
+            {
+              "physicalLocation": { "artifactLocation": { "uri": "local/test/code/src/file1.h" } }
+            }
+          ],
+          "analysisTarget": { "uri": "local/test/code/src/file1.c" },
+          "message": { "text": "Good result: artifacts array provides additional useful information." }
         }
       ],
       "columnKind": "utf16CodeUnits"

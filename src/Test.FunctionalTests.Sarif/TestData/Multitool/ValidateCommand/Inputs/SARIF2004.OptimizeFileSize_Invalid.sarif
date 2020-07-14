@@ -43,6 +43,36 @@
               }
             }
           ]
+        },
+        {
+          "ruleId": "TEST1001",
+          "ruleIndex": 0,
+          "message": { "text": "Bad result: artifacts array does not provide any additional useful information." },
+          "analysisTarget": { "uri": "local/test/code/src/file1.c" },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "local/test/code/src/file1.c"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleIndex": -1,
+          "rule": {
+            "id": "TEST1001"
+          },
+          "message": { "text": "Bad result: artifacts array does not provide any additional useful information." }
+        },
+        {
+          "ruleId": "TEST1001",
+          "ruleIndex": 0,
+          "rule": {
+            "id": "TEST1001"
+          },
+          "message": { "text": "Bad result: artifacts array does not provide any additional useful information." }
         }
       ],
       "columnKind": "utf16CodeUnits"

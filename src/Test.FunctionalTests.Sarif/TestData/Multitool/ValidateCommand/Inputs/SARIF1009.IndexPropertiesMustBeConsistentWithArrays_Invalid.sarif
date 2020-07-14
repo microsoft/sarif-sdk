@@ -136,11 +136,10 @@
       ],
       "results": [
         {
-          "ruleId": "TST0004",
-          "ruleIndex": 3,
           "rule": {
             "id": "TST0004",
-            "index": 3
+            "index": 3,
+            "toolComponent": { "name": "ToolName" }
           },
           "message": {
             "text": "LogicalLocations is absent. Artifacts is present but index is out of range."
