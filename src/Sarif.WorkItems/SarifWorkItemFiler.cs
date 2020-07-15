@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+
 using Microsoft.ApplicationInsights.Channel;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
 using Microsoft.CodeAnalysis.WorkItems;
@@ -15,6 +16,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.WorkItems;
 using Microsoft.WorkItems.Logging;
+
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.WorkItems
@@ -94,8 +96,8 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         {
             using (Logger.BeginScopeContext(nameof(FileWorkItems)))
             {
-
                 sarifLog = sarifLog ?? throw new ArgumentNullException(nameof(sarifLog));
+                AssignResultGuids(sarifLog);
 
                 IReadOnlyList<SarifLog> logsToProcess = SplitLogFile(sarifLog);
 
@@ -113,20 +115,40 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                     SarifLog splitLog = logsToProcess[splitFileIndex];
                     SarifWorkItemModel sarifWorkItemModel = FileWorkItemInternal(splitLog, this.FilingContext, this.FilingClient);
 
-                    // IMPORTANT: as we update our partitioned logs, we are actually modifying the input log file 
-                    // as well. That's because our partitioning is configured to reuse references to existing
-                    // run and result objects, even though they are partitioned into a separate log file. 
-                    // This approach also us to update the original log file with the filed work item details
-                    // without requiring us to build a map of results between the original log and its
-                    // partioned log files.
-                    //
+                    // NOTE: BSOA uses copy-on-set, so even though Result instances are reused across logs,
+                    // both copies must be found and updated.
                     if (sarifWorkItemModel != null)
                     {
-                        UpdateLogWithWorkItemDetails(splitLog, sarifWorkItemModel.HtmlUri, sarifWorkItemModel.Uri);
+                        UpdateLogWithWorkItemDetails(splitLog, sarifLog, sarifWorkItemModel.HtmlUri, sarifWorkItemModel.Uri);
                     }
                 }
 
                 return sarifLog;
+            }
+        }
+
+        private static void AssignResultGuids(SarifLog log)
+        {
+            foreach (Result result in EnumerateResults(log))
+            {
+                if (result.Guid == null) { result.Guid = Guid.NewGuid().ToString(SarifConstants.GuidFormat); }
+            }
+        }
+
+        private static IEnumerable<Result> EnumerateResults(SarifLog log)
+        {
+            if (log.Runs != null)
+            {
+                foreach (Run run in log.Runs)
+                {
+                    if (run.Results != null)
+                    {
+                        foreach (Result result in run.Results)
+                        {
+                            yield return result;
+                        }
+                    }
+                }
             }
         }
 
@@ -316,25 +338,42 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             }
         }
 
-        public static void UpdateLogWithWorkItemDetails(SarifLog sarifLog, Uri htmlUri, Uri uri)
+        public static void UpdateLogWithWorkItemDetails(SarifLog splitLog, SarifLog sourceLog, Uri htmlUri, Uri uri)
         {
-            foreach (Run run in sarifLog.Runs)
+            HashSet<string> resultGuidsFiled = new HashSet<string>();
+
+            foreach (Result result in EnumerateResults(splitLog))
             {
-                if (run.Results == null) { continue; }
+                resultGuidsFiled.Add(result.Guid);
+                AddResultWorkItemDetails(result, htmlUri, uri);
+            }
 
-                foreach (Result result in run.Results)
+            foreach (Result result in EnumerateResults(sourceLog))
+            {
+                if (resultGuidsFiled.Contains(result.Guid))
                 {
-                    result.WorkItemUris ??= new List<Uri>();
-                    result.WorkItemUris.Add(htmlUri);
-
-                    result.TryGetProperty(PROGRAMMABLE_URIS_PROPERTY_NAME, out List<Uri> programmableUris);
-
-                    programmableUris ??= new List<Uri>();
-                    programmableUris.Add(uri);
-
-                    result.SetProperty(PROGRAMMABLE_URIS_PROPERTY_NAME, programmableUris);
+                    AddResultWorkItemDetails(result, htmlUri, uri);
                 }
             }
+        }
+
+        private static void AddResultWorkItemDetails(Result result, Uri htmlUri, Uri uri)
+        {
+            result.WorkItemUris ??= new List<Uri>();
+            if (!result.WorkItemUris.Contains(htmlUri))
+            {
+                result.WorkItemUris.Add(htmlUri);
+            }
+
+            result.TryGetProperty(PROGRAMMABLE_URIS_PROPERTY_NAME, out List<Uri> programmableUris);
+
+            programmableUris ??= new List<Uri>();
+            if (!programmableUris.Contains(uri))
+            {
+                programmableUris.Add(uri);
+            }
+
+            result.SetProperty(PROGRAMMABLE_URIS_PROPERTY_NAME, programmableUris);
         }
 
         private void LogMetricsForProcessedModel(SarifLog sarifLog, SarifWorkItemModel sarifWorkItemModel, FilingResult filingResult, Dictionary<string, object> additionalCustomDimensions = null)
