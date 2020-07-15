@@ -52,7 +52,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             Array.Copy(args, 0, argsWithPointer, 1, args.Length);
             argsWithPointer[0] = JsonPointerToJavaScript(jPointer);
 
-            Context.Logger.Log(this,
+            // Copy the Rule; needed for BSOA because overridden property values aren't picked up by copy-on-set
+            ReportingDescriptor rule = new ReportingDescriptor(this);
+
+            Context.Logger.Log(rule,
                 RuleUtilities.BuildResult(DefaultLevel, Context, region, formatId, argsWithPointer));
         }
 

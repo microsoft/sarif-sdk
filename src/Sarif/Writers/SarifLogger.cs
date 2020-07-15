@@ -303,7 +303,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 ruleIndex = RuleToIndexMap.Count;
                 RuleToIndexMap[rule] = ruleIndex;
-                _run.Tool.Driver.Rules = _run.Tool.Driver.Rules ?? new OrderSensitiveValueComparisonList<ReportingDescriptor>(ReportingDescriptor.ValueComparer);
+
+                if (_run.Tool.Driver.Rules == null)
+                {
+                    _run.Tool.Driver.Rules = new List<ReportingDescriptor>();
+                }
                 _run.Tool.Driver.Rules.Add(rule);
             }
 
