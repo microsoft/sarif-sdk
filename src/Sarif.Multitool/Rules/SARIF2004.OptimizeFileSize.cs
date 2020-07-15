@@ -127,7 +127,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                         LogResult(
                             resultPointer.AtProperty(SarifPropertyName.AnalysisTarget),
                             nameof(RuleResources.SARIF2004_OptimizeFileSize_Warning_AvoidDuplicativeAnalysisTarget_Text),
-                            result.AnalysisTarget.Uri.ToString());
+                            result.AnalysisTarget.Uri.OriginalString);
                     }
                 }
             }
@@ -218,6 +218,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     nameof(RuleResources.SARIF2004_OptimizeFileSize_Warning_EliminateIdOnlyRules_Text));
             }
         }
+
         private bool HasIdOnlyRules(string rulePointer)
         {
             JToken ruleToken = rulePointer.ToJToken(Context.InputLogToken);

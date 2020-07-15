@@ -44,7 +44,6 @@
           ]
         },
         {
-          "ruleIndex": -1,
           "rule": {
             "id": "TEST1001",
             "toolComponent": { "name": "Plugin01" }
@@ -56,11 +55,11 @@
           "ruleIndex": 0,
           "locations": [
             {
-              "physicalLocation": { "artifactLocation": { "uri": "local/test/code/src/file1.h" } }
+              "physicalLocation": { "artifactLocation": { "uri": "file:///c:/local/test/code/src/file1.h" } }
             }
           ],
-          "analysisTarget": { "uri": "local/test/code/src/file1.c" },
-          "message": { "text": "Good result: artifacts array provides additional useful information." }
+          "analysisTarget": { "uri": "file:///c:/local/test/code/src/file1.c" },
+          "message": { "text": "Good result: analysisTarget is different from artifactLocation." }
         }
       ],
       "columnKind": "utf16CodeUnits"
