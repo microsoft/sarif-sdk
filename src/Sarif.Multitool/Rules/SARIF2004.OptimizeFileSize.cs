@@ -90,7 +90,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     LogResult(
                         resultPointer,
                         nameof(RuleResources.SARIF2004_OptimizeFileSize_Warning_AvoidDuplicativeResultRuleInformation_Text));
-                    return;
                 }
                 else if (result.Rule.ToolComponent == null)
                 {
@@ -101,7 +100,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     LogResult(
                         resultPointer,
                         nameof(RuleResources.SARIF2004_OptimizeFileSize_Warning_PreferRuleId_Text));
-                    return;
                 }
             }
         }
@@ -120,6 +118,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                             resultPointer.AtProperty(SarifPropertyName.AnalysisTarget),
                             nameof(RuleResources.SARIF2004_OptimizeFileSize_Warning_AvoidDuplicativeAnalysisTarget_Text),
                             result.AnalysisTarget.Uri.OriginalString);
+                        break;
                     }
                 }
             }
