@@ -48,7 +48,7 @@
             "id": "TEST1001",
             "toolComponent": { "name": "Plugin01" }
           },
-          "message": { "text": "Good result: artifacts array provides additional useful information." }
+          "message": { "text": "Good result: rule contains toolComponent." }
         },
         {
           "ruleId": "TEST1001",

@@ -71,22 +71,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
             AnalyzeLocationOnlyArtifacts(run, runPointer);
             AnalyzeIdOnlyRules(run, runPointer);
-
-            if (run.Results != null)
-            {
-                AnalyzeResults(run.Results, runPointer.AtProperty(SarifPropertyName.Results));
-            }
         }
 
-        private void AnalyzeResults(IList<Result> results, string resultsPointer)
+        protected override void Analyze(Result result, string resultPointer)
         {
-            for (int i = 0; i < results.Count; i++)
-            {
-                string resultPointer = resultsPointer.AtIndex(i);
-                Result result = results[i];
-                ReportUnnecessaryAnalysisTarget(result, resultPointer);
-                ReportRuleDuplication(result, resultPointer);
-            }
+            ReportUnnecessaryAnalysisTarget(result, resultPointer);
+            ReportRuleDuplication(result, resultPointer);
         }
 
         private void ReportRuleDuplication(Result result, string resultPointer)
@@ -100,6 +90,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     LogResult(
                         resultPointer,
                         nameof(RuleResources.SARIF2004_OptimizeFileSize_Warning_AvoidDuplicativeResultRuleInformation_Text));
+                    return;
                 }
                 else if (result.Rule.ToolComponent == null)
                 {
@@ -110,6 +101,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     LogResult(
                         resultPointer,
                         nameof(RuleResources.SARIF2004_OptimizeFileSize_Warning_PreferRuleId_Text));
+                    return;
                 }
             }
         }

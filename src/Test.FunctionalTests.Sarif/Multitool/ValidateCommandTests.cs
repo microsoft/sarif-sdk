@@ -121,15 +121,18 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
 
         [Fact]
         public void SARIF1009_IndexPropertiesMustBeConsistentWithArrays_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.IndexPropertiesMustBeConsistentWithArrays, nameof(RuleId.IndexPropertiesMustBeConsistentWithArrays)));
+            => RunTest(MakeInvalidTestFileName(RuleId.IndexPropertiesMustBeConsistentWithArrays, nameof(RuleId.IndexPropertiesMustBeConsistentWithArrays)),
+                parameter: new TestParameters(configFileName: "disable2004.configuration.xml"));
 
         [Fact]
         public void SARIF1010_RuleIdMustBeConsistent_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.RuleIdMustBeConsistent, nameof(RuleId.RuleIdMustBeConsistent)));
+            => RunTest(MakeValidTestFileName(RuleId.RuleIdMustBeConsistent, nameof(RuleId.RuleIdMustBeConsistent)),
+                parameter: new TestParameters(configFileName: "disable2004.configuration.xml"));
 
         [Fact]
         public void SARIF1010_RuleIdMustBeConsistent_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.RuleIdMustBeConsistent, nameof(RuleId.RuleIdMustBeConsistent)));
+            => RunTest(MakeInvalidTestFileName(RuleId.RuleIdMustBeConsistent, nameof(RuleId.RuleIdMustBeConsistent)),
+                parameter: new TestParameters(configFileName: "disable2004.configuration.xml"));
 
         [Fact]
         public void SARIF1011_ReferenceFinalSchema_Valid()
