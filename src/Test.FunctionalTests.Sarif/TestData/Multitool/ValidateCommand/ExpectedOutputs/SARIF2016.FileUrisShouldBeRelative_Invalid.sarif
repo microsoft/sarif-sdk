@@ -8,17 +8,17 @@
           "name": "SARIF Functional Testing",
           "rules": [
             {
-              "id": "SARIF2003",
-              "name": "ProvideVersionControlProvenance",
+              "id": "SARIF2016",
+              "name": "FileUrisShouldBeRelative",
               "shortDescription": {
-                "text": "Provide 'versionControlProvenance' to record which version of the code was analyzed, and to enable paths to be expressed relative to the root of the repository."
+                "text": "When an artifact location refers to a file on the local file system, specify a relative reference for the uri property and provide a uriBaseId property, rather than specifying an absolute URI."
               },
               "fullDescription": {
-                "text": "Provide 'versionControlProvenance' to record which version of the code was analyzed, and to enable paths to be expressed relative to the root of the repository."
+                "text": "When an artifact location refers to a file on the local file system, specify a relative reference for the uri property and provide a uriBaseId property, rather than specifying an absolute URI.\r\n\r\nThere are several advantages to this approach:\r\n\r\nPortability: A log file that contains relative references together with uriBaseI properties can be interpreted on a machine where the files are located at a different absolute location.\r\n\r\nDeterminism: A log file that uses uriBaseId properties has a better chance of being 'deterministic'; that is, of being identical from run to run if none of its inputs have changed, even if those runs occur on machines where the files are located at different absolute locations.\r\n\r\nSecurity: The use of uriBaseId properties avoids the persistence of absolute path names in the log file. Absolute path names can reveal information that might be sensitive.\r\n\r\nSemantics: Assuming the reader of the log file (an end user or another tool) has the necessary context, they can understand the meaning of the location specified by the uri property, for example, 'this is a source file'."
               },
               "messageStrings": {
                 "Note_Default": {
-                  "text": "{0}: This run does not provide 'versionControlProvenance'. As a result, it is not possible to determine which version of code was analyzed, nor to map relative paths to their locations within the repository."
+                  "text": "{0}: The file location '{1}' is specified with absolute URI. Prefer a relative reference together with a uriBaseId property."
                 }
               },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
@@ -52,14 +52,6 @@
               "descriptor": {
                 "id": "WRN999.RuleExplicitlyDisabled"
               }
-            },
-            {
-              "message": {
-                "text": "Rule 'SARIF2016' was explicitly disabled by the user. As result, this tool run cannot be used for compliance or other auditing processes that require a comprehensive analysis."
-              },
-              "descriptor": {
-                "id": "WRN999.RuleExplicitlyDisabled"
-              }
             }
           ],
           "executionSuccessful": true
@@ -68,20 +60,21 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF2003.ProvideVersionControlProvenance_Invalid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF2016.FileUrisShouldBeRelative_Invalid.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }
       ],
       "results": [
         {
-          "ruleId": "SARIF2003",
+          "ruleId": "SARIF2016",
           "ruleIndex": 0,
           "level": "note",
           "message": {
             "id": "Note_Default",
             "arguments": [
-              "runs[0]"
+              "runs[0].results[0].locations[0].physicalLocation.artifactLocation.uri",
+              "file:///c:/src/test.c"
             ]
           },
           "locations": [
@@ -91,8 +84,8 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 5,
-                  "startColumn": 5
+                  "startLine": 28,
+                  "startColumn": 48
                 }
               }
             }
