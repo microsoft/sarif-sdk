@@ -1988,6 +1988,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             JObject fileLocationObject = new JObject();
             file["fileLocation"] = fileLocationObject;
+            file.Remove("uri");
             fileLocationObject["uri"] = fileLocationKey.Uri;
             fileLocationObject["uriBaseId"] = fileLocationKey.UriBaseId;
 

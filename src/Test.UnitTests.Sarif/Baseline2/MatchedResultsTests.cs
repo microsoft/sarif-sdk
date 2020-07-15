@@ -304,11 +304,11 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline2
                 }
 
                 if (actualBaselineState != testCase.ExpectedBaselineState ||
-                    actualFirstDetectionTime != expectedFirstDetectionTime)
+                    actualFirstDetectionTime.Value.ToUniversalTime() != expectedFirstDetectionTime.ToUniversalTime())
                 {
                     sb.AppendLine($"    Test: {testCase.Name}");
-                    sb.AppendLine($"        Expected: {testCase.ExpectedBaselineState}\t{testCase.ExpectedFirstDetectionTime}");
-                    sb.AppendLine($"        Actual:   {actualBaselineState}\t{actualFirstDetectionTime}");
+                    sb.AppendLine($"        Expected: {testCase.ExpectedBaselineState}\t{testCase.ExpectedFirstDetectionTime.Value.ToUniversalTime()}");
+                    sb.AppendLine($"        Actual:   {actualBaselineState}\t{actualFirstDetectionTime.Value.ToUniversalTime()}");
                 }
             }
 

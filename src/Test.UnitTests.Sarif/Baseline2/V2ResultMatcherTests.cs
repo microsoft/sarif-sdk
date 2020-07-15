@@ -126,7 +126,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
             matches.Where(m => m.PreviousResult == null || m.CurrentResult == null).Should().HaveCount(1);
 
             MatchedResults nonMatch = matches.Where(m => m.PreviousResult == null || m.CurrentResult == null).First();
-            newResult.Should().BeSameAs(nonMatch.CurrentResult.Result);
+            newResult.Should().Equals(nonMatch.CurrentResult.Result);
         }
 
         [Fact]
@@ -140,7 +140,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
             matches.Where(m => m.PreviousResult == null || m.CurrentResult == null).Should().HaveCount(1);
 
             MatchedResults nonMatch = matches.Where(m => m.PreviousResult == null || m.CurrentResult == null).First();
-            SampleRun.Results[2].Should().BeSameAs(nonMatch.PreviousResult.Result);
+            SampleRun.Results[2].Should().Equals(nonMatch.PreviousResult.Result);
         }
 
         [Fact]
@@ -160,10 +160,10 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
             matches.Where(m => m.PreviousResult == null || m.CurrentResult == null).Should().HaveCount(2);
 
             MatchedResults removed = matches.Where(m => m.CurrentResult == null).First();
-            SampleRun.Results[2].Should().BeSameAs(removed.PreviousResult.Result);
+            SampleRun.Results[2].Should().Equals(removed.PreviousResult.Result);
 
             MatchedResults added = matches.Where(m => m.PreviousResult == null).First();
-            newResult.Should().BeSameAs(added.CurrentResult.Result);
+            newResult.Should().Equals(added.CurrentResult.Result);
         }
 
         [Fact]
