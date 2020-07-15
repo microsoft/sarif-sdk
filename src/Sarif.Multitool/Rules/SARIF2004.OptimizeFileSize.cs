@@ -67,10 +67,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         public override FailureLevel DefaultLevel => FailureLevel.Warning;
 
+        private string driverGuid;
+
         protected override void Analyze(Run run, string runPointer)
         {
             AnalyzeLocationOnlyArtifacts(run, runPointer);
             AnalyzeIdOnlyRules(run, runPointer);
+
+            this.driverGuid = run.Tool.Driver?.Guid;
         }
 
         protected override void Analyze(Result result, string resultPointer)
@@ -83,15 +87,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
             if (result.Rule != null)
             {
-                if (!string.IsNullOrWhiteSpace(result.RuleId) || result.RuleIndex >= 0)
+                if (result.Rule.ToolComponent != null)
                 {
-                    //  {0}: This result specifies both 'result.ruleId' and 'result.rule'.
-                    // Prefer 'result.ruleId' because it is shorter and just as clear.
-                    LogResult(
-                        resultPointer,
-                        nameof(RuleResources.SARIF2004_OptimizeFileSize_Warning_AvoidDuplicativeResultRuleInformation_Text));
+                    if (result.Rule.ToolComponent.RefersToDriver(this.driverGuid))
+                    {
+                        // {0}: This result specifies both 'result.ruleId' and 'result.rule'.
+                        // Prefer 'result.ruleId' because it is shorter and just as clear.
+                        LogResult(
+                            resultPointer,
+                            nameof(RuleResources.SARIF2004_OptimizeFileSize_Warning_AvoidDuplicativeResultRuleInformation_Text));
+                    }
                 }
-                else if (result.Rule.ToolComponent == null)
+                else
                 {
                     // {0}: This result uses the 'rule' property to specify the rule
                     // metadata, but the 'ruleId' property suffices because the rule

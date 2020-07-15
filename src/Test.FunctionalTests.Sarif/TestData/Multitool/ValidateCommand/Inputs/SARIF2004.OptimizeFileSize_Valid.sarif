@@ -46,7 +46,10 @@
         {
           "rule": {
             "id": "TEST1001",
-            "toolComponent": { "name": "Plugin01" }
+            "toolComponent": {
+              "name": "Plugin01",
+              "index": 1
+            }
           },
           "message": { "text": "Good result: rule contains toolComponent." }
         },

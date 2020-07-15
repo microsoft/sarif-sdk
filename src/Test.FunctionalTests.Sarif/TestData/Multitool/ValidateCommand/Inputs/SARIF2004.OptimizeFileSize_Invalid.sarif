@@ -61,9 +61,10 @@
         },
         {
           "rule": {
-            "id": "TEST1001"
+            "id": "TEST1001",
+            "toolComponent": {"name": "toolComponent"}
           },
-          "message": { "text": "Bad result: rule does not provide enough information to be located." }
+          "message": { "text": "Bad result: rule could be simplified, because it's pointing to default tool." }
         },
         {
           "ruleId": "TEST1001",

@@ -152,7 +152,7 @@
           "ruleId": "SARIF2004",
           "ruleIndex": 0,
           "message": {
-            "id": "Warning_PreferRuleId",
+            "id": "Warning_AvoidDuplicativeResultRuleInformation",
             "arguments": [
               "runs[0].results[2]"
             ]
@@ -175,7 +175,7 @@
           "ruleId": "SARIF2004",
           "ruleIndex": 0,
           "message": {
-            "id": "Warning_AvoidDuplicativeResultRuleInformation",
+            "id": "Warning_PreferRuleId",
             "arguments": [
               "runs[0].results[3]"
             ]
@@ -187,7 +187,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 76,
+                  "startLine": 79,
                   "startColumn": 9
                 }
               }
