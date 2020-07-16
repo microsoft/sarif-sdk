@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.ObjectModel;
 
 using Xunit;
 
@@ -12,22 +13,41 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         [Fact]
         public void Extensions_Validate_RefersToDriver()
         {
-            foreach (Tuple<ToolComponentReference, string, bool> item in ToolComponentTestList)
+            foreach (ToolComponentReferenceTestCase item in s_toolComponentReferenceTestCases)
             {
-                Assert.Equal(item.Item3, item.Item1.RefersToDriver(item.Item2));
-            }
+                // Act
+                bool actualOutput = item.ToolComponentReference.RefersToDriver(item.DriverGuid);
 
+                // Assert
+                Assert.Equal(item.ExpectedOutput, actualOutput);
+            }
         }
 
-        public Tuple<ToolComponentReference, string, bool>[] ToolComponentTestList = new[]
+        private class ToolComponentReferenceTestCase
         {
-            new Tuple<ToolComponentReference, string, bool>(new ToolComponentReference{Index = -1, Guid = "" }, "", true),
-            new Tuple<ToolComponentReference, string, bool>(new ToolComponentReference{Index = -1, Guid = "" }, null, true),
-            new Tuple<ToolComponentReference, string, bool>(new ToolComponentReference{Index = -1, Guid = null }, null, true),
-            new Tuple<ToolComponentReference, string, bool>(new ToolComponentReference{Index = -1, Guid = null }, "", true),
-            new Tuple<ToolComponentReference, string, bool>(new ToolComponentReference{Index = -1, Guid = "774707BC-6949-4DB5-826D-9FC0E38BFDEE" }, "774707BC-6949-4DB5-826D-9FC0E38BFDEE", true),
-            new Tuple<ToolComponentReference, string, bool>(new ToolComponentReference{Index = -1, Guid = "774707BC-6949-4DB5-826D-9FC0E38BFDEF" }, "774707BC-6949-4DB5-826D-9FC0E38BFDEE", false),
-            new Tuple<ToolComponentReference, string, bool>(new ToolComponentReference{Index = 2, Guid = "774707BC-6949-4DB5-826D-9FC0E38BFDEE" }, "774707BC-6949-4DB5-826D-9FC0E38BFDEE", false),
-        };
+            public ToolComponentReferenceTestCase(int index, string toolGuid, string driverGuid, bool expectedOutput)
+            {
+                ToolComponentReference = new ToolComponentReference
+                {
+                    Index = index,
+                    Guid = toolGuid
+                };
+
+                DriverGuid = driverGuid;
+                ExpectedOutput = expectedOutput;
+            }
+
+            public ToolComponentReference ToolComponentReference { get; }
+            public string DriverGuid { get; }
+            public bool ExpectedOutput { get; }
+        }
+
+        private static readonly ReadOnlyCollection<ToolComponentReferenceTestCase> s_toolComponentReferenceTestCases =
+            new ReadOnlyCollection<ToolComponentReferenceTestCase>(new[] {
+                new ToolComponentReferenceTestCase(-1, null, null, true),
+                new ToolComponentReferenceTestCase(-1, "774707BC-6949-4DB5-826D-9FC0E38BFDEE", "774707BC-6949-4DB5-826D-9FC0E38BFDEE", true),
+                new ToolComponentReferenceTestCase(-1, "774707BC-6949-4DB5-826D-9FC0E38BFDEF", "774707BC-6949-4DB5-826D-9FC0E38BFDEE", false),
+                new ToolComponentReferenceTestCase(2, "774707BC-6949-4DB5-826D-9FC0E38BFDEE", "774707BC-6949-4DB5-826D-9FC0E38BFDEE", false)
+        });
     }
 }

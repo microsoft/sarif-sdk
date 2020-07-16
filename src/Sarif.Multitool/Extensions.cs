@@ -8,7 +8,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             if (toolComponent.Index == -1)
             {
-                if (string.IsNullOrWhiteSpace(toolComponent.Guid))
+                if (toolComponent.Guid == null)
                 {
                     return true;
                 }

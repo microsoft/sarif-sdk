@@ -68,7 +68,7 @@
               "guid": "686D3462-EC4F-499F-8738-9D6ED96F7A27"
             }
           },
-          "message": { "text": "Bad result: rule could be simplified, because it's pointing to default tool." }
+          "message": { "text": "Bad result: rule could be simplified, because it's pointing to tool.driver." }
         },
         {
           "ruleId": "TEST1001",
@@ -79,7 +79,7 @@
               "guid": "686D3462-EC4F-499F-8738-9D6ED96F7A28"
             }
           },
-          "message": { "text": "Bad result: rule could be simplified, because it's pointing to default tool." }
+          "message": { "text": "Bad result: ruleId duplicates information in rule." }
         },
         {
           "ruleId": "TEST1001",
