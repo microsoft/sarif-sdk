@@ -64,6 +64,12 @@
       "arePlainText": true
     },
     {
+      "description": "Don't serialize null Language",
+      "replace": "JsonToString.Write(writer, \"language\", item.Language, \"en-US\");",
+      "with": "if (item.Language != null) { JsonToString.Write(writer, \"language\", item.Language, \"en-US\"); }",
+      "arePlainText": true
+    },
+    {
       "description": "Run.Tool is required",
       "replace": "JsonToTool.Write(writer, \"tool\", item.Tool)",
       "with": "JsonToTool.Write(writer, \"tool\", item.Tool, required: true)",

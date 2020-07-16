@@ -6,7 +6,7 @@
     <LangVersion>8.0</LangVersion>
 
     <!-- BSOA Version Referenced; used by projects consuming package and generator logic -->
-    <BsoaVersion>0.5.1</BsoaVersion>
+    <BsoaVersion>0.5.2</BsoaVersion>
   </PropertyGroup>
 
   <PropertyGroup Label="AssemblyAttributes">
