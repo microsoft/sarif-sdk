@@ -94,7 +94,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 18,
+                  "startLine": 19,
                   "startColumn": 9
                 }
               }
@@ -117,7 +117,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 11,
+                  "startLine": 12,
                   "startColumn": 13
                 }
               }
@@ -141,7 +141,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 55,
+                  "startLine": 56,
                   "startColumn": 29
                 }
               }
@@ -152,7 +152,7 @@
           "ruleId": "SARIF2004",
           "ruleIndex": 0,
           "message": {
-            "id": "Warning_AvoidDuplicativeResultRuleInformation",
+            "id": "Warning_PreferRuleId",
             "arguments": [
               "runs[0].results[2]"
             ]
@@ -164,7 +164,30 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 68,
+                  "startLine": 69,
+                  "startColumn": 9
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF2004",
+          "ruleIndex": 0,
+          "message": {
+            "id": "Warning_AvoidDuplicativeResultRuleInformation",
+            "arguments": [
+              "runs[0].results[3]"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 81,
                   "startColumn": 9
                 }
               }
@@ -177,7 +200,7 @@
           "message": {
             "id": "Warning_PreferRuleId",
             "arguments": [
-              "runs[0].results[3]"
+              "runs[0].results[4]"
             ]
           },
           "locations": [
@@ -187,7 +210,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 79,
+                  "startLine": 94,
                   "startColumn": 9
                 }
               }

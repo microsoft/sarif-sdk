@@ -7,6 +7,7 @@
         "driver": {
           "name": "Code Analyser",
           "version": "1.2.3",
+          "guid": "686D3462-EC4F-499F-8738-9D6ED96F7A27",
           "rules": [
             {
               "id": "TEST1001"
@@ -62,7 +63,21 @@
         {
           "rule": {
             "id": "TEST1001",
-            "toolComponent": {"name": "toolComponent"}
+            "toolComponent": {
+              "name": "toolComponent",
+              "guid": "686D3462-EC4F-499F-8738-9D6ED96F7A27"
+            }
+          },
+          "message": { "text": "Bad result: rule could be simplified, because it's pointing to default tool." }
+        },
+        {
+          "ruleId": "TEST1001",
+          "rule": {
+            "id": "TEST1001",
+            "toolComponent": {
+              "name": "toolComponent",
+              "guid": "686D3462-EC4F-499F-8738-9D6ED96F7A28"
+            }
           },
           "message": { "text": "Bad result: rule could be simplified, because it's pointing to default tool." }
         },

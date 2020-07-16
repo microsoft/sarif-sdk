@@ -91,12 +91,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 {
                     if (result.Rule.ToolComponent.RefersToDriver(this.driverGuid))
                     {
-                        // {0}: This result specifies both 'result.ruleId' and 'result.rule'.
-                        // Prefer 'result.ruleId' because it is shorter and just as clear.
+                        // {0}: This result uses the 'rule' property to specify the rule
+                        // metadata, but the 'ruleId' property suffices because the rule
+                        // is defined by 'tool.driver'. Prefer 'result.ruleId' because it
+                        // is shorter and just as clear.
                         LogResult(
                             resultPointer,
-                            nameof(RuleResources.SARIF2004_OptimizeFileSize_Warning_AvoidDuplicativeResultRuleInformation_Text));
+                            nameof(RuleResources.SARIF2004_OptimizeFileSize_Warning_PreferRuleId_Text));
                     }
+                    else
+                    {
+                        if (!string.IsNullOrWhiteSpace(result.RuleId) || result.RuleIndex >= 0)
+                        {
+                            // {0}: This result specifies both 'result.ruleId' and 'result.rule'.
+                            // Prefer 'result.ruleId' because it is shorter and just as clear.
+                            LogResult(
+                                resultPointer,
+                                nameof(RuleResources.SARIF2004_OptimizeFileSize_Warning_AvoidDuplicativeResultRuleInformation_Text));
+                        }
+                    }                    
                 }
                 else
                 {
