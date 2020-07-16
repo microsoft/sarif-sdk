@@ -103,9 +103,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     {
                         if (!string.IsNullOrWhiteSpace(result.RuleId) || result.RuleIndex >= 0)
                         {
-                            // The result at '{0}' uses the 'rule' property to specify the
-                            // violated rule, so it is not necessary also to specify 'ruleId' or
-                            // 'ruleIndex'. Remove the 'ruleId' and 'ruleIndex' properties.
+                            // '{0}' uses the 'rule' property to specify the violated rule, so it
+                            // is not necessary also to specify 'ruleId' or 'ruleIndex'. This
+                            // unnecessarily increases log file size. Remove the 'ruleId' and
+                            // 'ruleIndex' properties.
                             LogResult(
                                 resultPointer,
                                 nameof(RuleResources.SARIF2004_OptimizeFileSize_Warning_AvoidDuplicativeResultRuleInformation_Text));
@@ -133,8 +134,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 {
                     if (location?.PhysicalLocation?.ArtifactLocation?.Uri == result.AnalysisTarget.Uri)
                     {
-                        // The 'analysisTarget' property '{1}' at '{0}' is unnecessary because it is the same
-                        // as the result location. Remove the 'analysisTarget' property.
+                        // The 'analysisTarget' property '{1}' at '{0}' can be removed because it is the same
+                        // as the result location. This unnecessarily increases log file size. The
+                        // 'analysisTarget' property is used to distinguish cases when a result fires in a file
+                        // (such as an included header) that is different than the file that was scanned (such
+                        // as a .cpp file that included the header).
                         LogResult(
                             resultPointer.AtProperty(SarifPropertyName.AnalysisTarget),
                             nameof(RuleResources.SARIF2004_OptimizeFileSize_Warning_AvoidDuplicativeAnalysisTarget_Text),

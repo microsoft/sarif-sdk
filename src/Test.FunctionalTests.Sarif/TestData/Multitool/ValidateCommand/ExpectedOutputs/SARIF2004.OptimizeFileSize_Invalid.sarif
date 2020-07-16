@@ -18,10 +18,10 @@
               },
               "messageStrings": {
                 "Warning_AvoidDuplicativeAnalysisTarget": {
-                  "text": "The 'analysisTarget' property '{1}' at '{0}' is unnecessary because it is the same as the result location. Remove the 'analysisTarget' property."
+                  "text": "The 'analysisTarget' property '{1}' at '{0}' can be removed because it is the same as the result location. This unnecessarily increases log file size. The 'analysisTarget' property is used to distinguish cases when a result fires in a file (such as an included header) that is different than the file that was scanned (such as a .cpp file that included the header)."
                 },
                 "Warning_AvoidDuplicativeResultRuleInformation": {
-                  "text": "The result at '{0}' uses the 'rule' property to specify the violated rule, so it is not necessary also to specify 'ruleId' or 'ruleIndex'. Remove the 'ruleId' and 'ruleIndex' properties."
+                  "text": "'{0}' uses the 'rule' property to specify the violated rule, so it is not necessary also to specify 'ruleId' or 'ruleIndex'. This unnecessarily increases log file size. Remove the 'ruleId' and 'ruleIndex' properties."
                 },
                 "Warning_EliminateLocationOnlyArtifacts": {
                   "text": "The 'artifacts' array at '{0}' contains no information beyond the locations of the artifacts. Removing this array might reduce the log file size without losing information. In some scenarios (for example, when assessing compliance with policy), the 'artifacts' array might be used to record the full set of artifacts that were analyzed. In such a scenario, the 'artifacts' array should be retained even if it contains only location information."

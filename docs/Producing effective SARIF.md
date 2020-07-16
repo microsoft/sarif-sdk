@@ -395,11 +395,11 @@ Similarly, most 'result' objects contain at least one 'artifactLocation' object.
 
 ##### `AvoidDuplicativeAnalysisTarget`: warning
 
-The 'analysisTarget' property '{1}' at '{0}' is unnecessary because it is the same as the result location. Remove the 'analysisTarget' property.
+The 'analysisTarget' property '{1}' at '{0}' can be removed because it is the same as the result location. This unnecessarily increases log file size. The 'analysisTarget' property is used to distinguish cases when a result fires in a file (such as an included header) that is different than the file that was scanned (such as a .cpp file that included the header). 
 
 #### `AvoidDuplicativeResultRuleInformation`: warning
 
-The result at '{0}' uses the 'rule' property to specify the violated rule, so it is not necessary also to specify 'ruleId' or 'ruleIndex'. Remove the 'ruleId' and 'ruleIndex' properties.
+'{0}' uses the 'rule' property to specify the violated rule, so it is not necessary also to specify 'ruleId' or 'ruleIndex'. This unnecessarily increases log file size. Remove the 'ruleId' and 'ruleIndex' properties.
 
 ##### `EliminateLocationOnlyArtifacts`: warning
 
