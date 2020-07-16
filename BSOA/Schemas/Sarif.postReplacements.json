@@ -12,6 +12,12 @@
       "with": "PropertyBag : ",
       "files": "PropertyBag\\.cs",
       "arePlainText": true
+    },    
+    {
+      "description": "Properties property must be virtual",
+      "replace": "public IDictionary<String, SerializedPropertyInfo> Properties",
+      "with": "public virtual IDictionary<String, SerializedPropertyInfo> Properties",
+      "arePlainText": true
     },
     {
       "description": "Base class defines Properties, so entities must declare as 'internal override'",
@@ -34,13 +40,13 @@
     },
     {
       "description": "Result.Kind and Level have inter-related logic",
-      "replace": "(public virtual ResultKind Kind.*?)(set => [^\\r\\n]+)",
+      "replace": "(public ResultKind Kind.*?)(set => [^\\r\\n]+)",
       "with": "$1set { _table.Kind[_index] = (int)value; if (value != ResultKind.Fail) { Level = FailureLevel.None; } }",
       "files": "Result\\.cs"
     },
     {
       "description": "Result.Kind and Level have inter-related logic",
-      "replace": "(public virtual FailureLevel Level.*?)(set => [^\\r\\n]+)",
+      "replace": "(public FailureLevel Level.*?)(set => [^\\r\\n]+)",
       "with": "$1set { _table.Level[_index] = (int)value; if (value != FailureLevel.None) { Kind = ResultKind.Fail; } }",
       "files": "Result\\.cs"
     },

@@ -83,7 +83,7 @@ namespace BSOA.Generator.Templates
 
         // <ColumnList>
         //   <SimpleColumn>
-        public virtual long Id
+        public long Id
         {
             get => _table.Id[_index];
             set => _table.Id[_index] = value;
@@ -91,7 +91,7 @@ namespace BSOA.Generator.Templates
 
         //   </SimpleColumn>
         //   <EnumColumn>
-        public virtual SecurityPolicy JoinPolicy
+        public SecurityPolicy JoinPolicy
         {
             get => (SecurityPolicy)_table.JoinPolicy[_index];
             set => _table.JoinPolicy[_index] = (byte)value;
@@ -99,7 +99,7 @@ namespace BSOA.Generator.Templates
 
         //   </EnumColumn>
         //   <RefColumn>
-        public virtual Employee Owner
+        public Employee Owner
         {
             get => _table.Database.Employee.Get(_table.Owner[_index]);
             set => _table.Owner[_index] = _table.Database.Employee.LocalIndex(value);
@@ -107,7 +107,7 @@ namespace BSOA.Generator.Templates
 
         //   </RefColumn>
         //   <RefListColumn>
-        public virtual IList<Employee> Members
+        public IList<Employee> Members
         {
             get => TypedList<Employee>.Get(_table.Database.Employee, _table.Members, _index);
             set => TypedList<Employee>.Set(_table.Database.Employee, _table.Members, _index, value);
