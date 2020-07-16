@@ -27,6 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
         public void JSON1001_SyntaxError()
             => RunTest("JSON1001.SyntaxError.sarif");
 
+        // ISSUE: BSOA JSON parsing doesn't enforce 'required', so this doesn't raise the same issues as it would otherwise.
         [Fact]
         public void JSON1002_DeserializationError()
             => RunTest("JSON1002.DeserializationError.sarif");
