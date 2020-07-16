@@ -258,12 +258,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         private SarifLog CreatePartitionLog(T partitionValue)
         {
+            // BSOA: Can't get copy of list, set list null, and then restore list, because copy-on-set to null
+            // also clears the list reference previously retrieved.
+
             SarifLog partitionLog;
             if (deepClone)
             {
                 // Save time and space by not cloning the runs unless and until necessary. We will
                 // only need to clone the runs that have results in this partition.
-                IList<Run> originalRuns = originalLog.Runs;
+                IList<Run> originalRuns = new List<Run>(originalLog.Runs);
                 originalLog.Runs = null;
 
                 partitionLog = originalLog.DeepClone();
@@ -296,8 +299,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     {
                         // Save time and space by only cloning the necessary results and associated
                         // collection elements. We already cloned the relevant results in VisitResult.
-                        IList<Result> originalResults = originalRun.Results;
-                        IList<Artifact> originalArtifacts = originalRun.Artifacts;
+                        IList<Result> originalResults = new List<Result>(originalRun.Results);
+                        IList<Artifact> originalArtifacts = new List<Artifact>(originalRun.Artifacts);
                         originalRun.Results = null;
                         originalRun.Artifacts = null;
 

@@ -92,9 +92,15 @@
       "arePlainText": true
     },
     {
-      "description": "Invocation.ExecutionSuccessful is required",
-      "replace": "(\\.Write\\(writer, \"(executionSuccessful)\", ([^\\)]+))\\);",
+      "description": "Invocation.ExecutionSuccessful, GraphTraversal.EdgeTraversals are required",
+      "replace": "(\\.Write\\(writer, \"(executionSuccessful|edgeTraversals)\", ([^\\)]+))\\);",
       "with": "$1, required: true);"
+    },
+    {
+      "description": "Graph.Nodes, Edges are required",
+      "replace": "(\\.Write\\(writer, \"(nodes|edges)\", ([^\\)]+))\\);",
+      "with": "$1, required: true);",
+      "files": "JsonToGraph\\.cs"
     }
   ]
 }
