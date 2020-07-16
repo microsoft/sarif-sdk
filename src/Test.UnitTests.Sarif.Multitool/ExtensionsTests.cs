@@ -1,8 +1,11 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using FluentAssertions;
+
 using System;
 using System.Collections.ObjectModel;
+using System.Text;
 
 using Xunit;
 
@@ -13,14 +16,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         [Fact]
         public void Extensions_Validate_RefersToDriver()
         {
+            StringBuilder sb = new StringBuilder();
+
             foreach (ToolComponentReferenceTestCase item in s_toolComponentReferenceTestCases)
             {
-                // Act
                 bool actualOutput = item.ToolComponentReference.RefersToDriver(item.DriverGuid);
 
-                // Assert
-                Assert.Equal(item.ExpectedOutput, actualOutput);
+                if (actualOutput != item.ExpectedOutput)
+                {
+                    sb.AppendLine($"    Input: {item.ToolComponentReference.Index} {item.ToolComponentReference.Guid ?? "null"} {item.DriverGuid ?? "null"} Expected: {item.ExpectedOutput} Actual: {actualOutput}");
+                }
             }
+
+            sb.Length.Should().Be(0,
+                $"all test cases should pass, but the following test cases failed:\n{sb.ToString()}");
         }
 
         private class ToolComponentReferenceTestCase

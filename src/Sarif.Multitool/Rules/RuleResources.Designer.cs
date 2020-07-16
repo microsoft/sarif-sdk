@@ -454,7 +454,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The &apos;analysisTarget&apos; property &apos;{1}&apos; is unnecessary because it is the same as the result location. Remove the &apos;analysisTarget&apos; property..
+        ///   Looks up a localized string similar to The &apos;analysisTarget&apos; property &apos;{1}&apos; at &apos;{0}&apos; is unnecessary because it is the same as the result location. Remove the &apos;analysisTarget&apos; property..
         /// </summary>
         internal static string SARIF2004_OptimizeFileSize_Warning_AvoidDuplicativeAnalysisTarget_Text {
             get {
@@ -463,7 +463,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: This result specifies both &apos;result.ruleId&apos; and &apos;result.rule&apos;. Prefer &apos;result.ruleId&apos; because it is shorter and just as clear..
+        ///   Looks up a localized string similar to The result at &apos;{0}&apos; uses the &apos;rule&apos; property to specify the violated rule, so it is not necessary also to specify &apos;ruleId&apos; or &apos;ruleIndex&apos;. Remove the &apos;ruleId&apos; and &apos;ruleIndex&apos; properties..
         /// </summary>
         internal static string SARIF2004_OptimizeFileSize_Warning_AvoidDuplicativeResultRuleInformation_Text {
             get {
@@ -472,7 +472,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The &apos;rules&apos; array contains no information beyond the ids of the rules. Removing this array might reduce the log file size without losing information. In some scenarios (for example, when assessing compliance with policy), the &apos;rules&apos; array might be used to record the full set of rules that were evaluated. In such a scenario, the &apos;rules&apos; array should be retained even if it contains only id information..
+        ///   Looks up a localized string similar to The &apos;rules&apos; array at &apos;{0}&apos; contains no information beyond the ids of the rules. Removing this array might reduce the log file size without losing information. In some scenarios (for example, when assessing compliance with policy), the &apos;rules&apos; array might be used to record the full set of rules that were evaluated. In such a scenario, the &apos;rules&apos; array should be retained even if it contains only id information..
         /// </summary>
         internal static string SARIF2004_OptimizeFileSize_Warning_EliminateIdOnlyRules_Text {
             get {
@@ -481,7 +481,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The &apos;artifacts&apos; array contains no information beyond the locations of the artifacts. Removing this array might reduce the log file size without losing information. In some scenarios (for example, when assessing compliance with policy), the &apos;artifacts&apos; array might be used to record the full set of artifacts that were analyzed. In such a scenario, the &apos;artifacts&apos; array should be retained even if it contains only location information..
+        ///   Looks up a localized string similar to The &apos;artifacts&apos; array at &apos;{0}&apos; contains no information beyond the locations of the artifacts. Removing this array might reduce the log file size without losing information. In some scenarios (for example, when assessing compliance with policy), the &apos;artifacts&apos; array might be used to record the full set of artifacts that were analyzed. In such a scenario, the &apos;artifacts&apos; array should be retained even if it contains only location information..
         /// </summary>
         internal static string SARIF2004_OptimizeFileSize_Warning_EliminateLocationOnlyArtifacts_Text {
             get {
@@ -490,7 +490,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: This result uses the &apos;rule&apos; property to specify the rule metadata, but the &apos;ruleId&apos; property suffices because the rule is defined by &apos;tool.driver&apos;. Prefer &apos;result.ruleId&apos; because it is shorter and just as clear..
+        ///   Looks up a localized string similar to The result at &apos;{0}&apos; uses the &apos;rule&apos; property to specify the violated rule, but this is not necessary because the rule is defined by &apos;tool.driver&apos;. Use the &apos;ruleId&apos; and &apos;ruleIndex&apos; instead, because they are shorter and just as clear..
         /// </summary>
         internal static string SARIF2004_OptimizeFileSize_Warning_PreferRuleId_Text {
             get {

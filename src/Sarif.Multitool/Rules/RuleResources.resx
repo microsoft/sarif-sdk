@@ -281,7 +281,7 @@ Prefer the result object properties 'ruleId' and 'ruleIndex' to the nested objec
 Do not specify the result object's 'analysisTarget' property unless it differs from the result location. The canonical scenario for using 'result.analysisTarget' is a C/C++ language analyzer that is instructed to analyze example.c, and detects a result in the included file example.h. In this case, 'analysisTarget' is example.c, and the result location is in example.h.</value>
   </data>
   <data name="SARIF2004_OptimizeFileSize_Warning_EliminateLocationOnlyArtifacts_Text" xml:space="preserve">
-    <value>{0}: The 'artifacts' array contains no information beyond the locations of the artifacts. Removing this array might reduce the log file size without losing information. In some scenarios (for example, when assessing compliance with policy), the 'artifacts' array might be used to record the full set of artifacts that were analyzed. In such a scenario, the 'artifacts' array should be retained even if it contains only location information.</value>
+    <value>The 'artifacts' array at '{0}' contains no information beyond the locations of the artifacts. Removing this array might reduce the log file size without losing information. In some scenarios (for example, when assessing compliance with policy), the 'artifacts' array might be used to record the full set of artifacts that were analyzed. In such a scenario, the 'artifacts' array should be retained even if it contains only location information.</value>
   </data>
   <data name="SARIF2002_ProvideMessageArguments_FullDescription_Text" xml:space="preserve">
     <value>In result messages, use the 'message.id' and 'message.arguments' properties rather than 'message.text'. This has several advantages. If 'text' is lengthy, using 'id' and 'arguments' makes the SARIF file smaller. If the rule metadata is stored externally to the SARIF log file, the message text can be improved (for example, by adding more text, clarifying the phrasing, or fixing typos), and the result messages will pick up the improvements the next time it is displayed. Finally, SARIF supports localizing messages into different languages, which is possible if the SARIF file contains 'message.id' and 'message.arguments', but not if it contains 'message.text' directly.</value>
@@ -296,7 +296,7 @@ Do not specify the result object's 'analysisTarget' property unless it differs f
     <value>{0}: This run does not provide 'versionControlProvenance'. As a result, it is not possible to determine which version of code was analyzed, nor to map relative paths to their locations within the repository.</value>
   </data>
   <data name="SARIF2004_OptimizeFileSize_Warning_EliminateIdOnlyRules_Text" xml:space="preserve">
-    <value>{0}: The 'rules' array contains no information beyond the ids of the rules. Removing this array might reduce the log file size without losing information. In some scenarios (for example, when assessing compliance with policy), the 'rules' array might be used to record the full set of rules that were evaluated. In such a scenario, the 'rules' array should be retained even if it contains only id information.</value>
+    <value>The 'rules' array at '{0}' contains no information beyond the ids of the rules. Removing this array might reduce the log file size without losing information. In some scenarios (for example, when assessing compliance with policy), the 'rules' array might be used to record the full set of rules that were evaluated. In such a scenario, the 'rules' array should be retained even if it contains only id information.</value>
   </data>
   <data name="SARIF2006_UrisShouldBeReachable_FullDescription_Text" xml:space="preserve">
     <value>URIs that refer to locations such as rule help pages and result-related work items should be reachable via an HTTP GET request.</value>
@@ -367,12 +367,12 @@ This is part of a set of authoring practices that make your rule messages more r
     <value>{0}: This result location does not provide any of the 'uriBaseId' values that specify repository locations: '{1}'. As a result, it will not be possible to determine the location of the file containing this result relative to the root of the repository that contains it.</value>
   </data>
   <data name="SARIF2004_OptimizeFileSize_Warning_AvoidDuplicativeAnalysisTarget_Text" xml:space="preserve">
-    <value>{0}: The 'analysisTarget' property '{1}' is unnecessary because it is the same as the result location. Remove the 'analysisTarget' property.</value>
+    <value>The 'analysisTarget' property '{1}' at '{0}' is unnecessary because it is the same as the result location. Remove the 'analysisTarget' property.</value>
   </data>
   <data name="SARIF2004_OptimizeFileSize_Warning_AvoidDuplicativeResultRuleInformation_Text" xml:space="preserve">
-    <value>{0}: This result specifies both 'result.ruleId' and 'result.rule'. Prefer 'result.ruleId' because it is shorter and just as clear.</value>
+    <value>The result at '{0}' uses the 'rule' property to specify the violated rule, so it is not necessary also to specify 'ruleId' or 'ruleIndex'. Remove the 'ruleId' and 'ruleIndex' properties.</value>
   </data>
   <data name="SARIF2004_OptimizeFileSize_Warning_PreferRuleId_Text" xml:space="preserve">
-    <value>{0}: This result uses the 'rule' property to specify the rule metadata, but the 'ruleId' property suffices because the rule is defined by 'tool.driver'. Prefer 'result.ruleId' because it is shorter and just as clear.</value>
+    <value>The result at '{0}' uses the 'rule' property to specify the violated rule, but this is not necessary because the rule is defined by 'tool.driver'. Use the 'ruleId' and 'ruleIndex' instead, because they are shorter and just as clear.</value>
   </data>
 </root>

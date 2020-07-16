@@ -393,13 +393,25 @@ Similarly, most 'result' objects contain at least one 'artifactLocation' object.
 
 #### Messages
 
+##### `AvoidDuplicativeAnalysisTarget`: warning
+
+The 'analysisTarget' property '{1}' at '{0}' is unnecessary because it is the same as the result location. Remove the 'analysisTarget' property.
+
+#### `AvoidDuplicativeResultRuleInformation`: warning
+
+The result at '{0}' uses the 'rule' property to specify the violated rule, so it is not necessary also to specify 'ruleId' or 'ruleIndex'. Remove the 'ruleId' and 'ruleIndex' properties.
+
 ##### `EliminateLocationOnlyArtifacts`: warning
 
-{0}: The 'artifacts' array contains no information beyond the locations of the artifacts. Removing this array might reduce the log file size without losing information. In some scenarios (for example, when assessing compliance with policy), the 'artifacts' array might be used to record the full set of artifacts that were analyzed. In such a scenario, the 'artifacts' array should be retained even if it contains only location information.
+The 'artifacts' array at '{0}' contains no information beyond the locations of the artifacts. Removing this array might reduce the log file size without losing information. In some scenarios (for example, when assessing compliance with policy), the 'artifacts' array might be used to record the full set of artifacts that were analyzed. In such a scenario, the 'artifacts' array should be retained even if it contains only location information.
 
 ##### `EliminateIdOnlyRules`: warning
 
-{0}: The 'rules' array contains no information beyond the ids of the rules. Removing this array might reduce the log file size without losing information. In some scenarios (for example, when assessing compliance with policy), the 'rules' array might be used to record the full set of rules that were evaluated. In such a scenario, the 'rules' array should be retained even if it contains only id information.
+The 'rules' array at '{0}' contains no information beyond the ids of the rules. Removing this array might reduce the log file size without losing information. In some scenarios (for example, when assessing compliance with policy), the 'rules' array might be used to record the full set of rules that were evaluated. In such a scenario, the 'rules' array should be retained even if it contains only id information.
+
+#### `PreferRuleId`: warning
+
+The result at '{0}' uses the 'rule' property to specify the violated rule, but this is not necessary because the rule is defined by 'tool.driver'. Use the 'ruleId' and 'ruleIndex' instead, because they are shorter and just as clear.
 
 ---
 

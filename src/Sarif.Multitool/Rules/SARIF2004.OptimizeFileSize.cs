@@ -91,10 +91,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 {
                     if (result.Rule.ToolComponent.RefersToDriver(this.driverGuid))
                     {
-                        // {0}: This result uses the 'rule' property to specify the rule
-                        // metadata, but the 'ruleId' property suffices because the rule
-                        // is defined by 'tool.driver'. Prefer 'result.ruleId' because it
-                        // is shorter and just as clear.
+                        // The result at '{0}' uses the 'rule' property to specify
+                        // the violated rule, but this is not necessary because the rule
+                        // is defined by 'tool.driver'. Use the 'ruleId' and 'ruleIndex'
+                        // instead, because they are shorter and just as clear.
                         LogResult(
                             resultPointer,
                             nameof(RuleResources.SARIF2004_OptimizeFileSize_Warning_PreferRuleId_Text));
@@ -103,8 +103,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     {
                         if (!string.IsNullOrWhiteSpace(result.RuleId) || result.RuleIndex >= 0)
                         {
-                            // {0}: This result specifies both 'result.ruleId' and 'result.rule'.
-                            // Prefer 'result.ruleId' because it is shorter and just as clear.
+                            // The result at '{0}' uses the 'rule' property to specify the
+                            // violated rule, so it is not necessary also to specify 'ruleId' or
+                            // 'ruleIndex'. Remove the 'ruleId' and 'ruleIndex' properties.
                             LogResult(
                                 resultPointer,
                                 nameof(RuleResources.SARIF2004_OptimizeFileSize_Warning_AvoidDuplicativeResultRuleInformation_Text));
@@ -113,10 +114,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 }
                 else
                 {
-                    // {0}: This result uses the 'rule' property to specify the rule
-                    // metadata, but the 'ruleId' property suffices because the rule
-                    // is defined by 'tool.driver'. Prefer 'result.ruleId' because it
-                    // is shorter and just as clear.
+                    // The result at '{0}' uses the 'rule' property to specify
+                    // the violated rule, but this is not necessary because the rule
+                    // is defined by 'tool.driver'. Use the 'ruleId' and 'ruleIndex'
+                    // instead, because they are shorter and just as clear.
                     LogResult(
                         resultPointer,
                         nameof(RuleResources.SARIF2004_OptimizeFileSize_Warning_PreferRuleId_Text));
@@ -132,8 +133,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 {
                     if (location?.PhysicalLocation?.ArtifactLocation?.Uri == result.AnalysisTarget.Uri)
                     {
-                        // {0}: The 'analysisTarget' property '{1}' is unnecessary because it is the same as
-                        // the result location. Remove the 'analysisTarget' property.
+                        // The 'analysisTarget' property '{1}' at '{0}' is unnecessary because it is the same
+                        // as the result location. Remove the 'analysisTarget' property.
                         LogResult(
                             resultPointer.AtProperty(SarifPropertyName.AnalysisTarget),
                             nameof(RuleResources.SARIF2004_OptimizeFileSize_Warning_AvoidDuplicativeAnalysisTarget_Text),
@@ -157,8 +158,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 return;
             }
 
-            string firstArtifactPointer = runPointer
-                .AtProperty(SarifPropertyName.Artifacts).AtIndex(0);
+            string artifactPointer = runPointer.AtProperty(SarifPropertyName.Artifacts);
+
+            string firstArtifactPointer = artifactPointer.AtIndex(0);
 
             string firstResultLocationPointer = runPointer
                 .AtProperty(SarifPropertyName.Results).AtIndex(0)
@@ -168,14 +170,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
             if (HasResultLocationsWithUriAndIndex(firstResultLocationPointer) && HasLocationOnlyArtifacts(firstArtifactPointer))
             {
-                // {0}: The 'artifacts' array contains no information beyond the locations of the
+                // The 'artifacts' array at '{0}' contains no information beyond the locations of the
                 // artifacts. Removing this array might  reduce the log file size without losing
                 // information. In some scenarios (for example, when assessing compliance with policy),
                 // the 'artifacts' array might be used to record the full set of artifacts that were
                 // analyzed. In such a scenario, the 'artifacts' array should be retained even if it
                 // contains only location information.
                 LogResult(
-                    firstArtifactPointer,
+                    artifactPointer,
                     nameof(RuleResources.SARIF2004_OptimizeFileSize_Warning_EliminateLocationOnlyArtifacts_Text));
             }
         }
@@ -202,7 +204,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             // since tools will typically generate similar nodes.
             // This approach may cause occasional false negatives.
             // Also, `tool` and `driver` are mandatory fields, hence
-            // null check in not required.
+            // null check is not required.
             ReportingDescriptor firstRule = run.Tool.Driver.Rules?.FirstOrDefault();
 
             if (firstRule == null)
@@ -210,22 +212,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 return;
             }
 
-            string firstRulePointer = runPointer
+            string rulesPointer = runPointer
                 .AtProperty(SarifPropertyName.Tool)
                 .AtProperty(SarifPropertyName.Driver)
-                .AtProperty(SarifPropertyName.Rules)
-                .AtIndex(0);
+                .AtProperty(SarifPropertyName.Rules);
 
+            string firstRulePointer = rulesPointer.AtIndex(0);
             if (HasIdOnlyRules(firstRulePointer))
             {
-                // {0}: The 'rules' array contains no information beyond the ids of the rules.
+                // The 'rules' array at '{0}' contains no information beyond the ids of the rules.
                 // Removing this array might reduce the log file size without losing information.
                 // In some scenarios (for example, when assessing compliance with policy), the
                 // 'rules' array might be used to record the full set of rules that were evaluated.
                 // In such a scenario, the 'rules' array should be retained even if it contains
                 // only id information.
                 LogResult(
-                    firstRulePointer,
+                    rulesPointer,
                     nameof(RuleResources.SARIF2004_OptimizeFileSize_Warning_EliminateIdOnlyRules_Text));
             }
         }
