@@ -1,31 +1,19 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using System.Collections.Generic;
 using Microsoft.Json.Pointer;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class EndLineMustNotBeLessThanStartLine : SarifValidationSkimmerBase
     {
-        private readonly MultiformatMessageString _fullDescription = new MultiformatMessageString
-        {
-            Text = RuleResources.SARIF1012_EndLineMustNotBeLessThanStartLine
-        };
-
-        public override MultiformatMessageString FullDescription => _fullDescription;
-
-        public override FailureLevel DefaultLevel => FailureLevel.Error;
-
-        /// <summary>
-        /// SARIF1012
-        /// </summary>
-        public override string Id => RuleId.EndLineMustNotBeLessThanStartLine;
-
-        protected override IEnumerable<string> MessageResourceNames => new string[]
-        {
-            nameof(RuleResources.SARIF1012_Default)
-        };
+        public EndLineMustNotBeLessThanStartLine() : base(
+            RuleId.EndLineMustNotBeLessThanStartLine,
+            RuleResources.SARIF1012_EndLineMustNotBeLessThanStartLine,
+            FailureLevel.Error,
+            new string[] { nameof(RuleResources.SARIF1012_Default) }
+            )
+        { }
 
         protected override void Analyze(Region region, string regionPointer)
         {

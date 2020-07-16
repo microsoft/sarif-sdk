@@ -1,11 +1,32 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Driver.Sdk;
+
+using System.Collections.Generic;
+
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     internal abstract class TestRuleBase : Skimmer<TestAnalysisContext>
     {
-        protected ReportingConfiguration _reportingConfiguration = null;
+        protected TestRuleBase(string ruleId, string fullDescriptionText, IEnumerable<string> messageResourceNames = null)
+            : base(BuildRule(ruleId, fullDescriptionText))
+        {
+            Name = this.GetType().Name;
+            FullDescription = new MultiformatMessageString { Text = GetType().Name + " full description." };
+            ShortDescription = new MultiformatMessageString { Text = GetType().Name + " short description." };
+            Help = new MultiformatMessageString() { Text = "[Empty]" };
+            MessageStrings = RuleUtilities.BuildDictionary(SkimmerBaseTestResources.ResourceManager, messageResourceNames, ruleId: ruleId);
+        }
+
+        private static ReportingDescriptor BuildRule(string ruleId, string fullDescriptionText)
+        {
+            return new ReportingDescriptor()
+            {
+                Id = ruleId,
+                FullDescription = new MultiformatMessageString() { Text = fullDescriptionText }
+            };
+        }
 
         public override SupportedPlatform SupportedPlatforms
         {
@@ -14,29 +35,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 return SupportedPlatform.All;
             }
         }
-
-        public override FailureLevel DefaultLevel { get { return FailureLevel.Warning; } }
-
-        public override string Name => this.GetType().Name;
-
-        public override MultiformatMessageString FullDescription { get { return new MultiformatMessageString { Text = this.GetType().Name + " full description." }; } }
-
-        public override MultiformatMessageString ShortDescription { get { return new MultiformatMessageString { Text = this.GetType().Name + " short description." }; } }
-
-        public override ReportingConfiguration DefaultConfiguration
-        {
-            get
-            {
-                if (_reportingConfiguration == null)
-                {
-                    _reportingConfiguration = new ReportingConfiguration();
-                }
-
-                return _reportingConfiguration;
-            }
-        }
-
-        public override MultiformatMessageString Help { get { return new MultiformatMessageString() { Text = "[Empty]" }; } }
 
         public override AnalysisApplicability CanAnalyze(TestAnalysisContext context, out string reasonIfNotApplicable)
         {

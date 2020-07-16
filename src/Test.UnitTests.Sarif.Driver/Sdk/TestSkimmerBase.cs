@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Resources;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.CodeAnalysis.Sarif.Driver;
@@ -15,19 +16,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Driver.Sdk
     // members that we don't care about.
     public abstract class TestSkimmerBase : Skimmer<TestAnalysisContext>
     {
-        public override Uri HelpUri => throw new NotImplementedException();
-
-        public override MultiformatMessageString Help => throw new NotImplementedException();
-
-        public override string Id => throw new NotImplementedException();
-
-        public override IList<string> DeprecatedIds => throw new NotImplementedException();
-
-        public override MultiformatMessageString FullDescription => throw new NotImplementedException();
-
-        protected override ResourceManager ResourceManager => throw new NotImplementedException();
-
-        protected override IEnumerable<string> MessageResourceNames => throw new NotImplementedException();
+        public TestSkimmerBase() : base(new ReportingDescriptor())
+        { }
 
         // Most of the members of this class throw NotImplementedException so that,
         // if you write a test that requires that member, you will be reminded to

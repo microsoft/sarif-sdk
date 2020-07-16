@@ -2,7 +2,6 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Json.Pointer;
 
@@ -10,24 +9,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class UriMustBeAbsolute : SarifValidationSkimmerBase
     {
-        private readonly MultiformatMessageString _fullDescription = new MultiformatMessageString
-        {
-            Text = RuleResources.SARIF1015_UriMustBeAbsolute
-        };
-
-        public override MultiformatMessageString FullDescription => _fullDescription;
-
-        public override FailureLevel DefaultLevel => FailureLevel.Error;
-
-        /// <summary>
-        /// SARIF1015
-        /// </summary>
-        public override string Id => RuleId.UriMustBeAbsolute;
-
-        protected override IEnumerable<string> MessageResourceNames => new string[]
-        {
-            nameof(RuleResources.SARIF1015_Default)
-        };
+        public UriMustBeAbsolute() : base(
+            RuleId.UriMustBeAbsolute,
+            RuleResources.SARIF1015_UriMustBeAbsolute,
+            FailureLevel.Error,
+            new string[] { nameof(RuleResources.SARIF1015_Default) }
+            )
+        { }
 
         protected override void Analyze(SarifLog log, string logPointer)
         {

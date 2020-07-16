@@ -2,32 +2,23 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
-using System.Collections.Generic;
 using Microsoft.Json.Pointer;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class InvalidUriInOriginalUriBaseIds : SarifValidationSkimmerBase
     {
-        private readonly MultiformatMessageString _fullDescription = new MultiformatMessageString
-        {
-            Text = RuleResources.SARIF1018_InvalidUriInOriginalUriBaseIds
-        };
-
-        public override MultiformatMessageString FullDescription => _fullDescription;
-
-        public override FailureLevel DefaultLevel => FailureLevel.Error;
-
-        /// <summary>
-        /// SARIF1018
-        /// </summary>
-        public override string Id => RuleId.InvalidUriInOriginalUriBaseIds;
-
-        protected override IEnumerable<string> MessageResourceNames => new string[]
-        {
-            nameof(RuleResources.SARIF1018_NotAbsolute),
-            nameof(RuleResources.SARIF1018_LacksTrailingSlash)
-        };
+        public InvalidUriInOriginalUriBaseIds() : base(
+            RuleId.InvalidUriInOriginalUriBaseIds,
+            RuleResources.SARIF1018_InvalidUriInOriginalUriBaseIds,
+            FailureLevel.Error,
+            new string[]
+            {
+                nameof(RuleResources.SARIF1018_NotAbsolute),
+                nameof(RuleResources.SARIF1018_LacksTrailingSlash)
+            }
+            )
+        { }
 
         protected override void Analyze(Run run, string runPointer)
         {

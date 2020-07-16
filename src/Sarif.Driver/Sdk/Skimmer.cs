@@ -9,44 +9,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     public abstract class Skimmer<TContext> : ReportingDescriptor
     {
-        public Skimmer()
+        public Skimmer(ReportingDescriptor rule) : base(rule)
         {
             this.Options = new Dictionary<string, string>();
-        }
 
-        private IDictionary<string, MultiformatMessageString> multiformatMessageStrings;
-
-        protected virtual ResourceManager ResourceManager => null;
-
-        protected virtual IEnumerable<string> MessageResourceNames => throw new NotImplementedException();
-
-        virtual public FailureLevel DefaultLevel { get { return FailureLevel.Warning; } }
-
-        public override IDictionary<string, MultiformatMessageString> MessageStrings
-        {
-            get
+            if (this.Name == null)
             {
-                if (this.multiformatMessageStrings == null)
-                {
-                    this.multiformatMessageStrings = InitializeMultiformatMessageStrings();
-                }
-                return this.multiformatMessageStrings;
+                this.Name = this.GetType().Name;
             }
         }
-
-        private Dictionary<string, MultiformatMessageString> InitializeMultiformatMessageStrings()
-        {
-            return (ResourceManager == null) ? null
-                : RuleUtilities.BuildDictionary(ResourceManager, MessageResourceNames, ruleId: Id);
-        }
-
-        public override string Id => throw new InvalidOperationException($"The {nameof(Id)} property must be overridden in the SkimmerBase-derived class.");
-
-        public override MultiformatMessageString FullDescription => throw new InvalidOperationException($"The {nameof(FullDescription)} property must be overridden in the SkimmerBase-derived class.");
-
-        public override MultiformatMessageString ShortDescription => new MultiformatMessageString { Text = ExtensionMethods.GetFirstSentence(FullDescription.Text) };
-
-        public override string Name => this.GetType().Name;
 
         public IDictionary<string, string> Options { get; }
 

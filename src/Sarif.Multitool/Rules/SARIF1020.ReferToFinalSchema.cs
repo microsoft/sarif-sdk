@@ -3,31 +3,22 @@
 
 using Microsoft.Json.Pointer;
 using System;
-using System.Collections.Generic;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class ReferToFinalSchema : SarifValidationSkimmerBase
     {
-        private readonly MultiformatMessageString _fullDescription = new MultiformatMessageString
-        {
-            Text = RuleResources.SARIF1020_ReferToFinalSchema
-        };
-
-        public override MultiformatMessageString FullDescription => _fullDescription;
-
-        public override FailureLevel DefaultLevel => FailureLevel.Error;
-
-        /// <summary>
-        /// SARIF1020
-        /// </summary>
-        public override string Id => RuleId.ReferToFinalSchema;
-
-        protected override IEnumerable<string> MessageResourceNames => new string[]
-        {
-            nameof(RuleResources.SARIF1020_ReferenceToOldSchemaVersion),
-            nameof(RuleResources.SARIF1020_SchemaReferenceMissing)
-        };
+        public ReferToFinalSchema() : base(
+            RuleId.ReferToFinalSchema,
+            RuleResources.SARIF1020_ReferToFinalSchema,
+            FailureLevel.Error,
+            new string[]
+            {
+                nameof(RuleResources.SARIF1020_ReferenceToOldSchemaVersion),
+                nameof(RuleResources.SARIF1020_SchemaReferenceMissing)
+            }
+            )
+        { }
 
         protected override void Analyze(SarifLog log, string logPointer)
         {

@@ -16,16 +16,13 @@ namespace Microsoft.CodeAnalysis.Sarif
     internal class FunctionlessTestRule : TestRuleBase, IOptionsProvider
     {
         private const string FunctionlessTestRuleId = "TEST1002";
+        private const string AnalyzerName = FunctionlessTestRuleId + "." + nameof(FunctionlessTestRule);
 
-        public override string Id => FunctionlessTestRuleId;
-
-        protected override ResourceManager ResourceManager => SkimmerBaseTestResources.ResourceManager;
-
-        protected override IEnumerable<string> MessageResourceNames => new List<string>
-        {
-        };
-
-        public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = "This is the full description for TEST1002" };
+        public FunctionlessTestRule() : base(
+            FunctionlessTestRuleId,
+            "This is the full description for TEST1002",
+            new List<string>())
+        { }
 
         public override void Analyze(TestAnalysisContext context)
         {
@@ -36,7 +33,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new IOption[] { Behaviors, UnusedOption };
         }
 
-        private const string AnalyzerName = FunctionlessTestRuleId + "." + nameof(FunctionlessTestRule);
 
         public static PerLanguageOption<TestRuleBehaviors> Behaviors { get; } =
             new PerLanguageOption<TestRuleBehaviors>(

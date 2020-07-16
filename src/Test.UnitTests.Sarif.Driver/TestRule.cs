@@ -21,7 +21,22 @@ namespace Microsoft.CodeAnalysis.Sarif
         [ThreadStatic]
         internal static TestRuleBehaviors s_testRuleBehaviors;
 
-        public TestRule()
+        private const string TestRuleId = "TEST1001";
+        private const string AnalyzerName = TestRuleId + "." + nameof(TestRule);
+
+        public TestRule() : base(
+            TestRuleId,
+            "This is the full description for TST1001",
+            new List<string>
+            {
+                nameof(SkimmerBaseTestResources.TEST1001_Failed),
+                nameof(SkimmerBaseTestResources.TEST1001_Pass),
+                nameof(SkimmerBaseTestResources.TEST1001_Note),
+                nameof(SkimmerBaseTestResources.TEST1001_Open),
+                nameof(SkimmerBaseTestResources.TEST1001_Review),
+                nameof(SkimmerBaseTestResources.TEST1001_Information),
+                nameof(SkimmerBaseTestResources.NotApplicable_InvalidMetadata)
+            })
         {
             if (s_testRuleBehaviors.HasFlag(TestRuleBehaviors.RaiseExceptionInvokingConstructor))
             {
@@ -29,20 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        private const string TestRuleId = "TEST1001";
-
-        protected override ResourceManager ResourceManager => SkimmerBaseTestResources.ResourceManager;
-
-        protected override IEnumerable<string> MessageResourceNames => new List<string>
-        {
-            nameof(SkimmerBaseTestResources.TEST1001_Failed),
-            nameof(SkimmerBaseTestResources.TEST1001_Pass),
-            nameof(SkimmerBaseTestResources.TEST1001_Note),
-            nameof(SkimmerBaseTestResources.TEST1001_Open),
-            nameof(SkimmerBaseTestResources.TEST1001_Review),
-            nameof(SkimmerBaseTestResources.TEST1001_Information),
-            nameof(SkimmerBaseTestResources.NotApplicable_InvalidMetadata)
-        };
+        //protected override ResourceManager ResourceManager => SkimmerBaseTestResources.ResourceManager;
 
         public override SupportedPlatform SupportedPlatforms
         {
@@ -54,30 +56,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
                 return SupportedPlatform.All;
             }
-        }
-
-        private string _id;
-        public override string Id
-        {
-            get
-            {
-                if (s_testRuleBehaviors == TestRuleBehaviors.RaiseExceptionAccessingId)
-                {
-                    throw new InvalidOperationException(nameof(TestRuleBehaviors.RaiseExceptionAccessingId));
-                }
-                return _id ?? TestRuleId;
-            }
-            set
-            {
-                _id = value;
-            }
-        }
-
-        private string _name;
-        public override string Name
-        {
-            get { return _name ?? base.Name; }
-            set { _name = value; }
         }
 
         public override void Initialize(TestAnalysisContext context)
@@ -114,8 +92,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             return applicability;
         }
-
-        public override MultiformatMessageString FullDescription { get { return new MultiformatMessageString { Text = "This is the full description for TST1001" }; } }
 
         public override void Analyze(TestAnalysisContext context)
         {
@@ -226,8 +202,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             return new IOption[] { Behaviors, UnusedOption };
         }
-
-        private const string AnalyzerName = TestRuleId + "." + nameof(TestRule);
 
         public static PerLanguageOption<TestRuleBehaviors> Behaviors { get; } =
             new PerLanguageOption<TestRuleBehaviors>(

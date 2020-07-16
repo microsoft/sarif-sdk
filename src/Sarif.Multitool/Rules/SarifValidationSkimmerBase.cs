@@ -3,11 +3,12 @@
 
 using System;
 using System.Collections.Generic;
-using System.Resources;
 using System.Text;
 using System.Text.RegularExpressions;
+
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.Json.Pointer;
+
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -20,19 +21,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         private static readonly string SarifSpecUri =
             $"http://docs.oasis-open.org/sarif/sarif/v{VersionConstants.StableSarifVersion}/sarif-v{VersionConstants.StableSarifVersion}.html";
 
-        private readonly Uri _defaultHelpUri = new Uri(SarifSpecUri);
+        protected SarifValidationSkimmerBase(string ruleId, string fullDescriptionText, FailureLevel defaultLevel = FailureLevel.Error, IEnumerable<string> messageResourceNames = null)
+            : base(BuildRule(ruleId, fullDescriptionText, messageResourceNames))
+        {
+            DefaultLevel = defaultLevel;
+        }
 
-        public override Uri HelpUri => _defaultHelpUri;
+        private static ReportingDescriptor BuildRule(string ruleId, string fullDescriptionText, IEnumerable<string> messageResourceNames)
+        {
+            return new ReportingDescriptor()
+            {
+                Id = ruleId,
+                HelpUri = new Uri(SarifSpecUri),
+                FullDescription = new MultiformatMessageString() { Text = fullDescriptionText },
+                ShortDescription = new MultiformatMessageString { Text = ExtensionMethods.GetFirstSentence(fullDescriptionText) },
+                MessageStrings = RuleUtilities.BuildDictionary(RuleResources.ResourceManager, messageResourceNames, ruleId: ruleId)
+            };
+        }
 
-        public override MultiformatMessageString Help => null;
-
+        public FailureLevel DefaultLevel { get; }
         protected SarifValidationContext Context { get; private set; }
-
-        protected override sealed ResourceManager ResourceManager => RuleResources.ResourceManager;
-
-        private readonly string[] _emptyMessageResourceNames = new string[0];
-
-        protected override IEnumerable<string> MessageResourceNames => _emptyMessageResourceNames;
 
         public override sealed void Analyze(SarifValidationContext context)
         {
@@ -52,10 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             Array.Copy(args, 0, argsWithPointer, 1, args.Length);
             argsWithPointer[0] = JsonPointerToJavaScript(jPointer);
 
-            // Copy the Rule; needed for BSOA because overridden property values aren't picked up by copy-on-set
-            ReportingDescriptor rule = new ReportingDescriptor(this);
-
-            Context.Logger.Log(rule,
+            Context.Logger.Log(this,
                 RuleUtilities.BuildResult(DefaultLevel, Context, region, formatId, argsWithPointer));
         }
 
