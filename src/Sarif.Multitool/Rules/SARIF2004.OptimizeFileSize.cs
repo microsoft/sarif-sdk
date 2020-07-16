@@ -136,9 +136,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     {
                         // The 'analysisTarget' property '{1}' at '{0}' can be removed because it is the same
                         // as the result location. This unnecessarily increases log file size. The
-                        // 'analysisTarget' property is used to distinguish cases when a result fires in a file
-                        // (such as an included header) that is different than the file that was scanned (such
-                        // as a .cpp file that included the header).
+                        // 'analysisTarget' property is used to distinguish cases when a tool detects a result
+                        // in a file (such as an included header) that is different than the file that was
+                        // scanned (such as a .cpp file that included the header).
                         LogResult(
                             resultPointer.AtProperty(SarifPropertyName.AnalysisTarget),
                             nameof(RuleResources.SARIF2004_OptimizeFileSize_Warning_AvoidDuplicativeAnalysisTarget_Text),

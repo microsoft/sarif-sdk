@@ -454,7 +454,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The &apos;analysisTarget&apos; property &apos;{1}&apos; at &apos;{0}&apos; can be removed because it is the same as the result location. This unnecessarily increases log file size. The &apos;analysisTarget&apos; property is used to distinguish cases when a result fires in a file (such as an included header) that is different than the file that was scanned (such as a .cpp file that included the header)..
+        ///   Looks up a localized string similar to The &apos;analysisTarget&apos; property &apos;{1}&apos; at &apos;{0}&apos; can be removed because it is the same as the result location. This unnecessarily increases log file size. The &apos;analysisTarget&apos; property is used to distinguish cases when a tool detects a result in a file (such as an included header) that is different than the file that was scanned (such as a .cpp file that included the header)..
         /// </summary>
         internal static string SARIF2004_OptimizeFileSize_Warning_AvoidDuplicativeAnalysisTarget_Text {
             get {
