@@ -161,7 +161,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         artifact.Location,
                         addToFilesTableIfNotPresent: true,
                         dataToInsert: dataToInsert,
-                        encoding: null,
+                        encoding: SarifUtilities.GetEncodingFromName(defaultFileEncoding),
                         hashData: hashData);
                 }
             }

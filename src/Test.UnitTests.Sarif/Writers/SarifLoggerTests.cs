@@ -11,6 +11,8 @@ using System.Text;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Writers;
+using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
+
 using Newtonsoft.Json;
 using Xunit;
 using Xunit.Abstractions;
@@ -369,6 +371,87 @@ namespace Microsoft.CodeAnalysis.Sarif
             sarifLog.Runs[0].Artifacts[0].Hashes["md5"].Should().Be("4B9DC12934390387862CC4AB5E4A2159");
             sarifLog.Runs[0].Artifacts[0].Hashes["sha-1"].Should().Be("9B59B1C1E3F5F7013B10F6C6B7436293685BAACE");
             sarifLog.Runs[0].Artifacts[0].Hashes["sha-256"].Should().Be("0953D7B3ADA7FED683680D2107EE517A9DBEC2D0AF7594A91F058D104B7A2AEB");
+        }
+
+        [Fact]
+        public void SarifLogger_WritesFileContents_EvenWhenLocationUsesUriBaseId()
+        {
+            const string TempFileBaseId = "TEMP_ROOT";
+
+            var sb = new StringBuilder();
+
+            // Create a temporary file whose extension signals that it is textual.
+            // This ensures that the ArtifactContents.Text property, rather than
+            // the Binary property, is populated, so the text of the Text property
+            // at the end will work.
+            using (var tempFile = new TempFile(".txt"))
+            {
+                string tempFilePath = tempFile.Name;
+                string tempFileDirectory = Path.GetDirectoryName(tempFilePath);
+                string tempFileName = Path.GetFileName(tempFilePath);
+
+                File.WriteAllText(tempFilePath, "#include \"windows.h\";");
+
+                var run = new Run
+                {
+                    OriginalUriBaseIds = new Dictionary<string, ArtifactLocation>
+                    {
+                        [TempFileBaseId] = new ArtifactLocation
+                        {
+                            Uri = new Uri(tempFileDirectory, UriKind.Absolute)
+                        }
+                    },
+
+                    // To get text contents, we also need to specify an encoding that
+                    // Encoding.GetEncoding() will accept.
+                    DefaultEncoding = "UTF-8"
+                };
+
+                var rule = new ReportingDescriptor
+                {
+                    Id = TestData.TestRuleId
+                };
+
+                // Create a result that refers to an artifact whose location is specified
+                // by a relative reference together with a uriBaseId.
+                var result = new Result
+                {
+                    RuleId = rule.Id,
+                    Message = new Message { Text = "Testing." },
+                    Locations = new List<Location>
+                    {
+                        new Location
+                        {
+                            PhysicalLocation = new PhysicalLocation
+                            {
+                                ArtifactLocation = new ArtifactLocation
+                                {
+                                    Uri = new Uri(tempFileName, UriKind.Relative),
+                                    UriBaseId = TempFileBaseId
+                                }
+                            }
+                        }
+                    }
+                };
+
+                using (var textWriter = new StringWriter(sb))
+                {
+                    // Create a logger that inserts artifact contents.
+                    using (var sarifLogger = new SarifLogger(
+                        textWriter,
+                        run: run,
+                        dataToInsert: OptionallyEmittedData.TextFiles))
+                    {
+                        sarifLogger.Log(rule, result);
+                    }
+
+                    // The logger should have populated the artifact contents.
+                    string logText = sb.ToString();
+                    SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
+
+                    sarifLog.Runs[0].Artifacts[0].Contents?.Text.Should().NotBeNullOrEmpty();
+                }
+            }
         }
 
         [Fact]
