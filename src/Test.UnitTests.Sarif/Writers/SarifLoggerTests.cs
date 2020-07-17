@@ -381,7 +381,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             // Create a temporary file whose extension signals that it is textual.
             // This ensures that the ArtifactContents.Text property, rather than
-            // the Binary property, is populated, so the text of the Text property
+            // the Binary property, is populated, so the test of the Text property
             // at the end will work.
             using (var tempFile = new TempFile(".txt"))
             {
