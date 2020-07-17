@@ -21,6 +21,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public class SarifLoggerTests : JsonTests
     {
+        private const string TempFileBaseId = "TEMP_ROOT";
+
         private static string GetResourceContents(string resourceName)
             => ResourceExtractor.GetResourceText($"SarifLogger.{resourceName}");
 
@@ -376,8 +378,55 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void SarifLogger_WritesFileContents_EvenWhenLocationUsesUriBaseId()
         {
-            const string TempFileBaseId = "TEMP_ROOT";
+            var sb = new StringBuilder();
 
+            // Create a temporary file whose extension signals that it is textual.
+            // This ensures that the ArtifactContents.Text property, rather than
+            // the Binary property, is populated, so the text of the Text property
+            // at the end will work.
+            using (var tempFile = new TempFile(".txt"))
+            {
+                string tempFilePath = tempFile.Name;
+                string tempFileDirectory = Path.GetDirectoryName(tempFilePath);
+                string tempFileName = Path.GetFileName(tempFilePath);
+
+                File.WriteAllText(tempFilePath, "#include \"windows.h\";");
+
+                var run = new Run
+                {
+                    // To get text contents, we also need to specify an encoding that
+                    // Encoding.GetEncoding() will accept.
+                    DefaultEncoding = "UTF-8"
+                };
+
+                var analysisTargets = new List<string>
+                {
+                    tempFilePath
+                };
+
+                using (var textWriter = new StringWriter(sb))
+                {
+                    // Create a logger that inserts artifact contents.
+                    using (var sarifLogger = new SarifLogger(
+                        textWriter,
+                        run: run,
+                        analysisTargets: analysisTargets,
+                        dataToInsert: OptionallyEmittedData.TextFiles))
+                    {
+                    }
+
+                    // The logger should have populated the artifact contents.
+                    string logText = sb.ToString();
+                    SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
+
+                    sarifLog.Runs[0].Artifacts[0].Contents?.Text.Should().NotBeNullOrEmpty();
+                }
+            }
+        }
+
+        [Fact]
+        public void SarifLogger_WritesFileContentsForAnalysisTargets()
+        {
             var sb = new StringBuilder();
 
             // Create a temporary file whose extension signals that it is textual.

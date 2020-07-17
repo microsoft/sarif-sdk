@@ -44,7 +44,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                   run: run,
                   analysisTargets: analysisTargets,
                   invocationTokensToRedact: invocationTokensToRedact,
-                  invocationPropertiesToLog: invocationPropertiesToLog)
+                  invocationPropertiesToLog: invocationPropertiesToLog,
+                  defaultFileEncoding: defaultFileEncoding)
         {
         }
 
@@ -130,6 +131,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 _run.DefaultEncoding = defaultFileEncoding;
             }
 
+            Encoding encoding = SarifUtilities.GetEncodingFromName(_run.DefaultEncoding);
+
             if (analysisTargets != null)
             {
                 _run.Artifacts ??= new List<Artifact>();
@@ -147,6 +150,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     var artifact = Artifact.Create(
                         new Uri(target, UriKind.RelativeOrAbsolute),
                         dataToInsert,
+                        encoding,
                         hashData: hashData);
 
                     var fileLocation = new ArtifactLocation
@@ -161,7 +165,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         artifact.Location,
                         addToFilesTableIfNotPresent: true,
                         dataToInsert: dataToInsert,
-                        encoding: SarifUtilities.GetEncodingFromName(defaultFileEncoding),
+                        encoding: encoding,
                         hashData: hashData);
                 }
             }
