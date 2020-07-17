@@ -56,8 +56,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                 // shouldn't use dot-dot segments!
                 bool useAbsoluteUri =
                     uri.IsAbsoluteUri &&
-                    uri.Scheme.Equals("file", StringComparison.Ordinal) &&
-                    !uri.OriginalString.StartsWith("file:", StringComparison.Ordinal);
+                    uri.Scheme.Equals(UriUtilities.FileScheme, StringComparison.Ordinal) &&
+                    !uri.OriginalString.StartsWith(UriUtilities.FileScheme.WithColon(), StringComparison.Ordinal);
                 
                 string serializedValue = useAbsoluteUri ? uri.AbsoluteUri : uri.OriginalString;
 
