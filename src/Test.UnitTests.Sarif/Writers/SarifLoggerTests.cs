@@ -19,7 +19,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public class SarifLoggerTests : JsonTests
     {
-
         private static string GetResourceContents(string resourceName)
             => ResourceExtractor.GetResourceText($"SarifLogger.{resourceName}");
 
@@ -365,8 +364,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             string logText = sb.ToString();
 
-            string fileDataKey = new Uri(file).AbsoluteUri;
-
             SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
             sarifLog.Runs[0].Artifacts[0].Hashes.Keys.Count.Should().Be(3);
             sarifLog.Runs[0].Artifacts[0].Hashes["md5"].Should().Be("4B9DC12934390387862CC4AB5E4A2159");
@@ -552,7 +549,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [Fact]
-        public void SarifLogger_DoNotScrapeFilesFromNotifications()
+        public void SarifLogger_DoesNotScrapeFilesFromNotifications()
         {
             var sb = new StringBuilder();
 
@@ -722,6 +719,108 @@ namespace Microsoft.CodeAnalysis.Sarif
                     action.Should().NotThrow();
                 }
             }
+        }
+
+        [Fact]
+        public void SarifLogger_EnhancesRunWithInvocation()
+        {
+            // Start off with a run that doesn't contain any Invocations.
+            var run = new Run();
+
+            var sb = new StringBuilder();
+
+            using (var textWriter = new StringWriter(sb))
+            {
+                using (var sarifLogger = new SarifLogger(
+                    textWriter,
+                    run: run))
+                {
+                }
+            }
+
+            string logText = sb.ToString();
+            SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
+
+            // The logger should have added an Invocation.
+            sarifLog.Runs[0].Invocations?.Count.Should().Be(1);
+        }
+
+        [Fact]
+        public void SarifLogger_EnhancesRunWithAdditionalAnalysisTargets()
+        {
+            // Start off with a run that contains some artifacts.
+            var run = new Run
+            {
+                Artifacts = new List<Artifact>
+                {
+                    new Artifact
+                    {
+                        Location = new ArtifactLocation { Uri = new Uri("1.c", UriKind.Relative) }
+                    },
+                    new Artifact
+                    {
+                        Location = new ArtifactLocation { Uri = new Uri("2.c", UriKind.Relative) }
+                    }
+                }
+            };
+
+            // Pass in additional analysis targets
+            var analysisTargets = new List<string>
+            {
+                "3.c",
+                "4.c"
+            };
+
+            var sb = new StringBuilder();
+
+            using (var textWriter = new StringWriter(sb))
+            {
+                using (var sarifLogger = new SarifLogger(
+                    textWriter,
+                    run: run,
+                    analysisTargets: analysisTargets))
+                {
+                }
+            }
+
+            string logText = sb.ToString();
+            SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
+
+            // The logger should have merged the analysis targets into the existing Artifacts array.
+            IList<Artifact> artifacts = sarifLog.Runs[0].Artifacts;
+            artifacts.Count.Should().Be(4);
+        }
+
+        [Fact]
+        public void SarifLogger_AcceptsOverrideOfDefaultEncoding()
+        {
+            const string Utf8 = "UTF-8";
+            const string Utf7 = "UTF-7";
+
+            // Start off with a run that specifies the default file encoding.
+            var run = new Run
+            {
+                DefaultEncoding = Utf8
+            };
+
+            var sb = new StringBuilder();
+
+            using (var textWriter = new StringWriter(sb))
+            {
+                // Create a logger that uses that run but specifies a different encoding.
+                using (var sarifLogger = new SarifLogger(
+                    textWriter,
+                    run: run,
+                    defaultFileEncoding: Utf7))
+                {
+                }
+            }
+
+            string logText = sb.ToString();
+            SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
+
+            // The logger accepted the override for default file encoding.
+            sarifLog.Runs[0].DefaultEncoding.Should().Be(Utf7);
         }
 
         private void LogSimpleResult(SarifLogger sarifLogger)

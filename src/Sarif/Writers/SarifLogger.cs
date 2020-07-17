@@ -125,7 +125,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             IDictionary<string, HashData> filePathToHashDataMap = null)
         {
             _run.Invocations ??= new List<Invocation>();
-            _run.DefaultEncoding ??= defaultFileEncoding;
+            if (defaultFileEncoding != null)
+            {
+                _run.DefaultEncoding = defaultFileEncoding;
+            }
 
             if (analysisTargets != null)
             {
@@ -141,7 +144,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         filePathToHashDataMap?.TryGetValue(target, out hashData);
                     }
 
-                    var fileData = Artifact.Create(
+                    var artifact = Artifact.Create(
                         new Uri(target, UriKind.RelativeOrAbsolute),
                         dataToInsert,
                         hashData: hashData);
@@ -151,11 +154,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         Uri = uri
                     };
 
-                    fileData.Location = fileLocation;
+                    artifact.Location = fileLocation;
 
                     // This call will insert the file object into run.Files if not already present
-                    fileData.Location.Index = _run.GetFileIndex(
-                        fileData.Location,
+                    artifact.Location.Index = _run.GetFileIndex(
+                        artifact.Location,
                         addToFilesTableIfNotPresent: true,
                         dataToInsert: dataToInsert,
                         encoding: null,
