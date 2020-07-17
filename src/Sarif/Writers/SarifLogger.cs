@@ -66,14 +66,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 AnalysisTargetToHashDataMap = HashUtilities.MultithreadedComputeTargetFileHashes(analysisTargets);
             }
 
-            _run = run ?? CreateRun(
-                            analysisTargets,
-                            dataToInsert,
-                            dataToRemove,
-                            invocationTokensToRedact,
-                            invocationPropertiesToLog,
-                            defaultFileEncoding,
-                            AnalysisTargetToHashDataMap);
+            _run = run ?? new Run();
+
+            EnhanceRun(
+                analysisTargets,
+                dataToInsert,
+                dataToRemove,
+                invocationTokensToRedact,
+                invocationPropertiesToLog,
+                defaultFileEncoding,
+                AnalysisTargetToHashDataMap);
 
             tool = tool ?? Tool.CreateFromAssemblyData();
 
@@ -113,7 +115,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             RuleToIndexMap = new Dictionary<ReportingDescriptor, int>(ReportingDescriptor.ValueComparer);
         }
 
-        private static Run CreateRun(
+        private void EnhanceRun(
             IEnumerable<string> analysisTargets,
             OptionallyEmittedData dataToInsert,
             OptionallyEmittedData dataToRemove,
@@ -122,15 +124,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             string defaultFileEncoding = null,
             IDictionary<string, HashData> filePathToHashDataMap = null)
         {
-            var run = new Run
-            {
-                Invocations = new List<Invocation>(),
-                DefaultEncoding = defaultFileEncoding
-            };
+            _run.Invocations ??= new List<Invocation>();
+            _run.DefaultEncoding ??= defaultFileEncoding;
 
             if (analysisTargets != null)
             {
-                run.Artifacts = new List<Artifact>();
+                _run.Artifacts ??= new List<Artifact>();
 
                 foreach (string target in analysisTargets)
                 {
@@ -155,7 +154,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     fileData.Location = fileLocation;
 
                     // This call will insert the file object into run.Files if not already present
-                    fileData.Location.Index = run.GetFileIndex(
+                    fileData.Location.Index = _run.GetFileIndex(
                         fileData.Location,
                         addToFilesTableIfNotPresent: true,
                         dataToInsert: dataToInsert,
@@ -195,8 +194,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 }
             }
 
-            run.Invocations.Add(invocation);
-            return run;
+            _run.Invocations.Add(invocation);
         }
 
         public IDictionary<string, HashData> AnalysisTargetToHashDataMap { get; }
