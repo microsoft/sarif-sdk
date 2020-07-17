@@ -764,7 +764,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             };
 
-            // Pass in additional analysis targets
+            // Pass in additional analysis targets.
             var analysisTargets = new List<string>
             {
                 "3.c",
