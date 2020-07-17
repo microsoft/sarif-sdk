@@ -146,10 +146,6 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
         [Fact]
         public void TryReconstructAbsoluteUri_WhenBaseUriDoesNotEndWithSlash_EnsuresSlashIsPresent()
         {
-            // It's invalid SARIF for a base URI not to end with a slash, but we shouldn't
-            // fail to resolve a URI just because some tool didn't do that. The reason for
-            // the spec requirement is that not every consumer will be this careful when
-            // combining the base URI with a relative reference.
             var artifactLocation = new ArtifactLocation
             {
                 Uri = new Uri("src/Sarif/CopyrightNotice.txt", UriKind.Relative),
@@ -160,6 +156,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             {
                 ["PROJECT_ROOT"] = new ArtifactLocation
                 {
+                    // It's invalid SARIF for a base URI not to end with a slash, but we shouldn't
+                    // fail to resolve a URI just because some tool didn't do that.
                     Uri = new Uri("file://c:/code/sarif-sdk"),
                     UriBaseId = "PROJECT_ROOT"
                 }
