@@ -12,14 +12,11 @@ using Xunit.Abstractions;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
-
-    public class InsertOptionalDataVisitorTests : FileDiffingUnitTests, IClassFixture<InsertOptionalDataVisitorTests.InsertOptionalDataVisitorTestsFixture>
+    public class InsertOptionalDataVisitorTests : FileDiffingUnitTests, IClassFixture<DeletesOutputsDirectoryOnClassInitializationFixture>
     {
-        public class InsertOptionalDataVisitorTestsFixture : DeletesOutputsDirectoryOnClassInitializationFixture { }
-
         private OptionallyEmittedData _currentOptionallyEmittedData;
 
-        public InsertOptionalDataVisitorTests(ITestOutputHelper outputHelper, InsertOptionalDataVisitorTestsFixture fixture) : base(outputHelper)
+        public InsertOptionalDataVisitorTests(ITestOutputHelper outputHelper, DeletesOutputsDirectoryOnClassInitializationFixture _) : base(outputHelper)
         {
         }
 
@@ -236,7 +233,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         }
 
         [Fact]
-        public void InsertOptionalDataVisitorTests_FlattensMessageStringsInResult()
+        public void InsertOptionalDataVisitor_FlattensMessageStringsInResult()
         {
             Run run = CreateBasicRunForMessageStringLookupTesting();
 
@@ -286,7 +283,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         }
 
         [Fact]
-        public void InsertOptionalDataVisitorTests_FlattensMessageStringsInNotification()
+        public void InsertOptionalDataVisitor_FlattensMessageStringsInNotification()
         {
             Run run = CreateBasicRunForMessageStringLookupTesting();
 
@@ -358,7 +355,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         }
 
         [Fact]
-        public void InsertOptionalDataVisitorTests_FlattensMessageStringsInFix()
+        public void InsertOptionalDataVisitor_FlattensMessageStringsInFix()
         {
             Run run = CreateBasicRunForMessageStringLookupTesting();
 
@@ -430,7 +427,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         }
 
         [Fact]
-        public void InsertOptionalDataVisitorTests_ResolvesOriginalUriBaseIds()
+        public void InsertOptionalDataVisitor_ResolvesOriginalUriBaseIds()
         {
             string inputFileName = "InsertOptionalDataVisitor.txt";
             string testDirectory = GetTestDirectory("InsertOptionalDataVisitor") + @"\";
@@ -477,21 +474,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             run.OriginalUriBaseIds.Should().Equal(originalUriBaseIds);
             run.Artifacts[0].Contents.Text.Should().Be(File.ReadAllText(Path.Combine(testDirectory, inputFileName)));
-        }
-
-        private static string FormatFailureReason(string failureOutput)
-        {
-            string message = "the rewritten file should matched the supplied SARIF. ";
-            message += failureOutput + Environment.NewLine;
-
-            message = "If the actual output is expected, generate new baselines by setting s_rebaseline == true in the test code and rerunning.";
-            return message;
-        }
-
-        private string NormalizeOptionallyEmittedDataToString(OptionallyEmittedData optionallyEmittedData)
-        {
-            string result = optionallyEmittedData.ToString();
-            return result.Replace(", ", "+");
         }
     }
 }
