@@ -79,7 +79,8 @@ namespace Sarif.Sdk.Sample
                                 Text = "The property {0} returns an array."
                             }
                         }
-                    }
+                    },
+                    HelpUri = new Uri("https://www.example.com/rules/CA1819")
                 },
                 new ReportingDescriptor
                 {
@@ -95,7 +96,8 @@ namespace Sarif.Sdk.Sample
                                 Text = "The test for an empty string is performed by a string comparison rather than by testing String.Length."
                             }
                         }
-                    }
+                    },
+                    HelpUri = new Uri("https://www.example.com/rules/CA1820")
                 },
                 new ReportingDescriptor
                 {
@@ -111,7 +113,8 @@ namespace Sarif.Sdk.Sample
                                 Text = "The array-valued field {0} is marked readonly."
                             }
                         }
-                    }
+                    },
+                    HelpUri = new Uri("https://www.example.com/rules/CA2105")
                 },
                 new ReportingDescriptor
                 {
@@ -127,7 +130,8 @@ namespace Sarif.Sdk.Sample
                                 Text = "The Dispose method does not call the base class Dispose method."
                             }
                         }
-                    }
+                    },
+                    HelpUri = new Uri("https://www.example.com/rules/CA2215")
                 }
             };
             #endregion
