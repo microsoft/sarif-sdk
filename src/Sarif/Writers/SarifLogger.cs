@@ -8,6 +8,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Microsoft.CodeAnalysis.Sarif.Readers;
+using Microsoft.CodeAnalysis.Sarif.Visitors;
+
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Writers
@@ -22,6 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         private readonly OptionallyEmittedData _dataToInsert;
         private readonly OptionallyEmittedData _dataToRemove;
         private readonly ResultLogJsonWriter _issueLogJsonWriter;
+        private readonly InsertOptionalDataVisitor _insertOptionalDataVisitor;
 
         protected const LoggingOptions DefaultLoggingOptions = LoggingOptions.PrettyPrint;
 
@@ -68,6 +71,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
 
             _run = run ?? new Run();
+
+            if (dataToInsert.HasFlag(OptionallyEmittedData.RegionSnippets))
+            {
+                _insertOptionalDataVisitor = new InsertOptionalDataVisitor(dataToInsert, _run);
+            }
 
             EnhanceRun(
                 analysisTargets,
@@ -299,6 +307,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             result.RuleIndex = LogRule(rule);
 
             CaptureFilesInResult(result);
+
+            if (_insertOptionalDataVisitor != null)
+            {
+                _insertOptionalDataVisitor.VisitResult(result);
+            }
+
             _issueLogJsonWriter.WriteResult(result);
         }
 

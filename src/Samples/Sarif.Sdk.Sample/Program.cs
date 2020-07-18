@@ -376,7 +376,7 @@ namespace Sarif.Sdk.Sample
                                                     ArtifactLocation = artifactLocation,
                                                     Region = new Region
                                                     {
-                                                        StartLine = 212
+                                                        StartLine = 17
                                                     }
                                                 }
                                             }
@@ -391,7 +391,7 @@ namespace Sarif.Sdk.Sample
                                                     ArtifactLocation = artifactLocation,
                                                     Region = new Region
                                                     {
-                                                        StartLine = 452 // Fake example
+                                                        StartLine = 24 // Fake example
                                                     }
                                                 }
                                             }
@@ -406,7 +406,7 @@ namespace Sarif.Sdk.Sample
                                                     ArtifactLocation = artifactLocation,
                                                     Region = new Region
                                                     {
-                                                        StartLine = 145
+                                                        StartLine = 26 // Fake example
                                                     }
                                                 }
                                             }
