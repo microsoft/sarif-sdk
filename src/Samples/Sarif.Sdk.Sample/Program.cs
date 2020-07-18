@@ -14,7 +14,7 @@ namespace Sarif.Sdk.Sample
 {
     public class Program
     {
-        private const string ScanRootBaseId = "SCAN_ROOT";
+        private const string RepoRootBaseId = "REPO_ROOT";
         private const string BinRootBaseId = "BIN_ROOT";
 
         internal static int Main(string[] args)
@@ -58,7 +58,7 @@ namespace Sarif.Sdk.Sample
             var artifactLocation = new ArtifactLocation
             {
                 Uri = new Uri("AnalysisSample.cs", UriKind.Relative),
-                UriBaseId = ScanRootBaseId
+                UriBaseId = RepoRootBaseId
             };
 
             // Create a list of rules that will be enforced during your analysis
@@ -258,21 +258,33 @@ namespace Sarif.Sdk.Sample
             string binRootDirectory = @"d:\src\module\";
             var binRootUri = new Uri(binRootDirectory, UriKind.Absolute);
 
-            var originalUriBaseIds = new Dictionary<string, ArtifactLocation>
-            {
-                [ScanRootBaseId] = new ArtifactLocation
-                {
-                    Uri = scanRootUri
-                },
-                [BinRootBaseId] = new ArtifactLocation
-                {
-                    Uri = binRootUri
-                }
-            };
-
             var run = new Run
             {
-                OriginalUriBaseIds = originalUriBaseIds
+                OriginalUriBaseIds = new Dictionary<string, ArtifactLocation>
+                {
+                    [RepoRootBaseId] = new ArtifactLocation
+                    {
+                        Uri = scanRootUri
+                    },
+                    [BinRootBaseId] = new ArtifactLocation
+                    {
+                        Uri = binRootUri
+                    }
+                },
+                VersionControlProvenance = new VersionControlDetails[]
+                {
+                    new VersionControlDetails
+                    {
+                        RepositoryUri = new Uri("https://github.com/microsoft/sarif-sdk"),
+                        RevisionId = "ee5a1ca8",
+                        Branch = "master",
+                        MappedTo = new ArtifactLocation
+                        {
+                            Uri = new Uri(".", UriKind.Relative),
+                            UriBaseId = RepoRootBaseId
+                        }
+                    }
+                }
             };
 
             // The SarifLogger will write the JSON-formatted log to this StringBuilder
@@ -285,7 +297,8 @@ namespace Sarif.Sdk.Sample
                     loggingOptions: LoggingOptions.PrettyPrint, // Use PrettyPrint to generate readable (multi-line, indented) JSON
                     dataToInsert:
                         OptionallyEmittedData.TextFiles |       // Embed source file content directly in the log file -- great for portability of the log!
-                        OptionallyEmittedData.Hashes,
+                        OptionallyEmittedData.Hashes |
+                        OptionallyEmittedData.RegionSnippets,
                     tool: null,
                     run: run,
                     analysisTargets: null,
@@ -335,7 +348,7 @@ namespace Sarif.Sdk.Sample
                                             // Because this file doesn't exist, it will be included in the files list but will only have a path and MIME type
                                             // This is the behavior you'll see any time a file can't be located/accessed
                                             Uri = new Uri("SomeOtherSourceFile.cs", UriKind.Relative),
-                                            UriBaseId = ScanRootBaseId
+                                            UriBaseId = RepoRootBaseId
                                         },
                                         Region = new Region
                                         {
