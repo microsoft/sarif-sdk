@@ -16,6 +16,7 @@ namespace Microsoft.CodeAnalysis.Test.Utilities.Sarif
         public const string TestMessageStringId = "testMessageStringId";
         public const string TestAnalysisTarget = @"C:\dir\file";
         public const string NotActuallyASecret = nameof(NotActuallyASecret);
+        public const string TestRootBaseId = "TEST_ROOT";
 
         public const string AutomationDetailsGuid = "D41BF9F2-225D-4254-984E-DFD659702E4D";
         public const string ConverterName = "TestConverter";
