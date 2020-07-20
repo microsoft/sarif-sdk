@@ -365,7 +365,7 @@
             "arguments": [
               "runs[0].results[0].analysisTarget",
               "%SRCROOT%",
-              "file:///C:/src/file.c"
+              "file:///C:/src/file.h"
             ]
           },
           "locations": [
