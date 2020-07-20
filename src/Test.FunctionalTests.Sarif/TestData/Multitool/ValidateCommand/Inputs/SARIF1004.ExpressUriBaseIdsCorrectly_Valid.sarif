@@ -133,7 +133,7 @@
             "text": "[No message provided]."
           },
           "analysisTarget": {
-            "uri": "file.c",
+            "uri": "file.h",
             "uriBaseId": "%SRCROOT%"
           },
           "locations": [
