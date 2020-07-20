@@ -6,13 +6,13 @@ This file contains the default rule configurations for the functional tests of t
   <Properties Key="SARIF2002.ProvideMessageArguments.Options">
     <Property Key="RuleEnabled" Value="Disabled" />
   </Properties>
+  <Properties Key="SARIF2004.OptimizeFileSize.Options">
+    <Property Key="RuleEnabled" Value="Disabled" />
+  </Properties>
   <Properties Key="SARIF2006.UrisShouldBeReachable.Options">
     <Property Key="RuleEnabled" Value="Disabled" />
   </Properties>
   <Properties Key="SARIF2007.ExpressPathsRelativeToRepoRoot.Options">
-    <Property Key="RuleEnabled" Value="Disabled" />
-  </Properties>
-  <Properties Key="SARIF2016.FileUrisShouldBeRelative.Options">
     <Property Key="RuleEnabled" Value="Disabled" />
   </Properties>
 </Properties>

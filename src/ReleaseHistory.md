@@ -3,6 +3,7 @@
 ## **v2.3.3** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.3) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.3) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.3) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.3)
 * FEATURE: Improve `SarifSdkSample` application: use `uriBaseIds`.
 * BUGFIX: If you created a URI from an absolute file path (for example, `C:\test\file.c`), then it would be serialized with that exact string, which is not a valid URI. This is now fixed. [#2001](https://github.com/microsoft/sarif-sdk/issues/2001)
+* FEATURE: Add additional checks to SARIF analysis rule `SARIF2004.OptimizeFileSize`.
 
 ## **v2.3.2** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.2) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.2) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.2) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.2)
 * FEATURE: The `Sarif.Multitool` command line verbs are now exposed programmatically. For example, the `validate` verb is exposed through the classes `ValidateCommand` and `ValidateOptions`.

@@ -393,13 +393,25 @@ Similarly, most 'result' objects contain at least one 'artifactLocation' object.
 
 #### Messages
 
+##### `AvoidDuplicativeAnalysisTarget`: warning
+
+The 'analysisTarget' property '{1}' at '{0}' can be removed because it is the same as the result location. This unnecessarily increases log file size. The 'analysisTarget' property is used to distinguish cases when a tool detects a result in a file (such as an included header) that is different than the file that was scanned (such as a .cpp file that included the header). 
+
+#### `AvoidDuplicativeResultRuleInformation`: warning
+
+'{0}' uses the 'rule' property to specify the violated rule, so it is not necessary also to specify 'ruleId' or 'ruleIndex'. This unnecessarily increases log file size. Remove the 'ruleId' and 'ruleIndex' properties.
+
 ##### `EliminateLocationOnlyArtifacts`: warning
 
-{0}: The 'artifacts' array contains no information beyond the locations of the artifacts. Removing this array might reduce the log file size without losing information. In some scenarios (for example, when assessing compliance with policy), the 'artifacts' array might be used to record the full set of artifacts that were analyzed. In such a scenario, the 'artifacts' array should be retained even if it contains only location information.
+The 'artifacts' array at '{0}' contains no information beyond the locations of the artifacts. Removing this array might reduce the log file size without losing information. In some scenarios (for example, when assessing compliance with policy), the 'artifacts' array might be used to record the full set of artifacts that were analyzed. In such a scenario, the 'artifacts' array should be retained even if it contains only location information.
 
 ##### `EliminateIdOnlyRules`: warning
 
-{0}: The 'rules' array contains no information beyond the ids of the rules. Removing this array might reduce the log file size without losing information. In some scenarios (for example, when assessing compliance with policy), the 'rules' array might be used to record the full set of rules that were evaluated. In such a scenario, the 'rules' array should be retained even if it contains only id information.
+The 'rules' array at '{0}' contains no information beyond the ids of the rules. Removing this array might reduce the log file size without losing information. In some scenarios (for example, when assessing compliance with policy), the 'rules' array might be used to record the full set of rules that were evaluated. In such a scenario, the 'rules' array should be retained even if it contains only id information.
+
+#### `PreferRuleId`: warning
+
+The result at '{0}' uses the 'rule' property to specify the violated rule, but this is not necessary because the rule is defined by 'tool.driver'. Use the 'ruleId' and 'ruleIndex' instead, because they are shorter and just as clear.
 
 ---
 
@@ -575,3 +587,26 @@ This is part of a set of authoring practices that make your rule messages more r
 ##### `Default`: note
 
 {0}: In rule '{1}', the message with id '{2}' includes dynamic content that is not enclosed in single quotes. Enquoting dynamic content makes it easier to spot, and single quotes give a less cluttered appearance.
+
+---
+### Rule `SARIF2016.FileUrisShouldBeRelative`
+
+#### Description
+
+When an artifact location refers to a file on the local file system, specify a relative reference for the uri property and provide a uriBaseId property, rather than specifying an absolute URI.
+
+There are several advantages to this approach:
+
+Portability: A log file that contains relative references together with uriBaseI properties can be interpreted on a machine where the files are located at a different absolute location.
+
+Determinism: A log file that uses uriBaseId properties has a better chance of being “deterministic”; that is, of being identical from run to run if none of its inputs have changed, even if those runs occur on machines where the files are located at different absolute locations.
+
+Security: The use of uriBaseId properties avoids the persistence of absolute path names in the log file. Absolute path names can reveal information that might be sensitive.
+
+Semantics: Assuming the reader of the log file (an end user or another tool) has the necessary context, they can understand the meaning of the location specified by the uri property, for example, “this is a source file”.
+
+#### Messages
+
+##### `Default`: note
+
+{0}: The file location '{1}' is specified with absolute URI. Prefer a relative reference together with a uriBaseId property.
