@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         private static readonly Invocation EmptyInvocation = new Invocation();
         private static readonly LogicalLocation EmptyLogicalLocation = new LogicalLocation();
 
-        private IDictionary<ArtifactLocation, int> _fileToIndexMap;
+        private IDictionary<ArtifactLocation, int> _artifactLocationToIndexMap;
 
         public Uri ExpandUrisWithUriBaseId(string key, string currentValue = null)
         {
@@ -47,7 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            if (_fileToIndexMap == null)
+            if (_artifactLocationToIndexMap == null)
             {
                 InitializeFileToIndexMap();
             }
@@ -58,11 +58,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return fileLocation.Index;
             }
 
-            // Strictly speaking, some elements that may contribute to a files table 
-            // key are case sensitive, e.g., everything but the schema and protocol of a
-            // web URI. We don't have a proper comparer implementation that can handle 
+            // Strictly speaking, some elements that may contribute to a files table
+            // key are case sensitive, e.g., everything but the scheme and protocol of a
+            // web URI. We don't have a proper comparer implementation that can handle
             // all cases. For now, we cover the Windows happy path, which assumes that
-            // most URIs in log files are file paths (which are case-insensitive)
+            // most URIs in log files are file paths (which are case-insensitive).
             //
             // Tracking item for an improved comparer:
             // https://github.com/Microsoft/sarif-sdk/issues/973
@@ -76,61 +76,65 @@ namespace Microsoft.CodeAnalysis.Sarif
             // throughout the emitted log.
             fileLocation.Uri = new Uri(UriHelper.MakeValidUri(fileLocation.Uri.OriginalString), UriKind.RelativeOrAbsolute);
 
-            var filesTableKey = new ArtifactLocation
+            var artifactLocation = new ArtifactLocation
             {
                 Uri = fileLocation.Uri,
                 UriBaseId = fileLocation.UriBaseId
             };
 
-            if (!_fileToIndexMap.TryGetValue(filesTableKey, out int fileIndex))
+            if (!_artifactLocationToIndexMap.TryGetValue(artifactLocation, out int artifactIndex))
             {
                 if (addToFilesTableIfNotPresent)
                 {
                     this.Artifacts = this.Artifacts ?? new List<Artifact>();
-                    fileIndex = this.Artifacts.Count;
+                    artifactIndex = this.Artifacts.Count;
 
-                    var fileData = Artifact.Create(
-                        filesTableKey.Uri,
+                    Uri artifactUri = artifactLocation.TryReconstructAbsoluteUri(this.OriginalUriBaseIds, out Uri resolvedUri)
+                        ? resolvedUri
+                        : artifactLocation.Uri;
+
+                    var artifact = Artifact.Create(
+                        artifactUri,
                         dataToInsert,
                         hashData: hashData,
-                        encoding: null);
+                        encoding: encoding);
 
                     // Copy ArtifactLocation to ensure changes to Result copy don't affect new Run.Artifacts copy
-                    fileData.Location = new ArtifactLocation(fileLocation);
+                    artifact.Location = new ArtifactLocation(fileLocation);
 
-                    this.Artifacts.Add(fileData);
+                    this.Artifacts.Add(artifact);
 
-                    _fileToIndexMap[filesTableKey] = fileIndex;
+                    _artifactLocationToIndexMap[artifactLocation] = artifactIndex;
                 }
                 else
                 {
                     // We did not find the item. The call was not configured to add the entry.
                     // Return the default value that indicates the item isn't present.
-                    fileIndex = -1;
+                    artifactIndex = -1;
                 }
             }
 
-            fileLocation.Index = fileIndex;
-            return fileIndex;
+            fileLocation.Index = artifactIndex;
+            return artifactIndex;
         }
 
         private void InitializeFileToIndexMap()
         {
-            _fileToIndexMap = new Dictionary<ArtifactLocation, int>(ArtifactLocation.ValueComparer);
+            _artifactLocationToIndexMap = new Dictionary<ArtifactLocation, int>(ArtifactLocation.ValueComparer);
 
             // First, we'll initialize our file object to index map
             // with any files that already exist in the table
             for (int i = 0; i < this.Artifacts?.Count; i++)
             {
-                Artifact fileData = this.Artifacts[i];
+                Artifact artifact = this.Artifacts[i];
 
-                var fileLocation = new ArtifactLocation
+                var artifactLocation = new ArtifactLocation
                 {
-                    Uri = fileData.Location?.Uri,
-                    UriBaseId = fileData.Location?.UriBaseId,
+                    Uri = artifact.Location?.Uri,
+                    UriBaseId = artifact.Location?.UriBaseId,
                 };
 
-                _fileToIndexMap[fileLocation] = i;
+                _artifactLocationToIndexMap[artifactLocation] = i;
             }
         }
 

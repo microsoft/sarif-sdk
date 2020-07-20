@@ -5,5 +5,6 @@
   "nonEmptyUriList": [
     "https://www.example.com/page1",
     "https://www.example.com/page2"
-  ]
+  ],
+  "fileSchemeUri": "file:///C:/test/file.c"
 }

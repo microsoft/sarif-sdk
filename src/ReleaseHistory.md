@@ -1,6 +1,8 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
 ## **v2.3.3** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.3) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.3) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.3) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.3)
+* FEATURE: Improve `SarifSdkSample` application: use `uriBaseIds`.
+* BUGFIX: If you created a URI from an absolute file path (for example, `C:\test\file.c`), then it would be serialized with that exact string, which is not a valid URI. This is now fixed. [#2001](https://github.com/microsoft/sarif-sdk/issues/2001)
 * FEATURE: Add additional checks to SARIF analysis rule `SARIF2004.OptimizeFileSize`.
 
 ## **v2.3.2** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.2) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.2) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.2) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.2)
@@ -19,7 +21,7 @@
 * BUGFIX: In validation rules, `shortDescription` is now calculated by `GetFirstSentence` method, fixing a bug in sentence breaking. [#1887](https://github.com/microsoft/sarif-sdk/issues/1887)
 * BUGFIX: `WorkItemFiler` now logs correctly the details for `LogMetricsForProcessedModel` method [#1896](https://github.com/microsoft/sarif-sdk/issues/1896)
 * FEATURE: Add validation rule `SARIF1019`, which requires every result to have at least one of `result.ruleId` and `result.rule.id`. If both are present, they must be equal. [#1880](https://github.com/microsoft/sarif-sdk/issues/1880)
-* FEATURE: Add validation rule `SARIF1020`, which requires that the $schema property should be present, and must refer to the final version of the SARIF 2.1.0 schema.  [#1890](https://github.com/microsoft/sarif-sdk/issues/1890)
+* FEATURE: Add validation rule `SARIF1020`, which requires that the $schema property should be present, and must refer to the final version of the SARIF 2.1.0 schema. [#1890](https://github.com/microsoft/sarif-sdk/issues/1890)
 * FEATURE: Expose `Run.MergeResultsFrom(Run)` to merge Results from multiple Runs using code from result matching algorithm.
 * BREAKING: Rename `RemapIndicesVisitor` to `RunMergingVisitor` and redesign to control how much merging occurs internally.
 

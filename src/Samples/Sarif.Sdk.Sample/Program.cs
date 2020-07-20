@@ -7,7 +7,6 @@ using System.IO;
 using System.Text;
 using CommandLine;
 using Microsoft.CodeAnalysis.Sarif;
-using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Newtonsoft.Json;
 
@@ -15,7 +14,10 @@ namespace Sarif.Sdk.Sample
 {
     public class Program
     {
-        static int Main(string[] args)
+        private const string RepoRootBaseId = "REPO_ROOT";
+        private const string BinRootBaseId = "BIN_ROOT";
+
+        internal static int Main(string[] args)
         {
             int result = Parser.Default.ParseArguments<LoadOptions, CreateOptions>(args)
                 .MapResult(
@@ -31,7 +33,7 @@ namespace Sarif.Sdk.Sample
         /// </summary>
         /// <param name="options">Load verb options.</param>
         /// <returns>Exit code</returns>
-        static int LoadSarifLogFile(LoadOptions options)
+        internal static int LoadSarifLogFile(LoadOptions options)
         {
             string logText = File.ReadAllText(options.InputFilePath);
             SarifLog log = JsonConvert.DeserializeObject<SarifLog>(logText);
@@ -46,12 +48,18 @@ namespace Sarif.Sdk.Sample
         /// </summary>
         /// <param name="options">Create verb options.</param>
         /// <returns>Exit code</returns>
-        static int CreateSarifLogFile(CreateOptions options)
+        internal static int CreateSarifLogFile(CreateOptions options)
         {
             // We'll use this source file for several defect results -- the
             // SampleSourceFiles folder should be a child of the project folder,
             // two levels up from the folder that contains the EXE (e.g., bin\Debug).
-            var artifactLocation = new ArtifactLocation { Uri = new Uri($"file://{AppDomain.CurrentDomain.BaseDirectory}../../SampleSourceFiles/AnalysisSample.cs") };
+            string scanRootDirectory = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\SampleSourceFiles\"));
+            var scanRootUri = new Uri(scanRootDirectory, UriKind.Absolute);
+            var artifactLocation = new ArtifactLocation
+            {
+                Uri = new Uri("AnalysisSample.cs", UriKind.Relative),
+                UriBaseId = RepoRootBaseId
+            };
 
             // Create a list of rules that will be enforced during your analysis
             #region Rules list
@@ -71,7 +79,8 @@ namespace Sarif.Sdk.Sample
                                 Text = "The property {0} returns an array."
                             }
                         }
-                    }
+                    },
+                    HelpUri = new Uri("https://www.example.com/rules/CA1819")
                 },
                 new ReportingDescriptor
                 {
@@ -87,7 +96,8 @@ namespace Sarif.Sdk.Sample
                                 Text = "The test for an empty string is performed by a string comparison rather than by testing String.Length."
                             }
                         }
-                    }
+                    },
+                    HelpUri = new Uri("https://www.example.com/rules/CA1820")
                 },
                 new ReportingDescriptor
                 {
@@ -103,7 +113,8 @@ namespace Sarif.Sdk.Sample
                                 Text = "The array-valued field {0} is marked readonly."
                             }
                         }
-                    }
+                    },
+                    HelpUri = new Uri("https://www.example.com/rules/CA2105")
                 },
                 new ReportingDescriptor
                 {
@@ -119,7 +130,8 @@ namespace Sarif.Sdk.Sample
                                 Text = "The Dispose method does not call the base class Dispose method."
                             }
                         }
-                    }
+                    },
+                    HelpUri = new Uri("https://www.example.com/rules/CA2215")
                 }
             };
             #endregion
@@ -247,6 +259,38 @@ namespace Sarif.Sdk.Sample
             };
             #endregion
 
+            string binRootDirectory = @"d:\src\module\";
+            var binRootUri = new Uri(binRootDirectory, UriKind.Absolute);
+
+            var run = new Run
+            {
+                OriginalUriBaseIds = new Dictionary<string, ArtifactLocation>
+                {
+                    [RepoRootBaseId] = new ArtifactLocation
+                    {
+                        Uri = scanRootUri
+                    },
+                    [BinRootBaseId] = new ArtifactLocation
+                    {
+                        Uri = binRootUri
+                    }
+                },
+                VersionControlProvenance = new VersionControlDetails[]
+                {
+                    new VersionControlDetails
+                    {
+                        RepositoryUri = new Uri("https://github.com/microsoft/sarif-sdk"),
+                        RevisionId = "ee5a1ca8",
+                        Branch = "master",
+                        MappedTo = new ArtifactLocation
+                        {
+                            Uri = new Uri(".", UriKind.Relative),
+                            UriBaseId = RepoRootBaseId
+                        }
+                    }
+                }
+            };
+
             // The SarifLogger will write the JSON-formatted log to this StringBuilder
             var sb = new StringBuilder();
 
@@ -257,9 +301,10 @@ namespace Sarif.Sdk.Sample
                     loggingOptions: LoggingOptions.PrettyPrint, // Use PrettyPrint to generate readable (multi-line, indented) JSON
                     dataToInsert:
                         OptionallyEmittedData.TextFiles |       // Embed source file content directly in the log file -- great for portability of the log!
-                        OptionallyEmittedData.Hashes,
+                        OptionallyEmittedData.Hashes |
+                        OptionallyEmittedData.RegionSnippets,
                     tool: null,
-                    run: null,
+                    run: run,
                     analysisTargets: null,
                     invocationTokensToRedact: null,
                     invocationPropertiesToLog: null,
@@ -274,7 +319,11 @@ namespace Sarif.Sdk.Sample
                         var result = new Result()
                         {
                             RuleId = rule.Id,
-                            AnalysisTarget = new ArtifactLocation { Uri = new Uri(@"file://d:/src/module/example.dll") }, // This is the file that was analyzed
+                            AnalysisTarget = new ArtifactLocation
+                            {
+                                Uri = new Uri("example.dll", UriKind.Relative), // This is the file that was analyzed
+                                UriBaseId = BinRootBaseId
+                            },
                             Message = new Message
                             {
                                 Id = "Default",
@@ -302,7 +351,8 @@ namespace Sarif.Sdk.Sample
                                         {
                                             // Because this file doesn't exist, it will be included in the files list but will only have a path and MIME type
                                             // This is the behavior you'll see any time a file can't be located/accessed
-                                            Uri = new Uri($"file://{AppDomain.CurrentDomain.BaseDirectory}/../../../SampleSourceFiles/SomeOtherSourceFile.cs"),
+                                            Uri = new Uri("SomeOtherSourceFile.cs", UriKind.Relative),
+                                            UriBaseId = RepoRootBaseId
                                         },
                                         Region = new Region
                                         {
@@ -330,7 +380,7 @@ namespace Sarif.Sdk.Sample
                                                     ArtifactLocation = artifactLocation,
                                                     Region = new Region
                                                     {
-                                                        StartLine = 212
+                                                        StartLine = 17
                                                     }
                                                 }
                                             }
@@ -345,7 +395,7 @@ namespace Sarif.Sdk.Sample
                                                     ArtifactLocation = artifactLocation,
                                                     Region = new Region
                                                     {
-                                                        StartLine = 452 // Fake example
+                                                        StartLine = 24 // Fake example
                                                     }
                                                 }
                                             }
@@ -360,7 +410,7 @@ namespace Sarif.Sdk.Sample
                                                     ArtifactLocation = artifactLocation,
                                                     Region = new Region
                                                     {
-                                                        StartLine = 145
+                                                        StartLine = 26 // Fake example
                                                     }
                                                 }
                                             }

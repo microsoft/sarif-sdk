@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// it wants to override the virtual TypeUnderTest or OutputFolderPath properties, but there seems
     /// no good reason to do this.
     /// </summary>
-    public abstract class DeletesOutputsDirectoryOnClassInitializationFixture
+    public class DeletesOutputsDirectoryOnClassInitializationFixture
     {
         protected virtual string TypeUnderTest => this.GetType().Name.Substring(0, this.GetType().Name.Length - "TestsFixture".Length);
 

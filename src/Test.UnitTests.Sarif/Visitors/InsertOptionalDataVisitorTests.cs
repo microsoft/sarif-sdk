@@ -5,21 +5,22 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using FluentAssertions;
+
+using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Writers;
+using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
+
 using Newtonsoft.Json;
 using Xunit;
 using Xunit.Abstractions;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
-
-    public class InsertOptionalDataVisitorTests : FileDiffingUnitTests, IClassFixture<InsertOptionalDataVisitorTests.InsertOptionalDataVisitorTestsFixture>
+    public class InsertOptionalDataVisitorTests : FileDiffingUnitTests, IClassFixture<DeletesOutputsDirectoryOnClassInitializationFixture>
     {
-        public class InsertOptionalDataVisitorTestsFixture : DeletesOutputsDirectoryOnClassInitializationFixture { }
-
         private OptionallyEmittedData _currentOptionallyEmittedData;
 
-        public InsertOptionalDataVisitorTests(ITestOutputHelper outputHelper, InsertOptionalDataVisitorTestsFixture fixture) : base(outputHelper)
+        public InsertOptionalDataVisitorTests(ITestOutputHelper outputHelper, DeletesOutputsDirectoryOnClassInitializationFixture _) : base(outputHelper)
         {
         }
 
@@ -170,10 +171,70 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         }
 
         [Fact]
-        public void InsertOptionalDataVisitorTests_ContextRegionSnippets_DoesNotFail_TopLevelOriginalUriBaseIdUriMissing()
+        public void InsertOptionalDataVisitor_ContextRegionSnippets_DoesNotFail_TopLevelOriginalUriBaseIdUriMissing()
         {
             RunTest("TopLevelOriginalUriBaseIdUriMissing.sarif",
                 OptionallyEmittedData.ContextRegionSnippets);
+        }
+
+        [Fact]
+        public void InsertOptionalDataVisitor_CanVisitIndividualResultsInASuppliedRun()
+        {
+            const string TestFileContents =
+@"One
+Two
+Three";
+            const string ExpectedSnippet = "Two";
+
+            using (var tempFile = new TempFile(".txt"))
+            {
+                string tempFilePath = tempFile.Name;
+                string tempFileName = Path.GetFileName(tempFilePath);
+                string tempFileDirectory = Path.GetDirectoryName(tempFilePath);
+
+                File.WriteAllText(tempFilePath, TestFileContents);
+
+                var run = new Run
+                {
+                    OriginalUriBaseIds = new Dictionary<string, ArtifactLocation>
+                    {
+                        [TestData.TestRootBaseId] = new ArtifactLocation
+                        {
+                            Uri = new Uri(tempFileDirectory, UriKind.Absolute)
+                        }
+                    },
+                    Results = new List<Result>
+                    {
+                        new Result
+                        {
+                            Locations = new List<Location>
+                            {
+                                new Location
+                                {
+                                    PhysicalLocation = new PhysicalLocation
+                                    {
+                                        ArtifactLocation = new ArtifactLocation
+                                        {
+                                            Uri = new Uri(tempFileName, UriKind.Relative),
+                                            UriBaseId = TestData.TestRootBaseId
+                                        },
+                                        Region = new Region
+                                        {
+                                            StartLine = 2
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                };
+
+                var visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.RegionSnippets, run);
+
+                visitor.VisitResult(run.Results[0]);
+
+                run.Results[0].Locations[0].PhysicalLocation.Region.Snippet.Text.Should().Be(ExpectedSnippet);
+            }
         }
 
         private const int RuleIndex = 0;
@@ -236,7 +297,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         }
 
         [Fact]
-        public void InsertOptionalDataVisitorTests_FlattensMessageStringsInResult()
+        public void InsertOptionalDataVisitor_FlattensMessageStringsInResult()
         {
             Run run = CreateBasicRunForMessageStringLookupTesting();
 
@@ -286,7 +347,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         }
 
         [Fact]
-        public void InsertOptionalDataVisitorTests_FlattensMessageStringsInNotification()
+        public void InsertOptionalDataVisitor_FlattensMessageStringsInNotification()
         {
             Run run = CreateBasicRunForMessageStringLookupTesting();
 
@@ -358,7 +419,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         }
 
         [Fact]
-        public void InsertOptionalDataVisitorTests_FlattensMessageStringsInFix()
+        public void InsertOptionalDataVisitor_FlattensMessageStringsInFix()
         {
             Run run = CreateBasicRunForMessageStringLookupTesting();
 
@@ -430,7 +491,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         }
 
         [Fact]
-        public void InsertOptionalDataVisitorTests_ResolvesOriginalUriBaseIds()
+        public void InsertOptionalDataVisitor_ResolvesOriginalUriBaseIds()
         {
             string inputFileName = "InsertOptionalDataVisitor.txt";
             string testDirectory = GetTestDirectory("InsertOptionalDataVisitor") + @"\";
@@ -477,21 +538,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             run.OriginalUriBaseIds.Should().Equal(originalUriBaseIds);
             run.Artifacts[0].Contents.Text.Should().Be(File.ReadAllText(Path.Combine(testDirectory, inputFileName)));
-        }
-
-        private static string FormatFailureReason(string failureOutput)
-        {
-            string message = "the rewritten file should matched the supplied SARIF. ";
-            message += failureOutput + Environment.NewLine;
-
-            message = "If the actual output is expected, generate new baselines by setting s_rebaseline == true in the test code and rerunning.";
-            return message;
-        }
-
-        private string NormalizeOptionallyEmittedDataToString(OptionallyEmittedData optionallyEmittedData)
-        {
-            string result = optionallyEmittedData.ToString();
-            return result.Replace(", ", "+");
         }
     }
 }

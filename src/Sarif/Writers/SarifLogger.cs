@@ -8,6 +8,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Microsoft.CodeAnalysis.Sarif.Readers;
+using Microsoft.CodeAnalysis.Sarif.Visitors;
+
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Writers
@@ -22,6 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         private readonly OptionallyEmittedData _dataToInsert;
         private readonly OptionallyEmittedData _dataToRemove;
         private readonly ResultLogJsonWriter _issueLogJsonWriter;
+        private readonly InsertOptionalDataVisitor _insertOptionalDataVisitor;
 
         protected const LoggingOptions DefaultLoggingOptions = LoggingOptions.PrettyPrint;
 
@@ -44,7 +47,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                   run: run,
                   analysisTargets: analysisTargets,
                   invocationTokensToRedact: invocationTokensToRedact,
-                  invocationPropertiesToLog: invocationPropertiesToLog)
+                  invocationPropertiesToLog: invocationPropertiesToLog,
+                  defaultFileEncoding: defaultFileEncoding)
         {
         }
 
@@ -66,14 +70,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 AnalysisTargetToHashDataMap = HashUtilities.MultithreadedComputeTargetFileHashes(analysisTargets);
             }
 
-            _run = run ?? CreateRun(
-                            analysisTargets,
-                            dataToInsert,
-                            dataToRemove,
-                            invocationTokensToRedact,
-                            invocationPropertiesToLog,
-                            defaultFileEncoding,
-                            AnalysisTargetToHashDataMap);
+            _run = run ?? new Run();
+
+            if (dataToInsert.HasFlag(OptionallyEmittedData.RegionSnippets))
+            {
+                _insertOptionalDataVisitor = new InsertOptionalDataVisitor(dataToInsert, _run);
+            }
+
+            EnhanceRun(
+                analysisTargets,
+                dataToInsert,
+                dataToRemove,
+                invocationTokensToRedact,
+                invocationPropertiesToLog,
+                defaultFileEncoding,
+                AnalysisTargetToHashDataMap);
 
             tool = tool ?? Tool.CreateFromAssemblyData();
 
@@ -113,7 +124,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             RuleToIndexMap = new Dictionary<ReportingDescriptor, int>(ReportingDescriptor.ValueComparer);
         }
 
-        private static Run CreateRun(
+        private void EnhanceRun(
             IEnumerable<string> analysisTargets,
             OptionallyEmittedData dataToInsert,
             OptionallyEmittedData dataToRemove,
@@ -122,15 +133,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             string defaultFileEncoding = null,
             IDictionary<string, HashData> filePathToHashDataMap = null)
         {
-            var run = new Run
+            _run.Invocations ??= new List<Invocation>();
+            if (defaultFileEncoding != null)
             {
-                Invocations = new List<Invocation>(),
-                DefaultEncoding = defaultFileEncoding
-            };
+                _run.DefaultEncoding = defaultFileEncoding;
+            }
+
+            Encoding encoding = SarifUtilities.GetEncodingFromName(_run.DefaultEncoding);
 
             if (analysisTargets != null)
             {
-                run.Artifacts = new List<Artifact>();
+                _run.Artifacts ??= new List<Artifact>();
 
                 foreach (string target in analysisTargets)
                 {
@@ -142,9 +155,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         filePathToHashDataMap?.TryGetValue(target, out hashData);
                     }
 
-                    var fileData = Artifact.Create(
+                    var artifact = Artifact.Create(
                         new Uri(target, UriKind.RelativeOrAbsolute),
                         dataToInsert,
+                        encoding,
                         hashData: hashData);
 
                     var fileLocation = new ArtifactLocation
@@ -152,14 +166,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         Uri = uri
                     };
 
-                    fileData.Location = fileLocation;
+                    artifact.Location = fileLocation;
 
                     // This call will insert the file object into run.Files if not already present
-                    fileData.Location.Index = run.GetFileIndex(
-                        fileData.Location,
+                    artifact.Location.Index = _run.GetFileIndex(
+                        artifact.Location,
                         addToFilesTableIfNotPresent: true,
                         dataToInsert: dataToInsert,
-                        encoding: null,
+                        encoding: encoding,
                         hashData: hashData);
                 }
             }
@@ -195,8 +209,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 }
             }
 
-            run.Invocations.Add(invocation);
-            return run;
+            _run.Invocations.Add(invocation);
         }
 
         public IDictionary<string, HashData> AnalysisTargetToHashDataMap { get; }
@@ -294,6 +307,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             result.RuleIndex = LogRule(rule);
 
             CaptureFilesInResult(result);
+
+            if (_insertOptionalDataVisitor != null)
+            {
+                _insertOptionalDataVisitor.VisitResult(result);
+            }
+
             _issueLogJsonWriter.WriteResult(result);
         }
 

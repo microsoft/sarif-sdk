@@ -67,9 +67,9 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         {
             sarifLogFileLocation = sarifLogFileLocation ?? throw new ArgumentNullException(nameof(sarifLogFileLocation));
 
-            if (sarifLogFileLocation.IsAbsoluteUri && sarifLogFileLocation.Scheme == "file")
+            if (sarifLogFileLocation.IsAbsoluteUri && sarifLogFileLocation.Scheme == UriUtilities.FileScheme)
             {
-                if (sarifLogFileLocation.IsAbsoluteUri && sarifLogFileLocation.Scheme == "file:")
+                if (sarifLogFileLocation.IsAbsoluteUri && sarifLogFileLocation.Scheme == UriUtilities.FileScheme.WithColon())
                 {
                     using (var stream = new FileStream(sarifLogFileLocation.LocalPath, FileMode.Open, FileAccess.Read))
                     using (var reader = new StreamReader(stream))

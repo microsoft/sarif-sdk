@@ -18,6 +18,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         private readonly OptionallyEmittedData _dataToInsert;
         private readonly IDictionary<string, ArtifactLocation> _originalUriBaseIds;
 
+        public InsertOptionalDataVisitor(OptionallyEmittedData dataToInsert, Run run)
+            : this(dataToInsert, run?.OriginalUriBaseIds)
+        {
+            _run = run ?? throw new ArgumentNullException(nameof(run));
+        }
+
         public InsertOptionalDataVisitor(OptionallyEmittedData dataToInsert, IDictionary<string, ArtifactLocation> originalUriBaseIds = null)
         {
             _dataToInsert = dataToInsert;
