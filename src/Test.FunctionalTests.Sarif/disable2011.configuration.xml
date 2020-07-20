@@ -15,4 +15,7 @@ This file contains the default rule configurations for the functional tests of t
   <Properties Key="SARIF2011.ProvideContextRegion.Options">
     <Property Key="RuleEnabled" Value="Disabled" />
   </Properties>
+  <Properties Key="SARIF2016.FileUrisShouldBeRelative.Options">
+    <Property Key="RuleEnabled" Value="Disabled" />
+  </Properties>
 </Properties>

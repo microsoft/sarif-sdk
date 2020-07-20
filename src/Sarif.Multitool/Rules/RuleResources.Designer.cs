@@ -736,5 +736,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
                 return ResourceManager.GetString("SARIF2015_EnquoteDynamicMessageContent_Note_Default_Text", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to When an artifact location refers to a file on the local file system, specify a relative reference for the uri property and provide a uriBaseId property, rather than specifying an absolute URI.
+        ///
+        ///There are several advantages to this approach:
+        ///
+        ///Portability: A log file that contains relative references together with uriBaseI properties can be interpreted on a machine where the files are located at a different absolute location.
+        ///
+        ///Determinism: A log file that uses uriBaseId properties has a better chance of [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string SARIF2016_FileUrisShouldBeRelative_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("SARIF2016_FileUrisShouldBeRelative_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The file location &apos;{1}&apos; is specified with absolute URI. Prefer a relative reference together with a uriBaseId property..
+        /// </summary>
+        internal static string SARIF2016_FileUrisShouldBeRelative_Note_Default_Text {
+            get {
+                return ResourceManager.GetString("SARIF2016_FileUrisShouldBeRelative_Note_Default_Text", resourceCulture);
+            }
+        }
     }
 }

@@ -208,6 +208,7 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
         public void SARIF2007_ExpressPathsRelativeToRepoRoot_Valid()
             => RunTest(MakeValidTestFileName(RuleId.ExpressPathsRelativeToRepoRoot, nameof(RuleId.ExpressPathsRelativeToRepoRoot)),
                 parameter: new TestParameters(configFileName: "enable2007.configuration.xml"));
+
         [Fact]
         public void SARIF2007_ExpressPathsRelativeToRepoRoot_WithoutVersionControlProvenance_Valid()
             => RunTest("SARIF2007.ExpressPathsRelativeToRepoRoot_WithoutVersionControlProvenance_Valid.sarif",
@@ -305,6 +306,16 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
         public void SARIF2015_EnquoteDynamicMessageContent_Invalid()
             => RunTest(MakeInvalidTestFileName(RuleId.EnquoteDynamicMessageContent, nameof(RuleId.EnquoteDynamicMessageContent)),
                 parameter: new TestParameters(verbose: true));
+
+        [Fact]
+        public void SARIF2016_FileUrisShouldBeRelative_Valid()
+            => RunTest(MakeValidTestFileName(RuleId.FileUrisShouldBeRelative, nameof(RuleId.FileUrisShouldBeRelative)),
+                parameter: new TestParameters(verbose: true, configFileName: "enable2016.configuration.xml"));
+
+        [Fact]
+        public void SARIF2016_FileUrisShouldBeRelative_Invalid()
+            => RunTest(MakeInvalidTestFileName(RuleId.FileUrisShouldBeRelative, nameof(RuleId.FileUrisShouldBeRelative)),
+                parameter: new TestParameters(verbose: true, configFileName: "enable2016.configuration.xml"));
 
         private const string ValidTestFileNameSuffix = "_Valid.sarif";
         private const string InvalidTestFileNameSuffix = "_Invalid.sarif";
