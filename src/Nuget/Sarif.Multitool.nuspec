@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0"?>
 <package>
   <metadata>
-    <id>Sarif.Multitool</id>
+    <id>Sarif.Multitool.Prototype.BSOA</id>
     <version>$version$</version>
     <title>Microsoft SARIF Multitool (includes SARIF SDK)</title>
     <authors>Microsoft</authors>
@@ -46,6 +46,7 @@
     <!-- netcoreapp2.1 packs to tools\TargetFramework\any\* for compatibility with dotnet tool install -->
     <file src="bld\bin\$platform$_$configuration$\Sarif.Multitool\Publish\netcoreapp2.1\**"
           target="tools\netcoreapp2.1\any"
+          exclude="bld\bin\$platform$_$configuration$\Sarif.Multitool\Publish\netcoreapp2.1\Sarif*.dll"
           />
     <file src="bld\bin\Signing\netcoreapp2.1\**"
           target="tools\netcoreapp2.1\any"
