@@ -519,6 +519,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             // Write the Result out (don't keep in memory)
             output.WriteResult(result);
+
+            // BSOA: Clear result to release memory; Clear() only safe if result doesn't reuse dependencies to be used for later results
+            result.Clear();
         }
 
         internal static FailureLevel GetFailureLevelFromRuleMetadata(ReportingDescriptor rule)
@@ -1289,8 +1292,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             public void ApplyTo(PhysicalLocation physicalLocation)
             {
-                physicalLocation.Region = this.Region;
-                physicalLocation.ContextRegion = this.ContextRegion;
+                if (this.Region != null)
+                {
+                    physicalLocation.Region = new Region(this.Region);
+                }
+
+                if (this.ContextRegion != null)
+                {
+                    physicalLocation.ContextRegion = new Region(this.ContextRegion);
+                }
             }
         }
 

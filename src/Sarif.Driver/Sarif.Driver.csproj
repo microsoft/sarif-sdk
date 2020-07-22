@@ -3,6 +3,7 @@
   <PropertyGroup Label="AssemblyAttributes">
     <AssemblyTitle>SARIF Driver Framework</AssemblyTitle>
     <Description>Framework for creating a command line analysis tool which produces the SARIF format.</Description>
+    <PackageId>Sarif.Driver.Prototype.BSOA</PackageId>
   </PropertyGroup>
 
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />

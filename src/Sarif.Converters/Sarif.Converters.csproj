@@ -3,6 +3,7 @@
   <PropertyGroup Label="AssemblyAttributes">
     <AssemblyTitle>SARIF Converter Library</AssemblyTitle>
     <Description>Classes for converting the output of various static analysis tools to the SARIF format.</Description>
+    <PackageId>Sarif.Converters.Prototype.BSOA</PackageId>
   </PropertyGroup>
 
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />

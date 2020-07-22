@@ -10,7 +10,7 @@
     Without this property setting, the id of the NuGet package would match the
     assembly name, "Sarif".
     -->
-    <PackageId>Sarif.Sdk.BSOA</PackageId>
+    <PackageId>Sarif.Sdk.Prototype.BSOA</PackageId>
 
     <!-- Place content files at the root of the package. -->
     <ContentTargetFolders>.</ContentTargetFolders>
@@ -29,6 +29,11 @@
     <PackageReference Include="BSOA" Version="$(BsoaVersion)" />
     <PackageReference Include="BSOA.Json" Version="$(BsoaVersion)" />
   </ItemGroup>
+
+  <!-- <ItemGroup>
+    <ProjectReference Include="..\..\..\bion\csharp\BSOA\BSOA.Json\BSOA.Json.csproj" />
+    <ProjectReference Include="..\..\..\bion\csharp\BSOA\BSOA\BSOA.csproj" />
+  </ItemGroup> -->
 
   <ItemGroup>
     <Reference Condition="'$(TargetFramework)' == 'net45' Or '$(TargetFramework)' == 'net461' " Include="System.Web" />
