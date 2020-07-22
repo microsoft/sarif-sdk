@@ -289,7 +289,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 throw new ArgumentNullException(nameof(result));
             }
 
-            if (!result.RuleId.IsEqualToOrHierarchicalDescendantOf(rule.Id))
+            if (result.RuleId != null && !result.RuleId.IsEqualToOrHierarchicalDescendantOf(rule.Id))
             {
                 //The rule id '{0}' specified by the result does not match the actual id of the rule '{1}'
                 string message = string.Format(CultureInfo.InvariantCulture, SdkResources.ResultRuleIdDoesNotMatchRule,

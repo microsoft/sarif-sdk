@@ -1025,15 +1025,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     EndLine = regionEndLine > regionStartLine ? regionEndLine : 0
                 };
 
-                contextRegion = new Region
+                if (IncludeContextRegions)
                 {
-                    StartLine = snippetStartLine,
-                    EndLine = snippetEndLine > snippetStartLine ? snippetEndLine : 0,
-                    Snippet = new ArtifactContent
+                    contextRegion = new Region
                     {
-                        Text = text
-                    }
-                };
+                        StartLine = snippetStartLine,
+                        EndLine = snippetEndLine > snippetStartLine ? snippetEndLine : 0,
+                        Snippet = new ArtifactContent
+                        {
+                            Text = text
+                        }
+                    };
+                }
 
                 using (StringReader reader = new StringReader(text))
                 {
@@ -1056,11 +1059,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 }
 
                 region.Snippet = new ArtifactContent { Text = text };
-            }
-
-            if (!IncludeContextRegions)
-            {
-                contextRegion = null;
             }
 
             _snippetDictionary.Add(snippetId, new Snippet(region, contextRegion));
