@@ -93,6 +93,11 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/Microsoft/sarif-sdk</PackageProjectUrl>
     <PackageIcon>triskelion.png</PackageIcon>
+
+    <PackageReleaseNotes>
+     BSOA Prototype Sarif Packages. 
+     See https://github.com/microsoft/bion/wiki/Sarif-SDK-BSOA-Prototype for usage recommendations and caveats.
+    </PackageReleaseNotes>
     <!--
     Don't complain about SemVer 2.0.0-compatible version strings.
     See https://github.com/NuGet/Home/issues/4687#issuecomment-393302779.
