@@ -15,9 +15,9 @@ namespace SarifTrim
     ///  SarifTrim demonstrates how to remove redundant and excessively large parts of a 
     ///  SARIF log file for handling of a huge log.
     /// </summary>
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             if (args.Length < 1)
             {
