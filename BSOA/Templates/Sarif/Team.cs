@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using BSOA.Collections;
+using BSOA.Extensions;
 using BSOA.Model;
 
 using Microsoft.CodeAnalysis.Sarif;
@@ -214,6 +215,43 @@ namespace BSOA.Generator.Templates
             Members = other.Members?.Select((item) => Employee.DeepClone(_table.Database, item)).ToList();
             //  </RefListOtherAssignment>
             // </OtherAssignmentList>
+        }
+
+        public void Clear()
+        {
+            // <ClearRecurseList>
+            //  <SimpleClearRecurse>
+            //  </SimpleClearRecurse>
+            //  <EnumClearRecurse>
+            //  </EnumClearRecurse>
+            //  <RefClearRecurse>
+            this.Owner?.Clear();
+            //  </RefClearRecurse>
+            //  <RefListClearRecurse>
+            this.Members?.ForEachReverse((item) => item.Clear());
+            //  </RefListClearRecurse>
+            // </ClearRecurseList>
+
+            if (_index == _table.Count - 1)
+            {
+                _table.RemoveFromEnd(1);
+                return;
+            }
+
+            // <ClearList>
+            //  <SimpleClear>
+            this.Id = 99;
+            //  </SimpleClear>
+            //  <EnumClear>
+            this.JoinPolicy = SecurityPolicy.Open;
+            //  </EnumClear>
+            //  <RefClear>
+            this.Owner = default;
+            //  </RefClear>
+            //  <RefListClear>
+            this.Members = default;
+            //  </RefListClear>
+            // </ClearList>
         }
         #endregion
 

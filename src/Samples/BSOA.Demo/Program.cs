@@ -56,6 +56,10 @@ namespace BSOA.Demo.Comparison
                     Modes.LoadAndSaveFolder(filePath);
                     break;
 
+                case "leaktest":
+                    Modes.LeakTest(filePath, (args.Length > 2 ? int.Parse(args[2]) : 100000));
+                    break;
+
                 default:
                     Console.WriteLine($"Unknown mode '{mode}'. Usage: BSOA.Demo <load/build> <filePath>");
                     break;

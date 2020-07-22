@@ -2,9 +2,12 @@
 // Licensed under the MIT License.
 
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 
 using Microsoft.CodeAnalysis.Sarif;
+using Microsoft.CodeAnalysis.Sarif.Writers;
 
 using Newtonsoft.Json;
 
@@ -70,6 +73,44 @@ namespace BSOA.Demo
             }
 
             return lineTotal;
+        }
+
+        public static void LeakTest(string filePath, int count = 100000)
+        {
+            SarifLog sourceLog = SarifLog.Load(filePath);
+            IList<Result> sourceResults = sourceLog.Runs[0].Results;
+            ReportingDescriptor rule = sourceResults[0].GetRule();
+
+            SarifLog destination = new SarifLog();
+            Run destinationRun = new Run(destination);
+            destination.Runs = new List<Run>() { destinationRun };
+
+            long beforeMemory = GC.GetTotalMemory(true);
+            long peakMemory = beforeMemory;
+            Stopwatch w = Stopwatch.StartNew();
+
+            using (SarifLogger logger = new SarifLogger(Path.ChangeExtension(filePath, ".out.sarif")))
+            {
+                for (int i = 0; i < count; ++i)
+                {
+                    Result result = new Result(destination, sourceResults[i % sourceResults.Count]);
+                    result.RuleId = rule.Id;
+                    result.RuleIndex = -1;
+                    result.Rule = null;
+
+                    logger.Log(rule, result);
+
+                    result.Clear();
+
+                    if (i % 1000 == 0)
+                    {
+                        long memory = GC.GetTotalMemory(false);
+                        if (memory > peakMemory) { peakMemory = memory; }
+                    }
+                }
+            }
+
+            Console.WriteLine($"{count:n0} results in {w.Elapsed.TotalSeconds:n1} sec. Peak Memory: {(peakMemory) / (1024 * 1024.0):n3} MB (+ {(peakMemory - beforeMemory) / (1024 * 1024.0):n3} MB)");
         }
     }
 }
