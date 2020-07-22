@@ -7,10 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BSOA.Demo", "BSOA.Demo.cspr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sarif", "..\..\Sarif\Sarif.csproj", "{626E9319-9797-4B84-8CC3-623D7193F27F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BSOA", "..\..\..\..\bion\csharp\BSOA\BSOA\BSOA.csproj", "{7B48E0E6-EB4D-4C83-87DE-E6FD46B01A87}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BSOA.Json", "..\..\..\..\bion\csharp\BSOA\BSOA.Json\BSOA.Json.csproj", "{B124EDD1-8D7A-44DC-9C3D-A4D35E168343}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,14 +21,6 @@ Global
 		{626E9319-9797-4B84-8CC3-623D7193F27F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{626E9319-9797-4B84-8CC3-623D7193F27F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{626E9319-9797-4B84-8CC3-623D7193F27F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7B48E0E6-EB4D-4C83-87DE-E6FD46B01A87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7B48E0E6-EB4D-4C83-87DE-E6FD46B01A87}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7B48E0E6-EB4D-4C83-87DE-E6FD46B01A87}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7B48E0E6-EB4D-4C83-87DE-E6FD46B01A87}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B124EDD1-8D7A-44DC-9C3D-A4D35E168343}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B124EDD1-8D7A-44DC-9C3D-A4D35E168343}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B124EDD1-8D7A-44DC-9C3D-A4D35E168343}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B124EDD1-8D7A-44DC-9C3D-A4D35E168343}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
