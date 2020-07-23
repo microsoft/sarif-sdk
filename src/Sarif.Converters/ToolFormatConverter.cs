@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using System;
+using System;ijfsd
 using System.IO;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Newtonsoft.Json;

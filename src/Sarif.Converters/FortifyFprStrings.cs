@@ -219,6 +219,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <summary>The string constant "Platform".</summary>
         public readonly string Platform;
 
+        /// <summary>The string constant "EngineVersion".</summary>
+        public readonly string EngineVersion;
+
+        /// <summary>The string constant "InstanceID".</summary>
+        public readonly string InstanceID;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="FortifyFprStrings"/> class.
         /// </summary>
@@ -297,6 +303,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Hostname = nameTable.Add("Hostname");
             Username = nameTable.Add("Username");
             Platform = nameTable.Add("Platform");
+            EngineVersion = nameTable.Add("EngineVersion");
+            InstanceID = nameTable.Add("InstanceID");
         }
     }
 }
