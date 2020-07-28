@@ -37,7 +37,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         };
 
 
-        private static readonly Regex s_replaceKeyRegex = new Regex("<Replace key=\\\"([^\\\"]+)\\\"/>", RegexOptions.Compiled | RegexOptions.CultureInvariant);
+        private static readonly Regex s_replaceKeyRegexOne = new Regex("<Replace key\\s*=\\s*\\\"([^\\\"]+)\\\"\\/>", RegexOptions.Compiled | RegexOptions.CultureInvariant);
+        private static readonly Regex s_replaceKeyRegexTwo = new Regex("<Replace key\\s*=\\s*\\\"([^\\\"]+)\\\"\\s+link\\s*=\\s*\\\"([^\\\"]+)\\\"\\/>", RegexOptions.Compiled | RegexOptions.CultureInvariant);
+
         private const string ReplacementTokenFormat = "<Replace key=\"{0}\"/>";
 
         internal static string ParseFormattedContentText(string content)
@@ -47,7 +49,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 content = Regex.Replace(content, pattern, FormattedTextReplacements[pattern], RegexOptions.Compiled);
             }
 
-            foreach(Match match in s_replaceKeyRegex.Matches(content))
+            foreach (Match match in s_replaceKeyRegexTwo.Matches(content))
+            {
+                string key = match.Groups[1].Value;
+                content = content.Replace(string.Format(ReplacementTokenFormat, key), "{" + key + "}");
+
+                key = match.Groups[2].Value;
+                content = content.Replace(string.Format(ReplacementTokenFormat, key), "{" + key + "}");
+            }
+
+            foreach (Match match in s_replaceKeyRegexOne.Matches(content))
             {
                 string key = match.Groups[1].Value;
                 content = content.Replace(string.Format(ReplacementTokenFormat, key), "{"+ key + "}");
