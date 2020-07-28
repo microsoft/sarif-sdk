@@ -5,9 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 
 using FluentAssertions;
 
+using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Multitool;
 using Microsoft.CodeAnalysis.Sarif.Multitool.Rules;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
@@ -23,25 +25,15 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
 {
     public class ValidateCommandTests : FileDiffingFunctionalTests
     {
+        private readonly IList<SarifValidationSkimmerBase> validationRules;
+
         public ValidateCommandTests(ITestOutputHelper outputHelper, bool testProducesSarifCurrentVersion = true) :
             base(outputHelper, testProducesSarifCurrentVersion)
-        { }
-
-        protected override string IntermediateTestFolder => @"Multitool";
-
-        private class TestParameters
         {
-            internal bool Verbose { get; }
-            internal string ConfigFileName { get; }
-
-            internal TestParameters(bool verbose = false, string configFileName = null)
-            {
-                Verbose = verbose;
-                ConfigFileName = configFileName ?? Path.Combine(Directory.GetCurrentDirectory(), "default.configuration.xml");
-            }
+            this.validationRules = GetValidationRules();
         }
 
-        private static readonly TestParameters s_defaultTestParameters = new TestParameters();
+        protected override string IntermediateTestFolder => @"Multitool";
 
         [Fact]
         public void JSON1001_SyntaxError()
@@ -53,43 +45,43 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
 
         [Fact]
         public void SARIF1001_RuleIdentifiersMustBeValid_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.RuleIdentifiersMustBeValid, nameof(RuleId.RuleIdentifiersMustBeValid)));
+            => RunValidTestForRule(RuleId.RuleIdentifiersMustBeValid);
 
         [Fact]
         public void SARIF1001_RuleIdentifiersMustBeValid_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.RuleIdentifiersMustBeValid, nameof(RuleId.RuleIdentifiersMustBeValid)));
+            => RunInvalidTestForRule(RuleId.RuleIdentifiersMustBeValid);
 
         [Fact]
         public void SARIF1002_UrisMustBeValid_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.UrisMustBeValid, nameof(RuleId.UrisMustBeValid)));
+            => RunValidTestForRule(RuleId.UrisMustBeValid);
 
         [Fact]
         public void SARIF1002_UrisMustBeValid_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.UrisMustBeValid, nameof(RuleId.UrisMustBeValid)));
+            => RunInvalidTestForRule(RuleId.UrisMustBeValid);
 
         [Fact]
         public void SARIF1004_ExpressUriBaseIdsCorrectly_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.ExpressUriBaseIdsCorrectly, nameof(RuleId.ExpressUriBaseIdsCorrectly)));
+            => RunValidTestForRule(RuleId.ExpressUriBaseIdsCorrectly);
 
         [Fact]
         public void SARIF1004_ExpressUriBaseIdsCorrectly_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.ExpressUriBaseIdsCorrectly, nameof(RuleId.ExpressUriBaseIdsCorrectly)));
+            => RunInvalidTestForRule(RuleId.ExpressUriBaseIdsCorrectly);
 
         [Fact]
         public void SARIF1005_UriMustBeAbsolute_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.UriMustBeAbsolute, nameof(RuleId.UriMustBeAbsolute)));
+            => RunValidTestForRule(RuleId.UriMustBeAbsolute);
 
         [Fact]
         public void SARIF1005_UriMustBeAbsolute_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.UriMustBeAbsolute, nameof(RuleId.UriMustBeAbsolute)));
+            => RunInvalidTestForRule(RuleId.UriMustBeAbsolute);
 
         [Fact]
         public void SARIF1006_InvocationPropertiesMustBeConsistent_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.InvocationPropertiesMustBeConsistent, nameof(RuleId.InvocationPropertiesMustBeConsistent)));
+            => RunValidTestForRule(RuleId.InvocationPropertiesMustBeConsistent);
 
         [Fact]
         public void SARIF1006_InvocationPropertiesMustBeConsistent_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.InvocationPropertiesMustBeConsistent, nameof(RuleId.InvocationPropertiesMustBeConsistent)));
+            => RunInvalidTestForRule(RuleId.InvocationPropertiesMustBeConsistent);
 
         /******************
          * This set of tests constructs a full file path that exceeds MAX_PATH when running in some AzureDevOps build and test
@@ -109,50 +101,47 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
 
         [Fact]
         public void SARIF1008_PhysicalLocationPropertiesMustBeConsistent_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.PhysicalLocationPropertiesMustBeConsistent, nameof(RuleId.PhysicalLocationPropertiesMustBeConsistent)));
+            => RunValidTestForRule(RuleId.PhysicalLocationPropertiesMustBeConsistent);
 
         [Fact]
         public void SARIF1008_PhysicalLocationPropertiesMustBeConsistent_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.PhysicalLocationPropertiesMustBeConsistent, nameof(RuleId.PhysicalLocationPropertiesMustBeConsistent)));
+            => RunInvalidTestForRule(RuleId.PhysicalLocationPropertiesMustBeConsistent);
 
         [Fact]
         public void SARIF1009_IndexPropertiesMustBeConsistentWithArrays_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.IndexPropertiesMustBeConsistentWithArrays, nameof(RuleId.IndexPropertiesMustBeConsistentWithArrays)));
+            => RunValidTestForRule(RuleId.IndexPropertiesMustBeConsistentWithArrays);
 
         [Fact]
         public void SARIF1009_IndexPropertiesMustBeConsistentWithArrays_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.IndexPropertiesMustBeConsistentWithArrays, nameof(RuleId.IndexPropertiesMustBeConsistentWithArrays)),
-                parameter: new TestParameters(configFileName: "disable2004.configuration.xml"));
+            => RunInvalidTestForRule(RuleId.IndexPropertiesMustBeConsistentWithArrays);
 
         [Fact]
         public void SARIF1010_RuleIdMustBeConsistent_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.RuleIdMustBeConsistent, nameof(RuleId.RuleIdMustBeConsistent)),
-                parameter: new TestParameters(configFileName: "disable2004.configuration.xml"));
+            => RunValidTestForRule(RuleId.RuleIdMustBeConsistent);
 
         [Fact]
         public void SARIF1010_RuleIdMustBeConsistent_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.RuleIdMustBeConsistent, nameof(RuleId.RuleIdMustBeConsistent)),
-                parameter: new TestParameters(configFileName: "disable2004.configuration.xml"));
+            => RunInvalidTestForRule(RuleId.RuleIdMustBeConsistent);
 
         [Fact]
         public void SARIF1011_ReferenceFinalSchema_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.ReferenceFinalSchema, nameof(RuleId.ReferenceFinalSchema)));
+            => RunValidTestForRule(RuleId.ReferenceFinalSchema);
 
         [Fact]
         public void SARIF1011_ReferenceFinalSchema_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.ReferenceFinalSchema, nameof(RuleId.ReferenceFinalSchema)));
+            => RunInvalidTestForRule(RuleId.ReferenceFinalSchema);
 
         [Fact]
         public void SARIF1012_MessageArgumentsMustBeConsistentWithRule_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.MessageArgumentsMustBeConsistentWithRule, nameof(RuleId.MessageArgumentsMustBeConsistentWithRule)));
+            => RunValidTestForRule(RuleId.MessageArgumentsMustBeConsistentWithRule);
 
         [Fact]
         public void SARIF1012_MessageArgumentsMustBeConsistentWithRule_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.MessageArgumentsMustBeConsistentWithRule, nameof(RuleId.MessageArgumentsMustBeConsistentWithRule)));
+            => RunInvalidTestForRule(RuleId.MessageArgumentsMustBeConsistentWithRule);
 
         [Fact]
         public void SARIF2001_TerminateMessagesWithPeriod_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.TerminateMessagesWithPeriod, nameof(RuleId.TerminateMessagesWithPeriod)));
+            => RunValidTestForRule(RuleId.TerminateMessagesWithPeriod);
 
         [Fact]
         public void SARIF2001_TerminateMessagesWithPeriod_Invalid()
@@ -160,23 +149,19 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
 
         [Fact]
         public void SARIF2002_ProvideMessageArguments_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.ProvideMessageArguments, nameof(RuleId.ProvideMessageArguments)),
-                parameter: new TestParameters(configFileName: "enable2002.configuration.xml"));
+            => RunValidTestForRule(RuleId.ProvideMessageArguments);
 
         [Fact]
         public void SARIF2002_ProvideMessageArguments_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.ProvideMessageArguments, nameof(RuleId.ProvideMessageArguments)),
-                parameter: new TestParameters(configFileName: "enable2002.configuration.xml"));
+            => RunInvalidTestForRule(RuleId.ProvideMessageArguments);
 
         [Fact]
         public void SARIF2003_ProvideVersionControlProvenance_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.ProvideVersionControlProvenance, nameof(RuleId.ProvideVersionControlProvenance)),
-                parameter: new TestParameters(verbose: true));
+            => RunValidTestForRule(RuleId.ProvideVersionControlProvenance);
 
         [Fact]
         public void SARIF2003_ProvideVersionControlProvenance_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.ProvideVersionControlProvenance, nameof(RuleId.ProvideVersionControlProvenance)),
-                parameter: new TestParameters(verbose: true));
+            => RunInvalidTestForRule(RuleId.ProvideVersionControlProvenance);
 
         [Fact]
         public void SARIF2004_OptimizeFileSize_Valid()
@@ -184,138 +169,119 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
 
         [Fact]
         public void SARIF2004_OptimizeFileSize_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.OptimizeFileSize, nameof(RuleId.OptimizeFileSize)));
+            => RunInvalidTestForRule(RuleId.OptimizeFileSize);
 
         [Fact]
         public void SARIF2005_ProvideToolProperties_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.ProvideToolProperties, nameof(RuleId.ProvideToolProperties)));
+            => RunValidTestForRule(RuleId.ProvideToolProperties);
 
         [Fact]
         public void SARIF2005_ProvideToolProperties_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.ProvideToolProperties, nameof(RuleId.ProvideToolProperties)));
+            => RunInvalidTestForRule(RuleId.ProvideToolProperties);
 
         [Fact]
         public void SARIF2006_UrisShouldBeReachable_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.UrisShouldBeReachable, nameof(RuleId.UrisShouldBeReachable)),
-                parameter: new TestParameters(configFileName: "enable2006.configuration.xml"));
+            => RunValidTestForRule(RuleId.UrisShouldBeReachable);
 
         [Fact]
         public void SARIF2006_UrisShouldBeReachable_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.UrisShouldBeReachable, nameof(RuleId.UrisShouldBeReachable)),
-                parameter: new TestParameters(configFileName: "enable2006.configuration.xml"));
+            => RunInvalidTestForRule(RuleId.UrisShouldBeReachable);
 
         [Fact]
         public void SARIF2007_ExpressPathsRelativeToRepoRoot_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.ExpressPathsRelativeToRepoRoot, nameof(RuleId.ExpressPathsRelativeToRepoRoot)),
-                parameter: new TestParameters(configFileName: "enable2007.configuration.xml"));
+            => RunValidTestForRule(RuleId.ExpressPathsRelativeToRepoRoot);
 
         [Fact]
         public void SARIF2007_ExpressPathsRelativeToRepoRoot_WithoutVersionControlProvenance_Valid()
-            => RunTest("SARIF2007.ExpressPathsRelativeToRepoRoot_WithoutVersionControlProvenance_Valid.sarif",
-                parameter: new TestParameters(configFileName: "enable2007.configuration.xml"));
+            => RunTest("SARIF2007.ExpressPathsRelativeToRepoRoot_WithoutVersionControlProvenance_Valid.sarif");
 
         [Fact]
         public void SARIF2007_ExpressPathsRelativeToRepoRoot_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.ExpressPathsRelativeToRepoRoot, nameof(RuleId.ExpressPathsRelativeToRepoRoot)),
-                parameter: new TestParameters(configFileName: "enable2007.configuration.xml"));
+            => RunInvalidTestForRule(RuleId.ExpressPathsRelativeToRepoRoot);
 
         [Fact]
         public void SARIF2008_ProvideSchema_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.ProvideSchema, nameof(RuleId.ProvideSchema)));
+            => RunValidTestForRule(RuleId.ProvideSchema);
 
         [Fact]
         public void SARIF2008_ProvideSchema_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.ProvideSchema, nameof(RuleId.ProvideSchema)));
+            => RunInvalidTestForRule(RuleId.ProvideSchema);
 
         [Fact]
         public void SARIF2009_ConsiderConventionalIdentifierValues_Valid()
-            => RunTest(
-                MakeValidTestFileName(RuleId.ConsiderConventionalIdentifierValues, nameof(RuleId.ConsiderConventionalIdentifierValues)),
-                parameter: new TestParameters(verbose: true));
+            => RunValidTestForRule(RuleId.ConsiderConventionalIdentifierValues);
 
         [Fact]
         public void SARIF2009_ConsiderConventionalIdentifierValues_Invalid()
-            => RunTest(
-                MakeInvalidTestFileName(RuleId.ConsiderConventionalIdentifierValues, nameof(RuleId.ConsiderConventionalIdentifierValues)),
-                parameter: new TestParameters(verbose: true));
+            => RunInvalidTestForRule(RuleId.ConsiderConventionalIdentifierValues);
 
         [Fact]
         public void SARIF2010_ProvideCodeSnippets_Valid()
-            => RunTest(
-                MakeValidTestFileName(RuleId.ProvideCodeSnippets, nameof(RuleId.ProvideCodeSnippets)),
-                parameter: new TestParameters(verbose: true));
+            => RunValidTestForRule(RuleId.ProvideCodeSnippets);
 
         [Fact]
         public void SARIF2010_ProvideCodeSnippets_Invalid()
-            => RunTest(
-                MakeInvalidTestFileName(RuleId.ProvideCodeSnippets, nameof(RuleId.ProvideCodeSnippets)),
-                parameter: new TestParameters(verbose: true, configFileName: "disable2011.configuration.xml"));
+            => RunInvalidTestForRule(RuleId.ProvideCodeSnippets);
 
         [Fact]
         public void SARIF2011_ProvideContextRegion_Valid()
-            => RunTest(
-                MakeValidTestFileName(RuleId.ProvideContextRegion, nameof(RuleId.ProvideContextRegion)),
-                parameter: new TestParameters(verbose: true));
+            => RunValidTestForRule(RuleId.ProvideContextRegion);
 
         [Fact]
         public void SARIF2011_ProvideContextRegion_Invalid()
-            => RunTest(
-                MakeInvalidTestFileName(RuleId.ProvideContextRegion, nameof(RuleId.ProvideContextRegion)),
-                parameter: new TestParameters(verbose: true));
+            => RunInvalidTestForRule(RuleId.ProvideContextRegion);
 
         [Fact]
         public void SARIF2012_ProvideHelpUris_Valid()
-            => RunTest(
-                MakeValidTestFileName(RuleId.ProvideHelpUris, nameof(RuleId.ProvideHelpUris)),
-                parameter: new TestParameters(verbose: true));
+            => RunValidTestForRule(RuleId.ProvideHelpUris);
 
         [Fact]
         public void SARIF2012_ProvideHelpUris_Invalid()
-            => RunTest(
-                MakeInvalidTestFileName(RuleId.ProvideHelpUris, nameof(RuleId.ProvideHelpUris)),
-                parameter: new TestParameters(verbose: true));
+            => RunInvalidTestForRule(RuleId.ProvideHelpUris);
 
         [Fact]
         public void SARIF2013_ProvideEmbeddedFileContent_Valid()
-            => RunTest(
-                MakeValidTestFileName(RuleId.ProvideEmbeddedFileContent, nameof(RuleId.ProvideEmbeddedFileContent)),
-                parameter: new TestParameters(verbose: true));
+            => RunValidTestForRule(RuleId.ProvideEmbeddedFileContent);
 
         [Fact]
         public void SARIF2013_ProvideEmbeddedFileContent_Invalid()
-            => RunTest(
-                MakeInvalidTestFileName(RuleId.ProvideEmbeddedFileContent, nameof(RuleId.ProvideEmbeddedFileContent)),
-                parameter: new TestParameters(verbose: true));
+            => RunInvalidTestForRule(RuleId.ProvideEmbeddedFileContent);
 
         [Fact]
         public void SARIF2014_ProvideDynamicMessageContent_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.ProvideDynamicMessageContent, nameof(RuleId.ProvideDynamicMessageContent)),
-                parameter: new TestParameters(verbose: true));
+            => RunValidTestForRule(RuleId.ProvideDynamicMessageContent);
 
         [Fact]
         public void SARIF2014_ProvideDynamicMessageContent_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.ProvideDynamicMessageContent, nameof(RuleId.ProvideDynamicMessageContent)),
-                parameter: new TestParameters(verbose: true));
+            => RunInvalidTestForRule(RuleId.ProvideDynamicMessageContent);
 
         [Fact]
         public void SARIF2015_EnquoteDynamicMessageContent_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.EnquoteDynamicMessageContent, nameof(RuleId.EnquoteDynamicMessageContent)),
-                parameter: new TestParameters(verbose: true));
+            => RunValidTestForRule(RuleId.EnquoteDynamicMessageContent);
 
         [Fact]
         public void SARIF2015_EnquoteDynamicMessageContent_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.EnquoteDynamicMessageContent, nameof(RuleId.EnquoteDynamicMessageContent)),
-                parameter: new TestParameters(verbose: true));
+            => RunInvalidTestForRule(RuleId.EnquoteDynamicMessageContent);
 
         [Fact]
         public void SARIF2016_FileUrisShouldBeRelative_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.FileUrisShouldBeRelative, nameof(RuleId.FileUrisShouldBeRelative)),
-                parameter: new TestParameters(verbose: true, configFileName: "enable2016.configuration.xml"));
+            => RunValidTestForRule(RuleId.FileUrisShouldBeRelative);
 
         [Fact]
         public void SARIF2016_FileUrisShouldBeRelative_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.FileUrisShouldBeRelative, nameof(RuleId.FileUrisShouldBeRelative)),
-                parameter: new TestParameters(verbose: true, configFileName: "enable2016.configuration.xml"));
+            => RunInvalidTestForRule(RuleId.FileUrisShouldBeRelative);
+
+        private void RunValidTestForRule(string ruleId)
+        {
+            SarifValidationSkimmerBase rule = this.validationRules.Single(vr => vr.Id == ruleId);
+            RunTest(inputResourceName: MakeValidTestFileName(rule.Id, rule.Name));
+        }
+
+        private void RunInvalidTestForRule(string ruleId)
+        {
+            SarifValidationSkimmerBase rule = this.validationRules.Single(vr => vr.Id == ruleId);
+            RunTest(inputResourceName: MakeInvalidTestFileName(rule.Id, rule.Name));
+        }
 
         private const string ValidTestFileNameSuffix = "_Valid.sarif";
         private const string InvalidTestFileNameSuffix = "_Invalid.sarif";
@@ -346,12 +312,8 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
 
             string[] shouldNotTransform = { "SARIF1011", "SARIF2008" };
 
-            bool updateInputsToCurrentSarif = ruleUnderTest.StartsWith("SARIF") 
+            bool updateInputsToCurrentSarif = ruleUnderTest.StartsWith("SARIF")
                 && !shouldNotTransform.Contains(ruleUnderTest);
-
-            TestParameters testParameters = parameter != null
-                ? (TestParameters)parameter
-                : s_defaultTestParameters;
 
             var validateOptions = new ValidateOptions
             {
@@ -362,8 +324,7 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
                 UpdateInputsToCurrentSarif = updateInputsToCurrentSarif,
                 PrettyPrint = true,
                 Optimize = true,
-                Verbose = testParameters.Verbose,
-                ConfigurationFilePath = testParameters.ConfigFileName
+                Verbose = false // Turn off note-level rules.
             };
 
             var mockFileSystem = new Mock<IFileSystem>();
@@ -424,6 +385,19 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
             actualLog.Runs[0].OriginalUriBaseIds = null;
 
             return JsonConvert.SerializeObject(actualLog, Formatting.Indented);
+        }
+
+        private IList<SarifValidationSkimmerBase> GetValidationRules()
+        {
+            // Select one rule arbitrarily, find out what assembly it's in, and get all the other
+            // rules from that assembly.
+            Assembly validationRuleAssembly = typeof(RuleIdentifiersMustBeValid).Assembly;
+            
+            return CompositionUtilities.GetExports<SarifValidationSkimmerBase>(
+                new Assembly[]
+                {
+                    validationRuleAssembly
+                }).ToList();
         }
     }
 }

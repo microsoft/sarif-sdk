@@ -286,7 +286,7 @@ Do not specify the result object's 'analysisTarget' property unless it differs f
   <data name="SARIF2002_ProvideMessageArguments_FullDescription_Text" xml:space="preserve">
     <value>In result messages, use the 'message.id' and 'message.arguments' properties rather than 'message.text'. This has several advantages. If 'text' is lengthy, using 'id' and 'arguments' makes the SARIF file smaller. If the rule metadata is stored externally to the SARIF log file, the message text can be improved (for example, by adding more text, clarifying the phrasing, or fixing typos), and the result messages will pick up the improvements the next time it is displayed. Finally, SARIF supports localizing messages into different languages, which is possible if the SARIF file contains 'message.id' and 'message.arguments', but not if it contains 'message.text' directly.</value>
   </data>
-  <data name="SARIF2002_ProvideMessageArguments_Warning_Default_Text" xml:space="preserve">
+  <data name="SARIF2002_ProvideMessageArguments_Note_Default_Text" xml:space="preserve">
     <value>{0}: The 'message' property of this result contains a 'text' property. Consider replacing it with 'id' and 'arguments' properties. This potentially reduces the log file size, allows the message text to be improved without modifying the log file, and enables localization.</value>
   </data>
   <data name="SARIF2003_ProvideVersionControlProvenance_FullDescription_Text" xml:space="preserve">
@@ -301,7 +301,7 @@ Do not specify the result object's 'analysisTarget' property unless it differs f
   <data name="SARIF2006_UrisShouldBeReachable_FullDescription_Text" xml:space="preserve">
     <value>URIs that refer to locations such as rule help pages and result-related work items should be reachable via an HTTP GET request.</value>
   </data>
-  <data name="SARIF2006_UrisShouldBeReachable_Warning_Default_Text" xml:space="preserve">
+  <data name="SARIF2006_UrisShouldBeReachable_Note_Default_Text" xml:space="preserve">
     <value>{0}: The URI '{1}' was not reachable via an HTTP GET request.</value>
   </data>
   <data name="SARIF2007_ExpressPathsRelativeToRepoRoot_FullDescription_Text" xml:space="preserve">

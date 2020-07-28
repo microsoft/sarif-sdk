@@ -29,10 +29,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF2002_ProvideMessageArguments_FullDescription_Text };
 
         protected override IEnumerable<string> MessageResourceNames => new string[] {
-            nameof(RuleResources.SARIF2002_ProvideMessageArguments_Warning_Default_Text)
+            nameof(RuleResources.SARIF2002_ProvideMessageArguments_Note_Default_Text)
         };
 
-        public override FailureLevel DefaultLevel => FailureLevel.Warning;
+        public override FailureLevel DefaultLevel => FailureLevel.Note;
 
         protected override void Analyze(Result result, string resultPointer)
         {
@@ -43,7 +43,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 // the message text to be improved without modifying the log file, and enables localization.
                 LogResult(
                     resultPointer.AtProperty(SarifPropertyName.Message),
-                    nameof(RuleResources.SARIF2002_ProvideMessageArguments_Warning_Default_Text));
+                    nameof(RuleResources.SARIF2002_ProvideMessageArguments_Note_Default_Text));
             }
         }
     }
