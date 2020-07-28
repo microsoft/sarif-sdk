@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
         ///  Count is the number of array elements (for arrays) or properties 
         ///  (for objects) in the mapped object.
         /// </summary>
-        public long Count { get; set; }
+        public int Count { get; set; }
 
         /// <summary>
         ///  Return the byte length of this node.

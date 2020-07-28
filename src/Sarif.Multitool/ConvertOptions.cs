@@ -21,5 +21,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             "plugin-assembly-path",
             HelpText = "Path to plugin assembly containing converter types.")]
         public string PluginAssemblyPath { get; internal set; }
+
+        [Option(
+            "normalize-for-github-dsp",
+            HelpText = "Normalize converted output to conform to GitHub DSP ingestion requirements.")]
+        public bool NormalizeForGitHubDsp { get; internal set; }
+
     }
 }

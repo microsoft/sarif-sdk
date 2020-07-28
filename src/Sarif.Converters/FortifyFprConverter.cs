@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft. All rights reserved.
+﻿// Copyright (c) Micro  soft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
@@ -17,21 +17,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
     internal class FortifyFprConverter : ToolFileConverterBase
     {
         private const string FortifyExecutable = "[REMOVED]insourceanalyzer.exe";
-        internal const string FileLocationUriBaseId = "SRCROOT";
-        private const string ReplacementTokenFormat = "<Replace key=\"{0}\"/>";
+        internal const string FileLocationUriBaseId = "%SRCROOT%";
+        private const string ReplacementTokenFormat = "{{{0}}}";
         private const string EmbeddedLinkFormat = "[{0}](1)";
 
         private readonly NameTable _nameTable;
         private readonly FortifyFprStrings _strings;
-        private readonly string[] SupportedReplacementTokens = new[] 
-        { 
+        private readonly string[] SupportedReplacementTokens = new[]
+        {
+            "EnclosingFunction.name",
+            "FirstTransitionFunction",
+            "FirstTraceLocation.file",
+            "FirstTraceLocation.line",
+            "LastTraceLocation.file",
+            "LastTraceLocation.line",
             "PrimaryCall.name",
             "PrimaryLocation.file", 
             "PrimaryLocation.line",
+            "PrimaryTransitionFunction.name",
             "SinkFunction",
             "SourceFunction",
             "SinkLocation.file",
-            "SinkLocation.line"
+            "SinkLocation.line",
+            "SourceLocation.file",
+            "SourceLocation.line"
         };
         private readonly Dictionary<string, List<string>> ActionTypeToLocationKindsMap = new Dictionary<string, List<string>>
         {
@@ -520,7 +529,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 }
                 else if (AtStartOfNonEmpty(_strings.ReplacementDefinitions))
                 {
-                    ParseReplacementDefinitions(result);
+                    ParseReplacementDefinitions();
                 }
                 else if (AtStartOfNonEmpty(_strings.Trace))
                 {
@@ -549,6 +558,44 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             // Write the Result out (don't keep in memory)
             output.WriteResult(result);
+        }
+
+        private string NormalizeGuid(string guid)
+        {
+            // We observe two issues in Fortify SCA guids, which relate
+            // to historical development. First, some GUIDs report an
+            // invalid version character in the 13th character. Second,
+            // some GUID as overly long (by a single character). These
+            // issues prevent Fortify SARIF from validating and therefore
+            // from being accepted by systems such as GitHub's DSP
+            // secfurity alerting feature.
+            //
+            // As a workaround, we will force the 15th character to be '4',
+            // if necessary, reflecting a v4 spec GUID. If a guid is overly 
+            // long, we will simply truncate it.
+
+            // Fortify SCA guids are expressed as braceless, hyphenated sequences.
+            if (guid.Length > 36)
+            {
+                guid = guid.Substring(0, 36);
+            }
+
+            // In practice, we haven't observed a Fortify SCA guid that both
+            // exceeds expected length and which has an unexpected version.
+            int version = int.Parse(guid[14].ToString());
+            if (version < 1 || version > 5)
+            {
+                guid = guid.Substring(0, 14) + "4" + guid.Substring(15);
+            }
+
+            // The 'variant' component shoudl be a value in the hex range of 
+            // 8 - b, inclusive.
+            int variant = int.Parse(guid[19].ToString(), NumberStyles.HexNumber);
+            if (variant < 8 || variant > 11)
+            {
+                guid = guid.Substring(0, 19) + "8" + guid.Substring(20);
+            }
+            return guid;
         }
 
         private static string RemoveSpaces(string ruleComponent)
@@ -710,7 +757,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                                     if (result.Locations == null) { result.Locations = new List<Location>(); }
                                     if (result.RelatedLocations == null) { result.RelatedLocations = new List<Location>(); }
                                     result.Locations.Add(location.DeepClone());
-                                    result.RelatedLocations.Add(location.DeepClone());
+
+                                    Location relatedLocation = location.DeepClone();
+                                    result.RelatedLocations.Add(relatedLocation);
 
                                     // Keep track of the snippet associated with the default location.
                                     // That's the snippet that we'll associate with the result.
@@ -771,7 +820,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
         }
 
-        private void ParseReplacementDefinitions(Result result)
+        private void ParseReplacementDefinitions()
         {
             _currentResultReplacementDictionary.Clear();
             _reader.Read();
@@ -1216,7 +1265,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 ReportingDescriptor rule = new ReportingDescriptor
                 {
                     Id = ruleGuid,
-                    Guid = ruleGuid
+                    Guid = NormalizeGuid(ruleGuid)
                 };
 
                 rule.DefaultConfiguration = new ReportingConfiguration();
