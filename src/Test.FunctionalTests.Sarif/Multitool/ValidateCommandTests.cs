@@ -83,21 +83,13 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
         public void SARIF1006_InvocationPropertiesMustBeConsistent_Invalid()
             => RunInvalidTestForRule(RuleId.InvocationPropertiesMustBeConsistent);
 
-        /******************
-         * This set of tests constructs a full file path that exceeds MAX_PATH when running in some AzureDevOps build and test
-         * environments. As a result, we slightly truncate the file names so that they are within ADO's tolerance. If/when
-         * we chase down a more satisfying solution, we can restore the nameof() pattern (and updated the corresponding
-         * test file names in TestData\Inputs and TestData\ExpectedOutputs.
-         ******************/
         [Fact]
         public void SARIF1007_RegionPropertiesMustBeConsistent_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.RegionPropertiesMustBeConsistent, "RegionPropertiesMustBeConsistent"));
+            => RunValidTestForRule(RuleId.RegionPropertiesMustBeConsistent);
 
         [Fact]
         public void SARIF1007_RegionPropertiesMustBeConsistent_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.RegionPropertiesMustBeConsistent, "RegionPropertiesMustBeConsistent"));
-
-        /********** END PROBLEMATIC TESTS*******/
+            => RunInvalidTestForRule(RuleId.RegionPropertiesMustBeConsistent);
 
         [Fact]
         public void SARIF1008_PhysicalLocationPropertiesMustBeConsistent_Valid()
@@ -145,7 +137,7 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
 
         [Fact]
         public void SARIF2001_TerminateMessagesWithPeriod_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.TerminateMessagesWithPeriod, nameof(RuleId.TerminateMessagesWithPeriod)));
+            => RunInvalidTestForRule(RuleId.TerminateMessagesWithPeriod);
 
         [Fact]
         public void SARIF2002_ProvideMessageArguments_Valid()
@@ -165,7 +157,7 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
 
         [Fact]
         public void SARIF2004_OptimizeFileSize_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.OptimizeFileSize, nameof(RuleId.OptimizeFileSize)));
+            => RunValidTestForRule(RuleId.OptimizeFileSize);
 
         [Fact]
         public void SARIF2004_OptimizeFileSize_Invalid()
@@ -271,26 +263,24 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
         public void SARIF2016_FileUrisShouldBeRelative_Invalid()
             => RunInvalidTestForRule(RuleId.FileUrisShouldBeRelative);
 
-        private void RunValidTestForRule(string ruleId)
-        {
-            SarifValidationSkimmerBase rule = this.validationRules.Single(vr => vr.Id == ruleId);
-            RunTest(inputResourceName: MakeValidTestFileName(rule.Id, rule.Name));
-        }
-
-        private void RunInvalidTestForRule(string ruleId)
-        {
-            SarifValidationSkimmerBase rule = this.validationRules.Single(vr => vr.Id == ruleId);
-            RunTest(inputResourceName: MakeInvalidTestFileName(rule.Id, rule.Name));
-        }
-
         private const string ValidTestFileNameSuffix = "_Valid.sarif";
         private const string InvalidTestFileNameSuffix = "_Invalid.sarif";
 
-        private string MakeValidTestFileName(string ruleId, string ruleName)
-            => $"{ruleId}.{ruleName}{ValidTestFileNameSuffix}";
+        private void RunValidTestForRule(string ruleId)
+            => RunTestForRule(ruleId, ValidTestFileNameSuffix);
+        
+        private void RunInvalidTestForRule(string ruleId)
+            => RunTestForRule(ruleId, InvalidTestFileNameSuffix);
 
-        private string MakeInvalidTestFileName(string ruleId, string ruleName)
-            => $"{ruleId}.{ruleName}{InvalidTestFileNameSuffix}";
+        private void RunTestForRule(string ruleId, string testFileNameSuffix)
+        {
+            SarifValidationSkimmerBase rule = this.validationRules.Single(vr => vr.Id == ruleId);
+            string testFileName = MakeTestFileName(rule, testFileNameSuffix);
+            RunTest(testFileName);
+        }
+
+        private string MakeTestFileName(ReportingDescriptor rule, string testFileNameSuffix)
+            => $"{rule.Id}.{rule.Name}{testFileNameSuffix}";
 
         protected override string ConstructTestOutputFromInputResource(string inputResourceName, object parameter)
         {
