@@ -9,7 +9,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     internal static class FortifyUtilities
     {
-        private static readonly Dictionary<string, string> FormattedTextReplacementss = new Dictionary<string, string>
+        private static readonly Dictionary<string, string> FormattedTextReplacements = new Dictionary<string, string>
         {
             // XML <Content> tag
             { "<[/]?Content>", string.Empty },
@@ -36,11 +36,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             { "<[/]?pre>", "`" }
         };
 
+
+        private static readonly Regex s_replaceKeyRegex = new Regex("<Replace key=\\\"([^\\\"]+)\\\"/>", RegexOptions.Compiled | RegexOptions.CultureInvariant);
+        private const string ReplacementTokenFormat = "<Replace key=\"{0}\"/>";
+
         internal static string ParseFormattedContentText(string content)
         {
-            foreach (string pattern in FormattedTextReplacementss.Keys)
+            foreach (string pattern in FormattedTextReplacements.Keys)
             {
-                content = Regex.Replace(content, pattern, FormattedTextReplacementss[pattern], RegexOptions.Compiled);
+                content = Regex.Replace(content, pattern, FormattedTextReplacements[pattern], RegexOptions.Compiled);
+            }
+
+            foreach(Match match in s_replaceKeyRegex.Matches(content))
+            {
+                string key = match.Groups[1].Value;
+                content = content.Replace(string.Format(ReplacementTokenFormat, key), "{"+ key + "}");
             }
 
             return content.Trim(new[] { '\r', '\n', ' ' });

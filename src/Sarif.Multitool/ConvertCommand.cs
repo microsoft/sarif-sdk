@@ -4,9 +4,14 @@
 using System;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
+
 using Microsoft.CodeAnalysis.Sarif.Converters;
 using Microsoft.CodeAnalysis.Sarif.Driver;
+using Microsoft.CodeAnalysis.Sarif.Visitors;
 using Microsoft.CodeAnalysis.Sarif.Writers;
+
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
@@ -56,6 +61,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                                                 loggingOptions,
                                                 dataToInsert,
                                                 convertOptions.PluginAssemblyPath);
+
+                if (convertOptions.NormalizeForGitHubDsp)
+                {
+                    SarifLog sarifLog;
+
+                    JsonSerializer serializer = new JsonSerializer()
+                    {
+                        Formatting = convertOptions.PrettyPrint ? Formatting.Indented : 0,
+                    };
+
+                    using (JsonTextReader reader = new JsonTextReader(new StreamReader(convertOptions.OutputFilePath)))
+                    {                        
+                        sarifLog = serializer.Deserialize<SarifLog>(reader);
+                    }
+
+                    var visitor = new GitHubDspIngestionVisitor();
+                    visitor.VisitSarifLog(sarifLog);
+
+                    using (FileStream stream = File.Create(convertOptions.OutputFilePath))
+                    using (StreamWriter streamWriter = new StreamWriter(stream))
+                    using (JsonTextWriter writer = new JsonTextWriter(streamWriter))
+                    {
+                        serializer.Serialize(writer, sarifLog);
+                    }
+                }
             }
             catch (Exception ex) when (!Debugger.IsAttached)
             {

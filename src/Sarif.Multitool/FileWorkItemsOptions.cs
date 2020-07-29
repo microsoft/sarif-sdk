@@ -40,5 +40,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             "configuration",
             HelpText = "A path to an XML configuration file that will be used to drive work item creation.")]
         public string ConfigurationFilePath { get; internal set; }
+
+        [Option(
+            "no-validate",
+            HelpText = "Do not validate the SARIF log file before filing.")]
+        public bool DoNotValidate { get; internal set; }
     }
 }

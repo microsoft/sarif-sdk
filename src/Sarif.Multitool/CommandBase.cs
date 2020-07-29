@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         internal const int SUCCESS = 0;
         internal const int FAILURE = 1;
 
-        protected static bool ValidateNonNegativeCommandLineOption<T>(int optionValue, string optionName)
+        protected static bool ValidateNonNegativeCommandLineOption<T>(long optionValue, string optionName)
         {
             bool valid = true;
 

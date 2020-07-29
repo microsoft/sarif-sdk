@@ -51,7 +51,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 if (s_validateOptionsOnly) { return SUCCESS; }
 
                 string logFileContents = fileSystem.ReadAllText(options.InputFilePath);
-                EnsureValidSarifLogFile(logFileContents, options.InputFilePath);
+
+                if (!options.DoNotValidate)
+                {
+                    EnsureValidSarifLogFile(logFileContents, options.InputFilePath);
+                }
 
                 if (options.SplittingStrategy != SplittingStrategy.None)
                 {

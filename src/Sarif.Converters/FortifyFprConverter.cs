@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft. All rights reserved.
+﻿// Copyright (c) Micro  soft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
@@ -17,13 +17,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
     internal class FortifyFprConverter : ToolFileConverterBase
     {
         private const string FortifyExecutable = "[REMOVED]insourceanalyzer.exe";
-        internal const string FileLocationUriBaseId = "SRCROOT";
-        private const string ReplacementTokenFormat = "<Replace key=\"{0}\"/>";
+        internal const string FileLocationUriBaseId = "%SRCROOT%";
+        private const string ReplacementTokenFormat = "{{{0}}}";
         private const string EmbeddedLinkFormat = "[{0}](1)";
 
         private readonly NameTable _nameTable;
         private readonly FortifyFprStrings _strings;
-        private readonly string[] SupportedReplacementTokens = new[] { "PrimaryLocation.file", "PrimaryLocation.line" };
+        private readonly string[] SupportedReplacementTokens = new[]
+        {
+            "EnclosingFunction.name",
+            "FirstTransitionFunction",
+            "FirstTraceLocation.file",
+            "FirstTraceLocation.line",
+            "LastTraceLocation.file",
+            "LastTraceLocation.line",
+            "PrimaryCall.name",
+            "PrimaryLocation.file", 
+            "PrimaryLocation.line",
+            "PrimaryTransitionFunction.name",
+            "SinkFunction",
+            "SourceFunction",
+            "SinkLocation.file",
+            "SinkLocation.line",
+            "SourceLocation.file",
+            "SourceLocation.line"
+        };
         private readonly Dictionary<string, List<string>> ActionTypeToLocationKindsMap = new Dictionary<string, List<string>>
         {
             { "InCall", new List<string> { "call", "function" } },
@@ -49,8 +67,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private XmlReader _reader;
         private Invocation _invocation;
         private string _runId;
+        private string _engineVersion;
         private string _automationId;
         private string _originalUriBasePath;
+        private string _currentInstanceID;
         private int _currentFileIndex = 0;
 
         // Dictionary with replacement variables for the current Result (reused when parsing results to avoid per-Result allocation)
@@ -61,7 +81,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private readonly HashSet<string> _cweIds;
         private readonly Dictionary<Uri, Tuple<Artifact, int>> _files;
         private readonly List<ReportingDescriptor> _rules;
-        private readonly Dictionary<string, int> _ruleIdToIndexMap;
+        private readonly Dictionary<string, int> _ruleGuidToIdMap;
         private readonly Dictionary<string, Node> _nodeDictionary;
         private readonly IDictionary<ThreadFlowLocation, int> _threadFlowLocationToIndexDictionary;
         private readonly Dictionary<string, Snippet> _snippetDictionary;
@@ -80,7 +100,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             _files = new Dictionary<Uri, Tuple<Artifact, int>>();
             _rules = new List<ReportingDescriptor>();
-            _ruleIdToIndexMap = new Dictionary<string, int>();
+            _ruleGuidToIdMap = new Dictionary<string, int>();
             _cweIds = new HashSet<string>();
             _nodeDictionary = new Dictionary<string, Node>();
             _threadFlowLocationToIndexDictionary = new Dictionary<ThreadFlowLocation, int>(ThreadFlowLocation.ValueComparer);
@@ -91,7 +111,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             IncludeThreadFlowLocations = true;
         }
 
-        public override string ToolName => "Micro Focus Fortify Static Code Analyzer";
+        public override string ToolName => "MicroFocus Fortify SCA";
 
         /// <summary>
         /// Interface implementation for converting a stream in Fortify FPR format to a stream in
@@ -118,7 +138,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             _invocation.ExecutionSuccessful = true;
             _files.Clear();
             _rules.Clear();
-            _ruleIdToIndexMap.Clear();
+            _ruleGuidToIdMap.Clear();
             _cweIds.Clear();
             _nodeDictionary.Clear();
             _threadFlowLocationToIndexDictionary.Clear();
@@ -180,6 +200,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     Driver = new ToolComponent
                     {
                         Name = ToolName,
+                        Version = _engineVersion,
                         Rules = _rules,
                         SupportedTaxonomies = new List<ToolComponentReference>
                         {
@@ -235,6 +256,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                 if (Uri.TryCreate(originalUriBasePath, UriKind.Absolute, out Uri uri))
                 {
+                    uri = new Uri(uri.AbsoluteUri, UriKind.Absolute);
                     return new Dictionary<string, ArtifactLocation>
                     {
                         { FileLocationUriBaseId, new ArtifactLocation { Uri = uri } }
@@ -273,6 +295,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     }
                     // Note: CreatedTS is an empty element (it has only attributes),
                     // so we can't call AtStartOfNonEmpty here.
+                    else if (AtStartOf(_strings.InstanceID))
+                    {
+                        ParseInstanceID();
+                    }
                     else if (AtStartOf(_strings.CreatedTimestamp))
                     {
                         ParseCreatedTimestamp();
@@ -309,8 +335,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     {
                         ParseRuleInfo();
                     }
+                    else if (AtStartOf(_strings.EngineVersion))
+                    {
+                        ParseEngineVersion();
+                    }
                 }
             }
+        }
+
+        private void ParseInstanceID()
+        {
+            _currentInstanceID = _reader.ReadElementContentAsString();
         }
 
         private void ParseAuditStream_PassTwo(XmlReader reader, IResultLogWriter output)
@@ -462,29 +497,39 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 if (AtStartOfNonEmpty(_strings.ClassId))
                 {
                     // Get the rule GUID from the ClassId element.
-                    string ruleId = _reader.ReadElementContentAsString();
-                    rule = FindOrCreateRule(ruleId, out ruleIndex);
-
+                    string ruleGuid = _reader.ReadElementContentAsString();
+                    rule = FindOrCreateRule(ruleGuid, out ruleIndex);
+                    rule.Id = ruleGuid;
                     result.RuleIndex = ruleIndex;
                     FailureLevel failureLevel = GetFailureLevelFromRuleMetadata(rule);
+                    result.RuleId = ruleGuid;
                     result.Level = failureLevel;
                     rule.DefaultConfiguration.Level = failureLevel;
                 }
                 else if (AtStartOfNonEmpty(_strings.Kingdom))
                 {
-                    rule.SetProperty(_strings.Kingdom, _reader.ReadElementContentAsString());
+                    string ruleComponent = _reader.ReadElementContentAsString();
+                    rule.Name = ruleComponent;
+                    //rule.Id = RemoveSpaces(ruleComponent);
+                    //result.RuleId = rule.Id;
                 }
                 else if (AtStartOfNonEmpty(_strings.Type))
                 {
-                    rule.SetProperty(_strings.Type, _reader.ReadElementContentAsString());
+                    string ruleComponent = _reader.ReadElementContentAsString();
+                    rule.Name += "/" + ruleComponent;
+                    //rule.Id += "/" + RemoveSpaces(ruleComponent);
+                    //result.RuleId = rule.Id;
                 }
                 else if (AtStartOfNonEmpty(_strings.Subtype))
                 {
-                    rule.SetProperty(_strings.Subtype, _reader.ReadElementContentAsString());
+                    string ruleComponent = _reader.ReadElementContentAsString();
+                    rule.Name += "/" + ruleComponent;
+                    //rule.Id += "/" + RemoveSpaces(ruleComponent);
+                    //result.RuleId = rule.Id;
                 }
                 else if (AtStartOfNonEmpty(_strings.ReplacementDefinitions))
                 {
-                    ParseReplacementDefinitions(result);
+                    ParseReplacementDefinitions();
                 }
                 else if (AtStartOfNonEmpty(_strings.Trace))
                 {
@@ -513,6 +558,61 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             // Write the Result out (don't keep in memory)
             output.WriteResult(result);
+        }
+
+        private string NormalizeGuid(string guid)
+        {
+            // We observe two issues in Fortify SCA guids, which relate
+            // to historical development. First, some GUIDs report an
+            // invalid version character in the 13th character. Second,
+            // some GUID as overly long (by a single character). These
+            // issues prevent Fortify SARIF from validating and therefore
+            // from being accepted by systems such as GitHub's DSP
+            // secfurity alerting feature.
+            //
+            // As a workaround, we will force the 15th character to be '4',
+            // if necessary, reflecting a v4 spec GUID. If a guid is overly 
+            // long, we will simply truncate it.
+
+            // Fortify SCA guids are expressed as braceless, hyphenated sequences.
+            if (guid.Length > 36)
+            {
+                guid = guid.Substring(0, 36);
+            }
+
+            // In practice, we haven't observed a Fortify SCA guid that both
+            // exceeds expected length and which has an unexpected version.
+            int version = int.Parse(guid[14].ToString());
+            if (version < 1 || version > 5)
+            {
+                guid = guid.Substring(0, 14) + "4" + guid.Substring(15);
+            }
+
+            // The 'variant' component shoudl be a value in the hex range of 
+            // 8 - b, inclusive.
+            int variant = int.Parse(guid[19].ToString(), NumberStyles.HexNumber);
+            if (variant < 8 || variant > 11)
+            {
+                guid = guid.Substring(0, 19) + "8" + guid.Substring(20);
+            }
+            return guid;
+        }
+
+        private static string RemoveSpaces(string ruleComponent)
+        {
+            Tuple<string, string>[] lowercasedTokens = new []
+            {
+                new Tuple<string, string>(" in ", " In "),
+                new Tuple<string, string>(" true ", " True "),
+                new Tuple<string, string>(" false ", " False "),
+                new Tuple<string, string>(" against ", " Against "),
+            };
+
+            foreach(Tuple<string, string> lowercasedToken in lowercasedTokens)
+            {
+                ruleComponent = ruleComponent.Replace(lowercasedToken.Item1, lowercasedToken.Item2);
+            }            
+            return ruleComponent.Replace(" ", "");
         }
 
         internal static FailureLevel GetFailureLevelFromRuleMetadata(ReportingDescriptor rule)
@@ -623,6 +723,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                                 }
                             }
 
+                            /*
                             if (actionType == string.Empty)
                             {
                                 if (codeFlow.ThreadFlows[0].Locations.Count > 0)
@@ -644,7 +745,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                                     }
                                 }
                             }
-                            else
+                            else*/
                             {
                                 var location = new Location
                                 {
@@ -656,7 +757,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                                     if (result.Locations == null) { result.Locations = new List<Location>(); }
                                     if (result.RelatedLocations == null) { result.RelatedLocations = new List<Location>(); }
                                     result.Locations.Add(location.DeepClone());
-                                    result.RelatedLocations.Add(location.DeepClone());
+
+                                    Location relatedLocation = location.DeepClone();
+                                    result.RelatedLocations.Add(relatedLocation);
 
                                     // Keep track of the snippet associated with the default location.
                                     // That's the snippet that we'll associate with the result.
@@ -687,6 +790,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                                 codeFlow.ThreadFlows[0].Locations.Add(tfl);
                             }
+                            System.Diagnostics.Debug.Assert(codeFlow.ThreadFlows[0].Locations.Count > 0);
                         }
                         else
                         {
@@ -716,7 +820,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
         }
 
-        private void ParseReplacementDefinitions(Result result)
+        private void ParseReplacementDefinitions()
         {
             _currentResultReplacementDictionary.Clear();
             _reader.Read();
@@ -903,6 +1007,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
         }
 
+        private void ParseEngineVersion()
+        {
+            _engineVersion = _reader.ReadElementContentAsString();                
+        }
+
         private void ParseNodes()
         {
             _reader.Read();
@@ -1086,8 +1195,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             _invocation.CommandLine = sb.ToString();
         }
 
+       
         private void ParseErrors()
         {
+            // Despite being expressed as XML elements named <Error>, these messages
+            // often reflect a non-critical state, such as an unused file filter (that
+            // has no effect in filtering away any files during analysis time). The 
+            // MicroFocus Fortify SCA Audit Workbench shows all this information as
+            // warnings, and so we'll set that failure level here. 
             _reader.Read();
             while (!AtEndOf(_strings.Errors))
             {
@@ -1102,7 +1217,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         {
                             Id = errorCode
                         },
-                        Level = FailureLevel.Error,
+                        Level = FailureLevel.Warning,
                         Message = new Message { Text = message }
                     });
                 }
@@ -1137,9 +1252,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
         }
 
-        private ReportingDescriptor FindOrCreateRule(string ruleId, out int ruleIndex)
+        private ReportingDescriptor FindOrCreateRule(string ruleGuid, out int ruleIndex)
         {
-            if (_ruleIdToIndexMap.TryGetValue(ruleId, out ruleIndex))
+            if (_ruleGuidToIdMap.TryGetValue(ruleGuid, out ruleIndex))
             {
                 return _rules[ruleIndex];
             }
@@ -1147,14 +1262,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 ReportingDescriptor rule = new ReportingDescriptor
                 {
-                    Id = ruleId,
-                    Guid = ruleId
+                    Id = ruleGuid,
+                    Guid = NormalizeGuid(ruleGuid)
                 };
 
                 rule.DefaultConfiguration = new ReportingConfiguration();
                 ruleIndex = _rules.Count;
                 _rules.Add(rule);
-                _ruleIdToIndexMap[ruleId] = ruleIndex;
+                _ruleGuidToIdMap[ruleGuid] = ruleIndex;
 
                 return rule;
             }
@@ -1211,7 +1326,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     else
                     {
                         // Replace the token with plain text.
-                        messageText = messageText.Replace(string.Format(ReplacementTokenFormat, key), value);
+                        messageText = messageText.Replace(string.Format(ReplacementTokenFormat, key), "'"+ value + "'");
                     }
                 }
             }

@@ -178,9 +178,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             // Index >= Count
             Assert.Throws<ArgumentOutOfRangeException>(() => RunAndCompare(new PageOptions() { Index = 5, Count = 1, InputFilePath = sampleFilePath, OutputFilePath = pagedSamplePath }));
 
-            // Index + Count > Count
-            Assert.Throws<ArgumentOutOfRangeException>(() => RunAndCompare(new PageOptions() { Index = 0, Count = 6, InputFilePath = sampleFilePath, OutputFilePath = pagedSamplePath }));
-
             // RunIndex >= RunCount
             Assert.Throws<ArgumentOutOfRangeException>(() => RunAndCompare(new PageOptions() { RunIndex = 1, Index = 1, Count = 1, InputFilePath = sampleFilePath, OutputFilePath = pagedSamplePath }));
         }
