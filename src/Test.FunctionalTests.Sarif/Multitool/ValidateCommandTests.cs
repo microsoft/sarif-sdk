@@ -216,6 +216,10 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
             => RunInvalidTestForRule(RuleId.ProvideCodeSnippets);
 
         [Fact]
+        public void SARIF2010_ProvideCodeSnippets_WithArtifacts_Valid()
+            => RunTest("SARIF2010.ProvideCodeSnippets_WithArtifacts_Valid.sarif");
+
+        [Fact]
         public void SARIF2011_ProvideContextRegion_Valid()
             => RunValidTestForRule(RuleId.ProvideContextRegion);
 

@@ -1,0 +1,78 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "CodeScanner",
+          "version": "1.0"
+        }
+      },
+      "versionControlProvenance": [
+        {
+          "repositoryUri": "https://github.com/microsoft/sarif-sdk"
+        }
+      ],
+      "originalUriBaseIds": {
+        "TEST_ROOT": {
+          "uri": "file://c:/test/"
+        }
+      },
+      "artifacts": [
+        {
+          "contents": {
+            "text": "File Source"
+          },
+          "location": {
+            "uri": "src/test.c"
+          }
+        },
+        {
+          "contents": {
+            "text": "File Source"
+          },
+          "location": {
+            "uri": "test2.c",
+            "uriBaseId": "TEST_ROOT"
+          }
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "TST0001",
+          "level": "error",
+          "message": {
+            "text": "Some testing occurred."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/test.c"
+                },
+                "contextRegion": {
+                  "startLine": 2,
+                  "endLine": 4
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "test2.c",
+                  "uriBaseId": "TEST_ROOT"
+                },
+                "contextRegion": {
+                  "startLine": 2,
+                  "endLine": 4
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}
