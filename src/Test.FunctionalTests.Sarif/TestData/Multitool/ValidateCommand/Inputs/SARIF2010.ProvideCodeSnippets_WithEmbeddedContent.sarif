@@ -44,19 +44,21 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  // this test will NOT generate a valid AbsoluteUri, but it will find in artifacts
-                  // So, it don't need a snippet
                   "uri": "src/test.c"
+                },
+                "properties": {
+                  "comment": "This test will NOT generate a valid AbsoluteUri, but it will find in artifacts. So it doesnt need a snippet."
                 }
               }
             },
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  // this test will generate a valid AbsoluteUri and it will find in artifacts
-                  // So, it don't need a snippet
                   "uri": "test2.c",
                   "uriBaseId": "TEST_ROOT"
+                },
+                "properties": {
+                  "comment": "This test will generate a valid AbsoluteUri and it will find in artifacts. So it doesnt need a snippet."
                 }
               }
             }
