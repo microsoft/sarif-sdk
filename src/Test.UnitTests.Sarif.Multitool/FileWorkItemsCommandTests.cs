@@ -49,7 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         private static readonly TestCase[] s_testCases =
             new TestCase[] {
                 new TestCase {
-                    Title = "AzureDevOps host",
+                    Title = "GitHub host",
                     Args = new string[] {
                         "file-work-items",
                         "--host-uri",
@@ -61,11 +61,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 },
 
                 new TestCase {
-                    Title = "GitHub host",
+                    Title = "AzureDevOps host",
                     Args = new string[] {
                         "file-work-items",
                         "--host-uri",
                         "https://dev.azure.com/my-org/my-project",
+                        "--inline",
+                        "test.sarif"
+                    },
+                    ExpectedExitCode = 0
+                },
+
+                new TestCase {
+                    Title = "AzureDevOps host with legacy uri",
+                    Args = new string[] {
+                        "file-work-items",
+                        "--host-uri",
+                        "https://my-org.visualstudio.com/my-project",
                         "--inline",
                         "test.sarif"
                     },
