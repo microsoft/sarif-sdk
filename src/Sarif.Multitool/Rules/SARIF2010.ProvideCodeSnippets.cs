@@ -81,7 +81,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         private bool AnalyzeArtifactLocation(ArtifactLocation artifactLocation)
         {
-            // No artifactLocation / no artifacts, so we should look for the snippet
+            // No artifactLocation / no artifacts, so we should look for the snippet.
             if (artifactLocation == null || this.artifacts == null)
             {
                 return true;
@@ -89,7 +89,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
             // Checking if we can reconstruct uri from artifactLocation
             // if we can't, we still need to validate, since originalUriBaseIds aren't
-            // required nether artifactLocation.UriBaseId
+            // required nether artifactLocation.UriBaseId.
             artifactLocation.TryReconstructAbsoluteUri(this.originalUriBaseIds, out Uri resolvedUri);
 
             foreach (Artifact artifact in this.artifacts)
@@ -102,7 +102,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
                 // Checking if we can reconstruct uri from artifact
                 // if we can't, we still need to validate, since originalUriBaseIds aren't
-                // required nether artifactLocation.UriBaseId
+                // required nether artifactLocation.UriBaseId.
                 artifact.Location.TryReconstructAbsoluteUri(this.originalUriBaseIds, out Uri artifactUri);
 
                 if (resolvedUri != null && artifactUri != null)
@@ -114,7 +114,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 }
                 else
                 {
-                    // Couldn't generate the absoluteUri's, so let's compare everything
+                    // Couldn't generate the absoluteUri's, so let's compare everything.
                     if (this.artifacts.Any(a => a.Location?.Uri.OriginalString == artifactLocation.Uri.OriginalString
                         && a.Location?.UriBaseId == artifactLocation.UriBaseId))
                     {
