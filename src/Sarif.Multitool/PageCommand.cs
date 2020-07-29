@@ -169,11 +169,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 return;
             }
 
+            if (options.Index >= results.Count)
+            {
+                throw new ArgumentOutOfRangeException($"Index requested was {options.Index} but Run has only {results.Count} results.");
+            }
+
             if (options.Index + options.Count > results.Count)
             {
-                Console.WriteLine($"Page requested from Result {options.Index} to {options.Index + options.Count}, but Run has only {results.Count} results.");
+                Console.WriteLine($"Page requested from Result {options.Index} to {options.Index + options.Count} but Run has only {results.Count} results.");
                 options.Count = results.Count - options.Index;
             }
+
 
             Console.WriteLine($"Run {options.RunIndex} in \"{options.InputFilePath}\" has {results.Count:n0} results.");
 
