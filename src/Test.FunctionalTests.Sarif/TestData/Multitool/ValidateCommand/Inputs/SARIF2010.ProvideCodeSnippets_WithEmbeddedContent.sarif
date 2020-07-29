@@ -47,7 +47,7 @@
                   "uri": "src/test.c"
                 },
                 "properties": {
-                  "comment": "This test will NOT generate a valid AbsoluteUri, but it will find in artifacts. So it doesnt need a snippet."
+                  "comment": "This test will NOT generate a valid AbsoluteUri, but it will find in artifacts. So it doesn't need a snippet."
                 }
               }
             },
@@ -58,7 +58,7 @@
                   "uriBaseId": "TEST_ROOT"
                 },
                 "properties": {
-                  "comment": "This test will generate a valid AbsoluteUri and it will find in artifacts. So it doesnt need a snippet."
+                  "comment": "This test will generate a valid AbsoluteUri and it will find in artifacts. So it doesn't need a snippet."
                 }
               }
             }

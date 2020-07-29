@@ -88,20 +88,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             }
 
             // Checking if we can reconstruct uri from artifactLocation
-            // if we cant, we still need to validate, since neither originalUriBaseIds
+            // If we can't, we still need to validate, since neither originalUriBaseIds
             // nor artifactLocation.UriBaseId is required.
             artifactLocation.TryReconstructAbsoluteUri(this.originalUriBaseIds, out Uri resolvedUri);
 
             foreach (Artifact artifact in this.artifacts)
             {
-                // Content/text doesnt exist, continue to next
+                // Content/text doesn't exist, continue to next
                 if (string.IsNullOrEmpty(artifact.Contents?.Text))
                 {
                     continue;
                 }
 
                 // Checking if we can reconstruct uri from artifact
-                // if we cant, we still need to validate, since originalUriBaseIds arent
+                // If we can't, we still need to validate, since originalUriBaseIds aren't
                 // required nether artifactLocation.UriBaseId.
                 artifact.Location.TryReconstructAbsoluteUri(this.originalUriBaseIds, out Uri artifactUri);
 
@@ -114,7 +114,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 }
                 else
                 {
-                    // Couldnt generate the absoluteUris, so lets compare everything.
+                    // Couldn't generate the absoluteUris, so let's compare everything.
                     if (this.artifacts.Any(a => a.Location?.Uri.OriginalString == artifactLocation.Uri.OriginalString
                         && a.Location?.UriBaseId == artifactLocation.UriBaseId))
                     {
