@@ -9,11 +9,6 @@
           "version": "1.0"
         }
       },
-      "versionControlProvenance": [
-        {
-          "repositoryUri": "https://github.com/microsoft/sarif-sdk"
-        }
-      ],
       "originalUriBaseIds": {
         "TEST_ROOT": {
           "uri": "file://c:/test/"
@@ -50,10 +45,6 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "src/test.c"
-                },
-                "contextRegion": {
-                  "startLine": 2,
-                  "endLine": 4
                 }
               }
             },
@@ -62,10 +53,6 @@
                 "artifactLocation": {
                   "uri": "test2.c",
                   "uriBaseId": "TEST_ROOT"
-                },
-                "contextRegion": {
-                  "startLine": 2,
-                  "endLine": 4
                 }
               }
             }

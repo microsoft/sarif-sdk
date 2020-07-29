@@ -101,7 +101,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
                 if (resolvedUri != null && artifactUri != null)
                 {
-                    if (artifactUri.AbsolutePath.Equals(resolvedUri.AbsolutePath, StringComparison.OrdinalIgnoreCase))
+                    if (artifactUri.AbsolutePath.Equals(resolvedUri.AbsolutePath))
                     {
                         return false;
                     }
