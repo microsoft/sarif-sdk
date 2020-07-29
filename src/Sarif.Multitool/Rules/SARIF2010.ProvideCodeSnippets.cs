@@ -87,6 +87,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 return true;
             }
 
+            // checking if we can reconstruct uri from artifactLocation
+            // if we can't, we still need to validate, since originalUriBaseIds aren't
+            // required nether artifactLocation.UriBaseId
             artifactLocation.TryReconstructAbsoluteUri(this.originalUriBaseIds, out Uri resolvedUri);
 
             foreach (Artifact artifact in this.artifacts)
@@ -97,6 +100,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     continue;
                 }
 
+                // checking if we can reconstruct uri from artifact
+                // if we can't, we still need to validate, since originalUriBaseIds aren't
+                // required nether artifactLocation.UriBaseId
                 artifact.Location.TryReconstructAbsoluteUri(this.originalUriBaseIds, out Uri artifactUri);
 
                 if (resolvedUri != null && artifactUri != null)

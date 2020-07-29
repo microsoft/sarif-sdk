@@ -44,6 +44,8 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
+                  // this test will NOT generate a valid AbsoluteUri, but it will find in artifacts
+                  // So, it don't need a snippet
                   "uri": "src/test.c"
                 }
               }
@@ -51,6 +53,8 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
+                  // this test will generate a valid AbsoluteUri and it will find in artifacts
+                  // So, it don't need a snippet
                   "uri": "test2.c",
                   "uriBaseId": "TEST_ROOT"
                 }
