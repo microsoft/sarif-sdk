@@ -81,26 +81,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         private bool AnalyzeArtifactLocation(ArtifactLocation artifactLocation)
         {
-            // no artifactLocation / no artifacts, so we should look for the snippet
+            // No artifactLocation / no artifacts, so we should look for the snippet
             if (artifactLocation == null || this.artifacts == null)
             {
                 return true;
             }
 
-            // checking if we can reconstruct uri from artifactLocation
+            // Checking if we can reconstruct uri from artifactLocation
             // if we can't, we still need to validate, since originalUriBaseIds aren't
             // required nether artifactLocation.UriBaseId
             artifactLocation.TryReconstructAbsoluteUri(this.originalUriBaseIds, out Uri resolvedUri);
 
             foreach (Artifact artifact in this.artifacts)
             {
-                // content/text doesn't exist, continue to next
+                // Content/text doesn't exist, continue to next
                 if (string.IsNullOrEmpty(artifact.Contents?.Text))
                 {
                     continue;
                 }
 
-                // checking if we can reconstruct uri from artifact
+                // Checking if we can reconstruct uri from artifact
                 // if we can't, we still need to validate, since originalUriBaseIds aren't
                 // required nether artifactLocation.UriBaseId
                 artifact.Location.TryReconstructAbsoluteUri(this.originalUriBaseIds, out Uri artifactUri);
@@ -114,7 +114,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 }
                 else
                 {
-                    // couldn't generate the absoluteUri's, so let's compare everything
+                    // Couldn't generate the absoluteUri's, so let's compare everything
                     if (this.artifacts.Any(a => a.Location?.Uri.OriginalString == artifactLocation.Uri.OriginalString
                         && a.Location?.UriBaseId == artifactLocation.UriBaseId))
                     {
