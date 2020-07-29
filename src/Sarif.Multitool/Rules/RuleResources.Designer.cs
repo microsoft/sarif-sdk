@@ -418,9 +418,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         /// <summary>
         ///   Looks up a localized string similar to {0}: The &apos;message&apos; property of this result contains a &apos;text&apos; property. Consider replacing it with &apos;id&apos; and &apos;arguments&apos; properties. This potentially reduces the log file size, allows the message text to be improved without modifying the log file, and enables localization..
         /// </summary>
-        internal static string SARIF2002_ProvideMessageArguments_Warning_Default_Text {
+        internal static string SARIF2002_ProvideMessageArguments_Note_Default_Text {
             get {
-                return ResourceManager.GetString("SARIF2002_ProvideMessageArguments_Warning_Default_Text", resourceCulture);
+                return ResourceManager.GetString("SARIF2002_ProvideMessageArguments_Note_Default_Text", resourceCulture);
             }
         }
         
@@ -550,9 +550,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         /// <summary>
         ///   Looks up a localized string similar to {0}: The URI &apos;{1}&apos; was not reachable via an HTTP GET request..
         /// </summary>
-        internal static string SARIF2006_UrisShouldBeReachable_Warning_Default_Text {
+        internal static string SARIF2006_UrisShouldBeReachable_Note_Default_Text {
             get {
-                return ResourceManager.GetString("SARIF2006_UrisShouldBeReachable_Warning_Default_Text", resourceCulture);
+                return ResourceManager.GetString("SARIF2006_UrisShouldBeReachable_Note_Default_Text", resourceCulture);
             }
         }
         

@@ -3,10 +3,4 @@
 This file contains the default rule configurations for the SARIF validator tool.
 -->
 <Properties>
-  <Properties Key="SARIF2002.ProvideMessageArguments.Options">
-    <Property Key="RuleEnabled" Value="Disabled" />
-  </Properties>
-  <Properties Key="SARIF2006.UrisShouldBeReachable.Options">
-    <Property Key="RuleEnabled" Value="Disabled" />
-  </Properties>
 </Properties>

@@ -17,7 +17,7 @@
                 "text": "In result messages, use the 'message.id' and 'message.arguments' properties rather than 'message.text'. This has several advantages. If 'text' is lengthy, using 'id' and 'arguments' makes the SARIF file smaller. If the rule metadata is stored externally to the SARIF log file, the message text can be improved (for example, by adding more text, clarifying the phrasing, or fixing typos), and the result messages will pick up the improvements the next time it is displayed. Finally, SARIF supports localizing messages into different languages, which is possible if the SARIF file contains 'message.id' and 'message.arguments', but not if it contains 'message.text' directly."
               },
               "messageStrings": {
-                "Warning_Default": {
+                "Note_Default": {
                   "text": "{0}: The 'message' property of this result contains a 'text' property. Consider replacing it with 'id' and 'arguments' properties. This potentially reduces the log file size, allows the message text to be improved without modifying the log file, and enables localization."
                 }
               },
@@ -28,32 +28,6 @@
       },
       "invocations": [
         {
-          "toolConfigurationNotifications": [
-            {
-              "message": {
-                "text": "Rule 'SARIF2006' was explicitly disabled by the user. As result, this tool run cannot be used for compliance or other auditing processes that require a comprehensive analysis."
-              },
-              "descriptor": {
-                "id": "WRN999.RuleExplicitlyDisabled"
-              }
-            },
-            {
-              "message": {
-                "text": "Rule 'SARIF2007' was explicitly disabled by the user. As result, this tool run cannot be used for compliance or other auditing processes that require a comprehensive analysis."
-              },
-              "descriptor": {
-                "id": "WRN999.RuleExplicitlyDisabled"
-              }
-            },
-            {
-              "message": {
-                "text": "Rule 'SARIF2016' was explicitly disabled by the user. As result, this tool run cannot be used for compliance or other auditing processes that require a comprehensive analysis."
-              },
-              "descriptor": {
-                "id": "WRN999.RuleExplicitlyDisabled"
-              }
-            }
-          ],
           "executionSuccessful": true
         }
       ],
@@ -69,8 +43,9 @@
         {
           "ruleId": "SARIF2002",
           "ruleIndex": 0,
+          "level": "note",
           "message": {
-            "id": "Warning_Default",
+            "id": "Note_Default",
             "arguments": [
               "runs[0].results[0].message"
             ]

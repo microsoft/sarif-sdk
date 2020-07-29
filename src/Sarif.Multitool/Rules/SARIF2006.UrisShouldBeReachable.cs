@@ -24,10 +24,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF2006_UrisShouldBeReachable_FullDescription_Text };
 
         protected override IEnumerable<string> MessageResourceNames => new string[] {
-            nameof(RuleResources.SARIF2006_UrisShouldBeReachable_Warning_Default_Text)
+            nameof(RuleResources.SARIF2006_UrisShouldBeReachable_Note_Default_Text)
         };
 
-        public override FailureLevel DefaultLevel => FailureLevel.Warning;
+        public override FailureLevel DefaultLevel => FailureLevel.Note;
 
         private static readonly HttpClient s_httpClient = new HttpClient();
         private static readonly Dictionary<string, bool> s_checkedUris = new Dictionary<string, bool>();
@@ -89,7 +89,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     // {0}: The URI '{1}' was not reachable via an HTTP GET request.
                     LogResult(
                         pointer, 
-                        nameof(RuleResources.SARIF2006_UrisShouldBeReachable_Warning_Default_Text), 
+                        nameof(RuleResources.SARIF2006_UrisShouldBeReachable_Note_Default_Text), 
                         uriString);
                 }
             }

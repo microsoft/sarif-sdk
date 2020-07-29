@@ -8,25 +8,6 @@
           "name": "SARIF Functional Testing",
           "rules": [
             {
-              "id": "SARIF1002",
-              "name": "UrisMustBeValid",
-              "shortDescription": {
-                "text": "Specify a valid URI reference for every URI-valued property."
-              },
-              "fullDescription": {
-                "text": "Specify a valid URI reference for every URI-valued property.\r\n\r\nURIs must conform to [RFC 3986](https://tools.ietf.org/html/rfc3986). In addition, 'file' URIs must not include '..' segments. If symbolic links are present, '..' might have different meanings on the machine that produced the log file and the machine where an end user or a tool consumes it."
-              },
-              "messageStrings": {
-                "Error_UrisMustConformToRfc3986": {
-                  "text": "{0}: The string '{1}' is not a valid URI reference. URIs must conform to [RFC 3986](https://tools.ietf.org/html/rfc3986)."
-                },
-                "Error_FileUrisMustNotIncludeDotDotSegments": {
-                  "text": "{0}: The 'file' URI '{1}' contains a '..' segment. This is dangerous because if symbolic links are present, '..' might have different meanings on the machine that produced the log file and the machine where an end user or a tool consumes it."
-                }
-              },
-              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
-            },
-            {
               "id": "SARIF1004",
               "name": "ExpressUriBaseIdsCorrectly",
               "shortDescription": {
@@ -59,40 +40,6 @@
       },
       "invocations": [
         {
-          "toolConfigurationNotifications": [
-            {
-              "message": {
-                "text": "Rule 'SARIF2002' was explicitly disabled by the user. As result, this tool run cannot be used for compliance or other auditing processes that require a comprehensive analysis."
-              },
-              "descriptor": {
-                "id": "WRN999.RuleExplicitlyDisabled"
-              }
-            },
-            {
-              "message": {
-                "text": "Rule 'SARIF2006' was explicitly disabled by the user. As result, this tool run cannot be used for compliance or other auditing processes that require a comprehensive analysis."
-              },
-              "descriptor": {
-                "id": "WRN999.RuleExplicitlyDisabled"
-              }
-            },
-            {
-              "message": {
-                "text": "Rule 'SARIF2007' was explicitly disabled by the user. As result, this tool run cannot be used for compliance or other auditing processes that require a comprehensive analysis."
-              },
-              "descriptor": {
-                "id": "WRN999.RuleExplicitlyDisabled"
-              }
-            },
-            {
-              "message": {
-                "text": "Rule 'SARIF2016' was explicitly disabled by the user. As result, this tool run cannot be used for compliance or other auditing processes that require a comprehensive analysis."
-              },
-              "descriptor": {
-                "id": "WRN999.RuleExplicitlyDisabled"
-              }
-            }
-          ],
           "executionSuccessful": true
         }
       ],
@@ -106,33 +53,8 @@
       ],
       "results": [
         {
-          "ruleId": "SARIF1002",
-          "ruleIndex": 0,
-          "level": "error",
-          "message": {
-            "id": "Error_FileUrisMustNotIncludeDotDotSegments",
-            "arguments": [
-              "runs[0].originalUriBaseIds.BAD_URI_CONTAINING_DOTDOT.uri",
-              "file:///C:/rules/dir1/dir2/../"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 115,
-                  "startColumn": 49
-                }
-              }
-            }
-          ]
-        },
-        {
           "ruleId": "SARIF1004",
-          "ruleIndex": 1,
+          "ruleIndex": 0,
           "level": "error",
           "message": {
             "id": "Error_TopLevelUriBaseIdMustBeAbsolute",
@@ -158,7 +80,7 @@
         },
         {
           "ruleId": "SARIF1004",
-          "ruleIndex": 1,
+          "ruleIndex": 0,
           "level": "error",
           "message": {
             "id": "Error_UriBaseIdValueMustEndWithSlash",
@@ -184,7 +106,7 @@
         },
         {
           "ruleId": "SARIF1004",
-          "ruleIndex": 1,
+          "ruleIndex": 0,
           "level": "error",
           "message": {
             "id": "Error_UriBaseIdValueMustEndWithSlash",
@@ -210,7 +132,7 @@
         },
         {
           "ruleId": "SARIF1004",
-          "ruleIndex": 1,
+          "ruleIndex": 0,
           "level": "error",
           "message": {
             "id": "Error_UriBaseIdValueMustNotContainDotDotSegment",
@@ -236,7 +158,7 @@
         },
         {
           "ruleId": "SARIF1004",
-          "ruleIndex": 1,
+          "ruleIndex": 0,
           "level": "error",
           "message": {
             "id": "Error_UriBaseIdValueMustEndWithSlash",
@@ -262,7 +184,7 @@
         },
         {
           "ruleId": "SARIF1004",
-          "ruleIndex": 1,
+          "ruleIndex": 0,
           "level": "error",
           "message": {
             "id": "Error_UriBaseIdValueMustNotContainQueryOrFragment",
@@ -288,7 +210,7 @@
         },
         {
           "ruleId": "SARIF1004",
-          "ruleIndex": 1,
+          "ruleIndex": 0,
           "level": "error",
           "message": {
             "id": "Error_UriBaseIdValueMustEndWithSlash",
@@ -314,7 +236,7 @@
         },
         {
           "ruleId": "SARIF1004",
-          "ruleIndex": 1,
+          "ruleIndex": 0,
           "level": "error",
           "message": {
             "id": "Error_UriBaseIdValueMustNotContainQueryOrFragment",
@@ -340,7 +262,7 @@
         },
         {
           "ruleId": "SARIF1004",
-          "ruleIndex": 1,
+          "ruleIndex": 0,
           "level": "error",
           "message": {
             "id": "Error_UriBaseIdRequiresRelativeUri",
@@ -366,7 +288,7 @@
         },
         {
           "ruleId": "SARIF1004",
-          "ruleIndex": 1,
+          "ruleIndex": 0,
           "level": "error",
           "message": {
             "id": "Error_UriBaseIdRequiresRelativeUri",
@@ -392,7 +314,7 @@
         },
         {
           "ruleId": "SARIF1004",
-          "ruleIndex": 1,
+          "ruleIndex": 0,
           "level": "error",
           "message": {
             "id": "Error_UriBaseIdRequiresRelativeUri",
@@ -418,7 +340,7 @@
         },
         {
           "ruleId": "SARIF1004",
-          "ruleIndex": 1,
+          "ruleIndex": 0,
           "level": "error",
           "message": {
             "id": "Error_UriBaseIdRequiresRelativeUri",
@@ -444,7 +366,7 @@
         },
         {
           "ruleId": "SARIF1004",
-          "ruleIndex": 1,
+          "ruleIndex": 0,
           "level": "error",
           "message": {
             "id": "Error_UriBaseIdRequiresRelativeUri",
@@ -470,7 +392,7 @@
         },
         {
           "ruleId": "SARIF1004",
-          "ruleIndex": 1,
+          "ruleIndex": 0,
           "level": "error",
           "message": {
             "id": "Error_UriBaseIdRequiresRelativeUri",
@@ -496,7 +418,7 @@
         },
         {
           "ruleId": "SARIF1004",
-          "ruleIndex": 1,
+          "ruleIndex": 0,
           "level": "error",
           "message": {
             "id": "Error_UriBaseIdRequiresRelativeUri",
@@ -522,7 +444,7 @@
         },
         {
           "ruleId": "SARIF1004",
-          "ruleIndex": 1,
+          "ruleIndex": 0,
           "level": "error",
           "message": {
             "id": "Error_UriBaseIdRequiresRelativeUri",
@@ -548,7 +470,7 @@
         },
         {
           "ruleId": "SARIF1004",
-          "ruleIndex": 1,
+          "ruleIndex": 0,
           "level": "error",
           "message": {
             "id": "Error_UriBaseIdRequiresRelativeUri",
@@ -574,7 +496,7 @@
         },
         {
           "ruleId": "SARIF1004",
-          "ruleIndex": 1,
+          "ruleIndex": 0,
           "level": "error",
           "message": {
             "id": "Error_UriBaseIdRequiresRelativeUri",
@@ -600,7 +522,7 @@
         },
         {
           "ruleId": "SARIF1004",
-          "ruleIndex": 1,
+          "ruleIndex": 0,
           "level": "error",
           "message": {
             "id": "Error_UriBaseIdRequiresRelativeUri",
@@ -626,7 +548,7 @@
         },
         {
           "ruleId": "SARIF1004",
-          "ruleIndex": 1,
+          "ruleIndex": 0,
           "level": "error",
           "message": {
             "id": "Error_UriBaseIdRequiresRelativeUri",
@@ -652,7 +574,7 @@
         },
         {
           "ruleId": "SARIF1004",
-          "ruleIndex": 1,
+          "ruleIndex": 0,
           "level": "error",
           "message": {
             "id": "Error_UriBaseIdRequiresRelativeUri",
@@ -678,7 +600,7 @@
         },
         {
           "ruleId": "SARIF1004",
-          "ruleIndex": 1,
+          "ruleIndex": 0,
           "level": "error",
           "message": {
             "id": "Error_UriBaseIdRequiresRelativeUri",
@@ -704,7 +626,7 @@
         },
         {
           "ruleId": "SARIF1004",
-          "ruleIndex": 1,
+          "ruleIndex": 0,
           "level": "error",
           "message": {
             "id": "Error_UriBaseIdRequiresRelativeUri",
@@ -730,7 +652,7 @@
         },
         {
           "ruleId": "SARIF1004",
-          "ruleIndex": 1,
+          "ruleIndex": 0,
           "level": "error",
           "message": {
             "id": "Error_UriBaseIdRequiresRelativeUri",
@@ -756,7 +678,7 @@
         },
         {
           "ruleId": "SARIF1004",
-          "ruleIndex": 1,
+          "ruleIndex": 0,
           "level": "error",
           "message": {
             "id": "Error_UriBaseIdRequiresRelativeUri",
@@ -782,7 +704,7 @@
         },
         {
           "ruleId": "SARIF1004",
-          "ruleIndex": 1,
+          "ruleIndex": 0,
           "level": "error",
           "message": {
             "id": "Error_UriBaseIdRequiresRelativeUri",
@@ -808,7 +730,7 @@
         },
         {
           "ruleId": "SARIF1004",
-          "ruleIndex": 1,
+          "ruleIndex": 0,
           "level": "error",
           "message": {
             "id": "Error_UriBaseIdRequiresRelativeUri",
@@ -834,7 +756,7 @@
         },
         {
           "ruleId": "SARIF1004",
-          "ruleIndex": 1,
+          "ruleIndex": 0,
           "level": "error",
           "message": {
             "id": "Error_UriBaseIdRequiresRelativeUri",
