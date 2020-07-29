@@ -17,7 +17,7 @@
                 "text": "URIs that refer to locations such as rule help pages and result-related work items should be reachable via an HTTP GET request."
               },
               "messageStrings": {
-                "Warning_Default": {
+                "Note_Default": {
                   "text": "{0}: The URI '{1}' was not reachable via an HTTP GET request."
                 }
               },
@@ -28,32 +28,6 @@
       },
       "invocations": [
         {
-          "toolConfigurationNotifications": [
-            {
-              "message": {
-                "text": "Rule 'SARIF2002' was explicitly disabled by the user. As result, this tool run cannot be used for compliance or other auditing processes that require a comprehensive analysis."
-              },
-              "descriptor": {
-                "id": "WRN999.RuleExplicitlyDisabled"
-              }
-            },
-            {
-              "message": {
-                "text": "Rule 'SARIF2007' was explicitly disabled by the user. As result, this tool run cannot be used for compliance or other auditing processes that require a comprehensive analysis."
-              },
-              "descriptor": {
-                "id": "WRN999.RuleExplicitlyDisabled"
-              }
-            },
-            {
-              "message": {
-                "text": "Rule 'SARIF2016' was explicitly disabled by the user. As result, this tool run cannot be used for compliance or other auditing processes that require a comprehensive analysis."
-              },
-              "descriptor": {
-                "id": "WRN999.RuleExplicitlyDisabled"
-              }
-            }
-          ],
           "executionSuccessful": true
         }
       ],
@@ -69,8 +43,9 @@
         {
           "ruleId": "SARIF2006",
           "ruleIndex": 0,
+          "level": "note",
           "message": {
-            "id": "Warning_Default",
+            "id": "Note_Default",
             "arguments": [
               "runs[0].results[0].workItemUris[0]",
               "https://example.com/my-project/issues/42"
@@ -93,8 +68,9 @@
         {
           "ruleId": "SARIF2006",
           "ruleIndex": 0,
+          "level": "note",
           "message": {
-            "id": "Warning_Default",
+            "id": "Note_Default",
             "arguments": [
               "runs[0].tool.driver.downloadUri",
               "http://www.example.com/tools/codescanner/download.html"
@@ -117,8 +93,9 @@
         {
           "ruleId": "SARIF2006",
           "ruleIndex": 0,
+          "level": "note",
           "message": {
-            "id": "Warning_Default",
+            "id": "Note_Default",
             "arguments": [
               "runs[0].tool.driver.rules[0].helpUri",
               "http://www.example.com/rules/tst0001.html"
@@ -141,8 +118,9 @@
         {
           "ruleId": "SARIF2006",
           "ruleIndex": 0,
+          "level": "note",
           "message": {
-            "id": "Warning_Default",
+            "id": "Note_Default",
             "arguments": [
               "runs[0].versionControlProvenance[0].repositoryUri",
               "https://example.com/my-project"

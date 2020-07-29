@@ -314,7 +314,7 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
                 UpdateInputsToCurrentSarif = updateInputsToCurrentSarif,
                 PrettyPrint = true,
                 Optimize = true,
-                Verbose = false // Turn off note-level rules.
+                Verbose = true // Turn on note-level rules.
             };
 
             var mockFileSystem = new Mock<IFileSystem>();
@@ -340,16 +340,26 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
 
             string actualLogFileContents = File.ReadAllText(actualLogFilePath);
             SarifLog actualLog = JsonConvert.DeserializeObject<SarifLog>(actualLogFileContents);
+            Run run = actualLog.Runs[0];
 
-            // First, we'll strip any validation results that don't originate with the rule under test
-            var newResults = new List<Result>();
+            // First, we'll strip any validation results that don't originate with the rule under test.
+            // But leave the results that originate from JSchema! Also, be careful because output files
+            // from "valid" test cases don't have any results.
+            run.Results = run.Results
+                ?.Where(r => IsRelevant(r.RuleId, ruleUnderTest))
+                ?.ToList();
 
-            foreach (Result result in actualLog.Runs[0].Results)
+            // Next, remove any rule metadata for those rules. The output files from "valid" test
+            // cases don't have any rules.
+            run.Tool.Driver.Rules = run.Tool.Driver.Rules
+                ?.Where(r => IsRelevant(r.Id, ruleUnderTest))
+                ?.ToList();
+
+            // Since there's only one rule in the metadata, the ruleIndex for all remaining results
+            // must be 0.
+            foreach (Result result in run.Results)
             {
-                if (result.RuleId == ruleUnderTest)
-                {
-                    newResults.Add(result);
-                }
+                result.RuleIndex = 0;
             }
 
             // Next, we'll remove non-deterministic information, most notably, timestamps emitted for the invocation data.
@@ -389,5 +399,8 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
                     validationRuleAssembly
                 }).ToList();
         }
+
+        private static bool IsRelevant(string ruleId, string ruleUnderTest)
+            => ruleId == ruleUnderTest || ruleId.StartsWith("JSON");
     }
 }
