@@ -391,4 +391,10 @@ Semantics: Assuming the reader of the log file (an end user or another tool) has
   <data name="SARIF2016_FileUrisShouldBeRelative_Note_Default_Text" xml:space="preserve">
     <value>{0}: The file location '{1}' is specified with absolute URI. Prefer a relative reference together with a uriBaseId property.</value>
   </data>
+  <data name="SARIF2017_LocationMustHaveRequiredProperties_FullDescription_Text" xml:space="preserve">
+    <value>Each result location must provide the property 'physicalLocation.artifactLocation.uri'. The GitHub Developer Security Portal will not display a result whose location does not provide the URI of the artifact that was analyzed.</value>
+  </data>
+  <data name="SARIF2017_LocationMustHaveRequired_Properties_Error_Default_Text" xml:space="preserve">
+    <value>{0}: '{1}' is absent. The GitHub Developer Security Portal will not display a result whose location does not provide the URI of the artifact that was analyzed.</value>
+  </data>
 </root>
