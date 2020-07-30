@@ -70,7 +70,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 string locationPointer = locationsPointer.AtIndex(i);
                 Location location = locations[i];
 
-                if (location.PhysicalLocation?.ArtifactLocation.Uri != null)
+                if (location?.PhysicalLocation?.ArtifactLocation?.Uri != null)
                 {
                     if (location.PhysicalLocation.ArtifactLocation.Uri.IsAbsoluteUri && location.PhysicalLocation.ArtifactLocation.Uri.IsFile)
                     {

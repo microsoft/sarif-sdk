@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Collections.Generic;
+using System.Diagnostics;
 
 using Microsoft.Json.Pointer;
 
@@ -41,30 +42,33 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 return;
             }
 
-            string jsonPointer = resultPointer.AtProperty(SarifPropertyName.Locations);
+            string locationsPointer = resultPointer.AtProperty(SarifPropertyName.Locations);
             for (int i = 0; i < result.Locations.Count; i++)
             {
                 Location location = result.Locations[i];
                 string missingProperty = null;
+                string jsonPointer = null;
 
                 if (location.PhysicalLocation == null)
                 {
                     missingProperty = SarifPropertyName.PhysicalLocation;
-                    jsonPointer = jsonPointer.AtIndex(i);
+                    jsonPointer = locationsPointer.AtIndex(i);
                 }
                 else if (location.PhysicalLocation.ArtifactLocation == null)
                 {
                     missingProperty = SarifPropertyName.ArtifactLocation;
-                    jsonPointer = jsonPointer.AtIndex(i).AtProperty(SarifPropertyName.PhysicalLocation);
+                    jsonPointer = locationsPointer.AtIndex(i).AtProperty(SarifPropertyName.PhysicalLocation);
                 }
                 else if (location.PhysicalLocation.ArtifactLocation.Uri == null)
                 {
                     missingProperty = SarifPropertyName.Uri;
-                    jsonPointer = jsonPointer.AtIndex(i).AtProperty(SarifPropertyName.PhysicalLocation).AtProperty(SarifPropertyName.ArtifactLocation);
+                    jsonPointer = locationsPointer.AtIndex(i).AtProperty(SarifPropertyName.PhysicalLocation).AtProperty(SarifPropertyName.ArtifactLocation);
                 }
 
                 if (missingProperty != null)
                 {
+                    Debug.Assert(jsonPointer != null);
+
                     // {0}: The '{1}' property is absent. The GitHub Developer Security Portal will
                     // not display a result whose location does not provide the URI of the artifact
                     // that was analyzed.
