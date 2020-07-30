@@ -29,7 +29,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override void Analyze(Result result, string resultPointer)
         {
-            if (result.Locations == null) { return; }
+            if (result.Locations == null)
+            {
+                // {0}: The '{1}' property is absent. The GitHub Developer Security Portal will
+                // not display a result whose location does not provide the URI of the artifact
+                // that was analyzed.
+                LogResult(
+                    resultPointer,
+                    RuleResources.SARIF2017_LocationsMustHaveRequired_Properties_Error_Default_Text,
+                    SarifPropertyName.Locations);
+                return;
+            }
 
             string jsonPointer = resultPointer.AtProperty(SarifPropertyName.Locations);
             for (int i = 0; i < result.Locations.Count; i++)

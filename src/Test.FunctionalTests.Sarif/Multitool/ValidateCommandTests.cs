@@ -267,6 +267,10 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
         public void SARIF2016_FileUrisShouldBeRelative_Invalid()
             => RunInvalidTestForRule(RuleId.FileUrisShouldBeRelative);
 
+        [Fact]
+        public void SARIF2017_LocationsMustHaveRequiredProperties_Valid()
+            => RunValidTestForRule(RuleId.LocationsMustHaveRequiredProperties);
+
         private const string ValidTestFileNameSuffix = "_Valid.sarif";
         private const string InvalidTestFileNameSuffix = "_Invalid.sarif";
 
