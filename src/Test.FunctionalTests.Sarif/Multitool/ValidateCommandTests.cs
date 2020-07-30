@@ -212,6 +212,10 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
             => RunValidTestForRule(RuleId.ProvideCodeSnippets);
 
         [Fact]
+        public void SARIF2010_ProvideCodeSnippets_WithEmbeddedContent_Valid()
+            => RunTest("SARIF2010.ProvideCodeSnippets_WithEmbeddedContent.sarif");
+
+        [Fact]
         public void SARIF2010_ProvideCodeSnippets_Invalid()
             => RunInvalidTestForRule(RuleId.ProvideCodeSnippets);
 
