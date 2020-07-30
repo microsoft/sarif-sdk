@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json.schemastore.org/sarif-external-property-file-2.1.0-rtm.5",
+  "version": "2.1.0",
+  "guid": "89072b7a-3d16-43f2-ac0b-3d9cffc814be",
+  "policies": [
+    {
+      "name": "GitHub Developer Security Portal policy",
+      "version": "0.0.1",
+      "organization": "Microsoft",
+      "product": "Microsoft SARIF SDK",
+      "associatedComponent": {
+        "name": "Sarif.Multitool",
+        "guid": "9b93cf85-fd84-4b7c-9679-e4f262896d57"
+      },
+      "rules": [
+        {
+          "id": "SARIF2017",
+          "name": "LocationsMustHaveRequiredProperties",
+          "defaultConfiguration": {
+            "enabled": true
+          }
+        },
+        {
+          "id": "SARIF2018",
+          "name": "InlineThreadFlowLocations",
+          "defaultConfiguration": {
+            "enabled": true
+          }
+        },
+        {
+          "id": "SARIF2005",
+          "name": "ProvideToolProperties",
+          "defaultConfiguration": {
+            "level": "note"
+          }
+        },
+        {
+          "id": "SARIF2009",
+          "name": "ConsiderConventionalIdentifierValues",
+          "defaultConfiguration": {
+            "enabled": false
+          }
+        },
+        {
+          "id": "SARIF2014",
+          "name": "ProvideDynamicMessageContent",
+          "defaultConfiguration": {
+            "enabled": false
+          }
+        },
+        {
+          "id": "SARIF2014",
+          "name": "EnquoteDynamicMessageContent",
+          "defaultConfiguration": {
+            "enabled": false
+          }
+        }
+      ]
+    }
+  ]
+}
