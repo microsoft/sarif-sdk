@@ -40,23 +40,23 @@
               ]
             },
             {
-              "properties": {
-                "comment": "Location with no physicalLocation.artifactLocation"
-              },
               "physicalLocation": {
                 "address": {
                   "absoluteAddress": 1024
                 }
+              },
+              "properties": {
+                "comment": "Location with no physicalLocation.artifactLocation"
               }
             },
             {
-              "properties": {
-                "comment": "Location with no physicalLocation.artifactLocation.uri"
-              },
               "physicalLocation": {
                 "artifactLocation": {
                   "index": 0
                 }
+              },
+              "properties": {
+                "comment": "Location with no physicalLocation.artifactLocation.uri"
               }
             }
           ]

@@ -392,9 +392,15 @@ Semantics: Assuming the reader of the log file (an end user or another tool) has
     <value>{0}: The file location '{1}' is specified with absolute URI. Prefer a relative reference together with a uriBaseId property.</value>
   </data>
   <data name="SARIF2017_LocationsMustHaveRequiredProperties_FullDescription_Text" xml:space="preserve">
-    <value>Each result location must provide the property 'physicalLocation.artifactLocation.uri'. The GitHub Developer Security Portal will not display a result whose location does not provide the URI of the artifact that was analyzed.</value>
+    <value>Each result location must provide the property 'physicalLocation.artifactLocation.uri'. The GitHub Developer Security Portal will not display a result whose location does not provide the URI of the artifact that contains the result.</value>
   </data>
   <data name="SARIF2017_LocationsMustHaveRequired_Properties_Error_Default_Text" xml:space="preserve">
-    <value>{0}: '{1}' is absent. The GitHub Developer Security Portal will not display a result whose location does not provide the URI of the artifact that was analyzed.</value>
+    <value>{0}: '{1}' is absent. The GitHub Developer Security Portal will not display a result location that does not provide the URI of the artifact that contains the result.</value>
+  </data>
+  <data name="SARIF2017_LocationsMustHaveRequired_Properties_Error_EmptyLocationsArray_Text" xml:space="preserve">
+    <value>{0}: The 'locations' array is empty. The GitHub Developer Security Portal will not display a result unless it provides a location that specifies the URI of the artifact that contains the result.</value>
+  </data>
+  <data name="SARIF2017_LocationsMustHaveRequired_Properties_Error_NoLocationsArray_Text" xml:space="preserve">
+    <value>{0}: The 'locations' property is absent. The GitHub Developer Security Portal will not display a result unless it provides a location that specifies the URI of the artifact that contains the result.</value>
   </data>
 </root>
