@@ -31,6 +31,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         public override FailureLevel DefaultLevel => FailureLevel.Error;
 
+        public override bool EnabledByDefault => false;
+
         protected override void Analyze(Result result, string resultPointer)
         {
             if (result.Locations == null)

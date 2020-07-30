@@ -20,7 +20,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         protected virtual IEnumerable<string> MessageResourceNames => throw new NotImplementedException();
 
-        virtual public FailureLevel DefaultLevel { get { return FailureLevel.Warning; } }
+        virtual public FailureLevel DefaultLevel => FailureLevel.Warning;
+
+        virtual public bool EnabledByDefault => true;
 
         public override IDictionary<string, MultiformatMessageString> MessageStrings
         {
