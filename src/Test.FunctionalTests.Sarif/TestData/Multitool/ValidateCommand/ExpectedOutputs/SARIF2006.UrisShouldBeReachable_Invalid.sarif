@@ -21,6 +21,9 @@
                   "text": "{0}: The URI '{1}' was not reachable via an HTTP GET request."
                 }
               },
+              "defaultConfiguration": {
+                "level": "note"
+              },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
             }
           ]

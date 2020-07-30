@@ -12,6 +12,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public Skimmer()
         {
             this.Options = new Dictionary<string, string>();
+            this.DefaultConfiguration = new ReportingConfiguration
+            {
+                Level = this.DefaultLevel,
+                Enabled = this.EnabledByDefault
+            };
         }
 
         private IDictionary<string, MultiformatMessageString> multiformatMessageStrings;

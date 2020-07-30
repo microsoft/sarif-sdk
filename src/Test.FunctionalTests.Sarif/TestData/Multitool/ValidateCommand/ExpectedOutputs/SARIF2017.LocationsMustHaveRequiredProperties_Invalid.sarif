@@ -27,6 +27,10 @@
                   "text": "{0}: '{1}' is absent. The GitHub Developer Security Portal will not display a result location that does not provide the URI of the artifact that contains the result."
                 }
               },
+              "defaultConfiguration": {
+                "enabled": false,
+                "level": "error"
+              },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
             }
           ]
