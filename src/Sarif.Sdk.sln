@@ -110,6 +110,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ValidationRules", "Validati
 		..\docs\ValidationRules\RULEID.RULEFRIENDLYNAME.cs = ..\docs\ValidationRules\RULEID.RULEFRIENDLYNAME.cs
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "policies", "policies", "{C2397737-B10C-42BF-B2AB-11A86817ACCD}"
+	ProjectSection(SolutionItems) = preProject
+		..\policies\github-dsp-policy.sarif-external-properties = ..\policies\github-dsp-policy.sarif-external-properties
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -322,6 +327,7 @@ Global
 		{A2D43A0B-F2ED-42A5-A980-D6F4476FE455} = {7D46D6BE-C3CD-424C-9A20-245DE63A9C10}
 		{6EEAC61E-A362-4C46-A9AD-00EDB74CFCF2} = {BBDE0751-B8A3-4EA6-A3DF-3CE7BA41EA0F}
 		{81910EAA-C010-4940-90E5-BF64DE64381C} = {6EEAC61E-A362-4C46-A9AD-00EDB74CFCF2}
+		{C2397737-B10C-42BF-B2AB-11A86817ACCD} = {BBDE0751-B8A3-4EA6-A3DF-3CE7BA41EA0F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9EFA21E3-70A0-467C-9D1F-D5AD0DC1C1E6}

@@ -19,41 +19,6 @@
           "defaultConfiguration": {
             "enabled": true
           }
-        },
-        {
-          "id": "SARIF2018",
-          "name": "InlineThreadFlowLocations",
-          "defaultConfiguration": {
-            "enabled": true
-          }
-        },
-        {
-          "id": "SARIF2005",
-          "name": "ProvideToolProperties",
-          "defaultConfiguration": {
-            "level": "note"
-          }
-        },
-        {
-          "id": "SARIF2009",
-          "name": "ConsiderConventionalIdentifierValues",
-          "defaultConfiguration": {
-            "enabled": false
-          }
-        },
-        {
-          "id": "SARIF2014",
-          "name": "ProvideDynamicMessageContent",
-          "defaultConfiguration": {
-            "enabled": false
-          }
-        },
-        {
-          "id": "SARIF2014",
-          "name": "EnquoteDynamicMessageContent",
-          "defaultConfiguration": {
-            "enabled": false
-          }
         }
       ]
     }
