@@ -9,6 +9,13 @@
           "version": "1.0"
         }
       },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file.c"
+          }
+        }
+      ],
       "results": [
         {
           "ruleId": "TEST1001",
@@ -60,13 +67,6 @@
               }
             }
           ]
-        }
-      ],
-      "artifacts": [
-        {
-          "location": {
-            "uri": "file.c"
-          }
         }
       ],
       "columnKind": "utf16CodeUnits"
