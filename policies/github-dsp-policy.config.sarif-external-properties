@@ -24,8 +24,14 @@
           "name": "InlineThreadFlowLocations",
           "defaultConfiguration": {
             "enabled": true
+          },
+          {
+            "id": "SARIF2019",
+            "name": "RegionsMustHaveRequiredProperties",
+            "defaultConfiguration": {
+              "enabled": true
+            }
           }
-        }
       ]
     }
   ]
