@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         Disabled = 0x1,
 
         /// <summary>
-        /// User has reduced all signal from a rule to warning. Warnings
+        /// User has reduced all signal from a rule to warnings. Warnings
         /// should always be persisted to reports but may not block
         /// engineering processes.
         /// </summary>
@@ -31,6 +31,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         /// <summary>
         /// User has elevated all failures from a check to errors.
         /// </summary>
-        Error = 0x4
+        Error = 0x4,
+
+        /// <summary>
+        /// User has reduced all signal from a rule to notes.
+        /// </summary>
+        Note = 0x8
     }
 }
