@@ -796,5 +796,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
                 return ResourceManager.GetString("SARIF2017_LocationsMustHaveRequiredProperties_FullDescription_Text", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: This &apos;threadFlowLocation&apos; uses its &apos;index&apos; property to refer to information in the &apos;run.threadFlowLocations&apos; array. The GitHub Developer Security Portal will not display a result that includes such a &apos;threadFlowLocation&apos;..
+        /// </summary>
+        internal static string SARIF2018_InlineThreadFlowLocations_Error_Default_Text {
+            get {
+                return ResourceManager.GetString("SARIF2018_InlineThreadFlowLocations_Error_Default_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Results that include codeFlows must specify each threadFlowLocation directly within the codeFlow, rather than relying on threadFlowLocation.index to refer to an element of the run.threadFlowLocations array. The GitHub Developer Security Portal will not display a result that uses such threadFlowLocations..
+        /// </summary>
+        internal static string SARIF2018_InlineThreadFlowLocations_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("SARIF2018_InlineThreadFlowLocations_FullDescription_Text", resourceCulture);
+            }
+        }
     }
 }

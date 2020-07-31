@@ -18,6 +18,13 @@
           "defaultConfiguration": {
             "enabled": true
           }
+        },
+        {
+          "id": "SARIF2018",
+          "name": "InlineThreadFlowLocations",
+          "defaultConfiguration": {
+            "enabled": true
+          }
         }
       ]
     }

@@ -403,4 +403,10 @@ Semantics: Assuming the reader of the log file (an end user or another tool) has
   <data name="SARIF2017_LocationsMustHaveRequiredProperties_Error_NoLocationsArray_Text" xml:space="preserve">
     <value>{0}: The 'locations' property is absent. The GitHub Developer Security Portal will not display a result unless it provides a location that specifies the URI of the artifact that contains the result.</value>
   </data>
+  <data name="SARIF2018_InlineThreadFlowLocations_Error_Default_Text" xml:space="preserve">
+    <value>{0}: This 'threadFlowLocation' uses its 'index' property to refer to information in the 'run.threadFlowLocations' array. The GitHub Developer Security Portal will not display a result that includes such a 'threadFlowLocation'.</value>
+  </data>
+  <data name="SARIF2018_InlineThreadFlowLocations_FullDescription_Text" xml:space="preserve">
+    <value>Results that include codeFlows must specify each threadFlowLocation directly within the codeFlow, rather than relying on threadFlowLocation.index to refer to an element of the run.threadFlowLocations array. The GitHub Developer Security Portal will not display a result that uses such threadFlowLocations.</value>
+  </data>
 </root>

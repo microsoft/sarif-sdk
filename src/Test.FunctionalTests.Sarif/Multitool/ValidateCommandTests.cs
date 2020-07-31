@@ -276,6 +276,14 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
         public void SARIF2017_LocationsMustHaveRequiredProperties_Invalid()
             => RunInvalidTestForRule(RuleId.LocationsMustHaveRequiredProperties);
 
+        [Fact]
+        public void SARIF2018_InlineThreadFlowLocations_Valid()
+            => RunValidTestForRule(RuleId.InlineThreadFlowLocations);
+
+        [Fact]
+        public void SARIF2018_InlineThreadFlowLocations_Invalid()
+            => RunInvalidTestForRule(RuleId.InlineThreadFlowLocations);
+
         private const string ValidTestFileNameSuffix = "_Valid.sarif";
         private const string InvalidTestFileNameSuffix = "_Invalid.sarif";
 

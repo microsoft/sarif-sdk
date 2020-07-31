@@ -42,6 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         // These rules are disabled by default. The can be enabled by running the MultiTool
         // with the configuration file policies/github-dsp.sarif-external-properties.
         public const string LocationsMustHaveRequiredProperties = "SARIF2017";
+        public const string InlineThreadFlowLocations = "SARIF2018";
 
         // TEMPLATE:
         // public const string RuleFriendlyName = "SARIFnnnn";
