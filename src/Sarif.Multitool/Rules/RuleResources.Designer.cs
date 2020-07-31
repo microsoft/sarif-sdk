@@ -762,29 +762,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: &apos;{1}&apos; is absent. The GitHub Developer Security Portal will not display a result location that does not provide the URI of the artifact that contains the result..
+        ///   Looks up a localized string similar to {0}: The &apos;locations&apos; array is empty. The GitHub Developer Security Portal will not display a result unless it provides a location that specifies the URI of the artifact that contains the result..
         /// </summary>
-        internal static string SARIF2017_LocationsMustHaveRequired_Properties_Error_Default_Text {
+        internal static string SARIF2017_LocationsMustHaveRequiredProperties_Error_EmptyLocationsArray_Text {
             get {
-                return ResourceManager.GetString("SARIF2017_LocationsMustHaveRequired_Properties_Error_Default_Text", resourceCulture);
+                return ResourceManager.GetString("SARIF2017_LocationsMustHaveRequiredProperties_Error_EmptyLocationsArray_Text", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The &apos;locations&apos; array is empty. The GitHub Developer Security Portal will not display a result unless it provides a location that specifies the URI of the artifact that contains the result..
+        ///   Looks up a localized string similar to {0}: &apos;{1}&apos; is absent. The GitHub Developer Security Portal will not display a result location that does not provide the URI of the artifact that contains the result..
         /// </summary>
-        internal static string SARIF2017_LocationsMustHaveRequired_Properties_Error_EmptyLocationsArray_Text {
+        internal static string SARIF2017_LocationsMustHaveRequiredProperties_Error_MissingLocationProperty_Text {
             get {
-                return ResourceManager.GetString("SARIF2017_LocationsMustHaveRequired_Properties_Error_EmptyLocationsArray_Text", resourceCulture);
+                return ResourceManager.GetString("SARIF2017_LocationsMustHaveRequiredProperties_Error_MissingLocationProperty_Text", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to {0}: The &apos;locations&apos; property is absent. The GitHub Developer Security Portal will not display a result unless it provides a location that specifies the URI of the artifact that contains the result..
         /// </summary>
-        internal static string SARIF2017_LocationsMustHaveRequired_Properties_Error_NoLocationsArray_Text {
+        internal static string SARIF2017_LocationsMustHaveRequiredProperties_Error_NoLocationsArray_Text {
             get {
-                return ResourceManager.GetString("SARIF2017_LocationsMustHaveRequired_Properties_Error_NoLocationsArray_Text", resourceCulture);
+                return ResourceManager.GetString("SARIF2017_LocationsMustHaveRequiredProperties_Error_NoLocationsArray_Text", resourceCulture);
             }
         }
         
