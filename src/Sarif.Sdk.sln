@@ -112,6 +112,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ValidationRules", "Validati
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "policies", "policies", "{C2397737-B10C-42BF-B2AB-11A86817ACCD}"
 	ProjectSection(SolutionItems) = preProject
+		..\policies\github-dsp-policy.config.xml = ..\policies\github-dsp-policy.config.xml
 		..\policies\github-dsp-policy.sarif-external-properties = ..\policies\github-dsp-policy.sarif-external-properties
 	EndProjectSection
 EndProject

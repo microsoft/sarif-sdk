@@ -62,6 +62,13 @@
           ]
         }
       ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file.c"
+          }
+        }
+      ],
       "columnKind": "utf16CodeUnits"
     }
   ]

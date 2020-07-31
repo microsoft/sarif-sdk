@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Properties>
+  <Properties Key='SARIF2017.LocationsMustHaveRequiredProperties.Options'>
+    <Property Key='RuleEnabled' Value='Error' />
+  </Properties>
+</Properties>
