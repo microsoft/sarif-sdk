@@ -9,8 +9,7 @@
       "organization": "Microsoft",
       "product": "Microsoft SARIF SDK",
       "associatedComponent": {
-        "name": "Sarif.Multitool",
-        "guid": "9b93cf85-fd84-4b7c-9679-e4f262896d57"
+        "name": "Sarif.Multitool"
       },
       "rules": [
         {
