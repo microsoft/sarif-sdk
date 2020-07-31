@@ -9,7 +9,7 @@
           "rules": [
             {
               "id": "SARIF2017",
-              "name": "LocationsMustHaveRequiredProperties",
+              "name": "LocationsMustProvideRequiredProperties",
               "shortDescription": {
                 "text": "Each result location must provide the property 'physicalLocation.artifactLocation.uri'."
               },
@@ -44,7 +44,7 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF2017.LocationsMustHaveRequiredProperties_Invalid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF2017.LocationsMustProvideRequiredProperties_Invalid.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }

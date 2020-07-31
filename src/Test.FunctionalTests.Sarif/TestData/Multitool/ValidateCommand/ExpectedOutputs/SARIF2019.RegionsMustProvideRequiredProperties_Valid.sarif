@@ -16,7 +16,7 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF2017.LocationsMustHaveRequiredProperties_Valid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF2019.RegionsMustProvideRequiredProperties_Valid.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }

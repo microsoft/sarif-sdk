@@ -269,12 +269,12 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
             => RunInvalidTestForRule(RuleId.FileUrisShouldBeRelative);
 
         [Fact]
-        public void SARIF2017_LocationsMustHaveRequiredProperties_Valid()
-            => RunValidTestForRule(RuleId.LocationsMustHaveRequiredProperties);
+        public void SARIF2017_LocationsMustProvideRequiredProperties_Valid()
+            => RunValidTestForRule(RuleId.LocationsMustProvideRequiredProperties);
 
         [Fact]
-        public void SARIF2017_LocationsMustHaveRequiredProperties_Invalid()
-            => RunInvalidTestForRule(RuleId.LocationsMustHaveRequiredProperties);
+        public void SARIF2017_LocationsMustProvideRequiredProperties_Invalid()
+            => RunInvalidTestForRule(RuleId.LocationsMustProvideRequiredProperties);
 
         [Fact]
         public void SARIF2018_InlineThreadFlowLocations_Valid()
@@ -283,6 +283,14 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
         [Fact]
         public void SARIF2018_InlineThreadFlowLocations_Invalid()
             => RunInvalidTestForRule(RuleId.InlineThreadFlowLocations);
+
+        [Fact]
+        public void SARIF2019_RegionsMustProvideRequiredProperties_Valid()
+            => RunValidTestForRule(RuleId.RegionsMustProvideRequiredProperties);
+
+        [Fact]
+        public void SARIF2019_RegionsMustProvideRequiredProperties_Invalid()
+            => RunInvalidTestForRule(RuleId.RegionsMustProvideRequiredProperties);
 
         private const string ValidTestFileNameSuffix = "_Valid.sarif";
         private const string InvalidTestFileNameSuffix = "_Invalid.sarif";

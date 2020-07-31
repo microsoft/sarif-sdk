@@ -764,36 +764,37 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         /// <summary>
         ///   Looks up a localized string similar to {0}: The &apos;locations&apos; array is empty. The GitHub Developer Security Portal will not display a result unless it provides a location that specifies the URI of the artifact that contains the result..
         /// </summary>
-        internal static string SARIF2017_LocationsMustHaveRequiredProperties_Error_EmptyLocationsArray_Text {
+        internal static string SARIF2017_LocationsMustProvideRequiredProperties_Error_EmptyLocationsArray_Text {
             get {
-                return ResourceManager.GetString("SARIF2017_LocationsMustHaveRequiredProperties_Error_EmptyLocationsArray_Text", resourceCulture);
+                return ResourceManager.GetString("SARIF2017_LocationsMustProvideRequiredProperties_Error_EmptyLocationsArray_Text", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to {0}: &apos;{1}&apos; is absent. The GitHub Developer Security Portal will not display a result location that does not provide the URI of the artifact that contains the result..
         /// </summary>
-        internal static string SARIF2017_LocationsMustHaveRequiredProperties_Error_MissingLocationProperty_Text {
+        internal static string SARIF2017_LocationsMustProvideRequiredProperties_Error_MissingLocationProperty_Text {
             get {
-                return ResourceManager.GetString("SARIF2017_LocationsMustHaveRequiredProperties_Error_MissingLocationProperty_Text", resourceCulture);
+                return ResourceManager.GetString("SARIF2017_LocationsMustProvideRequiredProperties_Error_MissingLocationProperty_Te" +
+                        "xt", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to {0}: The &apos;locations&apos; property is absent. The GitHub Developer Security Portal will not display a result unless it provides a location that specifies the URI of the artifact that contains the result..
         /// </summary>
-        internal static string SARIF2017_LocationsMustHaveRequiredProperties_Error_NoLocationsArray_Text {
+        internal static string SARIF2017_LocationsMustProvideRequiredProperties_Error_NoLocationsArray_Text {
             get {
-                return ResourceManager.GetString("SARIF2017_LocationsMustHaveRequiredProperties_Error_NoLocationsArray_Text", resourceCulture);
+                return ResourceManager.GetString("SARIF2017_LocationsMustProvideRequiredProperties_Error_NoLocationsArray_Text", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Each result location must provide the property &apos;physicalLocation.artifactLocation.uri&apos;. The GitHub Developer Security Portal will not display a result whose location does not provide the URI of the artifact that contains the result..
         /// </summary>
-        internal static string SARIF2017_LocationsMustHaveRequiredProperties_FullDescription_Text {
+        internal static string SARIF2017_LocationsMustProvideRequiredProperties_FullDescription_Text {
             get {
-                return ResourceManager.GetString("SARIF2017_LocationsMustHaveRequiredProperties_FullDescription_Text", resourceCulture);
+                return ResourceManager.GetString("SARIF2017_LocationsMustProvideRequiredProperties_FullDescription_Text", resourceCulture);
             }
         }
         
@@ -812,6 +813,33 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         internal static string SARIF2018_InlineThreadFlowLocations_FullDescription_Text {
             get {
                 return ResourceManager.GetString("SARIF2018_InlineThreadFlowLocations_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The &apos;region&apos; property is absent. The GitHub Developer Security Portal only displays results that provide a &apos;region&apos; object with line and optional column information. At minimum, &apos;region.startLine&apos; is required. &apos;region&apos; can also provide &apos;startColumn&apos;, &apos;endLine&apos;, and &apos;endColumn&apos;, although all of those have reasonable defaults..
+        /// </summary>
+        internal static string SARIF2019_RegionsMustProvideRequiredProperties_Error_MissingRegion_Text {
+            get {
+                return ResourceManager.GetString("SARIF2019_RegionsMustProvideRequiredProperties_Error_MissingRegion_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The &apos;startLine&apos; property is absent. The GitHub Developer Security Portal only displays results that provide a &apos;region&apos; object with line and optional column information. At minimum, &apos;region.startLine&apos; is required. &apos;region&apos; can also provide &apos;startColumn&apos;, &apos;endLine&apos;, and &apos;endColumn&apos;, although all of those have reasonable defaults..
+        /// </summary>
+        internal static string SARIF2019_RegionsMustProvideRequiredProperties_Error_MissingRegionProperty_Text {
+            get {
+                return ResourceManager.GetString("SARIF2019_RegionsMustProvideRequiredProperties_Error_MissingRegionProperty_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Every result must provide a &apos;region&apos; that specifies its location with line and optional column information. The GitHub Developer Security Portal only displays results that provide this information. At minimum, &apos;region.startLine&apos; is required. &apos;region&apos; can also provide &apos;startColumn&apos;, &apos;endLine&apos;, and &apos;endColumn&apos;, although all of those have reasonable defaults..
+        /// </summary>
+        internal static string SARIF2019_RegionsMustProvideRequiredProperties_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("SARIF2019_RegionsMustProvideRequiredProperties_FullDescription_Text", resourceCulture);
             }
         }
     }
