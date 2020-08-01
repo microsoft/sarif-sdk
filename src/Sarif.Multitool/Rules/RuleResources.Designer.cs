@@ -844,7 +844,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: This array contains {2} elements, which exceeds the default limit of {3} imposed by the GitHub Developer Security Portal. The portal will only display information up to that limit. You can provide a configuration file at the root of your repository to specify a higher limit..
+        ///   Looks up a localized string similar to {0}: This array contains {1} element(s), which exceeds the default limit of {2} imposed by the GitHub Developer Security Portal. The portal will only display information up to that limit. You can provide a configuration file at the root of your repository to specify a higher limit..
         /// </summary>
         internal static string SARIF2020_ReviewArraysThatExceedConfigurableDefaults_Error_Default_Text {
             get {
@@ -853,7 +853,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The GitHub Security Portal limits the number and size of results it displays. There are limits on the number of runs per log file, rules per run, results per run, locations per result, code flows per result, and steps per code flow. You can provide a configuration file at the root of your repository to specify higher limits..
+        ///   Looks up a localized string similar to The GitHub Security Portal limits the amount of information it displays. There are limits on the number of runs per log file, rules per run, results per run, locations per result, code flows per result, and steps per code flow. You can provide a configuration file at the root of your repository to specify higher limits..
         /// </summary>
         internal static string SARIF2020_ReviewArraysThatExceedConfigurableDefaults_FullDescription_Text {
             get {
