@@ -44,6 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public const string LocationsMustProvideRequiredProperties = "SARIF2017";
         public const string InlineThreadFlowLocations = "SARIF2018";
         public const string RegionsMustProvideRequiredProperties = "SARIF2019";
+        public const string ReviewArraysThatExceedConfigurableDefaults = "SARIF2020";
 
         // TEMPLATE:
         // public const string RuleFriendlyName = "SARIFnnnn";

@@ -22,10 +22,15 @@ using Newtonsoft.Json;
 using Xunit;
 using Xunit.Abstractions;
 
+using static Microsoft.CodeAnalysis.Sarif.Multitool.Rules.ReviewArraysThatExceedConfigurableDefaults;
+
 namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
 {
     public class ValidateCommandTests : FileDiffingFunctionalTests
     {
+        private const string ValidTestFileNameSuffix = "_Valid.sarif";
+        private const string InvalidTestFileNameSuffix = "_Invalid.sarif";
+
         private readonly IList<SarifValidationSkimmerBase> validationRules;
 
         public ValidateCommandTests(ITestOutputHelper outputHelper, bool testProducesSarifCurrentVersion = true) :
@@ -292,8 +297,46 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
         public void SARIF2019_RegionsMustProvideRequiredProperties_Invalid()
             => RunInvalidTestForRule(RuleId.RegionsMustProvideRequiredProperties);
 
-        private const string ValidTestFileNameSuffix = "_Valid.sarif";
-        private const string InvalidTestFileNameSuffix = "_Invalid.sarif";
+        [Fact]
+        public void SARIF2020_ReviewArraysThatExceedConfigurableDefaults_Valid()
+            => RunArrayLimitTest(ValidTestFileNameSuffix);
+
+        [Fact]
+        public void SARIF2020_ReviewArraysThatExceedConfigurableDefaults_Invalid()
+            => RunArrayLimitTest(InvalidTestFileNameSuffix);
+
+        private void RunArrayLimitTest(string testFileNameSuffix)
+        {
+            // Some of the actual limits are impractically large for testing purposes,
+            // so the following test will set smaller values.
+            int savedMaxRuns = s_arraySizeLimitDictionary[s_runsPerLogKey];
+            int savedMaxRules = s_arraySizeLimitDictionary[s_rulesPerRunKey];
+            int savedMaxResults = s_arraySizeLimitDictionary[s_resultsPerRunKey];
+            int savedMaxResultLocations = s_arraySizeLimitDictionary[s_locationsPerResultKey];
+            int savedMaxCodeFlows = s_arraySizeLimitDictionary[s_codeFlowsPerResultKey];
+            int savedMaxThreadFlowLocations = s_arraySizeLimitDictionary[s_locationsPerThreadFlowKey];
+
+            try
+            {
+                s_arraySizeLimitDictionary[s_runsPerLogKey] = 1;
+                s_arraySizeLimitDictionary[s_rulesPerRunKey] = 1;
+                s_arraySizeLimitDictionary[s_resultsPerRunKey] = 1;
+                s_arraySizeLimitDictionary[s_locationsPerResultKey] = 1;
+                s_arraySizeLimitDictionary[s_codeFlowsPerResultKey] = 1;
+                s_arraySizeLimitDictionary[s_locationsPerThreadFlowKey] = 1;
+
+                RunTestForRule(RuleId.ReviewArraysThatExceedConfigurableDefaults, testFileNameSuffix);
+            }
+            finally
+            {
+                s_arraySizeLimitDictionary[s_runsPerLogKey] = savedMaxRuns;
+                s_arraySizeLimitDictionary[s_rulesPerRunKey] = savedMaxRules;
+                s_arraySizeLimitDictionary[s_resultsPerRunKey] = savedMaxResults;
+                s_arraySizeLimitDictionary[s_locationsPerResultKey] = savedMaxResultLocations;
+                s_arraySizeLimitDictionary[s_codeFlowsPerResultKey] = savedMaxCodeFlows;
+                s_arraySizeLimitDictionary[s_locationsPerThreadFlowKey] = savedMaxThreadFlowLocations;
+            }
+        }
 
         private void RunValidTestForRule(string ruleId)
             => RunTestForRule(ruleId, ValidTestFileNameSuffix);

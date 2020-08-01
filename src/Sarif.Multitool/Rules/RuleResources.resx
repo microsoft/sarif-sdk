@@ -418,4 +418,10 @@ Semantics: Assuming the reader of the log file (an end user or another tool) has
   <data name="SARIF2019_RegionsMustProvideRequiredProperties_FullDescription_Text" xml:space="preserve">
     <value>Every result must provide a 'region' that specifies its location with line and optional column information. The GitHub Developer Security Portal only displays results that provide this information. At minimum, 'region.startLine' is required. 'region' can also provide 'startColumn', 'endLine', and 'endColumn', although all of those have reasonable defaults.</value>
   </data>
+  <data name="SARIF2020_ReviewArraysThatExceedConfigurableDefaults_Error_Default_Text" xml:space="preserve">
+    <value>{0}: This array contains {2} elements, which exceeds the default limit of {3} imposed by the GitHub Developer Security Portal. The portal will only display information up to that limit. You can provide a configuration file at the root of your repository to specify a higher limit.</value>
+  </data>
+  <data name="SARIF2020_ReviewArraysThatExceedConfigurableDefaults_FullDescription_Text" xml:space="preserve">
+    <value>The GitHub Security Portal limits the number and size of results it displays. There are limits on the number of runs per log file, rules per run, results per run, locations per result, code flows per result, and steps per code flow. You can provide a configuration file at the root of your repository to specify higher limits.</value>
+  </data>
 </root>
