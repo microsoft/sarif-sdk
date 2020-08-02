@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.using System;
 
+using Microsoft.CodeAnalysis.Sarif.Visitors;
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,6 +17,29 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class ExtensionMethods
     {
+        public static IEnumerable<SarifLog> Split(this SarifLog sarifLog, SplittingStrategy splittingStrategy)
+        {
+            PartitionFunction<string> partitionFunction = null;
+
+            switch (splittingStrategy)
+            {
+                case SplittingStrategy.PerResult:
+                {
+                    partitionFunction = (result) => result.RuleId;
+                    break;
+                }
+                default:
+                {
+                    throw new NotImplementedException($"SplittingStrategy: {splittingStrategy}");
+                }
+            }
+
+            var partitioningVisitor = new PartitioningVisitor<string>(partitionFunction, deepClone: false);
+            partitioningVisitor.VisitSarifLog(sarifLog);
+
+            return partitioningVisitor.GetPartitionLogs().Values;
+        }
+
         public static IDictionary<string, MultiformatMessageString> ConvertToMultiformatMessageStringsDictionary(this IDictionary<string, string> v1MessageStringsDictionary)
         {
             return v1MessageStringsDictionary?.ToDictionary(

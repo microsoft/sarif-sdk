@@ -61,7 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             var options = new MergeOptions
             {
                 PrettyPrint = true,
-                OutputFolderPath = OutputFolderPath,
+                OutputDirectoryPath = OutputFolderPath,
                 TargetFileSpecifiers = new[] { targetFileSpecifier },
                 OutputFileName = outputFileName
             };
