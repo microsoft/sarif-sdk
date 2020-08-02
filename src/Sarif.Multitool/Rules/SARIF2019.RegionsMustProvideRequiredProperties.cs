@@ -33,7 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override void Analyze(Result result, string resultPointer)
         {
-            if (!result.Locations?.Any() == true)
+            if (!(result.Locations?.Any() == true))
             {
                 // Rule SARIF2017.LocationsMustProvideRequiredProperties will catch this, so don't
                 // report it here.

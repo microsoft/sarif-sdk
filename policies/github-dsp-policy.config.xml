@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Properties>
-  <Properties Key='SARIF2017.LocationsMustHaveRequiredProperties.Options'>
+  <Properties Key='SARIF2017.LocationsMustProvideRequiredProperties.Options'>
     <Property Key='RuleEnabled' Value='Error' />
   </Properties>
   <Properties Key='SARIF2018.InlineThreadFlowLocations.Options'>
     <Property Key='RuleEnabled' Value='Error' />
   </Properties>
-  <Properties Key='SARIF2019.RegionsMustHaveRequiredProperties.Options'>
+  <Properties Key='SARIF2019.RegionsMustProvideRequiredProperties.Options'>
     <Property Key='RuleEnabled' Value='Error' />
   </Properties>
   <Properties Key='SARIF2020.ReviewArraysThatExceedConfigurableDefaults.Options'>

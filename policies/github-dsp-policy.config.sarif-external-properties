@@ -14,7 +14,7 @@
       "rules": [
         {
           "id": "SARIF2017",
-          "name": "LocationsMustHaveRequiredProperties",
+          "name": "LocationsMustProvideRequiredProperties",
           "defaultConfiguration": {
             "enabled": true
           }
@@ -28,7 +28,7 @@
         },
         {
           "id": "SARIF2019",
-          "name": "RegionsMustHaveRequiredProperties",
+          "name": "RegionsMustProvideRequiredProperties",
           "defaultConfiguration": {
             "enabled": true
           }
