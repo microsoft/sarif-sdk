@@ -42,7 +42,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     ? Formatting.Indented
                     : Formatting.None;
 
-
                 string inputFilePath = transformOptions.InputFilePath;
                 string inputVersion = SniffVersion(inputFilePath);
 
