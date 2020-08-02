@@ -39,6 +39,13 @@
           "defaultConfiguration": {
             "enabled": true
           }
+        },
+        {
+          "id": "SARIF2021",
+          "name": "LocationsMustBeRelativeUrisOrFilePaths",
+          "defaultConfiguration": {
+            "enabled": true
+          }
         }
       ]
     }

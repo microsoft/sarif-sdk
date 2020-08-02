@@ -12,4 +12,7 @@
   <Properties Key='SARIF2020.ReviewArraysThatExceedConfigurableDefaults.Options'>
     <Property Key='RuleEnabled' Value='Error' />
   </Properties>
+  <Properties Key='SARIF2021.LocationsMustBeRelativeUrisOrFilePaths.Options'>
+    <Property Key='RuleEnabled' Value='Error' />
+  </Properties>
 </Properties>

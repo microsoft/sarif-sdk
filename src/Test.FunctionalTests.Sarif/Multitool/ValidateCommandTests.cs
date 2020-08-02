@@ -305,6 +305,14 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
         public void SARIF2020_ReviewArraysThatExceedConfigurableDefaults_Invalid()
             => RunArrayLimitTest(InvalidTestFileNameSuffix);
 
+        [Fact]
+        public void SARIF2021_LocationsMustBeRelativeUrisOrFilePaths_Valid()
+            => RunValidTestForRule(RuleId.LocationsMustBeRelativeUrisOrFilePaths);
+
+        [Fact]
+        public void SARIF2021_LocationsMustBeRelativeUrisOrFilePaths_Invalid()
+            => RunInvalidTestForRule(RuleId.LocationsMustBeRelativeUrisOrFilePaths);
+
         private void RunArrayLimitTest(string testFileNameSuffix)
         {
             // Some of the actual limits are impractically large for testing purposes,
