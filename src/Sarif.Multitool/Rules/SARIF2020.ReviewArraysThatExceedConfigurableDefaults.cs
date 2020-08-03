@@ -19,10 +19,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override string Id => RuleId.ReviewArraysThatExceedConfigurableDefaults;
 
-        // The GitHub Security Portal limits the amount of information it displays. There are limits
-        // on the number of runs per log file, rules per run, results per run, locations per result,
-        // code flows per result, and steps per code flow. You can provide a configuration file at
-        // the root of your repository to specify higher limits.
+        // The GitHub Developer Security Portal limits the amount of information it displays. There
+        // are limits on the number of runs per log file, rules per run, results per run, locations
+        // per result, code flows per result, and steps per code flow. You can provide a configuration
+        // file at the root of your repository to specify higher limits.
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF2020_ReviewArraysThatExceedConfigurableDefaults_FullDescription_Text };
 
         protected override IEnumerable<string> MessageResourceNames => new string[] {

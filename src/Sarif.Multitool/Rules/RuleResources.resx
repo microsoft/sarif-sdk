@@ -422,12 +422,24 @@ Semantics: Assuming the reader of the log file (an end user or another tool) has
     <value>{0}: This array contains {1} element(s), which exceeds the default limit of {2} imposed by the GitHub Developer Security Portal. The portal will only display information up to that limit. You can provide a configuration file at the root of your repository to specify a higher limit.</value>
   </data>
   <data name="SARIF2020_ReviewArraysThatExceedConfigurableDefaults_FullDescription_Text" xml:space="preserve">
-    <value>The GitHub Security Portal limits the amount of information it displays. There are limits on the number of runs per log file, rules per run, results per run, locations per result, code flows per result, and steps per code flow. You can provide a configuration file at the root of your repository to specify higher limits.</value>
+    <value>The GitHub Developer Security Portal limits the amount of information it displays. There are limits on the number of runs per log file, rules per run, results per run, locations per result, code flows per result, and steps per code flow. You can provide a configuration file at the root of your repository to specify higher limits.</value>
   </data>
   <data name="SARIF2021_LocationsMustBeRelativeUrisOrFilePaths_Error_Default_Text" xml:space="preserve">
-    <value>{0}: An absolute URI with the '{1}' scheme does not specify a file path. The GitHub Security Portal only displays results whose locations are specified by file paths, either as relative URIs or as absolute URIs that use the 'file' scheme.</value>
+    <value>{0}: An absolute URI with the '{1}' scheme does not specify a file path. The GitHub Developer Security Portal only displays results whose locations are specified by file paths, either as relative URIs or as absolute URIs that use the 'file' scheme.</value>
   </data>
   <data name="SARIF2021_LocationsMustBeRelativeUrisOrFilePaths_FullDescription_Text" xml:space="preserve">
-    <value>The GitHub Security Portal only displays results whose locations are specified by file paths, either as relative URIs or as absolute URIs that use the 'file' scheme.</value>
+    <value>The GitHub Developer Security Portal only displays results whose locations are specified by file paths, either as relative URIs or as absolute URIs that use the 'file' scheme.</value>
+  </data>
+  <data name="SARIF2022_ProvideCheckoutPath_FullDescription_Text" xml:space="preserve">
+    <value>The GitHub Developer Security Portal (DSP) will reject a SARIF file that expresses result locations as absolute 'file' scheme URIs unless the DSP can determine the URI of the repository root (which the DSP refers to as the "checkout path"). There are three ways to address this issue.
+
+1. Recommended: Express all result locations as relative URI references with respect to the checkout path.
+
+1. Place the checkout path in 'invocations[].workingDirectory'. The SARIF specification defines that property to be the working directory of the process that executed the analysis tool, so if the tool was not invoked from the repository root directory, it isn't strictly legal to place the checkout path there.
+
+2. Place the checkout path in a configuration file at the root of the repository. This requires the analysis tool always to be invoked from that same directory.</value>
+  </data>
+  <data name="SARIF2022_ProvideCheckoutPath_Error_Default_Text" xml:space="preserve">
+    <value>{0}: This result location is expressed as an absolute 'file' URI. The GitHub Developer Security Portal will reject this file because it cannot determine the location of the repository root (which it refers to as the "checkout path"). Either express result locations as relative URI references with respect to the checkout path, place the checkout path in 'invocations[].workingDirectory`, or place the checkout path in a configuration file at the root of the repository.</value>
   </data>
 </root>

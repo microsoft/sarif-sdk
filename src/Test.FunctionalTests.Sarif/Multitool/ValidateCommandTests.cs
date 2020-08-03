@@ -313,6 +313,14 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
         public void SARIF2021_LocationsMustBeRelativeUrisOrFilePaths_Invalid()
             => RunInvalidTestForRule(RuleId.LocationsMustBeRelativeUrisOrFilePaths);
 
+        [Fact]
+        public void SARIF2022_ProvideCheckoutPath_Valid()
+            => RunValidTestForRule(RuleId.ProvideCheckoutPath);
+
+        [Fact]
+        public void SARIF2022_ProvideCheckoutPath_Invalid()
+            => RunInvalidTestForRule(RuleId.ProvideCheckoutPath);
+
         private void RunArrayLimitTest(string testFileNameSuffix)
         {
             // Some of the actual limits are impractically large for testing purposes,

@@ -46,6 +46,13 @@
           "defaultConfiguration": {
             "enabled": true
           }
+        },
+        {
+          "id": "SARIF2022",
+          "name": "ProvideCheckoutPath",
+          "defaultConfiguration": {
+            "enabled": true
+          }
         }
       ]
     }

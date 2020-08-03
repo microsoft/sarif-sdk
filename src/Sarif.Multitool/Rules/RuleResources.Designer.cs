@@ -853,7 +853,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The GitHub Security Portal limits the amount of information it displays. There are limits on the number of runs per log file, rules per run, results per run, locations per result, code flows per result, and steps per code flow. You can provide a configuration file at the root of your repository to specify higher limits..
+        ///   Looks up a localized string similar to The GitHub Developer Security Portal limits the amount of information it displays. There are limits on the number of runs per log file, rules per run, results per run, locations per result, code flows per result, and steps per code flow. You can provide a configuration file at the root of your repository to specify higher limits..
         /// </summary>
         internal static string SARIF2020_ReviewArraysThatExceedConfigurableDefaults_FullDescription_Text {
             get {
@@ -862,7 +862,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: An absolute URI with the &apos;{1}&apos; scheme does not specify a file path. The GitHub Security Portal only displays results whose locations are specified by file paths, either as relative URIs or as absolute URIs that use the &apos;file&apos; scheme..
+        ///   Looks up a localized string similar to {0}: An absolute URI with the &apos;{1}&apos; scheme does not specify a file path. The GitHub Developer Security Portal only displays results whose locations are specified by file paths, either as relative URIs or as absolute URIs that use the &apos;file&apos; scheme..
         /// </summary>
         internal static string SARIF2021_LocationsMustBeRelativeUrisOrFilePaths_Error_Default_Text {
             get {
@@ -871,11 +871,33 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The GitHub Security Portal only displays results whose locations are specified by file paths, either as relative URIs or as absolute URIs that use the &apos;file&apos; scheme..
+        ///   Looks up a localized string similar to The GitHub Developer Security Portal only displays results whose locations are specified by file paths, either as relative URIs or as absolute URIs that use the &apos;file&apos; scheme..
         /// </summary>
         internal static string SARIF2021_LocationsMustBeRelativeUrisOrFilePaths_FullDescription_Text {
             get {
                 return ResourceManager.GetString("SARIF2021_LocationsMustBeRelativeUrisOrFilePaths_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: This result location is expressed as an absolute &apos;file&apos; URI. The GitHub Developer Security Portal will reject this file because it cannot determine the location of the repository root (which it refers to as the &quot;checkout path&quot;). Either express result locations as relative URI references with respect to the checkout path, place the checkout path in &apos;invocations[].workingDirectory`, or place the checkout path in a configuration file at the root of the repository..
+        /// </summary>
+        internal static string SARIF2022_ProvideCheckoutPath_Error_Default_Text {
+            get {
+                return ResourceManager.GetString("SARIF2022_ProvideCheckoutPath_Error_Default_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The GitHub Developer Security Portal (DSP) will reject a SARIF file that expresses result locations as absolute &apos;file&apos; scheme URIs unless the DSP can determine the URI of the repository root (which the DSP refers to as the &quot;checkout path&quot;). There are three ways to address this issue.
+        ///
+        ///1. Recommended: Express all result locations as relative URI references with respect to the checkout path.
+        ///
+        ///1. Place the checkout path in &apos;invocations[].workingDirectory&apos;. The SARIF specification defines that property to b [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string SARIF2022_ProvideCheckoutPath_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("SARIF2022_ProvideCheckoutPath_FullDescription_Text", resourceCulture);
             }
         }
     }

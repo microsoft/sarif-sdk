@@ -16,8 +16,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override string Id => RuleId.LocationsMustBeRelativeUrisOrFilePaths;
 
-        // The GitHub Security Portal only displays results whose locations are specified by file
-        // paths, either as relative URIs or as absolute URIs that use the 'file' scheme.
+        // The GitHub Developer Security Portal only displays results whose locations are specified
+        // by file paths, either as relative URIs or as absolute URIs that use the 'file' scheme.
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF2021_LocationsMustBeRelativeUrisOrFilePaths_FullDescription_Text };
 
         protected override IEnumerable<string> MessageResourceNames => new string[] {
@@ -59,9 +59,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                         .AtProperty(SarifPropertyName.Uri);
 
                     // {0}: An absolute URI with the '{1}' scheme does not specify a file path.
-                    // The GitHub Security Portal only displays results whose locations are
-                    // specified by file paths, either as relative URIs or as absolute URIs that
-                    // use the 'file' scheme.
+                    // The GitHub Developer Security Portal only displays results whose locations
+                    // are specified by file paths, either as relative URIs or as absolute URIs
+                    // that use the 'file' scheme.
                     LogResult(
                         uriPointer,
                         nameof(RuleResources.SARIF2021_LocationsMustBeRelativeUrisOrFilePaths_Error_Default_Text),

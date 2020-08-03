@@ -15,4 +15,7 @@
   <Properties Key='SARIF2021.LocationsMustBeRelativeUrisOrFilePaths.Options'>
     <Property Key='RuleEnabled' Value='Error' />
   </Properties>
+  <Properties Key='SARIF2022.ProvideCheckoutPath.Options'>
+    <Property Key='RuleEnabled' Value='Error' />
+  </Properties>
 </Properties>

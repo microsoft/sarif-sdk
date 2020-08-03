@@ -11,14 +11,14 @@
               "id": "SARIF2021",
               "name": "LocationsMustBeRelativeUrisOrFilePaths",
               "shortDescription": {
-                "text": "The GitHub Security Portal only displays results whose locations are specified by file paths, either as relative URIs or as absolute URIs that use the 'file' scheme."
+                "text": "The GitHub Developer Security Portal only displays results whose locations are specified by file paths, either as relative URIs or as absolute URIs that use the 'file' scheme."
               },
               "fullDescription": {
-                "text": "The GitHub Security Portal only displays results whose locations are specified by file paths, either as relative URIs or as absolute URIs that use the 'file' scheme."
+                "text": "The GitHub Developer Security Portal only displays results whose locations are specified by file paths, either as relative URIs or as absolute URIs that use the 'file' scheme."
               },
               "messageStrings": {
                 "Error_Default": {
-                  "text": "{0}: An absolute URI with the '{1}' scheme does not specify a file path. The GitHub Security Portal only displays results whose locations are specified by file paths, either as relative URIs or as absolute URIs that use the 'file' scheme."
+                  "text": "{0}: An absolute URI with the '{1}' scheme does not specify a file path. The GitHub Developer Security Portal only displays results whose locations are specified by file paths, either as relative URIs or as absolute URIs that use the 'file' scheme."
                 }
               },
               "defaultConfiguration": {
