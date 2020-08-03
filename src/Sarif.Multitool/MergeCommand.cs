@@ -11,9 +11,7 @@ using System.Threading.Tasks;
 
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Processors;
-using Microsoft.CodeAnalysis.Sarif.Visitors;
 using Microsoft.CodeAnalysis.Sarif.Writers;
-using Microsoft.Extensions.Options;
 
 using Newtonsoft.Json;
 
@@ -28,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         private long _filesProcessedCount;
         private Channel<string> _logLoadChannel;
         private Channel<SarifLog> _mergeLogsChannel;
-        private Dictionary<string, Run> _ruleIdToRunsMap;
+        private readonly Dictionary<string, Run> _ruleIdToRunsMap;
         private readonly Dictionary<string, SarifLog> _idToSarifLogMap;
 
         public MergeCommand(IFileSystem fileSystem = null)
@@ -206,17 +204,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             // Wait until there is work or the channel is closed.
             while (await reader.WaitToReadAsync())
             {
-                // Loop while there is work to do.
-                while (reader.TryRead(out string filePath))
+                if (!reader.TryRead(out string filePath))
                 {
-                    try
-                    {
-                        ProcessInputSarifLog(filePath);
-                    }
-                    catch (Exception e)
-                    {
-                        Console.Error.WriteLine(e.Message);
-                    }
+                    continue;
+                }
+                try
+                {
+                    ProcessInputSarifLog(filePath);
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.Message);
                 }
             }
             return true;
