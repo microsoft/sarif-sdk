@@ -173,6 +173,31 @@
               }
             }
           ]
+        },
+        {
+          "ruleId": "SARIF2017",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingLocationProperty",
+            "arguments": [
+              "runs[0].results[2].relatedLocations[0].physicalLocation.artifactLocation",
+              "uri"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 73,
+                  "startColumn": 37
+                }
+              }
+            }
+          ]
         }
       ],
       "columnKind": "utf16CodeUnits"
