@@ -55,5 +55,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             @"The SARIF version of the output log file. Valid values are OneZeroZero and Current",
             Default = SarifVersion.Current)]
         public SarifVersion SarifOutputVersion { get; set; }
+
+        [Option(
+            't',
+            "threads",
+            HelpText = "A count of threads that should be used for multithreaded operations.")]
+        public int Threads { get; set; }
     }
 }
