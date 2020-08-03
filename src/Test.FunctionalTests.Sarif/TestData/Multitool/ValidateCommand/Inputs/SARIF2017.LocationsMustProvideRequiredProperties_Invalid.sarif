@@ -66,6 +66,15 @@
                 }
               }
             }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                }
+              }
+            }
           ]
         }
       ],

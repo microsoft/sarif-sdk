@@ -23,6 +23,15 @@
                 }
               }
             }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file.c"
+                }
+              }
+            }
           ]
         }
       ],
