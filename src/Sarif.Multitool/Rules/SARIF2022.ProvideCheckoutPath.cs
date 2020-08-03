@@ -83,7 +83,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     if (invocation.WorkingDirectory.Uri?.IsAbsoluteUri == true)
                     {
                         string absoluteUri = invocation.WorkingDirectory.Uri.AbsoluteUri;
-                        absoluteUri = EnsureTrailingSlash(invocation.WorkingDirectory.Uri.AbsoluteUri);
+                        absoluteUri = EnsureTrailingSlash(absoluteUri);
                         checkoutPaths.Add(absoluteUri);
                     }
                 }

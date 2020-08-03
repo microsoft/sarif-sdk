@@ -61,38 +61,39 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
             for (int i = 0; i < result.Locations.Count; i++)
             {
-                Location location = result.Locations[i];
-                string missingProperty = null;
-                string jsonPointer = null;
+                ValidateLocation(result.Locations[i], locationsPointer.AtIndex(i));
+                
+            }
+        }
 
-                if (location.PhysicalLocation == null)
-                {
-                    missingProperty = SarifPropertyName.PhysicalLocation;
-                    jsonPointer = locationsPointer.AtIndex(i);
-                }
-                else if (location.PhysicalLocation.ArtifactLocation == null)
-                {
-                    missingProperty = SarifPropertyName.ArtifactLocation;
-                    jsonPointer = locationsPointer.AtIndex(i).AtProperty(SarifPropertyName.PhysicalLocation);
-                }
-                else if (location.PhysicalLocation.ArtifactLocation.Uri == null)
-                {
-                    missingProperty = SarifPropertyName.Uri;
-                    jsonPointer = locationsPointer.AtIndex(i).AtProperty(SarifPropertyName.PhysicalLocation).AtProperty(SarifPropertyName.ArtifactLocation);
-                }
+        private void ValidateLocation(Location location, string locationPointer)
+        {
+            string missingProperty = null;
 
-                if (missingProperty != null)
-                {
-                    Debug.Assert(jsonPointer != null);
+            if (location.PhysicalLocation == null)
+            {
+                missingProperty = SarifPropertyName.PhysicalLocation;
+            }
+            else if (location.PhysicalLocation.ArtifactLocation == null)
+            {
+                missingProperty = SarifPropertyName.ArtifactLocation;
+                locationPointer = locationPointer.AtProperty(SarifPropertyName.PhysicalLocation);
+            }
+            else if (location.PhysicalLocation.ArtifactLocation.Uri == null)
+            {
+                missingProperty = SarifPropertyName.Uri;
+                locationPointer = locationPointer.AtProperty(SarifPropertyName.PhysicalLocation).AtProperty(SarifPropertyName.ArtifactLocation);
+            }
 
-                    // {0}: The '{1}' property is absent. The GitHub Developer Security Portal will
-                    // not display a result whose location does not provide the URI of the artifact
-                    // that contains the result.
-                    LogResult(
-                        jsonPointer,
-                        nameof(RuleResources.SARIF2017_LocationsMustProvideRequiredProperties_Error_MissingLocationProperty_Text),
-                        missingProperty);
-                }
+            if (missingProperty != null)
+            {
+                // {0}: The '{1}' property is absent. The GitHub Developer Security Portal will
+                // not display a result whose location does not provide the URI of the artifact
+                // that contains the result.
+                LogResult(
+                    locationPointer,
+                    nameof(RuleResources.SARIF2017_LocationsMustProvideRequiredProperties_Error_MissingLocationProperty_Text),
+                    missingProperty);
             }
         }
     }
