@@ -44,7 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 if (!rebaseOptions.Inline)
                 {
-                    _fileSystem.CreateDirectory(rebaseOptions.OutputFolderPath);
+                    _fileSystem.CreateDirectory(rebaseOptions.OutputDirectoryPath);
                 }
 
                 Formatting formatting = rebaseOptions.PrettyPrint
@@ -110,8 +110,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             if (rebaseUriOptions.Inline) { return inputFilePath; }
 
-            return !string.IsNullOrEmpty(rebaseUriOptions.OutputFolderPath)
-                ? Path.GetFullPath(rebaseUriOptions.OutputFolderPath) + Path.DirectorySeparatorChar + Path.GetFileNameWithoutExtension(inputFilePath) + "-rebased.sarif"
+            return !string.IsNullOrEmpty(rebaseUriOptions.OutputDirectoryPath)
+                ? Path.GetFullPath(rebaseUriOptions.OutputDirectoryPath) + Path.DirectorySeparatorChar + Path.GetFileNameWithoutExtension(inputFilePath) + "-rebased.sarif"
                 : Path.GetDirectoryName(inputFilePath) + Path.DirectorySeparatorChar + Path.GetFileNameWithoutExtension(inputFilePath) + "-rebased.sarif";
         }
 

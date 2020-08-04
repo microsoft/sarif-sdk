@@ -78,7 +78,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 resultToolLogs.Add(BaselineSarifLogs(baselineRuns, currentRuns));
             }
 
-            return new List<SarifLog> { resultToolLogs.Merge() };
+            return new List<SarifLog> { resultToolLogs.Merge(mergeEmptyLogs: true) };
         }
 
         private static Dictionary<string, List<Run>> GetRunsByTool(IEnumerable<SarifLog> sarifLogs)

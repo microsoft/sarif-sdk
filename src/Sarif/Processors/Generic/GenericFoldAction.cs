@@ -8,7 +8,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
 {
     public class GenericFoldAction<T> : IFoldAction<T> where T : new()
     {
-        readonly Func<T, T, T> _action;
+        private readonly Func<T, T, T> _action;
 
         public GenericFoldAction(Func<T, T, T> action)
         {

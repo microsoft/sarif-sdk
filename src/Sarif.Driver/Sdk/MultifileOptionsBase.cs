@@ -17,9 +17,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         [Option(
             'o',
-            "output-folder",
-            HelpText = "A folder to output the transformed files to. If absent, each transformed file is written to the same directory as the corresponding input file.")]
-        public string OutputFolderPath { get; internal set; }
+            "output-directory",
+            HelpText = "A directory to output the transformed files to. If absent, each transformed file is written to the same directory as the corresponding input file.")]
+        public string OutputDirectoryPath { get; internal set; }
 
         [Option(
             'i',

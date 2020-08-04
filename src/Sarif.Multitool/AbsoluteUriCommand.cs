@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 if (!absoluteUriOptions.Inline)
                 {
-                    _fileSystem.CreateDirectory(absoluteUriOptions.OutputFolderPath);
+                    _fileSystem.CreateDirectory(absoluteUriOptions.OutputDirectoryPath);
                 }
 
                 Formatting formatting = absoluteUriOptions.PrettyPrint
@@ -83,8 +83,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             if (absoluteUriOptions.Inline) { return inputFilePath; }
 
-            return !string.IsNullOrEmpty(absoluteUriOptions.OutputFolderPath)
-                ? Path.GetFullPath(absoluteUriOptions.OutputFolderPath) + Path.DirectorySeparatorChar + Path.GetFileNameWithoutExtension(inputFilePath) + "-absolute.sarif"
+            return !string.IsNullOrEmpty(absoluteUriOptions.OutputDirectoryPath)
+                ? Path.GetFullPath(absoluteUriOptions.OutputDirectoryPath) + Path.DirectorySeparatorChar + Path.GetFileNameWithoutExtension(inputFilePath) + "-absolute.sarif"
                 : Path.GetDirectoryName(inputFilePath) + Path.DirectorySeparatorChar + Path.GetFileNameWithoutExtension(inputFilePath) + "-absolute.sarif";
         }
 

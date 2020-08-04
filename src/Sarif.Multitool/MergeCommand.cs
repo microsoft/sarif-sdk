@@ -4,9 +4,17 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.InteropServices.WindowsRuntime;
+
 using Microsoft.CodeAnalysis.Sarif.Driver;
+using Microsoft.CodeAnalysis.Sarif.Driver.Sdk;
 using Microsoft.CodeAnalysis.Sarif.Processors;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
+using Microsoft.CodeAnalysis.Sarif.Writers;
+using Microsoft.Extensions.Options;
+using Microsoft.TeamFoundation.Work.WebApi;
+using Microsoft.VisualStudio.Services.OAuth;
+
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
@@ -24,12 +32,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             try
             {
-                string outputDirectory = mergeOptions.OutputFolderPath ?? Environment.CurrentDirectory;
+                string outputDirectory = mergeOptions.OutputDirectoryPath ?? Environment.CurrentDirectory;
                 string outputFilePath = Path.Combine(outputDirectory, GetOutputFileName(mergeOptions));
 
-                if (!DriverUtilities.ReportWhetherOutputFileCanBeCreated(outputFilePath, mergeOptions.Force, _fileSystem))
+                if (mergeOptions.SplittingStrategy == 0)
                 {
-                    return FAILURE;
+                    if (!DriverUtilities.ReportWhetherOutputFileCanBeCreated(outputFilePath, mergeOptions.Force, _fileSystem))
+                    {
+                        return FAILURE;
+                    }
                 }
 
                 HashSet<string> sarifFiles = CreateTargetsSet(mergeOptions.TargetFileSpecifiers, mergeOptions.Recurse, _fileSystem);
@@ -37,31 +48,99 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 IEnumerable<SarifLog> allRuns = ParseFiles(sarifFiles);
 
                 // Build one SarifLog with all the Runs.
-                SarifLog combinedLog = allRuns.Merge();
+                SarifLog mergedLog = allRuns
+                    .Merge(mergeOptions.MergeEmptyLogs)
+                    .InsertOptionalData(mergeOptions.DataToInsert.ToFlags())
+                    .RemoveOptionalData(mergeOptions.DataToInsert.ToFlags());
 
                 // If there were no input files, the Merge operation set combinedLog.Runs to null. Although
                 // null is valid in certain error cases, it is not valid here. Here, the correct value is
                 // an empty list. See the SARIF spec, §3.13.4, "runs property".
-                combinedLog.Runs = combinedLog.Runs ?? new List<Run>();
+                mergedLog.Runs ??= new List<Run>();
+                mergedLog.Version = SarifVersion.Current;
+                mergedLog.SchemaUri = mergedLog.Version.ConvertToSchemaUri();
 
-                combinedLog.Version = SarifVersion.Current;
-                combinedLog.SchemaUri = combinedLog.Version.ConvertToSchemaUri();
-
-                OptionallyEmittedData dataToInsert = mergeOptions.DataToInsert.ToFlags();
-
-                if (dataToInsert != OptionallyEmittedData.None)
+                if (mergeOptions.SplittingStrategy != SplittingStrategy.PerRule)
                 {
-                    combinedLog = new InsertOptionalDataVisitor(dataToInsert).VisitSarifLog(combinedLog);
+                    // Write output to file.
+                    Formatting formatting = mergeOptions.PrettyPrint
+                        ? Formatting.Indented
+                        : Formatting.None;
+
+                    _fileSystem.CreateDirectory(outputDirectory);
+
+                    WriteSarifFile(_fileSystem, mergedLog, outputFilePath, formatting);
+                    return 0;
                 }
 
-                // Write output to file.
-                Formatting formatting = mergeOptions.PrettyPrint
-                    ? Formatting.Indented
-                    : Formatting.None;
+                var ruleToRunsMap = new Dictionary<string, HashSet<Run>>();
 
-                _fileSystem.CreateDirectory(outputDirectory);
+                foreach (Run run in mergedLog.Runs)
+                {
+                    IList<Result> cachedResults = run.Results;
 
-                WriteSarifFile(_fileSystem, combinedLog, outputFilePath, formatting);
+                    run.Results = null;
+
+                    if (mergeOptions.MergeRuns)
+                    {
+                        run.Tool.Driver.Rules = null;
+                        run.Artifacts = null;
+                        run.Invocations = null;
+                    }
+
+                    Run emptyRun = run.DeepClone();
+                    run.Results = cachedResults;
+
+                    var idToRunMap = new Dictionary<string, Run>();
+
+                    if (run.Results != null)
+                    {
+                        foreach (Result result in run.Results)
+                        {
+                            if (!idToRunMap.TryGetValue(result.RuleId, out Run splitRun))
+                            {
+                                splitRun = idToRunMap[result.RuleId] = emptyRun.DeepClone();
+                            }
+                            splitRun.Results ??= new List<Result>();
+
+                            if (!ruleToRunsMap.TryGetValue(result.RuleId, out HashSet<Run> runs))
+                            {
+                                IEqualityComparer<Run> comparer = Microsoft.CodeAnalysis.Sarif.Run.ValueComparer;
+                                runs = ruleToRunsMap[result.RuleId] = new HashSet<Run>(comparer);
+                            }
+                            runs.Add(splitRun);
+                        }
+                    }
+                }
+            
+                foreach (string ruleId in ruleToRunsMap.Keys)
+                {
+                    HashSet<Run> runs = ruleToRunsMap[ruleId];
+                    var perRuleLog = new SarifLog
+                    {
+                        Runs = new List<Run>(runs)
+                    };
+
+                    if (mergeOptions.MergeRuns)
+                    {
+                        new FixupVisitor().VisitSarifLog(perRuleLog);
+                    }
+
+                    Formatting formatting = mergeOptions.PrettyPrint
+                        ? Formatting.Indented
+                        : Formatting.None;
+
+                    _fileSystem.CreateDirectory(outputDirectory);
+
+                    outputFilePath = Path.Combine(outputDirectory, GetOutputFileName(mergeOptions, ruleId));
+
+                    if (!DriverUtilities.ReportWhetherOutputFileCanBeCreated(outputFilePath, mergeOptions.Force, _fileSystem))
+                    {
+                        return FAILURE;
+                    }
+
+                    WriteSarifFile(_fileSystem, perRuleLog, outputFilePath, formatting);
+                }
             }
             catch (Exception ex)
             {
@@ -71,19 +150,52 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             return SUCCESS;
         }
 
+        private IEnumerable<SarifLog> SplitLogs(SplittingStrategy perRule)
+        {
+            throw new NotImplementedException();
+        }
+
         private IEnumerable<SarifLog> ParseFiles(IEnumerable<string> sarifFiles)
         {
             foreach (string file in sarifFiles)
             {
-                yield return ReadSarifFile<SarifLog>(_fileSystem, file);
+                yield return PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(
+                    File.ReadAllText(file),
+                    formatting: Formatting.None,
+                    out string sarifText);
             }
         }
 
-        internal static string GetOutputFileName(MergeOptions mergeOptions)
+        internal static string GetOutputFileName(MergeOptions mergeOptions, string prefix = null)
         {
             return string.IsNullOrEmpty(mergeOptions.OutputFileName) == false
-                ? mergeOptions.OutputFileName
-                : "combined.sarif";
+                ? GetPrefix(prefix) + mergeOptions.OutputFileName
+                : GetPrefix("merged.sarif");
+        }
+
+        private static string GetPrefix(string prefix)
+        {
+            if (prefix != null && !prefix.EndsWith("_"))
+            {
+                prefix = prefix + "_";
+            }
+
+            return prefix == null ? "" : prefix;
+        }
+    }
+
+    internal class FixupVisitor : SarifRewritingVisitor
+    {
+        public override Result VisitResult(Result node)
+        {
+            node.RuleIndex = -1;
+            return base.VisitResult(node);
+        }
+
+        public override ArtifactLocation VisitArtifactLocation(ArtifactLocation node)
+        {
+            node.Index = -1;
+            return base.VisitArtifactLocation(node);
         }
     }
 }

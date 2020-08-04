@@ -7,11 +7,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
     public enum SarifLogAction
     {
         None = 0,
+        Sort, // NOT_IMPL
+        Merge,
         RebaseUri,
         MakeUrisAbsolute,
-        Merge,
-        // Future work...
-        Sort,
-        MakeDeterministic,
+        MakeDeterministic, // NOT_IMPL
+        InsertOptionalData,
+        RemoveOptionalData,
     }
 }
