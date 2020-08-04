@@ -80,7 +80,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     // We are assuming that DSP only looks at the URI and doesn't try to resolve
                     // if through their (hypothetical) equivalent of the SDK's TryReconstructAbsoluteUri.
                     // We'll need to determine that experimentally.
-                    if (invocation.WorkingDirectory.Uri?.IsAbsoluteUri == true)
+                    if (invocation.WorkingDirectory?.Uri?.IsAbsoluteUri == true)
                     {
                         string absoluteUri = invocation.WorkingDirectory.Uri.AbsoluteUri;
                         absoluteUri = EnsureTrailingSlash(absoluteUri);
