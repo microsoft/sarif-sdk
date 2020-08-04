@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
     public class RelatedLocationsMustProvideRequiredProperties : SarifValidationSkimmerBase
     {
         /// <summary>
-        /// SARIF2022
+        /// SARIF2023
         /// </summary>
         public override string Id => RuleId.RelatedLocationsMustProvideRequiredProperties;
 
