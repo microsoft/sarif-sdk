@@ -900,5 +900,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
                 return ResourceManager.GetString("SARIF2022_ProvideCheckoutPath_FullDescription_Text", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: This related location does not have a &apos;message&apos; property, so the the GitHub Developer Security Portal (DSP) will reject the entire log file. This is a bug in the DSP. You can set &apos;message&apos; to an empty string if you don&apos;t have anything else to say about the location..
+        /// </summary>
+        internal static string SARIF2023_RelatedLocationsMustProvideRequiredProperties_Error_Default_Text {
+            get {
+                return ResourceManager.GetString("SARIF2023_RelatedLocationsMustProvideRequiredProperties_Error_Default_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The GitHub Developer Security Portal (DSP) will reject a SARIF file that includes a &quot;related location&quot; with no &apos;message&apos; property. This is a bug in the DSP. You can set &apos;message&apos; to an empty string if you don&apos;t have anything else to say about the location..
+        /// </summary>
+        internal static string SARIF2023_RelatedLocationsMustProvideRequiredProperties_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("SARIF2023_RelatedLocationsMustProvideRequiredProperties_FullDescription_Text", resourceCulture);
+            }
+        }
     }
 }

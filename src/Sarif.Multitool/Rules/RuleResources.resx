@@ -442,4 +442,10 @@ Semantics: Assuming the reader of the log file (an end user or another tool) has
   <data name="SARIF2022_ProvideCheckoutPath_Error_Default_Text" xml:space="preserve">
     <value>{0}: This result location is expressed as an absolute 'file' URI. The GitHub Developer Security Portal will reject this file because it cannot determine the location of the repository root (which it refers to as the "checkout path"). Either express result locations as relative URI references with respect to the checkout path, place the checkout path in 'invocations[].workingDirectory`, or place the checkout path in a configuration file at the root of the repository.</value>
   </data>
+  <data name="SARIF2023_RelatedLocationsMustProvideRequiredProperties_Error_Default_Text" xml:space="preserve">
+    <value>{0}: This related location does not have a 'message' property, so the the GitHub Developer Security Portal (DSP) will reject the entire log file. This is a bug in the DSP. You can set 'message' to an empty string if you don't have anything else to say about the location.</value>
+  </data>
+  <data name="SARIF2023_RelatedLocationsMustProvideRequiredProperties_FullDescription_Text" xml:space="preserve">
+    <value>The GitHub Developer Security Portal (DSP) will reject a SARIF file that includes a "related location" with no 'message' property. This is a bug in the DSP. You can set 'message' to an empty string if you don't have anything else to say about the location.</value>
+  </data>
 </root>

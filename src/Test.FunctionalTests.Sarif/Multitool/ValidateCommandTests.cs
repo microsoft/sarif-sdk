@@ -321,6 +321,14 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
         public void SARIF2022_ProvideCheckoutPath_Invalid()
             => RunInvalidTestForRule(RuleId.ProvideCheckoutPath);
 
+        [Fact]
+        public void SARIF2023_RelatedLocationsMustProvideRequiredProperties_Valid()
+            => RunValidTestForRule(RuleId.RelatedLocationsMustProvideRequiredProperties);
+
+        [Fact]
+        public void SARIF2023_RelatedLocationsMustProvideRequiredProperties_Invalid()
+            => RunInvalidTestForRule(RuleId.RelatedLocationsMustProvideRequiredProperties);
+
         private void RunArrayLimitTest(string testFileNameSuffix)
         {
             // Some of the actual limits are impractically large for testing purposes,

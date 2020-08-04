@@ -53,6 +53,13 @@
           "defaultConfiguration": {
             "enabled": true
           }
+        },
+        {
+          "id": "SARIF2023",
+          "name": "RelatedLocationMustProvideRequiredProperties",
+          "defaultConfiguration": {
+            "enabled": true
+          }
         }
       ]
     }
