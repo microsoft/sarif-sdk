@@ -15,11 +15,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override string Id => RuleId.RegionsMustProvideRequiredProperties;
 
-        // Every result must provide a 'region' that specifies its location with line and
-        // optional column information. The GitHub Developer Security Portal only displays
-        // results that provide this information. At minimum, 'region.startLine' is required.
-        // 'region' can also provide 'startColumn', 'endLine', and 'endColumn', although all
-        // of those have reasonable defaults.
+        // Every result must provide a 'region' that specifies its location with line and optional
+        // column information. The GitHub Developer Security Portal can display the correct
+        // location only for results that provide this information. At minimum, 'region.startLine'
+        // is required. 'region' can also provide 'startColumn', 'endLine', and 'endColumn',
+        // although all of those have reasonable defaults.
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF2019_RegionsMustProvideRequiredProperties_FullDescription_Text };
 
         protected override IEnumerable<string> MessageResourceNames => new string[] {
@@ -59,10 +59,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                         .AtProperty(SarifPropertyName.PhysicalLocation);
 
                     // {0}: The 'region' property is absent. The GitHub Developer Security Portal
-                    // only displays results that provide a 'region' object with line and optional
-                    // column information. At minimum, 'region.startLine' is required. 'region' can
-                    // also provide 'startColumn', 'endLine', and 'endColumn', although all of those
-                    // have reasonable defaults.
+                    // can display the correct location only for results that provide a 'region'
+                    // object with line and optional column information. At minimum,
+                    // 'region.startLine' is required. 'region' can also provide 'startColumn',
+                    // 'endLine', and 'endColumn', although all of those have reasonable defaults.
                     LogResult(
                         physicalLocationPointer,
                         nameof(RuleResources.SARIF2019_RegionsMustProvideRequiredProperties_Error_MissingRegion_Text));
@@ -75,11 +75,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                         .AtProperty(SarifPropertyName.PhysicalLocation)
                         .AtProperty(SarifPropertyName.Region);
 
-                    // {0}: The 'startLine' property is absent. The GitHub Developer Security Portal
-                    // only displays results that provide a 'region' object with line and optional
-                    // column information. At minimum, 'region.startLine' is required. 'region' can
-                    // also provide 'startColumn', 'endLine', and 'endColumn', although all of those
-                    // have reasonable defaults.
+                    // {0}: The 'startLine' property is absent. The GitHub Developer Security
+                    // Portal can display the correct location only for results that provide a
+                    // 'region' object with line and optional column information. At minimum,
+                    // 'region.startLine' is required. 'region' can also provide 'startColumn',
+                    // 'endLine', and 'endColumn', although all of those have reasonable defaults.
                     LogResult(
                         regionPointer,
                         nameof(RuleResources.SARIF2019_RegionsMustProvideRequiredProperties_Error_MissingRegionProperty_Text));

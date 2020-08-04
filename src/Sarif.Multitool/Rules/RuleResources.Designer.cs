@@ -817,7 +817,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The &apos;region&apos; property is absent. The GitHub Developer Security Portal only displays results that provide a &apos;region&apos; object with line and optional column information. At minimum, &apos;region.startLine&apos; is required. &apos;region&apos; can also provide &apos;startColumn&apos;, &apos;endLine&apos;, and &apos;endColumn&apos;, although all of those have reasonable defaults..
+        ///   Looks up a localized string similar to {0}: The &apos;region&apos; property is absent. The GitHub Developer Security Portal can display the correct location only for results that provide a &apos;region&apos; object with line and optional column information. At minimum, &apos;region.startLine&apos; is required. &apos;region&apos; can also provide &apos;startColumn&apos;, &apos;endLine&apos;, and &apos;endColumn&apos;, although all of those have reasonable defaults..
         /// </summary>
         internal static string SARIF2019_RegionsMustProvideRequiredProperties_Error_MissingRegion_Text {
             get {
@@ -826,7 +826,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The &apos;startLine&apos; property is absent. The GitHub Developer Security Portal only displays results that provide a &apos;region&apos; object with line and optional column information. At minimum, &apos;region.startLine&apos; is required. &apos;region&apos; can also provide &apos;startColumn&apos;, &apos;endLine&apos;, and &apos;endColumn&apos;, although all of those have reasonable defaults..
+        ///   Looks up a localized string similar to {0}: The &apos;startLine&apos; property is absent. The GitHub Developer Security Portal can display the correct location only for results that provide a &apos;region&apos; object with line and optional column information. At minimum, &apos;region.startLine&apos; is required. &apos;region&apos; can also provide &apos;startColumn&apos;, &apos;endLine&apos;, and &apos;endColumn&apos;, although all of those have reasonable defaults..
         /// </summary>
         internal static string SARIF2019_RegionsMustProvideRequiredProperties_Error_MissingRegionProperty_Text {
             get {
@@ -835,7 +835,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Every result must provide a &apos;region&apos; that specifies its location with line and optional column information. The GitHub Developer Security Portal only displays results that provide this information. At minimum, &apos;region.startLine&apos; is required. &apos;region&apos; can also provide &apos;startColumn&apos;, &apos;endLine&apos;, and &apos;endColumn&apos;, although all of those have reasonable defaults..
+        ///   Looks up a localized string similar to Every result must provide a &apos;region&apos; that specifies its location with line and optional column information. The GitHub Developer Security Portal can display the correct location only for results that provide this information. At minimum, &apos;region.startLine&apos; is required. &apos;region&apos; can also provide &apos;startColumn&apos;, &apos;endLine&apos;, and &apos;endColumn&apos;, although all of those have reasonable defaults..
         /// </summary>
         internal static string SARIF2019_RegionsMustProvideRequiredProperties_FullDescription_Text {
             get {
