@@ -58,14 +58,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                         .AtProperty(SarifPropertyName.ArtifactLocation)
                         .AtProperty(SarifPropertyName.Uri);
 
-                    // {0}: An absolute URI with the '{1}' scheme does not specify a file path.
-                    // The GitHub Developer Security Portal only displays results whose locations
-                    // are specified by file paths, either as relative URIs or as absolute URIs
-                    // that use the 'file' scheme.
+                    // {0}: '{1}' is not a file path. The GitHub Developer Security Portal only
+                    // displays results whose locations are specified by file paths, either as
+                    // relative URIs or as absolute URIs that use the 'file' scheme.
                     LogResult(
                         uriPointer,
                         nameof(RuleResources.SARIF2021_LocationsMustBeRelativeUrisOrFilePaths_Error_Default_Text),
-                        uri.Scheme);
+                        uri.OriginalString);
                 }
             }
         }

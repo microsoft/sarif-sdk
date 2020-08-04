@@ -862,7 +862,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: An absolute URI with the &apos;{1}&apos; scheme does not specify a file path. The GitHub Developer Security Portal only displays results whose locations are specified by file paths, either as relative URIs or as absolute URIs that use the &apos;file&apos; scheme..
+        ///   Looks up a localized string similar to {0}: &apos;{1}&apos; is not a file path. The GitHub Developer Security Portal only displays results whose locations are specified by file paths, either as relative URIs or as absolute URIs that use the &apos;file&apos; scheme..
         /// </summary>
         internal static string SARIF2021_LocationsMustBeRelativeUrisOrFilePaths_Error_Default_Text {
             get {

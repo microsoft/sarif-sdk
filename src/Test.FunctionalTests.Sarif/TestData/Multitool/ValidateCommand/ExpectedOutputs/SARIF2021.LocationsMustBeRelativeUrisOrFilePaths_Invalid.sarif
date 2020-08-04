@@ -18,7 +18,7 @@
               },
               "messageStrings": {
                 "Error_Default": {
-                  "text": "{0}: An absolute URI with the '{1}' scheme does not specify a file path. The GitHub Developer Security Portal only displays results whose locations are specified by file paths, either as relative URIs or as absolute URIs that use the 'file' scheme."
+                  "text": "{0}: '{1}' is not a file path. The GitHub Developer Security Portal only displays results whose locations are specified by file paths, either as relative URIs or as absolute URIs that use the 'file' scheme."
                 }
               },
               "defaultConfiguration": {
@@ -52,7 +52,7 @@
             "id": "Error_Default",
             "arguments": [
               "runs[0].results[0].locations[0].physicalLocation.artifactLocation.uri",
-              "https"
+              "https://www.example.com/code/file.cs"
             ]
           },
           "locations": [

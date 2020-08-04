@@ -425,7 +425,7 @@ Semantics: Assuming the reader of the log file (an end user or another tool) has
     <value>The GitHub Developer Security Portal limits the amount of information it displays. There are limits on the number of runs per log file, rules per run, results per run, locations per result, code flows per result, and steps per code flow. You can provide a configuration file at the root of your repository to specify higher limits.</value>
   </data>
   <data name="SARIF2021_LocationsMustBeRelativeUrisOrFilePaths_Error_Default_Text" xml:space="preserve">
-    <value>{0}: An absolute URI with the '{1}' scheme does not specify a file path. The GitHub Developer Security Portal only displays results whose locations are specified by file paths, either as relative URIs or as absolute URIs that use the 'file' scheme.</value>
+    <value>{0}: '{1}' is not a file path. The GitHub Developer Security Portal only displays results whose locations are specified by file paths, either as relative URIs or as absolute URIs that use the 'file' scheme.</value>
   </data>
   <data name="SARIF2021_LocationsMustBeRelativeUrisOrFilePaths_FullDescription_Text" xml:space="preserve">
     <value>The GitHub Developer Security Portal only displays results whose locations are specified by file paths, either as relative URIs or as absolute URIs that use the 'file' scheme.</value>
