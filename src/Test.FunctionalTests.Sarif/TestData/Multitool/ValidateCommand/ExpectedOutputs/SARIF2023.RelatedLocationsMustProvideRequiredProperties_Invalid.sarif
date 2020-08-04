@@ -18,7 +18,7 @@
               },
               "messageStrings": {
                 "Error_Default": {
-                  "text": "{0}: This related location does not have a 'message' property, so the the GitHub Developer Security Portal (DSP) will reject it. This is a bug in the DSP. You can set 'message' to an empty string if you don't have anything else to say about the location."
+                  "text": "{0}: This related location does not have a 'message' property, so the the GitHub Developer Security Portal (DSP) will reject the entire log file. This is a bug in the DSP. You can set 'message' to an empty string if you don't have anything else to say about the location."
                 }
               },
               "defaultConfiguration": {
