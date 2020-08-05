@@ -37,35 +37,37 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 return;
             }
 
+            string locationsPointer = resultPointer.AtProperty(SarifPropertyName.Locations);
             for (int i = 0; i < result.Locations.Count; i++)
             {
-                Location location = result.Locations[i];
+                ValidateLocation(result.Locations[i], locationsPointer.AtIndex(i));
+            }
+        }
 
-                Uri uri = location?.PhysicalLocation?.ArtifactLocation?.Uri;
-                if (uri == null)
-                {
-                    // Rule SARIF2017.LocationsMustProvideRequiredProperties will catch this, so don't
-                    // report it here.
-                    continue;
-                }
+        private void ValidateLocation(Location location, string locationPointer)
+        {
+            Uri uri = location?.PhysicalLocation?.ArtifactLocation?.Uri;
+            if (uri == null)
+            {
+                // Rule SARIF2017.LocationsMustProvideRequiredProperties will catch this, so don't
+                // report it here.
+                return;
+            }
 
-                if (uri.IsAbsoluteUri && uri.Scheme != "file")
-                {
-                    string uriPointer = resultPointer
-                        .AtProperty(SarifPropertyName.Locations)
-                        .AtIndex(i)
-                        .AtProperty(SarifPropertyName.PhysicalLocation)
-                        .AtProperty(SarifPropertyName.ArtifactLocation)
-                        .AtProperty(SarifPropertyName.Uri);
+            if (uri.IsAbsoluteUri && uri.Scheme != "file")
+            {
+                string uriPointer = locationPointer
+                    .AtProperty(SarifPropertyName.PhysicalLocation)
+                    .AtProperty(SarifPropertyName.ArtifactLocation)
+                    .AtProperty(SarifPropertyName.Uri);
 
-                    // {0}: '{1}' is not a file path. The GitHub Developer Security Portal only
-                    // displays results whose locations are specified by file paths, either as
-                    // relative URIs or as absolute URIs that use the 'file' scheme.
-                    LogResult(
-                        uriPointer,
-                        nameof(RuleResources.SARIF2021_LocationsMustBeRelativeUrisOrFilePaths_Error_Default_Text),
-                        uri.OriginalString);
-                }
+                // {0}: '{1}' is not a file path. The GitHub Developer Security Portal only
+                // displays results whose locations are specified by file paths, either as
+                // relative URIs or as absolute URIs that use the 'file' scheme.
+                LogResult(
+                    uriPointer,
+                    nameof(RuleResources.SARIF2021_LocationsMustBeRelativeUrisOrFilePaths_Error_Default_Text),
+                    uri.OriginalString);
             }
         }
     }
