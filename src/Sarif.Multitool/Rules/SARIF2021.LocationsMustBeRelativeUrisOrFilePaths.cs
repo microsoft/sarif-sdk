@@ -42,6 +42,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 ValidateLocation(result.Locations[i], locationsPointer.AtIndex(i));
             }
+
+            string relatedLocationsPointer = resultPointer.AtProperty(SarifPropertyName.RelatedLocations);
+            if (result.RelatedLocations?.Any() == true)
+            {
+                for (int i = 0; i < result.RelatedLocations.Count; i++)
+                {
+                    ValidateLocation(result.RelatedLocations[i], relatedLocationsPointer.AtIndex(i));
+                }
+            }
         }
 
         private void ValidateLocation(Location location, string locationPointer)

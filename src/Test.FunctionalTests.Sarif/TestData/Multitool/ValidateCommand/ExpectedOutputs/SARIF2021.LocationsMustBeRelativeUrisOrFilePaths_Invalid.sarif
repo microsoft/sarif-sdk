@@ -68,6 +68,31 @@
               }
             }
           ]
+        },
+        {
+          "ruleId": "SARIF2021",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_Default",
+            "arguments": [
+              "runs[0].results[0].relatedLocations[0].physicalLocation.artifactLocation.uri",
+              "https://www.example.com/code/file.cs"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 31,
+                  "startColumn": 63
+                }
+              }
+            }
+          ]
         }
       ],
       "columnKind": "utf16CodeUnits"

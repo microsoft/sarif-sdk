@@ -23,6 +23,15 @@
                 }
               }
             }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "https://www.example.com/code/file.cs"
+                }
+              }
+            }
           ]
         }
       ],

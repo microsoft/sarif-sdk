@@ -30,6 +30,22 @@
                 }
               }
             }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file.cs"
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///c:/code/file.cs"
+                }
+              }
+            }
           ]
         }
       ],
