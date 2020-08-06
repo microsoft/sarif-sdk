@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 
 using FluentAssertions;
 
@@ -21,10 +22,15 @@ using Newtonsoft.Json;
 using Xunit;
 using Xunit.Abstractions;
 
+using static Microsoft.CodeAnalysis.Sarif.Multitool.Rules.ReviewArraysThatExceedConfigurableDefaults;
+
 namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
 {
     public class ValidateCommandTests : FileDiffingFunctionalTests
     {
+        private const string ValidTestFileNameSuffix = "_Valid.sarif";
+        private const string InvalidTestFileNameSuffix = "_Invalid.sarif";
+
         private readonly IList<SarifValidationSkimmerBase> validationRules;
 
         public ValidateCommandTests(ITestOutputHelper outputHelper, bool testProducesSarifCurrentVersion = true) :
@@ -267,8 +273,94 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
         public void SARIF2016_FileUrisShouldBeRelative_Invalid()
             => RunInvalidTestForRule(RuleId.FileUrisShouldBeRelative);
 
-        private const string ValidTestFileNameSuffix = "_Valid.sarif";
-        private const string InvalidTestFileNameSuffix = "_Invalid.sarif";
+        [Fact]
+        public void SARIF2017_LocationsMustProvideRequiredProperties_Valid()
+            => RunValidTestForRule(RuleId.LocationsMustProvideRequiredProperties);
+
+        [Fact]
+        public void SARIF2017_LocationsMustProvideRequiredProperties_Invalid()
+            => RunInvalidTestForRule(RuleId.LocationsMustProvideRequiredProperties);
+
+        [Fact]
+        public void SARIF2018_InlineThreadFlowLocations_Valid()
+            => RunValidTestForRule(RuleId.InlineThreadFlowLocations);
+
+        [Fact]
+        public void SARIF2018_InlineThreadFlowLocations_Invalid()
+            => RunInvalidTestForRule(RuleId.InlineThreadFlowLocations);
+
+        [Fact]
+        public void SARIF2019_RegionsMustProvideRequiredProperties_Valid()
+            => RunValidTestForRule(RuleId.RegionsMustProvideRequiredProperties);
+
+        [Fact]
+        public void SARIF2019_RegionsMustProvideRequiredProperties_Invalid()
+            => RunInvalidTestForRule(RuleId.RegionsMustProvideRequiredProperties);
+
+        [Fact]
+        public void SARIF2020_ReviewArraysThatExceedConfigurableDefaults_Valid()
+            => RunArrayLimitTest(ValidTestFileNameSuffix);
+
+        [Fact]
+        public void SARIF2020_ReviewArraysThatExceedConfigurableDefaults_Invalid()
+            => RunArrayLimitTest(InvalidTestFileNameSuffix);
+
+        [Fact]
+        public void SARIF2021_LocationsMustBeRelativeUrisOrFilePaths_Valid()
+            => RunValidTestForRule(RuleId.LocationsMustBeRelativeUrisOrFilePaths);
+
+        [Fact]
+        public void SARIF2021_LocationsMustBeRelativeUrisOrFilePaths_Invalid()
+            => RunInvalidTestForRule(RuleId.LocationsMustBeRelativeUrisOrFilePaths);
+
+        [Fact]
+        public void SARIF2022_ProvideCheckoutPath_Valid()
+            => RunValidTestForRule(RuleId.ProvideCheckoutPath);
+
+        [Fact]
+        public void SARIF2022_ProvideCheckoutPath_Invalid()
+            => RunInvalidTestForRule(RuleId.ProvideCheckoutPath);
+
+        [Fact]
+        public void SARIF2023_RelatedLocationsMustProvideRequiredProperties_Valid()
+            => RunValidTestForRule(RuleId.RelatedLocationsMustProvideRequiredProperties);
+
+        [Fact]
+        public void SARIF2023_RelatedLocationsMustProvideRequiredProperties_Invalid()
+            => RunInvalidTestForRule(RuleId.RelatedLocationsMustProvideRequiredProperties);
+
+        private void RunArrayLimitTest(string testFileNameSuffix)
+        {
+            // Some of the actual limits are impractically large for testing purposes,
+            // so the following test will set smaller values.
+            int savedMaxRuns = s_arraySizeLimitDictionary[s_runsPerLogKey];
+            int savedMaxRules = s_arraySizeLimitDictionary[s_rulesPerRunKey];
+            int savedMaxResults = s_arraySizeLimitDictionary[s_resultsPerRunKey];
+            int savedMaxResultLocations = s_arraySizeLimitDictionary[s_locationsPerResultKey];
+            int savedMaxCodeFlows = s_arraySizeLimitDictionary[s_codeFlowsPerResultKey];
+            int savedMaxThreadFlowLocations = s_arraySizeLimitDictionary[s_locationsPerThreadFlowKey];
+
+            try
+            {
+                s_arraySizeLimitDictionary[s_runsPerLogKey] = 1;
+                s_arraySizeLimitDictionary[s_rulesPerRunKey] = 1;
+                s_arraySizeLimitDictionary[s_resultsPerRunKey] = 1;
+                s_arraySizeLimitDictionary[s_locationsPerResultKey] = 1;
+                s_arraySizeLimitDictionary[s_codeFlowsPerResultKey] = 1;
+                s_arraySizeLimitDictionary[s_locationsPerThreadFlowKey] = 1;
+
+                RunTestForRule(RuleId.ReviewArraysThatExceedConfigurableDefaults, testFileNameSuffix);
+            }
+            finally
+            {
+                s_arraySizeLimitDictionary[s_runsPerLogKey] = savedMaxRuns;
+                s_arraySizeLimitDictionary[s_rulesPerRunKey] = savedMaxRules;
+                s_arraySizeLimitDictionary[s_resultsPerRunKey] = savedMaxResults;
+                s_arraySizeLimitDictionary[s_locationsPerResultKey] = savedMaxResultLocations;
+                s_arraySizeLimitDictionary[s_codeFlowsPerResultKey] = savedMaxCodeFlows;
+                s_arraySizeLimitDictionary[s_locationsPerThreadFlowKey] = savedMaxThreadFlowLocations;
+            }
+        }
 
         private void RunValidTestForRule(string ruleId)
             => RunTestForRule(ruleId, ValidTestFileNameSuffix);
@@ -278,10 +370,13 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
 
         private void RunTestForRule(string ruleId, string testFileNameSuffix)
         {
-            SarifValidationSkimmerBase rule = this.validationRules.Single(vr => vr.Id == ruleId);
+            SarifValidationSkimmerBase rule = GetRuleFromId(ruleId);
             string testFileName = MakeTestFileName(rule, testFileNameSuffix);
             RunTest(testFileName);
         }
+
+        private SarifValidationSkimmerBase GetRuleFromId(string ruleId)
+            => this.validationRules.Single(vr => vr.Id == ruleId);
 
         private string MakeTestFileName(ReportingDescriptor rule, string testFileNameSuffix)
             => $"{rule.Id}.{rule.Name}{testFileNameSuffix}";
@@ -306,7 +401,7 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
 
             string[] shouldNotTransform = { "SARIF1011", "SARIF2008" };
 
-            bool updateInputsToCurrentSarif = ruleUnderTest.StartsWith("SARIF")
+            bool updateInputsToCurrentSarif = IsSarifRule(ruleUnderTest)
                 && !shouldNotTransform.Contains(ruleUnderTest);
 
             var validateOptions = new ValidateOptions
@@ -329,18 +424,25 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
             mockFileSystem.Setup(x => x.ReadAllText(inputLogFilePath)).Returns(v2LogText);
             mockFileSystem.Setup(x => x.ReadAllText(It.IsNotIn<string>(inputLogFilePath))).Returns<string>(path => File.ReadAllText(path));
             mockFileSystem.Setup(x => x.WriteAllText(It.IsAny<string>(), It.IsAny<string>()));
-            mockFileSystem.Setup(x => x.FileExists(validateOptions.ConfigurationFilePath)).Returns(true);
 
-            var validateCommand = new ValidateCommand(mockFileSystem.Object);
-
-            int returnCode = validateCommand.Run(validateOptions);
-
-            if (validateCommand.ExecutionException != null)
+            // Some rules are disabled by default, so create a configuration file that explicitly
+            // enables the rule under test.
+            using (TempFile configFile = CreateTempConfigFile(ruleUnderTest))
             {
-                Console.WriteLine(validateCommand.ExecutionException.ToString());
-            }
+                validateOptions.ConfigurationFilePath = configFile.Name;
+                mockFileSystem.Setup(x => x.FileExists(validateOptions.ConfigurationFilePath)).Returns(true);
 
-            returnCode.Should().Be(0);
+                var validateCommand = new ValidateCommand(mockFileSystem.Object);
+
+                int returnCode = validateCommand.Run(validateOptions);
+
+                if (validateCommand.ExecutionException != null)
+                {
+                    Console.WriteLine(validateCommand.ExecutionException.ToString());
+                }
+
+                returnCode.Should().Be(0);
+            }
 
             string actualLogFileContents = File.ReadAllText(actualLogFilePath);
             SarifLog actualLog = JsonConvert.DeserializeObject<SarifLog>(actualLogFileContents);
@@ -389,6 +491,52 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
             actualLog.Runs[0].OriginalUriBaseIds = null;
 
             return JsonConvert.SerializeObject(actualLog, Formatting.Indented);
+        }
+
+        private static bool IsSarifRule(string ruleId)
+            => ruleId.StartsWith("SARIF");
+
+        private TempFile CreateTempConfigFile(string ruleId)
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine("<?xml version='1.0' encoding='utf-8' ?>");
+            sb.AppendLine("<Properties>");
+
+            if (IsSarifRule(ruleId))
+            {
+                SarifValidationSkimmerBase rule = GetRuleFromId(ruleId);
+                RuleEnabledState ruleEnabledState = GetRuleEnabledState(rule);
+
+                sb.AppendLine($"  <Properties Key='{rule.Moniker}.Options'>");
+                sb.AppendLine($"    <Property Key='RuleEnabled' Value='{ruleEnabledState}' />");
+                sb.AppendLine("  </Properties>");
+            }
+
+            sb.AppendLine("</Properties>");
+
+            var tempFile = new TempFile(".xml");
+            File.WriteAllText(tempFile.Name, sb.ToString());
+            return tempFile;
+        }
+
+        private static RuleEnabledState GetRuleEnabledState(ReportingDescriptor rule)
+        {
+            FailureLevel? declaredLevel = rule.DefaultConfiguration?.Level;
+
+            if (declaredLevel.HasValue)
+            {
+                return declaredLevel.Value switch
+                {
+                    FailureLevel.Error => RuleEnabledState.Error,
+                    FailureLevel.Warning => RuleEnabledState.Warning,
+                    FailureLevel.Note => RuleEnabledState.Note,
+                    _ => throw new ArgumentException("Non-failure validation rules are not yet supported.", rule.Moniker),
+                };
+            }
+            else
+            {
+                return RuleEnabledState.Warning;
+            }
         }
 
         private IList<SarifValidationSkimmerBase> GetValidationRules()

@@ -38,6 +38,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public const string EnquoteDynamicMessageContent = "SARIF2015";
         public const string FileUrisShouldBeRelative = "SARIF2016";
 
+        // Rules required to upload SARIF files to the GitHub Developer Security Portal.
+        // These rules are disabled by default. The can be enabled by running the MultiTool
+        // with the configuration file policies/github-dsp.sarif-external-properties.
+        public const string LocationsMustProvideRequiredProperties = "SARIF2017";
+        public const string InlineThreadFlowLocations = "SARIF2018";
+        public const string RegionsMustProvideRequiredProperties = "SARIF2019";
+        public const string ReviewArraysThatExceedConfigurableDefaults = "SARIF2020";
+        public const string LocationsMustBeRelativeUrisOrFilePaths = "SARIF2021";
+        public const string ProvideCheckoutPath = "SARIF2022";
+        public const string RelatedLocationsMustProvideRequiredProperties = "SARIF2023";
+
         // TEMPLATE:
         // public const string RuleFriendlyName = "SARIFnnnn";
     }

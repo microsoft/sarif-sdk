@@ -21,6 +21,9 @@
                   "text": "{0}: The rule '{1}' does not provide a help URI. Providing a URI where users can find detailed information about the rule helps users to understand the result and how they can best address it."
                 }
               },
+              "defaultConfiguration": {
+                "level": "note"
+              },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
             }
           ]

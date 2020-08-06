@@ -1,0 +1,41 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "Sarif Functional Testing",
+          "version": "1.0"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "TEST1001",
+          "message": {
+            "text": "A location that does not specify a file path."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "https://www.example.com/code/file.cs"
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "https://www.example.com/code/file.cs"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}

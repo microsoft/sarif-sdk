@@ -47,7 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
             Region region = GetRegionFromJPointer(jPointer);
 
-            // All messages start with "In {file}, at {jPointer}, ...". Prepend the jPointer to the args.
+            // All messages start with "{jPointer}: ...". Prepend the jPointer to the args.
             string[] argsWithPointer = new string[args.Length + 1];
             Array.Copy(args, 0, argsWithPointer, 1, args.Length);
             argsWithPointer[0] = JsonPointerToJavaScript(jPointer);

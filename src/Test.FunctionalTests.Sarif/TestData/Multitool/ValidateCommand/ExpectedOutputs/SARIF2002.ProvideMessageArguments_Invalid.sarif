@@ -21,6 +21,9 @@
                   "text": "{0}: The 'message' property of this result contains a 'text' property. Consider replacing it with 'id' and 'arguments' properties. This potentially reduces the log file size, allows the message text to be improved without modifying the log file, and enables localization."
                 }
               },
+              "defaultConfiguration": {
+                "level": "note"
+              },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
             }
           ]

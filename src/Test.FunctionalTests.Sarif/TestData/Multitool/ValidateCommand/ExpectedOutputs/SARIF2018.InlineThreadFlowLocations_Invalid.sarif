@@ -1,0 +1,75 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "SARIF Functional Testing",
+          "rules": [
+            {
+              "id": "SARIF2018",
+              "name": "InlineThreadFlowLocations",
+              "shortDescription": {
+                "text": "Results that include codeFlows must specify each threadFlowLocation directly within the codeFlow, rather than relying on threadFlowLocation.index to refer to an element of the run.threadFlowLocations array."
+              },
+              "fullDescription": {
+                "text": "Results that include codeFlows must specify each threadFlowLocation directly within the codeFlow, rather than relying on threadFlowLocation.index to refer to an element of the run.threadFlowLocations array. The GitHub Developer Security Portal will not display a result that uses such threadFlowLocations."
+              },
+              "messageStrings": {
+                "Error_Default": {
+                  "text": "{0}: This 'threadFlowLocation' uses its 'index' property to refer to information in the 'run.threadFlowLocations' array. The GitHub Developer Security Portal will not display a result that includes such a 'threadFlowLocation'."
+                }
+              },
+              "defaultConfiguration": {
+                "enabled": false,
+                "level": "error"
+              },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+            }
+          ]
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF2018.InlineThreadFlowLocations_Invalid.sarif",
+            "uriBaseId": "TEST_DIR"
+          }
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "SARIF2018",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_Default",
+            "arguments": [
+              "runs[0].results[0].codeFlows[0].threadFlows[0].locations[0].index"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 33,
+                  "startColumn": 32
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}

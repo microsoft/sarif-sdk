@@ -21,6 +21,9 @@
                   "text": "{0}: This result location does not provide a 'contextRegion' property. Providing a context region enables users to see a portion of the code that surrounds the result, even if they are not enlisted in the code."
                 }
               },
+              "defaultConfiguration": {
+                "level": "note"
+              },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
             }
           ]

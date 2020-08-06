@@ -546,12 +546,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             TContext rootContext,
             IEnumerable<string> targets)
         {
-            SortedSet<string> disabledSkimmers = new SortedSet<string>();
+            var disabledSkimmers = new SortedSet<string>();
 
             foreach (Skimmer<TContext> skimmer in skimmers)
             {
-                PerLanguageOption<RuleEnabledState> ruleEnabledProperty;
-                ruleEnabledProperty = DefaultDriverOptions.CreateRuleSpecificOption(skimmer, DefaultDriverOptions.RuleEnabled);
+                PerLanguageOption<RuleEnabledState> ruleEnabledProperty =
+                    DefaultDriverOptions.CreateRuleSpecificOption(skimmer, DefaultDriverOptions.RuleEnabled);
 
                 RuleEnabledState ruleEnabled = rootContext.Policy.GetProperty(ruleEnabledProperty);
 
@@ -560,6 +560,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     disabledSkimmers.Add(skimmer.Id);
                     Warnings.LogRuleExplicitlyDisabled(rootContext, skimmer.Id);
                     RuntimeErrors |= RuntimeConditions.RuleWasExplicitlyDisabled;
+                }
+                else if (!skimmer.DefaultConfiguration.Enabled && ruleEnabled == RuleEnabledState.Default)
+                {
+                    // This skimmer is disabled by default, and the configuration file didn't mention it.
+                    // So disable it, but don't complain that the rule was explicitly disabled.
+                    disabledSkimmers.Add(skimmer.Id);
                 }
             }
 

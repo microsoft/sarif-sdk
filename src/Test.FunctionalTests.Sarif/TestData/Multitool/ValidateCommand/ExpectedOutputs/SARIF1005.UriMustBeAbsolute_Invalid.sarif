@@ -21,6 +21,9 @@
                   "text": "{0}: The value of this property is required to be an absolute URI, but '{1}' is a relative URI reference."
                 }
               },
+              "defaultConfiguration": {
+                "level": "error"
+              },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
             }
           ]
