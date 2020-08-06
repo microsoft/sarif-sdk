@@ -12,6 +12,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public Skimmer()
         {
             this.Options = new Dictionary<string, string>();
+            this.DefaultConfiguration = new ReportingConfiguration
+            {
+                Level = this.DefaultLevel,
+                Enabled = this.EnabledByDefault
+            };
         }
 
         private IDictionary<string, MultiformatMessageString> multiformatMessageStrings;
@@ -20,7 +25,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         protected virtual IEnumerable<string> MessageResourceNames => throw new NotImplementedException();
 
-        virtual public FailureLevel DefaultLevel { get { return FailureLevel.Warning; } }
+        virtual public FailureLevel DefaultLevel => FailureLevel.Warning;
+
+        virtual public bool EnabledByDefault => true;
 
         public override IDictionary<string, MultiformatMessageString> MessageStrings
         {

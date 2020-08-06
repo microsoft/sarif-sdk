@@ -27,7 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override void Analyze(SarifLog log, string logPointer)
         {
-            if (!Context.InputLogToken.HasProperty("$schema"))
+            if (!Context.InputLogToken.HasProperty(SarifPropertyName.Schema))
             {
                 // {0}: The SARIF log file does not contain a '$schema' property. Add a '$schema'
                 // property that refers to the final, OASIS standard version of the SARIF 2.1.0

@@ -43,7 +43,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override void Analyze(ArtifactLocation artifactLocation, string artifactLocationPointer)
         {
-            if (artifactLocation.UriBaseId != null && artifactLocation.Uri.IsAbsoluteUri)
+            if (artifactLocation.UriBaseId != null && artifactLocation.Uri?.IsAbsoluteUri == true)
             {
                 // {0}: This 'artifactLocation' object has a 'uriBaseId' property '{1}', but its
                 // 'uri' property '{2}' is an absolute URI. Since the purpose of 'uriBaseId' is

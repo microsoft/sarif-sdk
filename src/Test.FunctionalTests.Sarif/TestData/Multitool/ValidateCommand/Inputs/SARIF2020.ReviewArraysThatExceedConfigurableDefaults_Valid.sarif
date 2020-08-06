@@ -1,0 +1,63 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "Sarif Functional Testing",
+          "rules": [
+            {
+              "id": "TEST1001",
+              "messageStrings": {
+                "Default": {
+                  "text": "Message."
+                }
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "TEST1001",
+          "message": {
+            "id": "Default."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file.cs"
+                }
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file.cs"
+                          },
+                          "region": {
+                            "startLine": 42
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}

@@ -1,0 +1,206 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "SARIF Functional Testing",
+          "rules": [
+            {
+              "id": "SARIF2017",
+              "name": "LocationsMustProvideRequiredProperties",
+              "shortDescription": {
+                "text": "Each result location must provide the property 'physicalLocation.artifactLocation.uri'."
+              },
+              "fullDescription": {
+                "text": "Each result location must provide the property 'physicalLocation.artifactLocation.uri'. The GitHub Developer Security Portal will not display a result whose location does not provide the URI of the artifact that contains the result."
+              },
+              "messageStrings": {
+                "Error_NoLocationsArray": {
+                  "text": "{0}: The 'locations' property is absent. The GitHub Developer Security Portal will not display a result unless it provides a location that specifies the URI of the artifact that contains the result."
+                },
+                "Error_EmptyLocationsArray": {
+                  "text": "{0}: The 'locations' array is empty. The GitHub Developer Security Portal will not display a result unless it provides a location that specifies the URI of the artifact that contains the result."
+                },
+                "Error_MissingLocationProperty": {
+                  "text": "{0}: '{1}' is absent. The GitHub Developer Security Portal will not display a result location that does not provide the URI of the artifact that contains the result."
+                }
+              },
+              "defaultConfiguration": {
+                "enabled": false,
+                "level": "error"
+              },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+            }
+          ]
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF2017.LocationsMustProvideRequiredProperties_Invalid.sarif",
+            "uriBaseId": "TEST_DIR"
+          }
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "SARIF2017",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_NoLocationsArray",
+            "arguments": [
+              "runs[0].results[0]",
+              "locations"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 20,
+                  "startColumn": 9
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF2017",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_EmptyLocationsArray",
+            "arguments": [
+              "runs[0].results[1].locations"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 31,
+                  "startColumn": 24
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF2017",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingLocationProperty",
+            "arguments": [
+              "runs[0].results[2].locations[0]",
+              "physicalLocation"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 39,
+                  "startColumn": 13
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF2017",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingLocationProperty",
+            "arguments": [
+              "runs[0].results[2].locations[1].physicalLocation",
+              "artifactLocation"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 50,
+                  "startColumn": 35
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF2017",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingLocationProperty",
+            "arguments": [
+              "runs[0].results[2].locations[2].physicalLocation.artifactLocation",
+              "uri"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 61,
+                  "startColumn": 37
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF2017",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingLocationProperty",
+            "arguments": [
+              "runs[0].results[2].relatedLocations[0].physicalLocation.artifactLocation",
+              "uri"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 73,
+                  "startColumn": 37
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}

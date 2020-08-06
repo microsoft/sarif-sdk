@@ -24,6 +24,9 @@
                   "text": "{0}: This '{1}' object contains a property '{2}' with value {3}, but '{4}' has fewer than {5} elements. An index-valued properties must be valid for the array that it refers to."
                 }
               },
+              "defaultConfiguration": {
+                "level": "error"
+              },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
             }
           ]
