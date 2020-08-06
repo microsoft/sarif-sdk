@@ -23,7 +23,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         private MergeOptions _options;
         private long _filesToProcessCount;
-        private long _filesProcessedCount;
         private Channel<string> _logLoadChannel;
         private Channel<SarifLog> _mergeLogsChannel;
         private readonly Dictionary<string, Run> _ruleIdToRunsMap;
@@ -76,8 +75,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 }
 
                 FindFilesAsync().Wait();
-                Task.WhenAll(workers).Wait();
                 MergeSarifLogsAsync().Wait();
+                Task.WhenAll(workers).Wait();
 
                 foreach (string key in _idToSarifLogMap.Keys)
                 {
@@ -231,11 +230,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             {
                 new FixupVisitor().VisitSarifLog(sarifLog);
             }
-
+            
             _mergeLogsChannel.Writer.WriteAsync(sarifLog);
-            Interlocked.Increment(ref _filesProcessedCount);
+            Interlocked.Decrement(ref _filesToProcessCount);
 
-            if (_filesToProcessCount == _filesProcessedCount)
+            if (_filesToProcessCount == 0)
             {
                 _mergeLogsChannel.Writer.Complete();
             }
