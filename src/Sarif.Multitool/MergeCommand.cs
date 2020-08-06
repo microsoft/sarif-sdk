@@ -257,7 +257,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 {
                     directory = @".\";
                 }
-
+                
                 foreach (string file in Directory.EnumerateFiles(directory, filter, searchOption))
                 {
                     Interlocked.Increment(ref _filesToProcessCount);
