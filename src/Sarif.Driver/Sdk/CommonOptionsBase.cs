@@ -57,7 +57,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public SarifVersion SarifOutputVersion { get; set; }
 
         [Option(
-            't',
             "threads",
             HelpText = "A count of threads that should be used for multithreaded operations.")]
         public int Threads { get; set; }
