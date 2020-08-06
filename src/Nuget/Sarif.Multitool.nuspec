@@ -55,7 +55,9 @@
           target="tools\netcoreapp2.1\any"
           />
 
-    <file src="src\ReleaseHistory.md" />        
+    <file src="src\ReleaseHistory.md" />
+    <file src="policies\github-dsp.config.xml" target="policies" />
+    <file src="policies\github-dsp.config.sarif-external-properties" target="policies" />
     <file src="src\Sarif.Multitool\**\*.cs" target="src" />
   </files>
 </package>

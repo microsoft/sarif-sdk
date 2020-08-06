@@ -1,10 +1,8 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 ## **v2.3.4** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.4) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.4) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.4) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.4)
-* BUGFIX: Various Fortify FPR converter improvements (such as improve variable expansion in result messages).
 * COMMAND-LINE BREAKING: Change `merge` command output directory argument name to `output-directory`.
-
-## **v2.3.4** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.4) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.4) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.4) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.4)
 * FEATURE: Add analysis rules appropriate for SARIF files that are to be uploaded to the GitHub Developer Security Portal.
+* BUGFIX: Various Fortify FPR converter improvements (such as improve variable expansion in result messages).
 * BUGFIX: The validator no longer reports `SARIF2010.ProvideCodeSnippets` if embedded file content for the specified artifact is present. [#2003](https://github.com/microsoft/sarif-sdk/issues/2003)
 
 ## **v2.3.3** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.3) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.3) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.3) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.3)
