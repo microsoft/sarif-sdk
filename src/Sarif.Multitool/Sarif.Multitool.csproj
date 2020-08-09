@@ -33,10 +33,6 @@
 
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
 
-  <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.1;netcoreapp2.1;net461</TargetFrameworks>
-  </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="CommandLineParser" Version="2.7.82" />
     <PackageReference Include="Microsoft.Json.Pointer" Version="1.1.1" />
