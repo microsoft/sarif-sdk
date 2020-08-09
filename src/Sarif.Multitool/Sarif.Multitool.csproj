@@ -21,9 +21,16 @@
     <PublishReadyToRun Condition="'$(RuntimeIdentifier)' == 'win-x64'">true</PublishReadyToRun>   
   </PropertyGroup>
 
-  <!-- PackAsTool is supported/recommended for .NET Core >= 2.1 -->
-  <PropertyGroup Condition="'$(TargetFramework)' != 'net461'">
-    <PackAsTool>true</PackAsTool>
+  <PropertyGroup Label="Packaging">
+    <!--
+    Without this property setting, the id of the Dependency package created from this project file
+    would match the assembly name, "Sarif.Multitool". But we publish a DotnetTool package of that
+    name (by way of a .nuspec file), so we must choose a different name for the Dependency package.
+    -->
+    <PackageId>Sarif.Multitool.Library</PackageId>
+
+    <!-- Place content files at the root of the package. -->
+    <ContentTargetFolders>.</ContentTargetFolders>
   </PropertyGroup>
 
   <PropertyGroup Label="AssemblyAttributes">
