@@ -1,0 +1,103 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "SARIF Functional Testing",
+          "rules": [
+            {
+              "id": "SARIF2025",
+              "name": "ProvideRuleFriendlyName",
+              "shortDescription": {
+                "text": "Each analysis rule should provide a \"friendly name\" in its 'name' property, in addition to the stable, opaque identifier in its 'id' property."
+              },
+              "fullDescription": {
+                "text": "Each analysis rule should provide a \"friendly name\" in its 'name' property, in addition to the stable, opaque identifier in its 'id' property. This helps users see at a glance the purpose of the analysis rule. For uniformity of experience across all tools that produce SARIF, the friendly name should be a single Pascal identifier, for example, 'ProvideRuleFriendlyName'."
+              },
+              "messageStrings": {
+                "None_FriendlyNameMissing": {
+                  "text": "{0}: This rule does not provide a \"friendly name\" in its 'name' property. The friendly name should be a single Pascal identifier, for example, 'ProvideRuleFriendlyName', that helps users see at a glance the purpose of the analysis rule."
+                },
+                "None_FriendlyNameNotAPascalIdentifier": {
+                  "text": "{0}: '{1}' is not a Pascal identifier. For uniformity ofexperience across all tools that produce SARIF, the friendly name should be a single Pascal identifier, for example, 'ProvideRuleFriendlyName'."
+                }
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+            }
+          ]
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF2025.ProvideRuleFriendlyName_Invalid.sarif",
+            "uriBaseId": "TEST_DIR"
+          }
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "SARIF2025",
+          "ruleIndex": 0,
+          "level": "note",
+          "message": {
+            "id": "None_FriendlyNameMissing",
+            "arguments": [
+              "runs[0].tool.driver.rules[0]",
+              "TEST0001"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 11,
+                  "startColumn": 13
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF2025",
+          "ruleIndex": 0,
+          "level": "note",
+          "message": {
+            "id": "None_FriendlyNameNotAPascalIdentifier",
+            "arguments": [
+              "runs[0].tool.driver.rules[1].name",
+              "This isn't pascal case"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 16,
+                  "startColumn": 46
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}
