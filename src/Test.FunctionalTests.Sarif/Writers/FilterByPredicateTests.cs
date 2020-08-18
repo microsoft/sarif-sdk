@@ -3,13 +3,12 @@
 
 using System;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
-using Microsoft.CodeAnalysis.Sarif.Writers;
 using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
 using Newtonsoft.Json;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Partitioning
+namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
     public class FilterByPredicateTests : FileDiffingFunctionalTests
     {

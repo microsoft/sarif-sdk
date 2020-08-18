@@ -11,7 +11,6 @@ using System.Text;
 using FluentAssertions;
 
 using Microsoft.CodeAnalysis.Sarif.Driver;
-using Microsoft.CodeAnalysis.Sarif.Multitool;
 using Microsoft.CodeAnalysis.Sarif.Multitool.Rules;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
 
@@ -24,7 +23,7 @@ using Xunit.Abstractions;
 
 using static Microsoft.CodeAnalysis.Sarif.Multitool.Rules.ReviewArraysThatExceedConfigurableDefaults;
 
-namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
+namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public class ValidateCommandTests : FileDiffingFunctionalTests
     {

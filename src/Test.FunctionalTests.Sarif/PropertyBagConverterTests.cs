@@ -7,7 +7,7 @@ using FluentAssertions;
 using Newtonsoft.Json;
 using Xunit;
 
-namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests
+namespace Microsoft.CodeAnalysis.Sarif
 {
     public class PropertyBagConverterTests
     {
