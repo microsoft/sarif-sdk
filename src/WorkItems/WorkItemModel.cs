@@ -11,7 +11,7 @@ namespace Microsoft.WorkItems
         // TODO: Provide a meaningful representation of work item state in the model.
         //       https://github.com/microsoft/sarif-sdk/issues/1758
 
-        public Guid Guid { get; set; }
+        public Guid Id { get; set; }
 
         public string OwnerOrAccount { get; set; }
 
