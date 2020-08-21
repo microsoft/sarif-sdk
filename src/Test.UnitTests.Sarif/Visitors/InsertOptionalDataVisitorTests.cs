@@ -26,12 +26,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         protected override string ConstructTestOutputFromInputResource(string inputResourceName, object parameter)
         {
-            PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(
+            SarifLog actualLog = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(
                 GetResourceText(inputResourceName),
                 formatting: Formatting.Indented,
-                out string transformedLog);
-
-            SarifLog actualLog = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(transformedLog, formatting: Formatting.None, out transformedLog);
+                updatedLog: out _);
 
             // For CoreTests only - this code rewrites the log persisted URI to match the test environment
             if (inputResourceName == "Inputs.CoreTests-Relative.sarif")
@@ -74,19 +72,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 visitor.Visit(actualLog.Runs[0]);
             }
 
-            // Verify and remove Guids, because they'll vary with every run and can't be compared to a fixed expected output
+            // Verify and remove Guids, because they'll vary with every run and can't be compared to a fixed expected output.
             if (_currentOptionallyEmittedData.HasFlag(OptionallyEmittedData.Guids))
             {
                 for (int i = 0; i < actualLog.Runs[0].Results.Count; ++i)
                 {
                     Result result = actualLog.Runs[0].Results[i];
-                    if (string.IsNullOrEmpty(result.Guid))
-                    {
-                        Assert.True(false, $"Results[{i}] had no Guid assigned, but OptionallyEmittedData.Guids flag was set.");
-                    }
+                    result.Guid.Should().NotBeNullOrEmpty(because: "OptionallyEmittedData.Guids flag was set");
 
                     result.Guid = null;
                 }
+            }
+
+            // Ignore current branch and commit id, because they'll vary with every run.
+            if (_currentOptionallyEmittedData.HasFlag(OptionallyEmittedData.VersionControlInformation))
+            {
+                VersionControlDetails versionControlDetails = actualLog.Runs[0].VersionControlProvenance[0];
+
+                versionControlDetails.Branch.Should().NotBeNullOrEmpty(because: "OptionallyEmittedData.VersionControlInformation flag was set");
+                versionControlDetails.Branch = null;
+
+                versionControlDetails.RevisionId.Should().NotBeNullOrEmpty(because: "OptionallyEmittedData.VersionControlInformation flag was set");
+                versionControlDetails.RevisionId = null;
             }
 
             return JsonConvert.SerializeObject(actualLog, Formatting.Indented);
@@ -147,6 +154,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             // NOTE: Test adding Guids, but validation is in test code, not diff, as Guids vary with each run.
             RunTest("CoreTests-Relative.sarif", OptionallyEmittedData.Guids);
+        }
+
+        [Fact]
+        public void InsertOptionalDataVisitor_PersistsVersionControlInformation()
+        {
+            RunTest("CoreTests-Relative.sarif", OptionallyEmittedData.VersionControlInformation);
         }
 
         [Fact]

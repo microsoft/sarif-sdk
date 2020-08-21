@@ -20,6 +20,7 @@
     <None Remove="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests-Absolute_TextFiles.sarif" />
     <None Remove="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests-Relative_All.sarif" />
     <None Remove="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests-Relative_Guids.sarif" />
+    <None Remove="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests-Relative_VersionControlInformation.sarif" />
     <None Remove="TestData\InsertOptionalDataVisitor\Inputs\CoreTests-Absolute.sarif" />
     <None Remove="TestData\JsonConverters\UriConverterTests.json" />
     <None Remove="TestData\Map\Sample.json" />
@@ -73,6 +74,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests-Relative_VersionControlInformation.sarif" />
     <EmbeddedResource Include="TestData\Readers\elfie-arriba-utf8-bom.sarif" />
     <EmbeddedResource Include="TestData\Baseline\elfie-arriba.sarif" />
     <EmbeddedResource Include="TestData\Baseline\SuppressionTestCurrent.sarif" />
