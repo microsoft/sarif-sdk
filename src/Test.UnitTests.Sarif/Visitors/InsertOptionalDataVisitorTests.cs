@@ -31,7 +31,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 formatting: Formatting.Indented,
                 updatedLog: out _);
 
-            // For CoreTests only - this code rewrites the log persisted URI to match the test environment
+            // Some of the tests operate on SARIF files that mention the absolute path of the file
+            // that was "analyzed" (InsertOptionalDataVisitor.txt). That path depends on the repo
+            // root, and so can vary depending on the machine where the tests are run. To avoid
+            // this problem, both the input files and the expected output files contain a fixed
+            // string "REPLACED_AT_TEST_RUNTIME" in place of the directory portion of the path.
+            // But some of the tests must read the contents of the analyzed file (for instance,
+            // when the test requires snippets or file hashes to be inserted). Those test require
+            // the actual path. Therefore we replace the fixed string with the actual path, execute
+            // the visitor, and then restore the fixed string so the actual output can be compared
+            // to the expected output.
             if (inputResourceName == "Inputs.CoreTests-Relative.sarif")
             {
                 Uri originalUri = actualLog.Runs[0].OriginalUriBaseIds["TESTROOT"].Uri;
