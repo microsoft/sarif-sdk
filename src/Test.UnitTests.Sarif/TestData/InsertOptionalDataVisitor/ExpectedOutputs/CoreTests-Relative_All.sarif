@@ -66,16 +66,16 @@
       ],
       "versionControlProvenance": [
         {
-          "repositoryUri": "https://github.com/microsoft/sarif-sdk",
+          "repositoryUri": "https://REMOTE_URI",
           "mappedTo": {
-            "uri": "file:///REPLACED_AT_TEST_RUNTIME",
+            "uri": "file:///ENLISTMENT_ROOT",
             "index": 1
           }
         }
       ],
       "originalUriBaseIds": {
         "TESTROOT": {
-          "uri": "file:///REPLACED_AT_TEST_RUNTIME/src/Test.UnitTests.Sarif/TestData/"
+          "uri": "file:///ENLISTMENT_ROOT/src/Test.UnitTests.Sarif/TestData/"
         }
       },
       "artifacts": [
@@ -95,7 +95,7 @@
         },
         {
           "location": {
-            "uri": "file:///REPLACED_AT_TEST_RUNTIME"
+            "uri": "file:///ENLISTMENT_ROOT"
           }
         }
       ],

@@ -31,27 +31,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 formatting: Formatting.Indented,
                 updatedLog: out _);
 
+            // Some of the tests operate on SARIF files that mention the absolute path of the file
+            // that was "analyzed" (InsertOptionalDataVisitor.txt). That path depends on the repo
+            // root, and so can vary depending on the machine where the tests are run. To avoid
+            // this problem, both the input files and the expected output files contain a fixed
+            // string "ENLISTMENT_ROOT" in place of the directory portion of the path. But some
+            // of the tests must read the contents of the analyzed file (for instance, when the
+            // test requires snippets or file hashes to be inserted). Those test require the actual
+            // path. Therefore we replace the fixed string with the actual path, execute the
+            // visitor, and then restore the fixed string so the actual output can be compared
+            // to the expected output.
             string currentDirectory = Environment.CurrentDirectory;
             string repoRoot = currentDirectory
                 .Substring(0, currentDirectory.IndexOf(@"\bld\"))
                 .Replace('\\', '/');
 
-            // Some of the tests operate on SARIF files that mention the absolute path of the file
-            // that was "analyzed" (InsertOptionalDataVisitor.txt). That path depends on the repo
-            // root, and so can vary depending on the machine where the tests are run. To avoid
-            // this problem, both the input files and the expected output files contain a fixed
-            // string "REPLACED_AT_TEST_RUNTIME" in place of the directory portion of the path.
-            // But some of the tests must read the contents of the analyzed file (for instance,
-            // when the test requires snippets or file hashes to be inserted). Those test require
-            // the actual path. Therefore we replace the fixed string with the actual path, execute
-            // the visitor, and then restore the fixed string so the actual output can be compared
-            // to the expected output.
             if (inputResourceName == "Inputs.CoreTests-Relative.sarif")
             {
                 Uri originalUri = actualLog.Runs[0].OriginalUriBaseIds["TESTROOT"].Uri;
                 string uriString = originalUri.ToString();
 
-                uriString = uriString.Replace("REPLACED_AT_TEST_RUNTIME", repoRoot);
+                uriString = uriString.Replace("ENLISTMENT_ROOT", repoRoot);
 
                 actualLog.Runs[0].OriginalUriBaseIds["TESTROOT"] = new ArtifactLocation { Uri = new Uri(uriString, UriKind.Absolute) };
 
@@ -66,7 +66,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 Uri originalUri = actualLog.Runs[0].Artifacts[0].Location.Uri;
                 string uriString = originalUri.ToString();
 
-                uriString = uriString.Replace("REPLACED_AT_TEST_RUNTIME", repoRoot);
+                uriString = uriString.Replace("ENLISTMENT_ROOT", repoRoot);
 
                 actualLog.Runs[0].Artifacts[0].Location = new ArtifactLocation { Uri = new Uri(uriString, UriKind.Absolute) };
 
@@ -94,11 +94,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 }
             }
 
-            // Ignore current branch and commit id, because they'll vary with every run.
             if (_currentOptionallyEmittedData.HasFlag(OptionallyEmittedData.VersionControlInformation))
             {
                 VersionControlDetails versionControlDetails = actualLog.Runs[0].VersionControlProvenance[0];
 
+                // Verify and replace the mapped directory (enlistment root), because it varies
+                // from machine to machine.
+                var mappedUri = new Uri(repoRoot, UriKind.Absolute);
+                versionControlDetails.MappedTo.Uri.Should().Be(mappedUri);
+                versionControlDetails.MappedTo.Uri = new Uri("file:///ENLISTMENT_ROOT");
+
+                // Verify and replace the remote repo URI, because it would be different in a fork.
+                var gitInformation = new GitInformation();
+                Uri remoteUri = gitInformation.GetRemoteUri(repoRoot);
+
+                versionControlDetails.RepositoryUri.Should().Be(remoteUri);
+                versionControlDetails.RepositoryUri = new Uri("https://REMOTE_URI");
+
+                // Verify and remove branch and revision id, because they vary from run to run.
                 versionControlDetails.Branch.Should().NotBeNullOrEmpty(because: "OptionallyEmittedData.VersionControlInformation flag was set");
                 versionControlDetails.Branch = null;
 
