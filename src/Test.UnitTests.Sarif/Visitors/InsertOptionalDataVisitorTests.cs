@@ -18,6 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
     public class InsertOptionalDataVisitorTests : FileDiffingUnitTests, IClassFixture<DeletesOutputsDirectoryOnClassInitializationFixture>
     {
+        private const string EnlistmentRoot = "ENLISTMENT_ROOT";
         private OptionallyEmittedData _currentOptionallyEmittedData;
 
         public InsertOptionalDataVisitorTests(ITestOutputHelper outputHelper, DeletesOutputsDirectoryOnClassInitializationFixture _) : base(outputHelper)
@@ -42,7 +43,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             // visitor, and then restore the fixed string so the actual output can be compared
             // to the expected output.
             string currentDirectory = Environment.CurrentDirectory;
-            string repoRoot = currentDirectory
+            string enlistmentRoot = currentDirectory
                 .Substring(0, currentDirectory.IndexOf(@"\bld\"))
                 .Replace('\\', '/');
 
@@ -51,7 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 Uri originalUri = actualLog.Runs[0].OriginalUriBaseIds["TESTROOT"].Uri;
                 string uriString = originalUri.ToString();
 
-                uriString = uriString.Replace("ENLISTMENT_ROOT", repoRoot);
+                uriString = uriString.Replace(EnlistmentRoot, enlistmentRoot);
 
                 actualLog.Runs[0].OriginalUriBaseIds["TESTROOT"] = new ArtifactLocation { Uri = new Uri(uriString, UriKind.Absolute) };
 
@@ -66,7 +67,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 Uri originalUri = actualLog.Runs[0].Artifacts[0].Location.Uri;
                 string uriString = originalUri.ToString();
 
-                uriString = uriString.Replace("ENLISTMENT_ROOT", repoRoot);
+                uriString = uriString.Replace(EnlistmentRoot, enlistmentRoot);
 
                 actualLog.Runs[0].Artifacts[0].Location = new ArtifactLocation { Uri = new Uri(uriString, UriKind.Absolute) };
 
@@ -100,13 +101,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 // Verify and replace the mapped directory (enlistment root), because it varies
                 // from machine to machine.
-                var mappedUri = new Uri(repoRoot, UriKind.Absolute);
+                var mappedUri = new Uri(enlistmentRoot, UriKind.Absolute);
                 versionControlDetails.MappedTo.Uri.Should().Be(mappedUri);
-                versionControlDetails.MappedTo.Uri = new Uri("file:///ENLISTMENT_ROOT");
+                versionControlDetails.MappedTo.Uri = new Uri($"file:///{EnlistmentRoot}");
+
+                // When OptionallyEmittedData includes any file-related content, the visitor inserts
+                // an artifact that points to the enlistment root. So we have to verify and adjust
+                // that as well.
+                IList<Artifact> artifacts = actualLog.Runs[0].Artifacts;
+                if (artifacts.Count >= 2)
+                {
+                    artifacts[1].Location.Uri.Should().Be(enlistmentRoot);
+                    artifacts[1].Location.Uri = new Uri($"file:///{EnlistmentRoot}");
+                }
 
                 // Verify and replace the remote repo URI, because it would be different in a fork.
                 var gitInformation = new GitInformation();
-                Uri remoteUri = gitInformation.GetRemoteUri(repoRoot);
+                Uri remoteUri = gitInformation.GetRemoteUri(enlistmentRoot);
 
                 versionControlDetails.RepositoryUri.Should().Be(remoteUri);
                 versionControlDetails.RepositoryUri = new Uri("https://REMOTE_URI");
