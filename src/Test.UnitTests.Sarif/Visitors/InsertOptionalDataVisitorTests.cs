@@ -31,6 +31,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 formatting: Formatting.Indented,
                 updatedLog: out _);
 
+            string currentDirectory = Environment.CurrentDirectory;
+            string repoRoot = currentDirectory
+                .Substring(0, currentDirectory.IndexOf(@"\bld\"))
+                .Replace('\\', '/');
+
             // Some of the tests operate on SARIF files that mention the absolute path of the file
             // that was "analyzed" (InsertOptionalDataVisitor.txt). That path depends on the repo
             // root, and so can vary depending on the machine where the tests are run. To avoid
@@ -46,9 +51,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 Uri originalUri = actualLog.Runs[0].OriginalUriBaseIds["TESTROOT"].Uri;
                 string uriString = originalUri.ToString();
 
-                string currentDirectory = Environment.CurrentDirectory;
-                currentDirectory = currentDirectory.Substring(0, currentDirectory.IndexOf(@"\bld\"));
-                uriString = uriString.Replace("REPLACED_AT_TEST_RUNTIME", currentDirectory);
+                uriString = uriString.Replace("REPLACED_AT_TEST_RUNTIME", repoRoot);
 
                 actualLog.Runs[0].OriginalUriBaseIds["TESTROOT"] = new ArtifactLocation { Uri = new Uri(uriString, UriKind.Absolute) };
 
@@ -63,9 +66,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 Uri originalUri = actualLog.Runs[0].Artifacts[0].Location.Uri;
                 string uriString = originalUri.ToString();
 
-                string currentDirectory = Environment.CurrentDirectory;
-                currentDirectory = currentDirectory.Substring(0, currentDirectory.IndexOf(@"\bld\"));
-                uriString = uriString.Replace("REPLACED_AT_TEST_RUNTIME", currentDirectory);
+                uriString = uriString.Replace("REPLACED_AT_TEST_RUNTIME", repoRoot);
 
                 actualLog.Runs[0].Artifacts[0].Location = new ArtifactLocation { Uri = new Uri(uriString, UriKind.Absolute) };
 
