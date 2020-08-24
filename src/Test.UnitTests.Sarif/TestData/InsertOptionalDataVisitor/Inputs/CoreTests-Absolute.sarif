@@ -65,7 +65,7 @@
       "artifacts": [
         {
           "location": {
-            "uri": "file:///ENLISTMENT_ROOT/src/Test.UnitTests.Sarif/TestData/InsertOptionalDataVisitor/InsertOptionalDataVisitor.txt"
+            "uri": "file:///REPLACED_AT_TEST_RUNTIME/src/Test.UnitTests.Sarif/TestData/InsertOptionalDataVisitor/InsertOptionalDataVisitor.txt"
           }
         }
       ],

@@ -66,7 +66,7 @@
       ],
       "originalUriBaseIds": {
         "TESTROOT": {
-          "uri": "file:///ENLISTMENT_ROOT/src/Test.UnitTests.Sarif/TestData/"
+          "uri": "file:///REPLACED_AT_TEST_RUNTIME/src/Test.UnitTests.Sarif/TestData/"
         }
       },
       "artifacts": [

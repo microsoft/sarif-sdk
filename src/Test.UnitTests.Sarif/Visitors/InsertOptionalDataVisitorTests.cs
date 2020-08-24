@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
     public class InsertOptionalDataVisitorTests : FileDiffingUnitTests, IClassFixture<DeletesOutputsDirectoryOnClassInitializationFixture>
     {
-        private const string EnlistmentRoot = "ENLISTMENT_ROOT";
+        private const string EnlistmentRoot = "REPLACED_AT_TEST_RUNTIME";
         private OptionallyEmittedData _currentOptionallyEmittedData;
 
         public InsertOptionalDataVisitorTests(ITestOutputHelper outputHelper, DeletesOutputsDirectoryOnClassInitializationFixture _) : base(outputHelper)
@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             // that was "analyzed" (InsertOptionalDataVisitor.txt). That path depends on the repo
             // root, and so can vary depending on the machine where the tests are run. To avoid
             // this problem, both the input files and the expected output files contain a fixed
-            // string "ENLISTMENT_ROOT" in place of the directory portion of the path. But some
+            // string "REPLACED_AT_TEST_RUNTIME" in place of the directory portion of the path. But some
             // of the tests must read the contents of the analyzed file (for instance, when the
             // test requires snippets or file hashes to be inserted). Those test require the actual
             // path. Therefore we replace the fixed string with the actual path, execute the

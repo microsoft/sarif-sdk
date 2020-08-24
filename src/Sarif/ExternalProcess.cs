@@ -40,7 +40,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             psi.WindowStyle = ProcessWindowStyle.Hidden;
 
             using (Process process = Process.Start(psi))
-            using (ManualResetEvent mreOut = new ManualResetEvent(false), mreErr = new ManualResetEvent(false))
             {
                 StdErr = new ConsoleStreamCapture();
                 StdOut = stdOut ?? new ConsoleStreamCapture();
