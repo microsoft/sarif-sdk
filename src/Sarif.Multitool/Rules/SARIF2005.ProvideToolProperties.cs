@@ -41,6 +41,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         public override FailureLevel DefaultLevel => FailureLevel.Warning;
 
+        // This rule configuration parameter specifies which of the three version-related properties
+        // satisfy the requirement that the tool provide version information. By default, any of
+        // them is acceptable.
+        public static PerLanguageOption<StringSet> AcceptableVersionProperties =>
+            new PerLanguageOption<StringSet>(
+                AnalyzerMoniker, nameof(AcceptableVersionProperties), defaultValue: () => DefaultAcceptableVersionProperties);
+
+        private static readonly string AnalyzerMoniker = MakeAnalyzerMoniker(RuleId.ProvideCheckoutPath, nameof(RuleId.ProvideCheckoutPath));
+
+        // We instantiate this object just so we can access its property names below.
+        private static readonly ToolComponent s_dummyToolComponent = new ToolComponent();
+
+        private static StringSet DefaultAcceptableVersionProperties =>
+            new StringSet(
+                new string[]
+                {
+                    nameof(s_dummyToolComponent.Version),
+                    nameof(s_dummyToolComponent.SemanticVersion),
+                    nameof(s_dummyToolComponent.DottedQuadFileVersion)
+                }
+            );
+
         private static readonly Regex s_versionRegex = new Regex(@"^\d+.*", RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
         protected override void Analyze(Tool tool, string toolPointer)
@@ -74,16 +96,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 }
             }
 
-            if (string.IsNullOrWhiteSpace(toolComponent.Version) && string.IsNullOrWhiteSpace(toolComponent.SemanticVersion) && string.IsNullOrWhiteSpace(toolComponent.DottedQuadFileVersion))
+            StringSet acceptableVersionProperties = this.Context.Policy.GetProperty(AcceptableVersionProperties);
+            bool toolDriverProvidesVersion =
+                (acceptableVersionProperties.Contains(nameof(toolComponent.Version)) && !string.IsNullOrWhiteSpace(toolComponent.Version))
+                ||
+                (acceptableVersionProperties.Contains(nameof(toolComponent.SemanticVersion)) && !string.IsNullOrWhiteSpace(toolComponent.SemanticVersion))
+                ||
+                (acceptableVersionProperties.Contains(nameof(toolComponent.DottedQuadFileVersion)) && !string.IsNullOrWhiteSpace(toolComponent.DottedQuadFileVersion));
+
+            if (!toolDriverProvidesVersion)
             {
-                // {0}: The tool '{1}' provides neither a 'version' property nor a 'semanticVersion'
-                // property. Providing a version enables the log file consumer to determine whether
-                // the file was produced by an up to date version, and to avoid accidentally comparing
-                // log files produced by different tool versions.
+                // {0}: The tool '{1}' does not provide any of the version-related properties
+                // '{2}'. Providing version information enables the log file consumer to
+                // determine whether the file was produced by an up to date version, and to
+                // avoid accidentally comparing log files produced by different tool versions.
                 LogResult(
                     toolDriverPointer,
                     nameof(RuleResources.SARIF2005_ProvideToolProperties_Warning_ProvideToolVersion_Text),
-                    toolComponent.Name);
+                    toolComponent.Name,
+                    string.Join("', ", acceptableVersionProperties));
             }
             else
             {

@@ -18,7 +18,7 @@
               },
               "messageStrings": {
                 "Warning_ProvideToolVersion": {
-                  "text": "{0}: The tool '{1}' provides neither a 'version' property nor a 'semanticVersion' property. Providing a version enables the log file consumer to determine whether the file was produced by an up to date version, and to avoid accidentally comparing log files produced by different tool versions."
+                  "text": "{0}: The tool '{1}' does not provide any of the version-related properties '{2}'. Providing version information enables the log file consumer to determine whether the file was produced by an up to date version, and to avoid accidentally comparing log files produced by different tool versions."
                 },
                 "Warning_ProvideConciseToolName": {
                   "text": "{0}: The tool name '{1}' contains {2} words, which is more than the recommended maximum of {3} words. A short tool name is easy to remember and fits into a narrow column when displaying a list of results. If you need to provide more information about your tool, use the 'fullName' property."

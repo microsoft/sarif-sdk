@@ -30,6 +30,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override sealed ResourceManager ResourceManager => RuleResources.ResourceManager;
 
+        protected static string MakeAnalyzerMoniker(string id, string name) => $"{id}.{name}";
+
         private readonly string[] _emptyMessageResourceNames = new string[0];
 
         protected override IEnumerable<string> MessageResourceNames => _emptyMessageResourceNames;
