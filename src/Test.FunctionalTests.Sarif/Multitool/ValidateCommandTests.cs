@@ -178,6 +178,13 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
             => RunInvalidTestForRule(RuleId.ProvideToolProperties);
 
         [Fact]
+        public void SARIF2005_ProvideToolProperties_DottedQuadFileVersion_AcceptedByConfiguration()
+            => RunTest(
+                inputResourceName: "SARIF2005.ProvideToolProperties_DottedQuadFileVersion.sarif",
+                expectedOutputResourceName: "SARIF2005.ProvideToolProperties_DottedQuadFileVersion_Valid.sarif",
+                parameter: "SARIF2005.ProvideToolProperties_DottedQuadFileVersion_Accepted.config.xml");
+
+        [Fact]
         public void SARIF2006_UrisShouldBeReachable_Valid()
             => RunValidTestForRule(RuleId.UrisShouldBeReachable);
 
@@ -404,9 +411,17 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
             bool updateInputsToCurrentSarif = IsSarifRule(ruleUnderTest)
                 && !shouldNotTransform.Contains(ruleUnderTest);
 
+            string configurationFilePath = null;
+            string configurationFileResourceName = parameter as string;
+            if (configurationFileResourceName != null)
+            {
+            
+            }
+
             var validateOptions = new ValidateOptions
             {
                 SarifOutputVersion = SarifVersion.Current,
+                ConfigurationFilePath = configurationFilePath,
                 TargetFileSpecifiers = new[] { inputLogFilePath },
                 OutputFilePath = actualLogFilePath,
                 Quiet = true,

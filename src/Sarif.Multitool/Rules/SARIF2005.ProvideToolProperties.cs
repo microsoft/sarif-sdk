@@ -74,7 +74,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 }
             }
 
-            if (string.IsNullOrWhiteSpace(toolComponent.Version) && string.IsNullOrWhiteSpace(toolComponent.SemanticVersion))
+            if (string.IsNullOrWhiteSpace(toolComponent.Version) && string.IsNullOrWhiteSpace(toolComponent.SemanticVersion) && string.IsNullOrWhiteSpace(toolComponent.DottedQuadFileVersion))
             {
                 // {0}: The tool '{1}' provides neither a 'version' property nor a 'semanticVersion'
                 // property. Providing a version enables the log file consumer to determine whether
