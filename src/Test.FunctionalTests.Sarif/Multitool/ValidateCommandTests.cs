@@ -200,6 +200,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 inputResourceName: "SARIF2005.ProvideToolProperties_DottedQuadFileVersion.sarif",
                 expectedOutputResourceName: "SARIF2005.ProvideToolProperties_DottedQuadFileVersion_Invalid.sarif",
                 parameter: DottedQuadFileVersionRejectedConfiguration);
+
+        private const string MissingUriAcceptedConfiguration =
+            "    <Property Key='InformationUriRequired' Type='System.Boolean' Value='false' />";
+
+        [Fact]
+        public void SARIF2005_ProvideToolProperties_MissingInformationUri_AcceptedByConfiguration()
+            => RunTest(
+                inputResourceName: "SARIF2005.ProvideToolProperties_MissingInformationUri.sarif",
+                expectedOutputResourceName: "SARIF2005.ProvideToolProperties_MissingInformationUri_Valid.sarif",
+                parameter: MissingUriAcceptedConfiguration);
+
+        private const string MissingUriRejectedConfiguration =
+            "    <Property Key='InformationUriRequired' Type='System.Boolean' Value='true' />";
+
+        [Fact]
+        public void SARIF2005_ProvideToolProperties_MissingInformationUri_RejectedByConfiguration()
+            => RunTest(
+                inputResourceName: "SARIF2005.ProvideToolProperties_MissingInformationUri.sarif",
+                expectedOutputResourceName: "SARIF2005.ProvideToolProperties_MissingInformationUri_Invalid.sarif",
+                parameter: MissingUriRejectedConfiguration);
+
         [Fact]
         public void SARIF2006_UrisShouldBeReachable_Valid()
             => RunValidTestForRule(RuleId.UrisShouldBeReachable);
