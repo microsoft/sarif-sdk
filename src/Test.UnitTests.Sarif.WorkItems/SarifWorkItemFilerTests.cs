@@ -324,7 +324,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         {
             context = context ?? GitHubTestContext;
 
-            var mockFiler = new Mock<SarifWorkItemFiler>(context.HostUri, context);
+            var mockFiler = new Mock<SarifWorkItemFiler>(context.WorkItemFilerUri, context);
 
             mockFiler
                 .Setup(x => x.FileWorkItems(It.IsAny<string>()))
@@ -353,7 +353,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
         private static readonly SarifWorkItemContext GitHubTestContext = new SarifWorkItemContext()
         {
-            HostUri = GitHubFilingUri,
+            WorkItemFilerUri = GitHubFilingUri,
             PersonalAccessToken = TestData.NotActuallyASecret
         };
 
@@ -361,7 +361,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         {
             return new SarifWorkItemContext()
             {
-                HostUri = AzureDevOpsFilingUri,
+                WorkItemFilerUri = AzureDevOpsFilingUri,
                 PersonalAccessToken = TestData.NotActuallyASecret
             };
         }

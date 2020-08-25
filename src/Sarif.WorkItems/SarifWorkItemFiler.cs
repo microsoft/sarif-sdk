@@ -13,6 +13,7 @@ using Microsoft.CodeAnalysis.Sarif.Visitors;
 using Microsoft.CodeAnalysis.WorkItems;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.TeamFoundation.Common;
 using Microsoft.WorkItems;
 using Microsoft.WorkItems.Logging;
 using Newtonsoft.Json;
@@ -34,18 +35,16 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         /// </param>
         public SarifWorkItemFiler(Uri filingUri = null, SarifWorkItemContext filingContext = null)
         {
-            this.FilingContext = filingContext ?? new SarifWorkItemContext { HostUri = filingUri };
-            filingUri = filingUri ?? this.FilingContext.HostUri;
+            this.FilingContext = filingContext ?? new SarifWorkItemContext { WorkItemFilerUri = filingUri };
+            filingUri = filingUri ?? this.FilingContext.WorkItemFilerUri;
 
             if (filingUri == null) { throw new ArgumentNullException(nameof(filingUri)); };
 
-            if (filingUri != this.FilingContext.HostUri)
+            if (filingUri != this.FilingContext.WorkItemFilerUri)
             {
                 // Inconsistent URIs were provided in 'filingContext' and 'filingUri'; arguments.
                 throw new InvalidOperationException(WorkItemsResources.InconsistentHostUrisProvided);
             }
-
-            this.FilingClient = FilingClientFactory.Create(this.FilingContext.HostUri);
 
             this.Logger = ServiceProviderFactory.ServiceProvider.GetService<ILogger>();
             Assembly.GetExecutingAssembly().LogIdentity();
@@ -111,7 +110,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 for (int splitFileIndex = 0; splitFileIndex < logsToProcessCount; splitFileIndex++)
                 {
                     SarifLog splitLog = logsToProcess[splitFileIndex];
-                    SarifWorkItemModel sarifWorkItemModel = FileWorkItemInternal(splitLog, this.FilingContext, this.FilingClient);
+                    SarifWorkItemModel sarifWorkItemModel = FileWorkItemInternal(splitLog, this.FilingContext);
 
                     // IMPORTANT: as we update our partitioned logs, we are actually modifying the input log file 
                     // as well. That's because our partitioning is configured to reuse references to existing
@@ -247,33 +246,16 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
         internal const string PROGRAMMABLE_URIS_PROPERTY_NAME = "programmableWorkItemUris";
 
-        public SarifWorkItemModel FileWorkItemInternal(SarifLog sarifLog, SarifWorkItemContext filingContext, FilingClient filingClient)
+        public SarifWorkItemModel FileWorkItemInternal(SarifLog sarifLog, SarifWorkItemContext filingContext)
         {
             using (Logger.BeginScopeContext(nameof(FileWorkItemInternal)))
             {
                 string logGuid = sarifLog.GetProperty<Guid>("guid").ToString();
 
-                // The helper below will initialize the sarif work item model with a copy
-                // of the root pipeline filing context. This context will then be initialized
-                // based on the current sarif log file that we're processing.
-                // First intializes the contexts provider to the value in the current filing client.
-                filingContext.CurrentProvider = filingClient.Provider;
                 var sarifWorkItemModel = new SarifWorkItemModel(sarifLog, filingContext);
 
                 try
                 {
-                    // Populate the work item with the target organization/repository information.
-                    // In ADO, certain fields (such as the area path) will defaut to the 
-                    // project name and so this information is used in at least that context.
-                    sarifWorkItemModel.OwnerOrAccount = filingClient.AccountOrOrganization;
-                    sarifWorkItemModel.RepositoryOrProject = filingClient.ProjectOrRepository;
-
-                    if (filingContext.SyncWorkItemMetadata)
-                    {
-                        Task<WorkItemModel> getMetadataTask = filingClient.GetWorkItemMetadata(sarifWorkItemModel);
-                        getMetadataTask.Wait();
-                        sarifWorkItemModel = (SarifWorkItemModel)getMetadataTask.Result;
-                    }
 
                     using (Logger.BeginScopeContext("RunTransformers"))
                     {
@@ -295,7 +277,37 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                         }
                     }
 
-                    Task<IEnumerable<WorkItemModel>> task = filingClient.FileWorkItems(new[] { sarifWorkItemModel });
+                    if(this.FilingContext.WorkItemFilerUri.OriginalString.IsNullOrEmpty())
+                    {
+                        Uri workItemFilerUri = new Uri(sarifWorkItemModel.OwnerOrAccount + "/" + sarifWorkItemModel.RepositoryOrProject);
+                        if(!workItemFilerUri.IsAbsoluteUri)
+                        {
+                            throw new UriFormatException("No valid URI to file work items could be determined.");
+                        }
+                        this.FilingContext.WorkItemFilerUri = workItemFilerUri;
+                    }
+                    this.FilingClient = FilingClientFactory.Create(this.FilingContext.WorkItemFilerUri);
+
+                    // The helper below will initialize the sarif work item model with a copy
+                    // of the root pipeline filing context. This context will then be initialized
+                    // based on the current sarif log file that we're processing.
+                    // First intializes the contexts provider to the value in the current filing client.
+                    filingContext.CurrentProvider = this.FilingClient.Provider;
+
+                    // Populate the work item with the target organization/repository information.
+                    // In ADO, certain fields (such as the area path) will defaut to the 
+                    // project name and so this information is used in at least that context.
+                    sarifWorkItemModel.OwnerOrAccount = this.FilingClient.AccountOrOrganization;
+                    sarifWorkItemModel.RepositoryOrProject = this.FilingClient.ProjectOrRepository;
+
+                    if (filingContext.SyncWorkItemMetadata)
+                    {
+                        Task<WorkItemModel> getMetadataTask = this.FilingClient.GetWorkItemMetadata(sarifWorkItemModel);
+                        getMetadataTask.Wait();
+                        sarifWorkItemModel = (SarifWorkItemModel)getMetadataTask.Result;
+                    }
+
+                    Task<IEnumerable<WorkItemModel>> task = this.FilingClient.FileWorkItems(new[] { sarifWorkItemModel });
                     task.Wait();
                     this.FiledWorkItems.AddRange(task.Result);
 

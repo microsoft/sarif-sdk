@@ -10,9 +10,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     public class FileWorkItemsOptions : SingleFileOptionsBase
     {
         [Option(
-            "host-uri",
+            "workitemfiling-uri",
             HelpText = "The absolute URI of the project in which the work items are to be filed, for example https://dev.azure.com/{org}/{project} or https://github.com/{org}/{repo}.")]
-        public string HostUri { get; internal set; }
+        public string workItemFilingUri { get; internal set; }
 
         [Option(
             "split",
