@@ -25,6 +25,9 @@
                 },
                 "Warning_UseNumericToolVersions": {
                   "text": "{0}: The tool '{1}' contains the 'version' property '{2}', which is not numeric. To facilitate comparison between versions, specify a 'version' that starts with an integer, optionally followed by any desired characters."
+                },
+                "Warning_ProvideToolnformationUri": {
+                  "text": "{0}: The tool '{1}' does not provide 'informationUri'. This property helps the developer responsible for addessing a result by providing a way to learn more about the tool."
                 }
               },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
@@ -52,7 +55,8 @@
           "message": {
             "id": "Warning_ProvideToolnformationUri",
             "arguments": [
-              "runs[0].tool.driver"
+              "runs[0].tool.driver",
+              "SARIF Functional Testing"
             ]
           },
           "locations": [

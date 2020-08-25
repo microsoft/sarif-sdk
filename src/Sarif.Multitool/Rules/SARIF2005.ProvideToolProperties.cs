@@ -36,7 +36,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         protected override IEnumerable<string> MessageResourceNames => new string[] {
             nameof(RuleResources.SARIF2005_ProvideToolProperties_Warning_ProvideToolVersion_Text),
             nameof(RuleResources.SARIF2005_ProvideToolProperties_Warning_ProvideConciseToolName_Text),
-            nameof(RuleResources.SARIF2005_ProvideToolProperties_Warning_UseNumericToolVersions_Text)
+            nameof(RuleResources.SARIF2005_ProvideToolProperties_Warning_UseNumericToolVersions_Text),
+            nameof(RuleResources.SARIF2005_ProvideToolProperties_Warning_ProvideToolnformationUri_Text)
         };
 
         public override FailureLevel DefaultLevel => FailureLevel.Warning;
@@ -111,7 +112,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 // about the tool.
                 LogResult(
                     toolDriverPointer,
-                    nameof(RuleResources.SARIF2005_ProvideToolProperties_Warning_ProvideToolnformationUri_Text));
+                    nameof(RuleResources.SARIF2005_ProvideToolProperties_Warning_ProvideToolnformationUri_Text),
+                    toolComponent.Name);
             }
 
             StringSet acceptableVersionProperties = this.Context.Policy.GetProperty(AcceptableVersionProperties);
