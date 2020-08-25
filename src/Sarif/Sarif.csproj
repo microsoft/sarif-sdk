@@ -20,7 +20,7 @@
 
   <PropertyGroup>
     <!--
-    For compatibility with older clients, we still build Sarid.Sdk (but no other packages)
+    For compatibility with older clients, we still build Sarif.Sdk (but no other packages)
     for .NET Framework 4.5.
     -->
     <TargetFrameworks>$(TargetFrameworks);net45</TargetFrameworks>
