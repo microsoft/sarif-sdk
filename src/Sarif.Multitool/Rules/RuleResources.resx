@@ -448,4 +448,7 @@ Semantics: Assuming the reader of the log file (an end user or another tool) has
   <data name="SARIF2023_RelatedLocationsMustProvideRequiredProperties_FullDescription_Text" xml:space="preserve">
     <value>The GitHub Developer Security Portal (DSP) will reject a SARIF file that includes a "related location" with no 'message' property. This is a bug in the DSP. You can set 'message' to an empty string if you don't have anything else to say about the location.</value>
   </data>
+  <data name="SARIF2005_ProvideToolProperties_Warning_ProvideToolnformationUri_Text" xml:space="preserve">
+    <value>{0}: The tool '{1}' does not provide 'informationUri'. This property helps the developer responsible for addessing a result by providing a way to learn more about the tool.</value>
+  </data>
 </root>

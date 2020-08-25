@@ -48,6 +48,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             new PerLanguageOption<StringSet>(
                 AnalyzerMoniker, nameof(AcceptableVersionProperties), defaultValue: () => DefaultAcceptableVersionProperties);
 
+        // This rule configuration parameter specifies whether the informationUri property (which
+        // helps the responsible developer learn more about the tool that produced the result) is
+        // required.
+        public static PerLanguageOption<bool> InformationUriRequired =>
+            new PerLanguageOption<bool>(
+                AnalyzerMoniker, nameof(InformationUriRequired), defaultValue: () => true);
+
         private static readonly string AnalyzerMoniker = MakeAnalyzerMoniker(RuleId.ProvideToolProperties, nameof(RuleId.ProvideToolProperties));
 
         // We instantiate this object just so we can access its property names below.
@@ -94,6 +101,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                         wordCount.ToString(),
                         MaxWords.ToString());
                 }
+            }
+
+            bool informationUriRequired = this.Context.Policy.GetProperty(InformationUriRequired);
+            if (informationUriRequired && toolComponent.InformationUri == null)
+            {
+                // {0}: The tool '{1}' does not provide 'informationUri'. This property helps the
+                // developer responsible for addessing a result by providing a way to learn more
+                // about the tool.
+                LogResult(
+                    toolDriverPointer,
+                    nameof(RuleResources.SARIF2005_ProvideToolProperties_Warning_ProvideToolnformationUri_Text));
             }
 
             StringSet acceptableVersionProperties = this.Context.Policy.GetProperty(AcceptableVersionProperties);
