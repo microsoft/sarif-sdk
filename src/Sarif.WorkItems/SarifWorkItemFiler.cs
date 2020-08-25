@@ -21,6 +21,9 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 {
     public class SarifWorkItemFiler : IDisposable
     {
+        private readonly object m_syncRoot = new object();
+        private FilingClient m_filingClient = null;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="SarifWorkItemFiler"> class.</see>
         /// </summary>
@@ -45,15 +48,34 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 throw new InvalidOperationException(WorkItemsResources.InconsistentHostUrisProvided);
             }
 
-            this.FilingClient = FilingClientFactory.Create(this.FilingContext.HostUri);
-
             this.Logger = ServiceProviderFactory.ServiceProvider.GetService<ILogger>();
             Assembly.GetExecutingAssembly().LogIdentity();
 
             this.FiledWorkItems = new List<WorkItemModel>();
         }
 
-        public FilingClient FilingClient { get; set; }
+        public FilingClient FilingClient 
+        {
+            get
+            {
+                if (m_filingClient == null)
+                {
+                    lock (m_syncRoot)
+                    {
+                        if (m_filingClient == null)
+                        {
+                            this.FilingClient = FilingClientFactory.Create(this.FilingContext.HostUri);
+                        }
+                    }
+                }
+
+                return m_filingClient;
+            }
+            set
+            {
+                m_filingClient = value;
+            }
+        }
 
         public SarifWorkItemContext FilingContext { get; }
 
@@ -108,6 +130,9 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 }
 #endif
 
+                Logger.LogInformation("Connecting to filing client: {accountOrOrganization}", this.FilingClient.AccountOrOrganization);
+                this.FilingClient.Connect(this.FilingContext.PersonalAccessToken).Wait();
+
                 for (int splitFileIndex = 0; splitFileIndex < logsToProcessCount; splitFileIndex++)
                 {
                     SarifLog splitLog = logsToProcess[splitFileIndex];
@@ -152,9 +177,6 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 this.FiledWorkItems = new List<WorkItemModel>();
 
                 sarifLog = sarifLog ?? throw new ArgumentNullException(nameof(sarifLog));
-
-                Logger.LogInformation("Connecting to filing client: {accountOrOrganization}", this.FilingClient.AccountOrOrganization);
-                this.FilingClient.Connect(this.FilingContext.PersonalAccessToken).Wait();
 
                 OptionallyEmittedData optionallyEmittedData = this.FilingContext.DataToRemove;
                 if (optionallyEmittedData != OptionallyEmittedData.None)
