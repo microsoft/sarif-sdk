@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 using Microsoft.Json.Pointer;
@@ -134,7 +135,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     toolDriverPointer,
                     nameof(RuleResources.SARIF2005_ProvideToolProperties_Warning_ProvideToolVersion_Text),
                     toolComponent.Name,
-                    $"'{string.Join("', '", acceptableVersionProperties)}'");
+                    $"'{string.Join("', '", acceptableVersionProperties.Select(p => p.ToCamelCase()))}'");
             }
             else
             {

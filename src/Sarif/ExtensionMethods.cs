@@ -127,6 +127,15 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Message { Text = text };
         }
 
+        public static string ToCamelCase(this string name)
+        {
+            return name == null
+                ? throw new ArgumentNullException(nameof(name))
+                : name.Length == 1
+                ? name.ToLowerInvariant()
+                : $"{name.Substring(0, 1).ToLowerInvariant()}{name.Substring(1)}";
+        }
+
         public static string ToAndPhrase(this List<string> words)
         {
             words = words.Where(r => !string.IsNullOrWhiteSpace(r)).ToList();
