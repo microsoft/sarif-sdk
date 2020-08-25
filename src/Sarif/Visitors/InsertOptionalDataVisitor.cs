@@ -11,6 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
     public class InsertOptionalDataVisitor : SarifRewritingVisitor
     {
         internal IFileSystem s_fileSystem = new FileSystem();
+        internal IExecutionEnvironment s_executionEnvironment = new ExecutionEnvironment();
 
         private Run _run;
         private int _ruleIndex;
@@ -45,6 +46,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 }
             }
 
+            if (_run.VersionControlProvenance == null && _dataToInsert.HasFlag(OptionallyEmittedData.VersionControlInformation))
+            {
+                InsertVersionControlInformation();
+            }
+
             if (node == null) { return null; }
 
             bool scrapeFileReferences = _dataToInsert.HasFlag(OptionallyEmittedData.Hashes) ||
@@ -60,6 +66,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             Run visited = base.VisitRun(node);
 
             return visited;
+        }
+
+        private void InsertVersionControlInformation()
+        {
+            var gitInformation = new GitInformation(s_fileSystem);
+            string currentDirectory = s_executionEnvironment.CurrentDirectory;
+
+            VersionControlDetails versionControlDetails =
+                gitInformation.GetVersionControlDetails(currentDirectory, crawlParentDirectories: true);
+            if (versionControlDetails == null)
+            {
+                throw new InvalidOperationException(
+                    string.Format(
+                        CultureInfo.CurrentCulture,
+                        SdkResources.CannotProvideVersionControlInformation,
+                        currentDirectory));
+            }
+
+            _run.VersionControlProvenance = new List<VersionControlDetails>
+            {
+                versionControlDetails
+            };
         }
 
         public override PhysicalLocation VisitPhysicalLocation(PhysicalLocation node)
@@ -96,7 +124,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     resolvedUri = artifactLocation.Uri;
                 }
 
-                if (!resolvedUri.IsAbsoluteUri) goto Exit;
+                if (!resolvedUri.IsAbsoluteUri) { goto Exit; }
 
                 expandedRegion = _fileRegionsCache.PopulateTextRegionProperties(node.Region, resolvedUri, populateSnippet: insertRegionSnippets);
 
