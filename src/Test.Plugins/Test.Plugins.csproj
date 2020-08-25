@@ -6,7 +6,12 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
+    <IsTestProject>False</IsTestProject>
+  </PropertyGroup>
+
+  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
+
+  <PropertyGroup>
     <IsPackable>false</IsPackable>
     <IsTestProject>false</IsTestProject>
   </PropertyGroup>
