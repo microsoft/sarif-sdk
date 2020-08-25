@@ -18,14 +18,14 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
         // The sarifLog parameter contains exactly a set of results that are intended to be filed as a single work item 
         // and this log will be attached to the work item.
-        public SarifWorkItemModel(SarifLog sarifLog, SarifWorkItemContext context = null, Guid guid = default(Guid))
+        public SarifWorkItemModel(SarifLog sarifLog, SarifWorkItemContext context = null, Guid id = default(Guid))
         {
             if (sarifLog == null) { throw new ArgumentNullException(nameof(sarifLog)); }
 
             this.SarifLog = sarifLog;
             this.Context = context ?? new SarifWorkItemContext();
 
-            this.Guid = (guid == default(Guid)) ? Guid.NewGuid() : guid;
+            this.Id = (id == default(Guid)) ? Guid.NewGuid() : id;
 
             var visitor = new ExtractAllArtifactLocationsVisitor();
             visitor.VisitSarifLog(sarifLog);

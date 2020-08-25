@@ -116,8 +116,8 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         {
             using (Logger.BeginScopeContext(nameof(FileWorkItems)))
             {
-
                 sarifLog = sarifLog ?? throw new ArgumentNullException(nameof(sarifLog));
+                sarifLog.SetProperty(LOGID_PROPERTY_NAME, Guid.NewGuid());
 
                 IReadOnlyList<SarifLog> logsToProcess = SplitLogFile(sarifLog);
 
@@ -171,7 +171,6 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             using (Logger.BeginScopeContext(nameof(SplitLogFile)))
             {
                 sarifLog = sarifLog ?? throw new ArgumentNullException(nameof(sarifLog));
-                sarifLog.SetProperty("guid", Guid.NewGuid());
 
                 this.FilingResult = FilingResult.None;
                 this.FiledWorkItems = new List<WorkItemModel>();
@@ -267,13 +266,11 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             return logsToProcess.ToArray();
         }
 
-        internal const string PROGRAMMABLE_URIS_PROPERTY_NAME = "programmableWorkItemUris";
-
         public SarifWorkItemModel FileWorkItemInternal(SarifLog sarifLog, SarifWorkItemContext filingContext, FilingClient filingClient)
         {
             using (Logger.BeginScopeContext(nameof(FileWorkItemInternal)))
             {
-                string logGuid = sarifLog.GetProperty<Guid>("guid").ToString();
+                string logId = sarifLog.GetProperty<Guid>(LOGID_PROPERTY_NAME).ToString();
 
                 // The helper below will initialize the sarif work item model with a copy
                 // of the root pipeline filing context. This context will then be initialized
@@ -325,7 +322,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 }
                 catch (Exception ex)
                 {
-                    this.Logger.LogError(ex, "An exception was raised filing log '{logGuid}'.", logGuid);
+                    this.Logger.LogError(ex, "An exception was raised filing log '{logId}'.", logId);
 
                     Dictionary<string, object> customDimentions = new Dictionary<string, object>();
                     customDimentions.Add("ExceptionType", ex.GetType().FullName);
@@ -365,7 +362,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
             this.FilingResult = filingResult;
 
-            string logGuid = sarifLog.GetProperty<Guid>("guid").ToString();
+            string logId = sarifLog.GetProperty<Guid>(LOGID_PROPERTY_NAME).ToString();
             string tags = string.Join(",", sarifWorkItemModel.LabelsOrTags);
             string uris = sarifWorkItemModel.LocationUris?.Count > 0
                 ? string.Join(",", sarifWorkItemModel.LocationUris)
@@ -373,8 +370,8 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
             var workItemMetrics = new Dictionary<string, object>
                 {
-                    { "LogGuid", logGuid },
-                    { "WorkItemModelGuid", sarifWorkItemModel.Guid },
+                    { "LogId", logId },
+                    { "WorkItemModelId", sarifWorkItemModel.Id },
                     { nameof(sarifWorkItemModel.Area), sarifWorkItemModel.Area },
                     { nameof(sarifWorkItemModel.BodyOrDescription), sarifWorkItemModel.BodyOrDescription },
                     { "FilingResult", filingResult.ToString() },
@@ -419,8 +416,8 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
                 var workItemDetailMetrics = new Dictionary<string, object>
                 {
-                    { "LogGuid", logGuid },
-                    { "WorkItemModelGuid", sarifWorkItemModel.Guid },
+                    { "LogId", logId },
+                    { "WorkItemModelId", sarifWorkItemModel.Id },
                     { nameof(ruleMetrics.Tool), ruleMetrics.Tool },
                     { nameof(ruleMetrics.RuleId), ruleMetrics.RuleId },
                     { nameof(ruleMetrics.ErrorCount), ruleMetrics.ErrorCount },
@@ -531,5 +528,8 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             channel?.Flush();
             channel?.Dispose();
         }
+
+        internal const string PROGRAMMABLE_URIS_PROPERTY_NAME = "programmableWorkItemUris";
+        internal const string LOGID_PROPERTY_NAME = "logId";
     }
 }
