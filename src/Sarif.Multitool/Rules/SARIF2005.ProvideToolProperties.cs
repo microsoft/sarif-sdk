@@ -48,7 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             new PerLanguageOption<StringSet>(
                 AnalyzerMoniker, nameof(AcceptableVersionProperties), defaultValue: () => DefaultAcceptableVersionProperties);
 
-        private static readonly string AnalyzerMoniker = MakeAnalyzerMoniker(RuleId.ProvideCheckoutPath, nameof(RuleId.ProvideCheckoutPath));
+        private static readonly string AnalyzerMoniker = MakeAnalyzerMoniker(RuleId.ProvideToolProperties, nameof(RuleId.ProvideToolProperties));
 
         // We instantiate this object just so we can access its property names below.
         private static readonly ToolComponent s_dummyToolComponent = new ToolComponent();
@@ -106,15 +106,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
             if (!toolDriverProvidesVersion)
             {
-                // {0}: The tool '{1}' does not provide any of the version-related properties
-                // '{2}'. Providing version information enables the log file consumer to
-                // determine whether the file was produced by an up to date version, and to
-                // avoid accidentally comparing log files produced by different tool versions.
+                // {0}: The tool '{1}' does not provide any of the version-related properties {2}.
+                // Providing version information enables the log file consumer to determine whether
+                // the file was produced by an up to date version, and to avoid accidentally
+                // comparing log files produced by different tool versions.
                 LogResult(
                     toolDriverPointer,
                     nameof(RuleResources.SARIF2005_ProvideToolProperties_Warning_ProvideToolVersion_Text),
                     toolComponent.Name,
-                    string.Join("', ", acceptableVersionProperties));
+                    $"'{string.Join("', '", acceptableVersionProperties)}'");
             }
             else
             {

@@ -521,7 +521,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The tool &apos;{1}&apos; does not provide any of the version-related properties &apos;{2}&apos;. Providing version information enables the log file consumer to determine whether the file was produced by an up to date version, and to avoid accidentally comparing log files produced by different tool versions..
+        ///   Looks up a localized string similar to {0}: The tool &apos;{1}&apos; does not provide any of the version-related properties {2}. Providing version information enables the log file consumer to determine whether the file was produced by an up to date version, and to avoid accidentally comparing log files produced by different tool versions..
         /// </summary>
         internal static string SARIF2005_ProvideToolProperties_Warning_ProvideToolVersion_Text {
             get {

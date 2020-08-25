@@ -11,8 +11,6 @@ using System.Text;
 using FluentAssertions;
 
 using Microsoft.CodeAnalysis.Sarif.Driver;
-using Microsoft.CodeAnalysis.Sarif.Multitool;
-using Microsoft.CodeAnalysis.Sarif.Multitool.Rules;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
 
 using Moq;
@@ -24,7 +22,7 @@ using Xunit.Abstractions;
 
 using static Microsoft.CodeAnalysis.Sarif.Multitool.Rules.ReviewArraysThatExceedConfigurableDefaults;
 
-namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
+namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class ValidateCommandTests : FileDiffingFunctionalTests
     {
@@ -177,13 +175,31 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
         public void SARIF2005_ProvideToolProperties_Invalid()
             => RunInvalidTestForRule(RuleId.ProvideToolProperties);
 
+        private const string DottedQuadFileVersionAcceptedConfiguration =
+@"    <Property Key='AcceptableVersionProperties' Type='StringSet'>
+      <Item>SemanticVersion</Item>
+      <Item>DottedQuadFileVersion</Item>
+    </Property>";
+
         [Fact]
         public void SARIF2005_ProvideToolProperties_DottedQuadFileVersion_AcceptedByConfiguration()
             => RunTest(
                 inputResourceName: "SARIF2005.ProvideToolProperties_DottedQuadFileVersion.sarif",
                 expectedOutputResourceName: "SARIF2005.ProvideToolProperties_DottedQuadFileVersion_Valid.sarif",
-                parameter: "SARIF2005.ProvideToolProperties_DottedQuadFileVersion_Accepted.config.xml");
+                parameter: DottedQuadFileVersionAcceptedConfiguration);
 
+        private const string DottedQuadFileVersionRejectedConfiguration =
+@"    <Property Key='AcceptableVersionProperties' Type='StringSet'>
+      <Item>Version</Item>
+      <Item>SemanticVersion</Item>
+    </Property>";
+
+        [Fact]
+        public void SARIF2005_ProvideToolProperties_DottedQuadFileVersion_RejectedByConfiguration()
+            => RunTest(
+                inputResourceName: "SARIF2005.ProvideToolProperties_DottedQuadFileVersion.sarif",
+                expectedOutputResourceName: "SARIF2005.ProvideToolProperties_DottedQuadFileVersion_Invalid.sarif",
+                parameter: DottedQuadFileVersionRejectedConfiguration);
         [Fact]
         public void SARIF2006_UrisShouldBeReachable_Valid()
             => RunValidTestForRule(RuleId.UrisShouldBeReachable);
@@ -411,17 +427,9 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
             bool updateInputsToCurrentSarif = IsSarifRule(ruleUnderTest)
                 && !shouldNotTransform.Contains(ruleUnderTest);
 
-            string configurationFilePath = null;
-            string configurationFileResourceName = parameter as string;
-            if (configurationFileResourceName != null)
-            {
-            
-            }
-
             var validateOptions = new ValidateOptions
             {
                 SarifOutputVersion = SarifVersion.Current,
-                ConfigurationFilePath = configurationFilePath,
                 TargetFileSpecifiers = new[] { inputLogFilePath },
                 OutputFilePath = actualLogFilePath,
                 Quiet = true,
@@ -442,7 +450,7 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
 
             // Some rules are disabled by default, so create a configuration file that explicitly
             // enables the rule under test.
-            using (TempFile configFile = CreateTempConfigFile(ruleUnderTest))
+            using (TempFile configFile = CreateTempConfigFile(ruleUnderTest, parameter as string))
             {
                 validateOptions.ConfigurationFilePath = configFile.Name;
                 mockFileSystem.Setup(x => x.FileExists(validateOptions.ConfigurationFilePath)).Returns(true);
@@ -511,19 +519,23 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
         private static bool IsSarifRule(string ruleId)
             => ruleId.StartsWith("SARIF");
 
-        private TempFile CreateTempConfigFile(string ruleId)
+        private TempFile CreateTempConfigFile(string ruleId, string parameter)
         {
             var sb = new StringBuilder();
             sb.AppendLine("<?xml version='1.0' encoding='utf-8' ?>");
-            sb.AppendLine("<Properties>");
+            sb.AppendLine("<Properties Type='PropertiesDictionary'>");
 
             if (IsSarifRule(ruleId))
             {
                 SarifValidationSkimmerBase rule = GetRuleFromId(ruleId);
                 RuleEnabledState ruleEnabledState = GetRuleEnabledState(rule);
 
-                sb.AppendLine($"  <Properties Key='{rule.Moniker}.Options'>");
+                sb.AppendLine($"  <Properties Key='{rule.Moniker}.Options' Type='PropertiesDictionary'>");
                 sb.AppendLine($"    <Property Key='RuleEnabled' Value='{ruleEnabledState}' />");
+                if (!string.IsNullOrWhiteSpace(parameter))
+                {
+                    sb.AppendLine(parameter);
+                }
                 sb.AppendLine("  </Properties>");
             }
 
