@@ -221,6 +221,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                     Logger.LogDebug("Begin retrieving split logs");
                     logsToProcess = new List<SarifLog>(partitioningVisitor.GetPartitionLogs().Values);
 
+                    //test
                     Logger.LogDebug("End retrieving split logs");
 
                     var logsToProcessMetrics = new Dictionary<string, object>
