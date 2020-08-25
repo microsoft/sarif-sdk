@@ -18,6 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
     public class InsertOptionalDataVisitorTests : FileDiffingUnitTests, IClassFixture<DeletesOutputsDirectoryOnClassInitializationFixture>
     {
+        private const string EnlistmentRoot = "REPLACED_AT_TEST_RUNTIME";
         private OptionallyEmittedData _currentOptionallyEmittedData;
 
         public InsertOptionalDataVisitorTests(ITestOutputHelper outputHelper, DeletesOutputsDirectoryOnClassInitializationFixture _) : base(outputHelper)
@@ -26,22 +27,32 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         protected override string ConstructTestOutputFromInputResource(string inputResourceName, object parameter)
         {
-            PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(
+            SarifLog actualLog = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(
                 GetResourceText(inputResourceName),
                 formatting: Formatting.Indented,
-                out string transformedLog);
+                updatedLog: out _);
 
-            SarifLog actualLog = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(transformedLog, formatting: Formatting.None, out transformedLog);
+            // Some of the tests operate on SARIF files that mention the absolute path of the file
+            // that was "analyzed" (InsertOptionalDataVisitor.txt). That path depends on the repo
+            // root, and so can vary depending on the machine where the tests are run. To avoid
+            // this problem, both the input files and the expected output files contain a fixed
+            // string "REPLACED_AT_TEST_RUNTIME" in place of the directory portion of the path. But some
+            // of the tests must read the contents of the analyzed file (for instance, when the
+            // test requires snippets or file hashes to be inserted). Those test require the actual
+            // path. Therefore we replace the fixed string with the actual path, execute the
+            // visitor, and then restore the fixed string so the actual output can be compared
+            // to the expected output.
+            string currentDirectory = Environment.CurrentDirectory;
+            string enlistmentRoot = currentDirectory
+                .Substring(0, currentDirectory.IndexOf(@"\bld\"))
+                .Replace('\\', '/');
 
-            // For CoreTests only - this code rewrites the log persisted URI to match the test environment
             if (inputResourceName == "Inputs.CoreTests-Relative.sarif")
             {
                 Uri originalUri = actualLog.Runs[0].OriginalUriBaseIds["TESTROOT"].Uri;
                 string uriString = originalUri.ToString();
 
-                string currentDirectory = Environment.CurrentDirectory;
-                currentDirectory = currentDirectory.Substring(0, currentDirectory.IndexOf(@"\bld\"));
-                uriString = uriString.Replace("REPLACED_AT_TEST_RUNTIME", currentDirectory);
+                uriString = uriString.Replace(EnlistmentRoot, enlistmentRoot);
 
                 actualLog.Runs[0].OriginalUriBaseIds["TESTROOT"] = new ArtifactLocation { Uri = new Uri(uriString, UriKind.Absolute) };
 
@@ -56,9 +67,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 Uri originalUri = actualLog.Runs[0].Artifacts[0].Location.Uri;
                 string uriString = originalUri.ToString();
 
-                string currentDirectory = Environment.CurrentDirectory;
-                currentDirectory = currentDirectory.Substring(0, currentDirectory.IndexOf(@"\bld\"));
-                uriString = uriString.Replace("REPLACED_AT_TEST_RUNTIME", currentDirectory);
+                uriString = uriString.Replace(EnlistmentRoot, enlistmentRoot);
 
                 actualLog.Runs[0].Artifacts[0].Location = new ArtifactLocation { Uri = new Uri(uriString, UriKind.Absolute) };
 
@@ -74,19 +83,51 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 visitor.Visit(actualLog.Runs[0]);
             }
 
-            // Verify and remove Guids, because they'll vary with every run and can't be compared to a fixed expected output
+            // Verify and remove Guids, because they'll vary with every run and can't be compared to a fixed expected output.
             if (_currentOptionallyEmittedData.HasFlag(OptionallyEmittedData.Guids))
             {
                 for (int i = 0; i < actualLog.Runs[0].Results.Count; ++i)
                 {
                     Result result = actualLog.Runs[0].Results[i];
-                    if (string.IsNullOrEmpty(result.Guid))
-                    {
-                        Assert.True(false, $"Results[{i}] had no Guid assigned, but OptionallyEmittedData.Guids flag was set.");
-                    }
+                    result.Guid.Should().NotBeNullOrEmpty(because: "OptionallyEmittedData.Guids flag was set");
 
                     result.Guid = null;
                 }
+            }
+
+            if (_currentOptionallyEmittedData.HasFlag(OptionallyEmittedData.VersionControlInformation))
+            {
+                VersionControlDetails versionControlDetails = actualLog.Runs[0].VersionControlProvenance[0];
+
+                // Verify and replace the mapped directory (enlistment root), because it varies
+                // from machine to machine.
+                var mappedUri = new Uri(enlistmentRoot, UriKind.Absolute);
+                versionControlDetails.MappedTo.Uri.Should().Be(mappedUri);
+                versionControlDetails.MappedTo.Uri = new Uri($"file:///{EnlistmentRoot}");
+
+                // When OptionallyEmittedData includes any file-related content, the visitor inserts
+                // an artifact that points to the enlistment root. So we have to verify and adjust
+                // that as well.
+                IList<Artifact> artifacts = actualLog.Runs[0].Artifacts;
+                if (artifacts.Count >= 2)
+                {
+                    artifacts[1].Location.Uri.Should().Be(enlistmentRoot);
+                    artifacts[1].Location.Uri = new Uri($"file:///{EnlistmentRoot}");
+                }
+
+                // Verify and replace the remote repo URI, because it would be different in a fork.
+                var gitInformation = new GitInformation();
+                Uri remoteUri = gitInformation.GetRemoteUri(enlistmentRoot);
+
+                versionControlDetails.RepositoryUri.Should().Be(remoteUri);
+                versionControlDetails.RepositoryUri = new Uri("https://REMOTE_URI");
+
+                // Verify and remove branch and revision id, because they vary from run to run.
+                versionControlDetails.Branch.Should().NotBeNullOrEmpty(because: "OptionallyEmittedData.VersionControlInformation flag was set");
+                versionControlDetails.Branch = null;
+
+                versionControlDetails.RevisionId.Should().NotBeNullOrEmpty(because: "OptionallyEmittedData.VersionControlInformation flag was set");
+                versionControlDetails.RevisionId = null;
             }
 
             return JsonConvert.SerializeObject(actualLog, Formatting.Indented);
@@ -147,6 +188,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             // NOTE: Test adding Guids, but validation is in test code, not diff, as Guids vary with each run.
             RunTest("CoreTests-Relative.sarif", OptionallyEmittedData.Guids);
+        }
+
+        [Fact]
+        public void InsertOptionalDataVisitor_PersistsVersionControlInformation()
+        {
+            RunTest("CoreTests-Relative.sarif", OptionallyEmittedData.VersionControlInformation);
         }
 
         [Fact]

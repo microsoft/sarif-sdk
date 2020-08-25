@@ -4,14 +4,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
-using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
-using Microsoft.CodeAnalysis.Sarif.Writers;
 using Newtonsoft.Json;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace Microsoft.CodeAnalysis.Test.FunctionalTests.Sarif.Partitioning
+namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
     public class PartitionTests : FileDiffingFunctionalTests
     {
