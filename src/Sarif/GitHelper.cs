@@ -147,8 +147,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return value;
         }
 
-        // Internal rather than private for unit-testability.
-        internal string GetRepositoryRoot(string path)
+        public string GetRepositoryRoot(string path)
         {
             while (!string.IsNullOrEmpty(path) && !IsRepositoryRoot(path))
             {
