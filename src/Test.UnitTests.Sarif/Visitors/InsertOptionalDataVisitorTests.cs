@@ -116,8 +116,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 }
 
                 // Verify and replace the remote repo URI, because it would be different in a fork.
-                var gitInformation = new GitInformation();
-                Uri remoteUri = gitInformation.GetRemoteUri(enlistmentRoot);
+                var gitHelper = new GitHelper();
+                Uri remoteUri = gitHelper.GetRemoteUri(enlistmentRoot);
 
                 versionControlDetails.RepositoryUri.Should().Be(remoteUri);
                 versionControlDetails.RepositoryUri = new Uri("https://REMOTE_URI");

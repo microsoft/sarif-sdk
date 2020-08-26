@@ -8,7 +8,7 @@ using System.Threading;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
-    internal class GitInformation : IDisposable
+    internal class GitHelper : IDisposable
     {
         private readonly IFileSystem fileSystem;
         private readonly ReaderWriterLockSlim cacheLock = new ReaderWriterLockSlim();
@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public bool IsRepositoryRoot(string repositoryPath) => this.fileSystem.DirectoryExists(Path.Combine(repositoryPath, ".git"));
 
-        public GitInformation(IFileSystem fileSystem = null)
+        public GitHelper(IFileSystem fileSystem = null)
         {
             this.fileSystem = fileSystem ?? new FileSystem();
             GitExePath = GetGitExePath();
