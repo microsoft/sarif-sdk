@@ -7,19 +7,19 @@ using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
-    public class GitInformationTests
+    public class GitHelperTests
     {
         [Fact]
         public void GetVersionControlDetails_ReturnsExpectedInformation()
         {
-            var gitInformation = new GitInformation();
+            var gitHelper = new GitHelper();
 
             // This test assumes that the directory in which the tests are run lies under the local
             // repo root, for example, <repo-root>\bld\bin\AnyCPU_Release\Test.FunctionalTests.Sarif\netcoreapp2.1.
-            string localRepoRoot = gitInformation.GetRepositoryRoot(Environment.CurrentDirectory);
+            string localRepoRoot = gitHelper.GetRepositoryRoot(Environment.CurrentDirectory);
 
             VersionControlDetails versionControlDetails =
-                gitInformation.GetVersionControlDetails(Environment.CurrentDirectory, crawlParentDirectories: true);
+                gitHelper.GetVersionControlDetails(Environment.CurrentDirectory, crawlParentDirectories: true);
 
             // We don't check for "microsoft/sarif-sdk" so that the test will pass in forks of the
             // original repo.

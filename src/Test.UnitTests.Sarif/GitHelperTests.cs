@@ -7,7 +7,7 @@ using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
-    public class GitInformationTests
+    public class GitHelperTests
     {
         [Fact]
         public void GetRepositoryRoot_WhenDotGitIsAbsent_ReturnsNull()
@@ -19,9 +19,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             mockFileSystem.Setup(x => x.DirectoryExists(@"C:\dev\sarif-sdk\src")).Returns(true);
             mockFileSystem.Setup(x => x.DirectoryExists(@"C:\dev\sarif-sdk\src\Sarif")).Returns(true);
 
-            var gitInformation = new GitInformation(mockFileSystem.Object);
+            var gitHelper = new GitHelper(mockFileSystem.Object);
 
-            gitInformation.GetRepositoryRoot(@"C:\dev\sarif-sdk\src\Sarif").Should().BeNull();
+            gitHelper.GetRepositoryRoot(@"C:\dev\sarif-sdk\src\Sarif").Should().BeNull();
         }
 
         [Fact]
@@ -34,9 +34,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             mockFileSystem.Setup(x => x.DirectoryExists(@"C:\dev\sarif-sdk\src")).Returns(true);
             mockFileSystem.Setup(x => x.DirectoryExists(@"C:\dev\sarif-sdk\src\Sarif")).Returns(true);
 
-            var gitInformation = new GitInformation(mockFileSystem.Object);
+            var gitHelper = new GitHelper(mockFileSystem.Object);
 
-            gitInformation.GetRepositoryRoot(@"C:\dev\sarif-sdk\src\Sarif").Should().Be(@"C:\dev\sarif-sdk");
+            gitHelper.GetRepositoryRoot(@"C:\dev\sarif-sdk\src\Sarif").Should().Be(@"C:\dev\sarif-sdk");
         }
     }
 }

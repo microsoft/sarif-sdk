@@ -70,11 +70,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         private void InsertVersionControlInformation()
         {
-            var gitInformation = new GitInformation(s_fileSystem);
+            var gitHelper = new GitHelper(s_fileSystem);
             string currentDirectory = s_executionEnvironment.CurrentDirectory;
 
             VersionControlDetails versionControlDetails =
-                gitInformation.GetVersionControlDetails(currentDirectory, crawlParentDirectories: true);
+                gitHelper.GetVersionControlDetails(currentDirectory, crawlParentDirectories: true);
             if (versionControlDetails == null)
             {
                 throw new InvalidOperationException(
