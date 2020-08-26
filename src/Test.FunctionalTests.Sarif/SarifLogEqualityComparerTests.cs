@@ -7,7 +7,7 @@ using Microsoft.CodeAnalysis.Sarif.Writers;
 using Newtonsoft.Json;
 using Xunit;
 
-namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests
+namespace Microsoft.CodeAnalysis.Sarif
 {
     public class SarifLogEqualityComparerTests
     {

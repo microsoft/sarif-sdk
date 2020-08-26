@@ -1,8 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
+  <!--
+  By convention, any project whose name starts with "Test." is a test project. But there are
+  a couple of projects which, although _related_ to testing, do not actually contain tests.
+  These projects set IsTestProject to false before importing build.props. Do not apply the
+  convention to those projects.
+  -->
+  <PropertyGroup Condition="'$(IsTestProject)' == ''">
+    <IsTestProject>False</IsTestProject>
+    <IsTestProject Condition="$(MSBuildProjectName.StartsWith('Test.'))">True</IsTestProject>
+  </PropertyGroup>
+
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp2.1;net461</TargetFrameworks>
+    <IsExeProject>False</IsExeProject>
+    <IsExeProject Condition="'$(OutputType)' == 'Exe'">True</IsExeProject>
+
+    <TargetFrameworks Condition="$(IsExeProject)">netcoreapp3.1;netcoreapp2.1;net461</TargetFrameworks>
+    <TargetFrameworks Condition="!$(IsExeProject)">netstandard2.0;net461</TargetFrameworks>
+    <TargetFrameworks Condition="$(IsTestProject)">netcoreapp2.1</TargetFrameworks>
+  </PropertyGroup>
+
+  <PropertyGroup>
     <LangVersion>8.0</LangVersion>
   </PropertyGroup>
 
@@ -20,8 +39,8 @@
     having all the relevant values in one place. This property is actually used by the PowerShell
     script that hides ("delists") the previous package versions on nuget.org.
     -->
-    <VersionPrefix>2.3.4</VersionPrefix>
-    <PreviousVersionPrefix>2.3.3</PreviousVersionPrefix>
+    <VersionPrefix>2.3.5</VersionPrefix>
+    <PreviousVersionPrefix>2.3.4</PreviousVersionPrefix>
 
      <!-- SchemaVersionAsPublishedToSchemaStoreOrg identifies the current published version on json schema store at https://schemastore.azurewebsites.net/schemas/json/ -->
     <SchemaVersionAsPublishedToSchemaStoreOrg>2.1.0-rtm.5</SchemaVersionAsPublishedToSchemaStoreOrg>

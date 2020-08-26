@@ -19,7 +19,11 @@
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net461;net45</TargetFrameworks>
+    <!--
+    For compatibility with older clients, we still build Sarif.Sdk (but no other packages)
+    for .NET Framework 4.5.
+    -->
+    <TargetFrameworks>$(TargetFrameworks);net45</TargetFrameworks>
   </PropertyGroup>
 
   <ItemGroup>

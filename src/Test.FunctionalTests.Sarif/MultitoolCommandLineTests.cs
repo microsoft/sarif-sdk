@@ -4,10 +4,9 @@
 using System.Diagnostics;
 using System.IO;
 using FluentAssertions;
-using Microsoft.CodeAnalysis.Sarif;
 using Xunit;
 
-namespace Microsoft.CodeAnalysis.Test.FunctionalTests.Sarif
+namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public class MultitoolCommandLineTests
     {
