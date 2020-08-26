@@ -65,7 +65,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                     {
                         if (m_filingClient == null)
                         {
-                            this.FilingClient = FilingClientFactory.Create(this.FilingContext.HostUri);
+                            this.FilingClient = FilingClientFactory.Create(this.FilingContext.WorkItemFilerUri);
                         }
                     }
                 }
@@ -130,9 +130,6 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                     logsToProcessCount = logsToProcess.Count;
                 }
 #endif
-
-                Logger.LogInformation("Connecting to filing client: {accountOrOrganization}", this.FilingClient.AccountOrOrganization);
-                this.FilingClient.Connect(this.FilingContext.PersonalAccessToken).Wait();
 
                 for (int splitFileIndex = 0; splitFileIndex < logsToProcessCount; splitFileIndex++)
                 {
@@ -267,8 +264,6 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             return logsToProcess.ToArray();
         }
 
-        internal const string PROGRAMMABLE_URIS_PROPERTY_NAME = "programmableWorkItemUris";
-
         public SarifWorkItemModel FileWorkItemInternal(SarifLog sarifLog, SarifWorkItemContext filingContext)
         {
             using (Logger.BeginScopeContext(nameof(FileWorkItemInternal)))
@@ -310,6 +305,9 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                         this.FilingContext.WorkItemFilerUri = workItemFilerUri;
                     }
                     this.FilingClient = FilingClientFactory.Create(this.FilingContext.WorkItemFilerUri);
+
+                    Logger.LogInformation("Connecting to filing client: {accountOrOrganization}", this.FilingClient.AccountOrOrganization);
+                    this.FilingClient.Connect(this.FilingContext.PersonalAccessToken).Wait();
 
                     // The helper below will initialize the sarif work item model with a copy
                     // of the root pipeline filing context. This context will then be initialized
