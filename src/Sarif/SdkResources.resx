@@ -253,6 +253,6 @@
     <value>Cannot provide version control information because the current directory '{0}' is not under a Git repository root directory.</value>
   </data>
   <data name="GitHelperDefaultInstanceDoesNotPermitCaching" xml:space="preserve">
-    <value>When using the static 'Default' instance of GitHelper, you must pass the argument useCache: false to the GetRepositoryRoot method. This will result in performance degradation. If the performance is acceptable, you may continue to use the Default instance. Otherwise, create a separate GitHelper instance. You need not pass useCache: true because that is the default.</value>
+    <value>When using the static 'Default' instance of GitHelper, you must pass the argument useCache: false to GetRepositoryRoot, which degrades performance. If the performance is not acceptable, create a separate GitHelper instance. You need not pass useCache: true because that is the default.</value>
   </data>
 </root>
