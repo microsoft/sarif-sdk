@@ -37,7 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             var gitHelper = new GitHelper(mockFileSystem.Object);
 
-            gitHelper.GetRepositoryRoot(@"C:\dev\sarif-sdk\src\Sarif").Should().Be(@"C:\dev\sarif-sdk");
+            gitHelper.GetRepositoryRoot(@"C:\dev\sarif-sdk\src\Sarif").Should().Be(@"C:\dev\sarif-sdk\");
         }
 
         [Fact]
@@ -64,14 +64,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             string nonSourceControlledRoot = gitHelper.GetRepositoryRoot(@"C:\docs\public");
 
             // Verify that the API returns the correct results whether or not the cache is in use.
-            topLevelDirectoryRoot.Should().Be(@"C:\dev\sarif-sdk");
+            topLevelDirectoryRoot.Should().Be(@"C:\dev\sarif-sdk\");
             topLevelDirectoryRootAgain.Should().Be(topLevelDirectoryRoot);
             subdirectoryRoot.Should().Be(topLevelDirectoryRoot);
             nonSourceControlledRoot.Should().BeNull();
 
             gitHelper.directoryToRepoRootPathDictionary.Count.Should().Be(3);
-            gitHelper.directoryToRepoRootPathDictionary[@"C:\dev\sarif-sdk\src\Sarif"].Should().Be(@"C:\dev\sarif-sdk");
-            gitHelper.directoryToRepoRootPathDictionary[@"C:\dev\sarif-sdk"].Should().Be(@"C:\dev\sarif-sdk");
+            gitHelper.directoryToRepoRootPathDictionary[@"C:\dev\sarif-sdk\src\Sarif"].Should().Be(@"C:\dev\sarif-sdk\");
+            gitHelper.directoryToRepoRootPathDictionary[@"C:\dev\sarif-sdk"].Should().Be(@"C:\dev\sarif-sdk\");
             gitHelper.directoryToRepoRootPathDictionary[@"C:\docs\public"].Should().BeNull();
         }
 
