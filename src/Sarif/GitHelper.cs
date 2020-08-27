@@ -10,6 +10,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     internal class GitHelper : IDisposable
     {
+        public static readonly GitHelper Default = new GitHelper();
+
         private readonly IFileSystem fileSystem;
         private readonly ReaderWriterLockSlim cacheLock = new ReaderWriterLockSlim();
 
@@ -164,6 +166,13 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public string GetRepositoryRoot(string path, bool useCache = true)
         {
+            // The "default" instance won't let you use the cache, to prevent independent users
+            // from interfering with each other.
+            if (useCache && object.ReferenceEquals(this, Default))
+            {
+                throw new ArgumentException(SdkResources.GitHelperDefaultInstanceDoesNotPermitCaching, nameof(useCache));
+            }
+
             string repoRootPath;
             if (useCache)
             {

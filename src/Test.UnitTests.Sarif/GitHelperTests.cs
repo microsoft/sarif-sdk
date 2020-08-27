@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using FluentAssertions;
 using Moq;
 using Xunit;
@@ -99,6 +100,22 @@ namespace Microsoft.CodeAnalysis.Sarif
             string nonSourceControlledRoot = gitHelper.GetRepositoryRoot(@"C:\docs\public", useCache: false);
 
             gitHelper.directoryToRepoRootPathDictionary.Count.Should().Be(0);
+        }
+
+        [Fact]
+        public void GetRepositoryRoot_WhenCalledOnTheDefaultInstanceWithNoParameters_Throws()
+        {
+            Action action = () => GitHelper.Default.GetRepositoryRoot(@"C:\dev");
+
+            action.Should().Throw<ArgumentException>().WithMessage($"{SdkResources.GitHelperDefaultInstanceDoesNotPermitCaching}*");
+        }
+
+        [Fact]
+        public void GetRepositoryRoot_WhenCalledOnTheDefaultInstanceWithCachingDisabled_DoesNotThrow()
+        {
+            Action action = () => GitHelper.Default.GetRepositoryRoot(@"C:\dev", useCache: false);
+
+            action.Should().NotThrow();
         }
     }
 }
