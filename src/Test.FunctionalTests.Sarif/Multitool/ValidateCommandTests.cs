@@ -564,7 +564,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 SarifValidationSkimmerBase rule = GetRuleFromId(ruleId);
                 RuleEnabledState ruleEnabledState = GetRuleEnabledState(rule);
                 rulePropertiesDictionary.Add(nameof(DefaultDriverOptions.RuleEnabled), ruleEnabledState);
-                if (parameter != null && parameter is KeyValuePair<string, object> pair)
+                if (parameter is KeyValuePair<string, object> pair)
                 {
                     rulePropertiesDictionary.Add(pair.Key, pair.Value);
                 }
