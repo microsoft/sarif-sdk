@@ -59,8 +59,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         private static readonly string AnalyzerMoniker = MakeAnalyzerMoniker(RuleId.ProvideToolProperties, nameof(RuleId.ProvideToolProperties));
 
-        // We instantiate this object just so we can access its property names below.
-        private static readonly ToolComponent s_dummyToolComponent = new ToolComponent();
+        // We instantiate this object just so we can access its property names below. It's internal
+        // rather than private so we can do the same thing in the tests.
+        internal static readonly ToolComponent s_dummyToolComponent = new ToolComponent();
 
         private static StringSet DefaultAcceptableVersionProperties =>
             new StringSet(
@@ -118,12 +119,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             }
 
             StringSet acceptableVersionProperties = this.Context.Policy.GetProperty(AcceptableVersionProperties);
-            bool toolDriverProvidesVersion =
-                (acceptableVersionProperties.Contains(nameof(toolComponent.Version)) && !string.IsNullOrWhiteSpace(toolComponent.Version))
-                ||
-                (acceptableVersionProperties.Contains(nameof(toolComponent.SemanticVersion)) && !string.IsNullOrWhiteSpace(toolComponent.SemanticVersion))
-                ||
-                (acceptableVersionProperties.Contains(nameof(toolComponent.DottedQuadFileVersion)) && !string.IsNullOrWhiteSpace(toolComponent.DottedQuadFileVersion));
+            bool toolDriverProvidesVersion = false;
+            toolDriverProvidesVersion |= acceptableVersionProperties.Contains(nameof(toolComponent.Version)) && !string.IsNullOrWhiteSpace(toolComponent.Version);
+            toolDriverProvidesVersion |= acceptableVersionProperties.Contains(nameof(toolComponent.SemanticVersion)) && !string.IsNullOrWhiteSpace(toolComponent.SemanticVersion);
+            toolDriverProvidesVersion |= acceptableVersionProperties.Contains(nameof(toolComponent.DottedQuadFileVersion)) && !string.IsNullOrWhiteSpace(toolComponent.DottedQuadFileVersion);
 
             if (!toolDriverProvidesVersion)
             {
@@ -135,7 +134,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     toolDriverPointer,
                     nameof(RuleResources.SARIF2005_ProvideToolProperties_Warning_ProvideToolVersion_Text),
                     toolComponent.Name,
-                    $"'{string.Join("', '", acceptableVersionProperties.Select(p => p.ToCamelCase()))}'");
+                    $"'{string.Join("', '", acceptableVersionProperties.Select(ToCamelCase))}'");
             }
             else
             {
@@ -160,5 +159,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     version);
             }
         }
+
+        private static string ToCamelCase(string name)
+            => name == null
+                ? throw new ArgumentNullException(nameof(name))
+                : name.Length == 1
+                ? name.ToLowerInvariant()
+                : $"{name.Substring(0, 1).ToLowerInvariant()}{name.Substring(1)}";
     }
 }

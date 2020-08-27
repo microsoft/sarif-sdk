@@ -176,51 +176,65 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public void SARIF2005_ProvideToolProperties_Invalid()
             => RunInvalidTestForRule(RuleId.ProvideToolProperties);
 
-        private const string DottedQuadFileVersionAcceptedConfiguration =
-@"    <Property Key='AcceptableVersionProperties' Type='StringSet'>
-      <Item>SemanticVersion</Item>
-      <Item>DottedQuadFileVersion</Item>
-    </Property>";
-
         [Fact]
         public void SARIF2005_ProvideToolProperties_DottedQuadFileVersion_AcceptedByConfiguration()
-            => RunTest(
+        {
+            var acceptableVersionProperties = new KeyValuePair<string, object>(
+                nameof(ProvideToolProperties.AcceptableVersionProperties),
+                new StringSet
+                {
+                    nameof(ProvideToolProperties.s_dummyToolComponent.SemanticVersion),
+                    nameof(ProvideToolProperties.s_dummyToolComponent.DottedQuadFileVersion)
+                });
+
+            RunTest(
                 inputResourceName: "SARIF2005.ProvideToolProperties_DottedQuadFileVersion.sarif",
                 expectedOutputResourceName: "SARIF2005.ProvideToolProperties_DottedQuadFileVersion_Valid.sarif",
-                parameter: DottedQuadFileVersionAcceptedConfiguration);
-
-        private const string DottedQuadFileVersionRejectedConfiguration =
-@"    <Property Key='AcceptableVersionProperties' Type='StringSet'>
-      <Item>Version</Item>
-      <Item>SemanticVersion</Item>
-    </Property>";
+                parameter: acceptableVersionProperties);
+        }
 
         [Fact]
         public void SARIF2005_ProvideToolProperties_DottedQuadFileVersion_RejectedByConfiguration()
-            => RunTest(
+        {
+            var acceptableVersionProperties = new KeyValuePair<string, object>(
+                nameof(ProvideToolProperties.AcceptableVersionProperties),
+                new StringSet
+                {
+                    nameof(ProvideToolProperties.s_dummyToolComponent.Version),
+                    nameof(ProvideToolProperties.s_dummyToolComponent.SemanticVersion)
+                });
+
+            RunTest(
                 inputResourceName: "SARIF2005.ProvideToolProperties_DottedQuadFileVersion.sarif",
                 expectedOutputResourceName: "SARIF2005.ProvideToolProperties_DottedQuadFileVersion_Invalid.sarif",
-                parameter: DottedQuadFileVersionRejectedConfiguration);
-
-        private const string MissingUriAcceptedConfiguration =
-            "    <Property Key='InformationUriRequired' Type='System.Boolean' Value='false' />";
+                parameter: acceptableVersionProperties);
+        }
 
         [Fact]
         public void SARIF2005_ProvideToolProperties_MissingInformationUri_AcceptedByConfiguration()
-            => RunTest(
+        {
+            var informationUriRequired = new KeyValuePair<string, object>(
+                nameof(ProvideToolProperties.InformationUriRequired),
+                false);
+
+            RunTest(
                 inputResourceName: "SARIF2005.ProvideToolProperties_MissingInformationUri.sarif",
                 expectedOutputResourceName: "SARIF2005.ProvideToolProperties_MissingInformationUri_Valid.sarif",
-                parameter: MissingUriAcceptedConfiguration);
-
-        private const string MissingUriRejectedConfiguration =
-            "    <Property Key='InformationUriRequired' Type='System.Boolean' Value='true' />";
+                parameter: informationUriRequired);
+        }
 
         [Fact]
         public void SARIF2005_ProvideToolProperties_MissingInformationUri_RejectedByConfiguration()
-            => RunTest(
+        {
+            var informationUriRequired = new KeyValuePair<string, object>(
+               nameof(ProvideToolProperties.InformationUriRequired),
+               true);
+
+            RunTest(
                 inputResourceName: "SARIF2005.ProvideToolProperties_MissingInformationUri.sarif",
                 expectedOutputResourceName: "SARIF2005.ProvideToolProperties_MissingInformationUri_Invalid.sarif",
-                parameter: MissingUriRejectedConfiguration);
+                parameter: informationUriRequired);
+        }
 
         [Fact]
         public void SARIF2006_UrisShouldBeReachable_Valid()
@@ -472,7 +486,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             // Some rules are disabled by default, so create a configuration file that explicitly
             // enables the rule under test.
-            using (TempFile configFile = CreateTempConfigFile(ruleUnderTest, parameter as string))
+            using (TempFile configFile = CreateTempConfigFile(ruleUnderTest, parameter))
             {
                 validateOptions.ConfigurationFilePath = configFile.Name;
                 mockFileSystem.Setup(x => x.FileExists(validateOptions.ConfigurationFilePath)).Returns(true);
@@ -541,30 +555,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         private static bool IsSarifRule(string ruleId)
             => ruleId.StartsWith("SARIF");
 
-        private TempFile CreateTempConfigFile(string ruleId, string parameter)
+        private TempFile CreateTempConfigFile(string ruleId, object parameter)
         {
-            var sb = new StringBuilder();
-            sb.AppendLine("<?xml version='1.0' encoding='utf-8' ?>");
-            sb.AppendLine("<Properties Type='PropertiesDictionary'>");
+            var propertiesDictionary = new PropertiesDictionary();
 
             if (IsSarifRule(ruleId))
             {
+                var rulePropertiesDictionary = new PropertiesDictionary();
                 SarifValidationSkimmerBase rule = GetRuleFromId(ruleId);
                 RuleEnabledState ruleEnabledState = GetRuleEnabledState(rule);
-
-                sb.AppendLine($"  <Properties Key='{rule.Moniker}.Options' Type='PropertiesDictionary'>");
-                sb.AppendLine($"    <Property Key='RuleEnabled' Value='{ruleEnabledState}' />");
-                if (!string.IsNullOrWhiteSpace(parameter))
+                rulePropertiesDictionary.Add(nameof(DefaultDriverOptions.RuleEnabled), ruleEnabledState);
+                if (parameter != null && parameter is KeyValuePair<string, object> pair)
                 {
-                    sb.AppendLine(parameter);
+                    rulePropertiesDictionary.Add(pair.Key, pair.Value);
                 }
-                sb.AppendLine("  </Properties>");
+
+                propertiesDictionary.Add($"{rule.Moniker}.Options", rulePropertiesDictionary);
             }
 
-            sb.AppendLine("</Properties>");
-
             var tempFile = new TempFile(".xml");
-            File.WriteAllText(tempFile.Name, sb.ToString());
+            propertiesDictionary.SaveToXml(tempFile.Name);
             return tempFile;
         }
 
