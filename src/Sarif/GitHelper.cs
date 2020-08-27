@@ -12,7 +12,13 @@ namespace Microsoft.CodeAnalysis.Sarif
     {
         private readonly IFileSystem fileSystem;
         private readonly ReaderWriterLockSlim cacheLock = new ReaderWriterLockSlim();
+
+        // TODO: This will go away because GitHelper shouldn't know anything about SARIF, such as
+        // how to create a VersionControlDetails object.
         private readonly Dictionary<string, VersionControlDetails> repoRoots = new Dictionary<string, VersionControlDetails>(StringComparer.OrdinalIgnoreCase);
+
+        // The case-insensitive key comparison is correct on 
+        private readonly Dictionary<string, string> directoryToRepoRootPathDictionary = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
         public bool IsRepositoryRoot(string repositoryPath) => this.fileSystem.DirectoryExists(Path.Combine(repositoryPath, ".git"));
 
@@ -149,12 +155,22 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public string GetRepositoryRoot(string path)
         {
-            while (!string.IsNullOrEmpty(path) && !IsRepositoryRoot(path))
+            if (directoryToRepoRootPathDictionary.TryGetValue(path, out string repoRootPath))
             {
-                path = Path.GetDirectoryName(path);
+                return repoRootPath;
             }
 
-            return path;
+            repoRootPath = path;
+            while (!string.IsNullOrEmpty(repoRootPath) && !IsRepositoryRoot(repoRootPath))
+            {
+                repoRootPath = Path.GetDirectoryName(repoRootPath);
+            }
+
+            // Add whatever we found to the cache, even if it was null (in which case we now know
+            // that this path isn't under source control).
+            directoryToRepoRootPathDictionary.Add(path, repoRootPath);
+
+            return repoRootPath;
         }
 
         /// <summary>
