@@ -46,6 +46,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             string enlistmentRoot = currentDirectory
                 .Substring(0, currentDirectory.IndexOf(@"\bld\"))
                 .Replace('\\', '/');
+            if (!enlistmentRoot.EndsWith("/")) { enlistmentRoot += "/"; }
 
             if (inputResourceName == "Inputs.CoreTests-Relative.sarif")
             {

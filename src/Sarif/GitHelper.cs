@@ -15,10 +15,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         private readonly IFileSystem fileSystem;
         private readonly ReaderWriterLockSlim cacheLock = new ReaderWriterLockSlim();
 
-        // TODO: This will go away because GitHelper shouldn't know anything about SARIF, such as
-        // how to create a VersionControlDetails object.
-        private readonly Dictionary<string, VersionControlDetails> repoRoots = new Dictionary<string, VersionControlDetails>(StringComparer.OrdinalIgnoreCase);
-
         // A cache that maps directory names to the root directory of the repository, if any, that
         // contains them.
         //
@@ -100,70 +96,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 .Replace("\r", string.Empty)
                 .Replace("\n", string.Empty);
 
-        public VersionControlDetails GetVersionControlDetails(string repositoryPath, bool crawlParentDirectories)
-        {
-            VersionControlDetails value;
-
-            cacheLock.EnterReadLock();
-            try
-            {
-                if (!crawlParentDirectories)
-                {
-                    if (repoRoots.TryGetValue(repositoryPath, out value))
-                    {
-                        return value;
-                    }
-                }
-                else
-                {
-                    foreach (KeyValuePair<string, VersionControlDetails> kp in repoRoots)
-                    {
-                        if (repositoryPath.StartsWith(kp.Key, StringComparison.OrdinalIgnoreCase) && ((repositoryPath.Length == kp.Key.Length) || (repositoryPath[kp.Key.Length] == '\\')))
-                        {
-                            return kp.Value;
-                        }
-                    }
-                }
-            }
-            finally
-            {
-                cacheLock.ExitReadLock();
-            }
-
-            repositoryPath = GetRepositoryRoot(repositoryPath);
-
-            if (string.IsNullOrEmpty(repositoryPath))
-            {
-                return null;
-            }
-
-            Uri repoRemoteUri = GetRemoteUri(repositoryPath);
-            value = (repoRemoteUri is null)
-                ? null
-                : new VersionControlDetails
-                {
-                    RepositoryUri = repoRemoteUri,
-                    RevisionId = GetCurrentCommit(repositoryPath),
-                    Branch = GetCurrentBranch(repositoryPath),
-                    MappedTo = new ArtifactLocation { Uri = new Uri(repositoryPath, UriKind.Absolute) },
-                };
-
-            cacheLock.EnterWriteLock();
-            try
-            {
-                if (!repoRoots.ContainsKey(repositoryPath))
-                {
-                    repoRoots.Add(repositoryPath, value);
-                }
-            }
-            finally
-            {
-                cacheLock.ExitWriteLock();
-            }
-
-            return value;
-        }
-
         public string GetRepositoryRoot(string path, bool useCache = true)
         {
             // The "default" instance won't let you use the cache, to prevent independent users
@@ -176,9 +108,17 @@ namespace Microsoft.CodeAnalysis.Sarif
             string repoRootPath;
             if (useCache)
             {
-                if (directoryToRepoRootPathDictionary.TryGetValue(path, out repoRootPath))
+                cacheLock.EnterReadLock();
+                try
                 {
-                    return repoRootPath;
+                    if (directoryToRepoRootPathDictionary.TryGetValue(path, out repoRootPath))
+                    {
+                        return repoRootPath;
+                    }
+                }
+                finally
+                {
+                    cacheLock.ExitReadLock();
                 }
             }
 
@@ -188,11 +128,30 @@ namespace Microsoft.CodeAnalysis.Sarif
                 repoRootPath = Path.GetDirectoryName(repoRootPath);
             }
 
+            // It's important to terminate with a slash because the value returned from this method
+            // will be used to create an absolute URI on which MakeUriRelative will be called. For
+            // example, suppose this method returns @"C:\\dev\sarif-sdk\". The caller will use it
+            // to create an absolute URI (call it repoRootUri) "file:///C:/dev/sarif-sdk/". The
+            // caller will use this URI to "rebase" another URI (call it artifactUri) such as
+            // "file:///C:/dev/sarif-sdk/src/Sarif". The caller will do that by calling
+            // repoRootUri.MakeRelativeUri(artifactUri). It turns out that unless repoRootUri
+            // ends with a slash, this call will return "sarif-sdk/src/Sarif" rather than the
+            // expected (at least for me) "src/Sarif".
+            if (repoRootPath != null && !repoRootPath.EndsWith(@"\")) { repoRootPath += @"\"; }
+
             if (useCache)
             {
-                // Add whatever we found to the cache, even if it was null (in which case we now know
-                // that this path isn't under source control).
-                directoryToRepoRootPathDictionary.Add(path, repoRootPath);
+                cacheLock.EnterWriteLock();
+                try
+                {
+                    // Add whatever we found to the cache, even if it was null (in which case we now know
+                    // that this path isn't under source control).
+                    directoryToRepoRootPathDictionary.Add(path, repoRootPath);
+                }
+                finally
+                {
+                    cacheLock.ExitWriteLock();
+                }
             }
 
             return repoRootPath;

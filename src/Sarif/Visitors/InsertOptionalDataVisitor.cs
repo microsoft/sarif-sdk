@@ -11,9 +11,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
     public class InsertOptionalDataVisitor : SarifRewritingVisitor
     {
         internal IFileSystem s_fileSystem = new FileSystem();
-        internal IExecutionEnvironment s_executionEnvironment = new ExecutionEnvironment();
 
         private Run _run;
+        private HashSet<Uri> _repoRootUris;
+        private GitHelper _gitHelper;
+
         private int _ruleIndex;
         private FileRegionsCache _fileRegionsCache;
         private readonly OptionallyEmittedData _dataToInsert;
@@ -35,6 +37,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         public override Run VisitRun(Run node)
         {
             _run = node;
+            _gitHelper = new GitHelper();
+            _repoRootUris = new HashSet<Uri>();
 
             if (_originalUriBaseIds != null)
             {
@@ -44,11 +48,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     _run.OriginalUriBaseIds[key] = _originalUriBaseIds[key];
                 }
-            }
-
-            if (_run.VersionControlProvenance == null && _dataToInsert.HasFlag(OptionallyEmittedData.VersionControlInformation))
-            {
-                InsertVersionControlInformation();
             }
 
             if (node == null) { return null; }
@@ -65,29 +64,37 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             Run visited = base.VisitRun(node);
 
+            // After all the ArtifactLocations have been visited,
+            if (_run.VersionControlProvenance == null && _dataToInsert.HasFlag(OptionallyEmittedData.VersionControlInformation))
+            {
+                _run.VersionControlProvenance = CreateVersionControlProvenance();
+            }
+
             return visited;
         }
 
-        private void InsertVersionControlInformation()
+        private List<VersionControlDetails> CreateVersionControlProvenance()
         {
-            var gitHelper = new GitHelper(s_fileSystem);
-            string currentDirectory = s_executionEnvironment.CurrentDirectory;
+            var versionControlProvenance = new List<VersionControlDetails>();
 
-            VersionControlDetails versionControlDetails =
-                gitHelper.GetVersionControlDetails(currentDirectory, crawlParentDirectories: true);
-            if (versionControlDetails == null)
+            foreach (Uri repoRootUri in _repoRootUris)
             {
-                throw new InvalidOperationException(
-                    string.Format(
-                        CultureInfo.CurrentCulture,
-                        SdkResources.CannotProvideVersionControlInformation,
-                        currentDirectory));
+                string repoRootPath = repoRootUri.LocalPath;
+                Uri repoRemoteUri = _gitHelper.GetRemoteUri(repoRootPath);
+                if (repoRemoteUri != null)
+                {
+                    versionControlProvenance.Add(
+                        new VersionControlDetails
+                        {
+                            RepositoryUri = repoRemoteUri,
+                            RevisionId = _gitHelper.GetCurrentCommit(repoRootPath),
+                            Branch = _gitHelper.GetCurrentBranch(repoRootPath),
+                            MappedTo = new ArtifactLocation { Uri = repoRootUri }
+                        });
+                }
             }
 
-            _run.VersionControlProvenance = new List<VersionControlDetails>
-            {
-                versionControlDetails
-            };
+            return versionControlProvenance;
         }
 
         public override PhysicalLocation VisitPhysicalLocation(PhysicalLocation node)
@@ -193,6 +200,78 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
 
             return base.VisitArtifact(node);
+        }
+
+        public override ArtifactLocation VisitArtifactLocation(ArtifactLocation node)
+        {
+            if (_dataToInsert.HasFlag(OptionallyEmittedData.VersionControlInformation))
+            {
+                node = ExpressRelativeToRepoRoot(node);
+            }
+
+            return base.VisitArtifactLocation(node);
+        }
+
+        private ArtifactLocation ExpressRelativeToRepoRoot(ArtifactLocation node)
+        {
+            Uri uri = node.Uri;
+            if (uri == null && node.Index >= 0 && _run.Artifacts?.Count > node.Index)
+            {
+                uri = _run.Artifacts[node.Index].Location.Uri;
+            }
+
+            if (uri?.IsAbsoluteUri == true)
+            {
+                string repoRootPath = _gitHelper.GetRepositoryRoot(uri.AbsolutePath);
+                var repoRootUri = new Uri(repoRootPath, UriKind.Absolute);
+                _repoRootUris.Add(repoRootUri);
+
+                Uri repoRelativeUri = repoRootUri.MakeRelativeUri(uri);
+                node.Uri = repoRelativeUri;
+                node.UriBaseId = GetUriBaseIdForRepoRoot(repoRootUri);
+            }
+
+            return node;
+        }
+
+        private string GetUriBaseIdForRepoRoot(Uri repoRootUri)
+        {
+            // Is there already an entry in OriginalUriBaseIds for this repo?
+            if (_run.OriginalUriBaseIds != null)
+            {
+                foreach (KeyValuePair<string, ArtifactLocation> pair in _run.OriginalUriBaseIds)
+                {
+                    if (pair.Value.Uri == repoRootUri)
+                    {
+                        // Yes, so return it.
+                        return pair.Key;
+                    }
+                }
+            }
+
+            // No, so add one.
+            if (_run.OriginalUriBaseIds == null)
+            {
+                _run.OriginalUriBaseIds = new Dictionary<string, ArtifactLocation>();
+            }
+
+            string uriBaseId = GetNextRepoRootUriBaseId();
+            _run.OriginalUriBaseIds.Add(
+                uriBaseId,
+                new ArtifactLocation
+                {
+                    Uri = repoRootUri
+                });
+
+            return uriBaseId;
+        }
+
+
+        private string GetNextRepoRootUriBaseId()
+        {
+            // TODO: This works only if we discover only one repo root, and the uriBaseId
+            // "REPO_ROOT" is not already in use.
+            return "REPO_ROOT";
         }
 
         public override Result VisitResult(Result node)
