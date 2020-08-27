@@ -73,30 +73,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return visited;
         }
 
-        private List<VersionControlDetails> CreateVersionControlProvenance()
-        {
-            var versionControlProvenance = new List<VersionControlDetails>();
-
-            foreach (Uri repoRootUri in _repoRootUris)
-            {
-                string repoRootPath = repoRootUri.LocalPath;
-                Uri repoRemoteUri = _gitHelper.GetRemoteUri(repoRootPath);
-                if (repoRemoteUri != null)
-                {
-                    versionControlProvenance.Add(
-                        new VersionControlDetails
-                        {
-                            RepositoryUri = repoRemoteUri,
-                            RevisionId = _gitHelper.GetCurrentCommit(repoRootPath),
-                            Branch = _gitHelper.GetCurrentBranch(repoRootPath),
-                            MappedTo = new ArtifactLocation { Uri = repoRootUri }
-                        });
-                }
-            }
-
-            return versionControlProvenance;
-        }
-
         public override PhysicalLocation VisitPhysicalLocation(PhysicalLocation node)
         {
             if (node.Region == null || node.Region.IsBinaryRegion)
@@ -212,6 +188,72 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return base.VisitArtifactLocation(node);
         }
 
+        public override Result VisitResult(Result node)
+        {
+            _ruleIndex = node.RuleIndex;
+            node = base.VisitResult(node);
+            _ruleIndex = -1;
+
+            if (string.IsNullOrEmpty(node.Guid) && _dataToInsert.HasFlag(OptionallyEmittedData.Guids))
+            {
+                node.Guid = Guid.NewGuid().ToString(SarifConstants.GuidFormat);
+            }
+
+            return node;
+        }
+
+        public override Message VisitMessage(Message node)
+        {
+            if ((node.Text == null || _dataToInsert.HasFlag(OptionallyEmittedData.OverwriteExistingData)) &&
+                _dataToInsert.HasFlag(OptionallyEmittedData.FlattenedMessages))
+            {
+                MultiformatMessageString formatString = null;
+                ReportingDescriptor rule = _ruleIndex != -1 ? _run.Tool.Driver.Rules[_ruleIndex] : null;
+
+                if (rule != null &&
+                    rule.MessageStrings != null &&
+                    rule.MessageStrings.TryGetValue(node.Id, out formatString))
+                {
+                    node.Text = node.Arguments?.Count > 0
+                        ? rule.Format(node.Id, node.Arguments)
+                        : formatString?.Text;
+                }
+
+                if (node.Text == null &&
+                    _run.Tool.Driver.GlobalMessageStrings?.TryGetValue(node.Id, out formatString) == true)
+                {
+                    node.Text = node.Arguments?.Count > 0
+                        ? string.Format(CultureInfo.CurrentCulture, formatString.Text, node.Arguments.ToArray())
+                        : formatString?.Text;
+                }
+            }
+            return base.VisitMessage(node);
+        }
+
+        private List<VersionControlDetails> CreateVersionControlProvenance()
+        {
+            var versionControlProvenance = new List<VersionControlDetails>();
+
+            foreach (Uri repoRootUri in _repoRootUris)
+            {
+                string repoRootPath = repoRootUri.LocalPath;
+                Uri repoRemoteUri = _gitHelper.GetRemoteUri(repoRootPath);
+                if (repoRemoteUri != null)
+                {
+                    versionControlProvenance.Add(
+                        new VersionControlDetails
+                        {
+                            RepositoryUri = repoRemoteUri,
+                            RevisionId = _gitHelper.GetCurrentCommit(repoRootPath),
+                            Branch = _gitHelper.GetCurrentBranch(repoRootPath),
+                            MappedTo = new ArtifactLocation { Uri = repoRootUri }
+                        });
+                }
+            }
+
+            return versionControlProvenance;
+        }
+
         private ArtifactLocation ExpressRelativeToRepoRoot(ArtifactLocation node)
         {
             Uri uri = node.Uri;
@@ -266,7 +308,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return uriBaseId;
         }
 
-
         private string GetNextRepoRootUriBaseId()
         {
             ICollection<string> originalUriBaseIdSymbols = _run.OriginalUriBaseIds.Keys;
@@ -291,47 +332,5 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             => i == 0
             ? RepoRootUriBaseIdStem
             : $"{RepoRootUriBaseIdStem}_{i + 1}";
-
-        public override Result VisitResult(Result node)
-        {
-            _ruleIndex = node.RuleIndex;
-            node = base.VisitResult(node);
-            _ruleIndex = -1;
-
-            if (string.IsNullOrEmpty(node.Guid) && _dataToInsert.HasFlag(OptionallyEmittedData.Guids))
-            {
-                node.Guid = Guid.NewGuid().ToString(SarifConstants.GuidFormat);
-            }
-
-            return node;
-        }
-
-        public override Message VisitMessage(Message node)
-        {
-            if ((node.Text == null || _dataToInsert.HasFlag(OptionallyEmittedData.OverwriteExistingData)) &&
-                _dataToInsert.HasFlag(OptionallyEmittedData.FlattenedMessages))
-            {
-                MultiformatMessageString formatString = null;
-                ReportingDescriptor rule = _ruleIndex != -1 ? _run.Tool.Driver.Rules[_ruleIndex] : null;
-
-                if (rule != null &&
-                    rule.MessageStrings != null &&
-                    rule.MessageStrings.TryGetValue(node.Id, out formatString))
-                {
-                    node.Text = node.Arguments?.Count > 0
-                        ? rule.Format(node.Id, node.Arguments)
-                        : formatString?.Text;
-                }
-
-                if (node.Text == null &&
-                    _run.Tool.Driver.GlobalMessageStrings?.TryGetValue(node.Id, out formatString) == true)
-                {
-                    node.Text = node.Arguments?.Count > 0
-                        ? string.Format(CultureInfo.CurrentCulture, formatString.Text, node.Arguments.ToArray())
-                        : formatString?.Text;
-                }
-            }
-            return base.VisitMessage(node);
-        }
     }
 }
