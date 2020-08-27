@@ -269,10 +269,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         private string GetNextRepoRootUriBaseId()
         {
-            // TODO: This works only if we discover only one repo root, and the uriBaseId
-            // "REPO_ROOT" is not already in use.
-            return "REPO_ROOT";
+            ICollection<string> originalUriBaseIdSymbols = _run.OriginalUriBaseIds.Keys;
+
+            for (int i = 0; ; i++)
+            {
+                string uriBaseId = GetUriBaseId(i);
+                if (!originalUriBaseIdSymbols.Contains(uriBaseId))
+                {
+                    return uriBaseId;
+                }
+            }
         }
+
+        private const string RepoRootUriBaseIdStem = "REPO_ROOT";
+
+        // When there is only one repo root (the usual case), the uriBaseId is "REPO_ROOT" (unless
+        // that symbol is already in use in originalUriBaseIds. The second and subsequent uriBaseIds
+        // are REPO_ROOT_2, _3, etc. (again, skipping over any that are in use). We never assign
+        // REPO_ROOT_1 (although of course it might exist in originalUriBaseIds).
+        private string GetUriBaseId(int i)
+            => i == 0
+            ? RepoRootUriBaseIdStem
+            : $"{RepoRootUriBaseIdStem}_{i + 1}";
 
         public override Result VisitResult(Result node)
         {
