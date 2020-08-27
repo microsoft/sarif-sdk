@@ -17,8 +17,17 @@ namespace Microsoft.CodeAnalysis.Sarif
         // how to create a VersionControlDetails object.
         private readonly Dictionary<string, VersionControlDetails> repoRoots = new Dictionary<string, VersionControlDetails>(StringComparer.OrdinalIgnoreCase);
 
-        // The case-insensitive key comparison is correct on 
-        private readonly Dictionary<string, string> directoryToRepoRootPathDictionary = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+        // A cache that maps directory names to the root directory of the repository, if any, that
+        // contains them.
+        //
+        // The case-insensitive key comparison is correct on Windows systems and wrong on Linux/MacOS.
+        // This is a general problem in the SDK. See https://github.com/microsoft/sarif-sdk/issues/1736,
+        // "File path comparisons are not file-system-appropriate".
+        //
+        // The cache is internal rather than private so that tests can verify that the cache is
+        // being populated appropriately. It's not so easy to verify that it's being _used_
+        // appropriately.
+        internal readonly Dictionary<string, string> directoryToRepoRootPathDictionary = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
         public bool IsRepositoryRoot(string repositoryPath) => this.fileSystem.DirectoryExists(Path.Combine(repositoryPath, ".git"));
 
@@ -153,11 +162,15 @@ namespace Microsoft.CodeAnalysis.Sarif
             return value;
         }
 
-        public string GetRepositoryRoot(string path)
+        public string GetRepositoryRoot(string path, bool useCache = true)
         {
-            if (directoryToRepoRootPathDictionary.TryGetValue(path, out string repoRootPath))
+            string repoRootPath;
+            if (useCache)
             {
-                return repoRootPath;
+                if (directoryToRepoRootPathDictionary.TryGetValue(path, out repoRootPath))
+                {
+                    return repoRootPath;
+                }
             }
 
             repoRootPath = path;
@@ -166,9 +179,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 repoRootPath = Path.GetDirectoryName(repoRootPath);
             }
 
-            // Add whatever we found to the cache, even if it was null (in which case we now know
-            // that this path isn't under source control).
-            directoryToRepoRootPathDictionary.Add(path, repoRootPath);
+            if (useCache)
+            {
+                // Add whatever we found to the cache, even if it was null (in which case we now know
+                // that this path isn't under source control).
+                directoryToRepoRootPathDictionary.Add(path, repoRootPath);
+            }
 
             return repoRootPath;
         }
