@@ -10,6 +10,7 @@ using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
 
+using Moq;
 using Newtonsoft.Json;
 using Xunit;
 using Xunit.Abstractions;
@@ -223,6 +224,117 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             RunTest("TopLevelOriginalUriBaseIdUriMissing.sarif",
                 OptionallyEmittedData.ContextRegionSnippets);
+        }
+
+        [Fact]
+        public void InsertOptionalDataVisitor_SkipsExistingRepoRootSymbolsAndHandlesMultipleRoots()
+        {
+            const string ParentRepoRoot = @"C:\repo\";
+            const string ParentRepoBranch = "users/mary/my-feature";
+            const string ParentRepoCommit = "11111";
+
+            const string SubmoduleRepoRoot = @"C:\repo\submodule\";
+            const string SubmoduleBranch = "main";
+            const string SubmoduleCommit = "22222";
+
+            var mockFileSystem = new Mock<IFileSystem>();
+
+            mockFileSystem.Setup(x => x.DirectoryExists(It.IsAny<string>())).Returns(false);
+            mockFileSystem.Setup(x => x.FileExists(It.IsAny<string>())).Returns(false);
+
+            mockFileSystem.Setup(x => x.DirectoryExists(@$"{ParentRepoRoot}.git")).Returns(true);
+            mockFileSystem.Setup(x => x.DirectoryExists(@$"C:\repo")).Returns(true);
+            mockFileSystem.Setup(x => x.DirectoryExists(@$"{ParentRepoRoot}src")).Returns(true);
+            mockFileSystem.Setup(x => x.FileExists(@$"{ParentRepoRoot}src\File.cs")).Returns(true);
+
+            mockFileSystem.Setup(x => x.DirectoryExists($@"{SubmoduleRepoRoot}.git")).Returns(true);
+            mockFileSystem.Setup(x => x.DirectoryExists(@$"C:\repo\submodule")).Returns(true);
+            mockFileSystem.Setup(x => x.DirectoryExists(@$"{SubmoduleRepoRoot}src")).Returns(true);
+            mockFileSystem.Setup(x => x.FileExists(@$"{SubmoduleRepoRoot}src\File2.cs")).Returns(true);
+
+            mockFileSystem.Setup(x => x.FileExists(GitHelper.s_expectedGitExePath)).Returns(true);
+
+            var mockProcessRunner = new Mock<IProcessRunner>();
+
+            mockProcessRunner.Setup(x => x.Run(ParentRepoRoot, GitHelper.s_expectedGitExePath, "remote get-url origin")).Returns(ParentRepoRoot);
+            mockProcessRunner.Setup(x => x.Run(ParentRepoRoot, GitHelper.s_expectedGitExePath, "rev-parse --abbrev-ref HEAD")).Returns(ParentRepoBranch);
+            mockProcessRunner.Setup(x => x.Run(ParentRepoRoot, GitHelper.s_expectedGitExePath, "rev-parse --verify HEAD")).Returns(ParentRepoCommit);
+
+            mockProcessRunner.Setup(x => x.Run(SubmoduleRepoRoot, GitHelper.s_expectedGitExePath, "remote get-url origin")).Returns(SubmoduleRepoRoot);
+            mockProcessRunner.Setup(x => x.Run(SubmoduleRepoRoot, GitHelper.s_expectedGitExePath, "rev-parse --abbrev-ref HEAD")).Returns(SubmoduleBranch);
+            mockProcessRunner.Setup(x => x.Run(SubmoduleRepoRoot, GitHelper.s_expectedGitExePath, "rev-parse --verify HEAD")).Returns(SubmoduleCommit);
+
+            var run = new Run
+            {
+                OriginalUriBaseIds = new Dictionary<string, ArtifactLocation>
+                {
+                    // Called "REPO_ROOT" but doesn't actually point to a repo.
+                    ["REPO_ROOT"] = new ArtifactLocation
+                    {
+                        Uri = new Uri(@"C:\dir1\dir2", UriKind.Absolute)
+                    }
+                },
+                Results = new List<Result>
+                {
+                    new Result
+                    {
+                        Locations = new List<Location>
+                        {
+                            new Location
+                            {
+                                PhysicalLocation = new PhysicalLocation
+                                {
+                                    ArtifactLocation = new ArtifactLocation
+                                    {
+                                        // The visitor will encounter this file and notice that it
+                                        // is under a repo root. It will invent a uriBaseId symbol
+                                        // for this repo. Since REPO_ROOT is already taken, it will
+                                        // choose REPO_ROOT_2
+                                        Uri = new Uri(@$"{ParentRepoRoot}src\File.cs", UriKind.Absolute)
+                                    }
+                                }
+                            },
+                            new Location
+                            {
+                                PhysicalLocation = new PhysicalLocation
+                                {
+                                    ArtifactLocation = new ArtifactLocation
+                                    {
+                                        Uri = new Uri(@$"{SubmoduleRepoRoot}src\File2.cs", UriKind.Absolute)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+
+            var visitor = new InsertOptionalDataVisitor(
+                OptionallyEmittedData.VersionControlInformation,
+                originalUriBaseIds: null,
+                fileSystem: mockFileSystem.Object,
+                processRunner: mockProcessRunner.Object);
+            visitor.Visit(run);
+
+            run.VersionControlProvenance[0].MappedTo.Uri.LocalPath.Should().Be(ParentRepoRoot);
+            run.VersionControlProvenance[0].Branch.Should().Be(ParentRepoBranch);
+            run.VersionControlProvenance[0].RevisionId.Should().Be(ParentRepoCommit);
+
+            run.VersionControlProvenance[1].MappedTo.Uri.LocalPath.Should().Be(SubmoduleRepoRoot);
+            run.VersionControlProvenance[1].Branch.Should().Be(SubmoduleBranch);
+            run.VersionControlProvenance[1].RevisionId.Should().Be(SubmoduleCommit);
+
+            run.OriginalUriBaseIds["REPO_ROOT_2"].Uri.LocalPath.Should().Be(ParentRepoRoot);
+
+            IList<Location> resultLocations = run.Results[0].Locations;
+
+            ArtifactLocation resultArtifactLocation = resultLocations[0].PhysicalLocation.ArtifactLocation;
+            resultArtifactLocation.Uri.OriginalString.Should().Be("src/File.cs");
+            resultArtifactLocation.UriBaseId.Should().Be("REPO_ROOT_2");
+
+            resultArtifactLocation = resultLocations[1].PhysicalLocation.ArtifactLocation;
+            resultArtifactLocation.Uri.OriginalString.Should().Be("src/File2.cs");
+            resultArtifactLocation.UriBaseId.Should().Be("REPO_ROOT_3");
         }
 
         [Fact]
@@ -544,11 +656,10 @@ Three";
             string inputFileName = "InsertOptionalDataVisitor.txt";
             string testDirectory = GetTestDirectory("InsertOptionalDataVisitor") + @"\";
             string uriBaseId = "TEST_DIR";
-            string fileKey = "#" + uriBaseId + "#" + inputFileName;
 
             IDictionary<string, ArtifactLocation> originalUriBaseIds = new Dictionary<string, ArtifactLocation> { { uriBaseId, new ArtifactLocation { Uri = new Uri(testDirectory, UriKind.Absolute) } } };
 
-            Run run = new Run()
+            var run = new Run()
             {
                 DefaultEncoding = "UTF-8",
                 OriginalUriBaseIds = null,
