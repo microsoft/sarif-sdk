@@ -61,8 +61,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 var visitor = new InsertOptionalDataVisitor(_currentOptionallyEmittedData);
                 visitor.Visit(actualLog.Runs[0]);
 
-                // Restore the remanufactured URI so that file diffing matches
+                // Restore the remanufactured URI so that file diffing succeeds.
                 actualLog.Runs[0].OriginalUriBaseIds["TESTROOT"] = new ArtifactLocation { Uri = originalUri };
+
+                // In some of the tests, the visitor added an originalUriBaseId for the repo root.
+                // Adjust that one, too.
+                string repoRootUriBaseId = InsertOptionalDataVisitor.GetUriBaseId(0);
+                if (actualLog.Runs[0].OriginalUriBaseIds.TryGetValue(repoRootUriBaseId, out ArtifactLocation artifactLocation))
+                {
+                    Uri repoRootUri = artifactLocation.Uri;
+                    string repoRootString = repoRootUri.ToString();
+                    repoRootString = repoRootString.Replace(enlistmentRoot, EnlistmentRoot);
+
+                    actualLog.Runs[0].OriginalUriBaseIds[repoRootUriBaseId] = new ArtifactLocation { Uri = new Uri(repoRootString, UriKind.Absolute) };
+                }
             }
             else if (inputResourceName == "Inputs.CoreTests-Absolute.sarif")
             {

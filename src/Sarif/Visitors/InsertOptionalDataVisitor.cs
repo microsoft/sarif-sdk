@@ -339,7 +339,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         // that symbol is already in use in originalUriBaseIds. The second and subsequent uriBaseIds
         // are REPO_ROOT_2, _3, etc. (again, skipping over any that are in use). We never assign
         // REPO_ROOT_1 (although of course it might exist in originalUriBaseIds).
-        private string GetUriBaseId(int i)
+        internal static string GetUriBaseId(int i)
             => i == 0
             ? RepoRootUriBaseIdStem
             : $"{RepoRootUriBaseIdStem}_{i + 1}";
