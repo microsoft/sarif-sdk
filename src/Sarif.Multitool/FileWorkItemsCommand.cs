@@ -9,8 +9,10 @@ using System.Reflection;
 using System.Text;
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.WorkItems;
+using Microsoft.CodeAnalysis.WorkItems.Configuration;
 using Microsoft.Json.Schema;
 using Microsoft.Json.Schema.Validation;
+using Microsoft.WorkItems;
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
@@ -35,13 +37,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public int Run(FileWorkItemsOptions options, IFileSystem fileSystem)
         {
+            string logFileContents = fileSystem.ReadAllText(options.InputFilePath);
+
+            if (!options.DoNotValidate)
+            {
+                EnsureValidSarifLogFile(logFileContents, options.InputFilePath);
+            }
+
+            SurffConfiguration configuration;
+            if (!string.IsNullOrEmpty(options.ConfigurationFilePath))
+            {
+                configuration = ConfigurationFactory.LoadFromFilePath(options.ConfigurationFilePath);
+            }
+            else
+            {
+                // BUGBUG: Where do we get this info from?
+                // We'll need the Git repository, the organization, the project, and the tool.
+                configuration = ConfigurationFactory.Load(null, null, null);
+            }
+
             using (var filingContext = new SarifWorkItemContext())
             {
-                if (!string.IsNullOrEmpty(options.ConfigurationFilePath))
-                {
-                    filingContext.LoadFromXml(options.ConfigurationFilePath);
-                }
-
                 if (!ValidateOptions(options, filingContext, fileSystem))
                 {
                     return FAILURE;
@@ -49,13 +65,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 // For unit tests: allow us to just validate the options and return.
                 if (s_validateOptionsOnly) { return SUCCESS; }
-
-                string logFileContents = fileSystem.ReadAllText(options.InputFilePath);
-
-                if (!options.DoNotValidate)
-                {
-                    EnsureValidSarifLogFile(logFileContents, options.InputFilePath);
-                }
 
                 if (options.SplittingStrategy != SplittingStrategy.None)
                 {
@@ -72,15 +81,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     filingContext.ShouldFileUnchanged = options.ShouldFileUnchanged.Value;
                 }
 
-                if (options.DataToRemove.ToFlags() != OptionallyEmittedData.None)
-                {
-                    filingContext.DataToRemove = options.DataToRemove.ToFlags();
-                }
+                //if (options.DataToRemove.ToFlags() != OptionallyEmittedData.None)
+                //{
+                //    filingContext.DataToRemove = options.DataToRemove.ToFlags();
+                //}
 
-                if (options.DataToInsert.ToFlags() != OptionallyEmittedData.None)
-                {
-                    filingContext.DataToInsert = options.DataToInsert.ToFlags();
-                }
+                //if (options.DataToInsert.ToFlags() != OptionallyEmittedData.None)
+                //{
+                //    filingContext.DataToInsert = options.DataToInsert.ToFlags();
+                //}
 
                 SarifLog sarifLog = null;
                 using (var filer = new SarifWorkItemFiler(filingContext.HostUri, filingContext))
@@ -154,16 +163,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
 
             Uri hostUri = null;
-            if (!string.IsNullOrEmpty(hostUriString) && !Uri.TryCreate(hostUriString, UriKind.RelativeOrAbsolute, out hostUri))
+            if (!string.IsNullOrEmpty(hostUriString) && !Uri.TryCreate(hostUriString, UriKind.Absolute, out hostUri))
             {
                 // A valid URI could not be created from the value '{0}' of the '{1}' option.
                 Console.Error.WriteLine(MultitoolResources.WorkItemFiling_ErrorUriIsNotLegal);
                 return false;
             }
 
-            // Any command-line argument that's provided overrides values specified in the configuration.
-            workItemFilingConfiguration.HostUri = hostUri ?? workItemFilingConfiguration.HostUri;
+            if (!string.IsNullOrEmpty(hostUriString) && FilingClientFactory.TryParseUri(hostUriString, out FilingClient.WorkItemProvider workItemProvider, out string organization, out string project))
+            {
+                // Any command-line argument that's provided overrides values specified in the configuration.
+                workItemFilingConfiguration.Organization = organization;
+                workItemFilingConfiguration.Project = project;
 
+                // BUGBUG: When this is set, some of the value in the SarifWorkItemContext probably need to be recalculated.
+                workItemFilingConfiguration.WorkItemProvider = workItemProvider;
+            }
 
             if (!workItemFilingConfiguration.HostUri.IsAbsoluteUri)
             {

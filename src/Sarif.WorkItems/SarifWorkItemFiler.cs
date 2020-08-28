@@ -34,7 +34,23 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         /// </param>
         public SarifWorkItemFiler(Uri filingUri = null, SarifWorkItemContext filingContext = null)
         {
-            this.FilingContext = filingContext ?? new SarifWorkItemContext { HostUri = filingUri };
+            // BUGBUG: Shouldn't the constructor just accept a SarifWorkItemContext? There's no need for an alternate URI.
+            if (filingContext != null)
+            {
+                this.FilingContext = filingContext;
+            }
+            else
+            {
+                if (FilingClientFactory.TryParseUri(filingUri.AbsoluteUri, out FilingClient.WorkItemProvider workItemProvider, out string organization, out string project))
+                {
+                    new SarifWorkItemContext(organization, project, null, null);
+                }
+                else
+                {
+                    throw new ArgumentOutOfRangeException(nameof(filingUri), $"Unsupported filing URI: {filingUri}");
+                }
+            }
+
             filingUri = filingUri ?? this.FilingContext.HostUri;
 
             if (filingUri == null) { throw new ArgumentNullException(nameof(filingUri)); };
@@ -156,25 +172,26 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 Logger.LogInformation("Connecting to filing client: {accountOrOrganization}", this.FilingClient.AccountOrOrganization);
                 this.FilingClient.Connect(this.FilingContext.PersonalAccessToken).Wait();
 
-                OptionallyEmittedData optionallyEmittedData = this.FilingContext.DataToRemove;
-                if (optionallyEmittedData != OptionallyEmittedData.None)
-                {
-                    Logger.LogDebug("Removing optional data.");
-                    var dataRemovingVisitor = new RemoveOptionalDataVisitor(optionallyEmittedData);
-                    dataRemovingVisitor.Visit(sarifLog);
-                }
+                //OptionallyEmittedData optionallyEmittedData = this.FilingContext.DataToRemove;
+                //if (optionallyEmittedData != OptionallyEmittedData.None)
+                //{
+                //    Logger.LogDebug("Removing optional data.");
+                //    var dataRemovingVisitor = new RemoveOptionalDataVisitor(optionallyEmittedData);
+                //    dataRemovingVisitor.Visit(sarifLog);
+                //}
 
-                optionallyEmittedData = this.FilingContext.DataToInsert;
-                if (optionallyEmittedData != OptionallyEmittedData.None)
-                {
-                    Logger.LogDebug("Inserting optional data.");
-                    var dataInsertingVisitor = new InsertOptionalDataVisitor(optionallyEmittedData);
-                    dataInsertingVisitor.Visit(sarifLog);
-                }
+                //optionallyEmittedData = this.FilingContext.DataToInsert;
+                //if (optionallyEmittedData != OptionallyEmittedData.None)
+                //{
+                //    Logger.LogDebug("Inserting optional data.");
+                //    var dataInsertingVisitor = new InsertOptionalDataVisitor(optionallyEmittedData);
+                //    dataInsertingVisitor.Visit(sarifLog);
+                //}
 
                 using (Logger.BeginScopeContext("Splitting visitor"))
                 {
-                    SplittingStrategy splittingStrategy = this.FilingContext.SplittingStrategy;
+                    // BUGBUG: Is this too late to find out that the SplittingStrategy in the config is unsupported?
+                    SplittingStrategy splittingStrategy = (SplittingStrategy)Enum.Parse(typeof(SplittingStrategy), this.FilingContext.Configuration.WorkItem.SplittingStrategy);
 
                     Logger.LogInformation($"Splitting strategy - {splittingStrategy}");
 
@@ -236,7 +253,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 }
             }
 
-            if (logsToProcess != null && !this.FilingContext.ShouldFileUnchanged)
+            if (logsToProcess != null && !this.FilingContext.Configuration.WorkItem.ShouldFileUnchanged)
             {
                 // Remove any logs that do not contain at least one result with a New or None baselinestate.
                 logsToProcess = logsToProcess.Where(log => log?.Runs?.Any(run => run.Results?.Any(result => result.BaselineState == BaselineState.New || result.BaselineState == BaselineState.None) == true) == true).ToList();
@@ -257,7 +274,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 // of the root pipeline filing context. This context will then be initialized
                 // based on the current sarif log file that we're processing.
                 // First intializes the contexts provider to the value in the current filing client.
-                filingContext.CurrentProvider = filingClient.Provider;
+                filingContext.WorkItemProvider = filingClient.Provider;
                 var sarifWorkItemModel = new SarifWorkItemModel(sarifLog, filingContext);
 
                 try
@@ -268,7 +285,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                     sarifWorkItemModel.OwnerOrAccount = filingClient.AccountOrOrganization;
                     sarifWorkItemModel.RepositoryOrProject = filingClient.ProjectOrRepository;
 
-                    if (filingContext.SyncWorkItemMetadata)
+                    if (filingContext.Configuration.WorkItem.SyncWorkItemMetadata)
                     {
                         Task<WorkItemModel> getMetadataTask = filingClient.GetWorkItemMetadata(sarifWorkItemModel);
                         getMetadataTask.Wait();

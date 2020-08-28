@@ -24,6 +24,7 @@
     <PackageReference Include="Microsoft.Json.Schema" Version="1.1.1" />
     <PackageReference Include="Microsoft.Json.Schema.Validation" Version="1.1.1" />
     <PackageReference Include="Microsoft.TeamFoundationServer.Client" Version="16.153.0" />
+    <PackageReference Include="YamlDotNet" Version="8.1.2" />
   </ItemGroup>
 
   <ItemGroup>

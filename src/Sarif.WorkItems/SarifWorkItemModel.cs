@@ -18,12 +18,12 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
         // The sarifLog parameter contains exactly a set of results that are intended to be filed as a single work item 
         // and this log will be attached to the work item.
-        public SarifWorkItemModel(SarifLog sarifLog, SarifWorkItemContext context = null, Guid guid = default(Guid))
+        public SarifWorkItemModel(SarifLog sarifLog, SarifWorkItemContext context, Guid guid = default(Guid))
         {
             if (sarifLog == null) { throw new ArgumentNullException(nameof(sarifLog)); }
 
             this.SarifLog = sarifLog;
-            this.Context = context ?? new SarifWorkItemContext();
+            this.Context = context;
 
             this.Guid = (guid == default(Guid)) ? Guid.NewGuid() : guid;
 
@@ -52,7 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
             this.LabelsOrTags = new List<string>();
 
-            foreach (string tag in context.AdditionalTags)
+            foreach (string tag in context.Configuration.WorkItem.Tags)
             {
                 this.LabelsOrTags.Add(tag);
             }

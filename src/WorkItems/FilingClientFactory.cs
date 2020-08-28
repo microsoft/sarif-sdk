@@ -13,24 +13,17 @@ namespace Microsoft.WorkItems
         {
             filingHostUri = filingHostUri ?? throw new ArgumentNullException(nameof(filingHostUri));
 
-            string filingUriString = filingHostUri.OriginalString;
+            string filingUriString = filingHostUri.AbsoluteUri;
 
             FilingClient filingClient = null;
 
-            foreach (Tuple<string, Regex> regexTuple in WorkItemFilingUtilities.WorkItemHostRegexTuples)
+            if (TryParseUri(filingUriString, out FilingClient.WorkItemProvider workItemProvider, out string organization, out string project))
             {
-                bool isGitHub = regexTuple.Item1.Equals("github");
-                Regex regex = regexTuple.Item2;
-
-                Match match = regex.Match(filingUriString);
-                if (match.Success)
-                {
-                    filingClient = isGitHub ? (FilingClient)new GitHubFilingClient() : new AzureDevOpsFilingClient();
-                    filingClient.Provider = isGitHub ? FilingClient.SourceControlProvider.Github : FilingClient.SourceControlProvider.AzureDevOps;
-                    filingClient.ProjectOrRepository = match.Groups[WorkItemFilingUtilities.PROJECT].Value;
-                    filingClient.AccountOrOrganization = match.Groups[WorkItemFilingUtilities.ACCOUNT].Value;
-                    break;
-                }
+                bool isGitHub = workItemProvider == FilingClient.WorkItemProvider.Github;
+                filingClient = isGitHub ? (FilingClient)new GitHubFilingClient() : new AzureDevOpsFilingClient();
+                filingClient.Provider = isGitHub ? FilingClient.WorkItemProvider.Github : FilingClient.WorkItemProvider.AzureDevOps;
+                filingClient.AccountOrOrganization = organization;
+                filingClient.ProjectOrRepository = project;
             }
 
             if (filingClient == null)
@@ -44,6 +37,30 @@ namespace Microsoft.WorkItems
             }
 
             return filingClient;
+        }
+
+        public static bool TryParseUri(string filingHostUri, out FilingClient.WorkItemProvider workItemProvider, out string organization, out string project)
+        {
+            workItemProvider = default(FilingClient.WorkItemProvider);
+            organization = default(string);
+            project = default(string);
+
+            foreach (Tuple<string, Regex> regexTuple in WorkItemFilingUtilities.WorkItemHostRegexTuples)
+            {
+                bool isGitHub = regexTuple.Item1.Equals("github");
+                Regex regex = regexTuple.Item2;
+
+                Match match = regex.Match(filingHostUri);
+                if (match.Success)
+                {
+                    workItemProvider = isGitHub ? FilingClient.WorkItemProvider.Github : FilingClient.WorkItemProvider.AzureDevOps;
+                    organization = match.Groups[WorkItemFilingUtilities.ACCOUNT].Value;
+                    project = match.Groups[WorkItemFilingUtilities.PROJECT].Value;
+                    break;
+                }
+            }
+
+            return project != default(string);
         }
     }
 }

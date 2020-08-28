@@ -3,87 +3,198 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
+using Microsoft.CodeAnalysis.WorkItems.Configuration;
+using Microsoft.TeamFoundation.Build.WebApi;
 using Microsoft.WorkItems;
 
 namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 {
-    public class SarifWorkItemContext : PropertiesDictionary, IDisposable
+    public class SarifWorkItemContext : IDisposable
     {
-        public SarifWorkItemContext()
+        private string m_organizationOverride;
+        private string m_projectOverride;
+        private string m_workItemPersonalAccessTokenOverride;
+        private SplittingStrategy? m_splittingStrategyOverride;
+        private bool? m_syncWorkItemMetadataOverride;
+        private bool? m_shouldFileUnchangedOverride;
+
+        public SarifWorkItemContext(SurffConfiguration configuration)
         {
-            this.CurrentProvider = FilingClient.SourceControlProvider.AzureDevOps;
+            if (configuration == null)
+            {
+                throw new ArgumentNullException(nameof(configuration));
+            }
+
+            this.WorkItemProvider = FilingClient.WorkItemProvider.AzureDevOps;
             this.AssemblyLocationMap = new Dictionary<string, string>();
+
+            this.Configuration = configuration;
         }
 
-        public SarifWorkItemContext(SarifWorkItemContext initializer) : base(initializer) { }
-
-        public FilingClient.SourceControlProvider CurrentProvider { get; set; }
+        public FilingClient.WorkItemProvider WorkItemProvider { get; set; }
 
         protected Dictionary<string, string> AssemblyLocationMap { get; }
 
-        public Uri HostUri
-        {
-            get { return this.GetProperty(HostUriOption); }
-            set { this.SetProperty(HostUriOption, value); }
-        }
+        public SurffConfiguration Configuration { get; }
 
-        public string DescriptionFooter
+        // BUGBUG: This pattern (used many times in this file) is confusing.
+        //         The person using a SarifWorkItemContext won't know when to 
+        //         use values from the context vs values from the configuration.
+        //         e.g. this.Organization vs this.Configuration.WorkItem.Organization
+        //         Maybe the user should override the configuration before constructing
+        //         the SarifWorkItemContext. Then the callers always use this.Configuration.WorkItem.Organization
+        //         The downside of this approach is that we won't know if the setting came from the
+        //         original configuration or was manually overridden.
+        public string Organization
         {
-            get {
-                return 
-                    CurrentProvider == FilingClient.SourceControlProvider.AzureDevOps
-                        ? AzureDevOpsDescriptionFooter
-                        : GitHubDescriptionFooter;
+            get
+            {
+                if (string.IsNullOrEmpty(this.Configuration.WorkItem.Organization))
+                {
+                    return m_organizationOverride;
+                }
+                else
+                {
+                    return this.Configuration.WorkItem.Organization;
+                }
+            }
+            set
+            {
+                m_organizationOverride = value;
             }
         }
 
-        public string AzureDevOpsDescriptionFooter
+        public string Project
         {
-            get { return this.GetProperty(AzureDevOpsDescriptionFooterOption); }
-            set { this.SetProperty(AzureDevOpsDescriptionFooterOption, value); }
-        }
-
-        public string GitHubDescriptionFooter
-        {
-            get { return this.GetProperty(GitHubDescriptionFooterOption); }
-            set { this.SetProperty(GitHubDescriptionFooterOption, value); }
+            get
+            {
+                if (string.IsNullOrEmpty(this.Configuration.WorkItem.Project))
+                {
+                    return m_projectOverride;
+                }
+                else
+                {
+                    return this.Configuration.WorkItem.Project;
+                }
+            }
+            set
+            {
+                m_projectOverride = value;
+            }
         }
 
         public string PersonalAccessToken
         {
-            get { return this.GetProperty(PersonalAccessTokenOption); }
-            set { this.SetProperty(PersonalAccessTokenOption, value); }
+            get
+            {
+                if (m_workItemPersonalAccessTokenOverride != null)
+                {
+                    return m_workItemPersonalAccessTokenOverride;
+                }
+                else
+                {
+                    // BUGBUG: We should have a configuration setting for a keyvault to read the value from.
+                    return this.Configuration.WorkItem.PersonalAccessToken;
+                }
+            }
+            set
+            {
+                m_workItemPersonalAccessTokenOverride = value;
+            }
         }
 
         public SplittingStrategy SplittingStrategy
         {
-            get { return this.GetProperty(SplittingStrategyOption); }
-            set { this.SetProperty(SplittingStrategyOption, value); }
+            get
+            {
+                if (m_splittingStrategyOverride.HasValue)
+                {
+                    return m_splittingStrategyOverride.Value;
+                }
+                else
+                {
+                    return (SplittingStrategy)Enum.Parse(typeof(SplittingStrategy), this.Configuration.WorkItem.SplittingStrategy);
+                }
+            }
+            set
+            {
+                m_splittingStrategyOverride = value;
+            }
         }
 
         public bool SyncWorkItemMetadata
         {
-            get { return this.GetProperty(SyncWorkItemMetadataOption); }
-            set { this.SetProperty(SyncWorkItemMetadataOption, value); }
+            get
+            {
+                if (m_syncWorkItemMetadataOverride.HasValue)
+                {
+                    return m_syncWorkItemMetadataOverride.Value;
+                }
+                else
+                {
+                    return this.Configuration.WorkItem.SyncWorkItemMetadata;
+                }
+            }
+            set
+            {
+                (m_syncWorkItemMetadataOverride = value;
+            }
         }
 
         public bool ShouldFileUnchanged
         {
-            get { return this.GetProperty(ShouldFileUnchangedOption); }
-            set { this.SetProperty(ShouldFileUnchangedOption, value); }
+            get
+            {
+                if (m_shouldFileUnchangedOverride.HasValue)
+                {
+                    return m_shouldFileUnchangedOverride.Value;
+                }
+                else
+                {
+                    return this.Configuration.WorkItem.ShouldFileUnchanged;
+                }
+            }
+            set
+            {
+                m_shouldFileUnchangedOverride = value;
+            }
         }
 
-        public OptionallyEmittedData DataToRemove
+        public Uri HostUri
         {
-            get { return this.GetProperty(DataToRemoveOption); }
-            set { this.SetProperty(DataToRemoveOption, value); }
+            get
+            {
+                return new Uri($"https://dev.azure.com/{this.Organization}/{this.Project}/");
+            }
         }
 
-        public OptionallyEmittedData DataToInsert
+        public string DescriptionFooter
         {
-            get { return this.GetProperty(DataToInsertOption); }
-            set { this.SetProperty(DataToInsertOption, value); }
+            get
+            {
+                return
+                    WorkItemProvider == FilingClient.WorkItemProvider.AzureDevOps
+                        ? this.Configuration.WorkItem.AzureDevOpsDescriptionFooter
+                        : this.Configuration.WorkItem.GitHubDescriptionFooter;
+            }
+        }
+
+        public string[] PluginAssemblyLocations
+        {
+            get
+            {
+                return this.Configuration.Extensions.Select(ext => ext.AssemblyPath).ToArray();
+            }
+        }
+
+        public string[] PluginAssemblyQualifiedNames
+        {
+            get
+            {
+                return this.Configuration.Extensions.Select(ext => ext.FullyQualifiedTypeName).ToArray();
+            }
         }
 
         public IReadOnlyList<SarifWorkItemModelTransformer> Transformers
@@ -91,15 +202,9 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             get { return PopulateWorkItemModelTransformers(); }
         }
 
-        public StringSet AdditionalTags
-        {
-            get { return this.GetProperty(AdditionalTagsOption); }
-            set { this.SetProperty(AdditionalTagsOption, value); }
-        }
-
         public string CreateLinkText(string text, string url)
         {
-            if (this.CurrentProvider == Microsoft.WorkItems.FilingClient.SourceControlProvider.AzureDevOps)
+            if (this.WorkItemProvider == Microsoft.WorkItems.FilingClient.WorkItemProvider.AzureDevOps)
             {
                 return string.Format(WorkItemsResources.HtmlLinkTemplate, text, url);
             }
@@ -107,21 +212,6 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             {
                 return string.Format(WorkItemsResources.MarkdownLinkTemplate, text, url);
             }
-        }
-
-        public void AddWorkItemModelTransformer(SarifWorkItemModelTransformer workItemModelTransformer)
-        {
-            StringSet assemblies = this.GetProperty(PluginAssemblyLocations);
-            StringSet assemblyQualifiedNames = this.GetProperty(PluginAssemblyQualifiedNames);
-
-            string assemblyLocation = workItemModelTransformer.GetType().Assembly.Location;
-            string assemblyQualifiedName = workItemModelTransformer.GetType().AssemblyQualifiedName;
-
-            assemblies.Add(assemblyLocation);
-            assemblyQualifiedNames.Add(assemblyQualifiedName);
-
-            this.workItemModelTransformers = this.workItemModelTransformers ?? new List<SarifWorkItemModelTransformer>();
-            this.workItemModelTransformers.Add(workItemModelTransformer);
         }
 
         private List<SarifWorkItemModelTransformer> workItemModelTransformers;
@@ -136,7 +226,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 var loadedAssemblies = new Dictionary<string, Assembly>();
                 string thisAssemblyDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
-                foreach (string assemblyLocation in this.GetProperty(PluginAssemblyLocations))
+                foreach (string assemblyLocation in this.PluginAssemblyLocations)
                 {
                     string assemblyPath = assemblyLocation;
                     if (!Path.IsPathRooted(assemblyLocation))
@@ -149,8 +239,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                     this.AssemblyLocationMap.Add(a.FullName, Path.GetDirectoryName(Path.GetFullPath(a.Location)));
                 }
 
-                StringSet assemblyAndTypeNames = this.GetProperty(PluginAssemblyQualifiedNames);
-                foreach (string assemblyAndTypeName in assemblyAndTypeNames)
+                foreach (string assemblyAndTypeName in this.PluginAssemblyQualifiedNames)
                 {
                     Type type = Type.GetType(assemblyAndTypeName);
 
@@ -207,65 +296,5 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         {
             AppDomain.CurrentDomain.AssemblyResolve -= CurrentDomain_AssemblyResolve;
         }
-
-        internal static PerLanguageOption<Uri> HostUriOption { get; } =
-            new PerLanguageOption<Uri>(
-                "Extensibility", nameof(HostUri),
-                defaultValue: () => { return null; });
-
-        internal static PerLanguageOption<string> PersonalAccessTokenOption { get; } =
-            new PerLanguageOption<string>(
-                "Extensibility", nameof(PersonalAccessToken),
-                defaultValue: () => { return string.Empty; });
-
-        public static PerLanguageOption<StringSet> PluginAssemblyLocations { get; } =
-            new PerLanguageOption<StringSet>(
-                "Extensibility", nameof(PluginAssemblyLocations),
-                defaultValue: () => { return new StringSet(); });
-
-        public static PerLanguageOption<StringSet> PluginAssemblyQualifiedNames { get; } =
-            new PerLanguageOption<StringSet>(
-                "Extensibility", nameof(PluginAssemblyQualifiedNames),
-                defaultValue: () => { return new StringSet(); });
-
-        public static PerLanguageOption<OptionallyEmittedData> DataToRemoveOption { get; } =
-            new PerLanguageOption<OptionallyEmittedData>(
-                "Extensibility", nameof(DataToRemove),
-                defaultValue: () => { return 0; });
-
-        public static PerLanguageOption<OptionallyEmittedData> DataToInsertOption { get; } =
-            new PerLanguageOption<OptionallyEmittedData>(
-                "Extensibility", nameof(DataToInsert),
-                defaultValue: () => { return 0; });
-
-        public static PerLanguageOption<SplittingStrategy> SplittingStrategyOption { get; } =
-            new PerLanguageOption<SplittingStrategy>(
-                "Extensibility", nameof(SplittingStrategy),
-                defaultValue: () => { return 0; });
-
-        public static PerLanguageOption<bool> ShouldFileUnchangedOption { get; } =
-            new PerLanguageOption<bool>(
-                "Extensibility", nameof(ShouldFileUnchanged),
-                defaultValue: () => { return false; });
-
-        public static PerLanguageOption<bool> SyncWorkItemMetadataOption { get; } =
-            new PerLanguageOption<bool>(
-                "Extensibility", nameof(SyncWorkItemMetadata),
-                defaultValue: () => { return false; });
-
-        public static PerLanguageOption<string> AzureDevOpsDescriptionFooterOption { get; } =
-            new PerLanguageOption<string>(
-                "Extensibility", nameof(AzureDevOpsDescriptionFooter),
-                defaultValue: () => { return WorkItemsResources.AzureDevOpsDefaultDescriptionFooter; });
-
-        public static PerLanguageOption<string> GitHubDescriptionFooterOption { get; } =
-            new PerLanguageOption<string>(
-                "Extensibility", nameof(GitHubDescriptionFooter),
-                defaultValue: () => { return WorkItemsResources.GitHubDefaultDescriptionFooter; });
-
-        internal static PerLanguageOption<StringSet> AdditionalTagsOption { get; } =
-            new PerLanguageOption<StringSet>(
-                "Extensibility", nameof(AdditionalTags),
-                defaultValue: () => { return new StringSet(); });
     }
 }
