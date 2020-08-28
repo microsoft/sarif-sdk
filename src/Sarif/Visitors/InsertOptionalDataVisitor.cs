@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
     public class InsertOptionalDataVisitor : SarifRewritingVisitor
     {
         private readonly IFileSystem _fileSystem;
-        private readonly IProcessRunner _processRunner;
+        private readonly GitHelper.ProcessRunner _processRunner;
 
         private Run _run;
         private HashSet<Uri> _repoRootUris;
@@ -32,10 +32,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             OptionallyEmittedData dataToInsert,
             IDictionary<string, ArtifactLocation> originalUriBaseIds = null,
             IFileSystem fileSystem = null,
-            IProcessRunner processRunner = null)
+            GitHelper.ProcessRunner processRunner = null)
         {
             _fileSystem = fileSystem ?? new FileSystem();
-            _processRunner = processRunner ?? new ProcessRunner();
+            _processRunner = processRunner;
 
             _dataToInsert = dataToInsert;
             _originalUriBaseIds = originalUriBaseIds;

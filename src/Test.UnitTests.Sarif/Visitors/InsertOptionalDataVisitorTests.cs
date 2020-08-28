@@ -266,15 +266,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             mockFileSystem.Setup(x => x.FileExists(GitHelper.s_expectedGitExePath)).Returns(true);
 
-            var mockProcessRunner = new Mock<IProcessRunner>();
+            var mockProcessRunner = new Mock<GitHelper.ProcessRunner>();
 
-            mockProcessRunner.Setup(x => x.Run(ParentRepoRoot, GitHelper.s_expectedGitExePath, "remote get-url origin")).Returns(ParentRepoRoot);
-            mockProcessRunner.Setup(x => x.Run(ParentRepoRoot, GitHelper.s_expectedGitExePath, "rev-parse --abbrev-ref HEAD")).Returns(ParentRepoBranch);
-            mockProcessRunner.Setup(x => x.Run(ParentRepoRoot, GitHelper.s_expectedGitExePath, "rev-parse --verify HEAD")).Returns(ParentRepoCommit);
+            mockProcessRunner.Setup(x => x(ParentRepoRoot, GitHelper.s_expectedGitExePath, "remote get-url origin")).Returns(ParentRepoRoot);
+            mockProcessRunner.Setup(x => x(ParentRepoRoot, GitHelper.s_expectedGitExePath, "rev-parse --abbrev-ref HEAD")).Returns(ParentRepoBranch);
+            mockProcessRunner.Setup(x => x(ParentRepoRoot, GitHelper.s_expectedGitExePath, "rev-parse --verify HEAD")).Returns(ParentRepoCommit);
 
-            mockProcessRunner.Setup(x => x.Run(SubmoduleRepoRoot, GitHelper.s_expectedGitExePath, "remote get-url origin")).Returns(SubmoduleRepoRoot);
-            mockProcessRunner.Setup(x => x.Run(SubmoduleRepoRoot, GitHelper.s_expectedGitExePath, "rev-parse --abbrev-ref HEAD")).Returns(SubmoduleBranch);
-            mockProcessRunner.Setup(x => x.Run(SubmoduleRepoRoot, GitHelper.s_expectedGitExePath, "rev-parse --verify HEAD")).Returns(SubmoduleCommit);
+            mockProcessRunner.Setup(x => x(SubmoduleRepoRoot, GitHelper.s_expectedGitExePath, "remote get-url origin")).Returns(SubmoduleRepoRoot);
+            mockProcessRunner.Setup(x => x(SubmoduleRepoRoot, GitHelper.s_expectedGitExePath, "rev-parse --abbrev-ref HEAD")).Returns(SubmoduleBranch);
+            mockProcessRunner.Setup(x => x(SubmoduleRepoRoot, GitHelper.s_expectedGitExePath, "rev-parse --verify HEAD")).Returns(SubmoduleCommit);
 
             var run = new Run
             {

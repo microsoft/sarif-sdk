@@ -8,12 +8,18 @@ using System.Threading;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
-    internal class GitHelper : IDisposable
+    public class GitHelper : IDisposable
     {
         public static readonly GitHelper Default = new GitHelper();
 
+        public delegate string ProcessRunner(string workingDirectory, string exePath, string arguments);
+
+        private static readonly ProcessRunner DefaultProcessRunner =
+            (string workingDirectory, string exePath, string arguments)
+                => new ExternalProcess(workingDirectory, exePath, arguments, stdOut: null, acceptableReturnCodes: null).StdOut.Text;
+
         private readonly IFileSystem fileSystem;
-        private readonly IProcessRunner processRunner;
+        private readonly ProcessRunner processRunner;
         private readonly ReaderWriterLockSlim cacheLock = new ReaderWriterLockSlim();
 
         internal static readonly string s_expectedGitExePath = Environment.ExpandEnvironmentVariables(@"%ProgramFiles%\Git\cmd\git.exe");
@@ -32,10 +38,10 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public bool IsRepositoryRoot(string repositoryPath) => this.fileSystem.DirectoryExists(Path.Combine(repositoryPath, ".git"));
 
-        public GitHelper(IFileSystem fileSystem = null, IProcessRunner processRunner = null)
+        public GitHelper(IFileSystem fileSystem = null, ProcessRunner processRunner = null)
         {
             this.fileSystem = fileSystem ?? new FileSystem();
-            this.processRunner = processRunner ?? new ProcessRunner();
+            this.processRunner = processRunner ?? DefaultProcessRunner;
 
             GitExePath = GetGitExePath();
         }
@@ -86,7 +92,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return null;
             }
 
-            string stdOut = processRunner.Run(
+            string stdOut = this.processRunner(
                 workingDirectory: repositoryPath,
                 exePath: gitPath,
                 arguments: args);
