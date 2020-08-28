@@ -10,7 +10,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
     public class InsertOptionalDataVisitor : SarifRewritingVisitor
     {
-        internal IFileSystem s_fileSystem = new FileSystem();
+        private readonly IFileSystem _fileSystem;
+        private readonly IProcessRunner _processRunner;
 
         private Run _run;
         private HashSet<Uri> _repoRootUris;
@@ -27,8 +28,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             _run = run ?? throw new ArgumentNullException(nameof(run));
         }
 
-        public InsertOptionalDataVisitor(OptionallyEmittedData dataToInsert, IDictionary<string, ArtifactLocation> originalUriBaseIds = null)
+        public InsertOptionalDataVisitor(
+            OptionallyEmittedData dataToInsert,
+            IDictionary<string, ArtifactLocation> originalUriBaseIds = null,
+            IFileSystem fileSystem = null,
+            IProcessRunner processRunner = null)
         {
+            _fileSystem = fileSystem ?? new FileSystem();
+            _processRunner = processRunner ?? new ProcessRunner();
+
             _dataToInsert = dataToInsert;
             _originalUriBaseIds = originalUriBaseIds;
             _ruleIndex = -1;
@@ -37,7 +45,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         public override Run VisitRun(Run node)
         {
             _run = node;
-            _gitHelper = new GitHelper();
+            _gitHelper = new GitHelper(_fileSystem, _processRunner);
             _repoRootUris = new HashSet<Uri>();
 
             if (_originalUriBaseIds != null)
@@ -262,15 +270,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 uri = _run.Artifacts[node.Index].Location.Uri;
             }
 
-            if (uri?.IsAbsoluteUri == true)
+            if (uri != null && uri.IsAbsoluteUri && uri.IsFile)
             {
-                string repoRootPath = _gitHelper.GetRepositoryRoot(uri.AbsolutePath);
-                var repoRootUri = new Uri(repoRootPath, UriKind.Absolute);
-                _repoRootUris.Add(repoRootUri);
+                string repoRootPath = _gitHelper.GetRepositoryRoot(uri.LocalPath);
+                if (repoRootPath != null)
+                {
+                    var repoRootUri = new Uri(repoRootPath, UriKind.Absolute);
+                    _repoRootUris.Add(repoRootUri);
 
-                Uri repoRelativeUri = repoRootUri.MakeRelativeUri(uri);
-                node.Uri = repoRelativeUri;
-                node.UriBaseId = GetUriBaseIdForRepoRoot(repoRootUri);
+                    Uri repoRelativeUri = repoRootUri.MakeRelativeUri(uri);
+                    node.Uri = repoRelativeUri;
+                    node.UriBaseId = GetUriBaseIdForRepoRoot(repoRootUri);
+                }
             }
 
             return node;

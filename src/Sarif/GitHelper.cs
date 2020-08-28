@@ -13,7 +13,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         public static readonly GitHelper Default = new GitHelper();
 
         private readonly IFileSystem fileSystem;
+        private readonly IProcessRunner processRunner;
         private readonly ReaderWriterLockSlim cacheLock = new ReaderWriterLockSlim();
+
+        internal static readonly string s_expectedGitExePath = Environment.ExpandEnvironmentVariables(@"%ProgramFiles%\Git\cmd\git.exe");
 
         // A cache that maps directory names to the root directory of the repository, if any, that
         // contains them.
@@ -29,9 +32,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public bool IsRepositoryRoot(string repositoryPath) => this.fileSystem.DirectoryExists(Path.Combine(repositoryPath, ".git"));
 
-        public GitHelper(IFileSystem fileSystem = null)
+        public GitHelper(IFileSystem fileSystem = null, IProcessRunner processRunner = null)
         {
             this.fileSystem = fileSystem ?? new FileSystem();
+            this.processRunner = processRunner ?? new ProcessRunner();
+
             GitExePath = GetGitExePath();
         }
 
@@ -63,10 +68,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         private string GetGitExePath()
-        {
-            string gitPath = Environment.ExpandEnvironmentVariables(@"%ProgramFiles%\Git\cmd\git.exe");
-            return (!string.IsNullOrEmpty(gitPath) && this.fileSystem.FileExists(gitPath)) ? gitPath : null;
-        }
+            => this.fileSystem.FileExists(s_expectedGitExePath) ? s_expectedGitExePath : null;
 
         public string GetCurrentBranch(string repoPath)
         {
@@ -84,12 +86,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return null;
             }
 
-            var gitCommand = new ExternalProcess(
+            string stdOut = processRunner.Run(
                 workingDirectory: repositoryPath,
-                fileName: gitPath,
+                exePath: gitPath,
                 arguments: args);
 
-            return TrimNewlines(gitCommand.StdOut.Text);
+            return TrimNewlines(stdOut);
         }
 
         private static string TrimNewlines(string text) => text
@@ -103,6 +105,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (useCache && object.ReferenceEquals(this, Default))
             {
                 throw new ArgumentException(SdkResources.GitHelperDefaultInstanceDoesNotPermitCaching, nameof(useCache));
+            }
+
+            if (this.fileSystem.FileExists(path))
+            {
+                path = Path.GetDirectoryName(path);
             }
 
             string repoRootPath;

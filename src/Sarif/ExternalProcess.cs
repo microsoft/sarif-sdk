@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public ExternalProcess(
             string workingDirectory,
-            string fileName,
+            string exePath,
             string arguments,
             IConsoleCapture stdOut = null,
             int[] acceptableReturnCodes = null)
@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             ProcessStartInfo psi = new ProcessStartInfo();
 
-            psi.FileName = fileName;
+            psi.FileName = exePath;
             psi.Arguments = arguments;
             psi.WorkingDirectory = workingDirectory;
 
