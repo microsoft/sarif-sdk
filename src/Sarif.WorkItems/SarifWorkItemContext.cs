@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
         protected Dictionary<string, string> AssemblyLocationMap { get; }
 
-        public Uri WorkItemFilerUri
+        public Uri HostUri
         {
             get { return this.GetProperty(HostUriOption); }
             set { this.SetProperty(HostUriOption, value); }
@@ -210,7 +210,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
         internal static PerLanguageOption<Uri> HostUriOption { get; } =
             new PerLanguageOption<Uri>(
-                "Extensibility", nameof(WorkItemFilerUri),
+                "Extensibility", nameof(HostUri),
                 defaultValue: () => { return null; });
 
         internal static PerLanguageOption<string> PersonalAccessTokenOption { get; } =

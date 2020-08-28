@@ -202,7 +202,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         "--inline",
                         "test.sarif"
                     },
-                    ExpectedExitCode = 1
+                    ExpectedExitCode = 0
                 },
 
                 new TestCase {

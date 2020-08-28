@@ -84,7 +84,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 }
 
                 SarifLog sarifLog = null;
-                using (var filer = new SarifWorkItemFiler(filingContext.WorkItemFilerUri, filingContext))
+                using (var filer = new SarifWorkItemFiler(filingContext.HostUri, filingContext))
                 {
                     sarifLog = filer.FileWorkItems(logFileContents);
                 }
@@ -130,7 +130,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             // If it succeeds, we can assign the result to a Uri-valued property (persisted in the
             // context object); if it fails, we can produce a helpful error message.
 
-            valid &= ValidateHostUri(options.workItemFilingUri, sarifWorkItemContext);
+            valid &= ValidateHostUri(options.HostUri, sarifWorkItemContext);
 
             valid &= options.ValidateOutputOptions();
 
@@ -159,9 +159,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
 
             // Any command-line argument that's provided overrides values specified in the configuration.
-            workItemFilingConfiguration.WorkItemFilerUri = workItemUri ?? workItemFilingConfiguration.WorkItemFilerUri;
+            workItemFilingConfiguration.HostUri = workItemUri ?? workItemFilingConfiguration.HostUri;
 
-            if (!workItemFilingConfiguration.WorkItemFilerUri.IsAbsoluteUri && !workItemFilingConfiguration.WorkItemFilerUri.OriginalString.IsNullOrEmpty())
+            if ((!workItemFilingConfiguration?.HostUri?.OriginalString.IsNullOrEmpty() ?? false) && (!workItemFilingConfiguration?.HostUri?.IsAbsoluteUri ?? false))
             {
                 string optionDescription = workItemUri != null ? "--project-uri" : "--configuration";
 
@@ -170,7 +170,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     string.Format(
                         CultureInfo.CurrentCulture,
                         MultitoolResources.WorkItemFiling_ErrorUriIsNotAbsolute,
-                        workItemFilingConfiguration.WorkItemFilerUri.OriginalString,
+                        workItemFilingConfiguration.HostUri.OriginalString,
                         optionDescription));
                 return false;
             }

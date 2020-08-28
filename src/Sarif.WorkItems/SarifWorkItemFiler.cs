@@ -38,12 +38,12 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         /// </param>
         public SarifWorkItemFiler(Uri filingUri = null, SarifWorkItemContext filingContext = null)
         {
-            this.FilingContext = filingContext ?? new SarifWorkItemContext { WorkItemFilerUri = filingUri };
-            filingUri = filingUri ?? this.FilingContext.WorkItemFilerUri;
+            this.FilingContext = filingContext ?? new SarifWorkItemContext { HostUri = filingUri };
+            filingUri = filingUri ?? this.FilingContext.HostUri;
 
             if (filingUri == null) { throw new ArgumentNullException(nameof(filingUri)); };
 
-            if (filingUri != this.FilingContext.WorkItemFilerUri)
+            if (filingUri != this.FilingContext.HostUri)
             {
                 // Inconsistent URIs were provided in 'filingContext' and 'filingUri'; arguments.
                 throw new InvalidOperationException(WorkItemsResources.InconsistentHostUrisProvided);
@@ -59,13 +59,13 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         {
             get
             {
-                if (m_filingClient == null)
+                if (m_filingClient == null && !this.FilingContext.HostUri.OriginalString.IsNullOrEmpty())
                 {
                     lock (m_syncRoot)
                     {
                         if (m_filingClient == null)
                         {
-                            this.FilingClient = FilingClientFactory.Create(this.FilingContext.WorkItemFilerUri);
+                            this.FilingClient = FilingClientFactory.Create(this.FilingContext.HostUri);
                         }
                     }
                 }
@@ -125,16 +125,16 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 int logsToProcessCount = logsToProcess.Count;
 
 #if DEBUG
-                if (!int.TryParse(Environment.GetEnvironmentVariable("SARIFTEST_FILINGLIMIT"), out logsToProcessCount))
+                /*if (!int.TryParse(Environment.GetEnvironmentVariable("SARIFTEST_FILINGLIMIT"), out logsToProcessCount))
                 {
                     logsToProcessCount = logsToProcess.Count;
-                }
+                }*/
 #endif
 
                 for (int splitFileIndex = 0; splitFileIndex < logsToProcessCount; splitFileIndex++)
                 {
                     SarifLog splitLog = logsToProcess[splitFileIndex];
-                    SarifWorkItemModel sarifWorkItemModel = FileWorkItemInternal(splitLog, this.FilingContext);
+                    SarifWorkItemModel sarifWorkItemModel = FileWorkItemInternal(splitLog, this.FilingContext, this.FilingClient);
 
                     // IMPORTANT: as we update our partitioned logs, we are actually modifying the input log file 
                     // as well. That's because our partitioning is configured to reuse references to existing
@@ -264,7 +264,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             return logsToProcess.ToArray();
         }
 
-        public SarifWorkItemModel FileWorkItemInternal(SarifLog sarifLog, SarifWorkItemContext filingContext)
+        public SarifWorkItemModel FileWorkItemInternal(SarifLog sarifLog, SarifWorkItemContext filingContext, FilingClient filingClient)
         {
             using (Logger.BeginScopeContext(nameof(FileWorkItemInternal)))
             {
@@ -274,6 +274,23 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
                 try
                 {
+                    if(!filingContext.HostUri.OriginalString.IsNullOrEmpty())
+                    {
+                        // The helper below will initialize the sarif work item model with a copy
+                        // of the root pipeline filing context. This context will then be initialized
+                        // based on the current sarif log file that we're processing.
+                        // First intializes the contexts provider to the value in the current filing client.
+                        // Note that these values may currrent not be set, as the user may have decided to set them
+                        // through one of the custom plug-ins.
+                        filingContext.CurrentProvider = this.FilingClient.Provider;
+
+                        // Populate the work item with the target organization/repository information.
+                        // In ADO, certain fields (such as the area path) will defaut to the 
+                        // project name and so this information is used in at least that context.
+                        sarifWorkItemModel.OwnerOrAccount = this.FilingClient.AccountOrOrganization;
+                        sarifWorkItemModel.RepositoryOrProject = this.FilingClient.ProjectOrRepository;
+
+                    }
 
                     using (Logger.BeginScopeContext("RunTransformers"))
                     {
@@ -295,31 +312,18 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                         }
                     }
 
-                    if(this.FilingContext.WorkItemFilerUri.OriginalString.IsNullOrEmpty())
+                    if(this.FilingContext.HostUri.OriginalString.IsNullOrEmpty())
                     {
                         Uri workItemFilerUri = new Uri(sarifWorkItemModel.OwnerOrAccount + "/" + sarifWorkItemModel.RepositoryOrProject);
                         if(!workItemFilerUri.IsAbsoluteUri)
                         {
                             throw new UriFormatException("No valid URI to file work items could be determined.");
                         }
-                        this.FilingContext.WorkItemFilerUri = workItemFilerUri;
+                        this.FilingContext.HostUri = workItemFilerUri;
                     }
-                    this.FilingClient = FilingClientFactory.Create(this.FilingContext.WorkItemFilerUri);
 
                     Logger.LogInformation("Connecting to filing client: {accountOrOrganization}", this.FilingClient.AccountOrOrganization);
                     this.FilingClient.Connect(this.FilingContext.PersonalAccessToken).Wait();
-
-                    // The helper below will initialize the sarif work item model with a copy
-                    // of the root pipeline filing context. This context will then be initialized
-                    // based on the current sarif log file that we're processing.
-                    // First intializes the contexts provider to the value in the current filing client.
-                    filingContext.CurrentProvider = this.FilingClient.Provider;
-
-                    // Populate the work item with the target organization/repository information.
-                    // In ADO, certain fields (such as the area path) will defaut to the 
-                    // project name and so this information is used in at least that context.
-                    sarifWorkItemModel.OwnerOrAccount = this.FilingClient.AccountOrOrganization;
-                    sarifWorkItemModel.RepositoryOrProject = this.FilingClient.ProjectOrRepository;
 
                     if (filingContext.SyncWorkItemMetadata)
                     {
