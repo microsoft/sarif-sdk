@@ -125,10 +125,10 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 int logsToProcessCount = logsToProcess.Count;
 
 #if DEBUG
-                /*if (!int.TryParse(Environment.GetEnvironmentVariable("SARIFTEST_FILINGLIMIT"), out logsToProcessCount))
+                if (!int.TryParse(Environment.GetEnvironmentVariable("SARIFTEST_FILINGLIMIT"), out logsToProcessCount))
                 {
                     logsToProcessCount = logsToProcess.Count;
-                }*/
+                }
 #endif
 
                 for (int splitFileIndex = 0; splitFileIndex < logsToProcessCount; splitFileIndex++)
