@@ -16,15 +16,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public override string Id => RuleId.ProvideRuleProperties;
 
         /// <summary>
-        /// For each rule, provide a URI where users can find detailed information about the rule.
-        /// This information should include a detailed description of the invalid pattern, an
-        /// explanation of why the pattern is poor practice (particularly in contexts such as
-        /// security or accessibility where driving considerations might not be readily apparent),
-        /// guidance for resolving the problem (including describing circumstances in which ignoring
-        /// the problem altogether might be appropriate), examples of invalid and valid patterns,
-        /// and special considerations (such as noting when a violation should never be ignored or
-        /// suppressed, noting when a violation could cause downstream tool noise, and noting when
-        /// a rule can be configured in some way to refine or alter the analysis).
+        /// Rule metadata should provide information that makes it easy to understand and fix the problem.
+        /// 
+        /// Provide the 'name' property, which contains a "friendly name" that helps users see at a glance
+        /// the purpose of the rule.For uniformity of experience across all tools that produce SARIF, the
+        /// friendly name should be a single Pascal identifier, for example, 'ProvideRuleFriendlyName'.
+        /// 
+        /// Provide the 'helpUri' property, which contains a URI where users can find detailed information
+        /// about the rule.This information should include a detailed description of the invalid pattern,
+        /// an explanation of why the pattern is poor practice (particularly in contexts such as security
+        /// or accessibility where driving considerations might not be readily apparent), guidance for
+        /// resolving the problem(including describing circumstances in which ignoring the problem
+        /// altogether might be appropriate), examples of invalid and valid patterns, and special considerations
+        /// (such as noting when a violation should never be ignored or suppressed, noting when a violation
+        /// could cause downstream tool noise, and noting when a rule can be configured in some way to refine
+        /// or alter the analysis).
         /// </summary>
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF2012_ProvideRuleProperties_FullDescription_Text };
 

@@ -43,7 +43,7 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF2012.ProvideRuleProperties_MissingHelpUri.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF2012.ProvideRuleProperties_MissingName.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }
@@ -54,10 +54,10 @@
           "ruleIndex": 0,
           "level": "note",
           "message": {
-            "id": "Note_ProvideHelpUri",
+            "id": "Note_ProvideFriendlyName",
             "arguments": [
               "runs[0].tool.driver.rules[0]",
-              "SARIF2009.ConsiderConventionalIdentifierValues"
+              "TEST0001"
             ]
           },
           "locations": [
