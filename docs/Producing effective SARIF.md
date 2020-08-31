@@ -610,20 +610,3 @@ Semantics: Assuming the reader of the log file (an end user or another tool) has
 ##### `Default`: note
 
 {0}: The file location '{1}' is specified with absolute URI. Prefer a relative reference together with a uriBaseId property.
-
----
-### Rule `SARIF2025.ProvideRuleFriendlyName`
-
-#### Description
-
-Each analysis rule should provide a "friendly name" in its 'name' property, in addition to the stable, opaque identifier in its 'id' property. This helps users see at a glance the purpose of the analysis rule. For uniformity of experience across all tools that produce SARIF, the friendly name should be a single Pascal identifier, for example, 'ProvideRuleFriendlyName'.
-
-#### Messages
-
-##### `FriendlyNameMissing`: note
-
-{0}: This rule does not provide a "friendly name" in its 'name' property. The friendly name should be a single Pascal identifier, for example, 'ProvideRuleFriendlyName', that helps users see at a glance the purpose of the analysis rule.
-
-##### `FriendlyNameNotAPascalIdentifier`: note
-
-{0}: '{1}' is not a Pascal identifier. For uniformity ofexperience across all tools that produce SARIF, the friendly name should be a single Pascal identifier, for example, 'ProvideRuleFriendlyName'.

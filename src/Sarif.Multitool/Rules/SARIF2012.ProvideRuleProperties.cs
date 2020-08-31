@@ -29,19 +29,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF2012_ProvideRuleProperties_FullDescription_Text };
 
         protected override IEnumerable<string> MessageResourceNames => new string[] {
-            nameof(RuleResources.SARIF2012_ProvideRuleProperties_Note_FriendlyNameMissing_Text),
+            nameof(RuleResources.SARIF2012_ProvideRuleProperties_Note_ProvideFriendlyName_Text),
             nameof(RuleResources.SARIF2012_ProvideRuleProperties_Note_FriendlyNameNotAPascalIdentifier_Text),
-            nameof(RuleResources.SARIF2012_ProvideRuleProperties_Note_ProvideHelpUris_Text)
+            nameof(RuleResources.SARIF2012_ProvideRuleProperties_Note_ProvideHelpUri_Text)
         };
 
         public override FailureLevel DefaultLevel => FailureLevel.Note;
-
-        private static readonly Regex s_pascalCaseRegex = new Regex(@"^(\p{Lu}[\p{Ll}\p{Nd}]+)*$", RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
         protected override void Analyze(Run run, string runPointer)
         {
             AnalyzeTool(run.Tool, runPointer.AtProperty(SarifPropertyName.Tool));
         }
+
+        private static readonly Regex s_pascalCaseRegex = new Regex(@"^(\p{Lu}[\p{Ll}\p{Nd}]+)*$", RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
         protected override void Analyze(ReportingDescriptor reportingDescriptor, string reportingDescriptorPointer)
         {
@@ -53,14 +53,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 // the purpose of the rule.
                 LogResult(
                     reportingDescriptorPointer,
-                    nameof(RuleResources.SARIF2012_ProvideRuleProperties_Note_FriendlyNameMissing_Text),
+                    nameof(RuleResources.SARIF2012_ProvideRuleProperties_Note_ProvideFriendlyName_Text),
                     reportingDescriptor.Id);
                 return;
             }
 
             if (!s_pascalCaseRegex.IsMatch(reportingDescriptor.Name))
             {
-                // {0}: '{1}' is not a Pascal identifier. For uniformity ofexperience across all tools that
+                // {0}: '{1}' is not a Pascal identifier. For uniformity of experience across all tools that
                 // produce SARIF, the friendly name should be a single Pascal identifier, for example,
                 // 'ProvideRuleFriendlyName'.
                 LogResult(
@@ -103,7 +103,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 // how they can best address it.
                 LogResult(
                     reportingDescriptorPointer,
-                    nameof(RuleResources.SARIF2012_ProvideRuleProperties_Note_ProvideHelpUris_Text),
+                    nameof(RuleResources.SARIF2012_ProvideRuleProperties_Note_ProvideHelpUri_Text),
                     ruleMoniker);
             }
         }

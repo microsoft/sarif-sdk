@@ -680,16 +680,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: This rule does not provide a &quot;friendly name&quot; in its &apos;name&apos; property. The friendly name should be a single Pascal identifier, for example, &apos;ProvideRuleFriendlyName&apos;, that helps users see at a glance the purpose of the analysis rule..
-        /// </summary>
-        internal static string SARIF2012_ProvideRuleProperties_Note_FriendlyNameMissing_Text {
-            get {
-                return ResourceManager.GetString("SARIF2012_ProvideRuleProperties_Note_FriendlyNameMissing_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}: &apos;{1}&apos; is not a Pascal identifier. For uniformity ofexperience across all tools that produce SARIF, the friendly name should be a single Pascal identifier, for example, &apos;ProvideRuleFriendlyName&apos;..
+        ///   Looks up a localized string similar to {0}: &apos;{1}&apos; is not a Pascal identifier. For uniformity of experience across all tools that produce SARIF, the friendly name should be a single Pascal identifier, for example, &apos;ProvideRuleFriendlyName&apos;..
         /// </summary>
         internal static string SARIF2012_ProvideRuleProperties_Note_FriendlyNameNotAPascalIdentifier_Text {
             get {
@@ -698,11 +689,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}: The rule &apos;{1}&apos; does not provide a &quot;friendly name&quot; in its &apos;name&apos; property. The friendly name should be a single Pascal identifier, for example, &apos;ProvideRuleFriendlyName&apos;, that helps users see at a glance the purpose of the analysis rule..
+        /// </summary>
+        internal static string SARIF2012_ProvideRuleProperties_Note_ProvideFriendlyName_Text {
+            get {
+                return ResourceManager.GetString("SARIF2012_ProvideRuleProperties_Note_ProvideFriendlyName_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}: The rule &apos;{1}&apos; does not provide a help URI. Providing a URI where users can find detailed information about the rule helps users to understand the result and how they can best address it..
         /// </summary>
-        internal static string SARIF2012_ProvideRuleProperties_Note_ProvideHelpUris_Text {
+        internal static string SARIF2012_ProvideRuleProperties_Note_ProvideHelpUri_Text {
             get {
-                return ResourceManager.GetString("SARIF2012_ProvideRuleProperties_Note_ProvideHelpUris_Text", resourceCulture);
+                return ResourceManager.GetString("SARIF2012_ProvideRuleProperties_Note_ProvideHelpUri_Text", resourceCulture);
             }
         }
         
@@ -943,15 +943,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         internal static string SARIF2023_RelatedLocationsMustProvideRequiredProperties_FullDescription_Text {
             get {
                 return ResourceManager.GetString("SARIF2023_RelatedLocationsMustProvideRequiredProperties_FullDescription_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Each analysis rule should provide a &quot;friendly name&quot; in its &apos;name&apos; property, in addition to the stable, opaque identifier in its &apos;id&apos; property. This helps users see at a glance the purpose of the analysis rule. For uniformity of experience across all tools that produce SARIF, the friendly name should be a single Pascal identifier, for example, &apos;ProvideRuleFriendlyName&apos;..
-        /// </summary>
-        internal static string SARIF2025_ProvideRuleFriendlyName_FullDescription_Text {
-            get {
-                return ResourceManager.GetString("SARIF2025_ProvideRuleFriendlyName_FullDescription_Text", resourceCulture);
             }
         }
     }

@@ -9,11 +9,13 @@
           "version": "1.0",
           "rules": [
             {
-              "id": "TEST0001"
+              "id": "TEST0001",
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
             },
             {
               "id": "TEST0002",
-              "name": "This isn't pascal case"
+              "name": "This isn't pascal case",
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
             }
           ]
         }
