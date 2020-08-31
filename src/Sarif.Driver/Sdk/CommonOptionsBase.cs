@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             HelpText =
             "Optionally present data, expressed as a semicolon-delimited list, that should be inserted into the log file. " +
             "Valid values include Hashes, TextFiles, BinaryFiles, EnvironmentVariables, RegionSnippets, ContextRegionSnippets, " +
-            "Guids and NondeterministicProperties.")]
+            "Guids, VersionControlInformation, and NondeterministicProperties.")]
         public IEnumerable<OptionallyEmittedData> DataToInsert { get; set; }
 
         [Option(
@@ -37,7 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             HelpText =
             "Optionally present data, expressed as a semicolon-delimited list, that should be not be persisted to or which " +
             "should be removed from the log file. Valid values include Hashes, TextFiles, BinaryFiles, EnvironmentVariables, " +
-            "RegionSnippets, ContextRegionSnippets and NondeterministicProperties.")]
+            "RegionSnippets, ContextRegionSnippets, Guids, VersionControlInformation, and NondeterministicProperties.")]
         public IEnumerable<OptionallyEmittedData> DataToRemove { get; set; }
 
         [Option(
