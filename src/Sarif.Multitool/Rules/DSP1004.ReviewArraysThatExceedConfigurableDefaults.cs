@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
     public class ReviewArraysThatExceedConfigurableDefaults : SarifValidationSkimmerBase
     {
         /// <summary>
-        /// SARIF2020
+        /// DSP1004
         /// </summary>
         public override string Id => RuleId.ReviewArraysThatExceedConfigurableDefaults;
 
@@ -23,10 +23,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         // are limits on the number of runs per log file, rules per run, results per run, locations
         // per result, code flows per result, and steps per code flow. You can provide a configuration
         // file at the root of your repository to specify higher limits.
-        public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF2020_ReviewArraysThatExceedConfigurableDefaults_FullDescription_Text };
+        public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.DSP1004_ReviewArraysThatExceedConfigurableDefaults_FullDescription_Text };
 
         protected override IEnumerable<string> MessageResourceNames => new string[] {
-            nameof(RuleResources.SARIF2020_ReviewArraysThatExceedConfigurableDefaults_Error_Default_Text)
+            nameof(RuleResources.DSP1004_ReviewArraysThatExceedConfigurableDefaults_Error_Default_Text)
         };
 
         public override FailureLevel DefaultLevel => FailureLevel.Error;
@@ -110,7 +110,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 // of your repository to specify a higher limit.
                 LogResult(
                     arrayPointer,
-                    nameof(RuleResources.SARIF2020_ReviewArraysThatExceedConfigurableDefaults_Error_Default_Text),
+                    nameof(RuleResources.DSP1004_ReviewArraysThatExceedConfigurableDefaults_Error_Default_Text),
                     actualSize.Value.ToString(CultureInfo.InvariantCulture),
                     s_arraySizeLimitDictionary[dictionaryKey].ToString(CultureInfo.InvariantCulture));
             }

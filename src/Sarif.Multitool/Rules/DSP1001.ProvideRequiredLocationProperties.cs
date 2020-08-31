@@ -2,31 +2,30 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 
 using Microsoft.Json.Pointer;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class LocationsMustProvideRequiredProperties : SarifValidationSkimmerBase
+    public class ProvideRequiredLocationProperties : SarifValidationSkimmerBase
     {
         /// <summary>
-        /// SARIF2017
+        /// DSP1001
         /// </summary>
-        public override string Id => RuleId.LocationsMustProvideRequiredProperties;
+        public override string Id => RuleId.ProvideRequiredLocationProperties;
 
         /// <summary>
         /// Each result location must provide the property 'physicalLocation.artifactLocation.uri'.
         /// The GitHub Developer Security Portal will not display a result whose location does not
         /// provide the URI of the artifact that was analyzed.
         /// </summary>
-        public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF2017_LocationsMustProvideRequiredProperties_FullDescription_Text };
+        public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.DSP1001_ProvideRequiredLocationProperties_FullDescription_Text };
 
         protected override IEnumerable<string> MessageResourceNames => new string[] {
-            nameof(RuleResources.SARIF2017_LocationsMustProvideRequiredProperties_Error_NoLocationsArray_Text),
-            nameof(RuleResources.SARIF2017_LocationsMustProvideRequiredProperties_Error_EmptyLocationsArray_Text),
-            nameof(RuleResources.SARIF2017_LocationsMustProvideRequiredProperties_Error_MissingLocationProperty_Text)
+            nameof(RuleResources.DSP1001_ProvideRequiredLocationProperties_Error_NoLocationsArray_Text),
+            nameof(RuleResources.DSP1001_ProvideRequiredLocationProperties_Error_EmptyLocationsArray_Text),
+            nameof(RuleResources.DSP1001_ProvideRequiredLocationProperties_Error_MissingLocationProperty_Text)
         };
 
         public override FailureLevel DefaultLevel => FailureLevel.Error;
@@ -42,7 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 // of the artifact that contains the result.
                 LogResult(
                     resultPointer,
-                    nameof(RuleResources.SARIF2017_LocationsMustProvideRequiredProperties_Error_NoLocationsArray_Text),
+                    nameof(RuleResources.DSP1001_ProvideRequiredLocationProperties_Error_NoLocationsArray_Text),
                     SarifPropertyName.Locations);
                 return;
             }
@@ -55,7 +54,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 // artifact that contains the result.
                 LogResult(
                     locationsPointer,
-                    nameof(RuleResources.SARIF2017_LocationsMustProvideRequiredProperties_Error_EmptyLocationsArray_Text));
+                    nameof(RuleResources.DSP1001_ProvideRequiredLocationProperties_Error_EmptyLocationsArray_Text));
                 return;
             }
 
@@ -100,7 +99,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 // that contains the result.
                 LogResult(
                     locationPointer,
-                    nameof(RuleResources.SARIF2017_LocationsMustProvideRequiredProperties_Error_MissingLocationProperty_Text),
+                    nameof(RuleResources.DSP1001_ProvideRequiredLocationProperties_Error_MissingLocationProperty_Text),
                     missingProperty);
             }
         }

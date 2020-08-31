@@ -61,6 +61,163 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}: The &apos;locations&apos; array is empty. The GitHub Developer Security Portal will not display a result unless it provides a location that specifies the URI of the artifact that contains the result..
+        /// </summary>
+        internal static string DSP1001_ProvideRequiredLocationProperties_Error_EmptyLocationsArray_Text {
+            get {
+                return ResourceManager.GetString("DSP1001_ProvideRequiredLocationProperties_Error_EmptyLocationsArray_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: &apos;{1}&apos; is absent. The GitHub Developer Security Portal will not display a result location that does not provide the URI of the artifact that contains the result..
+        /// </summary>
+        internal static string DSP1001_ProvideRequiredLocationProperties_Error_MissingLocationProperty_Text {
+            get {
+                return ResourceManager.GetString("DSP1001_ProvideRequiredLocationProperties_Error_MissingLocationProperty_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The &apos;locations&apos; property is absent. The GitHub Developer Security Portal will not display a result unless it provides a location that specifies the URI of the artifact that contains the result..
+        /// </summary>
+        internal static string DSP1001_ProvideRequiredLocationProperties_Error_NoLocationsArray_Text {
+            get {
+                return ResourceManager.GetString("DSP1001_ProvideRequiredLocationProperties_Error_NoLocationsArray_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Each result location must provide the property &apos;physicalLocation.artifactLocation.uri&apos;. The GitHub Developer Security Portal will not display a result whose location does not provide the URI of the artifact that contains the result..
+        /// </summary>
+        internal static string DSP1001_ProvideRequiredLocationProperties_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("DSP1001_ProvideRequiredLocationProperties_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: This &apos;threadFlowLocation&apos; uses its &apos;index&apos; property to refer to information in the &apos;run.threadFlowLocations&apos; array. The GitHub Developer Security Portal will not display a result that includes such a &apos;threadFlowLocation&apos;..
+        /// </summary>
+        internal static string DSP1002_InlineThreadFlowLocations_Error_Default_Text {
+            get {
+                return ResourceManager.GetString("DSP1002_InlineThreadFlowLocations_Error_Default_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Results that include codeFlows must specify each threadFlowLocation directly within the codeFlow, rather than relying on threadFlowLocation.index to refer to an element of the run.threadFlowLocations array. The GitHub Developer Security Portal will not display a result that uses such threadFlowLocations..
+        /// </summary>
+        internal static string DSP1002_InlineThreadFlowLocations_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("DSP1002_InlineThreadFlowLocations_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The &apos;region&apos; property is absent. The GitHub Developer Security Portal can display the correct location only for results that provide a &apos;region&apos; object with line and optional column information. At minimum, &apos;region.startLine&apos; is required. &apos;region&apos; can also provide &apos;startColumn&apos;, &apos;endLine&apos;, and &apos;endColumn&apos;, although all of those have reasonable defaults..
+        /// </summary>
+        internal static string DSP1003_ProvideRequiredRegionProperties_Error_MissingRegion_Text {
+            get {
+                return ResourceManager.GetString("DSP1003_ProvideRequiredRegionProperties_Error_MissingRegion_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The &apos;startLine&apos; property is absent. The GitHub Developer Security Portal can display the correct location only for results that provide a &apos;region&apos; object with line and optional column information. At minimum, &apos;region.startLine&apos; is required. &apos;region&apos; can also provide &apos;startColumn&apos;, &apos;endLine&apos;, and &apos;endColumn&apos;, although all of those have reasonable defaults..
+        /// </summary>
+        internal static string DSP1003_ProvideRequiredRegionProperties_Error_MissingRegionProperty_Text {
+            get {
+                return ResourceManager.GetString("DSP1003_ProvideRequiredRegionProperties_Error_MissingRegionProperty_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Every result must provide a &apos;region&apos; that specifies its location with line and optional column information. The GitHub Developer Security Portal can display the correct location only for results that provide this information. At minimum, &apos;region.startLine&apos; is required. &apos;region&apos; can also provide &apos;startColumn&apos;, &apos;endLine&apos;, and &apos;endColumn&apos;, although all of those have reasonable defaults..
+        /// </summary>
+        internal static string DSP1003_ProvideRequiredRegionProperties_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("DSP1003_ProvideRequiredRegionProperties_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: This array contains {1} element(s), which exceeds the default limit of {2} imposed by the GitHub Developer Security Portal. The portal will only display information up to that limit. You can provide a configuration file at the root of your repository to specify a higher limit..
+        /// </summary>
+        internal static string DSP1004_ReviewArraysThatExceedConfigurableDefaults_Error_Default_Text {
+            get {
+                return ResourceManager.GetString("DSP1004_ReviewArraysThatExceedConfigurableDefaults_Error_Default_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The GitHub Developer Security Portal limits the amount of information it displays. There are limits on the number of runs per log file, rules per run, results per run, locations per result, code flows per result, and steps per code flow. You can provide a configuration file at the root of your repository to specify higher limits..
+        /// </summary>
+        internal static string DSP1004_ReviewArraysThatExceedConfigurableDefaults_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("DSP1004_ReviewArraysThatExceedConfigurableDefaults_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: &apos;{1}&apos; is not a file path. The GitHub Developer Security Portal only displays results whose locations are specified by file paths, either as relative URIs or as absolute URIs that use the &apos;file&apos; scheme..
+        /// </summary>
+        internal static string DSP1005_LocationsMustBeRelativeUrisOrFilePaths_Error_Default_Text {
+            get {
+                return ResourceManager.GetString("DSP1005_LocationsMustBeRelativeUrisOrFilePaths_Error_Default_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The GitHub Developer Security Portal only displays results whose locations are specified by file paths, either as relative URIs or as absolute URIs that use the &apos;file&apos; scheme..
+        /// </summary>
+        internal static string DSP1005_LocationsMustBeRelativeUrisOrFilePaths_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("DSP1005_LocationsMustBeRelativeUrisOrFilePaths_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: This result location is expressed as an absolute &apos;file&apos; URI. The GitHub Developer Security Portal will reject this file because it cannot determine the location of the repository root (which it refers to as the &quot;checkout path&quot;). Either express result locations as relative URI references with respect to the checkout path, place the checkout path in &apos;invocations[].workingDirectory`, or place the checkout path in a configuration file at the root of the repository..
+        /// </summary>
+        internal static string DSP1006_ProvideCheckoutPath_Error_Default_Text {
+            get {
+                return ResourceManager.GetString("DSP1006_ProvideCheckoutPath_Error_Default_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The GitHub Developer Security Portal (DSP) will reject a SARIF file that expresses result locations as absolute &apos;file&apos; scheme URIs unless the DSP can determine the URI of the repository root (which the DSP refers to as the &quot;checkout path&quot;). There are three ways to address this issue.
+        ///
+        ///1. Recommended: Express all result locations as relative URI references with respect to the checkout path.
+        ///
+        ///1. Place the checkout path in &apos;invocations[].workingDirectory&apos;. The SARIF specification defines that property to b [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string DSP1006_ProvideCheckoutPath_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("DSP1006_ProvideCheckoutPath_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: This related location does not have a &apos;message&apos; property, so the the GitHub Developer Security Portal (DSP) will reject the entire log file. This is a bug in the DSP. You can set &apos;message&apos; to an empty string if you don&apos;t have anything else to say about the location..
+        /// </summary>
+        internal static string DSP1007_ProvideRequiredRelatedLocationProperties_Error_Default_Text {
+            get {
+                return ResourceManager.GetString("DSP1007_ProvideRequiredRelatedLocationProperties_Error_Default_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The GitHub Developer Security Portal (DSP) will reject a SARIF file that includes a &quot;related location&quot; with no &apos;message&apos; property. This is a bug in the DSP. You can set &apos;message&apos; to an empty string if you don&apos;t have anything else to say about the location..
+        /// </summary>
+        internal static string DSP1007_ProvideRequiredRelatedLocationProperties_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("DSP1007_ProvideRequiredRelatedLocationProperties_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}: The rule &apos;{1}&apos; has a &apos;name&apos; property that is identical to its &apos;id&apos; property. The required &apos;id&apos; property must be a &quot;stable, opaque identifier&quot; (the SARIF specification ([3.49.3](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317839)) explains the reasons for this). The optional &apos;name&apos; property ([3.49.7](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317843)) is an identifer that is understandable to an end user. Therefore if both &apos;id&apos; and &apos;name [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SARIF1001_RuleIdentifiersMustBeValid_Error_Default_Text {
@@ -767,164 +924,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         internal static string SARIF2016_FileUrisShouldBeRelative_Note_Default_Text {
             get {
                 return ResourceManager.GetString("SARIF2016_FileUrisShouldBeRelative_Note_Default_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}: The &apos;locations&apos; array is empty. The GitHub Developer Security Portal will not display a result unless it provides a location that specifies the URI of the artifact that contains the result..
-        /// </summary>
-        internal static string SARIF2017_LocationsMustProvideRequiredProperties_Error_EmptyLocationsArray_Text {
-            get {
-                return ResourceManager.GetString("SARIF2017_LocationsMustProvideRequiredProperties_Error_EmptyLocationsArray_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}: &apos;{1}&apos; is absent. The GitHub Developer Security Portal will not display a result location that does not provide the URI of the artifact that contains the result..
-        /// </summary>
-        internal static string SARIF2017_LocationsMustProvideRequiredProperties_Error_MissingLocationProperty_Text {
-            get {
-                return ResourceManager.GetString("SARIF2017_LocationsMustProvideRequiredProperties_Error_MissingLocationProperty_Te" +
-                        "xt", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}: The &apos;locations&apos; property is absent. The GitHub Developer Security Portal will not display a result unless it provides a location that specifies the URI of the artifact that contains the result..
-        /// </summary>
-        internal static string SARIF2017_LocationsMustProvideRequiredProperties_Error_NoLocationsArray_Text {
-            get {
-                return ResourceManager.GetString("SARIF2017_LocationsMustProvideRequiredProperties_Error_NoLocationsArray_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Each result location must provide the property &apos;physicalLocation.artifactLocation.uri&apos;. The GitHub Developer Security Portal will not display a result whose location does not provide the URI of the artifact that contains the result..
-        /// </summary>
-        internal static string SARIF2017_LocationsMustProvideRequiredProperties_FullDescription_Text {
-            get {
-                return ResourceManager.GetString("SARIF2017_LocationsMustProvideRequiredProperties_FullDescription_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}: This &apos;threadFlowLocation&apos; uses its &apos;index&apos; property to refer to information in the &apos;run.threadFlowLocations&apos; array. The GitHub Developer Security Portal will not display a result that includes such a &apos;threadFlowLocation&apos;..
-        /// </summary>
-        internal static string SARIF2018_InlineThreadFlowLocations_Error_Default_Text {
-            get {
-                return ResourceManager.GetString("SARIF2018_InlineThreadFlowLocations_Error_Default_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Results that include codeFlows must specify each threadFlowLocation directly within the codeFlow, rather than relying on threadFlowLocation.index to refer to an element of the run.threadFlowLocations array. The GitHub Developer Security Portal will not display a result that uses such threadFlowLocations..
-        /// </summary>
-        internal static string SARIF2018_InlineThreadFlowLocations_FullDescription_Text {
-            get {
-                return ResourceManager.GetString("SARIF2018_InlineThreadFlowLocations_FullDescription_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}: The &apos;region&apos; property is absent. The GitHub Developer Security Portal can display the correct location only for results that provide a &apos;region&apos; object with line and optional column information. At minimum, &apos;region.startLine&apos; is required. &apos;region&apos; can also provide &apos;startColumn&apos;, &apos;endLine&apos;, and &apos;endColumn&apos;, although all of those have reasonable defaults..
-        /// </summary>
-        internal static string SARIF2019_RegionsMustProvideRequiredProperties_Error_MissingRegion_Text {
-            get {
-                return ResourceManager.GetString("SARIF2019_RegionsMustProvideRequiredProperties_Error_MissingRegion_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}: The &apos;startLine&apos; property is absent. The GitHub Developer Security Portal can display the correct location only for results that provide a &apos;region&apos; object with line and optional column information. At minimum, &apos;region.startLine&apos; is required. &apos;region&apos; can also provide &apos;startColumn&apos;, &apos;endLine&apos;, and &apos;endColumn&apos;, although all of those have reasonable defaults..
-        /// </summary>
-        internal static string SARIF2019_RegionsMustProvideRequiredProperties_Error_MissingRegionProperty_Text {
-            get {
-                return ResourceManager.GetString("SARIF2019_RegionsMustProvideRequiredProperties_Error_MissingRegionProperty_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Every result must provide a &apos;region&apos; that specifies its location with line and optional column information. The GitHub Developer Security Portal can display the correct location only for results that provide this information. At minimum, &apos;region.startLine&apos; is required. &apos;region&apos; can also provide &apos;startColumn&apos;, &apos;endLine&apos;, and &apos;endColumn&apos;, although all of those have reasonable defaults..
-        /// </summary>
-        internal static string SARIF2019_RegionsMustProvideRequiredProperties_FullDescription_Text {
-            get {
-                return ResourceManager.GetString("SARIF2019_RegionsMustProvideRequiredProperties_FullDescription_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}: This array contains {1} element(s), which exceeds the default limit of {2} imposed by the GitHub Developer Security Portal. The portal will only display information up to that limit. You can provide a configuration file at the root of your repository to specify a higher limit..
-        /// </summary>
-        internal static string SARIF2020_ReviewArraysThatExceedConfigurableDefaults_Error_Default_Text {
-            get {
-                return ResourceManager.GetString("SARIF2020_ReviewArraysThatExceedConfigurableDefaults_Error_Default_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The GitHub Developer Security Portal limits the amount of information it displays. There are limits on the number of runs per log file, rules per run, results per run, locations per result, code flows per result, and steps per code flow. You can provide a configuration file at the root of your repository to specify higher limits..
-        /// </summary>
-        internal static string SARIF2020_ReviewArraysThatExceedConfigurableDefaults_FullDescription_Text {
-            get {
-                return ResourceManager.GetString("SARIF2020_ReviewArraysThatExceedConfigurableDefaults_FullDescription_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}: &apos;{1}&apos; is not a file path. The GitHub Developer Security Portal only displays results whose locations are specified by file paths, either as relative URIs or as absolute URIs that use the &apos;file&apos; scheme..
-        /// </summary>
-        internal static string SARIF2021_LocationsMustBeRelativeUrisOrFilePaths_Error_Default_Text {
-            get {
-                return ResourceManager.GetString("SARIF2021_LocationsMustBeRelativeUrisOrFilePaths_Error_Default_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The GitHub Developer Security Portal only displays results whose locations are specified by file paths, either as relative URIs or as absolute URIs that use the &apos;file&apos; scheme..
-        /// </summary>
-        internal static string SARIF2021_LocationsMustBeRelativeUrisOrFilePaths_FullDescription_Text {
-            get {
-                return ResourceManager.GetString("SARIF2021_LocationsMustBeRelativeUrisOrFilePaths_FullDescription_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}: This result location is expressed as an absolute &apos;file&apos; URI. The GitHub Developer Security Portal will reject this file because it cannot determine the location of the repository root (which it refers to as the &quot;checkout path&quot;). Either express result locations as relative URI references with respect to the checkout path, place the checkout path in &apos;invocations[].workingDirectory`, or place the checkout path in a configuration file at the root of the repository..
-        /// </summary>
-        internal static string SARIF2022_ProvideCheckoutPath_Error_Default_Text {
-            get {
-                return ResourceManager.GetString("SARIF2022_ProvideCheckoutPath_Error_Default_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The GitHub Developer Security Portal (DSP) will reject a SARIF file that expresses result locations as absolute &apos;file&apos; scheme URIs unless the DSP can determine the URI of the repository root (which the DSP refers to as the &quot;checkout path&quot;). There are three ways to address this issue.
-        ///
-        ///1. Recommended: Express all result locations as relative URI references with respect to the checkout path.
-        ///
-        ///1. Place the checkout path in &apos;invocations[].workingDirectory&apos;. The SARIF specification defines that property to b [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string SARIF2022_ProvideCheckoutPath_FullDescription_Text {
-            get {
-                return ResourceManager.GetString("SARIF2022_ProvideCheckoutPath_FullDescription_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}: This related location does not have a &apos;message&apos; property, so the the GitHub Developer Security Portal (DSP) will reject the entire log file. This is a bug in the DSP. You can set &apos;message&apos; to an empty string if you don&apos;t have anything else to say about the location..
-        /// </summary>
-        internal static string SARIF2023_RelatedLocationsMustProvideRequiredProperties_Error_Default_Text {
-            get {
-                return ResourceManager.GetString("SARIF2023_RelatedLocationsMustProvideRequiredProperties_Error_Default_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The GitHub Developer Security Portal (DSP) will reject a SARIF file that includes a &quot;related location&quot; with no &apos;message&apos; property. This is a bug in the DSP. You can set &apos;message&apos; to an empty string if you don&apos;t have anything else to say about the location..
-        /// </summary>
-        internal static string SARIF2023_RelatedLocationsMustProvideRequiredProperties_FullDescription_Text {
-            get {
-                return ResourceManager.GetString("SARIF2023_RelatedLocationsMustProvideRequiredProperties_FullDescription_Text", resourceCulture);
             }
         }
     }

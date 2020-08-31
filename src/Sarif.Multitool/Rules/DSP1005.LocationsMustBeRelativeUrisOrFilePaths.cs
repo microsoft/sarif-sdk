@@ -12,16 +12,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
     public class LocationsMustBeRelativeUrisOrFilePaths : SarifValidationSkimmerBase
     {
         /// <summary>
-        /// SARIF2021
+        /// DSP1005
         /// </summary>
         public override string Id => RuleId.LocationsMustBeRelativeUrisOrFilePaths;
 
         // The GitHub Developer Security Portal only displays results whose locations are specified
         // by file paths, either as relative URIs or as absolute URIs that use the 'file' scheme.
-        public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF2021_LocationsMustBeRelativeUrisOrFilePaths_FullDescription_Text };
+        public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.DSP1005_LocationsMustBeRelativeUrisOrFilePaths_FullDescription_Text };
 
         protected override IEnumerable<string> MessageResourceNames => new string[] {
-            nameof(RuleResources.SARIF2021_LocationsMustBeRelativeUrisOrFilePaths_Error_Default_Text)
+            nameof(RuleResources.DSP1005_LocationsMustBeRelativeUrisOrFilePaths_Error_Default_Text)
         };
 
         public override FailureLevel DefaultLevel => FailureLevel.Error;
@@ -32,7 +32,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
             if (!(result.Locations?.Any() == true))
             {
-                // Rule SARIF2017.LocationsMustProvideRequiredProperties will catch this, so don't
+                // Rule DSP1001.ProvideRequiredLocationProperties will catch this, so don't
                 // report it here.
                 return;
             }
@@ -58,7 +58,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             Uri uri = location?.PhysicalLocation?.ArtifactLocation?.Uri;
             if (uri == null)
             {
-                // Rule SARIF2017.LocationsMustProvideRequiredProperties will catch this, so don't
+                // Rule DSP1001.ProvideRequiredLocationProperties will catch this, so don't
                 // report it here.
                 return;
             }
@@ -75,7 +75,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 // relative URIs or as absolute URIs that use the 'file' scheme.
                 LogResult(
                     uriPointer,
-                    nameof(RuleResources.SARIF2021_LocationsMustBeRelativeUrisOrFilePaths_Error_Default_Text),
+                    nameof(RuleResources.DSP1005_LocationsMustBeRelativeUrisOrFilePaths_Error_Default_Text),
                     uri.OriginalString);
             }
         }

@@ -8,7 +8,7 @@
           "name": "SARIF Functional Testing",
           "rules": [
             {
-              "id": "SARIF2018",
+              "id": "DSP1002",
               "name": "InlineThreadFlowLocations",
               "shortDescription": {
                 "text": "Results that include codeFlows must specify each threadFlowLocation directly within the codeFlow, rather than relying on threadFlowLocation.index to refer to an element of the run.threadFlowLocations array."
@@ -38,14 +38,14 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF2018.InlineThreadFlowLocations_Invalid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.DSP1002.InlineThreadFlowLocations_Invalid.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }
       ],
       "results": [
         {
-          "ruleId": "SARIF2018",
+          "ruleId": "DSP1002",
           "ruleIndex": 0,
           "level": "error",
           "message": {

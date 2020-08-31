@@ -8,8 +8,8 @@
           "name": "SARIF Functional Testing",
           "rules": [
             {
-              "id": "SARIF2023",
-              "name": "RelatedLocationsMustProvideRequiredProperties",
+              "id": "DSP1007",
+              "name": "ProvideRequiredRelatedLocationProperties",
               "shortDescription": {
                 "text": "The GitHub Developer Security Portal (DSP) will reject a SARIF file that includes a \"related location\" with no 'message' property."
               },
@@ -38,14 +38,14 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF2023.RelatedLocationsMustProvideRequiredProperties_Invalid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.DSP1007.ProvideRequiredRelatedLocationProperties_Invalid.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }
       ],
       "results": [
         {
-          "ruleId": "SARIF2023",
+          "ruleId": "DSP1007",
           "ruleIndex": 0,
           "level": "error",
           "message": {
