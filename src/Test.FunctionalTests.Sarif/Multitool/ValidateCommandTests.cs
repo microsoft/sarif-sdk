@@ -292,12 +292,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             => RunInvalidTestForRule(RuleId.ProvideContextRegion);
 
         [Fact]
-        public void SARIF2012_ProvideHelpUris_Valid()
+        public void SARIF2012_ProvideRuleProperties_Valid()
             => RunValidTestForRule(RuleId.ProvideRuleProperties);
 
         [Fact]
-        public void SARIF2012_ProvideHelpUris_Invalid()
+        public void SARIF2012_ProvideRuleProperties_Invalid()
             => RunInvalidTestForRule(RuleId.ProvideRuleProperties);
+
+        [Fact]
+        public void SARIF2012_ProvideRuleProperties_WithInvalidName_Invalid()
+            => RunTest("SARIF2012.ProvideRuleProperties_WithInvalidName.sarif");
 
         [Fact]
         public void SARIF2013_ProvideEmbeddedFileContent_Valid()
@@ -386,14 +390,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         [Fact]
         public void SARIF2023_RelatedLocationsMustProvideRequiredProperties_Invalid()
             => RunInvalidTestForRule(RuleId.RelatedLocationsMustProvideRequiredProperties);
-
-        [Fact]
-        public void SARIF2025_ProvideRuleFriendlyName_Valid()
-            => RunValidTestForRule(RuleId.ProvideRuleFriendlyName);
-
-        [Fact]
-        public void SARIF2025_ProvideRuleFriendlyName_Invalid()
-            => RunInvalidTestForRule(RuleId.ProvideRuleFriendlyName);
 
         private void RunArrayLimitTest(string testFileNameSuffix)
         {

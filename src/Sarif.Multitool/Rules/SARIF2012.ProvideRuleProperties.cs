@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 using Microsoft.Json.Pointer;
 
@@ -46,9 +47,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
             if (string.IsNullOrWhiteSpace(reportingDescriptor.Name))
             {
-                // {0}: This rule does not provide a "friendly name" in its 'name' property. The friendly name
-                // should be a single Pascal identifier, for example, 'ProvideRuleFriendlyName', that helps
-                // users see at a glance the purpose of the analysis rule.
+                // {0}: The rule '{1}' does not provide a "friendly name" in its 'name'
+                // property. The friendly name should be a single Pascal identifier, for
+                // example, 'ProvideRuleFriendlyName', that helps users see at a glance
+                // the purpose of the rule.
                 LogResult(
                     reportingDescriptorPointer,
                     nameof(RuleResources.SARIF2012_ProvideRuleProperties_Note_FriendlyNameMissing_Text),

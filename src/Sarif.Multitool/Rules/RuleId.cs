@@ -49,7 +49,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public const string ProvideCheckoutPath = "SARIF2022";
         public const string RelatedLocationsMustProvideRequiredProperties = "SARIF2023";
 
-        public const string ProvideRuleFriendlyName = "SARIF2025";
         // TEMPLATE:
         // public const string RuleFriendlyName = "SARIFnnnn";
     }

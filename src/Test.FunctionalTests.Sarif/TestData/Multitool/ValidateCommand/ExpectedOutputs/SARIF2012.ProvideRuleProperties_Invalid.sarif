@@ -9,7 +9,7 @@
           "rules": [
             {
               "id": "SARIF2012",
-              "name": "ProvideHelpUris",
+              "name": "ProvideRuleProperties",
               "shortDescription": {
                 "text": "For each rule, provide a URI where users can find detailed information about the rule."
               },
@@ -17,7 +17,13 @@
                 "text": "For each rule, provide a URI where users can find detailed information about the rule. This information should include a detailed description of the invalid pattern, an explanation of why the pattern is poor practice (particularly in contexts such as security or accessibility where driving considerations might not be readily apparent), guidance for resolving the problem (including describing circumstances in which ignoring the problem altogether might be appropriate), examples of invalid and valid patterns, and special considerations (such as noting when a violation should never be ignored or suppressed, noting when a violation could cause downstream tool noise, and noting when a rule can be configured in some way to refine or alter the analysis)."
               },
               "messageStrings": {
-                "Note_Default": {
+                "Note_FriendlyNameMissing": {
+                  "text": "{0}: The rule '{1}' does not provide a \"friendly name\" in its 'name' property. The friendly name should be a single Pascal identifier, for example, 'ProvideRuleFriendlyName', that helps users see at a glance the purpose of the analysis rule."
+                },
+                "Note_FriendlyNameNotAPascalIdentifier": {
+                  "text": "{0}: '{1}' is not a Pascal identifier. For uniformity ofexperience across all tools that produce SARIF, the friendly name should be a single Pascal identifier, for example, 'ProvideRuleFriendlyName'."
+                },
+                "Note_ProvideHelpUris": {
                   "text": "{0}: The rule '{1}' does not provide a help URI. Providing a URI where users can find detailed information about the rule helps users to understand the result and how they can best address it."
                 }
               },
@@ -37,7 +43,7 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF2012.ProvideHelpUris_Invalid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF2012.ProvideRuleProperties_Invalid.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }
@@ -48,7 +54,7 @@
           "ruleIndex": 0,
           "level": "note",
           "message": {
-            "id": "Note_Default",
+            "id": "Note_ProvideHelpUris",
             "arguments": [
               "runs[0].tool.driver.rules[0]",
               "SARIF2009.ConsiderConventionalIdentifierValues"
