@@ -21,6 +21,9 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 {
     public class SarifWorkItemFiler : IDisposable
     {
+        private readonly object m_syncRoot = new object();
+        private FilingClient m_filingClient = null;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="SarifWorkItemFiler"> class.</see>
         /// </summary>
@@ -45,15 +48,34 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 throw new InvalidOperationException(WorkItemsResources.InconsistentHostUrisProvided);
             }
 
-            this.FilingClient = FilingClientFactory.Create(this.FilingContext.HostUri);
-
             this.Logger = ServiceProviderFactory.ServiceProvider.GetService<ILogger>();
             Assembly.GetExecutingAssembly().LogIdentity();
 
             this.FiledWorkItems = new List<WorkItemModel>();
         }
 
-        public FilingClient FilingClient { get; set; }
+        public FilingClient FilingClient 
+        {
+            get
+            {
+                if (m_filingClient == null)
+                {
+                    lock (m_syncRoot)
+                    {
+                        if (m_filingClient == null)
+                        {
+                            this.FilingClient = FilingClientFactory.Create(this.FilingContext.HostUri);
+                        }
+                    }
+                }
+
+                return m_filingClient;
+            }
+            set
+            {
+                m_filingClient = value;
+            }
+        }
 
         public SarifWorkItemContext FilingContext { get; }
 
@@ -94,8 +116,8 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         {
             using (Logger.BeginScopeContext(nameof(FileWorkItems)))
             {
-
                 sarifLog = sarifLog ?? throw new ArgumentNullException(nameof(sarifLog));
+                sarifLog.SetProperty(LOGID_PROPERTY_NAME, Guid.NewGuid());
 
                 IReadOnlyList<SarifLog> logsToProcess = SplitLogFile(sarifLog);
 
@@ -107,6 +129,9 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                     logsToProcessCount = logsToProcess.Count;
                 }
 #endif
+
+                Logger.LogInformation("Connecting to filing client: {accountOrOrganization}", this.FilingClient.AccountOrOrganization);
+                this.FilingClient.Connect(this.FilingContext.PersonalAccessToken).Wait();
 
                 for (int splitFileIndex = 0; splitFileIndex < logsToProcessCount; splitFileIndex++)
                 {
@@ -146,15 +171,11 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             using (Logger.BeginScopeContext(nameof(SplitLogFile)))
             {
                 sarifLog = sarifLog ?? throw new ArgumentNullException(nameof(sarifLog));
-                sarifLog.SetProperty("guid", Guid.NewGuid());
 
                 this.FilingResult = FilingResult.None;
                 this.FiledWorkItems = new List<WorkItemModel>();
 
                 sarifLog = sarifLog ?? throw new ArgumentNullException(nameof(sarifLog));
-
-                Logger.LogInformation("Connecting to filing client: {accountOrOrganization}", this.FilingClient.AccountOrOrganization);
-                this.FilingClient.Connect(this.FilingContext.PersonalAccessToken).Wait();
 
                 OptionallyEmittedData optionallyEmittedData = this.FilingContext.DataToRemove;
                 if (optionallyEmittedData != OptionallyEmittedData.None)
@@ -245,13 +266,11 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             return logsToProcess.ToArray();
         }
 
-        internal const string PROGRAMMABLE_URIS_PROPERTY_NAME = "programmableWorkItemUris";
-
         public SarifWorkItemModel FileWorkItemInternal(SarifLog sarifLog, SarifWorkItemContext filingContext, FilingClient filingClient)
         {
             using (Logger.BeginScopeContext(nameof(FileWorkItemInternal)))
             {
-                string logGuid = sarifLog.GetProperty<Guid>("guid").ToString();
+                string logId = sarifLog.GetProperty<Guid>(LOGID_PROPERTY_NAME).ToString();
 
                 // The helper below will initialize the sarif work item model with a copy
                 // of the root pipeline filing context. This context will then be initialized
@@ -303,7 +322,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 }
                 catch (Exception ex)
                 {
-                    this.Logger.LogError(ex, "An exception was raised filing log '{logGuid}'.", logGuid);
+                    this.Logger.LogError(ex, "An exception was raised filing log '{logId}'.", logId);
 
                     Dictionary<string, object> customDimentions = new Dictionary<string, object>();
                     customDimentions.Add("ExceptionType", ex.GetType().FullName);
@@ -343,7 +362,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
             this.FilingResult = filingResult;
 
-            string logGuid = sarifLog.GetProperty<Guid>("guid").ToString();
+            string logId = sarifLog.GetProperty<Guid>(LOGID_PROPERTY_NAME).ToString();
             string tags = string.Join(",", sarifWorkItemModel.LabelsOrTags);
             string uris = sarifWorkItemModel.LocationUris?.Count > 0
                 ? string.Join(",", sarifWorkItemModel.LocationUris)
@@ -351,8 +370,8 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
             var workItemMetrics = new Dictionary<string, object>
                 {
-                    { "LogGuid", logGuid },
-                    { "WorkItemModelGuid", sarifWorkItemModel.Guid },
+                    { "LogId", logId },
+                    { "WorkItemModelId", sarifWorkItemModel.Id },
                     { nameof(sarifWorkItemModel.Area), sarifWorkItemModel.Area },
                     { nameof(sarifWorkItemModel.BodyOrDescription), sarifWorkItemModel.BodyOrDescription },
                     { "FilingResult", filingResult.ToString() },
@@ -397,8 +416,8 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
                 var workItemDetailMetrics = new Dictionary<string, object>
                 {
-                    { "LogGuid", logGuid },
-                    { "WorkItemModelGuid", sarifWorkItemModel.Guid },
+                    { "LogId", logId },
+                    { "WorkItemModelId", sarifWorkItemModel.Id },
                     { nameof(ruleMetrics.Tool), ruleMetrics.Tool },
                     { nameof(ruleMetrics.RuleId), ruleMetrics.RuleId },
                     { nameof(ruleMetrics.ErrorCount), ruleMetrics.ErrorCount },
@@ -509,5 +528,8 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             channel?.Flush();
             channel?.Dispose();
         }
+
+        internal const string PROGRAMMABLE_URIS_PROPERTY_NAME = "programmableWorkItemUris";
+        internal const string LOGID_PROPERTY_NAME = "logId";
     }
 }

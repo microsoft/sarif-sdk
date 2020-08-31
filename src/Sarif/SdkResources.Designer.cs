@@ -79,6 +79,15 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cannot provide version control information because the current directory &apos;{0}&apos; is not under a Git repository root directory..
+        /// </summary>
+        public static string CannotProvideVersionControlInformation {
+            get {
+                return ResourceManager.GetString("CannotProvideVersionControlInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cannot write result: Tool not yet written..
         /// </summary>
         public static string CannotWriteResultToolMissing {

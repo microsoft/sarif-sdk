@@ -106,5 +106,30 @@ namespace Microsoft.CodeAnalysis.Sarif
                 ? run.Artifacts[Index].Location
                 : this;
         }
+
+        /// <summary>
+        /// Creates a <see cref="Location"/> instance from data representing a single-line region.
+        /// </summary>
+        /// <param name="lineNumber">The line number within the file (1 based).</param>
+        /// <param name="column">The starting column number within the line (1-based).</param>
+        /// <param name="length">The length of the region, measured in characters.</param>
+        /// <param name="offset">The offset of the region start from the beginning of the file, measured in characters.</param>
+        /// <returns>An instance of a Location class.</returns>
+        public Location ToLocation(int lineNumber, int column, int length, int offset) =>
+            new Location
+            {
+                PhysicalLocation = new PhysicalLocation
+                {
+                    ArtifactLocation = this,
+                    Region = new Region
+                    {
+                        StartLine = lineNumber,
+                        StartColumn = column,
+                        EndColumn = column + length,
+                        CharOffset = offset,
+                        CharLength = length,
+                    },
+                },
+            };
     }
 }
