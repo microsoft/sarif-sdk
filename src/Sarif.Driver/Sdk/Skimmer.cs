@@ -68,5 +68,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         public abstract void Analyze(TContext context);
+
+        protected static string MakeAnalyzerMoniker(string id, string name) => $"{id}.{name}";
     }
 }

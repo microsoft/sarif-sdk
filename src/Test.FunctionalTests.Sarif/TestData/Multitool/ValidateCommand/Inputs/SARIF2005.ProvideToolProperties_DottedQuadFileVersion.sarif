@@ -5,8 +5,8 @@
     {
       "tool": {
         "driver": {
-          "name": "SARIF Functional Testing Long",
-          "version": "x",
+          "name": "SARIF Functional Testing",
+          "dottedQuadFileVersion": "1.0.0.0",
           "informationUri": "https://www.example.com/tool-info.html"
         }
       },
