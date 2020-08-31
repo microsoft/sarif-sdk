@@ -56,7 +56,7 @@
         },
         {
           "id": "DSP1007",
-          "name": "RelatedLocationMustProvideRequiredProperties",
+          "name": "ProvideRequiredRelatedLocationProperties",
           "defaultConfiguration": {
             "enabled": true
           }
