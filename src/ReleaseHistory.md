@@ -1,8 +1,4 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
-
-## **v2.3.5** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.5) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.5) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.5) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.5)
-* FEATURE: Support .NET Core 3.1.
-
 ## **v2.3.4** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.4) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.4) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.4) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.4)
 * COMMAND-LINE BREAKING: Change `merge` command output directory argument name to `output-directory`.
 * FEATURE: Add analysis rules appropriate for SARIF files that are to be uploaded to the GitHub Developer Security Portal.
