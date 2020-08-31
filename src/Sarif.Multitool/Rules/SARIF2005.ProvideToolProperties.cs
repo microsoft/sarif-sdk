@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 using Microsoft.Json.Pointer;
@@ -36,10 +37,41 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         protected override IEnumerable<string> MessageResourceNames => new string[] {
             nameof(RuleResources.SARIF2005_ProvideToolProperties_Warning_ProvideToolVersion_Text),
             nameof(RuleResources.SARIF2005_ProvideToolProperties_Warning_ProvideConciseToolName_Text),
-            nameof(RuleResources.SARIF2005_ProvideToolProperties_Warning_UseNumericToolVersions_Text)
+            nameof(RuleResources.SARIF2005_ProvideToolProperties_Warning_UseNumericToolVersions_Text),
+            nameof(RuleResources.SARIF2005_ProvideToolProperties_Warning_ProvideToolnformationUri_Text)
         };
 
         public override FailureLevel DefaultLevel => FailureLevel.Warning;
+
+        // This rule configuration parameter specifies which of the three version-related properties
+        // satisfy the requirement that the tool provide version information. By default, any of
+        // them is acceptable.
+        public static PerLanguageOption<StringSet> AcceptableVersionProperties =>
+            new PerLanguageOption<StringSet>(
+                AnalyzerMoniker, nameof(AcceptableVersionProperties), defaultValue: () => DefaultAcceptableVersionProperties);
+
+        // This rule configuration parameter specifies whether the informationUri property (which
+        // helps the responsible developer learn more about the tool that produced the result) is
+        // required.
+        public static PerLanguageOption<bool> InformationUriRequired =>
+            new PerLanguageOption<bool>(
+                AnalyzerMoniker, nameof(InformationUriRequired), defaultValue: () => true);
+
+        private static readonly string AnalyzerMoniker = MakeAnalyzerMoniker(RuleId.ProvideToolProperties, nameof(RuleId.ProvideToolProperties));
+
+        // We instantiate this object just so we can access its property names below. It's internal
+        // rather than private so we can do the same thing in the tests.
+        internal static readonly ToolComponent s_dummyToolComponent = new ToolComponent();
+
+        private static StringSet DefaultAcceptableVersionProperties =>
+            new StringSet(
+                new string[]
+                {
+                    nameof(s_dummyToolComponent.Version),
+                    nameof(s_dummyToolComponent.SemanticVersion),
+                    nameof(s_dummyToolComponent.DottedQuadFileVersion)
+                }
+            );
 
         private static readonly Regex s_versionRegex = new Regex(@"^\d+.*", RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
@@ -74,16 +106,35 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 }
             }
 
-            if (string.IsNullOrWhiteSpace(toolComponent.Version) && string.IsNullOrWhiteSpace(toolComponent.SemanticVersion))
+            bool informationUriRequired = this.Context.Policy.GetProperty(InformationUriRequired);
+            if (informationUriRequired && toolComponent.InformationUri == null)
             {
-                // {0}: The tool '{1}' provides neither a 'version' property nor a 'semanticVersion'
-                // property. Providing a version enables the log file consumer to determine whether
-                // the file was produced by an up to date version, and to avoid accidentally comparing
-                // log files produced by different tool versions.
+                // {0}: The tool '{1}' does not provide 'informationUri'. This property helps the
+                // developer responsible for addessing a result by providing a way to learn more
+                // about the tool.
+                LogResult(
+                    toolDriverPointer,
+                    nameof(RuleResources.SARIF2005_ProvideToolProperties_Warning_ProvideToolnformationUri_Text),
+                    toolComponent.Name);
+            }
+
+            StringSet acceptableVersionProperties = this.Context.Policy.GetProperty(AcceptableVersionProperties);
+            bool toolDriverProvidesVersion = false;
+            toolDriverProvidesVersion |= acceptableVersionProperties.Contains(nameof(toolComponent.Version)) && !string.IsNullOrWhiteSpace(toolComponent.Version);
+            toolDriverProvidesVersion |= acceptableVersionProperties.Contains(nameof(toolComponent.SemanticVersion)) && !string.IsNullOrWhiteSpace(toolComponent.SemanticVersion);
+            toolDriverProvidesVersion |= acceptableVersionProperties.Contains(nameof(toolComponent.DottedQuadFileVersion)) && !string.IsNullOrWhiteSpace(toolComponent.DottedQuadFileVersion);
+
+            if (!toolDriverProvidesVersion)
+            {
+                // {0}: The tool '{1}' does not provide any of the version-related properties {2}.
+                // Providing version information enables the log file consumer to determine whether
+                // the file was produced by an up to date version, and to avoid accidentally
+                // comparing log files produced by different tool versions.
                 LogResult(
                     toolDriverPointer,
                     nameof(RuleResources.SARIF2005_ProvideToolProperties_Warning_ProvideToolVersion_Text),
-                    toolComponent.Name);
+                    toolComponent.Name,
+                    $"'{string.Join("', '", acceptableVersionProperties.Select(ToCamelCase))}'");
             }
             else
             {
@@ -108,5 +159,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     version);
             }
         }
+
+        private static string ToCamelCase(string name)
+            => name == null
+                ? throw new ArgumentNullException(nameof(name))
+                : name.Length == 1
+                ? name.ToLowerInvariant()
+                : $"{name.Substring(0, 1).ToLowerInvariant()}{name.Substring(1)}";
     }
 }
