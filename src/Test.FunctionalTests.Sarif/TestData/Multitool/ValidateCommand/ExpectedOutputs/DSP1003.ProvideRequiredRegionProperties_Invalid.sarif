@@ -9,7 +9,7 @@
           "rules": [
             {
               "id": "DSP1003",
-              "name": "RegionsMustProvideRequiredProperties",
+              "name": "ProvideRequiredRegionProperties",
               "shortDescription": {
                 "text": "Every result must provide a 'region' that specifies its location with line and optional column information."
               },
@@ -41,7 +41,7 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.DSP1003.RegionsMustProvideRequiredProperties_Invalid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.DSP1003.ProvideRequiredRegionProperties_Invalid.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }

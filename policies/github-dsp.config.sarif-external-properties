@@ -28,7 +28,7 @@
         },
         {
           "id": "DSP1003",
-          "name": "RegionsMustProvideRequiredProperties",
+          "name": "ProvideRequiredRegionProperties",
           "defaultConfiguration": {
             "enabled": true
           }

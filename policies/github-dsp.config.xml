@@ -57,7 +57,7 @@
   <Properties Key='DSP1002.InlineThreadFlowLocations.Options'>
     <Property Key='RuleEnabled' Value='Error' />
   </Properties>
-  <Properties Key='DSP1003.RegionsMustProvideRequiredProperties.Options'>
+  <Properties Key='DSP1003.ProvideRequiredRegionProperties.Options'>
     <Property Key='RuleEnabled' Value='Error' />
   </Properties>
   <Properties Key='DSP1004.ReviewArraysThatExceedConfigurableDefaults.Options'>
@@ -69,7 +69,7 @@
   <Properties Key='DSP1006.ProvideCheckoutPath.Options'>
     <Property Key='RuleEnabled' Value='Error' />
   </Properties>
-  <Properties Key='DSP1007.RelatedLocationsMustProvideRequiredProperties.Options'>
+  <Properties Key='DSP1007.ProvideRequiredRelatedLocationProperties.Options'>
     <Property Key='RuleEnabled' Value='Error' />
   </Properties>
 </Properties>

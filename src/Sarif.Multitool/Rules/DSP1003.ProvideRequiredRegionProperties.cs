@@ -8,23 +8,23 @@ using Microsoft.Json.Pointer;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class RegionsMustProvideRequiredProperties : SarifValidationSkimmerBase
+    public class ProvideRequiredRegionProperties : SarifValidationSkimmerBase
     {
         /// <summary>
         /// DSP1003
         /// </summary>
-        public override string Id => RuleId.RegionsMustProvideRequiredProperties;
+        public override string Id => RuleId.ProvideRequiredRegionProperties;
 
         // Every result must provide a 'region' that specifies its location with line and optional
         // column information. The GitHub Developer Security Portal can display the correct
         // location only for results that provide this information. At minimum, 'region.startLine'
         // is required. 'region' can also provide 'startColumn', 'endLine', and 'endColumn',
         // although all of those have reasonable defaults.
-        public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.DSP1003_RegionsMustProvideRequiredProperties_FullDescription_Text };
+        public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.DSP1003_ProvideRequiredRegionProperties_FullDescription_Text };
 
         protected override IEnumerable<string> MessageResourceNames => new string[] {
-            nameof(RuleResources.DSP1003_RegionsMustProvideRequiredProperties_Error_MissingRegion_Text),
-            nameof(RuleResources.DSP1003_RegionsMustProvideRequiredProperties_Error_MissingRegionProperty_Text)
+            nameof(RuleResources.DSP1003_ProvideRequiredRegionProperties_Error_MissingRegion_Text),
+            nameof(RuleResources.DSP1003_ProvideRequiredRegionProperties_Error_MissingRegionProperty_Text)
         };
 
         public override FailureLevel DefaultLevel => FailureLevel.Error;
@@ -65,7 +65,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     // 'endLine', and 'endColumn', although all of those have reasonable defaults.
                     LogResult(
                         physicalLocationPointer,
-                        nameof(RuleResources.DSP1003_RegionsMustProvideRequiredProperties_Error_MissingRegion_Text));
+                        nameof(RuleResources.DSP1003_ProvideRequiredRegionProperties_Error_MissingRegion_Text));
                 }
                 else if (physicalLocation.Region.StartLine == 0)
                 {
@@ -82,7 +82,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     // 'endLine', and 'endColumn', although all of those have reasonable defaults.
                     LogResult(
                         regionPointer,
-                        nameof(RuleResources.DSP1003_RegionsMustProvideRequiredProperties_Error_MissingRegionProperty_Text));
+                        nameof(RuleResources.DSP1003_ProvideRequiredRegionProperties_Error_MissingRegionProperty_Text));
                 }
             }
         }

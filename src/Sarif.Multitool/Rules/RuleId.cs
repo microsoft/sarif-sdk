@@ -43,11 +43,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         // with the configuration file policies/github-dsp.sarif-external-properties.
         public const string LocationsMustProvideRequiredProperties = "DSP1001";
         public const string InlineThreadFlowLocations = "DSP1002";
-        public const string RegionsMustProvideRequiredProperties = "DSP1003";
+        public const string ProvideRequiredRegionProperties = "DSP1003";
         public const string ReviewArraysThatExceedConfigurableDefaults = "DSP1004";
         public const string LocationsMustBeRelativeUrisOrFilePaths = "DSP1005";
         public const string ProvideCheckoutPath = "DSP1006";
-        public const string RelatedLocationsMustProvideRequiredProperties = "DSP1007";
+        public const string ProvideRequiredRelatedLocationProperties = "DSP1007";
 
         // TEMPLATE:
         // public const string RuleFriendlyName = "SARIFnnnn";

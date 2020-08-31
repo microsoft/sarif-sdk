@@ -348,12 +348,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             => RunInvalidTestForRule(RuleId.InlineThreadFlowLocations);
 
         [Fact]
-        public void DSP1003_RegionsMustProvideRequiredProperties_Valid()
-            => RunValidTestForRule(RuleId.RegionsMustProvideRequiredProperties);
+        public void DSP1003_ProvideRequiredRegionProperties_Valid()
+            => RunValidTestForRule(RuleId.ProvideRequiredRegionProperties);
 
         [Fact]
-        public void DSP1003_RegionsMustProvideRequiredProperties_Invalid()
-            => RunInvalidTestForRule(RuleId.RegionsMustProvideRequiredProperties);
+        public void DSP1003_ProvideRequiredRegionProperties_Invalid()
+            => RunInvalidTestForRule(RuleId.ProvideRequiredRegionProperties);
 
         [Fact]
         public void DSP1004_ReviewArraysThatExceedConfigurableDefaults_Valid()
@@ -380,12 +380,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             => RunInvalidTestForRule(RuleId.ProvideCheckoutPath);
 
         [Fact]
-        public void DSP1007_RelatedLocationsMustProvideRequiredProperties_Valid()
-            => RunValidTestForRule(RuleId.RelatedLocationsMustProvideRequiredProperties);
+        public void DSP1007_ProvideRequiredRelatedLocationProperties_Valid()
+            => RunValidTestForRule(RuleId.ProvideRequiredRelatedLocationProperties);
 
         [Fact]
-        public void DSP1007_RelatedLocationsMustProvideRequiredProperties_Invalid()
-            => RunInvalidTestForRule(RuleId.RelatedLocationsMustProvideRequiredProperties);
+        public void DSP1007_ProvideRequiredRelatedLocationProperties_Invalid()
+            => RunInvalidTestForRule(RuleId.ProvideRequiredRelatedLocationProperties);
 
         private void RunArrayLimitTest(string testFileNameSuffix)
         {
