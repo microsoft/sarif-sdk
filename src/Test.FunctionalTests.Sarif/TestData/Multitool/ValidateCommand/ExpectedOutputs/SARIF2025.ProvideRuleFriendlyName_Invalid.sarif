@@ -17,10 +17,10 @@
                 "text": "Each analysis rule should provide a \"friendly name\" in its 'name' property, in addition to the stable, opaque identifier in its 'id' property. This helps users see at a glance the purpose of the analysis rule. For uniformity of experience across all tools that produce SARIF, the friendly name should be a single Pascal identifier, for example, 'ProvideRuleFriendlyName'."
               },
               "messageStrings": {
-                "None_FriendlyNameMissing": {
+                "Note_FriendlyNameMissing": {
                   "text": "{0}: This rule does not provide a \"friendly name\" in its 'name' property. The friendly name should be a single Pascal identifier, for example, 'ProvideRuleFriendlyName', that helps users see at a glance the purpose of the analysis rule."
                 },
-                "None_FriendlyNameNotAPascalIdentifier": {
+                "Note_FriendlyNameNotAPascalIdentifier": {
                   "text": "{0}: '{1}' is not a Pascal identifier. For uniformity ofexperience across all tools that produce SARIF, the friendly name should be a single Pascal identifier, for example, 'ProvideRuleFriendlyName'."
                 }
               },
@@ -51,7 +51,7 @@
           "ruleIndex": 0,
           "level": "note",
           "message": {
-            "id": "None_FriendlyNameMissing",
+            "id": "Note_FriendlyNameMissing",
             "arguments": [
               "runs[0].tool.driver.rules[0]",
               "TEST0001"
@@ -76,7 +76,7 @@
           "ruleIndex": 0,
           "level": "note",
           "message": {
-            "id": "None_FriendlyNameNotAPascalIdentifier",
+            "id": "Note_FriendlyNameNotAPascalIdentifier",
             "arguments": [
               "runs[0].tool.driver.rules[1].name",
               "This isn't pascal case"

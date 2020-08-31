@@ -931,18 +931,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         /// <summary>
         ///   Looks up a localized string similar to {0}: This rule does not provide a &quot;friendly name&quot; in its &apos;name&apos; property. The friendly name should be a single Pascal identifier, for example, &apos;ProvideRuleFriendlyName&apos;, that helps users see at a glance the purpose of the analysis rule..
         /// </summary>
-        internal static string SARIF2025_ProvideRuleFriendlyName_None_FriendlyNameMissing_Text {
+        internal static string SARIF2025_ProvideRuleFriendlyName_Note_FriendlyNameMissing_Text {
             get {
-                return ResourceManager.GetString("SARIF2025_ProvideRuleFriendlyName_None_FriendlyNameMissing_Text", resourceCulture);
+                return ResourceManager.GetString("SARIF2025_ProvideRuleFriendlyName_Note_FriendlyNameMissing_Text", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to {0}: &apos;{1}&apos; is not a Pascal identifier. For uniformity ofexperience across all tools that produce SARIF, the friendly name should be a single Pascal identifier, for example, &apos;ProvideRuleFriendlyName&apos;..
         /// </summary>
-        internal static string SARIF2025_ProvideRuleFriendlyName_None_FriendlyNameNotAPascalIdentifier_Text {
+        internal static string SARIF2025_ProvideRuleFriendlyName_Note_FriendlyNameNotAPascalIdentifier_Text {
             get {
-                return ResourceManager.GetString("SARIF2025_ProvideRuleFriendlyName_None_FriendlyNameNotAPascalIdentifier_Text", resourceCulture);
+                return ResourceManager.GetString("SARIF2025_ProvideRuleFriendlyName_Note_FriendlyNameNotAPascalIdentifier_Text", resourceCulture);
             }
         }
     }

@@ -24,13 +24,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF2025_ProvideRuleFriendlyName_FullDescription_Text };
 
         protected override IEnumerable<string> MessageResourceNames => new string[] {
-            nameof(RuleResources.SARIF2025_ProvideRuleFriendlyName_None_FriendlyNameMissing_Text),
-            nameof(RuleResources.SARIF2025_ProvideRuleFriendlyName_None_FriendlyNameNotAPascalIdentifier_Text)
+            nameof(RuleResources.SARIF2025_ProvideRuleFriendlyName_Note_FriendlyNameMissing_Text),
+            nameof(RuleResources.SARIF2025_ProvideRuleFriendlyName_Note_FriendlyNameNotAPascalIdentifier_Text)
         };
 
         public override FailureLevel DefaultLevel => FailureLevel.Note;
 
-        private static readonly Regex s_pascalCaseRegex = new Regex(@"^(\p{Lu}[\p{Ll}\p{Nd}]+)+$", RegexOptions.Compiled | RegexOptions.CultureInvariant);
+        private static readonly Regex s_pascalCaseRegex = new Regex(@"^(\p{Lu}[\p{Ll}\p{Nd}]+)*$", RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
         protected override void Analyze(ReportingDescriptor reportingDescriptor, string reportingDescriptorPointer)
         {
@@ -41,7 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 // users see at a glance the purpose of the analysis rule.
                 LogResult(
                     reportingDescriptorPointer,
-                    nameof(RuleResources.SARIF2025_ProvideRuleFriendlyName_None_FriendlyNameMissing_Text),
+                    nameof(RuleResources.SARIF2025_ProvideRuleFriendlyName_Note_FriendlyNameMissing_Text),
                     reportingDescriptor.Id);
                 return;
             }
@@ -53,7 +53,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 // 'ProvideRuleFriendlyName'.
                 LogResult(
                     reportingDescriptorPointer.AtProperty(SarifPropertyName.Name),
-                    nameof(RuleResources.SARIF2025_ProvideRuleFriendlyName_None_FriendlyNameNotAPascalIdentifier_Text),
+                    nameof(RuleResources.SARIF2025_ProvideRuleFriendlyName_Note_FriendlyNameNotAPascalIdentifier_Text),
                     reportingDescriptor.Name);
                 return;
             }
