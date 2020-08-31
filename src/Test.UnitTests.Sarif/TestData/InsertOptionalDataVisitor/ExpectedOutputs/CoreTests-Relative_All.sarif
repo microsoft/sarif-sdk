@@ -68,14 +68,16 @@
         {
           "repositoryUri": "https://REMOTE_URI",
           "mappedTo": {
-            "uri": "file:///REPLACED_AT_TEST_RUNTIME",
-            "index": 1
+            "uri": "file:///REPLACED_AT_TEST_RUNTIME"
           }
         }
       ],
       "originalUriBaseIds": {
         "TESTROOT": {
           "uri": "file:///REPLACED_AT_TEST_RUNTIME/src/Test.UnitTests.Sarif/TestData/"
+        },
+        "REPO_ROOT": {
+          "uri": "file:///REPLACED_AT_TEST_RUNTIME"
         }
       },
       "artifacts": [
@@ -91,11 +93,6 @@
             "md5": "7650327483BE2466ADC6599198B2989A",
             "sha-1": "91655EA8262D81C262A8687E9667AEFF7432906A",
             "sha-256": "1BDE85DC91168DAD541E776BB0437AC8A22D2959351A0640F2757D72AEE60C8A"
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///REPLACED_AT_TEST_RUNTIME"
           }
         }
       ],
