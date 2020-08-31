@@ -552,7 +552,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         private static bool IsSarifRule(string ruleId)
-            => ruleId.StartsWith("SARIF");
+            => ruleId.StartsWith("SARIF") || ruleId.StartsWith("DSP");
 
         private TempFile CreateTempConfigFile(string ruleId, object parameter)
         {
