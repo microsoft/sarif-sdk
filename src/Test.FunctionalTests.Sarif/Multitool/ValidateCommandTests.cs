@@ -293,11 +293,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         [Fact]
         public void SARIF2012_ProvideHelpUris_Valid()
-            => RunValidTestForRule(RuleId.ProvideHelpUris);
+            => RunValidTestForRule(RuleId.ProvideRuleProperties);
 
         [Fact]
         public void SARIF2012_ProvideHelpUris_Invalid()
-            => RunInvalidTestForRule(RuleId.ProvideHelpUris);
+            => RunInvalidTestForRule(RuleId.ProvideRuleProperties);
 
         [Fact]
         public void SARIF2013_ProvideEmbeddedFileContent_Valid()

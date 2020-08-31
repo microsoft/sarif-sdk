@@ -32,7 +32,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public const string ProvideCodeSnippets = "SARIF2010";
 
         public const string ProvideContextRegion = "SARIF2011";
-        public const string ProvideHelpUris = "SARIF2012";
+        public const string ProvideRuleProperties = "SARIF2012";
         public const string ProvideEmbeddedFileContent = "SARIF2013";
         public const string ProvideDynamicMessageContent = "SARIF2014";
         public const string EnquoteDynamicMessageContent = "SARIF2015";
