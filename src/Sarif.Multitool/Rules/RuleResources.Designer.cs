@@ -828,20 +828,42 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to For each rule, provide a URI where users can find detailed information about the rule. This information should include a detailed description of the invalid pattern, an explanation of why the pattern is poor practice (particularly in contexts such as security or accessibility where driving considerations might not be readily apparent), guidance for resolving the problem (including describing circumstances in which ignoring the problem altogether might be appropriate), examples of invalid and valid patterns, [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to Rule metadata should provide information that makes it easy to understand and fix the problem.
+        ///
+        ///Provide the &apos;name&apos; property, which contains a &quot;friendly name&quot; that helps users see at a glance the purpose of the rule. For uniformity of experience across all tools that produce SARIF, the friendly name should be a single Pascal identifier, for example, &apos;ProvideRuleFriendlyName&apos;.
+        ///
+        ///Provide the &apos;helpUri&apos; property, which contains a URI where users can find detailed information about the rule. This information shoul [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string SARIF2012_ProvideHelpUris_FullDescription_Text {
+        internal static string SARIF2012_ProvideRuleProperties_FullDescription_Text {
             get {
-                return ResourceManager.GetString("SARIF2012_ProvideHelpUris_FullDescription_Text", resourceCulture);
+                return ResourceManager.GetString("SARIF2012_ProvideRuleProperties_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: &apos;{1}&apos; is not a Pascal identifier. For uniformity of experience across all tools that produce SARIF, the friendly name should be a single Pascal identifier, for example, &apos;ProvideRuleFriendlyName&apos;..
+        /// </summary>
+        internal static string SARIF2012_ProvideRuleProperties_Note_FriendlyNameNotAPascalIdentifier_Text {
+            get {
+                return ResourceManager.GetString("SARIF2012_ProvideRuleProperties_Note_FriendlyNameNotAPascalIdentifier_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The rule &apos;{1}&apos; does not provide a &quot;friendly name&quot; in its &apos;name&apos; property. The friendly name should be a single Pascal identifier, for example, &apos;ProvideRuleFriendlyName&apos;, that helps users see at a glance the purpose of the analysis rule..
+        /// </summary>
+        internal static string SARIF2012_ProvideRuleProperties_Note_ProvideFriendlyName_Text {
+            get {
+                return ResourceManager.GetString("SARIF2012_ProvideRuleProperties_Note_ProvideFriendlyName_Text", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to {0}: The rule &apos;{1}&apos; does not provide a help URI. Providing a URI where users can find detailed information about the rule helps users to understand the result and how they can best address it..
         /// </summary>
-        internal static string SARIF2012_ProvideHelpUris_Note_Default_Text {
+        internal static string SARIF2012_ProvideRuleProperties_Note_ProvideHelpUri_Text {
             get {
-                return ResourceManager.GetString("SARIF2012_ProvideHelpUris_Note_Default_Text", resourceCulture);
+                return ResourceManager.GetString("SARIF2012_ProvideRuleProperties_Note_ProvideHelpUri_Text", resourceCulture);
             }
         }
         

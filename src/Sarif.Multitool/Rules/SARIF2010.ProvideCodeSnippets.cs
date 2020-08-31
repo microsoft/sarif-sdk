@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.CodeAnalysis.Sarif.Writers;
 using Microsoft.Json.Pointer;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
@@ -96,6 +97,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 // Content/text doesn't exist, continue to next
                 if (string.IsNullOrEmpty(artifact.Contents?.Text))
+                {
+                    continue;
+                }
+
+
+                // if mimetype exists and is binary, continue to next
+                if (!string.IsNullOrEmpty(artifact.MimeType) && MimeType.IsBinaryMimeType(artifact.MimeType))
                 {
                     continue;
                 }
