@@ -332,59 +332,59 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             => RunInvalidTestForRule(RuleId.FileUrisShouldBeRelative);
 
         [Fact]
-        public void SARIF2017_LocationsMustProvideRequiredProperties_Valid()
+        public void DSP1001_LocationsMustProvideRequiredProperties_Valid()
             => RunValidTestForRule(RuleId.LocationsMustProvideRequiredProperties);
 
         [Fact]
-        public void SARIF2017_LocationsMustProvideRequiredProperties_Invalid()
+        public void DSP1001_LocationsMustProvideRequiredProperties_Invalid()
             => RunInvalidTestForRule(RuleId.LocationsMustProvideRequiredProperties);
 
         [Fact]
-        public void SARIF2018_InlineThreadFlowLocations_Valid()
+        public void DSP1002_InlineThreadFlowLocations_Valid()
             => RunValidTestForRule(RuleId.InlineThreadFlowLocations);
 
         [Fact]
-        public void SARIF2018_InlineThreadFlowLocations_Invalid()
+        public void DSP1002_InlineThreadFlowLocations_Invalid()
             => RunInvalidTestForRule(RuleId.InlineThreadFlowLocations);
 
         [Fact]
-        public void SARIF2019_RegionsMustProvideRequiredProperties_Valid()
+        public void DSP1003_RegionsMustProvideRequiredProperties_Valid()
             => RunValidTestForRule(RuleId.RegionsMustProvideRequiredProperties);
 
         [Fact]
-        public void SARIF2019_RegionsMustProvideRequiredProperties_Invalid()
+        public void DSP1003_RegionsMustProvideRequiredProperties_Invalid()
             => RunInvalidTestForRule(RuleId.RegionsMustProvideRequiredProperties);
 
         [Fact]
-        public void SARIF2020_ReviewArraysThatExceedConfigurableDefaults_Valid()
+        public void DSP1004_ReviewArraysThatExceedConfigurableDefaults_Valid()
             => RunArrayLimitTest(ValidTestFileNameSuffix);
 
         [Fact]
-        public void SARIF2020_ReviewArraysThatExceedConfigurableDefaults_Invalid()
+        public void DSP1004_ReviewArraysThatExceedConfigurableDefaults_Invalid()
             => RunArrayLimitTest(InvalidTestFileNameSuffix);
 
         [Fact]
-        public void SARIF2021_LocationsMustBeRelativeUrisOrFilePaths_Valid()
+        public void DSP1005_LocationsMustBeRelativeUrisOrFilePaths_Valid()
             => RunValidTestForRule(RuleId.LocationsMustBeRelativeUrisOrFilePaths);
 
         [Fact]
-        public void SARIF2021_LocationsMustBeRelativeUrisOrFilePaths_Invalid()
+        public void DSP1005_LocationsMustBeRelativeUrisOrFilePaths_Invalid()
             => RunInvalidTestForRule(RuleId.LocationsMustBeRelativeUrisOrFilePaths);
 
         [Fact]
-        public void SARIF2022_ProvideCheckoutPath_Valid()
+        public void DSP1006_ProvideCheckoutPath_Valid()
             => RunValidTestForRule(RuleId.ProvideCheckoutPath);
 
         [Fact]
-        public void SARIF2022_ProvideCheckoutPath_Invalid()
+        public void DSP1006_ProvideCheckoutPath_Invalid()
             => RunInvalidTestForRule(RuleId.ProvideCheckoutPath);
 
         [Fact]
-        public void SARIF2023_RelatedLocationsMustProvideRequiredProperties_Valid()
+        public void DSP1007_RelatedLocationsMustProvideRequiredProperties_Valid()
             => RunValidTestForRule(RuleId.RelatedLocationsMustProvideRequiredProperties);
 
         [Fact]
-        public void SARIF2023_RelatedLocationsMustProvideRequiredProperties_Invalid()
+        public void DSP1007_RelatedLocationsMustProvideRequiredProperties_Invalid()
             => RunInvalidTestForRule(RuleId.RelatedLocationsMustProvideRequiredProperties);
 
         private void RunArrayLimitTest(string testFileNameSuffix)

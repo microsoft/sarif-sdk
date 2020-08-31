@@ -11,17 +11,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
     public class RelatedLocationsMustProvideRequiredProperties : SarifValidationSkimmerBase
     {
         /// <summary>
-        /// SARIF2023
+        /// DSP1007
         /// </summary>
         public override string Id => RuleId.RelatedLocationsMustProvideRequiredProperties;
 
         // The GitHub Developer Security Portal (DSP) will reject a SARIF file that includes a
         // "related location" with no 'message' property. This is a bug in the DSP. You can set
         // 'message' to an empty string if you don't have anything else to say about the location.
-        public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF2023_RelatedLocationsMustProvideRequiredProperties_FullDescription_Text };
+        public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.DSP1007_RelatedLocationsMustProvideRequiredProperties_FullDescription_Text };
 
         protected override IEnumerable<string> MessageResourceNames => new string[] {
-            nameof(RuleResources.SARIF2023_RelatedLocationsMustProvideRequiredProperties_Error_Default_Text)
+            nameof(RuleResources.DSP1007_RelatedLocationsMustProvideRequiredProperties_Error_Default_Text)
         };
 
         public override FailureLevel DefaultLevel => FailureLevel.Error;
@@ -50,7 +50,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 // else to say about the location.
                 LogResult(
                     relatedLocationPointer,
-                    nameof(RuleResources.SARIF2023_RelatedLocationsMustProvideRequiredProperties_Error_Default_Text));
+                    nameof(RuleResources.DSP1007_RelatedLocationsMustProvideRequiredProperties_Error_Default_Text));
             }
         }
     }

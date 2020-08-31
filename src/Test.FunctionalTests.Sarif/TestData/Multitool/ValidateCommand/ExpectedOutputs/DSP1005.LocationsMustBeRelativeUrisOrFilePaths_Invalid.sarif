@@ -8,7 +8,7 @@
           "name": "SARIF Functional Testing",
           "rules": [
             {
-              "id": "SARIF2021",
+              "id": "DSP1005",
               "name": "LocationsMustBeRelativeUrisOrFilePaths",
               "shortDescription": {
                 "text": "The GitHub Developer Security Portal only displays results whose locations are specified by file paths, either as relative URIs or as absolute URIs that use the 'file' scheme."
@@ -38,14 +38,14 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF2021.LocationsMustBeRelativeUrisOrFilePaths_Invalid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.DSP1005.LocationsMustBeRelativeUrisOrFilePaths_Invalid.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }
       ],
       "results": [
         {
-          "ruleId": "SARIF2021",
+          "ruleId": "DSP1005",
           "ruleIndex": 0,
           "level": "error",
           "message": {
@@ -70,7 +70,7 @@
           ]
         },
         {
-          "ruleId": "SARIF2021",
+          "ruleId": "DSP1005",
           "ruleIndex": 0,
           "level": "error",
           "message": {

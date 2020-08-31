@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
     public class RegionsMustProvideRequiredProperties : SarifValidationSkimmerBase
     {
         /// <summary>
-        /// SARIF2019
+        /// DSP1003
         /// </summary>
         public override string Id => RuleId.RegionsMustProvideRequiredProperties;
 
@@ -20,11 +20,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         // location only for results that provide this information. At minimum, 'region.startLine'
         // is required. 'region' can also provide 'startColumn', 'endLine', and 'endColumn',
         // although all of those have reasonable defaults.
-        public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF2019_RegionsMustProvideRequiredProperties_FullDescription_Text };
+        public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.DSP1003_RegionsMustProvideRequiredProperties_FullDescription_Text };
 
         protected override IEnumerable<string> MessageResourceNames => new string[] {
-            nameof(RuleResources.SARIF2019_RegionsMustProvideRequiredProperties_Error_MissingRegion_Text),
-            nameof(RuleResources.SARIF2019_RegionsMustProvideRequiredProperties_Error_MissingRegionProperty_Text)
+            nameof(RuleResources.DSP1003_RegionsMustProvideRequiredProperties_Error_MissingRegion_Text),
+            nameof(RuleResources.DSP1003_RegionsMustProvideRequiredProperties_Error_MissingRegionProperty_Text)
         };
 
         public override FailureLevel DefaultLevel => FailureLevel.Error;
@@ -35,7 +35,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
             if (!(result.Locations?.Any() == true))
             {
-                // Rule SARIF2017.LocationsMustProvideRequiredProperties will catch this, so don't
+                // Rule DSP1001.LocationsMustProvideRequiredProperties will catch this, so don't
                 // report it here.
                 return;
             }
@@ -46,7 +46,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 PhysicalLocation physicalLocation = location.PhysicalLocation;
                 if (physicalLocation == null)
                 {
-                    // Rule SARIF2017.LocationsMustProvideRequiredProperties will catch this, so don't
+                    // Rule DSP1001.LocationsMustProvideRequiredProperties will catch this, so don't
                     // report it here.
                     continue;
                 }
@@ -65,7 +65,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     // 'endLine', and 'endColumn', although all of those have reasonable defaults.
                     LogResult(
                         physicalLocationPointer,
-                        nameof(RuleResources.SARIF2019_RegionsMustProvideRequiredProperties_Error_MissingRegion_Text));
+                        nameof(RuleResources.DSP1003_RegionsMustProvideRequiredProperties_Error_MissingRegion_Text));
                 }
                 else if (physicalLocation.Region.StartLine == 0)
                 {
@@ -82,7 +82,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     // 'endLine', and 'endColumn', although all of those have reasonable defaults.
                     LogResult(
                         regionPointer,
-                        nameof(RuleResources.SARIF2019_RegionsMustProvideRequiredProperties_Error_MissingRegionProperty_Text));
+                        nameof(RuleResources.DSP1003_RegionsMustProvideRequiredProperties_Error_MissingRegionProperty_Text));
                 }
             }
         }

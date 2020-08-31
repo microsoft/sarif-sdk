@@ -51,25 +51,25 @@
     <!-- Not necessary because SARIF2007.ExpressPathsRelativeToRepoRoot is stricter. -->
     <Property Key='RuleEnabled' Value='Disabled' />
   </Properties>
-  <Properties Key='SARIF2017.LocationsMustProvideRequiredProperties.Options'>
+  <Properties Key='DSP1001.LocationsMustProvideRequiredProperties.Options'>
     <Property Key='RuleEnabled' Value='Error' />
   </Properties>
-  <Properties Key='SARIF2018.InlineThreadFlowLocations.Options'>
+  <Properties Key='DSP1002.InlineThreadFlowLocations.Options'>
     <Property Key='RuleEnabled' Value='Error' />
   </Properties>
-  <Properties Key='SARIF2019.RegionsMustProvideRequiredProperties.Options'>
+  <Properties Key='DSP1003.RegionsMustProvideRequiredProperties.Options'>
     <Property Key='RuleEnabled' Value='Error' />
   </Properties>
-  <Properties Key='SARIF2020.ReviewArraysThatExceedConfigurableDefaults.Options'>
+  <Properties Key='DSP1004.ReviewArraysThatExceedConfigurableDefaults.Options'>
     <Property Key='RuleEnabled' Value='Error' />
   </Properties>
-  <Properties Key='SARIF2021.LocationsMustBeRelativeUrisOrFilePaths.Options'>
+  <Properties Key='DSP1005.LocationsMustBeRelativeUrisOrFilePaths.Options'>
     <Property Key='RuleEnabled' Value='Error' />
   </Properties>
-  <Properties Key='SARIF2022.ProvideCheckoutPath.Options'>
+  <Properties Key='DSP1006.ProvideCheckoutPath.Options'>
     <Property Key='RuleEnabled' Value='Error' />
   </Properties>
-  <Properties Key='SARIF2023.RelatedLocationsMustProvideRequiredProperties.Options'>
+  <Properties Key='DSP1007.RelatedLocationsMustProvideRequiredProperties.Options'>
     <Property Key='RuleEnabled' Value='Error' />
   </Properties>
 </Properties>

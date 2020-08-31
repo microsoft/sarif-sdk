@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
     public class ProvideCheckoutPath : SarifValidationSkimmerBase
     {
         /// <summary>
-        /// SARIF2022
+        /// DSP1006
         /// </summary>
         public override string Id => RuleId.ProvideCheckoutPath;
 
@@ -31,10 +31,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         //
         // 3. Place the checkout path in a configuration file at the root of the repository.This
         // requires the analysis tool always to be invoked from that same directory.
-        public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF2022_ProvideCheckoutPath_FullDescription_Text };
+        public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.DSP1006_ProvideCheckoutPath_FullDescription_Text };
 
         protected override IEnumerable<string> MessageResourceNames => new string[] {
-            nameof(RuleResources.SARIF2022_ProvideCheckoutPath_Error_Default_Text)
+            nameof(RuleResources.DSP1006_ProvideCheckoutPath_Error_Default_Text)
         };
 
         public override FailureLevel DefaultLevel => FailureLevel.Error;
@@ -114,7 +114,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                             .AtProperty(SarifPropertyName.PhysicalLocation)
                             .AtProperty(SarifPropertyName.ArtifactLocation)
                             .AtProperty(SarifPropertyName.Uri),
-                        nameof(RuleResources.SARIF2022_ProvideCheckoutPath_Error_Default_Text));
+                        nameof(RuleResources.DSP1006_ProvideCheckoutPath_Error_Default_Text));
                 }
             }
         }

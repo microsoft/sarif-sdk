@@ -13,49 +13,49 @@
       },
       "rules": [
         {
-          "id": "SARIF2017",
+          "id": "DSP1001",
           "name": "LocationsMustProvideRequiredProperties",
           "defaultConfiguration": {
             "enabled": true
           }
         },
         {
-          "id": "SARIF2018",
+          "id": "DSP1002",
           "name": "InlineThreadFlowLocations",
           "defaultConfiguration": {
             "enabled": true
           }
         },
         {
-          "id": "SARIF2019",
+          "id": "DSP1003",
           "name": "RegionsMustProvideRequiredProperties",
           "defaultConfiguration": {
             "enabled": true
           }
         },
         {
-          "id": "SARIF2020",
+          "id": "DSP1004",
           "name": "ReviewArraysThatExceedConfigurableDefaults",
           "defaultConfiguration": {
             "enabled": true
           }
         },
         {
-          "id": "SARIF2021",
+          "id": "DSP1005",
           "name": "LocationsMustBeRelativeUrisOrFilePaths",
           "defaultConfiguration": {
             "enabled": true
           }
         },
         {
-          "id": "SARIF2022",
+          "id": "DSP1006",
           "name": "ProvideCheckoutPath",
           "defaultConfiguration": {
             "enabled": true
           }
         },
         {
-          "id": "SARIF2023",
+          "id": "DSP1007",
           "name": "RelatedLocationMustProvideRequiredProperties",
           "defaultConfiguration": {
             "enabled": true
