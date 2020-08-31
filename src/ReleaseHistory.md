@@ -1,4 +1,10 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
+
+## **v2.3.5** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.5) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.5) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.5) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.5)
+* FEATURE: Rule `SARIF2005.ProvideToolProperties` now allows `dottedQuadFileVersion to satisfy the requirement for version information, requires `informationUri`, and is configurable.
+* FEATURE: Rule `SARIF2012.ProvideHelpUris` is now named `ProvideRuleProperties`. In addition to checking for `rule.helpUri`, it now checks whether `rule.name` is present and looks like a Pascal case identifier.
+* FEATURE: In the Multitool's `rewrite` command, if `--insert VersionControlInformation` is specified, then `run.versionControlProvenance` is populated, and all absolute URIs are re-expressed as relative references with respect to the nearest enclosing repository root directory.
+
 ## **v2.3.4** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.4) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.4) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.4) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.4)
 * COMMAND-LINE BREAKING: Change `merge` command output directory argument name to `output-directory`.
 * FEATURE: Add analysis rules appropriate for SARIF files that are to be uploaded to the GitHub Developer Security Portal.
