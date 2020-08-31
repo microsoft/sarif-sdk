@@ -332,12 +332,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             => RunInvalidTestForRule(RuleId.FileUrisShouldBeRelative);
 
         [Fact]
-        public void DSP1001_LocationsMustProvideRequiredProperties_Valid()
-            => RunValidTestForRule(RuleId.LocationsMustProvideRequiredProperties);
+        public void DSP1001_ProvideRequiredLocationProperties_Valid()
+            => RunValidTestForRule(RuleId.ProvideRequiredLocationProperties);
 
         [Fact]
-        public void DSP1001_LocationsMustProvideRequiredProperties_Invalid()
-            => RunInvalidTestForRule(RuleId.LocationsMustProvideRequiredProperties);
+        public void DSP1001_ProvideRequiredLocationProperties_Invalid()
+            => RunInvalidTestForRule(RuleId.ProvideRequiredLocationProperties);
 
         [Fact]
         public void DSP1002_InlineThreadFlowLocations_Valid()

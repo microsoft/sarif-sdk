@@ -14,7 +14,7 @@
       "rules": [
         {
           "id": "DSP1001",
-          "name": "LocationsMustProvideRequiredProperties",
+          "name": "ProvideRequiredLocationProperties",
           "defaultConfiguration": {
             "enabled": true
           }

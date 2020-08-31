@@ -9,7 +9,7 @@
           "rules": [
             {
               "id": "DSP1001",
-              "name": "LocationsMustProvideRequiredProperties",
+              "name": "ProvideRequiredLocationProperties",
               "shortDescription": {
                 "text": "Each result location must provide the property 'physicalLocation.artifactLocation.uri'."
               },
@@ -44,7 +44,7 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.DSP1001.LocationsMustProvideRequiredProperties_Invalid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.DSP1001.ProvideRequiredLocationProperties_Invalid.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }

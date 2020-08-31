@@ -51,7 +51,7 @@
     <!-- Not necessary because SARIF2007.ExpressPathsRelativeToRepoRoot is stricter. -->
     <Property Key='RuleEnabled' Value='Disabled' />
   </Properties>
-  <Properties Key='DSP1001.LocationsMustProvideRequiredProperties.Options'>
+  <Properties Key='DSP1001.ProvideRequiredLocationProperties.Options'>
     <Property Key='RuleEnabled' Value='Error' />
   </Properties>
   <Properties Key='DSP1002.InlineThreadFlowLocations.Options'>

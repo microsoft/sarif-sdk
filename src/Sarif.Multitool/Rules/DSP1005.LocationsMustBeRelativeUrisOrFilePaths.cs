@@ -32,7 +32,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
             if (!(result.Locations?.Any() == true))
             {
-                // Rule DSP1001.LocationsMustProvideRequiredProperties will catch this, so don't
+                // Rule DSP1001.ProvideRequiredLocationProperties will catch this, so don't
                 // report it here.
                 return;
             }
@@ -58,7 +58,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             Uri uri = location?.PhysicalLocation?.ArtifactLocation?.Uri;
             if (uri == null)
             {
-                // Rule DSP1001.LocationsMustProvideRequiredProperties will catch this, so don't
+                // Rule DSP1001.ProvideRequiredLocationProperties will catch this, so don't
                 // report it here.
                 return;
             }
