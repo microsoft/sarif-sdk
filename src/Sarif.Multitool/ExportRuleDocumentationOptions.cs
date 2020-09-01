@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         [Option(
                'o',
                "output-file-path",
-               HelpText = "Path to the generated Markdown file.  Default: ValidationRules.md in the current directory.")]
+               HelpText = "Path to the generated Markdown file. Default: ValidationRules.md in the current directory.")]
         public string OutputFilePath { get; internal set; }
     }
 }
