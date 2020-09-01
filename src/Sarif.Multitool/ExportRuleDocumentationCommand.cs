@@ -47,7 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             return SUCCESS;
         }
 
-        private void BuildRule(SarifValidationSkimmerBase rule, StringBuilder sb)
+        internal void BuildRule(SarifValidationSkimmerBase rule, StringBuilder sb)
         {
             sb.AppendLine($"## Rule `{rule.Moniker}`{Environment.NewLine}");
             sb.AppendLine($"### Description{Environment.NewLine}");

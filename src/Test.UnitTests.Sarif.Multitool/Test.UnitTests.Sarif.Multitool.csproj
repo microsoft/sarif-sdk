@@ -15,11 +15,16 @@
 
   <ItemGroup>
     <None Remove="TestData\ConvertCommand\SemmleQlSample.csv" />
+    <None Remove="TestData\ExportRuleDocumentationCommand\ExpectedOutputs\Test.md" />
     <None Remove="TestData\MergeCommand\ExpectedOutputs\NoInputFiles.sarif" />
     <None Remove="TestData\PageCommand\elfie-arriba - Copy.sarif" />
     <None Remove="TestData\PageCommand\elfie-arriba.sarif" />
     <None Remove="TestData\RebaseUriCommand\ExpectedOutputs\RunWithArtifacts.sarif" />
     <None Remove="TestData\RebaseUriCommand\RunWithArtifacts.sarif" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="TestData\ExportRuleDocumentationCommand\ExpectedOutputs\Test.md" />
   </ItemGroup>
 
   <ItemGroup>
