@@ -27,7 +27,8 @@ $Projects.Libraries = @(
     "Sarif.Converters",
     "Sarif.Driver",
     "Sarif.Multitool.Library"
-    "Sarif.WorkItems"
+    "Sarif.WorkItems",
+    "WorkItems"
 )
 
 $Projects.Applications = @(
