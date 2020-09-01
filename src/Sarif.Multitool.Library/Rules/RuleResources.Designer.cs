@@ -832,7 +832,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         ///
         ///Provide the &apos;name&apos; property, which contains a &quot;friendly name&quot; that helps users see at a glance the purpose of the rule. For uniformity of experience across all tools that produce SARIF, the friendly name should be a single Pascal identifier, for example, &apos;ProvideRuleFriendlyName&apos;.
         ///
-        ///Provide the &apos;helpUri&apos; property, which contains a URI where users can find detailed information about the rule. This information shoul [rest of string was truncated]&quot;;.
+        ///Provide the &apos;helpUri&apos; property, which contains a URI where users can find detailed information about the rule. This information s [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SARIF2012_ProvideRuleProperties_FullDescription_Text {
             get {

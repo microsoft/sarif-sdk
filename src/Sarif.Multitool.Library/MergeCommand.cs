@@ -4,16 +4,10 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.InteropServices.WindowsRuntime;
 
 using Microsoft.CodeAnalysis.Sarif.Driver;
-using Microsoft.CodeAnalysis.Sarif.Driver.Sdk;
 using Microsoft.CodeAnalysis.Sarif.Processors;
-using Microsoft.CodeAnalysis.Sarif.Visitors;
 using Microsoft.CodeAnalysis.Sarif.Writers;
-using Microsoft.Extensions.Options;
-using Microsoft.TeamFoundation.Work.WebApi;
-using Microsoft.VisualStudio.Services.OAuth;
 
 using Newtonsoft.Json;
 

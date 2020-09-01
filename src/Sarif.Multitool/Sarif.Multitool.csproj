@@ -28,7 +28,7 @@
 
   <PropertyGroup Label="AssemblyAttributes">
     <AssemblyTitle>SARIF Multitool</AssemblyTitle>
-    <Description>Command line tool to perform transformations of input files to SARIF.</Description>
+    <Description>Command line tool to manipulate SARIF files.</Description>
   </PropertyGroup>
 
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
@@ -39,9 +39,9 @@
 
   <ItemGroup>
     <PackageReference Include="CommandLineParser" Version="2.7.82" />
-    <PackageReference Include="Microsoft.Json.Pointer" Version="1.1.1" />
-    <PackageReference Include="Microsoft.Json.Schema" Version="1.1.1" />
-    <PackageReference Include="Microsoft.Json.Schema.Validation" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Json.Pointer" Version="1.1.2" />
+    <PackageReference Include="Microsoft.Json.Schema" Version="1.1.2" />
+    <PackageReference Include="Microsoft.Json.Schema.Validation" Version="1.1.2" />
   </ItemGroup>
 
   <ItemGroup>
@@ -53,32 +53,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="MultitoolResources.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>MultitoolResources.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Rules\RuleResources.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>RuleResources.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="MultitoolResources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>MultitoolResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Rules\RuleResources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>RuleResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
     <EmbeddedResource Include=".\DotnetToolSettings.xml" CopyToOutputDirectory="PreserveNewest" />
-    <EmbeddedResource Include="$(MsBuildThisFileDirectory)..\Sarif\Schemata\sarif-$(SchemaVersionAsPublishedToSchemaStoreOrg).json" Link="sarif-2.1.0.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
   <ItemGroup>
