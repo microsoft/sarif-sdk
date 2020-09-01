@@ -24,11 +24,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="TestData\ExportRuleDocumentationCommand\ExpectedOutputs\Test.md" />
-  </ItemGroup>
-
-  <ItemGroup>
     <EmbeddedResource Include="TestData\ConvertCommand\SemmleQlSample.csv" />
+    <EmbeddedResource Include="TestData\ExportRuleDocumentationCommand\ExpectedOutputs\Test.md" />
     <EmbeddedResource Include="TestData\MergeCommand\ExpectedOutputs\NoInputFiles.sarif" />
     <EmbeddedResource Include="TestData\QueryCommand\elfie-arriba.CSCAN0020.sarif" />
     <EmbeddedResource Include="TestData\PageCommand\elfie-arriba.sarif" />
