@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public static int Main(string[] args)
         {
             return Parser.Default.ParseArguments<
-                ExportOptions,
+                ExportRuleDocumentationOptions,
                 ValidateOptions,
                 ConvertOptions,
                 RewriteOptions,
@@ -27,7 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 ResultMatchSetOptions,
                 FileWorkItemsOptions>(args)
                 .MapResult(
-                (ExportOptions options) => new ExportCommand().Run(options),
+                (ExportRuleDocumentationOptions options) => new ExportRuleDocumentationCommand().Run(options),
                 (ValidateOptions validateOptions) => new ValidateCommand().Run(validateOptions),
                 (ConvertOptions convertOptions) => new ConvertCommand().Run(convertOptions),
                 (RewriteOptions rewriteOptions) => new RewriteCommand().Run(rewriteOptions),
