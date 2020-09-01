@@ -104,3 +104,5 @@ Each rule has a description that describes its purpose, followed by one or more 
 Rules that describe violations of **SHALL**/**SHALL NOT** requirements of the [SARIF specification](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html) have numbers between 1000 and 1999, and always have level `"error"`.
 
 ---
+
+For documentation on all existing SARIF validation rules, please see [ValidationRules.md](ValidationRules.md).
