@@ -2,8 +2,6 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using CommandLine;
-using Microsoft.CodeAnalysis.Sarif.Multitool.Commands;
-using Microsoft.CodeAnalysis.Sarif.Multitool.Options;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {

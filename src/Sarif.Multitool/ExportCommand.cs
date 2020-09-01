@@ -7,10 +7,9 @@ using System.Reflection;
 using System.Text;
 
 using Microsoft.CodeAnalysis.Sarif.Driver;
-using Microsoft.CodeAnalysis.Sarif.Multitool.Options;
 using Microsoft.CodeAnalysis.Sarif.Multitool.Rules;
 
-namespace Microsoft.CodeAnalysis.Sarif.Multitool.Commands
+namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public class ExportCommand : CommandBase
     {
@@ -29,15 +28,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Commands
                     new Assembly[] { Assembly.GetExecutingAssembly() }).ToList();
 
                 var sb = new StringBuilder();
+                sb.AppendLine("# Rules");
+                sb.AppendLine();
+
                 foreach (SarifValidationSkimmerBase rule in list)
                 {
                     BuildRule(rule, sb);
                 }
 
-                if (sb.Length > 0)
-                {
-                    _fileSystem.WriteAllText($"{options.OutputDirectoryPath}\\rules.md", sb.ToString());
-                }
+                _fileSystem.WriteAllText($"{options.OutputDirectoryPath}\\rules.md", sb.ToString());
             }
             catch (Exception ex)
             {
@@ -48,25 +47,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Commands
             return SUCCESS;
         }
 
-        private string BuildHeader()
-        {
-            return string.Empty;
-        }
-
         private void BuildRule(SarifValidationSkimmerBase rule, StringBuilder sb)
         {
-            sb.AppendLine($"### Rule `{rule.Id}.{rule.Name}`");
+            sb.AppendLine($"## Rule `{rule.Id}.{rule.Name}`");
             sb.AppendLine();
-            sb.AppendLine("#### Description");
+            sb.AppendLine("### Description");
             sb.AppendLine();
             sb.AppendLine(rule.FullDescription.Text);
             sb.AppendLine();
-            sb.AppendLine("#### Messages");
+            sb.AppendLine("### Messages");
             sb.AppendLine();
 
             foreach (System.Collections.Generic.KeyValuePair<string, MultiformatMessageString> message in rule.MessageStrings)
             {
-                sb.AppendLine($"##### `{message.Key.Split('_').Last()}`: {rule.DefaultLevel.ToString()}");
+                sb.AppendLine($"#### `{message.Key.Split('_').Last()}`: {rule.DefaultLevel.ToString()}");
                 sb.AppendLine();
                 sb.AppendLine($"{message.Value.Text}");
                 sb.AppendLine();

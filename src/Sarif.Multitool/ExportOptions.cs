@@ -3,7 +3,7 @@
 
 using CommandLine;
 
-namespace Microsoft.CodeAnalysis.Sarif.Multitool.Options
+namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     [Verb("export", HelpText = "Export rules to md file.")]
     public class ExportOptions
