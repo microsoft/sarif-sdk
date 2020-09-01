@@ -11,4 +11,8 @@
     <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Sarif\Sarif.csproj" />
+  </ItemGroup>
+
 </Project>
