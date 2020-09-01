@@ -28,8 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     new Assembly[] { Assembly.GetExecutingAssembly() }).ToList();
 
                 var sb = new StringBuilder();
-                sb.AppendLine("# Rules");
-                sb.AppendLine();
+                sb.AppendLine($"# Rules{Environment.NewLine}");
 
                 foreach (SarifValidationSkimmerBase rule in list)
                 {
@@ -49,25 +48,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         private void BuildRule(SarifValidationSkimmerBase rule, StringBuilder sb)
         {
-            sb.AppendLine($"## Rule `{rule.Id}.{rule.Name}`");
-            sb.AppendLine();
-            sb.AppendLine("### Description");
-            sb.AppendLine();
-            sb.AppendLine(rule.FullDescription.Text);
-            sb.AppendLine();
-            sb.AppendLine("### Messages");
-            sb.AppendLine();
+            sb.AppendLine($"## Rule `{rule.Id}.{rule.Name}`{Environment.NewLine}");
+            sb.AppendLine($"### Description{Environment.NewLine}");
+            sb.AppendLine($"{rule.FullDescription.Text}{Environment.NewLine}");
+            sb.AppendLine($"### Messages{Environment.NewLine}");
 
             foreach (System.Collections.Generic.KeyValuePair<string, MultiformatMessageString> message in rule.MessageStrings)
             {
-                sb.AppendLine($"#### `{message.Key.Split('_').Last()}`: {rule.DefaultLevel.ToString()}");
-                sb.AppendLine();
-                sb.AppendLine($"{message.Value.Text}");
-                sb.AppendLine();
+                sb.AppendLine($"#### `{message.Key.Split('_').Last()}`: {rule.DefaultLevel}{Environment.NewLine}");
+                sb.AppendLine($"{message.Value.Text}{Environment.NewLine}");
             }
 
-            sb.AppendLine("---");
-            sb.AppendLine();
+            sb.AppendLine($"---{Environment.NewLine}");
         }
     }
 }
