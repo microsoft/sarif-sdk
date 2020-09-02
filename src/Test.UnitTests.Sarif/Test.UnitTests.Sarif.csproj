@@ -17,6 +17,8 @@
     <None Remove="TestData\Baseline\elfie-arriba.sarif" />
     <None Remove="TestData\Baseline\SuppressionTestCurrent.sarif" />
     <None Remove="TestData\Baseline\SuppressionTestPrevious.sarif" />
+    <None Remove="TestData\GitHubDspIngestionVisitor\ExpectedOutputs\NonErrorResults.sarif" />
+    <None Remove="TestData\GitHubDspIngestionVisitor\Inputs\NonErrorResults.sarif" />
     <None Remove="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests-Absolute_TextFiles.sarif" />
     <None Remove="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests-Relative_All.sarif" />
     <None Remove="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests-Relative_Guids.sarif" />
@@ -74,6 +76,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="TestData\GitHubDspIngestionVisitor\ExpectedOutputs\NonErrorResults.sarif" />
+    <EmbeddedResource Include="TestData\GitHubDspIngestionVisitor\Inputs\NonErrorResults.sarif" />
     <EmbeddedResource Include="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests-Relative_VersionControlInformation.sarif" />
     <EmbeddedResource Include="TestData\Readers\elfie-arriba-utf8-bom.sarif" />
     <EmbeddedResource Include="TestData\Baseline\elfie-arriba.sarif" />
