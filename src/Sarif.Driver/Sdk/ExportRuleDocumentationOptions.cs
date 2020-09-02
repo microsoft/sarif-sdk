@@ -3,7 +3,7 @@
 
 using CommandLine;
 
-namespace Microsoft.CodeAnalysis.Sarif.Multitool
+namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     [Verb("export-rule-documentation", HelpText = "Export the documentation for the validation rules to a Markdown file.")]
     public class ExportRuleDocumentationOptions
