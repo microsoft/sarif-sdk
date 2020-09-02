@@ -2,11 +2,16 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
 { 
     public class GitHubDspIngestionVisitor : SarifRewritingVisitor
     {
+        // GitHub DSP reportedly has an ingestion limit of 500 issues.
+        // Internal static rather than private const to allow a unit test with a practical limit.
+        internal static int s_MaxResults = 500;
+
         private IList<Artifact> artifacts;
 
         public override Run VisitRun(Run node)
@@ -43,10 +48,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                             errors.Add(result);
                         }
 
-                        // GitHub DSP reportedly has an ingestion limit of 500 issues
-                        if (errors.Count > 500) { break; }
+                        if (errors.Count > s_MaxResults) { break; }
                     }
+
                     node.Results = errors;
+                }
+
+                if (node.Results.Count > s_MaxResults)
+                {
+                    node.Results = node.Results.Take(s_MaxResults).ToList();
                 }
             }
             

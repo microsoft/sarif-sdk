@@ -25,5 +25,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         [Fact]
         public void GitHubDspIngestionVisitor_FiltersNonErrorResults()
             => RunTest("NonErrorResults.sarif");
+
+        [Fact]
+        public void GitHubDspIngestionVisitor_LimitsNumberOfResults()
+        {
+            int prevMaxResults = GitHubDspIngestionVisitor.s_MaxResults;
+
+            try
+            {
+                GitHubDspIngestionVisitor.s_MaxResults = 2;
+                RunTest("TooManyResults.sarif");
+            }
+            finally
+            {
+                GitHubDspIngestionVisitor.s_MaxResults = prevMaxResults;
+            }
+        }
+
+        [Fact]
+        public void GitHubDspIngestionVisitor_RemovesInvocations()
+            => RunTest("WithInvocation.sarif");
     }
 }
