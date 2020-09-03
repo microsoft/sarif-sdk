@@ -20,7 +20,12 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "Sarif/SarifConstants.cs",
-                  "uriBaseId": "SOURCE_ROOT"
+                  "uriBaseId": "SOURCE_ROOT",
+                  "properties": {
+                    "a": 1,
+                    "b": 22,
+                    "c": 3
+                  }
                 }
               }
             }

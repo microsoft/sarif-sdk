@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
-{ 
+{
     public class GitHubDspIngestionVisitor : SarifRewritingVisitor
     {
         // DSP requires that every related location have a message. It's not clear why this
@@ -43,7 +43,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         errorsCount++;
                     }
                 }
-                
+
                 if (errorsCount != node.Results.Count)
                 {
                     var errors = new List<Result>();
@@ -66,7 +66,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     node.Results = node.Results.Take(s_MaxResults).ToList();
                 }
             }
-            
+
             node = base.VisitRun(node);
 
             // DSP prefers a relative path local to the result. We clear
@@ -117,15 +117,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 // Merge properties from the shared location, preferring the properties from
                 // this location if there are any duplicates.
-                if (sharedLocation.Properties != null)
-                {
-                    if (node.Properties == null)
-                    {
-                        node.Properties = new Dictionary<string, SerializedPropertyInfo>();
-                    }
-
-                    node.Properties = node.Properties.MergePreferFirst(sharedLocation.Properties);
-                }
+                MergeProperties(node, sharedLocation);
 
                 // Do NOT copy properties that can be different for each use of the shared
                 // threadFlowLocation:
@@ -149,10 +141,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             if (this.artifacts != null && node.Index > -1)
             {
-                node.Uri = this.artifacts[node.Index].Location.Uri;
-                node.UriBaseId = this.artifacts[node.Index].Location.UriBaseId;
+                ArtifactLocation sharedLocation = this.artifacts[node.Index].Location;
+                node.Uri = sharedLocation.Uri;
+                node.UriBaseId = sharedLocation.UriBaseId;
+
+                // Merge properties from the shared location, preferring the properties from
+                // this location if there are any duplicates.
+                MergeProperties(node, sharedLocation);
+
                 node.Index = -1;
             }
+
             return base.VisitArtifactLocation(node);
         }
 
@@ -178,7 +177,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 // partial fingerprints property in order to prefer these
                 // values for matching (over DSP's built-in SARIF-driven
                 // results matching heuristics).
-                foreach(string fingerprintKey in node.Fingerprints.Keys)
+                foreach (string fingerprintKey in node.Fingerprints.Keys)
                 {
                     node.PartialFingerprints ??= new Dictionary<string, string>();
                     node.PartialFingerprints[fingerprintKey] = node.Fingerprints[fingerprintKey];
@@ -187,6 +186,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
 
             return base.VisitResult(node);
+        }
+
+        // Merge properties from a source to a target, preferring the existing properties
+        // on the target if there are any duplicates.
+        private static void MergeProperties(PropertyBagHolder target, PropertyBagHolder source)
+        {
+            // Are there any properties to merge?
+            if (source.Properties != null)
+            {
+                // If so, make sure there's someplace to put them.
+                if (target.Properties == null)
+                {
+                    target.Properties = new Dictionary<string, SerializedPropertyInfo>();
+                }
+
+                target.Properties = target.Properties.MergePreferFirst(source.Properties);
+            }
         }
     }
 }

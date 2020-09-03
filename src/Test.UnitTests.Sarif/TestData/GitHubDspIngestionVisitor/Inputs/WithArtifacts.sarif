@@ -12,7 +12,11 @@
         {
           "location": {
             "uri": "Sarif/SarifConstants.cs",
-            "uriBaseId": "SOURCE_ROOT"
+            "uriBaseId": "SOURCE_ROOT",
+            "properties": {
+              "a": 1,
+              "b": 2
+            }
           }
         },
         {
@@ -33,7 +37,11 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "index": 0
+                  "index": 0,
+                  "properties": {
+                    "b": 22,
+                    "c": 3
+                  }
                 }
               }
             }
