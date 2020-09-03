@@ -451,6 +451,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="otherPropertyBag">
         /// A property bag containing properties to merge into <paramref name="propertyBag"/>.
         /// </param>
+        /// <typeparam name="T">
+        /// The type of object in the property bag. For SARIF property bags, the type will
+        /// be <see cref="SerializedPropertyInfo"/>.
+        /// </typeparam>
         /// <returns>
         /// The original <paramref name="propertyBag"/> object, into which the properties
         /// from <paramref name="otherPropertyBag"/> have now been merged.
