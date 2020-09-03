@@ -17,11 +17,13 @@
     <None Remove="TestData\Baseline\elfie-arriba.sarif" />
     <None Remove="TestData\Baseline\SuppressionTestCurrent.sarif" />
     <None Remove="TestData\Baseline\SuppressionTestPrevious.sarif" />
+    <None Remove="TestData\GitHubDspIngestionVisitor\ExpectedOutputs\Fingerprints.sarif" />
     <None Remove="TestData\GitHubDspIngestionVisitor\ExpectedOutputs\NonErrorResults.sarif" />
     <None Remove="TestData\GitHubDspIngestionVisitor\ExpectedOutputs\RelatedLocationMessage.sarif" />
     <None Remove="TestData\GitHubDspIngestionVisitor\ExpectedOutputs\TooManyResults.sarif" />
     <None Remove="TestData\GitHubDspIngestionVisitor\ExpectedOutputs\WithArtifacts.sarif" />
     <None Remove="TestData\GitHubDspIngestionVisitor\ExpectedOutputs\WithInvocation.sarif" />
+    <None Remove="TestData\GitHubDspIngestionVisitor\Inputs\Fingerprints.sarif" />
     <None Remove="TestData\GitHubDspIngestionVisitor\Inputs\NonErrorResults.sarif" />
     <None Remove="TestData\GitHubDspIngestionVisitor\Inputs\TooManyResults.sarif" />
     <None Remove="TestData\GitHubDspIngestionVisitor\Inputs\WithArtifacts.sarif" />
@@ -84,12 +86,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="TestData\GitHubDspIngestionVisitor\ExpectedOutputs\Fingerprints.sarif" />
     <EmbeddedResource Include="TestData\GitHubDspIngestionVisitor\ExpectedOutputs\NonErrorResults.sarif" />
     <EmbeddedResource Include="TestData\GitHubDspIngestionVisitor\ExpectedOutputs\WithArtifacts.sarif" />
     <EmbeddedResource Include="TestData\GitHubDspIngestionVisitor\ExpectedOutputs\RelatedLocationMessage.sarif" />
     <EmbeddedResource Include="TestData\GitHubDspIngestionVisitor\ExpectedOutputs\WithInvocation.sarif" />
     <EmbeddedResource Include="TestData\GitHubDspIngestionVisitor\ExpectedOutputs\TooManyResults.sarif" />
     <EmbeddedResource Include="TestData\GitHubDspIngestionVisitor\Inputs\NonErrorResults.sarif" />
+    <EmbeddedResource Include="TestData\GitHubDspIngestionVisitor\Inputs\Fingerprints.sarif" />
     <EmbeddedResource Include="TestData\GitHubDspIngestionVisitor\Inputs\WithArtifacts.sarif" />
     <EmbeddedResource Include="TestData\GitHubDspIngestionVisitor\Inputs\WithInvocation.sarif" />
     <EmbeddedResource Include="TestData\GitHubDspIngestionVisitor\Inputs\TooManyResults.sarif" />
