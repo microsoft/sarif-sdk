@@ -8,6 +8,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 { 
     public class GitHubDspIngestionVisitor : SarifRewritingVisitor
     {
+        // DSP requires that every related location have a message. It's not clear why this
+        // requirement exists, as this data is mostly used to build embedded links from
+        // results (where the link anchor text actually resides).
+        private const string PlaceholderRelatedLocationMessage = "[No message provided.]";
+
         // GitHub DSP reportedly has an ingestion limit of 500 issues.
         // Internal static rather than private const to allow a unit test with a practical limit.
         internal static int s_MaxResults = 500;
@@ -88,15 +93,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 foreach (Location relatedLocation in node.RelatedLocations)
                 {
-                    // DSP requires that every related location have a message. It's
-                    // not clear why this requirement exists, as this data is mostly 
-                    // used to build embedded links from results (where the link
-                    // anchor text actually resides).
                     if (string.IsNullOrEmpty(relatedLocation.Message?.Text))
                     {
                         relatedLocation.Message = new Message
                         {
-                            Text = "[No message provided.]" 
+                            Text = PlaceholderRelatedLocationMessage
                         };
                     }
                 }

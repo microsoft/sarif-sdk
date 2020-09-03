@@ -49,5 +49,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         [Fact]
         public void GitHubDspIngestionVisitor_RemovesArtifactsAndRetainsIndirectArtifactLocations()
             => RunTest("WithArtifacts.sarif");
+
+        [Fact]
+        public void GitHubDspIngestionVisitor_ProvidesPlaceholderRelatedLocationMessage()
+            => RunTest("RelatedLocationMessage.sarif");
     }
 }
