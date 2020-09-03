@@ -18,11 +18,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         internal static int s_MaxResults = 500;
 
         private IList<Artifact> artifacts;
+        private IList<ThreadFlowLocation> threadFlowLocations;
 
         public override Run VisitRun(Run node)
         {
             this.artifacts = node.Artifacts;
-            
+            this.threadFlowLocations = node.ThreadFlowLocations;
+
             // DSP does not support submitting invocation objects. Invocations
             // contains potentially sensitive environment details, such as 
             // account names embedded in paths. Invocations also store 
@@ -70,11 +72,78 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             // DSP prefers a relative path local to the result. We clear
             // the artifacts table, as all artifact information is now
             // inlined with each result.
-             node.Artifacts = null;
+            node.Artifacts = null;
+
+            // DSP requires threadFlowLocations to be inlined in the result,
+            // not referenced from run.threadFlowLocations.
+            node.ThreadFlowLocations = null;
 
             return node;
         }
 
+        public override ThreadFlowLocation VisitThreadFlowLocation(ThreadFlowLocation node)
+        {
+            if (this.threadFlowLocations != null && node.Index > -1)
+            {
+                ThreadFlowLocation sharedLocation = this.threadFlowLocations[node.Index];
+
+                // Location.Message might vary per usage. For example, on one usage,
+                // we might be tracking an uninitialized variable, and the location
+                // might have the message "Unititialized variable 'ptr' passed to 'f'".
+                // Another usage of the same location might have a different message,
+                // or none at all. So even though we are getting the location from
+                // the shared object, don't take its message unless the current object
+                // does not have one.
+                Message message = node.Location?.Message;
+
+                node.Location = sharedLocation.Location;
+
+                if (message != null)
+                {
+                    // Make sure there's a place to put the message. threadFlowLocation.Location
+                    // is not required, so the shared object might not have had one.
+                    if (node.Location == null)
+                    {
+                        node.Location = new Location();
+                    }
+
+                    node.Location.Message = message;
+                }
+
+                // Copy other properties that should be the same for each usage of the
+                // shared location.
+                node.Kinds = sharedLocation.Kinds;
+                node.Module = sharedLocation.Module;
+
+                // Merge properties from the shared location, preferring the properties from
+                // this location if there are any duplicates.
+                if (sharedLocation.Properties != null)
+                {
+                    if (node.Properties == null)
+                    {
+                        node.Properties = new Dictionary<string, SerializedPropertyInfo>();
+                    }
+
+                    node.Properties = node.Properties.MergePreferFirst(sharedLocation.Properties);
+                }
+
+                // Do NOT copy properties that can be different for each use of the shared
+                // threadFlowLocation:
+                //     - ExecutionOrder
+                //     - ExecutionTimeUtc
+                //     - Importance
+                //     - NestingLevel
+                //     - Stack
+                //     - State
+                //     - Taxa
+                //     - WebRequest
+                //     - WebResponse
+
+                node.Index = -1;
+            }
+
+            return base.VisitThreadFlowLocation(node);
+        }
 
         public override ArtifactLocation VisitArtifactLocation(ArtifactLocation node)
         {
@@ -116,8 +185,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 }
                 node.Fingerprints = null;
             }
-
-            node.CodeFlows = null;
 
             return base.VisitResult(node);
         }

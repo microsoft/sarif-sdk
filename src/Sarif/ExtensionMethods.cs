@@ -441,6 +441,35 @@ namespace Microsoft.CodeAnalysis.Sarif
             return null;
         }
 
+        /// <summary>
+        /// Merge this property bag with another one, preferring the properties in this property
+        /// bag if there are any duplicates.
+        /// </summary>
+        /// <param name="propertyBag">
+        /// The property bag into which <paramref name="otherPropertyBag"/> is to be merged.
+        /// </param>
+        /// <param name="otherPropertyBag">
+        /// A property bag containing properties to merge into <paramref name="propertyBag"/>.
+        /// </param>
+        /// <returns>
+        /// The original <paramref name="propertyBag"/> object, into which the properties
+        /// from <paramref name="otherPropertyBag"/> have now been merged.
+        /// </returns>
+        public static IDictionary<string, T> MergePreferFirst<T>(
+            this IDictionary<string, T> propertyBag,
+            IDictionary<string, T> otherPropertyBag)
+        {
+            foreach (string key in otherPropertyBag.Keys)
+            {
+                if (!propertyBag.ContainsKey(key))
+                {
+                    propertyBag[key] = otherPropertyBag[key];
+                }
+            }
+
+            return propertyBag;
+        }
+
         /// <summary>Checks if a character is a newline.</summary>
         /// <param name="testedCharacter">The character to check.</param>
         /// <returns>true if newline, false if not.</returns>
