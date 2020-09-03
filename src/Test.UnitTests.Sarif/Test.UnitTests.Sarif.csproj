@@ -19,9 +19,11 @@
     <None Remove="TestData\Baseline\SuppressionTestPrevious.sarif" />
     <None Remove="TestData\GitHubDspIngestionVisitor\ExpectedOutputs\NonErrorResults.sarif" />
     <None Remove="TestData\GitHubDspIngestionVisitor\ExpectedOutputs\TooManyResults.sarif" />
+    <None Remove="TestData\GitHubDspIngestionVisitor\ExpectedOutputs\WithArtifacts.sarif" />
     <None Remove="TestData\GitHubDspIngestionVisitor\ExpectedOutputs\WithInvocation.sarif" />
     <None Remove="TestData\GitHubDspIngestionVisitor\Inputs\NonErrorResults.sarif" />
     <None Remove="TestData\GitHubDspIngestionVisitor\Inputs\TooManyResults.sarif" />
+    <None Remove="TestData\GitHubDspIngestionVisitor\Inputs\WithArtifacts.sarif" />
     <None Remove="TestData\GitHubDspIngestionVisitor\Inputs\WithInvocation.sarif" />
     <None Remove="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests-Absolute_TextFiles.sarif" />
     <None Remove="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests-Relative_All.sarif" />
@@ -81,9 +83,11 @@
 
   <ItemGroup>
     <EmbeddedResource Include="TestData\GitHubDspIngestionVisitor\ExpectedOutputs\NonErrorResults.sarif" />
+    <EmbeddedResource Include="TestData\GitHubDspIngestionVisitor\ExpectedOutputs\WithArtifacts.sarif" />
     <EmbeddedResource Include="TestData\GitHubDspIngestionVisitor\ExpectedOutputs\WithInvocation.sarif" />
     <EmbeddedResource Include="TestData\GitHubDspIngestionVisitor\ExpectedOutputs\TooManyResults.sarif" />
     <EmbeddedResource Include="TestData\GitHubDspIngestionVisitor\Inputs\NonErrorResults.sarif" />
+    <EmbeddedResource Include="TestData\GitHubDspIngestionVisitor\Inputs\WithArtifacts.sarif" />
     <EmbeddedResource Include="TestData\GitHubDspIngestionVisitor\Inputs\WithInvocation.sarif" />
     <EmbeddedResource Include="TestData\GitHubDspIngestionVisitor\Inputs\TooManyResults.sarif" />
     <EmbeddedResource Include="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests-Relative_VersionControlInformation.sarif" />
