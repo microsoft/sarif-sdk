@@ -6,70 +6,43 @@
       "tool": {
         "driver": {
           "name": "Query Tests",
-          "rules": [
-            {
-              "id": "TEST1001",
-              "shortDescription": {
-                "text": "A high impact rule."
-              },
-              "messageStrings": {
-                "default": {
-                  "text": "Message 1."
-                }
-              },
-              "properties": {
-                "Impact": "5.0"
-              }
-            },
-            {
-              "id": "TEST1002",
-              "shortDescription": {
-                "text": "A low impact rule."
-              },
-              "messageStrings": {
-                "default": {
-                  "text": "Message 2."
-                }
-              },
-              "properties": {
-                "Impact": "2.0"
-              }
-            }
-          ]
         }
       },
       "results": [
         {
           "ruleId": "TEST1001",
-          "ruleIndex": 0,
           "message": {
-            "id": "default"
+            "text": "Message."
           },
           "properties": {
-            "comment": "A high confidence result from a high impact rule.",
-            "Confidence": "5.0"
+            "comment":  "Exact match.",
+            "Name": "Terisa"
           }
         },
         {
           "ruleId": "TEST1001",
-          "ruleIndex": 0,
           "message": {
-            "id": "default"
+            "text": "Message."
           },
           "properties": {
-            "comment": "A low confidence result from a high impact rule.",
-            "Confidence": "2.1"
+            "comment": "Case-insensitive match.",
+            "Name": "terisa"
           }
         },
         {
           "ruleId": "TEST1002",
-          "ruleIndex": 1,
           "message": {
-            "id": "default"
+            "text": "Message."
           },
           "properties": {
-            "comment": "A high confidence result from a low impact rule.",
+            "comment": "No 'Name' property.",
             "Confidence": "5.0"
+          }
+        },
+        {
+          "ruleId": "TEST1002",
+          "message": {
+            "text": "Message."
           }
         }
       ]

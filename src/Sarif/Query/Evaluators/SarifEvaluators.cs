@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 
 using System;
+using System.Globalization;
 using System.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
@@ -43,7 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
                     }, term);
 
                 default:
-                    throw new QueryParseException($"Property Name {term.PropertyName} unrecognized. Known Names: baselineState, correlationGuid, guid, hostedViewerUri, kind, level, message.text, occurrenceCount, rank, ruleId");
+                    return new PropertyBagPropertyEvaluator(term);
             }
         }
     }

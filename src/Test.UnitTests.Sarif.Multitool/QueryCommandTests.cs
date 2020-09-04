@@ -31,10 +31,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             // Intersection w/no matches
             RunAndVerifyCount(0, new QueryOptions() { Expression = "Level != Error && RuleId != CSCAN0060/0", InputFilePath = filePath });
 
-            // Verify parsing errors (unknown enum, operator, column name)
+            // Verify parsing errors (unknown enum, operator)
             Assert.Throws<QueryParseException>(() => RunAndVerifyCount(0, new QueryOptions() { Expression = "Level != UnknownValue", InputFilePath = filePath }));
             Assert.Throws<QueryParseException>(() => RunAndVerifyCount(0, new QueryOptions() { Expression = "Level ** Error", InputFilePath = filePath }));
-            Assert.Throws<QueryParseException>(() => RunAndVerifyCount(0, new QueryOptions() { Expression = "Leveler != Error", InputFilePath = filePath }));
+
+            // Unrecognized property is sought in property bag, and (in this case) not found. The equality test always
+            // fails because we are always comparing against null; the inequality test always succeeds.
+            // IS THIS ACCEPTABLE BEHAVIOR?
+            RunAndVerifyCount(0, new QueryOptions() { Expression = "Leveler == Error", InputFilePath = filePath });
+            RunAndVerifyCount(5, new QueryOptions() { Expression = "Leveler != Error", InputFilePath = filePath });
 
             // Verify threshold logging
             Assert.Equal(0, new QueryCommand().RunWithoutCatch(new QueryOptions() { Expression = "RuleId = 'CSCAN0060/0'", NonZeroExitCodeIfCountOver = 4, InputFilePath = filePath }));
@@ -47,6 +52,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             string expected = Extractor.GetResourceText("QueryCommand.elfie-arriba.CSCAN0020.sarif");
             string actual = File.ReadAllText(outputFilePath);
             Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void QueryCommand_CanAccessResultAndRulePropertyBags()
+        {
+            const string FilePath = "property-bag-queries.sarif";
+            File.WriteAllText(FilePath, Extractor.GetResourceText($"QueryCommand.{FilePath}"));
+
+            RunAndVerifyCount(2, new QueryOptions() { Expression = "Name == 'Terisa'", InputFilePath = FilePath });
         }
 
         private void RunAndVerifyCount(int expectedCount, QueryOptions options)
