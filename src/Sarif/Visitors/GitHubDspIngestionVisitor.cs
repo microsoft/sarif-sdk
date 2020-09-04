@@ -89,7 +89,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 // Location.Message might vary per usage. For example, on one usage,
                 // we might be tracking an uninitialized variable, and the location
-                // might have the message "Unititialized variable 'ptr' passed to 'f'".
+                // might have the message "Uninitialized variable 'ptr' passed to 'f'".
                 // Another usage of the same location might have a different message,
                 // or none at all. So even though we are getting the location from
                 // the shared object, don't take its message unless the current object
