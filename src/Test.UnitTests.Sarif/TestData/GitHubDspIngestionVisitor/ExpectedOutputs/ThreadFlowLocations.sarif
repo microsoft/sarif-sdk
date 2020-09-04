@@ -1,0 +1,122 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "Sarif.UnitTests"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "TEST1001",
+          "level": "error",
+          "message": {
+            "text": "The message."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file.c"
+                }
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "importance": "essential",
+                      "executionTimeUtc": "2020-09-03T09:16:01.566982Z",
+                      "location": {
+                        "message": {
+                          "text": "Variable 'ptr' declared."
+                        },
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "collections/list.h"
+                          },
+                          "region": {
+                            "startLine": 15
+                          }
+                        }
+                      },
+                      "module": "stdlib",
+                      "nestingLevel": 0,
+                      "properties": {
+                        "a": 1
+                      },
+                      "state": {
+                        "ptr": {
+                          "text": "null"
+                        }
+                      }
+                    },
+                    {
+                      "importance": "unimportant",
+                      "executionTimeUtc": "2020-09-03T09:16:01.566984Z",
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "collections/list.h"
+                          },
+                          "region": {
+                            "startLine": 18
+                          }
+                        }
+                      },
+                      "module": "stdlib",
+                      "nestingLevel": 1,
+                      "state": {
+                        "ptr": {
+                          "text": "null"
+                        }
+                      }
+                    },
+                    {
+                      "importance": "essential",
+                      "executionTimeUtc": "2020-09-03T09:16:01.566986Z",
+                      "kinds": [
+                        "enter"
+                      ],
+                      "location": {
+                        "message": {
+                          "text": "Uninitialized variable 'ptr' passed to method 'add_core'."
+                        },
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "collections/list.h"
+                          },
+                          "region": {
+                            "startLine": 25
+                          }
+                        }
+                      },
+                      "properties": {
+                        "b": 22,
+                        "c": 3,
+                        "d": 4
+                      },
+                      "module": "stdlib",
+                      "nestingLevel": 0,
+                      "state": {
+                        "ptr": {
+                          "text": "null"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}
