@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup Label="AssemblyAttributes">
     <AssemblyTitle>SARIF Multitool Library</AssemblyTitle>
@@ -42,6 +42,22 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>RuleResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="default.configuration.xml"
+          Pack="true"
+          PackagePath="lib/netstandard2.0;lib/net461"
+          CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\policies\*"
+          Pack="true"
+          PackagePath="policies" />
+    <None Include="**\*.cs"
+          Pack="true"
+          PackagePath="src" />
+    <None Include="..\ReleaseHistory.md"
+          Pack="true"
+          PackagePath="/" />
   </ItemGroup>
 
   <ItemGroup>
