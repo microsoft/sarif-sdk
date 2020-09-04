@@ -55,7 +55,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                             errors.Add(result);
                         }
 
-                        if (errors.Count > s_MaxResults) { break; }
+                        if (errors.Count == s_MaxResults) { break; }
                     }
 
                     node.Results = errors;
