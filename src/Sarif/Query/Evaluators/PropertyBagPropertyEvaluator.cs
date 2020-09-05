@@ -30,10 +30,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
 
         private string GetProperty(Result result)
         {
-            string propertyValue;
+            string propertyValue = null;
             if (_propertyBelongsToRule)
             {
-                throw new NotImplementedException("Rule properties not yet supported.");
+                ReportingDescriptor rule = result.GetRule();
+                if (rule != null)
+                {
+                    rule.TryGetProperty(_propertyName, out propertyValue);
+                }
             }
             else
             {

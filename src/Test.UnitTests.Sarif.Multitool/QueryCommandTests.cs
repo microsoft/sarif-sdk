@@ -61,6 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             File.WriteAllText(FilePath, Extractor.GetResourceText($"QueryCommand.{FilePath}"));
 
             RunAndVerifyCount(2, new QueryOptions() { Expression = "Name == 'Terisa'", InputFilePath = FilePath });
+            RunAndVerifyCount(2, new QueryOptions() { Expression = "rule.Category == 'security'", InputFilePath = FilePath });
         }
 
         private void RunAndVerifyCount(int expectedCount, QueryOptions options)
