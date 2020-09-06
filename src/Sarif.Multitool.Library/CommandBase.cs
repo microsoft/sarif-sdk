@@ -13,8 +13,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public abstract class CommandBase
     {
-        internal const int SUCCESS = 0;
-        internal const int FAILURE = 1;
+        public const int SUCCESS = 0;
+        public const int FAILURE = 1;
 
         protected static bool ValidateNonNegativeCommandLineOption<T>(long optionValue, string optionName)
         {
