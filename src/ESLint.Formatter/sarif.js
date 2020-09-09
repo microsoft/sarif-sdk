@@ -145,14 +145,16 @@ module.exports = function (results, data) {
                                 // Create a new entry in the rules dictionary.
                                 sarifRules[message.ruleId] = {
                                     id: message.ruleId,
-                                    shortDescription: {
-                                        text: meta.docs.description
-                                    },
                                     helpUri: meta.docs.url,
                                     properties: {
                                         category: meta.docs.category
                                     }
                                 };
+                                if (meta.docs.description) {
+                                    sarifRules[message.ruleId].shortDescription = {
+                                        text: meta.docs.description
+                                    };
+                                }
                             }
                         }
 
