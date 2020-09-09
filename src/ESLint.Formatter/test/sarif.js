@@ -162,6 +162,28 @@ describe("formatter:sarif", () => {
 });
 
 describe("formatter:sarif", () => {
+    describe("when passed one message with line and invalid column", () => {
+        const code = [{
+            filePath: sourceFilePath1,
+            messages: [{
+                message: "Unexpected value.",
+                ruleId: testRuleId,
+                line: 10,
+                column: 0
+            }]
+        }];
+
+        it("should return a log with one result whose location contains a region with line # and no column #", () => {
+            const log = JSON.parse(formatter(code));
+
+            assert.strictEqual(log.runs[0].results[0].locations[0].physicalLocation.region.startLine, code[0].messages[0].line);
+            assert.isUndefined(log.runs[0].results[0].locations[0].physicalLocation.region.startColumn);
+            assert.isUndefined(log.runs[0].results[0].locations[0].physicalLocation.region.snippet);
+        });
+    });
+});
+
+describe("formatter:sarif", () => {
     describe("when passed one message with line and column but no source string", () => {
         const code = [{
             filePath: sourceFilePath1,
