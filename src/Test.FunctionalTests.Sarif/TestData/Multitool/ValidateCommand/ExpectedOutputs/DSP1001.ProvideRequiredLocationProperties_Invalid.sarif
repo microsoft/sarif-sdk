@@ -8,23 +8,23 @@
           "name": "SARIF Functional Testing",
           "rules": [
             {
-              "id": "DSP1001",
+              "id": "GitHub1001",
               "name": "ProvideRequiredLocationProperties",
               "shortDescription": {
                 "text": "Each result location must provide the property 'physicalLocation.artifactLocation.uri'."
               },
               "fullDescription": {
-                "text": "Each result location must provide the property 'physicalLocation.artifactLocation.uri'. The GitHub Developer Security Portal will not display a result whose location does not provide the URI of the artifact that contains the result."
+                "text": "Each result location must provide the property 'physicalLocation.artifactLocation.uri'. GitHub Advanced Security code scanning will not display a result whose location does not provide the URI of the artifact that contains the result."
               },
               "messageStrings": {
                 "Error_NoLocationsArray": {
-                  "text": "{0}: The 'locations' property is absent. The GitHub Developer Security Portal will not display a result unless it provides a location that specifies the URI of the artifact that contains the result."
+                  "text": "{0}: The 'locations' property is absent. GitHub Advanced Security code scanning will not display a result unless it provides a location that specifies the URI of the artifact that contains the result."
                 },
                 "Error_EmptyLocationsArray": {
-                  "text": "{0}: The 'locations' array is empty. The GitHub Developer Security Portal will not display a result unless it provides a location that specifies the URI of the artifact that contains the result."
+                  "text": "{0}: The 'locations' array is empty. GitHub Advanced Security code scanning will not display a result unless it provides a location that specifies the URI of the artifact that contains the result."
                 },
                 "Error_MissingLocationProperty": {
-                  "text": "{0}: '{1}' is absent. The GitHub Developer Security Portal will not display a result location that does not provide the URI of the artifact that contains the result."
+                  "text": "{0}: '{1}' is absent. GitHub Advanced Security code scanning will not display a result location that does not provide the URI of the artifact that contains the result."
                 }
               },
               "defaultConfiguration": {
@@ -44,14 +44,14 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.DSP1001.ProvideRequiredLocationProperties_Invalid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.GitHub1001.ProvideRequiredLocationProperties_Invalid.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }
       ],
       "results": [
         {
-          "ruleId": "DSP1001",
+          "ruleId": "GitHub1001",
           "ruleIndex": 0,
           "level": "error",
           "message": {
@@ -76,7 +76,7 @@
           ]
         },
         {
-          "ruleId": "DSP1001",
+          "ruleId": "GitHub1001",
           "ruleIndex": 0,
           "level": "error",
           "message": {
@@ -100,7 +100,7 @@
           ]
         },
         {
-          "ruleId": "DSP1001",
+          "ruleId": "GitHub1001",
           "ruleIndex": 0,
           "level": "error",
           "message": {
@@ -125,7 +125,7 @@
           ]
         },
         {
-          "ruleId": "DSP1001",
+          "ruleId": "GitHub1001",
           "ruleIndex": 0,
           "level": "error",
           "message": {
@@ -150,7 +150,7 @@
           ]
         },
         {
-          "ruleId": "DSP1001",
+          "ruleId": "GitHub1001",
           "ruleIndex": 0,
           "level": "error",
           "message": {
@@ -175,7 +175,7 @@
           ]
         },
         {
-          "ruleId": "DSP1001",
+          "ruleId": "GitHub1001",
           "ruleIndex": 0,
           "level": "error",
           "message": {

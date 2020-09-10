@@ -62,7 +62,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                                                 dataToInsert,
                                                 convertOptions.PluginAssemblyPath);
 
-                if (convertOptions.NormalizeForGitHubDsp)
+                if (convertOptions.NormalizeForGitHub)
                 {
                     SarifLog sarifLog;
 
@@ -76,7 +76,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         sarifLog = serializer.Deserialize<SarifLog>(reader);
                     }
 
-                    var visitor = new GitHubDspIngestionVisitor();
+                    var visitor = new GitHubIngestionVisitor();
                     visitor.VisitSarifLog(sarifLog);
 
                     using (FileStream stream = File.Create(convertOptions.OutputFilePath))

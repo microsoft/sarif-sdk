@@ -23,9 +23,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public string PluginAssemblyPath { get; internal set; }
 
         [Option(
-            "normalize-for-github-dsp",
-            HelpText = "Normalize converted output to conform to GitHub DSP ingestion requirements.")]
-        public bool NormalizeForGitHubDsp { get; internal set; }
+            "normalize-for-github",
+            HelpText = "Normalize converted output to conform to GitHub Advanced Security code scanning ingestion requirements.")]
+        public bool NormalizeForGitHub { get; internal set; }
 
     }
 }

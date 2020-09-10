@@ -12,16 +12,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
     public class LocationsMustBeRelativeUrisOrFilePaths : SarifValidationSkimmerBase
     {
         /// <summary>
-        /// DSP1005
+        /// GitHub1005
         /// </summary>
         public override string Id => RuleId.LocationsMustBeRelativeUrisOrFilePaths;
 
-        // The GitHub Developer Security Portal only displays results whose locations are specified
+        // GitHub Advanced Security code scanning only displays results whose locations are specified
         // by file paths, either as relative URIs or as absolute URIs that use the 'file' scheme.
-        public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.DSP1005_LocationsMustBeRelativeUrisOrFilePaths_FullDescription_Text };
+        public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.GitHub1005_LocationsMustBeRelativeUrisOrFilePaths_FullDescription_Text };
 
         protected override IEnumerable<string> MessageResourceNames => new string[] {
-            nameof(RuleResources.DSP1005_LocationsMustBeRelativeUrisOrFilePaths_Error_Default_Text)
+            nameof(RuleResources.GitHub1005_LocationsMustBeRelativeUrisOrFilePaths_Error_Default_Text)
         };
 
         public override FailureLevel DefaultLevel => FailureLevel.Error;
@@ -32,7 +32,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
             if (!(result.Locations?.Any() == true))
             {
-                // Rule DSP1001.ProvideRequiredLocationProperties will catch this, so don't
+                // Rule GitHub1001.ProvideRequiredLocationProperties will catch this, so don't
                 // report it here.
                 return;
             }
@@ -58,7 +58,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             Uri uri = location?.PhysicalLocation?.ArtifactLocation?.Uri;
             if (uri == null)
             {
-                // Rule DSP1001.ProvideRequiredLocationProperties will catch this, so don't
+                // Rule GitHub1001.ProvideRequiredLocationProperties will catch this, so don't
                 // report it here.
                 return;
             }
@@ -70,12 +70,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     .AtProperty(SarifPropertyName.ArtifactLocation)
                     .AtProperty(SarifPropertyName.Uri);
 
-                // {0}: '{1}' is not a file path. The GitHub Developer Security Portal only
+                // {0}: '{1}' is not a file path. GitHub Advanced Security code scanning only
                 // displays results whose locations are specified by file paths, either as
                 // relative URIs or as absolute URIs that use the 'file' scheme.
                 LogResult(
                     uriPointer,
-                    nameof(RuleResources.DSP1005_LocationsMustBeRelativeUrisOrFilePaths_Error_Default_Text),
+                    nameof(RuleResources.GitHub1005_LocationsMustBeRelativeUrisOrFilePaths_Error_Default_Text),
                     uri.OriginalString);
             }
         }

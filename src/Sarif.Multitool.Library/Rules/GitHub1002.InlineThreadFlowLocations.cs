@@ -10,20 +10,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
     public class InlineThreadFlowLocations : SarifValidationSkimmerBase
     {
         /// <summary>
-        /// DSP1002
+        /// GitHub1002
         /// </summary>
         public override string Id => RuleId.InlineThreadFlowLocations;
 
         /// <summary>
         /// Results that include codeFlows must specify each threadFlowLocation directly within
         /// the codeFlow, rather than relying on threadFlowLocation.index to refer to an element
-        /// of the run.threadFlowLocations array. The GitHub Developer Security Portal will not
+        /// of the run.threadFlowLocations array. GitHub Advanced Security code scanning will not
         /// display a result that uses such threadFlowLocations.
         /// </summary>
-        public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.DSP1002_InlineThreadFlowLocations_FullDescription_Text };
+        public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.GitHub1002_InlineThreadFlowLocations_FullDescription_Text };
 
         protected override IEnumerable<string> MessageResourceNames => new string[] {
-            nameof(RuleResources.DSP1002_InlineThreadFlowLocations_Error_Default_Text)
+            nameof(RuleResources.GitHub1002_InlineThreadFlowLocations_Error_Default_Text)
         };
 
         public override FailureLevel DefaultLevel => FailureLevel.Error;
@@ -35,11 +35,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             if (threadFlowLocation.Index >= 0)
             {
                 // {0}: This 'threadFlowLocation' uses its 'index' property to refer to information
-                // in the 'run.threadFlowLocations' array. The GitHub Developer Security Portal
+                // in the 'run.threadFlowLocations' array. GitHub Advanced Security code scanning
                 // will not display a result that includes such a 'threadFlowLocation'.
                 LogResult(
                     threadFlowLocationPointer.AtProperty(SarifPropertyName.Index),
-                    nameof(RuleResources.DSP1002_InlineThreadFlowLocations_Error_Default_Text));
+                    nameof(RuleResources.GitHub1002_InlineThreadFlowLocations_Error_Default_Text));
                 return;
             }
         }

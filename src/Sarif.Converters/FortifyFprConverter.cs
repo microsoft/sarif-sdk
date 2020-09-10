@@ -567,8 +567,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             // invalid version character in the 13th character. Second,
             // some GUID as overly long (by a single character). These
             // issues prevent Fortify SARIF from validating and therefore
-            // from being accepted by systems such as GitHub's DSP
-            // secfurity alerting feature.
+            // from being accepted by systems such as GitHub's 
+            // security alerting feature.
             //
             // As a workaround, we will force the 15th character to be '4',
             // if necessary, reflecting a v4 spec GUID. If a guid is overly 

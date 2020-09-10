@@ -8,20 +8,20 @@
           "name": "SARIF Functional Testing",
           "rules": [
             {
-              "id": "DSP1003",
+              "id": "GitHub1003",
               "name": "ProvideRequiredRegionProperties",
               "shortDescription": {
                 "text": "Every result must provide a 'region' that specifies its location with line and optional column information."
               },
               "fullDescription": {
-                "text": "Every result must provide a 'region' that specifies its location with line and optional column information. The GitHub Developer Security Portal can display the correct location only for results that provide this information. At minimum, 'region.startLine' is required. 'region' can also provide 'startColumn', 'endLine', and 'endColumn', although all of those have reasonable defaults."
+                "text": "Every result must provide a 'region' that specifies its location with line and optional column information. GitHub Advanced Security code scanning can display the correct location only for results that provide this information. At minimum, 'region.startLine' is required. 'region' can also provide 'startColumn', 'endLine', and 'endColumn', although all of those have reasonable defaults."
               },
               "messageStrings": {
                 "Error_MissingRegion": {
-                  "text": "{0}: The 'region' property is absent. The GitHub Developer Security Portal can display the correct location only for results that provide a 'region' object with line and optional column information. At minimum, 'region.startLine' is required. 'region' can also provide 'startColumn', 'endLine', and 'endColumn', although all of those have reasonable defaults."
+                  "text": "{0}: The 'region' property is absent. GitHub Advanced Security code scanning can display the correct location only for results that provide a 'region' object with line and optional column information. At minimum, 'region.startLine' is required. 'region' can also provide 'startColumn', 'endLine', and 'endColumn', although all of those have reasonable defaults."
                 },
                 "Error_MissingRegionProperty": {
-                  "text": "{0}: The 'startLine' property is absent. The GitHub Developer Security Portal can display the correct location only for results that provide a 'region' object with line and optional column information. At minimum, 'region.startLine' is required. 'region' can also provide 'startColumn', 'endLine', and 'endColumn', although all of those have reasonable defaults."
+                  "text": "{0}: The 'startLine' property is absent. GitHub Advanced Security code scanning can display the correct location only for results that provide a 'region' object with line and optional column information. At minimum, 'region.startLine' is required. 'region' can also provide 'startColumn', 'endLine', and 'endColumn', although all of those have reasonable defaults."
                 }
               },
               "defaultConfiguration": {
@@ -41,14 +41,14 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.DSP1003.ProvideRequiredRegionProperties_Invalid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.GitHub1003.ProvideRequiredRegionProperties_Invalid.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }
       ],
       "results": [
         {
-          "ruleId": "DSP1003",
+          "ruleId": "GitHub1003",
           "ruleIndex": 0,
           "level": "error",
           "message": {
@@ -72,7 +72,7 @@
           ]
         },
         {
-          "ruleId": "DSP1003",
+          "ruleId": "GitHub1003",
           "ruleIndex": 0,
           "level": "error",
           "message": {
@@ -96,7 +96,7 @@
           ]
         },
         {
-          "ruleId": "DSP1003",
+          "ruleId": "GitHub1003",
           "ruleIndex": 0,
           "level": "error",
           "message": {

@@ -12,13 +12,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
     public class ProvideCheckoutPath : SarifValidationSkimmerBase
     {
         /// <summary>
-        /// DSP1006
+        /// GitHub1006
         /// </summary>
         public override string Id => RuleId.ProvideCheckoutPath;
 
-        // The GitHub Developer Security Portal (DSP) will reject a SARIF file that expresses
-        // result locations as absolute 'file' scheme URIs unless the DSP can determine the URI
-        // of the repository root (which the DSP refers to as the "checkout path"). There are
+        // The GitHub Advanced Security code scanning will reject a SARIF file that expresses
+        // result locations as absolute 'file' scheme URIs unless GitHub can determine the URI
+        // of the repository root (which GitHub refers to as the "checkout path"). There are
         // three ways to address this issue.
         //
         // 1. Recommended: Express all result locations as relative URI references with respect to
@@ -31,10 +31,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         //
         // 3. Place the checkout path in a configuration file at the root of the repository.This
         // requires the analysis tool always to be invoked from that same directory.
-        public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.DSP1006_ProvideCheckoutPath_FullDescription_Text };
+        public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.GitHub1006_ProvideCheckoutPath_FullDescription_Text };
 
         protected override IEnumerable<string> MessageResourceNames => new string[] {
-            nameof(RuleResources.DSP1006_ProvideCheckoutPath_Error_Default_Text)
+            nameof(RuleResources.GitHub1006_ProvideCheckoutPath_Error_Default_Text)
         };
 
         public override FailureLevel DefaultLevel => FailureLevel.Error;
@@ -77,7 +77,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 foreach (Invocation invocation in run.Invocations)
                 {
-                    // We are assuming that DSP only looks at the URI and doesn't try to resolve
+                    // We are assuming that GitHub only looks at the URI and doesn't try to resolve
                     // if through their (hypothetical) equivalent of the SDK's TryReconstructAbsoluteUri.
                     // We'll need to determine that experimentally.
                     if (invocation.WorkingDirectory?.Uri?.IsAbsoluteUri == true)
@@ -102,8 +102,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 if (!IsKnownCheckoutPath(uri.AbsoluteUri))
                 {
-                    // {0}: This result location is expressed as an absolute 'file' URI. The GitHub
-                    // Developer Security Portal will reject this file because it cannot determine
+                    // {0}: This result location is expressed as an absolute 'file' URI. 
+                    // GitHub will reject this file because it cannot determine
                     // the location of the repository root (which it refers to as the "checkout
                     // path"). Either express result locations as relative URI references with
                     // respect to the checkout path, place the checkout path in 'invocations[].workingDirectory`,
@@ -114,7 +114,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                             .AtProperty(SarifPropertyName.PhysicalLocation)
                             .AtProperty(SarifPropertyName.ArtifactLocation)
                             .AtProperty(SarifPropertyName.Uri),
-                        nameof(RuleResources.DSP1006_ProvideCheckoutPath_Error_Default_Text));
+                        nameof(RuleResources.GitHub1006_ProvideCheckoutPath_Error_Default_Text));
                 }
             }
         }

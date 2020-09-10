@@ -6,14 +6,14 @@ using System.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
-    public class GitHubDspIngestionVisitor : SarifRewritingVisitor
+    public class GitHubIngestionVisitor : SarifRewritingVisitor
     {
-        // DSP requires that every related location have a message. It's not clear why this
+        // GitHub requires that every related location have a message. It's not clear why this
         // requirement exists, as this data is mostly used to build embedded links from
         // results (where the link anchor text actually resides).
         private const string PlaceholderRelatedLocationMessage = "[No message provided.]";
 
-        // GitHub DSP reportedly has an ingestion limit of 500 issues.
+        // GitHub reportedly has an ingestion limit of 500 issues.
         // Internal static rather than private const to allow a unit test with a practical limit.
         internal static int s_MaxResults = 500;
 
@@ -25,12 +25,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             this.artifacts = node.Artifacts;
             this.threadFlowLocations = node.ThreadFlowLocations;
 
-            // DSP does not support submitting invocation objects. Invocations
+            // GitHub does not support submitting invocation objects. Invocations
             // contains potentially sensitive environment details, such as 
             // account names embedded in paths. Invocations also store 
             // notifications of catastrophic tool failures, however, which 
             // means there is current no mechanism for reporting these to
-            // DSP users in context of the security tab.
+            // GitHub users in context of the security tab.
             node.Invocations = null;
 
             if (node.Results != null)
@@ -69,12 +69,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             node = base.VisitRun(node);
 
-            // DSP prefers a relative path local to the result. We clear
+            // GitHub prefers a relative path local to the result. We clear
             // the artifacts table, as all artifact information is now
             // inlined with each result.
             node.Artifacts = null;
 
-            // DSP requires threadFlowLocations to be inlined in the result,
+            // GitHub requires threadFlowLocations to be inlined in the result,
             // not referenced from run.threadFlowLocations.
             node.ThreadFlowLocations = null;
 
@@ -173,9 +173,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             if (node.Fingerprints != null)
             {
-                // DSP appears to require that fingerprints be emitted to the
+                // GitHub appears to require that fingerprints be emitted to the
                 // partial fingerprints property in order to prefer these
-                // values for matching (over DSP's built-in SARIF-driven
+                // values for matching (over GitHub's built-in SARIF-driven
                 // results matching heuristics).
                 foreach (string fingerprintKey in node.Fingerprints.Keys)
                 {

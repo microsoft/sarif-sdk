@@ -8,17 +8,17 @@
           "name": "SARIF Functional Testing",
           "rules": [
             {
-              "id": "DSP1004",
+              "id": "GitHub1004",
               "name": "ReviewArraysThatExceedConfigurableDefaults",
               "shortDescription": {
-                "text": "The GitHub Developer Security Portal limits the amount of information it displays."
+                "text": "GitHub Advanced Security code scanning limits the amount of information it displays."
               },
               "fullDescription": {
-                "text": "The GitHub Developer Security Portal limits the amount of information it displays. There are limits on the number of runs per log file, rules per run, results per run, locations per result, code flows per result, and steps per code flow. You can provide a configuration file at the root of your repository to specify higher limits."
+                "text": "GitHub Advanced Security code scanning limits the amount of information it displays. There are limits on the number of runs per log file, rules per run, results per run, locations per result, code flows per result, and steps per code flow. You can provide a configuration file at the root of your repository to specify higher limits."
               },
               "messageStrings": {
                 "Error_Default": {
-                  "text": "{0}: This array contains {1} element(s), which exceeds the default limit of {2} imposed by the GitHub Developer Security Portal. The portal will only display information up to that limit. You can provide a configuration file at the root of your repository to specify a higher limit."
+                  "text": "{0}: This array contains {1} element(s), which exceeds the default limit of {2} imposed by GitHub Advanced Security code scanning. The portal will only display information up to that limit. You can provide a configuration file at the root of your repository to specify a higher limit."
                 }
               },
               "defaultConfiguration": {
@@ -38,14 +38,14 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.DSP1004.ReviewArraysThatExceedConfigurableDefaults_Invalid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.GitHub1004.ReviewArraysThatExceedConfigurableDefaults_Invalid.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }
       ],
       "results": [
         {
-          "ruleId": "DSP1004",
+          "ruleId": "GitHub1004",
           "ruleIndex": 0,
           "level": "error",
           "message": {
@@ -71,7 +71,7 @@
           ]
         },
         {
-          "ruleId": "DSP1004",
+          "ruleId": "GitHub1004",
           "ruleIndex": 0,
           "level": "error",
           "message": {
@@ -97,7 +97,7 @@
           ]
         },
         {
-          "ruleId": "DSP1004",
+          "ruleId": "GitHub1004",
           "ruleIndex": 0,
           "level": "error",
           "message": {
@@ -123,7 +123,7 @@
           ]
         },
         {
-          "ruleId": "DSP1004",
+          "ruleId": "GitHub1004",
           "ruleIndex": 0,
           "level": "error",
           "message": {
@@ -149,7 +149,7 @@
           ]
         },
         {
-          "ruleId": "DSP1004",
+          "ruleId": "GitHub1004",
           "ruleIndex": 0,
           "level": "error",
           "message": {
@@ -175,7 +175,7 @@
           ]
         },
         {
-          "ruleId": "DSP1004",
+          "ruleId": "GitHub1004",
           "ruleIndex": 0,
           "level": "error",
           "message": {

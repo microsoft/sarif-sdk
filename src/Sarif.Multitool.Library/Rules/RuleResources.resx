@@ -395,47 +395,47 @@ Semantics: Assuming the reader of the log file (an end user or another tool) has
   <data name="SARIF2016_FileUrisShouldBeRelative_Note_Default_Text" xml:space="preserve">
     <value>{0}: The file location '{1}' is specified with absolute URI. Prefer a relative reference together with a uriBaseId property.</value>
   </data>
-  <data name="DSP1001_ProvideRequiredLocationProperties_FullDescription_Text" xml:space="preserve">
-    <value>Each result location must provide the property 'physicalLocation.artifactLocation.uri'. The GitHub Developer Security Portal will not display a result whose location does not provide the URI of the artifact that contains the result.</value>
+  <data name="GitHub1001_ProvideRequiredLocationProperties_FullDescription_Text" xml:space="preserve">
+    <value>Each result location must provide the property 'physicalLocation.artifactLocation.uri'. GitHub Advanced Security code scanning will not display a result whose location does not provide the URI of the artifact that contains the result.</value>
   </data>
-  <data name="DSP1001_ProvideRequiredLocationProperties_Error_MissingLocationProperty_Text" xml:space="preserve">
-    <value>{0}: '{1}' is absent. The GitHub Developer Security Portal will not display a result location that does not provide the URI of the artifact that contains the result.</value>
+  <data name="GitHub1001_ProvideRequiredLocationProperties_Error_MissingLocationProperty_Text" xml:space="preserve">
+    <value>{0}: '{1}' is absent. GitHub Advanced Security code scanning will not display a result location that does not provide the URI of the artifact that contains the result.</value>
   </data>
-  <data name="DSP1001_ProvideRequiredLocationProperties_Error_EmptyLocationsArray_Text" xml:space="preserve">
-    <value>{0}: The 'locations' array is empty. The GitHub Developer Security Portal will not display a result unless it provides a location that specifies the URI of the artifact that contains the result.</value>
+  <data name="GitHub1001_ProvideRequiredLocationProperties_Error_EmptyLocationsArray_Text" xml:space="preserve">
+    <value>{0}: The 'locations' array is empty. GitHub Advanced Security code scanning will not display a result unless it provides a location that specifies the URI of the artifact that contains the result.</value>
   </data>
-  <data name="DSP1001_ProvideRequiredLocationProperties_Error_NoLocationsArray_Text" xml:space="preserve">
-    <value>{0}: The 'locations' property is absent. The GitHub Developer Security Portal will not display a result unless it provides a location that specifies the URI of the artifact that contains the result.</value>
+  <data name="GitHub1001_ProvideRequiredLocationProperties_Error_NoLocationsArray_Text" xml:space="preserve">
+    <value>{0}: The 'locations' property is absent. GitHub Advanced Security code scanning will not display a result unless it provides a location that specifies the URI of the artifact that contains the result.</value>
   </data>
-  <data name="DSP1002_InlineThreadFlowLocations_Error_Default_Text" xml:space="preserve">
-    <value>{0}: This 'threadFlowLocation' uses its 'index' property to refer to information in the 'run.threadFlowLocations' array. The GitHub Developer Security Portal will not display a result that includes such a 'threadFlowLocation'.</value>
+  <data name="GitHub1002_InlineThreadFlowLocations_Error_Default_Text" xml:space="preserve">
+    <value>{0}: This 'threadFlowLocation' uses its 'index' property to refer to information in the 'run.threadFlowLocations' array. GitHub Advanced Security code scanning will not display a result that includes such a 'threadFlowLocation'.</value>
   </data>
-  <data name="DSP1002_InlineThreadFlowLocations_FullDescription_Text" xml:space="preserve">
-    <value>Results that include codeFlows must specify each threadFlowLocation directly within the codeFlow, rather than relying on threadFlowLocation.index to refer to an element of the run.threadFlowLocations array. The GitHub Developer Security Portal will not display a result that uses such threadFlowLocations.</value>
+  <data name="GitHub1002_InlineThreadFlowLocations_FullDescription_Text" xml:space="preserve">
+    <value>Results that include codeFlows must specify each threadFlowLocation directly within the codeFlow, rather than relying on threadFlowLocation.index to refer to an element of the run.threadFlowLocations array. GitHub Advanced Security code scanning will not display a result that uses such threadFlowLocations.</value>
   </data>
-  <data name="DSP1003_ProvideRequiredRegionProperties_Error_MissingRegionProperty_Text" xml:space="preserve">
-    <value>{0}: The 'startLine' property is absent. The GitHub Developer Security Portal can display the correct location only for results that provide a 'region' object with line and optional column information. At minimum, 'region.startLine' is required. 'region' can also provide 'startColumn', 'endLine', and 'endColumn', although all of those have reasonable defaults.</value>
+  <data name="GitHub1003_ProvideRequiredRegionProperties_Error_MissingRegionProperty_Text" xml:space="preserve">
+    <value>{0}: The 'startLine' property is absent. GitHub Advanced Security code scanning can display the correct location only for results that provide a 'region' object with line and optional column information. At minimum, 'region.startLine' is required. 'region' can also provide 'startColumn', 'endLine', and 'endColumn', although all of those have reasonable defaults.</value>
   </data>
-  <data name="DSP1003_ProvideRequiredRegionProperties_Error_MissingRegion_Text" xml:space="preserve">
-    <value>{0}: The 'region' property is absent. The GitHub Developer Security Portal can display the correct location only for results that provide a 'region' object with line and optional column information. At minimum, 'region.startLine' is required. 'region' can also provide 'startColumn', 'endLine', and 'endColumn', although all of those have reasonable defaults.</value>
+  <data name="GitHub1003_ProvideRequiredRegionProperties_Error_MissingRegion_Text" xml:space="preserve">
+    <value>{0}: The 'region' property is absent. GitHub Advanced Security code scanning can display the correct location only for results that provide a 'region' object with line and optional column information. At minimum, 'region.startLine' is required. 'region' can also provide 'startColumn', 'endLine', and 'endColumn', although all of those have reasonable defaults.</value>
   </data>
-  <data name="DSP1003_ProvideRequiredRegionProperties_FullDescription_Text" xml:space="preserve">
-    <value>Every result must provide a 'region' that specifies its location with line and optional column information. The GitHub Developer Security Portal can display the correct location only for results that provide this information. At minimum, 'region.startLine' is required. 'region' can also provide 'startColumn', 'endLine', and 'endColumn', although all of those have reasonable defaults.</value>
+  <data name="GitHub1003_ProvideRequiredRegionProperties_FullDescription_Text" xml:space="preserve">
+    <value>Every result must provide a 'region' that specifies its location with line and optional column information. GitHub Advanced Security code scanning can display the correct location only for results that provide this information. At minimum, 'region.startLine' is required. 'region' can also provide 'startColumn', 'endLine', and 'endColumn', although all of those have reasonable defaults.</value>
   </data>
-  <data name="DSP1004_ReviewArraysThatExceedConfigurableDefaults_Error_Default_Text" xml:space="preserve">
-    <value>{0}: This array contains {1} element(s), which exceeds the default limit of {2} imposed by the GitHub Developer Security Portal. The portal will only display information up to that limit. You can provide a configuration file at the root of your repository to specify a higher limit.</value>
+  <data name="GitHub1004_ReviewArraysThatExceedConfigurableDefaults_Error_Default_Text" xml:space="preserve">
+    <value>{0}: This array contains {1} element(s), which exceeds the default limit of {2} imposed by GitHub Advanced Security code scanning. The portal will only display information up to that limit. You can provide a configuration file at the root of your repository to specify a higher limit.</value>
   </data>
-  <data name="DSP1004_ReviewArraysThatExceedConfigurableDefaults_FullDescription_Text" xml:space="preserve">
-    <value>The GitHub Developer Security Portal limits the amount of information it displays. There are limits on the number of runs per log file, rules per run, results per run, locations per result, code flows per result, and steps per code flow. You can provide a configuration file at the root of your repository to specify higher limits.</value>
+  <data name="GitHub1004_ReviewArraysThatExceedConfigurableDefaults_FullDescription_Text" xml:space="preserve">
+    <value>GitHub Advanced Security code scanning limits the amount of information it displays. There are limits on the number of runs per log file, rules per run, results per run, locations per result, code flows per result, and steps per code flow. You can provide a configuration file at the root of your repository to specify higher limits.</value>
   </data>
-  <data name="DSP1005_LocationsMustBeRelativeUrisOrFilePaths_Error_Default_Text" xml:space="preserve">
-    <value>{0}: '{1}' is not a file path. The GitHub Developer Security Portal only displays results whose locations are specified by file paths, either as relative URIs or as absolute URIs that use the 'file' scheme.</value>
+  <data name="GitHub1005_LocationsMustBeRelativeUrisOrFilePaths_Error_Default_Text" xml:space="preserve">
+    <value>{0}: '{1}' is not a file path. GitHub Advanced Security code scanning only displays results whose locations are specified by file paths, either as relative URIs or as absolute URIs that use the 'file' scheme.</value>
   </data>
-  <data name="DSP1005_LocationsMustBeRelativeUrisOrFilePaths_FullDescription_Text" xml:space="preserve">
-    <value>The GitHub Developer Security Portal only displays results whose locations are specified by file paths, either as relative URIs or as absolute URIs that use the 'file' scheme.</value>
+  <data name="GitHub1005_LocationsMustBeRelativeUrisOrFilePaths_FullDescription_Text" xml:space="preserve">
+    <value>GitHub Advanced Security code scanning only displays results whose locations are specified by file paths, either as relative URIs or as absolute URIs that use the 'file' scheme.</value>
   </data>
-  <data name="DSP1006_ProvideCheckoutPath_FullDescription_Text" xml:space="preserve">
-    <value>The GitHub Developer Security Portal (DSP) will reject a SARIF file that expresses result locations as absolute 'file' scheme URIs unless the DSP can determine the URI of the repository root (which the DSP refers to as the "checkout path"). There are three ways to address this issue.
+  <data name="GitHub1006_ProvideCheckoutPath_FullDescription_Text" xml:space="preserve">
+    <value>The GitHub Advanced Security code scanning will reject a SARIF file that expresses result locations as absolute 'file' scheme URIs unless GitHub can determine the URI of the repository root (which GitHub refers to as the "checkout path"). There are three ways to address this issue.
 
 1. Recommended: Express all result locations as relative URI references with respect to the checkout path.
 
@@ -443,14 +443,14 @@ Semantics: Assuming the reader of the log file (an end user or another tool) has
 
 2. Place the checkout path in a configuration file at the root of the repository. This requires the analysis tool always to be invoked from that same directory.</value>
   </data>
-  <data name="DSP1006_ProvideCheckoutPath_Error_Default_Text" xml:space="preserve">
-    <value>{0}: This result location is expressed as an absolute 'file' URI. The GitHub Developer Security Portal will reject this file because it cannot determine the location of the repository root (which it refers to as the "checkout path"). Either express result locations as relative URI references with respect to the checkout path, place the checkout path in 'invocations[].workingDirectory`, or place the checkout path in a configuration file at the root of the repository.</value>
+  <data name="GitHub1006_ProvideCheckoutPath_Error_Default_Text" xml:space="preserve">
+    <value>{0}: This result location is expressed as an absolute 'file' URI. GitHub Advanced Security code scanning will reject this file because it cannot determine the location of the repository root (which it refers to as the "checkout path"). Either express result locations as relative URI references with respect to the checkout path, place the checkout path in 'invocations[].workingDirectory`, or place the checkout path in a configuration file at the root of the repository.</value>
   </data>
-  <data name="DSP1007_ProvideRequiredRelatedLocationProperties_Error_Default_Text" xml:space="preserve">
-    <value>{0}: This related location does not have a 'message' property, so the the GitHub Developer Security Portal (DSP) will reject the entire log file. This is a bug in the DSP. You can set 'message' to an empty string if you don't have anything else to say about the location.</value>
+  <data name="GitHub1007_ProvideRequiredRelatedLocationProperties_Error_Default_Text" xml:space="preserve">
+    <value>{0}: This related location does not have a 'message' property, so the the GitHub Advanced Security code scanning will reject the entire log file. This is a bug in GitHub. You can set 'message' to an empty string if you don't have anything else to say about the location.</value>
   </data>
-  <data name="DSP1007_ProvideRequiredRelatedLocationProperties_FullDescription_Text" xml:space="preserve">
-    <value>The GitHub Developer Security Portal (DSP) will reject a SARIF file that includes a "related location" with no 'message' property. This is a bug in the DSP. You can set 'message' to an empty string if you don't have anything else to say about the location.</value>
+  <data name="GitHub1007_ProvideRequiredRelatedLocationProperties_FullDescription_Text" xml:space="preserve">
+    <value>The GitHub Advanced Security code scanning will reject a SARIF file that includes a "related location" with no 'message' property. This is a bug in GitHub. You can set 'message' to an empty string if you don't have anything else to say about the location.</value>
   </data>
   <data name="SARIF2005_ProvideToolProperties_Warning_ProvideToolnformationUri_Text" xml:space="preserve">
     <value>{0}: The tool '{1}' does not provide 'informationUri'. This property helps the developer responsible for addessing a result by providing a way to learn more about the tool.</value>
