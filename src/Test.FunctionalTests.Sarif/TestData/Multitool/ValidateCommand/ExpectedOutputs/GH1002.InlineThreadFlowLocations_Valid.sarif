@@ -16,7 +16,7 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.GitHub1001.ProvideRequiredLocationProperties_Valid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.GH1002.InlineThreadFlowLocations_Valid.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }

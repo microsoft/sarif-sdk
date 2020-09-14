@@ -51,25 +51,25 @@
     <!-- Not necessary because SARIF2007.ExpressPathsRelativeToRepoRoot is stricter. -->
     <Property Key='RuleEnabled' Value='Disabled' />
   </Properties>
-  <Properties Key='GitHub1001.ProvideRequiredLocationProperties.Options'>
+  <Properties Key='GH1001.ProvideRequiredLocationProperties.Options'>
     <Property Key='RuleEnabled' Value='Error' />
   </Properties>
-  <Properties Key='GitHub1002.InlineThreadFlowLocations.Options'>
+  <Properties Key='GH1002.InlineThreadFlowLocations.Options'>
     <Property Key='RuleEnabled' Value='Error' />
   </Properties>
-  <Properties Key='GitHub1003.ProvideRequiredRegionProperties.Options'>
+  <Properties Key='GH1003.ProvideRequiredRegionProperties.Options'>
     <Property Key='RuleEnabled' Value='Error' />
   </Properties>
-  <Properties Key='GitHub1004.ReviewArraysThatExceedConfigurableDefaults.Options'>
+  <Properties Key='GH1004.ReviewArraysThatExceedConfigurableDefaults.Options'>
     <Property Key='RuleEnabled' Value='Error' />
   </Properties>
-  <Properties Key='GitHub1005.LocationsMustBeRelativeUrisOrFilePaths.Options'>
+  <Properties Key='GH1005.LocationsMustBeRelativeUrisOrFilePaths.Options'>
     <Property Key='RuleEnabled' Value='Error' />
   </Properties>
-  <Properties Key='GitHub1006.ProvideCheckoutPath.Options'>
+  <Properties Key='GH1006.ProvideCheckoutPath.Options'>
     <Property Key='RuleEnabled' Value='Error' />
   </Properties>
-  <Properties Key='GitHub1007.ProvideRequiredRelatedLocationProperties.Options'>
+  <Properties Key='GH1007.ProvideRequiredRelatedLocationProperties.Options'>
     <Property Key='RuleEnabled' Value='Error' />
   </Properties>
 </Properties>

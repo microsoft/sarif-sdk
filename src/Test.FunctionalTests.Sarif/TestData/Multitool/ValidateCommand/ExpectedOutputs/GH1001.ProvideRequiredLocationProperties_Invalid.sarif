@@ -8,17 +8,23 @@
           "name": "SARIF Functional Testing",
           "rules": [
             {
-              "id": "GitHub1004",
-              "name": "ReviewArraysThatExceedConfigurableDefaults",
+              "id": "GH1001",
+              "name": "ProvideRequiredLocationProperties",
               "shortDescription": {
-                "text": "GitHub Advanced Security code scanning limits the amount of information it displays."
+                "text": "Each result location must provide the property 'physicalLocation.artifactLocation.uri'."
               },
               "fullDescription": {
-                "text": "GitHub Advanced Security code scanning limits the amount of information it displays. There are limits on the number of runs per log file, rules per run, results per run, locations per result, code flows per result, and steps per code flow. You can provide a configuration file at the root of your repository to specify higher limits."
+                "text": "Each result location must provide the property 'physicalLocation.artifactLocation.uri'. GitHub Advanced Security code scanning will not display a result whose location does not provide the URI of the artifact that contains the result."
               },
               "messageStrings": {
-                "Error_Default": {
-                  "text": "{0}: This array contains {1} element(s), which exceeds the default limit of {2} imposed by GitHub Advanced Security code scanning. The portal will only display information up to that limit. You can provide a configuration file at the root of your repository to specify a higher limit."
+                "Error_NoLocationsArray": {
+                  "text": "{0}: The 'locations' property is absent. GitHub Advanced Security code scanning will not display a result unless it provides a location that specifies the URI of the artifact that contains the result."
+                },
+                "Error_EmptyLocationsArray": {
+                  "text": "{0}: The 'locations' array is empty. GitHub Advanced Security code scanning will not display a result unless it provides a location that specifies the URI of the artifact that contains the result."
+                },
+                "Error_MissingLocationProperty": {
+                  "text": "{0}: '{1}' is absent. GitHub Advanced Security code scanning will not display a result location that does not provide the URI of the artifact that contains the result."
                 }
               },
               "defaultConfiguration": {
@@ -38,22 +44,21 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.GitHub1004.ReviewArraysThatExceedConfigurableDefaults_Invalid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.GH1001.ProvideRequiredLocationProperties_Invalid.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }
       ],
       "results": [
         {
-          "ruleId": "GitHub1004",
+          "ruleId": "GH1001",
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "Error_Default",
+            "id": "Error_NoLocationsArray",
             "arguments": [
-              "runs",
-              "2",
-              "1"
+              "runs[0].results[0]",
+              "locations"
             ]
           },
           "locations": [
@@ -63,23 +68,21 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 4,
-                  "startColumn": 11
+                  "startLine": 20,
+                  "startColumn": 9
                 }
               }
             }
           ]
         },
         {
-          "ruleId": "GitHub1004",
+          "ruleId": "GH1001",
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "Error_Default",
+            "id": "Error_EmptyLocationsArray",
             "arguments": [
-              "runs[0].tool.driver.rules",
-              "2",
-              "1"
+              "runs[0].results[1].locations"
             ]
           },
           "locations": [
@@ -89,59 +92,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 9,
-                  "startColumn": 20
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "GitHub1004",
-          "ruleIndex": 0,
-          "level": "error",
-          "message": {
-            "id": "Error_Default",
-            "arguments": [
-              "runs[0].results",
-              "2",
-              "1"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 29,
-                  "startColumn": 18
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "GitHub1004",
-          "ruleIndex": 0,
-          "level": "error",
-          "message": {
-            "id": "Error_Default",
-            "arguments": [
-              "runs[0].results[0].locations",
-              "2",
-              "1"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 35,
+                  "startLine": 31,
                   "startColumn": 24
                 }
               }
@@ -149,15 +100,14 @@
           ]
         },
         {
-          "ruleId": "GitHub1004",
+          "ruleId": "GH1001",
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "Error_Default",
+            "id": "Error_MissingLocationProperty",
             "arguments": [
-              "runs[0].results[0].codeFlows",
-              "2",
-              "1"
+              "runs[0].results[2].locations[0]",
+              "physicalLocation"
             ]
           },
           "locations": [
@@ -167,23 +117,22 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 51,
-                  "startColumn": 24
+                  "startLine": 39,
+                  "startColumn": 13
                 }
               }
             }
           ]
         },
         {
-          "ruleId": "GitHub1004",
+          "ruleId": "GH1001",
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "Error_Default",
+            "id": "Error_MissingLocationProperty",
             "arguments": [
-              "runs[0].results[0].codeFlows[0].threadFlows[0].locations",
-              "2",
-              "1"
+              "runs[0].results[2].locations[1].physicalLocation",
+              "artifactLocation"
             ]
           },
           "locations": [
@@ -193,8 +142,58 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 55,
-                  "startColumn": 32
+                  "startLine": 50,
+                  "startColumn": 35
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "GH1001",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingLocationProperty",
+            "arguments": [
+              "runs[0].results[2].locations[2].physicalLocation.artifactLocation",
+              "uri"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 61,
+                  "startColumn": 37
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "GH1001",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingLocationProperty",
+            "arguments": [
+              "runs[0].results[2].relatedLocations[0].physicalLocation.artifactLocation",
+              "uri"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 73,
+                  "startColumn": 37
                 }
               }
             }

@@ -1,6 +1,6 @@
 # Rules
 
-## Rule `GitHub1001.ProvideRequiredLocationProperties`
+## Rule `GH1001.ProvideRequiredLocationProperties`
 
 ### Description
 
@@ -22,7 +22,7 @@ Each result location must provide the property 'physicalLocation.artifactLocatio
 
 ---
 
-## Rule `GitHub1002.InlineThreadFlowLocations`
+## Rule `GH1002.InlineThreadFlowLocations`
 
 ### Description
 
@@ -36,7 +36,7 @@ Results that include codeFlows must specify each threadFlowLocation directly wit
 
 ---
 
-## Rule `GitHub1003.ProvideRequiredRegionProperties`
+## Rule `GH1003.ProvideRequiredRegionProperties`
 
 ### Description
 
@@ -54,7 +54,7 @@ Every result must provide a 'region' that specifies its location with line and o
 
 ---
 
-## Rule `GitHub1004.ReviewArraysThatExceedConfigurableDefaults`
+## Rule `GH1004.ReviewArraysThatExceedConfigurableDefaults`
 
 ### Description
 
@@ -64,11 +64,11 @@ GitHub Advanced Security code scanning limits the amount of information it displ
 
 #### `Default`: Error
 
-{0}: This array contains {1} element(s), which exceeds the default limit of {2} imposed by GitHub Advanced Security code scanning. The portal will only display information up to that limit. You can provide a configuration file at the root of your repository to specify a higher limit.
+{0}: This array contains {1} element(s), which exceeds the default limit of {2} imposed by GitHub Advanced Security code scanning. GitHub will only display information up to that limit. You can provide a configuration file at the root of your repository to specify a higher limit.
 
 ---
 
-## Rule `GitHub1005.LocationsMustBeRelativeUrisOrFilePaths`
+## Rule `GH1005.LocationsMustBeRelativeUrisOrFilePaths`
 
 ### Description
 
@@ -82,11 +82,11 @@ GitHub Advanced Security code scanning only displays results whose locations are
 
 ---
 
-## Rule `GitHub1006.ProvideCheckoutPath`
+## Rule `GH1006.ProvideCheckoutPath`
 
 ### Description
 
-The GitHub Advanced Security code scanning will reject a SARIF file that expresses result locations as absolute 'file' scheme URIs unless it can determine the URI of the repository root (which GitHub refers to as the "checkout path"). There are three ways to address this issue.
+GitHub Advanced Security code scanning will reject a SARIF file that expresses result locations as absolute 'file' scheme URIs unless it can determine the URI of the repository root (which GitHub refers to as the "checkout path"). There are three ways to address this issue.
 
 1. Recommended: Express all result locations as relative URI references with respect to the checkout path.
 
@@ -98,21 +98,21 @@ The GitHub Advanced Security code scanning will reject a SARIF file that express
 
 #### `Default`: Error
 
-{0}: This result location is expressed as an absolute 'file' URI. GitHub Advanced Security code scanning will reject this file because it cannot determine the location of the repository root (which it refers to as the "checkout path"). Either express result locations as relative URI references with respect to the checkout path, place the checkout path in 'invocations[].workingDirectory`, or place the checkout path in a configuration file at the root of the repository.
+{0}: This result location is expressed as an absolute 'file' URI. GitHub Advanced Security code scanning will reject this file because it cannot determine the location of the repository root (which it refers to as the "checkout path"). Either express result locations as relative URI references with respect to the checkout path, place the checkout path in 'invocations[].workingDirectory', or place the checkout path in a configuration file at the root of the repository.
 
 ---
 
-## Rule `GitHub1007.ProvideRequiredRelatedLocationProperties`
+## Rule `GH1007.ProvideRequiredRelatedLocationProperties`
 
 ### Description
 
-The GitHub Advanced Security code scanning will reject a SARIF file that includes a "related location" with no 'message' property. This is a bug in code scanning. You can set 'message' to an empty string if you don't have anything else to say about the location.
+GitHub Advanced Security code scanning will reject a SARIF file that includes a "related location" with no 'message' property. This is a bug in code scanning. You can set 'message' to an empty string if you don't have anything else to say about the location.
 
 ### Messages
 
 #### `Default`: Error
 
-{0}: This related location does not have a 'message' property, so the the GitHub Advanced Security code scanning will reject the entire log file. This is a bug in code scanning. You can set 'message' to an empty string if you don't have anything else to say about the location.
+{0}: This related location does not have a 'message' property, so GitHub Advanced Security code scanning will reject the entire log file. This is a bug in code scanning. You can set 'message' to an empty string if you don't have anything else to say about the location.
 
 ---
 

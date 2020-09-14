@@ -8,7 +8,7 @@
           "name": "SARIF Functional Testing",
           "rules": [
             {
-              "id": "GitHub1003",
+              "id": "GH1003",
               "name": "ProvideRequiredRegionProperties",
               "shortDescription": {
                 "text": "Every result must provide a 'region' that specifies its location with line and optional column information."
@@ -41,14 +41,14 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.GitHub1003.ProvideRequiredRegionProperties_Invalid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.GH1003.ProvideRequiredRegionProperties_Invalid.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }
       ],
       "results": [
         {
-          "ruleId": "GitHub1003",
+          "ruleId": "GH1003",
           "ruleIndex": 0,
           "level": "error",
           "message": {
@@ -72,7 +72,7 @@
           ]
         },
         {
-          "ruleId": "GitHub1003",
+          "ruleId": "GH1003",
           "ruleIndex": 0,
           "level": "error",
           "message": {
@@ -96,7 +96,7 @@
           ]
         },
         {
-          "ruleId": "GitHub1003",
+          "ruleId": "GH1003",
           "ruleIndex": 0,
           "level": "error",
           "message": {

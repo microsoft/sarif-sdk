@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
     public class ProvideRequiredLocationProperties : SarifValidationSkimmerBase
     {
         /// <summary>
-        /// GitHub1001
+        /// GH1001
         /// </summary>
         public override string Id => RuleId.ProvideRequiredLocationProperties;
 
@@ -20,12 +20,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// GitHub Advanced Security code scanning will not display a result whose location does not
         /// provide the URI of the artifact that was analyzed.
         /// </summary>
-        public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.GitHub1001_ProvideRequiredLocationProperties_FullDescription_Text };
+        public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.GH1001_ProvideRequiredLocationProperties_FullDescription_Text };
 
         protected override IEnumerable<string> MessageResourceNames => new string[] {
-            nameof(RuleResources.GitHub1001_ProvideRequiredLocationProperties_Error_NoLocationsArray_Text),
-            nameof(RuleResources.GitHub1001_ProvideRequiredLocationProperties_Error_EmptyLocationsArray_Text),
-            nameof(RuleResources.GitHub1001_ProvideRequiredLocationProperties_Error_MissingLocationProperty_Text)
+            nameof(RuleResources.GH1001_ProvideRequiredLocationProperties_Error_NoLocationsArray_Text),
+            nameof(RuleResources.GH1001_ProvideRequiredLocationProperties_Error_EmptyLocationsArray_Text),
+            nameof(RuleResources.GH1001_ProvideRequiredLocationProperties_Error_MissingLocationProperty_Text)
         };
 
         public override FailureLevel DefaultLevel => FailureLevel.Error;
@@ -41,7 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 // of the artifact that contains the result.
                 LogResult(
                     resultPointer,
-                    nameof(RuleResources.GitHub1001_ProvideRequiredLocationProperties_Error_NoLocationsArray_Text),
+                    nameof(RuleResources.GH1001_ProvideRequiredLocationProperties_Error_NoLocationsArray_Text),
                     SarifPropertyName.Locations);
                 return;
             }
@@ -54,7 +54,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 // artifact that contains the result.
                 LogResult(
                     locationsPointer,
-                    nameof(RuleResources.GitHub1001_ProvideRequiredLocationProperties_Error_EmptyLocationsArray_Text));
+                    nameof(RuleResources.GH1001_ProvideRequiredLocationProperties_Error_EmptyLocationsArray_Text));
                 return;
             }
 
@@ -99,7 +99,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 // that contains the result.
                 LogResult(
                     locationPointer,
-                    nameof(RuleResources.GitHub1001_ProvideRequiredLocationProperties_Error_MissingLocationProperty_Text),
+                    nameof(RuleResources.GH1001_ProvideRequiredLocationProperties_Error_MissingLocationProperty_Text),
                     missingProperty);
             }
         }

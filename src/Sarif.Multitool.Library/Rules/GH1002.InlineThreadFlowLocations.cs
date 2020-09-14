@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
     public class InlineThreadFlowLocations : SarifValidationSkimmerBase
     {
         /// <summary>
-        /// GitHub1002
+        /// GH1002
         /// </summary>
         public override string Id => RuleId.InlineThreadFlowLocations;
 
@@ -20,10 +20,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// of the run.threadFlowLocations array. GitHub Advanced Security code scanning will not
         /// display a result that uses such threadFlowLocations.
         /// </summary>
-        public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.GitHub1002_InlineThreadFlowLocations_FullDescription_Text };
+        public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.GH1002_InlineThreadFlowLocations_FullDescription_Text };
 
         protected override IEnumerable<string> MessageResourceNames => new string[] {
-            nameof(RuleResources.GitHub1002_InlineThreadFlowLocations_Error_Default_Text)
+            nameof(RuleResources.GH1002_InlineThreadFlowLocations_Error_Default_Text)
         };
 
         public override FailureLevel DefaultLevel => FailureLevel.Error;
@@ -39,7 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 // will not display a result that includes such a 'threadFlowLocation'.
                 LogResult(
                     threadFlowLocationPointer.AtProperty(SarifPropertyName.Index),
-                    nameof(RuleResources.GitHub1002_InlineThreadFlowLocations_Error_Default_Text));
+                    nameof(RuleResources.GH1002_InlineThreadFlowLocations_Error_Default_Text));
                 return;
             }
         }

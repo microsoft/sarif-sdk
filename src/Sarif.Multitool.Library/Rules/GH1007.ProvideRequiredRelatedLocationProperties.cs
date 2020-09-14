@@ -11,17 +11,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
     public class ProvideRequiredRelatedLocationProperties : SarifValidationSkimmerBase
     {
         /// <summary>
-        /// GitHub1007
+        /// GH1007
         /// </summary>
         public override string Id => RuleId.ProvideRequiredRelatedLocationProperties;
 
-        // The GitHub Advanced Security code scanning will reject a SARIF file that includes a
+        // GitHub Advanced Security code scanning will reject a SARIF file that includes a
         // "related location" with no 'message' property. This is a bug in GitHub. You can set
         // 'message' to an empty string if you don't have anything else to say about the location.
-        public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.GitHub1007_ProvideRequiredRelatedLocationProperties_FullDescription_Text };
+        public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.GH1007_ProvideRequiredRelatedLocationProperties_FullDescription_Text };
 
         protected override IEnumerable<string> MessageResourceNames => new string[] {
-            nameof(RuleResources.GitHub1007_ProvideRequiredRelatedLocationProperties_Error_Default_Text)
+            nameof(RuleResources.GH1007_ProvideRequiredRelatedLocationProperties_Error_Default_Text)
         };
 
         public override FailureLevel DefaultLevel => FailureLevel.Error;
@@ -45,12 +45,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             if (relatedLocation.Message == null)
             {
                 // {0}: This related location does not have a 'message' property, so GitHub
-                // will reject the entire log file. This is a bug
+                // Advanced Security code scanning will reject the entire log file. This is a bug
                 // in GitHub. You can set 'message' to an empty string if you don't have anything
                 // else to say about the location.
                 LogResult(
                     relatedLocationPointer,
-                    nameof(RuleResources.GitHub1007_ProvideRequiredRelatedLocationProperties_Error_Default_Text));
+                    nameof(RuleResources.GH1007_ProvideRequiredRelatedLocationProperties_Error_Default_Text));
             }
         }
     }
