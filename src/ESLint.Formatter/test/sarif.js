@@ -162,6 +162,28 @@ describe("formatter:sarif", () => {
 });
 
 describe("formatter:sarif", () => {
+    describe("when passed one message with line and invalid column", () => {
+        const code = [{
+            filePath: sourceFilePath1,
+            messages: [{
+                message: "Unexpected value.",
+                ruleId: testRuleId,
+                line: 10,
+                column: 0
+            }]
+        }];
+
+        it("should return a log with one result whose location contains a region with line # and no column #", () => {
+            const log = JSON.parse(formatter(code));
+
+            assert.strictEqual(log.runs[0].results[0].locations[0].physicalLocation.region.startLine, code[0].messages[0].line);
+            assert.isUndefined(log.runs[0].results[0].locations[0].physicalLocation.region.startColumn);
+            assert.isUndefined(log.runs[0].results[0].locations[0].physicalLocation.region.snippet);
+        });
+    });
+});
+
+describe("formatter:sarif", () => {
     describe("when passed one message with line and column but no source string", () => {
         const code = [{
             filePath: sourceFilePath1,
@@ -470,6 +492,57 @@ describe("formatter:sarif", () => {
             let notificationUri = notification.locations[0].physicalLocation.artifactLocation.uri
             assert(notificationUri.startsWith(uriPrefix));
             assert(notificationUri.endsWith(sourceFilePath1));
+        });
+    });
+});
+
+describe("formatter:sarif", () => {
+    describe("when passed a rule with no description", () => {
+        const ruleid = "custom-rule-no-description";
+
+        rules[ruleid] = {
+            type: "suggestion",
+            docs: {
+                category: "Possible Errors"
+            }
+        };
+        const code = [{
+            filePath: sourceFilePath1,
+            messages: [{
+                message: "Custom error.",
+                ruleId: ruleid,
+                line: 42
+            }]
+        }];
+        it("should return a log with one file, one rule, and one result", () => {
+            const log = JSON.parse(formatter(code, { rulesMeta: rules }));
+            const rule = rules[ruleid];
+
+            assert.lengthOf(log.runs[0].artifacts, 1);
+            assert.lengthOf(log.runs[0].results, 1);
+
+            assert.strictEqual(log.runs[0].tool.driver.rules[0].id, ruleid);
+
+            assert(log.runs[0].artifacts[0].location.uri.startsWith(uriPrefix));
+            assert(log.runs[0].artifacts[0].location.uri.endsWith(sourceFilePath1));
+
+            assert.strictEqual(log.runs[0].tool.driver.rules[0].id, ruleid);
+            assert.isUndefined(log.runs[0].tool.driver.rules[0].shortDescription);
+            assert.strictEqual(log.runs[0].tool.driver.rules[0].helpUri, rule.docs.url);
+            assert.strictEqual(log.runs[0].tool.driver.rules[0].properties.category, rule.docs.category);
+
+            assert.strictEqual(log.runs[0].results[0].ruleId, ruleid);
+
+            assert.strictEqual(log.runs[0].results[0].level, "warning");
+
+            assert.strictEqual(log.runs[0].results[0].message.text, "Custom error.");
+
+            assert(log.runs[0].results[0].locations[0].physicalLocation.artifactLocation.uri.startsWith(uriPrefix));
+            assert(log.runs[0].results[0].locations[0].physicalLocation.artifactLocation.uri.endsWith(sourceFilePath1));
+
+            assert.strictEqual(log.runs[0].results[0].locations[0].physicalLocation.region.startLine, 42);
+            assert.isUndefined(log.runs[0].results[0].locations[0].physicalLocation.region.startColumn);
+            assert.isUndefined(log.runs[0].results[0].locations[0].physicalLocation.region.snippet);
         });
     });
 });
