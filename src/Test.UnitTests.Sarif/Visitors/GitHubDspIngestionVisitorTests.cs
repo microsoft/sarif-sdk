@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             string logContents = GetResourceText(inputResourceName);
             SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(logContents);
 
-            var visitor = new GitHubDspIngestionVisitor();
+            var visitor = new GitHubIngestionVisitor();
             visitor.Visit(sarifLog);
 
             return JsonConvert.SerializeObject(sarifLog, SarifTransformerUtilities.JsonSettingsIndented);
@@ -29,16 +29,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         [Fact]
         public void GitHubDspIngestionVisitor_LimitsNumberOfResults()
         {
-            int prevMaxResults = GitHubDspIngestionVisitor.s_MaxResults;
+            int prevMaxResults = GitHubIngestionVisitor.s_MaxResults;
 
             try
             {
-                GitHubDspIngestionVisitor.s_MaxResults = 2;
+                GitHubIngestionVisitor.s_MaxResults = 2;
                 RunTest("TooManyResults.sarif");
             }
             finally
             {
-                GitHubDspIngestionVisitor.s_MaxResults = prevMaxResults;
+                GitHubIngestionVisitor.s_MaxResults = prevMaxResults;
             }
         }
 

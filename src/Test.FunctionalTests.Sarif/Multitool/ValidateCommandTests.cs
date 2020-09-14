@@ -332,59 +332,59 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             => RunInvalidTestForRule(RuleId.FileUrisShouldBeRelative);
 
         [Fact]
-        public void DSP1001_ProvideRequiredLocationProperties_Valid()
+        public void GH1001_ProvideRequiredLocationProperties_Valid()
             => RunValidTestForRule(RuleId.ProvideRequiredLocationProperties);
 
         [Fact]
-        public void DSP1001_ProvideRequiredLocationProperties_Invalid()
+        public void GH1001_ProvideRequiredLocationProperties_Invalid()
             => RunInvalidTestForRule(RuleId.ProvideRequiredLocationProperties);
 
         [Fact]
-        public void DSP1002_InlineThreadFlowLocations_Valid()
+        public void GH1002_InlineThreadFlowLocations_Valid()
             => RunValidTestForRule(RuleId.InlineThreadFlowLocations);
 
         [Fact]
-        public void DSP1002_InlineThreadFlowLocations_Invalid()
+        public void GH1002_InlineThreadFlowLocations_Invalid()
             => RunInvalidTestForRule(RuleId.InlineThreadFlowLocations);
 
         [Fact]
-        public void DSP1003_ProvideRequiredRegionProperties_Valid()
+        public void GH1003_ProvideRequiredRegionProperties_Valid()
             => RunValidTestForRule(RuleId.ProvideRequiredRegionProperties);
 
         [Fact]
-        public void DSP1003_ProvideRequiredRegionProperties_Invalid()
+        public void GH1003_ProvideRequiredRegionProperties_Invalid()
             => RunInvalidTestForRule(RuleId.ProvideRequiredRegionProperties);
 
         [Fact]
-        public void DSP1004_ReviewArraysThatExceedConfigurableDefaults_Valid()
+        public void GH1004_ReviewArraysThatExceedConfigurableDefaults_Valid()
             => RunArrayLimitTest(ValidTestFileNameSuffix);
 
         [Fact]
-        public void DSP1004_ReviewArraysThatExceedConfigurableDefaults_Invalid()
+        public void GH1004_ReviewArraysThatExceedConfigurableDefaults_Invalid()
             => RunArrayLimitTest(InvalidTestFileNameSuffix);
 
         [Fact]
-        public void DSP1005_LocationsMustBeRelativeUrisOrFilePaths_Valid()
+        public void GH1005_LocationsMustBeRelativeUrisOrFilePaths_Valid()
             => RunValidTestForRule(RuleId.LocationsMustBeRelativeUrisOrFilePaths);
 
         [Fact]
-        public void DSP1005_LocationsMustBeRelativeUrisOrFilePaths_Invalid()
+        public void GH1005_LocationsMustBeRelativeUrisOrFilePaths_Invalid()
             => RunInvalidTestForRule(RuleId.LocationsMustBeRelativeUrisOrFilePaths);
 
         [Fact]
-        public void DSP1006_ProvideCheckoutPath_Valid()
+        public void GH1006_ProvideCheckoutPath_Valid()
             => RunValidTestForRule(RuleId.ProvideCheckoutPath);
 
         [Fact]
-        public void DSP1006_ProvideCheckoutPath_Invalid()
+        public void GH1006_ProvideCheckoutPath_Invalid()
             => RunInvalidTestForRule(RuleId.ProvideCheckoutPath);
 
         [Fact]
-        public void DSP1007_ProvideRequiredRelatedLocationProperties_Valid()
+        public void GH1007_ProvideRequiredRelatedLocationProperties_Valid()
             => RunValidTestForRule(RuleId.ProvideRequiredRelatedLocationProperties);
 
         [Fact]
-        public void DSP1007_ProvideRequiredRelatedLocationProperties_Invalid()
+        public void GH1007_ProvideRequiredRelatedLocationProperties_Invalid()
             => RunInvalidTestForRule(RuleId.ProvideRequiredRelatedLocationProperties);
 
         private void RunArrayLimitTest(string testFileNameSuffix)
@@ -552,7 +552,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         private static bool IsSarifRule(string ruleId)
-            => ruleId.StartsWith("SARIF") || ruleId.StartsWith("DSP");
+            => ruleId.StartsWith("SARIF") || ruleId.StartsWith("GH");
 
         private TempFile CreateTempConfigFile(string ruleId, object parameter)
         {

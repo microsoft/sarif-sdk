@@ -38,16 +38,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public const string EnquoteDynamicMessageContent = "SARIF2015";
         public const string FileUrisShouldBeRelative = "SARIF2016";
 
-        // Rules required to upload SARIF files to the GitHub Developer Security Portal.
-        // These rules are disabled by default. The can be enabled by running the MultiTool
-        // with the configuration file policies/github-dsp.sarif-external-properties.
-        public const string ProvideRequiredLocationProperties = "DSP1001";
-        public const string InlineThreadFlowLocations = "DSP1002";
-        public const string ProvideRequiredRegionProperties = "DSP1003";
-        public const string ReviewArraysThatExceedConfigurableDefaults = "DSP1004";
-        public const string LocationsMustBeRelativeUrisOrFilePaths = "DSP1005";
-        public const string ProvideCheckoutPath = "DSP1006";
-        public const string ProvideRequiredRelatedLocationProperties = "DSP1007";
+        // Rules required to upload SARIF files to GitHub Advanced Security code scanning.
+        // These rules are disabled by default. The can be enabled by running the Multitool
+        // with the configuration file policies/github.config.xml.
+        public const string ProvideRequiredLocationProperties = "GH1001";
+        public const string InlineThreadFlowLocations = "GH1002";
+        public const string ProvideRequiredRegionProperties = "GH1003";
+        public const string ReviewArraysThatExceedConfigurableDefaults = "GH1004";
+        public const string LocationsMustBeRelativeUrisOrFilePaths = "GH1005";
+        public const string ProvideCheckoutPath = "GH1006";
+        public const string ProvideRequiredRelatedLocationProperties = "GH1007";
 
         // TEMPLATE:
         // public const string RuleFriendlyName = "SARIFnnnn";

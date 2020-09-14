@@ -35,7 +35,7 @@
     <Property Key='RuleEnabled' Value='Disabled' />
   </Properties>
   <Properties Key='SARIF2012.ProvideHelpUris.Options'>
-    <!-- Because the DSP displays them if available. -->
+    <!-- Because GitHub displays them if available. -->
     <Property Key='RuleEnabled' Value='Error' />
   </Properties>
   <Properties Key='SARIF2013.ProvideEmbeddedFileContent.Options'>
@@ -51,25 +51,25 @@
     <!-- Not necessary because SARIF2007.ExpressPathsRelativeToRepoRoot is stricter. -->
     <Property Key='RuleEnabled' Value='Disabled' />
   </Properties>
-  <Properties Key='DSP1001.ProvideRequiredLocationProperties.Options'>
+  <Properties Key='GH1001.ProvideRequiredLocationProperties.Options'>
     <Property Key='RuleEnabled' Value='Error' />
   </Properties>
-  <Properties Key='DSP1002.InlineThreadFlowLocations.Options'>
+  <Properties Key='GH1002.InlineThreadFlowLocations.Options'>
     <Property Key='RuleEnabled' Value='Error' />
   </Properties>
-  <Properties Key='DSP1003.ProvideRequiredRegionProperties.Options'>
+  <Properties Key='GH1003.ProvideRequiredRegionProperties.Options'>
     <Property Key='RuleEnabled' Value='Error' />
   </Properties>
-  <Properties Key='DSP1004.ReviewArraysThatExceedConfigurableDefaults.Options'>
+  <Properties Key='GH1004.ReviewArraysThatExceedConfigurableDefaults.Options'>
     <Property Key='RuleEnabled' Value='Error' />
   </Properties>
-  <Properties Key='DSP1005.LocationsMustBeRelativeUrisOrFilePaths.Options'>
+  <Properties Key='GH1005.LocationsMustBeRelativeUrisOrFilePaths.Options'>
     <Property Key='RuleEnabled' Value='Error' />
   </Properties>
-  <Properties Key='DSP1006.ProvideCheckoutPath.Options'>
+  <Properties Key='GH1006.ProvideCheckoutPath.Options'>
     <Property Key='RuleEnabled' Value='Error' />
   </Properties>
-  <Properties Key='DSP1007.ProvideRequiredRelatedLocationProperties.Options'>
+  <Properties Key='GH1007.ProvideRequiredRelatedLocationProperties.Options'>
     <Property Key='RuleEnabled' Value='Error' />
   </Properties>
 </Properties>
