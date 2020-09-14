@@ -8,17 +8,17 @@
           "name": "SARIF Functional Testing",
           "rules": [
             {
-              "id": "DSP1002",
+              "id": "GH1002",
               "name": "InlineThreadFlowLocations",
               "shortDescription": {
                 "text": "Results that include codeFlows must specify each threadFlowLocation directly within the codeFlow, rather than relying on threadFlowLocation.index to refer to an element of the run.threadFlowLocations array."
               },
               "fullDescription": {
-                "text": "Results that include codeFlows must specify each threadFlowLocation directly within the codeFlow, rather than relying on threadFlowLocation.index to refer to an element of the run.threadFlowLocations array. The GitHub Developer Security Portal will not display a result that uses such threadFlowLocations."
+                "text": "Results that include codeFlows must specify each threadFlowLocation directly within the codeFlow, rather than relying on threadFlowLocation.index to refer to an element of the run.threadFlowLocations array. GitHub Advanced Security code scanning will not display a result that uses such threadFlowLocations."
               },
               "messageStrings": {
                 "Error_Default": {
-                  "text": "{0}: This 'threadFlowLocation' uses its 'index' property to refer to information in the 'run.threadFlowLocations' array. The GitHub Developer Security Portal will not display a result that includes such a 'threadFlowLocation'."
+                  "text": "{0}: This 'threadFlowLocation' uses its 'index' property to refer to information in the 'run.threadFlowLocations' array. GitHub Advanced Security code scanning will not display a result that includes such a 'threadFlowLocation'."
                 }
               },
               "defaultConfiguration": {
@@ -38,14 +38,14 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.DSP1002.InlineThreadFlowLocations_Invalid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.GH1002.InlineThreadFlowLocations_Invalid.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }
       ],
       "results": [
         {
-          "ruleId": "DSP1002",
+          "ruleId": "GH1002",
           "ruleIndex": 0,
           "level": "error",
           "message": {

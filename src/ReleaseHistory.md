@@ -2,14 +2,14 @@
 
 ## **v2.3.5** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.5) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.5) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.5) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.5) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.3.5)
 * FEATURE: COMMAND-LINE BREAKING: Validation rule `SARIF2005.ProvideToolProperties` now requires `informationUri`, it allows `dottedQuadFileVersion` to satisfy the requirement that version information be present, and it is configurable.
-* FEATURE: COMMAND-LINE BREAKING: The analysis rules that validate a SARIF file's compatibility with the GitHub Developer Security Portal now have rule ids that begin with `DSP` rather than `SARIF`.
+* FEATURE: COMMAND-LINE BREAKING: The analysis rules that validate a SARIF file's compatibility with GitHub Advanced Security code scanning now have rule ids that begin with `GH` rather than `SARIF`.
 * FEATURE: Extract the public APIs from Sarif.Multitool into a new dependency package Sarif.Multitool.Library. Sarif.Multitool remains as a dotnet tool package.
 * FEATURE: Validation rule `SARIF2012` now checks for the presence of a friendly name in PascalCase in the `name` property, and is renamed from `ProvideHelpUris` to `ProvideRuleProperties`.
 * FEATURE: The Multitool `rewrite` command now accepts `VersionControlInformation` as an argument to the `--insert` option. This argument populates `run.versionControlProvenance`, and it re-expresses all absolute URIs as relative references with respect to the nearest enclosing repository root, if any.
 
 ## **v2.3.4** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.4) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.4) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.4) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.4)
 * COMMAND-LINE BREAKING: Change `merge` command output directory argument name to `output-directory`.
-* FEATURE: Add analysis rules appropriate for SARIF files that are to be uploaded to the GitHub Developer Security Portal.
+* FEATURE: Add analysis rules appropriate for SARIF files that are to be uploaded to GitHub Advanced Security code scanning.
 * BUGFIX: Various Fortify FPR converter improvements (such as improve variable expansion in result messages).
 * BUGFIX: The validator no longer reports `SARIF2010.ProvideCodeSnippets` if embedded file content for the specified artifact is present. [#2003](https://github.com/microsoft/sarif-sdk/issues/2003)
 

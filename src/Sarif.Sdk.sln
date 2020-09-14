@@ -103,6 +103,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{6EEAC61E-A
 		..\docs\multitool-usage.md = ..\docs\multitool-usage.md
 		..\docs\query-mode.md = ..\docs\query-mode.md
 		..\docs\Rule reference page template.md = ..\docs\Rule reference page template.md
+		..\docs\ValidationRules.md = ..\docs\ValidationRules.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ValidationRules", "ValidationRules", "{81910EAA-C010-4940-90E5-BF64DE64381C}"
@@ -112,11 +113,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ValidationRules", "Validati
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "policies", "policies", "{C2397737-B10C-42BF-B2AB-11A86817ACCD}"
 	ProjectSection(SolutionItems) = preProject
-		..\policies\github-dsp.config.sarif-external-properties = ..\policies\github-dsp.config.sarif-external-properties
-		..\policies\github-dsp.config.xml = ..\policies\github-dsp.config.xml
+		..\policies\github.config.sarif-external-properties = ..\policies\github.config.sarif-external-properties
+		..\policies\github.config.xml = ..\policies\github.config.xml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sarif.Multitool.Library", "Sarif.Multitool.Library\Sarif.Multitool.Library.csproj", "{04994C98-A105-4D37-A765-64F822BF1EB3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sarif.Multitool.Library", "Sarif.Multitool.Library\Sarif.Multitool.Library.csproj", "{04994C98-A105-4D37-A765-64F822BF1EB3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

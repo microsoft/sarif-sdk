@@ -4,7 +4,7 @@
   "guid": "89072b7a-3d16-43f2-ac0b-3d9cffc814be",
   "policies": [
     {
-      "name": "GitHub Developer Security Portal policy",
+      "name": "GitHub policy",
       "version": "0.0.1",
       "organization": "Microsoft",
       "product": "Microsoft SARIF SDK",
@@ -13,49 +13,49 @@
       },
       "rules": [
         {
-          "id": "DSP1001",
+          "id": "GH1001",
           "name": "ProvideRequiredLocationProperties",
           "defaultConfiguration": {
             "enabled": true
           }
         },
         {
-          "id": "DSP1002",
+          "id": "GH1002",
           "name": "InlineThreadFlowLocations",
           "defaultConfiguration": {
             "enabled": true
           }
         },
         {
-          "id": "DSP1003",
+          "id": "GH1003",
           "name": "ProvideRequiredRegionProperties",
           "defaultConfiguration": {
             "enabled": true
           }
         },
         {
-          "id": "DSP1004",
+          "id": "GH1004",
           "name": "ReviewArraysThatExceedConfigurableDefaults",
           "defaultConfiguration": {
             "enabled": true
           }
         },
         {
-          "id": "DSP1005",
+          "id": "GH1005",
           "name": "LocationsMustBeRelativeUrisOrFilePaths",
           "defaultConfiguration": {
             "enabled": true
           }
         },
         {
-          "id": "DSP1006",
+          "id": "GH1006",
           "name": "ProvideCheckoutPath",
           "defaultConfiguration": {
             "enabled": true
           }
         },
         {
-          "id": "DSP1007",
+          "id": "GH1007",
           "name": "ProvideRequiredRelatedLocationProperties",
           "defaultConfiguration": {
             "enabled": true
