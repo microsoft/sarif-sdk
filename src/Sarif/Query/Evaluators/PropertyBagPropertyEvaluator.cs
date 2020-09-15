@@ -4,6 +4,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
 {
@@ -21,11 +22,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
 
         public PropertyBagPropertyEvaluator(TermExpression term)
         {
-            if (term.PropertyName.StartsWith(ResultPropertyPrefix))
+            if (term.PropertyName.StartsWith(ResultPropertyPrefix, StringComparison.OrdinalIgnoreCase))
             {
                 _propertyName = term.PropertyName.Substring(ResultPropertyPrefixLength);
             }
-            else if (term.PropertyName.StartsWith(RulePropertyPrefix))
+            else if (term.PropertyName.StartsWith(RulePropertyPrefix, StringComparison.OrdinalIgnoreCase))
             {
                 _propertyName = term.PropertyName.Substring(RulePropertyPrefixLength);
                 _propertyBelongsToRule = true;
@@ -35,26 +36,50 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
                 throw new ArgumentException($"Property name must start with either '{ResultPropertyPrefix}' or '{RulePropertyPrefix}'.", nameof(term));
             }
 
-            _stringEvaluator = new StringEvaluator<Result>(GetProperty, term, StringComparison.OrdinalIgnoreCase);
+            _stringEvaluator = new StringEvaluator<Result>(GetProperty<string>, term, StringComparison.OrdinalIgnoreCase);
         }
 
-        private string GetProperty(Result result)
+        private T GetProperty<T>(Result result)
         {
-            string propertyValue = null;
+            PropertyBagHolder holder = GetPropertyBagHolder(result);
+            return holder != null
+                ? GetPropertyFromHolder<T>(holder)
+                : default;
+        }
+
+        private PropertyBagHolder GetPropertyBagHolder(Result result)
+        {
+            PropertyBagHolder propertyBagHolder = null;
             if (_propertyBelongsToRule)
             {
                 ReportingDescriptor rule = result.GetRule();
                 if (rule != null)
                 {
-                    rule.TryGetProperty(_propertyName, out propertyValue);
+                    propertyBagHolder = rule;
                 }
             }
             else
             {
-                result.TryGetProperty(_propertyName, out propertyValue);
+                propertyBagHolder = result;
             }
 
-            return propertyValue;
+            return propertyBagHolder;
+        }
+
+        private T GetPropertyFromHolder<T>(PropertyBagHolder holder)
+        {
+            T value = default;
+
+            List<string> propertyNames = holder.PropertyNames
+                .Where(key => key.Equals(_propertyName, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+
+            if (propertyNames.Any())
+            {
+                value = holder.GetProperty<T>(propertyNames.First());
+            }
+
+            return value;
         }
 
         public void Evaluate(ICollection<Result> results, BitArray matches)

@@ -59,6 +59,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             RunAndVerifyCount(2, new QueryOptions() { Expression = "rule.properties.Category == 'security'", InputFilePath = FilePath });
         }
 
+        [Fact]
+        public void QueryCommand_ComparesPropertyBagPropertyNamesCaseInsensitively()
+        {
+            const string FilePath = "property-bag-queries.sarif";
+            File.WriteAllText(FilePath, Extractor.GetResourceText($"QueryCommand.{FilePath}"));
+
+            RunAndVerifyCount(2, new QueryOptions() { Expression = "properties.nAmE == 'Terisa'", InputFilePath = FilePath });
+            RunAndVerifyCount(2, new QueryOptions() { Expression = "rule.properties.CaTegORy == 'security'", InputFilePath = FilePath });
+        }
+
         private void RunAndVerifyCount(int expectedCount, QueryOptions options)
         {
             options.ReturnCount = true;
