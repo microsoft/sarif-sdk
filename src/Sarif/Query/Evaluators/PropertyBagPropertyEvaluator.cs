@@ -9,7 +9,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
 {
     public class PropertyBagPropertyEvaluator : IExpressionEvaluator<Result>
     {
-        private const string RulePropertyPrefix = "rule.";
+        internal const string ResultPropertyPrefix = "properties.";
+        private static readonly int ResultPropertyPrefixLength = ResultPropertyPrefix.Length;
+
+        internal const string RulePropertyPrefix = "rule.properties.";
         private static readonly int RulePropertyPrefixLength = RulePropertyPrefix.Length;
 
         private readonly string _propertyName;
@@ -18,11 +21,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
 
         public PropertyBagPropertyEvaluator(TermExpression term)
         {
-            _propertyName = term.PropertyName;
-            _propertyBelongsToRule = _propertyName.StartsWith(RulePropertyPrefix);
-            if (_propertyBelongsToRule)
+            if (term.PropertyName.StartsWith(ResultPropertyPrefix))
             {
-                _propertyName = _propertyName.Substring(RulePropertyPrefixLength);
+                _propertyName = term.PropertyName.Substring(ResultPropertyPrefixLength);
+            }
+            else if (term.PropertyName.StartsWith(RulePropertyPrefix))
+            {
+                _propertyName = term.PropertyName.Substring(RulePropertyPrefixLength);
+                _propertyBelongsToRule = true;
+            }
+            else
+            {
+                throw new ArgumentException($"Property name must start with either '{ResultPropertyPrefix}' or '{RulePropertyPrefix}'.", nameof(term));
             }
 
             _stringEvaluator = new StringEvaluator<Result>(GetProperty, term, StringComparison.OrdinalIgnoreCase);

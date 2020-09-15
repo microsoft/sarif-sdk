@@ -34,12 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             // Verify parsing errors (unknown enum, operator)
             Assert.Throws<QueryParseException>(() => RunAndVerifyCount(0, new QueryOptions() { Expression = "Level != UnknownValue", InputFilePath = filePath }));
             Assert.Throws<QueryParseException>(() => RunAndVerifyCount(0, new QueryOptions() { Expression = "Level ** Error", InputFilePath = filePath }));
-
-            // Unrecognized property is sought in property bag, and (in this case) not found. The equality test always
-            // fails because we are always comparing against null; the inequality test always succeeds.
-            // IS THIS ACCEPTABLE BEHAVIOR?
-            RunAndVerifyCount(0, new QueryOptions() { Expression = "Leveler == Error", InputFilePath = filePath });
-            RunAndVerifyCount(5, new QueryOptions() { Expression = "Leveler != Error", InputFilePath = filePath });
+            Assert.Throws<QueryParseException>(() => RunAndVerifyCount(0, new QueryOptions() { Expression = "Leveler != Error", InputFilePath = filePath }));
 
             // Verify threshold logging
             Assert.Equal(0, new QueryCommand().RunWithoutCatch(new QueryOptions() { Expression = "RuleId = 'CSCAN0060/0'", NonZeroExitCodeIfCountOver = 4, InputFilePath = filePath }));
@@ -60,8 +55,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             const string FilePath = "property-bag-queries.sarif";
             File.WriteAllText(FilePath, Extractor.GetResourceText($"QueryCommand.{FilePath}"));
 
-            RunAndVerifyCount(2, new QueryOptions() { Expression = "Name == 'Terisa'", InputFilePath = FilePath });
-            RunAndVerifyCount(2, new QueryOptions() { Expression = "rule.Category == 'security'", InputFilePath = FilePath });
+            RunAndVerifyCount(2, new QueryOptions() { Expression = "properties.Name == 'Terisa'", InputFilePath = FilePath });
+            RunAndVerifyCount(2, new QueryOptions() { Expression = "rule.properties.Category == 'security'", InputFilePath = FilePath });
         }
 
         private void RunAndVerifyCount(int expectedCount, QueryOptions options)

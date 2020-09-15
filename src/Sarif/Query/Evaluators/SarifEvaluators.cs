@@ -11,7 +11,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
     {
         public static IExpressionEvaluator<Result> ResultEvaluator(TermExpression term)
         {
-            switch (term.PropertyName.ToLowerInvariant())
+            string propertyNameLower = term.PropertyName.ToLowerInvariant();
+            switch (propertyNameLower)
             {
                 case "baselinestate":
                     return new EnumEvaluator<Result, BaselineState>(r => r.BaselineState, term);
@@ -44,7 +45,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
                     }, term);
 
                 default:
-                    return new PropertyBagPropertyEvaluator(term);
+                    if (propertyNameLower.StartsWith(PropertyBagPropertyEvaluator.ResultPropertyPrefix) ||
+                        propertyNameLower.StartsWith(PropertyBagPropertyEvaluator.RulePropertyPrefix))
+                    {
+                        return new PropertyBagPropertyEvaluator(term);
+                    }
+                    else
+                    {
+                        throw new QueryParseException(
+                            string.Format(
+                                CultureInfo.CurrentCulture,
+                                SdkResources.ErrorInvalidQueryPropertyName,
+                                term.PropertyName));
+                    }
             }
         }
     }
