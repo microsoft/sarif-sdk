@@ -1,5 +1,8 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
+## **v2.3.6** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.6) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.6) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.6) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.6) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.3.6)
+* FEATURE: The Multitool `query` command can now evaluate properties in the result and rule property bags, for example `sarif query "properties.confidence:f > 0.95 AND rule.properties.category == 'security'"`
+
 ## **v2.3.5** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.5) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.5) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.5) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.5) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.3.5)
 * FEATURE: COMMAND-LINE BREAKING: Validation rule `SARIF2005.ProvideToolProperties` now requires `informationUri`, it allows `dottedQuadFileVersion` to satisfy the requirement that version information be present, and it is configurable.
 * FEATURE: COMMAND-LINE BREAKING: The analysis rules that validate a SARIF file's compatibility with GitHub Advanced Security code scanning now have rule ids that begin with `GH` rather than `SARIF`.
