@@ -260,4 +260,10 @@
 Known property names: baselineState, correlationGuid, guid, hostedViewerUri, kind, level, message.text, occurrenceCount, rank, ruleId
 You can also refer to properties in the result's property bag with 'properties.&lt;propertyName&gt;', or to properties in the associated rule's property bag with 'properties.rule.&lt;propertyName&gt;'.</value>
   </data>
+  <data name="ErrorInvalidQueryPropertyPrefix" xml:space="preserve">
+    <value>Property name must start with either '{0}' or '{1}'.</value>
+  </data>
+  <data name="ErrorInvalidQueryPropertyType" xml:space="preserve">
+    <value>Property type specifier must be either '{0}' or '{1}'.</value>
+  </data>
 </root>

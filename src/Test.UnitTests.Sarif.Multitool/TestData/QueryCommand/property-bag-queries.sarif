@@ -50,8 +50,8 @@
             "text": "Message."
           },
           "properties": {
-            "comment":  "Exact match.",
-            "Name": "Terisa"
+            "comment": "Exact match.",
+            "name": "Terisa"
           }
         },
         {
@@ -62,7 +62,7 @@
           },
           "properties": {
             "comment": "Case-insensitive match.",
-            "Name": "terisa"
+            "name": "terisa"
           }
         },
         {
@@ -72,7 +72,7 @@
             "text": "Message."
           },
           "properties": {
-            "comment": "No 'Name' property.",
+            "comment": "No 'name' property.",
             "Confidence": "5.0"
           }
         },
@@ -81,6 +81,26 @@
           "ruleIndex": 0,
           "message": {
             "text": "Message."
+          }
+        },
+        {
+          "ruleId": "TEST1001",
+          "ruleIndex": 0,
+          "message": {
+            "text": "Message."
+          },
+          "properties": {
+            "count": 42
+          }
+        },
+        {
+          "ruleId": "TEST1001",
+          "ruleIndex": 0,
+          "message": {
+            "text": "Message."
+          },
+          "properties": {
+            "count": 54
           }
         },
         {
@@ -109,6 +129,12 @@
           "ruleIndex": 4,
           "message": {
             "text": "Message."
+          }
+        },
+        {
+          "ruleId": "TEST1006",
+          "message": {
+            "text": "This result doesn't point to a rule, so a rule.properties query on it should return no results."
           }
         }
       ]
