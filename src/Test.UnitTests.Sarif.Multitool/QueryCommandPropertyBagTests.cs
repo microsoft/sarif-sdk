@@ -39,30 +39,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
-        public void QueryCommand_AcceptsOptionalStringTypeSpecifier()
-        {
-            RunAndVerifyCount(2, "properties.name:s == 'Terisa'");
-            RunAndVerifyCount(2, "rule.properties.Category:s == 'security'");
-        }
-
-        [Fact]
-        public void QueryCommand_RejectsUnknownTypeSpecifier()
-        {
-            Action action = () => RunAndVerifyCount(2, "properties.name:x == 'Terisa'");
-
-            action.Should().Throw<ArgumentException>();
-        }
-
-        [Fact]
         public void QueryCommand_ReadsIntegerProperty()
         {
-            RunAndVerifyCount(1, "properties.count:n == 42");
+            RunAndVerifyCount(1, "properties.count == 42");
         }
 
         [Fact]
         public void QueryCommand_ReadsFloatProperty()
         {
-            RunAndVerifyCount(2, "properties.confidence:f >= 0.95");
+            RunAndVerifyCount(2, "properties.confidence >= 0.95");
+        }
+
+        [Fact]
+        public void QueryCommand_PerformsStringSpecificComparisons()
+        {
+            RunAndVerifyCount(1, "properties.confidence : 95");     // contains
+            RunAndVerifyCount(3, "properties.confidence |> 0.");    // startswith
+            RunAndVerifyCount(1, "properties.confidence >| 9");     // endswith
         }
 
         [Fact]
@@ -72,9 +65,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(File.ReadAllText(FilePath));
             int numResults = sarifLog.Runs[0].Results.Count;
 
-            // 'name' is a string-valued property that doesn't parse to an integer. The query evaluator
-            // treats it as having the default value.
-            RunAndVerifyCount(numResults, "properties.name:n == 0");
+            // 'name' is a string-valued property that doesn't parse to an integer. The
+            // PropertyBagPropertyEvaluator sees a number on the right-hand side of the comparison
+            // and decides that a numeric comparison is intended. When it encounters a property
+            // value that can't be parsed as a number, it treats it as numeric 0 rather than
+            // throwing.
+            RunAndVerifyCount(numResults, "properties.name == 0");
         }
 
         // The above tests cover all but one code block in the underlying PropertyBagPropertyEvaluator.

@@ -4,6 +4,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -16,10 +17,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
         internal const string ResultPropertyPrefix = "properties.";
         internal const string RulePropertyPrefix = "rule.properties.";
 
-        internal const string IntegerType = "n";
-        internal const string FloatType = "f";
-        internal const string StringType = "s";
-
         private readonly string _propertyName;
         private readonly bool _propertyBelongsToRule;
         private readonly IExpressionEvaluator<Result> _evaluator;
@@ -28,7 +25,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
             @$"^
                 (?<prefix>properties\.|rule\.properties\.)
                 (?<name>.+?)
-                (:(?<type>.))?
                 $",
             RegexOptions.IgnoreCase | RegexOptions.CultureInvariant | RegexOptions.Compiled | RegexOptions.ExplicitCapture | RegexOptions.IgnorePatternWhitespace);
 
@@ -52,30 +48,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
                     nameof(term));
             }
 
-            string type = match.Groups["type"].Value;
-            if (type.Equals(string.Empty, StringComparison.OrdinalIgnoreCase) ||
-                type.Equals(StringType, StringComparison.OrdinalIgnoreCase))
-            {
-                _evaluator = new StringEvaluator<Result>(GetProperty<string>, term, StringComparison.OrdinalIgnoreCase);
-            }
-            else if (type.Equals(IntegerType, StringComparison.OrdinalIgnoreCase))
-            {
-                _evaluator = new LongEvaluator<Result>(GetProperty<long>, term);
-            }
-            else if (type.Equals(FloatType, StringComparison.OrdinalIgnoreCase))
-            {
-                _evaluator = new DoubleEvaluator<Result>(GetProperty<double>, term);
-            }
-            else
-            {
-                throw new ArgumentException(
-                    string.Format(
-                        CultureInfo.CurrentCulture,
-                        SdkResources.ErrorInvalidQueryPropertyType,
-                        "'" + string.Join("', '", StringType, IntegerType, FloatType) + "'",
-                    nameof(term)));
-            }
+            _evaluator = CreateEvaluator(term);
         }
+
+        // Create an appropriate evaluator object for the specified term. For operators that apply
+        // only to strings (":" (contains), "|>" (startswith), or ">|" (endswith), always create
+        // a string evaluator.  All other operators (==, !=, >, <, etc.) can apply to both strings
+        // and numbers. If the value being compared parses as a number, assume that a numeric
+        // comparison was intended, and create a numeric evaluator. Otherwise, create a string evaluator.
+        // This could cause problems if the comparand is string that happens to look like a number.
+        private IExpressionEvaluator<Result> CreateEvaluator(TermExpression term) =>
+           IsStringComparison(term)
+            ? new StringEvaluator<Result>(GetProperty<string>, term, StringComparison.OrdinalIgnoreCase) as IExpressionEvaluator<Result>
+            : new DoubleEvaluator<Result>(GetProperty<double>, term);
+
+        private static readonly ReadOnlyCollection<CompareOperator> s_stringSpecificOperators =
+            new ReadOnlyCollection<CompareOperator>(
+                new CompareOperator[]
+                {
+                    CompareOperator.Contains,
+                    CompareOperator.EndsWith,
+                    CompareOperator.StartsWith
+                });
+
+        private bool IsStringComparison(TermExpression term)
+            => s_stringSpecificOperators.Contains(term.Operator) || !double.TryParse(term.Value, out _);
 
         private T GetProperty<T>(Result result)
         {
@@ -102,13 +99,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
             {
                 try
                 {
+                    // If the property bag contains two properties whose names differ only
+                    // by case, we'll take the first one.
                     value = holder.GetProperty<T>(propertyNames.First());
                 }
-                catch (JsonSerializationException)
+                catch (JsonReaderException)
                 {
-                    // A serialization exception means (for example) that we tried to compare
-                    // a string-valued property that can't be parsed to an integer with an
-                    // integer value.s
+                    // Catch exceptions due to trying to perform a numeric comparison on a
+                    // property that turns out to have a string value that can't be parsed
+                    // as a number. The result will be that in such a case, the property
+                    // will be treated as if its value were numeric zero.
                 }
             }
 

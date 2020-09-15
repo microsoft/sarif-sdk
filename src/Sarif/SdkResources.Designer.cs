@@ -270,15 +270,6 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Property type specifier must one of: {0}.
-        /// </summary>
-        public static string ErrorInvalidQueryPropertyType {
-            get {
-                return ResourceManager.GetString("ErrorInvalidQueryPropertyType", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to When using the static &apos;Default&apos; instance of GitHelper, you must pass the argument useCache: false to GetRepositoryRoot, which degrades performance. If the performance is not acceptable, create a separate GitHelper instance. You need not pass useCache: true because that is the default..
         /// </summary>
         public static string GitHelperDefaultInstanceDoesNotPermitCaching {
