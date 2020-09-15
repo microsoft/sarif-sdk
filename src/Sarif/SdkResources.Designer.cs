@@ -261,7 +261,7 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Property name must start with either &apos;{0}&apos; or &apos;{1}&apos;..
+        ///   Looks up a localized string similar to Property name must start with one of: {0}.
         /// </summary>
         public static string ErrorInvalidQueryPropertyPrefix {
             get {
@@ -270,7 +270,7 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Property type specifier must be either &apos;{0}&apos; or &apos;{1}&apos;..
+        ///   Looks up a localized string similar to Property type specifier must one of: {0}.
         /// </summary>
         public static string ErrorInvalidQueryPropertyType {
             get {

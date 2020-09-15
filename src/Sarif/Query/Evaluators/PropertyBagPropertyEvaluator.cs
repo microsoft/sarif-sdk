@@ -48,8 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
                     string.Format(
                         CultureInfo.CurrentCulture,
                         SdkResources.ErrorInvalidQueryPropertyPrefix,
-                        ResultPropertyPrefix,
-                        RulePropertyPrefix),
+                        "'" + string.Join("', '", ResultPropertyPrefix, RulePropertyPrefix)) + "'",
                     nameof(term));
             }
 
@@ -73,9 +72,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
                     string.Format(
                         CultureInfo.CurrentCulture,
                         SdkResources.ErrorInvalidQueryPropertyType,
-                        StringType,
-                        IntegerType),
-                    nameof(term));
+                        "'" + string.Join("', '", StringType, IntegerType, FloatType) + "'",
+                    nameof(term)));
             }
         }
 
