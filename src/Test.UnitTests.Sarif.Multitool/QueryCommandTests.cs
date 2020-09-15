@@ -105,6 +105,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
+        public void QueryCommand_ReadsFloatProperty()
+        {
+            const string FilePath = "property-bag-queries.sarif";
+            File.WriteAllText(FilePath, Extractor.GetResourceText($"QueryCommand.{FilePath}"));
+
+            RunAndVerifyCount(2, new QueryOptions { Expression = "properties.confidence:f >= 0.95", InputFilePath = FilePath });
+        }
+
+        [Fact]
         public void QueryCommand_TreatsUnparseableValueAsHavingTheDefaultValue()
         {
             const string FilePath = "property-bag-queries.sarif";

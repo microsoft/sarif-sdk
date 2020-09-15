@@ -73,7 +73,7 @@
           },
           "properties": {
             "comment": "No 'name' property.",
-            "Confidence": "5.0"
+            "SomeOtherProperty": "5.0"
           }
         },
         {
@@ -101,6 +101,36 @@
           },
           "properties": {
             "count": 54
+          }
+        },
+        {
+          "ruleId": "TEST1001",
+          "ruleIndex": 0,
+          "message": {
+            "text": "Message."
+          },
+          "properties": {
+            "confidence": 0.89
+          }
+        },
+        {
+          "ruleId": "TEST1001",
+          "ruleIndex": 0,
+          "message": {
+            "text": "Message."
+          },
+          "properties": {
+            "confidence": 0.95
+          }
+        },
+        {
+          "ruleId": "TEST1001",
+          "ruleIndex": 0,
+          "message": {
+            "text": "Message."
+          },
+          "properties": {
+            "confidence": 0.96
           }
         },
         {

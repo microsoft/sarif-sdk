@@ -17,6 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
         internal const string RulePropertyPrefix = "rule.properties.";
 
         internal const string IntegerType = "n";
+        internal const string FloatType = "f";
         internal const string StringType = "s";
 
         private readonly string _propertyName;
@@ -61,6 +62,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
             else if (type.Equals(IntegerType, StringComparison.OrdinalIgnoreCase))
             {
                 _evaluator = new LongEvaluator<Result>(GetProperty<long>, term);
+            }
+            else if (type.Equals(FloatType, StringComparison.OrdinalIgnoreCase))
+            {
+                _evaluator = new DoubleEvaluator<Result>(GetProperty<double>, term);
             }
             else
             {
