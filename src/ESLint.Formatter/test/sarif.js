@@ -67,6 +67,7 @@ describe("formatter:sarif", () => {
 
             assert.strictEqual(log.runs[0].tool.driver.name, "ESLint");
             assert.strictEqual(log.runs[0].tool.driver.informationUri, "https://eslint.org");
+            assert.strictEqual(log.runs[0].tool.driver.version, undefined);
         })
     });
 

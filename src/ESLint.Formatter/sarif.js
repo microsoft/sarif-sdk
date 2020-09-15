@@ -9,11 +9,27 @@ const lodash = require("lodash");
 const fs = require("fs");
 const utf8 = require("utf8");
 const jschardet = require("jschardet");
-const url = require('url')
+const url = require('url');
 
 //------------------------------------------------------------------------------
 // Helper Functions
 //------------------------------------------------------------------------------
+
+/**
+ * Returns the version of used eslint package
+ * @returns {string} eslint version or undefined
+ * @private
+ */
+function getESLintVersion() {
+    try {
+        // Resolve ESLint relative to main entry script, not the formatter
+        const { ESLint } = require.main.require('eslint');
+        return ESLint.version;
+    } catch (err) {
+        // Formatter was not called from eslint, return undefined
+        return undefined;
+    }
+}
 
 /**
  * Returns the severity of warning or error
@@ -51,6 +67,11 @@ module.exports = function (results, data) {
             }
         ]
     };
+
+    const eslintVersion = getESLintVersion();
+    if (typeof eslintVersion !== "undefined") {
+        sarifLog.runs[0].tool.driver.version = eslintVersion;
+    }
 
     const sarifFiles = {};
     const sarifArtifactIndices = {};
