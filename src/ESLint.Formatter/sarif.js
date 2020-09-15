@@ -145,14 +145,16 @@ module.exports = function (results, data) {
                                 // Create a new entry in the rules dictionary.
                                 sarifRules[message.ruleId] = {
                                     id: message.ruleId,
-                                    shortDescription: {
-                                        text: meta.docs.description
-                                    },
                                     helpUri: meta.docs.url,
                                     properties: {
                                         category: meta.docs.category
                                     }
                                 };
+                                if (meta.docs.description) {
+                                    sarifRules[message.ruleId].shortDescription = {
+                                        text: meta.docs.description
+                                    };
+                                }
                             }
                         }
 
@@ -179,9 +181,12 @@ module.exports = function (results, data) {
                     }
 
                     if (message.line > 0 || message.column > 0) {
-                        sarifRepresentation.locations[0].physicalLocation.region = {
-                            startLine: message.line,
-                            startColumn: message.column
+                        sarifRepresentation.locations[0].physicalLocation.region = {};
+                        if (message.line > 0) {
+                            sarifRepresentation.locations[0].physicalLocation.region.startLine = message.line;
+                        }
+                        if (message.column > 0) {
+                            sarifRepresentation.locations[0].physicalLocation.region.startColumn = message.column;
                         };
                     }
 

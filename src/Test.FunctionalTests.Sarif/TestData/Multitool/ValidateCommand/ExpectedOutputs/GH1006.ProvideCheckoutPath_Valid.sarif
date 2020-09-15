@@ -16,7 +16,7 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.DSP1003.ProvideRequiredRegionProperties_Valid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.GH1006.ProvideCheckoutPath_Valid.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }

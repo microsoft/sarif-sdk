@@ -15,18 +15,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
     public class ReviewArraysThatExceedConfigurableDefaults : SarifValidationSkimmerBase
     {
         /// <summary>
-        /// DSP1004
+        /// GH1004
         /// </summary>
         public override string Id => RuleId.ReviewArraysThatExceedConfigurableDefaults;
 
-        // The GitHub Developer Security Portal limits the amount of information it displays. There
+        // GitHub Advanced Security code scanning limits the amount of information it displays. There
         // are limits on the number of runs per log file, rules per run, results per run, locations
         // per result, code flows per result, and steps per code flow. You can provide a configuration
         // file at the root of your repository to specify higher limits.
-        public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.DSP1004_ReviewArraysThatExceedConfigurableDefaults_FullDescription_Text };
+        public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.GH1004_ReviewArraysThatExceedConfigurableDefaults_FullDescription_Text };
 
         protected override IEnumerable<string> MessageResourceNames => new string[] {
-            nameof(RuleResources.DSP1004_ReviewArraysThatExceedConfigurableDefaults_Error_Default_Text)
+            nameof(RuleResources.GH1004_ReviewArraysThatExceedConfigurableDefaults_Error_Default_Text)
         };
 
         public override FailureLevel DefaultLevel => FailureLevel.Error;
@@ -105,12 +105,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             if (actualSize.HasValue && actualSize.Value > s_arraySizeLimitDictionary[dictionaryKey])
             {
                 // {0}: This array contains {1} element(s), which exceeds the default limit of {2}
-                // imposed by the GitHub Developer Security Portal. The portal will only display
+                // imposed by GitHub Advanced Security code scanning. GitHub will only display
                 // information up to that limit. You can provide a configuration file at the root
                 // of your repository to specify a higher limit.
                 LogResult(
                     arrayPointer,
-                    nameof(RuleResources.DSP1004_ReviewArraysThatExceedConfigurableDefaults_Error_Default_Text),
+                    nameof(RuleResources.GH1004_ReviewArraysThatExceedConfigurableDefaults_Error_Default_Text),
                     actualSize.Value.ToString(CultureInfo.InvariantCulture),
                     s_arraySizeLimitDictionary[dictionaryKey].ToString(CultureInfo.InvariantCulture));
             }

@@ -8,17 +8,17 @@
           "name": "SARIF Functional Testing",
           "rules": [
             {
-              "id": "DSP1007",
+              "id": "GH1007",
               "name": "ProvideRequiredRelatedLocationProperties",
               "shortDescription": {
-                "text": "The GitHub Developer Security Portal (DSP) will reject a SARIF file that includes a \"related location\" with no 'message' property."
+                "text": "GitHub Advanced Security code scanning will reject a SARIF file that includes a \"related location\" with no 'message' property."
               },
               "fullDescription": {
-                "text": "The GitHub Developer Security Portal (DSP) will reject a SARIF file that includes a \"related location\" with no 'message' property. This is a bug in the DSP. You can set 'message' to an empty string if you don't have anything else to say about the location."
+                "text": "GitHub Advanced Security code scanning will reject a SARIF file that includes a \"related location\" with no 'message' property. This is a bug in GitHub. You can set 'message' to an empty string if you don't have anything else to say about the location."
               },
               "messageStrings": {
                 "Error_Default": {
-                  "text": "{0}: This related location does not have a 'message' property, so the the GitHub Developer Security Portal (DSP) will reject the entire log file. This is a bug in the DSP. You can set 'message' to an empty string if you don't have anything else to say about the location."
+                  "text": "{0}: This related location does not have a 'message' property, so GitHub Advanced Security code scanning will reject the entire log file. This is a bug in GitHub. You can set 'message' to an empty string if you don't have anything else to say about the location."
                 }
               },
               "defaultConfiguration": {
@@ -38,14 +38,14 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.DSP1007.ProvideRequiredRelatedLocationProperties_Invalid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.GH1007.ProvideRequiredRelatedLocationProperties_Invalid.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }
       ],
       "results": [
         {
-          "ruleId": "DSP1007",
+          "ruleId": "GH1007",
           "ruleIndex": 0,
           "level": "error",
           "message": {
