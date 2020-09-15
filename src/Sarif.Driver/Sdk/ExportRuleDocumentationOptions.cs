@@ -5,13 +5,13 @@ using CommandLine;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
-    [Verb("export-rule-documentation", HelpText = "Export the documentation for the validation rules to a Markdown file.")]
+    [Verb("export-rule-documentation", HelpText = "Export the documentation for the analysis rules to a Markdown file.")]
     public class ExportRuleDocumentationOptions
     {
         [Option(
                'o',
                "output-file-path",
-               HelpText = "Path to the generated Markdown file. Default: ValidationRules.md in the current directory.")]
+               HelpText = "Path to the generated Markdown file. Default: RulesDocumentation.md in the current directory.")]
         public string OutputFilePath { get; internal set; }
     }
 }
