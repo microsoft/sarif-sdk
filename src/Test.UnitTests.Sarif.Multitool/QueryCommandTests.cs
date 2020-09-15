@@ -7,8 +7,10 @@ using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
-    public class QueryCommandTests : QueryCommandTestsBase
+    public class QueryCommandTests
     {
+        private static readonly ResourceExtractor Extractor = new ResourceExtractor(typeof(QueryCommandTests));
+
         [Fact]
         public void QueryCommand_Basics()
         {
@@ -45,6 +47,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             string expected = Extractor.GetResourceText("QueryCommand.elfie-arriba.CSCAN0020.sarif");
             string actual = File.ReadAllText(outputFilePath);
             Assert.Equal(expected, actual);
+        }
+
+        private void RunAndVerifyCount(int expectedCount, QueryOptions options)
+        {
+            options.ReturnCount = true;
+            int exitCode = new QueryCommand().RunWithoutCatch(options);
+            Assert.Equal(expectedCount, exitCode);
         }
     }
 }

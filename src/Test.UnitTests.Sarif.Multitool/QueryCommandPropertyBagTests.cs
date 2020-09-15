@@ -11,46 +11,44 @@ using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
-    public class QueryCommandPropertyBagTests : QueryCommandTestsBase
+    public class QueryCommandPropertyBagTests : IClassFixture<QueryCommandPropertyBagTests.TestFixture>
     {
+        private const string FilePath = "property-bag-queries.sarif";
+
+        public class TestFixture
+        {
+            public TestFixture()
+            {
+                ResourceExtractor extractor = new ResourceExtractor(typeof(QueryCommandPropertyBagTests));
+                File.WriteAllText(FilePath, extractor.GetResourceText($"QueryCommand.{FilePath}"));
+            }
+        }
+
         [Fact]
         public void QueryCommand_CanAccessResultAndRulePropertyBags()
         {
-            const string FilePath = "property-bag-queries.sarif";
-            File.WriteAllText(FilePath, Extractor.GetResourceText($"QueryCommand.{FilePath}"));
-
-            RunAndVerifyCount(2, new QueryOptions() { Expression = "properties.name == 'Terisa'", InputFilePath = FilePath });
-            RunAndVerifyCount(2, new QueryOptions() { Expression = "rule.properties.Category == 'security'", InputFilePath = FilePath });
+            RunAndVerifyCount(2, "properties.name == 'Terisa'");
+            RunAndVerifyCount(2, "rule.properties.Category == 'security'");
         }
 
         [Fact]
         public void QueryCommand_ComparesPropertyBagPropertyNamesCaseInsensitively()
         {
-            const string FilePath = "property-bag-queries.sarif";
-            File.WriteAllText(FilePath, Extractor.GetResourceText($"QueryCommand.{FilePath}"));
-
-            RunAndVerifyCount(2, new QueryOptions() { Expression = "properties.nAmE == 'Terisa'", InputFilePath = FilePath });
-            RunAndVerifyCount(2, new QueryOptions() { Expression = "rule.properties.CaTegORy == 'security'", InputFilePath = FilePath });
+            RunAndVerifyCount(2, "properties.nAmE == 'Terisa'");
+            RunAndVerifyCount(2, "rule.properties.CaTegORy == 'security'");
         }
 
         [Fact]
         public void QueryCommand_AcceptsOptionalStringTypeSpecifier()
         {
-            const string FilePath = "property-bag-queries.sarif";
-            File.WriteAllText(FilePath, Extractor.GetResourceText($"QueryCommand.{FilePath}"));
-
-            RunAndVerifyCount(2, new QueryOptions() { Expression = "properties.name:s == 'Terisa'", InputFilePath = FilePath });
-            RunAndVerifyCount(2, new QueryOptions() { Expression = "rule.properties.Category:s == 'security'", InputFilePath = FilePath });
+            RunAndVerifyCount(2, "properties.name:s == 'Terisa'");
+            RunAndVerifyCount(2, "rule.properties.Category:s == 'security'");
         }
 
         [Fact]
         public void QueryCommand_RejectsUnknownTypeSpecifier()
         {
-            const string FilePath = "property-bag-queries.sarif";
-            File.WriteAllText(FilePath, Extractor.GetResourceText($"QueryCommand.{FilePath}"));
-
-            var options = new QueryOptions { Expression = "properties.name:x == 'Terisa'", InputFilePath = FilePath };
-            Action action = () => new QueryCommand().RunWithoutCatch(options);
+            Action action = () => RunAndVerifyCount(2, "properties.name:x == 'Terisa'");
 
             action.Should().Throw<ArgumentException>();
         }
@@ -58,34 +56,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         [Fact]
         public void QueryCommand_ReadsIntegerProperty()
         {
-            const string FilePath = "property-bag-queries.sarif";
-            File.WriteAllText(FilePath, Extractor.GetResourceText($"QueryCommand.{FilePath}"));
-
-            RunAndVerifyCount(1, new QueryOptions { Expression = "properties.count:n == 42", InputFilePath = FilePath });
+            RunAndVerifyCount(1, "properties.count:n == 42");
         }
 
         [Fact]
         public void QueryCommand_ReadsFloatProperty()
         {
-            const string FilePath = "property-bag-queries.sarif";
-            File.WriteAllText(FilePath, Extractor.GetResourceText($"QueryCommand.{FilePath}"));
-
-            RunAndVerifyCount(2, new QueryOptions { Expression = "properties.confidence:f >= 0.95", InputFilePath = FilePath });
+            RunAndVerifyCount(2, "properties.confidence:f >= 0.95");
         }
 
         [Fact]
         public void QueryCommand_TreatsUnparseableValueAsHavingTheDefaultValue()
         {
-            const string FilePath = "property-bag-queries.sarif";
-            File.WriteAllText(FilePath, Extractor.GetResourceText($"QueryCommand.{FilePath}"));
-
             // In this test, all the results will match, so we need to know how many there are.
             SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(File.ReadAllText(FilePath));
             int numResults = sarifLog.Runs[0].Results.Count;
 
             // 'name' is a string-valued property that doesn't parse to an integer. The query evaluator
             // treats it as having the default value.
-            RunAndVerifyCount(numResults, new QueryOptions { Expression = "properties.name:n == 0", InputFilePath = FilePath });
+            RunAndVerifyCount(numResults, "properties.name:n == 0");
         }
 
         // The above tests cover all but one code block in the underlying PropertyBagPropertyEvaluator.
@@ -101,6 +90,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             Action action = () => new PropertyBagPropertyEvaluator(expression);
 
             action.Should().Throw<ArgumentException>();
+        }
+
+        private void RunAndVerifyCount(int expectedCount, string expression)
+        {
+            var options = new QueryOptions
+            {
+                Expression = expression,
+                InputFilePath = FilePath,
+                ReturnCount = true
+            };
+
+            int exitCode = new QueryCommand().RunWithoutCatch(options);
+            exitCode.Should().Be(expectedCount);
         }
     }
 }
