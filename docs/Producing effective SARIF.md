@@ -105,4 +105,4 @@ Rules that describe violations of **SHALL**/**SHALL NOT** requirements of the [S
 
 ---
 
-For documentation on all existing SARIF validation rules, please see [RulesDocumentation.md](ValidationRules.md).
+For documentation on all existing SARIF validation rules, please see [RulesDocumentation.md](RulesDocumentation.md).
