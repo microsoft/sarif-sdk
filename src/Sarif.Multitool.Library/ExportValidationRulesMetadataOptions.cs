@@ -6,7 +6,7 @@ using Microsoft.CodeAnalysis.Sarif.Driver;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
-    [Verb("export-validation-rules", HelpText = "Export rules metadata to a SARIF or SonarQube XML file.")]
+    [Verb("export-validation-rules", HelpText = "Export validation rules metadata to a SARIF or SonarQube XML file.")]
     public class ExportValidationRulesMetadataOptions : ExportRulesMetadataOptions
     {
     }
