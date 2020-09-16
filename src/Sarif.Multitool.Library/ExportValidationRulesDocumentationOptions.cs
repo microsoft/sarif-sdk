@@ -5,7 +5,7 @@ using CommandLine;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
-    [Verb("export-validation-rules-documentation", HelpText = "Export the documentation for the analysis rules to a Markdown file.")]
+    [Verb("export-validation-rules-documentation", HelpText = "Export the documentation for the validation rules to a Markdown file.")]
     public class ExportValidationRulesDocumentationOptions : ExportRulesDocumentationOptions
     {
     }

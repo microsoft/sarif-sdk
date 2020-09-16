@@ -48,7 +48,6 @@
     <None Include="default.configuration.xml" Pack="true" PackagePath="lib/netstandard2.0;lib/net461" CopyToOutputDirectory="PreserveNewest" />
     <None Include="..\..\policies\*" Pack="true" PackagePath="policies" />
     <None Include="**\*.cs" Pack="true" PackagePath="src" />
-    <None Remove="ExportValidationRulesDocumentationOptions.cs" />
     <None Include="..\ReleaseHistory.md" Pack="true" PackagePath="/" />
   </ItemGroup>
 
