@@ -3,11 +3,12 @@
 
 using System.Collections.Generic;
 using System.Reflection;
+
 using Microsoft.CodeAnalysis.Sarif.Driver;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
-    internal class ExportRulesMetadataCommand : ExportRulesMetadataCommandBase
+    public class ExportValidationRulesMetadataCommand : ExportRulesMetadataCommandBase
     {
         public override IEnumerable<Assembly> DefaultPlugInAssemblies
         {

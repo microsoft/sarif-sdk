@@ -6,8 +6,7 @@ using Microsoft.CodeAnalysis.Sarif.Driver;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
-    [Verb("export-validation-rules-documentation", HelpText = "Export the documentation for the validation rules to a Markdown file.")]
-    public class ExportValidationRulesDocumentationOptions : ExportRulesDocumentationOptions
+    public class ExportValidationConfigurationCommand : ExportConfigurationCommandBase
     {
     }
 }

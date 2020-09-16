@@ -2,7 +2,6 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using CommandLine;
-using Microsoft.CodeAnalysis.Sarif.Driver;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
@@ -14,7 +13,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public static int Main(string[] args)
         {
             return Parser.Default.ParseArguments<
+                ExportValidationConfigurationOptions,
                 ExportValidationRulesDocumentationOptions,
+                ExportValidationRulesMetadataOptions,
                 ValidateOptions,
                 ConvertOptions,
                 RewriteOptions,
@@ -28,7 +29,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 ResultMatchSetOptions,
                 FileWorkItemsOptions>(args)
                 .MapResult(
+                (ExportValidationConfigurationOptions options) => new ExportValidationConfigurationCommand().Run(options),
                 (ExportValidationRulesDocumentationOptions options) => new ExportValidationRulesDocumentationCommand().Run(options),
+                (ExportValidationRulesMetadataOptions options) => new ExportValidationRulesMetadataCommand().Run(options),
                 (ValidateOptions validateOptions) => new ValidateCommand().Run(validateOptions),
                 (ConvertOptions convertOptions) => new ConvertCommand().Run(convertOptions),
                 (RewriteOptions rewriteOptions) => new RewriteCommand().Run(rewriteOptions),
