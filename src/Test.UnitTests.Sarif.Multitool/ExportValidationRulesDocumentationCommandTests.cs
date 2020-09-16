@@ -9,7 +9,7 @@ using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
-    public class ExportRuleDocumentationCommandTests
+    public class ExportValidationRulesDocumentationCommandTests
     {
         [Fact]
         public void BuildRule_GeneratesExpectedMarkdown()
@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             var resourceExtractor = new ResourceExtractor(this.GetType());
             var sb = new StringBuilder();
             var testRule = new TestRule();
-            var command = new ExportRuleDocumentationCommand();
+            var command = new ExportValidationRulesDocumentationCommand();
             command.BuildRule(testRule, sb);
 
             string expectedMarkdown = resourceExtractor.GetResourceText("Test.md");

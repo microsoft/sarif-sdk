@@ -4,34 +4,29 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 
-using Microsoft.CodeAnalysis.Sarif.Driver;
-using Microsoft.CodeAnalysis.Sarif.Multitool.Rules;
-
-namespace Microsoft.CodeAnalysis.Sarif.Multitool
+namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
-    public class ExportRuleDocumentationCommand : CommandBase
+    public class ExportRulesDocumentationCommandBase<TContext> : PlugInDriverCommand<ExportRulesDocumentationOptions>
     {
         private readonly IFileSystem _fileSystem;
 
-        public ExportRuleDocumentationCommand(IFileSystem fileSystem = null)
+        public ExportRulesDocumentationCommandBase(IFileSystem fileSystem = null)
         {
             _fileSystem = fileSystem ?? new FileSystem();
         }
 
-        public int Run(ExportRuleDocumentationOptions options)
+        public override int Run(ExportRulesDocumentationOptions options)
         {
             try
             {
-                var rules = CompositionUtilities.GetExports<SarifValidationSkimmerBase>(
-                    new Assembly[] { Assembly.GetExecutingAssembly() }).ToList();
+                var rules = CompositionUtilities.GetExports<Skimmer<TContext>>(DefaultPlugInAssemblies).ToList();
 
                 var sb = new StringBuilder();
                 sb.AppendLine($"# Rules{Environment.NewLine}");
 
-                foreach (SarifValidationSkimmerBase rule in rules)
+                foreach (Skimmer<TContext> rule in rules)
                 {
                     BuildRule(rule, sb);
                 }
@@ -47,7 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             return SUCCESS;
         }
 
-        internal void BuildRule(SarifValidationSkimmerBase rule, StringBuilder sb)
+        internal void BuildRule(Skimmer<TContext> rule, StringBuilder sb)
         {
             sb.AppendLine($"## Rule `{rule.Moniker}`{Environment.NewLine}");
             sb.AppendLine($"### Description{Environment.NewLine}");
