@@ -268,9 +268,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
-        /// Deletes a file from a specified path.
+        /// Deletes the specified file.
         /// </summary>
-        /// <param name="path">File System path of file to delete</param>
+        /// <param name="path">
+        /// The name of the file to be deleted. Wildcard characters are not supported.
+        /// </param>
         public void DeleteFile(string path)
         {
             File.Delete(path);

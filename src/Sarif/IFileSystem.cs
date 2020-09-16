@@ -219,9 +219,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         void DeleteDirectory(string path, bool recursive = false);
 
         /// <summary>
-        /// Deletes a file from a specified path.
+        /// Deletes the specified file.
         /// </summary>
-        /// <param name="path">File System path of file to delete</param>
+        /// <param name="path">
+        /// The name of the file to be deleted. Wildcard characters are not supported.
+        /// </param>
         void DeleteFile(string path);
     }
 }
