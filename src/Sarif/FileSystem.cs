@@ -266,5 +266,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             Directory.Delete(path, recursive);
         }
+
+        /// <summary>
+        /// Deletes a file from a specified path.
+        /// </summary>
+        /// <param name="path">File System path of file to delete</param>
+        public void DeleteFile(string path)
+        {
+            File.Delete(path);
+        }
     }
 }
