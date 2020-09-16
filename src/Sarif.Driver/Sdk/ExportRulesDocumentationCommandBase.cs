@@ -8,16 +8,16 @@ using System.Text;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
-    public class ExportRuleDocumentationCommandBase<TContext> : PlugInDriverCommand<ExportRuleDocumentationOptions>
+    public class ExportRulesDocumentationCommandBase<TContext> : PlugInDriverCommand<ExportRulesDocumentationOptions>
     {
         private readonly IFileSystem _fileSystem;
 
-        public ExportRuleDocumentationCommandBase(IFileSystem fileSystem = null)
+        public ExportRulesDocumentationCommandBase(IFileSystem fileSystem = null)
         {
             _fileSystem = fileSystem ?? new FileSystem();
         }
 
-        public override int Run(ExportRuleDocumentationOptions options)
+        public override int Run(ExportRulesDocumentationOptions options)
         {
             try
             {

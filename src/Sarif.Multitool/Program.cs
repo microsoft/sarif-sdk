@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public static int Main(string[] args)
         {
             return Parser.Default.ParseArguments<
-                ExportRuleDocumentationOptions,
+                ExportRulesDocumentationOptions,
                 ValidateOptions,
                 ConvertOptions,
                 RewriteOptions,
@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 ResultMatchSetOptions,
                 FileWorkItemsOptions>(args)
                 .MapResult(
-                (ExportRuleDocumentationOptions options) => new ExportRuleDocumentationCommand().Run(options),
+                (ExportRulesDocumentationOptions options) => new ExportValidationRulesDocumentationCommand().Run(options),
                 (ValidateOptions validateOptions) => new ValidateCommand().Run(validateOptions),
                 (ConvertOptions convertOptions) => new ConvertCommand().Run(convertOptions),
                 (RewriteOptions rewriteOptions) => new RewriteCommand().Run(rewriteOptions),
