@@ -9,7 +9,7 @@ using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
-    public class ExportRuleDocumentationCommandTests
+    public class ExportValidationRulesDocumentationCommandTests
     {
         [Fact]
         public void BuildRule_GeneratesExpectedMarkdown()
