@@ -34,5 +34,8 @@
     "lodash": "^4.17.14",
     "mocha": "^7.1.2",
     "utf8": "^3.0.0"
+  },
+  "devDependencies": {
+    "rewire": "^5.0.0"
   }
 }
