@@ -14,7 +14,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         [Fact]
         public void CommandsDoNotHaveConflictingShortNames()
         {
-            Assembly asm = typeof(Microsoft.CodeAnalysis.Sarif.Multitool.Program).Assembly;
+            // Choose an arbitrary type in the Multitool library assembly to get a reference to
+            // that assembly.
+            Assembly asm = typeof(AbsoluteUriCommand).Assembly;
 
             // Reflect over all 'Options' types in Sarif.Multitool and verify none have multiple options
             // with the same ShortName.
