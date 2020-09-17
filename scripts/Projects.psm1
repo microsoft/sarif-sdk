@@ -43,7 +43,7 @@ $Projects.Tests = @(
     "Test.UnitTests.Sarif",
     "Test.UnitTests.Sarif.Converters",
     "Test.UnitTests.Sarif.Driver",    
-    "Test.UnitTests.Sarif.Multitool",
+    "Test.UnitTests.Sarif.Multitool.Library",
     "Test.UnitTests.Sarif.WorkItems",
     "Test.Utilities.Sarif"
     )
