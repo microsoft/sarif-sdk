@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             return Parser.Default.ParseArguments<
                 ExportValidationConfigurationOptions,
-                ExportValidationRulesDocumentationOptions,
+                ExportValidationDocumentationOptions,
                 ExportValidationRulesMetadataOptions,
                 ValidateOptions,
                 ConvertOptions,
@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 FileWorkItemsOptions>(args)
                 .MapResult(
                 (ExportValidationConfigurationOptions options) => new ExportValidationConfigurationCommand().Run(options),
-                (ExportValidationRulesDocumentationOptions options) => new ExportValidationRulesDocumentationCommand().Run(options),
+                (ExportValidationDocumentationOptions options) => new ExportValidationDocumentationCommand().Run(options),
                 (ExportValidationRulesMetadataOptions options) => new ExportValidationRulesMetadataCommand().Run(options),
                 (ValidateOptions validateOptions) => new ValidateCommand().Run(validateOptions),
                 (ConvertOptions convertOptions) => new ConvertCommand().Run(convertOptions),
