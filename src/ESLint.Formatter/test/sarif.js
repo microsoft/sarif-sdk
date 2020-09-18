@@ -60,7 +60,7 @@ describe("formatter:sarif", () => {
     describe("when run", () => {
         const code = [];
 
-        it ("should return a log with correct sarif version and tool metadata", () => {
+        it ("should return a log with correct SARIF version and tool metadata", () => {
             const log = JSON.parse(formatter(code, null));
 
             assert.strictEqual(log['$schema'], 'http://json.schemastore.org/sarif-2.1.0-rtm.5');
