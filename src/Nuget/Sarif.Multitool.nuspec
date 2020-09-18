@@ -27,14 +27,14 @@
           />
     <file src="bld\bin\$platform$_$configuration$\Sarif.Multitool\Publish\net461\**"
           target="tools\net461"
-          exclude="bld\bin\$platform$_$configuration$\Sarif.Multitool\Publish\net461\Sarif*;bld\bin\$platform$_$configuration$\Sarif.Multitool\Publish\net461\WorkItems*;"
+          exclude="bld\bin\$platform$_$configuration$\Sarif.Multitool\Publish\net461\Sarif*;bld\bin\$platform$_$configuration$\Sarif.Multitool\Publish\net461\WorkItems.dll;"
           />
     <file src="bld\bin\Signing\net461\**"
           target="tools\net461"
           />
     <file src="bld\bin\$platform$_$configuration$\Sarif.Multitool\Publish\netcoreapp2.1\**"
           target="tools\netcoreapp2.1"
-          exclude="bld\bin\$platform$_$configuration$\Sarif.Multitool\Publish\netcoreapp2.1\Sarif*.dll;bld\bin\$platform$_$configuration$\Sarif.Multitool\Publish\netcoreapp2.1\WorkItems*"
+          exclude="bld\bin\$platform$_$configuration$\Sarif.Multitool\Publish\netcoreapp2.1\Sarif*.dll;bld\bin\$platform$_$configuration$\Sarif.Multitool\Publish\netcoreapp2.1\WorkItems.dll"
           />
     <file src="bld\bin\Signing\netcoreapp2.1\**"
           target="tools\netcoreapp2.1"
@@ -46,7 +46,7 @@
     <!-- netcoreapp2.1 packs to tools\TargetFramework\any\* for compatibility with dotnet tool install -->
     <file src="bld\bin\$platform$_$configuration$\Sarif.Multitool\Publish\netcoreapp2.1\**"
           target="tools\netcoreapp2.1\any"
-          exclude="bld\bin\$platform$_$configuration$\Sarif.Multitool\Publish\netcoreapp2.1\Sarif*.dll"
+          exclude="bld\bin\$platform$_$configuration$\Sarif.Multitool\Publish\netcoreapp2.1\Sarif*.dll;bld\bin\$platform$_$configuration$\Sarif.Multitool\Publish\netcoreapp2.1\WorkItems.dll"
           />
     <file src="bld\bin\Signing\netcoreapp2.1\**"
           target="tools\netcoreapp2.1\any"
