@@ -11,7 +11,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     public class ExportRulesDocumentationCommandBase<TContext> : PlugInDriverCommand<ExportRulesDocumentationOptions>
     {
-        private const string NoRuleDescription = "No description available.";
         private const string DefaultOutputFileName = "Rules.md";
         private readonly IFileSystem _fileSystem;
         private static readonly Regex s_friendlyNameRegex = new Regex(@"(?<level>Error|Warning|Note|None)_(?<friendlyName>[^_]+)$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
@@ -54,7 +53,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 ?? rule.FullDescription?.Text 
                 ?? rule.ShortDescription?.Markdown
                 ?? rule.ShortDescription?.Text 
-                ?? NoRuleDescription}{Environment.NewLine}");
+                ?? DriverResources.NoRuleDescription}{Environment.NewLine}");
             sb.AppendLine($"### Messages{Environment.NewLine}");
 
             foreach (KeyValuePair<string, MultiformatMessageString> message in rule.MessageStrings)

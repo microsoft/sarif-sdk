@@ -16,12 +16,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             var tests = new Dictionary<string, SarifValidationSkimmerBase>
             {
-                { "MarkdownFullDescriptionAsDescription.md", new TestRule4() },
-                { "MarkdownShortDescriptionAsDescription.md", new TestRule5() },
+                { "MarkdownFullDescription.md", new TestRule4() },
+                { "MarkdownShortDescription.md", new TestRule5() },
                 { "NoDescription.md", new TestRule3() },
                 { "NonStandardMessageStringKey.md", new TestRule6() },
                 { "StandardMessageStringKey.md", new TestRule1() },
-                { "TextShortDescriptionAsDescription.md", new TestRule2() },
+                { "TextShortDescription.md", new TestRule2() },
             };
 
             var resourceExtractor = new ResourceExtractor(this.GetType());
