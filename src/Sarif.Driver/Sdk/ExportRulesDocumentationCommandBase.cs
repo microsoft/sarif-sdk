@@ -11,8 +11,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     public class ExportRulesDocumentationCommandBase<TContext> : PlugInDriverCommand<ExportRulesDocumentationOptions>
     {
+        private const string NoRuleDescription = "No description available.";
+        private const string DefaultOutputFileName = "Rules.md";
         private readonly IFileSystem _fileSystem;
-        private static readonly Regex s_friendlyNameRegex = new Regex(@"(?<level>Error|Warning|Note|None)_(?<friendlyName>[^_]+)$");
+        private static readonly Regex s_friendlyNameRegex = new Regex(@"(?<level>Error|Warning|Note|None)_(?<friendlyName>[^_]+)$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
         public ExportRulesDocumentationCommandBase(IFileSystem fileSystem = null)
         {
@@ -33,7 +35,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     BuildRule(rule, sb);
                 }
 
-                _fileSystem.WriteAllText(options.OutputFilePath ?? "Rules.md", sb.ToString());
+                _fileSystem.WriteAllText(options.OutputFilePath ?? DefaultOutputFileName, sb.ToString());
             }
             catch (Exception ex)
             {
@@ -48,7 +50,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             sb.AppendLine($"## Rule `{rule.Moniker}`{Environment.NewLine}");
             sb.AppendLine($"### Description{Environment.NewLine}");
-            sb.AppendLine($"{rule.FullDescription.Text ?? rule.ShortDescription.Text ?? "No description available."}{Environment.NewLine}");
+            sb.AppendLine(@$"{rule.FullDescription?.Markdown 
+                ?? rule.FullDescription?.Text 
+                ?? rule.ShortDescription?.Markdown
+                ?? rule.ShortDescription?.Text 
+                ?? NoRuleDescription}{Environment.NewLine}");
             sb.AppendLine($"### Messages{Environment.NewLine}");
 
             foreach (KeyValuePair<string, MultiformatMessageString> message in rule.MessageStrings)
@@ -57,11 +63,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 Match match = s_friendlyNameRegex.Match(message.Key);
                 if (match.Success)
                 {
-                    ruleName = match.Groups[2].Value;
+                    ruleName = match.Groups["friendlyName"].Value;
                 }
 
                 sb.AppendLine($"#### `{ruleName}`: {rule.DefaultLevel}{Environment.NewLine}");
-                sb.AppendLine($"{(string.IsNullOrEmpty(message.Value.Markdown) ? message.Value.Text : message.Value.Markdown)}{Environment.NewLine}");
+                sb.AppendLine($"{message.Value.Markdown ?? message.Value.Text}{Environment.NewLine}");
             }
 
             sb.AppendLine($"---{Environment.NewLine}");

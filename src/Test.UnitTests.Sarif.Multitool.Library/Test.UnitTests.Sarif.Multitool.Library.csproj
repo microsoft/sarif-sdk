@@ -15,9 +15,12 @@
 
   <ItemGroup>
     <None Remove="TestData\ConvertCommand\SemmleQlSample.csv" />
-    <None Remove="TestData\ExportRuleDocumentationCommand\ExpectedOutputs\Test1.md" />
-    <None Remove="TestData\ExportRuleDocumentationCommand\ExpectedOutputs\Test2.md" />
-    <None Remove="TestData\ExportRuleDocumentationCommand\ExpectedOutputs\Test3.md" />
+    <None Remove="TestData\ExportRuleDocumentationCommand\ExpectedOutputs\MarkdownFullDescriptionAsDescription.md" />
+    <None Remove="TestData\ExportRuleDocumentationCommand\ExpectedOutputs\MarkdownShortDescriptionAsDescription.md" />
+    <None Remove="TestData\ExportRuleDocumentationCommand\ExpectedOutputs\NoDescription.md" />
+    <None Remove="TestData\ExportRuleDocumentationCommand\ExpectedOutputs\NonStandardMessageStringKey.md" />
+    <None Remove="TestData\ExportRuleDocumentationCommand\ExpectedOutputs\StandardMessageStringKey.md" />
+    <None Remove="TestData\ExportRuleDocumentationCommand\ExpectedOutputs\TextShortDescriptionAsDescription.md" />
     <None Remove="TestData\MergeCommand\ExpectedOutputs\NoInputFiles.sarif" />
     <None Remove="TestData\PageCommand\elfie-arriba - Copy.sarif" />
     <None Remove="TestData\PageCommand\elfie-arriba.sarif" />
@@ -27,9 +30,12 @@
 
   <ItemGroup>
     <EmbeddedResource Include="TestData\ConvertCommand\SemmleQlSample.csv" />
-    <EmbeddedResource Include="TestData\ExportRuleDocumentationCommand\ExpectedOutputs\Test1.md" />
-    <EmbeddedResource Include="TestData\ExportRuleDocumentationCommand\ExpectedOutputs\Test2.md" />
-    <EmbeddedResource Include="TestData\ExportRuleDocumentationCommand\ExpectedOutputs\Test3.md" />
+    <EmbeddedResource Include="TestData\ExportRuleDocumentationCommand\ExpectedOutputs\NonStandardMessageStringKey.md" />
+    <EmbeddedResource Include="TestData\ExportRuleDocumentationCommand\ExpectedOutputs\StandardMessageStringKey.md" />
+    <EmbeddedResource Include="TestData\ExportRuleDocumentationCommand\ExpectedOutputs\TextShortDescriptionAsDescription.md" />
+    <EmbeddedResource Include="TestData\ExportRuleDocumentationCommand\ExpectedOutputs\MarkdownShortDescriptionAsDescription.md" />
+    <EmbeddedResource Include="TestData\ExportRuleDocumentationCommand\ExpectedOutputs\MarkdownFullDescriptionAsDescription.md" />
+    <EmbeddedResource Include="TestData\ExportRuleDocumentationCommand\ExpectedOutputs\NoDescription.md" />
     <EmbeddedResource Include="TestData\MergeCommand\ExpectedOutputs\NoInputFiles.sarif" />
     <EmbeddedResource Include="TestData\QueryCommand\elfie-arriba.CSCAN0020.sarif" />
     <EmbeddedResource Include="TestData\PageCommand\elfie-arriba.sarif" />

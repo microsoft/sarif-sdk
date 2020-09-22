@@ -6,7 +6,7 @@ short description text
 
 ### Messages
 
-#### `Default_Note_TEST2_TEST0002`: Note
+#### `Default`: Note
 
 # markdown example
 

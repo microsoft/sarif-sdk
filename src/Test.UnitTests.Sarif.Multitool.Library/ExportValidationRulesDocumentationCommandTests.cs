@@ -16,9 +16,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             var tests = new Dictionary<string, SarifValidationSkimmerBase>
             {
-                { "Test1.md", new TestRule1() },
-                { "Test2.md", new TestRule2() },
-                { "Test3.md", new TestRule3() }
+                { "MarkdownFullDescriptionAsDescription.md", new TestRule4() },
+                { "MarkdownShortDescriptionAsDescription.md", new TestRule5() },
+                { "NoDescription.md", new TestRule3() },
+                { "NonStandardMessageStringKey.md", new TestRule6() },
+                { "StandardMessageStringKey.md", new TestRule1() },
+                { "TextShortDescriptionAsDescription.md", new TestRule2() },
             };
 
             var resourceExtractor = new ResourceExtractor(this.GetType());
@@ -51,11 +54,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             public override string Id => "TEST0002";
             public override string Name => "TEST2";
             public override FailureLevel DefaultLevel => FailureLevel.Note;
-            public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = null };
+            public override MultiformatMessageString FullDescription => null;
             public override MultiformatMessageString ShortDescription => new MultiformatMessageString { Text = "short description text" };
             public override IDictionary<string, MultiformatMessageString> MessageStrings => new Dictionary<string, MultiformatMessageString>
             {
-                { "Default_Note_TEST2_TEST0002", new MultiformatMessageString{ Markdown = "# markdown example" } }
+                { "TEST0002_TEST2_Note_Default", new MultiformatMessageString{ Markdown = "# markdown example" } }
             };
         }
 
@@ -64,11 +67,48 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             public override string Id => "TEST0003";
             public override string Name => "TEST3";
             public override FailureLevel DefaultLevel => FailureLevel.Note;
-            public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = null };
-            public override MultiformatMessageString ShortDescription => new MultiformatMessageString { Text = null };
+            public override MultiformatMessageString FullDescription => null;
+            public override MultiformatMessageString ShortDescription => null;
             public override IDictionary<string, MultiformatMessageString> MessageStrings => new Dictionary<string, MultiformatMessageString>
             {
                 { "TEST0003_TEST3_Note_Default", new MultiformatMessageString{ Text="default text"} }
+            };
+        }
+
+        private class TestRule4 : SarifValidationSkimmerBase
+        {
+            public override string Id => "TEST0004";
+            public override string Name => "TEST";
+            public override FailureLevel DefaultLevel => FailureLevel.Note;
+            public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = "full description text", Markdown = "markdown text" };
+            public override IDictionary<string, MultiformatMessageString> MessageStrings => new Dictionary<string, MultiformatMessageString>
+            {
+                { "TEST0004_TEST_Note_Default", new MultiformatMessageString{ Text = "default text"} }
+            };
+        }
+
+        private class TestRule5 : SarifValidationSkimmerBase
+        {
+            public override string Id => "TEST0005";
+            public override string Name => "TEST";
+            public override FailureLevel DefaultLevel => FailureLevel.Note;
+            public override MultiformatMessageString FullDescription => null;
+            public override MultiformatMessageString ShortDescription => new MultiformatMessageString { Text = "short description text", Markdown = "markdown text" };
+            public override IDictionary<string, MultiformatMessageString> MessageStrings => new Dictionary<string, MultiformatMessageString>
+            {
+                { "TEST0005_TEST_Note_Default", new MultiformatMessageString{ Markdown = "# markdown example" } }
+            };
+        }
+
+        private class TestRule6 : SarifValidationSkimmerBase
+        {
+            public override string Id => "TEST0006";
+            public override string Name => "TEST";
+            public override FailureLevel DefaultLevel => FailureLevel.Note;
+            public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = "full description text" };
+            public override IDictionary<string, MultiformatMessageString> MessageStrings => new Dictionary<string, MultiformatMessageString>
+            {
+                { "Default_Note_TEST_TEST0006", new MultiformatMessageString{ Text = "default text" } }
             };
         }
     }
