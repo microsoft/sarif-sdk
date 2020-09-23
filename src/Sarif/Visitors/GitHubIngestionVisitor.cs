@@ -8,11 +8,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
     public class GitHubIngestionVisitor : SarifRewritingVisitor
     {
-        // GitHub requires that every related location have a message. It's not clear why this
-        // requirement exists, as this data is mostly used to build embedded links from
-        // results (where the link anchor text actually resides).
-        private const string PlaceholderRelatedLocationMessage = "[No message provided.]";
-
         // GitHub reportedly has an ingestion limit of 500 issues.
         // Internal static rather than private const to allow a unit test with a practical limit.
         internal static int s_MaxResults = 500;
@@ -157,20 +152,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         public override Result VisitResult(Result node)
         {
-            if (node.RelatedLocations != null)
-            {
-                foreach (Location relatedLocation in node.RelatedLocations)
-                {
-                    if (string.IsNullOrEmpty(relatedLocation.Message?.Text))
-                    {
-                        relatedLocation.Message = new Message
-                        {
-                            Text = PlaceholderRelatedLocationMessage
-                        };
-                    }
-                }
-            }
-
             if (node.Fingerprints != null)
             {
                 // GitHub appears to require that fingerprints be emitted to the

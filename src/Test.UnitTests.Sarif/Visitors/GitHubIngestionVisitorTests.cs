@@ -7,9 +7,9 @@ using Xunit.Abstractions;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
-    public class GitHubDspIngestionVisitorTests : FileDiffingUnitTests
+    public class GitHubIngestionVisitorTests : FileDiffingUnitTests
     {
-        public GitHubDspIngestionVisitorTests(ITestOutputHelper outputHelper) : base(outputHelper) { }
+        public GitHubIngestionVisitorTests(ITestOutputHelper outputHelper) : base(outputHelper) { }
 
         protected override string ConstructTestOutputFromInputResource(string inputResourceName, object parameter)
         {

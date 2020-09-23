@@ -31,9 +31,6 @@
                 "artifactLocation": {
                   "uri": "file2.c"
                 }
-              },
-              "message": {
-                "text": "[No message provided.]"
               }
             }
           ]
