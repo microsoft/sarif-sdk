@@ -43,10 +43,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         }
 
         [Fact]
-        public void GitHubDspIngestionVisitor_RemovesInvocations()
-            => RunTest("WithInvocation.sarif");
-
-        [Fact]
         public void GitHubDspIngestionVisitor_RemovesArtifactsAndRetainsIndirectArtifactLocations()
             => RunTest("WithArtifacts.sarif");
 

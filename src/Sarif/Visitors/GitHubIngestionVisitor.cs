@@ -20,14 +20,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             this.artifacts = node.Artifacts;
             this.threadFlowLocations = node.ThreadFlowLocations;
 
-            // GitHub does not support submitting invocation objects. Invocations
-            // contains potentially sensitive environment details, such as 
-            // account names embedded in paths. Invocations also store 
-            // notifications of catastrophic tool failures, however, which 
-            // means there is current no mechanism for reporting these to
-            // GitHub users in context of the security tab.
-            node.Invocations = null;
-
             if (node.Results != null)
             {
                 int errorsCount = 0;

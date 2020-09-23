@@ -22,13 +22,11 @@
     <None Remove="TestData\GitHubIngestionVisitor\ExpectedOutputs\ThreadFlowLocations.sarif" />
     <None Remove="TestData\GitHubIngestionVisitor\ExpectedOutputs\TooManyResults.sarif" />
     <None Remove="TestData\GitHubIngestionVisitor\ExpectedOutputs\WithArtifacts.sarif" />
-    <None Remove="TestData\GitHubIngestionVisitor\ExpectedOutputs\WithInvocation.sarif" />
     <None Remove="TestData\GitHubIngestionVisitor\Inputs\Fingerprints.sarif" />
     <None Remove="TestData\GitHubIngestionVisitor\Inputs\NonErrorResults.sarif" />
     <None Remove="TestData\GitHubIngestionVisitor\Inputs\ThreadFlowLocations.sarif" />
     <None Remove="TestData\GitHubIngestionVisitor\Inputs\TooManyResults.sarif" />
     <None Remove="TestData\GitHubIngestionVisitor\Inputs\WithArtifacts.sarif" />
-    <None Remove="TestData\GitHubIngestionVisitor\Inputs\WithInvocation.sarif" />
     <None Remove="TestData\GitHubIngestionVisitor\RelatedLocationMessage.sarif" />
     <None Remove="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests-Absolute_TextFiles.sarif" />
     <None Remove="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests-Relative_All.sarif" />
@@ -91,13 +89,11 @@
     <EmbeddedResource Include="TestData\GitHubIngestionVisitor\ExpectedOutputs\NonErrorResults.sarif" />
     <EmbeddedResource Include="TestData\GitHubIngestionVisitor\ExpectedOutputs\ThreadFlowLocations.sarif" />
     <EmbeddedResource Include="TestData\GitHubIngestionVisitor\ExpectedOutputs\WithArtifacts.sarif" />
-    <EmbeddedResource Include="TestData\GitHubIngestionVisitor\ExpectedOutputs\WithInvocation.sarif" />
     <EmbeddedResource Include="TestData\GitHubIngestionVisitor\ExpectedOutputs\TooManyResults.sarif" />
     <EmbeddedResource Include="TestData\GitHubIngestionVisitor\Inputs\NonErrorResults.sarif" />
     <EmbeddedResource Include="TestData\GitHubIngestionVisitor\Inputs\Fingerprints.sarif" />
     <EmbeddedResource Include="TestData\GitHubIngestionVisitor\Inputs\ThreadFlowLocations.sarif" />
     <EmbeddedResource Include="TestData\GitHubIngestionVisitor\Inputs\WithArtifacts.sarif" />
-    <EmbeddedResource Include="TestData\GitHubIngestionVisitor\Inputs\WithInvocation.sarif" />
     <EmbeddedResource Include="TestData\GitHubIngestionVisitor\Inputs\TooManyResults.sarif" />
     <EmbeddedResource Include="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests-Relative_VersionControlInformation.sarif" />
     <EmbeddedResource Include="TestData\Readers\elfie-arriba-utf8-bom.sarif" />
