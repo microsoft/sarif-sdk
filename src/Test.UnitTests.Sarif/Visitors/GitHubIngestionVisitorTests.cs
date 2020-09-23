@@ -51,10 +51,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             => RunTest("WithArtifacts.sarif");
 
         [Fact]
-        public void GitHubDspIngestionVisitor_ProvidesPlaceholderRelatedLocationMessage()
-            => RunTest("RelatedLocationMessage.sarif");
-
-        [Fact]
         public void GitHubDspIngestionVisitor_MovesFingerprintsToPartialFingerprints()
             => RunTest("Fingerprints.sarif");
 
