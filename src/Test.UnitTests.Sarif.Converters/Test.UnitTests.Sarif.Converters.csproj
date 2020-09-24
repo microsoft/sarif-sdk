@@ -2,6 +2,7 @@
 
   <PropertyGroup Label="AssemblyAttributes">
     <AssemblyTitle>SARIF Converters Library Unit Tests</AssemblyTitle>
+    <RootNamespace>Microsoft.CodeAnalysis.Sarif.Converters</RootNamespace>
   </PropertyGroup>
 
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
