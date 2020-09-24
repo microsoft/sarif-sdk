@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         public override void Convert(Stream input, IResultLogWriter output, OptionallyEmittedData dataToInsert)
         {
-            throw new NotImplementedException();
+            input = input ?? throw new ArgumentNullException(nameof(input));
         }
     }
 }
