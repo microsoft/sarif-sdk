@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         /// Helper function that accepts a single baseline and current SARIF log and matches them.
         /// </summary>
         /// <param name="previousLog">Array of SARIF logs representing the baseline run</param>
-        /// <param name="currentLogs">Array of SARIF logs representing the current run</param>
+        /// <param name="currentLog">Array of SARIF logs representing the current run</param>
         /// <returns>A SARIF log with the merged set of results.</returns>
         public SarifLog Match(SarifLog previousLog, SarifLog currentLog)
         {

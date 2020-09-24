@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Creates a SARIF StackFrame instance from a .NET StackFrame instance
         /// </summary>
-        /// <param name="stackTrace"></param>
+        /// <param name="dotNetStackFrame"></param>
         /// <returns></returns>
         public static StackFrame Create(System.Diagnostics.StackFrame dotNetStackFrame)
         {
