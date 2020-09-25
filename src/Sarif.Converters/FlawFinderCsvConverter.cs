@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -21,10 +22,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             using var textReader = new StreamReader(input);
             using var csvReader = new CsvReader(textReader, CultureInfo.InvariantCulture);
-            IList<FlawFinderCsvResult> flawFinderResults =
-                csvReader.GetRecords<FlawFinderCsvResult>().ToList();
 
-            (IList<Result> results, IList<ReportingDescriptor> rules) = ExtractResultsAndRules(flawFinderResults);
+            IList<FlawFinderCsvResult> flawFinderCsvResults = csvReader.GetRecords<FlawFinderCsvResult>().ToList();
+
+            IList <ReportingDescriptor> rules = ExtractRules(flawFinderCsvResults);
+            IList<Result> results = ExtractResults(flawFinderCsvResults);
 
             var run = new Run
             {
@@ -39,31 +41,46 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 Results = results
             };
 
-            // T
             PersistResults(output, results, run);
         }
 
-        private static (IList<Result>, IList<ReportingDescriptor>) ExtractResultsAndRules(IList<FlawFinderCsvResult> flawFinderCsvResults)
+        private static IList<ReportingDescriptor> ExtractRules(IList<FlawFinderCsvResult> flawFinderCsvResults)
         {
-            var results = new List<Result>();
             var rules = new List<ReportingDescriptor>();
+            var ruleIds = new HashSet<string>();
 
             foreach (FlawFinderCsvResult flawFinderCsvResult in flawFinderCsvResults)
             {
-                Result result = SarifResultFromFlawFinderCsvResult(flawFinderCsvResult);
-
-                result.SetProperty(
-                    nameof(flawFinderCsvResult.Level),
-                    flawFinderCsvResult.Level.ToString(CultureInfo.InvariantCulture));
-
-                results.Add(result);
+                if (!ruleIds.Contains(flawFinderCsvResult.CWEs))
+                {
+                    rules.Add(SarifRuleFromFlawFinderCsvResult(flawFinderCsvResult));
+                    ruleIds.Add(flawFinderCsvResult.CWEs);
+                }
             }
 
-            return (results, null);
+            return rules;
         }
 
-        private static Result SarifResultFromFlawFinderCsvResult(FlawFinderCsvResult flawFinderCsvResult) =>
-            new Result
+        private static IList<Result> ExtractResults(IList<FlawFinderCsvResult> flawFinderCsvResults) =>
+            flawFinderCsvResults.Select(SarifResultFromFlawFinderCsvResult).ToList();
+
+        private static ReportingDescriptor SarifRuleFromFlawFinderCsvResult(FlawFinderCsvResult flawFinderCsvResult) =>
+            new ReportingDescriptor
+            {
+                Id = flawFinderCsvResult.CWEs,
+                ShortDescription = new MultiformatMessageString
+                {
+                    Text = flawFinderCsvResult.Warning
+                },
+                DefaultConfiguration = new ReportingConfiguration
+                {
+                    Level = SarifLevelFromFlawFinderLevel(flawFinderCsvResult.Level)
+                }
+            };
+
+        private static Result SarifResultFromFlawFinderCsvResult(FlawFinderCsvResult flawFinderCsvResult)
+        {
+            var result = new Result
             {
                 RuleId = flawFinderCsvResult.CWEs,
                 Message = new Message
@@ -91,7 +108,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 }
             };
 
+
+            result.SetProperty(
+                nameof(flawFinderCsvResult.Level),
+                flawFinderCsvResult.Level.ToString(CultureInfo.InvariantCulture));
+
+            return result;
+        }
+
         private static FailureLevel SarifLevelFromFlawFinderLevel(int flawFinderLevel) =>
-            flawFinderLevel< 4 ? FailureLevel.Warning : FailureLevel.Error;
+                flawFinderLevel< 4 ? FailureLevel.Warning : FailureLevel.Error;
     }
 }

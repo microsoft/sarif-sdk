@@ -19,7 +19,7 @@
                 },
                 "region": {
                   "startLine": 32,
-                  "startColumn": 2
+                  "startColumn": 13
                 }
               }
             }
@@ -42,7 +42,7 @@
                 },
                 "region": {
                   "startLine": 31,
-                  "startColumn": 2
+                  "startColumn": 17
                 }
               }
             }
@@ -50,11 +50,52 @@
           "properties": {
             "Level": "2"
           }
+        },
+        {
+          "ruleId": "CWE-120",
+          "level": "error",
+          "message": {
+            "text": "Does not check for buffer overflows when copying to destination [MS-banned] (CWE-120)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "test3.cpp",
+                  "index": 2
+                },
+                "region": {
+                  "startLine": 56,
+                  "startColumn": 21
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Level": "4"
+          }
         }
       ],
       "tool": {
         "driver": {
-          "name": "FlawFinder"
+          "name": "FlawFinder",
+          "rules": [
+            {
+              "id": "CWE-120",
+              "shortDescription": {
+                "text": "Does not check for buffer overflows when copying to destination [MS-banned] (CWE-120)"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              }
+            },
+            {
+              "id": "CWE-119!/CWE-120",
+              "shortDescription": {
+                "text": "Statically-sized arrays can be improperly restricted, leading to potential overflows or other issues (CWE-119!/CWE-120)"
+              }
+            }
+          ]
         }
       },
       "artifacts": [
@@ -66,6 +107,11 @@
         {
           "location": {
             "uri": "test2.cpp"
+          }
+        },
+        {
+          "location": {
+            "uri": "test3.cpp"
           }
         }
       ],
