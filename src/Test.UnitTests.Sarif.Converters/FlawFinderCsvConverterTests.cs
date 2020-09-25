@@ -35,9 +35,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void Converter_RequiresHeaderRow()
         {
-            var mockResultLogWriter = new Mock<IResultLogWriter>();
-            var converter = new FlawFinderCsvConverter();
-
             string input = GetResourceText("Inputs.Empty.csv");
             Action action = () => RunTestCase(input, string.Empty);
 
@@ -47,9 +44,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void Converter_RequiresValidHeaderRow()
         {
-            var mockResultLogWriter = new Mock<IResultLogWriter>();
-            var converter = new FlawFinderCsvConverter();
-
             string input = GetResourceText("Inputs.InvalidHeader.csv");
             Action action = () => RunTestCase(input, string.Empty);
 
@@ -59,7 +53,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void Converter_HandlesInputWithNoResults()
         {
-            throw new NotImplementedException();
+            string input = GetResourceText("Inputs.NoResults.csv");
+            string expectedOutput = GetResourceText("ExpectedOutputs.NoResults.sarif");
+            RunTestCase(input, expectedOutput);
         }
 
         private static readonly ResourceExtractor s_extractor = new ResourceExtractor(typeof(FlawFinderCsvConverterTests));

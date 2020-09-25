@@ -14,8 +14,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="TestData\FlawFinderCsv\ExpectedOutputs\NoResults.sarif" />
     <None Remove="TestData\FlawFinderCsv\Inputs\Empty.csv" />
     <None Remove="TestData\FlawFinderCsv\Inputs\InvalidHeader.csv" />
+    <None Remove="TestData\FlawFinderCsv\Inputs\NoResults.csv" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,8 +39,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="TestData\FlawFinderCsv\ExpectedOutputs\NoResults.sarif" />
     <EmbeddedResource Include="TestData\FlawFinderCsv\Inputs\Empty.csv" />
     <EmbeddedResource Include="TestData\FlawFinderCsv\Inputs\InvalidHeader.csv" />
+    <EmbeddedResource Include="TestData\FlawFinderCsv\Inputs\NoResults.csv" />
   </ItemGroup>
 
   <ItemGroup>
@@ -46,10 +50,6 @@
     <ProjectReference Include="..\Sarif.Driver\Sarif.Driver.csproj" />
     <ProjectReference Include="..\Sarif.Converters\Sarif.Converters.csproj" />
     <ProjectReference Include="..\Test.Utilities.Sarif\Test.Utilities.Sarif.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="TestData\FlawFinderCsv\ExpectedOutputs\" />
   </ItemGroup>
 
 </Project>
