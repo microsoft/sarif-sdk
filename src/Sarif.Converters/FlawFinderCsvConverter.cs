@@ -55,7 +55,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 Message = new Message
                 {
                     Text = flawFinderCsvResult.Warning
-                }
+                },
+                Level = flawFinderCsvResult.Level < 4 ? FailureLevel.Warning : FailureLevel.Error
             };
 
         private IList<ReportingDescriptor> ExtractRules(IList<FlawFinderCsvResult> _)

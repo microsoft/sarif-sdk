@@ -6,6 +6,7 @@
       "results": [
         {
           "ruleId": "CWE-120",
+          "level": "error",
           "message": {
             "text": "Does not check for buffer overflows when copying to destination [MS-banned] (CWE-120)"
           }
