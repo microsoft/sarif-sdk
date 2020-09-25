@@ -48,13 +48,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private IList<Result> ExtractResults(IList<FlawFinderCsvResult> flawFinderCsvResults) =>
             flawFinderCsvResults.Select(FlawFinderCsvResultToSarif).ToList();
 
-        private static Result FlawFinderCsvResultToSarif(FlawFinderCsvResult flawFinderCsvResults) =>
+        private static Result FlawFinderCsvResultToSarif(FlawFinderCsvResult flawFinderCsvResult) =>
             new Result
             {
-                RuleId = flawFinderCsvResults.CWEs,
+                RuleId = flawFinderCsvResult.CWEs,
                 Message = new Message
                 {
-                    Text = string.Empty
+                    Text = flawFinderCsvResult.Warning
                 }
             };
 

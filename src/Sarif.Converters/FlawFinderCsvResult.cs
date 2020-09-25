@@ -17,6 +17,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         public string Warning { get; set; }
         public string Suggestion { get; set; }
         public string Note { get; set; }
+        // This property does not follow our standard naming conventions because the
+        // simplest way to use CsvHelper is define a type whose property names match
+        // the column names in the header row.
         public string CWEs { get; set; }
         public string Context { get; set; }
         public string Fingerprint { get; set; }

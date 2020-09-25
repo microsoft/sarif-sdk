@@ -7,13 +7,13 @@
         {
           "ruleId": "CWE-120",
           "message": {
-            "text": ""
+            "text": "Does not check for buffer overflows when copying to destination [MS-banned] (CWE-120)"
           }
         },
         {
           "ruleId": "CWE-119!/CWE-120",
           "message": {
-            "text": ""
+            "text": "Statically-sized arrays can be improperly restricted, leading to potential overflows or other issues (CWE-119!/CWE-120)"
           }
         }
       ],
