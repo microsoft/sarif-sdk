@@ -24,9 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             IList<FlawFinderCsvResult> flawFinderResults =
                 csvReader.GetRecords<FlawFinderCsvResult>().ToList();
 
-            IList<Result> results = ExtractResults(flawFinderResults);
-            IList<ReportingDescriptor> rules = ExtractRules(flawFinderResults);
-            IList<Artifact> artifacts = ExtractArtifacts(results);
+            (IList<Result> results, IList<ReportingDescriptor> rules) = ExtractResultsAndRules(flawFinderResults);
 
             var run = new Run
             {
@@ -38,19 +36,34 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         Rules = rules
                     }
                 },
-                Results = results,
-                Artifacts = artifacts
+                Results = results
             };
 
+            // T
             PersistResults(output, results, run);
         }
 
-        private IList<Result> ExtractResults(IList<FlawFinderCsvResult> flawFinderCsvResults) =>
-            flawFinderCsvResults.Select(SarifResultFromFlawFinderCsvResult).ToList();
-
-        private static Result SarifResultFromFlawFinderCsvResult(FlawFinderCsvResult flawFinderCsvResult)
+        private static (IList<Result>, IList<ReportingDescriptor>) ExtractResultsAndRules(IList<FlawFinderCsvResult> flawFinderCsvResults)
         {
-            var result = new Result
+            var results = new List<Result>();
+            var rules = new List<ReportingDescriptor>();
+
+            foreach (FlawFinderCsvResult flawFinderCsvResult in flawFinderCsvResults)
+            {
+                Result result = SarifResultFromFlawFinderCsvResult(flawFinderCsvResult);
+
+                result.SetProperty(
+                    nameof(flawFinderCsvResult.Level),
+                    flawFinderCsvResult.Level.ToString(CultureInfo.InvariantCulture));
+
+                results.Add(result);
+            }
+
+            return (results, null);
+        }
+
+        private static Result SarifResultFromFlawFinderCsvResult(FlawFinderCsvResult flawFinderCsvResult) =>
+            new Result
             {
                 RuleId = flawFinderCsvResult.CWEs,
                 Message = new Message
@@ -78,24 +91,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 }
             };
 
-            result.SetProperty(
-                nameof(flawFinderCsvResult.Level),
-                flawFinderCsvResult.Level.ToString(CultureInfo.InvariantCulture));
-
-            return result;
-        }
-
         private static FailureLevel SarifLevelFromFlawFinderLevel(int flawFinderLevel) =>
             flawFinderLevel< 4 ? FailureLevel.Warning : FailureLevel.Error;
-
-        private IList<ReportingDescriptor> ExtractRules(IList<FlawFinderCsvResult> _)
-        {
-            return new List<ReportingDescriptor>();
-        }
-
-        private IList<Artifact> ExtractArtifacts(IList<Result> _)
-        {
-            return new List<Artifact>();
-        }
     }
 }
