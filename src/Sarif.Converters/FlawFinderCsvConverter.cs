@@ -51,6 +51,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private static Result FlawFinderCsvResultToSarif(FlawFinderCsvResult flawFinderCsvResults) =>
             new Result
             {
+                RuleId = flawFinderCsvResults.CWEs,
                 Message = new Message
                 {
                     Text = string.Empty

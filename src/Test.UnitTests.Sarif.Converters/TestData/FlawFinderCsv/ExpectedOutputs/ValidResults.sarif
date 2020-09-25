@@ -5,14 +5,16 @@
     {
       "results": [
         {
-            "message": {
-                "text": ""
-            }
+          "ruleId": "CWE-120",
+          "message": {
+            "text": ""
+          }
         },
         {
-            "message": {
-                "text": ""
-            }
+          "ruleId": "CWE-119!/CWE-120",
+          "message": {
+            "text": ""
+          }
         }
       ],
       "tool": {
