@@ -48,8 +48,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private IList<Result> ExtractResults(IList<FlawFinderCsvResult> flawFinderCsvResults) =>
             flawFinderCsvResults.Select(SarifResultFromFlawFinderCsvResult).ToList();
 
-        private static Result SarifResultFromFlawFinderCsvResult(FlawFinderCsvResult flawFinderCsvResult) =>
-            new Result
+        private static Result SarifResultFromFlawFinderCsvResult(FlawFinderCsvResult flawFinderCsvResult)
+        {
+            var result = new Result
             {
                 RuleId = flawFinderCsvResult.CWEs,
                 Message = new Message
@@ -76,6 +77,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     }
                 }
             };
+
+            result.SetProperty(
+                nameof(flawFinderCsvResult.Level),
+                flawFinderCsvResult.Level.ToString(CultureInfo.InvariantCulture));
+
+            return result;
+        }
 
         private static FailureLevel SarifLevelFromFlawFinderLevel(int flawFinderLevel) =>
             flawFinderLevel< 4 ? FailureLevel.Warning : FailureLevel.Error;
