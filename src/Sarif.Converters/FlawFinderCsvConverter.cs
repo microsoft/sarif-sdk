@@ -46,9 +46,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         }
 
         private IList<Result> ExtractResults(IList<FlawFinderCsvResult> flawFinderCsvResults) =>
-            flawFinderCsvResults.Select(FlawFinderCsvResultToSarif).ToList();
+            flawFinderCsvResults.Select(SarifResultFromFlawFinderCsvResult).ToList();
 
-        private static Result FlawFinderCsvResultToSarif(FlawFinderCsvResult flawFinderCsvResult) =>
+        private static Result SarifResultFromFlawFinderCsvResult(FlawFinderCsvResult flawFinderCsvResult) =>
             new Result
             {
                 RuleId = flawFinderCsvResult.CWEs,
