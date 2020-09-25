@@ -9,7 +9,7 @@ using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
-    public class FlawFinderCsvConverterTests
+    public class FlawFinderCsvConverterTests : ConverterTestsBase<FlawFinderCsvConverter>
     {
         [Fact]
         public void Converter_RequiresInputStream()
@@ -31,5 +31,41 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             action.Should().Throw<ArgumentNullException>();
         }
+
+        [Fact]
+        public void Converter_RequiresHeaderRow()
+        {
+            var mockResultLogWriter = new Mock<IResultLogWriter>();
+            var converter = new FlawFinderCsvConverter();
+
+            string input = GetResourceText("Inputs.Empty.csv");
+            Action action = () => RunTestCase(input, string.Empty);
+
+            action.Should().Throw<InvalidDataException>().WithMessage(ConverterResources.FlawFinderMissingCsvHeader);
+        }
+
+        [Fact]
+        public void Converter_RequiresValidHeaderRow()
+        {
+            var mockResultLogWriter = new Mock<IResultLogWriter>();
+            var converter = new FlawFinderCsvConverter();
+
+            string input = GetResourceText("Inputs.InvalidHeader.csv");
+            Action action = () => RunTestCase(input, string.Empty);
+
+            action.Should().Throw<InvalidDataException>().WithMessage(ConverterResources.FlawFinderInvalidCsvHeader);
+        }
+
+        [Fact]
+        public void Converter_HandlesInputWithNoResults()
+        {
+            throw new NotImplementedException();
+        }
+
+        private static readonly ResourceExtractor s_extractor = new ResourceExtractor(typeof(FlawFinderCsvConverterTests));
+        private const string ResourceNamePrefix = ToolFormat.FlawFinderCsv;
+
+        private static string GetResourceText(string resourceNameSuffix) =>
+            s_extractor.GetResourceText($"TestData.{ResourceNamePrefix}.{resourceNameSuffix}");
     }
 }

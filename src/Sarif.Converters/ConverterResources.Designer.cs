@@ -277,6 +277,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The input file does not contain the expected FlawFinder CSV header..
+        /// </summary>
+        internal static string FlawFinderInvalidCsvHeader {
+            get {
+                return ResourceManager.GetString("FlawFinderInvalidCsvHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The input file does not contain a CSV header row..
+        /// </summary>
+        internal static string FlawFinderMissingCsvHeader {
+            get {
+                return ResourceManager.GetString("FlawFinderMissingCsvHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Fortify PathElement has non-positive line start value..
         /// </summary>
         internal static string FortifyBadLineNumber {

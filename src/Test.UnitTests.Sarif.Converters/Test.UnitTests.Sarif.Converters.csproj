@@ -14,6 +14,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="TestData\FlawFinderCsv\Inputs\Empty.csv" />
+    <None Remove="TestData\FlawFinderCsv\Inputs\InvalidHeader.csv" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.10.2" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
     <PackageReference Include="Moq" Version="4.13.1" />
@@ -32,10 +37,19 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="TestData\FlawFinderCsv\Inputs\Empty.csv" />
+    <EmbeddedResource Include="TestData\FlawFinderCsv\Inputs\InvalidHeader.csv" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Sarif\Sarif.csproj" />
     <ProjectReference Include="..\Sarif.Driver\Sarif.Driver.csproj" />
     <ProjectReference Include="..\Sarif.Converters\Sarif.Converters.csproj" />
     <ProjectReference Include="..\Test.Utilities.Sarif\Test.Utilities.Sarif.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="TestData\FlawFinderCsv\ExpectedOutputs\" />
   </ItemGroup>
 
 </Project>

@@ -213,4 +213,10 @@
   <data name="FxCopNoMessage" xml:space="preserve">
     <value>FxCop does not provide messages for suppressed results.</value>
   </data>
+  <data name="FlawFinderMissingCsvHeader" xml:space="preserve">
+    <value>The input file does not contain a CSV header row.</value>
+  </data>
+  <data name="FlawFinderInvalidCsvHeader" xml:space="preserve">
+    <value>The input file does not contain the expected FlawFinder CSV header.</value>
+  </data>
 </root>
