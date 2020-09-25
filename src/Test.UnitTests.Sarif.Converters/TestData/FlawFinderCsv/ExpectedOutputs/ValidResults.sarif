@@ -24,6 +24,9 @@
               }
             }
           ],
+          "partialFingerprints": {
+            "matchHash": "2db56aa048ca3a81aaf1e24e9caeffab66b8ee8325382d5d92f0332be3045c46"
+          },
           "properties": {
             "Level": "4"
           }
@@ -47,6 +50,9 @@
               }
             }
           ],
+          "partialFingerprints": {
+            "matchHash": "84c75bcb5ee170bf920db84570e2c58abee39ac26e0893e96dd88392b7e8f33a"
+          },
           "properties": {
             "Level": "2"
           }
@@ -71,6 +77,9 @@
               }
             }
           ],
+          "partialFingerprints": {
+            "matchHash": "2db56aa048ca3a81aaf1e24e9caeffab66b8ee8325382d5d92f0332be3045c46"
+          },
           "properties": {
             "Level": "4"
           }

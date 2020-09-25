@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -13,6 +12,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     public class FlawFinderCsvConverter : ToolFileConverterBase
     {
+        private const string PartialFingerprintKey = "matchHash";
+
         public override string ToolName => "FlawFinder";
 
         public override void Convert(Stream input, IResultLogWriter output, OptionallyEmittedData dataToInsert)
@@ -105,6 +106,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                             }
                         }
                     }
+                },
+                PartialFingerprints = new Dictionary<string, string>
+                {
+                    [PartialFingerprintKey] = flawFinderCsvResult.Fingerprint
                 }
             };
 
