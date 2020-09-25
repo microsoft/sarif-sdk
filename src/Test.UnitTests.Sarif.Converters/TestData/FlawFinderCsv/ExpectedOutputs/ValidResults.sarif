@@ -9,13 +9,41 @@
           "level": "error",
           "message": {
             "text": "Does not check for buffer overflows when copying to destination [MS-banned] (CWE-120)"
-          }
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "test1.cpp",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 32,
+                  "startColumn": 2
+                }
+              }
+            }
+          ]
         },
         {
           "ruleId": "CWE-119!/CWE-120",
           "message": {
             "text": "Statically-sized arrays can be improperly restricted, leading to potential overflows or other issues (CWE-119!/CWE-120)"
-          }
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "test2.cpp",
+                  "index": 1
+                },
+                "region": {
+                  "startLine": 31,
+                  "startColumn": 2
+                }
+              }
+            }
+          ]
         }
       ],
       "tool": {
@@ -23,7 +51,19 @@
           "name": "FlawFinder"
         }
       },
-    "columnKind": "utf16CodeUnits"
+      "artifacts": [
+        {
+          "location": {
+            "uri": "test1.cpp"
+          }
+        },
+        {
+          "location": {
+            "uri": "test2.cpp"
+          }
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
     }
   ]
 }

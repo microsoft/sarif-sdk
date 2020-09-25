@@ -56,7 +56,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 {
                     Text = flawFinderCsvResult.Warning
                 },
-                Level = SarifLevelFromFlawFinderLevel(flawFinderCsvResult.Level)
+                Level = SarifLevelFromFlawFinderLevel(flawFinderCsvResult.Level),
+                Locations = new List<Location>
+                {
+                    new Location
+                    {
+                        PhysicalLocation = new PhysicalLocation
+                        {
+                            ArtifactLocation = new ArtifactLocation
+                            {
+                                Uri = new Uri(flawFinderCsvResult.File, UriKind.RelativeOrAbsolute)
+                            },
+                            Region = new Region
+                            {
+                                StartLine = flawFinderCsvResult.Line,
+                                StartColumn = flawFinderCsvResult.Column
+                            }
+                        }
+                    }
+                }
             };
 
         private static FailureLevel SarifLevelFromFlawFinderLevel(int flawFinderLevel) =>
