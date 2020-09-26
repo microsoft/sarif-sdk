@@ -99,11 +99,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                             {
                                 Uri = new Uri(flawFinderCsvResult.File, UriKind.RelativeOrAbsolute)
                             },
-                            Region = new Region
-                            {
-                                StartLine = flawFinderCsvResult.Line,
-                                StartColumn = flawFinderCsvResult.Column
-                            }
+                            Region = RegionFromFlawFinderCsvResult(flawFinderCsvResult)
                         }
                     }
                 },
@@ -120,6 +116,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             return result;
         }
+
+        private static Region RegionFromFlawFinderCsvResult(FlawFinderCsvResult flawFinderCsvResult) =>
+            new Region
+            {
+                StartLine = flawFinderCsvResult.Line,
+                StartColumn = flawFinderCsvResult.Column,
+                EndColumn = flawFinderCsvResult.Column + flawFinderCsvResult.Context.Length,
+                Snippet = new ArtifactContent
+                {
+                    Text = flawFinderCsvResult.Context
+                }
+            };
 
         private static FailureLevel SarifLevelFromFlawFinderLevel(int flawFinderLevel) =>
                 flawFinderLevel< 4 ? FailureLevel.Warning : FailureLevel.Error;

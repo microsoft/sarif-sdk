@@ -19,7 +19,11 @@
                 },
                 "region": {
                   "startLine": 32,
-                  "startColumn": 13
+                  "startColumn": 13,
+                  "endColumn": 35,
+                  "snippet": {
+                    "text": "\tstrcpy(tim, argv[0]);"
+                  }
                 }
               }
             }
@@ -45,7 +49,11 @@
                 },
                 "region": {
                   "startLine": 31,
-                  "startColumn": 17
+                  "startColumn": 17,
+                  "endColumn": 32,
+                  "snippet": {
+                    "text": "\tchar tim[256];"
+                  }
                 }
               }
             }
@@ -72,7 +80,11 @@
                 },
                 "region": {
                   "startLine": 56,
-                  "startColumn": 21
+                  "startColumn": 21,
+                  "endColumn": 43,
+                  "snippet": {
+                    "text": "\tstrcpy(tim, argv[0]);"
+                  }
                 }
               }
             }
