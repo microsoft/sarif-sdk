@@ -1,5 +1,5 @@
 /**
- * @fileoverview Tests for SARIF format.
+ * @fileoverview Tests for SARIF formatter.
  * @author Microsoft
  */
 
@@ -10,7 +10,8 @@
 //------------------------------------------------------------------------------
 
 const assert = require("chai").assert;
-const formatter = require("../sarif");
+const rewire = require("rewire");
+const formatter = rewire("../sarif");
 
 //------------------------------------------------------------------------------
 // Global Test Content
@@ -59,15 +60,28 @@ describe("formatter:sarif", () => {
     describe("when run", () => {
         const code = [];
 
-        it ("should return a log with correct version and tool metadata", () => {
+        it ("should return a log with correct SARIF version and tool metadata", () => {
             const log = JSON.parse(formatter(code, null));
 
-            assert.strictEqual(log['$schema'], 'http://json.schemastore.org/sarif-2.1.0-rtm.4');
+            assert.strictEqual(log['$schema'], 'http://json.schemastore.org/sarif-2.1.0-rtm.5');
             assert.strictEqual(log.version, '2.1.0');
 
             assert.strictEqual(log.runs[0].tool.driver.name, "ESLint");
             assert.strictEqual(log.runs[0].tool.driver.informationUri, "https://eslint.org");
-        })
+            assert.strictEqual(log.runs[0].tool.driver.version, undefined);
+        });
+    });
+
+    describe("when eslint version is known", () => {
+        const code = [];
+        const fakeESLintVersion = "1.2.3";
+
+        it ("should return correct eslint version", () => {
+            formatter.__set__("getESLintVersion", ()=>{ return fakeESLintVersion; });
+            const log = JSON.parse(formatter(code, null));
+            assert.strictEqual(log.runs[0].tool.driver.version, fakeESLintVersion);
+        });
+
     });
 
     describe("when passed no messages", () => {
