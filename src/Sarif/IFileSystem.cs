@@ -216,7 +216,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="path">
         /// The name of the empty directory to remove. This directory must be writable and empty.
         /// </param>
-        void DeleteDirectory(string path, bool recursive = false);
+        void DirectoryDelete(string path, bool recursive = false);
 
         /// <summary>
         /// Deletes the specified file.
@@ -224,6 +224,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="path">
         /// The name of the file to be deleted. Wildcard characters are not supported.
         /// </param>
-        void DeleteFile(string path);
+        void FileDelete(string path);
     }
 }
