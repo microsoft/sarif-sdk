@@ -34,11 +34,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             // Remove previous results.
             if (_fileSystem.DirectoryExists(options.OutputFolderPath) && options.Force)
             {
-                _fileSystem.DeleteDirectory(options.OutputFolderPath, true);
+                _fileSystem.DirectoryDelete(options.OutputFolderPath, true);
             }
 
             // Create output folder.
-            _fileSystem.CreateDirectory(options.OutputFolderPath);
+            _fileSystem.DirectoryCreate(options.OutputFolderPath);
 
             string previousFileName = "";
             string previousGroup = "";
