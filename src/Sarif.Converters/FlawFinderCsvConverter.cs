@@ -52,10 +52,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             foreach (FlawFinderCsvResult flawFinderCsvResult in flawFinderCsvResults)
             {
-                if (!ruleIds.Contains(flawFinderCsvResult.CWEs))
+                string ruleId = RuleIdFromFlawFinderCsvResult(flawFinderCsvResult);
+                if (!ruleIds.Contains(ruleId))
                 {
                     rules.Add(SarifRuleFromFlawFinderCsvResult(flawFinderCsvResult));
-                    ruleIds.Add(flawFinderCsvResult.CWEs);
+                    ruleIds.Add(ruleId);
                 }
             }
 
@@ -68,7 +69,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private static ReportingDescriptor SarifRuleFromFlawFinderCsvResult(FlawFinderCsvResult flawFinderCsvResult) =>
             new ReportingDescriptor
             {
-                Id = flawFinderCsvResult.CWEs,
+                Id = RuleIdFromFlawFinderCsvResult(flawFinderCsvResult),
                 ShortDescription = new MultiformatMessageString
                 {
                     Text = flawFinderCsvResult.Warning
@@ -83,7 +84,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             var result = new Result
             {
-                RuleId = flawFinderCsvResult.CWEs,
+                RuleId = RuleIdFromFlawFinderCsvResult(flawFinderCsvResult),
                 Message = new Message
                 {
                     Text = flawFinderCsvResult.Warning
@@ -116,6 +117,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             return result;
         }
+
+        private static string RuleIdFromFlawFinderCsvResult(FlawFinderCsvResult flawFinderCsvResult) =>
+            $"{flawFinderCsvResult.Category}{SarifConstants.HierarchicalComponentSeparator}{flawFinderCsvResult.Name}";
 
         private static Region RegionFromFlawFinderCsvResult(FlawFinderCsvResult flawFinderCsvResult) =>
             new Region
