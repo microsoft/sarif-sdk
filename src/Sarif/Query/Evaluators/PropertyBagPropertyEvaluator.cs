@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
                 (?<prefix>properties\.|rule\.properties\.)
                 (?<name>.+?)
                 $",
-            RegexOptions.IgnoreCase | RegexOptions.CultureInvariant | RegexOptions.Compiled | RegexOptions.ExplicitCapture | RegexOptions.IgnorePatternWhitespace);
+            RegexOptions.CultureInvariant | RegexOptions.Compiled | RegexOptions.ExplicitCapture | RegexOptions.IgnorePatternWhitespace);
 
         public PropertyBagPropertyEvaluator(TermExpression term)
         {
@@ -34,11 +34,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
             _propertyName = match.Groups["name"].Value;
 
             string prefix = match.Groups["prefix"].Value;
-            if (prefix.Equals(RulePropertyPrefix, StringComparison.OrdinalIgnoreCase))
+            if (prefix.Equals(RulePropertyPrefix))
             {
                 _propertyBelongsToRule = true;
             }
-            else if (!prefix.Equals(ResultPropertyPrefix, StringComparison.OrdinalIgnoreCase))
+            else if (!prefix.Equals(ResultPropertyPrefix))
             {
                 throw new ArgumentException(
                     string.Format(
@@ -92,7 +92,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
             // We can't just call holder.TryGetProperty because we want a case-insensitive
             // match.
             List<string> propertyNames = holder.PropertyNames
-                .Where(key => key.Equals(_propertyName, StringComparison.OrdinalIgnoreCase))
+                .Where(key => key.Equals(_propertyName))
                 .ToList();
 
             if (propertyNames.Any())

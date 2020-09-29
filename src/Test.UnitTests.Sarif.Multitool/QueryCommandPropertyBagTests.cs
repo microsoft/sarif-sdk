@@ -32,10 +32,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
-        public void QueryCommand_ComparesPropertyBagPropertyNamesCaseInsensitively()
+        public void QueryCommand_ComparesPropertyBagPropertyNamesCaseSensitively()
         {
-            RunAndVerifyCount(2, "properties.nAmE == 'Terisa'");
-            RunAndVerifyCount(2, "rule.properties.CaTegORy == 'security'");
+            RunAndVerifyCount(0, "properties.nAmE == 'Terisa'");
+            RunAndVerifyCount(0, "rule.properties.CaTegORy == 'security'");
         }
 
         [Fact]
