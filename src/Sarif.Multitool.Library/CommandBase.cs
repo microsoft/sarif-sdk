@@ -52,7 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 Formatting = formatting
             };
 
-            using (JsonTextWriter writer = new JsonTextWriter(new StreamWriter(fileSystem.Create(outputName))))
+            using (JsonTextWriter writer = new JsonTextWriter(new StreamWriter(fileSystem.FileCreate(outputName))))
             {
                 serializer.Serialize(writer, sarifFile);
             }

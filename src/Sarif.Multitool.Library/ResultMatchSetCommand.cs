@@ -38,7 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
 
             // Create output folder.
-            _fileSystem.CreateDirectory(options.OutputFolderPath);
+            _fileSystem.DirectoryCreate(options.OutputFolderPath);
 
             string previousFileName = "";
             string previousGroup = "";

@@ -221,7 +221,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         /// <param name="path">File System path of file to open</param>
         /// <returns>Stream to write file</returns>
-        public Stream Create(string path)
+        public Stream FileCreate(string path)
         {
             return File.Create(path);
         }
@@ -251,7 +251,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// An object that represents the directory at the specified path. This object is
         /// returned regardless of whether a directory at the specified path already exists.
         /// </returns>  
-        public DirectoryInfo CreateDirectory(string path)
+        public DirectoryInfo DirectoryCreate(string path)
         {
             return Directory.CreateDirectory(path);
         }

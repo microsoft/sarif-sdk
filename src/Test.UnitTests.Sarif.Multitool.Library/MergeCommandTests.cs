@@ -53,8 +53,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             mockFileSystem.Setup(x => x.GetFilesInDirectory(InputFolderPath, inputResourceName)).Returns(new string[0]); // <= The hard-coded return value in question.
 
             // But we really do want to create the output file, so tell the mock to execute the actual write operations.
-            mockFileSystem.Setup(x => x.CreateDirectory(OutputFolderPath)).Returns((string path) => { return Directory.CreateDirectory(path); });
-            mockFileSystem.Setup(x => x.Create(outputFilePath)).Returns((string path) => { return File.Create(path); });
+            mockFileSystem.Setup(x => x.DirectoryCreate(OutputFolderPath)).Returns((string path) => { return Directory.CreateDirectory(path); });
+            mockFileSystem.Setup(x => x.FileCreate(outputFilePath)).Returns((string path) => { return File.Create(path); });
 
             IFileSystem fileSystem = mockFileSystem.Object;
 
