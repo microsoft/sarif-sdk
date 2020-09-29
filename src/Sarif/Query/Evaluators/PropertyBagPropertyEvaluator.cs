@@ -87,32 +87,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
 
         private T GetPropertyFromHolder<T>(PropertyBagHolder holder)
         {
-            T value = default;
-
-            // We can't just call holder.TryGetProperty because we want a case-insensitive
-            // match.
-            List<string> propertyNames = holder.PropertyNames
-                .Where(key => key.Equals(_propertyName))
-                .ToList();
-
-            if (propertyNames.Any())
+            try
             {
-                try
-                {
-                    // If the property bag contains two properties whose names differ only
-                    // by case, we'll take the first one.
-                    value = holder.GetProperty<T>(propertyNames.First());
-                }
-                catch (JsonReaderException)
-                {
-                    // Catch exceptions due to trying to perform a numeric comparison on a
-                    // property that turns out to have a string value that can't be parsed
-                    // as a number. The result will be that in such a case, the property
-                    // will be treated as if its value were numeric zero.
-                }
+                return holder.TryGetProperty(_propertyName, out T value) ? value : default;
+            }
+            catch (JsonReaderException)
+            {
+                // Catch exceptions due to trying to perform a numeric comparison on a
+                // property that turns out to have a string value that can't be parsed
+                // as a number. The result will be that in such a case, the property
+                // will be treated as if its value were numeric zero.
             }
 
-            return value;
+            return default;
         }
 
         public void Evaluate(ICollection<Result> results, BitArray matches)
