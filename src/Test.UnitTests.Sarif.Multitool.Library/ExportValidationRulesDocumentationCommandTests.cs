@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             foreach (KeyValuePair<string, SarifValidationSkimmerBase> test in tests)
             {
                 var sb = new StringBuilder();
-                var command = new ExportValidationRulesDocumentationCommand();
+                var command = new ExportValidationDocumentationCommand();
                 command.BuildRule(test.Value, sb);
 
                 string expectedMarkdown = resourceExtractor.GetResourceText(test.Key);

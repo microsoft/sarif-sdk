@@ -195,7 +195,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             long lengthWritten = 0;
             byte[] buffer = new byte[64 * 1024];
 
-            using (Stream output = _fileSystem.Create(options.OutputFilePath))
+            using (Stream output = _fileSystem.FileCreate(options.OutputFilePath))
             using (Stream source = _fileSystem.OpenRead(options.InputFilePath))
             {
                 // Copy everything up to 'runs' (includes the '[')
