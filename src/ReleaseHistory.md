@@ -1,4 +1,5 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
+
 ## **v2.3.6** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.6) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.6) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.6) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.6) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.3.6)
 * BUGFIX: Restore multitool client app package build.
 * BUGFIX: Fix ESLint additional formatter corner cases that result in invalid SARIF.

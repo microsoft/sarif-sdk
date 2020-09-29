@@ -50,14 +50,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
                     {
                         return new PropertyBagPropertyEvaluator(term);
                     }
-                    else
-                    {
-                        throw new QueryParseException(
-                            string.Format(
-                                CultureInfo.CurrentCulture,
-                                SdkResources.ErrorInvalidQueryPropertyName,
-                                term.PropertyName));
-                    }
+
+                    throw new QueryParseException(
+                        string.Format(
+                            CultureInfo.CurrentCulture,
+                            SdkResources.ErrorInvalidQueryPropertyName,
+                            term.PropertyName));
             }
         }
     }
