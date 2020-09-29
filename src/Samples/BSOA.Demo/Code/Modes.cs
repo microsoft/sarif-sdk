@@ -53,8 +53,10 @@ namespace BSOA.Demo
 
         public static void Diagnostics(string filePath, int logToDepth)
         {
+#if BSOA
             BSOA.IO.TreeDiagnostics diagnostics = SarifLog.Diagnostics(filePath);
             diagnostics.Write(Console.Out, logToDepth);
+#endif
         }
 
         public static long LineTotal(SarifLog log)
@@ -77,6 +79,7 @@ namespace BSOA.Demo
 
         public static void LeakTest(string filePath, int count = 100000)
         {
+#if BSOA
             SarifLog sourceLog = SarifLog.Load(filePath);
             IList<Result> sourceResults = sourceLog.Runs[0].Results;
             ReportingDescriptor rule = sourceResults[0].GetRule();
@@ -111,6 +114,7 @@ namespace BSOA.Demo
             }
 
             Console.WriteLine($"{count:n0} results in {w.Elapsed.TotalSeconds:n1} sec. Peak Memory: {(peakMemory) / (1024 * 1024.0):n3} MB (+ {(peakMemory - beforeMemory) / (1024 * 1024.0):n3} MB)");
+#endif
         }
     }
 }
