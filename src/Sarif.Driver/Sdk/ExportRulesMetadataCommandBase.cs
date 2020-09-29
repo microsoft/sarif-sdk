@@ -13,7 +13,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     public abstract class ExportRulesMetadataCommandBase : PlugInDriverCommand<ExportRulesMetadataOptions>
     {
-
         public override int Run(ExportRulesMetadataOptions exportOptions)
         {
             int result = FAILURE;
