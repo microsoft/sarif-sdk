@@ -265,6 +265,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The relative reference &apos;{0}&apos; begins with a slash, which will prevent it from combining properly with the absolute URI specified by a &apos;uriBaseId&apos;..
+        /// </summary>
+        internal static string SARIF1004_ExpressUriBaseIdsCorrectly_Error_RelativeReferenceMustNotBeginWithSlash_Text {
+            get {
+                return ResourceManager.GetString("SARIF1004_ExpressUriBaseIdsCorrectly_Error_RelativeReferenceMustNotBeginWithSlash" +
+                        "_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}: The &apos;{1}&apos; element of &apos;originalUriBaseIds&apos; has no &apos;uriBaseId&apos; property, but its &apos;uri&apos; property &apos;{2}&apos; is not an absolute URI. According to the SARIF specification, every such &quot;top-level&quot; entry in &apos;originalUriBaseIds&apos; must specify an absolute URI, because the purpose of &apos;originalUriBaseIds&apos; is to enable the resolution of relative references to absolute URIs..
         /// </summary>
         internal static string SARIF1004_ExpressUriBaseIdsCorrectly_Error_TopLevelUriBaseIdMustBeAbsolute_Text {

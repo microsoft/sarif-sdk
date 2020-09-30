@@ -155,7 +155,9 @@ This is part of a set of authoring practices that make your rule messages more r
 
 If an 'artifactLocation' object has a 'uriBaseId' property, its 'uri' property must be a relative reference, because if 'uri' is an absolute URI then 'uriBaseId' serves no purpose.
 
-Every URI reference in 'originalUriBaseIds' must resolve to an absolute URI in the manner described in the SARIF specification [3.14.14](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317498).</value>
+Every URI reference in 'originalUriBaseIds' must resolve to an absolute URI in the manner described in the SARIF specification [3.14.14](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317498).
+
+Finally, a relative reference in 'artifactLocation.uri' must not begin with a slash, because that prevents it from combining properly with the absolute URI specified by a 'uriBaseId'.</value>
   </data>
   <data name="SARIF1005_UriMustBeAbsolute_Error_Default_Text" xml:space="preserve">
     <value>{0}: The value of this property is required to be an absolute URI, but '{1}' is a relative URI reference.</value>
@@ -460,5 +462,8 @@ Semantics: Assuming the reader of the log file (an end user or another tool) has
   </data>
   <data name="SARIF2012_ProvideRuleProperties_Note_FriendlyNameNotAPascalIdentifier_Text" xml:space="preserve">
     <value>{0}: '{1}' is not a Pascal identifier. For uniformity of experience across all tools that produce SARIF, the friendly name should be a single Pascal identifier, for example, 'ProvideRuleFriendlyName'.</value>
+  </data>
+  <data name="SARIF1004_ExpressUriBaseIdsCorrectly_Error_RelativeReferenceMustNotBeginWithSlash_Text" xml:space="preserve">
+    <value>The relative reference '{0}' begins with a slash, which will prevent it from combining properly with the absolute URI specified by a 'uriBaseId'.</value>
   </data>
 </root>

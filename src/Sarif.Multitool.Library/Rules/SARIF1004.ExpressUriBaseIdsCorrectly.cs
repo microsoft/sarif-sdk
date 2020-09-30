@@ -28,6 +28,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// Every URI reference in 'originalUriBaseIds' must resolve to an absolute URI in the manner
         /// described in the SARIF specification
         /// [3.14.14] (https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317498).
+        ///
+        /// Finally, a relative reference in 'artifactLocation.uri' must not begin with a slash, because
+        /// that prevents it from combining properly with the absolute URI specified by a 'uriBaseId'.
         /// </summary>
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF1004_ExpressUriBaseIdsCorrectly_FullDescription_Text };
 
@@ -36,14 +39,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             nameof(RuleResources.SARIF1004_ExpressUriBaseIdsCorrectly_Error_TopLevelUriBaseIdMustBeAbsolute_Text),
             nameof(RuleResources.SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdValueMustEndWithSlash_Text),
             nameof(RuleResources.SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdValueMustNotContainDotDotSegment_Text),
-            nameof(RuleResources.SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdValueMustNotContainQueryOrFragment_Text)
+            nameof(RuleResources.SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdValueMustNotContainQueryOrFragment_Text),
+            nameof(RuleResources.SARIF1004_ExpressUriBaseIdsCorrectly_Error_RelativeReferenceMustNotBeginWithSlash_Text)
         };
 
         public override FailureLevel DefaultLevel => FailureLevel.Error;
 
         protected override void Analyze(ArtifactLocation artifactLocation, string artifactLocationPointer)
         {
-            if (artifactLocation.UriBaseId != null && artifactLocation.Uri?.IsAbsoluteUri == true)
+            Uri artifactLocationUri = artifactLocation.Uri;
+            if (artifactLocationUri == null) { return; }
+
+            if (artifactLocation.UriBaseId != null && artifactLocationUri.IsAbsoluteUri)
             {
                 // {0}: This 'artifactLocation' object has a 'uriBaseId' property '{1}', but its
                 // 'uri' property '{2}' is an absolute URI. Since the purpose of 'uriBaseId' is
@@ -53,6 +60,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     artifactLocationPointer,
                     nameof(RuleResources.SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdRequiresRelativeUri_Text),
                     artifactLocation.UriBaseId,
+                    artifactLocation.Uri.OriginalString);
+            }
+
+            if (!artifactLocationUri.IsAbsoluteUri && artifactLocationUri.OriginalString.StartsWith("/") == true)
+            {
+                // The relative reference '{0}' begins with a slash, which will prevent it from combining properly
+                // with the absolute URI specified by a 'uriBaseId'.
+                LogResult(
+                    artifactLocationPointer.AtProperty(SarifPropertyName.Uri),
+                    nameof(RuleResources.SARIF1004_ExpressUriBaseIdsCorrectly_Error_RelativeReferenceMustNotBeginWithSlash_Text),
                     artifactLocation.Uri.OriginalString);
             }
         }
