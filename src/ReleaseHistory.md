@@ -2,6 +2,7 @@
 ## **v2.3.7** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.7) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.7) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.7) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.7) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.3.7)
 * DEPENDENCY BREAKING: SARIF now requires Newtonsoft.JSON 11.0.2 (rather than 10.0.3)
 * DEPENDENCY: SARIF TypeScript package now requires minimist 1.2.3 or later (rather than >=1.2.0)
+* FEATURE: The validation rule `SARIF1004.ExpressUriBaseIdsCorrectly` now verifies that if an `artifactLocation.uri` is a relative reference, it does not begin with a slash.
 
 ## **v2.3.6** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.6) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.6) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.6) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.6) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.3.6)
 * BUGFIX: Restore multitool client app package build.
