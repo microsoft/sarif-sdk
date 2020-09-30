@@ -63,7 +63,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     artifactLocation.Uri.OriginalString);
             }
 
-            if (!artifactLocationUri.IsAbsoluteUri && artifactLocationUri.OriginalString.StartsWith("/") == true)
+            if (!artifactLocationUri.IsAbsoluteUri && artifactLocationUri.OriginalString.StartsWith("/"))
             {
                 // The relative reference '{0}' begins with a slash, which will prevent it from combining properly
                 // with the absolute URI specified by a 'uriBaseId'.
