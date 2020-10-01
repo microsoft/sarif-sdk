@@ -15,24 +15,26 @@ namespace BSOA.Demo
 {
     public static class Modes
     {
-        public static void Load(string filePath, int iterations)
+        public static TimeSpan MeasureTime = TimeSpan.FromSeconds(2);
+
+        public static void Load(string filePath)
         {
-            SarifLog log = Measure.LoadPerformance(filePath, iterations: iterations, (path) =>
+            SarifLog log = Measure.LoadPerformance(filePath, MeasureTime, (path) =>
             {
                 return SarifLog.Load(path);
             });
         }
 
-        public static void LoadAndSave(string filePath, string outputPath, int iterations)
+        public static void LoadAndSave(string filePath, string outputPath)
         {
             Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(outputPath)));
 
-            SarifLog log = Measure.LoadPerformance(filePath, iterations: iterations, (path) =>
+            SarifLog log = Measure.LoadPerformance(filePath, MeasureTime, (path) =>
             {
                 return SarifLog.Load(path);
             });
 
-            Measure.SavePerformance(outputPath, iterations: 1, (path) =>
+            Measure.SavePerformance(outputPath, TimeSpan.Zero, (path) =>
             {
                 log.Save(path);
             });
@@ -53,17 +55,18 @@ namespace BSOA.Demo
             }
         }
 
-        public static long ObjectModelOverhead(string filePath, int iterations = 50)
+        public static long ObjectModelOverhead(string filePath)
         {
-            SarifLog log = Measure.LoadPerformance(filePath, iterations: 1, (path) =>
+            SarifLog log = Measure.LoadPerformance(filePath, TimeSpan.Zero, (path) =>
             {
                 return SarifLog.Load(path);
             });
 
             long lineTotal = 0;
+            int iteration = 0;
 
             Stopwatch w = Stopwatch.StartNew();
-            for (int iteration = 0; iteration < iterations; ++iteration)
+            while (w.Elapsed < MeasureTime)
             {
                 lineTotal = 0;
 
@@ -77,10 +80,12 @@ namespace BSOA.Demo
                         }
                     }
                 }
+
+                iteration++;
             }
 
             w.Stop();
-            Friendly.HighlightLine($"  -> Sum(StartLine) = ", $"{lineTotal:n0}", $" in ", Friendly.Time(w.Elapsed / iterations), $" ({iterations:n0}x)");
+            Friendly.HighlightLine($"  -> Sum(StartLine) = ", $"{lineTotal:n0}", $" in ", Friendly.Time(w.Elapsed / iteration), $" ({iteration:n0}x)");
             return lineTotal;
         }
 
@@ -161,32 +166,36 @@ namespace BSOA.Demo
             ConsoleTable table = new ConsoleTable(
                 new ConsoleColumn("FileName"),
                 new ConsoleColumn("Size", rightAligned: true),
+                new ConsoleColumn("JSON Load", rightAligned: true),
                 new ConsoleColumn("BSOA Size", rightAligned: true, highlighted: true),
-                new ConsoleColumn("Ratio", rightAligned: true));
+                new ConsoleColumn("Ratio", rightAligned: true),
+                new ConsoleColumn("BSOA Load", rightAligned: true));
 
             foreach (string filePath in Directory.GetFiles(folderPath, "*.sarif"))
             {
                 string fileName = Path.GetFileName(filePath);
+                string outputPath = Path.Combine(outputFolderPath, fileName + ".bsoa");
 
                 SarifLog log = null;
 
-                Stopwatch readWatch = Stopwatch.StartNew();
+                Stopwatch jsonReadWatch = Stopwatch.StartNew();
                 log = SarifLog.Load(filePath);
-                readWatch.Stop();
+                jsonReadWatch.Stop();
 
-                string outputPath = Path.Combine(outputFolderPath, fileName + ".bsoa");
-                Stopwatch writeWatch = Stopwatch.StartNew();
                 log.Save(outputPath);
-                writeWatch.Stop();
 
                 long originalSize = new FileInfo(filePath).Length;
                 long bsoaSize = new FileInfo(outputPath).Length;
-                
+
+                TimeSpan bsoaLoad = Measure.Time(10, () => log = SarifLog.Load(outputPath), logTimes: false);
+
                 table.AppendRow(
-                    fileName, 
-                    Friendly.Size(originalSize), 
-                    Friendly.Size(bsoaSize), 
-                    Friendly.Percentage(bsoaSize, originalSize));
+                    fileName,
+                    Friendly.Size(originalSize),
+                    Friendly.Rate(originalSize, jsonReadWatch.Elapsed),
+                    Friendly.Size(bsoaSize),
+                    Friendly.Percentage(bsoaSize, originalSize),
+                    Friendly.Rate(bsoaSize, bsoaLoad));
             }
         }
     }

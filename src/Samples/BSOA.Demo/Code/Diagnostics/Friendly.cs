@@ -8,6 +8,11 @@ namespace BSOA.Demo
         public const double Megabyte = 1024 * 1024;
         public const double Gigabyte = 1024 * 1024 * 1024;
 
+        public static string Rate(long sizeInBytes, TimeSpan elapsedTime)
+        {
+            return $"{Size((long)(sizeInBytes / elapsedTime.TotalSeconds))}/s";
+        }
+
         public static string Size(long sizeInBytes)
         {
             if (sizeInBytes < Kilobyte)
@@ -61,11 +66,11 @@ namespace BSOA.Demo
             }
             else if (seconds < 10)
             {
-                return $"{seconds:n2} sec";
+                return $"{seconds:n2} s";
             }
             else if (seconds < 100)
             {
-                return $"{seconds:n1} sec";
+                return $"{seconds:n1} s";
             }
             else
             {
@@ -103,6 +108,7 @@ namespace BSOA.Demo
                 Console.ForegroundColor = (i % 2 == 0 ? ConsoleColor.Green : normal);
             }
 
+            Console.WriteLine();
             Console.ForegroundColor = normal;
         }
     }

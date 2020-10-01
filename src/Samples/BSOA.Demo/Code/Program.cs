@@ -15,16 +15,15 @@ namespace BSOA.Demo.Comparison
             string mode = (args.Length > 0 ? args[0].ToLowerInvariant() : "load");
             string filePath = (args.Length > 1 ? args[1] : @"C:\Download\Demo\V2\Inputs\CodeAsData.sarif");
             string outputPath = (args.Length > 2 ? args[2] : Path.Combine(Path.GetDirectoryName(filePath), "..\\Out", Path.GetFileName(filePath)));
-            int iterations = (args.Length > 3 ? int.Parse(args[3]) : 4);
 
             switch (mode)
             {
                 case "load":
-                    Modes.Load(filePath, iterations);
+                    Modes.Load(filePath);
                     break;
 
                 case "loadandsave":
-                    Modes.LoadAndSave(filePath, outputPath, iterations);
+                    Modes.LoadAndSave(filePath, outputPath);
                     break;
 
                 case "objectmodeloverhead":

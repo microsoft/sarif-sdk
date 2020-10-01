@@ -10,11 +10,10 @@ namespace BSOA.Demo
 {
     public static class Measure
     {
-        public static TimeSpan Time(string description, int iterations, Action method)
+        public static TimeSpan Time(int iterations, Action method, bool logTimes = true)
         {
-            Console.WriteLine();
-            Console.WriteLine(description);
-            Console.Write("  ");
+            TextWriter log = (logTimes ? Console.Out : null);
+            log?.Write("  ");
 
             Stopwatch w = Stopwatch.StartNew();
             TimeSpan elapsedAfterFirst = TimeSpan.Zero;
@@ -27,41 +26,72 @@ namespace BSOA.Demo
                 method();
                 w.Stop();
 
-                if(iteration > 0) { Console.Write(" | "); }
-                Console.Write(Friendly.Time(w.Elapsed));
-                if (iteration > 0) { elapsedAfterFirst += w.Elapsed; }
+                if (iteration > 0) 
+                {
+                    elapsedAfterFirst += w.Elapsed;
+                    log?.Write(" | "); 
+                }
+
+                log?.Write(Friendly.Time(w.Elapsed));
             }
 
-            Console.WriteLine();
-            return (iterations == 1 ? w.Elapsed : TimeSpan.FromTicks(elapsedAfterFirst.Ticks / (iterations - 1)));
+            log?.WriteLine();
+            return (iterations == 1 ? w.Elapsed : elapsedAfterFirst / (iterations - 1));
         }
 
-        public static T LoadPerformance<T>(string path, int iterations, Func<string, T> loader)
+        public static TimeSpan Time(TimeSpan measureFor, Action method, bool logTimes = true)
+        {
+            TextWriter log = (logTimes ? Console.Out : null);
+            log?.Write("  ");
+
+            Stopwatch w = Stopwatch.StartNew();
+            TimeSpan elapsedAfterFirst = TimeSpan.Zero;
+
+            int iteration = 0;
+            while(w.Elapsed < measureFor || iteration == 0)
+            {
+                GC.Collect();
+
+                w.Restart();
+                method();
+                w.Stop();
+
+                if (iteration > 0)
+                {
+                    elapsedAfterFirst += w.Elapsed;
+                    log?.Write(" | ");
+                }
+
+                log?.Write(Friendly.Time(w.Elapsed));
+                iteration++;
+            }
+
+            log?.WriteLine();
+            return (iteration == 1 ? w.Elapsed : elapsedAfterFirst / (iteration - 1));
+        }
+
+        public static T LoadPerformance<T>(string path, TimeSpan measureFor, Func<string, T> loader)
         {
             T result = default(T);
             long fileSizeBytes = new FileInfo(path).Length;
             long ramBeforeBytes = GC.GetTotalMemory(true);
 
-            string description = $"Loading {Path.GetFileName(path)} [{Friendly.Size(fileSizeBytes)}] with {AssemblyDescription<T>()}...";
-
-            // Run and time the method
-            TimeSpan averageRuntime = Time(description, iterations, () => result = loader(path));
+            Friendly.HighlightLine($"Loading {Path.GetFileName(path)} [", Friendly.Size(fileSizeBytes), "] with ", AssemblyDescription<T>(), "...");
+            TimeSpan averageRuntime = Time(measureFor, () => result = loader(path));
 
             long ramAfterBytes = GC.GetTotalMemory(true);
 
-            Friendly.HighlightLine($"  -> Loaded ", Friendly.Size(fileSizeBytes), " at ", $"{Friendly.Size((long)(fileSizeBytes / averageRuntime.TotalSeconds))}/s", " into ", $"{Friendly.Size(ramAfterBytes - ramBeforeBytes)} RAM");
+            Friendly.HighlightLine($"  -> Loaded ", Friendly.Size(fileSizeBytes), " at ", Friendly.Rate(fileSizeBytes, averageRuntime), " into ", $"{Friendly.Size(ramAfterBytes - ramBeforeBytes)} RAM");
             return result;
         }
 
-        public static void SavePerformance(string path, int iterations, Action<string> saver)
+        public static void SavePerformance(string path, TimeSpan measureFor, Action<string> saver)
         {
-            string description = $"Saving as {Path.GetFileName(path)}...";
-
-            // Run and time the method
-            TimeSpan averageRuntime = Time(description, iterations, () => saver(path));
+            Console.WriteLine($"Saving as {Path.GetFileName(path)}...");
+            TimeSpan averageRuntime = Time(measureFor, () => saver(path));
+            
             long fileSizeBytes = new FileInfo(path).Length;
-
-            Friendly.HighlightLine($"  -> Saved at ", $"{Friendly.Size((long)(fileSizeBytes / averageRuntime.TotalSeconds))}/s", " to ", Friendly.Size(fileSizeBytes), " file");
+            Friendly.HighlightLine($"  -> Saved at ", Friendly.Rate(fileSizeBytes, averageRuntime), " to ", Friendly.Size(fileSizeBytes), " file");
         }
 
         public static string AssemblyDescription<T>()
