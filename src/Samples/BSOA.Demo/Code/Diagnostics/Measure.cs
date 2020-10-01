@@ -10,9 +10,6 @@ namespace BSOA.Demo
 {
     public static class Measure
     {
-        private const ConsoleColor HighlightColor = ConsoleColor.Green;
-        private const double Megabyte = 1024 * 1024;
-
         public static TimeSpan Time(string description, int iterations, Action method)
         {
             Console.WriteLine();
@@ -30,7 +27,8 @@ namespace BSOA.Demo
                 method();
                 w.Stop();
 
-                Console.Write($"{(iteration > 0 ? " | " : "")}{w.Elapsed.TotalSeconds:n2}s");
+                if(iteration > 0) { Console.Write(" | "); }
+                Console.Write(Friendly.Time(w.Elapsed));
                 if (iteration > 0) { elapsedAfterFirst += w.Elapsed; }
             }
 
@@ -41,31 +39,17 @@ namespace BSOA.Demo
         public static T LoadPerformance<T>(string path, int iterations, Func<string, T> loader)
         {
             T result = default(T);
-            double fileSizeMB = new FileInfo(path).Length / Megabyte;
-            double ramBeforeMB = GC.GetTotalMemory(true) / Megabyte;
+            long fileSizeBytes = new FileInfo(path).Length;
+            long ramBeforeBytes = GC.GetTotalMemory(true);
 
-            string description = $"Loading {Path.GetFileName(path)} [{fileSizeMB:n1} MB] with {AssemblyDescription<T>()}...";
+            string description = $"Loading {Path.GetFileName(path)} [{Friendly.Size(fileSizeBytes)}] with {AssemblyDescription<T>()}...";
 
             // Run and time the method
             TimeSpan averageRuntime = Time(description, iterations, () => result = loader(path));
 
-            double ramAfterMB = GC.GetTotalMemory(true) / Megabyte;
-            double loadMegabytesPerSecond = fileSizeMB / averageRuntime.TotalSeconds;
+            long ramAfterBytes = GC.GetTotalMemory(true);
 
-            ConsoleColor previous = Console.ForegroundColor;
-            Console.Write($"  -> Loaded ");
-            Console.ForegroundColor = HighlightColor;
-            Console.Write($"{fileSizeMB:n1} MB");
-            Console.ForegroundColor = previous;
-            Console.Write($" at ");
-            Console.ForegroundColor = HighlightColor;
-            Console.Write($"{loadMegabytesPerSecond:n1} MB/s");
-            Console.ForegroundColor = previous;
-            Console.Write($" into ");
-            Console.ForegroundColor = HighlightColor;
-            Console.WriteLine($"{(ramAfterMB - ramBeforeMB):n1} MB RAM");
-            Console.ForegroundColor = previous;
-
+            Friendly.HighlightLine($"  -> Loaded ", Friendly.Size(fileSizeBytes), " at ", $"{Friendly.Size((long)(fileSizeBytes / averageRuntime.TotalSeconds))}/s", " into ", $"{Friendly.Size(ramAfterBytes - ramBeforeBytes)} RAM");
             return result;
         }
 
@@ -75,20 +59,9 @@ namespace BSOA.Demo
 
             // Run and time the method
             TimeSpan averageRuntime = Time(description, iterations, () => saver(path));
+            long fileSizeBytes = new FileInfo(path).Length;
 
-            double fileSizeMB = new FileInfo(path).Length / Megabyte;
-            double saveMegabytesPerSecond = fileSizeMB / averageRuntime.TotalSeconds;
-
-            ConsoleColor previous = Console.ForegroundColor;
-            Console.Write($"  -> Saved at ");
-            Console.ForegroundColor = HighlightColor;
-            Console.Write($"{saveMegabytesPerSecond:n1} MB/s");
-            Console.ForegroundColor = previous;
-            Console.Write($" to ");
-            Console.ForegroundColor = HighlightColor;
-            Console.Write($"{fileSizeMB:n1} MB");
-            Console.ForegroundColor = previous;
-            Console.WriteLine($" file");
+            Friendly.HighlightLine($"  -> Saved at ", $"{Friendly.Size((long)(fileSizeBytes / averageRuntime.TotalSeconds))}/s", " to ", Friendly.Size(fileSizeBytes), " file");
         }
 
         public static string AssemblyDescription<T>()

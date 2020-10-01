@@ -17,35 +17,26 @@ namespace BSOA.Demo.Comparison
             string outputPath = (args.Length > 2 ? args[2] : Path.Combine(Path.GetDirectoryName(filePath), "..\\Out", Path.GetFileName(filePath)));
             int iterations = (args.Length > 3 ? int.Parse(args[3]) : 4);
 
-            SarifLog log;
-
             switch (mode)
             {
                 case "load":
-                    log = Measure.LoadPerformance(filePath, iterations: iterations, (path) =>
-                    {
-                        return SarifLog.Load(path);
-                    });
-
+                    Modes.Load(filePath, iterations);
                     break;
 
                 case "loadandsave":
-                    Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(outputPath)));
+                    Modes.LoadAndSave(filePath, outputPath, iterations);
+                    break;
 
-                    log = Measure.LoadPerformance(filePath, iterations: iterations, (path) =>
-                    {
-                        return SarifLog.Load(path);
-                    });
-
-                    Measure.SavePerformance(outputPath, iterations: 1, (path) =>
-                    {
-                        log.Save(path);
-                    });
-
+                case "objectmodeloverhead":
+                    Modes.ObjectModelOverhead(filePath);
                     break;
 
                 case "diagnostics":
                     Modes.Diagnostics(filePath, (args.Length > 2 ? int.Parse(args[2]) : 3));
+                    break;
+
+                case "convertfolder":
+                    Modes.ConvertFolder(filePath);
                     break;
 
                 case "indentfolder":

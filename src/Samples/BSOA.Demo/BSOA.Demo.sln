@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BSOA.Demo.Legacy", "Legacy\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sarif", "..\..\Sarif\Sarif.csproj", "{626E9319-9797-4B84-8CC3-623D7193F27F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Launcher", "Launcher\Launcher.csproj", "{C2691823-7D80-4322-92D9-7BE1439FD08E}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,10 +27,6 @@ Global
 		{626E9319-9797-4B84-8CC3-623D7193F27F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{626E9319-9797-4B84-8CC3-623D7193F27F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{626E9319-9797-4B84-8CC3-623D7193F27F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C2691823-7D80-4322-92D9-7BE1439FD08E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C2691823-7D80-4322-92D9-7BE1439FD08E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C2691823-7D80-4322-92D9-7BE1439FD08E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C2691823-7D80-4322-92D9-7BE1439FD08E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

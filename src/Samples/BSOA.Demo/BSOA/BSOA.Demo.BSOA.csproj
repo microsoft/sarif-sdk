@@ -9,6 +9,10 @@
     <DefineConstants>TRACE;BSOA</DefineConstants>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DefineConstants>BSOA</DefineConstants>
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Include="..\Code\**\*.cs" />
   </ItemGroup>
