@@ -184,7 +184,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         /// <param name="path">File System path of file to open</param>
         /// <returns>Stream to write file</returns>
-        Stream Create(string path);
+        Stream FileCreate(string path);
 
         /// <summary>
         /// Sets the specified <see cref="FileAttributes"/> of the file on the specified path.
@@ -208,7 +208,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// An object that represents the directory at the specified path. This object is
         /// returned regardless of whether a directory at the specified path already exists.
         /// </returns>  
-        DirectoryInfo CreateDirectory(string path);
+        DirectoryInfo DirectoryCreate(string path);
 
         /// <summary>
         /// Deletes an empty directory from a specified path.
@@ -216,6 +216,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="path">
         /// The name of the empty directory to remove. This directory must be writable and empty.
         /// </param>
-        void DeleteDirectory(string path, bool recursive = false);
+        void DirectoryDelete(string path, bool recursive = false);
+
+        /// <summary>
+        /// Deletes the specified file.
+        /// </summary>
+        /// <param name="path">
+        /// The name of the file to be deleted. Wildcard characters are not supported.
+        /// </param>
+        void FileDelete(string path);
     }
 }

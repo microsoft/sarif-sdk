@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 if (!absoluteUriOptions.Inline)
                 {
-                    _fileSystem.CreateDirectory(absoluteUriOptions.OutputDirectoryPath);
+                    _fileSystem.DirectoryCreate(absoluteUriOptions.OutputDirectoryPath);
                 }
 
                 Formatting formatting = absoluteUriOptions.PrettyPrint
