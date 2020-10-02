@@ -1,4 +1,12 @@
 @ECHO OFF
-SET SampleFile="C:\Download\Customer\ScannedSarif_devdiv___empty___PoolAgent.sarif"
+SET SamplePath=C:\Download\Customer
+SET Old="%~dp0\Legacy\bin\Release\netcoreapp3.1\BSOA.Demo.Legacy.exe"
+SET New="%~dp0\BSOA\bin\Release\netcoreapp3.1\BSOA.Demo.BSOA.exe"
 
-CALL "%~dp0BSOA.Demo.cmd" objectmodeloverhead %SampleFile%
+%Old% load %SamplePath%
+%New% load %SamplePath%
+
+%New% load %SamplePath%\Out
+
+%Old% objectmodeloverhead %SamplePath%
+%New% objectmodeloverhead %SamplePath%\Out

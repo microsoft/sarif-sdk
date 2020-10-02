@@ -5,18 +5,30 @@ using System.Linq;
 
 namespace BSOA.Demo
 {
+    public enum Align
+    {
+        Left = 0,
+        Right = 1
+    }
+
+    public enum Highlight
+    {
+        Off = 0,
+        On = 1
+    }
+
     public class ConsoleColumn
     {
         public string Heading { get; set; }
-        public bool RightAligned { get; set; }
-        public bool Highlighted { get; set; }
+        public Align Align { get; set; }
+        public Highlight Highlight { get; set; }
         public int Width { get; set; }
 
-        public ConsoleColumn(string heading, bool rightAligned = false, bool highlighted = false)
+        public ConsoleColumn(string heading, Align align = Align.Left, Highlight highlight = Highlight.Off)
         {
             Heading = heading;
-            RightAligned = rightAligned;
-            Highlighted = highlighted;
+            Align = align;
+            Highlight = highlight;
             Width = heading?.Length ?? 0;
         }
     }
@@ -83,7 +95,7 @@ namespace BSOA.Demo
 
         private void WriteRow(IEnumerable<string> values)
         {
-            Console.Write("| ");
+            Console.Write(" | ");
 
             int i = 0;
             foreach (string value in values)
@@ -112,17 +124,17 @@ namespace BSOA.Demo
         {
             if (value == null) { value = "<null>"; }
 
-            Console.ForegroundColor = (column.Highlighted ? HighlightColor : DefaultColor);
+            Console.ForegroundColor = (column.Highlight == Highlight.On ? HighlightColor : DefaultColor);
 
             int padLength = Math.Max(0, column.Width - value.Length);
-            if (padLength > 0 && column.RightAligned)
+            if (padLength > 0 && column.Align == Align.Right)
             {
                 Console.Write(new string(' ', padLength));
             }
 
             Console.Write(value);
 
-            if (padLength > 0 && !column.RightAligned)
+            if (padLength > 0 && column.Align != Align.Right)
             {
                 Console.Write(new string(' ', padLength));
             }

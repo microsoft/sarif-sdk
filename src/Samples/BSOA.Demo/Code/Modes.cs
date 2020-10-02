@@ -5,11 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
+using System.Reflection;
 
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.CodeAnalysis.Sarif.Writers;
-
-using Newtonsoft.Json;
 
 namespace BSOA.Demo
 {
@@ -17,76 +17,133 @@ namespace BSOA.Demo
     {
         public static TimeSpan MeasureTime = TimeSpan.FromSeconds(2);
 
-        public static void Load(string filePath)
+        public static MeasureSettings LoadSettings = new MeasureSettings(MeasureTime, 1, 4, true);
+        public static MeasureSettings OnceSettings = new MeasureSettings(TimeSpan.Zero, 1, 1, true);
+        public static MeasureSettings FastOperationSettings = new MeasureSettings(MeasureTime, 50, 100, false);
+
+        public static void Convert(string inputPath)
         {
-            SarifLog log = Measure.LoadPerformance(filePath, MeasureTime, (path) =>
+            Friendly.HighlightLine($"-> Converting '{inputPath}' to BSOA...");
+
+            ConsoleTable table = new ConsoleTable(
+                new ConsoleColumn("FileName"),
+                new ConsoleColumn("Size", Align.Right),
+                new ConsoleColumn("JSON Read", Align.Right),
+                new ConsoleColumn("BSOA Size", Align.Right, Highlight.On),
+                new ConsoleColumn("Ratio", Align.Right),
+                new ConsoleColumn("BSOA Read", Align.Right));
+
+            foreach (string filePath in FilesForPath(inputPath))
             {
-                return SarifLog.Load(path);
-            });
-        }
+                string fileName = Path.GetFileName(filePath);
+                string outputPath = OutputPath(filePath);
 
-        public static void LoadAndSave(string filePath, string outputPath)
-        {
-            Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(outputPath)));
+                // Load OM from JSON
+                MeasureResult<SarifLog> load 
+                    = Measure.Operation<SarifLog>(filePath, SarifLog.Load, LoadSettings);
 
-            SarifLog log = Measure.LoadPerformance(filePath, MeasureTime, (path) =>
-            {
-                return SarifLog.Load(path);
-            });
+                // Save as BSOA
+                load.Output.Save(outputPath);
 
-            Measure.SavePerformance(outputPath, TimeSpan.Zero, (path) =>
-            {
-                log.Save(path);
-            });
-        }
+                // Load OM from BSOA
+                MeasureResult<SarifLog> bsoaLoad
+                    = Measure.Operation(outputPath, SarifLog.Load, LoadSettings);
 
-        public static void LoadAndSaveFolder(string folderPath)
-        {
-            foreach (string filePath in Directory.GetFiles(folderPath, "*.sarif"))
-            {
-                Console.WriteLine($" - {filePath}");
-
-                SarifLog log = SarifLog.LoadDeferred(filePath);
-
-                string outputPath = Path.Combine(Path.GetDirectoryName(filePath), @"..\RoundTripped", Path.GetFileName(filePath));
-                Directory.CreateDirectory(Path.GetDirectoryName(outputPath));
-
-                log.Save(outputPath);
+                table.AppendRow(
+                    fileName,
+                    Friendly.Size(load.InputSizeBytes),
+                    Friendly.Rate(load.InputSizeBytes, load.AverageTime),
+                    Friendly.Size(bsoaLoad.InputSizeBytes),
+                    Friendly.Percentage(bsoaLoad.InputSizeBytes, load.InputSizeBytes),
+                    Friendly.Rate(bsoaLoad.InputSizeBytes, bsoaLoad.AverageTime));
             }
         }
 
-        public static long ObjectModelOverhead(string filePath)
+        public static void Load(string inputPath)
         {
-            SarifLog log = Measure.LoadPerformance(filePath, TimeSpan.Zero, (path) =>
-            {
-                return SarifLog.Load(path);
-            });
+            Friendly.HighlightLine($"-> Loading '{inputPath}' with ", AssemblyDescription<SarifLog>(), "...");
 
+            ConsoleTable table = new ConsoleTable(
+                new ConsoleColumn("FileName"),
+                new ConsoleColumn("Size", Align.Right),
+                new ConsoleColumn("Read", Align.Right, Highlight.On),
+                new ConsoleColumn("RAM", Align.Right, Highlight.On));
+
+            MeasureSettings settings = new MeasureSettings(MeasureTime, minIterations: 1, maxIterations: 8, measureMemory: true);
+
+            foreach (string filePath in FilesForPath(inputPath))
+            {
+                MeasureResult<SarifLog> load = Measure.Operation<SarifLog>(filePath, (path) => SarifLog.Load(path), settings);
+
+                table.AppendRow(
+                    Path.GetFileName(filePath),
+                    Friendly.Size(load.InputSizeBytes),
+                    Friendly.Rate(load.InputSizeBytes, load.AverageTime),
+                    Friendly.Size(load.AddedMemoryBytes));
+            }
+        }
+
+        public static void ObjectModelOverhead(string inputPath)
+        {
+            Friendly.HighlightLine($"-> Computing SUM(Result.StartLine) in '{inputPath}' with ", AssemblyDescription<SarifLog>(), "...");
+
+            ConsoleTable table = new ConsoleTable(
+                new ConsoleColumn("FileName"),
+                new ConsoleColumn("Size", Align.Right),
+                new ConsoleColumn("SUM(StartLine)", Align.Right, Highlight.On));
+
+            foreach (string filePath in FilesForPath(inputPath))
+            {
+                SarifLog log = SarifLog.Load(filePath);
+                MeasureResult<long> count = Measure.Operation<long>(filePath, (path) => LineTotal(log), FastOperationSettings);
+
+                table.AppendRow(
+                    Path.GetFileName(filePath),
+                    Friendly.Size(count.InputSizeBytes),
+                    Friendly.Time(count.AverageTime));
+            }
+        }
+
+        private static long LineTotal(SarifLog log)
+        {
             long lineTotal = 0;
-            int iteration = 0;
 
-            Stopwatch w = Stopwatch.StartNew();
-            while (w.Elapsed < MeasureTime)
+            foreach (Run run in log.Runs)
             {
-                lineTotal = 0;
-
-                foreach (Run run in log.Runs)
+                foreach (Result result in run.Results)
                 {
-                    foreach (Result result in run.Results)
+                    foreach (Location location in result.Locations)
                     {
-                        foreach (Location location in result.Locations)
-                        {
-                            lineTotal += location?.PhysicalLocation?.Region?.StartLine ?? 0;
-                        }
+                        lineTotal += location?.PhysicalLocation?.Region?.StartLine ?? 0;
                     }
                 }
-
-                iteration++;
             }
 
-            w.Stop();
-            Friendly.HighlightLine($"  -> Sum(StartLine) = ", $"{lineTotal:n0}", $" in ", Friendly.Time(w.Elapsed / iteration), $" ({iteration:n0}x)");
             return lineTotal;
+        }
+
+        public static string OutputPath(string inputPath)
+        {
+            string outputDirectory = Path.Combine(Path.GetDirectoryName(inputPath), "Out");
+            string outputPath = Path.Combine(outputDirectory, Path.GetFileName(inputPath));
+
+#if BSOA
+            outputPath = outputPath + ".bsoa";
+#endif
+            Directory.CreateDirectory(outputDirectory);
+            return outputPath;
+        }
+
+        public static IEnumerable<string> FilesForPath(string inputPath)
+        {
+            if (Directory.Exists(inputPath))
+            {
+                return Directory.EnumerateFiles(inputPath).ToList();
+            }
+            else
+            {
+                return new string[] { inputPath };
+            }
         }
 
         public static void Diagnostics(string filePath, int logToDepth)
@@ -137,66 +194,11 @@ namespace BSOA.Demo
 #endif
         }
 
-        public static void IndentFolder(string folderPath)
+        public static string AssemblyDescription<T>()
         {
-            JsonSerializer serializer = JsonSerializer.Create();
-
-            foreach (string filePath in Directory.GetFiles(folderPath, "*.sarif"))
-            {
-                Console.WriteLine($" - {filePath}");
-
-                SarifLog log = SarifLog.LoadDeferred(filePath);
-
-                string outputPath = Path.Combine(Path.GetDirectoryName(filePath), @"..\Indented", Path.GetFileName(filePath));
-                Directory.CreateDirectory(Path.GetDirectoryName(outputPath));
-
-                using (JsonTextWriter writer = new JsonTextWriter(File.CreateText(outputPath)))
-                {
-                    writer.Formatting = Formatting.Indented;
-                    serializer.Serialize(writer, log);
-                }
-            }
-        }
-
-        public static void ConvertFolder(string folderPath)
-        {
-            string outputFolderPath = Path.Combine(folderPath, "Out");
-            Directory.CreateDirectory(outputFolderPath);
-
-            ConsoleTable table = new ConsoleTable(
-                new ConsoleColumn("FileName"),
-                new ConsoleColumn("Size", rightAligned: true),
-                new ConsoleColumn("JSON Load", rightAligned: true),
-                new ConsoleColumn("BSOA Size", rightAligned: true, highlighted: true),
-                new ConsoleColumn("Ratio", rightAligned: true),
-                new ConsoleColumn("BSOA Load", rightAligned: true));
-
-            foreach (string filePath in Directory.GetFiles(folderPath, "*.sarif"))
-            {
-                string fileName = Path.GetFileName(filePath);
-                string outputPath = Path.Combine(outputFolderPath, fileName + ".bsoa");
-
-                SarifLog log = null;
-
-                Stopwatch jsonReadWatch = Stopwatch.StartNew();
-                log = SarifLog.Load(filePath);
-                jsonReadWatch.Stop();
-
-                log.Save(outputPath);
-
-                long originalSize = new FileInfo(filePath).Length;
-                long bsoaSize = new FileInfo(outputPath).Length;
-
-                TimeSpan bsoaLoad = Measure.Time(10, () => log = SarifLog.Load(outputPath), logTimes: false);
-
-                table.AppendRow(
-                    fileName,
-                    Friendly.Size(originalSize),
-                    Friendly.Rate(originalSize, jsonReadWatch.Elapsed),
-                    Friendly.Size(bsoaSize),
-                    Friendly.Percentage(bsoaSize, originalSize),
-                    Friendly.Rate(bsoaSize, bsoaLoad));
-            }
+            AssemblyName name = typeof(T).Assembly.GetName();
+            string suffix = typeof(T).Assembly.GetType("Microsoft.CodeAnalysis.Sarif.SarifLogDatabase") != null ? " BSOA" : "";
+            return $"{name.Name}{suffix} v{name.Version}";
         }
     }
 }

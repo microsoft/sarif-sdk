@@ -4,101 +4,99 @@
 using System;
 using System.Diagnostics;
 using System.IO;
-using System.Reflection;
 
 namespace BSOA.Demo
 {
+    /// <summary>
+    ///  Measure.Operation provides and easy way to measure runtime, throughput, and memory use.
+    ///   MeasureSettings can configure the desired iterations, a runtime target, and whether to collect memory.
+    /// </summary>
     public static class Measure
     {
-        public static TimeSpan Time(int iterations, Action method, bool logTimes = true)
+        public static MeasureResult Operation(string inputFilePath, Action<string> operation, MeasureSettings settings = null)
         {
-            TextWriter log = (logTimes ? Console.Out : null);
-            log?.Write("  ");
+            settings = settings ?? MeasureSettings.Default;
 
-            Stopwatch w = Stopwatch.StartNew();
+            long ramBefore = (settings.MeasureMemory ? GC.GetTotalMemory(true) : 0);
             TimeSpan elapsedAfterFirst = TimeSpan.Zero;
 
-            for (int iteration = 0; iteration < iterations; iteration++)
-            {
-                GC.Collect();
-
-                w.Restart();
-                method();
-                w.Stop();
-
-                if (iteration > 0) 
-                {
-                    elapsedAfterFirst += w.Elapsed;
-                    log?.Write(" | "); 
-                }
-
-                log?.Write(Friendly.Time(w.Elapsed));
-            }
-
-            log?.WriteLine();
-            return (iterations == 1 ? w.Elapsed : elapsedAfterFirst / (iterations - 1));
-        }
-
-        public static TimeSpan Time(TimeSpan measureFor, Action method, bool logTimes = true)
-        {
-            TextWriter log = (logTimes ? Console.Out : null);
-            log?.Write("  ");
-
-            Stopwatch w = Stopwatch.StartNew();
-            TimeSpan elapsedAfterFirst = TimeSpan.Zero;
+            Stopwatch total = Stopwatch.StartNew();
+            Stopwatch single = Stopwatch.StartNew();
 
             int iteration = 0;
-            while(w.Elapsed < measureFor || iteration == 0)
+            while (iteration < settings.MinIterations || (iteration < settings.MaxIterations && total.Elapsed < settings.WithinTime))
             {
-                GC.Collect();
-
-                w.Restart();
-                method();
-                w.Stop();
+                single.Restart();
+                operation(inputFilePath);
+                single.Stop();
 
                 if (iteration > 0)
                 {
-                    elapsedAfterFirst += w.Elapsed;
-                    log?.Write(" | ");
+                    elapsedAfterFirst += single.Elapsed;
                 }
 
-                log?.Write(Friendly.Time(w.Elapsed));
                 iteration++;
             }
 
-            log?.WriteLine();
-            return (iteration == 1 ? w.Elapsed : elapsedAfterFirst / (iteration - 1));
-        }
+            MeasureResult result = new MeasureResult()
+            {
+                InputFilePath = inputFilePath,
+                InputSizeBytes = new FileInfo(inputFilePath).Length,
+                Iterations = iteration,
+                AverageTime = (iteration == 1 ? single.Elapsed : elapsedAfterFirst / (iteration - 1)),
+                AddedMemoryBytes = (settings.MeasureMemory ? GC.GetTotalMemory(true) - ramBefore : 0),
+            };
 
-        public static T LoadPerformance<T>(string path, TimeSpan measureFor, Func<string, T> loader)
-        {
-            T result = default(T);
-            long fileSizeBytes = new FileInfo(path).Length;
-            long ramBeforeBytes = GC.GetTotalMemory(true);
-
-            Friendly.HighlightLine($"Loading {Path.GetFileName(path)} [", Friendly.Size(fileSizeBytes), "] with ", AssemblyDescription<T>(), "...");
-            TimeSpan averageRuntime = Time(measureFor, () => result = loader(path));
-
-            long ramAfterBytes = GC.GetTotalMemory(true);
-
-            Friendly.HighlightLine($"  -> Loaded ", Friendly.Size(fileSizeBytes), " at ", Friendly.Rate(fileSizeBytes, averageRuntime), " into ", $"{Friendly.Size(ramAfterBytes - ramBeforeBytes)} RAM");
             return result;
         }
 
-        public static void SavePerformance(string path, TimeSpan measureFor, Action<string> saver)
+        public static MeasureResult<T> Operation<T>(string inputFilePath, Func<string, T> operation, MeasureSettings settings = null)
         {
-            Console.WriteLine($"Saving as {Path.GetFileName(path)}...");
-            TimeSpan averageRuntime = Time(measureFor, () => saver(path));
-            
-            long fileSizeBytes = new FileInfo(path).Length;
-            Friendly.HighlightLine($"  -> Saved at ", Friendly.Rate(fileSizeBytes, averageRuntime), " to ", Friendly.Size(fileSizeBytes), " file");
-        }
+            T output = default(T);
 
-        public static string AssemblyDescription<T>()
-        {
-            AssemblyName name = typeof(T).Assembly.GetName();
-            string suffix = typeof(T).Assembly.GetType("Microsoft.CodeAnalysis.Sarif.SarifLogDatabase") != null ? " BSOA" : "";
-            return $"{name.Name}{suffix} v{name.Version}";
+            MeasureResult inner = Operation(inputFilePath, (Action<string>)((path) => output = operation(path)), settings);
+
+            return new MeasureResult<T>()
+            {
+                InputFilePath = inner.InputFilePath,
+                InputSizeBytes = inner.InputSizeBytes,
+                Iterations = inner.Iterations,
+                AverageTime = inner.AverageTime,
+                AddedMemoryBytes = inner.AddedMemoryBytes,
+                Output = output
+            };
         }
+    }
+
+    public class MeasureSettings
+    {
+        public static MeasureSettings Default = new MeasureSettings(TimeSpan.FromSeconds(2), 1, 8, false);
+
+        public TimeSpan WithinTime { get; set; }
+        public int MinIterations { get; set; }
+        public int MaxIterations { get; set; }
+        public bool MeasureMemory { get; set; }
+
+        public MeasureSettings(TimeSpan withinTime, int minIterations, int maxIterations, bool measureMemory)
+        {
+            this.WithinTime = withinTime;
+            this.MinIterations = minIterations;
+            this.MaxIterations = maxIterations;
+            this.MeasureMemory = measureMemory;
+        }
+    }
+
+    public class MeasureResult
+    {
+        public string InputFilePath { get; set; }
+        public long InputSizeBytes { get; set; }
+        public TimeSpan AverageTime { get; set; }
+        public int Iterations { get; set; }
+        public long AddedMemoryBytes { get; set; }
+    }
+
+    public class MeasureResult<T> : MeasureResult
+    {
+        public T Output { get; set; }
     }
 }
