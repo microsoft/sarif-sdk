@@ -17,9 +17,10 @@ namespace BSOA.Demo
     {
         public static TimeSpan MeasureTime = TimeSpan.FromSeconds(2);
 
-        public static MeasureSettings LoadSettings = new MeasureSettings(MeasureTime, 1, 4, true);
-        public static MeasureSettings OnceSettings = new MeasureSettings(TimeSpan.Zero, 1, 1, true);
-        public static MeasureSettings FastOperationSettings = new MeasureSettings(MeasureTime, 50, 100, false);
+        // Settings for measuring file loads (slow, measure RAM) really slow operations (once only, no timeout), and fast operations (10x per timing loop)
+        public static MeasureSettings LoadSettings = new MeasureSettings(MeasureTime, 1, 4, 1, true);
+        public static MeasureSettings OnceSettings = new MeasureSettings(TimeSpan.Zero, 1, 1, 1, true);
+        public static MeasureSettings FastOperationSettings = new MeasureSettings(MeasureTime, 60, 120, 10, false);
 
         public static void Convert(string inputPath)
         {
@@ -69,11 +70,9 @@ namespace BSOA.Demo
                 new ConsoleColumn("Read", Align.Right, Highlight.On),
                 new ConsoleColumn("RAM", Align.Right, Highlight.On));
 
-            MeasureSettings settings = new MeasureSettings(MeasureTime, minIterations: 1, maxIterations: 8, measureMemory: true);
-
             foreach (string filePath in FilesForPath(inputPath))
             {
-                MeasureResult<SarifLog> load = Measure.Operation<SarifLog>(filePath, (path) => SarifLog.Load(path), settings);
+                MeasureResult<SarifLog> load = Measure.Operation<SarifLog>(filePath, (path) => SarifLog.Load(path), LoadSettings);
 
                 table.AppendRow(
                     Path.GetFileName(filePath),

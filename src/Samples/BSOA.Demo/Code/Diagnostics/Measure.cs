@@ -27,7 +27,10 @@ namespace BSOA.Demo
             while (iteration < settings.MinIterations || (iteration < settings.MaxIterations && total.Elapsed < settings.WithinTime))
             {
                 single.Restart();
-                operation(inputFilePath);
+                for (int i = 0; i < settings.InnerIterations; ++i)
+                {
+                    operation(inputFilePath);
+                }
                 single.Stop();
 
                 if (iteration > 0)
@@ -35,7 +38,7 @@ namespace BSOA.Demo
                     elapsedAfterFirst += single.Elapsed;
                 }
 
-                iteration++;
+                iteration += settings.InnerIterations;
             }
 
             MeasureResult result = new MeasureResult()
@@ -68,20 +71,29 @@ namespace BSOA.Demo
         }
     }
 
+    /// <summary>
+    ///  MeasureSettings configures how performance measurements are run: for how long to measure, bounds on the number
+    ///  of iterations to run, whether to measure memory use, and whether to run multiple iterations inside the tight
+    ///  timing loop.
+    ///  
+    ///  These settings allow the same measurement code to be used for small and large operations.
+    /// </summary>
     public class MeasureSettings
     {
-        public static MeasureSettings Default = new MeasureSettings(TimeSpan.FromSeconds(2), 1, 8, false);
+        public static MeasureSettings Default = new MeasureSettings(TimeSpan.FromSeconds(2), 1, 8, 1, false);
 
         public TimeSpan WithinTime { get; set; }
         public int MinIterations { get; set; }
         public int MaxIterations { get; set; }
+        public int InnerIterations { get; set; }
         public bool MeasureMemory { get; set; }
 
-        public MeasureSettings(TimeSpan withinTime, int minIterations, int maxIterations, bool measureMemory)
+        public MeasureSettings(TimeSpan withinTime, int minIterations, int maxIterations, int innerIterations, bool measureMemory)
         {
             this.WithinTime = withinTime;
             this.MinIterations = minIterations;
             this.MaxIterations = maxIterations;
+            this.InnerIterations = innerIterations;
             this.MeasureMemory = measureMemory;
         }
     }

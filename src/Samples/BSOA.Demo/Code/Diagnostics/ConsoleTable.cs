@@ -5,34 +5,11 @@ using System.Linq;
 
 namespace BSOA.Demo
 {
-    public enum Align
-    {
-        Left = 0,
-        Right = 1
-    }
-
-    public enum Highlight
-    {
-        Off = 0,
-        On = 1
-    }
-
-    public class ConsoleColumn
-    {
-        public string Heading { get; set; }
-        public Align Align { get; set; }
-        public Highlight Highlight { get; set; }
-        public int Width { get; set; }
-
-        public ConsoleColumn(string heading, Align align = Align.Left, Highlight highlight = Highlight.Off)
-        {
-            Heading = heading;
-            Align = align;
-            Highlight = highlight;
-            Width = heading?.Length ?? 0;
-        }
-    }
-
+    /// <summary>
+    ///  ConsoleTable draws a formatted table of data to the console.
+    ///  It supports highlighed columns, left and right-alignment,
+    ///  and sizes the columns to the content.
+    /// </summary>
     public class ConsoleTable
     {
         private IReadOnlyList<ConsoleColumn> Columns { get; set; }
@@ -142,5 +119,33 @@ namespace BSOA.Demo
             Console.ForegroundColor = DefaultColor;
             Console.Write(" | ");
         }
+    }
+
+    public class ConsoleColumn
+    {
+        public string Heading { get; set; }
+        public Align Align { get; set; }
+        public Highlight Highlight { get; set; }
+        public int Width { get; set; }
+
+        public ConsoleColumn(string heading, Align align = Align.Left, Highlight highlight = Highlight.Off)
+        {
+            Heading = heading;
+            Align = align;
+            Highlight = highlight;
+            Width = heading?.Length ?? 0;
+        }
+    }
+
+    public enum Align
+    {
+        Left = 0,
+        Right = 1
+    }
+
+    public enum Highlight
+    {
+        Off = 0,
+        On = 1
     }
 }
