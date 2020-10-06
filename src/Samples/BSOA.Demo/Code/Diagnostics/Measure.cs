@@ -3,9 +3,8 @@
 
 using System;
 using System.Diagnostics;
-using System.IO;
 
-namespace BSOA.Demo
+namespace BSOA.Benchmarks
 {
     /// <summary>
     ///  Measure.Operation provides and easy way to measure runtime, throughput, and memory use.
@@ -13,7 +12,7 @@ namespace BSOA.Demo
     /// </summary>
     public static class Measure
     {
-        public static MeasureResult Operation(string inputFilePath, Action<string> operation, MeasureSettings settings = null)
+        public static MeasureResult Operation(Action operation, MeasureSettings settings = null)
         {
             settings = settings ?? MeasureSettings.Default;
 
@@ -23,48 +22,57 @@ namespace BSOA.Demo
             Stopwatch total = Stopwatch.StartNew();
             Stopwatch single = Stopwatch.StartNew();
 
-            int iteration = 0;
-            while (iteration < settings.MinIterations || (iteration < settings.MaxIterations && total.Elapsed < settings.WithinTime))
+            int pass = 0;
+            int iterations = 0;
+            int innerIterations = 1;
+
+            while (pass < settings.MinIterations || (pass < settings.MaxIterations && total.Elapsed < settings.WithinTime))
             {
+                // Measure the operation in a tight loop
                 single.Restart();
-                for (int i = 0; i < settings.InnerIterations; ++i)
+                for (int i = 0; i < innerIterations; ++i)
                 {
-                    operation(inputFilePath);
+                    operation();
                 }
                 single.Stop();
 
-                if (iteration > 0)
+                // Double inner loop iterations and don't count pass until we spend enough time to measure reliably in a pass
+                if (single.ElapsedMilliseconds < 100 && innerIterations < 32 * 1024 * 1024)
+                {
+                    innerIterations *= 2;
+                    pass--;
+                }
+
+                // Track time from all iterations but the first (which is often much slower)
+                if (iterations > 0)
                 {
                     elapsedAfterFirst += single.Elapsed;
                 }
 
-                iteration += settings.InnerIterations;
+                iterations += innerIterations;
+                pass++;
             }
 
             MeasureResult result = new MeasureResult()
             {
-                InputFilePath = inputFilePath,
-                InputSizeBytes = new FileInfo(inputFilePath).Length,
-                Iterations = iteration,
-                AverageTime = (iteration == 1 ? single.Elapsed : elapsedAfterFirst / (iteration - 1)),
+                Iterations = (iterations == 1 ? 1 : iterations - 1),
+                Elapsed = (iterations == 1 ? single.Elapsed : elapsedAfterFirst),
                 AddedMemoryBytes = (settings.MeasureMemory ? GC.GetTotalMemory(true) - ramBefore : 0),
             };
 
             return result;
         }
 
-        public static MeasureResult<T> Operation<T>(string inputFilePath, Func<string, T> operation, MeasureSettings settings = null)
+        public static MeasureResult<T> Operation<T>(Func<T> operation, MeasureSettings settings = null)
         {
             T output = default(T);
 
-            MeasureResult inner = Operation(inputFilePath, (Action<string>)((path) => output = operation(path)), settings);
+            MeasureResult inner = Operation(() => { output = operation(); }, settings);
 
             return new MeasureResult<T>()
             {
-                InputFilePath = inner.InputFilePath,
-                InputSizeBytes = inner.InputSizeBytes,
                 Iterations = inner.Iterations,
-                AverageTime = inner.AverageTime,
+                Elapsed = inner.Elapsed,
                 AddedMemoryBytes = inner.AddedMemoryBytes,
                 Output = output
             };
@@ -73,37 +81,41 @@ namespace BSOA.Demo
 
     /// <summary>
     ///  MeasureSettings configures how performance measurements are run: for how long to measure, bounds on the number
-    ///  of iterations to run, whether to measure memory use, and whether to run multiple iterations inside the tight
-    ///  timing loop.
+    ///  of iterations to run, and whether to measure memory use.
     ///  
     ///  These settings allow the same measurement code to be used for small and large operations.
     /// </summary>
     public class MeasureSettings
     {
-        public static MeasureSettings Default = new MeasureSettings(TimeSpan.FromSeconds(2), 1, 8, 1, false);
+        // Measure at least once, then up to 16 passes or 2 seconds, whichever comes first
+        public static MeasureSettings Default = new MeasureSettings(TimeSpan.FromSeconds(2), 1, 10, false);
+
+        // Load once, measuring RAM
+        public static MeasureSettings LoadOnce = new MeasureSettings(TimeSpan.Zero, 1, 1, true);
+
+        // Load a few times, measuring RAM
+        public static MeasureSettings Load = new MeasureSettings(TimeSpan.FromSeconds(2), 2, 5, true);
 
         public TimeSpan WithinTime { get; set; }
         public int MinIterations { get; set; }
         public int MaxIterations { get; set; }
-        public int InnerIterations { get; set; }
         public bool MeasureMemory { get; set; }
 
-        public MeasureSettings(TimeSpan withinTime, int minIterations, int maxIterations, int innerIterations, bool measureMemory)
+        public MeasureSettings(TimeSpan withinTime, int minIterations, int maxIterations, bool measureMemory)
         {
             this.WithinTime = withinTime;
             this.MinIterations = minIterations;
             this.MaxIterations = maxIterations;
-            this.InnerIterations = innerIterations;
             this.MeasureMemory = measureMemory;
         }
     }
 
     public class MeasureResult
     {
-        public string InputFilePath { get; set; }
-        public long InputSizeBytes { get; set; }
-        public TimeSpan AverageTime { get; set; }
         public int Iterations { get; set; }
+        public TimeSpan Elapsed { get; set; }
+        public double SecondsPerIteration => Elapsed.TotalSeconds / Iterations;
+
         public long AddedMemoryBytes { get; set; }
     }
 

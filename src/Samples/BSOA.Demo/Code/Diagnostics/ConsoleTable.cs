@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 
-namespace BSOA.Demo
+namespace BSOA.Benchmarks
 {
     /// <summary>
-    ///  ConsoleTable draws a formatted table of data to the console.
-    ///  It supports highlighed columns, left and right-alignment,
-    ///  and sizes the columns to the content.
+    ///  ConsoleTable writes formatted tables in the console, supporting highlighting and right-aligned columns.
+    ///  Output is Markdown compatible for easy copy and paste.
     /// </summary>
     public class ConsoleTable
     {
@@ -34,6 +33,11 @@ namespace BSOA.Demo
         public ConsoleTable(params string[] columnNames) :
             this(columnNames.Select((name) => new ConsoleColumn(name)).ToArray())
         { }
+
+        public void AppendRow(IEnumerable<string> values)
+        {
+            AppendRow(values.ToArray());
+        }
 
         public void AppendRow(params string[] values)
         {
@@ -67,7 +71,7 @@ namespace BSOA.Demo
             WriteRow(Columns.Select((c) => c.Heading));
 
             // Write separator row
-            WriteRow(Columns.Select((c) => new string('-', c.Width)));
+            WriteRow(Columns.Select((c) => Separator(c)));
         }
 
         private void WriteRow(IEnumerable<string> values)
@@ -118,6 +122,18 @@ namespace BSOA.Demo
 
             Console.ForegroundColor = DefaultColor;
             Console.Write(" | ");
+        }
+
+        private string Separator(ConsoleColumn column)
+        {
+            if (column.Align == Align.Right)
+            {
+                return new string('-', Math.Max(3, column.Width - 1)) + ":";
+            }
+            else
+            {
+                return new string('-', Math.Max(3, column.Width));
+            }
         }
     }
 

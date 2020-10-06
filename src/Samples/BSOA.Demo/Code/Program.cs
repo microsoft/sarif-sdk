@@ -20,12 +20,8 @@ namespace BSOA.Demo.Comparison
                     Modes.Convert(inputPath);
                     break;
 
-                case "load":
-                    Modes.Load(inputPath);
-                    break;
-
-                case "objectmodeloverhead":
-                    Modes.ObjectModelOverhead(inputPath);
+                case "benchmarks":
+                    Modes.Benchmarks(inputPath);
                     break;
 
                 case "diagnostics":
@@ -37,7 +33,7 @@ namespace BSOA.Demo.Comparison
                     break;
 
                 default:
-                    Console.WriteLine($"Unknown mode '{mode}'. Usage: BSOA.Demo <load/build> <filePath>");
+                    Console.WriteLine($"Unknown mode '{mode}'. Usage: BSOA.Demo <convert|benchmarks|diagnostics> <fileOrFolderPath>");
                     break;
             }
 

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BSOA.Demo
+namespace BSOA.Benchmarks
 {
     public static class Friendly
     {
@@ -8,9 +8,9 @@ namespace BSOA.Demo
         public const double Megabyte = 1024 * 1024;
         public const double Gigabyte = 1024 * 1024 * 1024;
 
-        public static string Rate(long sizeInBytes, TimeSpan elapsedTime)
+        public static string Rate(long sizeInBytes, TimeSpan elapsedTime, long iterations = 1)
         {
-            return $"{Size((long)(sizeInBytes / elapsedTime.TotalSeconds))}/s";
+            return $"{Size((long)((iterations * sizeInBytes) / elapsedTime.TotalSeconds))}/s";
         }
 
         public static string Size(long sizeInBytes)
@@ -59,10 +59,43 @@ namespace BSOA.Demo
 
         public static string Time(TimeSpan elapsed)
         {
-            double seconds = elapsed.TotalSeconds;
-            if (seconds < 1)
+            // Note: TimeSpan has 100ns granularity; use other overload to safely report smaller < 2 us times.
+            return Time(elapsed.TotalSeconds);
+        }
+
+        public static string Time(double seconds)
+        {
+            if (seconds < 0.0000001)
             {
-                return $"{elapsed.TotalMilliseconds:n0} ms";
+                return $"{seconds * 1000 * 1000 * 1000:n1} ns";
+            }
+            else if (seconds < 0.000001)
+            {
+                return $"{seconds * 1000 * 1000 * 1000:n0} ns";
+            }
+            else if (seconds < 0.00001)
+            {
+                return $"{seconds * 1000 * 1000:n2} us";
+            }
+            else if (seconds < 0.0001)
+            {
+                return $"{seconds * 1000 * 1000:n1} us";
+            }
+            else if (seconds < 0.001)
+            {
+                return $"{seconds * 1000 * 1000:n0} us";
+            }
+            else if (seconds < 0.01)
+            {
+                return $"{seconds * 1000:n2} ms";
+            }
+            else if (seconds < 0.1)
+            {
+                return $"{seconds * 1000:n1} ms";
+            }
+            else if (seconds < 1)
+            {
+                return $"{seconds * 1000:n0} ms";
             }
             else if (seconds < 10)
             {

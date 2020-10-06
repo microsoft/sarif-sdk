@@ -5,23 +5,17 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Reflection;
+
+using BSOA.Benchmarks;
 
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace BSOA.Demo
 {
-    public static class Modes
+    public class Modes
     {
-        public static TimeSpan MeasureTime = TimeSpan.FromSeconds(2);
-
-        // Settings for measuring file loads (slow, measure RAM) really slow operations (once only, no timeout), and fast operations (10x per timing loop)
-        public static MeasureSettings LoadSettings = new MeasureSettings(MeasureTime, 1, 4, 1, true);
-        public static MeasureSettings OnceSettings = new MeasureSettings(TimeSpan.Zero, 1, 1, 1, true);
-        public static MeasureSettings FastOperationSettings = new MeasureSettings(MeasureTime, 60, 120, 10, false);
-
         public static void Convert(string inputPath)
         {
             Friendly.HighlightLine($"-> Converting '{inputPath}' to BSOA...");
@@ -30,95 +24,44 @@ namespace BSOA.Demo
                 new ConsoleColumn("FileName"),
                 new ConsoleColumn("Size", Align.Right),
                 new ConsoleColumn("JSON Read", Align.Right),
-                new ConsoleColumn("BSOA Size", Align.Right, Highlight.On),
+                new ConsoleColumn("BSOA Size", Align.Right),
+                new ConsoleColumn("RAM", Align.Right, Highlight.On),
                 new ConsoleColumn("Ratio", Align.Right),
-                new ConsoleColumn("BSOA Read", Align.Right));
+                new ConsoleColumn("BSOA Read", Align.Right, Highlight.On));
 
-            foreach (string filePath in FilesForPath(inputPath))
+            foreach (string filePath in QuickBenchmarker.FilesForPath(inputPath))
             {
                 string fileName = Path.GetFileName(filePath);
                 string outputPath = OutputPath(filePath);
 
                 // Load OM from JSON
-                MeasureResult<SarifLog> load 
-                    = Measure.Operation<SarifLog>(filePath, SarifLog.Load, LoadSettings);
+                SarifLog log = null;
+                MeasureResult<SarifLog> load = Measure.Operation<SarifLog>(() => log = SarifLog.Load(filePath), MeasureSettings.LoadOnce);
 
                 // Save as BSOA
                 load.Output.Save(outputPath);
 
                 // Load OM from BSOA
-                MeasureResult<SarifLog> bsoaLoad
-                    = Measure.Operation(outputPath, SarifLog.Load, LoadSettings);
+                MeasureResult<SarifLog> bsoaLoad = Measure.Operation(() => SarifLog.Load(outputPath));
+
+                long jsonBytes = new FileInfo(filePath).Length;
+                long bsoaBytes = new FileInfo(outputPath).Length;
 
                 table.AppendRow(
                     fileName,
-                    Friendly.Size(load.InputSizeBytes),
-                    Friendly.Rate(load.InputSizeBytes, load.AverageTime),
-                    Friendly.Size(bsoaLoad.InputSizeBytes),
-                    Friendly.Percentage(bsoaLoad.InputSizeBytes, load.InputSizeBytes),
-                    Friendly.Rate(bsoaLoad.InputSizeBytes, bsoaLoad.AverageTime));
+                    Friendly.Size(jsonBytes),
+                    Friendly.Rate(jsonBytes, load.Elapsed, load.Iterations),
+                    Friendly.Size(bsoaBytes),
+                    Friendly.Size(load.AddedMemoryBytes),
+                    Friendly.Percentage(bsoaBytes, jsonBytes),
+                    Friendly.Rate(bsoaBytes, bsoaLoad.Elapsed, bsoaLoad.Iterations));
             }
         }
 
-        public static void Load(string inputPath)
+        public static void Benchmarks(string inputPath)
         {
-            Friendly.HighlightLine($"-> Loading '{inputPath}' with ", AssemblyDescription<SarifLog>(), "...");
-
-            ConsoleTable table = new ConsoleTable(
-                new ConsoleColumn("FileName"),
-                new ConsoleColumn("Size", Align.Right),
-                new ConsoleColumn("Read", Align.Right, Highlight.On),
-                new ConsoleColumn("RAM", Align.Right, Highlight.On));
-
-            foreach (string filePath in FilesForPath(inputPath))
-            {
-                MeasureResult<SarifLog> load = Measure.Operation<SarifLog>(filePath, (path) => SarifLog.Load(path), LoadSettings);
-
-                table.AppendRow(
-                    Path.GetFileName(filePath),
-                    Friendly.Size(load.InputSizeBytes),
-                    Friendly.Rate(load.InputSizeBytes, load.AverageTime),
-                    Friendly.Size(load.AddedMemoryBytes));
-            }
-        }
-
-        public static void ObjectModelOverhead(string inputPath)
-        {
-            Friendly.HighlightLine($"-> Computing SUM(Result.StartLine) in '{inputPath}' with ", AssemblyDescription<SarifLog>(), "...");
-
-            ConsoleTable table = new ConsoleTable(
-                new ConsoleColumn("FileName"),
-                new ConsoleColumn("Size", Align.Right),
-                new ConsoleColumn("SUM(StartLine)", Align.Right, Highlight.On));
-
-            foreach (string filePath in FilesForPath(inputPath))
-            {
-                SarifLog log = SarifLog.Load(filePath);
-                MeasureResult<long> count = Measure.Operation<long>(filePath, (path) => LineTotal(log), FastOperationSettings);
-
-                table.AppendRow(
-                    Path.GetFileName(filePath),
-                    Friendly.Size(count.InputSizeBytes),
-                    Friendly.Time(count.AverageTime));
-            }
-        }
-
-        private static long LineTotal(SarifLog log)
-        {
-            long lineTotal = 0;
-
-            foreach (Run run in log.Runs)
-            {
-                foreach (Result result in run.Results)
-                {
-                    foreach (Location location in result.Locations)
-                    {
-                        lineTotal += location?.PhysicalLocation?.Region?.StartLine ?? 0;
-                    }
-                }
-            }
-
-            return lineTotal;
+            Friendly.HighlightLine($"-> Benchmarking ", AssemblyDescription<SarifLog>(), $" on '{inputPath}'...");
+            QuickBenchmarker.RunFiles<SarifLogBenchmarks, SarifLog>(inputPath, SarifLog.Load);
         }
 
         public static string OutputPath(string inputPath)
@@ -131,18 +74,6 @@ namespace BSOA.Demo
 #endif
             Directory.CreateDirectory(outputDirectory);
             return outputPath;
-        }
-
-        public static IEnumerable<string> FilesForPath(string inputPath)
-        {
-            if (Directory.Exists(inputPath))
-            {
-                return Directory.EnumerateFiles(inputPath).ToList();
-            }
-            else
-            {
-                return new string[] { inputPath };
-            }
         }
 
         public static void Diagnostics(string filePath, int logToDepth)
