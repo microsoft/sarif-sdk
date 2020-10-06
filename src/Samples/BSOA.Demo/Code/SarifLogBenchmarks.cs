@@ -1,27 +1,27 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-using BSOA.Benchmarks;
+using BSOA.Benchmarks.Attributes;
 
 using Microsoft.CodeAnalysis.Sarif;
 
 namespace BSOA.Demo
 {
-    public class SarifLogBenchmarks
+    public static class SarifLogBenchmarks
     {
         [Benchmark]
-        public void IntegerGet(SarifLog log)
+        public static void IntegerGet(SarifLog log)
         {
             LineTotal(log);
         }
 
         [Benchmark]
-        public void StringGet(SarifLog log)
+        public static void StringGet(SarifLog log)
         {
             MessageLengthTotal(log);
         }
 
-        public long LineTotal(SarifLog log)
+        public static long LineTotal(SarifLog log)
         {
             long lineTotal = 0;
 
@@ -39,7 +39,7 @@ namespace BSOA.Demo
             return lineTotal;
         }
 
-        public long MessageLengthTotal(SarifLog log)
+        public static long MessageLengthTotal(SarifLog log)
         {
             MessageVisitor v = new MessageVisitor();
             v.Visit(log);

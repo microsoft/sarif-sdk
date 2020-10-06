@@ -61,7 +61,7 @@ namespace BSOA.Demo
         public static void Benchmarks(string inputPath)
         {
             Friendly.HighlightLine($"-> Benchmarking ", AssemblyDescription<SarifLog>(), $" on '{inputPath}'...");
-            QuickBenchmarker.RunFiles<SarifLogBenchmarks, SarifLog>(inputPath, SarifLog.Load);
+            QuickBenchmarker.RunFiles<SarifLog>(typeof(SarifLogBenchmarks), inputPath, SarifLog.Load);
         }
 
         public static string OutputPath(string inputPath)

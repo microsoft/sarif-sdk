@@ -3,21 +3,33 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Reflection.Metadata.Ecma335;
 
-namespace BSOA.Benchmarks
+namespace BSOA.Benchmarks.Attributes
 {
     /// <summary>
     ///  [Benchmark] attribute for methods, in case Benchmark.net isn't referenced.
     /// </summary>
     public class BenchmarkAttribute : Attribute
     { }
+}
 
+namespace BSOA.Benchmarks
+{
     public static class QuickBenchmarker
     {
-        public static void RunFiles<OperationsClass, ArgumentClass>(string inputPath, Func<string, ArgumentClass> loader) where OperationsClass : new()
+        /// <summary>
+        ///  For each file in inputPath, load into an ArgumentClass with loader(),
+        ///  then run each [Benchmark] method on operationsClass and report the results.
+        /// </summary>
+        /// <typeparam name="ArgumentClass">Object Model type each file turns into.</typeparam>
+        /// <param name="operationsClass">Class containing [Benchmark] methods which take the ArgumentClass type</param>
+        /// <param name="inputPath">Folder Path or single File Path which can be loaded into ArgumentClass</param>
+        /// <param name="loader">Method which takes a file path and loads into an ArgumentClass intance</param>
+        public static void RunFiles<ArgumentClass>(Type operationsClass, string inputPath, Func<string, ArgumentClass> loader)
         {
             // Find all [Benchmark] methods which take an ArgumentClass.
-            Dictionary<string, Action<ArgumentClass>> benchmarkMethods = BenchmarkObjectMethods<OperationsClass, ArgumentClass>();
+            Dictionary<string, Action<ArgumentClass>> benchmarkMethods = GetBenchmarkMethods<Action<ArgumentClass>>(operationsClass);
 
             List<ConsoleColumn> columns = new List<ConsoleColumn>()
             {
@@ -49,7 +61,7 @@ namespace BSOA.Benchmarks
                 row.Add(Friendly.Size(load.AddedMemoryBytes));
 
                 // Log action time per operation.
-                foreach(string key in benchmarkMethods.Keys)
+                foreach (string key in benchmarkMethods.Keys)
                 {
                     Action<ArgumentClass> operation = benchmarkMethods[key];
                     MeasureResult opResult = Measure.Operation(() => operation(instance));
@@ -60,16 +72,21 @@ namespace BSOA.Benchmarks
             }
         }
 
+        public static void RunFiles<OperationsClass, ArgumentClass>(string inputPath, Func<string, ArgumentClass> loader)
+        {
+            RunFiles<ArgumentClass>(typeof(OperationsClass), inputPath, loader);
+        }
+
         /// <summary>
         ///  Similar to a fast, simple Benchmark.net Benchmarker.Run.
         ///  Benchmarks each method on the given class with the [Benchmark]
         ///  attribute.
         /// </summary>
-        /// <typeparam name="T">Type containing methods to benchmark</typeparam>
+        /// <param name="typeWithBenchmarkMethods">Type containing methods to benchmark</typeparam>
         /// <param name="settings">Measurement settings, or null for defaults</param>
-        public static void Run<T>(MeasureSettings settings = null) where T : new()
+        public static void Run(Type typeWithBenchmarkMethods, MeasureSettings settings = null)
         {
-            Dictionary<string, Action> benchmarkMethods = BenchmarkEmptyMethods<T>();
+            Dictionary<string, Action> benchmarkMethods = GetBenchmarkMethods<Action>(typeWithBenchmarkMethods);
 
             ConsoleTable table = new ConsoleTable(new ConsoleColumn("Name"), new ConsoleColumn("Mean", Align.Right, Highlight.On));
             foreach (string methodName in benchmarkMethods.Keys)
@@ -79,52 +96,66 @@ namespace BSOA.Benchmarks
             }
         }
 
-        internal static Dictionary<string, Action> BenchmarkEmptyMethods<T>() where T : new()
+        /// <summary>
+        ///  Similar to a fast, simple Benchmark.net Benchmarker.Run.
+        ///  Benchmarks each method on the given class with the [Benchmark]
+        ///  attribute.
+        /// </summary>
+        /// <typeparam name="T">Type containing methods to benchmark</typeparam>
+        /// <param name="settings">Measurement settings, or null for defaults</param>
+        public static void Run<T>(MeasureSettings settings = null)
         {
-            Dictionary<string, Action> methods = new Dictionary<string, Action>();
+            Run(typeof(T), settings);
+        }
+
+        /// <summary>
+        ///  Reflection magic to get public methods with the [Benchmark] attribute
+        ///  matching the desired signature.
+        /// </summary>
+        /// <remarks>
+        ///  See https://github.com/microsoft/elfie-arriba/blob/master/XForm/XForm/Core/NativeAccelerator.cs for the
+        ///  closest related craziness.
+        /// </remarks>
+        /// <typeparam name="WithSignature">Action or Func with desired parameters and return type</typeparam>
+        /// <param name="fromType">Type to search for matching methods</param>
+        /// <returns>Dictionary with method names and Action or Func to invoke for each matching method</returns>
+        internal static Dictionary<string, WithSignature> GetBenchmarkMethods<WithSignature>(Type fromType)
+        {
+            Dictionary<string, WithSignature> methods = new Dictionary<string, WithSignature>();
+
+            // Identify the return type and argument types on the desired method signature
+            Type delegateOrFuncType = typeof(WithSignature);
+            MethodInfo withSignatureInfo = delegateOrFuncType.GetMethod("Invoke");
+            Type returnType = withSignatureInfo.ReturnType;
+            List<Type> arguments = new List<Type>(withSignatureInfo.GetParameters().Select((pi) => pi.ParameterType));
 
             // Create an instance of the desired class (triggering any initialization)
-            T instance = new T();
+            object instance = null;
 
-            // Find all public methods with no arguments and a 'Benchmark' attribute
-            Type tType = typeof(T);
-            foreach (MethodInfo method in tType.GetMethods())
+            // Find all public methods with 'Benchmark' attribute and correct signature
+            foreach (MethodInfo method in fromType.GetMethods())
             {
-                if (method.IsPublic && method.GetParameters().Length == 0 && method.GetCustomAttributes().Where((a) => a.GetType().Name == "BenchmarkAttribute").Any())
+                if (!method.IsPublic) { continue; }
+                if (!method.GetCustomAttributes().Where((a) => a.GetType().Name == "BenchmarkAttribute").Any()) { continue; }
+                if (!method.ReturnType.Equals(returnType)) { continue; }
+                if (!arguments.SequenceEqual(method.GetParameters().Select((pi) => pi.ParameterType))) { continue; }
+
+                if (!method.IsStatic)
                 {
-                    Action operation = (Action)method.CreateDelegate(typeof(Action), instance);
-                    methods[method.Name] = operation;
+                    instance ??= fromType.GetConstructor(new Type[0]).Invoke(null);
                 }
+
+                methods[method.Name] = (WithSignature)(object)method.CreateDelegate(delegateOrFuncType, instance);
             }
 
             return methods;
         }
 
-        internal static Dictionary<string, Action<ArgumentClass>> BenchmarkObjectMethods<OperationsClass, ArgumentClass>() where OperationsClass : new()
-        {
-            Dictionary<string, Action<ArgumentClass>> methods = new Dictionary<string, Action<ArgumentClass>>();
-
-            // Create an instance of the desired class (triggering any initialization)
-            OperationsClass instance = new OperationsClass();
-
-            // Find all public methods with no arguments and a 'Benchmark' attribute
-            Type tType = typeof(OperationsClass);
-            foreach (MethodInfo method in tType.GetMethods())
-            {
-                if (method.IsPublic && method.GetCustomAttributes().Where((a) => a.GetType().Name == "BenchmarkAttribute").Any())
-                {
-                    ParameterInfo[] parameters = method.GetParameters();
-                    if (parameters.Length == 1 && parameters[0].ParameterType == typeof(ArgumentClass))
-                    {
-                        Action<ArgumentClass> operation = (Action<ArgumentClass>)method.CreateDelegate(typeof(Action<ArgumentClass>), instance);
-                        methods[method.Name] = operation;
-                    }
-                }
-            }
-
-            return methods;
-        }
-
+        /// <summary>
+        ///  Return the list of files for a given path.
+        ///  If it's a folder, list the files directly in the folder.
+        ///  If it's a file, return just that file.
+        /// </summary>
         public static IEnumerable<string> FilesForPath(string inputPath)
         {
             if (Directory.Exists(inputPath))
