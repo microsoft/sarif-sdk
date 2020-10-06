@@ -3,11 +3,9 @@
 
 using System.IO;
 using FluentAssertions;
-using Microsoft.CodeAnalysis.Sarif;
-using Microsoft.CodeAnalysis.Sarif.Multitool;
 using Xunit;
 
-namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool.Library
+namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public class RewriteCommandTests
     {
