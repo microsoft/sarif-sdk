@@ -100,7 +100,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             Console.Error.WriteLine(
                 string.Format(
                     CultureInfo.CurrentCulture,
-                    DriverResources.ExactlyOneOfTwoOptionsIsRequired,
+                    DriverResources.OptionsAreMutuallyExclusive,
                     prettyPrintOptionDescription,
                     minifyOptionDescription));
         }

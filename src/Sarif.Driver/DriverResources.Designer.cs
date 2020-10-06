@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class DriverResources {
@@ -120,6 +120,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver {
         internal static string NonOwningDisposableViewAccess {
             get {
                 return ResourceManager.GetString("NonOwningDisposableViewAccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The &apos;{0}&apos; and &apos;{1}&apos; options cannot be specified together..
+        /// </summary>
+        internal static string OptionsAreMutuallyExclusive {
+            get {
+                return ResourceManager.GetString("OptionsAreMutuallyExclusive", resourceCulture);
             }
         }
         
