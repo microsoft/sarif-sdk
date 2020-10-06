@@ -47,12 +47,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 if (convertOptions.PrettyPrint)
                 {
                     loggingOptions |= LoggingOptions.PrettyPrint;
-                };
+                }
 
                 if (convertOptions.Force)
                 {
                     loggingOptions |= LoggingOptions.OverwriteExistingOutputFile;
-                };
+                }
 
                 new ToolFormatConverter().ConvertToStandardFormat(
                                                 convertOptions.ToolFormat,
@@ -101,6 +101,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             bool valid = true;
 
             valid &= convertOptions.ValidateOutputOptions();
+            valid &= convertOptions.ValidateOutputFormatOptions();
 
             valid &= DriverUtilities.ReportWhetherOutputFileCanBeCreated(convertOptions.OutputFilePath, convertOptions.Force, fileSystem);
 

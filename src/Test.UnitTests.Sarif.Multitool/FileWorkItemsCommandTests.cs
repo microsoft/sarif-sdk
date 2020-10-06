@@ -251,6 +251,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         "test.sarif"
                     },
                     ExpectedExitCode = 0
+                },
+
+                new TestCase
+                {
+                    Title = "Both --pretty-print and --minimize",
+                    Args = new string[]
+                    {
+                        "file-work-items",
+                        "--host-uri",
+                        "https://dev.azure.com/my-org/my-project",
+                        "test.sarif",
+                        "--pretty-print",
+                        "--minimize"
+                    },
+                    ExpectedExitCode = 1
                 }
             };
     }

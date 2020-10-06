@@ -128,6 +128,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
 
             valid &= transformOptions.ValidateOutputOptions();
+            valid &= transformOptions.ValidateOutputFormatOptions();
 
             valid &= DriverUtilities.ReportWhetherOutputFileCanBeCreated(transformOptions.OutputFilePath, transformOptions.Force, _fileSystem);
 

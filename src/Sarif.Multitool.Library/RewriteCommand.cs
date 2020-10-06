@@ -62,6 +62,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             bool valid = true;
 
             valid &= rewriteOptions.ValidateOutputOptions();
+            valid &= rewriteOptions.ValidateOutputFormatOptions();
 
             valid &= DriverUtilities.ReportWhetherOutputFileCanBeCreated(rewriteOptions.OutputFilePath, rewriteOptions.Force, _fileSystem);
 

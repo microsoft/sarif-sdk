@@ -132,6 +132,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             valid &= ValidateHostUri(options.HostUri, sarifWorkItemContext);
 
             valid &= options.ValidateOutputOptions();
+            valid &= options.ValidateOutputFormatOptions();
 
             if (!string.IsNullOrEmpty(options.OutputFilePath))
             {

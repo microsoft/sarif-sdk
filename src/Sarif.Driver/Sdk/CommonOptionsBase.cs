@@ -12,8 +12,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             'p',
             "pretty-print",
             Default = false,
-            HelpText = "Produce pretty-printed JSON output rather than compact form.")]
+            HelpText =
+            "Produce pretty-printed JSON output rather than compact form. If neither --pretty-print nor --minify " +
+            "is specified, --pretty-print is set to true. --pretty-print and --minify cannot be specified together.")]
         public bool PrettyPrint { get; set; }
+
+        [Option(
+            'm',
+            "minify",
+            Default = false,
+            HelpText = "Produce compact JSON output (all white space removed) rather than pretty-printed output. " +
+            "If neither --pretty-print nor --minify is specified, --pretty-print is set to true. --pretty-print " +
+            "and --minify cannot be specified together.")]
+        public bool Minify { get; set; }
 
         [Option(
             'f',

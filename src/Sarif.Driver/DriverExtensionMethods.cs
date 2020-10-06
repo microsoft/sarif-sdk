@@ -44,7 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 }
                 else
                 {
-                    ReportInvalidOutputOptions(options);
+                    ReportInvalidOutputOptions();
                     valid = false;
                 }
             }
@@ -52,17 +52,57 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return valid;
         }
 
-        private static void ReportInvalidOutputOptions(SingleFileOptionsBase options)
+        private static void ReportInvalidOutputOptions()
         {
-            string inlineOptionsDescription = DriverUtilities.GetOptionDescription<SingleFileOptionsBase>(nameof(options.Inline));
-            string outputFilePathOptionDescription = DriverUtilities.GetOptionDescription<SingleFileOptionsBase>(nameof(options.OutputFilePath));
+            string inlineOptionDescription = DriverUtilities.GetOptionDescription<SingleFileOptionsBase>(nameof(SingleFileOptionsBase.Inline));
+            string outputFilePathOptionDescription = DriverUtilities.GetOptionDescription<SingleFileOptionsBase>(nameof(SingleFileOptionsBase.OutputFilePath));
 
             Console.Error.WriteLine(
                 string.Format(
                     CultureInfo.CurrentCulture,
                     DriverResources.ExactlyOneOfTwoOptionsIsRequired,
-                    inlineOptionsDescription,
+                    inlineOptionDescription,
                     outputFilePathOptionDescription));
+        }
+
+        /// <summary>
+        /// Ensures the consistency of the CommonOptionsBase command line options related to
+        /// the format of the output file, and adjusts the options for ease of use.
+        /// </summary>
+        /// <param name="options">
+        /// A <see cref="CommonOptionsBase"/> object containing the relevant options.
+        /// </param>
+        /// <returns>
+        /// true if the options are internally consistent; otherwise false.
+        /// </returns>
+        public static bool ValidateOutputFormatOptions(this CommonOptionsBase options)
+        {
+            bool valid = true;
+
+            if (options.PrettyPrint && options.Minify)
+            {
+                ReportInvalidOutputFormatOptions();
+                valid = false;
+            }
+            else if (!options.PrettyPrint && ! options.Minify)
+            {
+                options.PrettyPrint = true;
+            }
+
+            return valid;
+        }
+
+        private static void ReportInvalidOutputFormatOptions()
+        {
+            string prettyPrintOptionDescription = DriverUtilities.GetOptionDescription<CommonOptionsBase>(nameof(CommonOptionsBase.PrettyPrint));
+            string minimizeOptionDescription = DriverUtilities.GetOptionDescription<CommonOptionsBase>(nameof(CommonOptionsBase.Minify));
+
+            Console.Error.WriteLine(
+                string.Format(
+                    CultureInfo.CurrentCulture,
+                    DriverResources.ExactlyOneOfTwoOptionsIsRequired,
+                    prettyPrintOptionDescription,
+                    minimizeOptionDescription));
         }
 
         /// <summary>

@@ -122,9 +122,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             RunTransformationToV1Test(MinimalV1Text);
         }
 
+        [Fact]
+        public void TransformCommand_WhenOutputFormatOptionsAreInconsistent_Fails()
+        {
+            var options = new TransformOptions
+            {
+                PrettyPrint = true,
+                Minify = true
+            };
+
+            (string _, int returnCode) = RunTransformationCore(MinimalV1Text, SarifVersion.Current, options);
+            returnCode.Should().Be(1);
+        }
+
         private static void RunTransformationToV2Test(string logFileContents)
         {
-            string transformedContents = RunTransformationCore(logFileContents, SarifVersion.Current);
+            (string transformedContents, int returnCode) = RunTransformationCore(logFileContents, SarifVersion.Current);
+            returnCode.Should().Be(0);
 
             // Finally, ensure that transformation corrected schema uri and SARIF version.
             SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(transformedContents);
@@ -142,7 +156,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         private void RunTransformationToV1Test(string logFileContents)
         {
-            string transformedContents = RunTransformationCore(logFileContents, SarifVersion.OneZeroZero);
+            (string transformedContents, int returnCode) = RunTransformationCore(logFileContents, SarifVersion.OneZeroZero);
+            returnCode.Should().Be(0);
 
             // Finally, ensure that transformation corrected schema uri and SARIF version.
             var settings = new JsonSerializerSettings { ContractResolver = SarifContractResolverVersionOne.Instance };
@@ -151,31 +166,46 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             v1SarifLog.Version.Should().Be(SarifVersionVersionOne.OneZeroZero);
         }
 
-        private static string RunTransformationCore(string logFileContents, SarifVersion targetVersion)
+        private static (string transformedContents, int returnCode) RunTransformationCore(
+            string logFileContents,
+            SarifVersion targetVersion,
+            TransformOptions options = null)
         {
             const string LogFilePath = @"c:\logs\mylog.sarif";
-            var transformedContents = new StringBuilder();
 
-            // Complex: TransformCommand has code paths that use Create and OpenRead, but also ReadAllText and WriteAllText.
-            var mockFileSystem = new Mock<IFileSystem>();
-            mockFileSystem.Setup(x => x.ReadAllText(LogFilePath)).Returns(logFileContents);
-            mockFileSystem.Setup(x => x.OpenRead(LogFilePath)).Returns(() => new MemoryStream(Encoding.UTF8.GetBytes(logFileContents)));
-            mockFileSystem.Setup(x => x.FileCreate(LogFilePath)).Returns(() => new MemoryStreamToStringBuilder(transformedContents));
-            mockFileSystem.Setup(x => x.WriteAllText(LogFilePath, It.IsAny<string>())).Callback<string, string>((path, contents) => { transformedContents.Append(contents); });
-
-            var transformCommand = new TransformCommand(mockFileSystem.Object);
-
-            var options = new TransformOptions
+            options ??= new TransformOptions
             {
                 Inline = true,
                 SarifOutputVersion = targetVersion,
                 InputFilePath = LogFilePath
             };
 
-            int returnCode = transformCommand.Run(options);
-            returnCode.Should().Be(0);
+            if (options.SarifOutputVersion == SarifVersion.Unknown)
+            {
+                options.SarifOutputVersion = targetVersion;
+            }
 
-            return transformedContents.ToString();
+            if (options.InputFilePath == null)
+            {
+                options.Inline = true;
+                options.InputFilePath = LogFilePath;
+            }
+            
+            var transformedContents = new StringBuilder();
+
+            // Complex: TransformCommand has code paths that use Create and OpenRead, but also ReadAllText and WriteAllText.
+            var mockFileSystem = new Mock<IFileSystem>();
+            mockFileSystem.Setup(x => x.ReadAllText(options.InputFilePath)).Returns(logFileContents);
+            mockFileSystem.Setup(x => x.OpenRead(options.InputFilePath)).Returns(() => new MemoryStream(Encoding.UTF8.GetBytes(logFileContents)));
+            mockFileSystem.Setup(x => x.FileCreate(options.InputFilePath)).Returns(() => new MemoryStreamToStringBuilder(transformedContents));
+            mockFileSystem.Setup(x => x.WriteAllText(options.InputFilePath, It.IsAny<string>())).Callback<string, string>((path, contents) => { transformedContents.Append(contents); });
+
+            var transformCommand = new TransformCommand(mockFileSystem.Object);
+
+
+            int returnCode = transformCommand.Run(options);
+
+            return (transformedContents.ToString(), returnCode);
         }
     }
 }
