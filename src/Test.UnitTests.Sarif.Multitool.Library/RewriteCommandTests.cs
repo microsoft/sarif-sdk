@@ -9,8 +9,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public class RewriteCommandTests
     {
-        private static readonly ResourceExtractor Extractor = new ResourceExtractor(typeof(RewriteCommandTests));
-
         [Fact]
         public void RewriteCommand_WhenOutputFormatOptionsAreInconsistent_Fails()
         {
