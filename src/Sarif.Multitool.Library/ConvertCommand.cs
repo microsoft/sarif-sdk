@@ -100,8 +100,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             bool valid = true;
 
-            valid &= convertOptions.ValidateOutputOptions();
-            valid &= convertOptions.ValidateOutputFormatOptions();
+            valid &= convertOptions.Validate();
 
             valid &= DriverUtilities.ReportWhetherOutputFileCanBeCreated(convertOptions.OutputFilePath, convertOptions.Force, fileSystem);
 

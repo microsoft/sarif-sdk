@@ -142,7 +142,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             foreach (ValidateSingleFileOutputOptionsTestCase testCase in s_validateSingleFileOutputOptionsTestCases)
             {
-                bool result = testCase.Options.ValidateOutputOptions();
+                bool result = testCase.Options.Validate();
 
                 if (result != testCase.ExpectedResult)
                 {
@@ -228,7 +228,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         private class ValidateOutputFormatOptionsTestCase
         {
             public string Title;
-            public CommonOptionsBase Options;
+            public SingleFileOptionsBase Options;
 
             // The expected return value from ValidateOutputFormatOptions.
             public bool ExpectedResult;
@@ -244,7 +244,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 new ValidateOutputFormatOptionsTestCase
                 {
                     Title = "--pretty-print and not --minify",
-                    Options = new CommonOptionsBase
+                    Options = new SingleFileOptionsBase
                     {
                         PrettyPrint = true,
                         Minify = false
@@ -256,7 +256,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 new ValidateOutputFormatOptionsTestCase
                 {
                     Title = "--minify and not --pretty-print",
-                    Options = new CommonOptionsBase
+                    Options = new SingleFileOptionsBase
                     {
                         PrettyPrint = false,
                         Minify = true
@@ -268,7 +268,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 new ValidateOutputFormatOptionsTestCase
                 {
                     Title = "Neither --pretty-print nor --minify",
-                    Options = new CommonOptionsBase
+                    Options = new SingleFileOptionsBase
                     {
                         PrettyPrint = false,
                         Minify = false
@@ -280,7 +280,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 new ValidateOutputFormatOptionsTestCase
                 {
                     Title = "Both --pretty-print and --minify",
-                    Options = new CommonOptionsBase
+                    Options = new SingleFileOptionsBase
                     {
                         PrettyPrint = true,
                         Minify = true
@@ -298,7 +298,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             foreach (ValidateOutputFormatOptionsTestCase testCase in s_validateOutputFormatOptionsTestCases)
             {
-                bool result = testCase.Options.ValidateOutputFormatOptions();
+                bool result = testCase.Options.Validate();
 
                 if (result != testCase.ExpectedResult)
                 {

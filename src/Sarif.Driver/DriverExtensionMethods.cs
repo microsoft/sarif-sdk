@@ -22,16 +22,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         /// <summary>
-        /// Ensures the consistency of the SingleFileOptionsBase command line options related to
-        /// the location of the output file, and adjusts the options for ease of use.
+        /// Ensures the consistency of the command line options related to the location and format
+        /// of the output file, and adjusts the options for ease of use.
         /// </summary>
         /// <param name="options">
-        /// A <see cref="SingleFileOptionsBase"/> object containing the relevant options.
+        /// A <see cref="SingleFileOptionsBase"/> object containing the command line options.
         /// </param>
         /// <returns>
         /// true if the options are internally consistent; otherwise false.
         /// </returns>
-        public static bool ValidateOutputOptions(this SingleFileOptionsBase options)
+        public static bool Validate(this SingleFileOptionsBase options)
+        {
+            bool valid = true;
+
+            valid &= options.ValidateOutputLocationOptions();
+            valid &= options.ValidateOutputFormatOptions();
+
+            return valid;
+        }
+
+        private static bool ValidateOutputLocationOptions(this SingleFileOptionsBase options)
         {
             bool valid = true;
 
@@ -65,17 +75,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     outputFilePathOptionDescription));
         }
 
-        /// <summary>
-        /// Ensures the consistency of the CommonOptionsBase command line options related to
-        /// the format of the output file, and adjusts the options for ease of use.
-        /// </summary>
-        /// <param name="options">
-        /// A <see cref="CommonOptionsBase"/> object containing the relevant options.
-        /// </param>
-        /// <returns>
-        /// true if the options are internally consistent; otherwise false.
-        /// </returns>
-        public static bool ValidateOutputFormatOptions(this CommonOptionsBase options)
+        private static bool ValidateOutputFormatOptions(this SingleFileOptionsBase options)
         {
             bool valid = true;
 
