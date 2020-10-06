@@ -243,7 +243,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 new ValidateOutputFormatOptionsTestCase
                 {
-                    Title = "--pretty-print and not --minimize",
+                    Title = "--pretty-print and not --minify",
                     Options = new CommonOptionsBase
                     {
                         PrettyPrint = true,
@@ -255,7 +255,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 new ValidateOutputFormatOptionsTestCase
                 {
-                    Title = "--minimize and not --pretty-print",
+                    Title = "--minify and not --pretty-print",
                     Options = new CommonOptionsBase
                     {
                         PrettyPrint = false,
@@ -267,7 +267,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 new ValidateOutputFormatOptionsTestCase
                 {
-                    Title = "Neither --pretty-print nor --minimize",
+                    Title = "Neither --pretty-print nor --minify",
                     Options = new CommonOptionsBase
                     {
                         PrettyPrint = false,
@@ -279,7 +279,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 new ValidateOutputFormatOptionsTestCase
                 {
-                    Title = "Both --pretty-print and --minimize",
+                    Title = "Both --pretty-print and --minify",
                     Options = new CommonOptionsBase
                     {
                         PrettyPrint = true,

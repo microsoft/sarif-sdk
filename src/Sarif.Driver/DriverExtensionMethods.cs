@@ -84,7 +84,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 ReportInvalidOutputFormatOptions();
                 valid = false;
             }
-            else if (!options.PrettyPrint && ! options.Minify)
+            else if (!options.PrettyPrint && !options.Minify)
             {
                 options.PrettyPrint = true;
             }
@@ -95,14 +95,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         private static void ReportInvalidOutputFormatOptions()
         {
             string prettyPrintOptionDescription = DriverUtilities.GetOptionDescription<CommonOptionsBase>(nameof(CommonOptionsBase.PrettyPrint));
-            string minimizeOptionDescription = DriverUtilities.GetOptionDescription<CommonOptionsBase>(nameof(CommonOptionsBase.Minify));
+            string minifyOptionDescription = DriverUtilities.GetOptionDescription<CommonOptionsBase>(nameof(CommonOptionsBase.Minify));
 
             Console.Error.WriteLine(
                 string.Format(
                     CultureInfo.CurrentCulture,
                     DriverResources.ExactlyOneOfTwoOptionsIsRequired,
                     prettyPrintOptionDescription,
-                    minimizeOptionDescription));
+                    minifyOptionDescription));
         }
 
         /// <summary>

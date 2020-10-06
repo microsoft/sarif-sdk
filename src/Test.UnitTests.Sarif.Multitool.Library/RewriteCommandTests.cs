@@ -14,14 +14,14 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool.Library
         private static readonly ResourceExtractor Extractor = new ResourceExtractor(typeof(RewriteCommandTests));
 
         [Fact]
-        public void Run_WhenOutputFormatOptionsAreInconsistent_Fails()
+        public void RewriteCommand_WhenOutputFormatOptionsAreInconsistent_Fails()
         {
-            string sampleFilePath = "minimal.sarif";
-            File.WriteAllText(sampleFilePath, Extractor.GetResourceText($"RewriteCommand.{sampleFilePath}"));
+            const string SampleFilePath = "minimal.sarif";
+            File.WriteAllText(SampleFilePath, Extractor.GetResourceText($"RewriteCommand.{SampleFilePath}"));
 
             var options = new RewriteOptions
             {
-                InputFilePath = sampleFilePath,
+                InputFilePath = SampleFilePath,
                 Inline = true,
                 PrettyPrint = true,
                 Minify = true

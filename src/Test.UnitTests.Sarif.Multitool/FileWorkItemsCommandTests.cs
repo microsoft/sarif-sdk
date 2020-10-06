@@ -255,7 +255,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 new TestCase
                 {
-                    Title = "Both --pretty-print and --minimize",
+                    Title = "Both --pretty-print and --minify",
                     Args = new string[]
                     {
                         "file-work-items",
@@ -263,7 +263,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         "https://dev.azure.com/my-org/my-project",
                         "test.sarif",
                         "--pretty-print",
-                        "--minimize"
+                        "--minify"
                     },
                     ExpectedExitCode = 1
                 }
