@@ -89,6 +89,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             }
 
             Run = PreviousResult.OriginalRun;
+            result.Run = Run;
 
             return result;
         }
@@ -117,6 +118,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             }
 
             Run = CurrentResult.OriginalRun;
+            result.Run = Run;
 
             return result;
         }
@@ -144,6 +146,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             }
 
             Run = CurrentResult.OriginalRun;
+            result.Run = Run;
 
             return result;
         }
