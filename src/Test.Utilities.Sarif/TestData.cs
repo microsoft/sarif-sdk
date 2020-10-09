@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Microsoft Corporation.  All Rights Reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 using System;
 using System.Collections.Generic;
-using System.Data;
 using Microsoft.CodeAnalysis.Sarif;
 
 namespace Microsoft.CodeAnalysis.Test.Utilities.Sarif
@@ -109,7 +109,7 @@ namespace Microsoft.CodeAnalysis.Test.Utilities.Sarif
         }
 
         public static SarifLog CreateTwoRunThreeResultLog()
-        { 
+        {
             return new SarifLog
             {
                 Runs = new[]
@@ -255,6 +255,185 @@ namespace Microsoft.CodeAnalysis.Test.Utilities.Sarif
                     {
                     }
                 }
+            };
+        }
+
+        public static SarifLog CreateBaseline()
+        {
+            return new SarifLog
+            {
+                Runs = new Run[] {
+                    new Run
+                    {
+                        Tool = new Tool
+                        {
+                            Driver = new ToolComponent
+                            {
+                                Name = TestToolName,
+                                Rules = new ReportingDescriptor[]
+                                {
+                                    new ReportingDescriptor
+                                    {
+                                        Id = RuleIds.Rule2,
+                                        ShortDescription = new MultiformatMessageString
+                                        {
+                                            Text = TestMessageText
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        Results = new Result[]
+                        {
+                            new Result
+                            {
+                                RuleId = RuleIds.Rule2,
+                                RuleIndex = 0,
+                                Message = new Message
+                                {
+                                    Text = TestMessageText
+                                },
+                                Locations = new Location[]
+                                {
+                                    new Location
+                                    {
+                                        PhysicalLocation = new PhysicalLocation
+                                        {
+                                            ArtifactLocation = new ArtifactLocation
+                                            {
+                                                Uri = new Uri("src/test0001.cs", UriKind.Relative)
+                                            },
+                                            Region = new Region
+                                            {
+                                                StartLine = 0,
+                                                StartColumn = 0,
+                                            }
+                                        }
+                                    }
+                                },
+                                BaselineState = BaselineState.Unchanged
+                            }
+                        }
+                    }
+                },
+            };
+        }
+
+        public static SarifLog CreateBaselineUnchanged()
+        {
+            return new SarifLog
+            {
+                Runs = new List<Run> {
+                    new Run
+                    {
+                        Tool = new Tool
+                        {
+                            Driver = new ToolComponent
+                            {
+                                Name = TestToolName,
+                                Rules = new List<ReportingDescriptor>
+                                {
+                                    new ReportingDescriptor
+                                    {
+                                        Id = RuleIds.Rule1,
+                                        ShortDescription = new MultiformatMessageString
+                                        {
+                                            Text = TestMessageText
+                                        }
+                                    },
+                                    new ReportingDescriptor
+                                    {
+                                        Id = RuleIds.Rule2,
+                                        ShortDescription = new MultiformatMessageString
+                                        {
+                                            Text = TestMessageText
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        Results = new List<Result>
+                        {
+                            new Result
+                            {
+                                RuleId = RuleIds.Rule2,
+                                RuleIndex = 1,
+                                Message = new Message
+                                {
+                                    Text = TestMessageText
+                                },
+                                Locations = new List<Location>
+                                {
+                                    new Location
+                                    {
+                                        PhysicalLocation = new PhysicalLocation
+                                        {
+                                            ArtifactLocation = new ArtifactLocation
+                                            {
+                                                Uri = new Uri("src/test0001.cs", UriKind.Relative)
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+            };
+        }
+
+        public static SarifLog CreateBaselineNew()
+        {
+            return new SarifLog
+            {
+                Runs = new Run[] {
+                    new Run
+                    {
+                        Tool = new Tool
+                        {
+                            Driver = new ToolComponent
+                            {
+                                Name = TestToolName,
+                                Rules = new ReportingDescriptor[]
+                                {
+                                    new ReportingDescriptor
+                                    {
+                                        Id = RuleIds.Rule1,
+                                        ShortDescription = new MultiformatMessageString
+                                        {
+                                            Text = TestMessageText
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        Results = new Result[]
+                        {
+                            new Result
+                            {
+                                RuleId = RuleIds.Rule1,
+                                RuleIndex = 0,
+                                Message = new Message
+                                {
+                                    Text = TestMessageText
+                                },
+                                Locations = new Location[]
+                                {
+                                    new Location
+                                    {
+                                        PhysicalLocation = new PhysicalLocation
+                                        {
+                                            ArtifactLocation = new ArtifactLocation
+                                            {
+                                                Uri = new Uri("src/test0001.cs", UriKind.Relative)
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
             };
         }
     }
