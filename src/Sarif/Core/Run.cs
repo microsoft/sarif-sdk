@@ -217,5 +217,50 @@ namespace Microsoft.CodeAnalysis.Sarif
         public bool ShouldSerializeLogicalLocations() { return this.LogicalLocations.HasAtLeastOneNonDefaultValue(LogicalLocation.ValueComparer); }
 
         public bool ShouldSerializeNewlineSequences() { return this.NewlineSequences.HasAtLeastOneNonNullValue(); }
+
+        private static readonly Dictionary<string, FailureLevel> PoliciesCache = new Dictionary<string, FailureLevel>();
+
+        public void ComputePolicies(/*enum?*/)
+        {
+            // checking if we have have policies
+            if (this.Policies == null || this.Policies.Count == 0)
+            {
+                return;
+            }
+
+            PoliciesCache.Clear();
+            foreach (ToolComponent policy in this.Policies)
+            {
+                foreach (ReportingDescriptor rule in policy.Rules)
+                {
+                    if (PoliciesCache.ContainsKey(rule.Id))
+                    {
+                        PoliciesCache[rule.Id] = rule.DefaultConfiguration.Level;
+                    }
+                    else
+                    {
+                        PoliciesCache.Add(rule.Id, rule.DefaultConfiguration.Level);
+                    }
+                }
+            }
+        }
+
+        public void ApplyPolicies()
+        {
+            if (PoliciesCache.Count == 0)
+            {
+                return;
+            }
+
+            foreach (Result result in this.Results)
+            {
+                string ruleId = result.ResolvedRuleId(this);
+                
+                if (PoliciesCache.ContainsKey(ruleId))
+                {
+                    result.Level = PoliciesCache[ruleId];
+                }
+            }
+        }
     }
 }
