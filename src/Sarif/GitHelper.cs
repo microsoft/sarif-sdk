@@ -73,14 +73,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                 args: $"checkout {commitSha}");
         }
 
-        private string GetGitExePath()
+        internal string GetGitExePath()
         {
             if (this.fileSystem.FileExists(s_expectedGitExePath))
             {
                 return s_expectedGitExePath;
             }
 
-            string path = GetGitFromPath();
+            string path = FileSearcherHelper.SearchForFileInEnvironmentVariable("PATH", "git.exe");
             return !string.IsNullOrEmpty(path) ? path : null;
         }
 
@@ -111,40 +111,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         private static string TrimNewlines(string text) => text
                 .Replace("\r", string.Empty)
                 .Replace("\n", string.Empty);
-
-        private string GetGitFromPath()
-        {
-            string environmentVariables = Environment.GetEnvironmentVariable("PATH");
-            if (string.IsNullOrWhiteSpace(environmentVariables))
-            {
-                return string.Empty;
-            }
-
-            string[] variables = environmentVariables.Split(';');
-            foreach (string variable in variables)
-            {
-                if (variable.IndexOf("Git", StringComparison.OrdinalIgnoreCase) >= 0)
-                {
-                    if (variable.EndsWith("cmd"))
-                    {
-                        string gitPath = @$"{variable}\git.exe";
-                        if (this.fileSystem.FileExists(gitPath))
-                        {
-                            return gitPath;
-                        }
-                    }
-                    else
-                    {
-                        if (this.fileSystem.FileExists(variable))
-                        {
-                            return variable;
-                        }
-                    }
-                }
-            }
-
-            return string.Empty;
-        }
 
         public string GetRepositoryRoot(string path, bool useCache = true)
         {
