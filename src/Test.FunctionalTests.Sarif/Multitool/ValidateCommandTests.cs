@@ -379,14 +379,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public void GH1006_ProvideCheckoutPath_Invalid()
             => RunInvalidTestForRule(RuleId.ProvideCheckoutPath);
 
-        [Fact]
-        public void GH1007_ProvideRequiredRelatedLocationProperties_Valid()
-            => RunValidTestForRule(RuleId.ProvideRequiredRelatedLocationProperties);
-
-        [Fact]
-        public void GH1007_ProvideRequiredRelatedLocationProperties_Invalid()
-            => RunInvalidTestForRule(RuleId.ProvideRequiredRelatedLocationProperties);
-
         private void RunArrayLimitTest(string testFileNameSuffix)
         {
             // Some of the actual limits are impractically large for testing purposes,
