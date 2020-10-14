@@ -1,10 +1,10 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
 ## **v2.3.7** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.7) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.7) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.7) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.7) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.3.7)
+* BUGFIX: GitHub policy should not turn off any note level rules. [#2089](https://github.com/microsoft/sarif-sdk/issues/2089)
 * FEATURE: Add a converter for FlawFinder's CSV output format.
 * DEPENDENCY BREAKING: SARIF now requires Newtonsoft.JSON 11.0.2 (rather than 10.0.3)
 * DEPENDENCY: SARIF TypeScript package now requires minimist 1.2.3 or later (rather than >=1.2.0)
->>>>>>> master
 
 ## **v2.3.6** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.6) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.6) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.6) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.6) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.3.6)
 * BUGFIX: Restore multitool client app package build.
