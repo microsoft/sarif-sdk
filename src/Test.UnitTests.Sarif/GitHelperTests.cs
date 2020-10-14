@@ -139,26 +139,26 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             var gitHelper = new GitHelper(mockFileSystem.Object);
 
-            gitHelper.GetGitExePath().Should().NotBeNullOrEmpty();
+            gitHelper.GetGitExePath().Should().NotBeNull();
         }
 
         [Fact]
         public void SearchForFileInEnvironmentVariable_WhenVariableDoesNotExist()
         {
-            FileSearcherHelper.SearchForFileInEnvironmentVariable("PATH_THAT_DOES_NOT_EXIST", "filename.exe").Should().BeEmpty();
+            FileSearcherHelper.SearchForFileInEnvironmentVariable("PATH_THAT_DOES_NOT_EXIST", "filename.exe").Should().BeNull();
         }
 
         [Fact]
         public void SearchForFileInEnvironmentVariable_WhenVariableExistsButFileDoesnt()
         {
             // The error in the ntdll name here is intentional.
-            FileSearcherHelper.SearchForFileInEnvironmentVariable("PATH", "ntdll.dlll").Should().BeEmpty();
+            FileSearcherHelper.SearchForFileInEnvironmentVariable("PATH", "ntdll.dlll").Should().BeNull();
         }
 
         [Fact]
         public void SearchForFileInEnvironmentVariable_WhenVariableAndFileExists()
         {
-            FileSearcherHelper.SearchForFileInEnvironmentVariable("PATH", "ntdll.dll").Should().NotBeEmpty();
+            FileSearcherHelper.SearchForFileInEnvironmentVariable("PATH", "ntdll.dll").Should().NotBeNull();
         }
     }
 }
