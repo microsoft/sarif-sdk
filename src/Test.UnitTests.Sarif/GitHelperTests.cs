@@ -151,7 +151,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void SearchForFileInEnvironmentVariable_WhenVariableExistsButFileDoesnt()
         {
-            // proposital error in ntdll name
+            // The error in the ntdll name here is intentional.
             FileSearcherHelper.SearchForFileInEnvironmentVariable("PATH", "ntdll.dlll").Should().BeEmpty();
         }
 
