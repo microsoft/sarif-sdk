@@ -44,7 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 if (!rebaseOptions.Inline)
                 {
-                    _fileSystem.CreateDirectory(rebaseOptions.OutputDirectoryPath);
+                    _fileSystem.DirectoryCreate(rebaseOptions.OutputDirectoryPath);
                 }
 
                 Formatting formatting = rebaseOptions.PrettyPrint

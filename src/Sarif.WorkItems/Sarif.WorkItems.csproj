@@ -17,6 +17,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="Octokit">
       <HintPath>..\..\refs\Octokit.dll</HintPath>
     </Reference>
