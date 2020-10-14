@@ -80,8 +80,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return s_expectedGitExePath;
             }
 
-            string path = FileSearcherHelper.SearchForFileInEnvironmentVariable("PATH", "git.exe");
-            return !string.IsNullOrEmpty(path) ? path : null;
+            return FileSearcherHelper.SearchForFileInEnvironmentVariable("PATH", "git.exe");
         }
 
         public string GetCurrentBranch(string repoPath)

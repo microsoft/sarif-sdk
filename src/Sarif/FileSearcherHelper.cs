@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             string variable = Environment.GetEnvironmentVariable(environmentVariable);
             if (string.IsNullOrEmpty(variable))
             {
-                return string.Empty;
+                return null;
             }
 
             string[] paths = variable.Split(';');
@@ -33,7 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            return string.Empty;
+            return null;
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public static string SearchForFileNameInPath(string path, string fileName)
         {
             string filePath = $@"{path}\{fileName}";
-            return File.Exists(filePath) ? filePath : string.Empty;
+            return File.Exists(filePath) ? filePath : null;
         }
     }
 }
