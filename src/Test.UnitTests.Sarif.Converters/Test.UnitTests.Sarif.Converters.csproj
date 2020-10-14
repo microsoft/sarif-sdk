@@ -2,6 +2,7 @@
 
   <PropertyGroup Label="AssemblyAttributes">
     <AssemblyTitle>SARIF Converters Library Unit Tests</AssemblyTitle>
+    <RootNamespace>Microsoft.CodeAnalysis.Sarif.Converters</RootNamespace>
   </PropertyGroup>
 
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
@@ -11,6 +12,16 @@
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="TestData\FlawFinderCsv\ExpectedOutputs\NoResults.sarif" />
+    <None Remove="TestData\FlawFinderCsv\ExpectedOutputs\ValidResults.sarif" />
+    <None Remove="TestData\FlawFinderCsv\Inputs\Empty.csv" />
+    <None Remove="TestData\FlawFinderCsv\Inputs\InvalidHeader.csv" />
+    <None Remove="TestData\FlawFinderCsv\Inputs\InvalidResult.csv" />
+    <None Remove="TestData\FlawFinderCsv\Inputs\OnlyHeaderLine.csv" />
+    <None Remove="TestData\FlawFinderCsv\Inputs\ValidResults.csv" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.10.2" />
@@ -28,6 +39,16 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="TestData\FlawFinderCsv\ExpectedOutputs\NoResults.sarif" />
+    <EmbeddedResource Include="TestData\FlawFinderCsv\ExpectedOutputs\ValidResults.sarif" />
+    <EmbeddedResource Include="TestData\FlawFinderCsv\Inputs\Empty.csv" />
+    <EmbeddedResource Include="TestData\FlawFinderCsv\Inputs\InvalidHeader.csv" />
+    <EmbeddedResource Include="TestData\FlawFinderCsv\Inputs\ValidResults.csv" />
+    <EmbeddedResource Include="TestData\FlawFinderCsv\Inputs\InvalidResult.csv" />
+    <EmbeddedResource Include="TestData\FlawFinderCsv\Inputs\OnlyHeaderLine.csv" />
   </ItemGroup>
 
   <ItemGroup>
