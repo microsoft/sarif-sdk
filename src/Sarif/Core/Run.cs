@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 using Microsoft.CodeAnalysis.Sarif.Readers;
@@ -16,6 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         private static readonly Artifact EmptyFile = new Artifact();
         private static readonly Invocation EmptyInvocation = new Invocation();
         private static readonly LogicalLocation EmptyLogicalLocation = new LogicalLocation();
+        internal static readonly Dictionary<string, FailureLevel> PoliciesCache = new Dictionary<string, FailureLevel>();
 
         private IDictionary<ArtifactLocation, int> _artifactLocationToIndexMap;
 
@@ -218,29 +220,20 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public bool ShouldSerializeNewlineSequences() { return this.NewlineSequences.HasAtLeastOneNonNullValue(); }
 
-        private static readonly Dictionary<string, FailureLevel> PoliciesCache = new Dictionary<string, FailureLevel>();
-
-        public void ComputePolicies(/*enum?*/)
+        internal static void ComputePolicies(IEnumerable<ToolComponent> policies)
         {
             // checking if we have have policies
-            if (this.Policies == null || this.Policies.Count == 0)
+            if (policies == null || policies.Count() == 0)
             {
                 return;
             }
 
             PoliciesCache.Clear();
-            foreach (ToolComponent policy in this.Policies)
+            foreach (ToolComponent policy in policies)
             {
                 foreach (ReportingDescriptor rule in policy.Rules)
                 {
-                    if (PoliciesCache.ContainsKey(rule.Id))
-                    {
-                        PoliciesCache[rule.Id] = rule.DefaultConfiguration.Level;
-                    }
-                    else
-                    {
-                        PoliciesCache.Add(rule.Id, rule.DefaultConfiguration.Level);
-                    }
+                    PoliciesCache[rule.Id] = rule.DefaultConfiguration.Level;
                 }
             }
         }
@@ -249,7 +242,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (PoliciesCache.Count == 0)
             {
-                return;
+                ComputePolicies(this.Policies);
             }
 
             foreach (Result result in this.Results)
