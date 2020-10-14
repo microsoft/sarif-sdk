@@ -5,7 +5,7 @@ using CommandLine;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
-    [Verb("exportConfig", HelpText = "Export rule options to an XML or JSON file that can be edited and used to configure subsequent analysis.")]
+    [Verb("export-config", HelpText = "Export rule options to an XML or JSON file that can be edited and used to configure subsequent analysis.")]
     public class ExportConfigurationOptions
     {
         [Value(0, HelpText = "Output path for exported analysis options", Required = true)]

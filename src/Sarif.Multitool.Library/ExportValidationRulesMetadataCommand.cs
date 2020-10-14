@@ -8,10 +8,16 @@ using Microsoft.CodeAnalysis.Sarif.Driver;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
-    public class ExportValidationRulesDocumentationCommand : ExportRulesDocumentationCommandBase<SarifValidationContext>
+    public class ExportValidationRulesMetadataCommand : ExportRulesMetadataCommandBase
     {
-        public override IEnumerable<Assembly> DefaultPlugInAssemblies => new Assembly[] {
-            this.GetType().Assembly
-        };
+        public override IEnumerable<Assembly> DefaultPlugInAssemblies
+        {
+            get
+            {
+                return new Assembly[] {
+                    this.GetType().Assembly
+                };
+            }
+        }
     }
 }

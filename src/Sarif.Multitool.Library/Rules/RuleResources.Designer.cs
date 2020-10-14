@@ -200,24 +200,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: This related location does not have a &apos;message&apos; property, so GitHub Advanced Security code scanning will reject the entire log file. This is a bug in GitHub. You can set &apos;message&apos; to an empty string if you don&apos;t have anything else to say about the location..
-        /// </summary>
-        internal static string GH1007_ProvideRequiredRelatedLocationProperties_Error_Default_Text {
-            get {
-                return ResourceManager.GetString("GH1007_ProvideRequiredRelatedLocationProperties_Error_Default_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to GitHub Advanced Security code scanning will reject a SARIF file that includes a &quot;related location&quot; with no &apos;message&apos; property. This is a bug in GitHub. You can set &apos;message&apos; to an empty string if you don&apos;t have anything else to say about the location..
-        /// </summary>
-        internal static string GH1007_ProvideRequiredRelatedLocationProperties_FullDescription_Text {
-            get {
-                return ResourceManager.GetString("GH1007_ProvideRequiredRelatedLocationProperties_FullDescription_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to {0}: The rule &apos;{1}&apos; has a &apos;name&apos; property that is identical to its &apos;id&apos; property. The required &apos;id&apos; property must be a &quot;stable, opaque identifier&quot; (the SARIF specification ([3.49.3](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317839)) explains the reasons for this). The optional &apos;name&apos; property ([3.49.7](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317843)) is an identifer that is understandable to an end user. Therefore if both &apos;id&apos; and &apos;name [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SARIF1001_RuleIdentifiersMustBeValid_Error_Default_Text {

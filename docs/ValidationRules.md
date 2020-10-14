@@ -86,7 +86,7 @@ GitHub Advanced Security code scanning only displays results whose locations are
 
 ### Description
 
-GitHub Advanced Security code scanning will reject a SARIF file that expresses result locations as absolute 'file' scheme URIs unless it can determine the URI of the repository root (which GitHub refers to as the "checkout path"). There are three ways to address this issue.
+GitHub Advanced Security code scanning will reject a SARIF file that expresses result locations as absolute 'file' scheme URIs unless GitHub can determine the URI of the repository root (which GitHub refers to as the "checkout path"). There are three ways to address this issue.
 
 1. Recommended: Express all result locations as relative URI references with respect to the checkout path.
 
@@ -99,20 +99,6 @@ GitHub Advanced Security code scanning will reject a SARIF file that expresses r
 #### `Default`: Error
 
 {0}: This result location is expressed as an absolute 'file' URI. GitHub Advanced Security code scanning will reject this file because it cannot determine the location of the repository root (which it refers to as the "checkout path"). Either express result locations as relative URI references with respect to the checkout path, place the checkout path in 'invocations[].workingDirectory', or place the checkout path in a configuration file at the root of the repository.
-
----
-
-## Rule `GH1007.ProvideRequiredRelatedLocationProperties`
-
-### Description
-
-GitHub Advanced Security code scanning will reject a SARIF file that includes a "related location" with no 'message' property. This is a bug in code scanning. You can set 'message' to an empty string if you don't have anything else to say about the location.
-
-### Messages
-
-#### `Default`: Error
-
-{0}: This related location does not have a 'message' property, so GitHub Advanced Security code scanning will reject the entire log file. This is a bug in code scanning. You can set 'message' to an empty string if you don't have anything else to say about the location.
 
 ---
 
