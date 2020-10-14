@@ -154,7 +154,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             var mockFileSystem = new Mock<IFileSystem>();
             mockFileSystem.Setup(x => x.ReadAllText(logFilePath)).Returns(sarifLog);
             mockFileSystem.Setup(x => x.OpenRead(logFilePath)).Returns(() => new MemoryStream(Encoding.UTF8.GetBytes(sarifLog)));
-            mockFileSystem.Setup(x => x.Create(logFilePath)).Returns(() => new MemoryStreamToStringBuilder(transformedContents));
+            mockFileSystem.Setup(x => x.FileCreate(logFilePath)).Returns(() => new MemoryStreamToStringBuilder(transformedContents));
             mockFileSystem.Setup(x => x.WriteAllText(logFilePath, It.IsAny<string>())).Callback<string, string>((path, contents) => { transformedContents.Append(contents); });
             mockFileSystem.Setup(x => x.DirectoryExists(It.IsAny<string>())).Returns(true);
             mockFileSystem.Setup(x => x.GetFilesInDirectory(It.IsAny<string>(), It.IsAny<string>())).Returns(new string[] { logFilePath });

@@ -67,11 +67,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             };
         }
 
-        private static string BuildToolSpecificEmptyLogText()
-        {
-            return JsonConvert.SerializeObject(BuildToolSpecificEmptyLog());
-        }
-
         public readonly SarifLog EmptyLog = BuildToolSpecificEmptyLog();
         public readonly string EmptyResultLogText = JsonConvert.SerializeObject(BuildToolSpecificEmptyLog());
     }

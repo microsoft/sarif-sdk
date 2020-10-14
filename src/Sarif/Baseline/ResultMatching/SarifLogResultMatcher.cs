@@ -231,13 +231,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             }
 
             var visitor = new RunMergingVisitor();
-            
+
             foreach (MatchedResults resultPair in results)
             {
                 Result result = resultPair.CalculateBasedlinedResult(PropertyBagMergeBehavior);
-                Run contextRun = (result.BaselineState == BaselineState.Unchanged || result.BaselineState == BaselineState.Updated) ? resultPair.PreviousResult.OriginalRun : resultPair.Run;
 
-                visitor.CurrentRun = contextRun;
+                visitor.CurrentRun = result.Run;
                 visitor.VisitResult(result);
             }
 
@@ -255,7 +254,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 // Find the 'oldest' log file and initialize properties from that log property bag.
                 properties = currentRuns.Last().Properties;
             }
-            
+
             properties ??= new Dictionary<string, SerializedPropertyInfo>();
 
             var graphs = new List<Graph>();

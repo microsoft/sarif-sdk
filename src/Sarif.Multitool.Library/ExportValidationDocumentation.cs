@@ -3,20 +3,15 @@
 
 using System.Collections.Generic;
 using System.Reflection;
+
 using Microsoft.CodeAnalysis.Sarif.Driver;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
-    internal class ExportRulesMetadataCommand : ExportRulesMetadataCommandBase
+    public class ExportValidationDocumentationCommand : ExportRulesDocumentationCommandBase<SarifValidationContext>
     {
-        public override IEnumerable<Assembly> DefaultPlugInAssemblies
-        {
-            get
-            {
-                return new Assembly[] {
-                    this.GetType().Assembly
-                };
-            }
-        }
+        public override IEnumerable<Assembly> DefaultPlugInAssemblies => new Assembly[] {
+            this.GetType().Assembly
+        };
     }
 }

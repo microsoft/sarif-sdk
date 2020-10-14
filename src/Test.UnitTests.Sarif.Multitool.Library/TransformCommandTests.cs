@@ -160,7 +160,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             var mockFileSystem = new Mock<IFileSystem>();
             mockFileSystem.Setup(x => x.ReadAllText(LogFilePath)).Returns(logFileContents);
             mockFileSystem.Setup(x => x.OpenRead(LogFilePath)).Returns(() => new MemoryStream(Encoding.UTF8.GetBytes(logFileContents)));
-            mockFileSystem.Setup(x => x.Create(LogFilePath)).Returns(() => new MemoryStreamToStringBuilder(transformedContents));
+            mockFileSystem.Setup(x => x.FileCreate(LogFilePath)).Returns(() => new MemoryStreamToStringBuilder(transformedContents));
             mockFileSystem.Setup(x => x.WriteAllText(LogFilePath, It.IsAny<string>())).Callback<string, string>((path, contents) => { transformedContents.Append(contents); });
 
             var transformCommand = new TransformCommand(mockFileSystem.Object);
