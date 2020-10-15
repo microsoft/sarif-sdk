@@ -119,6 +119,49 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [Fact]
+        public void GetGitExePath_WhenPathExistsInProgramFiles()
+        {
+            var mockFileSystem = new Mock<IFileSystem>();
+
+            mockFileSystem.Setup(x => x.FileExists(It.IsAny<string>())).Returns(true);
+
+            var gitHelper = new GitHelper(mockFileSystem.Object);
+
+            gitHelper.GetGitExePath().Should().NotBeNullOrEmpty();
+        }
+
+        [Fact]
+        public void GetGitExePath_WhenPathDoesNotExistInProgramFiles()
+        {
+            var mockFileSystem = new Mock<IFileSystem>();
+
+            mockFileSystem.Setup(x => x.FileExists(It.IsAny<string>())).Returns(false);
+
+            var gitHelper = new GitHelper(mockFileSystem.Object);
+
+            gitHelper.GetGitExePath().Should().NotBeNull();
+        }
+
+        [Fact]
+        public void SearchForFileInEnvironmentVariable_WhenVariableDoesNotExist()
+        {
+            FileSearcherHelper.SearchForFileInEnvironmentVariable("PATH_THAT_DOES_NOT_EXIST", "filename.exe").Should().BeNull();
+        }
+
+        [Fact]
+        public void SearchForFileInEnvironmentVariable_WhenVariableExistsButFileDoesnt()
+        {
+            // The error in the ntdll name here is intentional.
+            FileSearcherHelper.SearchForFileInEnvironmentVariable("PATH", "ntdll.dlll").Should().BeNull();
+        }
+
+        [Fact]
+        public void SearchForFileInEnvironmentVariable_WhenVariableAndFileExists()
+        {
+            FileSearcherHelper.SearchForFileInEnvironmentVariable("PATH", "ntdll.dll").Should().NotBeNull();
+        }
+
+        [Fact]
         public void GitExePath_WhenPathDoesntExist_SettingManuallyShouldWork()
         {
             var mockFileSystem = new Mock<IFileSystem>();

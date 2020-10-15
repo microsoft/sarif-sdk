@@ -73,8 +73,15 @@ namespace Microsoft.CodeAnalysis.Sarif
                 args: $"checkout {commitSha}");
         }
 
-        private string GetGitExePath()
-            => this.fileSystem.FileExists(s_expectedGitExePath) ? s_expectedGitExePath : null;
+        internal string GetGitExePath()
+        {
+            if (this.fileSystem.FileExists(s_expectedGitExePath))
+            {
+                return s_expectedGitExePath;
+            }
+
+            return FileSearcherHelper.SearchForFileInEnvironmentVariable("PATH", "git.exe");
+        }
 
         public string GetCurrentBranch(string repoPath)
         {
