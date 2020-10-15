@@ -42,7 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         protected AnalyzeCommandBase(IFileSystem fileSystem = null)
         {
-            FileSystem = fileSystem ?? new FileSystem();
+            FileSystem = fileSystem ?? Sarif.FileSystem.Instance;
         }
 
         public string DefaultConfigurationPath
