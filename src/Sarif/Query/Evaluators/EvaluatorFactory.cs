@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
         ///  
         ///  int[] set;
         /// BitArray matches = new BitArray(set.Length);
-        //  evaluator.Evaluate(set, matches);
+        ///  evaluator.Evaluate(set, matches);
         /// </example>
         /// <param name="fieldType">Primitive type of array to build evaluator for</param>
         /// <param name="term">Query term with comparison and constant to evaluate against array</param>
