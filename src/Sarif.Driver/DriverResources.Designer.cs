@@ -131,6 +131,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver {
                 return ResourceManager.GetString("OptionsAreMutuallyExclusive", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to No description available..
+        /// </summary>
+        internal static string NoRuleDescription {
+            get {
+                return ResourceManager.GetString("NoRuleDescription", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to Invalid PREfast defect state..

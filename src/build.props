@@ -4,6 +4,7 @@
   <PropertyGroup>
     <TargetFrameworks>netcoreapp2.1;net461</TargetFrameworks>
     <LangVersion>8.0</LangVersion>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Label="AssemblyAttributes">

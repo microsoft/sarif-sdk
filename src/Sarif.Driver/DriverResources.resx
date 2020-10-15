@@ -141,6 +141,9 @@
   <data name="OptionsAreMutuallyExclusive" xml:space="preserve">
     <value>The '{0}' and '{1}' options cannot be specified together.</value>
   </data>
+  <data name="NoRuleDescription" xml:space="preserve">
+    <value>No description available.</value>
+  </data>
   <data name="PREfastDefectBuilderCannotFreeze" xml:space="preserve">
     <value>Invalid PREfast defect state.</value>
   </data>
