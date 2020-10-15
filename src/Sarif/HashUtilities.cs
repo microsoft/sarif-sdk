@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             get
             {
-                _fileSystem = _fileSystem ?? new FileSystem();
+                _fileSystem ??= new FileSystem();
                 return _fileSystem;
             }
 

@@ -34,7 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             IFileSystem fileSystem = null,
             GitHelper.ProcessRunner processRunner = null)
         {
-            _fileSystem = fileSystem ?? new FileSystem();
+            _fileSystem = fileSystem ?? FileSystem.Instance;
             _processRunner = processRunner;
 
             _dataToInsert = dataToInsert;
