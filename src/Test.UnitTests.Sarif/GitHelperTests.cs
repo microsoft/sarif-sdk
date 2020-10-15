@@ -170,10 +170,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             var gitHelper = new GitHelper(mockFileSystem.Object);
 
-            gitHelper.GitExePath.Should().BeNull();
-
             gitHelper.GitExePath = @"C:\dev";
-            gitHelper.GitExePath.Should().NotBeNullOrEmpty();
+            gitHelper.GitExePath.Should().Be(@"C:\dev");
         }
     }
 }
