@@ -1,51 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Properties>
-  <Properties Key='SARIF2001.TerminateMessagesWithPeriod.Options'>
-    <Property Key='RuleEnabled' Value='Disabled' />
-  </Properties>
-  <Properties Key='SARIF2002.ProvideMessageArguments.Options'>
-    <Property Key='RuleEnabled' Value='Disabled' />
-  </Properties>
-  <Properties Key='SARIF2003.ProvideVersionControlProvenance.Options'>
-    <Property Key='RuleEnabled' Value='Disabled' />
-  </Properties>
-  <Properties Key='SARIF2004.OptimizeFileSize.Options'>
-    <Property Key='RuleEnabled' Value='Disabled' />
-  </Properties>
-  <Properties Key='SARIF2005.ProvideToolProperties.Options'>
-    <Property Key='RuleEnabled' Value='Disabled' />
-  </Properties>
-  <Properties Key='SARIF2006.UrisShouldBeReachable.Options'>
-    <Property Key='RuleEnabled' Value='Disabled' />
-  </Properties>
   <Properties Key='SARIF2007.ExpressPathsRelativeToRepoRoot.Options'>
-    <!-- Upgraded from Warning. -->
+    <!-- Upgraded from Warning, because GitHug requires this. -->
     <Property Key='RuleEnabled' Value='Error' />
-  </Properties>
-  <Properties Key='SARIF2008.ProvideSchema.Options'>
-    <Property Key='RuleEnabled' Value='Disabled' />
-  </Properties>
-  <Properties Key='SARIF2009.ConsiderConventionalIdentifierValues.Options'>
-    <Property Key='RuleEnabled' Value='Disabled' />
-  </Properties>
-  <Properties Key='SARIF2010.ProvideCodeSnippets.Options'>
-    <Property Key='RuleEnabled' Value='Disabled' />
-  </Properties>
-  <Properties Key='SARIF2011.ProvideContextRegion.Options'>
-    <Property Key='RuleEnabled' Value='Disabled' />
   </Properties>
   <Properties Key='SARIF2012.ProvideHelpUris.Options'>
-    <!-- Because GitHub displays them if available. -->
-    <Property Key='RuleEnabled' Value='Error' />
-  </Properties>
-  <Properties Key='SARIF2013.ProvideEmbeddedFileContent.Options'>
-    <Property Key='RuleEnabled' Value='Disabled' />
-  </Properties>
-  <Properties Key='SARIF2014.ProvideDynamicMessageContent.Options'>
-    <Property Key='RuleEnabled' Value='Disabled' />
-  </Properties>
-  <Properties Key='SARIF2015.EnquoteDynamicMessageContent.Options'>
-    <Property Key='RuleEnabled' Value='Disabled' />
+    <!-- Upgraded from Note, because GitHub displays them if available. -->
+    <Property Key='RuleEnabled' Value='Warning' />
   </Properties>
   <Properties Key='SARIF2016.FileUrisShouldBeRelative.Options'>
     <!-- Not necessary because SARIF2007.ExpressPathsRelativeToRepoRoot is stricter. -->
