@@ -46,7 +46,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             GitExePath = GetGitExePath();
         }
 
-        public string GitExePath { get; }
+        public string GitExePath { get; set; }
 
         public Uri GetRemoteUri(string repoPath)
         {

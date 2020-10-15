@@ -117,5 +117,20 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             action.Should().NotThrow();
         }
+
+        [Fact]
+        public void GitExePath_WhenPathDoesntExist_SettingManuallyShouldWork()
+        {
+            var mockFileSystem = new Mock<IFileSystem>();
+
+            mockFileSystem.Setup(x => x.FileExists(It.IsAny<string>())).Returns(false);
+
+            var gitHelper = new GitHelper(mockFileSystem.Object);
+
+            gitHelper.GitExePath.Should().BeNull();
+
+            gitHelper.GitExePath = @"C:\dev";
+            gitHelper.GitExePath.Should().NotBeNullOrEmpty();
+        }
     }
 }
