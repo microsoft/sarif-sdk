@@ -164,6 +164,14 @@
                   "uriBaseId": "%SRCROOT%"
                 }
               }
+            },
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/leading_slash.c"
+
+                }
+              }
             }
           ],
           "stacks": [

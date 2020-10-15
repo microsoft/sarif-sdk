@@ -14,8 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// results. A result might produce a new file object to be stored in run.files,
         /// for example, so run.Files will not be persisted on initialization.
         /// </summary>
-        /// <param name="id">A string that uniquely identifies a run.</param>
-        /// <param name="automationId">A global identifier for a run that permits correlation with a larger automation process.</param> 
+        /// <param name="run"></param>
         void Initialize(Run run);
 
         /// <summary>

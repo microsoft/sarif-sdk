@@ -22,16 +22,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         /// <summary>
-        /// Ensures the consistency of the SingleFileOptionsBase command line options related to
-        /// the location of the output file, and adjusts the options for ease of use.
+        /// Ensures the consistency of the command line options related to the location and format
+        /// of the output file, and adjusts the options for ease of use.
         /// </summary>
         /// <param name="options">
-        /// A <see cref="SingleFileOptionsBase"/> object containing the relevant options.
+        /// A <see cref="SingleFileOptionsBase"/> object containing the command line options.
         /// </param>
         /// <returns>
         /// true if the options are internally consistent; otherwise false.
         /// </returns>
-        public static bool ValidateOutputOptions(this SingleFileOptionsBase options)
+        public static bool Validate(this SingleFileOptionsBase options)
+        {
+            bool valid = true;
+
+            valid &= options.ValidateOutputLocationOptions();
+            valid &= options.ValidateOutputFormatOptions();
+
+            return valid;
+        }
+
+        private static bool ValidateOutputLocationOptions(this SingleFileOptionsBase options)
         {
             bool valid = true;
 
@@ -44,7 +54,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 }
                 else
                 {
-                    ReportInvalidOutputOptions(options);
+                    ReportInvalidOutputOptions();
                     valid = false;
                 }
             }
@@ -52,17 +62,47 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return valid;
         }
 
-        private static void ReportInvalidOutputOptions(SingleFileOptionsBase options)
+        private static void ReportInvalidOutputOptions()
         {
-            string inlineOptionsDescription = DriverUtilities.GetOptionDescription<SingleFileOptionsBase>(nameof(options.Inline));
-            string outputFilePathOptionDescription = DriverUtilities.GetOptionDescription<SingleFileOptionsBase>(nameof(options.OutputFilePath));
+            string inlineOptionDescription = DriverUtilities.GetOptionDescription<SingleFileOptionsBase>(nameof(SingleFileOptionsBase.Inline));
+            string outputFilePathOptionDescription = DriverUtilities.GetOptionDescription<SingleFileOptionsBase>(nameof(SingleFileOptionsBase.OutputFilePath));
 
             Console.Error.WriteLine(
                 string.Format(
                     CultureInfo.CurrentCulture,
                     DriverResources.ExactlyOneOfTwoOptionsIsRequired,
-                    inlineOptionsDescription,
+                    inlineOptionDescription,
                     outputFilePathOptionDescription));
+        }
+
+        private static bool ValidateOutputFormatOptions(this SingleFileOptionsBase options)
+        {
+            bool valid = true;
+
+            if (options.PrettyPrint && options.Minify)
+            {
+                ReportInvalidOutputFormatOptions();
+                valid = false;
+            }
+            else if (!options.PrettyPrint && !options.Minify)
+            {
+                options.PrettyPrint = true;
+            }
+
+            return valid;
+        }
+
+        private static void ReportInvalidOutputFormatOptions()
+        {
+            string prettyPrintOptionDescription = DriverUtilities.GetOptionDescription<CommonOptionsBase>(nameof(CommonOptionsBase.PrettyPrint));
+            string minifyOptionDescription = DriverUtilities.GetOptionDescription<CommonOptionsBase>(nameof(CommonOptionsBase.Minify));
+
+            Console.Error.WriteLine(
+                string.Format(
+                    CultureInfo.CurrentCulture,
+                    DriverResources.OptionsAreMutuallyExclusive,
+                    prettyPrintOptionDescription,
+                    minifyOptionDescription));
         }
 
         /// <summary>
