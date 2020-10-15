@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         private static readonly Artifact EmptyFile = new Artifact();
         private static readonly Invocation EmptyInvocation = new Invocation();
         private static readonly LogicalLocation EmptyLogicalLocation = new LogicalLocation();
-        private static Dictionary<string, FailureLevel> PoliciesCache;
+        private Dictionary<string, FailureLevel> PoliciesCache;
 
         private IDictionary<ArtifactLocation, int> _artifactLocationToIndexMap;
 
