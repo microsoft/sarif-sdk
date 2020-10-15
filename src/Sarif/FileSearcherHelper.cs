@@ -14,9 +14,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         /// <param name="environmentVariable">Environment variable that we will look for</param>
         /// <param name="fileName">Name of the file that we will look for in the environment variable</param>
+        /// <param name="fileSystem">An object that provides access to the file system.</param>
         /// <returns>Path to the file name or empty string.</returns>
-        public static string SearchForFileInEnvironmentVariable(string environmentVariable, string fileName)
+        public static string SearchForFileInEnvironmentVariable(string environmentVariable, string fileName, IFileSystem fileSystem = null)
         {
+            fileSystem ??= new FileSystem();
+
             string variable = Environment.GetEnvironmentVariable(environmentVariable);
             if (string.IsNullOrEmpty(variable))
             {
@@ -26,7 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             string[] paths = variable.Split(';');
             foreach (string path in paths)
             {
-                string returnedPath = SearchForFileNameInPath(path, fileName);
+                string returnedPath = SearchForFileNameInPath(path, fileName, fileSystem);
                 if (!string.IsNullOrEmpty(returnedPath))
                 {
                     return returnedPath;
@@ -41,11 +44,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         /// <param name="path">Path where it will search.</param>
         /// <param name="fileName">Name of the file that it will search</param>
+        /// <param name="fileSystem">An object that provides access to the file system.</param>
         /// <returns>Path to the file name or empty string.</returns>
-        public static string SearchForFileNameInPath(string path, string fileName)
+        public static string SearchForFileNameInPath(string path, string fileName, IFileSystem fileSystem = null)
         {
+            fileSystem ??= new FileSystem();
             string filePath = $@"{path}\{fileName}";
-            return File.Exists(filePath) ? filePath : null;
+            return fileSystem.FileExists(filePath) ? filePath : null;
         }
     }
 }

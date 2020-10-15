@@ -43,7 +43,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             this.fileSystem = fileSystem ?? new FileSystem();
             this.processRunner = processRunner ?? DefaultProcessRunner;
 
-            GitExePath = GetGitExePath();
+            GitExePath = GetGitExePath(this.fileSystem);
         }
 
         public string GitExePath { get; set; }
@@ -73,14 +73,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                 args: $"checkout {commitSha}");
         }
 
-        internal string GetGitExePath()
+        internal static string GetGitExePath(IFileSystem fileSystem)
         {
-            if (this.fileSystem.FileExists(s_expectedGitExePath))
+            if (fileSystem.FileExists(s_expectedGitExePath))
             {
                 return s_expectedGitExePath;
             }
 
-            return FileSearcherHelper.SearchForFileInEnvironmentVariable("PATH", "git.exe");
+            return FileSearcherHelper.SearchForFileInEnvironmentVariable("PATH", "git.exe", fileSystem);
         }
 
         public string GetCurrentBranch(string repoPath)
