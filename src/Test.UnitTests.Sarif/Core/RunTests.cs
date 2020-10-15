@@ -107,7 +107,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
         [Fact]
         public void Run_ApplyPolicies_WhenWeDontHavePolicies()
         {
-            Run run = CreateRun(1);
+            Run run = CreateRun(resultCount: 1);
             run.ApplyPolicies();
             run.Results[0].Level.Should().Be(FailureLevel.Note);
         }
@@ -115,7 +115,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
         [Fact]
         public void Run_ApplyPolicies_WhenWeHavePolicy()
         {
-            Run run = CreateRun(1);
+            Run run = CreateRun(resultCount: 1);
             run.Policies = new ToolComponent[] { CreateToolComponent("test", 1, FailureLevel.Error) };
             run.ApplyPolicies();
             run.Results[0].Level.Should().Be(FailureLevel.Error);
@@ -124,11 +124,11 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
         [Fact]
         public void Run_ApplyPolicies_WhenWeHavePolicies()
         {
-            Run run = CreateRun(1);
+            Run run = CreateRun(resultCount: 1);
             run.Policies = new ToolComponent[]
             {
-                CreateToolComponent("test1", 1, FailureLevel.Error),
-                CreateToolComponent("test2", 2, FailureLevel.Warning)
+                CreateToolComponent("test1", rulesCount: 1, FailureLevel.Error),
+                CreateToolComponent("test2", rulesCount: 2, FailureLevel.Warning)
             };
             run.ApplyPolicies();
             run.Results[0].Level.Should().Be(FailureLevel.Warning);
@@ -201,12 +201,12 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             return run;
         }
 
-        private ToolComponent CreateToolComponent(string name, int rules, FailureLevel failureLevel)
+        private ToolComponent CreateToolComponent(string name, int rulesCount, FailureLevel failureLevel)
         {
             ToolComponent toolComponent = new ToolComponent();
             toolComponent.Name = name;
-            toolComponent.Rules = new ReportingDescriptor[rules];
-            for (int i = 0; i < rules; i++)
+            toolComponent.Rules = new ReportingDescriptor[rulesCount];
+            for (int i = 0; i < rulesCount; i++)
             {
                 toolComponent.Rules[i] = new ReportingDescriptor
                 {
@@ -221,13 +221,13 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             return toolComponent;
         }
 
-        private Run CreateRun(int results)
+        private Run CreateRun(int resultCount)
         {
             var run = new Run
             {
-                Results = new Result[results]
+                Results = new Result[resultCount]
             };
-            for (int i = 0; i < results; i++)
+            for (int i = 0; i < resultCount; i++)
             {
                 run.Results[i] = new Result
                 {
