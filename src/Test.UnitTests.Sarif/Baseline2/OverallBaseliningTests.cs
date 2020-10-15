@@ -80,8 +80,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
         [Fact]
         public void Overall_CheckingAbsentUnchangedAndNew()
         {
-            SarifLog baselineSarif = TestData.CreateSimpleLogWithRules(0, 2);
-            SarifLog currentSarif = TestData.CreateSimpleLogWithRules(1, 2);
+            SarifLog baselineSarif = TestData.CreateSimpleLogWithRules(ruleIdStartIndex: 0, resultCount: 2);
+            SarifLog currentSarif = TestData.CreateSimpleLogWithRules(ruleIdStartIndex: 1, resultCount: 2);
 
             ISarifLogMatcher matcher = ResultMatchingBaselinerFactory.GetDefaultResultMatchingBaseliner();
             SarifLog output = matcher.Match(new SarifLog[] { baselineSarif }, new SarifLog[] { currentSarif }).First();
@@ -94,8 +94,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
         [Fact]
         public void Overall_CheckingAbsentAndNew()
         {
-            SarifLog baselineSarif = TestData.CreateSimpleLogWithRules(0, 2);
-            SarifLog currentSarif = TestData.CreateSimpleLogWithRules(10, 2);
+            SarifLog baselineSarif = TestData.CreateSimpleLogWithRules(ruleIdStartIndex: 0, resultCount: 2);
+            SarifLog currentSarif = TestData.CreateSimpleLogWithRules(ruleIdStartIndex: 10, resultCount: 2);
 
             ISarifLogMatcher matcher = ResultMatchingBaselinerFactory.GetDefaultResultMatchingBaseliner();
             SarifLog output = matcher.Match(new SarifLog[] { baselineSarif }, new SarifLog[] { currentSarif }).First();

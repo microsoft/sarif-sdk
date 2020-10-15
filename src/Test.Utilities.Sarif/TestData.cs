@@ -258,28 +258,28 @@ namespace Microsoft.CodeAnalysis.Test.Utilities.Sarif
             };
         }
 
-        public static SarifLog CreateSimpleLogWithRules(int startIndex, int count)
+        public static SarifLog CreateSimpleLogWithRules(int ruleIdStartIndex, int resultCount)
         {
-            var rules = new ReportingDescriptor[count];
-            var results = new Result[count];
-            for (int i = 0; i < count; i++)
+            var rules = new ReportingDescriptor[resultCount];
+            var results = new Result[resultCount];
+            for (int i = 0; i < resultCount; i++)
             {
                 rules[i] = new ReportingDescriptor
                 {
-                    Id = $"TEST{i + startIndex}",
+                    Id = $"TEST{i + ruleIdStartIndex}",
                     ShortDescription = new MultiformatMessageString
                     {
-                        Text = $"Test description {i + startIndex}"
+                        Text = $"Test description {i + ruleIdStartIndex}"
                     }
                 };
 
                 results[i] = new Result
                 {
-                    RuleId = $"TEST{i + startIndex}",
+                    RuleId = $"TEST{i + ruleIdStartIndex}",
                     RuleIndex = 0,
                     Message = new Message
                     {
-                        Text = $"Error description {i + startIndex}"
+                        Text = $"Error description {i + ruleIdStartIndex}"
                     },
                 };
             }
