@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 using Microsoft.CodeAnalysis.Sarif.Readers;
@@ -16,6 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         private static readonly Artifact EmptyFile = new Artifact();
         private static readonly Invocation EmptyInvocation = new Invocation();
         private static readonly LogicalLocation EmptyLogicalLocation = new LogicalLocation();
+        private Dictionary<string, FailureLevel> PoliciesCache;
 
         private IDictionary<ArtifactLocation, int> _artifactLocationToIndexMap;
 
@@ -217,5 +219,49 @@ namespace Microsoft.CodeAnalysis.Sarif
         public bool ShouldSerializeLogicalLocations() { return this.LogicalLocations.HasAtLeastOneNonDefaultValue(LogicalLocation.ValueComparer); }
 
         public bool ShouldSerializeNewlineSequences() { return this.NewlineSequences.HasAtLeastOneNonNullValue(); }
+
+        internal static Dictionary<string, FailureLevel> ComputePolicies(IEnumerable<ToolComponent> policies)
+        {
+            Dictionary<string, FailureLevel> localCache = new Dictionary<string, FailureLevel>();
+
+            // checking if we have have policies
+            if (policies == null || !policies.Any())
+            {
+                return localCache;
+            }
+
+            foreach (ToolComponent policy in policies)
+            {
+                foreach (ReportingDescriptor rule in policy.Rules)
+                {
+                    localCache[rule.Id] = rule.DefaultConfiguration.Level;
+                }
+            }
+
+            return localCache;
+        }
+
+        /// <summary>
+        /// Applies the policies contained in this run, if any, to remap result failure levels.
+        /// When multiple policies remap the same rule, the last policy in the policies
+        /// collection has precedence.
+        /// </summary>
+        public void ApplyPolicies()
+        {
+            if (PoliciesCache == null || PoliciesCache.Count == 0)
+            {
+                PoliciesCache = ComputePolicies(this.Policies);
+            }
+
+            foreach (Result result in this.Results)
+            {
+                string ruleId = result.ResolvedRuleId(this);
+                
+                if (PoliciesCache.ContainsKey(ruleId))
+                {
+                    result.Level = PoliciesCache[ruleId];
+                }
+            }
+        }
     }
 }
