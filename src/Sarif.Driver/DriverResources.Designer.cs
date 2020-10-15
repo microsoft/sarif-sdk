@@ -124,6 +124,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The &apos;{0}&apos; and &apos;{1}&apos; options cannot be specified together..
+        /// </summary>
+        internal static string OptionsAreMutuallyExclusive {
+            get {
+                return ResourceManager.GetString("OptionsAreMutuallyExclusive", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to No description available..
         /// </summary>
         internal static string NoRuleDescription {

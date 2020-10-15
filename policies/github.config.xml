@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Properties>
   <Properties Key='SARIF2007.ExpressPathsRelativeToRepoRoot.Options'>
-    <!-- Upgraded from Warning, because GitHug requires this. -->
+    <!-- Upgraded from Warning, because GitHub requires this. -->
     <Property Key='RuleEnabled' Value='Error' />
   </Properties>
   <Properties Key='SARIF2012.ProvideHelpUris.Options'>
