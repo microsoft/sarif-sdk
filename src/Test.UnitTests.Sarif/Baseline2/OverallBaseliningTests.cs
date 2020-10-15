@@ -1,13 +1,15 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using FluentAssertions;
 
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching;
-
+using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
 using Newtonsoft.Json;
 
 using Xunit;
@@ -73,6 +75,42 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
 
             // All other results are unchanged.
             output.Runs[0].Results.Where(result => result.BaselineState == BaselineState.Unchanged).Count().Should().Be(SampleLog.Runs[0].Results.Count - 1);
+        }
+
+        [Fact]
+        public void Overall_TestingSameSarif()
+        {
+            SarifLog baselineSarif = TestData.CreateBaseline();
+
+            ISarifLogMatcher matcher = ResultMatchingBaselinerFactory.GetDefaultResultMatchingBaseliner();
+            SarifLog output = matcher.Match(new SarifLog[] { baselineSarif }, new SarifLog[] { baselineSarif }).First();
+
+            output.Runs.First().Results.First().BaselineState.Should().Be(BaselineState.Unchanged);
+        }
+
+        [Fact]
+        public void Overall_CheckingUnchangedDifferentRulesOrder()
+        {
+            SarifLog baselineSarif = TestData.CreateBaseline();
+            SarifLog currentSarif = TestData.CreateBaselineUnchanged();
+
+            ISarifLogMatcher matcher = ResultMatchingBaselinerFactory.GetDefaultResultMatchingBaseliner();
+            SarifLog output = matcher.Match(new SarifLog[] { baselineSarif }, new SarifLog[] { currentSarif }).First();
+
+            output.Runs[0].Results[0].BaselineState.Should().Be(BaselineState.Unchanged);
+        }
+
+        [Fact]
+        public void Overall_CheckingAbsentAndNew()
+        {
+            SarifLog baselineSarif = TestData.CreateBaseline();
+            SarifLog currentSarif = TestData.CreateBaselineNew();
+
+            ISarifLogMatcher matcher = ResultMatchingBaselinerFactory.GetDefaultResultMatchingBaseliner();
+            SarifLog output = matcher.Match(new SarifLog[] { baselineSarif }, new SarifLog[] { currentSarif }).First();
+
+            output.Runs[0].Results[0].BaselineState.Should().Be(BaselineState.Absent);
+            output.Runs[0].Results[1].BaselineState.Should().Be(BaselineState.New);
         }
     }
 }
