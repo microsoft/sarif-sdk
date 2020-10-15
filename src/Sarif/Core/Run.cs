@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         private static readonly Artifact EmptyFile = new Artifact();
         private static readonly Invocation EmptyInvocation = new Invocation();
         private static readonly LogicalLocation EmptyLogicalLocation = new LogicalLocation();
-        internal static readonly Dictionary<string, FailureLevel> PoliciesCache = new Dictionary<string, FailureLevel>();
+        private static Dictionary<string, FailureLevel> PoliciesCache;
 
         private IDictionary<ArtifactLocation, int> _artifactLocationToIndexMap;
 
@@ -220,29 +220,37 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public bool ShouldSerializeNewlineSequences() { return this.NewlineSequences.HasAtLeastOneNonNullValue(); }
 
-        internal static void ComputePolicies(IEnumerable<ToolComponent> policies)
+        internal static Dictionary<string, FailureLevel> ComputePolicies(IEnumerable<ToolComponent> policies)
         {
+            Dictionary<string, FailureLevel> localCache = new Dictionary<string, FailureLevel>();
+
             // checking if we have have policies
-            if (policies == null || policies.Count() == 0)
+            if (policies == null || !policies.Any())
             {
-                return;
+                return localCache;
             }
 
-            PoliciesCache.Clear();
             foreach (ToolComponent policy in policies)
             {
                 foreach (ReportingDescriptor rule in policy.Rules)
                 {
-                    PoliciesCache[rule.Id] = rule.DefaultConfiguration.Level;
+                    localCache[rule.Id] = rule.DefaultConfiguration.Level;
                 }
             }
+
+            return localCache;
         }
 
+        /// <summary>
+        /// Applies the policies contained in this run, if any, to remap result failure levels.
+        /// When multiple policies remap the same rule, the last policy in the policies
+        /// collection has precedence.
+        /// </summary>
         public void ApplyPolicies()
         {
-            if (PoliciesCache.Count == 0)
+            if (PoliciesCache == null || PoliciesCache.Count == 0)
             {
-                ComputePolicies(this.Policies);
+                PoliciesCache = ComputePolicies(this.Policies);
             }
 
             foreach (Result result in this.Results)

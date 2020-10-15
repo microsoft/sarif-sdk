@@ -77,31 +77,31 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
         [Fact]
         public void Run_ComputePolicies_WhenCollectionIsNullOrEmpty()
         {
-            Run.ComputePolicies(null);
-            Run.PoliciesCache.Count.Should().Be(0);
+            Dictionary<string, FailureLevel> cache = Run.ComputePolicies(null);
+            cache.Count.Should().Be(0);
 
-            Run.ComputePolicies(new ToolComponent[] { });
-            Run.PoliciesCache.Count.Should().Be(0);
+            cache = Run.ComputePolicies(new ToolComponent[] { });
+            cache.Count.Should().Be(0);
         }
 
         [Fact]
         public void Run_ComputePolicies_SingleComponent()
         {
-            Run.ComputePolicies(new ToolComponent[] { CreateToolComponent("test", 1, FailureLevel.Error) });
-            Run.PoliciesCache.Count.Should().Be(1);
+            Dictionary<string, FailureLevel> cache = Run.ComputePolicies(new ToolComponent[] { CreateToolComponent("test", 1, FailureLevel.Error) });
+            cache.Count.Should().Be(1);
         }
 
         [Fact]
         public void Run_ComputePolicies_MultipleComponents()
         {
-            Run.ComputePolicies(new ToolComponent[]
+            Dictionary<string, FailureLevel> cache = Run.ComputePolicies(new ToolComponent[]
             {
                 CreateToolComponent("test1", 1, FailureLevel.Error),
                 CreateToolComponent("test2", 2, FailureLevel.Warning)
             });
-            Run.PoliciesCache.Count.Should().Be(2);
-            Run.PoliciesCache.First().Value.Should().Be(FailureLevel.Warning);
-            Run.PoliciesCache.Last().Value.Should().Be(FailureLevel.Warning);
+            cache.Count.Should().Be(2);
+            cache.First().Value.Should().Be(FailureLevel.Warning);
+            cache.Last().Value.Should().Be(FailureLevel.Warning);
         }
 
         [Fact]
@@ -116,7 +116,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
         public void Run_ApplyPolicies_WhenWeHavePolicy()
         {
             Run run = CreateRun(1);
-            Run.ComputePolicies(new ToolComponent[] { CreateToolComponent("test", 1, FailureLevel.Error) });
+            run.Policies = new ToolComponent[] { CreateToolComponent("test", 1, FailureLevel.Error) };
             run.ApplyPolicies();
             run.Results[0].Level.Should().Be(FailureLevel.Error);
         }
@@ -125,11 +125,11 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
         public void Run_ApplyPolicies_WhenWeHavePolicies()
         {
             Run run = CreateRun(1);
-            Run.ComputePolicies(new ToolComponent[]
+            run.Policies = new ToolComponent[]
             {
                 CreateToolComponent("test1", 1, FailureLevel.Error),
                 CreateToolComponent("test2", 2, FailureLevel.Warning)
-            });
+            };
             run.ApplyPolicies();
             run.Results[0].Level.Should().Be(FailureLevel.Warning);
         }
