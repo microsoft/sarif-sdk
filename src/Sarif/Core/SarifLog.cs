@@ -75,7 +75,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         ///  Write a SARIF log to a destination stream.
         /// </summary>
-        /// <param name="streamWriter">Stream to write SARIF to</param>
+        /// <param name="stream">Stream to write SARIF to</param>
         public void Save(Stream stream)
         {
             using (StreamWriter streamWriter = new StreamWriter(stream))

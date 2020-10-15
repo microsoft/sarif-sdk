@@ -58,7 +58,7 @@ namespace Microsoft.WorkItems
         /// <summary>
         /// Asynchronously file work items for the specified results.
         /// </summary>
-        /// <param name="workItemFilingMetadata">
+        /// <param name="workItemModels">
         /// Describes the work items to be filed.
         /// </param>
         /// <returns>
