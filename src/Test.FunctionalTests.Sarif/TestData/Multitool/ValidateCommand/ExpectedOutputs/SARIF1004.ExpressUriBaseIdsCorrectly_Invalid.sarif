@@ -14,7 +14,7 @@
                 "text": "When using the 'uriBaseId' property, obey the requirements in the SARIF specification [3.4.4](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317431) that enable it to fulfill its purpose of resolving relative references to absolute locations."
               },
               "fullDescription": {
-                "text": "When using the 'uriBaseId' property, obey the requirements in the SARIF specification [3.4.4](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317431) that enable it to fulfill its purpose of resolving relative references to absolute locations. In particular:\r\n\r\nIf an 'artifactLocation' object has a 'uriBaseId' property, its 'uri' property must be a relative reference, because if 'uri' is an absolute URI then 'uriBaseId' serves no purpose.\r\n\r\nEvery URI reference in 'originalUriBaseIds' must resolve to an absolute URI in the manner described in the SARIF specification [3.14.14](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317498)."
+                "text": "When using the 'uriBaseId' property, obey the requirements in the SARIF specification [3.4.4](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317431) that enable it to fulfill its purpose of resolving relative references to absolute locations. In particular:\r\n\r\nIf an 'artifactLocation' object has a 'uriBaseId' property, its 'uri' property must be a relative reference, because if 'uri' is an absolute URI then 'uriBaseId' serves no purpose.\r\n\r\nEvery URI reference in 'originalUriBaseIds' must resolve to an absolute URI in the manner described in the SARIF specification [3.14.14](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317498).\r\n\r\nFinally, a relative reference in 'artifactLocation.uri' must not begin with a slash, because that prevents it from combining properly with the absolute URI specified by a 'uriBaseId'."
               },
               "messageStrings": {
                 "Error_UriBaseIdRequiresRelativeUri": {
@@ -31,6 +31,9 @@
                 },
                 "Error_UriBaseIdValueMustNotContainQueryOrFragment": {
                   "text": "{0}: The '{1}' element of 'originalUriBaseIds' has a 'uri' property '{2}' that contains a query or a fragment. This is not valid because the purpose of the 'uriBaseId' property is to help resolve a relative reference to an absolute URI by concatenating the relative reference to the absolute base URI. This won't work if the base URI contains a query or a fragment."
+                },
+                "Error_RelativeReferenceMustNotBeginWithSlash": {
+                  "text": "The relative reference '{0}' begins with a slash, which will prevent it from combining properly with the absolute URI specified by a 'uriBaseId'."
                 }
               },
               "defaultConfiguration": {
@@ -334,7 +337,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 217,
+                  "startLine": 224,
                   "startColumn": 35
                 }
               }
@@ -372,6 +375,31 @@
           "ruleIndex": 0,
           "level": "error",
           "message": {
+            "id": "Error_RelativeReferenceMustNotBeginWithSlash",
+            "arguments": [
+              "runs[0].results[0].locations[1].physicalLocation.artifactLocation.uri",
+              "/leading_slash.c"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 171,
+                  "startColumn": 43
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1004",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
             "id": "Error_UriBaseIdRequiresRelativeUri",
             "arguments": [
               "runs[0].results[0].codeFlows[0].threadFlows[0].locations[0].location.physicalLocation.artifactLocation",
@@ -386,7 +414,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 193,
+                  "startLine": 200,
                   "startColumn": 47
                 }
               }
@@ -412,7 +440,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 226,
+                  "startLine": 233,
                   "startColumn": 37
                 }
               }
@@ -438,7 +466,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 175,
+                  "startLine": 182,
                   "startColumn": 43
                 }
               }
@@ -464,7 +492,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 208,
+                  "startLine": 215,
                   "startColumn": 37
                 }
               }
@@ -490,7 +518,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 237,
+                  "startLine": 244,
                   "startColumn": 39
                 }
               }
