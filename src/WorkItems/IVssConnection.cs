@@ -21,9 +21,8 @@ namespace Microsoft.WorkItems
         Task ConnectAsync(Uri accountUri, string personalAccessToken);
 
         /// <summary>
-        ///  Interface abstraction for VssConnection.GetClientAsync
+        /// Interface abstraction for VssConnection.GetClientAsync
         /// </summary>
-        /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         Task<IWorkItemTrackingHttpClient> GetClientAsync();
     }
