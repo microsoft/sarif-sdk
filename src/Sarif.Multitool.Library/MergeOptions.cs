@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using CommandLine;
+
 using Microsoft.CodeAnalysis.Sarif.Driver;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
@@ -23,15 +24,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         [Option(
             "split",
             HelpText = "Apply a splitting strategy to the merged file. " +
-                       "Must be one of None or PerRule. By default ('None'), " + 
-                       "no splitting strategy is applied (i.e. all input " + 
+                       "Must be one of None or PerRule. By default ('None'), " +
+                       "no splitting strategy is applied (i.e. all input " +
                        "files will be merged into a single log).",
             Default = SplittingStrategy.None)]
         public SplittingStrategy SplittingStrategy { get; internal set; }
 
         [Option(
             "merge-runs",
-            HelpText = "Merge runs of the same tool + verion combination (requires " + 
+            HelpText = "Merge runs of the same tool + verion combination (requires " +
                        "eliding run-specific details such as invocations data.")]
         public bool MergeRuns { get; internal set; }
     }

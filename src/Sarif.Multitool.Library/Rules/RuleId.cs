@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public const string OptimizeFileSize = "SARIF2004";
         public const string ProvideToolProperties = "SARIF2005";
 
-        public const string UrisShouldBeReachable = "SARIF2006"; 
+        public const string UrisShouldBeReachable = "SARIF2006";
         public const string ExpressPathsRelativeToRepoRoot = "SARIF2007";
         public const string ProvideSchema = "SARIF2008";
         public const string ConsiderConventionalIdentifierValues = "SARIF2009";

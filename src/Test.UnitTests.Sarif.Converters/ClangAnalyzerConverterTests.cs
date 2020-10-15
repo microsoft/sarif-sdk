@@ -3,7 +3,9 @@
 
 using System;
 using System.IO;
+
 using Microsoft.CodeAnalysis.Sarif.Writers;
+
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
@@ -104,9 +106,3 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         }
     }
 }
-
-
-
-
-
-

@@ -90,4 +90,3 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         }
     }
 }
-

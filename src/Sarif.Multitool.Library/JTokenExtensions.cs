@@ -3,6 +3,7 @@
 
 using System;
 using System.Linq;
+
 using Newtonsoft.Json.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool

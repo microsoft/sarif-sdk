@@ -6,7 +6,9 @@ using System.Collections.Generic;
 using System.Composition;
 using System.IO;
 using System.Resources;
+
 using FluentAssertions;
+
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Driver.Sdk;
 

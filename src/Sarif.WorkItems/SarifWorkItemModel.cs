@@ -4,8 +4,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using Microsoft.CodeAnalysis.Sarif.Visitors;
 using Microsoft.WorkItems;
+
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.WorkItems
@@ -75,10 +77,10 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             //
             this.CommentOrDiscussion = $"Default {nameof(this.CommentOrDiscussion)}";
 
-            string descriptionFooter = this.Context.DescriptionFooter; 
+            string descriptionFooter = this.Context.DescriptionFooter;
 
-            this.BodyOrDescription = 
-                Environment.NewLine + 
+            this.BodyOrDescription =
+                Environment.NewLine +
                 sarifLog.CreateWorkItemDescription(this.Context, LocationUris) +
                 descriptionFooter;
 

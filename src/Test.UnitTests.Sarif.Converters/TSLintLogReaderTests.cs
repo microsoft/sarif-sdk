@@ -4,9 +4,13 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+
 using FluentAssertions;
+
 using Microsoft.CodeAnalysis.Sarif.Converters.TSLintObjectModel;
+
 using Newtonsoft.Json.Linq;
+
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters

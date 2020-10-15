@@ -2,6 +2,7 @@
 // license. See LICENSE file in the project root for full license information.
 
 using System.Collections.Generic;
+
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors

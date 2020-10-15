@@ -47,10 +47,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 content = Regex.Replace(content, pattern, FormattedTextReplacements[pattern], RegexOptions.Compiled);
             }
 
-            foreach(Match match in s_replaceKeyRegex.Matches(content))
+            foreach (Match match in s_replaceKeyRegex.Matches(content))
             {
                 string key = match.Groups[1].Value;
-                content = content.Replace(string.Format(ReplacementTokenFormat, key), "{"+ key + "}");
+                content = content.Replace(string.Format(ReplacementTokenFormat, key), "{" + key + "}");
             }
 
             return content.Trim(new[] { '\r', '\n', ' ' });

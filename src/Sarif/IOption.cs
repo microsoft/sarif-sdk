@@ -15,4 +15,3 @@ namespace Microsoft.CodeAnalysis.Sarif
         bool IsPerLanguage { get; }
     }
 }
-
