@@ -15,6 +15,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private readonly ImmutableArray<CppCheckLocation> _dummyLocations = ImmutableArray.Create(new CppCheckLocation("file.cpp", 42));
         private const string ExampleFileName = "example.cpp";
         private const string ExampleFileName2 = "example2.cpp";
+        private const string exampleErrorXmlBase = "<error id=\"id\" msg=\"message\" verbose=\"verbose\" severity=\"style\"";
+        private const string exampleErrorXmlOpen = exampleErrorXmlBase + ">";
+        private const string exampleErrorClose = "</error>";
+        private const string exampleErrorXmlSelfClosed = exampleErrorXmlBase + " />";
 
         [Fact]
         public void CppCheckError_PassesThroughConstructorParameters()
@@ -22,12 +26,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var uut = new CppCheckError("id", "message", "verbose", "style", _dummyLocations);
             AssertOuterPropertiesAreExampleError(uut);
             Assert.Equal(_dummyLocations, uut.Locations);
-        }
-
-        [Fact]
-        public void CppCheckError_RequiresNonEmptyLocations()
-        {
-            Assert.Throws<ArgumentException>(() => new CppCheckError("id", "message", "verbose", "style", ImmutableArray<CppCheckLocation>.Empty));
         }
 
         [Fact]
@@ -63,7 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     }
                 }
             }, Location.ValueComparer).Should().BeTrue();
-            Assert.Null(result.CodeFlows);
+            Assert.NotNull(result.CodeFlows);
         }
 
         [Fact]
@@ -133,20 +131,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             using (XmlReader xml = Utilities.CreateXmlReaderFromString(exampleErrorXmlSelfClosed))
             {
-                Assert.Throws<XmlException>(() => Parse(xml));
-                //AssertOuterPropertiesAreExampleError(uut.);
-                //uut.Locations.Should().BeEmpty();
+                CppCheckError check = Parse(xml);
+                check.Locations.Should().BeEmpty();
             }
         }
 
         [Fact]
-        public void CppCheckError_RejectsErrorWithNoLocations()
+        public void CppCheckError_ErrorWithNoLocationsShouldNotThrow()
         {
             using (XmlReader xml = Utilities.CreateXmlReaderFromString(exampleErrorXmlOpen + exampleErrorClose))
             {
-                Assert.Throws<XmlException>(() => Parse(xml));
-                //AssertOuterPropertiesAreExampleError(uut);
-                //uut.Locations.Should().BeEmpty();
+                CppCheckError check = Parse(xml);
+                check.Locations.Should().BeEmpty();
             }
         }
 
@@ -159,6 +155,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 CppCheckError uut = Parse(xml);
                 AssertOuterPropertiesAreExampleError(uut);
                 uut.Locations.Should().Equal(new[] { new CppCheckLocation(ExampleFileName, 42) });
+            }
+        }
+
+        [Fact]
+        public void CppCheckError_CanParseErrorWithSingleLocationAndSymbol()
+        {
+            string errorXml = exampleErrorXmlOpen + " <location file=\"" + ExampleFileName + "\" line=\"42\" /><symbol>s</> " + exampleErrorClose;
+            using (XmlReader xml = Utilities.CreateXmlReaderFromString(errorXml))
+            {
+                CppCheckError uut = Parse(xml);
+                AssertOuterPropertiesAreExampleError(uut);
+                uut.Locations.Should().Equal(new[] { new CppCheckLocation(ExampleFileName, 42) });
+            }
+        }
+
+        [Fact]
+        public void CppCheckError_CanParseErrorWithNoLocation()
+        {
+            string errorXml = exampleErrorXmlOpen + exampleErrorClose;
+            using (XmlReader xml = Utilities.CreateXmlReaderFromString(errorXml))
+            {
+                CppCheckError uut = Parse(xml);
+                AssertOuterPropertiesAreExampleError(uut);
+                uut.Locations.Should().BeEmpty();
             }
         }
 
@@ -187,18 +207,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         }
 
         [Fact]
-        public void CppCheckError_InvalidParse_BadChildrenNodeDetected()
+        public void CppCheckError_InvalidParse_BadChildrenNodeDetectedShouldNotThrow()
         {
             using (XmlReader xml = Utilities.CreateXmlReaderFromString(exampleErrorXmlOpen + "<badchild />" + exampleErrorClose))
             {
-                Assert.Throws<XmlException>(() => Parse(xml));
+                Action action = () => Parse(xml);
+
+                action.Should().NotThrow();
             }
         }
 
-        private const string exampleErrorXmlBase = "<error id=\"id\" msg=\"message\" verbose=\"verbose\" severity=\"style\"";
-        private const string exampleErrorXmlOpen = exampleErrorXmlBase + ">";
-        private const string exampleErrorClose = "</error>";
-        private const string exampleErrorXmlSelfClosed = exampleErrorXmlBase + " />";
         private static void AssertOuterPropertiesAreExampleError(CppCheckError uut)
         {
             Assert.Equal("id", uut.Id);

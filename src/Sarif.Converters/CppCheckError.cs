@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Diagnostics;
+using System.Linq;
 using System.Xml;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
@@ -122,44 +123,42 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 result.Message = new Message { Text = this.Message };
             }
 
+            if (this.Locations.Length > 0)
+            {
+                AddLocationToResult(this.Locations, result);
+            }
+
+            return result;
+        }
+
+        private static void AddLocationToResult(IEnumerable<CppCheckLocation> cppCheckLocations, Result result)
+        {
             PhysicalLocation lastLocationConverted;
-            if (this.Locations.Length == 0)
+            var locations = new List<ThreadFlowLocation>
             {
-                return result;
-            }
-            else if (this.Locations.Length == 1)
-            {
-                lastLocationConverted = this.Locations[0].ToSarifPhysicalLocation();
-            }
-            else
-            {
-                var locations = new List<ThreadFlowLocation>
-                {
-                    Capacity = this.Locations.Length
-                };
+                Capacity = cppCheckLocations.Count()
+            };
 
-                foreach (CppCheckLocation loc in this.Locations)
+            foreach (CppCheckLocation loc in cppCheckLocations)
+            {
+                locations.Add(new ThreadFlowLocation
                 {
-                    locations.Add(new ThreadFlowLocation
+                    Location = new Location
                     {
-                        Location = new Location
-                        {
-                            PhysicalLocation = loc.ToSarifPhysicalLocation()
-                        },
-                        Importance = ThreadFlowLocationImportance.Essential
-                    });
-                }
-
-                result.CodeFlows = new List<CodeFlow>()
-                {
-                    SarifUtilities.CreateSingleThreadedCodeFlow(locations)
-                };
-
-                // In the N != 1 case, set the overall location's location to
-                // the last entry in the execution flow.
-                lastLocationConverted = locations[locations.Count - 1].Location.PhysicalLocation;
+                        PhysicalLocation = loc.ToSarifPhysicalLocation()
+                    },
+                    Importance = ThreadFlowLocationImportance.Essential
+                });
             }
 
+            result.CodeFlows = new List<CodeFlow>()
+            {
+                SarifUtilities.CreateSingleThreadedCodeFlow(locations)
+            };
+
+            // In the N != 1 case, set the overall location's location to
+            // the last entry in the execution flow.
+            lastLocationConverted = locations[locations.Count - 1].Location.PhysicalLocation;
             result.Locations = new List<Location>
             {
                 new Location
@@ -167,8 +166,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     PhysicalLocation = lastLocationConverted
                 }
             };
-
-            return result;
         }
 
         private static ImmutableArray<CppCheckLocation> ParseLocationsSubtree(XmlReader reader, CppCheckStrings strings)
