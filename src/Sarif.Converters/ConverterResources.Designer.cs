@@ -160,15 +160,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CppCheck file did not start with &quot;results/cppcheck&quot; element with version information..
-        /// </summary>
-        internal static string CppCheckCppCheckElementMissing {
-            get {
-                return ResourceManager.GetString("CppCheckCppCheckElementMissing", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Could not parse CppCheck error node; element name was not error..
         /// </summary>
         internal static string CppCheckElementNotError {
