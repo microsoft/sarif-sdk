@@ -151,6 +151,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 });
             }
 
+            // A codeflow doesn't make sense if you only have the result location, and nothing leading up to it.
             if (locations.Capacity > 1)
             {
                 result.CodeFlows = new List<CodeFlow>()
