@@ -258,135 +258,36 @@ namespace Microsoft.CodeAnalysis.Test.Utilities.Sarif
             };
         }
 
-        public static SarifLog CreateBaseline()
+        public static SarifLog CreateSimpleLogWithRules(int ruleIdStartIndex, int resultCount)
         {
-            return new SarifLog
+            var rules = new ReportingDescriptor[resultCount];
+            var results = new Result[resultCount];
+            for (int i = 0; i < resultCount; i++)
             {
-                Runs = new Run[] {
-                    new Run
+                rules[i] = new ReportingDescriptor
+                {
+                    Id = $"TEST{i + ruleIdStartIndex}",
+                    ShortDescription = new MultiformatMessageString
                     {
-                        Tool = new Tool
-                        {
-                            Driver = new ToolComponent
-                            {
-                                Name = TestToolName,
-                                Rules = new ReportingDescriptor[]
-                                {
-                                    new ReportingDescriptor
-                                    {
-                                        Id = RuleIds.Rule2,
-                                        ShortDescription = new MultiformatMessageString
-                                        {
-                                            Text = TestMessageText
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                        Results = new Result[]
-                        {
-                            new Result
-                            {
-                                RuleId = RuleIds.Rule2,
-                                RuleIndex = 0,
-                                Message = new Message
-                                {
-                                    Text = TestMessageText
-                                },
-                                Locations = new Location[]
-                                {
-                                    new Location
-                                    {
-                                        PhysicalLocation = new PhysicalLocation
-                                        {
-                                            ArtifactLocation = new ArtifactLocation
-                                            {
-                                                Uri = new Uri("src/test0001.cs", UriKind.Relative)
-                                            },
-                                            Region = new Region
-                                            {
-                                                StartLine = 0,
-                                                StartColumn = 0,
-                                            }
-                                        }
-                                    }
-                                },
-                                BaselineState = BaselineState.Unchanged
-                            }
-                        }
+                        Text = $"Test description {i + ruleIdStartIndex}"
                     }
-                },
-            };
-        }
+                };
 
-        public static SarifLog CreateBaselineUnchanged()
-        {
-            return new SarifLog
-            {
-                Runs = new List<Run> {
-                    new Run
+                results[i] = new Result
+                {
+                    RuleId = $"TEST{i + ruleIdStartIndex}",
+                    RuleIndex = 0,
+                    Message = new Message
                     {
-                        Tool = new Tool
-                        {
-                            Driver = new ToolComponent
-                            {
-                                Name = TestToolName,
-                                Rules = new List<ReportingDescriptor>
-                                {
-                                    new ReportingDescriptor
-                                    {
-                                        Id = RuleIds.Rule1,
-                                        ShortDescription = new MultiformatMessageString
-                                        {
-                                            Text = TestMessageText
-                                        }
-                                    },
-                                    new ReportingDescriptor
-                                    {
-                                        Id = RuleIds.Rule2,
-                                        ShortDescription = new MultiformatMessageString
-                                        {
-                                            Text = TestMessageText
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                        Results = new List<Result>
-                        {
-                            new Result
-                            {
-                                RuleId = RuleIds.Rule2,
-                                RuleIndex = 1,
-                                Message = new Message
-                                {
-                                    Text = TestMessageText
-                                },
-                                Locations = new List<Location>
-                                {
-                                    new Location
-                                    {
-                                        PhysicalLocation = new PhysicalLocation
-                                        {
-                                            ArtifactLocation = new ArtifactLocation
-                                            {
-                                                Uri = new Uri("src/test0001.cs", UriKind.Relative)
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-            };
-        }
+                        Text = $"Error description {i + ruleIdStartIndex}"
+                    },
+                };
+            }
 
-        public static SarifLog CreateBaselineNew()
-        {
-            return new SarifLog
+            var sarifLog = new SarifLog
             {
-                Runs = new Run[] {
+                Runs = new Run[]
+                {
                     new Run
                     {
                         Tool = new Tool
@@ -394,47 +295,15 @@ namespace Microsoft.CodeAnalysis.Test.Utilities.Sarif
                             Driver = new ToolComponent
                             {
                                 Name = TestToolName,
-                                Rules = new ReportingDescriptor[]
-                                {
-                                    new ReportingDescriptor
-                                    {
-                                        Id = RuleIds.Rule1,
-                                        ShortDescription = new MultiformatMessageString
-                                        {
-                                            Text = TestMessageText
-                                        }
-                                    }
-                                }
+                                Rules = rules
                             }
                         },
-                        Results = new Result[]
-                        {
-                            new Result
-                            {
-                                RuleId = RuleIds.Rule1,
-                                RuleIndex = 0,
-                                Message = new Message
-                                {
-                                    Text = TestMessageText
-                                },
-                                Locations = new Location[]
-                                {
-                                    new Location
-                                    {
-                                        PhysicalLocation = new PhysicalLocation
-                                        {
-                                            ArtifactLocation = new ArtifactLocation
-                                            {
-                                                Uri = new Uri("src/test0001.cs", UriKind.Relative)
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                        Results = results
                     }
-                },
+                }
             };
+
+            return sarifLog;
         }
     }
 }

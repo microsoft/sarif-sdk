@@ -78,39 +78,32 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
         }
 
         [Fact]
-        public void Overall_TestingSameSarif()
+        public void Overall_CheckingAbsentUnchangedAndNew()
         {
-            SarifLog baselineSarif = TestData.CreateBaseline();
-
-            ISarifLogMatcher matcher = ResultMatchingBaselinerFactory.GetDefaultResultMatchingBaseliner();
-            SarifLog output = matcher.Match(new SarifLog[] { baselineSarif }, new SarifLog[] { baselineSarif }).First();
-
-            output.Runs.First().Results.First().BaselineState.Should().Be(BaselineState.Unchanged);
-        }
-
-        [Fact]
-        public void Overall_CheckingUnchangedDifferentRulesOrder()
-        {
-            SarifLog baselineSarif = TestData.CreateBaseline();
-            SarifLog currentSarif = TestData.CreateBaselineUnchanged();
-
-            ISarifLogMatcher matcher = ResultMatchingBaselinerFactory.GetDefaultResultMatchingBaseliner();
-            SarifLog output = matcher.Match(new SarifLog[] { baselineSarif }, new SarifLog[] { currentSarif }).First();
-
-            output.Runs[0].Results[0].BaselineState.Should().Be(BaselineState.Unchanged);
-        }
-
-        [Fact]
-        public void Overall_CheckingAbsentAndNew()
-        {
-            SarifLog baselineSarif = TestData.CreateBaseline();
-            SarifLog currentSarif = TestData.CreateBaselineNew();
+            SarifLog baselineSarif = TestData.CreateSimpleLogWithRules(ruleIdStartIndex: 0, resultCount: 2);
+            SarifLog currentSarif = TestData.CreateSimpleLogWithRules(ruleIdStartIndex: 1, resultCount: 2);
 
             ISarifLogMatcher matcher = ResultMatchingBaselinerFactory.GetDefaultResultMatchingBaseliner();
             SarifLog output = matcher.Match(new SarifLog[] { baselineSarif }, new SarifLog[] { currentSarif }).First();
 
             output.Runs[0].Results[0].BaselineState.Should().Be(BaselineState.Absent);
-            output.Runs[0].Results[1].BaselineState.Should().Be(BaselineState.New);
+            output.Runs[0].Results[1].BaselineState.Should().Be(BaselineState.Unchanged);
+            output.Runs[0].Results[2].BaselineState.Should().Be(BaselineState.New);
+        }
+
+        [Fact]
+        public void Overall_CheckingAbsentAndNew()
+        {
+            SarifLog baselineSarif = TestData.CreateSimpleLogWithRules(ruleIdStartIndex: 0, resultCount: 2);
+            SarifLog currentSarif = TestData.CreateSimpleLogWithRules(ruleIdStartIndex: 10, resultCount: 2);
+
+            ISarifLogMatcher matcher = ResultMatchingBaselinerFactory.GetDefaultResultMatchingBaseliner();
+            SarifLog output = matcher.Match(new SarifLog[] { baselineSarif }, new SarifLog[] { currentSarif }).First();
+
+            output.Runs[0].Results[0].BaselineState.Should().Be(BaselineState.Absent);
+            output.Runs[0].Results[1].BaselineState.Should().Be(BaselineState.Absent);
+            output.Runs[0].Results[2].BaselineState.Should().Be(BaselineState.New);
+            output.Runs[0].Results[3].BaselineState.Should().Be(BaselineState.New);
         }
     }
 }

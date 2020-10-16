@@ -2,6 +2,7 @@
 
 * DEPENDENCY BREAKING: SARIF now requires Newtonsoft.JSON 11.0.2 (rather than 10.0.3)
 * DEPENDENCY: SARIF TypeScript package now requires minimist 1.2.3 or later (rather than >=1.2.0)
+* BUGFIX: Fix index out of range exception when baselining [#2102](https://github.com/microsoft/sarif-sdk/pull/2102)
 * FEATURE: Add a setter to `GitHelper.GitExePath`. [#2110](https://github.com/microsoft/sarif-sdk/pull/2110)
 * FEATURE: `GitHelper` will search in %PATH% variable for `git.exe` instead of its default install location. [#2107](https://github.com/microsoft/sarif-sdk/pull/2107)
 * FEATURE: Add helper in `SarifLog` and `Run` to `ApplyPolicies`. [#2109](https://github.com/microsoft/sarif-sdk/pull/2109)
