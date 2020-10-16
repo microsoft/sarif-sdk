@@ -5,3 +5,11 @@ root = true
 file_header_template = unset
 dotnet_separate_import_directive_groups = unset
 dotnet_sort_system_directives_first = unset
+
+dotnet_diagnostic.CS1570.severity = silent
+dotnet_diagnostic.CS1572.severity = silent
+dotnet_diagnostic.CS1573.severity = silent
+dotnet_diagnostic.CS1574.severity = silent
+dotnet_diagnostic.CS1591.severity = silent
+dotnet_diagnostic.CS1712.severity = silent
+dotnet_diagnostic.CS1734.severity = silent
