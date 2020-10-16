@@ -15,10 +15,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private readonly ImmutableArray<CppCheckLocation> _dummyLocations = ImmutableArray.Create(new CppCheckLocation("file.cpp", 42));
         private const string ExampleFileName = "example.cpp";
         private const string ExampleFileName2 = "example2.cpp";
-        private const string exampleErrorXmlBase = "<error id=\"id\" msg=\"message\" verbose=\"verbose\" severity=\"style\"";
-        private const string exampleErrorXmlOpen = exampleErrorXmlBase + ">";
-        private const string exampleErrorClose = "</error>";
-        private const string exampleErrorXmlSelfClosed = exampleErrorXmlBase + " />";
+        private const string ExampleErrorXmlBase = "<error id=\"id\" msg=\"message\" verbose=\"verbose\" severity=\"style\"";
+        private const string ExampleErrorXmlOpen = ExampleErrorXmlBase + ">";
+        private const string ExampleErrorClose = "</error>";
+        private const string ExampleErrorXmlSelfClosed = ExampleErrorXmlBase + " />";
 
         [Fact]
         public void CppCheckError_PassesThroughConstructorParameters()
@@ -129,7 +129,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void CppCheckError_RejectsSelfClosingError()
         {
-            using (XmlReader xml = Utilities.CreateXmlReaderFromString(exampleErrorXmlSelfClosed))
+            using (XmlReader xml = Utilities.CreateXmlReaderFromString(ExampleErrorXmlSelfClosed))
             {
                 CppCheckError check = Parse(xml);
                 check.Locations.Should().BeEmpty();
@@ -139,7 +139,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void CppCheckError_ErrorWithNoLocationsShouldNotThrow()
         {
-            using (XmlReader xml = Utilities.CreateXmlReaderFromString(exampleErrorXmlOpen + exampleErrorClose))
+            using (XmlReader xml = Utilities.CreateXmlReaderFromString(ExampleErrorXmlOpen + ExampleErrorClose))
             {
                 CppCheckError check = Parse(xml);
                 check.Locations.Should().BeEmpty();
@@ -149,7 +149,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void CppCheckError_CanParseErrorWithSingleLocation()
         {
-            string errorXml = exampleErrorXmlOpen + " <location file=\"" + ExampleFileName + "\" line=\"42\" /> " + exampleErrorClose;
+            string errorXml = ExampleErrorXmlOpen + " <location file=\"" + ExampleFileName + "\" line=\"42\" /> " + ExampleErrorClose;
             using (XmlReader xml = Utilities.CreateXmlReaderFromString(errorXml))
             {
                 CppCheckError uut = Parse(xml);
@@ -161,7 +161,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void CppCheckError_CanParseErrorWithSingleLocationAndSymbol()
         {
-            string errorXml = exampleErrorXmlOpen + " <location file=\"" + ExampleFileName + "\" line=\"42\" /><symbol>s</> " + exampleErrorClose;
+            string errorXml = ExampleErrorXmlOpen + " <location file=\"" + ExampleFileName + "\" line=\"42\" /><symbol>s</> " + ExampleErrorClose;
             using (XmlReader xml = Utilities.CreateXmlReaderFromString(errorXml))
             {
                 CppCheckError uut = Parse(xml);
@@ -173,7 +173,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void CppCheckError_CanParseErrorWithNoLocation()
         {
-            string errorXml = exampleErrorXmlOpen + exampleErrorClose;
+            string errorXml = ExampleErrorXmlOpen + ExampleErrorClose;
             using (XmlReader xml = Utilities.CreateXmlReaderFromString(errorXml))
             {
                 CppCheckError uut = Parse(xml);
@@ -185,7 +185,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void CppCheckError_CanParseErrorWithMultipleLocations()
         {
-            string errorXml = exampleErrorXmlOpen + " <location file=\"" + ExampleFileName + "\" line=\"42\" />  <location file=\"" + ExampleFileName2 + "\" line=\"1729\" /> " + exampleErrorClose;
+            string errorXml = ExampleErrorXmlOpen + " <location file=\"" + ExampleFileName + "\" line=\"42\" />  <location file=\"" + ExampleFileName2 + "\" line=\"1729\" /> " + ExampleErrorClose;
             using (XmlReader xml = Utilities.CreateXmlReaderFromString(errorXml))
             {
                 CppCheckError uut = Parse(xml);
@@ -207,9 +207,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         }
 
         [Fact]
-        public void CppCheckError_InvalidParse_BadChildrenNodeDetectedShouldNotThrow()
+        public void CppCheckError_InvalidParse_BadChildNodeDetectedShouldNotThrow()
         {
-            using (XmlReader xml = Utilities.CreateXmlReaderFromString(exampleErrorXmlOpen + "<badchild />" + exampleErrorClose))
+            using (XmlReader xml = Utilities.CreateXmlReaderFromString(ExampleErrorXmlOpen + "<badchild />" + ExampleErrorClose))
             {
                 Action action = () => Parse(xml);
 

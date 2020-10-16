@@ -156,8 +156,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 SarifUtilities.CreateSingleThreadedCodeFlow(locations)
             };
 
-            // In the N != 1 case, set the overall location's location to
-            // the last entry in the execution flow.
+            // Set the result's location to the last location in the code flow.
             lastLocationConverted = locations[locations.Count - 1].Location.PhysicalLocation;
             result.Locations = new List<Location>
             {
