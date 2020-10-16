@@ -3,8 +3,11 @@
 
 using System;
 using System.Globalization;
+
 using FluentAssertions;
+
 using Newtonsoft.Json;
+
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif

@@ -3,7 +3,9 @@
 
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
+
 using Newtonsoft.Json;
+
 using Xunit;
 using Xunit.Abstractions;
 

@@ -3,7 +3,9 @@
 
 using System;
 using System.IO;
+
 using Newtonsoft.Json;
+
 using Xunit;
 using Xunit.Abstractions;
 

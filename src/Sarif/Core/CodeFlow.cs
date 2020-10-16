@@ -8,9 +8,9 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// </summary>
     public partial class CodeFlow
     {
-        public bool ShouldSerializeThreadFlows() 
+        public bool ShouldSerializeThreadFlows()
         {
-            return this.ThreadFlows.HasAtLeastOneNonDefaultValue(ThreadFlow.ValueComparer); 
+            return this.ThreadFlows.HasAtLeastOneNonDefaultValue(ThreadFlow.ValueComparer);
         }
     }
 }

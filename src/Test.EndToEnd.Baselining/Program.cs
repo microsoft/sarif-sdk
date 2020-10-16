@@ -104,7 +104,7 @@ namespace Test.EndToEnd.Baselining
         {
             BaseliningTester tester = new BaseliningTester();
             BaseliningSummary overallSummary = tester.RunAll(options.TestRootPath);
-            
+
             return 0;
         }
 

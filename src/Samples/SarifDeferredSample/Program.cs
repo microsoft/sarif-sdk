@@ -1,9 +1,11 @@
-﻿using Microsoft.CodeAnalysis.Sarif;
-using Microsoft.CodeAnalysis.Sarif.Readers;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.IO;
+
+using Microsoft.CodeAnalysis.Sarif;
+using Microsoft.CodeAnalysis.Sarif.Readers;
+
+using Newtonsoft.Json;
 
 namespace SarifDeferredSample
 {
@@ -18,7 +20,7 @@ namespace SarifDeferredSample
         {
             bool deferred = bool.Parse(args[0]);
             string filePath = args[1];
-            
+
             SarifLog log = null;
 
             Console.WriteLine($"Loading {filePath}{(deferred ? " (deferred)" : "")}...");
@@ -85,7 +87,7 @@ namespace SarifDeferredSample
                     //    uriLengthTotal += file?.ArtifactLocation?.Uri?.OriginalString?.Length ?? 0;
                     //    fileCount++;
                     //}
-                } 
+                }
 
                 return $"Enumerated {fileCount:n0} Files, URI total {uriLengthTotal / BytesPerMB:n0}MB.";
             });

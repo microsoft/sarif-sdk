@@ -6,8 +6,10 @@ using System.Collections.Generic;
 using System.Resources;
 using System.Text;
 using System.Text.RegularExpressions;
+
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.Json.Pointer;
+
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 

@@ -67,15 +67,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             {
                 bomWidth = 2;
             }
-            else if(buffer[0] == 0xFF && buffer[1] == 0xFE)
+            else if (buffer[0] == 0xFF && buffer[1] == 0xFE)
             {
                 bomWidth = 2;
             }
-            else if(buffer[0] == 0xEF && buffer[1] == 0xBB && buffer[2] == 0xBF)
+            else if (buffer[0] == 0xEF && buffer[1] == 0xBB && buffer[2] == 0xBF)
             {
                 bomWidth = 3;
             }
-            else if(buffer[0] == 0x00 && buffer[1] == 0x00 && buffer[2] == 0xFE && buffer[3] == 0xFF)
+            else if (buffer[0] == 0x00 && buffer[1] == 0x00 && buffer[2] == 0xFE && buffer[3] == 0xFF)
             {
                 bomWidth = 4;
             }

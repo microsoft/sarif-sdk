@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
+
 using Xunit.Abstractions;
 
 namespace Microsoft.CodeAnalysis.Sarif

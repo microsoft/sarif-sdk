@@ -3,6 +3,7 @@
 
 
 using FluentAssertions;
+
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif

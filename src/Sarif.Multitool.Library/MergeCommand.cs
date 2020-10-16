@@ -106,7 +106,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         }
                     }
                 }
-            
+
                 foreach (string ruleId in ruleToRunsMap.Keys)
                 {
                     HashSet<Run> runs = ruleToRunsMap[ruleId];

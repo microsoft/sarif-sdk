@@ -218,7 +218,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
                 }
 
                 string fullyQualifiedName = LocationFullyQualifiedName(location);
-                if(fullyQualifiedName != null)
+                if (fullyQualifiedName != null)
                 {
                     toSet.Add(fullyQualifiedName);
                 }

@@ -256,7 +256,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             foreach (Result result in this.Results)
             {
                 string ruleId = result.ResolvedRuleId(this);
-                
+
                 if (PoliciesCache.ContainsKey(ruleId))
                 {
                     result.Level = PoliciesCache[ruleId];

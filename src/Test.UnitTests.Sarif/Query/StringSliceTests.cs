@@ -3,7 +3,9 @@
 
 using System;
 using System.Text;
+
 using Microsoft.CodeAnalysis.Sarif.Query;
+
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Query
