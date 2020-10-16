@@ -151,10 +151,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 });
             }
 
-            result.CodeFlows = new List<CodeFlow>()
+            if (locations.Capacity > 1)
             {
-                SarifUtilities.CreateSingleThreadedCodeFlow(locations)
-            };
+                result.CodeFlows = new List<CodeFlow>()
+                {
+                    SarifUtilities.CreateSingleThreadedCodeFlow(locations)
+                };
+            }
 
             // Set the result's location to the last location in the code flow.
             lastLocationConverted = locations[locations.Count - 1].Location.PhysicalLocation;
