@@ -4,7 +4,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-
 using FluentAssertions;
 
 using Microsoft.CodeAnalysis.Sarif.Driver;
@@ -12,9 +11,7 @@ using Microsoft.CodeAnalysis.Sarif.Writers;
 using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
 
 using Moq;
-
 using Newtonsoft.Json;
-
 using Xunit;
 using Xunit.Abstractions;
 

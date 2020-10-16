@@ -9,7 +9,7 @@ namespace Microsoft.WorkItems
     /// <summary>
     /// This interface allows for mocking of the low-level VssConnection class.
     /// </summary>
-    internal interface IVssConnection : IDisposable
+    internal interface IVssConnection: IDisposable
     {
         /// <summary>
         /// Provide for both the instantiation of the connection instance followed by

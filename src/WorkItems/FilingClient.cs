@@ -4,7 +4,6 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -14,7 +13,7 @@ namespace Microsoft.WorkItems
     /// Abstract base for classes that represents a system (for example, GitHub or Azure DevOps)
     /// to which work items can be filed.
     /// </summary>
-    public abstract class FilingClient : IDisposable
+    public abstract class FilingClient: IDisposable
     {
 
         public enum SourceControlProvider

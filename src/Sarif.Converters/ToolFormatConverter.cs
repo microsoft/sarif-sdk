@@ -3,9 +3,7 @@
 
 using System;
 using System.IO;
-
 using Microsoft.CodeAnalysis.Sarif.Writers;
-
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters

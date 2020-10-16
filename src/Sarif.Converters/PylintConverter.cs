@@ -4,7 +4,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-
 using Microsoft.CodeAnalysis.Sarif.Converters.PylintObjectModel;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters

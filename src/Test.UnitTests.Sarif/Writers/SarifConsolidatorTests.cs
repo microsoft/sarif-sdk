@@ -3,9 +3,7 @@
 
 using System;
 using System.Collections.Generic;
-
 using Microsoft.CodeAnalysis.Sarif.Writers;
-
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif

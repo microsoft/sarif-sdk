@@ -4,7 +4,6 @@
 using System;
 using System.IO;
 using System.Text;
-
 using FluentAssertions;
 
 using Microsoft.Extensions.Options;
@@ -37,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             {
                 Runs = new[]
                 {
-                    new Run { Results = new[] {
+                    new Run { Results = new[] { 
                         new Result { Locations = new [] {
                                new Location {
                                     PhysicalLocation = new PhysicalLocation {
@@ -60,11 +59,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             RebaseUriOptions options = CreateDefaultOptions();
 
             options.TargetFileSpecifiers = new string[] { logFilePath };
-
-            options.DataToInsert = new[]
-            {
+            
+            options.DataToInsert = new[] 
+            { 
                 OptionallyEmittedData.RegionSnippets |
-                OptionallyEmittedData.ContextRegionSnippets
+                OptionallyEmittedData.ContextRegionSnippets 
             };
 
             Mock<IFileSystem> mockFileSystem = ArrangeMockFileSystem(inputSarifLog, logFilePath, transformedContents);

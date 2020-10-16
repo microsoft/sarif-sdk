@@ -3,7 +3,6 @@
 
 using System.Collections.Generic;
 using System.IO;
-
 using Microsoft.CodeAnalysis.Sarif.Visitors;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters

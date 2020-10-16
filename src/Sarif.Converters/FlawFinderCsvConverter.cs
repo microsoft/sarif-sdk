@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-
 using CsvHelper;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
@@ -27,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             IList<FlawFinderCsvResult> flawFinderCsvResults = csvReader.GetRecords<FlawFinderCsvResult>().ToList();
 
-            IList<ReportingDescriptor> rules = ExtractRules(flawFinderCsvResults);
+            IList <ReportingDescriptor> rules = ExtractRules(flawFinderCsvResults);
             IList<Result> results = ExtractResults(flawFinderCsvResults);
 
             var run = new Run
@@ -135,6 +134,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             };
 
         private static FailureLevel SarifLevelFromFlawFinderLevel(int flawFinderLevel) =>
-                flawFinderLevel < 4 ? FailureLevel.Warning : FailureLevel.Error;
+                flawFinderLevel< 4 ? FailureLevel.Warning : FailureLevel.Error;
     }
 }

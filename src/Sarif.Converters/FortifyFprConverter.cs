@@ -32,7 +32,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             "LastTraceLocation.file",
             "LastTraceLocation.line",
             "PrimaryCall.name",
-            "PrimaryLocation.file",
+            "PrimaryLocation.file", 
             "PrimaryLocation.line",
             "PrimaryTransitionFunction.name",
             "SinkFunction",
@@ -600,7 +600,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private static string RemoveSpaces(string ruleComponent)
         {
-            Tuple<string, string>[] lowercasedTokens = new[]
+            Tuple<string, string>[] lowercasedTokens = new []
             {
                 new Tuple<string, string>(" in ", " In "),
                 new Tuple<string, string>(" true ", " True "),
@@ -608,10 +608,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 new Tuple<string, string>(" against ", " Against "),
             };
 
-            foreach (Tuple<string, string> lowercasedToken in lowercasedTokens)
+            foreach(Tuple<string, string> lowercasedToken in lowercasedTokens)
             {
                 ruleComponent = ruleComponent.Replace(lowercasedToken.Item1, lowercasedToken.Item2);
-            }
+            }            
             return ruleComponent.Replace(" ", "");
         }
 
@@ -1009,7 +1009,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private void ParseEngineVersion()
         {
-            _engineVersion = _reader.ReadElementContentAsString();
+            _engineVersion = _reader.ReadElementContentAsString();                
         }
 
         private void ParseNodes()
@@ -1195,7 +1195,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             _invocation.CommandLine = sb.ToString();
         }
 
-
+       
         private void ParseErrors()
         {
             // Despite being expressed as XML elements named <Error>, these messages
@@ -1326,7 +1326,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     else
                     {
                         // Replace the token with plain text.
-                        messageText = messageText.Replace(string.Format(ReplacementTokenFormat, key), "'" + value + "'");
+                        messageText = messageText.Replace(string.Format(ReplacementTokenFormat, key), "'"+ value + "'");
                     }
                 }
             }

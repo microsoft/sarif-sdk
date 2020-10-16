@@ -56,7 +56,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 // final version of the schema, upgrade the tool to populate the '$schema' property with a URL
                 // that refers to the final version of the schema.
                 LogResult(
-                    schema,
+                    schema, 
                     nameof(RuleResources.SARIF1011_ReferenceFinalSchema_Error_Default_Text),
                     schemaUri.OriginalString);
             }

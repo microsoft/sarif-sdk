@@ -9,10 +9,8 @@ using System.Reflection;
 using System.Text;
 using System.Xml;
 using System.Xml.Linq;
-
 using Microsoft.CodeAnalysis.Sarif.Converters;
 using Microsoft.CodeAnalysis.Sarif.Writers;
-
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif

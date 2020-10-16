@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-
 using Microsoft.CodeAnalysis.Sarif.Visitors;
 
 namespace Microsoft.CodeAnalysis.Sarif.Writers

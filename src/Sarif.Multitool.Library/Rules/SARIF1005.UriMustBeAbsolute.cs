@@ -83,8 +83,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 {
                     // {0}: The value of this property is required to be an absolute URI, but '{1}' is a relative URI reference.
                     LogResult(
-                        pointer,
-                        nameof(RuleResources.SARIF1005_UriMustBeAbsolute_Error_Default_Text),
+                        pointer, 
+                        nameof(RuleResources.SARIF1005_UriMustBeAbsolute_Error_Default_Text), 
                         uriString);
                 }
             }

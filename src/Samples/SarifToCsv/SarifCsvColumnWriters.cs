@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 
 using Microsoft.CodeAnalysis.Sarif;
-
 using Newtonsoft.Json;
 
 namespace SarifToCsv
@@ -68,7 +67,7 @@ namespace SarifToCsv
                     {
                         value = "";
                     }
-
+                    
                     c.Writer.Write(value);
                 };
             }

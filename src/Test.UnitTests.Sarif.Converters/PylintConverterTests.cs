@@ -5,15 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-
 using FluentAssertions;
-
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.CodeAnalysis.Sarif.Converters;
 using Microsoft.CodeAnalysis.Sarif.Converters.PylintObjectModel;
-
 using Moq;
-
 using Xunit;
 
 namespace Sarif.Converters.UnitTests

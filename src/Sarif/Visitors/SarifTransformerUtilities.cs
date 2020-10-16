@@ -3,10 +3,8 @@
 
 using System.Collections.Generic;
 using System.Globalization;
-
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
-
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors

@@ -9,7 +9,6 @@ using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Microsoft.Json.Schema;
 using Microsoft.Json.Schema.Validation;
-
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool

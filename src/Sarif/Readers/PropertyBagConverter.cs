@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
             reader.Read();
 
-            while (reader.TokenType == JsonToken.PropertyName)
+            while(reader.TokenType == JsonToken.PropertyName)
             {
                 string name = (string)reader.Value;
                 reader.Read();

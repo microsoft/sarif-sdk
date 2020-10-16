@@ -3,7 +3,6 @@
 
 
 using Microsoft.CodeAnalysis.Sarif.Readers;
-
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif

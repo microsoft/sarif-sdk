@@ -4,7 +4,6 @@
 using System.Collections.Generic;
 using System.Composition;
 using System.Resources;
-
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Driver.Sdk;
 

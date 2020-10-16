@@ -7,12 +7,10 @@ using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Text;
-
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.WorkItems;
 using Microsoft.Json.Schema;
 using Microsoft.Json.Schema.Validation;
-
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool

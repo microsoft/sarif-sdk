@@ -4,17 +4,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-
 using FluentAssertions;
-
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
-
 using Moq;
-
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool

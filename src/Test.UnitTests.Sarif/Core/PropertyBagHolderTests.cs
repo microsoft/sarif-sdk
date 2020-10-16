@@ -3,14 +3,10 @@
 
 using System;
 using System.Collections.Generic;
-
 using FluentAssertions;
-
 using Microsoft.CodeAnalysis.Sarif;
-
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core

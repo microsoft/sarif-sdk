@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-
 using Microsoft.TeamFoundation.WorkItemTracking.WebApi;
 using Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models;
 using Microsoft.VisualStudio.Services.WebApi.Patch.Json;
@@ -23,7 +22,7 @@ namespace Microsoft.WorkItems
         }
 
         public Task<AttachmentReference> CreateAttachmentAsync(
-            MemoryStream stream,
+            MemoryStream stream, 
             string fileName = null,
             string uploadType = null,
             string areaPath = null,
@@ -34,9 +33,9 @@ namespace Microsoft.WorkItems
         }
 
         public Task<WorkItem> CreateWorkItemAsync(
-            JsonPatchDocument document,
-            string project,
-            string type,
+            JsonPatchDocument document, 
+            string project, 
+            string type, 
             bool? validateOnly = null,
             bool? bypassRules = null,
             bool? suppressNotifications = null,

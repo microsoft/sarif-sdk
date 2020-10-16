@@ -2,11 +2,8 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 using System;
 using System.Collections.Generic;
-
 using FluentAssertions;
-
 using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
-
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors

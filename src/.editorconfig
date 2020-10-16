@@ -13,13 +13,13 @@ tab_width = 4
 
 # New line preferences
 end_of_line = crlf
-insert_final_newline = true
+insert_final_newline = false
 
 #### .NET Coding Conventions ####
 
 # Organize usings
-dotnet_separate_import_directive_groups = true
-dotnet_sort_system_directives_first = true
+dotnet_separate_import_directive_groups = true:error
+dotnet_sort_system_directives_first = true:error
 
 # this. and Me. preferences
 dotnet_style_qualification_for_field = true:silent

@@ -42,7 +42,7 @@ namespace Test.EndToEnd.Baselining
         {
             string value = result?.EnumeratePhysicalLocations().FirstOrDefault()?.Region?.Snippet?.Text ?? "";
             value = value.Replace("\n", "").Replace("\r", "").TrimStart();
-
+            
             if (lengthLimit > 0 && value.Length > lengthLimit) { value = value.Substring(0, lengthLimit); }
             return value;
         }

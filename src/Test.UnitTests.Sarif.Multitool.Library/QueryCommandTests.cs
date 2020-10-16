@@ -2,9 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.IO;
-
 using Microsoft.CodeAnalysis.Sarif.Query;
-
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool

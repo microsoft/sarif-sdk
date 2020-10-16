@@ -228,3 +228,4 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         }
     }
 }
+

@@ -3,11 +3,8 @@
 
 using System;
 using System.IO;
-
 using FluentAssertions;
-
 using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
-
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.WorkItems

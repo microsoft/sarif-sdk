@@ -4,13 +4,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using FluentAssertions;
-
 using Microsoft.ApplicationInsights.DataContracts;
 using Microsoft.Extensions.Logging;
 using Microsoft.TeamFoundation;
-
 using Xunit;
 
 namespace Microsoft.WorkItems.Logging

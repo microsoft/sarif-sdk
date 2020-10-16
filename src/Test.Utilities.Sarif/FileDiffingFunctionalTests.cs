@@ -3,7 +3,6 @@
 
 using System;
 using System.IO;
-
 using Xunit.Abstractions;
 
 namespace Microsoft.CodeAnalysis.Sarif

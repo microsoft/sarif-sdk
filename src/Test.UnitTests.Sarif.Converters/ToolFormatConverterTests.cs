@@ -6,13 +6,10 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Reflection;
 using System.Text;
-
 using FluentAssertions;
-
 using Microsoft.CodeAnalysis.Sarif.Converters;
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Writers;
-
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif

@@ -2,11 +2,8 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Collections.Generic;
-
 using FluentAssertions;
-
 using Microsoft.CodeAnalysis.Sarif.Writers;
-
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver

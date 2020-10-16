@@ -3,9 +3,7 @@
 
 using System;
 using System.Collections.Generic;
-
 using FluentAssertions;
-
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.UnitTests

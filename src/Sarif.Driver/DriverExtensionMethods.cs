@@ -3,7 +3,6 @@
 
 using System;
 using System.Globalization;
-
 using Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver

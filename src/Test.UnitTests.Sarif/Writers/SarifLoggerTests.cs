@@ -8,15 +8,11 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-
 using FluentAssertions;
-
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
-
 using Newtonsoft.Json;
-
 using Xunit;
 using Xunit.Abstractions;
 

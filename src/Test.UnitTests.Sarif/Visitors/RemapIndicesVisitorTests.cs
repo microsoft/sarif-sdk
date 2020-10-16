@@ -88,7 +88,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             // Confirm that Artifacts (including indirectly referenced ones) were all copied to the destination Run
             mergedRun.Artifacts.Count.Should().Be(baselineRun.Artifacts.Count + currentRun.Artifacts.Count);
-
+            
             // Confirm that Artifacts have consistent indices in the merged Run 
             for (int i = 0; i < mergedRun.Artifacts.Count; i++)
             {
@@ -287,17 +287,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             var baselineRun = new Run
             {
-                Tool = new Tool
+                Tool = new Tool 
                 {
-                    Driver = new ToolComponent
-                    {
+                    Driver = new ToolComponent 
+                    { 
                         Name = "Test Tool",
                         Rules = new List<ReportingDescriptor>()
-                        {
+                        { 
                             new ReportingDescriptor() { Id = "Rule001" },
                             new ReportingDescriptor() { Id = "Rule002" },
                         }
-                    },
+                    } ,
                 },
                 Results = new List<Result>
                 {

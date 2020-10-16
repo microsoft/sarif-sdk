@@ -3,7 +3,6 @@
 
 using System;
 using System.IO;
-
 using Microsoft.CodeAnalysis.Sarif.Driver;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool

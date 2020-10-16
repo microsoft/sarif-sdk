@@ -111,7 +111,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                                 resultPointer,
                                 nameof(RuleResources.SARIF2004_OptimizeFileSize_Warning_AvoidDuplicativeResultRuleInformation_Text));
                         }
-                    }
+                    }                    
                 }
                 else
                 {

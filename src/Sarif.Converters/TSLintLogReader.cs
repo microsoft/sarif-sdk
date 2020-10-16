@@ -8,9 +8,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using System.Text;
-
 using Microsoft.CodeAnalysis.Sarif.Converters.TSLintObjectModel;
-
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 

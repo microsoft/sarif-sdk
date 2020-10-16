@@ -7,7 +7,6 @@ using System.Globalization;
 using System.IO;
 
 using FluentAssertions;
-
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver

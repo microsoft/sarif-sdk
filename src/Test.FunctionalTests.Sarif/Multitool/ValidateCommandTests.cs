@@ -414,7 +414,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         private void RunValidTestForRule(string ruleId)
             => RunTestForRule(ruleId, ValidTestFileNameSuffix);
-
+        
         private void RunInvalidTestForRule(string ruleId)
             => RunTestForRule(ruleId, InvalidTestFileNameSuffix);
 
@@ -594,7 +594,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             // Select one rule arbitrarily, find out what assembly it's in, and get all the other
             // rules from that assembly.
             Assembly validationRuleAssembly = typeof(RuleIdentifiersMustBeValid).Assembly;
-
+            
             return CompositionUtilities.GetExports<SarifValidationSkimmerBase>(
                 new Assembly[]
                 {

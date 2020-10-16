@@ -6,10 +6,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
-
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
-
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif

@@ -7,12 +7,9 @@ using System.IO;
 using System.Text;
 
 using FluentAssertions;
-
 using Microsoft.CodeAnalysis.Sarif.Visitors;
 using Microsoft.CodeAnalysis.Sarif.Writers;
-
 using Newtonsoft.Json;
-
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters

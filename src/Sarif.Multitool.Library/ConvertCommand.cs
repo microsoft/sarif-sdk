@@ -72,7 +72,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     };
 
                     using (JsonTextReader reader = new JsonTextReader(new StreamReader(convertOptions.OutputFilePath)))
-                    {
+                    {                        
                         sarifLog = serializer.Deserialize<SarifLog>(reader);
                     }
 

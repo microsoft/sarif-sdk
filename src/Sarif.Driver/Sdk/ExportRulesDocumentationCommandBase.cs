@@ -49,10 +49,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             sb.AppendLine($"## Rule `{rule.Moniker}`{Environment.NewLine}");
             sb.AppendLine($"### Description{Environment.NewLine}");
-            sb.AppendLine(@$"{rule.FullDescription?.Markdown
-                ?? rule.FullDescription?.Text
+            sb.AppendLine(@$"{rule.FullDescription?.Markdown 
+                ?? rule.FullDescription?.Text 
                 ?? rule.ShortDescription?.Markdown
-                ?? rule.ShortDescription?.Text
+                ?? rule.ShortDescription?.Text 
                 ?? DriverResources.NoRuleDescription}{Environment.NewLine}");
             sb.AppendLine($"### Messages{Environment.NewLine}");
 

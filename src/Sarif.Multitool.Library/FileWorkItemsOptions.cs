@@ -2,7 +2,6 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using CommandLine;
-
 using Microsoft.CodeAnalysis.Sarif.Driver;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
@@ -31,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         [Option(
             "file-unchanged",
-            HelpText = "File work items for both new and unchanged baseline state results. " +
+            HelpText = "File work items for both new and unchanged baseline state results. " + 
                        "If an unchanged result already has an associated work item, a new work item will not be created.",
             Default = null)]
         public bool? ShouldFileUnchanged { get; internal set; }

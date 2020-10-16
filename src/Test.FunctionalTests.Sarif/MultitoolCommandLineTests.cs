@@ -3,9 +3,7 @@
 
 using System.Diagnostics;
 using System.IO;
-
 using FluentAssertions;
-
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool

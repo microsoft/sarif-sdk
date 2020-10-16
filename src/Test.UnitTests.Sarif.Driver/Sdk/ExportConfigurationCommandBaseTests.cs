@@ -6,7 +6,6 @@ using System.Linq;
 using System.Reflection;
 
 using FluentAssertions;
-
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver

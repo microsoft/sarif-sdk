@@ -4,11 +4,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-
 using Microsoft.CodeAnalysis.Sarif.Readers.SampleModel;
-
 using Newtonsoft.Json;
-
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Readers
