@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using FluentAssertions;
 using Newtonsoft.Json;
 using Xunit;
@@ -56,6 +57,15 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
             run.LogicalLocations.Should().BeNull();
 
             run.Invocations.Should().NotBeNull();
+        }
+
+        [Fact]
+        public void SarifLog_ApplyPoliciesShouldNotThrowWhenRunsDoesNotExist()
+        {
+            var sarifLog = new SarifLog();
+            Action action = () => sarifLog.ApplyPolicies();
+
+            action.Should().NotThrow();
         }
 
         private Run SerializeAndDeserialize(Run run)

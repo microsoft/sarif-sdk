@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (uri == null) { throw new ArgumentNullException(nameof(uri)); }
 
-            fileSystem = fileSystem ?? new FileSystem();
+            fileSystem ??= FileSystem.Instance;
 
             var artifact = new Artifact()
             {

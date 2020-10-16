@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public TransformCommand(IFileSystem fileSystem = null)
         {
-            _fileSystem = fileSystem ?? new FileSystem();
+            _fileSystem = fileSystem ?? FileSystem.Instance;
         }
 
         public int Run(TransformOptions transformOptions)
@@ -127,7 +127,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 valid = false;
             }
 
-            valid &= transformOptions.ValidateOutputOptions();
+            valid &= transformOptions.Validate();
 
             valid &= DriverUtilities.ReportWhetherOutputFileCanBeCreated(transformOptions.OutputFilePath, transformOptions.Force, _fileSystem);
 

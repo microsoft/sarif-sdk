@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Globalization;
 using System.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
@@ -10,7 +11,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
     {
         public static IExpressionEvaluator<Result> ResultEvaluator(TermExpression term)
         {
-            switch (term.PropertyName.ToLowerInvariant())
+            string propertyNameLower = term.PropertyName.ToLowerInvariant();
+            switch (propertyNameLower)
             {
                 case "baselinestate":
                     return new EnumEvaluator<Result, BaselineState>(r => r.BaselineState, term);
@@ -43,7 +45,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
                     }, term);
 
                 default:
-                    throw new QueryParseException($"Property Name {term.PropertyName} unrecognized. Known Names: baselineState, correlationGuid, guid, hostedViewerUri, kind, level, message.text, occurrenceCount, rank, ruleId");
+                    if (propertyNameLower.StartsWith(PropertyBagPropertyEvaluator.ResultPropertyPrefix) ||
+                        propertyNameLower.StartsWith(PropertyBagPropertyEvaluator.RulePropertyPrefix))
+                    {
+                        return new PropertyBagPropertyEvaluator(term);
+                    }
+
+                    throw new QueryParseException(
+                        string.Format(
+                            CultureInfo.CurrentCulture,
+                            SdkResources.ErrorInvalidQueryPropertyName,
+                            term.PropertyName));
             }
         }
     }

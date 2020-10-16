@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     {
         public int Run(ConvertOptions convertOptions, IFileSystem fileSystem = null)
         {
-            if (fileSystem == null) { fileSystem = new FileSystem(); }
+            fileSystem ??= FileSystem.Instance;
 
             try
             {
@@ -47,12 +47,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 if (convertOptions.PrettyPrint)
                 {
                     loggingOptions |= LoggingOptions.PrettyPrint;
-                };
+                }
 
                 if (convertOptions.Force)
                 {
                     loggingOptions |= LoggingOptions.OverwriteExistingOutputFile;
-                };
+                }
 
                 new ToolFormatConverter().ConvertToStandardFormat(
                                                 convertOptions.ToolFormat,
@@ -100,7 +100,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             bool valid = true;
 
-            valid &= convertOptions.ValidateOutputOptions();
+            valid &= convertOptions.Validate();
 
             valid &= DriverUtilities.ReportWhetherOutputFileCanBeCreated(convertOptions.OutputFilePath, convertOptions.Force, fileSystem);
 

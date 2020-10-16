@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public RewriteCommand(IFileSystem fileSystem = null)
         {
-            _fileSystem = fileSystem ?? new FileSystem();
+            _fileSystem = fileSystem ?? FileSystem.Instance;
         }
 
         public int Run(RewriteOptions rewriteOptions)
@@ -61,7 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             bool valid = true;
 
-            valid &= rewriteOptions.ValidateOutputOptions();
+            valid &= rewriteOptions.Validate();
 
             valid &= DriverUtilities.ReportWhetherOutputFileCanBeCreated(rewriteOptions.OutputFilePath, rewriteOptions.Force, _fileSystem);
 

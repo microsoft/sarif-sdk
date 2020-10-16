@@ -100,5 +100,21 @@ namespace Microsoft.CodeAnalysis.Sarif
                 serializer.Serialize(writer, this);
             }
         }
+
+        /// <summary>
+        /// Applies the policies contained in each run
+        /// </summary>
+        public void ApplyPolicies()
+        {
+            if (this.Runs == null)
+            {
+                return;
+            }
+
+            foreach (Run run in this.Runs)
+            {
+                run.ApplyPolicies();
+            }
+        }
     }
 }

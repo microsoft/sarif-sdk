@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public ResultMatchSetCommand(IFileSystem fileSystem = null)
         {
-            _fileSystem = fileSystem ?? new FileSystem();
+            _fileSystem = fileSystem ?? FileSystem.Instance;
         }
 
         public int Run(ResultMatchSetOptions options)

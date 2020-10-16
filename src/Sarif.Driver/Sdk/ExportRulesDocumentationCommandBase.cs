@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public ExportRulesDocumentationCommandBase(IFileSystem fileSystem = null)
         {
-            _fileSystem = fileSystem ?? new FileSystem();
+            _fileSystem = fileSystem ?? FileSystem.Instance;
         }
 
         public override int Run(ExportRulesDocumentationOptions options)
