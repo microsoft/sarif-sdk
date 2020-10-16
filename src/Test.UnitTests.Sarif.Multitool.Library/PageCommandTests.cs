@@ -29,7 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             RunAndCompare(new PageOptions() { Index = 3, Count = 2, InputFilePath = sampleFilePath, OutputFilePath = pagedSamplePath });
 
             string minifiedPath = "elfie-arriba.min.sarif";
-            IFileSystem fileSystem = new FileSystem();
+            IFileSystem fileSystem = FileSystem.Instance;
             SarifLog log = PageCommand.ReadSarifFile<SarifLog>(fileSystem, sampleFilePath);
             PageCommand.WriteSarifFile(fileSystem, log, minifiedPath, Formatting.None);
 
@@ -184,7 +184,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         private static void RunAndCompare(PageOptions options)
         {
-            IFileSystem fileSystem = new FileSystem();
+            IFileSystem fileSystem = FileSystem.Instance;
             string actualPath = Path.ChangeExtension(options.OutputFilePath, "act.json");
             string expectPath = Path.ChangeExtension(options.OutputFilePath, "exp.json");
 

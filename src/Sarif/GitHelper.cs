@@ -40,7 +40,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public GitHelper(IFileSystem fileSystem = null, ProcessRunner processRunner = null)
         {
-            this.fileSystem = fileSystem ?? new FileSystem();
+            this.fileSystem = fileSystem ?? FileSystem.Instance;
             this.processRunner = processRunner ?? DefaultProcessRunner;
 
             GitExePath = GetGitExePath(this.fileSystem);

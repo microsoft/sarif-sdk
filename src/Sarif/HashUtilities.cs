@@ -13,17 +13,16 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class HashUtilities
     {
-        static HashUtilities() => FileSystem = new FileSystem();
+        static HashUtilities() => FileSystem = Sarif.FileSystem.Instance;
 
         private static IFileSystem _fileSystem;
         internal static IFileSystem FileSystem
         {
             get
             {
-                _fileSystem = _fileSystem ?? new FileSystem();
+                _fileSystem ??= Sarif.FileSystem.Instance;
                 return _fileSystem;
             }
-
             set
             {
                 _fileSystem = value;

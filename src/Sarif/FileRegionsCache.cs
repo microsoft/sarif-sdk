@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             // things like URLs, point-in-time file contents, etc.
             _run = run;
 
-            _fileSystem = fileSystem ?? new FileSystem();
+            _fileSystem = fileSystem ?? FileSystem.Instance;
 
             // Build a cache for this data, with the load method it should use to add new entries
             _cache = new Cache<string, Tuple<string, NewLineIndex>>(BuildIndexForFile);

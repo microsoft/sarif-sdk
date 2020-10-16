@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <returns>Path to the file name or empty string.</returns>
         public static string SearchForFileInEnvironmentVariable(string environmentVariable, string fileName, IFileSystem fileSystem = null)
         {
-            fileSystem ??= new FileSystem();
+            fileSystem ??= FileSystem.Instance;
 
             string variable = Environment.GetEnvironmentVariable(environmentVariable);
             if (string.IsNullOrEmpty(variable))
@@ -48,7 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <returns>Path to the file name or empty string.</returns>
         public static string SearchForFileNameInPath(string path, string fileName, IFileSystem fileSystem = null)
         {
-            fileSystem ??= new FileSystem();
+            fileSystem ??= FileSystem.Instance;
             string filePath = $@"{path}\{fileName}";
             return fileSystem.FileExists(filePath) ? filePath : null;
         }

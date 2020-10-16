@@ -17,6 +17,8 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// </remarks>
     public class FileSystem : IFileSystem
     {
+        public static readonly FileSystem Instance = new FileSystem();
+
         /// <summary>
         /// Determines whether the given path refers to an existing directory on disk.
         /// </summary>
