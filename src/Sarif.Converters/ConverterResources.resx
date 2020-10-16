@@ -147,6 +147,9 @@
   <data name="AndroidStudioProblemMissingProblemClass" xml:space="preserve">
     <value>An AndroidStudio problem could not be created because required "problem class" element was missing.</value>
   </data>
+  <data name="CppCheckCppCheckElementMissing" xml:space="preserve">
+    <value>CppCheck file did not start with "results/cppcheck" element with version information.</value>
+  </data>
   <data name="CppCheckElementNotError" xml:space="preserve">
     <value>Could not parse CppCheck error node; element name was not error.</value>
   </data>
