@@ -181,7 +181,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 reader.Read();
                 while (reader.Depth > startingDepth)
                 {
-                    Debug.Assert(reader.Depth == startingDepth + 1);
                     if (reader.NodeType == XmlNodeType.Whitespace)
                     {
                         reader.Read();

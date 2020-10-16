@@ -161,7 +161,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void CppCheckError_CanParseErrorWithSingleLocationAndSymbol()
         {
-            string errorXml = ExampleErrorXmlOpen + " <location file=\"" + ExampleFileName + "\" line=\"42\" /><symbol>s</> " + ExampleErrorClose;
+            string errorXml = ExampleErrorXmlOpen + " <location file=\"" + ExampleFileName + "\" line=\"42\" /><symbol>s</symbol> " + ExampleErrorClose;
             using (XmlReader xml = Utilities.CreateXmlReaderFromString(errorXml))
             {
                 CppCheckError uut = Parse(xml);
