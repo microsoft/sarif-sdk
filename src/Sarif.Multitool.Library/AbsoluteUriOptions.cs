@@ -9,6 +9,5 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     [Verb("absoluteuri", HelpText = "Turn all relative Uris into absolute URIs (to be used after rebaseUri is run)")]
     public class AbsoluteUriOptions : MultipleFilesOptionsBase
     {
-
     }
 }

@@ -47,9 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     _fileSystem.DirectoryCreate(rebaseOptions.OutputDirectoryPath);
                 }
 
-                Formatting formatting = rebaseOptions.PrettyPrint
-                    ? Formatting.Indented
-                    : Formatting.None;
+                Formatting formatting = rebaseOptions.GetFormatting();
 
                 OptionallyEmittedData dataToRemove = rebaseOptions.DataToRemove.ToFlags();
                 OptionallyEmittedData dataToInsert = rebaseOptions.DataToInsert.ToFlags();

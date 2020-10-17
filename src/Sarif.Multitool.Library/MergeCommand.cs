@@ -57,9 +57,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 if (mergeOptions.SplittingStrategy != SplittingStrategy.PerRule)
                 {
                     // Write output to file.
-                    Formatting formatting = mergeOptions.PrettyPrint
-                        ? Formatting.Indented
-                        : Formatting.None;
+                    Formatting formatting = mergeOptions.GetFormatting();
 
                     _fileSystem.DirectoryCreate(outputDirectory);
 
@@ -106,7 +104,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         }
                     }
                 }
-            
+
                 foreach (string ruleId in ruleToRunsMap.Keys)
                 {
                     HashSet<Run> runs = ruleToRunsMap[ruleId];
@@ -120,9 +118,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         new FixupVisitor().VisitSarifLog(perRuleLog);
                     }
 
-                    Formatting formatting = mergeOptions.PrettyPrint
-                        ? Formatting.Indented
-                        : Formatting.None;
+                    Formatting formatting = mergeOptions.GetFormatting();
 
                     _fileSystem.DirectoryCreate(outputDirectory);
 
@@ -169,12 +165,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         private static string GetPrefix(string prefix)
         {
-            if (prefix != null && !prefix.EndsWith("_"))
+            if (prefix?.EndsWith("_") == false)
             {
-                prefix = prefix + "_";
+                prefix += "_";
             }
 
-            return prefix == null ? "" : prefix;
+            return prefix ?? "";
         }
     }
 

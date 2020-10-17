@@ -33,9 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     _fileSystem.DirectoryCreate(absoluteUriOptions.OutputDirectoryPath);
                 }
 
-                Formatting formatting = absoluteUriOptions.PrettyPrint
-                    ? Formatting.Indented
-                    : Formatting.None;
+                Formatting formatting = absoluteUriOptions.GetFormatting();
 
                 foreach (AbsoluteUriFile absoluteUriFile in absoluteUriFiles)
                 {

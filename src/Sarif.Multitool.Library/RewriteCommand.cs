@@ -39,9 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 string fileName = CommandUtilities.GetTransformedOutputFileName(rewriteOptions);
 
-                Formatting formatting = rewriteOptions.PrettyPrint
-                    ? Formatting.Indented
-                    : Formatting.None;
+                Formatting formatting = rewriteOptions.GetFormatting();
 
                 WriteSarifFile(_fileSystem, reformattedLog, fileName, formatting);
 
