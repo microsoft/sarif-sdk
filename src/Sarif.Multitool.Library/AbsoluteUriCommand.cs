@@ -33,13 +33,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     _fileSystem.DirectoryCreate(absoluteUriOptions.OutputDirectoryPath);
                 }
 
-                Formatting formatting = absoluteUriOptions.GetFormatting();
-
                 foreach (AbsoluteUriFile absoluteUriFile in absoluteUriFiles)
                 {
                     absoluteUriFile.Log = absoluteUriFile.Log.MakeUrisAbsolute();
 
-                    WriteSarifFile(_fileSystem, absoluteUriFile.Log, absoluteUriFile.OutputFilePath, formatting);
+                    WriteSarifFile(_fileSystem, absoluteUriFile.Log, absoluteUriFile.OutputFilePath, absoluteUriOptions.Formatting);
                 }
             }
             catch (Exception ex)

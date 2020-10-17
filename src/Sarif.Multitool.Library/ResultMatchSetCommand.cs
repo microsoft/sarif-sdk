@@ -29,7 +29,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             options.OutputFolderPath ??= Path.Combine(options.FolderPath, "Out");
 
             ISarifLogMatcher matcher = ResultMatchingBaselinerFactory.GetDefaultResultMatchingBaseliner();
-            Formatting formatting = options.GetFormatting();
 
             // Remove previous results.
             if (_fileSystem.DirectoryExists(options.OutputFolderPath) && options.Force)
@@ -70,7 +69,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                             if (DriverUtilities.ReportWhetherOutputFileCanBeCreated(outputFilePath, options.Force, _fileSystem))
                             {
-                                WriteSarifFile(_fileSystem, mergedLog, outputFilePath, formatting);
+                                WriteSarifFile(_fileSystem, mergedLog, outputFilePath, options.Formatting);
                             }
                             else
                             {

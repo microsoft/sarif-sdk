@@ -95,9 +95,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 string outputFilePath = options.OutputFilePath;
                 if (!string.IsNullOrEmpty(outputFilePath))
                 {
-                    Formatting formatting = options.GetFormatting();
-
-                    string sarifLogText = JsonConvert.SerializeObject(sarifLog, formatting);
+                    string sarifLogText = JsonConvert.SerializeObject(sarifLog, options.Formatting);
 
                     fileSystem.WriteAllText(outputFilePath, sarifLogText);
                 }

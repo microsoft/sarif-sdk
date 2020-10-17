@@ -39,9 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 string fileName = CommandUtilities.GetTransformedOutputFileName(rewriteOptions);
 
-                Formatting formatting = rewriteOptions.GetFormatting();
-
-                WriteSarifFile(_fileSystem, reformattedLog, fileName, formatting);
+                WriteSarifFile(_fileSystem, reformattedLog, fileName, rewriteOptions.Formatting);
 
                 w.Stop();
                 Console.WriteLine($"Rewrite completed in {w.Elapsed}.");

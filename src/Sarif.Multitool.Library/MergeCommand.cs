@@ -56,12 +56,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 if (mergeOptions.SplittingStrategy != SplittingStrategy.PerRule)
                 {
-                    // Write output to file.
-                    Formatting formatting = mergeOptions.GetFormatting();
-
                     _fileSystem.DirectoryCreate(outputDirectory);
 
-                    WriteSarifFile(_fileSystem, mergedLog, outputFilePath, formatting);
+                    // Write output to file.
+                    WriteSarifFile(_fileSystem, mergedLog, outputFilePath, mergeOptions.Formatting);
                     return 0;
                 }
 
@@ -118,8 +116,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         new FixupVisitor().VisitSarifLog(perRuleLog);
                     }
 
-                    Formatting formatting = mergeOptions.GetFormatting();
-
                     _fileSystem.DirectoryCreate(outputDirectory);
 
                     outputFilePath = Path.Combine(outputDirectory, GetOutputFileName(mergeOptions, ruleId));
@@ -129,7 +125,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         return FAILURE;
                     }
 
-                    WriteSarifFile(_fileSystem, perRuleLog, outputFilePath, formatting);
+                    WriteSarifFile(_fileSystem, perRuleLog, outputFilePath, mergeOptions.Formatting);
                 }
             }
             catch (Exception ex)

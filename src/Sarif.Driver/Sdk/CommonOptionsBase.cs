@@ -69,9 +69,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             Default = SarifVersion.Current)]
         public SarifVersion SarifOutputVersion { get; set; }
 
-        public Formatting GetFormatting()
-        {
-            return this.PrettyPrint ? Formatting.Indented : Formatting.None;
-        }
+        public Formatting Formatting => this.PrettyPrint ? Formatting.Indented : Formatting.None;
     }
 }
