@@ -166,7 +166,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 prefix += "_";
             }
 
-            return prefix ?? "";
+            return prefix ?? string.Empty;
         }
     }
 
