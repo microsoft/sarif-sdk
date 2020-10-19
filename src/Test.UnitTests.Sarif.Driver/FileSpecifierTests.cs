@@ -72,8 +72,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         [InlineData(@"TestFile1.txt", false, 0)]
         [InlineData(@"TestFile1.txt", true, 5)]
         [InlineData(@"DoesNotExist.dll", true, 0)]
-        [InlineData(@".\TestDirectory2\TestFile3.txt", true, 1)]
-        [InlineData(@".\TestDirectory2\TestFile3.txt", false, 1)]
+        [InlineData(@"./TestDirectory2/TestFile3.txt", true, 1)]
+        [InlineData(@"./TestDirectory2/TestFile3.txt", false, 1)]
         [InlineData(@"*File*", true, 25)]
         public void ResolveDirectoriesAndFiles(string input, bool recurse, int expectedCount)
         {
