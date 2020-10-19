@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static string GetTestDirectory(string subdirectory = "")
         {
-            return Path.GetFullPath(Path.Combine(@".\TestData", subdirectory));
+            return Path.GetFullPath(Path.Combine(@$".{Path.DirectorySeparatorChar}TestData", subdirectory));
         }
         public static string GetProductDirectory()
         {
