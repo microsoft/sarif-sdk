@@ -139,6 +139,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 Capacity = cppCheckLocations.Count()
             };
 
+            if (locations.Capacity == 0)
+            {
+                return;
+            }
+
             foreach (CppCheckLocation loc in cppCheckLocations)
             {
                 locations.Add(new ThreadFlowLocation
