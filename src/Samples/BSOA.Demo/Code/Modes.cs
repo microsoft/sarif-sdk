@@ -7,7 +7,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 
-using BSOA.Benchmarks;
+using RoughBench;
 
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.CodeAnalysis.Sarif.Writers;
@@ -18,18 +18,18 @@ namespace BSOA.Demo
     {
         public static void Convert(string inputPath)
         {
-            Friendly.HighlightLine($"-> Converting '{inputPath}' to BSOA...");
+            Format.HighlightLine($"-> Converting '{inputPath}' to BSOA...");
 
             ConsoleTable table = new ConsoleTable(
-                new ConsoleColumn("FileName"),
-                new ConsoleColumn("Size", Align.Right),
-                new ConsoleColumn("JSON Read", Align.Right),
-                new ConsoleColumn("BSOA Size", Align.Right),
-                new ConsoleColumn("RAM", Align.Right, Highlight.On),
-                new ConsoleColumn("Ratio", Align.Right),
-                new ConsoleColumn("BSOA Read", Align.Right, Highlight.On));
+                new TableCell("FileName"),
+                new TableCell("Size", Align.Right),
+                new TableCell("JSON Read", Align.Right),
+                new TableCell("BSOA Size", Align.Right),
+                new TableCell("RAM", Align.Right, TableColor.Green),
+                new TableCell("Ratio", Align.Right),
+                new TableCell("BSOA Read", Align.Right, TableColor.Green));
 
-            foreach (string filePath in QuickBenchmarker.FilesForPath(inputPath))
+            foreach (string filePath in FilesBenchmarker.FilesForPath(inputPath))
             {
                 string fileName = Path.GetFileName(filePath);
                 string outputPath = OutputPath(filePath);
@@ -48,20 +48,20 @@ namespace BSOA.Demo
                 long bsoaBytes = new FileInfo(outputPath).Length;
 
                 table.AppendRow(
-                    fileName,
-                    Friendly.Size(jsonBytes),
-                    Friendly.Rate(jsonBytes, load.Elapsed, load.Iterations),
-                    Friendly.Size(bsoaBytes),
-                    Friendly.Size(load.AddedMemoryBytes),
-                    Friendly.Percentage(bsoaBytes, jsonBytes),
-                    Friendly.Rate(bsoaBytes, bsoaLoad.Elapsed, bsoaLoad.Iterations));
+                    TableCell.String(fileName),
+                    TableCell.Size(jsonBytes),
+                    TableCell.Rate(jsonBytes, load.SecondsPerIteration),
+                    TableCell.Size(bsoaBytes),
+                    TableCell.Size(load.AddedMemoryBytes),
+                    TableCell.Percentage(bsoaBytes, jsonBytes),
+                    TableCell.Rate(bsoaBytes, bsoaLoad.SecondsPerIteration));
             }
         }
 
         public static void Benchmarks(string inputPath)
         {
-            Friendly.HighlightLine($"-> Benchmarking ", AssemblyDescription<SarifLog>(), $" on '{inputPath}'...");
-            QuickBenchmarker.RunFiles<SarifLog>(typeof(SarifLogBenchmarks), inputPath, SarifLog.Load);
+            Format.HighlightLine($"-> Benchmarking ", AssemblyDescription<SarifLog>(), $" on '{inputPath}'...");
+            FilesBenchmarker.RunFiles<SarifLog>(typeof(SarifLogBenchmarks), inputPath, SarifLog.Load);
         }
 
         public static string OutputPath(string inputPath)
@@ -120,7 +120,7 @@ namespace BSOA.Demo
                 }
             }
 
-            Console.WriteLine($"{count:n0} results in {Friendly.Time(w.Elapsed)}. Peak Memory: {Friendly.Size(peakMemory)} (+ {Friendly.Size(peakMemory - beforeMemory)})");
+            Console.WriteLine($"{count:n0} results in {Format.Time(w.Elapsed)}. Peak Memory: {Format.Size(peakMemory)} (+ {Format.Size(peakMemory - beforeMemory)})");
 #endif
         }
 

@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-using BSOA.Benchmarks.Attributes;
+using RoughBench.Attributes;
 
 using Microsoft.CodeAnalysis.Sarif;
 
