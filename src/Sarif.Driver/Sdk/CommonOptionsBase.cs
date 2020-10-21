@@ -4,6 +4,7 @@
 using System.Collections.Generic;
 
 using CommandLine;
+
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
