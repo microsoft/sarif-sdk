@@ -30,6 +30,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="TestData\ApplyPolicyCommand\WithPolicy2.sarif" />
+    <EmbeddedResource Include="TestData\ApplyPolicyCommand\WithPolicy.sarif" />
     <EmbeddedResource Include="TestData\ConvertCommand\SemmleQlSample.csv" />
     <EmbeddedResource Include="TestData\ExportRuleDocumentationCommand\ExpectedOutputs\NonStandardMessageStringKey.md" />
     <EmbeddedResource Include="TestData\ExportRuleDocumentationCommand\ExpectedOutputs\StandardMessageStringKey.md" />

@@ -11,6 +11,7 @@
 * FEATURE: The Multitool `query` command can now evaluate properties in the result and rule property bags, for example `sarif query "properties.confidence:f > 0.95 AND rule.properties.category == 'security'"`
 * FEATURE: The validation rule `SARIF1004.ExpressUriBaseIdsCorrectly` now verifies that if an `artifactLocation.uri` is a relative reference, it does not begin with a slash. [#2090](https://github.com/microsoft/sarif-sdk/issues/2090)
 * BUGFIX: GitHub policy should not turn off any note level rules. [#2089](https://github.com/microsoft/sarif-sdk/issues/2089)
+* FEATURE: Add `apply-policy` command to Multitool. [#2118](https://github.com/microsoft/sarif-sdk/pull/2118)
 
 ## **v2.3.6** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.6) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.6) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.6) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.6) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.3.6)
 * BUGFIX: Restore multitool client app package build.
