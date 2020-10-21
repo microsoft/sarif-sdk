@@ -16,13 +16,13 @@ using Newtonsoft.Json;
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     /// <summary>
-    /// A class that drives SARIF work item filing. This class is responsible for 
+    /// A class that drives SARIF work item filing. This class is responsible for
     /// collecting and verifying all options relevant to driving the work item filing
-    /// process. These options may be retrieved from a serialized version of the 
+    /// process. These options may be retrieved from a serialized version of the
     /// aggregated configuration (currently rendered as XML, via the PropertiesDictionary
-    /// class). Command-line arguments will override any options specified in the 
+    /// class). Command-line arguments will override any options specified in the
     /// file-based serialized configuration (if present). After verifying that all
-    /// configured options are valid, the command will instantiate an instance of 
+    /// configured options are valid, the command will instantiate an instance of
     /// SarifWorkItemFiler in order to complete the work.
     /// </summary>
     public class FileWorkItemsCommand : CommandBase
@@ -95,9 +95,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 string outputFilePath = options.OutputFilePath;
                 if (!string.IsNullOrEmpty(outputFilePath))
                 {
-                    Formatting formatting = options.PrettyPrint ? Formatting.Indented : Formatting.None;
-
-                    string sarifLogText = JsonConvert.SerializeObject(sarifLog, formatting);
+                    string sarifLogText = JsonConvert.SerializeObject(sarifLog, options.Formatting);
 
                     fileSystem.WriteAllText(outputFilePath, sarifLogText);
                 }
@@ -163,7 +161,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             // Any command-line argument that's provided overrides values specified in the configuration.
             workItemFilingConfiguration.HostUri = hostUri ?? workItemFilingConfiguration.HostUri;
-
 
             if (!workItemFilingConfiguration.HostUri.IsAbsoluteUri)
             {

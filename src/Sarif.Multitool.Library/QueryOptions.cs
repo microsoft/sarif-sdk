@@ -65,6 +65,5 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             HelpText = "A file path of the SARIF subset output file, if desired.",
             Required = false)]
         public string OutputFilePath { get; set; }
-
     }
 }

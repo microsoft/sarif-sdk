@@ -162,8 +162,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         [Fact]
         public void RebaseUriVisitor_VisitFileData_PatchesParentUri()
         {
-            Uri rootfileUri = new Uri(@"file://C:/src/root/blah.zip");
-            Uri childFileUri = new Uri(@"/stuff.doc", UriKind.RelativeOrAbsolute);
+            Uri rootfileUri = new Uri("file://C:/src/root/blah.zip");
+            Uri childFileUri = new Uri("/stuff.doc", UriKind.RelativeOrAbsolute);
 
             Artifact rootFileData = new Artifact() { Location = new ArtifactLocation { Uri = rootfileUri }, ParentIndex = -1 };
             Artifact childFileData = new Artifact() { Location = new ArtifactLocation { Uri = childFileUri }, ParentIndex = 0 };
@@ -253,11 +253,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 if (_currentRun.OriginalUriBaseIds == null || !_currentRun.OriginalUriBaseIds.Values.Contains(node))
                 {
-
-                    FileLocationUris = FileLocationUris ?? new List<string>();
+                    FileLocationUris ??= new List<string>();
                     FileLocationUris.Add(node.Uri.OriginalString);
 
-                    FileLocationUriBaseIds = FileLocationUriBaseIds ?? new List<string>();
+                    FileLocationUriBaseIds ??= new List<string>();
                     FileLocationUriBaseIds.Add(node.UriBaseId);
                 }
                 return base.VisitArtifactLocation(node);

@@ -47,10 +47,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     _fileSystem.DirectoryCreate(rebaseOptions.OutputDirectoryPath);
                 }
 
-                Formatting formatting = rebaseOptions.PrettyPrint
-                    ? Formatting.Indented
-                    : Formatting.None;
-
                 OptionallyEmittedData dataToRemove = rebaseOptions.DataToRemove.ToFlags();
                 OptionallyEmittedData dataToInsert = rebaseOptions.DataToInsert.ToFlags();
 
@@ -68,7 +64,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                     rebaseUriFile.Log = rebaseUriFile.Log.RebaseUri(rebaseOptions.BasePathToken, rebaseOptions.RebaseRelativeUris, baseUri);
 
-                    WriteSarifFile(_fileSystem, rebaseUriFile.Log, rebaseUriFile.OutputFilePath, formatting);
+                    WriteSarifFile(_fileSystem, rebaseUriFile.Log, rebaseUriFile.OutputFilePath, rebaseOptions.Formatting);
                 }
             }
             catch (Exception ex)

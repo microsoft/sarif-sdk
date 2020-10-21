@@ -3,6 +3,7 @@
 
 using System.Collections.Generic;
 using CommandLine;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
@@ -64,8 +65,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             'v',
             "sarif-output-version",
             HelpText =
-            @"The SARIF version of the output log file. Valid values are OneZeroZero and Current",
+            "The SARIF version of the output log file. Valid values are OneZeroZero and Current",
             Default = SarifVersion.Current)]
         public SarifVersion SarifOutputVersion { get; set; }
+
+        public Formatting Formatting => this.PrettyPrint ? Formatting.Indented : Formatting.None;
     }
 }
