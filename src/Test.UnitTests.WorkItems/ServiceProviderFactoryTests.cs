@@ -14,7 +14,7 @@ namespace Microsoft.WorkItems
         [Fact]
         public void GetAppSettingsFilePath_DefaultFile()
         {
-            ServiceProviderFactory.GetAppSettingsFilePath().Should().BeEquivalentTo("appsettings.json");
+            ServiceProviderFactory.GetAppSettingsFilePath().Should().BeEquivalentTo("appSettings.json");
         }
 
         [Fact]

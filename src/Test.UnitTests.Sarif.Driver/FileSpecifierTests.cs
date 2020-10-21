@@ -2,6 +2,8 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 
 using FluentAssertions;
@@ -54,11 +56,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Theory]
-        [InlineData(@"Sarif.dll", 1)]
-        [InlineData(@".\Sarif.dll", 1)]
-        [InlineData(@".\Sarif.dll*", 1)]
-        [InlineData(@"Sarif.dll*", 1)]
-
+        [ClassData(typeof(ResolveFilesTestData))]
         public void ResolveFiles(string input, int expectedCount)
         {
             // This test provides basic verification that simple patterns
@@ -71,12 +69,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Theory]
-        [InlineData(@"TestFile1.txt", false, 0)]
-        [InlineData(@"TestFile1.txt", true, 5)]
-        [InlineData(@"DoesNotExist.dll", true, 0)]
-        [InlineData(@".\TestDirectory2\TestFile3.txt", true, 1)]
-        [InlineData(@".\TestDirectory2\TestFile3.txt", false, 1)]
-        [InlineData(@"*File*", true, 25)]
+        [ClassData(typeof(ResolveDirectoriesAndFilesTestData))]
         public void ResolveDirectoriesAndFiles(string input, bool recurse, int expectedCount)
         {
             string currentWorkingDirectory = Environment.CurrentDirectory;
@@ -100,6 +93,35 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 Environment.CurrentDirectory = currentWorkingDirectory;
             }
+        }
+
+        private class ResolveFilesTestData : IEnumerable<object[]>
+        {
+            public IEnumerator<object[]> GetEnumerator()
+            {
+                yield return new object[] { "Sarif.dll", 1 };
+                yield return new object[] { $".{Path.DirectorySeparatorChar}Sarif.dll", 1 };
+                yield return new object[] { $".{Path.DirectorySeparatorChar}Sarif.dll*", 1 };
+                yield return new object[] { "Sarif.dll*", 1 };
+            }
+
+            IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+        }
+
+        private class ResolveDirectoriesAndFilesTestData : IEnumerable<object[]>
+        {
+            public IEnumerator<object[]> GetEnumerator()
+            {
+                yield return new object[] { "TestFile1.txt", false, 0 };
+                yield return new object[] { "TestFile1.txt", true, 5 };
+                yield return new object[] { "DoesNotExist.dll", true, 0 };
+                yield return new object[] { $".{Path.DirectorySeparatorChar}TestDirectory2{Path.DirectorySeparatorChar}TestFile3.txt", true, 1 };
+                yield return new object[] { $".{Path.DirectorySeparatorChar}TestDirectory2{Path.DirectorySeparatorChar}TestFile3.txt", false, 1 };
+                yield return new object[] { "*File*", true, 25 };
+            }
+
+            IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
         }
     }
 }

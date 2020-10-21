@@ -52,11 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 SarifLog output = matcher.Match(new SarifLog[] { baselineFile }, currentSarifLogs).First();
 
-                Newtonsoft.Json.Formatting formatting = matchingOptions.PrettyPrint
-                        ? Newtonsoft.Json.Formatting.Indented
-                        : Newtonsoft.Json.Formatting.None;
-
-                WriteSarifFile(_fileSystem, output, outputFilePath, formatting);
+                WriteSarifFile(_fileSystem, output, outputFilePath, matchingOptions.Formatting);
             }
 
             catch (Exception ex)

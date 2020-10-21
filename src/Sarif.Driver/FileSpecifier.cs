@@ -59,7 +59,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (directory.Length == 0)
             {
-                directory = @".\";
+                directory = $".{Path.DirectorySeparatorChar}";
             }
 
             AddFilesFromDirectory(directory, filter);
