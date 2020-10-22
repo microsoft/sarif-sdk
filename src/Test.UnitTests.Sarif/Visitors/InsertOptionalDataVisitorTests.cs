@@ -1,9 +1,10 @@
-﻿// Copyright (c) Microsoft. All rights reserved. Licensed under the MIT        
-// license. See LICENSE file in the project root for full license information. 
+﻿// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
 using System.Collections.Generic;
 using System.IO;
+
 using FluentAssertions;
 
 using Microsoft.CodeAnalysis.Sarif.Driver;
@@ -11,7 +12,9 @@ using Microsoft.CodeAnalysis.Sarif.Writers;
 using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
 
 using Moq;
+
 using Newtonsoft.Json;
+
 using Xunit;
 using Xunit.Abstractions;
 

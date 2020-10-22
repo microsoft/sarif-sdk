@@ -1,10 +1,12 @@
-﻿// Copyright (c) Microsoft. All rights reserved. Licensed under the MIT        
-// license. See LICENSE file in the project root for full license information.
+﻿// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
 using Microsoft.CodeAnalysis.Sarif.Writers;
+
 using Newtonsoft.Json;
+
 using Xunit;
 using Xunit.Abstractions;
 

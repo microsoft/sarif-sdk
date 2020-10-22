@@ -10,6 +10,7 @@ using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching;
 using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
+
 using Newtonsoft.Json;
 
 using Xunit;

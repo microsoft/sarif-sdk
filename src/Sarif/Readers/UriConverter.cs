@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 using System;
 using System.Collections.Generic;
+
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Readers
@@ -58,7 +59,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                     uri.IsAbsoluteUri &&
                     uri.Scheme.Equals(UriUtilities.FileScheme, StringComparison.Ordinal) &&
                     !uri.OriginalString.StartsWith(UriUtilities.FileScheme.WithColon(), StringComparison.Ordinal);
-                
+
                 string serializedValue = useAbsoluteUri ? uri.AbsoluteUri : uri.OriginalString;
 
                 writer.WriteValue(serializedValue);

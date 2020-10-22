@@ -33,7 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 // property that refers to the final, OASIS standard version of the SARIF 2.1.0
                 // schema. This enables IDEs to provide Intellisense for SARIF log files.
                 LogResult(
-                    logPointer, 
+                    logPointer,
                     nameof(RuleResources.SARIF2008_ProvideSchema_Warning_Default_Text));
             }
         }

@@ -1,5 +1,5 @@
-// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License.
+// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
 using System.Collections.Generic;
@@ -48,7 +48,7 @@ namespace Test.EndToEnd.Baselining
         public void Write(SarifLog newBaselineLog, SarifLog baselineLog, BaseliningSummary summary)
         {
             Dictionary<string, Result> baselineResultsByGuid = new Dictionary<string, Result>();
-            foreach(Result result in baselineLog.EnumerateResults())
+            foreach (Result result in baselineLog.EnumerateResults())
             {
                 baselineResultsByGuid[result.CorrelationGuid ?? result.Guid] = result;
             }

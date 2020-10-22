@@ -3,8 +3,8 @@
 
 using System;
 using System.Diagnostics;
+
 using Microsoft.CodeAnalysis.Sarif.Driver;
-using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
@@ -33,11 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 string fileName = CommandUtilities.GetTransformedOutputFileName(applyPolicyOptions);
 
-                Formatting formatting = applyPolicyOptions.PrettyPrint
-                    ? Formatting.Indented
-                    : Formatting.None;
-
-                WriteSarifFile(_fileSystem, actualLog, fileName, formatting);
+                WriteSarifFile(_fileSystem, actualLog, fileName, applyPolicyOptions.Formatting);
 
                 w.Stop();
                 Console.WriteLine($"Rewrite completed in {w.Elapsed}.");

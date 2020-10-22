@@ -3,8 +3,11 @@
 
 using System.Collections.Generic;
 using System.Text;
+
 using FluentAssertions;
+
 using Microsoft.CodeAnalysis.Sarif.Multitool.Rules;
+
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
@@ -34,7 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 string expectedMarkdown = resourceExtractor.GetResourceText(test.Key);
 
                 sb.ToString().Should().Be(expectedMarkdown);
-            }            
+            }
         }
 
         private class TestRule1 : SarifValidationSkimmerBase

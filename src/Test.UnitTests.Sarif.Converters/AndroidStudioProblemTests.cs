@@ -7,8 +7,11 @@ using System.Collections.Immutable;
 using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
+
 using FluentAssertions;
+
 using Microsoft.CodeAnalysis.Sarif.Driver;
+
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters

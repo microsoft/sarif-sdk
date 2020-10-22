@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.
+﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
@@ -256,7 +256,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             foreach (Result result in this.Results)
             {
                 string ruleId = result.ResolvedRuleId(this);
-                
+
                 if (PoliciesCache.ContainsKey(ruleId))
                 {
                     result.Level = PoliciesCache[ruleId];

@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+
 using Microsoft.CodeAnalysis.Sarif.Converters.TSLintObjectModel;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters

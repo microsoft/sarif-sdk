@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             nameof(RuleResources.SARIF1010_RuleIdMustBeConsistent_Error_ResultMustSpecifyRuleId_Text)
         };
         public override FailureLevel DefaultLevel => FailureLevel.Error;
-        
+
         protected override void Analyze(Result result, string resultPointer)
         {
             AnalyzeRuleId(result, resultPointer);
@@ -40,7 +40,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 // ([§3.27.5](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317643))
                 // requires at least one of these properties to be present.
                 LogResult(
-                    pointer, 
+                    pointer,
                     nameof(RuleResources.SARIF1010_RuleIdMustBeConsistent_Error_ResultMustSpecifyRuleId_Text));
             }
             // if both are present, they must be equal.
@@ -53,9 +53,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 // (https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317643))
                 // requires that if both of these properties are present, they must be equal.
                 LogResult(
-                    pointer, 
-                    nameof(RuleResources.SARIF1010_RuleIdMustBeConsistent_Error_ResultRuleIdMustBeConsistent_Text), 
-                    result.RuleId, 
+                    pointer,
+                    nameof(RuleResources.SARIF1010_RuleIdMustBeConsistent_Error_ResultRuleIdMustBeConsistent_Text),
+                    result.RuleId,
                     result.Rule?.Id);
             }
         }

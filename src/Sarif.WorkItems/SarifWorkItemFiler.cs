@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+
 using Microsoft.ApplicationInsights.Channel;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
 using Microsoft.CodeAnalysis.WorkItems;
@@ -15,6 +16,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.WorkItems;
 using Microsoft.WorkItems.Logging;
+
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.WorkItems
@@ -54,7 +56,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             this.FiledWorkItems = new List<WorkItemModel>();
         }
 
-        public FilingClient FilingClient 
+        public FilingClient FilingClient
         {
             get
             {

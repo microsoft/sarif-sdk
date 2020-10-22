@@ -7,16 +7,22 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+
 using FluentAssertions;
+
 using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
 using Microsoft.CodeAnalysis.WorkItems;
 using Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models;
 using Microsoft.VisualStudio.Services.WebApi;
 using Microsoft.VisualStudio.Services.WebApi.Patch.Json;
 using Microsoft.WorkItems;
+
 using Moq;
+
 using Newtonsoft.Json;
+
 using Octokit;
+
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.WorkItems
@@ -183,10 +189,10 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             // Validate that we updated the SARIF log with work itme URIs.
             // 
             updatedSarifLog.Should().NotBeEquivalentTo(sarifLog);
-            
-            foreach(Run run in updatedSarifLog.Runs)
+
+            foreach (Run run in updatedSarifLog.Runs)
             {
-                foreach(Result result in run.Results)
+                foreach (Result result in run.Results)
                 {
                     result.WorkItemUris.Should().NotBeNull();
                     result.WorkItemUris.Count.Should().Be(1);
@@ -199,7 +205,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                     programmableUris.Count.Should().Be(1);
                     programmableUris[0].Should().Be(bugUri);
                 }
-            }              
+            }
         }
 
         private static FilingClient CreateAdoMocksAndFilingClient(AttachmentReference attachmentReference, WorkItem workItem, SarifWorkItemFiler filer)
