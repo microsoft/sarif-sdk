@@ -4,8 +4,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using System.Linq.Expressions;
 using Microsoft.Json.Pointer;
+using Microsoft.Win32.SafeHandles;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
@@ -28,9 +29,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         public override bool EnabledByDefault => false;
 
+        private Uri workingDirectoryUri;
+        protected override void Analyze(Run run, string runPointer)
+        {
+            this.workingDirectoryUri = GetWorkingDirectoryUri(run);
+        }
+
         protected override void Analyze(Result result, string resultPointer)
         {
-            if (!(result.Locations?.Any() == true))
+            if (!(result.Locations?.Any() == true)) 
             {
                 // Rule GH1001.ProvideRequiredLocationProperties will catch this, so don't
                 // report it here.
@@ -63,7 +70,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 return;
             }
 
-            if (uri.IsAbsoluteUri && uri.Scheme != "file")
+            if (uri.IsAbsoluteUri && uri.Scheme != "file" && this.workingDirectoryUri == null)
             {
                 string uriPointer = locationPointer
                     .AtProperty(SarifPropertyName.PhysicalLocation)
@@ -78,6 +85,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     nameof(RuleResources.GH1005_LocationsMustBeRelativeUrisOrFilePaths_Error_Default_Text),
                     uri.OriginalString);
             }
+        }
+
+        private Uri GetWorkingDirectoryUri(Run run)
+        {
+            // Find the first workingDirectory
+            if (run.Invocations?.Any() == true)
+            {
+                foreach (Invocation invocation in run.Invocations)
+                {
+                    if (invocation.WorkingDirectory?.Uri != null)
+                    {
+                        return invocation.WorkingDirectory?.Uri;
+                    }
+                }
+            }
+            return null;
         }
     }
 }

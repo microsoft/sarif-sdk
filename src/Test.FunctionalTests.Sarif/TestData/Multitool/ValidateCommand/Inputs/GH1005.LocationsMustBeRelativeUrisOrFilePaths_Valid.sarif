@@ -50,6 +50,49 @@
         }
       ],
       "columnKind": "utf16CodeUnits"
+    },
+    {
+      "tool": {
+        "driver": {
+          "name": "Sarif Functional Testing",
+          "version": "1.0"
+        }
+      },
+      "invocations": [
+        {
+          "workingDirectory": {
+            "uri": "file:///C:/code"
+          },
+          "executionSuccessful": true
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "TEST1001",
+          "message": {
+            "text": "Locations that specify file paths."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                   "uri": "https://www.example.com/code/file.cs"
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "https://www.example.com/code/file.cs"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
     }
   ]
 }
