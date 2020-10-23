@@ -1,5 +1,5 @@
 # sarif-sdk
-<image src="https://ci.appveyor.com/api/projects/status/fc8w20qv08p003uv?svg=true" width="100">
+[![Build Status](https://dev.azure.com/mseng/1ES/_apis/build/status/microsoft.sarif-sdk?branchName=master)](https://dev.azure.com/mseng/1ES/_build/latest?definitionId=9978&branchName=master)
 
 The SARIF SDK contains .NET code and supporting files for working with the Static Analysis Results Interchange Format (SARIF). For more information about SARIF, see the [SARIF Home Page](http://sarifweb.azurewebsites.net). You can read the [SARIF specification](https://rawgit.com/sarif-standard/sarif-spec/master/Static%20Analysis%20Results%20Interchange%20Format%20(SARIF).html), or file [issues](https://github.com/sarif-standard/sarif-spec/issues) in the [SARIF GitHub repo](https://github.com/sarif-standard/sarif-spec).
 
@@ -20,7 +20,7 @@ In addition to the object model, the SARIF SDK provides a set of helper classes 
 If you want to build the SDK from source, rather than consuming the NuGet package,
 proceed as follows:
 
-1. Install .NET Core SDK 2.1 from https://www.microsoft.com/net/download/core
+1. Install .NET Core SDK 2.1 and 3.1 from https://dotnet.microsoft.com/download
 
 2. Ensure that Visual Studio 2019 is installed on your machine.
 
