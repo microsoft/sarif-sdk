@@ -6,7 +6,15 @@
       "tool": {
         "driver": {
           "name": "Sarif Functional Testing",
-          "version": "1.0"
+          "version": "1.0",
+          "rules": [
+            {
+              "id": "TST0001",
+            },
+            {
+              "id": "TST0002",
+            }
+          ]
         }
       },
       "results": [
@@ -22,6 +30,12 @@
           },
           "message": {
             "text": "This result contains both a ruleId and a rule.id property, but they are different."
+          }
+        },
+        {
+          "ruleId": "TST0003",
+          "message": {
+            "text": "This result contains a ruleId property not described in the 'rules' section."
           }
         }
       ],

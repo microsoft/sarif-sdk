@@ -63,7 +63,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 13,
+                  "startLine": 21,
                   "startColumn": 9
                 }
               }
@@ -89,7 +89,31 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 18,
+                  "startLine": 26,
+                  "startColumn": 9
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1010",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_ResultMustSpecifyRuleId",
+            "arguments": [
+              "runs[0].results[2]"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 35,
                   "startColumn": 9
                 }
               }

@@ -26,6 +26,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         };
         public override FailureLevel DefaultLevel => FailureLevel.Error;
 
+        private List<string> ruleIds;
+        protected override void Analyze(Run run, string resultPointer)
+        {
+            this.ruleIds = GetRuleIds(run);
+        }
+
         protected override void Analyze(Result result, string resultPointer)
         {
             AnalyzeRuleId(result, resultPointer);
@@ -58,6 +64,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     result.RuleId,
                     result.Rule?.Id);
             }
+
+            // rules in file must contain the rule id
+           else if ((!string.IsNullOrWhiteSpace(result.RuleId) && !ruleIds.Contains(result.RuleId)) || (!string.IsNullOrWhiteSpace(result.Rule?.Id) && !ruleIds.Contains(result.Rule?.Id))) {
+                // TODO: update message text 
+                LogResult(
+                    pointer,
+                    nameof(RuleResources.SARIF1010_RuleIdMustBeConsistent_Error_ResultMustSpecifyRuleId_Text));
+            }
+        }
+
+        private List<string> GetRuleIds(Run run)
+        {
+            var ruleIds = new List<string>();
+
+            if (run.Tool?.Driver?.Rules != null)
+            {
+                foreach (ReportingDescriptor rule in run.Tool.Driver.Rules)
+                {
+                    ruleIds.Add(rule.Id);
+                }
+            }
+            return ruleIds;
         }
     }
 }
