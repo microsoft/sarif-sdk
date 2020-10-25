@@ -46,6 +46,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return PopulateTextRegionProperties(newLineIndex, inputRegion, fileText, populateSnippet);
         }
 
+        /// <inheritdoc/>
         public Region ConstructMultilineContextSnippet(Region inputRegion, Uri uri)
         {
             if (inputRegion == null || inputRegion.IsBinaryRegion)
