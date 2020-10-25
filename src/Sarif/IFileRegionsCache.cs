@@ -5,28 +5,51 @@ using System;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
+    /// <summary>
+    /// The interface to a cache that can be used to populate regions with comprehensive data,
+    /// to retrieve artifact text associated with a SARIF log, and to construct snippets for
+    /// <see cref="Region"/> instances.
+    /// </summary>
     public interface IFileRegionsCache
     {
         /// <summary>
-        /// Accepts a region, uri, and boolean and returns a Region object, based on the input
-        /// region property, that has all its properties populated. If an
-        /// input text region, for example, only specifies the startLine property, the returned
-        /// Region instance will have computed and populated other properties, such as charOffset,
-        /// charLength, etc.
+        /// Creates a <see cref="Region"/> object, based on an existing Region, in which all
+        /// text-related properties have been populated.
         /// </summary>
-        /// <param name="inputRegion">Input region to be based on.</param>
-        /// <param name="uri">Uri that will be used to get NewLineIndex from cache.</param>
-        /// <param name="populateSnippet">Boolean that indicates if the snipper will be populated.</param>
-        /// <returns>An instance of a Region class.</returns>
+        /// <remarks>
+        /// For example, if the input Region specifies only the StartLine property, the returned
+        /// Region instance will have computed and populated other text-related properties, such
+        /// as properties, such as CharOffset, CharLength, etc.
+        /// </remarks>
+        /// <param name="inputRegion">
+        /// Region object that forms the basis of the returned Region object.
+        /// </param>
+        /// <param name="uri">
+        /// URI of the artifact in which <paramref name="inputRegion"/> lies, used to retrieve
+        /// from the cache the location of each newline in the artifact.
+        /// </param>
+        /// <param name="populateSnippet">
+        /// Boolean that indicates if the region's Snippet property will be populated.
+        /// </param>
+        /// <returns>
+        /// A Region object whose text-related properties have been fully populated.
+        /// </returns>
         Region PopulateTextRegionProperties(Region inputRegion, Uri uri, bool populateSnippet);
 
         /// <summary>
-        /// An interface that can be used to create a context region around the specified region,
-        /// including a code snippet.
+        /// Creates a <see cref="Region"/> object, including a snippet, that can serve as a context
+        /// region for an existing Region object.
         /// </summary>
-        /// <param name="inputRegion">Input region to be based on.</param>
-        /// <param name="uri">Uri that will be used to get NewLineIndex from cache.</param>
-        /// <returns>"A context region around <param cref="inputRegion">.</returns>
+        /// <param name="inputRegion">
+        /// Region object for which a context region is desired.
+        /// </param>
+        /// <param name="uri">
+        /// URI of the artifact in which <paramref name="inputRegion"/> lies, used to retrieve
+        /// from the cache the artifact's text.
+        /// </param>
+        /// <returns>
+        /// A Region object representing a valid context region for <paramref name="inputRegion"/>.
+        /// </returns>
         Region ConstructMultilineContextSnippet(Region inputRegion, Uri uri);
     }
 }
