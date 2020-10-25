@@ -36,7 +36,6 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
         //                                   0123 4 5678 9 01234 5 6789 
         private const string SPEC_EXAMPLE = "abcd\r\nefg\r\nhijk\r\nlmn";
 
-
         // Breaking the lines for readability and per-line column details
         // 
         // Column: 123 4 5 6
@@ -287,7 +286,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
 
         private static readonly ReadOnlyCollection<TestCaseData> s_specExampleTestCases =
             new ReadOnlyCollection<TestCaseData>(new TestCaseData[]
-            {   
+            {
                 // Insertion point at beginning of an offset based text file
                 new TestCaseData(outputRegion : s_Insertion_Beginning_Of_OffsetBased_Text_File,
                     inputRegion: new Region() { CharOffset = 0}),
@@ -349,8 +348,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
 
         private static readonly ReadOnlyCollection<TestCaseData> s_newLineTestCases =
             new ReadOnlyCollection<TestCaseData>(new TestCaseData[]
-            { 
-                // 
+            {
                 // Sanity check sample with new line characters only
                 new TestCaseData(outputRegion: s_Complete_File_New_Lines_Only,
                     inputRegion: new Region() { CharOffset = 0, CharLength = 12 }),
@@ -360,7 +358,6 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
 
                 new TestCaseData(outputRegion: s_Complete_File_New_Lines_Only,
                     inputRegion: new Region() { StartLine = 1, EndLine = 4, CharOffset = 0, CharLength = 12 }),
-
 
                 new TestCaseData(outputRegion: s_Fragment_New_Lines_Only,
                     inputRegion: new Region() { CharOffset = 3, CharLength = 9 }),

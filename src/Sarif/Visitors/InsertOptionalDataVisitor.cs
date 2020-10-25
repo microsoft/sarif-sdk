@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         private GitHelper _gitHelper;
 
         private int _ruleIndex;
-        private FileRegionsCache _fileRegionsCache;
+        private IFileRegionsCache _fileRegionsCache;
         private readonly OptionallyEmittedData _dataToInsert;
         private readonly IDictionary<string, ArtifactLocation> _originalUriBaseIds;
 
@@ -50,7 +50,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             if (_originalUriBaseIds != null)
             {
-                _run.OriginalUriBaseIds = _run.OriginalUriBaseIds ?? new Dictionary<string, ArtifactLocation>();
+                _run.OriginalUriBaseIds ??= new Dictionary<string, ArtifactLocation>();
 
                 foreach (string key in _originalUriBaseIds.Keys)
                 {
@@ -98,7 +98,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 Region expandedRegion;
                 ArtifactLocation artifactLocation = node.ArtifactLocation;
 
-                _fileRegionsCache = _fileRegionsCache ?? new FileRegionsCache(_run);
+                _fileRegionsCache ??= new FileRegionsCache(_run);
 
                 if (artifactLocation.Uri == null && artifactLocation.Index >= 0)
                 {
