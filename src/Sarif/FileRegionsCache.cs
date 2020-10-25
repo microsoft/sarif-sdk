@@ -40,7 +40,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             _fileSystem = fileSystem ?? FileSystem.Instance;
 
             // Build a cache for this data, with the load method it should use to add new entries
-            _cache = new Cache<string, Tuple<string, NewLineIndex>>(BuildIndexForFile);
+            _cache = new Cache<string, Tuple<string, NewLineIndex>>(BuildIndexForFile, capacity);
         }
 
         /// <inheritdoc/>
