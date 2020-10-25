@@ -21,11 +21,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         Region PopulateTextRegionProperties(Region inputRegion, Uri uri, bool populateSnippet);
 
         /// <summary>
-        /// Construct new region based on input region and uri.
+        /// An interface that can be used to create a context region around the specified region,
+        /// including a code snippet.
         /// </summary>
         /// <param name="inputRegion">Input region to be based on.</param>
         /// <param name="uri">Uri that will be used to get NewLineIndex from cache.</param>
-        /// <returns>a new region instance</returns>
+        /// <returns>"A context region around <param cref="inputRegion">.</returns>
         Region ConstructMultilineContextSnippet(Region inputRegion, Uri uri);
     }
 }
