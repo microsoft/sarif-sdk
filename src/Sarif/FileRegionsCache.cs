@@ -32,16 +32,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             _cache = new Cache<string, Tuple<string, NewLineIndex>>(BuildIndexForFile);
         }
 
-        /// <summary>
-        /// Accepts a physical location and returns a Region object, based on the input
-        /// physicalLocation.region property, that has all its properties populated. If an
-        /// input text region, for example, only specifies the startLine property, the returned
-        /// Region instance will have computed and populated other properties, such as charOffset,
-        /// charLength, etc.
-        /// </summary>
-        /// <param name="physicalLocation">The physical location containing the region which should be populated.</param>
-        /// <param name="populateSnippet">Specifies whether the physicalLocation.region.snippet property should be populated.</param>
-        /// <returns></returns>
+        /// <inheritdoc/>
         public Region PopulateTextRegionProperties(Region inputRegion, Uri uri, bool populateSnippet)
         {
             if (inputRegion == null || inputRegion.IsBinaryRegion)
