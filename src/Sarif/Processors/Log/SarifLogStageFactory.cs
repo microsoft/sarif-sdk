@@ -1,5 +1,5 @@
-﻿// Copyright (c) Microsoft. All rights reserved. Licensed under the MIT        
-// license. See LICENSE file in the project root for full license information. 
+﻿// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
 using System.Collections.Generic;
@@ -27,20 +27,75 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
                         return visitor.VisitSarifLog(log);
                     });
                 }
+                case SarifLogAction.InsertOptionalData:
+                {
+                    return new GenericMappingAction<SarifLog>(log =>
+                    {
+                        bool optionalDataArgValid = Enum.TryParse(args[0], out OptionallyEmittedData optionalData);
+                        Debug.Assert(optionalDataArgValid);
+
+                        if (optionalData != 0)
+                        {
+                            var visitor = new InsertOptionalDataVisitor(optionalData);
+                            return visitor.VisitSarifLog(log);
+                        }
+                        return log;
+                    });
+                }
+                case SarifLogAction.RemoveOptionalData:
+                {
+                    return new GenericMappingAction<SarifLog>(log =>
+                    {
+                        bool optionalDataArgValid = Enum.TryParse(args[0], out OptionallyEmittedData optionalData);
+                        Debug.Assert(optionalDataArgValid);
+
+                        if (optionalData != 0)
+                        {
+                            var visitor = new InsertOptionalDataVisitor(optionalData);
+                            return visitor.VisitSarifLog(log);
+                        }
+                        return log;
+                    });
+                }
                 case SarifLogAction.RebaseUri:
                 {
                     return new GenericMappingAction<SarifLog>(log =>
                     {
-                        bool castRelativeUrisArg = bool.TryParse(args[1], out bool rebaseRelativeUris);
-                        Debug.Assert(castRelativeUrisArg);
+                        bool rebaseRelativeUrisValid = bool.TryParse(args[1], out bool rebaseRelativeUris);
+                        Debug.Assert(rebaseRelativeUrisValid);
 
-                        RebaseUriVisitor visitor = new RebaseUriVisitor(args[0], new Uri(args[2]), rebaseRelativeUris);
+                        var visitor = new RebaseUriVisitor(args[0], new Uri(args[2]), rebaseRelativeUris);
                         return visitor.VisitSarifLog(log);
                     });
                 }
                 case SarifLogAction.Merge:
                 {
-                    return new GenericFoldAction<SarifLog>(mergeFunction);
+                    bool mergeEmptyLogsArgValid = bool.TryParse(args.Length == 0 ? "true" : args[0], out bool mergeEmptyLogs);
+                    Debug.Assert(mergeEmptyLogsArgValid);
+
+                    return new GenericFoldAction<SarifLog>((accumulator, nextLog) =>
+                    {
+                        if (nextLog.Runs == null)
+                        {
+                            return accumulator;
+                        }
+
+                        if (accumulator.Runs == null)
+                        {
+                            accumulator.Runs = new List<Run>();
+                        }
+
+                        foreach (Run run in nextLog.Runs)
+                        {
+                            if (run != null &&
+                                (mergeEmptyLogs || run?.Results.Count > 0))
+                            {
+                                accumulator.Runs.Add(run);
+                            }
+                        }
+
+                        return accumulator;
+                    });
                 }
                 case SarifLogAction.Sort:
                 {
@@ -54,29 +109,5 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
                     throw new ArgumentException($"Unknown/Not Supported Action {action}.", nameof(action));
             }
         }
-
-        private readonly static Func<SarifLog, SarifLog, SarifLog> mergeFunction =
-            (accumulator, nextLog) =>
-            {
-                if (nextLog.Runs == null)
-                {
-                    return accumulator;
-                }
-
-                if (accumulator.Runs == null)
-                {
-                    accumulator.Runs = new List<Run>();
-                }
-
-                foreach (Run run in nextLog.Runs)
-                {
-                    if (run != null)
-                    {
-                        accumulator.Runs.Add(run);
-                    }
-                }
-
-                return accumulator;
-            };
     }
 }

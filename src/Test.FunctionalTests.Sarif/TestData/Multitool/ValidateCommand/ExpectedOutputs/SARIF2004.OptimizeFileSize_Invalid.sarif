@@ -1,0 +1,198 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "SARIF Functional Testing",
+          "rules": [
+            {
+              "id": "SARIF2004",
+              "name": "OptimizeFileSize",
+              "shortDescription": {
+                "text": "Emit arrays only if they provide additional information."
+              },
+              "fullDescription": {
+                "text": "Emit arrays only if they provide additional information.\r\n\r\nIn several parts of a SARIF log file, a subset of information about an object appears in one place, and the full information describing all such objects appears in an array elsewhere in the log file. For example, each 'result' object has a 'ruleId' property that identifies the rule that was violated. Elsewhere in the log file, the array 'run.tool.driver.rules' contains additional information about the rules. But if the elements of the 'rules' array contained no information about the rules beyond their ids, then there might be no reason to include the 'rules' array at all, and the log file could be made smaller simply by omitting it. In some scenarios (for example, when assessing compliance with policy), the 'rules' array might be used to record the full set of rules that were evaluated. In such a scenario, the 'rules' array should be retained even if it contains only id information.\r\n\r\nSimilarly, most 'result' objects contain at least one 'artifactLocation' object. Elsewhere in the log file, the array 'run.artifacts' contains additional information about the artifacts that were analyzed. But if the elements of the 'artifacts' array contained not information about the artifacts beyond their locations, then there might be no reason to include the 'artifacts' array at all, and again the log file could be made smaller by omitting it. In some scenarios (for example, when assessing compliance with policy), the 'artifacts' array might be used to record the full set of artifacts that were analyzed. In such a scenario, the 'artifacts' array should be retained even if it contains only location information.\r\n\r\nIn addition to the avoiding unnecessary arrays, there are other ways to optimize the size of SARIF log files.\r\n\r\nPrefer the result object properties 'ruleId' and 'ruleIndex' to the nested object-valued property 'result.rule', unless the rule comes from a tool component other than the driver (in which case only 'result.rule' can accurately point to the metadata for the rule). The 'ruleId' and 'ruleIndex' properties are shorter and just as clear.\r\n\r\nDo not specify the result object's 'analysisTarget' property unless it differs from the result location. The canonical scenario for using 'result.analysisTarget' is a C/C++ language analyzer that is instructed to analyze example.c, and detects a result in the included file example.h. In this case, 'analysisTarget' is example.c, and the result location is in example.h."
+              },
+              "messageStrings": {
+                "Warning_AvoidDuplicativeAnalysisTarget": {
+                  "text": "The 'analysisTarget' property '{1}' at '{0}' can be removed because it is the same as the result location. This unnecessarily increases log file size. The 'analysisTarget' property is used to distinguish cases when a tool detects a result in a file (such as an included header) that is different than the file that was scanned (such as a .cpp file that included the header)."
+                },
+                "Warning_AvoidDuplicativeResultRuleInformation": {
+                  "text": "'{0}' uses the 'rule' property to specify the violated rule, so it is not necessary also to specify 'ruleId' or 'ruleIndex'. This unnecessarily increases log file size. Remove the 'ruleId' and 'ruleIndex' properties."
+                },
+                "Warning_EliminateLocationOnlyArtifacts": {
+                  "text": "The 'artifacts' array at '{0}' contains no information beyond the locations of the artifacts. Removing this array might reduce the log file size without losing information. In some scenarios (for example, when assessing compliance with policy), the 'artifacts' array might be used to record the full set of artifacts that were analyzed. In such a scenario, the 'artifacts' array should be retained even if it contains only location information."
+                },
+                "Warning_EliminateIdOnlyRules": {
+                  "text": "The 'rules' array at '{0}' contains no information beyond the ids of the rules. Removing this array might reduce the log file size without losing information. In some scenarios (for example, when assessing compliance with policy), the 'rules' array might be used to record the full set of rules that were evaluated. In such a scenario, the 'rules' array should be retained even if it contains only id information."
+                },
+                "Warning_PreferRuleId": {
+                  "text": "The result at '{0}' uses the 'rule' property to specify the violated rule, but this is not necessary because the rule is defined by 'tool.driver'. Use the 'ruleId' and 'ruleIndex' instead, because they are shorter and just as clear."
+                }
+              },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+            }
+          ]
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF2004.OptimizeFileSize_Invalid.sarif",
+            "uriBaseId": "TEST_DIR"
+          }
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "SARIF2004",
+          "ruleIndex": 0,
+          "message": {
+            "id": "Warning_EliminateLocationOnlyArtifacts",
+            "arguments": [
+              "runs[0].artifacts"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 18,
+                  "startColumn": 20
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF2004",
+          "ruleIndex": 0,
+          "message": {
+            "id": "Warning_EliminateIdOnlyRules",
+            "arguments": [
+              "runs[0].tool.driver.rules"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 11,
+                  "startColumn": 20
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF2004",
+          "ruleIndex": 0,
+          "message": {
+            "id": "Warning_AvoidDuplicativeAnalysisTarget",
+            "arguments": [
+              "runs[0].results[1].analysisTarget",
+              "local/test/code/src/file1.c"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 56,
+                  "startColumn": 29
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF2004",
+          "ruleIndex": 0,
+          "message": {
+            "id": "Warning_PreferRuleId",
+            "arguments": [
+              "runs[0].results[2]"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 69,
+                  "startColumn": 9
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF2004",
+          "ruleIndex": 0,
+          "message": {
+            "id": "Warning_AvoidDuplicativeResultRuleInformation",
+            "arguments": [
+              "runs[0].results[3]"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 81,
+                  "startColumn": 9
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF2004",
+          "ruleIndex": 0,
+          "message": {
+            "id": "Warning_PreferRuleId",
+            "arguments": [
+              "runs[0].results[4]"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 94,
+                  "startColumn": 9
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}

@@ -1,0 +1,255 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "SARIF Functional Testing",
+          "version": "1.0",
+          "notifications": [
+            {
+              "id": "CNOT0001"
+            },
+            {
+              "id": "ENOT0001"
+            }
+          ],
+          "rules": [
+            {
+              "id": "TST0001",
+              "relationships": [
+                {
+                  "target": {
+                    "index": 2
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "extensions": [
+          {
+            "name": "AnExtension",
+            "associatedComponent": {
+              "index": 2
+            }
+          },
+          {
+            "name": "AnotherExtension",
+            "notifications": [
+              {
+                "id": "EXTN0001"
+              }
+            ],
+            "rules": [
+              {
+                "id": "EXTR0001"
+              }
+            ],
+            "taxa": [
+              {
+                "id": "EXTT0001"
+              }
+            ]
+          }
+        ]
+      },
+      "invocations": [
+        {
+          "ruleConfigurationOverrides": [
+            {
+              "configuration": {
+                "enabled": false
+              },
+              "descriptor": {
+                "index": 2
+              }
+            }
+          ],
+          "notificationConfigurationOverrides": [
+            {
+              "configuration": {
+                "enabled": false
+              },
+              "descriptor": {
+                "index": 2
+              }
+            }
+          ],
+          "toolExecutionNotifications": [
+            {
+              "message": {
+                "text": "Tool execution notification 1."
+              },
+              "descriptor": {
+                "id": "ENOT0001",
+                "index": 1
+              }
+            },
+            {
+              "message": {
+                "text": "Tool execution notification 2."
+              },
+              "descriptor": {
+                "id": "ENOT0002",
+                "index": 2
+              },
+              "associatedRule": {
+                "index": 1
+              }
+            }
+          ],
+          "toolConfigurationNotifications": [
+            {
+              "message": {
+                "text": "Tool configuration notification 1."
+              },
+              "descriptor": {
+                "id": "CNOT0001",
+                "index": 0
+              }
+            },
+            {
+              "message": {
+                "text": "Tool configuration notification 2."
+              },
+              "descriptor": {
+                "id": "CNOT0002",
+                "index": 3
+              },
+              "associatedRule": {
+                "index": 1
+              }
+            }
+          ],
+          "executionSuccessful": false
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "io/kb.c"
+          },
+          "parentIndex": 4
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "TST0004",
+          "ruleIndex": 3,
+          "rule": {
+            "id": "TST0004",
+            "index": 3
+          },
+          "message": {
+            "text": "LogicalLocations is absent. Artifacts is present but index is out of range."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "address": {
+                  "index": 1
+                },
+                "artifactLocation": {
+                  "index": 2
+                }
+              },
+              "logicalLocations": [
+                {
+                  "index": 0,
+                  "parentIndex": 1
+                }
+              ]
+            }
+          ],
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "index": 0,
+                      "taxa": [
+                        {
+                          "index": 3
+                        }
+                      ],
+                      "webRequest": {
+                        "index": 0
+                      },
+                      "webResponse": {
+                        "index": 0
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "graphs": [
+            {
+              "nodes": [],
+              "edges": []
+            }
+          ],
+          "graphTraversals": [
+            {
+              "resultGraphIndex": 1,
+              "edgeTraversals": []
+            },
+            {
+              "runGraphIndex": 0,
+              "edgeTraversals": []
+            }
+          ],
+          "provenance": {
+            "invocationIndex": 42
+          },
+          "taxa": [
+            {
+              "index": 2
+            }
+          ],
+          "webRequest": {
+            "index": 0
+          },
+          "webResponse": {
+            "index": 0
+          }
+        },
+        {
+          "rule": {
+            "id": "EXTR0002",
+            "index": 1,
+            "toolComponent": {
+              "index": 0
+            }
+          },
+          "message": {
+            "text": "Message from extension."
+          }
+        },
+        {
+          "rule": {
+            "id": "EXTR1001",
+            "index": 1,
+            "toolComponent": {
+              "index": 2
+            }
+          },
+          "message": {
+            "text": "Message from missing extension."
+          }
+        }
+      ],
+      "columnKind": "utf16CodeUnits",
+      "addresses": [
+        {
+          "absoluteAddress": 1024,
+          "parentIndex": 1
+        }
+      ]
+    }
+  ]
+}

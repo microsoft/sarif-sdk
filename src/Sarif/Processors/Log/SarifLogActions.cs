@@ -1,5 +1,5 @@
-﻿// Copyright (c) Microsoft. All rights reserved. Licensed under the MIT        
-// license. See LICENSE file in the project root for full license information. 
+﻿// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 namespace Microsoft.CodeAnalysis.Sarif.Processors
 {
@@ -7,11 +7,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
     public enum SarifLogAction
     {
         None = 0,
+        Sort, // NOT_IMPL
+        Merge,
         RebaseUri,
         MakeUrisAbsolute,
-        Merge,
-        // Future work...
-        Sort,
-        MakeDeterministic,
+        MakeDeterministic, // NOT_IMPL
+        InsertOptionalData,
+        RemoveOptionalData,
     }
 }

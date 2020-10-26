@@ -1,0 +1,71 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "Code Analyser",
+          "version": "1.2.3",
+          "rules": [
+            {
+              "id": "TEST1001",
+              "name": "a test violation."
+            }
+          ]
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "local/test/code/src/file1.cs",
+            "uriBaseId": "TEST_DIR"
+          }
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "TEST1001",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": { "text": "Good result: artifacts array provides additional useful information." },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 2,
+                  "startColumn": 53
+                }
+              }
+            }
+          ]
+        },
+        {
+          "rule": {
+            "id": "TEST1001",
+            "toolComponent": {
+              "name": "Plugin01",
+              "index": 1
+            }
+          },
+          "message": { "text": "Good result: rule contains toolComponent." }
+        },
+        {
+          "ruleId": "TEST1001",
+          "ruleIndex": 0,
+          "locations": [
+            {
+              "physicalLocation": { "artifactLocation": { "uri": "file:///c:/local/test/code/src/file1.h" } }
+            }
+          ],
+          "analysisTarget": { "uri": "file:///c:/local/test/code/src/file1.c" },
+          "message": { "text": "Good result: analysisTarget is different from artifactLocation." }
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}

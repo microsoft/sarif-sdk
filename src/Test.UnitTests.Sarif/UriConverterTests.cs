@@ -6,11 +6,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
+
 using FluentAssertions;
+
 using Microsoft.CodeAnalysis.Sarif;
+
 using Newtonsoft.Json;
+
 using Xunit;
-using Xunit.Sdk;
 
 namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif
 {
@@ -37,6 +40,10 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif
             [DataMember(Name = "nonEmptyUriList", IsRequired = false, EmitDefaultValue = false)]
             [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.UriConverter))]
             public IList<Uri> NonEmptyUriList { get; set; }
+
+            [DataMember(Name = "fileSchemeUri", IsRequired = false, EmitDefaultValue = false)]
+            [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.UriConverter))]
+            public Uri FileSchemeUri { get; set; }
         }
 
         private class SingleUri
@@ -58,6 +65,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif
             testObject.NonEmptyUriList.Select(uri => uri.OriginalString).Should().ContainInOrder(
                 "https://www.example.com/page1",
                 "https://www.example.com/page2");
+            testObject.FileSchemeUri.OriginalString.Should().Be("file:///C:/test/file.c");
         }
 
         [Fact]
@@ -73,7 +81,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif
                 {
                     new Uri("https://www.example.com/page1"),
                     new Uri("https://www.example.com/page2")
-                }
+                },
+                FileSchemeUri = new Uri(@"C:\test\file.c")
             };
 
             var settings = new JsonSerializerSettings

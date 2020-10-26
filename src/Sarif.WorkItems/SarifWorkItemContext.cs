@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+
 using Microsoft.WorkItems;
 
 namespace Microsoft.CodeAnalysis.Sarif.WorkItems
@@ -30,8 +31,9 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
         public string DescriptionFooter
         {
-            get {
-                return 
+            get
+            {
+                return
                     CurrentProvider == FilingClient.SourceControlProvider.AzureDevOps
                         ? AzureDevOpsDescriptionFooter
                         : GitHubDescriptionFooter;

@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         /// Helper function that accepts a single baseline and current SARIF log and matches them.
         /// </summary>
         /// <param name="previousLog">Array of SARIF logs representing the baseline run</param>
-        /// <param name="currentLogs">Array of SARIF logs representing the current run</param>
+        /// <param name="currentLog">Array of SARIF logs representing the current run</param>
         /// <returns>A SARIF log with the merged set of results.</returns>
         public SarifLog Match(SarifLog previousLog, SarifLog currentLog)
         {
@@ -78,7 +78,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 resultToolLogs.Add(BaselineSarifLogs(baselineRuns, currentRuns));
             }
 
-            return new List<SarifLog> { resultToolLogs.Merge() };
+            return new List<SarifLog> { resultToolLogs.Merge(mergeEmptyLogs: true) };
         }
 
         private static Dictionary<string, List<Run>> GetRunsByTool(IEnumerable<SarifLog> sarifLogs)
@@ -231,13 +231,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             }
 
             var visitor = new RunMergingVisitor();
-            
+
             foreach (MatchedResults resultPair in results)
             {
                 Result result = resultPair.CalculateBasedlinedResult(PropertyBagMergeBehavior);
-                Run contextRun = (result.BaselineState == BaselineState.Unchanged || result.BaselineState == BaselineState.Updated) ? resultPair.PreviousResult.OriginalRun : resultPair.Run;
 
-                visitor.CurrentRun = contextRun;
+                visitor.CurrentRun = result.Run;
                 visitor.VisitResult(result);
             }
 
@@ -255,7 +254,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 // Find the 'oldest' log file and initialize properties from that log property bag.
                 properties = currentRuns.Last().Properties;
             }
-            
+
             properties ??= new Dictionary<string, SerializedPropertyInfo>();
 
             var graphs = new List<Graph>();

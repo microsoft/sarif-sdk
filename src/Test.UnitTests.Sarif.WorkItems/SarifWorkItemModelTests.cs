@@ -2,8 +2,10 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using FluentAssertions;
+
 using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
 using Microsoft.WorkItems;
+
 using Xunit;
 
 

@@ -1,0 +1,146 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "SARIF Functional Testing",
+          "rules": [
+            {
+              "id": "SARIF2007",
+              "name": "ExpressPathsRelativeToRepoRoot",
+              "shortDescription": {
+                "text": "Provide information that makes it possible to determine the repo-relative locations of files that contain analysis results."
+              },
+              "fullDescription": {
+                "text": "Provide information that makes it possible to determine the repo-relative locations of files that contain analysis results.\r\n\r\nEach element of the 'versionControlProvenance' array is a 'versionControlDetails' object that describes a repository containing files that were analyzed. 'versionControlDetails.mappedTo' defines the file system location to which the root of that repository is mapped. If 'mappedTo.uriBaseId' is present, and if result locations are expressed relative to that 'uriBaseId', then the repo-relative location of each result can be determined."
+              },
+              "messageStrings": {
+                "Warning_ExpressResultLocationsRelativeToMappedTo": {
+                  "text": "{0}: This result location does not provide any of the 'uriBaseId' values that specify repository locations: '{1}'. As a result, it will not be possible to determine the location of the file containing this result relative to the root of the repository that contains it."
+                },
+                "Warning_ProvideUriBaseIdForMappedTo": {
+                  "text": "{0}: The 'versionControlDetails' object that describes the repository '{1}' does not provide 'mappedTo.uriBaseId'. As a result, it will not be possible to determine the repo-relative location of files containing analysis results for this repository."
+                }
+              },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+            }
+          ]
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF2007.ExpressPathsRelativeToRepoRoot_Invalid.sarif",
+            "uriBaseId": "TEST_DIR"
+          }
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "SARIF2007",
+          "ruleIndex": 0,
+          "message": {
+            "id": "Warning_ProvideUriBaseIdForMappedTo",
+            "arguments": [
+              "runs[0].versionControlProvenance[1]",
+              "https://example.com/microsoft/repo2/"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 33,
+                  "startColumn": 9
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF2007",
+          "ruleIndex": 0,
+          "message": {
+            "id": "Warning_ProvideUriBaseIdForMappedTo",
+            "arguments": [
+              "runs[0].versionControlProvenance[2]",
+              "https://example.com/microsoft/repo3/"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 39,
+                  "startColumn": 9
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF2007",
+          "ruleIndex": 0,
+          "message": {
+            "id": "Warning_ExpressResultLocationsRelativeToMappedTo",
+            "arguments": [
+              "runs[0].results[0].locations[1].physicalLocation.artifactLocation",
+              "PROJECT_ROOT, OTHER_ROOT"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 83,
+                  "startColumn": 37
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF2007",
+          "ruleIndex": 0,
+          "message": {
+            "id": "Warning_ExpressResultLocationsRelativeToMappedTo",
+            "arguments": [
+              "runs[0].results[0].locations[2].physicalLocation.artifactLocation",
+              "PROJECT_ROOT, OTHER_ROOT"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 91,
+                  "startColumn": 37
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}

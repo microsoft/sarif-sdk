@@ -28,6 +28,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         PerResult,
 
         /// <summary>
+        /// Split SARIF log files into a single log for each rule. 
+        /// I.e., the total number of log files created is the sum of distinct rules across all logs.
+        /// </summary>
+        PerRule,
+
+        /// <summary>
         /// A grouping strategy that splits SARIF log files into a single log per run, per rule.
         /// I.e., the total number of log files created is the sum of the unique rules in each run.
         /// </summary>

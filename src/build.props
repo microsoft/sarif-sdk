@@ -4,6 +4,7 @@
   <PropertyGroup>
     <TargetFrameworks>netcoreapp2.1</TargetFrameworks>
     <LangVersion>8.0</LangVersion>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
 
     <!-- BSOA Version Referenced; used by projects consuming package and generator logic -->
     <BsoaVersion>0.6.0</BsoaVersion>
@@ -23,8 +24,8 @@
     having all the relevant values in one place. This property is actually used by the PowerShell
     script that hides ("delists") the previous package versions on nuget.org.
     -->
-    <VersionPrefix>3.0.0-prototype</VersionPrefix>
-    <PreviousVersionPrefix>2.3.1</PreviousVersionPrefix>
+    <VersionPrefix>3.0.1-prototype</VersionPrefix>
+    <PreviousVersionPrefix>2.3.7</PreviousVersionPrefix>
 
      <!-- SchemaVersionAsPublishedToSchemaStoreOrg identifies the current published version on json schema store at https://schemastore.azurewebsites.net/schemas/json/ -->
     <SchemaVersionAsPublishedToSchemaStoreOrg>2.1.0-rtm.5</SchemaVersionAsPublishedToSchemaStoreOrg>

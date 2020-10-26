@@ -1,5 +1,5 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.using System;
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
 using System.Collections;
@@ -11,10 +11,35 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml;
 
+using Microsoft.CodeAnalysis.Sarif.Visitors;
+
 namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class ExtensionMethods
     {
+        public static IEnumerable<SarifLog> Split(this SarifLog sarifLog, SplittingStrategy splittingStrategy)
+        {
+            PartitionFunction<string> partitionFunction = null;
+
+            switch (splittingStrategy)
+            {
+                case SplittingStrategy.PerResult:
+                {
+                    partitionFunction = (result) => result.RuleId;
+                    break;
+                }
+                default:
+                {
+                    throw new NotImplementedException($"SplittingStrategy: {splittingStrategy}");
+                }
+            }
+
+            var partitioningVisitor = new PartitioningVisitor<string>(partitionFunction, deepClone: false);
+            partitioningVisitor.VisitSarifLog(sarifLog);
+
+            return partitioningVisitor.GetPartitionLogs().Values;
+        }
+
         public static IDictionary<string, MultiformatMessageString> ConvertToMultiformatMessageStringsDictionary(this IDictionary<string, string> v1MessageStringsDictionary)
         {
             return v1MessageStringsDictionary?.ToDictionary(
@@ -288,7 +313,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return GetMessageText(result, rule, concise: false);
         }
 
-        public static string GetMessageText(this Result result, ReportingDescriptor rule, bool concise = false)
+        public static string GetMessageText(this Result result, ReportingDescriptor rule, bool concise = false, int maxLength = 120)
         {
             if (result == null)
             {
@@ -333,6 +358,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (concise)
             {
                 text = GetFirstSentence(text);
+                if (text.Length > maxLength)
+                {
+                    text = text.Substring(0, maxLength) + "\u2026"; // \u2026 is Unicode "horizontal ellipsis".
+                }
             }
 
             return text;
@@ -340,19 +369,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         internal static string GetFormattedMessage(string formatString, string[] arguments)
         {
-            string formattedMessage = null;
-
-#if DEBUG
-            int argumentsCount = arguments.Length;
-            for (int i = 0; i < argumentsCount; i++)
-            {
-                // If this assert fires, there are too many arguments for the specifier
-                // or there is an argument is skipped or not consumed in the specifier
-                Debug.Assert(formatString.Contains("{" + i.ToString(CultureInfo.InvariantCulture) + "}"));
-            }
-#endif
-
-            formattedMessage = string.Format(CultureInfo.InvariantCulture, formatString, arguments);
+            string formattedMessage = string.Format(CultureInfo.InvariantCulture, formatString, arguments);
 
             return formattedMessage ?? string.Empty;
         }
@@ -422,6 +439,39 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Merge this property bag with another one, preferring the properties in this property
+        /// bag if there are any duplicates.
+        /// </summary>
+        /// <param name="propertyBag">
+        /// The property bag into which <paramref name="otherPropertyBag"/> is to be merged.
+        /// </param>
+        /// <param name="otherPropertyBag">
+        /// A property bag containing properties to merge into <paramref name="propertyBag"/>.
+        /// </param>
+        /// <typeparam name="T">
+        /// The type of object in the property bag. For SARIF property bags, the type will
+        /// be <see cref="SerializedPropertyInfo"/>.
+        /// </typeparam>
+        /// <returns>
+        /// The original <paramref name="propertyBag"/> object, into which the properties
+        /// from <paramref name="otherPropertyBag"/> have now been merged.
+        /// </returns>
+        public static IDictionary<string, T> MergePreferFirst<T>(
+            this IDictionary<string, T> propertyBag,
+            IDictionary<string, T> otherPropertyBag)
+        {
+            foreach (string key in otherPropertyBag.Keys)
+            {
+                if (!propertyBag.ContainsKey(key))
+                {
+                    propertyBag[key] = otherPropertyBag[key];
+                }
+            }
+
+            return propertyBag;
         }
 
         /// <summary>Checks if a character is a newline.</summary>

@@ -1,0 +1,150 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "SARIF Functional Testing",
+          "rules": [
+            {
+              "id": "SARIF2006",
+              "name": "UrisShouldBeReachable",
+              "shortDescription": {
+                "text": "URIs that refer to locations such as rule help pages and result-related work items should be reachable via an HTTP GET request."
+              },
+              "fullDescription": {
+                "text": "URIs that refer to locations such as rule help pages and result-related work items should be reachable via an HTTP GET request."
+              },
+              "messageStrings": {
+                "Note_Default": {
+                  "text": "{0}: The URI '{1}' was not reachable via an HTTP GET request."
+                }
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+            }
+          ]
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF2006.UrisShouldBeReachable_Invalid.sarif",
+            "uriBaseId": "TEST_DIR"
+          }
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "SARIF2006",
+          "ruleIndex": 0,
+          "level": "note",
+          "message": {
+            "id": "Note_Default",
+            "arguments": [
+              "runs[0].results[0].workItemUris[0]",
+              "https://example.com/my-project/issues/42"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 33,
+                  "startColumn": 54
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF2006",
+          "ruleIndex": 0,
+          "level": "note",
+          "message": {
+            "id": "Note_Default",
+            "arguments": [
+              "runs[0].tool.driver.downloadUri",
+              "http://www.example.com/tools/codescanner/download.html"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 10,
+                  "startColumn": 81
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF2006",
+          "ruleIndex": 0,
+          "level": "note",
+          "message": {
+            "id": "Note_Default",
+            "arguments": [
+              "runs[0].tool.driver.rules[0].helpUri",
+              "http://www.example.com/rules/tst0001.html"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 14,
+                  "startColumn": 68
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF2006",
+          "ruleIndex": 0,
+          "level": "note",
+          "message": {
+            "id": "Note_Default",
+            "arguments": [
+              "runs[0].versionControlProvenance[0].repositoryUri",
+              "https://example.com/my-project"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 21,
+                  "startColumn": 59
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}

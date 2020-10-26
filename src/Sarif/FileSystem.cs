@@ -17,6 +17,8 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// </remarks>
     public class FileSystem : IFileSystem
     {
+        public static readonly FileSystem Instance = new FileSystem();
+
         /// <summary>
         /// Determines whether the given path refers to an existing directory on disk.
         /// </summary>
@@ -221,7 +223,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         /// <param name="path">File System path of file to open</param>
         /// <returns>Stream to write file</returns>
-        public Stream Create(string path)
+        public Stream FileCreate(string path)
         {
             return File.Create(path);
         }
@@ -251,7 +253,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// An object that represents the directory at the specified path. This object is
         /// returned regardless of whether a directory at the specified path already exists.
         /// </returns>  
-        public DirectoryInfo CreateDirectory(string path)
+        public DirectoryInfo DirectoryCreate(string path)
         {
             return Directory.CreateDirectory(path);
         }
@@ -262,9 +264,20 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="path">
         /// The name of the empty directory to remove. This directory must be writable and empty.
         /// </param>
-        public void DeleteDirectory(string path, bool recursive = false)
+        public void DirectoryDelete(string path, bool recursive = false)
         {
             Directory.Delete(path, recursive);
+        }
+
+        /// <summary>
+        /// Deletes the specified file.
+        /// </summary>
+        /// <param name="path">
+        /// The name of the file to be deleted. Wildcard characters are not supported.
+        /// </param>
+        public void FileDelete(string path)
+        {
+            File.Delete(path);
         }
     }
 }

@@ -11,7 +11,9 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
+
 using Microsoft.CodeAnalysis.Sarif.Writers;
+
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 

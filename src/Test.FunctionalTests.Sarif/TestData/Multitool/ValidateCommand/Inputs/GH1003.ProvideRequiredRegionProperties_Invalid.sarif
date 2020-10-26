@@ -1,0 +1,63 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "Sarif Functional Testing",
+          "version": "1.0"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "TEST1001",
+          "message": {
+            "text": "Locations with missing region properties."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file.cs"
+                },
+                "properties": {
+                  "comment": "Location with no region."
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file.cs"
+                },
+                "region": {
+                  "charOffset": 12,
+                  "charLength": 42
+                }
+              },
+              "properties": {
+                "comment": "Location specified by charOffset/Length."
+              }
+            },
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file.cs"
+                },
+                "region": {
+                  "byteOffset": 24,
+                  "byteLength": 84
+                },
+                "properties": {
+                  "comment": "Location with binary region."
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}

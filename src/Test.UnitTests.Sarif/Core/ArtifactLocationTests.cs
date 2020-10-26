@@ -3,14 +3,20 @@
 
 using System;
 using System.Collections.Generic;
+
 using FluentAssertions;
+
 using Microsoft.CodeAnalysis.Sarif;
+
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
 {
     public class ArtifactLocationTests
     {
+        private const string ProjectRootBaseId = "PROJECT_ROOT";
+        private const string SourceRootBaseId = "SOURCE_ROOT";
+
         [Fact]
         public void TryReconstructAbsoluteUri_WhenInputUriIsNull_ReturnsFalse()
         {
@@ -42,12 +48,12 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             var artifactLocation = new ArtifactLocation
             {
                 Uri = new Uri("README.md", UriKind.Relative),
-                UriBaseId = "PROJECT_ROOT"
+                UriBaseId = ProjectRootBaseId
             };
 
             var originalUriBaseIds = new Dictionary<string, ArtifactLocation>
             {
-                ["PROJECT_ROOT"] = new ArtifactLocation
+                [ProjectRootBaseId] = new ArtifactLocation
                 {
                     Uri = new Uri("file://c:/code/sarif-sdk/", UriKind.Absolute)
                 }
@@ -65,20 +71,20 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             var artifactLocation = new ArtifactLocation
             {
                 Uri = new Uri("Sarif/CopyrightNotice.txt", UriKind.Relative),
-                UriBaseId = "SOURCE_ROOT"
+                UriBaseId = SourceRootBaseId
             };
 
             var originalUriBaseIds = new Dictionary<string, ArtifactLocation>
             {
-                ["PROJECT_ROOT"] = new ArtifactLocation
+                [ProjectRootBaseId] = new ArtifactLocation
                 {
                     Uri = new Uri("file://c:/code/sarif-sdk/", UriKind.Absolute)
                 },
 
-                ["SOURCE_ROOT"] = new ArtifactLocation
+                [SourceRootBaseId] = new ArtifactLocation
                 {
                     Uri = new Uri("src/", UriKind.Relative),
-                    UriBaseId = "PROJECT_ROOT"
+                    UriBaseId = ProjectRootBaseId
                 }
             };
 
@@ -94,15 +100,15 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             var artifactLocation = new ArtifactLocation
             {
                 Uri = new Uri("Sarif/CopyrightNotice.txt", UriKind.Relative),
-                UriBaseId = "SOURCE_ROOT"
+                UriBaseId = SourceRootBaseId
             };
 
             var originalUriBaseIds = new Dictionary<string, ArtifactLocation>
             {
-                ["SOURCE_ROOT"] = new ArtifactLocation
+                [SourceRootBaseId] = new ArtifactLocation
                 {
                     Uri = new Uri("src/", UriKind.Relative),
-                    UriBaseId = "PROJECT_ROOT" // But originalUriBaseIds["PROJECT_ROOT"] is absent.
+                    UriBaseId = ProjectRootBaseId // But originalUriBaseIds[ProjectRootBaseId] is absent.
                 }
             };
 
@@ -117,12 +123,12 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             var artifactLocation = new ArtifactLocation
             {
                 Uri = new Uri("Sarif/CopyrightNotice.txt", UriKind.Relative),
-                UriBaseId = "SOURCE_ROOT"
+                UriBaseId = SourceRootBaseId
             };
 
             var originalUriBaseIds = new Dictionary<string, ArtifactLocation>
             {
-                ["PROJECT_ROOT"] = new ArtifactLocation
+                [ProjectRootBaseId] = new ArtifactLocation
                 {
                     Description = new Message
                     {
@@ -131,16 +137,65 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
                     // But Uri is absent.
                 },
 
-                ["SOURCE_ROOT"] = new ArtifactLocation
+                [SourceRootBaseId] = new ArtifactLocation
                 {
                     Uri = new Uri("src/", UriKind.Relative),
-                    UriBaseId = "PROJECT_ROOT" // But originalUriBaseIds["PROJECT_ROOT"] is absent.
+                    UriBaseId = ProjectRootBaseId // But originalUriBaseIds[ProjectRootBaseId] is absent.
                 }
             };
 
             bool wasResolved = artifactLocation.TryReconstructAbsoluteUri(originalUriBaseIds, out Uri resolvedUri);
 
             wasResolved.Should().BeFalse();
+        }
+
+        [Fact]
+        public void TryReconstructAbsoluteUri_WhenBaseUriDoesNotEndWithSlash_EnsuresSlashIsPresent()
+        {
+            var artifactLocation = new ArtifactLocation
+            {
+                Uri = new Uri("src/Sarif/CopyrightNotice.txt", UriKind.Relative),
+                UriBaseId = ProjectRootBaseId
+            };
+
+            var originalUriBaseIds = new Dictionary<string, ArtifactLocation>
+            {
+                [ProjectRootBaseId] = new ArtifactLocation
+                {
+                    // It's invalid SARIF for a base URI not to end with a slash, but we shouldn't
+                    // fail to resolve a URI just because some tool didn't do that.
+                    Uri = new Uri("file://c:/code/sarif-sdk"),
+                    UriBaseId = ProjectRootBaseId
+                }
+            };
+
+            bool wasResolved = artifactLocation.TryReconstructAbsoluteUri(originalUriBaseIds, out Uri resolvedUri);
+
+            wasResolved.Should().BeTrue();
+            resolvedUri.Should().Be(new Uri("file://c:/code/sarif-sdk/src/Sarif/CopyrightNotice.txt", UriKind.Absolute));
+        }
+
+        [Fact]
+        public void ToLocation_ProducesExpectedLocationObject()
+        {
+            const string SourceFile = "src/Sarif/Core/ArtifactLocation.cs";
+
+            var artifactLocation = new ArtifactLocation
+            {
+                Uri = new Uri(SourceFile, UriKind.Relative)
+            };
+
+            Location location = artifactLocation.ToLocation(lineNumber: 12, column: 9, length: 14, offset: 140);
+
+            PhysicalLocation physicalLocation = location.PhysicalLocation;
+            physicalLocation.ArtifactLocation.Uri.OriginalString.Should().Be(SourceFile);
+
+            Region region = physicalLocation.Region;
+            region.StartLine.Should().Be(12);
+            region.StartColumn.Should().Be(9);
+            region.EndColumn.Should().Be(23);
+            region.CharOffset.Should().Be(140);
+            region.CharLength.Should().Be(14);
         }
     }
 }

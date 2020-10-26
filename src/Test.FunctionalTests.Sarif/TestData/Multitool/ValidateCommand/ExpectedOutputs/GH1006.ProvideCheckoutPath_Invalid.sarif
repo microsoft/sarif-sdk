@@ -1,0 +1,99 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "SARIF Functional Testing",
+          "rules": [
+            {
+              "id": "GH1006",
+              "name": "ProvideCheckoutPath",
+              "shortDescription": {
+                "text": "GitHub Advanced Security code scanning will reject a SARIF file that expresses result locations as absolute 'file' scheme URIs unless GitHub can determine the URI of the repository root (which GitHub refers to as the \"checkout path\")."
+              },
+              "fullDescription": {
+                "text": "GitHub Advanced Security code scanning will reject a SARIF file that expresses result locations as absolute 'file' scheme URIs unless GitHub can determine the URI of the repository root (which GitHub refers to as the \"checkout path\"). There are three ways to address this issue.\r\n\r\n1. Recommended: Express all result locations as relative URI references with respect to the checkout path.\r\n\r\n1. Place the checkout path in 'invocations[].workingDirectory'. The SARIF specification defines that property to be the working directory of the process that executed the analysis tool, so if the tool was not invoked from the repository root directory, it isn't strictly legal to place the checkout path there.\r\n\r\n2. Place the checkout path in a configuration file at the root of the repository. This requires the analysis tool always to be invoked from that same directory."
+              },
+              "messageStrings": {
+                "Error_Default": {
+                  "text": "{0}: This result location is expressed as an absolute 'file' URI. GitHub Advanced Security code scanning will reject this file because it cannot determine the location of the repository root (which it refers to as the \"checkout path\"). Either express result locations as relative URI references with respect to the checkout path, place the checkout path in 'invocations[].workingDirectory', or place the checkout path in a configuration file at the root of the repository."
+                }
+              },
+              "defaultConfiguration": {
+                "enabled": false,
+                "level": "error"
+              },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+            }
+          ]
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.GH1006.ProvideCheckoutPath_Invalid.sarif",
+            "uriBaseId": "TEST_DIR"
+          }
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "GH1006",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_Default",
+            "arguments": [
+              "runs[0].results[0].locations[0].physicalLocation.artifactLocation.uri"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 30,
+                  "startColumn": 50
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "GH1006",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_Default",
+            "arguments": [
+              "runs[0].results[0].relatedLocations[0].physicalLocation.artifactLocation.uri"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 39,
+                  "startColumn": 50
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}

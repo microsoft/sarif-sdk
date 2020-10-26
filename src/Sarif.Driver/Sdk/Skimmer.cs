@@ -20,10 +20,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         public IDictionary<string, string> Options { get; }
+        public virtual SupportedPlatform SupportedPlatforms => SupportedPlatform.All;
+        public virtual FailureLevel DefaultLevel => FailureLevel.Warning;
 
         public virtual void Initialize(TContext context) { }
 
-        public virtual SupportedPlatform SupportedPlatforms => SupportedPlatform.All;
 
         public virtual AnalysisApplicability CanAnalyze(TContext context, out string reasonIfNotApplicable)
         {
@@ -32,5 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         public abstract void Analyze(TContext context);
+
+        protected static string MakeAnalyzerMoniker(string id, string name) => $"{id}.{name}";
     }
 }

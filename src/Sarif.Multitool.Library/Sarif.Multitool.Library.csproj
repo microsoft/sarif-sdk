@@ -1,0 +1,63 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup Label="AssemblyAttributes">
+    <AssemblyTitle>SARIF Multitool Library</AssemblyTitle>
+    <Description>The public API exposing the commands used by the SARIF Multitool.</Description>
+  </PropertyGroup>
+
+  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+    <TargetFrameworks Condition="$(OS) == 'Windows_NT'">$(TargetFrameworks);net461</TargetFrameworks>
+    <RootNamespace>Microsoft.CodeAnalysis.Sarif.Multitool</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="Microsoft.Json.Pointer" Version="1.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="$(MsBuildThisFileDirectory)..\Sarif\Schemata\sarif-$(SchemaVersionAsPublishedToSchemaStoreOrg).json" Link="sarif-2.1.0.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="MultitoolResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>MultitoolResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Rules\RuleResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>RuleResources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="MultitoolResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>MultitoolResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Rules\RuleResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>RuleResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="default.configuration.xml" Pack="true" PackagePath="lib/netstandard2.0;lib/net461" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\policies\*" Pack="true" PackagePath="policies" />
+    <None Include="**\*.cs" Pack="true" PackagePath="src" />
+    <None Include="..\ReleaseHistory.md" Pack="true" PackagePath="/" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Sarif.Converters\Sarif.Converters.csproj" />
+    <ProjectReference Include="..\Sarif.Driver\Sarif.Driver.csproj" />
+    <ProjectReference Include="..\Sarif.WorkItems\Sarif.WorkItems.csproj" />
+    <ProjectReference Include="..\Sarif\Sarif.csproj" />
+  </ItemGroup>
+
+</Project>

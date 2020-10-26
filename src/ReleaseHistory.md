@@ -1,11 +1,58 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
+* DEPENDENCY BREAKING: SARIF now requires Newtonsoft.JSON 11.0.2 (rather than 10.0.3)
+* DEPENDENCY: SARIF TypeScript package now requires minimist 1.2.3 or later (rather than >=1.2.0)
+* BUGFIX: Fix index out of range exception when baselining [#2102](https://github.com/microsoft/sarif-sdk/pull/2102)
+* FEATURE: Add a setter to `GitHelper.GitExePath`. [#2110](https://github.com/microsoft/sarif-sdk/pull/2110)
+* FEATURE: `GitHelper` will search in %PATH% variable for `git.exe` instead of its default install location. [#2107](https://github.com/microsoft/sarif-sdk/pull/2107)
+* FEATURE: Add helper in `SarifLog` and `Run` to `ApplyPolicies`. [#2109](https://github.com/microsoft/sarif-sdk/pull/2109)
+* FEATURE: Add a converter for FlawFinder's CSV output format. [#2092](https://github.com/microsoft/sarif-sdk/issues/2092)
+* FEATURE: Multitool SARIF output is now pretty-printed by default. To remove white space, specify `--minify`. [#2098](https://github.com/microsoft/sarif-sdk/issues/2098)
+* FEATURE: The Multitool `query` command can now evaluate properties in the result and rule property bags, for example `sarif query "properties.confidence:f > 0.95 AND rule.properties.category == 'security'"`
+* FEATURE: The validation rule `SARIF1004.ExpressUriBaseIdsCorrectly` now verifies that if an `artifactLocation.uri` is a relative reference, it does not begin with a slash. [#2090](https://github.com/microsoft/sarif-sdk/issues/2090)
+* BUGFIX: GitHub policy should not turn off any note level rules. [#2089](https://github.com/microsoft/sarif-sdk/issues/2089)
+* FEATURE: Add `apply-policy` command to Multitool. [#2118](https://github.com/microsoft/sarif-sdk/pull/2118)
+
+## **v2.3.6** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.6) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.6) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.6) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.6) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.3.6)
+* BUGFIX: Restore multitool client app package build.
+* BUGFIX: Fix ESLint additional formatter corner cases that result in invalid SARIF.
+* FEATURE: COMMAND-LINE BREAKING: The analysis rules that validate a SARIF file's compatibility with GitHub Advanced Security code scanning now have rule ids that begin with `GH` rather than `SARIF`.
+
+## **v2.3.5** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.5) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.5) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.5) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.5) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.3.5)
+* FEATURE: COMMAND-LINE BREAKING: Validation rule `SARIF2005.ProvideToolProperties` now requires `informationUri`, it allows `dottedQuadFileVersion` to satisfy the requirement that version information be present, and it is configurable.
+* FEATURE: Extract the public APIs from Sarif.Multitool into a new dependency package Sarif.Multitool.Library. Sarif.Multitool remains as a dotnet tool package.
+* FEATURE: Validation rule `SARIF2012` now checks for the presence of a friendly name in PascalCase in the `name` property, and is renamed from `ProvideHelpUris` to `ProvideRuleProperties`.
+* FEATURE: The Multitool `rewrite` command now accepts `VersionControlInformation` as an argument to the `--insert` option. This argument populates `run.versionControlProvenance`, and it re-expresses all absolute URIs as relative references with respect to the nearest enclosing repository root, if any.
+
+## **v2.3.4** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.4) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.4) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.4) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.4)
+* COMMAND-LINE BREAKING: Change `merge` command output directory argument name to `output-directory`.
+* FEATURE: Add analysis rules appropriate for SARIF files that are to be uploaded to GitHub Advanced Security code scanning.
+* BUGFIX: Various Fortify FPR converter improvements (such as improve variable expansion in result messages).
+* BUGFIX: The validator no longer reports `SARIF2010.ProvideCodeSnippets` if embedded file content for the specified artifact is present. [#2003](https://github.com/microsoft/sarif-sdk/issues/2003)
+
+## **v2.3.3** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.3) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.3) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.3) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.3)
+* FEATURE: Improve `SarifSdkSample` application: use `uriBaseIds`.
+* FEATURE: Add additional checks to SARIF analysis rule `SARIF2004.OptimizeFileSize`.
+* FEATURE: Introduce new SARIF analysis rule `SARIF2016.FileUrisShouldBeRelative`.
+* BUGFIX: If you created a URI from an absolute file path (for example, `C:\test\file.c`), then it would be serialized with that exact string, which is not a valid URI. This is now fixed. [#2001](https://github.com/microsoft/sarif-sdk/issues/2001)
+
+## **v2.3.2** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.2) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.2) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.2) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.2)
+* FEATURE: The `Sarif.Multitool` command line verbs are now exposed programmatically. For example, the `validate` verb is exposed through the classes `ValidateCommand` and `ValidateOptions`.
+
+## **v2.3.1** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.1) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.1) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.1) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.1)
+* FEATURE: Revised and improved validation rules in `Sarif.Multitool`.
+* FEATURE: Properties serialization performance improved (~20% faster load when Results use Properties).
+* FEATURE: Allow result messages to be truncated for display. [#1915](https://github.com/microsoft/sarif-sdk/issues/1915)
+* BUGFIX: Rebase URI command now honors `--insert` and `--remove` arguments for injecting or eliding optional data (such as region snippets).
+* BUGFIX: Ensure all DateTimes on object model are using DateTimeConverter consistently.
+* BUGFIX: Fix DateTime roundtripping in properties collections to follow normal DateTime output format.
+
 ## **v2.3.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.0) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.0)
 * BUGFIX: `ResultLogJsonWriter` now creates an empty `results` array if there are no results, rather than leaving `results` as `null`. [#1821](https://github.com/microsoft/sarif-sdk/issues/1821)
 * BUGFIX: In validation rules, `shortDescription` is now calculated by `GetFirstSentence` method, fixing a bug in sentence breaking. [#1887](https://github.com/microsoft/sarif-sdk/issues/1887)
 * BUGFIX: `WorkItemFiler` now logs correctly the details for `LogMetricsForProcessedModel` method [#1896](https://github.com/microsoft/sarif-sdk/issues/1896)
 * FEATURE: Add validation rule `SARIF1019`, which requires every result to have at least one of `result.ruleId` and `result.rule.id`. If both are present, they must be equal. [#1880](https://github.com/microsoft/sarif-sdk/issues/1880)
-* FEATURE: Add validation rule `SARIF1020`, which requires that the $schema property should be present, and must refer to the final version of the SARIF 2.1.0 schema.  [#1890](https://github.com/microsoft/sarif-sdk/issues/1890)
+* FEATURE: Add validation rule `SARIF1020`, which requires that the $schema property should be present, and must refer to the final version of the SARIF 2.1.0 schema. [#1890](https://github.com/microsoft/sarif-sdk/issues/1890)
 * FEATURE: Expose `Run.MergeResultsFrom(Run)` to merge Results from multiple Runs using code from result matching algorithm.
 * BREAKING: Rename `RemapIndicesVisitor` to `RunMergingVisitor` and redesign to control how much merging occurs internally.
 

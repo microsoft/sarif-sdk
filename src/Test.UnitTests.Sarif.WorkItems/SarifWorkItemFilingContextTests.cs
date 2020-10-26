@@ -6,7 +6,9 @@ using System.IO;
 using System.Linq;
 
 using FluentAssertions;
+
 using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
+
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.WorkItems

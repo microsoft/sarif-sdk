@@ -1,0 +1,71 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "CodeScanner",
+          "version": "1.0"
+        }
+      },
+      "originalUriBaseIds": {
+        "TEST_ROOT": {
+          "uri": "file://c:/test/"
+        }
+      },
+      "artifacts": [
+        {
+          "contents": {
+            "text": "File Source"
+          },
+          "location": {
+            "uri": "src/test.c"
+          }
+        },
+        {
+          "contents": {
+            "text": "File Source"
+          },
+          "location": {
+            "uri": "test2.c",
+            "uriBaseId": "TEST_ROOT"
+          }
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "TST0001",
+          "level": "error",
+          "message": {
+            "text": "Some testing occurred."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/test.c"
+                },
+                "properties": {
+                  "comment": "This test will NOT generate a valid AbsoluteUri, but it will find in artifacts. So it doesn't need a snippet."
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "test2.c",
+                  "uriBaseId": "TEST_ROOT"
+                },
+                "properties": {
+                  "comment": "This test will generate a valid AbsoluteUri and it will find in artifacts. So it doesn't need a snippet."
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}

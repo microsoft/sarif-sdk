@@ -1,5 +1,5 @@
 /**
- * @fileoverview Tests for SARIF format.
+ * @fileoverview Tests for SARIF formatter.
  * @author Microsoft
  */
 
@@ -10,7 +10,8 @@
 //------------------------------------------------------------------------------
 
 const assert = require("chai").assert;
-const formatter = require("../sarif");
+const rewire = require("rewire");
+const formatter = rewire("../sarif");
 
 //------------------------------------------------------------------------------
 // Global Test Content
@@ -59,15 +60,28 @@ describe("formatter:sarif", () => {
     describe("when run", () => {
         const code = [];
 
-        it ("should return a log with correct version and tool metadata", () => {
+        it ("should return a log with correct SARIF version and tool metadata", () => {
             const log = JSON.parse(formatter(code, null));
 
-            assert.strictEqual(log['$schema'], 'http://json.schemastore.org/sarif-2.1.0-rtm.4');
+            assert.strictEqual(log['$schema'], 'http://json.schemastore.org/sarif-2.1.0-rtm.5');
             assert.strictEqual(log.version, '2.1.0');
 
             assert.strictEqual(log.runs[0].tool.driver.name, "ESLint");
             assert.strictEqual(log.runs[0].tool.driver.informationUri, "https://eslint.org");
-        })
+            assert.strictEqual(log.runs[0].tool.driver.version, undefined);
+        });
+    });
+
+    describe("when eslint version is known", () => {
+        const code = [];
+        const fakeESLintVersion = "1.2.3";
+
+        it ("should return correct eslint version", () => {
+            formatter.__set__("getESLintVersion", ()=>{ return fakeESLintVersion; });
+            const log = JSON.parse(formatter(code, null));
+            assert.strictEqual(log.runs[0].tool.driver.version, fakeESLintVersion);
+        });
+
     });
 
     describe("when passed no messages", () => {
@@ -152,6 +166,28 @@ describe("formatter:sarif", () => {
         }];
 
         it("should return a log with one result whose location region has only a startLine", () => {
+            const log = JSON.parse(formatter(code));
+
+            assert.strictEqual(log.runs[0].results[0].locations[0].physicalLocation.region.startLine, code[0].messages[0].line);
+            assert.isUndefined(log.runs[0].results[0].locations[0].physicalLocation.region.startColumn);
+            assert.isUndefined(log.runs[0].results[0].locations[0].physicalLocation.region.snippet);
+        });
+    });
+});
+
+describe("formatter:sarif", () => {
+    describe("when passed one message with line and invalid column", () => {
+        const code = [{
+            filePath: sourceFilePath1,
+            messages: [{
+                message: "Unexpected value.",
+                ruleId: testRuleId,
+                line: 10,
+                column: 0
+            }]
+        }];
+
+        it("should return a log with one result whose location contains a region with line # and no column #", () => {
             const log = JSON.parse(formatter(code));
 
             assert.strictEqual(log.runs[0].results[0].locations[0].physicalLocation.region.startLine, code[0].messages[0].line);
@@ -470,6 +506,57 @@ describe("formatter:sarif", () => {
             let notificationUri = notification.locations[0].physicalLocation.artifactLocation.uri
             assert(notificationUri.startsWith(uriPrefix));
             assert(notificationUri.endsWith(sourceFilePath1));
+        });
+    });
+});
+
+describe("formatter:sarif", () => {
+    describe("when passed a rule with no description", () => {
+        const ruleid = "custom-rule-no-description";
+
+        rules[ruleid] = {
+            type: "suggestion",
+            docs: {
+                category: "Possible Errors"
+            }
+        };
+        const code = [{
+            filePath: sourceFilePath1,
+            messages: [{
+                message: "Custom error.",
+                ruleId: ruleid,
+                line: 42
+            }]
+        }];
+        it("should return a log with one file, one rule, and one result", () => {
+            const log = JSON.parse(formatter(code, { rulesMeta: rules }));
+            const rule = rules[ruleid];
+
+            assert.lengthOf(log.runs[0].artifacts, 1);
+            assert.lengthOf(log.runs[0].results, 1);
+
+            assert.strictEqual(log.runs[0].tool.driver.rules[0].id, ruleid);
+
+            assert(log.runs[0].artifacts[0].location.uri.startsWith(uriPrefix));
+            assert(log.runs[0].artifacts[0].location.uri.endsWith(sourceFilePath1));
+
+            assert.strictEqual(log.runs[0].tool.driver.rules[0].id, ruleid);
+            assert.isUndefined(log.runs[0].tool.driver.rules[0].shortDescription);
+            assert.strictEqual(log.runs[0].tool.driver.rules[0].helpUri, rule.docs.url);
+            assert.strictEqual(log.runs[0].tool.driver.rules[0].properties.category, rule.docs.category);
+
+            assert.strictEqual(log.runs[0].results[0].ruleId, ruleid);
+
+            assert.strictEqual(log.runs[0].results[0].level, "warning");
+
+            assert.strictEqual(log.runs[0].results[0].message.text, "Custom error.");
+
+            assert(log.runs[0].results[0].locations[0].physicalLocation.artifactLocation.uri.startsWith(uriPrefix));
+            assert(log.runs[0].results[0].locations[0].physicalLocation.artifactLocation.uri.endsWith(sourceFilePath1));
+
+            assert.strictEqual(log.runs[0].results[0].locations[0].physicalLocation.region.startLine, 42);
+            assert.isUndefined(log.runs[0].results[0].locations[0].physicalLocation.region.startColumn);
+            assert.isUndefined(log.runs[0].results[0].locations[0].physicalLocation.region.snippet);
         });
     });
 });

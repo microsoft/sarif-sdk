@@ -1,0 +1,26 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "CodeScanner",
+          "version": "1.0",
+          "rules": [
+            {
+              "id": "RULE0001",
+              "name": "Rule one"
+            },
+            {
+              "id": "RULE0002",
+              "name": "Rule two"
+            }
+          ]
+        }
+      },
+      "results": [],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}

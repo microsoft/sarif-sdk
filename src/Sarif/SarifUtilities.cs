@@ -202,5 +202,19 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Debug.Assert(conditional);
             }
         }
+
+        internal static Encoding GetEncodingFromName(string encodingName)
+        {
+            if (string.IsNullOrWhiteSpace(encodingName)) { return null; }
+
+            try
+            {
+                return Encoding.GetEncoding(encodingName);
+            }
+            catch (ArgumentException)
+            {
+                return null;
+            }
+        }
     }
 }

@@ -3,14 +3,16 @@
 
 using System.Collections.Generic;
 using System.IO;
+
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
+
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
     /// <summary>
-    /// A SARIF logger that works by generating a SARIF v2 log file which is transformed into 
+    /// A SARIF logger that works by generating a SARIF v2 log file which is transformed into
     /// SARIF v1 when the instance is disposed. The file location used to produced the preliminary
     /// v2 content is overwritten in place to produce the transformed v1 file.
     /// </summary>
