@@ -90,11 +90,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             public TestRule4() : base(
                 "TEST0004",
-                "full description text",
+                null,
                 FailureLevel.Note)
             {
                 Name = "TEST";
-                FullDescription.Markdown = "markdown text";
+                FullDescription = new MultiformatMessageString { Text = "full description text", Markdown = "markdown text" };
                 MessageStrings = new Dictionary<string, MultiformatMessageString>
                 {
                     { "TEST0004_TEST_Note_Default", new MultiformatMessageString{ Text = "default text"} }
@@ -126,7 +126,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 FailureLevel.Note)
             {
                 Name = "TEST";
-                FullDescription.Markdown = "markdown text";
                 MessageStrings = new Dictionary<string, MultiformatMessageString>
                 {
                     { "Default_Note_TEST_TEST0006", new MultiformatMessageString{ Text = "default text" } }

@@ -1,9 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using System;
 using System.Collections.Generic;
-using System.Resources;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
@@ -21,10 +19,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public IDictionary<string, string> Options { get; }
         public virtual SupportedPlatform SupportedPlatforms => SupportedPlatform.All;
-        public virtual FailureLevel DefaultLevel => FailureLevel.Warning;
 
         public virtual void Initialize(TContext context) { }
-
 
         public virtual AnalysisApplicability CanAnalyze(TContext context, out string reasonIfNotApplicable)
         {

@@ -20,28 +20,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         // of the SARIF specification.
         private static readonly string SarifSpecUri =
             $"http://docs.oasis-open.org/sarif/sarif/v{VersionConstants.StableSarifVersion}/sarif-v{VersionConstants.StableSarifVersion}.html";
+        private const FailureLevel Default_DefaultFailureLevel = FailureLevel.Error;
 
-        protected SarifValidationSkimmerBase(string ruleId, string fullDescriptionText, FailureLevel defaultLevel = FailureLevel.Error, IEnumerable<string> messageResourceNames = null, bool enabledByDefault = true)
-            : base(BuildRule(ruleId, fullDescriptionText, messageResourceNames))
-        {
-            DefaultLevel = defaultLevel;
-            EnabledByDefault = enabledByDefault;
-        }
+        protected SarifValidationSkimmerBase(string ruleId, string fullDescriptionText, FailureLevel defaultLevel = Default_DefaultFailureLevel, IEnumerable<string> messageResourceNames = null, bool enabledByDefault = true)
+            : base(BuildRule(ruleId, fullDescriptionText, defaultLevel, messageResourceNames, enabledByDefault))
+        { }
 
-        private static ReportingDescriptor BuildRule(string ruleId, string fullDescriptionText, IEnumerable<string> messageResourceNames)
+        private static ReportingDescriptor BuildRule(string ruleId, string fullDescriptionText, FailureLevel defaultLevel, IEnumerable<string> messageResourceNames, bool enabledByDefault)
         {
             return new ReportingDescriptor()
             {
                 Id = ruleId,
                 HelpUri = new Uri(SarifSpecUri),
-                FullDescription = new MultiformatMessageString() { Text = fullDescriptionText },
-                ShortDescription = new MultiformatMessageString { Text = ExtensionMethods.GetFirstSentence(fullDescriptionText) },
-                MessageStrings = RuleUtilities.BuildDictionary(RuleResources.ResourceManager, messageResourceNames, ruleId: ruleId)
+                FullDescription = (fullDescriptionText == null ? null : new MultiformatMessageString() { Text = fullDescriptionText }),
+                ShortDescription = (fullDescriptionText == null ? null : new MultiformatMessageString { Text = ExtensionMethods.GetFirstSentence(fullDescriptionText) }),
+                MessageStrings = (messageResourceNames == null ? null : RuleUtilities.BuildDictionary(RuleResources.ResourceManager, messageResourceNames, ruleId: ruleId)),
+                DefaultConfiguration = new ReportingConfiguration()
+                {
+                    Level = defaultLevel,
+                    Enabled = enabledByDefault
+                }
             };
         }
 
-        public override FailureLevel DefaultLevel { get; }
-        public bool EnabledByDefault { get; }
         protected SarifValidationContext Context { get; private set; }
 
         public override sealed void Analyze(SarifValidationContext context)
@@ -63,7 +64,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             argsWithPointer[0] = JsonPointerToJavaScript(jPointer);
 
             Context.Logger.Log(this,
-                RuleUtilities.BuildResult(DefaultLevel, Context, region, formatId, argsWithPointer));
+                RuleUtilities.BuildResult(DefaultConfiguration?.Level ?? Default_DefaultFailureLevel, Context, region, formatId, argsWithPointer));
         }
 
         protected virtual void Analyze(Address address, string addressPointer)

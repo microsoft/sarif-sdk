@@ -8,6 +8,22 @@ using Microsoft.Json.Pointer;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
+    /// <summary>
+    /// When using the 'uriBaseId' property, obey the requirements in the SARIF specification
+    /// [3.4.4](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317431)
+    /// that enable it to fulfill its purpose of resolving relative references to absolute locations.
+    /// In particular:
+    ///
+    /// If an 'artifactLocation' object has a 'uriBaseId' property, its 'uri' property must be a
+    /// relative reference, because if 'uri' is an absolute URI then 'uriBaseId' serves no purpose.
+    ///
+    /// Every URI reference in 'originalUriBaseIds' must resolve to an absolute URI in the manner
+    /// described in the SARIF specification
+    /// [3.14.14] (https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317498).
+    ///
+    /// Finally, a relative reference in 'artifactLocation.uri' must not begin with a slash, because
+    /// that prevents it from combining properly with the absolute URI specified by a 'uriBaseId'.
+    /// </summary>
     public class ExpressUriBaseIdsCorrectly : SarifValidationSkimmerBase
     {
         public ExpressUriBaseIdsCorrectly() : base(
