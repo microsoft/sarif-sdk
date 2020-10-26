@@ -96,7 +96,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         ? Formatting.Indented
                         : Formatting.None;
 
-                    _fileSystem.CreateDirectory(outputDirectory);
+                    _fileSystem.DirectoryCreate(outputDirectory);
                     outputFilePath = Path.Combine(outputDirectory, GetOutputFileName(_options, key));
                     WriteSarifFile(_fileSystem, mergedLog, outputFilePath, formatting);
                 }
