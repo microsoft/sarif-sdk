@@ -24,6 +24,10 @@ namespace BSOA.Demo.Comparison
                     Modes.Benchmarks(inputPath);
                     break;
 
+                case "new":
+                    Modes.New();
+                    break;
+
                 case "diagnostics":
                     Modes.Diagnostics(inputPath, (args.Length > 2 ? int.Parse(args[2]) : 3));
                     break;

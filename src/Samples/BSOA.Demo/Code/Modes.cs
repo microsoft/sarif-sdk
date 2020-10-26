@@ -64,6 +64,23 @@ namespace BSOA.Demo
             FilesBenchmarker.RunFiles<SarifLog>(typeof(SarifLogBenchmarks), inputPath, SarifLog.Load);
         }
 
+        public static void New()
+        {
+            Format.HighlightLine($"-> Benchmarking Empty Log in ", AssemblyDescription<SarifLog>());
+
+            // Warm up any statics
+            Measure.Operation(() => new SarifLog());
+
+            SarifLog log = null;
+            MeasureResult result = Measure.Operation(() =>
+            {
+                log = new SarifLog();
+                return log;
+            }, new MeasureSettings(TimeSpan.FromSeconds(5), 10, 1000, true));
+
+            Format.HighlightLine($"new SarifLog() in ", Format.Time(result.SecondsPerIteration), " using ", Format.Size(result.AddedMemoryBytes), ".");
+        }
+
         public static string OutputPath(string inputPath)
         {
             string outputDirectory = Path.Combine(Path.GetDirectoryName(inputPath), "Out");
