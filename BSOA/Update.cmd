@@ -5,8 +5,8 @@ PUSHD "%~dp0"
 
 ECHO Installing BSOA Tools
 ECHO =====================
-dotnet tool install BSOA.Generator --version "0.5.0" --tool-path bin
-dotnet tool install BSOA.FromJSchema --version "0.5.0" --tool-path bin
+dotnet tool install BSOA.Generator --version "0.6.0" --tool-path bin
+dotnet tool install BSOA.FromJSchema --version "0.6.0" --tool-path bin
 
 ECHO.
 ECHO Regenerating SARIF SDK OM

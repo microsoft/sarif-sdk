@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BSOA.Demo", "BSOA.Demo.csproj", "{BFDF28DE-D439-42B1-AF1B-C7D050711918}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BSOA.Demo.BSOA", "BSOA\BSOA.Demo.BSOA.csproj", "{BFDF28DE-D439-42B1-AF1B-C7D050711918}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BSOA.Demo.Legacy", "Legacy\BSOA.Demo.Legacy.csproj", "{CFDF28DE-D439-42B1-AF1B-C7D050711918}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sarif", "..\..\Sarif\Sarif.csproj", "{626E9319-9797-4B84-8CC3-623D7193F27F}"
 EndProject
@@ -17,6 +19,10 @@ Global
 		{BFDF28DE-D439-42B1-AF1B-C7D050711918}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BFDF28DE-D439-42B1-AF1B-C7D050711918}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BFDF28DE-D439-42B1-AF1B-C7D050711918}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CFDF28DE-D439-42B1-AF1B-C7D050711918}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFDF28DE-D439-42B1-AF1B-C7D050711918}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFDF28DE-D439-42B1-AF1B-C7D050711918}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFDF28DE-D439-42B1-AF1B-C7D050711918}.Release|Any CPU.Build.0 = Release|Any CPU
 		{626E9319-9797-4B84-8CC3-623D7193F27F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{626E9319-9797-4B84-8CC3-623D7193F27F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{626E9319-9797-4B84-8CC3-623D7193F27F}.Release|Any CPU.ActiveCfg = Release|Any CPU
