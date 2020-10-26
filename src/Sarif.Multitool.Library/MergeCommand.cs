@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public MergeCommand(IFileSystem fileSystem = null)
         {
-            _fileSystem = fileSystem ?? new FileSystem();
+            _fileSystem = fileSystem ?? FileSystem.Instance;
             _ruleIdToRunsMap = new Dictionary<string, Run>();
             _idToSarifLogMap = new Dictionary<string, SarifLog>();
         }
@@ -147,8 +147,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         Run emptyRun = run.DeepClone();
                         run.Results = cachedResults;
 
-                        var idToRunMap = new Dictionary<string, Run>();
-
                         if (run.Results != null)
                         {
                             foreach (Result result in run.Results)
@@ -169,7 +167,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                                 if (!_ruleIdToRunsMap.TryGetValue(key, out Run splitRun))
                                 {
-                                    IEqualityComparer<Run> comparer = Microsoft.CodeAnalysis.Sarif.Run.ValueComparer;
                                     splitRun = _ruleIdToRunsMap[key] = new Run()
                                     {
                                         Tool = emptyRun.Tool,
@@ -222,7 +219,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         private void ProcessInputSarifLog(string filePath)
         {
             SarifLog sarifLog = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(
-                File.ReadAllText(filePath),
+                _fileSystem.ReadAllText(filePath),
                 formatting: Formatting.None,
                 out string sarifText);
 
@@ -258,7 +255,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     directory = @".\";
                 }
 
-                foreach (string file in Directory.EnumerateFiles(directory, filter, searchOption))
+                foreach (string file in _fileSystem.EnumerateFiles(directory, filter, searchOption))
                 {
                     Interlocked.Increment(ref _filesToProcessCount);
                     await _logLoadChannel.Writer.WriteAsync(file);
