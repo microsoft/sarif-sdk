@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.
+﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Creates a SARIF StackFrame instance from a .NET StackFrame instance
         /// </summary>
-        /// <param name="stackTrace"></param>
+        /// <param name="dotNetStackFrame"></param>
         /// <returns></returns>
         public static StackFrame Create(System.Diagnostics.StackFrame dotNetStackFrame)
         {

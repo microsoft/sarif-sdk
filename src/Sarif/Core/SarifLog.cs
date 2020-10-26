@@ -1,5 +1,10 @@
-﻿using System.IO;
+﻿// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+using System.IO;
+
 using Microsoft.CodeAnalysis.Sarif.Readers;
+
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -75,7 +80,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         ///  Write a SARIF log to a destination stream.
         /// </summary>
-        /// <param name="streamWriter">Stream to write SARIF to</param>
+        /// <param name="stream">Stream to write SARIF to</param>
         public void Save(Stream stream)
         {
             using (StreamWriter streamWriter = new StreamWriter(stream))
@@ -95,6 +100,22 @@ namespace Microsoft.CodeAnalysis.Sarif
             using (JsonTextWriter writer = new JsonTextWriter(streamWriter))
             {
                 serializer.Serialize(writer, this);
+            }
+        }
+
+        /// <summary>
+        /// Applies the policies contained in each run
+        /// </summary>
+        public void ApplyPolicies()
+        {
+            if (this.Runs == null)
+            {
+                return;
+            }
+
+            foreach (Run run in this.Runs)
+            {
+                run.ApplyPolicies();
             }
         }
     }

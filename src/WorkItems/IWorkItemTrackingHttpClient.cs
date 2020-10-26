@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+
 using Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models;
 using Microsoft.VisualStudio.Services.WebApi.Patch.Json;
 
@@ -29,13 +30,13 @@ namespace Microsoft.WorkItems
         /// Creates a single work item.
         /// </summary>
         Task<WorkItem> CreateWorkItemAsync(
-            JsonPatchDocument document, 
-            string project, 
-            string type, 
-            bool? validateOnly = null, 
-            bool? bypassRules = null, 
-            bool? suppressNotifications = null, 
-            object userState = null, 
+            JsonPatchDocument document,
+            string project,
+            string type,
+            bool? validateOnly = null,
+            bool? bypassRules = null,
+            bool? suppressNotifications = null,
+            object userState = null,
             CancellationToken cancellationToken = default);
 
         /// <summary>

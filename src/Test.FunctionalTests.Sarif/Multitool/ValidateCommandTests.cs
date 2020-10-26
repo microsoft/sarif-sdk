@@ -6,12 +6,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 
 using FluentAssertions;
 
 using Microsoft.CodeAnalysis.Sarif.Driver;
-using Microsoft.CodeAnalysis.Sarif.Multitool;
 using Microsoft.CodeAnalysis.Sarif.Multitool.Rules;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
 
@@ -24,7 +22,7 @@ using Xunit.Abstractions;
 
 using static Microsoft.CodeAnalysis.Sarif.Multitool.Rules.ReviewArraysThatExceedConfigurableDefaults;
 
-namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
+namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public class ValidateCommandTests : FileDiffingFunctionalTests
     {
@@ -178,6 +176,66 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
             => RunInvalidTestForRule(RuleId.ProvideToolProperties);
 
         [Fact]
+        public void SARIF2005_ProvideToolProperties_DottedQuadFileVersion_AcceptedByConfiguration()
+        {
+            var acceptableVersionProperties = new KeyValuePair<string, object>(
+                nameof(ProvideToolProperties.AcceptableVersionProperties),
+                new StringSet
+                {
+                    nameof(ProvideToolProperties.s_dummyToolComponent.SemanticVersion),
+                    nameof(ProvideToolProperties.s_dummyToolComponent.DottedQuadFileVersion)
+                });
+
+            RunTest(
+                inputResourceName: "SARIF2005.ProvideToolProperties_DottedQuadFileVersion.sarif",
+                expectedOutputResourceName: "SARIF2005.ProvideToolProperties_DottedQuadFileVersion_Valid.sarif",
+                parameter: acceptableVersionProperties);
+        }
+
+        [Fact]
+        public void SARIF2005_ProvideToolProperties_DottedQuadFileVersion_RejectedByConfiguration()
+        {
+            var acceptableVersionProperties = new KeyValuePair<string, object>(
+                nameof(ProvideToolProperties.AcceptableVersionProperties),
+                new StringSet
+                {
+                    nameof(ProvideToolProperties.s_dummyToolComponent.Version),
+                    nameof(ProvideToolProperties.s_dummyToolComponent.SemanticVersion)
+                });
+
+            RunTest(
+                inputResourceName: "SARIF2005.ProvideToolProperties_DottedQuadFileVersion.sarif",
+                expectedOutputResourceName: "SARIF2005.ProvideToolProperties_DottedQuadFileVersion_Invalid.sarif",
+                parameter: acceptableVersionProperties);
+        }
+
+        [Fact]
+        public void SARIF2005_ProvideToolProperties_MissingInformationUri_AcceptedByConfiguration()
+        {
+            var informationUriRequired = new KeyValuePair<string, object>(
+                nameof(ProvideToolProperties.InformationUriRequired),
+                false);
+
+            RunTest(
+                inputResourceName: "SARIF2005.ProvideToolProperties_MissingInformationUri.sarif",
+                expectedOutputResourceName: "SARIF2005.ProvideToolProperties_MissingInformationUri_Valid.sarif",
+                parameter: informationUriRequired);
+        }
+
+        [Fact]
+        public void SARIF2005_ProvideToolProperties_MissingInformationUri_RejectedByConfiguration()
+        {
+            var informationUriRequired = new KeyValuePair<string, object>(
+               nameof(ProvideToolProperties.InformationUriRequired),
+               true);
+
+            RunTest(
+                inputResourceName: "SARIF2005.ProvideToolProperties_MissingInformationUri.sarif",
+                expectedOutputResourceName: "SARIF2005.ProvideToolProperties_MissingInformationUri_Invalid.sarif",
+                parameter: informationUriRequired);
+        }
+
+        [Fact]
         public void SARIF2006_UrisShouldBeReachable_Valid()
             => RunValidTestForRule(RuleId.UrisShouldBeReachable);
 
@@ -234,12 +292,12 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
             => RunInvalidTestForRule(RuleId.ProvideContextRegion);
 
         [Fact]
-        public void SARIF2012_ProvideHelpUris_Valid()
-            => RunValidTestForRule(RuleId.ProvideHelpUris);
+        public void SARIF2012_ProvideRuleProperties_Valid()
+            => RunValidTestForRule(RuleId.ProvideRuleProperties);
 
         [Fact]
-        public void SARIF2012_ProvideHelpUris_Invalid()
-            => RunInvalidTestForRule(RuleId.ProvideHelpUris);
+        public void SARIF2012_ProvideRuleProperties_Invalid()
+            => RunInvalidTestForRule(RuleId.ProvideRuleProperties);
 
         [Fact]
         public void SARIF2013_ProvideEmbeddedFileContent_Valid()
@@ -274,60 +332,52 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
             => RunInvalidTestForRule(RuleId.FileUrisShouldBeRelative);
 
         [Fact]
-        public void SARIF2017_LocationsMustProvideRequiredProperties_Valid()
-            => RunValidTestForRule(RuleId.LocationsMustProvideRequiredProperties);
+        public void GH1001_ProvideRequiredLocationProperties_Valid()
+            => RunValidTestForRule(RuleId.ProvideRequiredLocationProperties);
 
         [Fact]
-        public void SARIF2017_LocationsMustProvideRequiredProperties_Invalid()
-            => RunInvalidTestForRule(RuleId.LocationsMustProvideRequiredProperties);
+        public void GH1001_ProvideRequiredLocationProperties_Invalid()
+            => RunInvalidTestForRule(RuleId.ProvideRequiredLocationProperties);
 
         [Fact]
-        public void SARIF2018_InlineThreadFlowLocations_Valid()
+        public void GH1002_InlineThreadFlowLocations_Valid()
             => RunValidTestForRule(RuleId.InlineThreadFlowLocations);
 
         [Fact]
-        public void SARIF2018_InlineThreadFlowLocations_Invalid()
+        public void GH1002_InlineThreadFlowLocations_Invalid()
             => RunInvalidTestForRule(RuleId.InlineThreadFlowLocations);
 
         [Fact]
-        public void SARIF2019_RegionsMustProvideRequiredProperties_Valid()
-            => RunValidTestForRule(RuleId.RegionsMustProvideRequiredProperties);
+        public void GH1003_ProvideRequiredRegionProperties_Valid()
+            => RunValidTestForRule(RuleId.ProvideRequiredRegionProperties);
 
         [Fact]
-        public void SARIF2019_RegionsMustProvideRequiredProperties_Invalid()
-            => RunInvalidTestForRule(RuleId.RegionsMustProvideRequiredProperties);
+        public void GH1003_ProvideRequiredRegionProperties_Invalid()
+            => RunInvalidTestForRule(RuleId.ProvideRequiredRegionProperties);
 
         [Fact]
-        public void SARIF2020_ReviewArraysThatExceedConfigurableDefaults_Valid()
+        public void GH1004_ReviewArraysThatExceedConfigurableDefaults_Valid()
             => RunArrayLimitTest(ValidTestFileNameSuffix);
 
         [Fact]
-        public void SARIF2020_ReviewArraysThatExceedConfigurableDefaults_Invalid()
+        public void GH1004_ReviewArraysThatExceedConfigurableDefaults_Invalid()
             => RunArrayLimitTest(InvalidTestFileNameSuffix);
 
         [Fact]
-        public void SARIF2021_LocationsMustBeRelativeUrisOrFilePaths_Valid()
+        public void GH1005_LocationsMustBeRelativeUrisOrFilePaths_Valid()
             => RunValidTestForRule(RuleId.LocationsMustBeRelativeUrisOrFilePaths);
 
         [Fact]
-        public void SARIF2021_LocationsMustBeRelativeUrisOrFilePaths_Invalid()
+        public void GH1005_LocationsMustBeRelativeUrisOrFilePaths_Invalid()
             => RunInvalidTestForRule(RuleId.LocationsMustBeRelativeUrisOrFilePaths);
 
         [Fact]
-        public void SARIF2022_ProvideCheckoutPath_Valid()
+        public void GH1006_ProvideCheckoutPath_Valid()
             => RunValidTestForRule(RuleId.ProvideCheckoutPath);
 
         [Fact]
-        public void SARIF2022_ProvideCheckoutPath_Invalid()
+        public void GH1006_ProvideCheckoutPath_Invalid()
             => RunInvalidTestForRule(RuleId.ProvideCheckoutPath);
-
-        [Fact]
-        public void SARIF2023_RelatedLocationsMustProvideRequiredProperties_Valid()
-            => RunValidTestForRule(RuleId.RelatedLocationsMustProvideRequiredProperties);
-
-        [Fact]
-        public void SARIF2023_RelatedLocationsMustProvideRequiredProperties_Invalid()
-            => RunInvalidTestForRule(RuleId.RelatedLocationsMustProvideRequiredProperties);
 
         private void RunArrayLimitTest(string testFileNameSuffix)
         {
@@ -364,7 +414,7 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
 
         private void RunValidTestForRule(string ruleId)
             => RunTestForRule(ruleId, ValidTestFileNameSuffix);
-        
+
         private void RunInvalidTestForRule(string ruleId)
             => RunTestForRule(ruleId, InvalidTestFileNameSuffix);
 
@@ -427,7 +477,7 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
 
             // Some rules are disabled by default, so create a configuration file that explicitly
             // enables the rule under test.
-            using (TempFile configFile = CreateTempConfigFile(ruleUnderTest))
+            using (TempFile configFile = CreateTempConfigFile(ruleUnderTest, parameter))
             {
                 validateOptions.ConfigurationFilePath = configFile.Name;
                 mockFileSystem.Setup(x => x.FileExists(validateOptions.ConfigurationFilePath)).Returns(true);
@@ -494,28 +544,28 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
         }
 
         private static bool IsSarifRule(string ruleId)
-            => ruleId.StartsWith("SARIF");
+            => ruleId.StartsWith("SARIF") || ruleId.StartsWith("GH");
 
-        private TempFile CreateTempConfigFile(string ruleId)
+        private TempFile CreateTempConfigFile(string ruleId, object parameter)
         {
-            var sb = new StringBuilder();
-            sb.AppendLine("<?xml version='1.0' encoding='utf-8' ?>");
-            sb.AppendLine("<Properties>");
+            var propertiesDictionary = new PropertiesDictionary();
 
             if (IsSarifRule(ruleId))
             {
+                var rulePropertiesDictionary = new PropertiesDictionary();
                 SarifValidationSkimmerBase rule = GetRuleFromId(ruleId);
                 RuleEnabledState ruleEnabledState = GetRuleEnabledState(rule);
+                rulePropertiesDictionary.Add(nameof(DefaultDriverOptions.RuleEnabled), ruleEnabledState);
+                if (parameter is KeyValuePair<string, object> pair)
+                {
+                    rulePropertiesDictionary.Add(pair.Key, pair.Value);
+                }
 
-                sb.AppendLine($"  <Properties Key='{rule.Moniker}.Options'>");
-                sb.AppendLine($"    <Property Key='RuleEnabled' Value='{ruleEnabledState}' />");
-                sb.AppendLine("  </Properties>");
+                propertiesDictionary.Add($"{rule.Moniker}.Options", rulePropertiesDictionary);
             }
 
-            sb.AppendLine("</Properties>");
-
             var tempFile = new TempFile(".xml");
-            File.WriteAllText(tempFile.Name, sb.ToString());
+            propertiesDictionary.SaveToXml(tempFile.Name);
             return tempFile;
         }
 
@@ -544,7 +594,7 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
             // Select one rule arbitrarily, find out what assembly it's in, and get all the other
             // rules from that assembly.
             Assembly validationRuleAssembly = typeof(RuleIdentifiersMustBeValid).Assembly;
-            
+
             return CompositionUtilities.GetExports<SarifValidationSkimmerBase>(
                 new Assembly[]
                 {

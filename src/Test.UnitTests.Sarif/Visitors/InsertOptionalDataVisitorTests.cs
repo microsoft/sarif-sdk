@@ -1,16 +1,20 @@
-﻿// Copyright (c) Microsoft. All rights reserved. Licensed under the MIT        
-// license. See LICENSE file in the project root for full license information. 
+﻿// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
 using System.Collections.Generic;
 using System.IO;
+
 using FluentAssertions;
 
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
 
+using Moq;
+
 using Newtonsoft.Json;
+
 using Xunit;
 using Xunit.Abstractions;
 
@@ -18,6 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
     public class InsertOptionalDataVisitorTests : FileDiffingUnitTests, IClassFixture<DeletesOutputsDirectoryOnClassInitializationFixture>
     {
+        private const string EnlistmentRoot = "REPLACED_AT_TEST_RUNTIME";
         private OptionallyEmittedData _currentOptionallyEmittedData;
 
         public InsertOptionalDataVisitorTests(ITestOutputHelper outputHelper, DeletesOutputsDirectoryOnClassInitializationFixture _) : base(outputHelper)
@@ -26,39 +31,60 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         protected override string ConstructTestOutputFromInputResource(string inputResourceName, object parameter)
         {
-            PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(
+            SarifLog actualLog = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(
                 GetResourceText(inputResourceName),
                 formatting: Formatting.Indented,
-                out string transformedLog);
+                updatedLog: out _);
 
-            SarifLog actualLog = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(transformedLog, formatting: Formatting.None, out transformedLog);
+            // Some of the tests operate on SARIF files that mention the absolute path of the file
+            // that was "analyzed" (InsertOptionalDataVisitor.txt). That path depends on the repo
+            // root, and so can vary depending on the machine where the tests are run. To avoid
+            // this problem, both the input files and the expected output files contain a fixed
+            // string "REPLACED_AT_TEST_RUNTIME" in place of the directory portion of the path. But some
+            // of the tests must read the contents of the analyzed file (for instance, when the
+            // test requires snippets or file hashes to be inserted). Those test require the actual
+            // path. Therefore we replace the fixed string with the actual path, execute the
+            // visitor, and then restore the fixed string so the actual output can be compared
+            // to the expected output.
+            string currentDirectory = Environment.CurrentDirectory;
+            string enlistmentRoot = currentDirectory
+                .Substring(0, currentDirectory.IndexOf(@"\bld\"))
+                .Replace('\\', '/');
+            if (!enlistmentRoot.EndsWith("/")) { enlistmentRoot += "/"; }
 
-            // For CoreTests only - this code rewrites the log persisted URI to match the test environment
             if (inputResourceName == "Inputs.CoreTests-Relative.sarif")
             {
                 Uri originalUri = actualLog.Runs[0].OriginalUriBaseIds["TESTROOT"].Uri;
                 string uriString = originalUri.ToString();
 
-                string currentDirectory = Environment.CurrentDirectory;
-                currentDirectory = currentDirectory.Substring(0, currentDirectory.IndexOf(@"\bld\"));
-                uriString = uriString.Replace("REPLACED_AT_TEST_RUNTIME", currentDirectory);
+                uriString = uriString.Replace(EnlistmentRoot, enlistmentRoot);
 
                 actualLog.Runs[0].OriginalUriBaseIds["TESTROOT"] = new ArtifactLocation { Uri = new Uri(uriString, UriKind.Absolute) };
 
                 var visitor = new InsertOptionalDataVisitor(_currentOptionallyEmittedData);
                 visitor.Visit(actualLog.Runs[0]);
 
-                // Restore the remanufactured URI so that file diffing matches
+                // Restore the remanufactured URI so that file diffing succeeds.
                 actualLog.Runs[0].OriginalUriBaseIds["TESTROOT"] = new ArtifactLocation { Uri = originalUri };
+
+                // In some of the tests, the visitor added an originalUriBaseId for the repo root.
+                // Adjust that one, too.
+                string repoRootUriBaseId = InsertOptionalDataVisitor.GetUriBaseId(0);
+                if (actualLog.Runs[0].OriginalUriBaseIds.TryGetValue(repoRootUriBaseId, out ArtifactLocation artifactLocation))
+                {
+                    Uri repoRootUri = artifactLocation.Uri;
+                    string repoRootString = repoRootUri.ToString();
+                    repoRootString = repoRootString.Replace(enlistmentRoot, EnlistmentRoot);
+
+                    actualLog.Runs[0].OriginalUriBaseIds[repoRootUriBaseId] = new ArtifactLocation { Uri = new Uri(repoRootString, UriKind.Absolute) };
+                }
             }
             else if (inputResourceName == "Inputs.CoreTests-Absolute.sarif")
             {
                 Uri originalUri = actualLog.Runs[0].Artifacts[0].Location.Uri;
                 string uriString = originalUri.ToString();
 
-                string currentDirectory = Environment.CurrentDirectory;
-                currentDirectory = currentDirectory.Substring(0, currentDirectory.IndexOf(@"\bld\"));
-                uriString = uriString.Replace("REPLACED_AT_TEST_RUNTIME", currentDirectory);
+                uriString = uriString.Replace(EnlistmentRoot, enlistmentRoot);
 
                 actualLog.Runs[0].Artifacts[0].Location = new ArtifactLocation { Uri = new Uri(uriString, UriKind.Absolute) };
 
@@ -74,19 +100,51 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 visitor.Visit(actualLog.Runs[0]);
             }
 
-            // Verify and remove Guids, because they'll vary with every run and can't be compared to a fixed expected output
+            // Verify and remove Guids, because they'll vary with every run and can't be compared to a fixed expected output.
             if (_currentOptionallyEmittedData.HasFlag(OptionallyEmittedData.Guids))
             {
                 for (int i = 0; i < actualLog.Runs[0].Results.Count; ++i)
                 {
                     Result result = actualLog.Runs[0].Results[i];
-                    if (string.IsNullOrEmpty(result.Guid))
-                    {
-                        Assert.True(false, $"Results[{i}] had no Guid assigned, but OptionallyEmittedData.Guids flag was set.");
-                    }
+                    result.Guid.Should().NotBeNullOrEmpty(because: "OptionallyEmittedData.Guids flag was set");
 
                     result.Guid = null;
                 }
+            }
+
+            if (_currentOptionallyEmittedData.HasFlag(OptionallyEmittedData.VersionControlInformation))
+            {
+                VersionControlDetails versionControlDetails = actualLog.Runs[0].VersionControlProvenance[0];
+
+                // Verify and replace the mapped directory (enlistment root), because it varies
+                // from machine to machine.
+                var mappedUri = new Uri(enlistmentRoot, UriKind.Absolute);
+                versionControlDetails.MappedTo.Uri.Should().Be(mappedUri);
+                versionControlDetails.MappedTo.Uri = new Uri($"file:///{EnlistmentRoot}");
+
+                // When OptionallyEmittedData includes any file-related content, the visitor inserts
+                // an artifact that points to the enlistment root. So we have to verify and adjust
+                // that as well.
+                IList<Artifact> artifacts = actualLog.Runs[0].Artifacts;
+                if (artifacts.Count >= 2)
+                {
+                    artifacts[1].Location.Uri.Should().Be(enlistmentRoot);
+                    artifacts[1].Location.Uri = new Uri($"file:///{EnlistmentRoot}");
+                }
+
+                // Verify and replace the remote repo URI, because it would be different in a fork.
+                var gitHelper = new GitHelper();
+                Uri remoteUri = gitHelper.GetRemoteUri(enlistmentRoot);
+
+                versionControlDetails.RepositoryUri.Should().Be(remoteUri);
+                versionControlDetails.RepositoryUri = new Uri("https://REMOTE_URI");
+
+                // Verify and remove branch and revision id, because they vary from run to run.
+                versionControlDetails.Branch.Should().NotBeNullOrEmpty(because: "OptionallyEmittedData.VersionControlInformation flag was set");
+                versionControlDetails.Branch = null;
+
+                versionControlDetails.RevisionId.Should().NotBeNullOrEmpty(because: "OptionallyEmittedData.VersionControlInformation flag was set");
+                versionControlDetails.RevisionId = null;
             }
 
             return JsonConvert.SerializeObject(actualLog, Formatting.Indented);
@@ -150,6 +208,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         }
 
         [Fact]
+        public void InsertOptionalDataVisitor_PersistsVersionControlInformation()
+        {
+            RunTest("CoreTests-Relative.sarif", OptionallyEmittedData.VersionControlInformation);
+        }
+
+        [Fact]
         public void InsertOptionalDataVisitor_PersistsNone()
         {
             RunTest("CoreTests-Relative.sarif");
@@ -175,6 +239,117 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             RunTest("TopLevelOriginalUriBaseIdUriMissing.sarif",
                 OptionallyEmittedData.ContextRegionSnippets);
+        }
+
+        [Fact]
+        public void InsertOptionalDataVisitor_SkipsExistingRepoRootSymbolsAndHandlesMultipleRoots()
+        {
+            const string ParentRepoRoot = @"C:\repo\";
+            const string ParentRepoBranch = "users/mary/my-feature";
+            const string ParentRepoCommit = "11111";
+
+            const string SubmoduleRepoRoot = @"C:\repo\submodule\";
+            const string SubmoduleBranch = "main";
+            const string SubmoduleCommit = "22222";
+
+            var mockFileSystem = new Mock<IFileSystem>();
+
+            mockFileSystem.Setup(x => x.DirectoryExists(It.IsAny<string>())).Returns(false);
+            mockFileSystem.Setup(x => x.FileExists(It.IsAny<string>())).Returns(false);
+
+            mockFileSystem.Setup(x => x.DirectoryExists(@$"{ParentRepoRoot}.git")).Returns(true);
+            mockFileSystem.Setup(x => x.DirectoryExists(@$"C:\repo")).Returns(true);
+            mockFileSystem.Setup(x => x.DirectoryExists(@$"{ParentRepoRoot}src")).Returns(true);
+            mockFileSystem.Setup(x => x.FileExists(@$"{ParentRepoRoot}src\File.cs")).Returns(true);
+
+            mockFileSystem.Setup(x => x.DirectoryExists($@"{SubmoduleRepoRoot}.git")).Returns(true);
+            mockFileSystem.Setup(x => x.DirectoryExists(@$"C:\repo\submodule")).Returns(true);
+            mockFileSystem.Setup(x => x.DirectoryExists(@$"{SubmoduleRepoRoot}src")).Returns(true);
+            mockFileSystem.Setup(x => x.FileExists(@$"{SubmoduleRepoRoot}src\File2.cs")).Returns(true);
+
+            mockFileSystem.Setup(x => x.FileExists(GitHelper.s_expectedGitExePath)).Returns(true);
+
+            var mockProcessRunner = new Mock<GitHelper.ProcessRunner>();
+
+            mockProcessRunner.Setup(x => x(ParentRepoRoot, GitHelper.s_expectedGitExePath, "remote get-url origin")).Returns(ParentRepoRoot);
+            mockProcessRunner.Setup(x => x(ParentRepoRoot, GitHelper.s_expectedGitExePath, "rev-parse --abbrev-ref HEAD")).Returns(ParentRepoBranch);
+            mockProcessRunner.Setup(x => x(ParentRepoRoot, GitHelper.s_expectedGitExePath, "rev-parse --verify HEAD")).Returns(ParentRepoCommit);
+
+            mockProcessRunner.Setup(x => x(SubmoduleRepoRoot, GitHelper.s_expectedGitExePath, "remote get-url origin")).Returns(SubmoduleRepoRoot);
+            mockProcessRunner.Setup(x => x(SubmoduleRepoRoot, GitHelper.s_expectedGitExePath, "rev-parse --abbrev-ref HEAD")).Returns(SubmoduleBranch);
+            mockProcessRunner.Setup(x => x(SubmoduleRepoRoot, GitHelper.s_expectedGitExePath, "rev-parse --verify HEAD")).Returns(SubmoduleCommit);
+
+            var run = new Run
+            {
+                OriginalUriBaseIds = new Dictionary<string, ArtifactLocation>
+                {
+                    // Called "REPO_ROOT" but doesn't actually point to a repo.
+                    ["REPO_ROOT"] = new ArtifactLocation
+                    {
+                        Uri = new Uri(@"C:\dir1\dir2", UriKind.Absolute)
+                    }
+                },
+                Results = new List<Result>
+                {
+                    new Result
+                    {
+                        Locations = new List<Location>
+                        {
+                            new Location
+                            {
+                                PhysicalLocation = new PhysicalLocation
+                                {
+                                    ArtifactLocation = new ArtifactLocation
+                                    {
+                                        // The visitor will encounter this file and notice that it
+                                        // is under a repo root. It will invent a uriBaseId symbol
+                                        // for this repo. Since REPO_ROOT is already taken, it will
+                                        // choose REPO_ROOT_2
+                                        Uri = new Uri(@$"{ParentRepoRoot}src\File.cs", UriKind.Absolute)
+                                    }
+                                }
+                            },
+                            new Location
+                            {
+                                PhysicalLocation = new PhysicalLocation
+                                {
+                                    ArtifactLocation = new ArtifactLocation
+                                    {
+                                        Uri = new Uri(@$"{SubmoduleRepoRoot}src\File2.cs", UriKind.Absolute)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+
+            var visitor = new InsertOptionalDataVisitor(
+                OptionallyEmittedData.VersionControlInformation,
+                originalUriBaseIds: null,
+                fileSystem: mockFileSystem.Object,
+                processRunner: mockProcessRunner.Object);
+            visitor.Visit(run);
+
+            run.VersionControlProvenance[0].MappedTo.Uri.LocalPath.Should().Be(ParentRepoRoot);
+            run.VersionControlProvenance[0].Branch.Should().Be(ParentRepoBranch);
+            run.VersionControlProvenance[0].RevisionId.Should().Be(ParentRepoCommit);
+
+            run.VersionControlProvenance[1].MappedTo.Uri.LocalPath.Should().Be(SubmoduleRepoRoot);
+            run.VersionControlProvenance[1].Branch.Should().Be(SubmoduleBranch);
+            run.VersionControlProvenance[1].RevisionId.Should().Be(SubmoduleCommit);
+
+            run.OriginalUriBaseIds["REPO_ROOT_2"].Uri.LocalPath.Should().Be(ParentRepoRoot);
+
+            IList<Location> resultLocations = run.Results[0].Locations;
+
+            ArtifactLocation resultArtifactLocation = resultLocations[0].PhysicalLocation.ArtifactLocation;
+            resultArtifactLocation.Uri.OriginalString.Should().Be("src/File.cs");
+            resultArtifactLocation.UriBaseId.Should().Be("REPO_ROOT_2");
+
+            resultArtifactLocation = resultLocations[1].PhysicalLocation.ArtifactLocation;
+            resultArtifactLocation.Uri.OriginalString.Should().Be("src/File2.cs");
+            resultArtifactLocation.UriBaseId.Should().Be("REPO_ROOT_3");
         }
 
         [Fact]
@@ -496,11 +671,10 @@ Three";
             string inputFileName = "InsertOptionalDataVisitor.txt";
             string testDirectory = GetTestDirectory("InsertOptionalDataVisitor") + @"\";
             string uriBaseId = "TEST_DIR";
-            string fileKey = "#" + uriBaseId + "#" + inputFileName;
 
             IDictionary<string, ArtifactLocation> originalUriBaseIds = new Dictionary<string, ArtifactLocation> { { uriBaseId, new ArtifactLocation { Uri = new Uri(testDirectory, UriKind.Absolute) } } };
 
-            Run run = new Run()
+            var run = new Run()
             {
                 DefaultEncoding = "UTF-8",
                 OriginalUriBaseIds = null,

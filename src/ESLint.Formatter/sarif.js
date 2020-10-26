@@ -9,11 +9,27 @@ const lodash = require("lodash");
 const fs = require("fs");
 const utf8 = require("utf8");
 const jschardet = require("jschardet");
-const url = require('url')
+const url = require('url');
 
 //------------------------------------------------------------------------------
 // Helper Functions
 //------------------------------------------------------------------------------
+
+/**
+ * Returns the version of used eslint package
+ * @returns {string} eslint version or undefined
+ * @private
+ */
+function getESLintVersion() {
+    try {
+        // Resolve ESLint relative to main entry script, not the formatter
+        const { ESLint } = require.main.require('eslint');
+        return ESLint.version;
+    } catch (err) {
+        // Formatter was not called from eslint, return undefined
+        return undefined;
+    }
+}
 
 /**
  * Returns the severity of warning or error
@@ -38,7 +54,7 @@ module.exports = function (results, data) {
 
     const sarifLog = {
         version: "2.1.0",
-        $schema: "http://json.schemastore.org/sarif-2.1.0-rtm.4",
+        $schema: "http://json.schemastore.org/sarif-2.1.0-rtm.5",
         runs: [
             {
                 tool: {
@@ -51,6 +67,11 @@ module.exports = function (results, data) {
             }
         ]
     };
+
+    const eslintVersion = getESLintVersion();
+    if (typeof eslintVersion !== "undefined") {
+        sarifLog.runs[0].tool.driver.version = eslintVersion;
+    }
 
     const sarifFiles = {};
     const sarifArtifactIndices = {};
@@ -145,14 +166,16 @@ module.exports = function (results, data) {
                                 // Create a new entry in the rules dictionary.
                                 sarifRules[message.ruleId] = {
                                     id: message.ruleId,
-                                    shortDescription: {
-                                        text: meta.docs.description
-                                    },
                                     helpUri: meta.docs.url,
                                     properties: {
                                         category: meta.docs.category
                                     }
                                 };
+                                if (meta.docs.description) {
+                                    sarifRules[message.ruleId].shortDescription = {
+                                        text: meta.docs.description
+                                    };
+                                }
                             }
                         }
 
@@ -179,9 +202,12 @@ module.exports = function (results, data) {
                     }
 
                     if (message.line > 0 || message.column > 0) {
-                        sarifRepresentation.locations[0].physicalLocation.region = {
-                            startLine: message.line,
-                            startColumn: message.column
+                        sarifRepresentation.locations[0].physicalLocation.region = {};
+                        if (message.line > 0) {
+                            sarifRepresentation.locations[0].physicalLocation.region.startLine = message.line;
+                        }
+                        if (message.column > 0) {
+                            sarifRepresentation.locations[0].physicalLocation.region.startColumn = message.column;
                         };
                     }
 

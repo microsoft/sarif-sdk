@@ -5,7 +5,9 @@ using System;
 using System.Collections.Immutable;
 using System.Xml;
 using System.Xml.Linq;
+
 using FluentAssertions;
+
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters

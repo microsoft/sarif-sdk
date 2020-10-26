@@ -5,9 +5,12 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+
 using CommandLine;
+
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.CodeAnalysis.Sarif.Writers;
+
 using Newtonsoft.Json;
 
 namespace Sarif.Sdk.Sample

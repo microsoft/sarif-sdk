@@ -8,6 +8,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security;
+
 using Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
@@ -42,7 +43,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         protected AnalyzeCommandBase(IFileSystem fileSystem = null)
         {
-            FileSystem = fileSystem ?? new FileSystem();
+            FileSystem = fileSystem ?? Sarif.FileSystem.Instance;
         }
 
         public string DefaultConfigurationPath

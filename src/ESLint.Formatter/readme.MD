@@ -20,7 +20,7 @@ It is available as an npm module [@microsoft/eslint-formatter-sarif](https://www
     ./node-modules/.bin/eslint -f @microsoft/eslint-formatter-sarif -o yourfile.sarif yourfile.js
     ```
 
-Note that you *cannot* use the abbreviated form `-f sarif`, because that only works when the npm module name is of the form `eslint-formatter-example`, and the ESLint SARIF formatter module is not `eslint-formatter-sarif`; it's `@microsoft/eslint-formatter-sarif`.
+Note that you *cannot* use the abbreviated form `-f sarif`, because that only works when the npm module name is of the form `eslint-formatter-example`, and the ESLint SARIF formatter module is not `eslint-formatter-sarif`; it's `@microsoft/eslint-formatter-sarif`. Alternatively, you can use the form `-f @microsoft/sarif`.
 
 # Developer details
 

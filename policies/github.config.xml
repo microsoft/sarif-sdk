@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Properties>
+  <Properties Key='SARIF2007.ExpressPathsRelativeToRepoRoot.Options'>
+    <!-- Upgraded from Warning, because GitHub requires this. -->
+    <Property Key='RuleEnabled' Value='Error' />
+  </Properties>
+  <Properties Key='SARIF2012.ProvideHelpUris.Options'>
+    <!-- Upgraded from Note, because GitHub displays them if available. -->
+    <Property Key='RuleEnabled' Value='Warning' />
+  </Properties>
+  <Properties Key='SARIF2016.FileUrisShouldBeRelative.Options'>
+    <!-- Not necessary because SARIF2007.ExpressPathsRelativeToRepoRoot is stricter. -->
+    <Property Key='RuleEnabled' Value='Disabled' />
+  </Properties>
+  <Properties Key='GH1001.ProvideRequiredLocationProperties.Options'>
+    <Property Key='RuleEnabled' Value='Error' />
+  </Properties>
+  <Properties Key='GH1002.InlineThreadFlowLocations.Options'>
+    <Property Key='RuleEnabled' Value='Error' />
+  </Properties>
+  <Properties Key='GH1003.ProvideRequiredRegionProperties.Options'>
+    <Property Key='RuleEnabled' Value='Error' />
+  </Properties>
+  <Properties Key='GH1004.ReviewArraysThatExceedConfigurableDefaults.Options'>
+    <Property Key='RuleEnabled' Value='Error' />
+  </Properties>
+  <Properties Key='GH1005.LocationsMustBeRelativeUrisOrFilePaths.Options'>
+    <Property Key='RuleEnabled' Value='Error' />
+  </Properties>
+  <Properties Key='GH1006.ProvideCheckoutPath.Options'>
+    <Property Key='RuleEnabled' Value='Error' />
+  </Properties>
+</Properties>

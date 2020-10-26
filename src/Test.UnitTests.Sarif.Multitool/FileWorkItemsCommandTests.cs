@@ -3,7 +3,9 @@
 
 using System;
 using System.Collections.Generic;
+
 using FluentAssertions;
+
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
@@ -251,6 +253,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         "test.sarif"
                     },
                     ExpectedExitCode = 0
+                },
+
+                new TestCase
+                {
+                    Title = "Both --pretty-print and --minify",
+                    Args = new string[]
+                    {
+                        "file-work-items",
+                        "--host-uri",
+                        "https://dev.azure.com/my-org/my-project",
+                        "test.sarif",
+                        "--pretty-print",
+                        "--minify"
+                    },
+                    ExpectedExitCode = 1
                 }
             };
     }

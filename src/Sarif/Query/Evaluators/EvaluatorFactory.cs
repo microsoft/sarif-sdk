@@ -1,4 +1,7 @@
-﻿using System;
+﻿// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+using System;
 
 namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
 {
@@ -18,7 +21,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
         ///  
         ///  int[] set;
         /// BitArray matches = new BitArray(set.Length);
-        //  evaluator.Evaluate(set, matches);
+        ///  evaluator.Evaluate(set, matches);
         /// </example>
         /// <param name="fieldType">Primitive type of array to build evaluator for</param>
         /// <param name="term">Query term with comparison and constant to evaluate against array</param>

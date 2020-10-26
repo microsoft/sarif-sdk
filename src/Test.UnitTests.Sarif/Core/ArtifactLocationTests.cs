@@ -3,8 +3,11 @@
 
 using System;
 using System.Collections.Generic;
+
 using FluentAssertions;
+
 using Microsoft.CodeAnalysis.Sarif;
+
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
@@ -170,6 +173,29 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
 
             wasResolved.Should().BeTrue();
             resolvedUri.Should().Be(new Uri("file://c:/code/sarif-sdk/src/Sarif/CopyrightNotice.txt", UriKind.Absolute));
+        }
+
+        [Fact]
+        public void ToLocation_ProducesExpectedLocationObject()
+        {
+            const string SourceFile = "src/Sarif/Core/ArtifactLocation.cs";
+
+            var artifactLocation = new ArtifactLocation
+            {
+                Uri = new Uri(SourceFile, UriKind.Relative)
+            };
+
+            Location location = artifactLocation.ToLocation(lineNumber: 12, column: 9, length: 14, offset: 140);
+
+            PhysicalLocation physicalLocation = location.PhysicalLocation;
+            physicalLocation.ArtifactLocation.Uri.OriginalString.Should().Be(SourceFile);
+
+            Region region = physicalLocation.Region;
+            region.StartLine.Should().Be(12);
+            region.StartColumn.Should().Be(9);
+            region.EndColumn.Should().Be(23);
+            region.CharOffset.Should().Be(140);
+            region.CharLength.Should().Be(14);
         }
     }
 }

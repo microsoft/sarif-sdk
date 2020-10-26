@@ -1,0 +1,81 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "SARIF Functional Testing",
+          "rules": [
+            {
+              "id": "SARIF2005",
+              "name": "ProvideToolProperties",
+              "shortDescription": {
+                "text": "Provide information that makes it easy to identify the name and version of your tool."
+              },
+              "fullDescription": {
+                "text": "Provide information that makes it easy to identify the name and version of your tool.\r\n\r\nThe tool's 'name' property should be no more than three words long. This makes it easy to remember and allows it to fit into a narrow column when displaying a list of results. If you need to provide more information about your tool, use the 'fullName' property.\r\n\r\nThe tool should provide either or both of the 'version' and 'semanticVersion' properties. This enables the log file consumer to determine whether the file was produced by an up to date version, and to avoid accidentally comparing log files produced by different tool versions.\r\n\r\nIf 'version' is used, facilitate comparison between versions by specifying a version number that starts with an integer, optionally followed by any desired characters."
+              },
+              "messageStrings": {
+                "Warning_ProvideToolVersion": {
+                  "text": "{0}: The tool '{1}' does not provide any of the version-related properties {2}. Providing version information enables the log file consumer to determine whether the file was produced by an up to date version, and to avoid accidentally comparing log files produced by different tool versions."
+                },
+                "Warning_ProvideConciseToolName": {
+                  "text": "{0}: The tool name '{1}' contains {2} words, which is more than the recommended maximum of {3} words. A short tool name is easy to remember and fits into a narrow column when displaying a list of results. If you need to provide more information about your tool, use the 'fullName' property."
+                },
+                "Warning_UseNumericToolVersions": {
+                  "text": "{0}: The tool '{1}' contains the 'version' property '{2}', which is not numeric. To facilitate comparison between versions, specify a 'version' that starts with an integer, optionally followed by any desired characters."
+                },
+                "Warning_ProvideToolnformationUri": {
+                  "text": "{0}: The tool '{1}' does not provide 'informationUri'. This property helps the developer responsible for addessing a result by providing a way to learn more about the tool."
+                }
+              },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+            }
+          ]
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF2005.ProvideToolProperties_DottedQuadFileVersion.sarif",
+            "uriBaseId": "TEST_DIR"
+          }
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "SARIF2005",
+          "ruleIndex": 0,
+          "message": {
+            "id": "Warning_ProvideToolVersion",
+            "arguments": [
+              "runs[0].tool.driver",
+              "SARIF Functional Testing",
+              "'semanticVersion', 'version'"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 19
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}

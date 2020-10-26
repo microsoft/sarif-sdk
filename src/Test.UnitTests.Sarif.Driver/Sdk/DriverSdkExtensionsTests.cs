@@ -4,8 +4,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using FluentAssertions;
+
 using Microsoft.CodeAnalysis.Sarif.Driver.Sdk;
+
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver

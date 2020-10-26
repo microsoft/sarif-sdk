@@ -77,19 +77,19 @@
             "uriBaseId": "%SRCROOT%"
           },
           "stdin": {
-            "uri": "/c:/log/in.txt",
+            "uri": "log/in.txt",
             "uriBaseId": "%SRCROOT%"
           },
           "stdout": {
-            "uri": "/c:/log/out.txt",
+            "uri": "log/out.txt",
             "uriBaseId": "%SRCROOT%"
           },
           "stderr": {
-            "uri": "/c:/log/err.txt",
+            "uri": "log/err.txt",
             "uriBaseId": "%SRCROOT%"
           },
           "stdoutStderr": {
-            "uri": "/c:/log/out-err.txt",
+            "uri": "log/out-err.txt",
             "uriBaseId": "%SRCROOT%"
           }
         }
@@ -112,7 +112,7 @@
           "repositoryUri": "https://github.com/example-corp/browser",
           "revisionId": "de67ef7",
           "mappedTo": {
-            "uri": "/browser",
+            "uri": "browser",
             "uriBaseId": "%SRCROOT%"
           }
         }

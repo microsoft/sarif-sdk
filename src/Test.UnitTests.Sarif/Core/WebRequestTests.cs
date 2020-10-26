@@ -1,10 +1,13 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.
+﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+
 using FluentAssertions;
 using FluentAssertions.Extensions;
+
 using Microsoft.CodeAnalysis.Sarif;
+
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
@@ -186,7 +189,7 @@ User-Agent: my-agent
             webRequest.Should().BeNull();
         }
 
-        [Fact(Skip="Disabling due to timing inconsistencies across execution environments.")]
+        [Fact(Skip = "Disabling due to timing inconsistencies across execution environments.")]
         public void WebRequest_TryParse_HasAcceptablePerformance()
         {
             // This is a sanitized version of an actual customer's web request that exposed a perf

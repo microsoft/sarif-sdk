@@ -1,7 +1,5 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.using System;
-
-using Microsoft.CodeAnalysis.Sarif.Visitors;
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
 using System.Collections;
@@ -12,6 +10,8 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml;
+
+using Microsoft.CodeAnalysis.Sarif.Visitors;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -439,6 +439,39 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Merge this property bag with another one, preferring the properties in this property
+        /// bag if there are any duplicates.
+        /// </summary>
+        /// <param name="propertyBag">
+        /// The property bag into which <paramref name="otherPropertyBag"/> is to be merged.
+        /// </param>
+        /// <param name="otherPropertyBag">
+        /// A property bag containing properties to merge into <paramref name="propertyBag"/>.
+        /// </param>
+        /// <typeparam name="T">
+        /// The type of object in the property bag. For SARIF property bags, the type will
+        /// be <see cref="SerializedPropertyInfo"/>.
+        /// </typeparam>
+        /// <returns>
+        /// The original <paramref name="propertyBag"/> object, into which the properties
+        /// from <paramref name="otherPropertyBag"/> have now been merged.
+        /// </returns>
+        public static IDictionary<string, T> MergePreferFirst<T>(
+            this IDictionary<string, T> propertyBag,
+            IDictionary<string, T> otherPropertyBag)
+        {
+            foreach (string key in otherPropertyBag.Keys)
+            {
+                if (!propertyBag.ContainsKey(key))
+                {
+                    propertyBag[key] = otherPropertyBag[key];
+                }
+            }
+
+            return propertyBag;
         }
 
         /// <summary>Checks if a character is a newline.</summary>
