@@ -54,7 +54,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 var logLoadOptions = new BoundedChannelOptions(1000)
                 {
-                    SingleWriter = true, 
+                    SingleWriter = true,
                     SingleReader = false,
                 };
                 _logLoadChannel = Channel.CreateBounded<string>(logLoadOptions);
@@ -170,10 +170,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                                 if (!_ruleIdToRunsMap.TryGetValue(key, out Run splitRun))
                                 {
                                     IEqualityComparer<Run> comparer = Microsoft.CodeAnalysis.Sarif.Run.ValueComparer;
-                                    splitRun = _ruleIdToRunsMap[key] = new Run() 
-                                    { 
+                                    splitRun = _ruleIdToRunsMap[key] = new Run()
+                                    {
                                         Tool = emptyRun.Tool,
-                                        Results = new List<Result>() 
+                                        Results = new List<Result>()
                                     };
                                     splitLog.Runs.Add(splitRun);
                                 }
@@ -230,7 +230,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             {
                 new FixupVisitor().VisitSarifLog(sarifLog);
             }
-            
+
             _mergeLogsChannel.Writer.WriteAsync(sarifLog);
             Interlocked.Decrement(ref _filesToProcessCount);
 
@@ -257,7 +257,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 {
                     directory = @".\";
                 }
-                
+
                 foreach (string file in Directory.EnumerateFiles(directory, filter, searchOption))
                 {
                     Interlocked.Increment(ref _filesToProcessCount);
@@ -293,7 +293,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             _run = node;
             _run = base.VisitRun(node);
-            
+
             _run.Invocations = null;
             _run.Artifacts = null;
             _run.Tool.Driver = new ToolComponent
@@ -309,7 +309,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public override Result VisitResult(Result node)
         {
-            node.RuleIndex = -1;        
+            node.RuleIndex = -1;
             return base.VisitResult(node);
         }
 
