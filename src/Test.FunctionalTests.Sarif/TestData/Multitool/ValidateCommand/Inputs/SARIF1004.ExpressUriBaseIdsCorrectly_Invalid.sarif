@@ -1,184 +1,26 @@
 {
-  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
-  "version": "2.1.0",
-  "runs": [
-    {
-      "tool": {
-        "driver": {
-          "name": "CodeScanner",
-          "version": "1.0"
-        }
-      },
-      "originalUriBaseIds": {
-        "REPO_ROOT": {
-          "uri": "repository",
-          "description": {
-            "text": "This artifactLocation has no uriBaseId, so its uri, if present, must be absolute. But it isn't. It also doesn't end with a slash."
-          }
-        },
-        "SOURCE_ROOT": {
-          "uri": "src",
-          "uriBaseId": "REPO_ROOT",
-          "description": {
-            "text": "This is a regression test for Bug #1862, where we were not checking for a trailing slash on relative URIs."
-          }
-        },
-        "BAD_URI_CONTAINING_DOTDOT": {
-          "uri": "file:///C:/rules/dir1/dir2/../",
-          "description": {
-            "text": "Uri contains dot dot segment."
-          }
-        },
-        "BAD_URI_CONTAINING_QUERY": {
-          "uri": "http://www.contoso.com/catalog/shownew.htm?date=today",
-          "description": {
-            "text": "Uri contains a query."
-          }
-        },
-        "BAD_URI_CONTAINING_FRAGMENT": {
-          "uri": "http://www.contoso.com/index.htm#search",
-          "description": {
-            "text": "URI contains a fragment."
-          }
-        },
-        "BAD_URI_HAS_BASEID_BUT_ALSO_ABSOLUTE_URI": {
-          "uri": "file:///C:/rules/",
-          "uriBaseId": "SOURCE_ROOT",
-          "description": {
-            "text": "URI contains a fragment."
-          }
-        }
-      },
-      "invocations": [
-        {
-          "responseFiles": [
-            {
-              "uri": "file:///C:/src/file.c",
-              "uriBaseId": "%SRCROOT%"
-            }
-          ],
-          "toolExecutionNotifications": [
-            {
-              "locations": [
-                {
-                  "physicalLocation": {
-                    "artifactLocation": {
-                      "uri": "file:///C:/src/file.c",
-                      "uriBaseId": "%SRCROOT%"
-                    }
-                  }
-                }
-              ],
-              "message": {
-                "text": "Message."
-              }
-            }
-          ],
-          "toolConfigurationNotifications": [
-            {
-              "locations": [
-                {
-                  "physicalLocation": {
-                    "artifactLocation": {
-                      "uri": "file:///C:/src/file.c",
-                      "uriBaseId": "%SRCROOT%"
-                    }
-                  }
-                }
-              ],
-              "message": {
-                "text": "Message."
-              }
-            }
-          ],
-          "executionSuccessful": true,
-          "executableLocation": {
-            "uri": "file:///C:/src/file.c",
-            "uriBaseId": "%SRCROOT%"
-          },
-          "stdin": {
-            "uri": "file:///c:/log/in.txt",
-            "uriBaseId": "%SRCROOT%"
-          },
-          "stdout": {
-            "uri": "file:///c:/log/out.txt",
-            "uriBaseId": "%SRCROOT%"
-          },
-          "stderr": {
-            "uri": "file:///c:/log/err.txt",
-            "uriBaseId": "%SRCROOT%"
-          },
-          "stdoutStderr": {
-            "uri": "file:///c:/log/out-err.txt",
-            "uriBaseId": "%SRCROOT%"
-          }
-        }
-      ],
-      "conversion": {
+    "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+    "version": "2.1.0",
+    "runs": [
+      {
         "tool": {
           "driver": {
-            "name": "ConversionTool"
+            "name": "CodeScanner",
+            "version": "1.0"
           }
         },
-        "analysisToolLogFiles": [
+        "invocations": [
           {
-            "uri": "file:///C:/src/file.c",
-            "uriBaseId": "%SRCROOT%"
-          }
-        ]
-      },
-      "versionControlProvenance": [
-        {
-          "repositoryUri": "https://github.com/example-corp/browser",
-          "revisionId": "de67ef7",
-          "mappedTo": {
-            "uri": "file:///C:/src/file.c",
-            "uriBaseId": "%SRCROOT%"
-          }
-        }
-      ],
-      "artifacts": [
-        {
-          "location": {
-            "uri": "file:///C:/src/file.c",
-            "uriBaseId": "%SRCROOT%"
-          }
-        }
-      ],
-      "results": [
-        {
-          "ruleId": "TST0001",
-          "level": "error",
-          "message": {
-            "text": "[No message provided]."
-          },
-          "analysisTarget": {
-            "uri": "file:///C:/src/file.h",
-            "uriBaseId": "%SRCROOT%"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "file:///C:/src/file.c",
-                  "uriBaseId": "%SRCROOT%"
-                }
+            "responseFiles": [
+              {
+                "uri": "file:///C:/src/file.c",
+                "uriBaseId": "%SRCROOT%"
               }
-            },
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/leading_slash.c"
-
-                }
-              }
-            }
-          ],
-          "stacks": [
-            {
-              "frames": [
-                {
-                  "location": {
+            ],
+            "toolExecutionNotifications": [
+              {
+                "locations": [
+                  {
                     "physicalLocation": {
                       "artifactLocation": {
                         "uri": "file:///C:/src/file.c",
@@ -186,80 +28,237 @@
                       }
                     }
                   }
+                ],
+                "message": {
+                  "text": "Message."
                 }
-              ]
+              }
+            ],
+            "toolConfigurationNotifications": [
+              {
+                "locations": [
+                  {
+                    "physicalLocation": {
+                      "artifactLocation": {
+                        "uri": "file:///C:/src/file.c",
+                        "uriBaseId": "%SRCROOT%"
+                      }
+                    }
+                  }
+                ],
+                "message": {
+                  "text": "Message."
+                }
+              }
+            ],
+            "executionSuccessful": true,
+            "executableLocation": {
+              "uri": "file:///C:/src/file.c",
+              "uriBaseId": "%SRCROOT%"
+            },
+            "stdin": {
+              "uri": "file:///c:/log/in.txt",
+              "uriBaseId": "%SRCROOT%"
+            },
+            "stdout": {
+              "uri": "file:///c:/log/out.txt",
+              "uriBaseId": "%SRCROOT%"
+            },
+            "stderr": {
+              "uri": "file:///c:/log/err.txt",
+              "uriBaseId": "%SRCROOT%"
+            },
+            "stdoutStderr": {
+              "uri": "file:///c:/log/out-err.txt",
+              "uriBaseId": "%SRCROOT%"
             }
-          ],
-          "codeFlows": [
+          }
+        ],
+        "conversion": {
+          "tool": {
+            "driver": {
+              "name": "ConversionTool"
+            }
+          },
+          "analysisToolLogFiles": [
             {
-              "threadFlows": [
-                {
-                  "locations": [
-                    {
-                      "location": {
-                        "physicalLocation": {
-                          "artifactLocation": {
-                            "uri": "file:///C:/src/file.c",
-                            "uriBaseId": "%SRCROOT%"
-                          }
+              "uri": "file:///C:/src/file.c",
+              "uriBaseId": "%SRCROOT%"
+            }
+          ]
+        },
+        "versionControlProvenance": [
+          {
+            "repositoryUri": "https://github.com/example-corp/browser",
+            "revisionId": "de67ef7",
+            "mappedTo": {
+              "uri": "file:///C:/src/file.c",
+              "uriBaseId": "%SRCROOT%"
+            }
+          }
+        ],
+        "originalUriBaseIds": {
+          "BAD_URI_CONTAINING_DOTDOT": {
+            "uri": "file:///C:/rules/dir1/dir2/../",
+            "description": {
+              "text": "Uri contains dot dot segment."
+            }
+          },
+          "BAD_URI_CONTAINING_FRAGMENT": {
+            "uri": "http://www.contoso.com/index.htm#search",
+            "description": {
+              "text": "URI contains a fragment."
+            }
+          },
+          "BAD_URI_CONTAINING_QUERY": {
+            "uri": "http://www.contoso.com/catalog/shownew.htm?date=today",
+            "description": {
+              "text": "Uri contains a query."
+            }
+          },
+          "BAD_URI_HAS_BASEID_BUT_ALSO_ABSOLUTE_URI": {
+            "uri": "file:///C:/rules/",
+            "uriBaseId": "SOURCE_ROOT",
+            "description": {
+              "text": "URI contains a fragment."
+            }
+          },
+          "REPO_ROOT": {
+            "uri": "repository",
+            "description": {
+              "text": "This artifactLocation has no uriBaseId, so its uri, if present, must be absolute. But it isn't. It also doesn't end with a slash."
+            }
+          },
+          "SOURCE_ROOT": {
+            "uri": "src",
+            "uriBaseId": "REPO_ROOT",
+            "description": {
+              "text": "This is a regression test for Bug #1862, where we were not checking for a trailing slash on relative URIs."
+            }
+          }
+        },
+        "artifacts": [
+          {
+            "location": {
+              "uri": "file:///C:/src/file.c",
+              "uriBaseId": "%SRCROOT%"
+            }
+          }
+        ],
+        "results": [
+          {
+            "ruleId": "TST0001",
+            "level": "error",
+            "message": {
+              "text": "[No message provided]."
+            },
+            "analysisTarget": {
+              "uri": "file:///C:/src/file.h",
+              "uriBaseId": "%SRCROOT%"
+            },
+            "locations": [
+              {
+                "physicalLocation": {
+                  "artifactLocation": {
+                    "uri": "file:///C:/src/file.c",
+                    "uriBaseId": "%SRCROOT%"
+                  }
+                }
+              },
+              {
+                "physicalLocation": {
+                  "artifactLocation": {
+                    "uri": "/leading_slash.c"
+                  }
+                }
+              }
+            ],
+            "stacks": [
+              {
+                "frames": [
+                  {
+                    "location": {
+                      "physicalLocation": {
+                        "artifactLocation": {
+                          "uri": "file:///C:/src/file.c",
+                          "uriBaseId": "%SRCROOT%"
                         }
                       }
                     }
-                  ]
-                }
-              ]
-            }
-          ],
-          "relatedLocations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "file:///C:/src/file.c",
-                  "uriBaseId": "%SRCROOT%"
+                  }
+                ]
+              }
+            ],
+            "codeFlows": [
+              {
+                "threadFlows": [
+                  {
+                    "locations": [
+                      {
+                        "location": {
+                          "physicalLocation": {
+                            "artifactLocation": {
+                              "uri": "file:///C:/src/file.c",
+                              "uriBaseId": "%SRCROOT%"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "relatedLocations": [
+              {
+                "physicalLocation": {
+                  "artifactLocation": {
+                    "uri": "file:///C:/src/file.c",
+                    "uriBaseId": "%SRCROOT%"
+                  }
                 }
               }
-            }
-          ],
-          "attachments": [
-            {
-              "artifactLocation": {
-                "uri": "file:///C:/src/file.c",
-                "uriBaseId": "%SRCROOT%"
-              }
-            }
-          ],
-          "provenance": {
-            "conversionSources": [
+            ],
+            "attachments": [
               {
                 "artifactLocation": {
                   "uri": "file:///C:/src/file.c",
                   "uriBaseId": "%SRCROOT%"
                 }
               }
-            ]
-          },
-          "fixes": [
-            {
-              "artifactChanges": [
+            ],
+            "provenance": {
+              "conversionSources": [
                 {
                   "artifactLocation": {
                     "uri": "file:///C:/src/file.c",
                     "uriBaseId": "%SRCROOT%"
-                  },
-                  "replacements": [
-                    {
-                      "deletedRegion": {
-                        "charLength": 1
-                      }
-                    }
-                  ]
+                  }
                 }
               ]
-            }
-          ]
-        }
-      ],
-      "columnKind": "utf16CodeUnits"
-    }
-  ]
-}
+            },
+            "fixes": [
+              {
+                "artifactChanges": [
+                  {
+                    "artifactLocation": {
+                      "uri": "file:///C:/src/file.c",
+                      "uriBaseId": "%SRCROOT%"
+                    },
+                    "replacements": [
+                      {
+                        "deletedRegion": {
+                          "charLength": 1
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "columnKind": "utf16CodeUnits"
+      }
+    ]
+  }
