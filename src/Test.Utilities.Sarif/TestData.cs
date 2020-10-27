@@ -1,8 +1,9 @@
-﻿// Copyright (c) Microsoft Corporation.  All Rights Reserved.
+﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 using System;
 using System.Collections.Generic;
-using System.Data;
+
 using Microsoft.CodeAnalysis.Sarif;
 
 namespace Microsoft.CodeAnalysis.Test.Utilities.Sarif
@@ -16,6 +17,7 @@ namespace Microsoft.CodeAnalysis.Test.Utilities.Sarif
         public const string TestMessageStringId = "testMessageStringId";
         public const string TestAnalysisTarget = @"C:\dir\file";
         public const string NotActuallyASecret = nameof(NotActuallyASecret);
+        public const string TestRootBaseId = "TEST_ROOT";
 
         public const string AutomationDetailsGuid = "D41BF9F2-225D-4254-984E-DFD659702E4D";
         public const string ConverterName = "TestConverter";
@@ -108,7 +110,7 @@ namespace Microsoft.CodeAnalysis.Test.Utilities.Sarif
         }
 
         public static SarifLog CreateTwoRunThreeResultLog()
-        { 
+        {
             return new SarifLog
             {
                 Runs = new[]
@@ -255,6 +257,54 @@ namespace Microsoft.CodeAnalysis.Test.Utilities.Sarif
                     }
                 }
             };
+        }
+
+        public static SarifLog CreateSimpleLogWithRules(int ruleIdStartIndex, int resultCount)
+        {
+            var rules = new ReportingDescriptor[resultCount];
+            var results = new Result[resultCount];
+            for (int i = 0; i < resultCount; i++)
+            {
+                rules[i] = new ReportingDescriptor
+                {
+                    Id = $"TEST{i + ruleIdStartIndex}",
+                    ShortDescription = new MultiformatMessageString
+                    {
+                        Text = $"Test description {i + ruleIdStartIndex}"
+                    }
+                };
+
+                results[i] = new Result
+                {
+                    RuleId = $"TEST{i + ruleIdStartIndex}",
+                    RuleIndex = 0,
+                    Message = new Message
+                    {
+                        Text = $"Error description {i + ruleIdStartIndex}"
+                    },
+                };
+            }
+
+            var sarifLog = new SarifLog
+            {
+                Runs = new Run[]
+                {
+                    new Run
+                    {
+                        Tool = new Tool
+                        {
+                            Driver = new ToolComponent
+                            {
+                                Name = TestToolName,
+                                Rules = rules
+                            }
+                        },
+                        Results = results
+                    }
+                }
+            };
+
+            return sarifLog;
         }
     }
 }

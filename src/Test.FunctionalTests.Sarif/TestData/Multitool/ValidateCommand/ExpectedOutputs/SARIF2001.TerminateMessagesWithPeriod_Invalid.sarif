@@ -1,0 +1,72 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "SARIF Functional Testing",
+          "rules": [
+            {
+              "id": "SARIF2001",
+              "name": "TerminateMessagesWithPeriod",
+              "shortDescription": {
+                "text": "Express plain text result messages as complete sentences and end each sentence with a period."
+              },
+              "fullDescription": {
+                "text": "Express plain text result messages as complete sentences and end each sentence with a period. This guidance does not apply to Markdown messages, which might include formatting that makes the punctuation unnecessary.\r\n\r\nThis is part of a set of authoring practices that make your rule messages more readable, understandable, and actionable. See also `SARIF2014.ProvideDynamicMessageContent` and `SARIF2015.EnquoteDynamicMessageContent`."
+              },
+              "messageStrings": {
+                "Warning_Default": {
+                  "text": "{0}: In rule '{1}', the message with id '{2}' does not end in a period. Express plain text rule messages as complete sentences. This guidance does not apply to Markdown messages, which might include formatting that makes the punctuation unnecessary."
+                }
+              },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+            }
+          ]
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF2001.TerminateMessagesWithPeriod_Invalid.sarif",
+            "uriBaseId": "TEST_DIR"
+          }
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "SARIF2001",
+          "ruleIndex": 0,
+          "message": {
+            "id": "Warning_Default",
+            "arguments": [
+              "runs[0].tool.driver.rules[0].messageStrings.NoPeriod.text",
+              "TST0001",
+              "NoPeriod"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 18,
+                  "startColumn": 111
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}

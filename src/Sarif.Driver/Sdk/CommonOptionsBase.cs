@@ -2,7 +2,10 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Collections.Generic;
+
 using CommandLine;
+
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
@@ -12,8 +15,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             'p',
             "pretty-print",
             Default = false,
-            HelpText = "Produce pretty-printed JSON output rather than compact form.")]
+            HelpText =
+            "Produce pretty-printed JSON output rather than compact output (all white space removed). If neither " +
+            "--pretty-print nor --minify is specified, --pretty-print is set to true. --pretty-print and --minify " +
+            "cannot be specified together.")]
         public bool PrettyPrint { get; set; }
+
+        [Option(
+            'm',
+            "minify",
+            Default = false,
+            HelpText = "Produce compact JSON output (all white space removed) rather than pretty-printed output. " +
+            "If neither --pretty-print nor --minify is specified, --pretty-print is set to true. --pretty-print " +
+            "and --minify cannot be specified together.")]
+        public bool Minify { get; set; }
 
         [Option(
             'f',
@@ -28,7 +43,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             HelpText =
             "Optionally present data, expressed as a semicolon-delimited list, that should be inserted into the log file. " +
             "Valid values include Hashes, TextFiles, BinaryFiles, EnvironmentVariables, RegionSnippets, ContextRegionSnippets, " +
-            "Guids and NondeterministicProperties.")]
+            "Guids, VersionControlInformation, and NondeterministicProperties.")]
         public IEnumerable<OptionallyEmittedData> DataToInsert { get; set; }
 
         [Option(
@@ -37,7 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             HelpText =
             "Optionally present data, expressed as a semicolon-delimited list, that should be not be persisted to or which " +
             "should be removed from the log file. Valid values include Hashes, TextFiles, BinaryFiles, EnvironmentVariables, " +
-            "RegionSnippets, ContextRegionSnippets and NondeterministicProperties.")]
+            "RegionSnippets, ContextRegionSnippets, Guids, VersionControlInformation, and NondeterministicProperties.")]
         public IEnumerable<OptionallyEmittedData> DataToRemove { get; set; }
 
         [Option(
@@ -52,8 +67,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             'v',
             "sarif-output-version",
             HelpText =
-            @"The SARIF version of the output log file. Valid values are OneZeroZero and Current",
+            "The SARIF version of the output log file. Valid values are OneZeroZero and Current",
             Default = SarifVersion.Current)]
         public SarifVersion SarifOutputVersion { get; set; }
+
+        public Formatting Formatting => this.PrettyPrint ? Formatting.Indented : Formatting.None;
     }
 }

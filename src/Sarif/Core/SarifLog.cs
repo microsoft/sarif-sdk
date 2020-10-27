@@ -1,4 +1,4 @@
-// Copyright (c) Microsoft.  All Rights Reserved.
+﻿﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
@@ -107,7 +107,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         ///  Write a SARIF log to a destination stream.
         /// </summary>
-        /// <param name="streamWriter">Stream to write SARIF to</param>
+        /// <param name="stream">Stream to write SARIF to</param>
         public void Save(Stream stream, SarifFormat format = SarifFormat.JSON)
         {
             if (format == SarifFormat.BSOA)
@@ -124,6 +124,22 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     serializer.Serialize(jtw, this);
                 }
+            }
+        }
+
+        /// <summary>
+        /// Applies the policies contained in each run
+        /// </summary>
+        public void ApplyPolicies()
+        {
+            if (this.Runs == null)
+            {
+                return;
+            }
+
+            foreach (Run run in this.Runs)
+            {
+                run.ApplyPolicies();
             }
         }
     }

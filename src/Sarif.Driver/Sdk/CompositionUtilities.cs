@@ -9,7 +9,7 @@ using System.Reflection;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
-    internal static class CompositionUtilities
+    public static class CompositionUtilities
     {
         public static ImmutableArray<T> GetExports<T>(IEnumerable<Assembly> assemblies)
         {

@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json.schemastore.org/sarif-external-property-file-2.1.0-rtm.5",
+  "version": "2.1.0",
+  "guid": "89072b7a-3d16-43f2-ac0b-3d9cffc814be",
+  "policies": [
+    {
+      "name": "GitHub policy",
+      "version": "0.0.1",
+      "organization": "Microsoft",
+      "product": "Microsoft SARIF SDK",
+      "associatedComponent": {
+        "name": "Sarif.Multitool"
+      },
+      "rules": [
+        {
+          "id": "GH1001",
+          "name": "ProvideRequiredLocationProperties",
+          "defaultConfiguration": {
+            "enabled": true
+          }
+        },
+        {
+          "id": "GH1002",
+          "name": "InlineThreadFlowLocations",
+          "defaultConfiguration": {
+            "enabled": true
+          }
+        },
+        {
+          "id": "GH1003",
+          "name": "ProvideRequiredRegionProperties",
+          "defaultConfiguration": {
+            "enabled": true
+          }
+        },
+        {
+          "id": "GH1004",
+          "name": "ReviewArraysThatExceedConfigurableDefaults",
+          "defaultConfiguration": {
+            "enabled": true
+          }
+        },
+        {
+          "id": "GH1005",
+          "name": "LocationsMustBeRelativeUrisOrFilePaths",
+          "defaultConfiguration": {
+            "enabled": true
+          }
+        },
+        {
+          "id": "GH1006",
+          "name": "ProvideCheckoutPath",
+          "defaultConfiguration": {
+            "enabled": true
+          }
+        }
+      ]
+    }
+  ]
+}

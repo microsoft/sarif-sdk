@@ -1,5 +1,5 @@
-﻿// Copyright (c) Microsoft. All rights reserved. Licensed under the MIT        
-// license. See LICENSE file in the project root for full license information.
+﻿// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
 using System.Collections.Generic;
@@ -8,13 +8,17 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+
 using FluentAssertions;
+
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
 using Microsoft.CodeAnalysis.Sarif.Writers;
+
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
+
 using Xunit.Abstractions;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -25,14 +29,16 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static string GetTestDirectory(string subdirectory = "")
         {
-            return Path.GetFullPath(Path.Combine(@".\TestData", subdirectory));
+            return Path.GetFullPath(Path.Combine(@$".{Path.DirectorySeparatorChar}TestData", subdirectory));
+        }
+        public static string GetProductDirectory()
+        {
+            return Path.GetFullPath($@"..\..\..\..\..\src\");
         }
 
-        // Retrieving the source path of the tests is only used in developer ad hoc
-        // rebaselining scenarios. i.e., this path won't be consumed by AppVeyor.
         public static string GetProductTestDataDirectory(string testBinaryName, string subdirectory = "")
         {
-            return Path.GetFullPath(Path.Combine($@"..\..\..\..\..\src\{testBinaryName}\TestData", subdirectory));
+            return Path.GetFullPath(Path.Combine(GetProductDirectory(), $".\\{testBinaryName}\\TestData", subdirectory));
         }
 
         private readonly ITestOutputHelper _outputHelper;

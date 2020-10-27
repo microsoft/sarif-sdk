@@ -28,57 +28,30 @@
 
   <PropertyGroup Label="AssemblyAttributes">
     <AssemblyTitle>SARIF Multitool</AssemblyTitle>
-    <Description>Command line tool to perform transformations of input files to SARIF.</Description>
     <PackageId>Sarif.Multitool.Prototype.BSOA</PackageId>
+    <Description>Command line tool to manipulate SARIF files.</Description>
   </PropertyGroup>
 
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.0;netcoreapp2.1;net461</TargetFrameworks>
+    <TargetFrameworks>netcoreapp3.1;netcoreapp2.1</TargetFrameworks>
+    <TargetFrameworks Condition="$(OS) == 'Windows_NT'">$(TargetFrameworks);net461</TargetFrameworks>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="CommandLineParser" Version="2.7.82" />
-    <PackageReference Include="Microsoft.Json.Pointer" Version="1.1.1" />
-    <PackageReference Include="Microsoft.Json.Schema" Version="1.1.1" />
-    <PackageReference Include="Microsoft.Json.Schema.Validation" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Json.Pointer" Version="1.1.2" />
+    <PackageReference Include="Microsoft.Json.Schema" Version="1.1.2" />
+    <PackageReference Include="Microsoft.Json.Schema.Validation" Version="1.1.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Sarif\Sarif.csproj" />
-    <ProjectReference Include="..\Sarif.Driver\Sarif.Driver.csproj" />
-    <ProjectReference Include="..\Sarif.WorkItems\Sarif.WorkItems.csproj" />
-    <ProjectReference Include="..\Sarif.Converters\Sarif.Converters.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="MultitoolResources.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>MultitoolResources.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Rules\RuleResources.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>RuleResources.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="MultitoolResources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>MultitoolResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Rules\RuleResources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>RuleResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
+    <ProjectReference Include="..\Sarif.Multitool.Library\Sarif.Multitool.Library.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include=".\DotnetToolSettings.xml" CopyToOutputDirectory="PreserveNewest" />
-    <EmbeddedResource Include="$(MsBuildThisFileDirectory)..\Sarif\Schemata\sarif-$(SchemaVersionAsPublishedToSchemaStoreOrg).json" Link="sarif-2.1.0.json" CopyToOutputDirectory="PreserveNewest"/>
   </ItemGroup>
 
   <ItemGroup>

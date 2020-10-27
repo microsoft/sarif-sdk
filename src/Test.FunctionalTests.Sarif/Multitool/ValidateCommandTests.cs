@@ -4,22 +4,38 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Reflection;
+
 using FluentAssertions;
-using Microsoft.CodeAnalysis.Sarif.Multitool;
+
+using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Multitool.Rules;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
+
 using Moq;
+
 using Newtonsoft.Json;
+
 using Xunit;
 using Xunit.Abstractions;
 
-namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
+using static Microsoft.CodeAnalysis.Sarif.Multitool.Rules.ReviewArraysThatExceedConfigurableDefaults;
+
+namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public class ValidateCommandTests : FileDiffingFunctionalTests
     {
+        private const string ValidTestFileNameSuffix = "_Valid.sarif";
+        private const string InvalidTestFileNameSuffix = "_Invalid.sarif";
+
+        private readonly IList<SarifValidationSkimmerBase> validationRules;
+
         public ValidateCommandTests(ITestOutputHelper outputHelper, bool testProducesSarifCurrentVersion = true) :
             base(outputHelper, testProducesSarifCurrentVersion)
-        { }
+        {
+            this.validationRules = GetValidationRules();
+        }
 
         protected override string IntermediateTestFolder => @"Multitool";
 
@@ -33,122 +49,388 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
             => RunTest("JSON1002.DeserializationError.sarif");
 
         [Fact]
-        public void SARIF1001_DoNotUseFriendlyNameAsRuleId_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.DoNotUseFriendlyNameAsRuleId, nameof(RuleId.DoNotUseFriendlyNameAsRuleId)));
+        public void SARIF1001_RuleIdentifiersMustBeValid_Valid()
+            => RunValidTestForRule(RuleId.RuleIdentifiersMustBeValid);
 
         [Fact]
-        public void SARIF1001_DoNotUseFriendlyNameAsRuleId_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.DoNotUseFriendlyNameAsRuleId, nameof(RuleId.DoNotUseFriendlyNameAsRuleId)));
+        public void SARIF1001_RuleIdentifiersMustBeValid_Invalid()
+            => RunInvalidTestForRule(RuleId.RuleIdentifiersMustBeValid);
 
         [Fact]
-        public void SARIF1003_UrisMustBeValid_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.UrisMustBeValid, nameof(RuleId.UrisMustBeValid)));
+        public void SARIF1002_UrisMustBeValid_Valid()
+            => RunValidTestForRule(RuleId.UrisMustBeValid);
 
         [Fact]
-        public void SARIF1003_UrisMustBeValid_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.UrisMustBeValid, nameof(RuleId.UrisMustBeValid)));
+        public void SARIF1002_UrisMustBeValid_Invalid()
+            => RunInvalidTestForRule(RuleId.UrisMustBeValid);
 
         [Fact]
-        public void SARIF1007_EndTimeMustNotBeBeforeStartTime_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.EndTimeMustNotBeBeforeStartTime, nameof(RuleId.EndTimeMustNotBeBeforeStartTime)));
+        public void SARIF1004_ExpressUriBaseIdsCorrectly_Valid()
+            => RunValidTestForRule(RuleId.ExpressUriBaseIdsCorrectly);
 
         [Fact]
-        public void SARIF1007_EndTimeMustNotBeBeforeStartTime_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.EndTimeMustNotBeBeforeStartTime, nameof(RuleId.EndTimeMustNotBeBeforeStartTime)));
-        [Fact]
-        public void SARIF1008_MessagesShouldEndWithPeriod_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.MessagesShouldEndWithPeriod, nameof(RuleId.MessagesShouldEndWithPeriod)));
+        public void SARIF1004_ExpressUriBaseIdsCorrectly_Invalid()
+            => RunInvalidTestForRule(RuleId.ExpressUriBaseIdsCorrectly);
 
         [Fact]
-        public void SARIF1008_MessagesShouldEndWithPeriod_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.MessagesShouldEndWithPeriod, nameof(RuleId.MessagesShouldEndWithPeriod)));
-
-        /******************
-         * This set of tests constructs a full file path that exceeds MAX_PATH when running in some AzureDevOps build and test
-         * environments. As a result, we slightly truncate the file names so that they are within ADO's tolerance. If/when
-         * we chase down a more satisfying solution, we can restore the nameof() pattern (and updated the corresponding
-         * test file names in TestData\Inputs and TestData\ExpectedOutputs.
-         ******************/
-        [Fact]
-        public void SARIF1012_EndLineMustNotBeLessThanStartLine_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.EndLineMustNotBeLessThanStartLine, "EndLineMustNotBeLessThanStart"));
+        public void SARIF1005_UriMustBeAbsolute_Valid()
+            => RunValidTestForRule(RuleId.UriMustBeAbsolute);
 
         [Fact]
-        public void SARIF1012_EndLineMustNotBeLessThanStartLine_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.EndLineMustNotBeLessThanStartLine, "EndLineMustNotBeLessThanStart"));
-        [Fact]
-        public void SARIF1013_EndColumnMustNotBeLessThanStartColumn_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.EndColumnMustNotBeLessThanStartColumn, "EndColumnMustNotBeLessThanStart"));
+        public void SARIF1005_UriMustBeAbsolute_Invalid()
+            => RunInvalidTestForRule(RuleId.UriMustBeAbsolute);
 
         [Fact]
-        public void SARIF1013_EndColumnMustNotBeLessThanStartColumn_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.EndColumnMustNotBeLessThanStartColumn, "EndColumnMustNotBeLessThanStart"));
-        /********** END PROBLEMATIC TESTS*******/
+        public void SARIF1006_InvocationPropertiesMustBeConsistent_Valid()
+            => RunValidTestForRule(RuleId.InvocationPropertiesMustBeConsistent);
 
         [Fact]
-        public void SARIF1014_UriBaseIdRequiresRelativeUri_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.UriBaseIdRequiresRelativeUri, nameof(RuleId.UriBaseIdRequiresRelativeUri)));
+        public void SARIF1006_InvocationPropertiesMustBeConsistent_Invalid()
+            => RunInvalidTestForRule(RuleId.InvocationPropertiesMustBeConsistent);
 
         [Fact]
-        public void SARIF1014_UriBaseIdRequiresRelativeUri_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.UriBaseIdRequiresRelativeUri, nameof(RuleId.UriBaseIdRequiresRelativeUri)));
+        public void SARIF1007_RegionPropertiesMustBeConsistent_Valid()
+            => RunValidTestForRule(RuleId.RegionPropertiesMustBeConsistent);
 
         [Fact]
-        public void SARIF1015_UriMustBeAbsolute_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.UriMustBeAbsolute, nameof(RuleId.UriMustBeAbsolute)));
+        public void SARIF1007_RegionPropertiesMustBeConsistent_Invalid()
+            => RunInvalidTestForRule(RuleId.RegionPropertiesMustBeConsistent);
 
         [Fact]
-        public void SARIF1015_UriMustBeAbsolute_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.UriMustBeAbsolute, nameof(RuleId.UriMustBeAbsolute)));
+        public void SARIF1008_PhysicalLocationPropertiesMustBeConsistent_Valid()
+            => RunValidTestForRule(RuleId.PhysicalLocationPropertiesMustBeConsistent);
 
         [Fact]
-        public void SARIF1016_ContextRegionRequiresRegion_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.ContextRegionRequiresRegion, nameof(RuleId.ContextRegionRequiresRegion)));
+        public void SARIF1008_PhysicalLocationPropertiesMustBeConsistent_Invalid()
+            => RunInvalidTestForRule(RuleId.PhysicalLocationPropertiesMustBeConsistent);
 
         [Fact]
-        public void SARIF1016_ContextRegionRequiresRegion_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.ContextRegionRequiresRegion, nameof(RuleId.ContextRegionRequiresRegion)));
+        public void SARIF1009_IndexPropertiesMustBeConsistentWithArrays_Valid()
+            => RunValidTestForRule(RuleId.IndexPropertiesMustBeConsistentWithArrays);
 
         [Fact]
-        public void SARIF1017_InvalidIndex_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.InvalidIndex, nameof(RuleId.InvalidIndex)));
+        public void SARIF1009_IndexPropertiesMustBeConsistentWithArrays_Invalid()
+            => RunInvalidTestForRule(RuleId.IndexPropertiesMustBeConsistentWithArrays);
 
         [Fact]
-        public void SARIF1017_InvalidIndex_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.InvalidIndex, nameof(RuleId.InvalidIndex)));
+        public void SARIF1010_RuleIdMustBeConsistent_Valid()
+            => RunValidTestForRule(RuleId.RuleIdMustBeConsistent);
 
         [Fact]
-        public void SARIF1018_InvalidUriInOriginalUriBaseIds_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.InvalidUriInOriginalUriBaseIds, nameof(RuleId.InvalidUriInOriginalUriBaseIds)));
+        public void SARIF1010_RuleIdMustBeConsistent_Invalid()
+            => RunInvalidTestForRule(RuleId.RuleIdMustBeConsistent);
 
         [Fact]
-        public void SARIF1018_InvalidUriInOriginalUriBaseIds_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.InvalidUriInOriginalUriBaseIds, nameof(RuleId.InvalidUriInOriginalUriBaseIds)));
+        public void SARIF1011_ReferenceFinalSchema_Valid()
+            => RunValidTestForRule(RuleId.ReferenceFinalSchema);
 
         [Fact]
-        public void SARIF1019_RuleIdMustBePresentAndConsistent_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.RuleIdMustBePresentAndConsistent, nameof(RuleId.RuleIdMustBePresentAndConsistent)));
+        public void SARIF1011_ReferenceFinalSchema_Invalid()
+            => RunInvalidTestForRule(RuleId.ReferenceFinalSchema);
 
         [Fact]
-        public void SARIF1019_RuleIdMustBePresentAndConsistent_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.RuleIdMustBePresentAndConsistent, nameof(RuleId.RuleIdMustBePresentAndConsistent)));
+        public void SARIF1012_MessageArgumentsMustBeConsistentWithRule_Valid()
+            => RunValidTestForRule(RuleId.MessageArgumentsMustBeConsistentWithRule);
 
         [Fact]
-        public void SARIF1020_SchemaMustBePresentAndConsistent_Valid()
-            => RunTest(MakeValidTestFileName(RuleId.ReferToFinalSchema, nameof(RuleId.ReferToFinalSchema)));
+        public void SARIF1012_MessageArgumentsMustBeConsistentWithRule_Invalid()
+            => RunInvalidTestForRule(RuleId.MessageArgumentsMustBeConsistentWithRule);
 
         [Fact]
-        public void SARIF1020_SchemaMustBePresentAndConsistent_Invalid()
-            => RunTest(MakeInvalidTestFileName(RuleId.ReferToFinalSchema, nameof(RuleId.ReferToFinalSchema)));
+        public void SARIF2001_TerminateMessagesWithPeriod_Valid()
+            => RunValidTestForRule(RuleId.TerminateMessagesWithPeriod);
 
-        private const string ValidTestFileNameSuffix = "_Valid.sarif";
-        private const string InvalidTestFileNameSuffix = "_Invalid.sarif";
+        [Fact]
+        public void SARIF2001_TerminateMessagesWithPeriod_Invalid()
+            => RunInvalidTestForRule(RuleId.TerminateMessagesWithPeriod);
 
-        private string MakeValidTestFileName(string ruleId, string ruleName)
-            => $"{ruleId}.{ruleName}{ValidTestFileNameSuffix}";
+        [Fact]
+        public void SARIF2002_ProvideMessageArguments_Valid()
+            => RunValidTestForRule(RuleId.ProvideMessageArguments);
 
-        private string MakeInvalidTestFileName(string ruleId, string ruleName)
-            => $"{ruleId}.{ruleName}{InvalidTestFileNameSuffix}";
+        [Fact]
+        public void SARIF2002_ProvideMessageArguments_Invalid()
+            => RunInvalidTestForRule(RuleId.ProvideMessageArguments);
+
+        [Fact]
+        public void SARIF2003_ProvideVersionControlProvenance_Valid()
+            => RunValidTestForRule(RuleId.ProvideVersionControlProvenance);
+
+        [Fact]
+        public void SARIF2003_ProvideVersionControlProvenance_Invalid()
+            => RunInvalidTestForRule(RuleId.ProvideVersionControlProvenance);
+
+        [Fact]
+        public void SARIF2004_OptimizeFileSize_Valid()
+            => RunValidTestForRule(RuleId.OptimizeFileSize);
+
+        [Fact]
+        public void SARIF2004_OptimizeFileSize_Invalid()
+            => RunInvalidTestForRule(RuleId.OptimizeFileSize);
+
+        [Fact]
+        public void SARIF2005_ProvideToolProperties_Valid()
+            => RunValidTestForRule(RuleId.ProvideToolProperties);
+
+        [Fact]
+        public void SARIF2005_ProvideToolProperties_Invalid()
+            => RunInvalidTestForRule(RuleId.ProvideToolProperties);
+
+        [Fact]
+        public void SARIF2005_ProvideToolProperties_DottedQuadFileVersion_AcceptedByConfiguration()
+        {
+            var acceptableVersionProperties = new KeyValuePair<string, object>(
+                nameof(ProvideToolProperties.AcceptableVersionProperties),
+                new StringSet
+                {
+                    nameof(ProvideToolProperties.s_dummyToolComponent.SemanticVersion),
+                    nameof(ProvideToolProperties.s_dummyToolComponent.DottedQuadFileVersion)
+                });
+
+            RunTest(
+                inputResourceName: "SARIF2005.ProvideToolProperties_DottedQuadFileVersion.sarif",
+                expectedOutputResourceName: "SARIF2005.ProvideToolProperties_DottedQuadFileVersion_Valid.sarif",
+                parameter: acceptableVersionProperties);
+        }
+
+        [Fact]
+        public void SARIF2005_ProvideToolProperties_DottedQuadFileVersion_RejectedByConfiguration()
+        {
+            var acceptableVersionProperties = new KeyValuePair<string, object>(
+                nameof(ProvideToolProperties.AcceptableVersionProperties),
+                new StringSet
+                {
+                    nameof(ProvideToolProperties.s_dummyToolComponent.Version),
+                    nameof(ProvideToolProperties.s_dummyToolComponent.SemanticVersion)
+                });
+
+            RunTest(
+                inputResourceName: "SARIF2005.ProvideToolProperties_DottedQuadFileVersion.sarif",
+                expectedOutputResourceName: "SARIF2005.ProvideToolProperties_DottedQuadFileVersion_Invalid.sarif",
+                parameter: acceptableVersionProperties);
+        }
+
+        [Fact]
+        public void SARIF2005_ProvideToolProperties_MissingInformationUri_AcceptedByConfiguration()
+        {
+            var informationUriRequired = new KeyValuePair<string, object>(
+                nameof(ProvideToolProperties.InformationUriRequired),
+                false);
+
+            RunTest(
+                inputResourceName: "SARIF2005.ProvideToolProperties_MissingInformationUri.sarif",
+                expectedOutputResourceName: "SARIF2005.ProvideToolProperties_MissingInformationUri_Valid.sarif",
+                parameter: informationUriRequired);
+        }
+
+        [Fact]
+        public void SARIF2005_ProvideToolProperties_MissingInformationUri_RejectedByConfiguration()
+        {
+            var informationUriRequired = new KeyValuePair<string, object>(
+               nameof(ProvideToolProperties.InformationUriRequired),
+               true);
+
+            RunTest(
+                inputResourceName: "SARIF2005.ProvideToolProperties_MissingInformationUri.sarif",
+                expectedOutputResourceName: "SARIF2005.ProvideToolProperties_MissingInformationUri_Invalid.sarif",
+                parameter: informationUriRequired);
+        }
+
+        [Fact]
+        public void SARIF2006_UrisShouldBeReachable_Valid()
+            => RunValidTestForRule(RuleId.UrisShouldBeReachable);
+
+        [Fact]
+        public void SARIF2006_UrisShouldBeReachable_Invalid()
+            => RunInvalidTestForRule(RuleId.UrisShouldBeReachable);
+
+        [Fact]
+        public void SARIF2007_ExpressPathsRelativeToRepoRoot_Valid()
+            => RunValidTestForRule(RuleId.ExpressPathsRelativeToRepoRoot);
+
+        [Fact]
+        public void SARIF2007_ExpressPathsRelativeToRepoRoot_WithoutVersionControlProvenance_Valid()
+            => RunTest("SARIF2007.ExpressPathsRelativeToRepoRoot_WithoutVersionControlProvenance_Valid.sarif");
+
+        [Fact]
+        public void SARIF2007_ExpressPathsRelativeToRepoRoot_Invalid()
+            => RunInvalidTestForRule(RuleId.ExpressPathsRelativeToRepoRoot);
+
+        [Fact]
+        public void SARIF2008_ProvideSchema_Valid()
+            => RunValidTestForRule(RuleId.ProvideSchema);
+
+        [Fact]
+        public void SARIF2008_ProvideSchema_Invalid()
+            => RunInvalidTestForRule(RuleId.ProvideSchema);
+
+        [Fact]
+        public void SARIF2009_ConsiderConventionalIdentifierValues_Valid()
+            => RunValidTestForRule(RuleId.ConsiderConventionalIdentifierValues);
+
+        [Fact]
+        public void SARIF2009_ConsiderConventionalIdentifierValues_Invalid()
+            => RunInvalidTestForRule(RuleId.ConsiderConventionalIdentifierValues);
+
+        [Fact]
+        public void SARIF2010_ProvideCodeSnippets_Valid()
+            => RunValidTestForRule(RuleId.ProvideCodeSnippets);
+
+        [Fact]
+        public void SARIF2010_ProvideCodeSnippets_WithEmbeddedContent_Valid()
+            => RunTest("SARIF2010.ProvideCodeSnippets_WithEmbeddedContent.sarif");
+
+        [Fact]
+        public void SARIF2010_ProvideCodeSnippets_Invalid()
+            => RunInvalidTestForRule(RuleId.ProvideCodeSnippets);
+
+        [Fact]
+        public void SARIF2011_ProvideContextRegion_Valid()
+            => RunValidTestForRule(RuleId.ProvideContextRegion);
+
+        [Fact]
+        public void SARIF2011_ProvideContextRegion_Invalid()
+            => RunInvalidTestForRule(RuleId.ProvideContextRegion);
+
+        [Fact]
+        public void SARIF2012_ProvideRuleProperties_Valid()
+            => RunValidTestForRule(RuleId.ProvideRuleProperties);
+
+        [Fact]
+        public void SARIF2012_ProvideRuleProperties_Invalid()
+            => RunInvalidTestForRule(RuleId.ProvideRuleProperties);
+
+        [Fact]
+        public void SARIF2013_ProvideEmbeddedFileContent_Valid()
+            => RunValidTestForRule(RuleId.ProvideEmbeddedFileContent);
+
+        [Fact]
+        public void SARIF2013_ProvideEmbeddedFileContent_Invalid()
+            => RunInvalidTestForRule(RuleId.ProvideEmbeddedFileContent);
+
+        [Fact]
+        public void SARIF2014_ProvideDynamicMessageContent_Valid()
+            => RunValidTestForRule(RuleId.ProvideDynamicMessageContent);
+
+        [Fact]
+        public void SARIF2014_ProvideDynamicMessageContent_Invalid()
+            => RunInvalidTestForRule(RuleId.ProvideDynamicMessageContent);
+
+        [Fact]
+        public void SARIF2015_EnquoteDynamicMessageContent_Valid()
+            => RunValidTestForRule(RuleId.EnquoteDynamicMessageContent);
+
+        [Fact]
+        public void SARIF2015_EnquoteDynamicMessageContent_Invalid()
+            => RunInvalidTestForRule(RuleId.EnquoteDynamicMessageContent);
+
+        [Fact]
+        public void SARIF2016_FileUrisShouldBeRelative_Valid()
+            => RunValidTestForRule(RuleId.FileUrisShouldBeRelative);
+
+        [Fact]
+        public void SARIF2016_FileUrisShouldBeRelative_Invalid()
+            => RunInvalidTestForRule(RuleId.FileUrisShouldBeRelative);
+
+        [Fact]
+        public void GH1001_ProvideRequiredLocationProperties_Valid()
+            => RunValidTestForRule(RuleId.ProvideRequiredLocationProperties);
+
+        [Fact]
+        public void GH1001_ProvideRequiredLocationProperties_Invalid()
+            => RunInvalidTestForRule(RuleId.ProvideRequiredLocationProperties);
+
+        [Fact]
+        public void GH1002_InlineThreadFlowLocations_Valid()
+            => RunValidTestForRule(RuleId.InlineThreadFlowLocations);
+
+        [Fact]
+        public void GH1002_InlineThreadFlowLocations_Invalid()
+            => RunInvalidTestForRule(RuleId.InlineThreadFlowLocations);
+
+        [Fact]
+        public void GH1003_ProvideRequiredRegionProperties_Valid()
+            => RunValidTestForRule(RuleId.ProvideRequiredRegionProperties);
+
+        [Fact]
+        public void GH1003_ProvideRequiredRegionProperties_Invalid()
+            => RunInvalidTestForRule(RuleId.ProvideRequiredRegionProperties);
+
+        [Fact]
+        public void GH1004_ReviewArraysThatExceedConfigurableDefaults_Valid()
+            => RunArrayLimitTest(ValidTestFileNameSuffix);
+
+        [Fact]
+        public void GH1004_ReviewArraysThatExceedConfigurableDefaults_Invalid()
+            => RunArrayLimitTest(InvalidTestFileNameSuffix);
+
+        [Fact]
+        public void GH1005_LocationsMustBeRelativeUrisOrFilePaths_Valid()
+            => RunValidTestForRule(RuleId.LocationsMustBeRelativeUrisOrFilePaths);
+
+        [Fact]
+        public void GH1005_LocationsMustBeRelativeUrisOrFilePaths_Invalid()
+            => RunInvalidTestForRule(RuleId.LocationsMustBeRelativeUrisOrFilePaths);
+
+        [Fact]
+        public void GH1006_ProvideCheckoutPath_Valid()
+            => RunValidTestForRule(RuleId.ProvideCheckoutPath);
+
+        [Fact]
+        public void GH1006_ProvideCheckoutPath_Invalid()
+            => RunInvalidTestForRule(RuleId.ProvideCheckoutPath);
+
+        private void RunArrayLimitTest(string testFileNameSuffix)
+        {
+            // Some of the actual limits are impractically large for testing purposes,
+            // so the following test will set smaller values.
+            int savedMaxRuns = s_arraySizeLimitDictionary[s_runsPerLogKey];
+            int savedMaxRules = s_arraySizeLimitDictionary[s_rulesPerRunKey];
+            int savedMaxResults = s_arraySizeLimitDictionary[s_resultsPerRunKey];
+            int savedMaxResultLocations = s_arraySizeLimitDictionary[s_locationsPerResultKey];
+            int savedMaxCodeFlows = s_arraySizeLimitDictionary[s_codeFlowsPerResultKey];
+            int savedMaxThreadFlowLocations = s_arraySizeLimitDictionary[s_locationsPerThreadFlowKey];
+
+            try
+            {
+                s_arraySizeLimitDictionary[s_runsPerLogKey] = 1;
+                s_arraySizeLimitDictionary[s_rulesPerRunKey] = 1;
+                s_arraySizeLimitDictionary[s_resultsPerRunKey] = 1;
+                s_arraySizeLimitDictionary[s_locationsPerResultKey] = 1;
+                s_arraySizeLimitDictionary[s_codeFlowsPerResultKey] = 1;
+                s_arraySizeLimitDictionary[s_locationsPerThreadFlowKey] = 1;
+
+                RunTestForRule(RuleId.ReviewArraysThatExceedConfigurableDefaults, testFileNameSuffix);
+            }
+            finally
+            {
+                s_arraySizeLimitDictionary[s_runsPerLogKey] = savedMaxRuns;
+                s_arraySizeLimitDictionary[s_rulesPerRunKey] = savedMaxRules;
+                s_arraySizeLimitDictionary[s_resultsPerRunKey] = savedMaxResults;
+                s_arraySizeLimitDictionary[s_locationsPerResultKey] = savedMaxResultLocations;
+                s_arraySizeLimitDictionary[s_codeFlowsPerResultKey] = savedMaxCodeFlows;
+                s_arraySizeLimitDictionary[s_locationsPerThreadFlowKey] = savedMaxThreadFlowLocations;
+            }
+        }
+
+        private void RunValidTestForRule(string ruleId)
+            => RunTestForRule(ruleId, ValidTestFileNameSuffix);
+
+        private void RunInvalidTestForRule(string ruleId)
+            => RunTestForRule(ruleId, InvalidTestFileNameSuffix);
+
+        private void RunTestForRule(string ruleId, string testFileNameSuffix)
+        {
+            SarifValidationSkimmerBase rule = GetRuleFromId(ruleId);
+            string testFileName = MakeTestFileName(rule, testFileNameSuffix);
+            RunTest(testFileName);
+        }
+
+        private SarifValidationSkimmerBase GetRuleFromId(string ruleId)
+            => this.validationRules.Single(vr => vr.Id == ruleId);
+
+        private string MakeTestFileName(ReportingDescriptor rule, string testFileNameSuffix)
+            => $"{rule.Id}.{rule.Name}{testFileNameSuffix}";
 
         protected override string ConstructTestOutputFromInputResource(string inputResourceName, object parameter)
         {
@@ -164,11 +446,14 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
 
             // All SARIF rule prefixes require update to current release.
             // All rules with JSON prefix are low level syntax/deserialization checks.
-            // We can't transform these test inputs as that operation fixes up erros in the file.
-            // Also, don't transform the tests for SARIF1020, because that rule examines the actual contents of the $schema
-            // property, so we can't change it.
-            bool updateInputsToCurrentSarif = ruleUnderTest.StartsWith("SARIF") 
-                && ruleUnderTest != "SARIF1020" ? true : false;
+            // We can't transform these test inputs as that operation fixes up errors in the file.
+            // Also, don't transform the tests for SARIF1011 or SARIF2008, because these rules
+            // examine the actual contents of the $schema property.
+
+            string[] shouldNotTransform = { "SARIF1011", "SARIF2008" };
+
+            bool updateInputsToCurrentSarif = IsSarifRule(ruleUnderTest)
+                && !shouldNotTransform.Contains(ruleUnderTest);
 
             var validateOptions = new ValidateOptions
             {
@@ -178,7 +463,8 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
                 Quiet = true,
                 UpdateInputsToCurrentSarif = updateInputsToCurrentSarif,
                 PrettyPrint = true,
-                Optimize = true
+                Optimize = true,
+                Verbose = true // Turn on note-level rules.
             };
 
             var mockFileSystem = new Mock<IFileSystem>();
@@ -190,28 +476,47 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
             mockFileSystem.Setup(x => x.ReadAllText(It.IsNotIn<string>(inputLogFilePath))).Returns<string>(path => File.ReadAllText(path));
             mockFileSystem.Setup(x => x.WriteAllText(It.IsAny<string>(), It.IsAny<string>()));
 
-            var validateCommand = new ValidateCommand(mockFileSystem.Object);
-
-            int returnCode = validateCommand.Run(validateOptions);
-
-            if (validateCommand.ExecutionException != null)
+            // Some rules are disabled by default, so create a configuration file that explicitly
+            // enables the rule under test.
+            using (TempFile configFile = CreateTempConfigFile(ruleUnderTest, parameter))
             {
-                Console.WriteLine(validateCommand.ExecutionException.ToString());
+                validateOptions.ConfigurationFilePath = configFile.Name;
+                mockFileSystem.Setup(x => x.FileExists(validateOptions.ConfigurationFilePath)).Returns(true);
+
+                var validateCommand = new ValidateCommand(mockFileSystem.Object);
+
+                int returnCode = validateCommand.Run(validateOptions);
+
+                if (validateCommand.ExecutionException != null)
+                {
+                    Console.WriteLine(validateCommand.ExecutionException.ToString());
+                }
+
+                returnCode.Should().Be(0);
             }
 
-            returnCode.Should().Be(0);
+            string actualLogFileContents = File.ReadAllText(actualLogFilePath);
+            SarifLog actualLog = JsonConvert.DeserializeObject<SarifLog>(actualLogFileContents);
+            Run run = actualLog.Runs[0];
 
-            SarifLog actualLog = JsonConvert.DeserializeObject<SarifLog>(File.ReadAllText(actualLogFilePath));
+            // First, we'll strip any validation results that don't originate with the rule under test.
+            // But leave the results that originate from JSchema! Also, be careful because output files
+            // from "valid" test cases don't have any results.
+            run.Results = run.Results
+                ?.Where(r => IsRelevant(r.RuleId, ruleUnderTest))
+                ?.ToList();
 
-            // First, we'll strip any validation results that don't originate with the rule under test
-            var newResults = new List<Result>();
+            // Next, remove any rule metadata for those rules. The output files from "valid" test
+            // cases don't have any rules.
+            run.Tool.Driver.Rules = run.Tool.Driver.Rules
+                ?.Where(r => IsRelevant(r.Id, ruleUnderTest))
+                ?.ToList();
 
-            foreach (Result result in actualLog.Runs[0].Results)
+            // Since there's only one rule in the metadata, the ruleIndex for all remaining results
+            // must be 0.
+            foreach (Result result in run.Results)
             {
-                if (result.RuleId == ruleUnderTest)
-                {
-                    newResults.Add(result);
-                }
+                result.RuleIndex = 0;
             }
 
             // Next, we'll remove non-deterministic information, most notably, timestamps emitted for the invocation data.
@@ -238,5 +543,67 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
 
             return JsonConvert.SerializeObject(actualLog, Formatting.Indented);
         }
+
+        private static bool IsSarifRule(string ruleId)
+            => ruleId.StartsWith("SARIF") || ruleId.StartsWith("GH");
+
+        private TempFile CreateTempConfigFile(string ruleId, object parameter)
+        {
+            var propertiesDictionary = new PropertiesDictionary();
+
+            if (IsSarifRule(ruleId))
+            {
+                var rulePropertiesDictionary = new PropertiesDictionary();
+                SarifValidationSkimmerBase rule = GetRuleFromId(ruleId);
+                RuleEnabledState ruleEnabledState = GetRuleEnabledState(rule);
+                rulePropertiesDictionary.Add(nameof(DefaultDriverOptions.RuleEnabled), ruleEnabledState);
+                if (parameter is KeyValuePair<string, object> pair)
+                {
+                    rulePropertiesDictionary.Add(pair.Key, pair.Value);
+                }
+
+                propertiesDictionary.Add($"{rule.Moniker}.Options", rulePropertiesDictionary);
+            }
+
+            var tempFile = new TempFile(".xml");
+            propertiesDictionary.SaveToXml(tempFile.Name);
+            return tempFile;
+        }
+
+        private static RuleEnabledState GetRuleEnabledState(ReportingDescriptor rule)
+        {
+            FailureLevel? declaredLevel = rule.DefaultConfiguration?.Level;
+
+            if (declaredLevel.HasValue)
+            {
+                return declaredLevel.Value switch
+                {
+                    FailureLevel.Error => RuleEnabledState.Error,
+                    FailureLevel.Warning => RuleEnabledState.Warning,
+                    FailureLevel.Note => RuleEnabledState.Note,
+                    _ => throw new ArgumentException("Non-failure validation rules are not yet supported.", rule.Moniker),
+                };
+            }
+            else
+            {
+                return RuleEnabledState.Warning;
+            }
+        }
+
+        private IList<SarifValidationSkimmerBase> GetValidationRules()
+        {
+            // Select one rule arbitrarily, find out what assembly it's in, and get all the other
+            // rules from that assembly.
+            Assembly validationRuleAssembly = typeof(RuleIdentifiersMustBeValid).Assembly;
+
+            return CompositionUtilities.GetExports<SarifValidationSkimmerBase>(
+                new Assembly[]
+                {
+                    validationRuleAssembly
+                }).ToList();
+        }
+
+        private static bool IsRelevant(string ruleId, string ruleUnderTest)
+            => ruleId == ruleUnderTest || ruleId.StartsWith("JSON");
     }
 }

@@ -1,0 +1,288 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "SARIF Functional Testing",
+          "rules": [
+            {
+              "id": "SARIF1007",
+              "name": "RegionPropertiesMustBeConsistent",
+              "shortDescription": {
+                "text": "The properties of a 'region' object must be consistent."
+              },
+              "fullDescription": {
+                "text": "The properties of a 'region' object must be consistent.\r\n\r\nSARIF can specify a 'region' (a contiguous portion of a file) in a variety of ways: with line and column numbers, with a character offset and count, or with a byte offset and count. The specification states certain constraints on these properties, both within each property group (for example, the start line cannot be greater than end line) and between the groups (for example, if more than one group is present, they must independently specify the same portion of the file). See the SARIF specification ([3.30](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317685))."
+              },
+              "messageStrings": {
+                "Error_EndLineMustNotPrecedeStartLine": {
+                  "text": "{0}: In this 'region' object, the 'endLine' property '{1}' is less than the 'startLine' property '{2}'. The properties of a 'region' object must be internally consistent."
+                },
+                "Error_EndColumnMustNotPrecedeStartColumn": {
+                  "text": "{0}: In this 'region' object, the 'endColumn' property '{1}' is less than the 'startColumn' property '{2}'. The properties of a 'region' object must be internally consistent."
+                },
+                "Error_RegionStartPropertyMustBePresent": {
+                  "text": "{0}: This 'region' object does not specify 'startLine', 'charOffset', or 'byteOffset'. As a result, it is impossible to determine whether this 'region' object describes a line/column text region, a character offset/length text region, or a binary region."
+                }
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+            }
+          ]
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1007.RegionPropertiesMustBeConsistent_Invalid.sarif",
+            "uriBaseId": "TEST_DIR"
+          }
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "SARIF1007",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_EndColumnMustNotPrecedeStartColumn",
+            "arguments": [
+              "runs[0].results[0].locations[0].physicalLocation.region.endColumn",
+              "1",
+              "2"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 28,
+                  "startColumn": 32
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1007",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_EndColumnMustNotPrecedeStartColumn",
+            "arguments": [
+              "runs[0].results[0].codeFlows[0].threadFlows[0].locations[0].location.physicalLocation.region.endColumn",
+              "1",
+              "2"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 73,
+                  "startColumn": 42
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1007",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_EndColumnMustNotPrecedeStartColumn",
+            "arguments": [
+              "runs[0].results[0].stacks[0].frames[0].location.physicalLocation.region.endColumn",
+              "1",
+              "2"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 48,
+                  "startColumn": 38
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1007",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_EndColumnMustNotPrecedeStartColumn",
+            "arguments": [
+              "runs[0].results[0].relatedLocations[0].physicalLocation.region.endColumn",
+              "1",
+              "2"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 95,
+                  "startColumn": 32
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1007",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_EndLineMustNotPrecedeStartLine",
+            "arguments": [
+              "runs[0].results[1].locations[0].physicalLocation.region.endLine",
+              "1",
+              "2"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 118,
+                  "startColumn": 30
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1007",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_EndLineMustNotPrecedeStartLine",
+            "arguments": [
+              "runs[0].results[1].codeFlows[0].threadFlows[0].locations[0].location.physicalLocation.region.endLine",
+              "1",
+              "2"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 161,
+                  "startColumn": 40
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1007",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_EndLineMustNotPrecedeStartLine",
+            "arguments": [
+              "runs[0].results[1].stacks[0].frames[0].location.physicalLocation.region.endLine",
+              "1",
+              "2"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 137,
+                  "startColumn": 36
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1007",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_EndLineMustNotPrecedeStartLine",
+            "arguments": [
+              "runs[0].results[1].relatedLocations[0].physicalLocation.region.endLine",
+              "1",
+              "2"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 182,
+                  "startColumn": 30
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1007",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_RegionStartPropertyMustBePresent",
+            "arguments": [
+              "runs[0].results[1].relatedLocations[1].physicalLocation.region"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 194,
+                  "startColumn": 27
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}

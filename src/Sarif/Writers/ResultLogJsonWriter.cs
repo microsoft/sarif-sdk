@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Writers
@@ -49,8 +50,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         /// Initializes the SARIF log by emitting properties and other constructs
         /// sufficient to being populating a run with results.
         /// </summary>
-        /// <param name="id">A string that uniquely identifies a run.</param>
-        /// <param name="automationId">A global identifier for a run that permits correlation with a larger automation process.</param>
+        /// <param name="run"></param>
         public void Initialize(Run run)
         {
             if (run == null)
@@ -259,7 +259,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 {
                     OpenResults();
                 }
-            }            
+            }
         }
 
         public void CloseResults()

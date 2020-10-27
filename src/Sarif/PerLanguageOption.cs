@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     public class PerLanguageOption<T> : IOption
     {
         /// <summary>
-        /// A description of this specificoption.
+        /// A description of this specific option.
         /// </summary>
         public string Description { get; }
 

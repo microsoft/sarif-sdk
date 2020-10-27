@@ -2,18 +2,17 @@
 // license. See LICENSE file in the project root for full license information.
 
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("SARIF SDK v2.0 Sample")]
-[assembly: AssemblyDescription("SARIF v2.0 log file read/write sample application")]
+[assembly: AssemblyTitle("SARIF SDK v2.1.0 Sample")]
+[assembly: AssemblyDescription("SARIF v2.1.0 log file read/write sample application")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("SARIF SDK v2.0")]
-[assembly: AssemblyCopyright("Copyright ©  2018")]
+[assembly: AssemblyProduct("SARIF SDK v2.1.0")]
+[assembly: AssemblyCopyright("Copyright © 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

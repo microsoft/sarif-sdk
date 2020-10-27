@@ -249,4 +249,18 @@
   <data name="PartioningVisitHappensAtSarifLogLevel" xml:space="preserve">
     <value>Could not identify the log being partitioned. Call VisitSarifLog and provide the log to partition. This class is designed to create log files on a per-run basis (i.e., all partioned logs will contain a single run only).</value>
   </data>
+  <data name="CannotProvideVersionControlInformation" xml:space="preserve">
+    <value>Cannot provide version control information because the current directory '{0}' is not under a Git repository root directory.</value>
+  </data>
+  <data name="GitHelperDefaultInstanceDoesNotPermitCaching" xml:space="preserve">
+    <value>When using the static 'Default' instance of GitHelper, you must pass the argument useCache: false to GetRepositoryRoot, which degrades performance. If the performance is not acceptable, create a separate GitHelper instance. You need not pass useCache: true because that is the default.</value>
+  </data>
+  <data name="ErrorInvalidQueryPropertyName" xml:space="preserve">
+    <value>The property name '{0}' is unrecognized.
+Known property names: baselineState, correlationGuid, guid, hostedViewerUri, kind, level, message.text, occurrenceCount, rank, ruleId
+You can also refer to properties in the result's property bag with 'properties.&lt;propertyName&gt;', or to properties in the associated rule's property bag with 'properties.rule.&lt;propertyName&gt;'.</value>
+  </data>
+  <data name="ErrorInvalidQueryPropertyPrefix" xml:space="preserve">
+    <value>Property name must start with one of: {0}</value>
+  </data>
 </root>

@@ -1,7 +1,8 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.using System;
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Collections.Generic;
+
 using CommandLine;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
@@ -17,9 +18,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         [Option(
             'o',
-            "output-folder",
-            HelpText = "A folder to output the transformed files to. If absent, each transformed file is written to the same directory as the corresponding input file.")]
-        public string OutputFolderPath { get; internal set; }
+            "output-directory",
+            HelpText = "A directory to output the transformed files to. If absent, each transformed file is written to the same directory as the corresponding input file.")]
+        public string OutputDirectoryPath { get; internal set; }
 
         [Option(
             'i',
@@ -27,7 +28,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             Default = false,
             HelpText = "Overwrite each input file with the corresponding transformed file.")]
         public bool Inline { get; set; }
-
 
         [Value(0,
             MetaName = "<files>",

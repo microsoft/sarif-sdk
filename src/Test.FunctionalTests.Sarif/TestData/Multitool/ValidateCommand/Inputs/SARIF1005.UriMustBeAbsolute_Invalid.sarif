@@ -1,0 +1,49 @@
+{
+  "$schema": "json.schemastore.org/sarif-2.1.0-rtm.5",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "CodeScanner",
+          "version": "1.0",
+          "downloadUri": "tools/codescanner/download.html",
+          "notifications": [
+            {
+              "id": "MSG0001",
+              "helpUri": "www.example.com/notifications/msg0001.html"
+            },
+            {
+              "id": "MSG0002",
+              "helpUri": "www.example.com/notifications/msg0002.html"
+            }
+          ],
+          "rules": [
+            {
+              "id": "TST0001",
+              "helpUri": "www.example.com/rules/tst0001.html"
+            }
+          ]
+        }
+      },
+      "versionControlProvenance": [
+        {
+          "repositoryUri": "example.com/my-project"
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "TST0001",
+          "level": "error",
+          "message": {
+            "text": "Some testing occurred."
+          },
+          "workItemUris": [
+            "example.com/my-project/issues/42"
+          ]
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}

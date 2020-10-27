@@ -10,16 +10,33 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
     public class InsertOptionalDataVisitor : SarifRewritingVisitor
     {
-        internal IFileSystem s_fileSystem = new FileSystem();
+        private readonly IFileSystem _fileSystem;
+        private readonly GitHelper.ProcessRunner _processRunner;
 
         private Run _run;
+        private HashSet<Uri> _repoRootUris;
+        private GitHelper _gitHelper;
+
         private int _ruleIndex;
         private FileRegionsCache _fileRegionsCache;
         private readonly OptionallyEmittedData _dataToInsert;
         private readonly IDictionary<string, ArtifactLocation> _originalUriBaseIds;
 
-        public InsertOptionalDataVisitor(OptionallyEmittedData dataToInsert, IDictionary<string, ArtifactLocation> originalUriBaseIds = null)
+        public InsertOptionalDataVisitor(OptionallyEmittedData dataToInsert, Run run)
+            : this(dataToInsert, run?.OriginalUriBaseIds)
         {
+            _run = run ?? throw new ArgumentNullException(nameof(run));
+        }
+
+        public InsertOptionalDataVisitor(
+            OptionallyEmittedData dataToInsert,
+            IDictionary<string, ArtifactLocation> originalUriBaseIds = null,
+            IFileSystem fileSystem = null,
+            GitHelper.ProcessRunner processRunner = null)
+        {
+            _fileSystem = fileSystem ?? FileSystem.Instance;
+            _processRunner = processRunner;
+
             _dataToInsert = dataToInsert;
             _originalUriBaseIds = originalUriBaseIds;
             _ruleIndex = -1;
@@ -28,6 +45,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         public override Run VisitRun(Run node)
         {
             _run = node;
+            _gitHelper = new GitHelper(_fileSystem, _processRunner);
+            _repoRootUris = new HashSet<Uri>();
 
             if (_originalUriBaseIds != null)
             {
@@ -52,6 +71,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
 
             Run visited = base.VisitRun(node);
+
+            // After all the ArtifactLocations have been visited,
+            if (_run.VersionControlProvenance == null && _dataToInsert.HasFlag(OptionallyEmittedData.VersionControlInformation))
+            {
+                _run.VersionControlProvenance = CreateVersionControlProvenance();
+            }
 
             return visited;
         }
@@ -90,7 +115,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     resolvedUri = artifactLocation.Uri;
                 }
 
-                if (!resolvedUri.IsAbsoluteUri) goto Exit;
+                if (!resolvedUri.IsAbsoluteUri) { goto Exit; }
 
                 expandedRegion = _fileRegionsCache.PopulateTextRegionProperties(node.Region, resolvedUri, populateSnippet: insertRegionSnippets);
 
@@ -161,6 +186,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return base.VisitArtifact(node);
         }
 
+        public override ArtifactLocation VisitArtifactLocation(ArtifactLocation node)
+        {
+            if (_dataToInsert.HasFlag(OptionallyEmittedData.VersionControlInformation))
+            {
+                node = ExpressRelativeToRepoRoot(node);
+            }
+
+            return base.VisitArtifactLocation(node);
+        }
+
         public override Result VisitResult(Result node)
         {
             _ruleIndex = node.RuleIndex;
@@ -202,5 +237,111 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
             return base.VisitMessage(node);
         }
+
+        private List<VersionControlDetails> CreateVersionControlProvenance()
+        {
+            var versionControlProvenance = new List<VersionControlDetails>();
+
+            foreach (Uri repoRootUri in _repoRootUris)
+            {
+                string repoRootPath = repoRootUri.LocalPath;
+                Uri repoRemoteUri = _gitHelper.GetRemoteUri(repoRootPath);
+                if (repoRemoteUri != null)
+                {
+                    versionControlProvenance.Add(
+                        new VersionControlDetails
+                        {
+                            RepositoryUri = repoRemoteUri,
+                            RevisionId = _gitHelper.GetCurrentCommit(repoRootPath),
+                            Branch = _gitHelper.GetCurrentBranch(repoRootPath),
+                            MappedTo = new ArtifactLocation { Uri = repoRootUri }
+                        });
+                }
+            }
+
+            return versionControlProvenance;
+        }
+
+        private ArtifactLocation ExpressRelativeToRepoRoot(ArtifactLocation node)
+        {
+            Uri uri = node.Uri;
+            if (uri == null && node.Index >= 0 && _run.Artifacts?.Count > node.Index)
+            {
+                uri = _run.Artifacts[node.Index].Location.Uri;
+            }
+
+            if (uri != null && uri.IsAbsoluteUri && uri.IsFile)
+            {
+                string repoRootPath = _gitHelper.GetRepositoryRoot(uri.LocalPath);
+                if (repoRootPath != null)
+                {
+                    var repoRootUri = new Uri(repoRootPath, UriKind.Absolute);
+                    _repoRootUris.Add(repoRootUri);
+
+                    Uri repoRelativeUri = repoRootUri.MakeRelativeUri(uri);
+                    node.Uri = repoRelativeUri;
+                    node.UriBaseId = GetUriBaseIdForRepoRoot(repoRootUri);
+                }
+            }
+
+            return node;
+        }
+
+        private string GetUriBaseIdForRepoRoot(Uri repoRootUri)
+        {
+            // Is there already an entry in OriginalUriBaseIds for this repo?
+            if (_run.OriginalUriBaseIds != null)
+            {
+                foreach (KeyValuePair<string, ArtifactLocation> pair in _run.OriginalUriBaseIds)
+                {
+                    if (pair.Value.Uri == repoRootUri)
+                    {
+                        // Yes, so return it.
+                        return pair.Key;
+                    }
+                }
+            }
+
+            // No, so add one.
+            if (_run.OriginalUriBaseIds == null)
+            {
+                _run.OriginalUriBaseIds = new Dictionary<string, ArtifactLocation>();
+            }
+
+            string uriBaseId = GetNextRepoRootUriBaseId();
+            _run.OriginalUriBaseIds.Add(
+                uriBaseId,
+                new ArtifactLocation
+                {
+                    Uri = repoRootUri
+                });
+
+            return uriBaseId;
+        }
+
+        private string GetNextRepoRootUriBaseId()
+        {
+            ICollection<string> originalUriBaseIdSymbols = _run.OriginalUriBaseIds.Keys;
+
+            for (int i = 0; ; i++)
+            {
+                string uriBaseId = GetUriBaseId(i);
+                if (!originalUriBaseIdSymbols.Contains(uriBaseId))
+                {
+                    return uriBaseId;
+                }
+            }
+        }
+
+        private const string RepoRootUriBaseIdStem = "REPO_ROOT";
+
+        // When there is only one repo root (the usual case), the uriBaseId is "REPO_ROOT" (unless
+        // that symbol is already in use in originalUriBaseIds. The second and subsequent uriBaseIds
+        // are REPO_ROOT_2, _3, etc. (again, skipping over any that are in use). We never assign
+        // REPO_ROOT_1 (although of course it might exist in originalUriBaseIds).
+        internal static string GetUriBaseId(int i)
+            => i == 0
+            ? RepoRootUriBaseIdStem
+            : $"{RepoRootUriBaseIdStem}_{i + 1}";
     }
 }

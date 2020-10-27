@@ -1,17 +1,25 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.
+﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
+
 using FluentAssertions;
+
 using Microsoft.CodeAnalysis.Sarif;
+
 using Newtonsoft.Json;
+
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
 {
     public class RunTests
     {
+        private const string s_UriBaseId = "$$SomeUriBaseId$$";
+        private readonly Uri s_Uri = new Uri("relativeUri/toSomeFile.txt", UriKind.Relative);
+
         [Fact]
         public void Run_ColumnKindSerializesProperly()
         {
@@ -25,29 +33,6 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             RoundTripColumnKind(persistedValue: ColumnKind.Utf16CodeUnits, expectedRoundTrippedValue: ColumnKind.Utf16CodeUnits);
             RoundTripColumnKind(persistedValue: ColumnKind.UnicodeCodePoints, expectedRoundTrippedValue: ColumnKind.UnicodeCodePoints);
         }
-
-        private void RoundTripColumnKind(ColumnKind persistedValue, ColumnKind expectedRoundTrippedValue)
-        {
-            var sarifLog = new SarifLog
-            {
-                Runs = new[]
-                {
-                    new Run
-                    {
-                        Tool = new Tool { Driver = new ToolComponent { Name = "Test tool"} },
-                        ColumnKind = persistedValue
-                    }
-                }
-            };
-
-            string json = JsonConvert.SerializeObject(sarifLog);
-
-            sarifLog = JsonConvert.DeserializeObject<SarifLog>(json);
-            sarifLog.Runs[0].ColumnKind.Should().Be(expectedRoundTrippedValue);
-        }
-
-        private const string s_UriBaseId = "$$SomeUriBaseId$$";
-        private readonly Uri s_Uri = new Uri("relativeUri/toSomeFile.txt", UriKind.Relative);
 
         [Fact]
         public void Run_RetrievesExistingFileDataObject()
@@ -93,6 +78,86 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             run.ColumnKind.Should().Be(ColumnKind.Utf16CodeUnits);
         }
 
+        [Fact]
+        public void Run_ComputePolicies_WhenCollectionIsNullOrEmpty()
+        {
+            Dictionary<string, FailureLevel> cache = Run.ComputePolicies(null);
+            cache.Count.Should().Be(0);
+
+            cache = Run.ComputePolicies(new ToolComponent[] { });
+            cache.Count.Should().Be(0);
+        }
+
+        [Fact]
+        public void Run_ComputePolicies_SingleComponent()
+        {
+            Dictionary<string, FailureLevel> cache = Run.ComputePolicies(new ToolComponent[] { CreateToolComponent("test", 1, FailureLevel.Error) });
+            cache.Count.Should().Be(1);
+        }
+
+        [Fact]
+        public void Run_ComputePolicies_MultipleComponents()
+        {
+            Dictionary<string, FailureLevel> cache = Run.ComputePolicies(new ToolComponent[]
+            {
+                CreateToolComponent("test1", 1, FailureLevel.Error),
+                CreateToolComponent("test2", 2, FailureLevel.Warning)
+            });
+            cache.Count.Should().Be(2);
+            cache.First().Value.Should().Be(FailureLevel.Warning);
+            cache.Last().Value.Should().Be(FailureLevel.Warning);
+        }
+
+        [Fact]
+        public void Run_ApplyPolicies_WhenWeDontHavePolicies()
+        {
+            Run run = CreateRun(resultCount: 1);
+            run.ApplyPolicies();
+            run.Results[0].Level.Should().Be(FailureLevel.Note);
+        }
+
+        [Fact]
+        public void Run_ApplyPolicies_WhenWeHavePolicy()
+        {
+            Run run = CreateRun(resultCount: 1);
+            run.Policies = new ToolComponent[] { CreateToolComponent("test", 1, FailureLevel.Error) };
+            run.ApplyPolicies();
+            run.Results[0].Level.Should().Be(FailureLevel.Error);
+        }
+
+        [Fact]
+        public void Run_ApplyPolicies_WhenWeHavePolicies()
+        {
+            Run run = CreateRun(resultCount: 1);
+            run.Policies = new ToolComponent[]
+            {
+                CreateToolComponent("test1", rulesCount: 1, FailureLevel.Error),
+                CreateToolComponent("test2", rulesCount: 2, FailureLevel.Warning)
+            };
+            run.ApplyPolicies();
+            run.Results[0].Level.Should().Be(FailureLevel.Warning);
+        }
+
+        private void RoundTripColumnKind(ColumnKind persistedValue, ColumnKind expectedRoundTrippedValue)
+        {
+            var sarifLog = new SarifLog
+            {
+                Runs = new[]
+                {
+                    new Run
+                    {
+                        Tool = new Tool { Driver = new ToolComponent { Name = "Test tool"} },
+                        ColumnKind = persistedValue
+                    }
+                }
+            };
+
+            string json = JsonConvert.SerializeObject(sarifLog);
+
+            sarifLog = JsonConvert.DeserializeObject<SarifLog>(json);
+            sarifLog.Runs[0].ColumnKind.Should().Be(expectedRoundTrippedValue);
+        }
+
         private void RetrieveFileIndexAndValidate(Run run, ArtifactLocation fileLocation, int expectedFileIndex)
         {
             bool validateIndex = fileLocation.Uri != null;
@@ -136,6 +201,44 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
                 }
             };
             run.Artifacts[0].Location.Index = 0;
+
+            return run;
+        }
+
+        private ToolComponent CreateToolComponent(string name, int rulesCount, FailureLevel failureLevel)
+        {
+            ToolComponent toolComponent = new ToolComponent();
+            toolComponent.Name = name;
+            toolComponent.Rules = new ReportingDescriptor[rulesCount];
+            for (int i = 0; i < rulesCount; i++)
+            {
+                toolComponent.Rules[i] = new ReportingDescriptor
+                {
+                    Id = $"TEST{i}",
+                    DefaultConfiguration = new ReportingConfiguration
+                    {
+                        Level = failureLevel
+                    }
+                };
+            }
+
+            return toolComponent;
+        }
+
+        private Run CreateRun(int resultCount)
+        {
+            var run = new Run
+            {
+                Results = new Result[resultCount]
+            };
+            for (int i = 0; i < resultCount; i++)
+            {
+                run.Results[i] = new Result
+                {
+                    RuleId = $"TEST{i}",
+                    Level = FailureLevel.Note
+                };
+            }
 
             return run;
         }

@@ -13,13 +13,13 @@ tab_width = 4
 
 # New line preferences
 end_of_line = crlf
-insert_final_newline = false
+insert_final_newline = true
 
 #### .NET Coding Conventions ####
 
 # Organize usings
-dotnet_separate_import_directive_groups = true:error
-dotnet_sort_system_directives_first = true:error
+dotnet_separate_import_directive_groups = true
+dotnet_sort_system_directives_first = true
 
 # this. and Me. preferences
 dotnet_style_qualification_for_field = true:silent
@@ -195,3 +195,13 @@ dotnet_naming_style.begins_with_i.required_prefix = I
 dotnet_naming_style.begins_with_i.required_suffix = 
 dotnet_naming_style.begins_with_i.word_separator = 
 dotnet_naming_style.begins_with_i.capitalization = pascal_case
+
+dotnet_diagnostic.CS1570.severity = silent
+dotnet_diagnostic.CS1572.severity = silent
+dotnet_diagnostic.CS1573.severity = silent
+dotnet_diagnostic.CS1574.severity = silent
+dotnet_diagnostic.CS1591.severity = silent
+dotnet_diagnostic.CS1712.severity = silent
+dotnet_diagnostic.CS1734.severity = silent
+
+file_header_template = Copyright (c) Microsoft. All rights reserved.\nLicensed under the MIT license. See LICENSE file in the project root for full license information.

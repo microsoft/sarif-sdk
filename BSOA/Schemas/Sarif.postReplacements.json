@@ -90,6 +90,13 @@
       "arePlainText": true
     },
     {
+      "description": "Result.Locations should be written when empty",
+      "replace": "JsonToIList<Location>.Write(writer, \"locations\", item.Locations, JsonToLocation.Write)",
+      "with": "JsonToIList<Location>.Write(writer, \"locations\", item.Locations, JsonToLocation.Write, required: (item.Locations != null))",
+      "files": "JsonToResult\\.cs",
+      "arePlainText": true
+    },
+    {
       "description": "ToolComponent.Name is required",
       "replace": "Write(writer, \"name\", item.Name, default)",
       "with": "Write(writer, \"name\", item.Name, default, required: true)",

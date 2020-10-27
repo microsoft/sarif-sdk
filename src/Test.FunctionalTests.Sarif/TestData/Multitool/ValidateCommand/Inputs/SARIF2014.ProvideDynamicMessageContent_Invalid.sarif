@@ -1,0 +1,34 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "SARIF Functional Testing",
+          "version": "1",
+          "rules": [
+            {
+              "id": "TST0001",
+              "fullDescription": {
+                "text": "This is a test."
+              },
+              "messageStrings": {
+                "NoPlaceholders": {
+                  "text": "This message does not contain dynamic content."
+                }
+              },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+            }
+          ]
+        }
+      },
+      "versionControlProvenance": [
+        {
+          "repositoryUri": "https://github.com/microsoft/sarif-sdk"
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}

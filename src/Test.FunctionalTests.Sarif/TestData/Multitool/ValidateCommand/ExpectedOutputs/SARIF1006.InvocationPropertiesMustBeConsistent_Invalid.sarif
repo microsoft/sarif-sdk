@@ -1,0 +1,76 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "SARIF Functional Testing",
+          "rules": [
+            {
+              "id": "SARIF1006",
+              "name": "InvocationPropertiesMustBeConsistent",
+              "shortDescription": {
+                "text": "The properties of an 'invocation' object must be consistent."
+              },
+              "fullDescription": {
+                "text": "The properties of an 'invocation' object must be consistent.\r\n\r\nIf the 'invocation' object specifies both 'startTimeUtc' and 'endTimeUtc', then 'endTimeUtc' must not precede 'startTimeUtc'. To allow for the possibility that the duration of the run is less than the resolution of the string representation of the time, the start time and the end time may be equal."
+              },
+              "messageStrings": {
+                "Error_EndTimeMustNotPrecedeStartTime": {
+                  "text": "{0}: The 'endTimeUtc' value '{1}' precedes the 'startTimeUtc' value '{2}'. The properties of an 'invocation' object must be internally consistent."
+                }
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+            }
+          ]
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1006.InvocationPropertiesMustBeConsistent_Invalid.sarif",
+            "uriBaseId": "TEST_DIR"
+          }
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "SARIF1006",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_EndTimeMustNotPrecedeStartTime",
+            "arguments": [
+              "runs[0].invocations[0].endTimeUtc",
+              "2016-08-25T21:26:40.051Z",
+              "2016-08-25T21:26:42.049Z"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 16,
+                  "startColumn": 50
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}

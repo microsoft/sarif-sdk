@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.
+﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
@@ -14,7 +14,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// successfully reconstitute an absolute URI, it will return false
         /// and populate 'resolvedUri' with null.
         /// </summary>
-        /// <param name="fileLocation">The fileLocatio instance from which an absolute URI should be reconstructed, if possible.</param>
         /// <param name="originalUriBaseIds">The original uri base id values associated with the tool run.</param>
         /// <param name="resolvedUri">The reconstructed absolute URI or null (if an absolute URI cannot be reconstructed).</param>
         /// <returns></returns>
@@ -53,7 +52,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                 // I'd like to use the ctor new Uri(baseUri, relativeUri) here, but it fails with
                 // ArgumentOutOfRangeException, perhaps because it doesn't like the baseUri argument
                 // to be relative. So...
-                stemUri = new Uri(artifactLocation.Uri.OriginalString + stemUri.OriginalString, UriKind.RelativeOrAbsolute);
+                string artifactLocationOriginalUriString = artifactLocation.Uri.OriginalString;
+                if (!artifactLocationOriginalUriString.EndsWith("/")) { artifactLocationOriginalUriString += "/"; }
+                stemUri = new Uri(artifactLocationOriginalUriString + stemUri.OriginalString, UriKind.RelativeOrAbsolute);
             }
 
             // If we got here, we found an absolute URI.
@@ -104,5 +105,30 @@ namespace Microsoft.CodeAnalysis.Sarif
                 ? run.Artifacts[Index].Location
                 : this;
         }
+
+        /// <summary>
+        /// Creates a <see cref="Location"/> instance from data representing a single-line region.
+        /// </summary>
+        /// <param name="lineNumber">The line number within the file (1 based).</param>
+        /// <param name="column">The starting column number within the line (1-based).</param>
+        /// <param name="length">The length of the region, measured in characters.</param>
+        /// <param name="offset">The offset of the region start from the beginning of the file, measured in characters.</param>
+        /// <returns>An instance of a Location class.</returns>
+        public Location ToLocation(int lineNumber, int column, int length, int offset) =>
+            new Location
+            {
+                PhysicalLocation = new PhysicalLocation
+                {
+                    ArtifactLocation = this,
+                    Region = new Region
+                    {
+                        StartLine = lineNumber,
+                        StartColumn = column,
+                        EndColumn = column + length,
+                        CharOffset = offset,
+                        CharLength = length,
+                    },
+                },
+            };
     }
 }

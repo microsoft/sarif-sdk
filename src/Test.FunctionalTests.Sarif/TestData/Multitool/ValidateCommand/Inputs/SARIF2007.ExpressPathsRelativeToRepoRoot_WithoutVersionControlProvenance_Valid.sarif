@@ -1,0 +1,50 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "SARIF Functional Testing",
+          "version": "1.2.3",
+          "rules": [
+            {
+              "id": "TEST1001",
+              "fullDescription": {
+                "text": "Test 1001 full description."
+              },
+              "messageStrings": {
+                "DoesExist": {
+                  "text": "'{0}': Placeholder '{1}'."
+                }
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "TEST1001",
+          "message": {
+            "id": "DoesExist",
+            "arguments": [
+              "runs[0].originalUriBaseIds.SRCINVALID",
+              "SRCINVALID"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "project/file.cs",
+                  "uriBaseId": "SOURCE_ROOT"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}

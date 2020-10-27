@@ -18,6 +18,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         private readonly IFileSystem _fileSystem;
         private readonly Cache<string, Tuple<string, NewLineIndex>> _cache;
 
+        /// <summary>
+        /// Creates a new <see cref="FileRegionsCache"/> object.
+        /// </summary>
+        /// <param name="run">
+        /// The <see cref="Run"/> object whose data is to be cached.
+        /// </param>
+        /// <param name="capacity">
+        /// The initial capacity of the cache.
+        /// </param>
+        /// <param name="fileSystem">
+        /// An object that provides access to file system services.
+        /// </param>
         public FileRegionsCache(Run run, int capacity = DefaultCacheCapacity, IFileSystem fileSystem = null)
         {
             // Each file regions cache is associated with a single SARIF run.
@@ -25,23 +37,35 @@ namespace Microsoft.CodeAnalysis.Sarif
             // things like URLs, point-in-time file contents, etc.
             _run = run;
 
-            _fileSystem = fileSystem ?? new FileSystem();
+            _fileSystem = fileSystem ?? FileSystem.Instance;
 
             // Build a cache for this data, with the load method it should use to add new entries
-            _cache = new Cache<string, Tuple<string, NewLineIndex>>(BuildIndexForFile);
+            _cache = new Cache<string, Tuple<string, NewLineIndex>>(BuildIndexForFile, capacity);
         }
 
         /// <summary>
-        /// Accepts a physical location and returns a Region object, based on the input
-        /// physicalLocation.region property, that has all its properties populated. If an 
-        /// input text region, for example, only specifies the startLine property, the returned
-        /// Region instance will have computed and populated other properties, such as charOffset,
-        /// charLength, etc. 
+        /// Creates a <see cref="Region"/> object, based on an existing Region, in which all
+        /// text-related properties have been populated.
         /// </summary>
-        /// <param name="physicalLocation">The physical location containing the region which should be populated.</param>
-        /// <param name="populateSnippet">Specifies whether the physicalLocation.region.snippet property should be populated.</param>
-        /// <returns></returns>
-        public Region PopulateTextRegionProperties(Region inputRegion, Uri uri, bool populateSnippet)
+        /// <remarks>
+        /// For example, if the input Region specifies only the StartLine property, the returned
+        /// Region instance will have computed and populated other text-related properties, such
+        /// as properties, such as CharOffset, CharLength, etc.
+        /// </remarks>
+        /// <param name="inputRegion">
+        /// Region object that forms the basis of the returned Region object.
+        /// </param>
+        /// <param name="uri">
+        /// URI of the artifact in which <paramref name="inputRegion"/> lies, used to retrieve
+        /// from the cache the location of each newline in the artifact.
+        /// </param>
+        /// <param name="populateSnippet">
+        /// Boolean that indicates if the region's Snippet property will be populated.
+        /// </param>
+        /// <returns>
+        /// A Region object whose text-related properties have been fully populated.
+        /// </returns>
+        public virtual Region PopulateTextRegionProperties(Region inputRegion, Uri uri, bool populateSnippet)
         {
             if (inputRegion == null || inputRegion.IsBinaryRegion)
             {
@@ -132,7 +156,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             Assert(!region.IsBinaryRegion);
             Assert(region.StartLine == 0);
-            Assert(region.CharLength > 0 || region.CharOffset > 0);
+            Assert(region.CharLength >= 0 || region.CharOffset >= 0);
 
             int startLine, startColumn, endLine, endColumn;
 

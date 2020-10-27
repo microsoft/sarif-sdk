@@ -1,0 +1,96 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "Code Analyser",
+          "version": "1.2.3",
+          "guid": "686D3462-EC4F-499F-8738-9D6ED96F7A27",
+          "rules": [
+            {
+              "id": "TEST1001"
+            }
+          ]
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "local/test/code/src/file1.cs",
+            "uriBaseId": "TEST_DIR"
+          }
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "TEST1001",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": { "text": "Bad result: artifacts array does not provide any additional useful information." },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0,
+                  "uri": "local/test/code/src/file1.cs",
+                  "uriBaseId": "TEST_DIR"
+                },
+                "region": {
+                  "startLine": 2,
+                  "startColumn": 53
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "TEST1001",
+          "ruleIndex": 0,
+          "message": { "text": "Bad result: artifactLocation and analysisTarget are equal." },
+          "analysisTarget": { "uri": "local/test/code/src/file1.c" },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "local/test/code/src/file1.c"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "rule": {
+            "id": "TEST1001",
+            "toolComponent": {
+              "name": "toolComponent",
+              "guid": "686D3462-EC4F-499F-8738-9D6ED96F7A27"
+            }
+          },
+          "message": { "text": "Bad result: rule could be simplified, because it's pointing to tool.driver." }
+        },
+        {
+          "ruleId": "TEST1001",
+          "rule": {
+            "id": "TEST1001",
+            "toolComponent": {
+              "name": "toolComponent",
+              "guid": "686D3462-EC4F-499F-8738-9D6ED96F7A28"
+            }
+          },
+          "message": { "text": "Bad result: ruleId duplicates information in rule." }
+        },
+        {
+          "ruleId": "TEST1001",
+          "ruleIndex": 0,
+          "rule": {
+            "id": "TEST1001"
+          },
+          "message": { "text": "Bad result: ruleIndex and rule is present." }
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}

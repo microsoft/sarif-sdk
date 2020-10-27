@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+
 using Newtonsoft.Json.Serialization;
 
 namespace Microsoft.CodeAnalysis.Sarif.Readers

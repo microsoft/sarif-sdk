@@ -1,13 +1,17 @@
-﻿// Copyright (c) Microsoft. All rights reserved. Licensed under the MIT        
-// license. See LICENSE file in the project root for full license information. 
+﻿// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+
 using FluentAssertions;
+
 using Microsoft.CodeAnalysis.Sarif.Writers;
+
 using Newtonsoft.Json;
+
 using Xunit;
 using Xunit.Abstractions;
 
@@ -162,8 +166,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         [Fact]
         public void RebaseUriVisitor_VisitFileData_PatchesParentUri()
         {
-            Uri rootfileUri = new Uri(@"file://C:/src/root/blah.zip");
-            Uri childFileUri = new Uri(@"/stuff.doc", UriKind.RelativeOrAbsolute);
+            Uri rootfileUri = new Uri("file://C:/src/root/blah.zip");
+            Uri childFileUri = new Uri("/stuff.doc", UriKind.RelativeOrAbsolute);
 
             Artifact rootFileData = new Artifact() { Location = new ArtifactLocation { Uri = rootfileUri }, ParentIndex = -1 };
             Artifact childFileData = new Artifact() { Location = new ArtifactLocation { Uri = childFileUri }, ParentIndex = 0 };
@@ -253,11 +257,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 if (_currentRun.OriginalUriBaseIds == null || !_currentRun.OriginalUriBaseIds.Values.Contains(node))
                 {
-
-                    FileLocationUris = FileLocationUris ?? new List<string>();
+                    FileLocationUris ??= new List<string>();
                     FileLocationUris.Add(node.Uri.OriginalString);
 
-                    FileLocationUriBaseIds = FileLocationUriBaseIds ?? new List<string>();
+                    FileLocationUriBaseIds ??= new List<string>();
                     FileLocationUriBaseIds.Add(node.UriBaseId);
                 }
                 return base.VisitArtifactLocation(node);

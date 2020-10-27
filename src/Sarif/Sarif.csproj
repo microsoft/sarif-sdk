@@ -19,8 +19,10 @@
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0</TargetFrameworks>
     <AssemblyName>Sarif</AssemblyName>
+
+    <!-- BSOA is .NET Standard only -->
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
   </PropertyGroup>
 
   <ItemGroup>
@@ -37,6 +39,7 @@
 
   <ItemGroup>
     <Reference Condition="'$(TargetFramework)' == 'net45' Or '$(TargetFramework)' == 'net461' " Include="System.Web" />
+    <Reference Condition="'$(TargetFramework)' == 'net45' " Include="System.Runtime" />
   </ItemGroup>
 
   <ItemGroup Label="Packaging">

@@ -10,21 +10,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
     internal abstract class TestRuleBase : Skimmer<TestAnalysisContext>
     {
         protected TestRuleBase(string ruleId, string fullDescriptionText, IEnumerable<string> messageResourceNames = null)
-            : base(BuildRule(ruleId, fullDescriptionText))
+            : base(BuildRule(ruleId, fullDescriptionText, messageResourceNames))
         {
             Name = this.GetType().Name;
             FullDescription = new MultiformatMessageString { Text = GetType().Name + " full description." };
             ShortDescription = new MultiformatMessageString { Text = GetType().Name + " short description." };
-            Help = new MultiformatMessageString() { Text = "[Empty]" };
-            MessageStrings = RuleUtilities.BuildDictionary(SkimmerBaseTestResources.ResourceManager, messageResourceNames, ruleId: ruleId);
         }
 
-        private static ReportingDescriptor BuildRule(string ruleId, string fullDescriptionText)
+        private static ReportingDescriptor BuildRule(string ruleId, string fullDescriptionText, IEnumerable<string> messageResourceNames)
         {
             return new ReportingDescriptor()
             {
                 Id = ruleId,
-                FullDescription = new MultiformatMessageString() { Text = fullDescriptionText }
+                FullDescription = new MultiformatMessageString() { Text = fullDescriptionText },
+                Help = new MultiformatMessageString() { Text = "[Empty]" },
+                MessageStrings = RuleUtilities.BuildDictionary(SkimmerBaseTestResources.ResourceManager, messageResourceNames, ruleId: ruleId),
+                DefaultConfiguration = new ReportingConfiguration()
+                {
+                    Level = FailureLevel.Error,
+                    Enabled = true
+                }
             };
         }
 

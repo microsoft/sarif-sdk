@@ -5,8 +5,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+
 using FluentAssertions;
+
 using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
+
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.WorkItems
@@ -92,6 +95,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             result.Locations = new List<Location>();
             result.Locations.Add(location);
             result.RuleId = "TestRuleId";
+
             run.Results.Add(result);
 
             // A logical location longer than 128 char is truncated with ellipses
@@ -244,13 +248,13 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                             }
                         }
                     }
-                }                
+                }
             }),
             new Tuple<string, Result>("Result with rule.Id", new Result
             {
                 Rule = new ReportingDescriptorReference
                 {
-                    Id = TestRuleId                     
+                    Id = TestRuleId
                 }
             }),
             new Tuple<string, Result>("Result with rule index only", new Result
@@ -285,7 +289,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                                 Rules = new ReportingDescriptor[]
                                 {
                                     new ReportingDescriptor
-                                    { 
+                                    {
                                         Name = "Test Rule",
                                         Id = nameof(TestRuleId)
                                     }

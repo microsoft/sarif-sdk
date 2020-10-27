@@ -1,0 +1,328 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "SARIF Functional Testing",
+          "rules": [
+            {
+              "id": "SARIF1002",
+              "name": "UrisMustBeValid",
+              "shortDescription": {
+                "text": "Specify a valid URI reference for every URI-valued property."
+              },
+              "fullDescription": {
+                "text": "Specify a valid URI reference for every URI-valued property.\r\n\r\nURIs must conform to [RFC 3986](https://tools.ietf.org/html/rfc3986). In addition, 'file' URIs must not include '..' segments. If symbolic links are present, '..' might have different meanings on the machine that produced the log file and the machine where an end user or a tool consumes it."
+              },
+              "messageStrings": {
+                "Error_UrisMustConformToRfc3986": {
+                  "text": "{0}: The string '{1}' is not a valid URI reference. URIs must conform to [RFC 3986](https://tools.ietf.org/html/rfc3986)."
+                },
+                "Error_FileUrisMustNotIncludeDotDotSegments": {
+                  "text": "{0}: The 'file' URI '{1}' contains a '..' segment. This is dangerous because if symbolic links are present, '..' might have different meanings on the machine that produced the log file and the machine where an end user or a tool consumes it."
+                }
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+            }
+          ]
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1002.UrisMustBeValid_Invalid.sarif",
+            "uriBaseId": "TEST_DIR"
+          }
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "SARIF1002",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_UrisMustConformToRfc3986",
+            "arguments": [
+              "$schema",
+              "ht%tp://json.schemastore.org/sarif-2.0.0"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 2,
+                  "startColumn": 55
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1002",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_UrisMustConformToRfc3986",
+            "arguments": [
+              "runs[0].results[0].workItemUris[0]",
+              "ht&tp://example.com/my-project/issues/42"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 58,
+                  "startColumn": 54
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1002",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_UrisMustConformToRfc3986",
+            "arguments": [
+              "runs[0].results[0].analysisTarget.uri",
+              "fi&le:///c:/src/file.c"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 55,
+                  "startColumn": 43
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1002",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_FileUrisMustNotIncludeDotDotSegments",
+            "arguments": [
+              "runs[0].results[1].analysisTarget.uri",
+              "file:///c:/src/src2/src3/../../file.c"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 68,
+                  "startColumn": 58
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1002",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_UrisMustConformToRfc3986",
+            "arguments": [
+              "runs[0].artifacts[0].location.uri",
+              "fi%le:///c:/src/file.c"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 42,
+                  "startColumn": 43
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1002",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_UrisMustConformToRfc3986",
+            "arguments": [
+              "runs[0].tool.driver.downloadUri",
+              "ht%tp://www.example.com/tools/codescanner/download.html"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 10,
+                  "startColumn": 82
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1002",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_UrisMustConformToRfc3986",
+            "arguments": [
+              "runs[0].tool.driver.notifications[0].helpUri",
+              "ht%tp://www.example.com/rules/msg0001.html"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 14,
+                  "startColumn": 69
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1002",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_UrisMustConformToRfc3986",
+            "arguments": [
+              "runs[0].tool.driver.notifications[1].helpUri",
+              "ht%tp://www.example.com/rules/msg0002.html"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 18,
+                  "startColumn": 69
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1002",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_UrisMustConformToRfc3986",
+            "arguments": [
+              "runs[0].tool.driver.rules[0].helpUri",
+              "ht%tp://www.example.com/rules/tst0001.html"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 24,
+                  "startColumn": 69
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1002",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_UrisMustConformToRfc3986",
+            "arguments": [
+              "runs[0].versionControlProvenance[0].repositoryUri",
+              "ht%tps://example.com/my-project"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 31,
+                  "startColumn": 60
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1002",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_UrisMustConformToRfc3986",
+            "arguments": [
+              "runs[0].originalUriBaseIds.SRCROOT.uri",
+              "fi%le:///c:/Code/sarif-sdk/src"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 36,
+                  "startColumn": 49
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}

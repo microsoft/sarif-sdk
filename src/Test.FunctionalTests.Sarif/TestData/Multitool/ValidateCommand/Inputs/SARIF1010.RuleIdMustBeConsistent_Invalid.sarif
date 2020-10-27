@@ -1,0 +1,31 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "Sarif Functional Testing",
+          "version": "1.0"
+        }
+      },
+      "results": [
+        {
+          "message": {
+            "text": "This result contains neither result.ruleId nor result.rule.id."
+          }
+        },
+        {
+          "ruleId": "TST0001",
+          "rule": {
+            "id": "TST0002"
+          },
+          "message": {
+            "text": "This result contains both a ruleId and a rule.id property, but they are different."
+          }
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}

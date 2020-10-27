@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             {
                 return false;
             }
-                        
+
             if (result.Suppressions?.Count > 0) { return false; }
 
             // Fail: an explicit failure occurred.
@@ -139,7 +139,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                     .Select(result => result.ShouldBeFiled() ? 1 : 0).Sum())
                 .Sum() ?? 0;
         }
-        
+
         public static string CreateWorkItemDescription(this SarifLog log, SarifWorkItemContext context, IList<Uri> locationUris)
         {
             int totalResults = log.GetAggregateFilableResultsCount();

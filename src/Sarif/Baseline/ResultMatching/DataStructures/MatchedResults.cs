@@ -60,7 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
             SetFirstDetectionTime(result);
 
-            resultMatchingProperties = MergeDictionaryPreferFirst(resultMatchingProperties, originalResultMatchingProperties);
+            resultMatchingProperties = resultMatchingProperties.MergePreferFirst(originalResultMatchingProperties) as Dictionary<string, object>;
 
             if (PreviousResult != null &&
                 propertyBagMergeBehavior == DictionaryMergeBehavior.InitializeFromOldest)
@@ -90,6 +90,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             }
 
             Run = PreviousResult.OriginalRun;
+            result.Run = Run;
 
             return result;
         }
@@ -119,6 +120,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             }
 
             Run = CurrentResult.OriginalRun;
+            result.Run = Run;
 
             return result;
         }
@@ -146,6 +148,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             }
 
             Run = CurrentResult.OriginalRun;
+            result.Run = Run;
 
             return result;
         }
@@ -228,22 +231,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             }
 
             targetResult.Provenance.FirstDetectionTimeUtc = firstDetectionTime;
-        }
-
-        private Dictionary<string, object> MergeDictionaryPreferFirst(
-            Dictionary<string, object> firstPropertyBag,
-            Dictionary<string, object> secondPropertyBag)
-        {
-            Dictionary<string, object> mergedPropertyBag = firstPropertyBag;
-
-            foreach (string key in secondPropertyBag.Keys)
-            {
-                if (!mergedPropertyBag.ContainsKey(key))
-                {
-                    mergedPropertyBag[key] = secondPropertyBag[key];
-                }
-            }
-            return mergedPropertyBag;
         }
 
         public override string ToString()
