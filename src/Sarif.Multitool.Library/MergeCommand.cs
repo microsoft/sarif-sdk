@@ -74,9 +74,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     workers[i] = Task.Run(LoadSarifLogs);
                 }
 
+
+                //var t = Task.Run(LoadSarifLogs);
+
                 FindFilesAsync().Wait();
                 MergeSarifLogsAsync().Wait();
+                //t.Wait();
                 Task.WhenAll(workers).Wait();
+                _mergeLogsChannel.Writer.Complete();
 
                 foreach (string key in _idToSarifLogMap.Keys)
                 {
@@ -213,13 +218,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     Console.Error.WriteLine(e.Message);
                 }
             }
+
+            if (_filesToProcessCount == 0)
+            {
+                _mergeLogsChannel.Writer.Complete();
+            }
+
             return true;
         }
 
         private void ProcessInputSarifLog(string filePath)
         {
             SarifLog sarifLog = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(
-                _fileSystem.ReadAllText(filePath),
+                File.ReadAllText(filePath),
                 formatting: Formatting.None,
                 out string sarifText);
 
@@ -230,11 +241,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             _mergeLogsChannel.Writer.WriteAsync(sarifLog);
             Interlocked.Decrement(ref _filesToProcessCount);
-
-            if (_filesToProcessCount == 0)
-            {
-                _mergeLogsChannel.Writer.Complete();
-            }
         }
 
         private async Task<bool> FindFilesAsync()
@@ -253,6 +259,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 if (directory.Length == 0)
                 {
                     directory = @".\";
+                }
+
+                if (!_fileSystem.DirectoryExists(directory))
+                {
+                    continue;
                 }
 
                 foreach (string file in _fileSystem.EnumerateFiles(directory, filter, searchOption))
