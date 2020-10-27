@@ -88,13 +88,21 @@ namespace Microsoft.CodeAnalysis.Sarif
             var fileContent = new ArtifactContent();
             byte[] fileContents = fileSystem.ReadAllBytes(filePath);
 
-            if (SarifWriters.MimeType.IsBinaryMimeType(mimeType) || inputFileEncoding == null)
+            if (SarifWriters.MimeType.IsBinaryMimeType(mimeType))
             {
                 fileContent.Binary = Convert.ToBase64String(fileContents);
             }
             else
             {
-                fileContent.Text = inputFileEncoding.GetString(fileContents);
+                inputFileEncoding ??= new UTF8Encoding();
+                try
+                {
+                    fileContent.Text = inputFileEncoding.GetString(fileContents);
+                }
+                catch (Exception)
+                {
+                    fileContent.Binary = Convert.ToBase64String(fileContents);
+                }
             }
 
             return fileContent;
