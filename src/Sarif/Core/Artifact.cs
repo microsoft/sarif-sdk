@@ -95,14 +95,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             else
             {
                 inputFileEncoding ??= new UTF8Encoding();
-                try
-                {
-                    fileContent.Text = inputFileEncoding.GetString(fileContents);
-                }
-                catch (Exception)
-                {
-                    fileContent.Binary = Convert.ToBase64String(fileContents);
-                }
+                fileContent.Text = inputFileEncoding.GetString(fileContents);
             }
 
             return fileContent;
