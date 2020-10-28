@@ -20,7 +20,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;</TargetFrameworks>
-    <TargetFrameworks Condition="$(OS) == 'Windows_NT'">$(TargetFrameworks);net461;net45</TargetFrameworks>
+    <TargetFrameworks Condition="$(OS) == 'Windows_NT'">$(TargetFrameworks);net461;net452</TargetFrameworks>
   </PropertyGroup>
 
   <ItemGroup>
@@ -35,8 +35,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Condition="'$(TargetFramework)' == 'net45' Or '$(TargetFramework)' == 'net461' " Include="System.Web" />
-    <Reference Condition="'$(TargetFramework)' == 'net45' " Include="System.Runtime" />
+    <Reference Condition="'$(TargetFramework)' == 'net452' Or '$(TargetFramework)' == 'net461' " Include="System.Web" />
+    <Reference Condition="'$(TargetFramework)' == 'net452' " Include="System.Runtime" />
   </ItemGroup>
 
   <ItemGroup Label="Packaging">
