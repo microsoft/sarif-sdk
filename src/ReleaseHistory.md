@@ -1,6 +1,6 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
-* FEATURE: SDK BREAKING CHANGE: Upgrade from .NET Framework 4.5 to .NET Framework 4.5.2 [#2135](https://github.com/microsoft/sarif-sdk/pull/2135)
+* FEATURE: PACKAGE BREAKING: Upgrade from .NET Framework 4.5 to .NET Framework 4.5.2 [#2135](https://github.com/microsoft/sarif-sdk/pull/2135)
 
 ## **v2.3.7** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.7) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.7) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.7) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.7) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.3.7)
 * DEPENDENCY BREAKING: SARIF now requires Newtonsoft.JSON 11.0.2 (rather than 10.0.3)
