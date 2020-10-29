@@ -8,6 +8,7 @@ using System.Text;
 using FluentAssertions;
 
 using Microsoft.CodeAnalysis.Sarif;
+using Microsoft.CodeAnalysis.Sarif.Writers;
 
 using Moq;
 
@@ -102,8 +103,17 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
 
                 if (shouldBePersisted)
                 {
-                    fileData.Contents.Binary.Should().Be(encodedFileContents);
-                    fileData.Contents.Text.Should().BeNull();
+                    string mimeType = MimeType.DetermineFromFileExtension(uri);
+                    if (MimeType.IsBinaryMimeType(mimeType))
+                    {
+                        fileData.Contents.Binary.Should().Be(encodedFileContents);
+                        fileData.Contents.Text.Should().BeNull();
+                    }
+                    else
+                    {
+                        fileData.Contents.Binary.Should().BeNull();
+                        fileData.Contents.Text.Should().Be(fileContents);
+                    }
                 }
                 else
                 {
