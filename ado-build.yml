@@ -6,15 +6,23 @@ pool:
 
 steps:
 
-# Restore NuGet packages
+# Restore and build solution
 - task: DotNetCoreCLI@2
   displayName: Build
   inputs:
     command: build
     projects: src/Sarif.Sdk.sln
 
+# Test solution
 - task: DotNetCoreCLI@2
   displayName: Run unit tests for netstandard2.0
   inputs:
     command: test
     projects: src/Sarif.Sdk.sln
+
+# Build Multitool for npm
+- task: PowerShell@2
+  displayName: BuildMultitoolForNpm
+  inputs:
+    targetType: filePath
+    filePath: ./scripts/BuildMultitoolForNpm.ps1
