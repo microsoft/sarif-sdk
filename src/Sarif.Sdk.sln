@@ -15,11 +15,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "root", "root", "{BBDE0751-B
 	ProjectSection(SolutionItems) = preProject
 		..\.gitattributes = ..\.gitattributes
 		..\.gitignore = ..\.gitignore
-		..\appveyor.yml = ..\appveyor.yml
 		..\BuildAndTest.cmd = ..\BuildAndTest.cmd
 		..\BuildPackagesFromLayoutDirectory.cmd = ..\BuildPackagesFromLayoutDirectory.cmd
 		..\DelistCurrentPackages.cmd = ..\DelistCurrentPackages.cmd
-		..\dotnet-install.ps1 = ..\dotnet-install.ps1
 		..\LICENSE = ..\LICENSE
 		..\NuGet.Config = ..\NuGet.Config
 		..\PublishSignedPackages.cmd = ..\PublishSignedPackages.cmd
@@ -30,7 +28,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "root", "root", "{BBDE0751-B
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{9CEE4119-25C6-4331-8DB6-C53462DDEA47}"
 	ProjectSection(SolutionItems) = preProject
-		..\scripts\BeforeBuild.ps1 = ..\scripts\BeforeBuild.ps1
 		..\scripts\BuildAndTest.ps1 = ..\scripts\BuildAndTest.ps1
 		..\scripts\BuildPackagesFromSigningDirectory.ps1 = ..\scripts\BuildPackagesFromSigningDirectory.ps1
 		..\scripts\DelistCurrentPackages.ps1 = ..\scripts\DelistCurrentPackages.ps1
@@ -119,7 +116,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "policies", "policies", "{C2
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sarif.Multitool.Library", "Sarif.Multitool.Library\Sarif.Multitool.Library.csproj", "{04994C98-A105-4D37-A765-64F822BF1EB3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.UnitTests.Sarif.Multitool", "Test.UnitTests.Sarif.Multitool\Test.UnitTests.Sarif.Multitool.csproj", "{C90C5EA4-765A-4D32-A96F-2D15F14FDB2B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.UnitTests.Sarif.Multitool", "Test.UnitTests.Sarif.Multitool\Test.UnitTests.Sarif.Multitool.csproj", "{C90C5EA4-765A-4D32-A96F-2D15F14FDB2B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
