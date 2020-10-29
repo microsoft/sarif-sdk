@@ -7,19 +7,12 @@ pool:
 jobs:
 - job: NET_pipeline
   steps:
-  # Restore and build solution
-  - task: DotNetCoreCLI@2
-    displayName: Build
+  # Build and test
+  - task: PowerShell@2
+    displayName: Build and Test
     inputs:
-      command: build
-      projects: src/Sarif.Sdk.sln
-
-  # Test solution
-  - task: DotNetCoreCLI@2
-    displayName: Run unit tests for netstandard2.0
-    inputs:
-      command: test
-      projects: src/Sarif.Sdk.sln
+      targetType: filePath
+      filePath: ./scripts/BuildAndTest.ps1
 
   # Publish bld/publish folder
   - task: PublishBuildArtifacts@1
