@@ -5,7 +5,7 @@ pool:
   vmImage: 'windows-latest'
 
 jobs:
-- job: .NET pipeline
+- job: NET_pipeline
   steps:
   # Restore and build solution
   - task: DotNetCoreCLI@2
@@ -21,7 +21,7 @@ jobs:
       command: test
       projects: src/Sarif.Sdk.sln
 
-- job: npm pipeline
+- job: npm_pipeline
   steps:
   # Build Multitool for npm
   - task: PowerShell@2
