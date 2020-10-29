@@ -4,25 +4,28 @@ pr:
 pool:
   vmImage: 'windows-latest'
 
-steps:
+jobs:
+- job: .NET pipeline
+  steps:
+  # Restore and build solution
+  - task: DotNetCoreCLI@2
+    displayName: Build
+    inputs:
+      command: build
+      projects: src/Sarif.Sdk.sln
 
-# Restore and build solution
-- task: DotNetCoreCLI@2
-  displayName: Build
-  inputs:
-    command: build
-    projects: src/Sarif.Sdk.sln
+  # Test solution
+  - task: DotNetCoreCLI@2
+    displayName: Run unit tests for netstandard2.0
+    inputs:
+      command: test
+      projects: src/Sarif.Sdk.sln
 
-# Test solution
-- task: DotNetCoreCLI@2
-  displayName: Run unit tests for netstandard2.0
-  inputs:
-    command: test
-    projects: src/Sarif.Sdk.sln
-
-# Build Multitool for npm
-- task: PowerShell@2
-  displayName: BuildMultitoolForNpm
-  inputs:
-    targetType: filePath
-    filePath: ./scripts/BuildMultitoolForNpm.ps1
+- job: npm pipeline
+  steps:
+  # Build Multitool for npm
+  - task: PowerShell@2
+    displayName: Build Multitool for npm
+    inputs:
+      targetType: filePath
+      filePath: ./scripts/BuildMultitoolForNpm.ps1
