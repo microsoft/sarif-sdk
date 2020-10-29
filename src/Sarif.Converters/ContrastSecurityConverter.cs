@@ -266,14 +266,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             foreach (string key in properties.Keys)
             {
                 if (KeyIsReservedPropertyName(key)) { continue; }
-                string value = properties[key];
                 locations.Add(new Location
                 {
                     PhysicalLocation = CreatePhysicalLocation(key)
                 });
 
-                examplePage = examplePage ?? key;
-                exampleHeader = exampleHeader ?? properties[key];
+                examplePage ??= key;
+                exampleHeader ??= properties[key];
             }
 
             string pageCount = locations.Count.ToString();
@@ -406,7 +405,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             foreach (string key in properties.Keys)
             {
                 if (KeyIsReservedPropertyName(key)) { continue; }
-                string value = properties[key];
                 locations.Add(new Location
                 {
                     PhysicalLocation = CreatePhysicalLocation(key)
