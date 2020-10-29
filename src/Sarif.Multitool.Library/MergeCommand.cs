@@ -68,20 +68,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 _options.Threads = _options.Threads > 0 ? _options.Threads : Environment.ProcessorCount;
 
-                var workers = new Task<bool>[_options.Threads];
+                // creating readers
+                var readers = new Task<bool>[_options.Threads];
                 for (int i = 0; i < _options.Threads; i++)
                 {
-                    workers[i] = Task.Run(LoadSarifLogs);
+                    readers[i] = Task.Run(LoadSarifLogs);
                 }
 
-
-                //var t = Task.Run(LoadSarifLogs);
-
+                // reading and dispatching
                 FindFilesAsync().Wait();
-                MergeSarifLogsAsync().Wait();
-                //t.Wait();
-                Task.WhenAll(workers).Wait();
-                _mergeLogsChannel.Writer.Complete();
+
+                // creating writer
+                var writer = Task.Run(MergeSarifLogsAsync);
+
+                // waiting all readers and closing merge channel
+                Task.WhenAll(readers)
+                    .ContinueWith(_ => _mergeLogsChannel.Writer.Complete())
+                    .Wait();
+
+                // waiting writer
+                writer.Wait();
 
                 foreach (string key in _idToSarifLogMap.Keys)
                 {
@@ -217,11 +223,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 {
                     Console.Error.WriteLine(e.Message);
                 }
-            }
-
-            if (_filesToProcessCount == 0)
-            {
-                _mergeLogsChannel.Writer.Complete();
             }
 
             return true;
