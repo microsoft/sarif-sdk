@@ -4,17 +4,35 @@ pr:
 pool:
   vmImage: 'windows-latest'
 
-steps:
+jobs:
+- job: NET_pipeline
+  steps:
+  # Build and test
+  - task: PowerShell@2
+    displayName: Build and Test
+    inputs:
+      targetType: filePath
+      filePath: ./scripts/BuildAndTest.ps1
 
-# Restore NuGet packages
-- task: DotNetCoreCLI@2
-  displayName: Build
-  inputs:
-    command: build
-    projects: src/Sarif.Sdk.sln
+  # Publish bld/publish folder
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact: publish'
+    inputs:
+      PathtoPublish: '.\bld\Publish\'
+      ArtifactName: publish
 
-- task: DotNetCoreCLI@2
-  displayName: Run unit tests for netstandard2.0
-  inputs:
-    command: test
-    projects: src/Sarif.Sdk.sln
+  # Publish bld/bin folder
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact: build'
+    inputs:
+      PathtoPublish: '.\bld\bin\'
+      ArtifactName: build
+
+- job: npm_pipeline
+  steps:
+  # Build Multitool for npm
+  - task: PowerShell@2
+    displayName: Build Multitool for npm
+    inputs:
+      targetType: filePath
+      filePath: ./scripts/BuildMultitoolForNpm.ps1
