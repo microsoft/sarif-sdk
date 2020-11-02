@@ -216,7 +216,6 @@ if (-not $NoObjectModel) {
     }
 }
 
-& $PSScriptRoot\BeforeBuild.ps1 -NuGetVerbosity $NuGetVerbosity -NoClean:$NoClean -NoRestore:$NoRestore -NoObjectModel:$NoObjectModel
 if (-not $?) {
     Exit-WithFailureMessage $ScriptName "BeforeBuild failed."
 }
