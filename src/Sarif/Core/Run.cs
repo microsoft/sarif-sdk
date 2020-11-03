@@ -253,6 +253,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 PoliciesCache = ComputePolicies(this.Policies);
             }
 
+            if (PoliciesCache.Count == 0)
+            {
+                return;
+            }
+
             foreach (Result result in this.Results)
             {
                 string ruleId = result.ResolvedRuleId(this);

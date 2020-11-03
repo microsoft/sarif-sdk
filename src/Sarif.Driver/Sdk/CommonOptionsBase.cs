@@ -71,6 +71,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             Default = SarifVersion.Current)]
         public SarifVersion SarifOutputVersion { get; set; }
 
+        [Option(
+            "threads",
+            HelpText = "A count of threads that should be used for multithreaded operations.")]
+        public int Threads { get; set; }
+
         public Formatting Formatting => this.PrettyPrint ? Formatting.Indented : Formatting.None;
     }
 }

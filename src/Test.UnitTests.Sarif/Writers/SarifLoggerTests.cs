@@ -533,13 +533,10 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             string logText = sb.ToString();
 
-            string fileDataKey = new Uri(file).AbsoluteUri;
-            byte[] fileBytes = Encoding.Default.GetBytes(fileText);
-
             SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
             Artifact fileData = sarifLog.Runs[0].Artifacts[0];
-            fileData.Contents.Binary.Should().Be(Convert.ToBase64String(fileBytes));
-            fileData.Contents.Text.Should().BeNull();
+            fileData.Contents.Binary.Should().BeNull();
+            fileData.Contents.Text.Should().Be(fileText);
         }
 
         [Fact]

@@ -20,7 +20,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.1;</TargetFrameworks>
-    <TargetFrameworks Condition="$(OS) == 'Windows_NT'">$(TargetFrameworks);net472;net461;net45</TargetFrameworks>
+    <TargetFrameworks Condition="$(OS) == 'Windows_NT'">$(TargetFrameworks);net472;net461;net452</TargetFrameworks>
   </PropertyGroup>
 
   <ItemGroup>

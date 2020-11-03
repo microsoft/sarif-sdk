@@ -1203,7 +1203,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         private static void UpdateAllExternalPropertyFilePropertyTypes(JObject run)
         {
-            if (run["externalPropertyFiles"] is JObject externalPropertyFiles)
+            if (run["externalPropertyFiles"] is JObject)
             {
                 var renamedMembers = new Dictionary<string, string>
                 {

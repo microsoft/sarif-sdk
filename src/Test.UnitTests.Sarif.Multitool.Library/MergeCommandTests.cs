@@ -53,7 +53,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             // We mock the file system to fake out the read operations.
             mockFileSystem.Setup(x => x.FileExists(outputFilePath)).Returns(false);
             mockFileSystem.Setup(x => x.DirectoryExists(InputFolderPath)).Returns(true);
-            mockFileSystem.Setup(x => x.GetFilesInDirectory(InputFolderPath, inputResourceName)).Returns(new string[0]); // <= The hard-coded return value in question.
+            mockFileSystem.Setup(x => x.EnumerateFiles(InputFolderPath, inputResourceName, SearchOption.TopDirectoryOnly)).Returns(new string[0]); // <= The hard-coded return value in question.
 
             // But we really do want to create the output file, so tell the mock to execute the actual write operations.
             mockFileSystem.Setup(x => x.DirectoryCreate(OutputFolderPath)).Returns((string path) => { return Directory.CreateDirectory(path); });

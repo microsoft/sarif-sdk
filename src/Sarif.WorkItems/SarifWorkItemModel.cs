@@ -54,7 +54,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
             this.LabelsOrTags = new List<string>();
 
-            foreach (string tag in context.AdditionalTags)
+            foreach (string tag in this.Context.AdditionalTags)
             {
                 this.LabelsOrTags.Add(tag);
             }
