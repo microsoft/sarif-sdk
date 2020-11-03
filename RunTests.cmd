@@ -25,7 +25,7 @@ echo Unrecognized option "%1" && goto :ExitFailed
 
 call SetBuildEnvVars.cmd
 
-set Frameworks=netcoreapp2.1 net461
+set Frameworks=netcoreapp3.1
 set TestRunnerRootPath=%ThisFileDirectory%src\packages\xunit.runner.console\2.3.1\tools\
 
 for %%p in (%NewTestProjects%) do (

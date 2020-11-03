@@ -4,7 +4,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Microsoft.CodeAnalysis.Sarif
+namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
     /// <summary>
     /// This class caches analysis results for unique files (by hash). Consumers can retrieve and use these cached
@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// of simply repeating the analysis. This can result in significant performance gains, when that analysis
     /// is expensive (such as in the case of a binary analysis that retrieves and crawls binary PDBs).
     /// </summary>
-    public class ResultsCachingLogger : IAnalysisLogger
+    public class CacheByFileHashLogger : IAnalysisLogger
     {
         private bool cacheLoggingData;
         private string currentFileHash;
@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public Dictionary<string, List<Notification>> HashToNotificationsMap { get; private set; }
         public Dictionary<string, List<Tuple<ReportingDescriptor, Result>>> HashToResultsMap { get; private set; }
 
-        public ResultsCachingLogger(bool verbose)
+        public CacheByFileHashLogger(bool verbose)
         {
             Verbose = verbose;
         }

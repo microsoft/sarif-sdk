@@ -22,7 +22,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         //MalformedCustomLoggersArgument,
         //LoggerFailedInitialization,
         //LoggerRaisedExceptionOnInitialization,
-        //LoggerRaisedExceptionOnWrite,
         //LoggerRaisedExceptionOnClose,
 
         // Fatal conditions
@@ -48,6 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         ExceptionAccessingFile = 0x4000,
         ExceptionInstantiatingSkimmers = 0x8000,
         OutputFileAlreadyExists = 0x10000,
+        ExceptionWritingToLog = 0x20000,
 
         // Non-fatal conditions
         UnassignedNonfatal = 0x01F00000,

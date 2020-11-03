@@ -3,19 +3,23 @@
 
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security;
+using System.Threading.Channels;
+using System.Threading.Tasks;
 
 using Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
-    public abstract class AnalyzeCommandBase<TContext, TOptions> : PlugInDriverCommand<TOptions>
+    public abstract class MultithreadedAnalyzeCommandBase<TContext, TOptions> : PlugInDriverCommand<TOptions>
         where TContext : IAnalysisContext, new()
-        where TOptions : AnalyzeOptionsBase
+        where TOptions : MultithreadedAnalyzeOptionsBase
     {
         public const string DefaultPolicyName = "default";
 
@@ -26,9 +30,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         internal bool _captureConsoleOutput;
         internal ConsoleLogger _consoleLogger;
 
+        private Run _run;
         private Tool _tool;
+        private bool _computeHashes;
         private TContext _rootContext;
-        private CacheByFileHashLogger _cacheByFileHashLogger;
+        private IList<TContext> _fileContexts;
+        private Channel<int> _resultsWritingChannel;
+        private Channel<int> _fileEnumerationChannel;
         private IDictionary<string, HashData> _pathToHashDataMap;
 
         public Exception ExecutionException { get; set; }
@@ -41,7 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         protected IFileSystem FileSystem { get; }
 
-        protected AnalyzeCommandBase(IFileSystem fileSystem = null)
+        protected MultithreadedAnalyzeCommandBase(IFileSystem fileSystem = null)
         {
             FileSystem = fileSystem ?? Sarif.FileSystem.Instance;
         }
@@ -94,7 +102,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return succeeded ? SUCCESS : FAILURE;
         }
 
-        private void Analyze(TOptions options, AggregatingLogger logger)
+        private void Analyze(TOptions analyzeOptions, AggregatingLogger logger)
         {
             // 0. Log analysis initiation
             logger.AnalysisStarted();
@@ -102,23 +110,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             // 1. Create context object to pass to skimmers. The logger
             //    and configuration objects are common to all context
             //    instances and will be passed on again for analysis.
-            _rootContext = CreateContext(options, logger, RuntimeErrors);
+            _rootContext = CreateContext(analyzeOptions, logger, RuntimeErrors);
 
             // 2. Perform any command line argument validation beyond what
             //    the command line parser library is capable of.
-            ValidateOptions(_rootContext, options);
-
-            // 3. Produce a comprehensive set of analysis targets 
-            ISet<string> targets = CreateTargetsSet(options);
-
-            // 4. Proactively validate that we can locate and 
-            //    access all analysis targets. Helper will return
-            //    a list that potentially filters out files which
-            //    did not exist, could not be accessed, etc.
-            targets = ValidateTargetsExist(_rootContext, targets);
+            ValidateOptions(_rootContext, analyzeOptions);
 
             // 5. Initialize report file, if configured.
-            InitializeOutputFile(options, _rootContext, targets);
+            InitializeOutputFile(analyzeOptions, _rootContext);
 
             // 6. Instantiate skimmers.
             ISet<Skimmer<TContext>> skimmers = CreateSkimmers(_rootContext);
@@ -126,15 +125,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             // 7. Initialize configuration. This step must be done after initializing
             //    the skimmers, as rules define their specific context objects and
             //    so those assemblies must be loaded.
-            InitializeConfiguration(options, _rootContext);
+            InitializeConfiguration(analyzeOptions, _rootContext);
 
             // 8. Initialize skimmers. Initialize occurs a single time only. This
             //    step needs to occurs after initializing configuration in order
             //    to allow command-line override of rule settings
             skimmers = InitializeSkimmers(skimmers, _rootContext);
 
-            // 9. Run all analysis
-            AnalyzeTargets(options, skimmers, _rootContext, targets);
+            // 9. Run all multi-threaded analysis operations.
+            AnalyzeTargets(analyzeOptions, _rootContext, skimmers);
 
             // 10. For test purposes, raise an unhandled exception if indicated
             if (RaiseUnhandledExceptionInDriverCode)
@@ -143,8 +142,269 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
+        private void MultithreadedAnalyzeTargets(
+            TOptions options, 
+            TContext rootContext,
+            IEnumerable<Skimmer<TContext>> skimmers,
+            ISet<string> disabledSkimmers)
+        {
+            options.ThreadCount = options.ThreadCount > 0 
+                ? options.ThreadCount 
+                : Environment.ProcessorCount;
+
+            var channelOptions = new BoundedChannelOptions(2000)
+            {
+                SingleWriter = true,
+                SingleReader = false,
+            };
+            _fileEnumerationChannel = Channel.CreateBounded<int>(channelOptions);
+
+            channelOptions = new BoundedChannelOptions(2000)
+            {
+                SingleWriter = false,
+                SingleReader = true,
+            };
+            _resultsWritingChannel = Channel.CreateBounded<int>(channelOptions);
+
+            var sw = Stopwatch.StartNew();
+
+            var workers = new Task<bool>[options.ThreadCount];
+
+            for (int i = 0; i < options.ThreadCount; i++)
+            {
+                workers[i] = AnalyzeTargetAsync(skimmers, disabledSkimmers);
+            }
+
+            Task<bool> findFiles = FindFilesAsync(options, rootContext);
+            Task<bool> writeResults = WriteResultsAsync(rootContext);
+            
+            // FindFiles is single-thread and will close its write channel
+            findFiles.Wait();
+
+            Task.WhenAll(workers)
+                .ContinueWith(_ => _resultsWritingChannel.Writer.Complete())
+                .Wait();
+
+            writeResults.Wait();
+
+            Console.WriteLine($"Done; {_fileContexts.Count:n0} files scanned in {sw.Elapsed}.");
+        }
+
+        private async Task<bool> WriteResultsAsync(TContext rootContext)
+        {
+            int currentIndex = 0;
+            var itemsSeen = new HashSet<int>();
+
+            ChannelReader<int> reader = _resultsWritingChannel.Reader;
+
+            // Wait until there is work or the channel is closed.
+            while (await reader.WaitToReadAsync())
+            {
+                // Loop while there is work to do.
+                while (reader.TryRead(out int item))
+                {
+                    Debug.Assert(!itemsSeen.Contains(item));
+                    itemsSeen.Add(item);
+
+                    // This condition can occur if currentIndex moves
+                    // ahead in array processing due to operations 
+                    // against it by other threads. For this case, 
+                    // since the relevant file has already been 
+                    // processed, we just ignore this notification.
+                    if (currentIndex > item) { break; }
+
+                    try
+                    {
+                        TContext context = _fileContexts[currentIndex];
+
+                        while (context?.AnalysisComplete == true)
+                        {
+                            Dictionary<ReportingDescriptor, List<Result>> results = ((CachingLogger)context.Logger).Results;
+
+                            if (results?.Count > 0)
+                            {
+                                int index = _run.GetFileIndex(new ArtifactLocation() { Uri = context.TargetUri });
+                                
+                                _run.Artifacts[index].Hashes = new Dictionary<string, string>
+                                {
+                                    { "sha-256", context.Hashes.Sha256 },
+                                };
+
+                                foreach (KeyValuePair<ReportingDescriptor, List<Result>> kv in results)
+                                {
+                                    foreach (Result result in kv.Value)
+                                    {
+                                        try
+                                        {
+                                            rootContext.Logger.Log(kv.Key, result);
+                                        }
+                                        catch (Exception e)
+                                        {
+                                            RuntimeErrors |= Errors.LogUnhandledEngineException(rootContext, e);
+                                        }
+                                    }
+                                }
+                            }
+
+                            RuntimeErrors |= context.RuntimeErrors;
+
+                            _fileContexts[currentIndex] = default;
+
+                            context = currentIndex < (_fileContexts.Count - 1)
+                                ? context = _fileContexts[currentIndex + 1]
+                                : default;
+
+                            currentIndex++;
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        RuntimeErrors |= Errors.LogUnhandledEngineException(rootContext, e);
+                    }
+                }
+            }
+
+            Debug.Assert(currentIndex == _fileContexts.Count);
+            Debug.Assert(itemsSeen.Count == _fileContexts.Count);
+
+            return true;
+        }
+
+        private async Task<bool> FindFilesAsync(MultithreadedAnalyzeOptionsBase options, TContext rootContext)
+        {
+            this._fileContexts = new List<TContext>();
+
+            foreach (string specifier in options.TargetFileSpecifiers)
+            {
+                string normalizedSpecifier = Environment.ExpandEnvironmentVariables(specifier);
+
+                if (Uri.TryCreate(specifier, UriKind.RelativeOrAbsolute, out Uri uri))
+                {
+                    if (uri.IsAbsoluteUri && (uri.IsFile || uri.IsUnc))
+                    {
+                        normalizedSpecifier = uri.LocalPath;
+                    }
+                }
+
+                int contextIndex = 0;
+
+                var sw = Stopwatch.StartNew();
+
+                string filter = Path.GetFileName(normalizedSpecifier);
+                string directory = Path.GetDirectoryName(normalizedSpecifier);
+
+                if (directory.Length == 0)
+                {
+                    directory = $".{Path.DirectorySeparatorChar}";
+                }
+
+                directory = Path.GetFullPath(directory);
+                var directories = new Queue<string>();
+
+                if (options.Recurse)
+                {
+                    EnqueueAllDirectories(directories, directory);
+                }
+                else
+                {
+                    directories.Enqueue(directory);
+                }
+
+                var sortedFiles = new SortedSet<string>();
+
+                while (directories.Count > 0)
+                {
+                    sortedFiles.Clear();
+
+                    directory = Path.GetFullPath(directories.Dequeue());
+
+                    foreach (string file in Directory.EnumerateFiles(directory, filter, SearchOption.TopDirectoryOnly))
+                    {
+                        sortedFiles.Add(file);
+                    }
+
+                    foreach (string file in sortedFiles)
+                    {
+                        _fileContexts.Add(
+                            new TContext 
+                            { 
+                                TargetUri = new Uri(file, UriKind.Absolute),
+                                Logger = new CachingLogger(),
+                                Policy = rootContext.Policy 
+                            });
+
+                        Debug.Assert(_fileContexts.Count == contextIndex + 1);
+
+                        await _fileEnumerationChannel.Writer.WriteAsync(contextIndex++);
+                    }
+                }
+            }
+
+            _fileEnumerationChannel.Writer.Complete();
+            return true;
+        }
+
+        private void EnqueueAllDirectories(Queue<string> queue, string directory)
+        {
+            var sortedDiskItems = new SortedSet<string>();
+            
+            queue.Enqueue(directory);
+            foreach (string childDirectory in Directory.EnumerateDirectories(directory, "*", SearchOption.TopDirectoryOnly))
+            {
+                sortedDiskItems.Add(childDirectory);
+            }
+
+            foreach (string childDirectory in sortedDiskItems)
+            {
+                EnqueueAllDirectories(queue, childDirectory);
+            }
+        }
+
+        private async Task<bool> AnalyzeTargetAsync(IEnumerable<Skimmer<TContext>> skimmers, ISet<string> disabledSkimmers)
+        {
+            ChannelReader<int> reader = _fileEnumerationChannel.Reader;
+
+            // Wait until there is work or the channel is closed.
+            while (await reader.WaitToReadAsync())
+            {
+                // Loop while there is work to do.
+                while (reader.TryRead(out int item))
+                {
+                    TContext context = default;
+
+                    try
+                    {
+                        context = _fileContexts[item];
+
+                        DetermineApplicabilityAndAnalyze(context, skimmers, disabledSkimmers);
+
+                        if (_computeHashes && ((CachingLogger)context.Logger).Results.Count > 0)
+                        {
+                            Debug.Assert(context.Hashes == null);
+
+                            string sha256Hash = HashUtilities.ComputeSha256Hash(context.TargetUri.LocalPath);
+
+                            context.Hashes = new HashData(md5: null, sha1: null, sha256: sha256Hash);
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        Console.Error.WriteLine(e.Message);
+                    }
+                    finally
+                    {
+                        if (context != null) { context.AnalysisComplete = true; }
+                        await _resultsWritingChannel.Writer.WriteAsync(item);
+                    }
+                }
+            }
+            return true;
+        }
+
         protected virtual void ValidateOptions(TContext context, TOptions analyzeOptions)
         {
+            _computeHashes = (analyzeOptions.DataToInsert.ToFlags() & OptionallyEmittedData.Hashes) != 0;
+
             bool succeeded = true;
 
             succeeded &= ValidateFile(context, analyzeOptions.OutputFilePath, shouldExist: null);
@@ -250,16 +510,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 logger.Loggers.Add(_consoleLogger);
             }
 
-            if ((analyzeOptions.DataToInsert.ToFlags() & OptionallyEmittedData.Hashes) != 0)
-            {
-                _cacheByFileHashLogger = new CacheByFileHashLogger(analyzeOptions.Verbose);
-                logger.Loggers.Add(_cacheByFileHashLogger);
-            }
-
             return logger;
         }
-
-        private ISet<string> CreateTargetsSet(TOptions analyzeOptions)
+        /*
+        private ISet<string> CreateTargetsSet(TContext context, TOptions analyzeOptions)
         {
             SortedSet<string> targets = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
             foreach (string specifier in analyzeOptions.TargetFileSpecifiers)
@@ -277,11 +531,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 var fileSpecifier = new FileSpecifier(normalizedSpecifier, recurse: analyzeOptions.Recurse, fileSystem: FileSystem);
                 foreach (string file in fileSpecifier.Files) { targets.Add(file); }
             }
-            return targets;
-        }
 
-        private ISet<string> ValidateTargetsExist(TContext context, ISet<string> targets)
-        {
             if (targets.Count == 0)
             {
                 Errors.LogNoValidAnalysisTargets(context);
@@ -290,6 +540,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             return targets;
         }
+        */
 
         protected virtual TContext CreateContext(
             TOptions options,
@@ -306,18 +557,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             if (filePath != null)
             {
                 context.TargetUri = new Uri(filePath);
-
-                if ((options.DataToInsert.ToFlags() & OptionallyEmittedData.Hashes) != 0)
-                {
-                    if (_pathToHashDataMap != null && _pathToHashDataMap.TryGetValue(filePath, out HashData hashData))
-                    {
-                        context.Hashes = hashData;
-                    }
-                    else
-                    {
-                        context.Hashes = HashUtilities.ComputeHashes(filePath);
-                    }
-                }
             }
 
             return context;
@@ -379,7 +618,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        private void InitializeOutputFile(TOptions analyzeOptions, TContext context, ISet<string> targets)
+        private void InitializeOutputFile(TOptions analyzeOptions, TContext context)
         {
             string filePath = analyzeOptions.OutputFilePath;
             AggregatingLogger aggregatingLogger = (AggregatingLogger)context.Logger;
@@ -390,13 +629,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 (
                     () =>
                     {
-                        LoggingOptions loggingOptions;
-                        loggingOptions = analyzeOptions.ConvertToLoggingOptions();
+                        LoggingOptions loggingOptions = analyzeOptions.ConvertToLoggingOptions();
 
                         OptionallyEmittedData dataToInsert = analyzeOptions.DataToInsert.ToFlags();
                         OptionallyEmittedData dataToRemove = analyzeOptions.DataToRemove.ToFlags();
 
                         SarifLogger sarifLogger;
+
+                        _run = new Run();
 
                         if (analyzeOptions.SarifOutputVersion != SarifVersion.OneZeroZero)
                         {
@@ -406,8 +646,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                     dataToInsert,
                                     dataToRemove,
                                     tool: _tool,
-                                    run: null,
-                                    analysisTargets: targets,
+                                    run: _run,
+                                    analysisTargets: null,
                                     invocationTokensToRedact: GenerateSensitiveTokensList(),
                                     invocationPropertiesToLog: analyzeOptions.InvocationPropertiesToLog);
                         }
@@ -419,8 +659,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                     dataToInsert,
                                     dataToRemove,
                                     tool: _tool,
-                                    run: null,
-                                    analysisTargets: targets,
+                                    run: _run,
+                                    analysisTargets: null,
                                     invocationTokensToRedact: GenerateSensitiveTokensList(),
                                     invocationPropertiesToLog: analyzeOptions.InvocationPropertiesToLog);
                         }
@@ -534,9 +774,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         protected virtual void AnalyzeTargets(
             TOptions options,
-            IEnumerable<Skimmer<TContext>> skimmers,
             TContext rootContext,
-            IEnumerable<string> targets)
+            IEnumerable<Skimmer<TContext>> skimmers)
         {
             var disabledSkimmers = new SortedSet<string>();
 
@@ -566,68 +805,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 Errors.LogAllRulesExplicitlyDisabled(rootContext);
                 ThrowExitApplicationException(rootContext, ExitReason.NoRulesLoaded);
             }
-
-            if ((options.DataToInsert.ToFlags() & OptionallyEmittedData.Hashes) != 0)
-            {
-                // If analysis is persisted to a disk log file, we will have already
-                // computed all file hashes and stored them to _pathToHashDataMap.
-                _pathToHashDataMap = _pathToHashDataMap ?? HashUtilities.MultithreadedComputeTargetFileHashes(targets);
-            }
-
-            foreach (string target in targets)
-            {
-                using (TContext context = DetermineApplicabilityAndAnalyze(options, skimmers, rootContext, target, disabledSkimmers))
-                {
-                    RuntimeErrors |= context.RuntimeErrors;
-                }
-            }
+            
+            MultithreadedAnalyzeTargets(options, rootContext, skimmers, disabledSkimmers);
         }
 
         protected virtual TContext DetermineApplicabilityAndAnalyze(
-            TOptions options,
+            TContext context,
             IEnumerable<Skimmer<TContext>> skimmers,
-            TContext rootContext,
-            string target,
             ISet<string> disabledSkimmers)
         {
-            TContext context = CreateContext(options, rootContext.Logger, rootContext.RuntimeErrors, target);
-            context.Policy = rootContext.Policy;
-
-            if ((options.DataToInsert.ToFlags() & OptionallyEmittedData.Hashes) != 0)
-            {
-                _cacheByFileHashLogger.HashToResultsMap.TryGetValue(context.Hashes.Sha256, out List<Tuple<ReportingDescriptor, Result>> cachedResultTuples);
-                _cacheByFileHashLogger.HashToNotificationsMap.TryGetValue(context.Hashes.Sha256, out List<Notification> cachedNotifications);
-
-                bool replayCachedData = (cachedResultTuples != null || cachedNotifications != null);
-
-                if (replayCachedData)
-                {
-                    context.Logger.AnalyzingTarget(context);
-
-                    if (cachedResultTuples != null)
-                    {
-                        foreach (Tuple<ReportingDescriptor, Result> cachedResultTuple in cachedResultTuples)
-                        {
-                            Result clonedResult = cachedResultTuple.Item2.DeepClone();
-                            ReportingDescriptor cachedReportingDescriptor = cachedResultTuple.Item1;
-
-                            UpdateLocationsAndMessageWithCurrentUri(clonedResult.Locations, clonedResult.Message, context.TargetUri);
-                            context.Logger.Log(cachedReportingDescriptor, clonedResult);
-                        }
-                    }
-
-                    if (cachedNotifications != null)
-                    {
-                        foreach (Notification cachedNotification in cachedNotifications)
-                        {
-                            Notification clonedNotification = cachedNotification.DeepClone();
-                            UpdateLocationsAndMessageWithCurrentUri(clonedNotification.Locations, cachedNotification.Message, context.TargetUri);
-                            context.Logger.LogConfigurationNotification(clonedNotification);
-                        }
-                    }
-                    return context;
-                }
-            }
+            // insert results caching replay logic here
 
             if (context.TargetLoadException != null)
             {
@@ -643,8 +830,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
 
             context.Logger.AnalyzingTarget(context);
-            IEnumerable<Skimmer<TContext>> applicableSkimmers = DetermineApplicabilityForTarget(skimmers, context, disabledSkimmers);
-            AnalyzeTarget(applicableSkimmers, context, disabledSkimmers);
+            IEnumerable<Skimmer<TContext>> applicableSkimmers = DetermineApplicabilityForTarget(context, skimmers, disabledSkimmers);
+            AnalyzeTarget(context, applicableSkimmers, disabledSkimmers);
 
             return context;
         }
@@ -704,7 +891,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return Path.GetFileName(uri.OriginalString);
         }
 
-        protected virtual void AnalyzeTarget(IEnumerable<Skimmer<TContext>> skimmers, TContext context, ISet<string> disabledSkimmers)
+        protected virtual void AnalyzeTarget(TContext context, IEnumerable<Skimmer<TContext>> skimmers, ISet<string> disabledSkimmers)
         {
             foreach (Skimmer<TContext> skimmer in skimmers)
             {
@@ -725,14 +912,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 catch (Exception ex)
                 {
                     Errors.LogUnhandledRuleExceptionAnalyzingTarget(disabledSkimmers, context, ex);
-                    RuntimeErrors |= context.RuntimeErrors;
                 }
             }
         }
 
         protected virtual IEnumerable<Skimmer<TContext>> DetermineApplicabilityForTarget(
-            IEnumerable<Skimmer<TContext>> skimmers,
             TContext context,
+            IEnumerable<Skimmer<TContext>> skimmers,
             ISet<string> disabledSkimmers)
         {
             var candidateSkimmers = new List<Skimmer<TContext>>();
@@ -763,6 +949,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 }
                 finally
                 {
+                    // TODO move to single-threaded write
                     RuntimeErrors |= context.RuntimeErrors;
                 }
 
@@ -798,8 +985,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             SortedSet<Skimmer<TContext>> disabledSkimmers = new SortedSet<Skimmer<TContext>>(SkimmerIdComparer<TContext>.Instance);
 
-            // ONE-TIME initialization of skimmers. Do not
-            // call more than once per skimmer instantiation.
+            // ONE-TIME initialization of skimmers. Do not call 
+            // Initialize more than once per skimmer instantiation
             foreach (Skimmer<TContext> skimmer in skimmers)
             {
                 try

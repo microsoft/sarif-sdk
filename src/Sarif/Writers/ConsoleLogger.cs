@@ -6,7 +6,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 
-namespace Microsoft.CodeAnalysis.Sarif
+namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
     public class ConsoleLogger : IAnalysisLogger
     {
@@ -198,7 +198,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 case FailureLevel.None:
                     issueType = kind.ToString().ToLowerInvariant();
-                    // Shorten to 'info' for compat reasons with previous behaviors.
+                    // Shorten to 'info' for compatibility with previous behavior.
                     if (issueType == "informational") { issueType = "info"; };
                     break;
 
@@ -245,9 +245,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(message));
             }
 
-            return (enquote ? "\"" : "") +
-                message +
-                (enquote ? "\"" : "");
+            return (enquote ? "\"" : "") + message + (enquote ? "\"" : "");
         }
 
         public void LogToolNotification(Notification notification)

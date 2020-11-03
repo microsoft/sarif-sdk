@@ -27,8 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 PageOptions,
                 QueryOptions,
                 ResultMatchingOptions,
-                ResultMatchSetOptions,
-                FileWorkItemsOptions>(args)
+                FileWorkItemsOptions, AnalyzeTestOptions>(args)
                 .MapResult(
                 (ApplyPolicyOptions options) => new ApplyPolicyCommand().Run(options),
                 (ExportValidationConfigurationOptions options) => new ExportValidationConfigurationCommand().Run(options),
@@ -44,8 +43,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 (PageOptions pageOptions) => new PageCommand().Run(pageOptions),
                 (QueryOptions queryOptions) => new QueryCommand().Run(queryOptions),
                 (ResultMatchingOptions baselineOptions) => new ResultMatchingCommand().Run(baselineOptions),
-                (ResultMatchSetOptions options) => new ResultMatchSetCommand().Run(options),
                 (FileWorkItemsOptions fileWorkItemsOptions) => new FileWorkItemsCommand().Run(fileWorkItemsOptions),
+                (AnalyzeTestOptions fileWorkItemsOptions) => new AnalyzeTestCommand().Run(fileWorkItemsOptions),
                 errs => CommandBase.FAILURE);
         }
     }

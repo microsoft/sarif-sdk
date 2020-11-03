@@ -32,7 +32,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         private const string ERR998_ExceptionInAnalyze = "ERR998.ExceptionInAnalyze";
 
         // Analysis halting tool errors:
-        private const string ERR999UnhandledEngineException = "ERR999.UnhandledEngineException";
+        private const string ERR999_UnhandledEngineException = "ERR999.UnhandledEngineException";
 
         // Parse errors:
         private const string ERR1000_ParseError = "ERR1000.ParseError";
@@ -418,7 +418,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             context.RuntimeErrors |= RuntimeConditions.ExceptionInSkimmerInitialize;
         }
 
-        public static RuntimeConditions LogUnhandledRuleExceptionAnalyzingTarget(
+        public static void LogUnhandledRuleExceptionAnalyzingTarget(
             ISet<string> disabledSkimmers,
             IAnalysisContext context,
             Exception exception)
@@ -428,10 +428,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(context));
             }
 
-            // An unhandled exception was encountered analyzing '{0}' for check '{1}', 
-            // which has been disabled for the remainder of the analysis.The 
-            // exception may have resulted from a problem related to parsing 
-            // image metadata and not specific to the rule, however.
+            // An unhandled exception of type '{0}' was encountered analyzing
+            // '{0}' for check '{1}' (which has been disabled for the
+            // remainder of the analysis. The exception may have resulted
+            // from a problem related to parsing target metadata and not
+            // specific to the rule, however.
             context.Logger.LogToolNotification(
                 CreateNotification(
                     context.TargetUri,
@@ -439,14 +440,21 @@ namespace Microsoft.CodeAnalysis.Sarif
                     context.Rule.Id,
                     FailureLevel.Error,
                     exception,
-                    persistExceptionStack: false,
+                    persistExceptionStack: true,
                     messageFormat: null,
+                    exception.GetType().Name,
                     context.TargetUri.GetFileName(),
                     context.Rule.Name));
 
-            if (disabledSkimmers != null) { disabledSkimmers.Add(context.Rule.Id); }
+            if (disabledSkimmers != null) 
+            {
+                lock (disabledSkimmers)
+                {
+                    disabledSkimmers.Add(context.Rule.Id);
+                }
+            }
 
-            return RuntimeConditions.ExceptionInSkimmerAnalyze;
+            context.RuntimeErrors |= RuntimeConditions.ExceptionInSkimmerAnalyze;
         }
 
         public static RuntimeConditions LogUnhandledEngineException(IAnalysisContext context, Exception exception)
@@ -460,12 +468,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             context.Logger.LogToolNotification(
                 CreateNotification(
                     context.TargetUri,
-                    ERR999UnhandledEngineException,
+                    ERR999_UnhandledEngineException,
                     ruleId: null,
                     FailureLevel.Error,
                     exception,
                     persistExceptionStack: true,
-                    messageFormat: null));
+                    messageFormat: "{0}", 
+                    args: new string[] { exception.ToString() }));
 
             return RuntimeConditions.ExceptionInEngine;
         }
@@ -484,13 +493,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             string message = string.Format(CultureInfo.CurrentCulture, messageFormat, args);
 
-            string exceptionMessage = exception?.Message;
-            if (!string.IsNullOrEmpty(exceptionMessage))
-            {
-                // {0} ('{1}')
-                message = string.Format(CultureInfo.InvariantCulture, SdkResources.NotificationWithExceptionMessage, message, exceptionMessage);
-            }
-
             ExceptionData exceptionData = exception != null && persistExceptionStack
                 ? ExceptionData.Create(exception)
                 : null;
@@ -505,6 +507,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
                 : null;
 
+            if (exceptionData != null)
+            {
+                physicalLocation ??= exceptionData.Stack?.Frames?[0].Location?.PhysicalLocation;
+            }
+
             var notification = new Notification
             {
                 Locations = new List<Location>
@@ -516,7 +523,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 },
                 Level = level,
                 Message = new Message { Text = message },
-                Exception = exceptionData
+                Exception = exceptionData,
             };
 
             if (!string.IsNullOrWhiteSpace(notificationId))

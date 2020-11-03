@@ -25,5 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         IAnalysisLogger Logger { get; set; }
 
         RuntimeConditions RuntimeErrors { get; set; }
+
+        bool AnalysisComplete { get; set; }
     }
 }

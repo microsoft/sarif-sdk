@@ -27,6 +27,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public TestAnalyzeOptions Options { get; set; }
 
+        public bool AnalysisComplete { get; set; }
+
         public void Dispose()
         {
         }

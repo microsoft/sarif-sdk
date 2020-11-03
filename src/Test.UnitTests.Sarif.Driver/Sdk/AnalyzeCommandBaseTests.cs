@@ -499,9 +499,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 {
                     TargetFileSpecifiers = new string[] { fileName },
                     Verbose = true,
-                    Statistics = true,
                     Quiet = true,
-                    ComputeFileHashes = true,
                     ConfigurationFilePath = configFileName ?? TestAnalyzeCommand.DefaultPolicyName,
                     Recurse = true,
                     OutputFilePath = path,
@@ -578,9 +576,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 {
                     TargetFileSpecifiers = new string[] { fileName },
                     Verbose = true,
-                    Statistics = true,
                     Quiet = true,
-                    ComputeFileHashes = true,
+                    DataToInsert = new OptionallyEmittedData[] { OptionallyEmittedData.Hashes },
                     ConfigurationFilePath = TestAnalyzeCommand.DefaultPolicyName,
                     Recurse = true,
                     OutputFilePath = path,
@@ -760,9 +757,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 TargetFileSpecifiers = new string[] { "" },
                 Verbose = true,
-                Statistics = true,
                 Quiet = true,
-                ComputeFileHashes = true,
+                DataToInsert = new OptionallyEmittedData[] { OptionallyEmittedData.Hashes },
                 ConfigurationFilePath = configValue,
                 Recurse = true,
                 OutputFilePath = "",
@@ -1010,13 +1006,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 OutputFilePath = testCase.PersistLogFileToDisk ? Guid.NewGuid().ToString() : null,
                 TargetFileSpecifiers = new string[] { Guid.NewGuid().ToString() },
                 Verbose = testCase.Verbose,
-                ComputeFileHashes = false,
             };
 
             int expectedResultsCount = testCase.ExpectedWarningCount + testCase.ExpectedErrorCount;
             Run runWithoutCaching = RunAnalyzeCommand(options, testCase);
 
-            options.ComputeFileHashes = true;
+            options.DataToInsert = new OptionallyEmittedData[] { OptionallyEmittedData.Hashes };
             Run runWithCaching = RunAnalyzeCommand(options, testCase);
 
             // Core static analysis results
