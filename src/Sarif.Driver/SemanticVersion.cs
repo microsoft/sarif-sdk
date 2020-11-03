@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
@@ -286,27 +287,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             // split off first NonNumeric or dot character
             Regex regex = new Regex(@"[^0-9\\.]");
             Match match = regex.Match(version);
-            string versionPart1 = version;
+            StringBuilder sb = new StringBuilder();
+            string tempVersion = string.Empty;
             string versionPart2 = string.Empty;
 
             if (match.Success)
             {
-                versionPart1 = version.Substring(0, match.Index);
+                tempVersion = version.Substring(0, match.Index);
+                sb.Append(tempVersion);
                 versionPart2 = "-" + version.Substring(match.Index);
             }
 
             // ensure version looks like X.Y.Z[.Q]
-            string[] splits = versionPart1.Split(new char[] { '.' });
+            string[] splits = tempVersion.Split(new char[] { '.' });
 
             if (splits.Length < 3)
             {
                 for (int index = splits.Length; index < 3; index++)
                 {
-                    versionPart1 += ".0";
+                    sb.Append(".0");
                 }
             }
 
-            return Parse(versionPart1 + versionPart2);
+            return Parse(sb.ToString() + versionPart2);
         }
 
         /// <summary>

@@ -267,14 +267,12 @@ namespace Microsoft.WorkItems
                         });
                 }
 
-                WorkItem workItem = null;
-
                 try
                 {
                     if (int.TryParse(workItemModel.Uri.OriginalString.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries).LastOrDefault(), out int workItemId))
                     {
                         Logger.LogInformation($"Updating work item id: {workItemId}");
-                        workItem = await _witClient.UpdateWorkItemAsync(patchDocument, id: workItemId);
+                        _ = await _witClient.UpdateWorkItemAsync(patchDocument, id: workItemId);
 
                         Logger.LogInformation($"UPDATED: {workItemModel.Uri}");
                     }

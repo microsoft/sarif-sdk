@@ -89,7 +89,7 @@ module.exports = function (results, data) {
     // tool execution notifications, or a mixture of the two, based on the properties of the
     // message. https://github.com/microsoft/sarif-sdk/issues/1798, "ESLint formatter can't
     // distinguish between an internal error and a misconfiguration", tracks this issue.
-    const internalErrorId = "ESL0999"
+    const internalErrorId = "ESL0999";
 
     const toolConfigurationNotifications = [];
     let executionSuccessful = true;
@@ -248,7 +248,7 @@ module.exports = function (results, data) {
                 toolConfigurationNotifications: toolConfigurationNotifications,
                 executionSuccessful: executionSuccessful
             }
-        ]
+        ];
     }
 
     if (Object.keys(sarifRules).length > 0) {
