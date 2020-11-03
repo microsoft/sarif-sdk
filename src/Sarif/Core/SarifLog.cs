@@ -128,6 +128,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             SarifLog sarifLog = Load(sarifLogPath);
             if (sarifLog == null || sarifLog.Runs == null)
             {
+                ApplyPolicies();
                 return;
             }
 
@@ -135,13 +136,13 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             foreach (Run run in sarifLog.Runs)
             {
-                ProcessPolicies(localCache, run);
+                ComputePolicies(localCache, run);
             }
 
             ApplyPolicies(localCache);
         }
 
-        internal static void ProcessPolicies(Dictionary<string, FailureLevel> localCache, Run run)
+        internal static void ComputePolicies(Dictionary<string, FailureLevel> localCache, Run run)
         {
             // checking if we have policies
             if (run.Policies == null || run.Policies.Count == 0)
