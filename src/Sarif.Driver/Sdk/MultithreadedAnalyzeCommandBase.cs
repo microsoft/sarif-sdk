@@ -223,12 +223,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                             if (results?.Count > 0)
                             {
-                                int index = _run.GetFileIndex(new ArtifactLocation() { Uri = context.TargetUri });
-                                
-                                _run.Artifacts[index].Hashes = new Dictionary<string, string>
+                                if (context.Hashes != null)
                                 {
-                                    { "sha-256", context.Hashes.Sha256 },
-                                };
+                                    Debug.Assert(_run != null);
+                                    int index = _run.GetFileIndex(new ArtifactLocation() { Uri = context.TargetUri });
+
+                                    _run.Artifacts[index].Hashes = new Dictionary<string, string>
+                                    {
+                                        { "sha-256", context.Hashes.Sha256 },
+                                    };
+                                }
 
                                 foreach (KeyValuePair<ReportingDescriptor, List<Result>> kv in results)
                                 {
@@ -270,7 +274,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return true;
         }
 
-        private async Task<bool> FindFilesAsync(MultithreadedAnalyzeOptionsBase options, TContext rootContext)
+        private async Task<bool> FindFilesAsync(TOptions options, TContext rootContext)
         {
             this._fileContexts = new List<TContext>();
 
@@ -326,12 +330,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     foreach (string file in sortedFiles)
                     {
                         _fileContexts.Add(
-                            new TContext 
-                            { 
-                                TargetUri = new Uri(file, UriKind.Absolute),
-                                Logger = new CachingLogger(),
-                                Policy = rootContext.Policy 
-                            });
+                            CreateContext(
+                                options, 
+                                new CachingLogger(), 
+                                rootContext.RuntimeErrors, 
+                                rootContext.Policy,
+                                filePath: file)
+                        );
 
                         Debug.Assert(_fileContexts.Count == contextIndex + 1);
 
@@ -512,46 +517,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             return logger;
         }
-        /*
-        private ISet<string> CreateTargetsSet(TContext context, TOptions analyzeOptions)
-        {
-            SortedSet<string> targets = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
-            foreach (string specifier in analyzeOptions.TargetFileSpecifiers)
-            {
-                string normalizedSpecifier = specifier;
-
-                if (Uri.TryCreate(specifier, UriKind.RelativeOrAbsolute, out Uri uri))
-                {
-                    if (uri.IsAbsoluteUri && (uri.IsFile || uri.IsUnc))
-                    {
-                        normalizedSpecifier = uri.LocalPath;
-                    }
-                }
-                // Currently, we do not filter on any extensions.
-                var fileSpecifier = new FileSpecifier(normalizedSpecifier, recurse: analyzeOptions.Recurse, fileSystem: FileSystem);
-                foreach (string file in fileSpecifier.Files) { targets.Add(file); }
-            }
-
-            if (targets.Count == 0)
-            {
-                Errors.LogNoValidAnalysisTargets(context);
-                ThrowExitApplicationException(context, ExitReason.NoValidAnalysisTargets);
-            }
-
-            return targets;
-        }
-        */
 
         protected virtual TContext CreateContext(
             TOptions options,
             IAnalysisLogger logger,
             RuntimeConditions runtimeErrors,
+            PropertiesDictionary policy = null, 
             string filePath = null)
         {
             var context = new TContext
             {
                 Logger = logger,
-                RuntimeErrors = runtimeErrors
+                RuntimeErrors = runtimeErrors,
+                Policy = policy
             };
 
             if (filePath != null)
@@ -590,7 +568,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         protected virtual void InitializeConfiguration(TOptions options, TContext context)
         {
-            context.Policy = new PropertiesDictionary();
+            context.Policy ??= new PropertiesDictionary();
 
             string configurationFileName = GetConfigurationFileName(options);
             if (string.IsNullOrEmpty(configurationFileName))

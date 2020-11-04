@@ -3,10 +3,10 @@
 
 using System;
 
-namespace Microsoft.CodeAnalysis.Sarif.Driver
+namespace Microsoft.CodeAnalysis.Sarif
 {
     [Flags]
-    internal enum TestRuleBehaviors
+    public enum TestRuleBehaviors
     {
         None = 0,
 
@@ -26,6 +26,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         RaiseTargetParseError = 0x100,
 
         // Force 'current platform not valid to analyze' code path.
-        TreatPlatformAsInvalid = 0x400
+        TreatPlatformAsInvalid = 0x400,
+
+        // Return 'not applicable' for all analysis targets in CanAnalyze
+        RegardAnalysisTargetAsNotApplicable = 0x800,
+
+        // Treat analysis target as a corrupted file
+        RegardAnalysisTargetAsCorrupted = 0x1000,
+
+        // Allow analysis for all targets
+        RegardAnalysisTargetAsInvalid = 0x2000,
+
+        // Assume one or more options are invalid
+        RegardOptionsAsInvalid = 0x4000
     }
 }

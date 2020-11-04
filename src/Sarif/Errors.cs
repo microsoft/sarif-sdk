@@ -389,7 +389,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                     context.TargetUri.GetFileName(),
                     context.Rule.Name));
 
-            if (disabledSkimmers != null) { disabledSkimmers.Add(context.Rule.Id); }
+            if (disabledSkimmers != null) 
+            {
+                lock (disabledSkimmers)
+                {
+                    disabledSkimmers.Add(context.Rule.Id);
+                }
+            }
 
             context.RuntimeErrors |= RuntimeConditions.ExceptionRaisedInSkimmerCanAnalyze;
         }

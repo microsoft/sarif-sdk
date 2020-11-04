@@ -19,6 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
     {
         private readonly Run _run;
         private readonly TextWriter _textWriter;
+        private readonly bool _persistArtifacts;
         private readonly bool _closeWriterOnDispose;
         private readonly LoggingOptions _loggingOptions;
         private readonly JsonTextWriter _jsonTextWriter;
@@ -102,6 +103,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     RuleToIndexMap[_run.Tool.Driver.Rules[i]] = i;
                 }
             }
+
+            _persistArtifacts =
+                (_dataToInsert & OptionallyEmittedData.Hashes) != 0 ||
+                (_dataToInsert & OptionallyEmittedData.TextFiles) != 0 ||
+                (_dataToInsert & OptionallyEmittedData.BinaryFiles) != 0;
         }
 
         private SarifLogger(TextWriter textWriter, LoggingOptions loggingOptions, bool closeWriterOnDipose)
@@ -334,7 +340,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             if (result.AnalysisTarget != null)
             {
-                CaptureFile(result.AnalysisTarget);
+                CaptureArtifact(result.AnalysisTarget);
             }
 
             if (result.Locations != null)
@@ -343,7 +349,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 {
                     if (location.PhysicalLocation != null)
                     {
-                        CaptureFile(location.PhysicalLocation.ArtifactLocation);
+                        CaptureArtifact(location.PhysicalLocation.ArtifactLocation);
                     }
                 }
             }
@@ -354,7 +360,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 {
                     if (relatedLocation.PhysicalLocation != null)
                     {
-                        CaptureFile(relatedLocation.PhysicalLocation.ArtifactLocation);
+                        CaptureArtifact(relatedLocation.PhysicalLocation.ArtifactLocation);
                     }
                 }
             }
@@ -365,7 +371,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 {
                     foreach (StackFrame frame in stack.Frames)
                     {
-                        CaptureFile(frame.Location?.PhysicalLocation?.ArtifactLocation);
+                        CaptureArtifact(frame.Location?.PhysicalLocation?.ArtifactLocation);
                     }
                 }
             }
@@ -389,7 +395,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     {
                         foreach (ArtifactChange fileChange in fix.ArtifactChanges)
                         {
-                            CaptureFile(fileChange.ArtifactLocation);
+                            CaptureArtifact(fileChange.ArtifactLocation);
                         }
                     }
                 }
@@ -404,12 +410,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 if (tfl.Location?.PhysicalLocation != null)
                 {
-                    CaptureFile(tfl.Location.PhysicalLocation.ArtifactLocation);
+                    CaptureArtifact(tfl.Location.PhysicalLocation.ArtifactLocation);
                 }
             }
         }
 
-        private void CaptureFile(ArtifactLocation fileLocation)
+        private void CaptureArtifact(ArtifactLocation fileLocation)
         {
             if (fileLocation == null || fileLocation.Uri == null)
             {
@@ -428,14 +434,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
 
             // Ensure Artifact is in Run.Artifacts and ArtifactLocation.Index is set to point to it
-            _run.GetFileIndex(
+            int index = _run.GetFileIndex(
                 fileLocation,
-                addToFilesTableIfNotPresent: true,
+                addToFilesTableIfNotPresent: _persistArtifacts,
                 _dataToInsert,
                 encoding);
 
             // Remove redundant Uri and UriBaseId once index has been set
-            if (this.Optimize)
+            if (index > -1 && this.Optimize)
             {
                 fileLocation.Uri = null;
                 fileLocation.UriBaseId = null;

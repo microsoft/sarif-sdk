@@ -3,6 +3,8 @@
 
 using System;
 
+using Microsoft.CodeAnalysis.Sarif.Driver;
+
 namespace Microsoft.CodeAnalysis.Sarif
 {
     public class TestAnalysisContext : IAnalysisContext

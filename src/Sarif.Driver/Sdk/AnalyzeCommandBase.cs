@@ -295,12 +295,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             TOptions options,
             IAnalysisLogger logger,
             RuntimeConditions runtimeErrors,
+            PropertiesDictionary policy = null, 
             string filePath = null)
         {
             var context = new TContext
             {
                 Logger = logger,
-                RuntimeErrors = runtimeErrors
+                RuntimeErrors = runtimeErrors,
+                Policy = policy
             };
 
             if (filePath != null)
@@ -351,7 +353,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         protected virtual void InitializeConfiguration(TOptions options, TContext context)
         {
-            context.Policy = new PropertiesDictionary();
+            context.Policy ??= new PropertiesDictionary();
 
             string configurationFileName = GetConfigurationFileName(options);
             if (string.IsNullOrEmpty(configurationFileName))
@@ -590,8 +592,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             string target,
             ISet<string> disabledSkimmers)
         {
-            TContext context = CreateContext(options, rootContext.Logger, rootContext.RuntimeErrors, target);
-            context.Policy = rootContext.Policy;
+            TContext context = CreateContext(
+                options, 
+                rootContext.Logger, 
+                rootContext.RuntimeErrors,
+                rootContext.Policy,
+                target);            
 
             if ((options.DataToInsert.ToFlags() & OptionallyEmittedData.Hashes) != 0)
             {
