@@ -36,12 +36,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             while (exceptions.Count > 0)
             {
                 Stack stack;
-                Exception current;
+                Exception current = exceptions.Dequeue();
 
-                current = exceptions.Dequeue();
-
-                var aggregated = current as AggregateException;
-                if (aggregated != null)
+                if (current is AggregateException aggregated)
                 {
                     foreach (Exception e in aggregated.InnerExceptions)
                     {
@@ -109,9 +106,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             foreach (string line in stackTrace.Split(new string[] { Environment.NewLine }, StringSplitOptions.None))
             {
-                // at Type.Method() in File.cs : line X
-                string current = line;
-
                 var stackFrame = new StackFrame();
 
                 Match match = regex.Match(line);
