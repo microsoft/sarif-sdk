@@ -128,7 +128,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             SarifLog sarifLog = Load(sarifLogPath);
             if (sarifLog == null || sarifLog.Runs == null)
             {
-                ApplyPolicies();
                 return;
             }
 
