@@ -21,7 +21,8 @@ namespace Microsoft.CodeAnalysis.Test.Utilities.Sarif
             (
                 TestRuleBehaviors.RaiseExceptionAccessingId |
                 TestRuleBehaviors.RaiseExceptionAccessingName |
-                TestRuleBehaviors.RaiseExceptionInvokingConstructor
+                TestRuleBehaviors.RaiseExceptionInvokingConstructor |
+                TestRuleBehaviors.TreatPlatformAsInvalid
             );
         }
 

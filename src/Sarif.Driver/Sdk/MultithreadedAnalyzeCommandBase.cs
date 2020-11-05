@@ -81,8 +81,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 }
                 catch (Exception ex)
                 {
-                    // These exceptions escaped our net and must be logged here                    
-                    RuntimeErrors |= Errors.LogUnhandledEngineException(_rootContext, ex);
+                    ex = ex.InnerException ?? ex;
+
+                    if (!(ex is ExitApplicationException<ExitReason>))
+                    {
+                        // These exceptions escaped our net and must be logged here                    
+                        RuntimeErrors |= Errors.LogUnhandledEngineException(_rootContext, ex);
+                    }
                     ExecutionException = ex;
                     return FAILURE;
                 }
@@ -344,8 +349,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     }
                 }
             }
-
             _fileEnumerationChannel.Writer.Complete();
+            
+            if (_fileContexts.Count == 0)
+            {
+                Errors.LogNoValidAnalysisTargets(rootContext);
+                ThrowExitApplicationException(rootContext, ExitReason.NoValidAnalysisTargets);
+            }
+
             return true;
         }
 

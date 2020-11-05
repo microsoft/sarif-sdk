@@ -51,7 +51,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             get
             {
-                if (s_testRuleBehaviors == TestRuleBehaviors.TreatPlatformAsInvalid)
+                if (s_testRuleBehaviors.HasFlag(TestRuleBehaviors.TreatPlatformAsInvalid))
                 {
                     return SupportedPlatform.Unknown;
                 }
@@ -249,7 +249,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static PerLanguageOption<bool> UnusedOption { get; } =
             new PerLanguageOption<bool>(
-                AnalyzerName, nameof(TestRuleBehaviors), defaultValue: () => { return true; });
+                AnalyzerName, nameof(UnusedOption), defaultValue: () => { return true; });
 
     }
 }
