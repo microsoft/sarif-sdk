@@ -138,6 +138,20 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             run.Results[0].Level.Should().Be(FailureLevel.Warning);
         }
 
+        [Fact]
+        public void Run_ApplyPoliies_WhenWeHaveCacheAvailable()
+        {
+            var cachedPolicies = new Dictionary<string, FailureLevel>() { { "TEST0", FailureLevel.None } };
+            Run run = CreateRun(resultCount: 1);
+            run.Policies = new ToolComponent[]
+            {
+                CreateToolComponent("test1", rulesCount: 1, FailureLevel.Error)
+            };
+            run.ApplyPolicies(cachedPolicies);
+
+            run.Results[0].Level.Should().Be(FailureLevel.None);
+        }
+
         private void RoundTripColumnKind(ColumnKind persistedValue, ColumnKind expectedRoundTrippedValue)
         {
             var sarifLog = new SarifLog

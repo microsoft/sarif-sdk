@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System.Collections.Generic;
 using System.IO;
 
 using Microsoft.CodeAnalysis.Sarif.Readers;
@@ -106,7 +107,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Applies the policies contained in each run
         /// </summary>
-        public void ApplyPolicies()
+        public void ApplyPolicies(Dictionary<string, FailureLevel> policiesCache = null)
         {
             if (this.Runs == null)
             {
@@ -115,7 +116,45 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             foreach (Run run in this.Runs)
             {
-                run.ApplyPolicies();
+                run.ApplyPolicies(policiesCache);
+            }
+        }
+
+        /// <summary>
+        /// Applies the policies contained from a sarif file
+        /// </summary>
+        public void ApplyPolicies(string sarifLogPath)
+        {
+            SarifLog sarifLog = Load(sarifLogPath);
+            if (sarifLog == null || sarifLog.Runs == null)
+            {
+                return;
+            }
+
+            Dictionary<string, FailureLevel> localCache = new Dictionary<string, FailureLevel>();
+
+            foreach (Run run in sarifLog.Runs)
+            {
+                ComputePolicies(localCache, run);
+            }
+
+            ApplyPolicies(localCache);
+        }
+
+        internal static void ComputePolicies(Dictionary<string, FailureLevel> localCache, Run run)
+        {
+            // checking if we have policies
+            if (run.Policies == null || run.Policies.Count == 0)
+            {
+                return;
+            }
+
+            foreach (ToolComponent policy in run.Policies)
+            {
+                foreach (ReportingDescriptor rule in policy.Rules)
+                {
+                    localCache[rule.Id] = rule.DefaultConfiguration.Level;
+                }
             }
         }
     }

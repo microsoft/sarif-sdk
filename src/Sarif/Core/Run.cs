@@ -246,8 +246,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// When multiple policies remap the same rule, the last policy in the policies
         /// collection has precedence.
         /// </summary>
-        public void ApplyPolicies()
+        public void ApplyPolicies(Dictionary<string, FailureLevel> policiesCache = null)
         {
+            // Use policies cache if exist
+            if (policiesCache != null)
+            {
+                PoliciesCache = policiesCache;
+            }
+
+            // Compute policies
             if (PoliciesCache == null || PoliciesCache.Count == 0)
             {
                 PoliciesCache = ComputePolicies(this.Policies);
