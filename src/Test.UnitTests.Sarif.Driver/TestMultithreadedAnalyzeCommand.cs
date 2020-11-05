@@ -33,16 +33,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
 
             TestRuleBehaviors behaviors = context.Policy.GetProperty(TestRule.Behaviors);
-            
+
             context.IsValidAnalysisTarget = !behaviors.HasFlag(TestRuleBehaviors.RegardAnalysisTargetAsInvalid);
 
-            context.TargetLoadException = 
+            context.TargetLoadException =
                 behaviors.HasFlag(TestRuleBehaviors.RegardAnalysisTargetAsCorrupted)
-               ? new InvalidOperationException() 
+               ? new InvalidOperationException()
                : null;
 
             context.Options = options;
-            
+
             return context;
         }
 
@@ -65,7 +65,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         protected override TestAnalysisContext DetermineApplicabilityAndAnalyze(TestAnalysisContext context, IEnumerable<Skimmer<TestAnalysisContext>> skimmers, ISet<string> disabledSkimmers)
         {
             TestRuleBehaviors behaviors = context.Policy.GetProperty(TestRule.Behaviors);
-            
+
             TestRule.s_testRuleBehaviors = behaviors.AccessibleOutsideOfContextOnly();
 
             return base.DetermineApplicabilityAndAnalyze(context, skimmers, disabledSkimmers);

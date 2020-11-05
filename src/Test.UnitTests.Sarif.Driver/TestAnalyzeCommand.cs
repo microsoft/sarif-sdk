@@ -28,14 +28,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             string filePath = null)
         {
             TestAnalysisContext context = base.CreateContext(options, logger, runtimeErrors, policy, filePath);
-            
+
             if (context.Policy == null)
             {
                 context.Policy ??= new PropertiesDictionary();
                 context.Policy.SetProperty(TestRule.Behaviors, options.TestRuleBehaviors);
             }
 
-            context.IsValidAnalysisTarget = 
+            context.IsValidAnalysisTarget =
                 !context.Policy
                 .GetProperty(TestRule.Behaviors)
                 .HasFlag(TestRuleBehaviors.RegardAnalysisTargetAsInvalid);
@@ -43,8 +43,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             if (options.TestRuleBehaviors.HasFlag(TestRuleBehaviors.RegardAnalysisTargetAsCorrupted))
             {
                 context.TargetLoadException = new InvalidOperationException();
-            }    
-            
+            }
+
             context.Options = options;
             return context;
         }

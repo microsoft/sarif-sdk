@@ -8,7 +8,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public class TestAnalyzeOptions : MultithreadedAnalyzeOptionsBase
     {
-        public TestRuleBehaviors TestRuleBehaviors { get; set;}
+        public TestRuleBehaviors TestRuleBehaviors { get; set; }
 
         public bool DisableCheck { get; set; }
 

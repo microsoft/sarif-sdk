@@ -389,7 +389,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     context.TargetUri.GetFileName(),
                     context.Rule.Name));
 
-            if (disabledSkimmers != null) 
+            if (disabledSkimmers != null)
             {
                 lock (disabledSkimmers)
                 {
@@ -452,7 +452,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     context.TargetUri.GetFileName(),
                     context.Rule.Name));
 
-            if (disabledSkimmers != null) 
+            if (disabledSkimmers != null)
             {
                 lock (disabledSkimmers)
                 {
@@ -479,7 +479,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     FailureLevel.Error,
                     exception,
                     persistExceptionStack: true,
-                    messageFormat: "{0}", 
+                    messageFormat: "{0}",
                     args: new string[] { exception.ToString() }));
 
             return RuntimeConditions.ExceptionInEngine;

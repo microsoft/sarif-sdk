@@ -13,10 +13,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     {
         public Exception TargetLoadException { get; set; }
 
-        public bool IsValidAnalysisTarget 
-        { 
-            get => true; 
-            set => throw new InvalidOperationException(); 
+        public bool IsValidAnalysisTarget
+        {
+            get => true;
+            set => throw new InvalidOperationException();
         }
 
         public IAnalysisLogger Logger { get; set; }

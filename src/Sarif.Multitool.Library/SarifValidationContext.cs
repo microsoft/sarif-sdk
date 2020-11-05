@@ -44,8 +44,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public bool AnalysisComplete { get; set; }
 
-        public HashData Hashes { get; set; }        
-        
+        public HashData Hashes { get; set; }
+
         public PropertiesDictionary Policy { get; set; }
 
         public ReportingDescriptor Rule { get; set; }
