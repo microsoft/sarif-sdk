@@ -1,5 +1,5 @@
-pr:
-- '*'
+trigger:
+- 'master'
 
 pool:
   vmImage: 'windows-latest'
@@ -13,20 +13,23 @@ jobs:
     inputs:
       targetType: filePath
       filePath: ./scripts/BuildAndTest.ps1
+      argument: -NoPackage
 
-  # Publish bld/publish folder
-  - task: PublishBuildArtifacts@1
-    displayName: 'Publish Artifact: publish'
+  # Deleting other folders
+  - task: PowerShell@2
+    displayName: Deleting packages folder
     inputs:
-      PathtoPublish: '.\bld\Publish\'
-      ArtifactName: publish
+      targetType: inline
+      script: Remove-Item -recurse src\packages, src\Samples\packages, .git
 
   # Publish bld/bin folder
   - task: PublishBuildArtifacts@1
-    displayName: 'Publish Artifact: build'
+    displayName: 'Publish Artifact: repo'
     inputs:
-      PathtoPublish: '.\bld\bin\'
-      ArtifactName: build
+      PathtoPublish: '.'
+      ArtifactName: 'repo'
+      Parallel: true
+      ParallelCount: 8
 
 - job: npm_pipeline
   steps:

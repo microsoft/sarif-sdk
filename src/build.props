@@ -95,7 +95,7 @@
     Don't complain about SemVer 2.0.0-compatible version strings.
     See https://github.com/NuGet/Home/issues/4687#issuecomment-393302779.
     -->
-    <NoWarn>NU5105</NoWarn>
+    <NoWarn>NU5105;NU5104</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
