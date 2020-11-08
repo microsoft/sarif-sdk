@@ -20,7 +20,7 @@ jobs:
     displayName: Deleting packages folder
     inputs:
       targetType: inline
-      script: Remove-Item -recurse src\packages, src\Samples\packages, .git
+      script: Remove-Item -recurse src\packages, src\Samples\packages
 
   # Publish bld/bin folder
   - task: PublishBuildArtifacts@1
