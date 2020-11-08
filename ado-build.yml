@@ -13,7 +13,6 @@ jobs:
     inputs:
       targetType: filePath
       filePath: ./scripts/BuildAndTest.ps1
-      argument: -NoPackage
 
   # Deleting other folders
   - task: PowerShell@2
