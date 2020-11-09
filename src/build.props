@@ -95,7 +95,14 @@
     Don't complain about SemVer 2.0.0-compatible version strings.
     See https://github.com/NuGet/Home/issues/4687#issuecomment-393302779.
     -->
-    <NoWarn>NU5105</NoWarn>
+    <NoWarn>NU5105;NU5104</NoWarn>
+
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <IncludeSymbols>true</IncludeSymbols>    
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/Microsoft/sarif-sdk</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
@@ -104,6 +111,15 @@
 
   <ItemGroup>
     <Compile Include="$(MsBuildThisFileDirectory)Shared\CommonAssemblyInfo.cs" />
+  </ItemGroup>
+
+  <PropertyGroup Condition="'$(Deterministic)'=='true'">
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+    <TargetFrameworkMonikerAssemblyAttributesPath>$([System.IO.Path]::Combine('$(IntermediateOutputPath)','$(TargetFrameworkMoniker).AssemblyAttributes$(DefaultLanguageSourceExtension)'))</TargetFrameworkMonikerAssemblyAttributesPath>
+  </PropertyGroup>
+  <ItemGroup Condition="'$(Deterministic)'=='true'">
+    <EmbeddedFiles Include="$(GeneratedAssemblyInfoFile)"/>
+    <SourceRoot Include="$(MSBuildThisFileDirectory)/" />
   </ItemGroup>
 
 </Project>
