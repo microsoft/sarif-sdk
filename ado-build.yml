@@ -13,6 +13,7 @@ jobs:
     inputs:
       targetType: filePath
       filePath: ./scripts/BuildAndTest.ps1
+      arguments: -NoTest
 
   # Publish bld/publish folder
   - task: PublishBuildArtifacts@1
