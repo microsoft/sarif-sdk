@@ -63,6 +63,12 @@
     <Optimize>false</Optimize>
     <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS</DefineConstants>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' "
+               Label="Release build">
+    <DebugType>portable</DebugType>
+    <Optimize>true</Optimize>
+    <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Platform)' == 'x86'"
                  Label="x86 build">
     <PlatformTarget>x86</PlatformTarget>
