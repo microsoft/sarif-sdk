@@ -61,7 +61,6 @@ function New-NuGetPackageFromNuSpecFile($configuration, $project, $version, $suf
         "-Symbols",
         "-Properties", "platform=$Platform;configuration=$configuration;version=$version",
         "-Verbosity", "Quiet",
-        "-BasePath", ".\",
         "-OutputDirectory", (Get-PackageDirectoryName $configuration)
 
     if ($suffix -ne "") {
