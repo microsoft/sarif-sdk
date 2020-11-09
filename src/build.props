@@ -113,11 +113,12 @@
     <Compile Include="$(MsBuildThisFileDirectory)Shared\CommonAssemblyInfo.cs" />
   </ItemGroup>
 
-  <PropertyGroup Condition="'$(Deterministic)'=='true'">
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
     <TargetFrameworkMonikerAssemblyAttributesPath>$([System.IO.Path]::Combine('$(IntermediateOutputPath)','$(TargetFrameworkMoniker).AssemblyAttributes$(DefaultLanguageSourceExtension)'))</TargetFrameworkMonikerAssemblyAttributesPath>
+    <Deterministic>true</Deterministic>
   </PropertyGroup>
-  <ItemGroup Condition="'$(Deterministic)'=='true'">
+  <ItemGroup Condition=" '$(Configuration)' == 'Release' ">
     <EmbeddedFiles Include="$(GeneratedAssemblyInfoFile)"/>
     <SourceRoot Include="$(MSBuildThisFileDirectory)/" />
   </ItemGroup>
