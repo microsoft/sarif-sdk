@@ -55,12 +55,13 @@ function New-NuGetPackageFromProjectFile($configuration, $project, $version) {
 
 function New-NuGetPackageFromNuSpecFile($configuration, $project, $version, $suffix = "") {
     $nuspecFile = "$SourceRoot\NuGet\$project.nuspec"
-
+    $base = Get-Location
     $arguments=
         "pack", $nuspecFile,
         "-Symbols",
         "-Properties", "platform=$Platform;configuration=$configuration;version=$version",
         "-Verbosity", "Quiet",
+        "-BasePath", $base,
         "-OutputDirectory", (Get-PackageDirectoryName $configuration)
 
     if ($suffix -ne "") {
