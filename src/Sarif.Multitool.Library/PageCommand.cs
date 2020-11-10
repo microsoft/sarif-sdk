@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net.NetworkInformation;
 
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Map;
@@ -44,6 +45,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public int RunWithoutCatch(PageOptions options)
         {
             if (!ValidateOptions(options, _fileSystem)) { return 1; }
+
+            // BSOA: Load log fully and remove page
+            if (options.InputFilePath.ToLowerInvariant().EndsWith(".bsoa"))
+            {
+                ExtractPageFullLoad(options);
+                return SUCCESS;
+            }
 
             // Load the JsonMap, if previously built and up-to-date, or rebuild it
             JsonMapNode root = LoadOrRebuildMap(options);
@@ -136,6 +144,56 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             Console.WriteLine($"Done in {w.Elapsed.TotalSeconds:n1}s.");
 
             return root;
+        }
+
+        private void ExtractPageFullLoad(PageOptions options)
+        {
+            Stopwatch w = Stopwatch.StartNew();
+            Console.WriteLine($"Extracting {options.Count:n0} results from index {options.Index:n0}\r\n  from \"{options.InputFilePath}\"\r\n  into \"{options.OutputFilePath}\"...");
+
+            SarifLog log = SarifLog.Load(options.InputFilePath);
+
+            // Verify RunIndex in range
+            IList<Run> runs = log.Runs;
+
+            if (options.RunIndex >= runs.Count)
+            {
+                throw new ArgumentOutOfRangeException($"Page requested for RunIndex {options.RunIndex}, but Log had only {runs.Count} runs.");
+            }
+
+            // Filter to single run
+            log.Runs = new[] { runs[options.RunIndex] };
+
+            // Verify results index and count in range
+            IList<Result> results = log.Runs[0].Results;
+
+            if (options.Index >= results.Count)
+            {
+                throw new ArgumentOutOfRangeException($"Index requested was {options.Index} but Run has only {results.Count} results.");
+            }
+
+            if (options.Index + options.Count > results.Count)
+            {
+                Console.WriteLine($"Page requested from Result {options.Index} to {options.Index + options.Count} but Run has only {results.Count} results.");
+                options.Count = results.Count - options.Index;
+            }
+
+            Console.WriteLine($"Run {options.RunIndex} in \"{options.InputFilePath}\" has {results.Count:n0} results.");
+
+            // Filter to desired results
+            log.Runs[0].Results = results.Skip(options.Index).Take(options.Count).ToList();
+
+            // Ensure output directory exists
+            string outputFolder = Path.GetDirectoryName(Path.GetFullPath(options.OutputFilePath));
+            Directory.CreateDirectory(outputFolder);
+
+            // Write filtered log
+            log.Save(options.OutputFilePath);
+
+            long lengthWritten = new FileInfo(options.OutputFilePath).Length;
+            
+            w.Stop();
+            Console.WriteLine($"Done; wrote {(lengthWritten / (double)(1024 * 1024)):n2} MB in {w.Elapsed.TotalSeconds:n1}s.");
         }
 
         private void ExtractPage(PageOptions options, JsonMapNode root)
