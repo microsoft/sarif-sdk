@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using System.Collections.Generic;
 
 using CommandLine;
@@ -47,12 +48,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             's',
             "statistics",
             HelpText = "Generate timing and other statistics for analysis session.")]
+        [Obsolete()]
         public bool Statistics { get; set; }
 
         [Option(
             'h',
             "hashes",
             HelpText = "Output MD5, SHA1, and SHA-256 hash of analysis targets when emitting SARIF reports.")]
+        [Obsolete("Use --insert instead, passing 'Hashes' along with any other references to data to be inserted.")]
         public bool ComputeFileHashes { get; set; }
 
         [Option(

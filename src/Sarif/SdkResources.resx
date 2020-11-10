@@ -163,7 +163,7 @@
     <value>Could not create output file '{0}'.</value>
   </data>
   <data name="ERR998_ExceptionInAnalyze" xml:space="preserve">
-    <value>An exception was raised analyzing '{0}' for check '{1}' (which has been disabled). The exception may have resulted from a problem related to parsing the analysis target, and not specific to the rule, however.</value>
+    <value>An exception of type '{0}' was raised analyzing '{1}' for check '{2}' (which has been disabled). The exception may have resulted from a problem related to parsing the analysis target, and not specific to the rule, however.</value>
   </data>
   <data name="ERR998_ExceptionInCanAnalyze" xml:space="preserve">
     <value>An exception was raised attempting to determine whether '{0}' is a valid analysis target for check '{1}' (which has been disabled). The exception may have resulted from a problem related to parsing the analysis target and not specific to the rule, however.</value>
@@ -196,7 +196,7 @@
     <value>{0}{1}: error {2}: {3}</value>
   </data>
   <data name="ERR999_UnhandledEngineException" xml:space="preserve">
-    <value>An exception was raised during analysis.</value>
+    <value>{0}</value>
   </data>
   <data name="ValueCannotBeNegative" xml:space="preserve">
     <value>The value cannot be negative.</value>
@@ -220,7 +220,7 @@
     <value>'{0}' is not a valid value for the id property of an threadFlowLocation object. The value must be a positive integer or the string representation of a positive integer.</value>
   </data>
   <data name="NotificationWithExceptionMessage" xml:space="preserve">
-    <value>{0} ({1})</value>
+    <value>{0} '{1}'</value>
   </data>
   <data name="UnexpectedFatalRuntimeConditions" xml:space="preserve">
     <value>Unexpected fatal runtime condition(s) observed: </value>

@@ -214,7 +214,7 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An exception was raised analyzing &apos;{0}&apos; for check &apos;{1}&apos; (which has been disabled). The exception may have resulted from a problem related to parsing the analysis target, and not specific to the rule, however..
+        ///   Looks up a localized string similar to An exception of type &apos;{0}&apos; was raised analyzing &apos;{1}&apos; for check &apos;{2}&apos; (which has been disabled). The exception may have resulted from a problem related to parsing the analysis target, and not specific to the rule, however..
         /// </summary>
         public static string ERR998_ExceptionInAnalyze {
             get {
@@ -241,7 +241,7 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An exception was raised during analysis..
+        ///   Looks up a localized string similar to {0}.
         /// </summary>
         public static string ERR999_UnhandledEngineException {
             get {
@@ -369,7 +369,7 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} ({1}).
+        ///   Looks up a localized string similar to {0} &apos;{1}&apos;.
         /// </summary>
         public static string NotificationWithExceptionMessage {
             get {

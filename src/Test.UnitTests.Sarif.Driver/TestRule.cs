@@ -11,6 +11,7 @@ using FluentAssertions;
 
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Driver.Sdk;
+using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -50,7 +51,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             get
             {
-                if (s_testRuleBehaviors == TestRuleBehaviors.TreatPlatformAsInvalid)
+                if (s_testRuleBehaviors.HasFlag(TestRuleBehaviors.TreatPlatformAsInvalid))
                 {
                     return SupportedPlatform.Unknown;
                 }
@@ -78,13 +79,23 @@ namespace Microsoft.CodeAnalysis.Sarif
         private string _name;
         public override string Name
         {
-            get { return _name ?? base.Name; }
-            set { _name = value; }
+            get
+            {
+                if (s_testRuleBehaviors == TestRuleBehaviors.RaiseExceptionAccessingName)
+                {
+                    throw new InvalidOperationException(nameof(TestRuleBehaviors.RaiseExceptionAccessingId));
+                }
+                return _name ?? base.Name;
+            }
+            set
+            {
+                _name = value;
+            }
         }
 
         public override void Initialize(TestAnalysisContext context)
         {
-            if (s_testRuleBehaviors == TestRuleBehaviors.RaiseExceptionInvokingInitialize)
+            if (context.Policy.GetProperty(Behaviors).HasFlag(TestRuleBehaviors.RaiseExceptionInvokingInitialize))
             {
                 throw new InvalidOperationException(nameof(TestRuleBehaviors.RaiseExceptionInvokingInitialize));
             }
@@ -95,12 +106,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             AnalysisApplicability applicability = AnalysisApplicability.ApplicableToSpecifiedTarget;
             reasonIfNotApplicable = null;
 
-            if (s_testRuleBehaviors == TestRuleBehaviors.RaiseExceptionInvokingCanAnalyze)
+            if (context.Policy.GetProperty(Behaviors).HasFlag(TestRuleBehaviors.RaiseExceptionInvokingCanAnalyze))
             {
                 throw new InvalidOperationException(nameof(TestRuleBehaviors.RaiseExceptionInvokingCanAnalyze));
             }
 
-            if (context.Options.RegardAnalysisTargetAsNotApplicable)
+            if (context.Policy.GetProperty(Behaviors).HasFlag(TestRuleBehaviors.RegardAnalysisTargetAsNotApplicable))
             {
                 reasonIfNotApplicable = "testing NotApplicableToSpecifiedTarget";
                 return AnalysisApplicability.NotApplicableToSpecifiedTarget;
@@ -121,16 +132,17 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public override void Analyze(TestAnalysisContext context)
         {
+            // We do not access the static test rule behaviors here. We also want to 
+            // ensure this data is only set with flags (if any) that are legal for 
+            // this property.
+            (s_testRuleBehaviors & s_testRuleBehaviors.AccessibleOutsideOfContextOnly())
+                .Should().Be(s_testRuleBehaviors);
+
+            // Now we'll make sure the context test rule behaviors are restricted
+            // to settings that are legal to pass in a context object.
             TestRuleBehaviors testRuleBehaviors = context.Policy.GetProperty(Behaviors);
-
-            // Currently, we only allow test rule behavior either be passed by context
-            // or injected via static data, not by both mechanisms.
-            (s_testRuleBehaviors == 0 || testRuleBehaviors == 0).Should().BeTrue();
-
-            if (testRuleBehaviors == TestRuleBehaviors.None)
-            {
-                testRuleBehaviors = s_testRuleBehaviors;
-            };
+            (testRuleBehaviors & testRuleBehaviors.AccessibleWithinContextOnly())
+                .Should().Be(testRuleBehaviors);
 
             switch (testRuleBehaviors)
             {
@@ -237,7 +249,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static PerLanguageOption<bool> UnusedOption { get; } =
             new PerLanguageOption<bool>(
-                AnalyzerName, nameof(TestRuleBehaviors), defaultValue: () => { return true; });
+                AnalyzerName, nameof(UnusedOption), defaultValue: () => { return true; });
 
     }
 }

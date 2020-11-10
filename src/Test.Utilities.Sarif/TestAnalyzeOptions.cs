@@ -6,22 +6,11 @@ using Microsoft.CodeAnalysis.Sarif.Driver;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
-    public class TestAnalyzeOptions : AnalyzeOptionsBase
+    public class TestAnalyzeOptions : MultithreadedAnalyzeOptionsBase
     {
-        public TestAnalyzeOptions()
-        {
-            RegardAnalysisTargetAsValid = true;
-        }
+        public TestRuleBehaviors TestRuleBehaviors { get; set; }
 
         public bool DisableCheck { get; set; }
-
-        public bool RegardAnalysisTargetAsNotApplicable { get; set; }
-
-        public bool RegardAnalysisTargetAsCorrupted { get; set; }
-
-        public bool RegardAnalysisTargetAsValid { get; set; }
-
-        public bool RegardOptionsAsInvalid { get; set; }
 
         public string[] DefaultPlugInFilePaths { get; set; }
     }

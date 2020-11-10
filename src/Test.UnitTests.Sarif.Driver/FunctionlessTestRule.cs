@@ -45,6 +45,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static PerLanguageOption<bool> UnusedOption { get; } =
             new PerLanguageOption<bool>(
-                AnalyzerName, nameof(TestRuleBehaviors), () => true);
+                AnalyzerName, nameof(UnusedOption), () => true);
     }
 }

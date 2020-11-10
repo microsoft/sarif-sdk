@@ -3,6 +3,8 @@
 
 using System;
 
+using Microsoft.CodeAnalysis.Sarif.Driver;
+
 namespace Microsoft.CodeAnalysis.Sarif
 {
     public class TestAnalysisContext : IAnalysisContext
@@ -26,6 +28,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         public RuntimeConditions RuntimeErrors { get; set; }
 
         public TestAnalyzeOptions Options { get; set; }
+
+        public bool AnalysisComplete { get; set; }
 
         public void Dispose()
         {

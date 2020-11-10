@@ -4,11 +4,9 @@ using System;
 
 using FluentAssertions;
 
-using Microsoft.CodeAnalysis.Sarif;
-
 using Xunit;
 
-namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif
+namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
     public class ConsoleLoggerTests
     {
