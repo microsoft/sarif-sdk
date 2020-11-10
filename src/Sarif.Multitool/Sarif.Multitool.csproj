@@ -28,7 +28,7 @@
 
   <PropertyGroup Label="AssemblyAttributes">
     <AssemblyTitle>SARIF Multitool</AssemblyTitle>
-    <PackageId>Sarif.Multitool.Prototype.BSOA</PackageId>
+    <PackageId>Sarif.Multitool.BSOA</PackageId>
     <Description>Command line tool to manipulate SARIF files.</Description>
   </PropertyGroup>
 
