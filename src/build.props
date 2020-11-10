@@ -11,7 +11,7 @@
     <Company Condition=" '$(Company)' == '' ">Microsoft</Company>
     <Product Condition=" '$(Product)' == '' ">Microsoft SARIF SDK</Product>
     <Copyright Condition=" '$(Copyright)' == '' ">© Microsoft Corporation. All rights reserved.</Copyright>
-    
+
     <!--
     VersionPrefix denotes the current version of the SDK. You must update it before every nuget drop.
 
@@ -24,9 +24,9 @@
     <VersionPrefix>2.3.8</VersionPrefix>
     <PreviousVersionPrefix>2.3.7</PreviousVersionPrefix>
 
-     <!-- SchemaVersionAsPublishedToSchemaStoreOrg identifies the current published version on json schema store at https://schemastore.azurewebsites.net/schemas/json/ -->
+    <!-- SchemaVersionAsPublishedToSchemaStoreOrg identifies the current published version on json schema store at https://schemastore.azurewebsites.net/schemas/json/ -->
     <SchemaVersionAsPublishedToSchemaStoreOrg>2.1.0-rtm.5</SchemaVersionAsPublishedToSchemaStoreOrg>
-      
+
     <!-- The stable version of the SARIF specification. -->
     <StableSarifVersion>2.1.0</StableSarifVersion>
 
@@ -48,7 +48,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <HighEntropyVA>true</HighEntropyVA> 
+    <HighEntropyVA>true</HighEntropyVA>
     <!-- The line causes the assemblies in a project's referenced NuGet packages to be
          copied to the output directory. If we omit it from a test project, the tests
          fail on AppVeyor (and only there, for some reason).
@@ -64,7 +64,7 @@
     <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' "
-                 Label="Release build">
+               Label="Release build">
     <DebugType>portable</DebugType>
     <Optimize>true</Optimize>
     <DefineConstants>TRACE</DefineConstants>
@@ -96,6 +96,13 @@
     See https://github.com/NuGet/Home/issues/4687#issuecomment-393302779.
     -->
     <NoWarn>NU5105</NoWarn>
+
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/Microsoft/sarif-sdk</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
@@ -104,6 +111,16 @@
 
   <ItemGroup>
     <Compile Include="$(MsBuildThisFileDirectory)Shared\CommonAssemblyInfo.cs" />
+  </ItemGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+    <TargetFrameworkMonikerAssemblyAttributesPath>$([System.IO.Path]::Combine('$(IntermediateOutputPath)','$(TargetFrameworkMoniker).AssemblyAttributes$(DefaultLanguageSourceExtension)'))</TargetFrameworkMonikerAssemblyAttributesPath>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <ItemGroup Condition=" '$(Configuration)' == 'Release' ">
+    <EmbeddedFiles Include="$(GeneratedAssemblyInfoFile)"/>
+    <SourceRoot Include="$(MSBuildThisFileDirectory)/" />
   </ItemGroup>
 
 </Project>
