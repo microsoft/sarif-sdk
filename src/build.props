@@ -112,6 +112,10 @@
     <Compile Include="$(MsBuildThisFileDirectory)Shared\CommonAssemblyInfo.cs" />
   </ItemGroup>
 
+  <ItemGroup>    
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All"/>
+  </ItemGroup>
+
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
     <TargetFrameworkMonikerAssemblyAttributesPath>$([System.IO.Path]::Combine('$(IntermediateOutputPath)','$(TargetFrameworkMoniker).AssemblyAttributes$(DefaultLanguageSourceExtension)'))</TargetFrameworkMonikerAssemblyAttributesPath>
