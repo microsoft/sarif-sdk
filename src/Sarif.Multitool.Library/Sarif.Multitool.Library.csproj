@@ -3,6 +3,7 @@
   <PropertyGroup Label="AssemblyAttributes">
     <AssemblyTitle>SARIF Multitool Library</AssemblyTitle>
     <Description>The public API exposing the commands used by the SARIF Multitool.</Description>
+    <PackageId>Sarif.Multitool.Library.BSOA</PackageId>
   </PropertyGroup>
 
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
