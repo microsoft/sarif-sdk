@@ -14,20 +14,6 @@ jobs:
       targetType: filePath
       filePath: ./scripts/BuildAndTest.ps1
 
-  # Publish bld/publish folder
-  - task: PublishBuildArtifacts@1
-    displayName: 'Publish Artifact: publish'
-    inputs:
-      PathtoPublish: '.\bld\Publish\'
-      ArtifactName: publish
-
-  # Publish bld/bin folder
-  - task: PublishBuildArtifacts@1
-    displayName: 'Publish Artifact: build'
-    inputs:
-      PathtoPublish: '.\bld\bin\'
-      ArtifactName: build
-
 - job: npm_pipeline
   steps:
   # Build Multitool for npm
