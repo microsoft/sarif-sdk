@@ -10,7 +10,7 @@
     Without this property setting, the id of the NuGet package would match the
     assembly name, "Sarif".
     -->
-    <PackageId>Sarif.Sdk.Prototype.BSOA</PackageId>
+    <PackageId>Sarif.Sdk.BSOA</PackageId>
 
     <!-- Place content files at the root of the package. -->
     <ContentTargetFolders>.</ContentTargetFolders>

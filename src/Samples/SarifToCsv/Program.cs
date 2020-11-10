@@ -11,9 +11,6 @@ using System.Linq;
 using AzureDevOpsCrawlers.Common.IO;
 
 using Microsoft.CodeAnalysis.Sarif;
-using Microsoft.CodeAnalysis.Sarif.Readers;
-
-using Newtonsoft.Json;
 
 namespace SarifToCsv
 {

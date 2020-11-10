@@ -40,14 +40,14 @@
     },
     {
       "description": "Result.Kind and Level have inter-related logic",
-      "replace": "(public ResultKind Kind.*?)(set => [^\\r\\n]+)",
-      "with": "$1set { _table.Kind[_index] = (int)value; if (value != ResultKind.Fail) { Level = FailureLevel.None; } }",
+      "replace": "(public ResultKind Kind.*?set \\{ [^}]+) }",
+      "with": "$1 if (value != ResultKind.Fail) { Level = FailureLevel.None; } }",
       "files": "Result\\.cs"
     },
     {
       "description": "Result.Kind and Level have inter-related logic",
-      "replace": "(public FailureLevel Level.*?)(set => [^\\r\\n]+)",
-      "with": "$1set { _table.Level[_index] = (int)value; if (value != FailureLevel.None) { Kind = ResultKind.Fail; } }",
+      "replace": "(public FailureLevel Level.*?set \\{ [^}]+) }",
+      "with": "$1 if (value != FailureLevel.None) { Kind = ResultKind.Fail; } }",
       "files": "Result\\.cs"
     },
     {

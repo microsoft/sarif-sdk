@@ -5,6 +5,9 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public partial class Run
     {
+        // BSOA: Expose root object (SarifLog) containing this run to enable creating new objects in the correct instance.
+        internal SarifLog Log => _table.Database.SarifLog[0];
+
         partial void Init()
         {
             Language = "en-US";

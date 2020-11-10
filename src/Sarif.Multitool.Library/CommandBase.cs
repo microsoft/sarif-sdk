@@ -58,16 +58,33 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public static void WriteSarifFile<T>(IFileSystem fileSystem, T sarifFile, string outputName, Formatting formatting = Formatting.None, IContractResolver contractResolver = null)
         {
-            var serializer = new JsonSerializer()
+            if (typeof(T) == typeof(SarifLog))
             {
-                ContractResolver = contractResolver,
-                Formatting = formatting
-            };
-
-            using (JsonTextWriter writer = new JsonTextWriter(new StreamWriter(fileSystem.FileCreate(outputName))))
-            {
-                serializer.Serialize(writer, sarifFile);
+                ((SarifLog)(object)sarifFile).Save(fileSystem.FileCreate(outputName), ConvertFormat(formatting, outputName));
             }
+            else
+            {
+                var serializer = new JsonSerializer()
+                {
+                    ContractResolver = contractResolver,
+                    Formatting = formatting
+                };
+
+                using (JsonTextWriter writer = new JsonTextWriter(new StreamWriter(fileSystem.FileCreate(outputName))))
+                {
+                    serializer.Serialize(writer, sarifFile);
+                }
+            }
+        }
+
+        private static SarifFormat ConvertFormat(Formatting formatting, string outputName)
+        {
+            if (outputName.ToLowerInvariant().EndsWith(".bsoa"))
+            {
+                return SarifFormat.BSOA;
+            }
+
+            return (formatting == Formatting.Indented ? SarifFormat.IndentedJSON : SarifFormat.JSON);
         }
 
         public static HashSet<string> CreateTargetsSet(IEnumerable<string> targetSpecifiers, bool recurse, IFileSystem fileSystem)

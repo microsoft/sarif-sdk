@@ -21,11 +21,11 @@ namespace BSOA.Generator.Templates
     [GeneratedCode("BSOA.Generator", "0.5.0")]
     public partial class Company : PropertyBagHolder, ISarifNode, IRow<Company>, IEquatable<Company>
     {
-        private readonly CompanyTable _table;
-        private readonly int _index;
+        private CompanyTable _table;
+        private int _index;
 
         internal CompanyDatabase Database => _table.Database;
-        public ITreeSerializable DB => _table.Database;
+        public IDatabase DB => _table.Database;
 
         public Company() : this(new CompanyDatabase().Company)
         { }
@@ -75,41 +75,32 @@ namespace BSOA.Generator.Templates
         //   <SimpleColumn>
         public long Id
         {
-            get => _table.Id[_index];
-            set => _table.Id[_index] = value;
+            get { _table.EnsureCurrent(this); return _table.Id[_index]; }
+            set { _table.EnsureCurrent(this); _table.Id[_index] = value; }
         }
 
         //   </SimpleColumn>
         //   <EnumColumn>
         public SecurityPolicy JoinPolicy
         {
-            get => (SecurityPolicy)_table.JoinPolicy[_index];
-            set => _table.JoinPolicy[_index] = (byte)value;
+            get { _table.EnsureCurrent(this); return (SecurityPolicy)_table.JoinPolicy[_index]; }
+            set { _table.EnsureCurrent(this); _table.JoinPolicy[_index] = (byte)value; }
         }
 
         //   </EnumColumn>
         //   <RefColumn>
         public Employee Owner
         {
-            get => _table.Database.Employee.Get(_table.Owner[_index]);
-            set => _table.Owner[_index] = _table.Database.Employee.LocalIndex(value);
+            get { _table.EnsureCurrent(this); return _table.Database.Employee.Get(_table.Owner[_index]); }
+            set { _table.EnsureCurrent(this); _table.Owner[_index] = _table.Database.Employee.LocalIndex(value); }
         }
 
         //   </RefColumn>
         //   <RefListColumn>
-        private TypedList<Employee> _members;
         public IList<Employee> Members
         {
-            get
-            {
-                if (_members == null) { _members = TypedList<Employee>.Get(_table.Database.Employee, _table.Members, _index); }
-                return _members;
-            }
-            set
-            {
-                TypedList<Employee>.Set(_table.Database.Employee, _table.Members, _index, value);
-                _members = null;
-            }
+            get { _table.EnsureCurrent(this); return TypedList<Employee>.Get(_table.Database.Employee, _table.Members, _index); }
+            set { _table.EnsureCurrent(this); TypedList<Employee>.Set(_table.Database.Employee, _table.Members, _index, value); }
         }
 
         //   </RefListColumn>
@@ -196,8 +187,14 @@ namespace BSOA.Generator.Templates
         #endregion
 
         #region IRow
-        ITable IRow<Company>.Table => _table;
-        int IRow<Company>.Index => _index;
+        ITable IRow.Table => _table;
+        int IRow.Index => _index;
+
+        void IRow.Remap(ITable table, int index)
+        {
+            _table = (CompanyTable)table;
+            _index = index;
+        }
 
         public void CopyFrom(Company other)
         {

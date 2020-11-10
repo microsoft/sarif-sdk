@@ -7,17 +7,17 @@ namespace BSOA.Column
 {
     internal class MultiformatMessageStringColumn : WrappingColumn<MultiformatMessageString, int>
     {
-        private MultiformatMessageStringTable _table;
+        private readonly SarifLogDatabase _database;
 
-        public MultiformatMessageStringColumn(SarifLogDatabase db) : base(new RefColumn(nameof(MultiformatMessageString)))
+        public MultiformatMessageStringColumn(SarifLogDatabase database, RefColumn inner) : base(inner)
         {
-            _table = db.MultiformatMessageString;
+            _database = database;
         }
 
         public override MultiformatMessageString this[int index] 
         {
-            get => new MultiformatMessageString(_table, Inner[index]);
-            set => Inner[index] = _table.LocalIndex(value);
+            get => new MultiformatMessageString(_database.MultiformatMessageString, Inner[index]);
+            set => Inner[index] = _database.MultiformatMessageString.LocalIndex(value);
         }
     }
 }
