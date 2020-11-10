@@ -715,7 +715,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             foreach (Skimmer<TContext> skimmer in skimmers)
             {
                 if (disabledSkimmers.Contains(skimmer.Id)) { continue; }
-    
+
                 context.Rule = skimmer;
 
                 try
