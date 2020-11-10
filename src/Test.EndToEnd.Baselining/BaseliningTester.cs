@@ -332,8 +332,9 @@ namespace Test.EndToEnd.Baselining
         private static void SortForBaselining(Run run)
         {
             run.SetRunOnResults();
-            List<Result> results = (List<Result>)run.Results;
+            List<Result> results = (List<Result>)run.Results.ToList();
             results.Sort(DirectResultMatchingComparer.Instance);
+            run.Results = results;
         }
 
         private static void DeleteAndCreateDirectory(string directoryPath)
