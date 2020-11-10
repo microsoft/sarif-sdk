@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0"?>
 <package>
   <metadata>
-    <id>Sarif.Multitool.Prototype.BSOA</id>
+    <id>Sarif.Multitool.BSOA</id>
     <version>$version$</version>
     <title>Microsoft SARIF Multitool (includes SARIF SDK)</title>
     <authors>Microsoft</authors>
