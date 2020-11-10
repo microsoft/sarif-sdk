@@ -32,6 +32,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         private Run _run;
         private Conditions _writeConditions;
+        private int _resultCountWritten;
         private readonly JsonWriter _jsonWriter;
         private readonly JsonSerializer _serializer;
 
@@ -75,6 +76,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _jsonWriter.WriteStartObject(); // Begin: run
 
             _writeConditions |= Conditions.RunInitialized;
+            _resultCountWritten = 0;
         }
 
         /// <summary>
@@ -216,6 +218,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
 
             _serializer.Serialize(_jsonWriter, result);
+
+            // BSOA: Create a new container for results periodically to allow garbage collecting old ones
+            if (_resultCountWritten++ % 1024 == 0)
+            {
+                SarifLog tempResultContainer = new SarifLog();
+            }
         }
 
         /// <summary>

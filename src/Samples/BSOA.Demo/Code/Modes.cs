@@ -11,6 +11,7 @@ using RoughBench;
 
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.CodeAnalysis.Sarif.Writers;
+using System.Linq;
 
 namespace BSOA.Demo
 {
@@ -104,40 +105,48 @@ namespace BSOA.Demo
         public static void LeakTest(string filePath, int count = 100000)
         {
 #if BSOA
+            Console.WriteLine($"Leak Test: Loading \"{filePath}\"...");
+            long start = System.GC.GetTotalMemory(true);
             SarifLog sourceLog = SarifLog.Load(filePath);
+
             IList<Result> sourceResults = sourceLog.Runs[0].Results;
             ReportingDescriptor rule = sourceResults[0].GetRule();
 
-            SarifLog destination = new SarifLog();
-            Run destinationRun = new Run(destination);
-            destination.Runs = new List<Run>() { destinationRun };
+            long beforeLoggerMemory = System.GC.GetTotalMemory(true);
 
-            long beforeMemory = GC.GetTotalMemory(true);
-            long peakMemory = beforeMemory;
+            Console.WriteLine($"{sourceLog.Runs.Sum((run) => run.Results.Count):n0} results, +{Format.Size(beforeLoggerMemory - start)}");
+            Console.WriteLine($"Logging {count:n0} Results...");
+
+            long peakMemory = beforeLoggerMemory;
+            long firstPassMemory = beforeLoggerMemory;
             Stopwatch w = Stopwatch.StartNew();
 
             using (SarifLogger logger = new SarifLogger(Path.ChangeExtension(filePath, ".out.sarif")))
             {
                 for (int i = 0; i < count; ++i)
                 {
-                    Result result = new Result(destination, sourceResults[i % sourceResults.Count]);
+                    Result result = new Result(sourceResults[i % sourceResults.Count]);
                     result.RuleId = rule.Id;
                     result.RuleIndex = -1;
                     result.Rule = null;
-
+                    
                     logger.Log(rule, result);
 
-                    result.Clear();
+                    // Capture memory after 1,024 results (cutoff for new temp log) or one pass through results (end of new locations)
+                    if (i == sourceResults.Count || i == 1024)
+                    {
+                        firstPassMemory = System.GC.GetTotalMemory(false);
+                    }
 
                     if (i % 1000 == 0)
                     {
-                        long memory = GC.GetTotalMemory(false);
+                        long memory = System.GC.GetTotalMemory(false);
                         if (memory > peakMemory) { peakMemory = memory; }
                     }
                 }
             }
 
-            Console.WriteLine($"{count:n0} results in {Format.Time(w.Elapsed)}. Peak Memory: {Format.Size(peakMemory)} (+ {Format.Size(peakMemory - beforeMemory)})");
+            Console.WriteLine($"{count:n0} results in {Format.Time(w.Elapsed)}. Peak Memory: {Format.Size(peakMemory)}. Use after first pass: (+ {Format.Size(peakMemory - firstPassMemory)})");
 #endif
         }
 

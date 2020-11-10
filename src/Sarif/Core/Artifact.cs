@@ -20,16 +20,15 @@ namespace Microsoft.CodeAnalysis.Sarif
             OptionallyEmittedData dataToInsert = OptionallyEmittedData.None,
             Encoding encoding = null,
             HashData hashData = null,
-            IFileSystem fileSystem = null)
+            IFileSystem fileSystem = null,
+            SarifLog log = null)
         {
             if (uri == null) { throw new ArgumentNullException(nameof(uri)); }
 
             fileSystem ??= FileSystem.Instance;
 
-            var artifact = new Artifact()
-            {
-                Encoding = encoding?.WebName,
-            };
+            Artifact artifact = (log == null ? new Artifact() : new Artifact(log));
+            artifact.Encoding = encoding?.WebName;
 
             string mimeType = SarifWriters.MimeType.DetermineFromFileExtension(uri);
 

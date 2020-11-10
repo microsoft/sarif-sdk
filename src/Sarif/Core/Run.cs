@@ -78,7 +78,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             // throughout the emitted log.
             fileLocation.Uri = new Uri(UriHelper.MakeValidUri(fileLocation.Uri.OriginalString), UriKind.RelativeOrAbsolute);
 
-            var artifactLocation = new ArtifactLocation
+            // BSOA: Create ArtifactLocation, Artifact in the same log as the Run.
+            SarifLog log = this.Log;
+
+            var artifactLocation = new ArtifactLocation(log)
             {
                 Uri = fileLocation.Uri,
                 UriBaseId = fileLocation.UriBaseId
@@ -99,10 +102,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                         artifactUri,
                         dataToInsert,
                         hashData: hashData,
-                        encoding: encoding);
+                        encoding: encoding,
+                        log: log);
 
                     // Copy ArtifactLocation to ensure changes to Result copy don't affect new Run.Artifacts copy
-                    artifact.Location = new ArtifactLocation(fileLocation);
+                    artifact.Location = new ArtifactLocation(log, fileLocation);
 
                     this.Artifacts.Add(artifact);
 
