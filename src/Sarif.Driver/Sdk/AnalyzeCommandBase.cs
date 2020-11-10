@@ -714,14 +714,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             foreach (Skimmer<TContext> skimmer in skimmers)
             {
-                if (disabledSkimmers.Count > 0)
-                {
-                    lock (disabledSkimmers)
-                    {
-                        if (disabledSkimmers.Contains(skimmer.Id)) { continue; }
-                    }
-                }
-
+                if (disabledSkimmers.Contains(skimmer.Id)) { continue; }
+    
                 context.Rule = skimmer;
 
                 try
@@ -745,13 +739,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             foreach (Skimmer<TContext> skimmer in skimmers)
             {
-                if (disabledSkimmers.Count > 0)
-                {
-                    lock (disabledSkimmers)
-                    {
-                        if (disabledSkimmers.Contains(skimmer.Id)) { continue; }
-                    }
-                }
+                if (disabledSkimmers.Contains(skimmer.Id)) { continue; }
 
                 string reasonForNotAnalyzing = null;
                 context.Rule = skimmer;

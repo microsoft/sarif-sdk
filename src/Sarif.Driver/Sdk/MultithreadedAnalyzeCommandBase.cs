@@ -297,8 +297,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 int contextIndex = 0;
 
-                var sw = Stopwatch.StartNew();
-
                 string filter = Path.GetFileName(normalizedSpecifier);
                 string directory = Path.GetDirectoryName(normalizedSpecifier);
 

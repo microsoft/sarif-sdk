@@ -48,12 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     {
                         if (queue.TryDequeue(out string filePath))
                         {
-                            HashData hashData = HashUtilities.ComputeHashes(filePath);
-
-                            lock (fileToHashDataMap)
-                            {
-                                fileToHashDataMap[filePath] = hashData;
-                            }
+                            fileToHashDataMap[filePath] = HashUtilities.ComputeHashes(filePath);
                         }
                     }
                 }));
