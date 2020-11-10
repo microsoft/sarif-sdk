@@ -295,7 +295,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             TOptions options,
             IAnalysisLogger logger,
             RuntimeConditions runtimeErrors,
-            PropertiesDictionary policy = null, 
+            PropertiesDictionary policy = null,
             string filePath = null)
         {
             var context = new TContext
@@ -593,11 +593,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             ISet<string> disabledSkimmers)
         {
             TContext context = CreateContext(
-                options, 
-                rootContext.Logger, 
+                options,
+                rootContext.Logger,
                 rootContext.RuntimeErrors,
                 rootContext.Policy,
-                target);            
+                target);
 
             if ((options.DataToInsert.ToFlags() & OptionallyEmittedData.Hashes) != 0)
             {

@@ -23,11 +23,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         }
 
         public void AnalysisStopped(RuntimeConditions runtimeConditions)
-        {            
+        {
         }
 
         public void AnalyzingTarget(IAnalysisContext context)
-        {            
+        {
         }
 
         public void Log(ReportingDescriptor rule, Result result)
@@ -42,15 +42,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         }
 
         public void LogConfigurationNotification(Notification notification)
-        {            
+        {
         }
 
         public void LogMessage(bool verbose, string message)
-        {            
+        {
         }
 
         public void LogToolNotification(Notification notification)
-        {            
+        {
         }
     }
 }

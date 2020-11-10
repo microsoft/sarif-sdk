@@ -148,13 +148,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         private void MultithreadedAnalyzeTargets(
-            TOptions options, 
+            TOptions options,
             TContext rootContext,
             IEnumerable<Skimmer<TContext>> skimmers,
             ISet<string> disabledSkimmers)
         {
-            options.ThreadCount = options.ThreadCount > 0 
-                ? options.ThreadCount 
+            options.ThreadCount = options.ThreadCount > 0
+                ? options.ThreadCount
                 : Environment.ProcessorCount;
 
             var channelOptions = new BoundedChannelOptions(2000)
@@ -182,7 +182,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             Task<bool> findFiles = FindFilesAsync(options, rootContext);
             Task<bool> writeResults = WriteResultsAsync(rootContext);
-            
+
             // FindFiles is single-thread and will close its write channel
             findFiles.Wait();
 
@@ -334,9 +334,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     {
                         _fileContexts.Add(
                             CreateContext(
-                                options, 
-                                new CachingLogger(), 
-                                rootContext.RuntimeErrors, 
+                                options,
+                                new CachingLogger(),
+                                rootContext.RuntimeErrors,
                                 rootContext.Policy,
                                 filePath: file)
                         );
@@ -348,7 +348,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 }
             }
             _fileEnumerationChannel.Writer.Complete();
-            
+
             if (_fileContexts.Count == 0)
             {
                 Errors.LogNoValidAnalysisTargets(rootContext);
@@ -361,7 +361,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         private void EnqueueAllDirectories(Queue<string> queue, string directory)
         {
             var sortedDiskItems = new SortedSet<string>();
-            
+
             queue.Enqueue(directory);
             foreach (string childDirectory in Directory.EnumerateDirectories(directory, "*", SearchOption.TopDirectoryOnly))
             {
@@ -531,7 +531,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             TOptions options,
             IAnalysisLogger logger,
             RuntimeConditions runtimeErrors,
-            PropertiesDictionary policy = null, 
+            PropertiesDictionary policy = null,
             string filePath = null)
         {
             var context = new TContext
@@ -792,7 +792,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 Errors.LogAllRulesExplicitlyDisabled(rootContext);
                 ThrowExitApplicationException(rootContext, ExitReason.NoRulesLoaded);
             }
-            
+
             MultithreadedAnalyzeTargets(options, rootContext, skimmers, disabledSkimmers);
         }
 

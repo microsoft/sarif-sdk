@@ -79,17 +79,17 @@ namespace Microsoft.CodeAnalysis.Sarif
         private string _name;
         public override string Name
         {
-            get 
+            get
             {
                 if (s_testRuleBehaviors == TestRuleBehaviors.RaiseExceptionAccessingName)
                 {
                     throw new InvalidOperationException(nameof(TestRuleBehaviors.RaiseExceptionAccessingId));
                 }
-                return _name ?? base.Name; 
+                return _name ?? base.Name;
             }
-            set 
+            set
             {
-                _name = value; 
+                _name = value;
             }
         }
 
@@ -107,7 +107,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             reasonIfNotApplicable = null;
 
             if (context.Policy.GetProperty(Behaviors).HasFlag(TestRuleBehaviors.RaiseExceptionInvokingCanAnalyze))
-            { 
+            {
                 throw new InvalidOperationException(nameof(TestRuleBehaviors.RaiseExceptionInvokingCanAnalyze));
             }
 

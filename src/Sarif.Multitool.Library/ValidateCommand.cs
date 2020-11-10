@@ -39,10 +39,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         protected override SarifValidationContext CreateContext(
-            ValidateOptions options, 
-            IAnalysisLogger logger, 
-            RuntimeConditions runtimeErrors, 
-            PropertiesDictionary policy = null, 
+            ValidateOptions options,
+            IAnalysisLogger logger,
+            RuntimeConditions runtimeErrors,
+            PropertiesDictionary policy = null,
             string filePath = null)
         {
             SarifValidationContext context = base.CreateContext(options, logger, runtimeErrors, policy, filePath);

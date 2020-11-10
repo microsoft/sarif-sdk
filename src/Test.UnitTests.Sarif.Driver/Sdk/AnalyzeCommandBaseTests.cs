@@ -58,7 +58,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
              bool multithreaded)
         {
             TestRule.s_testRuleBehaviors = analyzeOptions.TestRuleBehaviors.AccessibleOutsideOfContextOnly();
-            
+
             analyzeOptions = analyzeOptions ?? new TestAnalyzeOptions()
             {
                 TestRuleBehaviors = analyzeOptions.TestRuleBehaviors.AccessibleWithinContextOnly(),
@@ -84,8 +84,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 plugInAssemblies = new Assembly[] { typeof(TestRule).Assembly };
             }
 
-            ITestAnalyzeCommand command = multithreaded 
-                ? (ITestAnalyzeCommand)new TestMultithreadedAnalyzeCommand() 
+            ITestAnalyzeCommand command = multithreaded
+                ? (ITestAnalyzeCommand)new TestMultithreadedAnalyzeCommand()
                 : (ITestAnalyzeCommand)new TestAnalyzeCommand();
 
             command.DefaultPlugInAssemblies = plugInAssemblies;
@@ -122,7 +122,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             var options = new TestAnalyzeOptions
             {
-                TestRuleBehaviors = 
+                TestRuleBehaviors =
                     TestRuleBehaviors.RaiseExceptionValidatingOptions |
                     TestRuleBehaviors.RegardOptionsAsInvalid
             };
@@ -180,7 +180,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public void ExceptionRaisedInstantiatingSkimmers()
         {
             var options = new TestAnalyzeOptions()
-            {   
+            {
                 TestRuleBehaviors = TestRuleBehaviors.RaiseExceptionInvokingConstructor,
                 TargetFileSpecifiers = new string[] { GetThisTestAssemblyFilePath() },
             };
@@ -426,7 +426,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 ExceptionTestHelperImplementation(
                     RuntimeConditions.None,
                     expectedExitReason: ExitReason.None,
-                    analyzeOptions: options, 
+                    analyzeOptions: options,
                     multithreaded: false);
 
                 if (File.Exists(path)) { File.Delete(path); }
