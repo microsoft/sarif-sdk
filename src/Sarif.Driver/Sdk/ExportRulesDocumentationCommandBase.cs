@@ -4,16 +4,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
-    public class ExportRulesDocumentationCommandBase<TContext> : PlugInDriverCommand<ExportRulesDocumentationOptions>
+    public class ExportRulesDocumentationCommandBase : PlugInDriverCommand<ExportRulesDocumentationOptions>
     {
         private const string DefaultOutputFileName = "Rules.md";
         private readonly IFileSystem _fileSystem;
-        private static readonly Regex s_friendlyNameRegex = new Regex(@"(?<level>Error|Warning|Note|None)_(?<friendlyName>[^_]+)$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        private static readonly Regex s_friendlyNameRegex = new Regex("(?<level>Error|Warning|Note|None)_(?<friendlyName>[^_]+)$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
         public ExportRulesDocumentationCommandBase(IFileSystem fileSystem = null)
         {
@@ -24,12 +25,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             try
             {
-                var rules = CompositionUtilities.GetExports<Skimmer<TContext>>(DefaultPlugInAssemblies).ToList();
+                List<Assembly> assemblies = LoadAssemblies(options.AssemblyPaths);
+
+                var rules = CompositionUtilities.GetExports<ReportingDescriptor>(assemblies).ToList();
 
                 var sb = new StringBuilder();
-                sb.AppendLine($"# Rules{Environment.NewLine}");
+                sb.Append("# Rules").AppendLine(Environment.NewLine);
 
-                foreach (Skimmer<TContext> rule in rules)
+                foreach (ReportingDescriptor rule in rules)
                 {
                     BuildRule(rule, sb);
                 }
@@ -45,16 +48,34 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return SUCCESS;
         }
 
-        internal void BuildRule(Skimmer<TContext> rule, StringBuilder sb)
+        internal List<Assembly> LoadAssemblies(IEnumerable<string> assemblyPaths)
         {
-            sb.AppendLine($"## Rule `{rule.Moniker}`{Environment.NewLine}");
-            sb.AppendLine($"### Description{Environment.NewLine}");
-            sb.AppendLine(@$"{rule.FullDescription?.Markdown
+            var assemblies = new List<Assembly>();
+            if (!assemblyPaths.Any())
+            {
+                assemblies.Add(this.GetType().Assembly);
+            }
+            else
+            {
+                foreach (string assemblyPath in assemblyPaths)
+                {
+                    assemblies.Add(Assembly.LoadFrom(assemblyPath));
+                }
+            }
+
+            return assemblies;
+        }
+
+        internal void BuildRule(ReportingDescriptor rule, StringBuilder sb)
+        {
+            sb.Append("## Rule `").Append(rule.Moniker).Append('`').AppendLine(Environment.NewLine);
+            sb.Append("### Description").AppendLine(Environment.NewLine);
+            sb.Append(rule.FullDescription?.Markdown
                 ?? rule.FullDescription?.Text
                 ?? rule.ShortDescription?.Markdown
                 ?? rule.ShortDescription?.Text
-                ?? DriverResources.NoRuleDescription}{Environment.NewLine}");
-            sb.AppendLine($"### Messages{Environment.NewLine}");
+                ?? DriverResources.NoRuleDescription).AppendLine(Environment.NewLine);
+            sb.Append("### Messages").AppendLine(Environment.NewLine);
 
             foreach (KeyValuePair<string, MultiformatMessageString> message in rule.MessageStrings)
             {
@@ -65,11 +86,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     ruleName = match.Groups["friendlyName"].Value;
                 }
 
-                sb.AppendLine($"#### `{ruleName}`: {rule.DefaultLevel}{Environment.NewLine}");
-                sb.AppendLine($"{message.Value.Markdown ?? message.Value.Text}{Environment.NewLine}");
+                sb.Append("#### `").Append(ruleName).Append("`: ").Append(rule.DefaultConfiguration.Level).AppendLine(Environment.NewLine);
+                sb.Append(message.Value.Markdown ?? message.Value.Text).AppendLine(Environment.NewLine);
             }
 
-            sb.AppendLine($"---{Environment.NewLine}");
+            sb.Append("---").AppendLine(Environment.NewLine);
         }
     }
 }
