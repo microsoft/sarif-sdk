@@ -12,7 +12,7 @@ using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
-    public class ExportValidationRulesDocumentationCommandTests
+    public class ExportValidationRulesMetadataCommandTests
     {
         [Fact]
         public void BuildRule_GeneratesExpectedMarkdown()
@@ -31,7 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             foreach (KeyValuePair<string, SarifValidationSkimmerBase> test in tests)
             {
                 var sb = new StringBuilder();
-                var command = new ExportDocumentationCommand();
+                var command = new ExportValidationRulesMetadataCommand();
                 command.BuildRule(test.Value, sb);
 
                 string expectedMarkdown = resourceExtractor.GetResourceText(test.Key);
