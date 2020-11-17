@@ -13,8 +13,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
     public class ExportRulesDocumentationCommandBase : PlugInDriverCommand<ExportRulesDocumentationOptions>
     {
         private const string DefaultOutputFileName = "Rules.md";
+        private readonly string[] _levels = new string[] {"Error", "Warning", "Note", "None", "Pass", "NotApplicable" };
         private readonly IFileSystem _fileSystem;
-        private static readonly Regex s_friendlyNameRegex = new Regex("(?<level>Error|Warning|Note|None)_(?<friendlyName>[^_]+)$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        private static readonly Regex s_friendlyNameRegex = new Regex("(?<level>Error|Warning|Note|None|Pass|NotApplicable)_(?<friendlyName>[^_]+)$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
         public ExportRulesDocumentationCommandBase(IFileSystem fileSystem = null)
         {
@@ -80,17 +81,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             foreach (KeyValuePair<string, MultiformatMessageString> message in rule.MessageStrings)
             {
                 string ruleName = message.Key;
+                string ruleLevel;
                 Match match = s_friendlyNameRegex.Match(message.Key);
                 if (match.Success)
                 {
                     ruleName = match.Groups["friendlyName"].Value;
+                    ruleLevel = match.Groups["level"].Value;
+                }
+                else
+                {
+                    ruleLevel = GetLevelFromRuleName(ruleName);
                 }
 
-                sb.Append("#### `").Append(ruleName).Append("`: ").Append(rule.DefaultConfiguration.Level).AppendLine(Environment.NewLine);
+                sb.Append("#### `").Append(ruleName).Append("`: ").Append(ruleLevel).AppendLine(Environment.NewLine);
                 sb.Append(message.Value.Markdown ?? message.Value.Text).AppendLine(Environment.NewLine);
             }
 
             sb.Append("---").AppendLine(Environment.NewLine);
+        }
+
+        internal string GetLevelFromRuleName(string ruleName)
+        {
+            return Array.Find(_levels, level => ruleName.IndexOf(level, StringComparison.OrdinalIgnoreCase) >= 0);
         }
     }
 }
