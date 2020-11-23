@@ -93,6 +93,23 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ReportingDescriptor() { Id = this.RuleId ?? this.Rule?.Id };
         }
 
+        public bool IsSuppressed()
+        {
+            if (this == null)
+            {
+                throw new ArgumentNullException(nameof(Result));
+            }
+
+            IList<Suppression> suppressions = this.Suppressions;
+            if (suppressions == null || suppressions.Count == 0)
+            {
+                return false;
+            }
+
+            return suppressions.Any(s => s.Status == SuppressionStatus.Accepted)
+                && !suppressions.Any(s => s.Status == SuppressionStatus.Rejected || s.Status == SuppressionStatus.UnderReview);
+        }
+
         private static ReportingDescriptor GetRuleByIndex(IList<ReportingDescriptor> rules, int ruleIndex)
         {
             if (rules == null)
