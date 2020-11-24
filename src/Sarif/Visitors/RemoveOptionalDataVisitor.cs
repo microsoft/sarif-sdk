@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 using System;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
@@ -11,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             _dataToRemove = optionallyEmittedData;
         }
 
-        readonly OptionallyEmittedData _dataToRemove;
+        private readonly OptionallyEmittedData _dataToRemove;
 
         public override Invocation VisitInvocation(Invocation node)
         {
@@ -71,16 +72,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 node.Guid = null;
             }
 
-            return base.VisitResult(node);
-        }
-
-        public override CodeFlow VisitCodeFlow(CodeFlow node)
-        {
             if (_dataToRemove.HasFlag(OptionallyEmittedData.CodeFlows))
             {
-                node = null;
+                node.CodeFlows = null;
             }
-            return base.VisitCodeFlow(node);
+
+            return base.VisitResult(node);
         }
     }
 }

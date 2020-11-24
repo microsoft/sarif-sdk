@@ -37,7 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 IDictionary<string, ArtifactLocation> originalUriBaseIds = rewriteOptions.ConstructUriBaseIdsDictionary();
 
                 SarifLog reformattedLog = new RemoveOptionalDataVisitor(dataToRemove).VisitSarifLog(actualLog);
-                reformattedLog = new InsertOptionalDataVisitor(dataToInsert, originalUriBaseIds).VisitSarifLog(actualLog);
+                reformattedLog = new InsertOptionalDataVisitor(dataToInsert, originalUriBaseIds).VisitSarifLog(reformattedLog);
 
                 string fileName = CommandUtilities.GetTransformedOutputFileName(rewriteOptions);
 
