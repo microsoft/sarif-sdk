@@ -73,5 +73,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             return base.VisitResult(node);
         }
+
+        public override CodeFlow VisitCodeFlow(CodeFlow node)
+        {
+            if (_dataToRemove.HasFlag(OptionallyEmittedData.CodeFlows))
+            {
+                node = null;
+            }
+            return base.VisitCodeFlow(node);
+        }
     }
 }
