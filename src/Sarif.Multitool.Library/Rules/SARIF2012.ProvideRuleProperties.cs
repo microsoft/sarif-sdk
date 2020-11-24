@@ -110,7 +110,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             if (toolComponent.Rules != null && toolComponent.Rules.Count != 0)
             {
                 string rulesPointer = toolDriverPointer.AtProperty(SarifPropertyName.Rules);
-                
+
                 for (int i = 0; i < toolComponent.Rules.Count; i++)
                 {
                     AnalyzeReportingDescriptor(toolComponent.Rules[i], rulesPointer.AtIndex(i));
