@@ -73,8 +73,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         // version of the code that was analyzed.
         VersionControlInformation = 0x400,
 
-        // Specifies the repository, branch, and other information describing the source controlled
-        // version of the code that was analyzed.
+        // A set of threadFlows which together describe a pattern of code execution relevant
+        // to detecting a result.
         CodeFlows = 0x800,
 
         // A special enum value that indicates that insertion should overwrite any existing
