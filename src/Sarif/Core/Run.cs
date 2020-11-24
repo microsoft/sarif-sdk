@@ -323,6 +323,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         public bool HasSuppressedResults() =>
             this.HasResults()
             && this.Results[0].Suppressions != null
-            && this.Results.Any(r => r.IsSuppressed());
+            && this.Results.Any(r => r.TryIsSuppressed(out bool isSuppressed) && isSuppressed);
     }
 }
