@@ -49,7 +49,7 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF2012.ProvideRuleProperties_Invalid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF2012.ProvideRuleProperties_WithoutRuleMetadata.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }
@@ -60,34 +60,10 @@
           "ruleIndex": 0,
           "level": "note",
           "message": {
-            "id": "Note_ProvideHelpUri",
+            "id": "Note_ProvideRuleMetadata",
             "arguments": [
-              "runs[0].tool.driver.rules[0]",
-              "SARIF2009.ConsiderConventionalIdentifierValues"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 11,
-                  "startColumn": 13
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF2012",
-          "ruleIndex": 0,
-          "level": "note",
-          "message": {
-            "id": "Note_ProvideFriendlyName",
-            "arguments": [
-              "runs[0].tool.driver.rules[1]",
+              "runs[0].results[0]",
+              "SARIF Functional Testing",
               "TEST0001"
             ]
           },
@@ -98,33 +74,8 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 15,
-                  "startColumn": 13
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF2012",
-          "ruleIndex": 0,
-          "level": "note",
-          "message": {
-            "id": "Note_FriendlyNameNotAPascalIdentifier",
-            "arguments": [
-              "runs[0].tool.driver.rules[2].name",
-              "This isn't pascal case"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 21,
-                  "startColumn": 46
+                  "startLine": 25,
+                  "startColumn": 9
                 }
               }
             }

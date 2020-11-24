@@ -860,6 +860,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos; does not provide a &apos;rules&apos; property. &apos;rules&apos; contain information that helps users understand why each rule fires and what the user can do to fix it..
+        /// </summary>
+        internal static string SARIF2012_ProvideRuleProperties_Note_ProvideMetadataForAllViolatedRules_Text {
+            get {
+                return ResourceManager.GetString("SARIF2012_ProvideRuleProperties_Note_ProvideMetadataForAllViolatedRules_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos; does not provide metadata for rule &apos;{1}&apos;. Rule metadata contains information that helps the user understand why each rule fires and what the user can do to fix it..
+        /// </summary>
+        internal static string SARIF2012_ProvideRuleProperties_Note_ProvideRuleMetadata_Text {
+            get {
+                return ResourceManager.GetString("SARIF2012_ProvideRuleProperties_Note_ProvideRuleMetadata_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Provide embedded file content so that users can examine results in their full context without having to enlist in the source repository. Embedding file content in a SARIF log file can dramatically increase its size, so consider the usage scenario when you decide whether to provide it..
         /// </summary>
         internal static string SARIF2013_ProvideEmbeddedFileContent_FullDescription_Text {

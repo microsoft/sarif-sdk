@@ -460,4 +460,10 @@ Semantics: Assuming the reader of the log file (an end user or another tool) has
   <data name="SARIF1004_ExpressUriBaseIdsCorrectly_Error_RelativeReferenceMustNotBeginWithSlash_Text" xml:space="preserve">
     <value>The relative reference '{0}' begins with a slash, which will prevent it from combining properly with the absolute URI specified by a 'uriBaseId'.</value>
   </data>
+  <data name="SARIF2012_ProvideRuleProperties_Note_ProvideMetadataForAllViolatedRules_Text" xml:space="preserve">
+    <value>'{0}' does not provide a 'rules' property. 'rules' contain information that helps users understand why each rule fires and what the user can do to fix it.</value>
+  </data>
+  <data name="SARIF2012_ProvideRuleProperties_Note_ProvideRuleMetadata_Text" xml:space="preserve">
+    <value>'{0}' does not provide metadata for rule '{1}'. Rule metadata contains information that helps the user understand why each rule fires and what the user can do to fix it.</value>
+  </data>
 </root>
