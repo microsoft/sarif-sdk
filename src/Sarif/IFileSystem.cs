@@ -12,12 +12,20 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// An interface for accessing the file system.
     /// </summary>
     /// <remarks>
-    /// Clients wishing to access the file system should instantiate a FileSystem object rather
-    /// than directly using the .NET file system classes, so they can mock the IFileSystem
-    /// interface in unit tests.
+    /// Clients wishing to access the file system should instantiate a FileSystem
+    /// object rather than directly using the .NET file system and other classes,
+    ///  so they can mock the IFileSystem interface in unit tests.
     /// </remarks>
     public interface IFileSystem
     {
+        /// <summary>
+        /// Gets or sets the fully qualified path of the current working directory.
+        /// </summary>
+        /// <returns>
+        /// A string containing a directory path.
+        /// </returns>
+        string CurrentDirectory { get; set; }
+
         /// <summary>
         /// Determines whether the given path refers to an existing directory on disk.
         /// </summary>
