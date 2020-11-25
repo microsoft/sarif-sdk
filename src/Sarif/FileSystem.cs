@@ -20,6 +20,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         public static readonly FileSystem Instance = new FileSystem();
 
         /// <summary>
+        /// Gets or sets the fully qualified path of the current working directory.
+        /// </summary>
+        /// <returns>
+        /// A string containing a directory path.
+        /// </returns>
+        public string CurrentDirectory
+        {
+            get => Environment.CurrentDirectory;
+            set => Environment.CurrentDirectory = value;
+        }
+
+        /// <summary>
         /// Determines whether the given path refers to an existing directory on disk.
         /// </summary>
         /// <param name="path">The path to test.</param>
