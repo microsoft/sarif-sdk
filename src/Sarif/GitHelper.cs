@@ -100,6 +100,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 repoPath,
                 args: "rev-parse --abbrev-ref HEAD");
         }
+
         public string GetTopLevel(string repoPath)
         {
             string args = "rev-parse --show-toplevel";
