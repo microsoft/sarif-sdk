@@ -66,7 +66,7 @@
         {
           "repositoryUri": "https://REMOTE_URI",
           "mappedTo": {
-            "uri": "file:///REPLACED_AT_TEST_RUNTIME"
+            "uri": "file:///REPLACED_AT_TEST_RUNTIME/"
           }
         }
       ],
@@ -75,7 +75,7 @@
           "uri": "file:///REPLACED_AT_TEST_RUNTIME/src/Test.UnitTests.Sarif/TestData/"
         },
         "REPO_ROOT": {
-          "uri": "file:///REPLACED_AT_TEST_RUNTIME"
+          "uri": "file:///REPLACED_AT_TEST_RUNTIME/"
         }
       },
       "artifacts": [
