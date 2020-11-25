@@ -12,12 +12,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
     {
         public static LoggingOptions ConvertToLoggingOptions(this AnalyzeOptionsBase analyzeOptions)
         {
-            LoggingOptions loggingOptions = LoggingOptions.None;
+            LoggingOptions loggingOptions = LoggingOptions.PrettyPrint;
 
-            if (analyzeOptions.Verbose) { loggingOptions |= LoggingOptions.Verbose; }
-            if (analyzeOptions.PrettyPrint) { loggingOptions |= LoggingOptions.PrettyPrint; }
             if (analyzeOptions.Force) { loggingOptions |= LoggingOptions.OverwriteExistingOutputFile; }
+            if (analyzeOptions.Minify) { loggingOptions ^= LoggingOptions.PrettyPrint; }
+            if (analyzeOptions.Verbose) { loggingOptions |= LoggingOptions.Verbose; }
             if (analyzeOptions.Optimize) { loggingOptions |= LoggingOptions.Optimize; }
+            if (analyzeOptions.PrettyPrint) { loggingOptions |= LoggingOptions.PrettyPrint; }
 
             return loggingOptions;
         }
