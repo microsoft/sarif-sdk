@@ -153,7 +153,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             IEnumerable<Skimmer<TContext>> skimmers,
             ISet<string> disabledSkimmers)
         {
-            options.ThreadCount = options.ThreadCount > 0 ? 
+            options.ThreadCount = options.ThreadCount > 0 ?
                 options.ThreadCount :
                 (Debugger.IsAttached) ? 1 : Environment.ProcessorCount;
 
