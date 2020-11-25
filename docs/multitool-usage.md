@@ -34,6 +34,9 @@ Sarif.Multitool convert Current.fpr -tool FortifyFpr -output Current.sarif
 : Add file contents from analyzed files and snippets from result regions to SARIF
 Sarif.Multitool rewrite Current.sarif --insert "TextFiles,RegionSnippets" --inline
 
+: Remove codeFlows from results regions to SARIF
+Sarif.Multitool rewrite Current.sarif --remove "CodeFlows" --inline
+
 : Rebase URIs from local paths to a token (for later resolution against remote URLs)
 Sarif.Multitool rebaseuri Current.sarif --base-path-value "C:\Local\Path\To\Repo" --base-path-token REPO
 
@@ -72,4 +75,5 @@ Run ```Sarif.Multitool convert --help``` for the current list.
 | Name | Purpose |
 | ---- | ------- |
 | pretty-print | Produce pretty-printed JSON output rather than compact form. |
+| minify | Produce compact JSON output (all white space removed) rather than pretty-printed output. |
 | force | Force overwrite of output file if it exists. |

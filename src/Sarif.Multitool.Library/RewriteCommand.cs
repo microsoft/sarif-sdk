@@ -9,8 +9,6 @@ using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Driver.Sdk;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
 
-using Newtonsoft.Json;
-
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public class RewriteCommand : CommandBase
@@ -35,9 +33,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 SarifLog actualLog = ReadSarifFile<SarifLog>(_fileSystem, rewriteOptions.InputFilePath);
 
                 OptionallyEmittedData dataToInsert = rewriteOptions.DataToInsert.ToFlags();
+                OptionallyEmittedData dataToRemove = rewriteOptions.DataToRemove.ToFlags();
                 IDictionary<string, ArtifactLocation> originalUriBaseIds = rewriteOptions.ConstructUriBaseIdsDictionary();
 
-                SarifLog reformattedLog = new InsertOptionalDataVisitor(dataToInsert, originalUriBaseIds).VisitSarifLog(actualLog);
+                SarifLog reformattedLog = new RemoveOptionalDataVisitor(dataToRemove).VisitSarifLog(actualLog);
+                reformattedLog = new InsertOptionalDataVisitor(dataToInsert, originalUriBaseIds).VisitSarifLog(reformattedLog);
 
                 string fileName = CommandUtilities.GetTransformedOutputFileName(rewriteOptions);
 
