@@ -65,11 +65,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public override int Run(TOptions options)
         {
-            if (System.Diagnostics.Debugger.IsAttached && options.Threads == 0)
-            {
-                options.Threads = 1;
-            }
-
             // Initialize an common logger that drives all outputs. This
             // object drives logging for console, statistics, etc.
             using (AggregatingLogger logger = InitializeLogger(options))
