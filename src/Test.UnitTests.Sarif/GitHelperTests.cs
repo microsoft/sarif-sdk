@@ -99,7 +99,17 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void GetRepositoryRoot_WhenCalledOnTheDefaultInstanceWithCachingDisabled_DoesNotThrow()
         {
-            Action action = () => GitHelper.Default.GetRepositoryRoot(@"C:\dev", useCache: false);
+            // If you have a directory with this name on your machine and it does not contain a .git
+            // subdirectory, then the underlying invocation of `git rev-parse --show-toplevel` will
+            // fail with the error "fatal: not a git repository (or any of the parent directories): .git",
+            // the process will exit with exit code 128, and the ProcessRunner will throw an
+            // InvalidOperationException. That will cause this test to fail, because it expects no
+            // exceptions.
+            // If you do _not_ have such a directory, GetRepositoryRoot will simply return null, and
+            // the test will pass.
+            const string NonexistentDirectory = @"C:\PleaseDoNotCreateADirectoryWithThisName";
+
+            Action action = () => GitHelper.Default.GetRepositoryRoot(NonexistentDirectory, useCache: false);
 
             action.Should().NotThrow();
         }
