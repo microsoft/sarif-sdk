@@ -49,6 +49,40 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             }
         }
 
+        protected override void Analyze(ArtifactLocation artifactLocation, string artifactLocationPointer)
+        {
+            if (artifactLocation.Uri == null)
+            {
+                return;
+            }
+
+            string uri = artifactLocation.Uri.ToString();
+            if (artifactLocation.Uri.IsAbsoluteUri)
+            {
+                if (artifactLocation.Uri.IsFile)
+                {
+                    if (uri.EndsWith("/"))
+                    {
+                        // TODO: we have a problem, since files can't end with slash
+                    }
+                }
+                else
+                {
+                    if (!uri.EndsWith("/"))
+                    {
+                        // TODO: we have a problem, since folders should end with slash
+                    }
+                }
+            }
+            else
+            {
+                if (uri.StartsWith("/"))
+                {
+                    // TODO: we have a problem, since relative paths should not start with slash
+                }
+            }
+        }
+
         private void AnalyzeResults(IList<Result> results, string resultsPointer)
         {
             for (int i = 0; i < results.Count; i++)
