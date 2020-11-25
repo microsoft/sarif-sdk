@@ -323,17 +323,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _issueLogJsonWriter.WriteResult(result);
         }
 
-        private List<ReportingDescriptor> rules = new List<ReportingDescriptor>();
         private int LogRule(ReportingDescriptor rule)
         {
-            rules.Add(rule);
-
-            if (rules.Count == 2)
-            {
-                Console.WriteLine(ReportingDescriptorEqualityComparer.Instance.GetHashCode(rules[0]));
-                Console.WriteLine(ReportingDescriptorEqualityComparer.Instance.GetHashCode(rules[1]));
-            }
-
             if (!RuleToIndexMap.TryGetValue(rule, out int ruleIndex))
             {
                 ruleIndex = RuleToIndexMap.Count;
