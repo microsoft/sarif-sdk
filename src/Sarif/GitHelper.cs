@@ -206,7 +206,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             string topLevelPath = GetTopLevel(path);
-            
+
             // Normalize directory separator to backslash
             repoRootPath = topLevelPath != null ?
                 new DirectoryInfo(GetTopLevel(path)).FullName :
