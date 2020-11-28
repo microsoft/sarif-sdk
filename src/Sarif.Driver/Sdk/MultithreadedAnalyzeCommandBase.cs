@@ -119,13 +119,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             // 2. Perform any command line argument validation beyond what
             //    the command line parser library is capable of.
-            ValidateOptions(_rootContext, analyzeOptions);
+            ValidateOptions(analyzeOptions, _rootContext);
 
             // 5. Initialize report file, if configured.
             InitializeOutputFile(analyzeOptions, _rootContext);
 
             // 6. Instantiate skimmers.
-            ISet<Skimmer<TContext>> skimmers = CreateSkimmers(_rootContext);
+            ISet<Skimmer<TContext>> skimmers = CreateSkimmers(analyzeOptions, _rootContext);
 
             // 7. Initialize configuration. This step must be done after initializing
             //    the skimmers, as rules define their specific context objects and
@@ -155,7 +155,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             options.ThreadCount = options.ThreadCount > 0
                 ? options.ThreadCount
-                : Environment.ProcessorCount;
+                : Debugger.IsAttached ? 1 : Environment.ProcessorCount;
 
             var channelOptions = new BoundedChannelOptions(2000)
             {
@@ -415,17 +415,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return true;
         }
 
-        protected virtual void ValidateOptions(TContext context, TOptions analyzeOptions)
+        protected virtual void ValidateOptions(TOptions options, TContext context)
         {
-            _computeHashes = (analyzeOptions.DataToInsert.ToFlags() & OptionallyEmittedData.Hashes) != 0;
+            _computeHashes = (options.DataToInsert.ToFlags() & OptionallyEmittedData.Hashes) != 0;
 
             bool succeeded = true;
 
-            succeeded &= ValidateFile(context, analyzeOptions.OutputFilePath, shouldExist: null);
-            succeeded &= ValidateFile(context, analyzeOptions.ConfigurationFilePath, shouldExist: true);
-            succeeded &= ValidateFiles(context, analyzeOptions.PluginFilePaths, shouldExist: true);
-            succeeded &= ValidateInvocationPropertiesToLog(context, analyzeOptions.InvocationPropertiesToLog);
-            succeeded &= ValidateOutputFileCanBeCreated(context, analyzeOptions.OutputFilePath, analyzeOptions.Force);
+            succeeded &= ValidateFile(context, options.OutputFilePath, shouldExist: null);
+            succeeded &= ValidateFile(context, options.ConfigurationFilePath, shouldExist: true);
+            succeeded &= ValidateFiles(context, options.PluginFilePaths, shouldExist: true);
+            succeeded &= ValidateInvocationPropertiesToLog(context, options.InvocationPropertiesToLog);
+            succeeded &= ValidateOutputFileCanBeCreated(context, options.OutputFilePath, options.Force);
 
             if (!succeeded)
             {
@@ -698,7 +698,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        protected virtual ISet<Skimmer<TContext>> CreateSkimmers(TContext context)
+        protected virtual ISet<Skimmer<TContext>> CreateSkimmers(TOptions options, TContext context)
         {
             IEnumerable<Skimmer<TContext>> skimmers;
             SortedSet<Skimmer<TContext>> result = new SortedSet<Skimmer<TContext>>(SkimmerIdComparer<TContext>.Instance);
