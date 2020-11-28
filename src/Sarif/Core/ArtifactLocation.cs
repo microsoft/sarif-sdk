@@ -49,11 +49,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                // I'd like to use the ctor new Uri(baseUri, relativeUri) here, but it fails with
-                // ArgumentOutOfRangeException, perhaps because it doesn't like the baseUri argument
-                // to be relative. So...
                 string artifactLocationOriginalUriString = artifactLocation.Uri.OriginalString;
-                if (!artifactLocationOriginalUriString.EndsWith("/")) { artifactLocationOriginalUriString += "/"; }
+                if (!artifactLocation.Uri.ToString().EndsWith("/")) { artifactLocationOriginalUriString += "/"; }
                 stemUri = new Uri(artifactLocationOriginalUriString + stemUri.OriginalString, UriKind.RelativeOrAbsolute);
             }
 

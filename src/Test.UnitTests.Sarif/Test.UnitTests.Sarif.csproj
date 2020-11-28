@@ -82,6 +82,13 @@
     <None Remove="TestData\SarifVersionOneToCurrentVisitor\Inputs\NonDottedQuadFileVersion.sarif" />
     <None Remove="TestData\SarifVersionOneToCurrentVisitor\Inputs\OneRunWithAllReportingDescriptors.sarif" />
     <None Remove="TestData\SarifVersionOneToCurrentVisitor\Inputs\ResultLocationsAsEmptyArray.sarif" />
+    <None Remove="xunit.runner.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="xunit.runner.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -315,6 +322,5 @@
     <None Include="$(SolutionDir)\Test.FunctionalTests.Sarif\v2\SpecExamples\Comprehensive.sarif" CopyToOutputDirectory="PreserveNewest" LinkBase="v2\SpecExamples" />
     <None Include="$(SolutionDir)\Test.FunctionalTests.Sarif\v2\ObsoleteFormats\ComprehensivePrereleaseTwoZeroZero.sarif" CopyToOutputDirectory="PreserveNewest" LinkBase="v2\ObsoleteFormats" />
   </ItemGroup>
-
-  <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
+  
 </Project>

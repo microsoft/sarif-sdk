@@ -25,15 +25,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             };
 
             loggingOptions = analyzeOptions.ConvertToLoggingOptions();
-            loggingOptions.Should().Be(LoggingOptions.Verbose);
+            loggingOptions.Should().Be(LoggingOptions.Verbose | LoggingOptions.PrettyPrint);
 
             analyzeOptions = new TestAnalyzeOptions()
             {
+                Minify = true
+            };
+
+            loggingOptions = analyzeOptions.ConvertToLoggingOptions();
+            loggingOptions.Should().Be(LoggingOptions.None);
+
+            analyzeOptions = new TestAnalyzeOptions()
+            {
+                Minify = true,
                 PrettyPrint = true
             };
 
             loggingOptions = analyzeOptions.ConvertToLoggingOptions();
             loggingOptions.Should().Be(LoggingOptions.PrettyPrint);
+
 
             analyzeOptions = new TestAnalyzeOptions()
             {
@@ -41,7 +51,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             };
 
             loggingOptions = analyzeOptions.ConvertToLoggingOptions();
-            loggingOptions.Should().Be(LoggingOptions.OverwriteExistingOutputFile);
+            loggingOptions.Should().Be(
+                LoggingOptions.OverwriteExistingOutputFile |
+                LoggingOptions.PrettyPrint);
         }
 
         private class ValidateSingleFileOutputOptionsTestCase

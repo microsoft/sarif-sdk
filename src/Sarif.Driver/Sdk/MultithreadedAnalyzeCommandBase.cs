@@ -65,8 +65,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public override int Run(TOptions options)
         {
-            // 0. Initialize an common logger that drives all outputs. This
-            //    object drives logging for console, statistics, etc.
+            // Initialize an common logger that drives all outputs. This
+            // object drives logging for console, statistics, etc.
             using (AggregatingLogger logger = InitializeLogger(options))
             {
                 try
@@ -153,9 +153,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             IEnumerable<Skimmer<TContext>> skimmers,
             ISet<string> disabledSkimmers)
         {
-            options.ThreadCount = options.ThreadCount > 0
-                ? options.ThreadCount
-                : Debugger.IsAttached ? 1 : Environment.ProcessorCount;
+            options.ThreadCount = options.ThreadCount > 0 ?
+                options.ThreadCount :
+                (Debugger.IsAttached) ? 1 : Environment.ProcessorCount;
 
             var channelOptions = new BoundedChannelOptions(2000)
             {
@@ -218,9 +218,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     // processed, we just ignore this notification.
                     if (currentIndex > item) { break; }
 
+                    TContext context = default;
                     try
                     {
-                        TContext context = _fileContexts[currentIndex];
+                        context = _fileContexts[currentIndex];
 
                         while (context?.AnalysisComplete == true)
                         {
@@ -243,14 +244,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                 {
                                     foreach (Result result in kv.Value)
                                     {
-                                        try
-                                        {
-                                            rootContext.Logger.Log(kv.Key, result);
-                                        }
-                                        catch (Exception e)
-                                        {
-                                            RuntimeErrors |= Errors.LogUnhandledEngineException(rootContext, e);
-                                        }
+                                        rootContext.Logger.Log(kv.Key, result);
                                     }
                                 }
                             }
@@ -268,7 +262,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     }
                     catch (Exception e)
                     {
+                        context = default;
                         RuntimeErrors |= Errors.LogUnhandledEngineException(rootContext, e);
+                        ThrowExitApplicationException(context, ExitReason.ExceptionWritingToLogFile, e);
                     }
                 }
             }
@@ -482,13 +478,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (propertiesToLog != null)
             {
-                List<string> validPropertyNames = typeof(Invocation).GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                    .Select(propInfo => propInfo.Name.ToUpperInvariant())
-                    .ToList();
+                var validPropertyNames = new HashSet<string>(
+                    typeof(Invocation).GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                        .Select(propInfo => propInfo.Name),
+                    StringComparer.OrdinalIgnoreCase);
 
                 foreach (string propertyName in propertiesToLog)
                 {
-                    if (!validPropertyNames.Contains(propertyName.ToUpperInvariant()))
+                    if (!validPropertyNames.Contains(propertyName))
                     {
                         Errors.LogInvalidInvocationPropertyName(context, propertyName);
                         succeeded = false;
@@ -960,7 +957,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         protected void ThrowExitApplicationException(TContext context, ExitReason exitReason, Exception innerException = null)
         {
-            RuntimeErrors |= context.RuntimeErrors;
+            if (context != null)
+            {
+                RuntimeErrors |= context.RuntimeErrors;
+            }
 
             throw new ExitApplicationException<ExitReason>(DriverResources.MSG_UnexpectedApplicationExit, innerException)
             {
