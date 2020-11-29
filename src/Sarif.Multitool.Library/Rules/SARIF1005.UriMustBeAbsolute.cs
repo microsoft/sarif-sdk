@@ -11,6 +11,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class UriMustBeAbsolute : SarifValidationSkimmerBase
     {
+        public UriMustBeAbsolute() : base()
+        {
+            this.DefaultConfiguration.Level = FailureLevel.Error;
+        }
+
         /// <summary>
         /// SARIF1005
         /// </summary>
@@ -25,8 +30,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         protected override IEnumerable<string> MessageResourceNames => new string[] {
             nameof(RuleResources.SARIF1005_UriMustBeAbsolute_Error_Default_Text)
         };
-
-        public override FailureLevel DefaultLevel => FailureLevel.Error;
 
         protected override void Analyze(SarifLog log, string logPointer)
         {

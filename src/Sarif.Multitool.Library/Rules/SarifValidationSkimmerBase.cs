@@ -55,7 +55,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             argsWithPointer[0] = JsonPointerToJavaScript(jPointer);
 
             Context.Logger.Log(this,
-                RuleUtilities.BuildResult(DefaultLevel, Context, region, formatId, argsWithPointer));
+                RuleUtilities.BuildResult(
+                    DefaultConfiguration.Level, 
+                    Context, 
+                    region, 
+                    formatId, 
+                    argsWithPointer));
         }
 
         protected virtual void Analyze(Address address, string addressPointer)

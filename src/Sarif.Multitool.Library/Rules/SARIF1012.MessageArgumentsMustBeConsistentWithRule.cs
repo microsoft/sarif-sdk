@@ -10,6 +10,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class MessageArgumentsMustBeConsistentWithRule : SarifValidationSkimmerBase
     {
+        public MessageArgumentsMustBeConsistentWithRule() : base()
+        {
+            this.DefaultConfiguration.Level = FailureLevel.Error;
+        }
+
         /// <summary>
         /// SARIF1012
         /// </summary>
@@ -32,8 +37,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             nameof(RuleResources.SARIF1012_MessageArgumentsMustBeConsistentWithRule_Error_MessageIdMustExist_Text),
             nameof(RuleResources.SARIF1012_MessageArgumentsMustBeConsistentWithRule_Error_SupplyEnoughMessageArguments_Text)
         };
-
-        public override FailureLevel DefaultLevel => FailureLevel.Error;
 
         private static readonly Regex s_replacementSequenceRegex = new Regex(@"\{(?<index>\d+)\}", RegexOptions.Compiled | RegexOptions.CultureInvariant);
         private IList<ReportingDescriptor> currentRules;

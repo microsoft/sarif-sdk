@@ -42,9 +42,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         private class TestRule1 : SarifValidationSkimmerBase
         {
+            public TestRule1() : base()
+            {
+                DefaultConfiguration.Level = FailureLevel.Note;
+            }
+
             public override string Id => "TEST0001";
             public override string Name => "TEST";
-            public override FailureLevel DefaultLevel => FailureLevel.Note;
             public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = "full description text" };
             public override IDictionary<string, MultiformatMessageString> MessageStrings => new Dictionary<string, MultiformatMessageString>
             {
@@ -54,9 +58,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         private class TestRule2 : SarifValidationSkimmerBase
         {
+            public TestRule2() : base()
+            {
+                DefaultConfiguration.Level = FailureLevel.Note;
+            }
+
             public override string Id => "TEST0002";
             public override string Name => "TEST2";
-            public override FailureLevel DefaultLevel => FailureLevel.Note;
             public override MultiformatMessageString FullDescription => null;
             public override MultiformatMessageString ShortDescription => new MultiformatMessageString { Text = "short description text" };
             public override IDictionary<string, MultiformatMessageString> MessageStrings => new Dictionary<string, MultiformatMessageString>
@@ -67,9 +75,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         private class TestRule3 : SarifValidationSkimmerBase
         {
+            public TestRule3() : base()
+            {
+                DefaultConfiguration.Level = FailureLevel.Note;
+            }
+
             public override string Id => "TEST0003";
             public override string Name => "TEST3";
-            public override FailureLevel DefaultLevel => FailureLevel.Note;
             public override MultiformatMessageString FullDescription => null;
             public override MultiformatMessageString ShortDescription => null;
             public override IDictionary<string, MultiformatMessageString> MessageStrings => new Dictionary<string, MultiformatMessageString>
@@ -80,9 +92,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         private class TestRule4 : SarifValidationSkimmerBase
         {
+            public TestRule4() : base()
+            {
+                DefaultConfiguration.Level = FailureLevel.Note;
+            }
+
             public override string Id => "TEST0004";
             public override string Name => "TEST";
-            public override FailureLevel DefaultLevel => FailureLevel.Note;
             public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = "full description text", Markdown = "markdown text" };
             public override IDictionary<string, MultiformatMessageString> MessageStrings => new Dictionary<string, MultiformatMessageString>
             {
@@ -92,9 +108,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         private class TestRule5 : SarifValidationSkimmerBase
         {
+            public TestRule5() : base()
+            {
+                DefaultConfiguration.Level = FailureLevel.Note;
+            }
+
             public override string Id => "TEST0005";
             public override string Name => "TEST";
-            public override FailureLevel DefaultLevel => FailureLevel.Note;
             public override MultiformatMessageString FullDescription => null;
             public override MultiformatMessageString ShortDescription => new MultiformatMessageString { Text = "short description text", Markdown = "markdown text" };
             public override IDictionary<string, MultiformatMessageString> MessageStrings => new Dictionary<string, MultiformatMessageString>
@@ -105,9 +125,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         private class TestRule6 : SarifValidationSkimmerBase
         {
+            public TestRule6() : base()
+            {
+                DefaultConfiguration.Level = FailureLevel.Note;
+            }
+
             public override string Id => "TEST0006";
             public override string Name => "TEST";
-            public override FailureLevel DefaultLevel => FailureLevel.Note;
             public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = "full description text" };
             public override IDictionary<string, MultiformatMessageString> MessageStrings => new Dictionary<string, MultiformatMessageString>
             {

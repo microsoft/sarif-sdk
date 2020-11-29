@@ -11,6 +11,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class InvocationPropertiesMustBeConsistent : SarifValidationSkimmerBase
     {
+        public InvocationPropertiesMustBeConsistent() : base()
+        {
+            this.DefaultConfiguration.Level = FailureLevel.Error;
+        }
+
         /// <summary>
         /// SARIF1006
         /// </summary>
@@ -29,8 +34,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         protected override IEnumerable<string> MessageResourceNames => new string[] {
             nameof(RuleResources.SARIF1006_InvocationPropertiesMustBeConsistent_Error_EndTimeMustNotPrecedeStartTime_Text)
         };
-
-        public override FailureLevel DefaultLevel => FailureLevel.Error;
 
         protected override void Analyze(Invocation invocation, string invocationPointer)
         {

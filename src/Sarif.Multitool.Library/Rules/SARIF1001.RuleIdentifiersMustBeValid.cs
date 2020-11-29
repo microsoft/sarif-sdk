@@ -31,8 +31,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             nameof(RuleResources.SARIF1001_RuleIdentifiersMustBeValid_Error_Default_Text)
         };
 
-        public override FailureLevel DefaultLevel => FailureLevel.Warning;
-
         protected override void Analyze(ReportingDescriptor reportingDescriptor, string reportingDescriptorPointer)
         {
             if (reportingDescriptor.Id != null &&

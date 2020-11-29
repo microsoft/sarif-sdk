@@ -4,6 +4,7 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
+
 using Microsoft.CodeAnalysis.Sarif.Readers;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -279,7 +280,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                         xor_0 ^= value_7.Key.GetHashCode();
                         if (value_7.Value != null)
                         {
-                            xor_0 ^= value_7.Value.GetHashCode();
+                            xor_0 ^= MultiformatMessageStringEqualityComparer
+                                        .Instance
+                                        .GetHashCode(value_7.Value);
                         }
                     }
 

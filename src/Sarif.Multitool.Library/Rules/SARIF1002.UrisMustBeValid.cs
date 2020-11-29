@@ -11,6 +11,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class UrisMustBeValid : SarifValidationSkimmerBase
     {
+        public UrisMustBeValid() : base()
+        {
+            this.DefaultConfiguration.Level = FailureLevel.Error;
+        }
+
         /// <summary>
         /// SARIF1002
         /// </summary>
@@ -30,8 +35,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             nameof(RuleResources.SARIF1002_UrisMustBeValid_Error_UrisMustConformToRfc3986_Text),
             nameof(RuleResources.SARIF1002_UrisMustBeValid_Error_FileUrisMustNotIncludeDotDotSegments_Text)
         };
-
-        public override FailureLevel DefaultLevel => FailureLevel.Error;
 
         protected override void Analyze(SarifLog log, string logPointer)
         {

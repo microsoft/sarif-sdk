@@ -7,6 +7,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class ProvideVersionControlProvenance : SarifValidationSkimmerBase
     {
+        public ProvideVersionControlProvenance() : base()
+        {
+            this.DefaultConfiguration.Level = FailureLevel.Note;
+        }
+
         /// <summary>
         /// SARIF2003
         /// </summary>
@@ -21,9 +26,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         protected override IEnumerable<string> MessageResourceNames => new string[] {
             nameof(RuleResources.SARIF2003_ProvideVersionControlProvenance_Note_Default_Text)
         };
-
-        public override FailureLevel DefaultLevel => FailureLevel.Note;
-
         protected override void Analyze(Run run, string runPointer)
         {
             if (run.VersionControlProvenance == null || run.VersionControlProvenance.Count == 0)

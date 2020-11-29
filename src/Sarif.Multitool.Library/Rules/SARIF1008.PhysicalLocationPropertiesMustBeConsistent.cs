@@ -7,6 +7,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class PhysicalLocationPropertiesMustBeConsistent : SarifValidationSkimmerBase
     {
+        public PhysicalLocationPropertiesMustBeConsistent() : base()
+        {
+            this.DefaultConfiguration.Level = FailureLevel.Error;
+        }
+
         /// <summary>
         /// SARIF1008
         /// </summary>
@@ -46,8 +51,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             nameof(RuleResources.SARIF1008_PhysicalLocationPropertiesMustBeConsistent_Error_ContextRegionRequiresRegion_Text),
             nameof(RuleResources.SARIF1008_PhysicalLocationPropertiesMustBeConsistent_Error_ContextRegionMustBeProperSupersetOfRegion_Text)
         };
-
-        public override FailureLevel DefaultLevel => FailureLevel.Error;
 
         protected override void Analyze(PhysicalLocation physicalLocation, string physicalLocationPointer)
         {

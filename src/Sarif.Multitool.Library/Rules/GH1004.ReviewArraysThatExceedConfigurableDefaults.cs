@@ -14,6 +14,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class ReviewArraysThatExceedConfigurableDefaults : SarifValidationSkimmerBase
     {
+        public ReviewArraysThatExceedConfigurableDefaults() : base()
+        {
+            this.DefaultConfiguration.Level = FailureLevel.Error;
+        }
+
         /// <summary>
         /// GH1004
         /// </summary>
@@ -28,8 +33,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         protected override IEnumerable<string> MessageResourceNames => new string[] {
             nameof(RuleResources.GH1004_ReviewArraysThatExceedConfigurableDefaults_Error_Default_Text)
         };
-
-        public override FailureLevel DefaultLevel => FailureLevel.Error;
 
         public override bool EnabledByDefault => false;
 

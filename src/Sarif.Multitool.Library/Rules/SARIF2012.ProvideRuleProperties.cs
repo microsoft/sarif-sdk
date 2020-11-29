@@ -10,6 +10,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class ProvideRuleProperties : SarifValidationSkimmerBase
     {
+        public ProvideRuleProperties() : base()
+        {
+            this.DefaultConfiguration.Level = FailureLevel.Note;
+        }
+
         /// <summary>
         /// SARIF2012
         /// </summary>
@@ -39,8 +44,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             nameof(RuleResources.SARIF2012_ProvideRuleProperties_Note_FriendlyNameNotAPascalIdentifier_Text),
             nameof(RuleResources.SARIF2012_ProvideRuleProperties_Note_ProvideHelpUri_Text)
         };
-
-        public override FailureLevel DefaultLevel => FailureLevel.Note;
 
         protected override void Analyze(Run run, string runPointer)
         {
