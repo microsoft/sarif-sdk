@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class ProvideCodeSnippets : SarifValidationSkimmerBase
     {
-        public ProvideCodeSnippets() : base()
+        public ProvideCodeSnippets()
         {
             this.DefaultConfiguration.Level = FailureLevel.Note;
         }

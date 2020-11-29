@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class ProvideMessageArguments : SarifValidationSkimmerBase
     {
-        public ProvideMessageArguments() : base()
+        public ProvideMessageArguments()
         {
             this.DefaultConfiguration.Level = FailureLevel.Note;
         }

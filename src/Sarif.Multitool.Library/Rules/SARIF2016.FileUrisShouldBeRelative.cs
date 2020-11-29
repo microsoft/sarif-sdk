@@ -9,7 +9,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class FileUrisShouldBeRelative : SarifValidationSkimmerBase
     {
-        public FileUrisShouldBeRelative() : base()
+        public FileUrisShouldBeRelative()
         {
             this.DefaultConfiguration.Level = FailureLevel.Note;
         }

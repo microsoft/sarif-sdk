@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class ReferenceFinalSchema : SarifValidationSkimmerBase
     {
-        public ReferenceFinalSchema() : base()
+        public ReferenceFinalSchema()
         {
             this.DefaultConfiguration.Level = FailureLevel.Error;
         }

@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class ProvideDynamicMessageContent : SarifValidationSkimmerBase
     {
-        public ProvideDynamicMessageContent() : base()
+        public ProvideDynamicMessageContent()
         {
             this.DefaultConfiguration.Level = FailureLevel.Note;
         }

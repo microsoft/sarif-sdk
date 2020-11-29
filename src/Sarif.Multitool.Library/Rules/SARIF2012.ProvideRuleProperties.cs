@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class ProvideRuleProperties : SarifValidationSkimmerBase
     {
-        public ProvideRuleProperties() : base()
+        public ProvideRuleProperties()
         {
             this.DefaultConfiguration.Level = FailureLevel.Note;
         }

@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class ConsiderConventionalIdentifierValues : SarifValidationSkimmerBase
     {
-        public ConsiderConventionalIdentifierValues() : base()
+        public ConsiderConventionalIdentifierValues()
         {
             this.DefaultConfiguration.Level = FailureLevel.Note;
         }

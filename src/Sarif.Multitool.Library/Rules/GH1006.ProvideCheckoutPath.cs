@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class ProvideCheckoutPath : SarifValidationSkimmerBase
     {
-        public ProvideCheckoutPath() : base()
+        public ProvideCheckoutPath()
         {
             this.DefaultConfiguration.Level = FailureLevel.Error;
         }

@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class ExpressUriBaseIdsCorrectly : SarifValidationSkimmerBase
     {
-        public ExpressUriBaseIdsCorrectly() : base()
+        public ExpressUriBaseIdsCorrectly()
         {
             this.DefaultConfiguration.Level = FailureLevel.Error;
         }

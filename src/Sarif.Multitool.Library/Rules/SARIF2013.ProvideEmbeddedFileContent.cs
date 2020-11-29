@@ -8,7 +8,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class ProvideEmbeddedFileContent : SarifValidationSkimmerBase
     {
-        public ProvideEmbeddedFileContent() : base()
+        public ProvideEmbeddedFileContent()
         {
             this.DefaultConfiguration.Level = FailureLevel.Note;
         }

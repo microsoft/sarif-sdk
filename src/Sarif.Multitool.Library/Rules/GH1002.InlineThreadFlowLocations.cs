@@ -9,7 +9,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class InlineThreadFlowLocations : SarifValidationSkimmerBase
     {
-        public InlineThreadFlowLocations() : base()
+        public InlineThreadFlowLocations()
         {
             this.DefaultConfiguration.Level = FailureLevel.Error;
         }

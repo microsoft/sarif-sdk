@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class UrisShouldBeReachable : SarifValidationSkimmerBase
     {
-        public UrisShouldBeReachable() : base()
+        public UrisShouldBeReachable()
         {
             this.DefaultConfiguration.Level = FailureLevel.Note;
         }
