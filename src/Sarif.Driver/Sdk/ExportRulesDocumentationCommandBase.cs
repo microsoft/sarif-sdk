@@ -65,7 +65,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     ruleName = match.Groups["friendlyName"].Value;
                 }
 
-                sb.AppendLine($"#### `{ruleName}`: {rule.DefaultLevel}{Environment.NewLine}");
+                sb.AppendLine($"#### `{ruleName}`: {rule.DefaultConfiguration.Level}{Environment.NewLine}");
                 sb.AppendLine($"{message.Value.Markdown ?? message.Value.Text}{Environment.NewLine}");
             }
 

@@ -192,7 +192,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             writeResults.Wait();
 
-            Console.WriteLine($"Done; {_fileContexts.Count:n0} files scanned in {sw.Elapsed}.");
+            Console.WriteLine();
+
+            if (rootContext.Traces.HasFlag(DefaultTraces.ScanTime))
+            {
+                Console.WriteLine($"Done. {_fileContexts.Count:n0} files scanned in {sw.Elapsed}.");
+            }
+            else
+            {
+                Console.WriteLine($"Done. {_fileContexts.Count:n0} files scanned.");
+            }
         }
 
         private async Task<bool> WriteResultsAsync(TContext rootContext)
