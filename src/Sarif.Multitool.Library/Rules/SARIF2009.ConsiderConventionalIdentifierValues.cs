@@ -33,7 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         protected override IEnumerable<string> MessageResourceNames => new string[] {
             nameof(RuleResources.SARIF2009_ConsiderConventionalIdentifierValues_Note_UseConventionalRuleIds_Text)
         };
-        
+
         private static readonly Regex s_conventionalIdRegex = new Regex(@"^[A-Z]{1,5}[0-9]{1,4}$", RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
         protected override void Analyze(Run run, string runPointer)

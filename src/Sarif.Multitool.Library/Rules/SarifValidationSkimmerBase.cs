@@ -56,10 +56,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
             Context.Logger.Log(this,
                 RuleUtilities.BuildResult(
-                    DefaultConfiguration.Level, 
-                    Context, 
-                    region, 
-                    formatId, 
+                    DefaultConfiguration.Level,
+                    Context,
+                    region,
+                    formatId,
                     argsWithPointer));
         }
 
