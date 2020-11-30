@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.IO;
 
 using FluentAssertions;
 
@@ -31,51 +32,33 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void GetRepositoryRoot_WhenDotGitIsPresent_ReturnsTheDirectortyContainingDotGit()
         {
-            var mockFileSystem = new Mock<IFileSystem>();
-            mockFileSystem.Setup(x => x.DirectoryExists(It.IsAny<string>())).Returns(false);
-            mockFileSystem.Setup(x => x.DirectoryExists(@"C:\dev\sarif-sdk")).Returns(true);
-            mockFileSystem.Setup(x => x.DirectoryExists(@"C:\dev\sarif-sdk\.git")).Returns(true);
-            mockFileSystem.Setup(x => x.DirectoryExists(@"C:\dev\sarif-sdk\src")).Returns(true);
-            mockFileSystem.Setup(x => x.DirectoryExists(@"C:\dev\sarif-sdk\src\Sarif")).Returns(true);
+            string productDirectory = Path.GetDirectoryName(FileDiffingUnitTests.GetProductDirectory());
+            string repoDirectory = Directory.GetParent(productDirectory).FullName;
 
-            var gitHelper = new GitHelper(mockFileSystem.Object);
+            var gitHelper = new GitHelper();
 
-            gitHelper.GetRepositoryRoot(@"C:\dev\sarif-sdk\src\Sarif").Should().Be(@"C:\dev\sarif-sdk\");
+            gitHelper.GetRepositoryRoot(productDirectory).Should().Be(repoDirectory);
         }
 
         [Fact]
         public void GetRepositoryRoot_ByDefault_PopulatesTheDirectoryToRepoRootCache()
         {
-            var mockFileSystem = new Mock<IFileSystem>();
+            // Returns '\src\' location within repo, e.g., 'c:\src\sarif-sdk\src'
+            string productDirectory = Path.GetDirectoryName(FileDiffingUnitTests.GetProductDirectory());
+            string repoDirectory = Directory.GetParent(productDirectory).FullName;
 
-            mockFileSystem.Setup(x => x.DirectoryExists(It.IsAny<string>())).Returns(false);
+            var gitHelper = new GitHelper();
 
-            mockFileSystem.Setup(x => x.DirectoryExists(@"C:\dev\sarif-sdk")).Returns(true);
-            mockFileSystem.Setup(x => x.DirectoryExists(@"C:\dev\sarif-sdk\.git")).Returns(true);
-            mockFileSystem.Setup(x => x.DirectoryExists(@"C:\dev\sarif-sdk\src")).Returns(true);
-            mockFileSystem.Setup(x => x.DirectoryExists(@"C:\dev\sarif-sdk\src\Sarif")).Returns(true);
-
-            mockFileSystem.Setup(x => x.DirectoryExists(@"C:\")).Returns(true);
-            mockFileSystem.Setup(x => x.DirectoryExists(@"C:\docs")).Returns(true);
-            mockFileSystem.Setup(x => x.DirectoryExists(@"C:\docs\public")).Returns(true);
-
-            var gitHelper = new GitHelper(mockFileSystem.Object);
-
-            string topLevelDirectoryRoot = gitHelper.GetRepositoryRoot(@"C:\dev\sarif-sdk");
-            string topLevelDirectoryRootAgain = gitHelper.GetRepositoryRoot(@"C:\dev\sarif-sdk");
-            string subdirectoryRoot = gitHelper.GetRepositoryRoot(@"C:\dev\sarif-sdk\src\Sarif");
-            string nonSourceControlledRoot = gitHelper.GetRepositoryRoot(@"C:\docs\public");
+            gitHelper.GetRepositoryRoot(repoDirectory).Should().Be(repoDirectory);
+            gitHelper.GetRepositoryRoot(productDirectory).Should().Be(repoDirectory);
 
             // Verify that the API returns the correct results whether or not the cache is in use.
-            topLevelDirectoryRoot.Should().Be(@"C:\dev\sarif-sdk\");
-            topLevelDirectoryRootAgain.Should().Be(topLevelDirectoryRoot);
-            subdirectoryRoot.Should().Be(topLevelDirectoryRoot);
-            nonSourceControlledRoot.Should().BeNull();
+            gitHelper.GetRepositoryRoot(repoDirectory).Should().Be(repoDirectory);
+            gitHelper.GetRepositoryRoot(productDirectory).Should().Be(repoDirectory);
 
-            gitHelper.directoryToRepoRootPathDictionary.Count.Should().Be(3);
-            gitHelper.directoryToRepoRootPathDictionary[@"C:\dev\sarif-sdk\src\Sarif"].Should().Be(@"C:\dev\sarif-sdk\");
-            gitHelper.directoryToRepoRootPathDictionary[@"C:\dev\sarif-sdk"].Should().Be(@"C:\dev\sarif-sdk\");
-            gitHelper.directoryToRepoRootPathDictionary[@"C:\docs\public"].Should().BeNull();
+            gitHelper.directoryToRepoRootPathDictionary.Count.Should().Be(2);
+            gitHelper.directoryToRepoRootPathDictionary[repoDirectory].Should().Be(repoDirectory);
+            gitHelper.directoryToRepoRootPathDictionary[productDirectory].Should().Be(repoDirectory);
         }
 
         [Fact]
@@ -116,7 +99,17 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void GetRepositoryRoot_WhenCalledOnTheDefaultInstanceWithCachingDisabled_DoesNotThrow()
         {
-            Action action = () => GitHelper.Default.GetRepositoryRoot(@"C:\dev", useCache: false);
+            // If you have a directory with this name on your machine and it does not contain a .git
+            // subdirectory, then the underlying invocation of `git rev-parse --show-toplevel` will
+            // fail with the error "fatal: not a git repository (or any of the parent directories): .git",
+            // the process will exit with exit code 128, and the ProcessRunner will throw an
+            // InvalidOperationException. That will cause this test to fail, because it expects no
+            // exceptions.
+            // If you do _not_ have such a directory, GetRepositoryRoot will simply return null, and
+            // the test will pass.
+            const string NonexistentDirectory = @"C:\PleaseDoNotCreateADirectoryWithThisName";
+
+            Action action = () => GitHelper.Default.GetRepositoryRoot(NonexistentDirectory, useCache: false);
 
             action.Should().NotThrow();
         }
