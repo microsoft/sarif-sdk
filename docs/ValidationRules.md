@@ -146,6 +146,8 @@ If an 'artifactLocation' object has a 'uriBaseId' property, its 'uri' property m
 
 Every URI reference in 'originalUriBaseIds' must resolve to an absolute URI in the manner described in the SARIF specification [3.14.14](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317498).
 
+Finally, a relative reference in 'artifactLocation.uri' must not begin with a slash, because that prevents it from combining properly with the absolute URI specified by a 'uriBaseId'.
+
 ### Messages
 
 #### `UriBaseIdRequiresRelativeUri`: Error
@@ -167,6 +169,10 @@ Every URI reference in 'originalUriBaseIds' must resolve to an absolute URI in t
 #### `UriBaseIdValueMustNotContainQueryOrFragment`: Error
 
 {0}: The '{1}' element of 'originalUriBaseIds' has a 'uri' property '{2}' that contains a query or a fragment. This is not valid because the purpose of the 'uriBaseId' property is to help resolve a relative reference to an absolute URI by concatenating the relative reference to the absolute base URI. This won't work if the base URI contains a query or a fragment.
+
+#### `RelativeReferenceMustNotBeginWithSlash`: Error
+
+The relative reference '{0}' begins with a slash, which will prevent it from combining properly with the absolute URI specified by a 'uriBaseId'.
 
 ---
 
