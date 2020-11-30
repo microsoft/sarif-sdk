@@ -2,7 +2,7 @@
 
 ## **Unreleased**
 
-* BREAKING: Remove command `export-validation-docs` and add `export-validation-rules` command can export markdown file [#2156](https://github.com/microsoft/sarif-sdk/pull/2156)
+* BREAKING: Remove command `export-validation-docs` and extend `export-validation-rules` command to export markdown file [#2156](https://github.com/microsoft/sarif-sdk/pull/2156)
 
 ## **v2.3.8** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.8) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.8) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.8) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.8) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.3.8)
 
