@@ -231,7 +231,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             string messageText =
                    (path != null ? (path + location) : toolName) + ": " +
-                   issueType + (!string.IsNullOrEmpty(ruleId) ? " " : "") +
+                   issueType + " " +
                    (!string.IsNullOrEmpty(ruleId) ? (ruleId + ": ") : "") +
                    detailedDiagnosis;
 
