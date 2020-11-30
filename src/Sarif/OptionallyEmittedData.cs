@@ -73,6 +73,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         // version of the code that was analyzed.
         VersionControlInformation = 0x400,
 
+        // A set of threadFlows which together describe a pattern of code execution relevant
+        // to detecting a result.
+        CodeFlows = 0x800,
+
         // A special enum value that indicates that insertion should overwrite any existing
         // information in the SARIF log file. In the absence of this setting, any existing
         // data that would otherwise have been overwritten by the insert operation will
