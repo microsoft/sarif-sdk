@@ -47,6 +47,6 @@
 
     <file src="triskelion.png" />
     <file src="src\ReleaseHistory.md" />
-    <file src="src\Sarif.Multitool\**\*.cs" target="src" />
+    <file src="src\Sarif.Multitool.Library\**\*.cs" target="src" />
   </files>
 </package>
