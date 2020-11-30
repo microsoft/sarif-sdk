@@ -36,7 +36,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF2016_FileUrisShouldBeRelative_FullDescription_Text };
 
         protected override IEnumerable<string> MessageResourceNames => new string[] {
-            nameof(RuleResources.SARIF2016_FileUrisShouldBeRelative_Note_Default_Text)
+            nameof(RuleResources.SARIF2016_FileUrisShouldBeRelative_Note_Default_Text),
+            nameof(RuleResources.SARIF2016_FileUrisShouldBeRelative_Note_ShouldNotStartWithSlash_Text)
         };
 
         public override FailureLevel DefaultLevel => FailureLevel.Note;
@@ -46,40 +47,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             if (run.Results != null)
             {
                 AnalyzeResults(run.Results, runPointer.AtProperty(SarifPropertyName.Results));
-            }
-        }
-
-        protected override void Analyze(ArtifactLocation artifactLocation, string artifactLocationPointer)
-        {
-            if (artifactLocation.Uri == null)
-            {
-                return;
-            }
-
-            string uri = artifactLocation.Uri.ToString();
-            if (artifactLocation.Uri.IsAbsoluteUri)
-            {
-                if (artifactLocation.Uri.IsFile)
-                {
-                    if (uri.EndsWith("/"))
-                    {
-                        // TODO: we have a problem, since files can't end with slash
-                    }
-                }
-                else
-                {
-                    if (!uri.EndsWith("/"))
-                    {
-                        // TODO: we have a problem, since folders should end with slash
-                    }
-                }
-            }
-            else
-            {
-                if (uri.StartsWith("/"))
-                {
-                    // TODO: we have a problem, since relative paths should not start with slash
-                }
             }
         }
 
@@ -106,14 +73,32 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
                 if (location?.PhysicalLocation?.ArtifactLocation?.Uri != null)
                 {
-                    if (location.PhysicalLocation.ArtifactLocation.Uri.IsAbsoluteUri && location.PhysicalLocation.ArtifactLocation.Uri.IsFile)
+                    if (location.PhysicalLocation.ArtifactLocation.Uri.IsAbsoluteUri)
                     {
-                        // {0}: The file location '{1}' is specified with absolute URI. Prefer a relative
-                        // reference together with a uriBaseId property.
-                        LogResult(
-                            locationPointer.AtProperty(SarifPropertyName.PhysicalLocation).AtProperty(SarifPropertyName.ArtifactLocation).AtProperty(SarifPropertyName.Uri),
-                            nameof(RuleResources.SARIF2016_FileUrisShouldBeRelative_Note_Default_Text),
-                            location.PhysicalLocation.ArtifactLocation.Uri.OriginalString);
+                        if (location.PhysicalLocation.ArtifactLocation.Uri.IsFile)
+                        {
+                            // {0}: The file location '{1}' is specified with absolute URI. Prefer a relative
+                            // reference together with a uriBaseId property.
+                            LogResult(
+                                locationPointer.AtProperty(SarifPropertyName.PhysicalLocation).AtProperty(SarifPropertyName.ArtifactLocation).AtProperty(SarifPropertyName.Uri),
+                                nameof(RuleResources.SARIF2016_FileUrisShouldBeRelative_Note_Default_Text),
+                                location.PhysicalLocation.ArtifactLocation.Uri.OriginalString);
+                        }
+                    }
+                    else
+                    {
+                        if (location.PhysicalLocation.ArtifactLocation.Uri.OriginalString.StartsWith("/"))
+                        {
+                            // {0}: The file location '{1}' start with slash. Prefer a relative reference
+                            // together with a uriBaseId property.
+                            LogResult(
+                                locationPointer
+                                    .AtProperty(SarifPropertyName.PhysicalLocation)
+                                    .AtProperty(SarifPropertyName.ArtifactLocation)
+                                    .AtProperty(SarifPropertyName.Uri),
+                                nameof(RuleResources.SARIF2016_FileUrisShouldBeRelative_Note_ShouldNotStartWithSlash_Text),
+                                location.PhysicalLocation.ArtifactLocation.Uri.OriginalString);
+                        }
                     }
                 }
             }

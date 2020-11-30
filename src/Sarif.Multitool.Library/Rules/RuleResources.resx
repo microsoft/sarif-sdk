@@ -460,4 +460,7 @@ Semantics: Assuming the reader of the log file (an end user or another tool) has
   <data name="SARIF1004_ExpressUriBaseIdsCorrectly_Error_RelativeReferenceMustNotBeginWithSlash_Text" xml:space="preserve">
     <value>The relative reference '{0}' begins with a slash, which will prevent it from combining properly with the absolute URI specified by a 'uriBaseId'.</value>
   </data>
+  <data name="SARIF2016_FileUrisShouldBeRelative_Note_ShouldNotStartWithSlash_Text" xml:space="preserve">
+    <value>{0}: The file location '{1}' start with slash. Prefer a relative reference together with a uriBaseId property.</value>
+  </data>
 </root>

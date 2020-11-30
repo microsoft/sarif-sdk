@@ -940,5 +940,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
                 return ResourceManager.GetString("SARIF2016_FileUrisShouldBeRelative_Note_Default_Text", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The file location &apos;{1}&apos; start with slash. Prefer a relative reference together with a uriBaseId property..
+        /// </summary>
+        internal static string SARIF2016_FileUrisShouldBeRelative_Note_ShouldNotStartWithSlash_Text {
+            get {
+                return ResourceManager.GetString("SARIF2016_FileUrisShouldBeRelative_Note_ShouldNotStartWithSlash_Text", resourceCulture);
+            }
+        }
     }
 }

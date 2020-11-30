@@ -28,6 +28,13 @@
                   "uri": "file:///c:/src/test.c"
                 }
               }
+            },
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/src/test.c"
+                }
+              }
             }
           ]
         }
