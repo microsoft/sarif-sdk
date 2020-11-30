@@ -25,6 +25,10 @@
         {
           "ruleId": "TEST0001",
           "message": { "text": "Test message." }
+        },
+        {
+          "ruleId": "TEST0001",
+          "message": { "text": "Test message." }
         }
       ],
       "columnKind": "utf16CodeUnits"

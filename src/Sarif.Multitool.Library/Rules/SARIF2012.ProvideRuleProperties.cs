@@ -48,12 +48,39 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         private static readonly Regex s_pascalCaseRegex = new Regex(@"^(\p{Lu}[\p{Ll}\p{Nd}]+)*$", RegexOptions.Compiled | RegexOptions.CultureInvariant);
         private HashSet<string> currentRules;
         private Run currentRun;
-        private string toolName;
 
         protected override void Analyze(Run run, string runPointer)
         {
             currentRun = run;
             AnalyzeTool(run.Tool, runPointer.AtProperty(SarifPropertyName.Tool));
+
+            var uniqueIssues = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+            if (run.Results == null)
+            {
+                return;
+            }
+
+            foreach (Result result in run.Results)
+            {
+                if (currentRules.Count != 0 && !currentRules.Contains(result.ResolvedRuleId(currentRun)))
+                {
+                    uniqueIssues.Add(result.ResolvedRuleId(currentRun));
+                }
+            }
+
+            foreach (string issue in uniqueIssues)
+            {
+                // '{0}' does not provide metadata for rule '{1}'. Rule metadata contains information
+                // that helps the user understand why each rule fires and what the user can do to fix it.
+                LogResult(
+                    runPointer
+                        .AtProperty(SarifPropertyName.Tool)
+                        .AtProperty(SarifPropertyName.Driver)
+                        .AtProperty(SarifPropertyName.Rules),
+                    nameof(RuleResources.SARIF2012_ProvideRuleProperties_Note_ProvideRuleMetadata_Text),
+                    issue);
+            }
         }
 
         protected override void Analyze(ReportingDescriptor reportingDescriptor, string reportingDescriptorPointer)
@@ -84,20 +111,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             }
         }
 
-        protected override void Analyze(Result result, string resultPointer)
-        {
-            if (currentRules.Count != 0 && !currentRules.Contains(result.ResolvedRuleId(currentRun)))
-            {
-                // '{0}' does not provide metadata for rule '{1}'. Rule metadata contains information
-                // that helps the user understand why each rule fires and what the user can do to fix it.
-                LogResult(
-                    resultPointer,
-                    nameof(RuleResources.SARIF2012_ProvideRuleProperties_Note_ProvideRuleMetadata_Text),
-                    toolName,
-                    result.ResolvedRuleId(currentRun));
-            }
-        }
-
         private void AnalyzeTool(Tool tool, string toolPointer)
         {
             currentRules = AnalyzeToolDriver(tool.Driver, toolPointer.AtProperty(SarifPropertyName.Driver));
@@ -106,7 +119,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         private HashSet<string> AnalyzeToolDriver(ToolComponent toolComponent, string toolDriverPointer)
         {
             var rules = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-            toolName = toolComponent.Name;
             if (toolComponent.Rules != null && toolComponent.Rules.Count != 0)
             {
                 string rulesPointer = toolDriverPointer.AtProperty(SarifPropertyName.Rules);
@@ -123,8 +135,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 // users understand why each rule fires and what the user can do to fix it.
                 LogResult(
                     toolDriverPointer,
-                    nameof(RuleResources.SARIF2012_ProvideRuleProperties_Note_ProvideMetadataForAllViolatedRules_Text),
-                    toolName);
+                    nameof(RuleResources.SARIF2012_ProvideRuleProperties_Note_ProvideMetadataForAllViolatedRules_Text));
             }
 
             return rules;
