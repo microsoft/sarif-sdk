@@ -275,7 +275,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 string repoRootPath = _gitHelper.GetRepositoryRoot(uri.LocalPath);
                 if (repoRootPath != null)
                 {
-                    var repoRootUri = new Uri(repoRootPath, UriKind.Absolute);
+                    var repoRootUri = new Uri(repoRootPath + @"\", UriKind.Absolute);
                     _repoRootUris.Add(repoRootUri);
 
                     Uri repoRelativeUri = repoRootUri.MakeRelativeUri(uri);
