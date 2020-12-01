@@ -300,6 +300,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             => RunInvalidTestForRule(RuleId.ProvideRuleProperties);
 
         [Fact]
+        public void SARIF2012_ProvideRuleProperties_WithoutRuleMetadata()
+            => RunTest("SARIF2012.ProvideRuleProperties_WithoutRuleMetadata.sarif");
+
+        [Fact]
+        public void SARIF2012_ProvideRuleProperties_WithoutRules()
+            => RunTest("SARIF2012.ProvideRuleProperties_WithoutRules.sarif");
+
+        [Fact]
         public void SARIF2013_ProvideEmbeddedFileContent_Valid()
             => RunValidTestForRule(RuleId.ProvideEmbeddedFileContent);
 

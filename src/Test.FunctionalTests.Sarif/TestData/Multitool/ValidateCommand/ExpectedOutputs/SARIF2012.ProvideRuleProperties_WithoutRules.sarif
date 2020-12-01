@@ -10,6 +10,9 @@
             {
               "id": "SARIF2012",
               "name": "ProvideRuleProperties",
+              "shortDescription": {
+                "text": "Rule metadata should provide information that makes it easy to understand and fix the problem."
+              },
               "fullDescription": {
                 "text": "Rule metadata should provide information that makes it easy to understand and fix the problem.\r\n\r\nProvide the 'name' property, which contains a \"friendly name\" that helps users see at a glance the purpose of the rule. For uniformity of experience across all tools that produce SARIF, the friendly name should be a single Pascal-case identifier, for example, 'ProvideRuleFriendlyName'.\r\n\r\nProvide the 'helpUri' property, which contains a URI where users can find detailed information about the rule. This information should include a detailed description of the invalid pattern, an explanation of why the pattern is poor practice (particularly in contexts such as security or accessibility where driving considerations might not be readily apparent), guidance for resolving the problem (including describing circumstances in which ignoring the problem altogether might be appropriate), examples of invalid and valid patterns, and special considerations (such as noting when a violation should never be ignored or suppressed, noting when a violation could cause downstream tool noise, and noting when a rule can be configured in some way to refine or alter the analysis)."
               },
@@ -46,7 +49,7 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF2012.ProvideRuleProperties_Invalid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF2012.ProvideRuleProperties_WithoutRules.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }
@@ -57,10 +60,9 @@
           "ruleIndex": 0,
           "level": "note",
           "message": {
-            "id": "Note_ProvideHelpUri",
+            "id": "Note_ProvideMetadataForAllViolatedRules",
             "arguments": [
-              "runs[0].tool.driver.rules[0]",
-              "SARIF2009.ConsiderConventionalIdentifierValues"
+              "runs[0].tool.driver"
             ]
           },
           "locations": [
@@ -70,58 +72,8 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 11,
-                  "startColumn": 13
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF2012",
-          "ruleIndex": 0,
-          "level": "note",
-          "message": {
-            "id": "Note_ProvideFriendlyName",
-            "arguments": [
-              "runs[0].tool.driver.rules[1]",
-              "TEST0001"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 15,
-                  "startColumn": 13
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF2012",
-          "ruleIndex": 0,
-          "level": "note",
-          "message": {
-            "id": "Note_FriendlyNameNotAPascalIdentifier",
-            "arguments": [
-              "runs[0].tool.driver.rules[2].name",
-              "This isn't pascal case"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 21,
-                  "startColumn": 46
+                  "startLine": 7,
+                  "startColumn": 19
                 }
               }
             }
