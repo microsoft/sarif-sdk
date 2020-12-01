@@ -884,7 +884,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return Path.GetFileName(uri.OriginalString);
         }
 
+
         protected virtual void AnalyzeTarget(TContext context, IEnumerable<Skimmer<TContext>> skimmers, ISet<string> disabledSkimmers)
+        {
+            AnalyzeTargetHelper(context, skimmers, disabledSkimmers);
+        }
+
+        public static void AnalyzeTargetHelper(TContext context, IEnumerable<Skimmer<TContext>> skimmers, ISet<string> disabledSkimmers)
         {
             foreach (Skimmer<TContext> skimmer in skimmers)
             {
@@ -910,6 +916,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         protected virtual IEnumerable<Skimmer<TContext>> DetermineApplicabilityForTarget(
+        TContext context,
+        IEnumerable<Skimmer<TContext>> skimmers,
+        ISet<string> disabledSkimmers)
+        {
+            skimmers = DetermineApplicabilityForTargetHelper(context, skimmers, disabledSkimmers);
+            
+            // TODO single-threaded write?
+            RuntimeErrors |= context.RuntimeErrors;
+            
+            return skimmers;
+        }
+
+        public static IEnumerable<Skimmer<TContext>> DetermineApplicabilityForTargetHelper(
             TContext context,
             IEnumerable<Skimmer<TContext>> skimmers,
             ISet<string> disabledSkimmers)
@@ -939,11 +958,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 {
                     Errors.LogUnhandledRuleExceptionAssessingTargetApplicability(disabledSkimmers, context, ex);
                     continue;
-                }
-                finally
-                {
-                    // TODO move to single-threaded write
-                    RuntimeErrors |= context.RuntimeErrors;
                 }
 
                 switch (applicability)
