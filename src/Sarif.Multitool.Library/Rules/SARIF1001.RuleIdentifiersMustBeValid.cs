@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF1001_RuleIdentifiersMustBeValid_FullDescription_Text };
 
         protected override IEnumerable<string> MessageResourceNames => new string[] {
-            nameof(RuleResources.SARIF1001_RuleIdentifiersMustBeValid_Error_Default_Text)
+            nameof(RuleResources.SARIF1001_RuleIdentifiersMustBeValid_Warning_Default_Text)
         };
 
         protected override void Analyze(ReportingDescriptor reportingDescriptor, string reportingDescriptorPointer)
@@ -47,7 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 // omit the 'name' property.
                 LogResult(
                     reportingDescriptorPointer,
-                    nameof(RuleResources.SARIF1001_RuleIdentifiersMustBeValid_Error_Default_Text),
+                    nameof(RuleResources.SARIF1001_RuleIdentifiersMustBeValid_Warning_Default_Text),
                     reportingDescriptor.Id);
             }
         }

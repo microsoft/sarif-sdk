@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
 
 using Newtonsoft.Json;
 
@@ -13,6 +14,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     public abstract class ExportRulesMetadataCommandBase : PlugInDriverCommand<ExportRulesMetadataOptions>
     {
+        private readonly string[] _levels = new string[] { "Error", "Warning", "Note", "None", "Pass", "NotApplicable" };
+        private static readonly Regex s_friendlyNameRegex = new Regex("(?<level>Error|Warning|Note|None|Pass|NotApplicable)_(?<friendlyName>[^_]+)$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+
         public override int Run(ExportRulesMetadataOptions exportOptions)
         {
             int result = FAILURE;
@@ -31,14 +35,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     case (SarifConstants.SarifFileExtension):
                     {
                         format = "SARIF";
-                        OutputSarifRulesMetada(outputFilePath, skimmers);
+                        OutputSarifRulesMetadata(outputFilePath, skimmers);
                         break;
                     }
 
                     case (".xml"):
                     {
                         format = "SonarQube";
-                        OutputSonarQubeRulesMetada(outputFilePath, skimmers);
+                        OutputSonarQubeRulesMetadata(outputFilePath, skimmers);
+                        break;
+                    }
+
+                    case (".md"):
+                    {
+                        format = "Markdown";
+                        OutputMarkdownRulesMetadata(outputFilePath, skimmers);
                         break;
                     }
 
@@ -59,7 +70,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return result;
         }
 
-        private void OutputSonarQubeRulesMetada(string outputFilePath, ImmutableArray<ReportingDescriptor> skimmers)
+        private void OutputSonarQubeRulesMetadata(string outputFilePath, ImmutableArray<ReportingDescriptor> skimmers)
         {
             const string TAB = "   ";
             var sb = new StringBuilder();
@@ -97,7 +108,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             File.WriteAllText(outputFilePath, sb.ToString());
         }
 
-        private void OutputSarifRulesMetada(string outputFilePath, ImmutableArray<ReportingDescriptor> skimmers)
+        private void OutputSarifRulesMetadata(string outputFilePath, ImmutableArray<ReportingDescriptor> skimmers)
         {
             var log = new SarifLog();
 
@@ -136,6 +147,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             File.WriteAllText(outputFilePath, JsonConvert.SerializeObject(log, settings));
         }
 
+        private void OutputMarkdownRulesMetadata(string outputFilePath, ImmutableArray<ReportingDescriptor> skimmers)
+        {
+            var sb = new StringBuilder();
+            sb.Append("# Rules").AppendLine(Environment.NewLine);
+
+            foreach (ReportingDescriptor rule in skimmers)
+            {
+                BuildRule(rule, sb);
+            }
+
+            File.WriteAllText(outputFilePath, sb.ToString());
+        }
+
         private int GetIdIntegerSuffix(string id)
         {
             int alphaCount = 0;
@@ -150,6 +174,44 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 break;
             }
             return int.Parse(id.Substring(alphaCount));
+        }
+
+        internal void BuildRule(ReportingDescriptor rule, StringBuilder sb)
+        {
+            sb.Append("## Rule `").Append(rule.Moniker).Append('`').AppendLine(Environment.NewLine);
+            sb.Append("### Description").AppendLine(Environment.NewLine);
+            sb.Append(rule.FullDescription?.Markdown
+                ?? rule.FullDescription?.Text
+                ?? rule.ShortDescription?.Markdown
+                ?? rule.ShortDescription?.Text
+                ?? DriverResources.NoRuleDescription).AppendLine(Environment.NewLine);
+            sb.Append("### Messages").AppendLine(Environment.NewLine);
+
+            foreach (KeyValuePair<string, MultiformatMessageString> message in rule.MessageStrings)
+            {
+                string ruleName = message.Key;
+                string ruleLevel;
+                Match match = s_friendlyNameRegex.Match(message.Key);
+                if (match.Success)
+                {
+                    ruleName = match.Groups["friendlyName"].Value;
+                    ruleLevel = match.Groups["level"].Value;
+                }
+                else
+                {
+                    ruleLevel = GetLevelFromRuleName(ruleName);
+                }
+
+                sb.Append("#### `").Append(ruleName).Append("`: ").Append(ruleLevel).AppendLine(Environment.NewLine);
+                sb.Append(message.Value.Markdown ?? message.Value.Text).AppendLine(Environment.NewLine);
+            }
+
+            sb.Append("---").AppendLine(Environment.NewLine);
+        }
+
+        private string GetLevelFromRuleName(string ruleName)
+        {
+            return Array.Find(_levels, level => ruleName.IndexOf(level, StringComparison.OrdinalIgnoreCase) >= 0);
         }
     }
 }
