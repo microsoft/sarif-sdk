@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class ReviewArraysThatExceedConfigurableDefaults : SarifValidationSkimmerBase
     {
-        public ReviewArraysThatExceedConfigurableDefaults() : base()
+        public ReviewArraysThatExceedConfigurableDefaults()
         {
             this.DefaultConfiguration.Level = FailureLevel.Error;
         }

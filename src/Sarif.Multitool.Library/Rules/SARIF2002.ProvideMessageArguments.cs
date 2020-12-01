@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class ProvideMessageArguments : SarifValidationSkimmerBase
     {
-        public ProvideMessageArguments() : base()
+        public ProvideMessageArguments()
         {
             this.DefaultConfiguration.Level = FailureLevel.Note;
         }
@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         protected override IEnumerable<string> MessageResourceNames => new string[] {
             nameof(RuleResources.SARIF2002_ProvideMessageArguments_Note_Default_Text)
         };
-        
+
         protected override void Analyze(Result result, string resultPointer)
         {
             if (string.IsNullOrEmpty(result.Message.Id))

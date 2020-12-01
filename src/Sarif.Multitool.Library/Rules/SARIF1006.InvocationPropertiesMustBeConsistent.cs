@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class InvocationPropertiesMustBeConsistent : SarifValidationSkimmerBase
     {
-        public InvocationPropertiesMustBeConsistent() : base()
+        public InvocationPropertiesMustBeConsistent()
         {
             this.DefaultConfiguration.Level = FailureLevel.Error;
         }

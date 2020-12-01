@@ -8,7 +8,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class RuleIdMustBeConsistent : SarifValidationSkimmerBase
     {
-        public RuleIdMustBeConsistent() : base()
+        public RuleIdMustBeConsistent()
         {
             this.DefaultConfiguration.Level = FailureLevel.Error;
         }

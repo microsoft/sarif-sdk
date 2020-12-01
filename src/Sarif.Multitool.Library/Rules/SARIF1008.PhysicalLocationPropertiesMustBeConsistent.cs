@@ -7,7 +7,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class PhysicalLocationPropertiesMustBeConsistent : SarifValidationSkimmerBase
     {
-        public PhysicalLocationPropertiesMustBeConsistent() : base()
+        public PhysicalLocationPropertiesMustBeConsistent()
         {
             this.DefaultConfiguration.Level = FailureLevel.Error;
         }

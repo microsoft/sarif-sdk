@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class ProvideCodeSnippets : SarifValidationSkimmerBase
     {
-        public ProvideCodeSnippets() : base()
+        public ProvideCodeSnippets()
         {
             this.DefaultConfiguration.Level = FailureLevel.Note;
         }
@@ -31,7 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         protected override IEnumerable<string> MessageResourceNames => new string[] {
             nameof(RuleResources.SARIF2010_ProvideCodeSnippets_Note_Default_Text)
         };
-        
+
         private IList<Artifact> artifacts;
         private IDictionary<string, ArtifactLocation> originalUriBaseIds;
 

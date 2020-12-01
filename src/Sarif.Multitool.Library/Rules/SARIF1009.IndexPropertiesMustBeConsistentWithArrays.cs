@@ -7,7 +7,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class IndexPropertiesMustBeConsistentWithArrays : SarifValidationSkimmerBase
     {
-        public IndexPropertiesMustBeConsistentWithArrays() : base()
+        public IndexPropertiesMustBeConsistentWithArrays()
         {
             this.DefaultConfiguration.Level = FailureLevel.Error;
         }

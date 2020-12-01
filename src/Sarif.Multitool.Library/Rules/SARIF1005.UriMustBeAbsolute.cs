@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class UriMustBeAbsolute : SarifValidationSkimmerBase
     {
-        public UriMustBeAbsolute() : base()
+        public UriMustBeAbsolute()
         {
             this.DefaultConfiguration.Level = FailureLevel.Error;
         }

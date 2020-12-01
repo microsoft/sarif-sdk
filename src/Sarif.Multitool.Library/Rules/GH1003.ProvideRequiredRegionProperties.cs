@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class ProvideRequiredRegionProperties : SarifValidationSkimmerBase
     {
-        public ProvideRequiredRegionProperties() : base()
+        public ProvideRequiredRegionProperties()
         {
             this.DefaultConfiguration.Level = FailureLevel.Error;
         }
@@ -31,7 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             nameof(RuleResources.GH1003_ProvideRequiredRegionProperties_Error_MissingRegion_Text),
             nameof(RuleResources.GH1003_ProvideRequiredRegionProperties_Error_MissingRegionProperty_Text)
         };
-       
+
         public override bool EnabledByDefault => false;
 
         protected override void Analyze(Result result, string resultPointer)

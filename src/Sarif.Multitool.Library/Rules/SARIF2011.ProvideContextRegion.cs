@@ -9,7 +9,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class ProvideContextRegion : SarifValidationSkimmerBase
     {
-        public ProvideContextRegion() : base()
+        public ProvideContextRegion()
         {
             this.DefaultConfiguration.Level = FailureLevel.Note;
         }

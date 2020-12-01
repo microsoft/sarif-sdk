@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class UrisMustBeValid : SarifValidationSkimmerBase
     {
-        public UrisMustBeValid() : base()
+        public UrisMustBeValid()
         {
             this.DefaultConfiguration.Level = FailureLevel.Error;
         }

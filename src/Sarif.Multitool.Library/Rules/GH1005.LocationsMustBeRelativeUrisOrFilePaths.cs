@@ -10,8 +10,8 @@ using Microsoft.Json.Pointer;
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class LocationsMustBeRelativeUrisOrFilePaths : SarifValidationSkimmerBase
-    {     
-        public LocationsMustBeRelativeUrisOrFilePaths() : base()
+    {
+        public LocationsMustBeRelativeUrisOrFilePaths()
         {
             this.DefaultConfiguration.Level = FailureLevel.Error;
         }

@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class ProvideRequiredLocationProperties : SarifValidationSkimmerBase
     {
-        public ProvideRequiredLocationProperties() : base()
+        public ProvideRequiredLocationProperties()
         {
             this.DefaultConfiguration.Level = FailureLevel.Error;
         }

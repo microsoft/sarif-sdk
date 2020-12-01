@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class MessageArgumentsMustBeConsistentWithRule : SarifValidationSkimmerBase
     {
-        public MessageArgumentsMustBeConsistentWithRule() : base()
+        public MessageArgumentsMustBeConsistentWithRule()
         {
             this.DefaultConfiguration.Level = FailureLevel.Error;
         }

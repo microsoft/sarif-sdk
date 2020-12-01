@@ -7,7 +7,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class ProvideVersionControlProvenance : SarifValidationSkimmerBase
     {
-        public ProvideVersionControlProvenance() : base()
+        public ProvideVersionControlProvenance()
         {
             this.DefaultConfiguration.Level = FailureLevel.Note;
         }

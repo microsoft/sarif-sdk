@@ -3,7 +3,7 @@
 
   <PropertyGroup>
     <LangVersion>8.0</LangVersion>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <GenerateDocumentationFile Condition="'$(IsTestProject)' == 'false'">true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Label="AssemblyAttributes">
@@ -44,6 +44,7 @@
     <PublishDir>$(OutputPath)\Publish\$(TargetFramework)\</PublishDir>
     <PublishDir Condition=" '$(RuntimeIdentifier)' != '' ">$(PublishDir)\$(RuntimeIdentifier)\</PublishDir>
     <SolutionDir Condition=" '$(SolutionDir)' == '' ">$(MsBuildThisFileDirectory)</SolutionDir>
+    <PackageOutputPath>$(MsBuildThisFileDirectory)..\bld\Publish\Nuget\$(Configuration)\</PackageOutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
