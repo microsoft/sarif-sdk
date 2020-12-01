@@ -824,7 +824,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         ///
         ///Provide the &apos;name&apos; property, which contains a &quot;friendly name&quot; that helps users see at a glance the purpose of the rule. For uniformity of experience across all tools that produce SARIF, the friendly name should be a single Pascal-case identifier, for example, &apos;ProvideRuleFriendlyName&apos;.
         ///
-        ///Provide the &apos;helpUri&apos; property, which contains a URI where users can find detailed information about the rule. This information should [rest of string was truncated]&quot;;.
+        ///Provide the &apos;helpUri&apos; property, which contains a URI where users can find detailed information about the rule. This informat [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SARIF2012_ProvideRuleProperties_FullDescription_Text {
             get {
@@ -960,7 +960,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The file location &apos;{1}&apos; start with slash. Prefer a relative reference together with a uriBaseId property..
+        ///   Looks up a localized string similar to {0}: The relative file URL &apos;{1}&apos; is prefixed with a leading slash, which can lead to unintended behavior when concatenating with absolute URLs. Remove the leading slash..
         /// </summary>
         internal static string SARIF2016_FileUrisShouldBeRelative_Note_ShouldNotStartWithSlash_Text {
             get {

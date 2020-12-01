@@ -21,7 +21,7 @@
                   "text": "{0}: The file location '{1}' is specified with absolute URI. Prefer a relative reference together with a uriBaseId property."
                 },
                 "Note_ShouldNotStartWithSlash": {
-                  "text": "{0}: The file location '{1}' start with slash. Prefer a relative reference together with a uriBaseId property."
+                  "text": "{0}: The relative file URL '{1}' is prefixed with a leading slash, which can lead to unintended behavior when concatenating with absolute URLs. Remove the leading slash."
                 }
               },
               "defaultConfiguration": {
@@ -91,6 +91,31 @@
                 "region": {
                   "startLine": 35,
                   "startColumn": 38
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF2016",
+          "ruleIndex": 0,
+          "level": "note",
+          "message": {
+            "id": "Note_ShouldNotStartWithSlash",
+            "arguments": [
+              "runs[0].results[0].locations[2].physicalLocation.artifactLocation.uri",
+              "\\src\\test.c"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 42,
+                  "startColumn": 40
                 }
               }
             }

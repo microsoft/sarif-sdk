@@ -85,20 +85,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                                 location.PhysicalLocation.ArtifactLocation.Uri.OriginalString);
                         }
                     }
-                    else
+                    else if (location.PhysicalLocation.ArtifactLocation.Uri.OriginalString.StartsWith("/")
+                        || location.PhysicalLocation.ArtifactLocation.Uri.OriginalString.StartsWith("\\"))
                     {
-                        if (location.PhysicalLocation.ArtifactLocation.Uri.OriginalString.StartsWith("/"))
-                        {
-                            // {0}: The file location '{1}' start with slash. Prefer a relative reference
-                            // together with a uriBaseId property.
-                            LogResult(
-                                locationPointer
-                                    .AtProperty(SarifPropertyName.PhysicalLocation)
-                                    .AtProperty(SarifPropertyName.ArtifactLocation)
-                                    .AtProperty(SarifPropertyName.Uri),
-                                nameof(RuleResources.SARIF2016_FileUrisShouldBeRelative_Note_ShouldNotStartWithSlash_Text),
-                                location.PhysicalLocation.ArtifactLocation.Uri.OriginalString);
-                        }
+                        // {0}: The relative file URL '{1}' is prefixed with a leading slash, which can
+                        // lead to unintended behavior when concatenating with absolute URLs. Remove the
+                        // leading slash.
+                        LogResult(
+                            locationPointer
+                                .AtProperty(SarifPropertyName.PhysicalLocation)
+                                .AtProperty(SarifPropertyName.ArtifactLocation)
+                                .AtProperty(SarifPropertyName.Uri),
+                            nameof(RuleResources.SARIF2016_FileUrisShouldBeRelative_Note_ShouldNotStartWithSlash_Text),
+                            location.PhysicalLocation.ArtifactLocation.Uri.OriginalString);
                     }
                 }
             }

@@ -35,6 +35,13 @@
                   "uri": "/src/test.c"
                 }
               }
+            },
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "\\src\\test.c"
+                }
+              }
             }
           ]
         }

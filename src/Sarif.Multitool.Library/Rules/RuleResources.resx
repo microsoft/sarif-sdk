@@ -467,6 +467,6 @@ Semantics: Assuming the reader of the log file (an end user or another tool) has
     <value>'{0}' does not provide metadata for rule '{1}'. Rule metadata contains information that helps the user understand why each rule fires and what the user can do to fix it.</value>
   </data>
   <data name="SARIF2016_FileUrisShouldBeRelative_Note_ShouldNotStartWithSlash_Text" xml:space="preserve">
-    <value>{0}: The file location '{1}' start with slash. Prefer a relative reference together with a uriBaseId property.</value>
+    <value>{0}: The relative file URL '{1}' is prefixed with a leading slash, which can lead to unintended behavior when concatenating with absolute URLs. Remove the leading slash.</value>
   </data>
 </root>
