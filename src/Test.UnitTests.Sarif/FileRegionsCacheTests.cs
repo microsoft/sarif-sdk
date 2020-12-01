@@ -397,7 +397,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
         public void FileRegionsCache_PopulatesFromMissingFile()
         {
             var run = new Run();
-            var fileRegionsCache = new FileRegionsCache(run);
+            var fileRegionsCache = new FileRegionsCache();
 
             Uri uri = new Uri(@"c:\temp\DoesNotExist\" + Guid.NewGuid().ToString() + ".cpp");
 
@@ -432,7 +432,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
 
             var run = new Run();
             IFileSystem mockFileSystem = MockFactory.MakeMockFileSystem(uri.LocalPath, fileText);
-            var fileRegionsCache = new FileRegionsCache(run, fileSystem: mockFileSystem);
+            var fileRegionsCache = new FileRegionsCache(fileSystem: mockFileSystem);
 
             ExecuteTests(testCases, fileRegionsCache, uri);
         }
@@ -485,7 +485,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
 
             Run run = new Run();
             IFileSystem mockFileSystem = MockFactory.MakeMockFileSystem(uri.LocalPath, fileContents.ToString());
-            FileRegionsCache fileRegionsCache = new FileRegionsCache(run, fileSystem: mockFileSystem);
+            FileRegionsCache fileRegionsCache = new FileRegionsCache(fileSystem: mockFileSystem);
 
             Region region = new Region()
             {
@@ -517,7 +517,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
 
             var run = new Run();
             IFileSystem mockFileSystem = MockFactory.MakeMockFileSystem(uri.LocalPath, SPEC_EXAMPLE);
-            var fileRegionsCache = new FileRegionsCache(run, fileSystem: mockFileSystem);
+            var fileRegionsCache = new FileRegionsCache(fileSystem: mockFileSystem);
 
             Region region = fileRegionsCache.PopulateTextRegionProperties(inputRegion: null, uri: uri, populateSnippet: false);
             region.Should().BeNull();

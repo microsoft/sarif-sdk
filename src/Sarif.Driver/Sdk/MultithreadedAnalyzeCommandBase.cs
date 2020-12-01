@@ -921,10 +921,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         ISet<string> disabledSkimmers)
         {
             skimmers = DetermineApplicabilityForTargetHelper(context, skimmers, disabledSkimmers);
-            
+
             // TODO single-threaded write?
             RuntimeErrors |= context.RuntimeErrors;
-            
+
             return skimmers;
         }
 
