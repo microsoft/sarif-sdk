@@ -822,7 +822,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         /// <summary>
         ///   Looks up a localized string similar to Rule metadata should provide information that makes it easy to understand and fix the problem.
         ///
-        ///Provide the &apos;name&apos; property, which contains a &quot;friendly name&quot; that helps users see at a glance the purpose of the rule. For uniformity of experience across all tools that produce SARIF, the friendly name should be a single Pascal identifier, for example, &apos;ProvideRuleFriendlyName&apos;.
+        ///Provide the &apos;name&apos; property, which contains a &quot;friendly name&quot; that helps users see at a glance the purpose of the rule. For uniformity of experience across all tools that produce SARIF, the friendly name should be a single Pascal-case identifier, for example, &apos;ProvideRuleFriendlyName&apos;.
         ///
         ///Provide the &apos;helpUri&apos; property, which contains a URI where users can find detailed information about the rule. This information should [rest of string was truncated]&quot;;.
         /// </summary>
@@ -833,7 +833,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: &apos;{1}&apos; is not a Pascal identifier. For uniformity of experience across all tools that produce SARIF, the friendly name should be a single Pascal identifier, for example, &apos;ProvideRuleFriendlyName&apos;..
+        ///   Looks up a localized string similar to {0}: &apos;{1}&apos; is not a Pascal-case identifier. For uniformity of experience across all tools that produce SARIF, the friendly name should be a single Pascal-case identifier, for example, &apos;ProvideRuleFriendlyName&apos;..
         /// </summary>
         internal static string SARIF2012_ProvideRuleProperties_Note_FriendlyNameNotAPascalIdentifier_Text {
             get {
@@ -842,7 +842,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The rule &apos;{1}&apos; does not provide a &quot;friendly name&quot; in its &apos;name&apos; property. The friendly name should be a single Pascal identifier, for example, &apos;ProvideRuleFriendlyName&apos;, that helps users see at a glance the purpose of the analysis rule..
+        ///   Looks up a localized string similar to {0}: The rule &apos;{1}&apos; does not provide a &quot;friendly name&quot; in its &apos;name&apos; property. The friendly name should be a single Pascal-case identifier, for example, &apos;ProvideRuleFriendlyName&apos;, that helps users see at a glance the purpose of the analysis rule..
         /// </summary>
         internal static string SARIF2012_ProvideRuleProperties_Note_ProvideFriendlyName_Text {
             get {
@@ -856,6 +856,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         internal static string SARIF2012_ProvideRuleProperties_Note_ProvideHelpUri_Text {
             get {
                 return ResourceManager.GetString("SARIF2012_ProvideRuleProperties_Note_ProvideHelpUri_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos; does not provide a &apos;rules&apos; property. &apos;rules&apos; contain information that helps users understand why each rule fires and what the user can do to fix it..
+        /// </summary>
+        internal static string SARIF2012_ProvideRuleProperties_Note_ProvideMetadataForAllViolatedRules_Text {
+            get {
+                return ResourceManager.GetString("SARIF2012_ProvideRuleProperties_Note_ProvideMetadataForAllViolatedRules_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos; does not provide metadata for rule &apos;{1}&apos;. Rule metadata contains information that helps the user understand why each rule fires and what the user can do to fix it..
+        /// </summary>
+        internal static string SARIF2012_ProvideRuleProperties_Note_ProvideRuleMetadata_Text {
+            get {
+                return ResourceManager.GetString("SARIF2012_ProvideRuleProperties_Note_ProvideRuleMetadata_Text", resourceCulture);
             }
         }
         
