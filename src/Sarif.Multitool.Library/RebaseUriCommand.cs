@@ -45,7 +45,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 if (!rebaseOptions.Inline)
                 {
-                    _fileSystem.DirectoryCreate(rebaseOptions.OutputDirectoryPath);
+                    _fileSystem.DirectoryCreateDirectory(rebaseOptions.OutputDirectoryPath);
                 }
 
                 OptionallyEmittedData dataToRemove = rebaseOptions.DataToRemove.ToFlags();

@@ -17,8 +17,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             var mock = new Mock<IFileSystem>(MockBehavior.Strict);
             mock.Setup(fs => fs.FileExists(It.IsAny<string>())).Returns((string s) => s.Equals(fileName, StringComparison.OrdinalIgnoreCase));
-            mock.Setup(fs => fs.GetFullPath(It.IsAny<string>())).Returns((string path) => path);
-            mock.Setup(fs => fs.ReadAllLines(fileName)).Returns(fileContents);
+            mock.Setup(fs => fs.PathGetFullPath(It.IsAny<string>())).Returns((string path) => path);
+            mock.Setup(fs => fs.FileReadAllLines(fileName)).Returns(fileContents);
             return mock.Object;
         }
 

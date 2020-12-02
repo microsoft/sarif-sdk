@@ -107,7 +107,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         ? Formatting.Indented
                         : Formatting.None;
 
-                    _fileSystem.DirectoryCreate(outputDirectory);
+                    _fileSystem.DirectoryCreateDirectory(outputDirectory);
                     outputFilePath = Path.Combine(outputDirectory, GetOutputFileName(_options, key));
                     WriteSarifFile(_fileSystem, mergedLog, outputFilePath, formatting);
                 }
@@ -267,7 +267,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     continue;
                 }
 
-                foreach (string file in _fileSystem.EnumerateFiles(directory, filter, searchOption))
+                foreach (string file in _fileSystem.DirectoryEnumerateFiles(directory, filter, searchOption))
                 {
                     Interlocked.Increment(ref _filesToProcessCount);
                     await _logLoadChannel.Writer.WriteAsync(file);

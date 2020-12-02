@@ -477,11 +477,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             var mockFileSystem = new Mock<IFileSystem>();
 
             mockFileSystem.Setup(x => x.DirectoryExists(inputLogDirectory)).Returns(true);
-            mockFileSystem.Setup(x => x.GetDirectoriesInDirectory(It.IsAny<string>())).Returns(new string[0]);
-            mockFileSystem.Setup(x => x.GetFilesInDirectory(inputLogDirectory, inputLogFileName)).Returns(new string[] { inputLogFilePath });
-            mockFileSystem.Setup(x => x.ReadAllText(inputLogFilePath)).Returns(v2LogText);
-            mockFileSystem.Setup(x => x.ReadAllText(It.IsNotIn<string>(inputLogFilePath))).Returns<string>(path => File.ReadAllText(path));
-            mockFileSystem.Setup(x => x.WriteAllText(It.IsAny<string>(), It.IsAny<string>()));
+            mockFileSystem.Setup(x => x.DirectoryGetDirectories(It.IsAny<string>())).Returns(new string[0]);
+            mockFileSystem.Setup(x => x.DirectoryGetFiles(inputLogDirectory, inputLogFileName)).Returns(new string[] { inputLogFilePath });
+            mockFileSystem.Setup(x => x.FileReadAllText(inputLogFilePath)).Returns(v2LogText);
+            mockFileSystem.Setup(x => x.FileReadAllText(It.IsNotIn<string>(inputLogFilePath))).Returns<string>(path => File.ReadAllText(path));
+            mockFileSystem.Setup(x => x.FileWriteAllText(It.IsAny<string>(), It.IsAny<string>()));
 
             // Some rules are disabled by default, so create a configuration file that explicitly
             // enables the rule under test.
