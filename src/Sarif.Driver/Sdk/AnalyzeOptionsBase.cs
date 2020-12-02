@@ -95,7 +95,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             HelpText = "Execution traces, expressed as a semicolon-delimited list, that " +
                        "should be emitted to the console and log file (if appropriate). " +
                        "Valid values: ScanTime.")]
-
         public virtual IEnumerable<string> Traces { get; set; }
     }
 }
