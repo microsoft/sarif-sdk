@@ -37,6 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override IEnumerable<string> MessageResourceNames => new string[] {
             nameof(RuleResources.SARIF2016_FileUrisShouldBeRelative_Note_Default_Text),
+            nameof(RuleResources.SARIF2016_FileUrisShouldBeRelative_Note_ShouldNotContainBackSlash_Text),
             nameof(RuleResources.SARIF2016_FileUrisShouldBeRelative_Note_ShouldNotStartWithSlash_Text)
         };
 
@@ -85,8 +86,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                                 location.PhysicalLocation.ArtifactLocation.Uri.OriginalString);
                         }
                     }
-                    else if (location.PhysicalLocation.ArtifactLocation.Uri.OriginalString.StartsWith("/")
-                        || location.PhysicalLocation.ArtifactLocation.Uri.OriginalString.StartsWith("\\"))
+                    else if (location.PhysicalLocation.ArtifactLocation.Uri.OriginalString.StartsWith("/"))
                     {
                         // {0}: The relative file URL '{1}' is prefixed with a leading slash, which can
                         // lead to unintended behavior when concatenating with absolute URLs. Remove the
@@ -97,6 +97,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                                 .AtProperty(SarifPropertyName.ArtifactLocation)
                                 .AtProperty(SarifPropertyName.Uri),
                             nameof(RuleResources.SARIF2016_FileUrisShouldBeRelative_Note_ShouldNotStartWithSlash_Text),
+                            location.PhysicalLocation.ArtifactLocation.Uri.OriginalString);
+                    }
+                    else if (location.PhysicalLocation.ArtifactLocation.Uri.OriginalString.Contains("\\"))
+                    {
+                        // {0}: The relative file URL '{1}' contain back slash, which can lead to unintended
+                        // behavior. Replace back slash for slash.
+                        LogResult(
+                            locationPointer
+                                .AtProperty(SarifPropertyName.PhysicalLocation)
+                                .AtProperty(SarifPropertyName.ArtifactLocation)
+                                .AtProperty(SarifPropertyName.Uri),
+                            nameof(RuleResources.SARIF2016_FileUrisShouldBeRelative_Note_ShouldNotContainBackSlash_Text),
                             location.PhysicalLocation.ArtifactLocation.Uri.OriginalString);
                     }
                 }

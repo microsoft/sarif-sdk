@@ -20,6 +20,9 @@
                 "Note_Default": {
                   "text": "{0}: The file location '{1}' is specified with absolute URI. Prefer a relative reference together with a uriBaseId property."
                 },
+                "Note_ShouldNotContainBackSlash": {
+                  "text": "{0}: The relative file URL '{1}' contain back slash, which can lead to unintended behavior. Replace back slash for slash."
+                },
                 "Note_ShouldNotStartWithSlash": {
                   "text": "{0}: The relative file URL '{1}' is prefixed with a leading slash, which can lead to unintended behavior when concatenating with absolute URLs. Remove the leading slash."
                 }
@@ -101,7 +104,7 @@
           "ruleIndex": 0,
           "level": "note",
           "message": {
-            "id": "Note_ShouldNotStartWithSlash",
+            "id": "Note_ShouldNotContainBackSlash",
             "arguments": [
               "runs[0].results[0].locations[2].physicalLocation.artifactLocation.uri",
               "\\src\\test.c"

@@ -960,6 +960,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}: The relative file URL &apos;{1}&apos; contain back slash, which can lead to unintended behavior. Replace back slash for slash..
+        /// </summary>
+        internal static string SARIF2016_FileUrisShouldBeRelative_Note_ShouldNotContainBackSlash_Text {
+            get {
+                return ResourceManager.GetString("SARIF2016_FileUrisShouldBeRelative_Note_ShouldNotContainBackSlash_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}: The relative file URL &apos;{1}&apos; is prefixed with a leading slash, which can lead to unintended behavior when concatenating with absolute URLs. Remove the leading slash..
         /// </summary>
         internal static string SARIF2016_FileUrisShouldBeRelative_Note_ShouldNotStartWithSlash_Text {
