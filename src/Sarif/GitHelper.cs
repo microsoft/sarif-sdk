@@ -104,7 +104,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string GetTopLevel(string repoPath)
         {
             string args = "rev-parse --show-toplevel";
-            string currentDirectory = this.fileSystem.CurrentDirectory;
+            string currentDirectory = this.fileSystem.EnvironmentCurrentDirectory;
 
             try
             {
@@ -120,7 +120,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return null;
                 }
 
-                this.fileSystem.CurrentDirectory = repoPath;
+                this.fileSystem.EnvironmentCurrentDirectory = repoPath;
 
                 string stdOut = this.processRunner(
                     workingDirectory: repoPath,
@@ -134,13 +134,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
             finally
             {
-                this.fileSystem.CurrentDirectory = currentDirectory;
+                this.fileSystem.EnvironmentCurrentDirectory = currentDirectory;
             }
         }
 
         private string GetSimpleGitCommandOutput(string repoPath, string args)
         {
-            string currentDirectory = this.fileSystem.CurrentDirectory;
+            string currentDirectory = this.fileSystem.EnvironmentCurrentDirectory;
 
             repoPath = repoPath.Replace("/", @"\");
 
@@ -153,7 +153,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return null;
                 }
 
-                this.fileSystem.CurrentDirectory = repoPath;
+                this.fileSystem.EnvironmentCurrentDirectory = repoPath;
 
                 string stdOut = this.processRunner(
                     workingDirectory: repoPath,
@@ -166,7 +166,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
             finally
             {
-                this.fileSystem.CurrentDirectory = currentDirectory;
+                this.fileSystem.EnvironmentCurrentDirectory = currentDirectory;
             }
         }
 

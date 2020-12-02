@@ -1049,16 +1049,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var mockFileSystem = new Mock<IFileSystem>();
 
             mockFileSystem.Setup(x => x.DirectoryExists(It.IsAny<string>())).Returns(true);
-            mockFileSystem.Setup(x => x.GetDirectoriesInDirectory(It.IsAny<string>())).Returns(new string[0]);
-            mockFileSystem.Setup(x => x.GetFilesInDirectory(It.IsAny<string>(), It.IsAny<string>())).Returns(files);
+            mockFileSystem.Setup(x => x.DirectoryEnumerateFiles(It.IsAny<string>())).Returns(new string[0]);
+            mockFileSystem.Setup(x => x.DirectoryGetFiles(It.IsAny<string>(), It.IsAny<string>())).Returns(files);
 
             for (int i = 0; i < files.Count; i++)
             {
                 string fullyQualifiedName = Environment.CurrentDirectory + @"\" + files[i];
                 string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fullyQualifiedName);
-                mockFileSystem.Setup(x => x.ReadAllText(It.Is<string>(f => f == fullyQualifiedName))).Returns(logFileContents);
+                mockFileSystem.Setup(x => x.FileReadAllText(It.Is<string>(f => f == fullyQualifiedName))).Returns(logFileContents);
 
-                mockFileSystem.Setup(x => x.OpenRead(It.Is<string>(f => f == fullyQualifiedName)))
+                mockFileSystem.Setup(x => x.FileOpenRead(It.Is<string>(f => f == fullyQualifiedName)))
                     .Returns(new MemoryStream(Encoding.UTF8.GetBytes(fileNameWithoutExtension)));
             }
             return mockFileSystem.Object;

@@ -200,10 +200,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             // Complex: TransformCommand has code paths that use Create and OpenRead, but also ReadAllText and WriteAllText.
             var mockFileSystem = new Mock<IFileSystem>();
-            mockFileSystem.Setup(x => x.ReadAllText(options.InputFilePath)).Returns(logFileContents);
-            mockFileSystem.Setup(x => x.OpenRead(options.InputFilePath)).Returns(() => new MemoryStream(Encoding.UTF8.GetBytes(logFileContents)));
+            mockFileSystem.Setup(x => x.FileReadAllText(options.InputFilePath)).Returns(logFileContents);
+            mockFileSystem.Setup(x => x.FileOpenRead(options.InputFilePath)).Returns(() => new MemoryStream(Encoding.UTF8.GetBytes(logFileContents)));
             mockFileSystem.Setup(x => x.FileCreate(options.InputFilePath)).Returns(() => new MemoryStreamToStringBuilder(transformedContents));
-            mockFileSystem.Setup(x => x.WriteAllText(options.InputFilePath, It.IsAny<string>())).Callback<string, string>((path, contents) => { transformedContents.Append(contents); });
+            mockFileSystem.Setup(x => x.FileWriteAllText(options.InputFilePath, It.IsAny<string>())).Callback<string, string>((path, contents) => { transformedContents.Append(contents); });
 
             var transformCommand = new TransformCommand(mockFileSystem.Object);
 

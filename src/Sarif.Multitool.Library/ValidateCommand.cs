@@ -103,7 +103,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             try
             {
-                instanceText = FileSystem.ReadAllText(instanceFilePath);
+                instanceText = FileSystem.FileReadAllText(instanceFilePath);
 
                 if (updateToCurrentSarifVersion)
                 {
@@ -142,7 +142,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             if (schemaFilePath != null)
             {
-                schemaText = FileSystem.ReadAllText(schemaFilePath);
+                schemaText = FileSystem.FileReadAllText(schemaFilePath);
             }
             else
             {

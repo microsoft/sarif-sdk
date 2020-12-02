@@ -259,8 +259,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
         private static IFileSystem SetUnauthorizedAccessExceptionMock()
         {
             Mock<IFileSystem> mock = GetDefaultFileSystemMock();
-            mock.Setup(fs => fs.ReadAllText(It.IsAny<string>(), It.IsAny<Encoding>())).Returns((string s, Encoding encoding) => { throw new UnauthorizedAccessException(); });
-            mock.Setup(fs => fs.ReadAllBytes(It.IsAny<string>())).Returns((string s) => { throw new UnauthorizedAccessException(); });
+            mock.Setup(fs => fs.FileReadAllText(It.IsAny<string>(), It.IsAny<Encoding>())).Returns((string s, Encoding encoding) => { throw new UnauthorizedAccessException(); });
+            mock.Setup(fs => fs.FileReadAllBytes(It.IsAny<string>())).Returns((string s) => { throw new UnauthorizedAccessException(); });
             return mock.Object;
         }
 

@@ -63,11 +63,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     {
                         // We have a pre-release v2 file that we should upgrade to current. 
                         PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(
-                            _fileSystem.ReadAllText(inputFilePath),
+                            _fileSystem.FileReadAllText(inputFilePath),
                             formatting: transformOptions.Formatting,
                             out string sarifText);
 
-                        _fileSystem.WriteAllText(transformOptions.OutputFilePath, sarifText);
+                        _fileSystem.FileWriteAllText(transformOptions.OutputFilePath, sarifText);
                     }
                 }
                 else
@@ -82,7 +82,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     {
                         string currentSarifVersion = SarifUtilities.StableSarifVersion;
 
-                        string sarifText = _fileSystem.ReadAllText(inputFilePath);
+                        string sarifText = _fileSystem.FileReadAllText(inputFilePath);
                         SarifLog actualLog = null;
 
                         if (inputVersion != currentSarifVersion)
@@ -134,7 +134,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         private string SniffVersion(string sarifPath)
         {
-            using (JsonTextReader reader = new JsonTextReader(new StreamReader(_fileSystem.OpenRead(sarifPath))))
+            using (JsonTextReader reader = new JsonTextReader(new StreamReader(_fileSystem.FileOpenRead(sarifPath))))
             {
                 while (reader.Read())
                 {

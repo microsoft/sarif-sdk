@@ -52,7 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 // For unit tests: allow us to just validate the options and return.
                 if (s_validateOptionsOnly) { return SUCCESS; }
 
-                string logFileContents = fileSystem.ReadAllText(options.InputFilePath);
+                string logFileContents = fileSystem.FileReadAllText(options.InputFilePath);
 
                 if (!options.DoNotValidate)
                 {
@@ -99,7 +99,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 {
                     string sarifLogText = JsonConvert.SerializeObject(sarifLog, options.Formatting);
 
-                    fileSystem.WriteAllText(outputFilePath, sarifLogText);
+                    fileSystem.FileWriteAllText(outputFilePath, sarifLogText);
                 }
             }
 

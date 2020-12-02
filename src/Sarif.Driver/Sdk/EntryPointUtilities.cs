@@ -28,9 +28,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 string responseFile = argument.Trim('"').Substring(1);
 
                 responseFile = environmentVariables.ExpandEnvironmentVariables(responseFile);
-                responseFile = fileSystem.GetFullPath(responseFile);
+                responseFile = fileSystem.PathGetFullPath(responseFile);
 
-                string[] responseFileLines = fileSystem.ReadAllLines(responseFile);
+                string[] responseFileLines = fileSystem.FileReadAllLines(responseFile);
 
                 ExpandResponseFile(responseFileLines, expandedArguments);
             }

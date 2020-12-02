@@ -318,7 +318,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             // consider downloading and caching web-hosted source files.
             try
             {
-                fileText = _fileSystem.ReadAllText(localPath);
+                fileText = _fileSystem.FileReadAllText(localPath);
             }
             catch (IOException) { }
 

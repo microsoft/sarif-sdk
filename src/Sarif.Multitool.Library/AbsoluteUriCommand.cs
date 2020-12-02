@@ -32,7 +32,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 if (!absoluteUriOptions.Inline)
                 {
-                    _fileSystem.DirectoryCreate(absoluteUriOptions.OutputDirectoryPath);
+                    _fileSystem.DirectoryCreateDirectory(absoluteUriOptions.OutputDirectoryPath);
                 }
 
                 foreach (AbsoluteUriFile absoluteUriFile in absoluteUriFiles)

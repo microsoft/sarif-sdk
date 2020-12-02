@@ -40,7 +40,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             var serializer = new JsonSerializer() { ContractResolver = contractResolver };
 
-            using (JsonTextReader reader = new JsonTextReader(new StreamReader(fileSystem.OpenRead(filePath))))
+            using (JsonTextReader reader = new JsonTextReader(new StreamReader(fileSystem.FileOpenRead(filePath))))
             {
                 return serializer.Deserialize<T>(reader);
             }
