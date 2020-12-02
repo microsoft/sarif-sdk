@@ -10,11 +10,8 @@
             {
               "id": "SARIF2009",
               "name": "ConsiderConventionalIdentifierValues",
-              "shortDescription": {
-                "text": "Adopt uniform naming conventions for rule ids."
-              },
               "fullDescription": {
-                "text": "Adopt uniform naming conventions for rule ids.\r\n\r\nMany tools follow a conventional format for the 'reportingDescriptor.id' property: a short string identifying the tool concatenated with a numeric rule number, for example, 'CS2001' for a diagnostic from the Roslyn C# compiler. For uniformity of experience across tools, we recommend this format."
+                "text": "Adopt uniform naming conventions for rule ids. Many tools follow a conventional format for the 'reportingDescriptor.id' property: a short string identifying the tool concatenated with a numeric rule number, for example, 'CS2001' for a diagnostic from the Roslyn C# compiler. For uniformity of experience across tools, we recommend this format."
               },
               "messageStrings": {
                 "Note_UseConventionalRuleIds": {

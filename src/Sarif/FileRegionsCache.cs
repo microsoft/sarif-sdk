@@ -14,29 +14,20 @@ namespace Microsoft.CodeAnalysis.Sarif
     public class FileRegionsCache
     {
         public const int DefaultCacheCapacity = 100;
-        private readonly Run _run;
         private readonly IFileSystem _fileSystem;
         private readonly Cache<string, Tuple<string, NewLineIndex>> _cache;
 
         /// <summary>
         /// Creates a new <see cref="FileRegionsCache"/> object.
         /// </summary>
-        /// <param name="run">
-        /// The <see cref="Run"/> object whose data is to be cached.
-        /// </param>
         /// <param name="capacity">
         /// The initial capacity of the cache.
         /// </param>
         /// <param name="fileSystem">
         /// An object that provides access to file system services.
         /// </param>
-        public FileRegionsCache(Run run, int capacity = DefaultCacheCapacity, IFileSystem fileSystem = null)
+        public FileRegionsCache(int capacity = DefaultCacheCapacity, IFileSystem fileSystem = null)
         {
-            // Each file regions cache is associated with a single SARIF run.
-            // The reason is that a run provides an isolated scope for 
-            // things like URLs, point-in-time file contents, etc.
-            _run = run;
-
             _fileSystem = fileSystem ?? FileSystem.Instance;
 
             // Build a cache for this data, with the load method it should use to add new entries

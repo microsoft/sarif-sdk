@@ -28,6 +28,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public bool AnalysisComplete { get; set; }
 
+        public DefaultTraces Traces { get; set; }
+
         public void Dispose() { }
     }
 }

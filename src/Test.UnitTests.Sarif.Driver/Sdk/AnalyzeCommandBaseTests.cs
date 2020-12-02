@@ -29,7 +29,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         private const int FAILURE = AnalyzeCommandBase<TestAnalysisContext, AnalyzeOptionsBase>.FAILURE;
         private const int SUCCESS = AnalyzeCommandBase<TestAnalysisContext, AnalyzeOptionsBase>.SUCCESS;
 
-
         private void ExceptionTestHelper(
             RuntimeConditions runtimeConditions,
             ExitReason expectedExitReason = ExitReason.None,

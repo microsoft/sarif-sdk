@@ -10,9 +10,6 @@
             {
               "id": "SARIF1010",
               "name": "RuleIdMustBeConsistent",
-              "shortDescription": {
-                "text": "Every result must contain at least one of the properties 'ruleId' and 'rule.id'."
-              },
               "fullDescription": {
                 "text": "Every result must contain at least one of the properties 'ruleId' and 'rule.id'. If both are present, they must be equal. See the SARIF specification ([§3.27.5](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317643))."
               },

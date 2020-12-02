@@ -8,6 +8,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class RuleIdMustBeConsistent : SarifValidationSkimmerBase
     {
+        public RuleIdMustBeConsistent()
+        {
+            this.DefaultConfiguration.Level = FailureLevel.Error;
+        }
+
         /// <summary>
         /// SARIF1010
         /// </summary>
@@ -24,7 +29,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             nameof(RuleResources.SARIF1010_RuleIdMustBeConsistent_Error_ResultRuleIdMustBeConsistent_Text),
             nameof(RuleResources.SARIF1010_RuleIdMustBeConsistent_Error_ResultMustSpecifyRuleId_Text)
         };
-        public override FailureLevel DefaultLevel => FailureLevel.Error;
 
         protected override void Analyze(Result result, string resultPointer)
         {

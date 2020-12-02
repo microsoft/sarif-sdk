@@ -87,5 +87,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             "optimize",
             HelpText = "Omit redundant properties, producing a smaller but non-human-readable log.")]
         public bool Optimize { get; set; }
+
+        [Option(
+            "trace",
+            Separator = ';',
+            Default = new string[] { },
+            HelpText = "Execution traces, expressed as a semicolon-delimited list, that " +
+                       "should be emitted to the console and log file (if appropriate). " +
+                       "Valid values: ScanTime.")]
+        public virtual IEnumerable<string> Traces { get; set; }
     }
 }

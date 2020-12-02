@@ -94,6 +94,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public JToken InputLogToken { get; internal set; }
 
+        public DefaultTraces Traces { get; set; }
+
         public void Dispose()
         {
             // Nothing to dispose.

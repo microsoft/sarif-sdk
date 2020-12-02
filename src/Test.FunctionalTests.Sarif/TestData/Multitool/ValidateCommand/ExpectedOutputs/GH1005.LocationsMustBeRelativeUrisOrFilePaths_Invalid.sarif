@@ -10,9 +10,6 @@
             {
               "id": "GH1005",
               "name": "LocationsMustBeRelativeUrisOrFilePaths",
-              "shortDescription": {
-                "text": "GitHub Advanced Security code scanning only displays results whose locations are specified by file paths, either as relative URIs or as absolute URIs that use the 'file' scheme."
-              },
               "fullDescription": {
                 "text": "GitHub Advanced Security code scanning only displays results whose locations are specified by file paths, either as relative URIs or as absolute URIs that use the 'file' scheme."
               },

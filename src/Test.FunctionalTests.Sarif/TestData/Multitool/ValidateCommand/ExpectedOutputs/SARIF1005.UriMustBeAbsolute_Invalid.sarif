@@ -10,9 +10,6 @@
             {
               "id": "SARIF1005",
               "name": "UriMustBeAbsolute",
-              "shortDescription": {
-                "text": "Certain URIs are required to be absolute."
-              },
               "fullDescription": {
                 "text": "Certain URIs are required to be absolute. For the most part, these are URIs that refer to http addresses, such as work items or rule help topics."
               },

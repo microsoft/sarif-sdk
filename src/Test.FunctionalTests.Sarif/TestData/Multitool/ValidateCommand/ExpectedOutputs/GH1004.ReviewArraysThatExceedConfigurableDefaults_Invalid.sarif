@@ -10,9 +10,6 @@
             {
               "id": "GH1004",
               "name": "ReviewArraysThatExceedConfigurableDefaults",
-              "shortDescription": {
-                "text": "GitHub Advanced Security code scanning limits the amount of information it displays."
-              },
               "fullDescription": {
                 "text": "GitHub Advanced Security code scanning limits the amount of information it displays. There are limits on the number of runs per log file, rules per run, results per run, locations per result, code flows per result, and steps per code flow. You can provide a configuration file at the root of your repository to specify higher limits."
               },

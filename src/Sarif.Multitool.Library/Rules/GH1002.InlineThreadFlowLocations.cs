@@ -9,6 +9,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class InlineThreadFlowLocations : SarifValidationSkimmerBase
     {
+        public InlineThreadFlowLocations()
+        {
+            this.DefaultConfiguration.Level = FailureLevel.Error;
+        }
+
         /// <summary>
         /// GH1002
         /// </summary>
@@ -25,8 +30,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         protected override IEnumerable<string> MessageResourceNames => new string[] {
             nameof(RuleResources.GH1002_InlineThreadFlowLocations_Error_Default_Text)
         };
-
-        public override FailureLevel DefaultLevel => FailureLevel.Error;
 
         public override bool EnabledByDefault => false;
 

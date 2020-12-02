@@ -9,6 +9,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class FileUrisShouldBeRelative : SarifValidationSkimmerBase
     {
+        public FileUrisShouldBeRelative()
+        {
+            this.DefaultConfiguration.Level = FailureLevel.Note;
+        }
+
         /// <summary>
         /// SARIF2016
         /// </summary>
@@ -40,8 +45,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             nameof(RuleResources.SARIF2016_FileUrisShouldBeRelative_Note_ShouldNotContainBackSlash_Text),
             nameof(RuleResources.SARIF2016_FileUrisShouldBeRelative_Note_ShouldNotStartWithSlash_Text)
         };
-
-        public override FailureLevel DefaultLevel => FailureLevel.Note;
 
         protected override void Analyze(Run run, string runPointer)
         {
