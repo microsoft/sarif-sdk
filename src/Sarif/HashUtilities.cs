@@ -64,7 +64,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             try
             {
-                using (Stream stream = FileSystem.OpenRead(fileName))
+                using (Stream stream = FileSystem.FileOpenRead(fileName))
                 {
                     using (var bufferedStream = new BufferedStream(stream, 1024 * 32))
                     {
@@ -110,7 +110,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             try
             {
-                using (Stream stream = FileSystem.OpenRead(fileName))
+                using (Stream stream = FileSystem.FileOpenRead(fileName))
                 {
                     using (var bufferedStream = new BufferedStream(stream, 1024 * 32))
                     {
@@ -134,7 +134,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             try
             {
-                using (Stream stream = FileSystem.OpenRead(fileName))
+                using (Stream stream = FileSystem.FileOpenRead(fileName))
                 {
                     using (var bufferedStream = new BufferedStream(stream, 1024 * 32))
                     {
@@ -158,7 +158,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             try
             {
-                using (Stream stream = FileSystem.OpenRead(fileName))
+                using (Stream stream = FileSystem.FileOpenRead(fileName))
                 {
                     using (var bufferedStream = new BufferedStream(stream, 1024 * 32))
                     {

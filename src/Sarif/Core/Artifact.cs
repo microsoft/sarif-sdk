@@ -86,7 +86,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         private static ArtifactContent GetEncodedFileContents(IFileSystem fileSystem, string filePath, string mimeType, Encoding inputFileEncoding)
         {
             var fileContent = new ArtifactContent();
-            byte[] fileContents = fileSystem.ReadAllBytes(filePath);
+            byte[] fileContents = fileSystem.FileReadAllBytes(filePath);
 
             if (SarifWriters.MimeType.IsBinaryMimeType(mimeType))
             {
