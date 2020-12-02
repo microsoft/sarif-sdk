@@ -76,7 +76,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         }
 
         private static readonly ResourceExtractor s_extractor = new ResourceExtractor(typeof(FlawFinderCsvConverterTests));
-        private const string ResourceNamePrefix = ToolFormat.FlawFinderCsv;
+        private const string ResourceNamePrefix = ToolFormat.FlawFinder;
 
         private static string GetResourceText(string resourceNameSuffix) =>
             s_extractor.GetResourceText($"TestData.{ResourceNamePrefix}.{resourceNameSuffix}");
