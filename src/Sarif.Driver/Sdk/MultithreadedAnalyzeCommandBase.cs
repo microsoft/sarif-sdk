@@ -884,7 +884,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return Path.GetFileName(uri.OriginalString);
         }
 
-
         protected virtual void AnalyzeTarget(TContext context, IEnumerable<Skimmer<TContext>> skimmers, ISet<string> disabledSkimmers)
         {
             AnalyzeTargetHelper(context, skimmers, disabledSkimmers);
