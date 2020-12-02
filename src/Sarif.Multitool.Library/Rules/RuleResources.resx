@@ -448,6 +448,6 @@ Semantics: Assuming the reader of the log file (an end user or another tool) has
     <value>{0}: The relative file URL '{1}' is prefixed with a leading slash, which can lead to unintended behavior when concatenating with absolute URLs. Remove the leading slash.</value>
   </data>
   <data name="SARIF2016_FileUrisShouldBeRelative_Note_ShouldNotContainBackSlash_Text" xml:space="preserve">
-    <value>{0}: The relative file URL '{1}' contain back slash, which can lead to unintended behavior. Replace back slash for slash.</value>
+    <value>{0}: The relative file URL '{1}' contains one or more backslashes, which will be preserved when concatenating to an absolute URL. This can result in inconsistent representations, compared to URLs created from an absolute file path, which may be regarded as not equivalent. Replace all backslashes with forward slashes.</value>
   </data>
 </root>

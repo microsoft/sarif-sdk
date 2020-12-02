@@ -18,7 +18,7 @@
                   "text": "{0}: The file location '{1}' is specified with absolute URI. Prefer a relative reference together with a uriBaseId property."
                 },
                 "Note_ShouldNotContainBackSlash": {
-                  "text": "{0}: The relative file URL '{1}' contain back slash, which can lead to unintended behavior. Replace back slash for slash."
+                  "text": "{0}: The relative file URL '{1}' contains one or more backslashes, which will be preserved when concatenating to an absolute URL. This can result in inconsistent representations, compared to URLs created from an absolute file path, which may be regarded as not equivalent. Replace all backslashes with forward slashes."
                 },
                 "Note_ShouldNotStartWithSlash": {
                   "text": "{0}: The relative file URL '{1}' is prefixed with a leading slash, which can lead to unintended behavior when concatenating with absolute URLs. Remove the leading slash."

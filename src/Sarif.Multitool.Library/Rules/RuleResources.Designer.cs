@@ -944,7 +944,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The relative file URL &apos;{1}&apos; contain back slash, which can lead to unintended behavior. Replace back slash for slash..
+        ///   Looks up a localized string similar to {0}: The relative file URL &apos;{1}&apos; contains one or more backslashes, which will be preserved when concatenating to an absolute URL. This can result in inconsistent representations, compared to URLs created from an absolute file path, which may be regarded as not equivalent. Replace all backslashes with forward slashes..
         /// </summary>
         internal static string SARIF2016_FileUrisShouldBeRelative_Note_ShouldNotContainBackSlash_Text {
             get {

@@ -104,8 +104,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     }
                     else if (location.PhysicalLocation.ArtifactLocation.Uri.OriginalString.Contains("\\"))
                     {
-                        // {0}: The relative file URL '{1}' contain back slash, which can lead to unintended
-                        // behavior. Replace back slash for slash.
+                        // {0}: The relative file URL '{1}' contains one or more backslashes, which will
+                        // be preserved when concatenating to an absolute URL. This can result in inconsistent
+                        // representations, compared to URLs created from an absolute file path, which may
+                        // be regarded as not equivalent. Replace all backslashes with forward slashes.
                         LogResult(
                             locationPointer
                                 .AtProperty(SarifPropertyName.PhysicalLocation)
