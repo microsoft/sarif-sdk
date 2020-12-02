@@ -11,6 +11,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class EnquoteDynamicMessageContent : SarifValidationSkimmerBase
     {
+        public EnquoteDynamicMessageContent()
+        {
+            this.DefaultConfiguration.Level = FailureLevel.Note;
+        }
+
         /// <summary>
         /// SARIF2015
         /// </summary>
@@ -32,8 +37,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         protected override IEnumerable<string> MessageResourceNames => new string[] {
             nameof(RuleResources.SARIF2015_EnquoteDynamicMessageContent_Note_Default_Text)
         };
-
-        public override FailureLevel DefaultLevel => FailureLevel.Note;
 
         private static readonly Regex s_nonEnquotedDynamicContextRegex = new Regex(@"(^|[^'])\{[0-9]+\}", RegexOptions.Compiled | RegexOptions.CultureInvariant);
 

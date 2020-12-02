@@ -65,8 +65,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             nameof(RuleResources.SARIF2004_OptimizeFileSize_Warning_PreferRuleId_Text)
         };
 
-        public override FailureLevel DefaultLevel => FailureLevel.Warning;
-
         private string driverGuid;
 
         protected override void Analyze(Run run, string runPointer)

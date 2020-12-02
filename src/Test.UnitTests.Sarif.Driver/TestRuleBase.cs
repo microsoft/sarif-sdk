@@ -15,8 +15,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        public override FailureLevel DefaultLevel { get { return FailureLevel.Warning; } }
-
         public override string Name => this.GetType().Name;
 
         public override MultiformatMessageString FullDescription { get { return new MultiformatMessageString { Text = this.GetType().Name + " full description." }; } }

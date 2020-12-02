@@ -8,6 +8,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class ProvideEmbeddedFileContent : SarifValidationSkimmerBase
     {
+        public ProvideEmbeddedFileContent()
+        {
+            this.DefaultConfiguration.Level = FailureLevel.Note;
+        }
+
         /// <summary>
         /// SARIF2013
         /// </summary>
@@ -24,8 +29,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         protected override IEnumerable<string> MessageResourceNames => new string[] {
             nameof(RuleResources.SARIF2013_ProvideEmbeddedFileContent_Note_Default_Text)
         };
-
-        public override FailureLevel DefaultLevel => FailureLevel.Note;
 
         protected override void Analyze(Run run, string runPointer)
         {

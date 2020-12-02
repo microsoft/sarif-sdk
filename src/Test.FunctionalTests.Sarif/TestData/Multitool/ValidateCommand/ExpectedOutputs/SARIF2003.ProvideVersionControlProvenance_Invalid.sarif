@@ -10,9 +10,6 @@
             {
               "id": "SARIF2003",
               "name": "ProvideVersionControlProvenance",
-              "shortDescription": {
-                "text": "Provide 'versionControlProvenance' to record which version of the code was analyzed, and to enable paths to be expressed relative to the root of the repository."
-              },
               "fullDescription": {
                 "text": "Provide 'versionControlProvenance' to record which version of the code was analyzed, and to enable paths to be expressed relative to the root of the repository."
               },

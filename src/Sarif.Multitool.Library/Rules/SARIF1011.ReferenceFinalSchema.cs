@@ -10,6 +10,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class ReferenceFinalSchema : SarifValidationSkimmerBase
     {
+        public ReferenceFinalSchema()
+        {
+            this.DefaultConfiguration.Level = FailureLevel.Error;
+        }
+
         /// <summary>
         /// SARIF1011
         /// </summary>
@@ -28,9 +33,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         protected override IEnumerable<string> MessageResourceNames => new string[] {
             nameof(RuleResources.SARIF1011_ReferenceFinalSchema_Error_Default_Text)
         };
-
-        public override FailureLevel DefaultLevel => FailureLevel.Error;
-
 
         protected override void Analyze(SarifLog log, string logPointer)
         {

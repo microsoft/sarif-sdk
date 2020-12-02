@@ -46,7 +46,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return context;
         }
 
-        protected override void ValidateOptions(TestAnalysisContext context, TestAnalyzeOptions options)
+        protected override void ValidateOptions(TestAnalyzeOptions options, TestAnalysisContext context)
         {
             if (context.Policy.GetProperty(TestRule.Behaviors).HasFlag(TestRuleBehaviors.RegardOptionsAsInvalid))
             {
@@ -54,7 +54,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 ThrowExitApplicationException(context, ExitReason.InvalidCommandLineOption);
             }
 
-            base.ValidateOptions(context, options);
+            base.ValidateOptions(options, context);
         }
 
         public int Run(AnalyzeOptionsBase options)

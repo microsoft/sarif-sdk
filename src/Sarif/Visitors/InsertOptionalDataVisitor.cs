@@ -98,7 +98,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 Region expandedRegion;
                 ArtifactLocation artifactLocation = node.ArtifactLocation;
 
-                _fileRegionsCache = _fileRegionsCache ?? new FileRegionsCache(_run);
+                _fileRegionsCache = _fileRegionsCache ?? new FileRegionsCache();
 
                 if (artifactLocation.Uri == null && artifactLocation.Index >= 0)
                 {

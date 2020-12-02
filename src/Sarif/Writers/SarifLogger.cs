@@ -220,6 +220,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         }
 
         public IDictionary<string, HashData> AnalysisTargetToHashDataMap { get; }
+
         public IDictionary<ReportingDescriptor, int> RuleToIndexMap { get; }
 
         public bool ComputeFileHashes => _dataToInsert.HasFlag(OptionallyEmittedData.Hashes);

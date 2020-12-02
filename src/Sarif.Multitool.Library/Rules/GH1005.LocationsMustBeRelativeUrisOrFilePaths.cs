@@ -11,6 +11,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class LocationsMustBeRelativeUrisOrFilePaths : SarifValidationSkimmerBase
     {
+        public LocationsMustBeRelativeUrisOrFilePaths()
+        {
+            this.DefaultConfiguration.Level = FailureLevel.Error;
+        }
+
         /// <summary>
         /// GH1005
         /// </summary>
@@ -23,8 +28,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         protected override IEnumerable<string> MessageResourceNames => new string[] {
             nameof(RuleResources.GH1005_LocationsMustBeRelativeUrisOrFilePaths_Error_Default_Text)
         };
-
-        public override FailureLevel DefaultLevel => FailureLevel.Error;
 
         public override bool EnabledByDefault => false;
 

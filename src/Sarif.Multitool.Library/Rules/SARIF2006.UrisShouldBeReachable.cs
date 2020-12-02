@@ -12,6 +12,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class UrisShouldBeReachable : SarifValidationSkimmerBase
     {
+        public UrisShouldBeReachable()
+        {
+            this.DefaultConfiguration.Level = FailureLevel.Note;
+        }
+
         /// <summary>
         /// SARIF2006
         /// </summary>
@@ -26,8 +31,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         protected override IEnumerable<string> MessageResourceNames => new string[] {
             nameof(RuleResources.SARIF2006_UrisShouldBeReachable_Note_Default_Text)
         };
-
-        public override FailureLevel DefaultLevel => FailureLevel.Note;
 
         private static readonly HttpClient s_httpClient = new HttpClient();
         private static readonly Dictionary<string, bool> s_checkedUris = new Dictionary<string, bool>();

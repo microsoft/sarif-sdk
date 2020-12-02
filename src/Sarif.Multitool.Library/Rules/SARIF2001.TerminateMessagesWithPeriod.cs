@@ -31,8 +31,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             nameof(RuleResources.SARIF2001_TerminateMessagesWithPeriod_Warning_Default_Text)
         };
 
-        public override FailureLevel DefaultLevel => FailureLevel.Warning;
-
         protected override void Analyze(Tool tool, string toolPointer)
         {
             if (tool.Driver != null)

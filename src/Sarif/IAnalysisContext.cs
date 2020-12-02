@@ -27,5 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         RuntimeConditions RuntimeErrors { get; set; }
 
         bool AnalysisComplete { get; set; }
+
+        DefaultTraces Traces { get; set; }
     }
 }

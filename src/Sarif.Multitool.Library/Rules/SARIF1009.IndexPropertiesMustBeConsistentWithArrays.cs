@@ -7,6 +7,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class IndexPropertiesMustBeConsistentWithArrays : SarifValidationSkimmerBase
     {
+        public IndexPropertiesMustBeConsistentWithArrays()
+        {
+            this.DefaultConfiguration.Level = FailureLevel.Error;
+        }
+
         /// <summary>
         /// SARIF1009
         /// </summary>
@@ -23,8 +28,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             nameof(RuleResources.SARIF1009_IndexPropertiesMustBeConsistentWithArrays_Error_TargetArrayMustExist_Text),
             nameof(RuleResources.SARIF1009_IndexPropertiesMustBeConsistentWithArrays_Error_TargetArrayMustBeLongEnough_Text)
         };
-
-        public override FailureLevel DefaultLevel => FailureLevel.Error;
 
         protected override void Analyze(Address address, string addressPointer)
         {

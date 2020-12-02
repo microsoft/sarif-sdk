@@ -10,9 +10,6 @@
             {
               "id": "SARIF2013",
               "name": "ProvideEmbeddedFileContent",
-              "shortDescription": {
-                "text": "Provide embedded file content so that users can examine results in their full context without having to enlist in the source repository."
-              },
               "fullDescription": {
                 "text": "Provide embedded file content so that users can examine results in their full context without having to enlist in the source repository. Embedding file content in a SARIF log file can dramatically increase its size, so consider the usage scenario when you decide whether to provide it."
               },
