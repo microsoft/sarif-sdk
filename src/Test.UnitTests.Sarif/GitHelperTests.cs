@@ -37,7 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             var gitHelper = new GitHelper();
 
-            gitHelper.GetRepositoryRoot(productDirectory).Should().Be(repoDirectory);
+            gitHelper.GetRepositoryRoot(productDirectory).Should().BeEquivalentTo(repoDirectory);
         }
 
         [Fact]
@@ -49,16 +49,16 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             var gitHelper = new GitHelper();
 
-            gitHelper.GetRepositoryRoot(repoDirectory).Should().Be(repoDirectory);
-            gitHelper.GetRepositoryRoot(productDirectory).Should().Be(repoDirectory);
+            gitHelper.GetRepositoryRoot(repoDirectory).Should().BeEquivalentTo(repoDirectory);
+            gitHelper.GetRepositoryRoot(productDirectory).Should().BeEquivalentTo(repoDirectory);
 
             // Verify that the API returns the correct results whether or not the cache is in use.
-            gitHelper.GetRepositoryRoot(repoDirectory).Should().Be(repoDirectory);
-            gitHelper.GetRepositoryRoot(productDirectory).Should().Be(repoDirectory);
+            gitHelper.GetRepositoryRoot(repoDirectory).Should().BeEquivalentTo(repoDirectory);
+            gitHelper.GetRepositoryRoot(productDirectory).Should().BeEquivalentTo(repoDirectory);
 
             gitHelper.directoryToRepoRootPathDictionary.Count.Should().Be(2);
-            gitHelper.directoryToRepoRootPathDictionary[repoDirectory].Should().Be(repoDirectory);
-            gitHelper.directoryToRepoRootPathDictionary[productDirectory].Should().Be(repoDirectory);
+            gitHelper.directoryToRepoRootPathDictionary[repoDirectory].Should().BeEquivalentTo(repoDirectory);
+            gitHelper.directoryToRepoRootPathDictionary[productDirectory].Should().BeEquivalentTo(repoDirectory);
         }
 
         [Fact]
