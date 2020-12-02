@@ -444,4 +444,10 @@ Semantics: Assuming the reader of the log file (an end user or another tool) has
   <data name="SARIF2012_ProvideRuleProperties_Note_ProvideRuleMetadata_Text" xml:space="preserve">
     <value>'{0}' does not provide metadata for rule '{1}'. Rule metadata contains information that helps the user understand why each rule fires and what the user can do to fix it.</value>
   </data>
+  <data name="SARIF2016_FileUrisShouldBeRelative_Note_ShouldNotStartWithSlash_Text" xml:space="preserve">
+    <value>{0}: The relative file URL '{1}' is prefixed with a leading slash, which can lead to unintended behavior when concatenating with absolute URLs. Remove the leading slash.</value>
+  </data>
+  <data name="SARIF2016_FileUrisShouldBeRelative_Note_ShouldNotContainBackSlash_Text" xml:space="preserve">
+    <value>{0}: The relative file URL '{1}' contains one or more backslashes, which will be preserved when concatenating to an absolute URL. This can result in inconsistent representations, compared to URLs created from an absolute file path, which may be regarded as not equivalent. Replace all backslashes with forward slashes.</value>
+  </data>
 </root>
