@@ -15,14 +15,14 @@ using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
-    public class FlawFinderCsvConverterTests : ConverterTestsBase<FlawFinderCsvConverter>
+    public class FlawFinderConverterTests : ConverterTestsBase<FlawFinderConverter>
     {
         private static readonly string NoOutputExpected = string.Empty;
 
         [Fact]
         public void Converter_RequiresInputStream()
         {
-            var converter = new FlawFinderCsvConverter();
+            var converter = new FlawFinderConverter();
             Action action = () => converter.Convert(input: null, output: new ResultLogObjectWriter(), dataToInsert: OptionallyEmittedData.None);
             action.Should().Throw<ArgumentNullException>();
         }
@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void Converter_RequiresResultLogWriter()
         {
-            var converter = new FlawFinderCsvConverter();
+            var converter = new FlawFinderConverter();
             Action action = () => converter.Convert(input: new MemoryStream(), output: null, dataToInsert: OptionallyEmittedData.None);
             action.Should().Throw<ArgumentNullException>();
         }
@@ -75,8 +75,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             RunTestCase(input, expectedOutput);
         }
 
-        private static readonly ResourceExtractor s_extractor = new ResourceExtractor(typeof(FlawFinderCsvConverterTests));
-        private const string ResourceNamePrefix = ToolFormat.FlawFinderCsv;
+        private static readonly ResourceExtractor s_extractor = new ResourceExtractor(typeof(FlawFinderConverterTests));
+        private const string ResourceNamePrefix = ToolFormat.FlawFinder;
 
         private static string GetResourceText(string resourceNameSuffix) =>
             s_extractor.GetResourceText($"TestData.{ResourceNamePrefix}.{resourceNameSuffix}");

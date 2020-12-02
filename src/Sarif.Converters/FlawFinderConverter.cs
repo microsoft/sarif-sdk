@@ -11,7 +11,7 @@ using CsvHelper;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
-    public class FlawFinderCsvConverter : ToolFileConverterBase
+    public class FlawFinderConverter : ToolFileConverterBase
     {
         private const string PartialFingerprintKey = "matchHash";
 

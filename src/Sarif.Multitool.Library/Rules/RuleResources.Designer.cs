@@ -942,5 +942,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
                 return ResourceManager.GetString("SARIF2016_FileUrisShouldBeRelative_Note_Default_Text", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The relative file URL &apos;{1}&apos; contains one or more backslashes, which will be preserved when concatenating to an absolute URL. This can result in inconsistent representations, compared to URLs created from an absolute file path, which may be regarded as not equivalent. Replace all backslashes with forward slashes..
+        /// </summary>
+        internal static string SARIF2016_FileUrisShouldBeRelative_Note_ShouldNotContainBackSlash_Text {
+            get {
+                return ResourceManager.GetString("SARIF2016_FileUrisShouldBeRelative_Note_ShouldNotContainBackSlash_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The relative file URL &apos;{1}&apos; is prefixed with a leading slash, which can lead to unintended behavior when concatenating with absolute URLs. Remove the leading slash..
+        /// </summary>
+        internal static string SARIF2016_FileUrisShouldBeRelative_Note_ShouldNotStartWithSlash_Text {
+            get {
+                return ResourceManager.GetString("SARIF2016_FileUrisShouldBeRelative_Note_ShouldNotStartWithSlash_Text", resourceCulture);
+            }
+        }
     }
 }
