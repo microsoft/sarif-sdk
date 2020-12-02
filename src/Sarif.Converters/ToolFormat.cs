@@ -21,8 +21,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <summary>CppCheck's file format.</summary>
         public const string CppCheck = nameof(CppCheck);
 
-        /// <summary>FlawFinder's CSV file format.</summary>
-        public const string FlawFinderCsv = nameof(FlawFinderCsv);
+        /// <summary>FlawFinder's file format.</summary>
+        public const string FlawFinder = nameof(FlawFinder);
 
         /// <summary>Fortify's report file format.</summary>
         public const string Fortify = nameof(Fortify);
