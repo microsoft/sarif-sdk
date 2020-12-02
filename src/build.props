@@ -3,7 +3,7 @@
 
   <PropertyGroup>
     <LangVersion>8.0</LangVersion>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <GenerateDocumentationFile Condition="'$(IsTestProject)' == 'false'">true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Label="AssemblyAttributes">

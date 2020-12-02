@@ -10,9 +10,6 @@
             {
               "id": "SARIF2014",
               "name": "ProvideDynamicMessageContent",
-              "shortDescription": {
-                "text": "Include \"dynamic content\" (information that varies among results from the same rule) to makes your messages more specific, and to avoid the \"wall of bugs\" phenomenon, where hundreds of occurrences of the same message appear unapproachable."
-              },
               "fullDescription": {
                 "text": "Include \"dynamic content\" (information that varies among results from the same rule) to makes your messages more specific, and to avoid the \"wall of bugs\" phenomenon, where hundreds of occurrences of the same message appear unapproachable.\r\n\r\nThis is part of a set of authoring practices that make your rule messages more readable, understandable, and actionable. See also 'SARIF2001.TerminateMessagesWithPeriod' and 'SARIF2015.EnquoteDynamicMessageContent'."
               },

@@ -23,8 +23,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             nameof(RuleResources.SARIF2008_ProvideSchema_Warning_Default_Text)
         };
 
-        public override FailureLevel DefaultLevel => FailureLevel.Warning;
-
         protected override void Analyze(SarifLog log, string logPointer)
         {
             if (!Context.InputLogToken.HasProperty(SarifPropertyName.Schema))

@@ -10,9 +10,6 @@
             {
               "id": "GH1001",
               "name": "ProvideRequiredLocationProperties",
-              "shortDescription": {
-                "text": "Each result location must provide the property 'physicalLocation.artifactLocation.uri'."
-              },
               "fullDescription": {
                 "text": "Each result location must provide the property 'physicalLocation.artifactLocation.uri'. GitHub Advanced Security code scanning will not display a result whose location does not provide the URI of the artifact that contains the result."
               },

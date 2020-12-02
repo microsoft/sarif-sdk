@@ -119,13 +119,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             // 2. Perform any command line argument validation beyond what
             //    the command line parser library is capable of.
-            ValidateOptions(_rootContext, analyzeOptions);
+            ValidateOptions(analyzeOptions, _rootContext);
 
             // 5. Initialize report file, if configured.
             InitializeOutputFile(analyzeOptions, _rootContext);
 
             // 6. Instantiate skimmers.
-            ISet<Skimmer<TContext>> skimmers = CreateSkimmers(_rootContext);
+            ISet<Skimmer<TContext>> skimmers = CreateSkimmers(analyzeOptions, _rootContext);
 
             // 7. Initialize configuration. This step must be done after initializing
             //    the skimmers, as rules define their specific context objects and
@@ -192,7 +192,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             writeResults.Wait();
 
-            Console.WriteLine($"Done; {_fileContexts.Count:n0} files scanned in {sw.Elapsed}.");
+            Console.WriteLine();
+
+            if (rootContext.Traces.HasFlag(DefaultTraces.ScanTime))
+            {
+                Console.WriteLine($"Done. {_fileContexts.Count:n0} files scanned in {sw.Elapsed}.");
+            }
+            else
+            {
+                Console.WriteLine($"Done. {_fileContexts.Count:n0} files scanned.");
+            }
         }
 
         private async Task<bool> WriteResultsAsync(TContext rootContext)
@@ -411,17 +420,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return true;
         }
 
-        protected virtual void ValidateOptions(TContext context, TOptions analyzeOptions)
+        protected virtual void ValidateOptions(TOptions options, TContext context)
         {
-            _computeHashes = (analyzeOptions.DataToInsert.ToFlags() & OptionallyEmittedData.Hashes) != 0;
+            _computeHashes = (options.DataToInsert.ToFlags() & OptionallyEmittedData.Hashes) != 0;
 
             bool succeeded = true;
 
-            succeeded &= ValidateFile(context, analyzeOptions.OutputFilePath, shouldExist: null);
-            succeeded &= ValidateFile(context, analyzeOptions.ConfigurationFilePath, shouldExist: true);
-            succeeded &= ValidateFiles(context, analyzeOptions.PluginFilePaths, shouldExist: true);
-            succeeded &= ValidateInvocationPropertiesToLog(context, analyzeOptions.InvocationPropertiesToLog);
-            succeeded &= ValidateOutputFileCanBeCreated(context, analyzeOptions.OutputFilePath, analyzeOptions.Force);
+            succeeded &= ValidateFile(context, options.OutputFilePath, shouldExist: null);
+            succeeded &= ValidateFile(context, options.ConfigurationFilePath, shouldExist: true);
+            succeeded &= ValidateFiles(context, options.PluginFilePaths, shouldExist: true);
+            succeeded &= ValidateInvocationPropertiesToLog(context, options.InvocationPropertiesToLog);
+            succeeded &= ValidateOutputFileCanBeCreated(context, options.OutputFilePath, options.Force);
 
             if (!succeeded)
             {
@@ -695,7 +704,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        protected virtual ISet<Skimmer<TContext>> CreateSkimmers(TContext context)
+        protected virtual ISet<Skimmer<TContext>> CreateSkimmers(TOptions options, TContext context)
         {
             IEnumerable<Skimmer<TContext>> skimmers;
             SortedSet<Skimmer<TContext>> result = new SortedSet<Skimmer<TContext>>(SkimmerIdComparer<TContext>.Instance);
@@ -877,6 +886,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         protected virtual void AnalyzeTarget(TContext context, IEnumerable<Skimmer<TContext>> skimmers, ISet<string> disabledSkimmers)
         {
+            AnalyzeTargetHelper(context, skimmers, disabledSkimmers);
+        }
+
+        public static void AnalyzeTargetHelper(TContext context, IEnumerable<Skimmer<TContext>> skimmers, ISet<string> disabledSkimmers)
+        {
             foreach (Skimmer<TContext> skimmer in skimmers)
             {
                 if (disabledSkimmers.Count > 0)
@@ -901,6 +915,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         protected virtual IEnumerable<Skimmer<TContext>> DetermineApplicabilityForTarget(
+        TContext context,
+        IEnumerable<Skimmer<TContext>> skimmers,
+        ISet<string> disabledSkimmers)
+        {
+            skimmers = DetermineApplicabilityForTargetHelper(context, skimmers, disabledSkimmers);
+
+            // TODO single-threaded write?
+            RuntimeErrors |= context.RuntimeErrors;
+
+            return skimmers;
+        }
+
+        public static IEnumerable<Skimmer<TContext>> DetermineApplicabilityForTargetHelper(
             TContext context,
             IEnumerable<Skimmer<TContext>> skimmers,
             ISet<string> disabledSkimmers)
@@ -930,11 +957,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 {
                     Errors.LogUnhandledRuleExceptionAssessingTargetApplicability(disabledSkimmers, context, ex);
                     continue;
-                }
-                finally
-                {
-                    // TODO move to single-threaded write
-                    RuntimeErrors |= context.RuntimeErrors;
                 }
 
                 switch (applicability)

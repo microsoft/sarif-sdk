@@ -10,9 +10,6 @@
             {
               "id": "GH1006",
               "name": "ProvideCheckoutPath",
-              "shortDescription": {
-                "text": "GitHub Advanced Security code scanning will reject a SARIF file that expresses result locations as absolute 'file' scheme URIs unless GitHub can determine the URI of the repository root (which GitHub refers to as the \"checkout path\")."
-              },
               "fullDescription": {
                 "text": "GitHub Advanced Security code scanning will reject a SARIF file that expresses result locations as absolute 'file' scheme URIs unless GitHub can determine the URI of the repository root (which GitHub refers to as the \"checkout path\"). There are three ways to address this issue.\r\n\r\n1. Recommended: Express all result locations as relative URI references with respect to the checkout path.\r\n\r\n1. Place the checkout path in 'invocations[].workingDirectory'. The SARIF specification defines that property to be the working directory of the process that executed the analysis tool, so if the tool was not invoked from the repository root directory, it isn't strictly legal to place the checkout path there.\r\n\r\n2. Place the checkout path in a configuration file at the root of the repository. This requires the analysis tool always to be invoked from that same directory."
               },

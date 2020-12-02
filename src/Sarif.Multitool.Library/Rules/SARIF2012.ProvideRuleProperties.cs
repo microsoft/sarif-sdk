@@ -11,6 +11,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class ProvideRuleProperties : SarifValidationSkimmerBase
     {
+        public ProvideRuleProperties()
+        {
+            this.DefaultConfiguration.Level = FailureLevel.Note;
+        }
+
         /// <summary>
         /// SARIF2012
         /// </summary>
@@ -42,8 +47,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             nameof(RuleResources.SARIF2012_ProvideRuleProperties_Note_ProvideMetadataForAllViolatedRules_Text),
             nameof(RuleResources.SARIF2012_ProvideRuleProperties_Note_ProvideRuleMetadata_Text)
         };
-
-        public override FailureLevel DefaultLevel => FailureLevel.Note;
 
         private static readonly Regex s_pascalCaseRegex = new Regex(@"^(\p{Lu}[\p{Ll}\p{Nd}]+)*$", RegexOptions.Compiled | RegexOptions.CultureInvariant);
         private HashSet<string> currentRules;

@@ -32,8 +32,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             nameof(RuleResources.SARIF2007_ExpressPathsRelativeToRepoRoot_Warning_ProvideUriBaseIdForMappedTo_Text)
         };
 
-        public override FailureLevel DefaultLevel => FailureLevel.Warning;
-
         private HashSet<string> uriBaseIds;
 
         protected override void Analyze(Run run, string runPointer)

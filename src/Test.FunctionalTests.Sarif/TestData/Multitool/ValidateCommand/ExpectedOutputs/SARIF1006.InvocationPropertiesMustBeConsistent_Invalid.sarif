@@ -10,11 +10,8 @@
             {
               "id": "SARIF1006",
               "name": "InvocationPropertiesMustBeConsistent",
-              "shortDescription": {
-                "text": "The properties of an 'invocation' object must be consistent."
-              },
               "fullDescription": {
-                "text": "The properties of an 'invocation' object must be consistent.\r\n\r\nIf the 'invocation' object specifies both 'startTimeUtc' and 'endTimeUtc', then 'endTimeUtc' must not precede 'startTimeUtc'. To allow for the possibility that the duration of the run is less than the resolution of the string representation of the time, the start time and the end time may be equal."
+                "text": "The properties of an 'invocation' object must be consistent. If the 'invocation' object specifies both 'startTimeUtc' and 'endTimeUtc', then 'endTimeUtc' must not precede 'startTimeUtc'. To allow for the possibility that the duration of the run is less than the resolution of the string representation of the time, the start time and the end time may be equal."
               },
               "messageStrings": {
                 "Error_EndTimeMustNotPrecedeStartTime": {

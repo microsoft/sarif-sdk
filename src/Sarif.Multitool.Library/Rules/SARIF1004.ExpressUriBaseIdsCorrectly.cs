@@ -11,6 +11,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class ExpressUriBaseIdsCorrectly : SarifValidationSkimmerBase
     {
+        public ExpressUriBaseIdsCorrectly()
+        {
+            this.DefaultConfiguration.Level = FailureLevel.Error;
+        }
+
         /// <summary>
         /// SARIF1004
         /// </summary>
@@ -42,8 +47,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             nameof(RuleResources.SARIF1004_ExpressUriBaseIdsCorrectly_Error_UriBaseIdValueMustNotContainQueryOrFragment_Text),
             nameof(RuleResources.SARIF1004_ExpressUriBaseIdsCorrectly_Error_RelativeReferenceMustNotBeginWithSlash_Text)
         };
-
-        public override FailureLevel DefaultLevel => FailureLevel.Error;
 
         protected override void Analyze(ArtifactLocation artifactLocation, string artifactLocationPointer)
         {

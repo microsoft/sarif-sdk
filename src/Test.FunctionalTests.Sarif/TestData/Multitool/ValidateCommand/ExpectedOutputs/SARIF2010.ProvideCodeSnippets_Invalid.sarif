@@ -10,9 +10,6 @@
             {
               "id": "SARIF2010",
               "name": "ProvideCodeSnippets",
-              "shortDescription": {
-                "text": "Provide code snippets to enable users to see the code that triggered each result, even if they are not enlisted in the code."
-              },
               "fullDescription": {
                 "text": "Provide code snippets to enable users to see the code that triggered each result, even if they are not enlisted in the code."
               },

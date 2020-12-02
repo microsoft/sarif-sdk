@@ -236,9 +236,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Specify a valid URI reference for every URI-valued property.
-        ///
-        ///URIs must conform to [RFC 3986](https://tools.ietf.org/html/rfc3986). In addition, &apos;file&apos; URIs must not include &apos;..&apos; segments. If symbolic links are present, &apos;..&apos; might have different meanings on the machine that produced the log file and the machine where an end user or a tool consumes it..
+        ///   Looks up a localized string similar to Specify a valid URI reference for every URI-valued property. URIs must conform to [RFC 3986](https://tools.ietf.org/html/rfc3986). In addition, &apos;file&apos; URIs must not include &apos;..&apos; segments. If symbolic links are present, &apos;..&apos; might have different meanings on the machine that produced the log file and the machine where an end user or a tool consumes it..
         /// </summary>
         internal static string SARIF1002_UrisMustBeValid_FullDescription_Text {
             get {
@@ -304,11 +302,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to When using the &apos;uriBaseId&apos; property, obey the requirements in the SARIF specification [3.4.4](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317431) that enable it to fulfill its purpose of resolving relative references to absolute locations. In particular:
-        ///
-        ///If an &apos;artifactLocation&apos; object has a &apos;uriBaseId&apos; property, its &apos;uri&apos; property must be a relative reference, because if &apos;uri&apos; is an absolute URI then &apos;uriBaseId&apos; serves no purpose.
-        ///
-        ///Every URI reference in &apos;originalUriBa [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to When using the &apos;uriBaseId&apos; property, obey the requirements in the SARIF specification [3.4.4](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317431) that enable it to fulfill its purpose of resolving relative references to absolute locations. In particular: If an &apos;artifactLocation&apos; object has a &apos;uriBaseId&apos; property, its &apos;uri&apos; property must be a relative reference, because if &apos;uri&apos; is an absolute URI then &apos;uriBaseId&apos; serves no purpose. Every URI reference in &apos;originalUriBaseIds&apos; [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SARIF1004_ExpressUriBaseIdsCorrectly_FullDescription_Text {
             get {
@@ -345,9 +339,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The properties of an &apos;invocation&apos; object must be consistent.
-        ///
-        ///If the &apos;invocation&apos; object specifies both &apos;startTimeUtc&apos; and &apos;endTimeUtc&apos;, then &apos;endTimeUtc&apos; must not precede &apos;startTimeUtc&apos;. To allow for the possibility that the duration of the run is less than the resolution of the string representation of the time, the start time and the end time may be equal..
+        ///   Looks up a localized string similar to The properties of an &apos;invocation&apos; object must be consistent. If the &apos;invocation&apos; object specifies both &apos;startTimeUtc&apos; and &apos;endTimeUtc&apos;, then &apos;endTimeUtc&apos; must not precede &apos;startTimeUtc&apos;. To allow for the possibility that the duration of the run is less than the resolution of the string representation of the time, the start time and the end time may be equal..
         /// </summary>
         internal static string SARIF1006_InvocationPropertiesMustBeConsistent_FullDescription_Text {
             get {
@@ -386,9 +378,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The properties of a &apos;region&apos; object must be consistent.
-        ///
-        ///SARIF can specify a &apos;region&apos; (a contiguous portion of a file) in a variety of ways: with line and column numbers, with a character offset and count, or with a byte offset and count. The specification states certain constraints on these properties, both within each property group (for example, the start line cannot be greater than end line) and between the groups (for example, if more than one group is present, they must independently specify the sam [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to The properties of a &apos;region&apos; object must be consistent. SARIF can specify a &apos;region&apos; (a contiguous portion of a file) in a variety of ways: with line and column numbers, with a character offset and count, or with a byte offset and count. The specification states certain constraints on these properties, both within each property group (for example, the start line cannot be greater than end line) and between the groups (for example, if more than one group is present, they must independently specify the same p [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SARIF1007_RegionPropertiesMustBeConsistent_FullDescription_Text {
             get {
@@ -417,11 +407,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ensure consistency among the properties of a &apos;physicalLocation&apos; object.
-        ///
-        ///A SARIF &apos;physicalLocation&apos; object has two related properties &apos;region&apos; and &apos;contextRegion&apos;. If &apos;contextRegion&apos; is present, then &apos;region&apos; must also be present, and &apos;contextRegion&apos; must be a &quot;proper superset&quot; of &apos;region&apos;. That is, &apos;contextRegion&apos; must completely contain &apos;region&apos;, and it must be larger than &apos;region&apos;. To understand why this is so we must understand the roles of the &apos;region&apos; and &apos;contextRegion&apos; properties.
-        ///
-        ///&apos;region&apos; allo [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to Ensure consistency among the properties of a &apos;physicalLocation&apos; object. A SARIF &apos;physicalLocation&apos; object has two related properties &apos;region&apos; and &apos;contextRegion&apos;. If &apos;contextRegion&apos; is present, then &apos;region&apos; must also be present, and &apos;contextRegion&apos; must be a &quot;proper superset&quot; of &apos;region&apos;. That is, &apos;contextRegion&apos; must completely contain &apos;region&apos;, and it must be larger than &apos;region&apos;. To understand why this is so we must understand the roles of the &apos;region&apos; and &apos;contextRegion&apos; properties. &apos;region&apos; allows bot [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SARIF1008_PhysicalLocationPropertiesMustBeConsistent_FullDescription_Text {
             get {
@@ -764,9 +750,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adopt uniform naming conventions for rule ids.
-        ///
-        ///Many tools follow a conventional format for the &apos;reportingDescriptor.id&apos; property: a short string identifying the tool concatenated with a numeric rule number, for example, &apos;CS2001&apos; for a diagnostic from the Roslyn C# compiler. For uniformity of experience across tools, we recommend this format..
+        ///   Looks up a localized string similar to Adopt uniform naming conventions for rule ids. Many tools follow a conventional format for the &apos;reportingDescriptor.id&apos; property: a short string identifying the tool concatenated with a numeric rule number, for example, &apos;CS2001&apos; for a diagnostic from the Roslyn C# compiler. For uniformity of experience across tools, we recommend this format..
         /// </summary>
         internal static string SARIF2009_ConsiderConventionalIdentifierValues_FullDescription_Text {
             get {

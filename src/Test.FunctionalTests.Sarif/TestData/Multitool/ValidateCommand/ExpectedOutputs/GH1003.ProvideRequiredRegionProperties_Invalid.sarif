@@ -10,9 +10,6 @@
             {
               "id": "GH1003",
               "name": "ProvideRequiredRegionProperties",
-              "shortDescription": {
-                "text": "Every result must provide a 'region' that specifies its location with line and optional column information."
-              },
               "fullDescription": {
                 "text": "Every result must provide a 'region' that specifies its location with line and optional column information. GitHub Advanced Security code scanning can display the correct location only for results that provide this information. At minimum, 'region.startLine' is required. 'region' can also provide 'startColumn', 'endLine', and 'endColumn', although all of those have reasonable defaults."
               },

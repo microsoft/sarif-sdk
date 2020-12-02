@@ -10,9 +10,6 @@
             {
               "id": "SARIF2011",
               "name": "ProvideContextRegion",
-              "shortDescription": {
-                "text": "Provide context regions to enable users to see a portion of the code that surrounds each result, even if they are not enlisted in the code."
-              },
               "fullDescription": {
                 "text": "Provide context regions to enable users to see a portion of the code that surrounds each result, even if they are not enlisted in the code."
               },

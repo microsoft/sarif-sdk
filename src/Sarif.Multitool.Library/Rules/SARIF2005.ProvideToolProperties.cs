@@ -41,8 +41,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             nameof(RuleResources.SARIF2005_ProvideToolProperties_Warning_ProvideToolnformationUri_Text)
         };
 
-        public override FailureLevel DefaultLevel => FailureLevel.Warning;
-
         // This rule configuration parameter specifies which of the three version-related properties
         // satisfy the requirement that the tool provide version information. By default, any of
         // them is acceptable.
