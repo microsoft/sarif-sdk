@@ -26,6 +26,7 @@ namespace $namespace
         public const string StableSarifVersion = "$stableSarifVersion";
     }
 }
+
 "@
 
 $outputFile = Join-Path $outputDirectory VersionConstants.cs
