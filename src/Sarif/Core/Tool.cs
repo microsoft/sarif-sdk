@@ -56,7 +56,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         internal static string ParseFileVersion(string fileVersion)
         {
             Match match = dottedQuadFileVersionRegex.Match(fileVersion);
-            return (match.Success) ? match.Value : null;
+            return match.Success ? match.Value : null;
         }
 
         private static void SetDriverPropertiesFromFileVersionInfo(ToolComponent driver, FileVersionInfo fileVersion)

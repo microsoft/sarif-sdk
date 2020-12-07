@@ -225,7 +225,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     RuleUtilities.BuildResult(ResultKind.Open, context, null,
                     nameof(SkimmerBaseTestResources.TEST1001_Open),
                     context.TargetUri.GetFileName()));
-
             }
             else if (fileName.Contains(nameof(ResultKind.Informational)))
             {
@@ -250,6 +249,5 @@ namespace Microsoft.CodeAnalysis.Sarif
         public static PerLanguageOption<bool> UnusedOption { get; } =
             new PerLanguageOption<bool>(
                 AnalyzerName, nameof(UnusedOption), defaultValue: () => { return true; });
-
     }
 }

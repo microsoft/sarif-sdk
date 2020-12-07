@@ -15,7 +15,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
     /// </summary>
     public class CachingLogger : IAnalysisLogger
     {
-
         public Dictionary<ReportingDescriptor, List<Result>> Results { get; set; }
 
         public void AnalysisStarted()

@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            IDictionary<string, SerializedPropertyInfo> dictionary = (existingValue as IDictionary<string, SerializedPropertyInfo> ?? new Dictionary<string, SerializedPropertyInfo>());
+            IDictionary<string, SerializedPropertyInfo> dictionary = existingValue as IDictionary<string, SerializedPropertyInfo> ?? new Dictionary<string, SerializedPropertyInfo>();
 
             reader.Read();
 

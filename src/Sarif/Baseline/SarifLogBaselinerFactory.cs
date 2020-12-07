@@ -3,7 +3,7 @@
 
 namespace Microsoft.CodeAnalysis.Sarif.Baseline
 {
-    public class SarifLogBaselinerFactory
+    public static class SarifLogBaselinerFactory
     {
         public static ISarifLogBaseliner CreateSarifLogBaseliner(SarifBaselineType logBaselinerType)
         {

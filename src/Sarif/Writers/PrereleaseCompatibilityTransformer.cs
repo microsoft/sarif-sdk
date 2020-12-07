@@ -454,7 +454,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                             case "renamedFile":
                             case "uncontrolledFile":
                             {
-                                role.Value = roleValue.TrimEnd(("File").ToCharArray());
+                                role.Value = roleValue.TrimEnd("File".ToCharArray());
                                 isModified = true;
                                 break;
                             }
@@ -518,7 +518,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         kind.Value = "external";
                         return true;
                     }
-
                 }
                 return false;
             }
@@ -601,7 +600,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
                 "runs[].conversion.tool.driver",
                 "runs[].conversion.tool.extensions[]",
-
             };
 
             return PerformActionOnLeafNodeIfExists(
@@ -905,7 +903,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             // run.results[].resultProvenance.firstDetectionRunInstanceGuid -> run.results[].resultProvenance.firstDetectionRunGuid
             // run.results[].resultProvenance.lastDetectionRunInstanceGuid -> run.results[].resultProvenance.lastDetectionRunGuid
 
-
             if (run["baselineInstanceGuid"] is JToken baselineInstanceGuid)
             {
                 run.Remove("baselineInstanceGuid");
@@ -1005,7 +1002,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             string[] locationPathsToUpdate =
             {
-
                 "results[].locations[]",
                 "results[].relatedLocations[]",
                 "results[].stacks[].frames[].location",
@@ -1136,7 +1132,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 possiblePathsToLeafNode: addressPathsToUpdate,
                 rootNode: run,
                 action: MoveSingleStackFrameAddressToLocation);
-
         }
 
         private static bool MoveSingleStackFrameAddressToLocation(JObject stackFrame)
@@ -1221,13 +1216,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             if (toolComponent["artifactIndex"] is JToken artifactIndex)
             {
                 toolComponent.Remove("artifactIndex");
-                var artifactIndices = new JArray();
-                artifactIndices.Add(artifactIndex);
+                var artifactIndices = new JArray
+                {
+                    artifactIndex
+                };
 
                 toolComponent.Add("artifactIndices", artifactIndices);
             }
         }
-
 
         private static void ConvertAllExceptionMessagesToStringAndRenameToolNotificationNodes(JObject run)
         {
@@ -1308,7 +1304,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             };
 
             PerformActionOnLeafNodeIfExists(reportingDescriptorPathsToUpdate, run, UpdateReportingDescriptorPropertyTypes);
-
         }
 
         private static bool UpdateReportingDescriptorPropertyTypes(JObject reportingDescriptor)
@@ -1875,7 +1870,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             return new JArray(rulesArray);
         }
-
 
         private static void AddEntryToRuleToIndexMap(JObject rulesDictionary, string key, JObject rule, Dictionary<JObject, int> jObjectToIndexMap, Dictionary<string, int> ruleKeyToIndexMap)
         {
@@ -2481,7 +2475,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 modifiedRun |= UpdateFileHashesProperty(fileObject);
 
                 // https://github.com/oasis-tcs/sarif-spec/issues/242
-                modifiedRun |= RenameProperty(fileObject, "lastModifiedTime", "lastModifiedTimeUtc"); ;
+                modifiedRun |= RenameProperty(fileObject, "lastModifiedTime", "lastModifiedTimeUtc");
             }
 
             return modifiedRun;
@@ -2533,9 +2527,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
             file.Remove("hashes");
             file["hashes"] = rewrittenHashes;
-            modifiedRun = true;
-
-            return modifiedRun;
+            return true;
         }
 
         internal static bool UpdateRunNotifications(JObject run)
@@ -2560,7 +2552,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             return modifiedRun;
         }
-
 
         internal static bool UpdateNotifications(JArray notifications)
         {

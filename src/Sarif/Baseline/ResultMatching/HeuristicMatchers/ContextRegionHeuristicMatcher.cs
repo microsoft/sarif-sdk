@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
                     yContextRegions.Add(content);
                 }
 
-                if (xContextRegions.Count() != yContextRegions.Count())
+                if (xContextRegions.Count() != yContextRegions.Count)
                 {
                     return false;
                 }
@@ -54,11 +54,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
 
             public bool ResultMatcherApplies(ExtractedResult result)
             {
-                bool? applies = result.Result.Locations?.Select(loc => loc.PhysicalLocation?.ContextRegion?.Snippet).Where(snippet => !string.IsNullOrEmpty(snippet?.Text)).Any();
+                bool? applies = result.Result.Locations?.Select(loc => loc.PhysicalLocation?.ContextRegion?.Snippet).Any(snippet => !string.IsNullOrEmpty(snippet?.Text));
 
-                return applies.HasValue ? applies.Value : false;
+                return applies ?? false;
             }
         }
-
     }
 }

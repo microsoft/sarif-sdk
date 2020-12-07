@@ -74,7 +74,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             // We suspend the visit if there's insufficient data to perform any work
             if (CurrentRun == null)
             {
-                throw new InvalidOperationException($"RemapIndicesVisitor requires CurrentRun to be set before Visiting Results.");
+                throw new InvalidOperationException("RemapIndicesVisitor requires CurrentRun to be set before Visiting Results.");
             }
 
             // Cache RuleId and set Result.RuleIndex to the (new) index

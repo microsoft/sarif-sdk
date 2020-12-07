@@ -38,9 +38,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
 
         public override bool Equals(object obj)
         {
-            if (obj is WhatComponent)
+            if (obj is WhatComponent whatComponent)
             {
-                return Equals((WhatComponent)obj);
+                return Equals(whatComponent);
             }
 
             return false;

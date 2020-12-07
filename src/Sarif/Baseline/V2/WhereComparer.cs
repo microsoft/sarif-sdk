@@ -157,12 +157,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
 
         private static int ResolvedStartColumn(Region region)
         {
-            return (region.StartColumn == -1 ? 1 : region.StartColumn);
+            return region.StartColumn == -1 ? 1 : region.StartColumn;
         }
 
         private static int ResolvedEndLine(Region region)
         {
-            return (region.EndLine == -1 ? region.StartLine : region.EndLine);
+            return region.EndLine == -1 ? region.StartLine : region.EndLine;
         }
 
         public static int CompareTo(Uri left, Uri right)

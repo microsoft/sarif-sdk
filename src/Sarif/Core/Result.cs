@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (this.Run == null)
             {
-                throw new ArgumentException($"Result.Run was required but not provided. Ensure Result.Run properties are populated by calling Run.SetRunOnResults().");
+                throw new ArgumentException("Result.Run was required but not provided. Ensure Result.Run properties are populated by calling Run.SetRunOnResults().");
             }
         }
 
@@ -138,20 +138,20 @@ namespace Microsoft.CodeAnalysis.Sarif
             var sb = new System.Text.StringBuilder();
 
             sb.Append(this.Locations?[0].PhysicalLocation?.ArtifactLocation?.Uri);
-            sb.Append(" : " + this.RuleId);
-            sb.Append(" : " + this.Level);
-            sb.Append(" : " + this.Kind);
+            sb.Append(" : ").Append(this.RuleId);
+            sb.Append(" : ").Append(this.Level);
+            sb.Append(" : ").Append(this.Kind);
 
             if (!string.IsNullOrEmpty(this.Message?.Text))
             {
-                sb.Append(" : " + this.Message.Text);
+                sb.Append(" : ").Append(this.Message.Text);
             }
             else if (this.Message?.Arguments != null)
             {
                 sb.Append(" : {");
                 foreach (string argument in this.Message.Arguments)
                 {
-                    sb.Append(argument + ",");
+                    sb.Append(argument).Append(',');
                 }
                 sb.Length -= 1;
                 sb.Append("}");

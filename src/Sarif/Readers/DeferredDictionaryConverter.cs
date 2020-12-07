@@ -31,8 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             }
 
             // If we don't have a positioned reader, we must return an error
-            JsonPositionedTextReader r = reader as JsonPositionedTextReader;
-            if (r == null)
+            if (!(reader is JsonPositionedTextReader r))
             {
                 throw new InvalidOperationException($"{nameof(DeferredDictionaryConverter<T>)} requires a {nameof(JsonPositionedTextReader)} be used for deserialization.");
             }

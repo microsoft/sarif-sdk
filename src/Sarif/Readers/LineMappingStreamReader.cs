@@ -243,11 +243,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             // Count bytes in last line until end of buffer
             if (lastEnd < index + charsRead)
             {
-                bytesRead += this.CurrentEncoding.GetByteCount(buffer, lastEnd, (index + charsRead) - lastEnd);
+                bytesRead += this.CurrentEncoding.GetByteCount(buffer, lastEnd, index + charsRead - lastEnd);
             }
 
             // Count chars in the last line in this buffer
-            _lastLineChars = (index + charsRead) - lastEnd;
+            _lastLineChars = index + charsRead - lastEnd;
 
             _bytesRead = bytesRead;
             return charsRead;

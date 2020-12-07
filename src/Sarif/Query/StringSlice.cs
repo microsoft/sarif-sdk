@@ -49,7 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query
         {
             int length = Math.Min(this.Length, other.Length);
             int compareResult = string.Compare(this._value, this._index, other._value, other._index, length, comparison);
-            return (compareResult != 0 ? compareResult : this.Length.CompareTo(other.Length));
+            return compareResult != 0 ? compareResult : this.Length.CompareTo(other.Length);
         }
 
         public bool StartsWith(StringSlice prefix, StringComparison comparison = StringComparison.Ordinal)
@@ -61,7 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query
         public bool StartsWith(char c)
         {
             if (this.Length == 0) { return false; }
-            return (this[0] == c);
+            return this[0] == c;
         }
 
         public void AppendTo(StringBuilder builder)

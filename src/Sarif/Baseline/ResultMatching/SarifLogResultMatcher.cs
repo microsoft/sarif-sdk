@@ -43,7 +43,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             return Match(previousLogs: new[] { previousLog }, currentLogs: new[] { currentLog }).FirstOrDefault();
         }
 
-
         /// <summary>
         /// Take two groups of SARIF logs, and compute a SARIF log containing the complete set of results,
         /// with status (compared to baseline) and various baseline-related fields persisted (e.x. work item links,
@@ -222,8 +221,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 run.Language = firstRun.Language;
             }
 
-
-            if (previousRuns != null && previousRuns.Count() != 0)
+            if (previousRuns != null && previousRuns.Any())
             {
                 // We flow the baseline instance id forward (which becomes the 
                 // baseline guid for the merged log).
@@ -301,7 +299,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         {
             foreach (KeyValuePair<T, S> pair in dictionaryToAdd)
             {
-
                 if (!baseDictionary.ContainsKey(pair.Key))
                 {
                     // The baseline does not contain the current dictionary value. This means
@@ -329,7 +326,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                     basePropertyBagHolder.Properties = null;
                     propertiesToMerge = propertyBagHolderToMerge.Properties;
                     propertyBagHolderToMerge.Properties = null;
-                };
+                }
 
                 // Now that we've emptied any properties, we can ensure that the base value and the value to 
                 // merge are equivalent. If they aren't we throw: there is no good way to understand which

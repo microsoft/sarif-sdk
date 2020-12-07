@@ -33,7 +33,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
         public bool Diff(IEnumerable<Result> actual)
         {
-
             this.AbsentResults = this.SharedResults;
 
             this.SharedResults = new HashSet<Result>(Result.ValueComparer);
@@ -64,7 +63,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             return
                 this.AbsentResults.Count == 0 &&
                 this.NewResults.Count == 0;
-
         }
     }
 }

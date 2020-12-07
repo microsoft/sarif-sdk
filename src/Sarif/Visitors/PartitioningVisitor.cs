@@ -95,13 +95,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         /// </param>
         /// <param name="deepClone">
         /// A value that specifies how the partitioned logs are constructed from the original log.
-        /// If <code>true</code>, each partitioned log is constructed from a deep clone of the
-        /// original log; if <code>false</code>, each partitioned log is constructed from a shallow
+        /// If <c>true</c>, each partitioned log is constructed from a deep clone of the
+        /// original log; if <c>false</c>, each partitioned log is constructed from a shallow
         /// copy of the original log. Deep cloning ensures that the original and partitioned logs
         /// do not share any objects, so they can be modified safely, but at a cost of increased
         /// partitioning time and  working set. Shallow copying reduces partitioning time and
         /// working set, but it is not safe to modify any of the resulting logs because this class
-        /// makes no guarantee about which objects are shared. The default is <code>false</code>.
+        /// makes no guarantee about which objects are shared. The default is <c>false</c>.
         /// </param>
         public PartitioningVisitor(PartitionFunction<T> partitionFunction, bool deepClone)
         {
@@ -150,7 +150,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 // provide the log to partition. This class is designed to create log files
                 // on a per-run basis (i.e., all partioned logs will contain a single run only).
                 throw new InvalidOperationException(SdkResources.PartioningVisitHappensAtSarifLogLevel);
-            };
+            }
 
             ++currentRunIndex;
             currentRunArtifacts = originalLog.Runs[currentRunIndex].Artifacts;
@@ -377,7 +377,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         artifacts.Add(partitionArtifact);
                     }
 
-                    if (artifacts.Any())
+                    if (artifacts.Count > 0)
                     {
                         partitionRun.Artifacts = artifacts;
                     }

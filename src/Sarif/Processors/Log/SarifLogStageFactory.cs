@@ -9,7 +9,7 @@ using Microsoft.CodeAnalysis.Sarif.Visitors;
 
 namespace Microsoft.CodeAnalysis.Sarif.Processors
 {
-    public class SarifLogProcessorFactory
+    public static class SarifLogProcessorFactory
     {
         public static IActionWrapper<SarifLog> GetActionStage(SarifLogAction action, params string[] args)
         {
@@ -28,20 +28,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
                     });
                 }
                 case SarifLogAction.InsertOptionalData:
-                {
-                    return new GenericMappingAction<SarifLog>(log =>
-                    {
-                        bool optionalDataArgValid = Enum.TryParse(args[0], out OptionallyEmittedData optionalData);
-                        Debug.Assert(optionalDataArgValid);
-
-                        if (optionalData != 0)
-                        {
-                            var visitor = new InsertOptionalDataVisitor(optionalData);
-                            return visitor.VisitSarifLog(log);
-                        }
-                        return log;
-                    });
-                }
                 case SarifLogAction.RemoveOptionalData:
                 {
                     return new GenericMappingAction<SarifLog>(log =>
@@ -98,9 +84,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
                     });
                 }
                 case SarifLogAction.Sort:
-                {
-                    throw new NotImplementedException();
-                }
                 case SarifLogAction.MakeDeterministic:
                 {
                     throw new NotImplementedException();

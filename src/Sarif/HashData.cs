@@ -17,6 +17,5 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string Sha1 { get; }
 
         public string Sha256 { get; }
-
     }
 }

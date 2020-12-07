@@ -146,7 +146,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 analyzeOptions: options);
         }
 
-
         [Fact]
         public void InvalidTarget()
         {
@@ -473,7 +472,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 analyzeOptions: options);
         }
 
-
         [Fact]
         public void AnalyzeCommandBase_ReportsWarningOnUnsupportedPlatformForRuleAndNoRulesLoaded()
         {
@@ -685,7 +683,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 // As configured by context, we should see a single error raised. 
                 resultCount.Should().Be(1);
-                run.Results.Where((result) => result.Level == FailureLevel.Error).Count().Should().Be(1);
+                run.Results.Count((result) => result.Level == FailureLevel.Error).Should().Be(1);
 
                 toolNotificationCount.Should().Be(0);
                 configurationNotificationCount.Should().Be(0);
@@ -736,11 +734,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 run.Invocations.Count.Should().Be(1);
 
                 // Error: all rules were disabled
-                run.Invocations[0].ToolConfigurationNotifications.Where((notification) => notification.Level == FailureLevel.Error).Count().Should().Be(1);
-                run.Invocations[0].ToolConfigurationNotifications.Where((notification) => notification.Descriptor.Id == Errors.ERR997_AllRulesExplicitlyDisabled).Count().Should().Be(1);
+                run.Invocations[0].ToolConfigurationNotifications.Count((notification) => notification.Level == FailureLevel.Error).Should().Be(1);
+                run.Invocations[0].ToolConfigurationNotifications.Count((notification) => notification.Descriptor.Id == Errors.ERR997_AllRulesExplicitlyDisabled).Should().Be(1);
 
                 // Warnings: one per disabled rule.
-                run.Invocations[0].ToolConfigurationNotifications.Where((notification) => notification.Level == FailureLevel.Warning).Count().Should().Be(2);
+                run.Invocations[0].ToolConfigurationNotifications.Count((notification) => notification.Level == FailureLevel.Warning).Should().Be(2);
                 run.Invocations[0].ToolConfigurationNotifications.Where((notification) => notification.Descriptor.Id == Warnings.Wrn999_RuleExplicitlyDisabled).Count().Should().Be(2);
 
                 // We raised a notification error, which means the invocation failed.
@@ -776,9 +774,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 OutputFilePath = "",
             };
 
-            var command = new TestAnalyzeCommand();
+            var mockFileSystem = new Mock<IFileSystem>();
 
-            string fileName = command.GetConfigurationFileName(options, defaultFileExists);
+            mockFileSystem.Setup(x => x.FileExists(It.IsAny<string>())).Returns(defaultFileExists);
+
+            var command = new TestAnalyzeCommand(mockFileSystem.Object);
+
+            string fileName = command.GetConfigurationFileName(options);
             if (string.IsNullOrEmpty(expectedFileName))
             {
                 fileName.Should().BeNull();
@@ -832,7 +834,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 Message = new Message
                 {
                     Arguments = new List<string> { filePath, fileName },
-                    Text = string.Format(@"Found an issue in {0} (full path is {1}", filePath, fileName)
+                    Text = string.Format("Found an issue in {0} (full path is {1}", filePath, fileName)
                 }
             };
         }
@@ -845,13 +847,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var testCases = new Tuple<string, string>[]
             {
                 new Tuple<string, string>(null, null),
-                new Tuple<string, string>(@"file.txt", "file.txt"),
+                new Tuple<string, string>("file.txt", "file.txt"),
                 new Tuple<string, string>(@".\file.txt", "file.txt"),
                 new Tuple<string, string>(@"c:\directory\file.txt", "file.txt"),
                 new Tuple<string, string>(@"\\computer\computer\file.txt", "file.txt"),
-                new Tuple<string, string>(@"file://directory/file.txt", "file.txt"),
-                new Tuple<string, string>(@"/file.txt", "file.txt"),
-                new Tuple<string, string>(@"directory/file.txt", "file.txt"),
+                new Tuple<string, string>("file://directory/file.txt", "file.txt"),
+                new Tuple<string, string>("/file.txt", "file.txt"),
+                new Tuple<string, string>("directory/file.txt", "file.txt"),
             };
 
             foreach (Tuple<string, string> testCase in testCases)
@@ -863,7 +865,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 if (!object.Equals(actualFileName, expectedFileName))
                 {
-                    sb.AppendLine(string.Format("Incorrect file name returned for uri '{0}'. Expected '{1}' but saw '{2}'.", uri, expectedFileName, actualFileName));
+                    sb.AppendFormat("Incorrect file name returned for uri '{0}'. Expected '{1}' but saw '{2}'.", uri, expectedFileName, actualFileName).AppendLine();
                 }
             }
             sb.Length.Should().Be(0, because: "all URI to file name conversions should succeed but the following cases failed." + Environment.NewLine + sb.ToString());
@@ -885,7 +887,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             testCase.Verbose = true;
             RunResultsCachingTestCase(testCase);
         }
-
 
         [Fact]
         public void AnalyzeCommandBase_CachesNotes()
@@ -1138,11 +1139,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 get
                 {
-                    if (_fileSystem == null)
-                    {
-                        _fileSystem = CreateDefaultFileSystemForResultsCaching(Files);
-                    }
-                    return _fileSystem;
+                    return _fileSystem ??= CreateDefaultFileSystemForResultsCaching(Files);
                 }
 
                 set => _fileSystem = value;

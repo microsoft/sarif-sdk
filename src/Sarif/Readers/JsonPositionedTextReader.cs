@@ -94,7 +94,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         {
             // Read StartArray
             this.Read();
-            if (this.TokenType != JsonToken.StartArray) { throw new ArgumentException($"ReadToArrayIndex must be given an array to search"); }
+            if (this.TokenType != JsonToken.StartArray) { throw new ArgumentException("ReadToArrayIndex must be given an array to search"); }
 
             // If first item desired, it's at ArrayStart + 1
             if (desiredIndex == 0) { return this.TokenPosition + 1; }

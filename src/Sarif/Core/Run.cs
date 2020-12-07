@@ -286,8 +286,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The <see cref="Run"/> whose results are to be examined.
         /// </param>
         /// <returns>
-        /// <code>true</code> if <paramref name="run"/> has any absent results, otherwise
-        /// <code>false</code>.
+        /// <c>true</c> if <paramref name="run"/> has any absent results, otherwise
+        /// <c>false</c>.
         /// </returns>
         /// <remarks>
         /// The SARIF spec states that the property <see cref="Result.BaselineState"/> must either
@@ -295,7 +295,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// performance of SARIF consumers such as results viewers, which (for example) need only
         /// examine the first result to decide whether to display a "Baseline state" column.
         /// Therefore if the first result has <see cref="BaselineState.None"/>, this method does
-        /// not examine the rest of the results, and it returns <code>false</code>.
+        /// not examine the rest of the results, and it returns <c>false</c>.
         /// </remarks>
         public bool HasAbsentResults() =>
             this.HasResults()
@@ -309,8 +309,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The <see cref="Run"/> whose results are to be examined.
         /// </param>
         /// <returns>
-        /// <code>true</code> if <paramref name="run"/> has any suppressed results, otherwise
-        /// <code>false</code>.
+        /// <c>true</c> if <paramref name="run"/> has any suppressed results, otherwise
+        /// <c>false</c>.
         /// </returns>
         /// <remarks>
         /// The SARIF spec states that the property <see cref="Result.Suppressions"/> must either
@@ -318,7 +318,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// performance of SARIF consumers such as results viewers, which (for example) need only
         /// examine the first result to decide whether to display a "Suppressed" column. Therefore
         /// if the first result has a Suppressions value of null, this method does examine the rest
-        /// of the results, and it returns <code>false</code>.
+        /// of the results, and it returns <c>false</c>.
         /// </remarks>
         public bool HasSuppressedResults() =>
             this.HasResults()

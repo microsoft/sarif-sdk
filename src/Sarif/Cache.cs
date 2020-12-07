@@ -53,7 +53,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             get
             {
-                TValue value = default(TValue);
+                TValue value = default;
 
                 if (!_cache.TryGetValue(key, out value))
                 {

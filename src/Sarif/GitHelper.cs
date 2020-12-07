@@ -63,7 +63,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             string uriText = GetSimpleGitCommandOutput(
                     repoPath,
-                    args: $"remote get-url origin");
+                    args: "remote get-url origin");
 
             return uriText == null
                 ? null
@@ -103,7 +103,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public string GetTopLevel(string repoPath)
         {
-            string args = "rev-parse --show-toplevel";
+            const string args = "rev-parse --show-toplevel";
             string currentDirectory = this.fileSystem.EnvironmentCurrentDirectory;
 
             try

@@ -42,9 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
         /// </summary>
         public override bool Equals(object obj)
         {
-            SarifLogPipeline other = obj as SarifLogPipeline;
-
-            if (other == null)
+            if (!(obj is SarifLogPipeline other))
             {
                 return base.Equals(obj);
             }
