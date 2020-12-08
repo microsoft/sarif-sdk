@@ -90,7 +90,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                 return isPrefixedWithTwoLetterWord;
             }
 
-            return (char.IsDigit(name[2]) || char.IsUpper(name[2]));
+            return char.IsDigit(name[2]) || char.IsUpper(name[2]);
         }
     }
 }

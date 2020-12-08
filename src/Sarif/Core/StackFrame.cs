@@ -131,9 +131,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             sb.Append(methodBase.Name);
 
             // deal with the generic portion of the method
-            if (methodBase is MethodInfo && ((MethodInfo)methodBase).IsGenericMethod)
+            if (methodBase is MethodInfo methodInfo && methodInfo.IsGenericMethod)
             {
-                Type[] typeArguments = ((MethodInfo)methodBase).GetGenericArguments();
+                Type[] typeArguments = methodInfo.GetGenericArguments();
                 sb.Append("[");
                 int k = 0;
                 bool firstTypeParameter = true;
@@ -174,7 +174,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     typeName = parameterInfos[j].ParameterType.Name;
                 }
-                sb.Append(typeName + " " + parameterInfos[j].Name);
+                sb.Append(typeName).Append(' ').Append(parameterInfos[j].Name);
             }
             sb.Append(")");
 

@@ -233,7 +233,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static bool PropertyBagHasAtLeastOneNonNullValue(IDictionary<string, SerializedPropertyInfo> properties)
         {
-            return properties != null && properties.Any();
+            return properties != null && properties.Count > 0;
         }
     }
 }

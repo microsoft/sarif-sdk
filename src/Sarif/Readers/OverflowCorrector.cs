@@ -29,10 +29,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             else
             {
                 // On each overflow, add a correction
-                bool isNegative = (charInLine < 0);
+                bool isNegative = charInLine < 0;
                 if (_currentlyNegative == false && isNegative == true)
                 {
-
                     _overflowCorrection += PerOverflowCorrection;
                 }
                 _currentlyNegative = isNegative;

@@ -13,20 +13,20 @@ namespace Microsoft.CodeAnalysis.Sarif
             var sb = new System.Text.StringBuilder();
 
             sb.Append(this.Locations?[0].PhysicalLocation?.ArtifactLocation?.Uri);
-            sb.Append(" : " + this.Descriptor.Id);
-            sb.Append(" : " + this.AssociatedRule?.Id);
-            sb.Append(" : " + this.Level);
+            sb.Append(" : ").Append(this.Descriptor.Id);
+            sb.Append(" : ").Append(this.AssociatedRule?.Id);
+            sb.Append(" : ").Append(this.Level);
 
             if (!string.IsNullOrEmpty(this.Message?.Text))
             {
-                sb.Append(" : " + this.Message.Text);
+                sb.Append(" : ").Append(this.Message.Text);
             }
             else if (this.Message?.Arguments != null)
             {
                 sb.Append(" : {");
                 foreach (string argument in this.Message.Arguments)
                 {
-                    sb.Append(argument + ",");
+                    sb.Append(argument).Append(',');
                 }
                 sb.Length = sb.Length - 1;
                 sb.Append("}");

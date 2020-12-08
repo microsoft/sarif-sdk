@@ -85,7 +85,7 @@ namespace Microsoft.CodeAnalysis.Sarif.VersionOne
                 return true;
             }
 
-            value = default(T);
+            value = default;
             return false;
         }
 

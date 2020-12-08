@@ -41,7 +41,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
                 default:
                     throw new QueryParseException($"In {term}, {term.PropertyName} is boolean and only supports equals and not equals, not operator {term.Operator}");
             }
-
         }
 
         public void Evaluate(ICollection<T> list, BitArray matches)

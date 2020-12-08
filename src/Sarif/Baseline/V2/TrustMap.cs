@@ -43,11 +43,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
                 {
                     // Simplification of (Match / Unique) * (Unique / Use)
                     // The product of how many values match and how many unique values there were
-                    return Math.Max(DefaultTrust, ((float)value.MatchCount) / (float)(value.UseCount));
+                    return Math.Max(DefaultTrust, ((float)value.MatchCount) / (float)value.UseCount);
                 }
                 else
                 {
-                    return Math.Max(DefaultTrust, ((float)value.UniqueValues.Count) / (float)(value.UseCount));
+                    return Math.Max(DefaultTrust, ((float)value.UniqueValues.Count) / (float)value.UseCount);
                 }
             }
 
@@ -145,9 +145,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
 
             public override bool Equals(object obj)
             {
-                if (obj is TrustKey)
+                if (obj is TrustKey trustKey)
                 {
-                    return Equals((TrustKey)obj);
+                    return Equals(trustKey);
                 }
 
                 return false;

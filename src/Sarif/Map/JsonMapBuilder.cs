@@ -73,7 +73,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
                     endPosition = reader.TokenPosition;
                     reader.Read();
                     return null;
-
             }
 
             // For Strings, create a node only if the string is big enough

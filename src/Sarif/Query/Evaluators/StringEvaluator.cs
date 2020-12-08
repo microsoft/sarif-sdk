@@ -72,7 +72,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
             int i = 0;
             foreach (T item in list)
             {
-                matches.Set(i, string.Compare(_getter(item) ?? "", _value, _stringComparison) == 0);
+                matches.Set(i, string.Equals(_getter(item) ?? "", _value, _stringComparison));
                 i++;
             }
         }
@@ -82,7 +82,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
             int i = 0;
             foreach (T item in list)
             {
-                matches.Set(i, string.Compare(_getter(item) ?? "", _value, _stringComparison) != 0);
+                matches.Set(i, !string.Equals(_getter(item) ?? "", _value, _stringComparison));
                 i++;
             }
         }

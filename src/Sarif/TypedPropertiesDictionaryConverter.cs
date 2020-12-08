@@ -93,7 +93,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                         break;
                     }
                 }
-
             }
 
             return result;
@@ -143,5 +142,4 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
     }
-
 }

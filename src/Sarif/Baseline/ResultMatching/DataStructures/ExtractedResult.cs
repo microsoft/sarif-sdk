@@ -48,7 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         {
             if (!this._hasDeprecatedIds && !other._hasDeprecatedIds)
             {
-                return (this.RuleId == other.RuleId);
+                return this.RuleId == other.RuleId;
             }
 
             // Handle ReportingDescriptor.DeprecatedIds (rare)

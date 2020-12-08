@@ -66,7 +66,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         public override ArtifactLocation VisitArtifactLocation(ArtifactLocation node)
         {
-
             if (_fileLocationKeyToIndexMap != null)
             {
                 string key = node.Uri.OriginalString;

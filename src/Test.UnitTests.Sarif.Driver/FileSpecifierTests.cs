@@ -106,7 +106,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
 
             IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-
         }
 
         private class ResolveDirectoriesAndFilesTestData : IEnumerable<object[]>
