@@ -75,7 +75,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             NewLineIndex newLineIndex = GetNewLineIndex(uri, fileText);
 
-            return PopulateTextRegionProperties(newLineIndex, inputRegion, fileText, populateSnippet);
+            return PopulateTextRegionProperties(
+                newLineIndex, 
+                inputRegion, 
+                newLineIndex.Text,
+                populateSnippet);
         }
 
         private Region PopulateTextRegionProperties(NewLineIndex lineIndex, Region inputRegion, string fileText, bool populateSnippet)
