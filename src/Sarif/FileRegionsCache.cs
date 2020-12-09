@@ -53,10 +53,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="populateSnippet">
         /// Boolean that indicates if the region's Snippet property will be populated.
         /// </param>
+        /// <param name="fileText">
+        /// An optional argument that, if present, contains the text contents of the file
+        /// specified by <paramref name="uri"/>.
+        /// </param>
         /// <returns>
         /// A Region object whose text-related properties have been fully populated.
         /// </returns>
-        public virtual Region PopulateTextRegionProperties(Region inputRegion, Uri uri, bool populateSnippet)
+        public virtual Region PopulateTextRegionProperties(
+            Region inputRegion, 
+            Uri uri, 
+            bool populateSnippet,
+            string fileText = null)
         {
             if (inputRegion == null || inputRegion.IsBinaryRegion)
             {
@@ -65,7 +73,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return inputRegion;
             }
 
-            NewLineIndex newLineIndex = GetNewLineIndex(uri, out string fileText);
+            NewLineIndex newLineIndex = GetNewLineIndex(uri, fileText);
+
             return PopulateTextRegionProperties(newLineIndex, inputRegion, fileText, populateSnippet);
         }
 
@@ -125,7 +134,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return null;
             }
 
-            NewLineIndex newLineIndex = GetNewLineIndex(uri, out string fileText);
+            NewLineIndex newLineIndex = GetNewLineIndex(uri, fileText: null);
             if (newLineIndex == null)
             {
                 return null;
@@ -295,12 +304,25 @@ namespace Microsoft.CodeAnalysis.Sarif
             Assert(region.CharLength == charLength);
         }
 
-        private NewLineIndex GetNewLineIndex(Uri uri, out string fileText)
+        private NewLineIndex GetNewLineIndex(Uri uri, string fileText = null)
         {
-            Tuple<string, NewLineIndex> entry = _cache[uri.LocalPath];
+            NewLineIndex newLineIndex = null;
 
-            fileText = entry.Item1;
-            return entry.Item2;
+            if (!_cache.ContainsKey(uri.LocalPath) && fileText != null)
+            {
+                newLineIndex = new NewLineIndex(fileText);
+                
+                _cache[uri.LocalPath] =
+                    new Tuple<string, NewLineIndex>(item1: uri.LocalPath, item2: newLineIndex);
+            }
+            else
+            {
+                Tuple<string, NewLineIndex> entry = _cache[uri.LocalPath];
+
+                newLineIndex = entry.Item2;
+            }
+
+            return newLineIndex;
         }
 
         /// <summary>

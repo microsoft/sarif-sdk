@@ -36,7 +36,6 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
         //                                   0123 4 5678 9 01234 5 6789 
         private const string SPEC_EXAMPLE = "abcd\r\nefg\r\nhijk\r\nlmn";
 
-
         // Breaking the lines for readability and per-line column details
         // 
         // Column: 123 4 5 6
@@ -406,6 +405,45 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
             // Region should not be touched in any way if the file it references is missing
             fileRegionsCache.PopulateTextRegionProperties(region, uri, populateSnippet: false).ValueEquals(region).Should().BeTrue();
             fileRegionsCache.PopulateTextRegionProperties(region, uri, populateSnippet: true).ValueEquals(region).Should().BeTrue();
+        }
+
+        [Fact]
+        public void FileRegionsCache_PopulatesUsingProvidedText()
+        {
+            var run = new Run();
+            var fileRegionsCache = new FileRegionsCache();
+
+            Uri uri = new Uri(@"c:\temp\DoesNotExist\" + Guid.NewGuid().ToString() + ".cpp");
+
+            string fileText = "12345\n56790\n";
+            int charOffset = 6;
+            int charLength = 1;
+
+            // Region should grab the second line of text in 'fileText'.
+            Region region = new Region() { CharOffset = charOffset, CharLength = charLength };
+
+            Region expected = new Region() 
+            { 
+                CharOffset = charOffset,
+                CharLength = charLength,
+                StartLine = 2,
+                EndLine = 2,
+                StartColumn = 1,
+                EndColumn = 2
+            };
+
+            Region actual;
+
+            // Region should not be touched in any way if the file it references is missing
+            actual = fileRegionsCache.PopulateTextRegionProperties(region, uri, populateSnippet: false, fileText: fileText);
+            actual.ValueEquals(expected).Should().BeTrue();
+            actual.Snippet.Should().BeNull();
+
+            actual = fileRegionsCache.PopulateTextRegionProperties(region, uri, populateSnippet: true, fileText: fileText);
+            actual.Snippet.Text.Should().Be(fileText.Substring(charOffset, charLength));
+
+            actual.Snippet = null;
+            actual.ValueEquals(expected).Should().BeTrue();
         }
 
         [Fact]

@@ -19,8 +19,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         // which is the line in the file at index n.
         private readonly ImmutableArray<int> _lineOffsetStarts;
 
-        private readonly int _fileLength;
-
         internal static char[] s_newLineChars =
         {
             '\n',
@@ -37,7 +35,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
         public NewLineIndex(string textToIndex)
         {
-            _fileLength = textToIndex.Length;
+            Text = textToIndex;
 
             ImmutableArray<int>.Builder result = ImmutableArray.CreateBuilder<int>();
             result.Add(0);
@@ -60,6 +58,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             _lineOffsetStarts = result.ToImmutable();
         }
 
+        /// <summary>
+        /// Gets the text contents of the file associated with this new-line index.
+        /// </summary>
+        public string Text { get; }
+
         /// <summary>Gets a <see cref="LineInfo"/> for the line at the specified index.</summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="lineNumber"/> is not
         /// a valid line number; e.g. if it is zero, negative, or greater than the maximum line count in
@@ -75,7 +78,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (lineNumber == this.MaximumLineNumber + 1)
             {
-                return new LineInfo(_fileLength, lineNumber);
+                return new LineInfo(Text.Length, lineNumber);
             }
 
             return new LineInfo(_lineOffsetStarts[lineNumber - 1], lineNumber);
