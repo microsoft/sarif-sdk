@@ -61,8 +61,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A Region object whose text-related properties have been fully populated.
         /// </returns>
         public virtual Region PopulateTextRegionProperties(
-            Region inputRegion, 
-            Uri uri, 
+            Region inputRegion,
+            Uri uri,
             bool populateSnippet,
             string fileText = null)
         {
@@ -76,8 +76,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             NewLineIndex newLineIndex = GetNewLineIndex(uri, fileText);
 
             return PopulateTextRegionProperties(
-                newLineIndex, 
-                inputRegion, 
+                newLineIndex,
+                inputRegion,
                 newLineIndex?.Text,
                 populateSnippet);
         }
@@ -315,7 +315,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (!_cache.ContainsKey(uri.LocalPath) && fileText != null)
             {
                 newLineIndex = new NewLineIndex(fileText);
-                
+
                 _cache[uri.LocalPath] =
                     new Tuple<string, NewLineIndex>(item1: uri.LocalPath, item2: newLineIndex);
             }

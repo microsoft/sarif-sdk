@@ -422,8 +422,8 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
             // Region should grab the second line of text in 'fileText'.
             Region region = new Region() { CharOffset = charOffset, CharLength = charLength };
 
-            Region expected = new Region() 
-            { 
+            Region expected = new Region()
+            {
                 CharOffset = charOffset,
                 CharLength = charLength,
                 StartLine = 2,
