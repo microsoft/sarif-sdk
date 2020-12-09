@@ -344,7 +344,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             // consider downloading and caching web-hosted source files.
             try
             {
-                if (File.Exists(localPath))
+                if (_fileSystem.FileExists(localPath))
                 {
                     fileText = _fileSystem.FileReadAllText(localPath);
                 }
