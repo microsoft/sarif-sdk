@@ -117,7 +117,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 && region.CharLength >= 0
                 && (region.CharOffset + region.CharLength <= fileText.Length))
             {
-                region.Snippet = region.Snippet ?? new ArtifactContent();
+                region.Snippet ??= new ArtifactContent();
 
                 string snippetText = fileText.Substring(region.CharOffset, region.CharLength);
                 if (region.Snippet.Text == null)
@@ -344,7 +344,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             // consider downloading and caching web-hosted source files.
             try
             {
-                fileText = _fileSystem.FileReadAllText(localPath);
+                if (File.Exists(localPath))
+                {
+                    fileText = _fileSystem.FileReadAllText(localPath);
+                }
             }
             catch (IOException) { }
 
