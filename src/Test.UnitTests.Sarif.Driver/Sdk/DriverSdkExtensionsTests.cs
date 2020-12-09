@@ -42,11 +42,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             int childDirectoryCount = path.Split('\\').Length;
 
-
             string[] parentDirectorySpecifiers = new string[childDirectoryCount];
             for (int i = 0; i < childDirectoryCount; i++)
             {
-                parentDirectorySpecifiers[i] = @"..";
+                parentDirectorySpecifiers[i] = "..";
             }
 
             // Trim the drive letter off the path

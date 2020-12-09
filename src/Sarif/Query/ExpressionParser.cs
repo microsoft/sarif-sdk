@@ -146,8 +146,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Query
             ConsumeWhitespace(ref text);
             if (text.Length == 0) { return new AllExpression(); }
 
-            List<IExpression> terms = new List<IExpression>();
-            terms.Add(ParseAndExpression(ref text));
+            List<IExpression> terms = new List<IExpression>
+            {
+                ParseAndExpression(ref text)
+            };
 
             while (true)
             {
@@ -163,13 +165,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Query
                 }
             }
 
-            return (terms.Count == 1 ? terms[0] : new OrExpression(terms));
+            return terms.Count == 1 ? terms[0] : new OrExpression(terms);
         }
 
         private static IExpression ParseAndExpression(ref StringSlice text)
         {
-            List<IExpression> terms = new List<IExpression>();
-            terms.Add(ParseTerm(ref text));
+            List<IExpression> terms = new List<IExpression>
+            {
+                ParseTerm(ref text)
+            };
 
             while (true)
             {
@@ -185,7 +189,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query
                 }
             }
 
-            return (terms.Count == 1 ? terms[0] : new AndExpression(terms));
+            return terms.Count == 1 ? terms[0] : new AndExpression(terms);
         }
 
         private static IExpression ParseTerm(ref StringSlice text)

@@ -49,7 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 // iteration and is detected as \n there)
                 if (s_newLineCharSet.Contains(c))
                 {
-                    if (c != '\r' || (charCount + 1 >= indexLength || textToIndex[charCount + 1] != '\n'))
+                    if (c != '\r' || charCount + 1 >= indexLength || textToIndex[charCount + 1] != '\n')
                     {
                         result.Add(charCount + 1);
                     }
@@ -131,7 +131,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             LineInfo lineInfo = this.GetLineInfoForOffset(offset);
-            return new OffsetInfo((offset - lineInfo.StartOffset) + 1, lineInfo.LineNumber);
+            return new OffsetInfo(offset - lineInfo.StartOffset + 1, lineInfo.LineNumber);
         }
     }
 }

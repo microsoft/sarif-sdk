@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
             else
             {
-                bool wasString = (reader.TokenType == JsonToken.String);
+                bool wasString = reader.TokenType == JsonToken.String;
 
                 StringBuilder builder = new StringBuilder();
                 using (StringWriter w = new StringWriter(builder))

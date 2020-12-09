@@ -145,8 +145,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     phrasedWithAnd = string.Join(", ", phrasedWithAnd, string.Format("'{0}'", words[j]));
                 }
-                phrasedWithAnd = string.Join(" and ", phrasedWithAnd, string.Format("'{0}'", words[words.Count - 1]));
-                return phrasedWithAnd;
+                return string.Join(" and ", phrasedWithAnd, string.Format("'{0}'", words[words.Count - 1]));
             }
         }
 
@@ -191,7 +190,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             //    (startLine,startColumn,endLine,endColumn)
 
             bool multiline = region.EndLine > region.StartLine;
-            bool multicolumn = (multiline || region.EndColumn > region.StartColumn);
+            bool multicolumn = multiline || region.EndColumn > region.StartColumn;
 
             if (multiline)
             {

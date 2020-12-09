@@ -97,6 +97,5 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
             result = null;
             return false;
         }
-
     }
 }

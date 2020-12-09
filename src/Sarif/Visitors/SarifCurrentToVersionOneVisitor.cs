@@ -662,19 +662,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                             }
                             catch (FileNotFoundException ex)
                             {
-                                failureReason = $"File '{uri.LocalPath}' could not be found: {ex.ToString()}";
+                                failureReason = $"File '{uri.LocalPath}' could not be found: {ex}";
                             }
                             catch (IOException ex)
                             {
-                                failureReason = $"File '{uri.LocalPath}' could not be read: {ex.ToString()}";
+                                failureReason = $"File '{uri.LocalPath}' could not be read: {ex}";
                             }
                             catch (SecurityException ex)
                             {
-                                failureReason = $"File '{uri.LocalPath}' could not be accessed: {ex.ToString()}";
+                                failureReason = $"File '{uri.LocalPath}' could not be accessed: {ex}";
                             }
                             catch (UnauthorizedAccessException ex)
                             {
-                                failureReason = $"File '{uri.LocalPath}' could not be accessed: {ex.ToString()}";
+                                failureReason = $"File '{uri.LocalPath}' could not be accessed: {ex}";
                             }
                         }
                     }

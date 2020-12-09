@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
         private readonly IExpressionEvaluator<Result> _evaluator;
 
         private static readonly Regex s_propertyNameRegex = new Regex(
-            @$"^
+            @"^
                 (?<prefix>properties\.|rule\.properties\.)
                 (?<name>.+?)
                 $",

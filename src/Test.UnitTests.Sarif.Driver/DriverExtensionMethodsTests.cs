@@ -44,7 +44,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             loggingOptions = analyzeOptions.ConvertToLoggingOptions();
             loggingOptions.Should().Be(LoggingOptions.PrettyPrint);
 
-
             analyzeOptions = new TestAnalyzeOptions()
             {
                 Force = true

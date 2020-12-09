@@ -41,9 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         public ResultLogJsonWriter(JsonWriter jsonWriter)
         {
             _jsonWriter = jsonWriter;
-            _serializer = new JsonSerializer()
-            {
-            };
+            _serializer = new JsonSerializer();
         }
 
         /// <summary>

@@ -84,7 +84,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public bool ShouldSerializeArguments()
         {
             return this.Arguments != null &&
-                (this.Arguments.Where((e) => { return e != null; }).Count() == this.Arguments.Count);
+                (this.Arguments.Count((e) => { return e != null; }) == this.Arguments.Count);
         }
 
         public bool ShouldSerializeToolExecutionNotifications()

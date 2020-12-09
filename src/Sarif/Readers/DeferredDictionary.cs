@@ -180,7 +180,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
         private bool TryGetValue(string key, bool readValue, out T value)
         {
-            value = default(T);
+            value = default;
             if (_stream == null) { _stream = _streamProvider(); }
 
             EnsurePositionsBuilt();
@@ -229,7 +229,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
         public void CopyTo(KeyValuePair<string, T>[] array, int arrayIndex)
         {
-            if (arrayIndex < 0 || arrayIndex + this.Count > array.Length) { throw new ArgumentOutOfRangeException("arrayIndex"); }
+            if (arrayIndex < 0 || arrayIndex + this.Count > array.Length) { throw new ArgumentOutOfRangeException(nameof(arrayIndex)); }
 
             int index = arrayIndex;
             foreach (KeyValuePair<string, T> item in this)
@@ -429,7 +429,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
             public void CopyTo(U[] array, int arrayIndex)
             {
-                if (arrayIndex < 0 || arrayIndex + this.Count > array.Length) { throw new ArgumentOutOfRangeException("arrayIndex"); }
+                if (arrayIndex < 0 || arrayIndex + this.Count > array.Length) { throw new ArgumentOutOfRangeException(nameof(arrayIndex)); }
 
                 int index = arrayIndex;
                 foreach (U value in this)
@@ -448,7 +448,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                 return _enumeratorFactory();
             }
         }
-
 
         /// <summary>
         ///  ValueEnumeratorAdapter converts an IEnumerator&lt;KeyValuePair&lt;U, V&gt;&gt;

@@ -143,7 +143,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             //      <Level>_<MessageName>
             //
             string[] messageComponents = ruleMessageId.Split('_');
-            if (messageComponents.Count() == 5)
+            if (messageComponents.Length == 5)
             {
                 return $"{messageComponents[2]}_{messageComponents[3]}";
             }

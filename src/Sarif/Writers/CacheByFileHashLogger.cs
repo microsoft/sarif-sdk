@@ -109,7 +109,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 notifications = HashToNotificationsMap[currentFileHash] = new List<Notification>();
             }
             notifications.Add(notification);
-
         }
 
         public void LogMessage(bool verbose, string message)

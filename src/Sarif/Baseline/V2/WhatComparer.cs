@@ -134,7 +134,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
                 if (weightOfComparableValues > 0)
                 {
                     // Return whether at least half of the partialFingerprints matched weighted by trust
-                    return (matchWeight * 2 >= weightOfComparableValues);
+                    return matchWeight * 2 >= weightOfComparableValues;
                 }
             }
 

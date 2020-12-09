@@ -43,7 +43,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public void AnalysisStopped(RuntimeConditions runtimeConditions)
         {
-            RuntimeConditions fatalConditions = (runtimeConditions & ~RuntimeConditions.Nonfatal);
+            RuntimeConditions fatalConditions = runtimeConditions & ~RuntimeConditions.Nonfatal;
 
             if (fatalConditions == RuntimeConditions.None)
             {
@@ -199,9 +199,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 case FailureLevel.None:
                     issueType = kind.ToString().ToLowerInvariant();
                     // Shorten to 'info' for compatibility with previous behavior.
-                    if (issueType == "informational") { issueType = "info"; };
+                    if (issueType == "informational") { issueType = "info"; }
                     break;
-
 
                 default:
                     throw new InvalidOperationException("Unknown message level:" + level.ToString());
@@ -320,16 +319,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             var sb = new StringBuilder((ConstructPathFromUri(uri) ?? toolName) + " : ");
 
-            sb.Append(issueType + " ");
+            sb.Append(issueType).Append(' ');
 
             if (!string.IsNullOrEmpty(notification.Descriptor?.Id))
             {
-                sb.Append(notification.Descriptor.Id + " : ");
+                sb.Append(notification.Descriptor.Id).Append(" : ");
             }
 
             if (!string.IsNullOrEmpty(notification.AssociatedRule?.Id))
             {
-                sb.Append(notification.AssociatedRule.Id + " : ");
+                sb.Append(notification.AssociatedRule.Id).Append(" : ");
             }
 
             sb.Append(notification.Message.Text);

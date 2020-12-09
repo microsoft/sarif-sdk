@@ -8,7 +8,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
 {
     /// <summary>
     /// Compares two results, and declares them equal if all of their partial fingerprints match.
-    /// 
+    ///
     /// TODO:  Handle versioning of partial fingerprints.
     /// </summary>
     internal class PartialFingerprintResultMatcher : HeuristicMatcher
@@ -58,7 +58,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
 
             public int GetHashCode(ExtractedResult obj)
             {
-                if (obj == null || obj.Result == null || obj.Result.PartialFingerprints == null || !obj.Result.PartialFingerprints.Any())
+                if (obj == null || obj.Result == null || obj.Result.PartialFingerprints == null || obj.Result.PartialFingerprints.Count == 0)
                 {
                     return 0;
                 }
@@ -79,7 +79,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
 
             public bool ResultMatcherApplies(ExtractedResult result)
             {
-                return (result.Result.PartialFingerprints != null && result.Result.PartialFingerprints.Any());
+                return result.Result.PartialFingerprints != null && result.Result.PartialFingerprints.Count > 0;
             }
         }
     }

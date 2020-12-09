@@ -271,7 +271,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             Invocation invocation = CreateInvocation(v1Invocation);
             IList<Notification> toolNotifications = v1ToolNotifications?.Select(CreateNotification).ToList();
-            IList<Notification> configurationNotifications = v1ConfigurationNotifications?.Select(CreateNotification).ToList(); ;
+            IList<Notification> configurationNotifications = v1ConfigurationNotifications?.Select(CreateNotification).ToList();
 
             if (toolNotifications?.Count > 0 || configurationNotifications?.Count > 0)
             {

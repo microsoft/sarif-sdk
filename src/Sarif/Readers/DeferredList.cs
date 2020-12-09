@@ -187,7 +187,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
         public void CopyTo(T[] array, int arrayIndex)
         {
-            if (arrayIndex < 0 || arrayIndex + this.Count > array.Length) { throw new ArgumentOutOfRangeException("arrayIndex"); }
+            if (arrayIndex < 0 || arrayIndex + this.Count > array.Length) { throw new ArgumentOutOfRangeException(nameof(arrayIndex)); }
 
             int index = arrayIndex;
             foreach (T item in this)

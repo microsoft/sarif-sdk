@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
         public MatchedResults(ExtractedResult previous, ExtractedResult current)
         {
-            if (previous == null && current == null) { throw new ArgumentException($"MatchedResults requires at least one non-null Result."); }
+            if (previous == null && current == null) { throw new ArgumentException("MatchedResults requires at least one non-null Result."); }
             this.PreviousResult = previous;
             this.CurrentResult = current;
             this.Run = current?.OriginalRun ?? previous?.OriginalRun;

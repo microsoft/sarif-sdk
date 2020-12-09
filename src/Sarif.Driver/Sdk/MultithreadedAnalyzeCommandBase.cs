@@ -559,10 +559,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         /// Calculate the file to load the configuration from.
         /// </summary>
         /// <param name="options">Options</param>
-        /// <param name="unitTestFileExists">Used only in unit testing, overrides "File.Exists".  
-        /// TODO--Restructure Sarif.Driver to use Sarif.IFileSystem for actions on file, to enable unit testing here instead.</param>
         /// <returns>Configuration file path, or null if the built in configuration should be used.</returns>
-        internal string GetConfigurationFileName(TOptions options, bool unitTestFileExists = false)
+        internal string GetConfigurationFileName(TOptions options)
         {
             if (options.ConfigurationFilePath == DefaultPolicyName)
             {
@@ -571,12 +569,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (string.IsNullOrEmpty(options.ConfigurationFilePath))
             {
-                if (!FileSystem.FileExists(DefaultConfigurationPath) && !unitTestFileExists)
-                {
-                    return null;
-                }
-
-                return DefaultConfigurationPath;
+                return !this.FileSystem.FileExists(this.DefaultConfigurationPath)
+                    ? null
+                    : this.DefaultConfigurationPath;
             }
             return options.ConfigurationFilePath;
         }
