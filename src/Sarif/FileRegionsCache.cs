@@ -78,7 +78,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return PopulateTextRegionProperties(
                 newLineIndex, 
                 inputRegion, 
-                newLineIndex.Text,
+                newLineIndex?.Text,
                 populateSnippet);
         }
 
