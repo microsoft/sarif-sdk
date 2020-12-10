@@ -4,6 +4,14 @@
     <RootNamespace>Microsoft.WorkItems</RootNamespace>
   </PropertyGroup>
 
+  <PropertyGroup Label="Packaging">
+    <!--
+    Without this property setting, the id of the NuGet package would match the
+    assembly name, "WorkItems".
+    -->
+    <PackageId>Microsoft.WorkItems</PackageId>
+  </PropertyGroup>
+
   <PropertyGroup Label="AssemblyAttributes">
     <AssemblyTitle>Universal Work Item Filing Library</AssemblyTitle>
     <Description>Classes for filing work items in either GitHub or AzureDevOps.</Description>
