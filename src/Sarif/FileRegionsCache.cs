@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 using System;
+using System.Diagnostics;
 using System.IO;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -53,10 +54,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="populateSnippet">
         /// Boolean that indicates if the region's Snippet property will be populated.
         /// </param>
+        /// <param name="fileText">
+        /// An optional argument that, if present, contains the text contents of the file
+        /// specified by <paramref name="uri"/>.
+        /// </param>
         /// <returns>
         /// A Region object whose text-related properties have been fully populated.
         /// </returns>
-        public virtual Region PopulateTextRegionProperties(Region inputRegion, Uri uri, bool populateSnippet)
+        public virtual Region PopulateTextRegionProperties(
+            Region inputRegion,
+            Uri uri,
+            bool populateSnippet,
+            string fileText = null)
         {
             if (inputRegion == null || inputRegion.IsBinaryRegion)
             {
@@ -65,8 +74,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return inputRegion;
             }
 
-            NewLineIndex newLineIndex = GetNewLineIndex(uri, out string fileText);
-            return PopulateTextRegionProperties(newLineIndex, inputRegion, fileText, populateSnippet);
+            NewLineIndex newLineIndex = GetNewLineIndex(uri, fileText);
+
+            return PopulateTextRegionProperties(
+                newLineIndex,
+                inputRegion,
+                newLineIndex?.Text,
+                populateSnippet);
         }
 
         private Region PopulateTextRegionProperties(NewLineIndex lineIndex, Region inputRegion, string fileText, bool populateSnippet)
@@ -87,6 +101,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             // If we have no input source file, there is no work to do
             if (lineIndex == null) { return inputRegion; }
 
+            Debug.Assert(fileText != null);
+
             Region region = inputRegion.DeepClone();
 
             if (region.StartLine == 0)
@@ -104,7 +120,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 && region.CharLength >= 0
                 && (region.CharOffset + region.CharLength <= fileText.Length))
             {
-                region.Snippet = region.Snippet ?? new ArtifactContent();
+                region.Snippet ??= new ArtifactContent();
 
                 string snippetText = fileText.Substring(region.CharOffset, region.CharLength);
                 if (region.Snippet.Text == null)
@@ -125,7 +141,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return null;
             }
 
-            NewLineIndex newLineIndex = GetNewLineIndex(uri, out string fileText);
+            NewLineIndex newLineIndex = GetNewLineIndex(uri, fileText: null);
             if (newLineIndex == null)
             {
                 return null;
@@ -295,12 +311,25 @@ namespace Microsoft.CodeAnalysis.Sarif
             Assert(region.CharLength == charLength);
         }
 
-        private NewLineIndex GetNewLineIndex(Uri uri, out string fileText)
+        private NewLineIndex GetNewLineIndex(Uri uri, string fileText = null)
         {
-            Tuple<string, NewLineIndex> entry = _cache[uri.LocalPath];
+            NewLineIndex newLineIndex = null;
 
-            fileText = entry.Item1;
-            return entry.Item2;
+            if (!_cache.ContainsKey(uri.LocalPath) && fileText != null)
+            {
+                newLineIndex = new NewLineIndex(fileText);
+
+                _cache[uri.LocalPath] =
+                    new Tuple<string, NewLineIndex>(item1: uri.LocalPath, item2: newLineIndex);
+            }
+            else
+            {
+                Tuple<string, NewLineIndex> entry = _cache[uri.LocalPath];
+
+                newLineIndex = entry.Item2;
+            }
+
+            return newLineIndex;
         }
 
         /// <summary>
@@ -318,7 +347,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             // consider downloading and caching web-hosted source files.
             try
             {
-                fileText = _fileSystem.FileReadAllText(localPath);
+                if (_fileSystem.FileExists(localPath))
+                {
+                    fileText = _fileSystem.FileReadAllText(localPath);
+                }
             }
             catch (IOException) { }
 

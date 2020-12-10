@@ -57,18 +57,10 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 if (!_cache.TryGetValue(key, out value))
                 {
-                    // If cache full, remove least recently used item
-                    if (Capacity > 0 && _cache.Count >= Capacity)
-                    {
-                        TKey oldest = _keysInUseOrder.Last.Value;
-                        _keysInUseOrder.RemoveLast();
-                        _cache.Remove(oldest);
-                    }
-
                     // Build and add the new item to cache
                     value = _builder(key);
-                    _cache[key] = value;
-                    _keysInUseOrder.AddFirst(key);
+
+                    SetValue(key, value);
                 }
                 else
                 {
@@ -82,6 +74,21 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 return value;
             }
+            set => SetValue(key, value);
+        }
+
+        private void SetValue(TKey key, TValue value)
+        {
+            // If cache full, remove least recently used item
+            if (Capacity > 0 && _cache.Count >= Capacity)
+            {
+                TKey oldest = _keysInUseOrder.Last.Value;
+                _keysInUseOrder.RemoveLast();
+                _cache.Remove(oldest);
+            }
+
+            _cache[key] = value;
+            _keysInUseOrder.AddFirst(key);
         }
 
         /// <summary>
