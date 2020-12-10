@@ -1,10 +1,13 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
 ## **Unreleased**
+
+## **v2.3.9** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.9) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.9) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.9) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.9) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.3.9)
 * FEATURE: Multitool SARIF rewrite accepts `remove` parameter[#2160](https://github.com/microsoft/sarif-sdk/pull/2160)
 * BREAKING: Remove command `export-validation-docs` and extend `export-validation-rules` command to export markdown file [#2156](https://github.com/microsoft/sarif-sdk/pull/2156)
-* BREAKING: Remove unused `run` argument from FileRegionsCache constructors.
-* BREAKING: Rename various methods in `IFileSystem` and `FileSystem` classes (to consistently prefix all method names with their containing .NET static type, e.g. `Directory`.
+* DEPENDENCY BREAKING: SARIF now requires Newtonsoft.JSON 11.0.2 (rather than 10.0.3) [#2172](https://github.com/microsoft/sarif-sdk/pull/2172)
+* BREAKING: Remove unused `run` argument from FileRegionsCache constructors. [#2173](https://github.com/microsoft/sarif-sdk/pull/2173)
+* BREAKING: Rename various methods in `IFileSystem` and `FileSystem` classes (to consistently prefix all method names with their containing .NET static type, e.g. `Directory`. [#2173](https://github.com/microsoft/sarif-sdk/pull/2173)
 
 ## **v2.3.8** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.8) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.8) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.8) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.8) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.3.8)
 * FEATURE: PACKAGE BREAKING: Upgrade from .NET Framework 4.5 to .NET Framework 4.5.2 [#2135](https://github.com/microsoft/sarif-sdk/pull/2135)
