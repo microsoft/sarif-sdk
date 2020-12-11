@@ -50,7 +50,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             logger.Log(null, result);
 
-            string expected = $"{tool} error {uriText}";
+            // TODO: we need to get rid of the (0) literal that indicates we
+            // couldn't generate a location
+            string expected = $"{uriText}(0): error {message}{Environment.NewLine}";
+            logger.CapturedOutput.Should().Be(expected);
         }
 
         [Fact]
