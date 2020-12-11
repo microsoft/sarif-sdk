@@ -542,6 +542,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     DefaultDriverOptions.CreateRuleSpecificOption(skimmer, DefaultDriverOptions.RuleEnabled);
 
                 RuleEnabledState ruleEnabled = rootContext.Policy.GetProperty(ruleEnabledProperty);
+                FailureLevel failureLevel = (ruleEnabled == RuleEnabledState.Default || ruleEnabled == RuleEnabledState.Disabled)
+                    ? default
+                    : (FailureLevel)Enum.Parse(typeof(FailureLevel), ruleEnabled.ToString());
 
                 if (ruleEnabled == RuleEnabledState.Disabled)
                 {
@@ -554,6 +557,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     // This skimmer is disabled by default, and the configuration file didn't mention it.
                     // So disable it, but don't complain that the rule was explicitly disabled.
                     disabledSkimmers.Add(skimmer.Id);
+                }
+                else if (skimmer.DefaultConfiguration.Level != failureLevel)
+                {
+                    skimmer.DefaultConfiguration.Level = failureLevel;
                 }
             }
 

@@ -2,5 +2,7 @@ extraction:
   csharp:
     index:
       solution: "src/Sarif.Sdk.CodeQL.sln"
+      dotnet:
+        version: 3.1.10
       msbuild:
         configuration: "Release"
