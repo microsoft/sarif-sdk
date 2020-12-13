@@ -212,19 +212,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             if (region != null)
             {
-                // TODO 
-                if (region.CharOffset > 0 ||
-                    region.ByteOffset > 0 ||
-                    region.StartColumn == 0)
-                {
-                    return string.Empty;
-                }
-
-                if (region.StartLine == 0)
-                {
-                    throw new InvalidOperationException();
-                }
-
+                // TODO: FormatForVisualStudio doesn't handle
+                // binary and char offsets only.
                 location = region.FormatForVisualStudio();
             }
 
