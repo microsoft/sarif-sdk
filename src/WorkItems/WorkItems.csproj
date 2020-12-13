@@ -1,13 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <RootNamespace>Microsoft.WorkItems</RootNamespace>
-  </PropertyGroup>
-
   <PropertyGroup Label="Packaging">
     <!--
     Without this property setting, the id of the NuGet package would match the
-    assembly name, "WorkItems".
+    assembly name, "Microsoft.WorkItems".
     -->
     <PackageId>Microsoft.WorkItems</PackageId>
   </PropertyGroup>
@@ -22,6 +18,8 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0</TargetFrameworks>
     <TargetFrameworks Condition="$(OS) == 'Windows_NT'">$(TargetFrameworks);net472</TargetFrameworks>
+    <AssemblyName>Microsoft.WorkItems</AssemblyName>
+    <RootNamespace>Microsoft.WorkItems</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -33,7 +31,7 @@
     <PackageReference Include="Microsoft.Json.Schema" Version="1.1.1" />
     <PackageReference Include="Microsoft.Json.Schema.Validation" Version="1.1.1" />
     <PackageReference Include="Microsoft.TeamFoundationServer.Client" Version="16.153.0" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All"/>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup>
