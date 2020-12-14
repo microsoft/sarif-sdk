@@ -13,6 +13,11 @@ jobs:
     inputs:
       targetType: filePath
       filePath: ./scripts/BuildAndTest.ps1
+  
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathToPublish: 'msbuild.binlog'
+      artifactName: 'binlog'
 
 - job: npm_pipeline
   steps:

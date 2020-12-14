@@ -3,18 +3,21 @@ Use the SARIF Multitool to transform, enrich, filter, result match, and do other
 ## Modes
 | Mode | Purpose |
 | ---- | ------- |
-| help | See Usage |
-| convert | Convert a tool output log to SARIF format |
-| match-results-forward | Match Results run over run to identify New, Absent, and Unchanged Results |
-| file-work-items | Send SARIF results to a work item tracking system such as GitHub or Azure DevOps |
-| rewrite | Transform a SARIF file to a reformatted version |
-| transform | Transform a SARIF log to a different SARIF version |
-| merge | Merge multiple SARIF files into one |
-| rebaseuri | Rebase the URIs in one or more sarif files. |
 | absoluteuri | Turn all relative Uris into absolute URIs (to be used after rebaseUri is run) |
+| apply-policy | Apply policies from SARIF log |
+| convert | Convert a tool output log to SARIF format |
+| export-validation-config | Export validation rule options to an XML or JSON file that can be edited and used to configure subsequent analysis |
+| export-validation-rules | Export validation rules metadata to a SARIF or SonarQube XML file |
+| file-work-items | Send SARIF results to a work item tracking system such as GitHub or Azure DevOps |
+| match-results-forward | Match Results run over run to identify New, Absent, and Unchanged Results |
+| merge | Merge multiple SARIF files into one |
 | page | Extract a subset of results from a source SARIF file. |
 | query | Find the matching subset of a SARIF file and output it or log it. |
+| rebaseuri | Rebase the URIs in one or more sarif files. |
+| rewrite | Transform a SARIF file to a reformatted version |
+| transform | Transform a SARIF log to a different SARIF version |
 | validate | Validate a SARIF File against the schema and against additional correctness rules. |
+| help | See Usage |
 | version | Display version information |
 
 ## Examples
@@ -42,6 +45,12 @@ Sarif.Multitool rebaseuri Current.sarif --base-path-value "C:\Local\Path\To\Repo
 
 : Compare to previous baseline to identify new Results
 Sarif.Multitool match-results-forward Current.sarif --previous Baseline.sarif --output-file-path NewBaseline.sarif
+
+: Export validation config (this can be used to validate and rewrite the default policies)
+Sarif.Multitool export-validation-config validation.xml
+
+: Export validation rules metadata
+Sarif.Multitool export-validation-rules ValidationRules.md
 
 : Extract new Results only from New Baseline
 Sarif.Multitool query NewBaseline.sarif --expression "BaselineState == 'New'" --output Current.NewResults.sarif

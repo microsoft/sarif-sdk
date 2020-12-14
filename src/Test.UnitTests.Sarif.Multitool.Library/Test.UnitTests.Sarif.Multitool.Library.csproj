@@ -27,6 +27,7 @@
     <None Remove="TestData\PageCommand\elfie-arriba.sarif" />
     <None Remove="TestData\RebaseUriCommand\ExpectedOutputs\RunWithArtifacts.sarif" />
     <None Remove="TestData\RebaseUriCommand\RunWithArtifacts.sarif" />
+    <None Remove="TestData\ValidateCommand\Configuration.xml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -44,6 +45,8 @@
     <EmbeddedResource Include="TestData\PageCommand\elfie-arriba.sarif" />
     <EmbeddedResource Include="TestData\RebaseUriCommand\ExpectedOutputs\RunWithArtifacts.sarif" />
     <EmbeddedResource Include="TestData\RebaseUriCommand\Inputs\RunWithArtifacts.sarif" />
+    <EmbeddedResource Include="TestData\ValidateCommand\Configuration.xml" />
+    <EmbeddedResource Include="TestData\ValidateCommand\ValidateSarif.sarif" />
   </ItemGroup>
 
   <ItemGroup>

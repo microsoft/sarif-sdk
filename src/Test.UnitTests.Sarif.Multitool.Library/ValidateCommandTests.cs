@@ -15,6 +15,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public class ValidateCommandTests
     {
+        private static readonly ResourceExtractor Extractor = new ResourceExtractor(typeof(ValidateCommandTests));
+
         // A simple schema against which a SARIF log file successfully validates.
         // This way, we don't have to read the SARIF schema from disk to run these tests.
         private const string SchemaFileContents =
@@ -81,6 +83,49 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             int returnCode = validateCommand.Run(options);
             returnCode.Should().Be(1);
             validateCommand.ExecutionException.Should().BeOfType<ExitApplicationException<ExitReason>>();
+        }
+
+        [Fact]
+        public void WhenWeDoNotHaveResultsWithoutVerbose()
+        {
+            string path = "ValidateSarif.sarif";
+            string outputPath = "ValidateSarifOutput.sarif";
+            File.WriteAllText(path, Extractor.GetResourceText($"ValidateCommand.{path}"));
+
+            SarifLog sarifLog = ExecuteTest(path, outputPath);
+            sarifLog.Runs.Count.Should().Be(1);
+            sarifLog.Runs[0].Results.Should().BeEmpty();
+        }
+
+        [Fact]
+        public void WhenWeDoHaveConfigurationChangingFailureLevel()
+        {
+            string path = "ValidateSarif.sarif";
+            string configuration = "Configuration.xml";
+            string outputPath = "ValidateSarifOutput.sarif";
+            File.WriteAllText(path, Extractor.GetResourceText($"ValidateCommand.{path}"));
+            File.WriteAllText(configuration, Extractor.GetResourceText($"ValidateCommand.{configuration}"));
+
+            SarifLog sarifLog = ExecuteTest(path, outputPath, configuration);
+            sarifLog.Runs.Count.Should().Be(1);
+            sarifLog.Runs[0].Results.Count.Should().Be(1);
+        }
+
+        private static SarifLog ExecuteTest(string path, string outputPath, string configuration = null)
+        {
+            var options = new ValidateOptions
+            {
+                TargetFileSpecifiers = new string[] { path },
+                OutputFilePath = outputPath,
+                Force = true,
+                ConfigurationFilePath = configuration
+            };
+
+            // Verify command returned success
+            int returnCode = new ValidateCommand().Run(options);
+            returnCode.Should().Be(0);
+
+            return SarifLog.Load(outputPath);
         }
 
         // Note: I would have liked to provide tests for two other conditions:

@@ -93,7 +93,7 @@ function Invoke-DotNetBuild($solutionFileRelativePath) {
     Write-Information "Building $solutionFileRelativePath..."
 
     $solutionFilePath = Join-Path $SourceRoot $solutionFileRelativePath
-    & dotnet build $solutionFilePath --configuration $Configuration -v $BuildVerbosity --no-incremental
+    & dotnet build $solutionFilePath --configuration $Configuration --verbosity $BuildVerbosity --no-incremental -bl
     
     if ($LASTEXITCODE -ne 0) {
         Exit-WithFailureMessage $ScriptName "Build of $solutionFilePath failed."
