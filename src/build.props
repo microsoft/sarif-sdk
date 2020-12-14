@@ -115,7 +115,6 @@
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
-    <TargetFrameworkMonikerAssemblyAttributesPath>$([System.IO.Path]::Combine('$(IntermediateOutputPath)','$(TargetFrameworkMoniker).AssemblyAttributes$(DefaultLanguageSourceExtension)'))</TargetFrameworkMonikerAssemblyAttributesPath>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <ItemGroup Condition=" '$(Configuration)' == 'Release' ">
