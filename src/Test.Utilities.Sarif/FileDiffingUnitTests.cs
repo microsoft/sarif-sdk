@@ -25,11 +25,13 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public abstract class FileDiffingUnitTests
     {
+        protected virtual bool VerifyRebaselineExpectedResultsIsFalse => true;
+
         protected virtual bool RebaselineExpectedResults => false;
 
         public static string GetTestDirectory(string subdirectory = "")
         {
-            return Path.GetFullPath(Path.Combine(@$".{Path.DirectorySeparatorChar}TestData", subdirectory));
+            return Path.GetFullPath(Path.Combine(@$"TestData\", subdirectory));
         }
 
         public static string GetProductDirectory()
@@ -63,7 +65,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         protected virtual string OutputFolderPath => Path.Combine(GetTestDirectory(), "..", "UnitTestOutput." + TypeUnderTest);
 
-        protected virtual string ProductTestDataDirectory => GetProductTestDataDirectory(TypeUnderTest);
+        protected virtual string ProductDirectory => GetProductDirectory();
+
+        protected virtual string TestDirectory => Path.Combine(ProductDirectory, @"TestBinary\", @"TestData\");
+
+        protected virtual string ProductTestDataDirectory => Path.Combine(ProductDirectory, @"TestData\", TypeUnderTest);
 
         protected virtual string IntermediateTestFolder { get { return string.Empty; } }
 
@@ -196,50 +202,52 @@ namespace Microsoft.CodeAnalysis.Sarif
                 string errorMessage = string.Format(@"there should be no unexpected diffs detected comparing actual results to '{0}'.", string.Join(", ", inputResourceNames));
                 var sb = new StringBuilder(errorMessage);
 
-                if (!Utilities.RunningInAppVeyor)
-                {
-                    string expectedRootDirectory = null;
-                    string actualRootDirectory = null;
 
-                    bool firstKey = true;
+                string expectedRootDirectory = null;
+                string actualRootDirectory = null;
+
+                bool firstKey = true;
+                foreach (string key in expectedOutputResourceNameDictionary.Keys)
+                {
+                    string expectedFilePath = GetOutputFilePath("ExpectedOutputs", expectedOutputResourceNameDictionary[key]);
+                    string actualFilePath = GetOutputFilePath("ActualOutputs", expectedOutputResourceNameDictionary[key]);
+
+                    if (firstKey)
+                    {
+                        expectedRootDirectory = Path.GetDirectoryName(expectedFilePath);
+                        actualRootDirectory = Path.GetDirectoryName(actualFilePath);
+
+                        Directory.CreateDirectory(expectedRootDirectory);
+                        Directory.CreateDirectory(actualRootDirectory);
+
+                        firstKey = false;
+                    }
+
+                    File.WriteAllText(expectedFilePath, expectedSarifTextDictionary[key]);
+                    File.WriteAllText(actualFilePath, actualSarifTextDictionary[key]);
+                }
+
+                sb.AppendLine("To compare all difference for this test suite:");
+                sb.AppendLine(GenerateDiffCommand(TypeUnderTest, expectedRootDirectory, actualRootDirectory) + Environment.NewLine);
+
+                sb.AppendLine(
+                    "To rebaseline with current behavior, set 'RebaselineExpectedResults'" +
+                    "to true in the test class and run again.");
+
+                if (RebaselineExpectedResults)
+                {
+                    string testDirectory = Path.Combine(ProductTestDataDirectory, "ExpectedOutputs");
+                    Directory.CreateDirectory(testDirectory);
+
+                    // We retrieve all test strings from embedded resources. To rebaseline, we need to
+                    // compute the enlistment location from which these resources are compiled.
                     foreach (string key in expectedOutputResourceNameDictionary.Keys)
                     {
-                        string expectedFilePath = GetOutputFilePath("ExpectedOutputs", expectedOutputResourceNameDictionary[key]);
-                        string actualFilePath = GetOutputFilePath("ActualOutputs", expectedOutputResourceNameDictionary[key]);
-
-                        if (firstKey)
-                        {
-                            expectedRootDirectory = Path.GetDirectoryName(expectedFilePath);
-                            actualRootDirectory = Path.GetDirectoryName(actualFilePath);
-
-                            Directory.CreateDirectory(expectedRootDirectory);
-                            Directory.CreateDirectory(actualRootDirectory);
-
-                            firstKey = false;
-                        }
-
-                        File.WriteAllText(expectedFilePath, expectedSarifTextDictionary[key]);
-                        File.WriteAllText(actualFilePath, actualSarifTextDictionary[key]);
-                    }
-
-                    sb.AppendLine("To compare all difference for this test suite:");
-                    sb.AppendLine(GenerateDiffCommand(TypeUnderTest, expectedRootDirectory, actualRootDirectory) + Environment.NewLine);
-
-                    if (RebaselineExpectedResults)
-                    {
-                        string intermediateFolder = !string.IsNullOrEmpty(IntermediateTestFolder) ? IntermediateTestFolder + @"\" : string.Empty;
-                        string testDirectory = Path.Combine(GetProductTestDataDirectory(TestBinaryName, intermediateFolder + TypeUnderTest), "ExpectedOutputs");
-                        Directory.CreateDirectory(testDirectory);
-
-                        // We retrieve all test strings from embedded resources. To rebaseline, we need to
-                        // compute the enlistment location from which these resources are compiled.
-                        foreach (string key in expectedOutputResourceNameDictionary.Keys)
-                        {
-                            string expectedFilePath = Path.Combine(testDirectory, expectedOutputResourceNameDictionary[key]);
-                            File.WriteAllText(expectedFilePath, actualSarifTextDictionary[key]);
-                        }
+                        string expectedFilePath = Path.Combine(testDirectory, expectedOutputResourceNameDictionary[key]);
+                        File.WriteAllText(expectedFilePath, actualSarifTextDictionary[key]);
                     }
                 }
+
 
                 if (!RebaselineExpectedResults)
                 {
@@ -247,7 +255,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            RebaselineExpectedResults.Should().BeFalse();
+            if (VerifyRebaselineExpectedResultsIsFalse)
+            {
+                RebaselineExpectedResults.Should().BeFalse();
+            }
         }
 
         protected string GetOutputFilePath(string directory, string resourceName)
