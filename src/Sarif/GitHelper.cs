@@ -19,8 +19,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ExternalProcess(workingDirectory, exePath, arguments, stdOut: null, acceptableReturnCodes: null).StdOut.Text;
         }
 
-        private static readonly ProcessRunner DefaultProcessRunner = DefaultProcessRunnerImpl;
-
         private readonly IFileSystem fileSystem;
         private readonly ProcessRunner processRunner;
         private readonly ReaderWriterLockSlim cacheLock = new ReaderWriterLockSlim();
