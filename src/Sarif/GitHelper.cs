@@ -19,8 +19,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ExternalProcess(workingDirectory, exePath, arguments, stdOut: null, acceptableReturnCodes: null).StdOut.Text;
         }
 
-        private static readonly ProcessRunner DefaultProcessRunner = DefaultProcessRunnerImpl;
-
         private readonly IFileSystem fileSystem;
         private readonly ProcessRunner processRunner;
         private readonly ReaderWriterLockSlim cacheLock = new ReaderWriterLockSlim();
@@ -115,12 +113,18 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return null;
                 }
 
-                if (!this.fileSystem.DirectoryExists(repoPath))
+                if (!this.fileSystem.DirectoryExists(repoPath) &&
+                    !this.fileSystem.FileExists(repoPath))
                 {
                     return null;
                 }
 
-                this.fileSystem.EnvironmentCurrentDirectory = repoPath;
+                if (this.fileSystem.FileExists(repoPath))
+                {
+                    repoPath = Path.GetDirectoryName(repoPath);
+                }
+
+                this.fileSystem.EnvironmentCurrentDirectory = Path.GetDirectoryName(repoPath);
 
                 string stdOut = this.processRunner(
                     workingDirectory: repoPath,
