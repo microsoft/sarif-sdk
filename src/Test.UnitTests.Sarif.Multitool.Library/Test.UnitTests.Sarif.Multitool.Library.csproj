@@ -28,6 +28,13 @@
     <None Remove="TestData\RebaseUriCommand\ExpectedOutputs\RunWithArtifacts.sarif" />
     <None Remove="TestData\RebaseUriCommand\RunWithArtifacts.sarif" />
     <None Remove="TestData\ValidateCommand\Configuration.xml" />
+    <None Remove="xunit.runner.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="xunit.runner.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
