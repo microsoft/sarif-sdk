@@ -184,7 +184,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void GetTopLevel_WhenRepoPathIsToADictory()
         {
-            string pathToDirectory = Environment.CurrentDirectory;
+            string pathToDirectory = Path.GetDirectoryName(typeof(GitHelperTests).Assembly.Location);
             string repoRootPath = GitHelper.Default.GetTopLevel(pathToDirectory);
             repoRootPath.Should().NotBeNull();
             pathToDirectory.StartsWith(repoRootPath).Should().BeTrue();
