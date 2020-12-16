@@ -171,5 +171,56 @@ namespace Microsoft.CodeAnalysis.Sarif
             gitHelper.GitExePath = @"C:\dev";
             gitHelper.GitExePath.Should().Be(@"C:\dev");
         }
+
+        [Fact]
+        public void GetTopLevel_WhenRepoPathIsToAFile()
+        {
+            string pathToFile = typeof(GitHelperTests).Assembly.Location;
+            string repoRootPath = GitHelper.Default.GetTopLevel(pathToFile);
+            repoRootPath.Should().NotBeNull();
+            pathToFile.StartsWith(repoRootPath).Should().BeTrue();
+        }
+
+        [Fact]
+        public void GetTopLevel_WhenRepoPathIsToADictory()
+        {
+            string pathToDirectory = Path.GetDirectoryName(typeof(GitHelperTests).Assembly.Location);
+            string repoRootPath = GitHelper.Default.GetTopLevel(pathToDirectory);
+            repoRootPath.Should().NotBeNull();
+            pathToDirectory.StartsWith(repoRootPath).Should().BeTrue();
+        }
+
+        [Fact]
+        public void GetTopLevel_WhenRepoPathDoesNotExist()
+        {
+            string path = @"X:\DoesnotExistDirectory";
+            GitHelper.Default.GetTopLevel(path).Should().BeNull();
+        }
+
+        [Fact]
+        public void GetTopLevel_WhenRepoPathHasInvalidChars()
+        {
+            string path = @"C:\Invalid:\fo/lder\sub?folder";
+            GitHelper.Default.GetTopLevel(path).Should().BeNull();
+        }
+
+        [Fact]
+        public void GetTopLevel_WhenRepoPathIsNull()
+        {
+            string path = null;
+            GitHelper.Default.GetTopLevel(path).Should().BeNull();
+        }
+
+        [Fact]
+        public void GetTopLevel_WhenGitDoesnotExist()
+        {
+            var mockFileSystem = new Mock<IFileSystem>();
+            mockFileSystem.Setup(x => x.DirectoryExists(It.IsAny<string>())).Returns(false);
+            mockFileSystem.Setup(x => x.DirectoryExists(@"C:\dev\sarif-sdk\src\Sarif")).Returns(true);
+
+            var gitHelper = new GitHelper(mockFileSystem.Object);
+
+            gitHelper.GetTopLevel(@"C:\dev\sarif-sdk\src\Sarif").Should().BeNull();
+        }
     }
 }
