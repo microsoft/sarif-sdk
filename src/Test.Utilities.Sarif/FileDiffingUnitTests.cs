@@ -65,7 +65,13 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         protected virtual string TypeUnderTest => this.GetType().Name.Substring(0, this.GetType().Name.Length - "Tests".Length);
 
-        protected virtual string OutputFolderPath => Path.Combine(GetTestDirectory(), "..", "UnitTestOutput." + TypeUnderTest);
+        protected virtual string OutputFolderPath => Path.Combine(GetBuildPath(), "UnitTestOutput." + TypeUnderTest);
+
+        private string GetBuildPath()
+        {
+            string path = typeof(FileDiffingUnitTests).Assembly.Location;
+            return Path.GetDirectoryName(path);
+        }
 
         protected virtual string ProductDirectory => GetProductDirectory();
 
