@@ -18,7 +18,7 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0</TargetFrameworks>
     <TargetFrameworks Condition="$(OS) == 'Windows_NT'">$(TargetFrameworks);net472</TargetFrameworks>
-    <AssemblyName>Microsoft.WorkItems</AssemblyName>
+    <AssemblyName>WorkItems</AssemblyName>
     <RootNamespace>Microsoft.WorkItems</RootNamespace>
   </PropertyGroup>
 

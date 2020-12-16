@@ -3,6 +3,7 @@
 
 # Dev machine files
 appsettings.local.json
+*.binlog
 
 # User-specific files
 *.suo
