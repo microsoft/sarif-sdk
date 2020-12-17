@@ -2,6 +2,10 @@
 
 ## **Unreleased**
 
+## **v2.3.10** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.10) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.10) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.10) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.10) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.3.10)
+* BREAKING: Rename package `WorkItems` to `Microsoft.WorkItems`. [#2180](https://github.com/microsoft/sarif-sdk/pull/2180)
+* BUGFIX: Fix `export-validation-config` exception. [#2181](https://github.com/microsoft/sarif-sdk/pull/2181)
+
 ## **v2.3.9** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.9) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.9) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.9) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.9) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.3.9)
 * FEATURE: Multitool SARIF rewrite accepts `remove` parameter[#2160](https://github.com/microsoft/sarif-sdk/pull/2160)
 * BREAKING: Remove command `export-validation-docs` and extend `export-validation-rules` command to export markdown file [#2156](https://github.com/microsoft/sarif-sdk/pull/2156)
