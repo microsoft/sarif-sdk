@@ -75,7 +75,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         protected virtual string ProductDirectory => GetProductDirectory();
 
-        protected virtual string TestDirectory => Path.Combine(ProductDirectory, @"TestBinary\", @"TestData\");
+        protected virtual string TestDirectory => Path.Combine(ProductDirectory, TestBinaryName, @"TestData\");
 
         protected virtual string ProductTestDataDirectory => Path.Combine(ProductDirectory, @"TestData\", TypeUnderTest);
 
