@@ -11,6 +11,7 @@ appsettings.local.json
 *.sln.docstates
 *.opendb
 *.db
+*.binlog 
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
