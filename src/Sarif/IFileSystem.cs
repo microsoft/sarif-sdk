@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Text;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -18,6 +19,17 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// </remarks>
     public interface IFileSystem
     {
+        /// <summary>
+        /// Loads an assembly given its file name or path.
+        /// </summary>
+        /// <param name="assemblyFile">
+        /// The name or path of the file that contains the manifest of the assembly.
+        /// </param>
+        /// <returns>
+        /// The loaded assembly.
+        /// </returns>
+        Assembly AssemblyLoadFrom(string assemblyFile);
+
         /// <summary>
         /// Creates all directories and subdirectories in the specified path unless they
         /// already exist.
