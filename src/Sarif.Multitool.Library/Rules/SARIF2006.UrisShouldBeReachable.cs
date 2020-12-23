@@ -12,8 +12,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class UrisShouldBeReachable : SarifValidationSkimmerBase
     {
-        public UrisShouldBeReachable()
+        private readonly IHttpClient httpProvider;
+
+        public UrisShouldBeReachable(IHttpClient httpClient = null)
         {
+            this.httpProvider = httpClient ?? new HttpClientWrapper();
             this.DefaultConfiguration.Level = FailureLevel.Note;
         }
 
@@ -31,9 +34,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         protected override IEnumerable<string> MessageResourceNames => new string[] {
             nameof(RuleResources.SARIF2006_UrisShouldBeReachable_Note_Default_Text)
         };
-
-        private static readonly HttpClient s_httpClient = new HttpClient();
-        private static readonly Dictionary<string, bool> s_checkedUris = new Dictionary<string, bool>();
 
         protected override void Analyze(SarifLog log, string logPointer)
         {
@@ -100,13 +100,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         private bool IsUriReachable(string uriString)
         {
-            if (s_checkedUris.ContainsKey(uriString))
-            {
-                return s_checkedUris[uriString];
-            }
-
-            HttpResponseMessage httpResponseMessage = s_httpClient.GetAsync(uriString).GetAwaiter().GetResult();
-            s_checkedUris.Add(uriString, httpResponseMessage.IsSuccessStatusCode);
+            // http wrapper handles the cache all Uris has been accessed
+            HttpResponseMessage httpResponseMessage = httpProvider.GetAsync(uriString).GetAwaiter().GetResult();
             return httpResponseMessage.IsSuccessStatusCode;
         }
     }
