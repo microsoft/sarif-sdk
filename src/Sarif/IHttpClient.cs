@@ -25,5 +25,21 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="requestUri">The Uri the request is sent to.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         Task<HttpResponseMessage> GetAsync(string requestUri);
+
+        /// <summary>
+        /// Send a POST request to the specified Uri as an asynchronous operation.
+        /// </summary>
+        /// <param name="requestUri">The Uri the request is sent to.</param>
+        /// <param name="content">The HTTP request content sent to the server.</param>
+        /// <returns>The task object representing the asynchronous operation</returns>
+        Task<HttpResponseMessage> PostAsync(string requestUri, HttpContent content);
+
+        /// <summary>
+        /// Send a PUT request to the specified Uri as an asynchronous operation.
+        /// </summary>
+        /// <param name="requestUri">The Uri the request is sent to.</param>
+        /// <param name="content">The HTTP request content sent to the server.</param>
+        /// <returns>The task object representing the asynchronous operation.</returns>
+        Task<HttpResponseMessage> PutAsync(string requestUri, HttpContent content);
     }
 }

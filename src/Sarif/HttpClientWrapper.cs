@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
@@ -21,8 +22,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         // .NET http client 
         private readonly HttpClient httpClient;
 
-        // cache stores all visited Uris and responses
-        private readonly Dictionary<string, HttpResponseMessage> s_checkedUris = new Dictionary<string, HttpResponseMessage>();
+        // cache stores all visited Uris and responses, thread safe
+        private static readonly ConcurrentDictionary<string, HttpResponseMessage> s_checkedUris = new ConcurrentDictionary<string, HttpResponseMessage>();
 
         /// <summary>
         /// Allow HttpClient to be injected, can accepted httpclient with mocked HttpMessageHandler for easier unit testing
@@ -48,9 +49,31 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             Task<HttpResponseMessage> httpResponseMessage = httpClient.GetAsync(requestUri);
-            s_checkedUris.Add(requestUri, httpResponseMessage.Result);
+            s_checkedUris.TryAdd(requestUri, httpResponseMessage.Result);
 
             return httpResponseMessage;
+        }
+
+        /// <summary>
+        /// Send a POST request to the specified Uri as an asynchronous operation.
+        /// </summary>
+        /// <param name="requestUri">The Uri the request is sent to.</param>
+        /// <param name="content">The HTTP request content sent to the server.</param>
+        /// <returns>The task object representing the asynchronous operation</returns>
+        public Task<HttpResponseMessage> PostAsync(string requestUri, HttpContent content)
+        {
+            return httpClient.PostAsync(requestUri, content);
+        }
+
+        /// <summary>
+        /// Send a PUT request to the specified Uri as an asynchronous operation.
+        /// </summary>
+        /// <param name="requestUri">The Uri the request is sent to.</param>
+        /// <param name="content">The HTTP request content sent to the server.</param>
+        /// <returns>The task object representing the asynchronous operation.</returns>
+        public Task<HttpResponseMessage> PutAsync(string requestUri, HttpContent content)
+        {
+            return httpClient.PutAsync(requestUri, content);
         }
     }
 }
