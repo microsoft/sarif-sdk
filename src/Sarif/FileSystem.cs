@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Text;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -20,15 +21,17 @@ namespace Microsoft.CodeAnalysis.Sarif
         public static readonly FileSystem Instance = new FileSystem();
 
         /// <summary>
-        /// Gets or sets the fully qualified path of the current working directory.
+        /// Loads an assembly given its file name or path.
         /// </summary>
+        /// <param name="assemblyFile">
+        /// The name or path of the file that contains the manifest of the assembly.
+        /// </param>
         /// <returns>
-        /// A string containing a directory path.
+        /// The loaded assembly.
         /// </returns>
-        public string EnvironmentCurrentDirectory
+        public Assembly AssemblyLoadFrom(string assemblyFile)
         {
-            get => Environment.CurrentDirectory;
-            set => Environment.CurrentDirectory = value;
+            return Assembly.LoadFrom(assemblyFile);
         }
 
         /// <summary>
@@ -42,6 +45,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         public bool DirectoryExists(string path)
         {
             return Directory.Exists(path);
+        }
+
+        /// <summary>
+        /// Gets or sets the fully qualified path of the current working directory.
+        /// </summary>
+        /// <returns>
+        /// A string containing a directory path.
+        /// </returns>
+        public string EnvironmentCurrentDirectory
+        {
+            get => Environment.CurrentDirectory;
+            set => Environment.CurrentDirectory = value;
         }
 
         /// <summary>
