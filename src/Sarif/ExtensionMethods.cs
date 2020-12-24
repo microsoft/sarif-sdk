@@ -4,7 +4,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -26,6 +25,16 @@ namespace Microsoft.CodeAnalysis.Sarif
                 case SplittingStrategy.PerResult:
                 {
                     partitionFunction = (result) => result.RuleId;
+                    break;
+                }
+                case SplittingStrategy.PerRun:
+                {
+                    foreach (Run run in sarifLog.Runs)
+                    {
+                        run.SetRunOnResults();
+                    }
+
+                    partitionFunction = (result) => result.Run.GetHashCode().ToString();
                     break;
                 }
                 default:
