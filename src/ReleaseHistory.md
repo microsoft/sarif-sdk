@@ -1,6 +1,7 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
 ## **Unreleased**
+* DEPENDENCY BREAKING: SARIF now requires Newtonsoft.JSON 12.0.3.
 
 ## **v2.3.10** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.10) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.10) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.10) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.10) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.3.10)
 * BREAKING: Rename package `WorkItems` to `Microsoft.WorkItems`. [#2180](https://github.com/microsoft/sarif-sdk/pull/2180)
