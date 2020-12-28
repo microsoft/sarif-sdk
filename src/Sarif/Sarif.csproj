@@ -37,6 +37,7 @@
 
   <ItemGroup>
     <Reference Condition="'$(TargetFramework)' == 'net452' Or '$(TargetFramework)' == 'net461' Or '$(TargetFramework)' == 'net472'" Include="System.Web" />
+    <Reference Condition="'$(TargetFramework)' == 'net452' Or '$(TargetFramework)' == 'net461' Or '$(TargetFramework)' == 'net472'" Include="System.Net.Http" />
   </ItemGroup>
 
   <ItemGroup Label="Packaging">
