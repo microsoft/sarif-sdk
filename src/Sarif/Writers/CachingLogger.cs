@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using System.Collections.Generic;
 
 namespace Microsoft.CodeAnalysis.Sarif.Writers
@@ -33,6 +34,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public void Log(ReportingDescriptor rule, Result result)
         {
+            if (rule == null)
+            {
+                throw new ArgumentNullException(nameof(rule));
+            }
+
+            if (result == null)
+            {
+                throw new ArgumentNullException(nameof(result));
+            }
+
             Results ??= new Dictionary<ReportingDescriptor, IList<Result>>();
 
             if (!Results.TryGetValue(rule, out IList<Result> results))
