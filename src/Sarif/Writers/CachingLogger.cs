@@ -15,7 +15,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
     /// </summary>
     public class CachingLogger : IAnalysisLogger
     {
-        public Dictionary<ReportingDescriptor, List<Result>> Results { get; set; }
+        public IDictionary<ReportingDescriptor, IList<Result>> Results { get; set; }
+
+        public IList<Notification> ConfigurationNotifications { get; set; }
+
+        public IList<Notification> ToolNotifications { get; set; }
 
         public void AnalysisStarted()
         {
@@ -31,9 +35,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public void Log(ReportingDescriptor rule, Result result)
         {
-            Results ??= new Dictionary<ReportingDescriptor, List<Result>>();
+            Results ??= new Dictionary<ReportingDescriptor, IList<Result>>();
 
-            if (!Results.TryGetValue(rule, out List<Result> results))
+            if (!Results.TryGetValue(rule, out IList<Result> results))
             {
                 results = Results[rule] = new List<Result>();
             }
@@ -42,6 +46,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public void LogConfigurationNotification(Notification notification)
         {
+            ConfigurationNotifications ??= new List<Notification>();
+            ConfigurationNotifications.Add(notification);
         }
 
         public void LogMessage(bool verbose, string message)
@@ -50,6 +56,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public void LogToolNotification(Notification notification)
         {
+            ToolNotifications ??= new List<Notification>();
+            ToolNotifications.Add(notification);
         }
     }
 }
