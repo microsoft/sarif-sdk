@@ -413,7 +413,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                         DetermineApplicabilityAndAnalyze(context, skimmers, disabledSkimmers);
 
-                        if (_computeHashes && ((CachingLogger)context.Logger).Results.Count > 0)
+                        if (_computeHashes && ((CachingLogger)context.Logger).Results?.Count > 0)
                         {
                             Debug.Assert(context.Hashes == null);
 
