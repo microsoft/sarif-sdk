@@ -22,9 +22,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         // .NET http client 
         private readonly HttpClient httpClient;
 
-        // cache stores all visited Uris and responses, thread safe
-        private static readonly ConcurrentDictionary<string, HttpResponseMessage> s_checkedUris = new ConcurrentDictionary<string, HttpResponseMessage>();
-
         /// <summary>
         /// Allow HttpClient to be injected, can accepted httpclient with mocked HttpMessageHandler for easier unit testing
         /// </summary>
@@ -42,16 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <returns>The task object representing the asynchronous operation.</returns>
         public Task<HttpResponseMessage> GetAsync(string requestUri)
         {
-            // pls note the cache is case sensitive
-            if (s_checkedUris.ContainsKey(requestUri))
-            {
-                return Task.FromResult(s_checkedUris[requestUri]);
-            }
-
-            Task<HttpResponseMessage> httpResponseMessage = httpClient.GetAsync(requestUri);
-            s_checkedUris.TryAdd(requestUri, httpResponseMessage.Result);
-
-            return httpResponseMessage;
+            return httpClient.GetAsync(requestUri);
         }
 
         /// <summary>
