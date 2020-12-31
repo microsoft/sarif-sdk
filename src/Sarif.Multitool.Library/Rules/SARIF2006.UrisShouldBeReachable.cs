@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Linq;
 using System.Net.Http;
 
@@ -12,11 +13,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class UrisShouldBeReachable : SarifValidationSkimmerBase
     {
-        private readonly IHttpClient httpProvider;
+#pragma warning disable IDE0044, CS0649 // Provided by MEF
+        [Import]
+        private IHttpClient httpProvider;
+#pragma warning restore IDE0044, CS0649
 
-        public UrisShouldBeReachable(IHttpClient httpClient = null)
+        public UrisShouldBeReachable()
         {
-            this.httpProvider = httpClient ?? new HttpClientWrapper();
+            this.httpProvider ??= new HttpClientWrapper();
             this.DefaultConfiguration.Level = FailureLevel.Note;
         }
 
