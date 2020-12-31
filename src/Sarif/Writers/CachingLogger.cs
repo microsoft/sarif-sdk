@@ -44,6 +44,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 throw new ArgumentNullException(nameof(result));
             }
 
+            if (rule.GetType().Name != nameof(ReportingDescriptor))
+            {
+                rule = rule.DeepClone();
+            }
+
+            if (rule.Id != result.RuleId)
+            {
+                throw new ArgumentException($"rule.Id is not equal to result.RuleId ({rule.Id} != {result.RuleId})");
+            }
+
             Results ??= new Dictionary<ReportingDescriptor, IList<Result>>();
 
             if (!Results.TryGetValue(rule, out IList<Result> results))

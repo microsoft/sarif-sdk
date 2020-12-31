@@ -45,6 +45,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             Assert.Throws<ArgumentNullException>(() => logger.Log(null, result01));
             Assert.Throws<ArgumentNullException>(() => logger.Log(rule01, null));
 
+            rule01.Id = "TEST0001";
+            result01.RuleId = "TEST0002";
+
+            Assert.Throws<ArgumentException>(() => logger.Log(rule01, result01));
+
+            rule01.Id = "TEST0001";
+            result01.RuleId = "TEST0001";
+
             // Validate simple insert
             logger.Log(rule01, result01);
             logger.Results.Should().HaveCount(1);
