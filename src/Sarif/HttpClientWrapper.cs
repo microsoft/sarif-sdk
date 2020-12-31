@@ -1,11 +1,9 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -17,6 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Clients should use this class rather directly using the .NET http client classes, so they
     /// can mock the IHttpClient interface in unit tests.
     /// </remarks>
+    [Export(typeof(IHttpClient))]
     public class HttpClientWrapper : IHttpClient
     {
         // .NET http client 
