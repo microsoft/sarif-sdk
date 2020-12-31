@@ -3,14 +3,13 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Resources;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class RuleUtilities
     {
-        public static Result BuildResult(ResultKind kind, IAnalysisContext context, Region region, string ruleMessageId, params string[] arguments)
+        public static Result BuildResult(ResultKind kind, IAnalysisContext context, Region region, string ruleMessageId, ReportingDescriptor reportingDescriptor = null, params string[] arguments)
         {
             // If kind indicates a failure, but we have no explicit failure
             // level, we'll fall back to the default of Warning
@@ -18,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 ? FailureLevel.None
                 : FailureLevel.Warning;
 
-            return BuildResult(level, kind, context, region, ruleMessageId, arguments);
+            return BuildResult(level, kind, context, region, ruleMessageId, reportingDescriptor, arguments);
         }
 
         public static Result BuildResult(FailureLevel level, IAnalysisContext context, Region region, string ruleMessageId, params string[] arguments)
@@ -30,10 +29,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                 ? ResultKind.Fail
                 : ResultKind.None;
 
-            return BuildResult(level, kind, context, region, ruleMessageId, arguments);
+            return BuildResult(level, kind, context, region, ruleMessageId, reportingDescriptor: null, arguments);
         }
 
-        public static Result BuildResult(FailureLevel level, ResultKind kind, IAnalysisContext context, Region region, string ruleMessageId, params string[] arguments)
+        public static Result BuildResult(FailureLevel level, ResultKind kind, IAnalysisContext context, Region region, string ruleMessageId, ReportingDescriptor reportingDescriptor = null, params string[] arguments)
         {
             if (context == null)
             {
@@ -45,11 +44,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(arguments));
             }
 
-            ruleMessageId = NormalizeRuleMessageId(ruleMessageId, context.Rule.Id);
+            ruleMessageId = NormalizeRuleMessageId(ruleMessageId, reportingDescriptor?.Id ?? context.Rule.Id);
 
             Result result = new Result
             {
-                RuleId = context.Rule.Id,
+                RuleId = reportingDescriptor?.Id ?? context.Rule.Id,
 
                 Message = new Message
                 {

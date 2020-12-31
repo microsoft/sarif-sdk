@@ -21,11 +21,15 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             // '{0}' was not evaluated for check '{1}' because the analysis
             // is not relevant for the following reason: {2}.
-            context.Logger.Log(context.Rule,
+
+            var rule = context.Rule.DeepClone();
+
+            context.Logger.Log(rule,
                 RuleUtilities.BuildResult(ResultKind.NotApplicable, context, null,
                     nameof(SdkResources.NotApplicable_InvalidMetadata),
+                    reportingDescriptor: rule,
                     context.TargetUri.GetFileName(),
-                    context.Rule.Name,
+                    rule.Name,
                     reasonForNotAnalyzing));
 
             context.RuntimeErrors |= RuntimeConditions.RuleNotApplicableToTarget;
