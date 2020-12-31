@@ -210,7 +210,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 context.Logger.Log(this,
                     RuleUtilities.BuildResult(ResultKind.Pass, context, null,
                     nameof(SkimmerBaseTestResources.TEST1001_Pass),
-                    reportingDescriptor: null,
                     context.TargetUri.GetFileName()));
             }
             else if (fileName.Contains(nameof(ResultKind.Review)))
@@ -218,7 +217,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 context.Logger.Log(this,
                     RuleUtilities.BuildResult(ResultKind.Review, context, null,
                     nameof(SkimmerBaseTestResources.TEST1001_Review),
-                    reportingDescriptor: null,
                     context.TargetUri.GetFileName()));
             }
             else if (fileName.Contains(nameof(ResultKind.Open)))
@@ -226,7 +224,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 context.Logger.Log(this,
                     RuleUtilities.BuildResult(ResultKind.Open, context, null,
                     nameof(SkimmerBaseTestResources.TEST1001_Open),
-                    reportingDescriptor: null,
                     context.TargetUri.GetFileName()));
             }
             else if (fileName.Contains(nameof(ResultKind.Informational)))
@@ -234,7 +231,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 context.Logger.Log(this,
                     RuleUtilities.BuildResult(ResultKind.Informational, context, null,
                     nameof(SkimmerBaseTestResources.TEST1001_Information),
-                    reportingDescriptor: null,
                     context.TargetUri.GetFileName()));
             }
         }
