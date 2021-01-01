@@ -6,7 +6,7 @@ using Microsoft.CodeAnalysis.Sarif.Driver;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
-    public class TestAnalyzeOptions : MultithreadedAnalyzeOptionsBase
+    public class TestAnalyzeOptions : AnalyzeOptionsBase
     {
         public TestRuleBehaviors TestRuleBehaviors { get; set; }
 
