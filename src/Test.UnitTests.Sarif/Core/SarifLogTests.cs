@@ -71,6 +71,17 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
             action.Should().NotThrow();
         }
 
+        [Fact]
+        public void SarifLog_SplitPerRun()
+        {
+            var random = new Random();
+            SarifLog sarifLog = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, 1);
+            sarifLog.Split(SplittingStrategy.PerRun).Should().HaveCount(1);
+
+            sarifLog = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, 3);
+            sarifLog.Split(SplittingStrategy.PerRun).Should().HaveCount(3);
+        }
+
         private Run SerializeAndDeserialize(Run run)
         {
             return JsonConvert.DeserializeObject<Run>(JsonConvert.SerializeObject(run));
