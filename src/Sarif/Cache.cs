@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -15,7 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     public class Cache<TKey, TValue> where TKey : IComparable<TKey>
     {
         private readonly Func<TKey, TValue> _builder;
-        private readonly Dictionary<TKey, TValue> _cache;
+        private readonly ConcurrentDictionary<TKey, TValue> _cache;
         private readonly LinkedList<TKey> _keysInUseOrder;
 
         public const int DefaultCapacity = 100;
@@ -29,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public Cache(Func<TKey, TValue> builder, int capacity = DefaultCapacity)
         {
             _builder = builder;
-            _cache = new Dictionary<TKey, TValue>();
+            _cache = new ConcurrentDictionary<TKey, TValue>();
             _keysInUseOrder = new LinkedList<TKey>();
             Capacity = capacity;
         }
@@ -84,7 +85,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 TKey oldest = _keysInUseOrder.Last.Value;
                 _keysInUseOrder.RemoveLast();
-                _cache.Remove(oldest);
+                _cache.TryRemove(oldest, out _);
             }
 
             _cache[key] = value;
