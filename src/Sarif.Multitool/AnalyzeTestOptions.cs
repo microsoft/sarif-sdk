@@ -11,7 +11,7 @@ using Microsoft.CodeAnalysis.Sarif.Driver;
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     [Verb("analyze-test", HelpText = "Test the analysis driver framework.")]
-    public class AnalyzeTestOptions : MultithreadedAnalyzeOptionsBase
+    public class AnalyzeTestOptions : AnalyzeOptionsBase
     {
     }
 }
