@@ -6,6 +6,8 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 
+using Newtonsoft.Json;
+
 namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
     public class ConsoleLogger : IAnalysisLogger
@@ -321,6 +323,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
 
             sb.Append(notification.Message.Text);
+
+            if (notification.Exception != null)
+            {
+                sb.AppendLine();
+                sb.AppendLine(JsonConvert.SerializeObject(notification.Exception));
+            }
 
             return sb.ToString();
         }

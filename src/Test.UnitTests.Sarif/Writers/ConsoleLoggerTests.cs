@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 using System;
+using System.Collections.Generic;
 
 using FluentAssertions;
 
@@ -60,6 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         public void ConsoleLogger_EmitsNotificationLocationMessageOrToolName()
         {
             string messageGuid = Guid.NewGuid().ToString();
+            string exceptionMessage = "Exception message";
             string toolName = Guid.NewGuid().ToString();
             string uriGuid = Guid.NewGuid().ToString();
             Uri uri = new Uri(uriGuid, UriKind.RelativeOrAbsolute);
@@ -83,6 +85,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                              }
                          }
                     }
+                },
+
+                Exception = new ExceptionData
+                {
+                    Message = exceptionMessage
                 }
             };
 
@@ -92,6 +99,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             output.Should().Contain(uriGuid);
             output.Should().NotContain(toolName);
             output.Should().Contain(messageGuid);
+            output.Should().Contain(exceptionMessage);
 
             // In the absence of notification locations, the tool name should be 
             // present as part of the console out message.
@@ -100,6 +108,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             output.Should().NotContain(uriGuid);
             output.Should().Contain(toolName);
             output.Should().Contain(messageGuid);
+            output.Should().Contain(exceptionMessage);
         }
     }
 }
