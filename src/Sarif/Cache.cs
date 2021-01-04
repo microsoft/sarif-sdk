@@ -56,20 +56,23 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 TValue value = default;
 
-                if (!_cache.TryGetValue(key, out value))
+                lock (_keysInUseOrder)
                 {
-                    // Build and add the new item to cache
-                    value = _builder(key);
-
-                    SetValue(key, value);
-                }
-                else
-                {
-                    // When an in-cache key is retrieved, move it back to the start of the order used set, if not already most recent
-                    if (Capacity > 0 && key.CompareTo(_keysInUseOrder.First.Value) != 0)
+                    if (!_cache.TryGetValue(key, out value))
                     {
-                        _keysInUseOrder.Remove(key);
-                        _keysInUseOrder.AddFirst(key);
+                        // Build and add the new item to cache
+                        value = _builder(key);
+
+                        SetValue(key, value);
+                    }
+                    else
+                    {
+                        // When an in-cache key is retrieved, move it back to the start of the order used set, if not already most recent
+                        if (Capacity > 0 && key.CompareTo(_keysInUseOrder.First.Value) != 0)
+                        {
+                            _keysInUseOrder.Remove(key);
+                            _keysInUseOrder.AddFirst(key);
+                        }
                     }
                 }
 
@@ -84,6 +87,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (Capacity > 0 && _cache.Count >= Capacity)
             {
                 TKey oldest = _keysInUseOrder.Last.Value;
+
                 _keysInUseOrder.RemoveLast();
                 _cache.TryRemove(oldest, out _);
             }
