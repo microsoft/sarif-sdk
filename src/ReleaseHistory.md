@@ -1,5 +1,10 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
+## **v2.3.14** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.14) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.14) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.14) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.14) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.3.14)
+* BUGFIX: Fix concurrency issue in when using `Cache` [#2215](https://github.com/microsoft/sarif-sdk/pull/2215)
+* FEATURE: `ConsoleLogger` will print exception if that exists [#2217](https://github.com/microsoft/sarif-sdk/pull/2217)
+* BUGFIX: Fix WebRequest parameters parse [#2219](https://github.com/microsoft/sarif-sdk/pull/2219)
+
 ## **v2.3.11** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.11) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.11) | [Converters]
 * DEPENDENCY BREAKING: SARIF now requires Newtonsoft.JSON 12.0.3.
 * Add `PerRun` splitting strategy for log file refactoring.
