@@ -93,13 +93,13 @@ User-Agent: my-agent
         }
 
         [Fact]
-        public void WebRequest_Parse_HandlesQueriesWithoutParameters()
+        public void WebRequest_Parse_HandlesQueriesWithParametersWithoutValue()
         {
             // RFC 3986 does not require the query portion of a URI to consist
             // of a set of name/value pairs (parameters). If it doesn't, we don't
             // fail; we just don't populate webRequest.Parameters.
             const string RequestString =
-@"GET /hello.txt?this-query-is-not-a-set-of-parameters HTTP/1.1
+@"GET /hello.txt?this-query-is-a-parameter-without-value HTTP/1.1
 User-Agent: my-agent
 
 ";
@@ -107,8 +107,8 @@ User-Agent: my-agent
             WebRequest webRequest = WebRequest.Parse(RequestString);
 
             webRequest.Method.Should().Be("GET");
-            webRequest.Target.Should().Be("/hello.txt?this-query-is-not-a-set-of-parameters");
-            webRequest.Parameters.Count.Should().Be(0);
+            webRequest.Target.Should().Be("/hello.txt?this-query-is-a-parameter-without-value");
+            webRequest.Parameters.Count.Should().Be(1);
             webRequest.Protocol.Should().Be("HTTP");
             webRequest.Version.Should().Be("1.1");
             webRequest.Headers.Count.Should().Be(1);
