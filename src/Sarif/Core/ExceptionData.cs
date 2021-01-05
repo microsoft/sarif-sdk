@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -20,6 +21,38 @@ namespace Microsoft.CodeAnalysis.Sarif
                 InnerExceptions = GetInnerExceptions(exception),
                 Stack = Stack.Create(exception.StackTrace)
             };
+        }
+
+        /// <summary>
+        /// This is an implementation similar to Exception.ToString()
+        /// </summary>
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+
+            if (string.IsNullOrEmpty(this.Message))
+            {
+                sb.Append(this.Kind);
+            }
+            else
+            {
+                sb.Append(this.Kind).Append(": ").Append(this.Message);
+            }
+
+            if (this.InnerExceptions != null)
+            {
+                foreach (ExceptionData innerException in this.InnerExceptions)
+                {
+                    sb.Append("---> ").AppendLine(innerException.ToString());
+                }
+            }
+
+            if (this.Stack != null)
+            {
+                sb.AppendLine().Append(this.Stack.ToString());
+            }
+
+            return sb.ToString();
         }
 
         private static IList<ExceptionData> GetInnerExceptions(Exception exception)
