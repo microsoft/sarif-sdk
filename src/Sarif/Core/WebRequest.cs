@@ -128,6 +128,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     parameterDictionary.Add(key, value);
                 }
+                else
+                {
+                    parameterDictionary.Add(value, string.Empty);
+                }
             }
 
             return parameterDictionary;
