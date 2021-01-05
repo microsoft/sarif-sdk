@@ -35,6 +35,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             nameof(RuleResources.SARIF2006_UrisShouldBeReachable_Note_Default_Text)
         };
 
+        // cache stores all visited Uris
+        private static readonly Dictionary<string, bool> s_checkedUris = new Dictionary<string, bool>();
+
         protected override void Analyze(SarifLog log, string logPointer)
         {
             AnalyzeUri(log.SchemaUri, logPointer.AtProperty(SarifPropertyName.Schema));
@@ -100,8 +103,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         private bool IsUriReachable(string uriString)
         {
+            if (s_checkedUris.ContainsKey(uriString))
+            {
+                return s_checkedUris[uriString];
+            }
+
             // http wrapper handles the cache all Uris has been accessed
             HttpResponseMessage httpResponseMessage = httpProvider.GetAsync(uriString).GetAwaiter().GetResult();
+            s_checkedUris.Add(uriString, httpResponseMessage.IsSuccessStatusCode);
             return httpResponseMessage.IsSuccessStatusCode;
         }
     }

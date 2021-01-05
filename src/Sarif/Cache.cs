@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -15,7 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     public class Cache<TKey, TValue> where TKey : IComparable<TKey>
     {
         private readonly Func<TKey, TValue> _builder;
-        private readonly Dictionary<TKey, TValue> _cache;
+        private readonly ConcurrentDictionary<TKey, TValue> _cache;
         private readonly LinkedList<TKey> _keysInUseOrder;
 
         public const int DefaultCapacity = 100;
@@ -29,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public Cache(Func<TKey, TValue> builder, int capacity = DefaultCapacity)
         {
             _builder = builder;
-            _cache = new Dictionary<TKey, TValue>();
+            _cache = new ConcurrentDictionary<TKey, TValue>();
             _keysInUseOrder = new LinkedList<TKey>();
             Capacity = capacity;
         }
@@ -55,20 +56,23 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 TValue value = default;
 
-                if (!_cache.TryGetValue(key, out value))
+                lock (_keysInUseOrder)
                 {
-                    // Build and add the new item to cache
-                    value = _builder(key);
-
-                    SetValue(key, value);
-                }
-                else
-                {
-                    // When an in-cache key is retrieved, move it back to the start of the order used set, if not already most recent
-                    if (Capacity > 0 && key.CompareTo(_keysInUseOrder.First.Value) != 0)
+                    if (!_cache.TryGetValue(key, out value))
                     {
-                        _keysInUseOrder.Remove(key);
-                        _keysInUseOrder.AddFirst(key);
+                        // Build and add the new item to cache
+                        value = _builder(key);
+
+                        SetValue(key, value);
+                    }
+                    else
+                    {
+                        // When an in-cache key is retrieved, move it back to the start of the order used set, if not already most recent
+                        if (Capacity > 0 && key.CompareTo(_keysInUseOrder.First.Value) != 0)
+                        {
+                            _keysInUseOrder.Remove(key);
+                            _keysInUseOrder.AddFirst(key);
+                        }
                     }
                 }
 
@@ -83,8 +87,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (Capacity > 0 && _cache.Count >= Capacity)
             {
                 TKey oldest = _keysInUseOrder.Last.Value;
+
                 _keysInUseOrder.RemoveLast();
-                _cache.Remove(oldest);
+                _cache.TryRemove(oldest, out _);
             }
 
             _cache[key] = value;

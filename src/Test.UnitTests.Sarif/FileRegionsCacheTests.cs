@@ -2,9 +2,11 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Text;
+using System.Threading.Tasks;
 
 using FluentAssertions;
 
@@ -462,6 +464,25 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
         public void FileRegionsCache_PopulatesCarriageReturnFileRegions()
         {
             ExecuteTests(COMPLETE_FILE_CARRIAGE_RETURNS_ONLY, s_carriageReturnTestCasess);
+        }
+
+        [Fact]
+        public void FileRegionsCache_ValidateConcurrencyData()
+        {
+            Exception exception = Record.Exception(() =>
+            {
+                var fileRegionsCache = new FileRegionsCache();
+                List<Task> taskList = new List<Task>();
+
+                for (int i = 0; i < 1_000; i++)
+                {
+                    taskList.Add(Task.Factory.StartNew(() =>
+                    fileRegionsCache.PopulateTextRegionProperties(new Region { }, new Uri($"file:///c:/{Guid.NewGuid()}.txt"), true)));
+                }
+
+                Task.WaitAll(taskList.ToArray());
+            });
+            Assert.Null(exception);
         }
 
         private static void ExecuteTests(string fileText, ReadOnlyCollection<TestCaseData> testCases)

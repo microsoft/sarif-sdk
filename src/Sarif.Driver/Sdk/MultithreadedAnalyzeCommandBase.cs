@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -19,7 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     public abstract class MultithreadedAnalyzeCommandBase<TContext, TOptions> : PlugInDriverCommand<TOptions>
         where TContext : IAnalysisContext, new()
-        where TOptions : MultithreadedAnalyzeOptionsBase
+        where TOptions : AnalyzeOptionsBase
     {
         public const string DefaultPolicyName = "default";
 
@@ -153,8 +152,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             IEnumerable<Skimmer<TContext>> skimmers,
             ISet<string> disabledSkimmers)
         {
-            options.ThreadCount = options.ThreadCount > 0 ?
-                options.ThreadCount :
+            options.Threads = options.Threads > 0 ?
+                options.Threads :
                 (Debugger.IsAttached) ? 1 : Environment.ProcessorCount;
 
             var channelOptions = new BoundedChannelOptions(2000)
@@ -173,9 +172,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             var sw = Stopwatch.StartNew();
 
-            var workers = new Task<bool>[options.ThreadCount];
+            var workers = new Task<bool>[options.Threads];
 
-            for (int i = 0; i < options.ThreadCount; i++)
+            for (int i = 0; i < options.Threads; i++)
             {
                 workers[i] = AnalyzeTargetAsync(skimmers, disabledSkimmers);
             }
@@ -234,7 +233,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                         while (context?.AnalysisComplete == true)
                         {
-                            Dictionary<ReportingDescriptor, List<Result>> results = ((CachingLogger)context.Logger).Results;
+                            CachingLogger cachingLogger = ((CachingLogger)context.Logger);
+                            IDictionary<ReportingDescriptor, IList<Result>> results = cachingLogger.Results;
 
                             if (results?.Count > 0)
                             {
@@ -249,12 +249,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                     };
                                 }
 
-                                foreach (KeyValuePair<ReportingDescriptor, List<Result>> kv in results)
+                                foreach (KeyValuePair<ReportingDescriptor, IList<Result>> kv in results)
                                 {
                                     foreach (Result result in kv.Value)
                                     {
                                         rootContext.Logger.Log(kv.Key, result);
                                     }
+                                }
+                            }
+
+                            if (cachingLogger.ToolNotifications != null)
+                            {
+                                foreach (Notification notification in cachingLogger.ToolNotifications)
+                                {
+                                    rootContext.Logger.LogToolNotification(notification);
+                                }
+                            }
+
+                            if (cachingLogger.ConfigurationNotifications != null)
+                            {
+                                foreach (Notification notification in cachingLogger.ConfigurationNotifications)
+                                {
+                                    rootContext.Logger.LogConfigurationNotification(notification);
                                 }
                             }
 
@@ -397,7 +413,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                         DetermineApplicabilityAndAnalyze(context, skimmers, disabledSkimmers);
 
-                        if (_computeHashes && ((CachingLogger)context.Logger).Results.Count > 0)
+                        if (_computeHashes && ((CachingLogger)context.Logger).Results?.Count > 0)
                         {
                             Debug.Assert(context.Hashes == null);
 
