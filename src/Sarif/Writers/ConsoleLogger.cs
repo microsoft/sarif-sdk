@@ -322,6 +322,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             sb.Append(notification.Message.Text);
 
+            if (notification.Exception != null)
+            {
+                sb.AppendLine();
+                sb.AppendLine(notification.Exception.ToString());
+            }
+
             return sb.ToString();
         }
 
