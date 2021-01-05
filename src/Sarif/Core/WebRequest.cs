@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -112,49 +113,20 @@ namespace Microsoft.CodeAnalysis.Sarif
             return uri;
         }
 
-        // In this query pattern, note how backtracking is disabled with (?>...) while parsing the
-        // parameter names and values. A parameter name can't contain a '=', and a parameter value
-        // can't contain a '&', so it's never necessary to backtrack over an individual parameter
-        // name or value.
-        const string QueryPattern =
-            @"^
-              \?                        # A literal '?', followed by zero or more of...
-              (
-                (?>
-                  (?<name>[^=]+)        # a parameter name (everything that's not an = sign),
-                )
-                =                       # an equal sign, and
-                (
-                  (?>
-                    (?<value>[^&]*)     # the value (everything that's not an '&')...
-                  )
-                  &?                    # and an '&' (except after the last one).
-                )
-              )*
-              $";
-
-        private static readonly Regex s_queryRegex = SarifUtilities.RegexFromPattern(QueryPattern);
-
         private static IDictionary<string, string> ParseParametersFromQueryString(string query)
         {
             IDictionary<string, string> parameterDictionary = new Dictionary<string, string>();
 
-            Match match = s_queryRegex.Match(query);
+            NameValueCollection nameValueCollection = System.Web.HttpUtility.ParseQueryString(query);
 
-            // RFC 3986 does _not_ require a URI's query to consist of key-value pairs. If it
-            // doesn't, don't fail; just return an empty parameter dictionary.
-            if (match.Success)
+            for (int i = 0; i < nameValueCollection.Count; i++)
             {
-                List<string> names = match.Groups["name"].Captures.Cast<Capture>().Select(c => c.Value).ToList();
-                List<string> values = match.Groups["value"].Captures.Cast<Capture>().Select(c => c.Value).ToList();
+                string key = nameValueCollection.GetKey(i);
+                string value = nameValueCollection.GetValues(i).FirstOrDefault();
 
-                if (names.Count == values.Count)
+                if (!string.IsNullOrEmpty(key))
                 {
-                    parameterDictionary = new Dictionary<string, string>();
-                    for (int i = 0; i < names.Count; ++i)
-                    {
-                        parameterDictionary.Add(names[i], values[i]);
-                    }
+                    parameterDictionary.Add(key, value);
                 }
             }
 
