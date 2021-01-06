@@ -249,7 +249,7 @@
   <data name="PartioningVisitHappensAtSarifLogLevel" xml:space="preserve">
     <value>Could not identify the log being partitioned. Call VisitSarifLog and provide the log to partition. This class is designed to create log files on a per-run basis (i.e., all partioned logs will contain a single run only).</value>
   </data>
-  <data name="CannotProvideVersionControlInformation" xml:space="preserve">
+  <data name="CannotProvideVersionControlDetails" xml:space="preserve">
     <value>Cannot provide version control information because the current directory '{0}' is not under a Git repository root directory.</value>
   </data>
   <data name="GitHelperDefaultInstanceDoesNotPermitCaching" xml:space="preserve">
