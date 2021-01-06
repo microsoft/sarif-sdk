@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -40,6 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             _dataToInsert = dataToInsert;
             _originalUriBaseIds = originalUriBaseIds;
             _ruleIndex = -1;
+            _gitHelper = new GitHelper();
         }
 
         public override Run VisitRun(Run node)
@@ -50,7 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             if (_originalUriBaseIds != null)
             {
-                _run.OriginalUriBaseIds = _run.OriginalUriBaseIds ?? new Dictionary<string, ArtifactLocation>();
+                _run.OriginalUriBaseIds ??= new Dictionary<string, ArtifactLocation>();
 
                 foreach (string key in _originalUriBaseIds.Keys)
                 {
@@ -98,7 +100,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 Region expandedRegion;
                 ArtifactLocation artifactLocation = node.ArtifactLocation;
 
-                _fileRegionsCache = _fileRegionsCache ?? new FileRegionsCache();
+                _fileRegionsCache ??= new FileRegionsCache();
 
                 if (artifactLocation.Uri == null && artifactLocation.Index >= 0)
                 {
@@ -276,10 +278,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 if (repoRootPath != null)
                 {
                     var repoRootUri = new Uri(repoRootPath + @"\", UriKind.Absolute);
+
+                    _repoRootUris ??= new HashSet<Uri>();
                     _repoRootUris.Add(repoRootUri);
 
-                    Uri repoRelativeUri = repoRootUri.MakeRelativeUri(uri);
-                    node.Uri = repoRelativeUri;
+                    node.Uri = repoRootUri.MakeRelativeUri(uri);
                     node.UriBaseId = GetUriBaseIdForRepoRoot(repoRootUri);
                 }
             }
