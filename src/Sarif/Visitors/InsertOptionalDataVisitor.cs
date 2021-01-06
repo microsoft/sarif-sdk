@@ -75,7 +75,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             Run visited = base.VisitRun(node);
 
             // After all the ArtifactLocations have been visited,
-            if (_run.VersionControlProvenance == null && _dataToInsert.HasFlag(OptionallyEmittedData.VersionControlInformation))
+            if (_run.VersionControlProvenance == null && _dataToInsert.HasFlag(OptionallyEmittedData.VersionControlDetails))
             {
                 _run.VersionControlProvenance = CreateVersionControlProvenance();
             }
@@ -190,7 +190,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         public override ArtifactLocation VisitArtifactLocation(ArtifactLocation node)
         {
-            if (_dataToInsert.HasFlag(OptionallyEmittedData.VersionControlInformation))
+            if (_dataToInsert.HasFlag(OptionallyEmittedData.VersionControlDetails))
             {
                 node = ExpressRelativeToRepoRoot(node);
             }

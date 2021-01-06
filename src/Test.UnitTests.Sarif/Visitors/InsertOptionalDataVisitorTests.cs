@@ -108,7 +108,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 }
             }
 
-            if (_currentOptionallyEmittedData.HasFlag(OptionallyEmittedData.VersionControlInformation))
+            if (_currentOptionallyEmittedData.HasFlag(OptionallyEmittedData.VersionControlDetails))
             {
                 VersionControlDetails versionControlDetails = actualLog.Runs[0].VersionControlProvenance[0];
 
@@ -206,7 +206,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         [Fact]
         public void InsertOptionalDataVisitor_PersistsVersionControlInformation()
         {
-            RunTest("CoreTests-Relative.sarif", OptionallyEmittedData.VersionControlInformation);
+            RunTest("CoreTests-Relative.sarif", OptionallyEmittedData.VersionControlDetails);
         }
 
         [Fact]
@@ -325,7 +325,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             };
 
             var visitor = new InsertOptionalDataVisitor(
-                OptionallyEmittedData.VersionControlInformation,
+                OptionallyEmittedData.VersionControlDetails,
                 originalUriBaseIds: null,
                 fileSystem: mockFileSystem.Object,
                 processRunner: mockProcessRunner.Object);

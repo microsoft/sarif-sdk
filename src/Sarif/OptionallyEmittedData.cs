@@ -71,7 +71,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         // Specifies the repository, branch, and other information describing the source controlled
         // version of the code that was analyzed.
-        VersionControlInformation = 0x400,
+        VersionControlDetails = 0x400,
 
         // A set of threadFlows which together describe a pattern of code execution relevant
         // to detecting a result.
