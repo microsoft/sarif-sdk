@@ -52,6 +52,8 @@
     <None Include="default.configuration.xml" Pack="true" PackagePath="lib/netstandard2.0;lib/net472" CopyToOutputDirectory="PreserveNewest" />
     <None Include="..\..\policies\*" Pack="true" PackagePath="policies" />
     <None Include="**\*.cs" Pack="true" PackagePath="src" />
+    <Compile Remove="QueryDatabaseCommand.cs" />
+    <Compile Remove="QueryDatabaseOptions.cs" />
     <None Include="..\ReleaseHistory.md" Pack="true" PackagePath="/" />
   </ItemGroup>
 
