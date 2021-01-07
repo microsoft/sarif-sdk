@@ -55,7 +55,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 if (!acceptableReturnCodes.Contains(process.ExitCode))
                 {
-                    Console.WriteLine("Command execution FAILED.");
+                    Console.WriteLine($"Command execution FAILED with exit code '{process.ExitCode}'.");
                     Console.WriteLine();
                     Console.WriteLine($"Command-line     : {psi.FileName} {psi.Arguments}");
                     Console.WriteLine($"Working directory: {Environment.CurrentDirectory}");
