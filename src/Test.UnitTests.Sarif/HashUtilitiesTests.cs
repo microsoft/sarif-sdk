@@ -49,11 +49,20 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif
             //  An custom textwriter.S
             //  Using it should throw an InvalidOperationException when writing a string
             TestTextWriter testTextWriter = new TestTextWriter();
+            TextWriter defaultOut = Console.Out;
             Console.SetOut(testTextWriter);
 
             try
             {
                 IDictionary<string, HashData> hashes = HashUtilities.MultithreadedComputeTargetFileHashes(filePaths);
+
+                //  If we got here, things went wrong, so cleanup
+                foreach (string filePath in filePaths)
+                {
+                    if (File.Exists(filePath)) { File.Delete(filePath); }
+                }
+                Console.SetOut(defaultOut);
+
                 Assert.True(false, "Exception was expected but not thrown");
             }
             catch (InvalidOperationException)
@@ -66,7 +75,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif
             {
                 IDictionary<string, HashData> hashes = HashUtilities.MultithreadedComputeTargetFileHashes(filePaths, true);
             }
-            catch (Exception)
+            catch
             {
                 Assert.True(false, "Unexpected exception.");
             }
@@ -76,6 +85,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif
                 {
                     if (File.Exists(filePath)) { File.Delete(filePath); }
                 }
+
+                Console.SetOut(defaultOut);
             }
         }
     }
