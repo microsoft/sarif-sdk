@@ -178,16 +178,16 @@ namespace Microsoft.CodeAnalysis.Sarif
             string pathToFile = typeof(GitHelperTests).Assembly.Location;
             string repoRootPath = GitHelper.Default.GetTopLevel(pathToFile);
             repoRootPath.Should().NotBeNull();
-            pathToFile.StartsWith(repoRootPath).Should().BeTrue();
+            pathToFile.StartsWith(repoRootPath, StringComparison.InvariantCultureIgnoreCase).Should().BeTrue();
         }
 
         [Fact]
-        public void GetTopLevel_WhenRepoPathIsToADictory()
+        public void GetTopLevel_WhenRepoPathIsToADirectory()
         {
             string pathToDirectory = Path.GetDirectoryName(typeof(GitHelperTests).Assembly.Location);
             string repoRootPath = GitHelper.Default.GetTopLevel(pathToDirectory);
             repoRootPath.Should().NotBeNull();
-            pathToDirectory.StartsWith(repoRootPath).Should().BeTrue();
+            pathToDirectory.StartsWith(repoRootPath, StringComparison.InvariantCultureIgnoreCase).Should().BeTrue();
         }
 
         [Fact]
