@@ -3,9 +3,9 @@
 
 using System;
 
-using FluentAssertions;
-
 using Microsoft.CodeAnalysis.Sarif;
+
+using Newtonsoft.Json;
 
 using Xunit;
 
@@ -13,6 +13,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
 {
     public class ReportingDescriptorTests
     {
+        private const string ShortDescription = "ShortDescription";
+
         [Fact]
         public void ShouldSerializeShortDescription_CorrectlyHandlesNullAndEmptyValues()
         {
@@ -23,37 +25,37 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             };
 
             //  both null
-            Assert.False(reportingDescriptor.ShouldSerializeShortDescription());
+            AssertShouldSerializeShortDescription(reportingDescriptor);
 
             reportingDescriptor.ShortDescription = new MultiformatMessageString() { Text = "" };
 
             //  short empty, full null
-            Assert.False(reportingDescriptor.ShouldSerializeShortDescription());
+            AssertShouldSerializeShortDescription(reportingDescriptor);
 
             reportingDescriptor.FullDescription = new MultiformatMessageString() { Text = "" };
 
             //  short empty, full empty
-            Assert.False(reportingDescriptor.ShouldSerializeShortDescription());
+            AssertShouldSerializeShortDescription(reportingDescriptor);
 
             reportingDescriptor.ShortDescription = null;
 
             //  short null, full empty
-            Assert.False(reportingDescriptor.ShouldSerializeShortDescription());
+            AssertShouldSerializeShortDescription(reportingDescriptor);
 
             reportingDescriptor.FullDescription = new MultiformatMessageString() { Text = " " };
 
             //  short null, full space
-            Assert.False(reportingDescriptor.ShouldSerializeShortDescription());
+            AssertShouldSerializeShortDescription(reportingDescriptor);
 
             reportingDescriptor.ShortDescription = new MultiformatMessageString() { Text = " " };
 
             //  short space, full space
-            Assert.False(reportingDescriptor.ShouldSerializeShortDescription());
+            AssertShouldSerializeShortDescription(reportingDescriptor);
 
             reportingDescriptor.FullDescription = null;
 
             //  short space, full null
-            Assert.False(reportingDescriptor.ShouldSerializeShortDescription());
+            AssertShouldSerializeShortDescription(reportingDescriptor);
         }
 
         [Fact]
@@ -64,23 +66,29 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
                 ShortDescription = new MultiformatMessageString() { Text = "EasyFalse1" },
                 FullDescription = new MultiformatMessageString() { Text = "EasyFalse1" }
             };
-
-            Assert.False(reportingDescriptor.ShouldSerializeShortDescription());
+            AssertShouldSerializeShortDescription(reportingDescriptor);
 
             reportingDescriptor.ShortDescription = new MultiformatMessageString() { Text = "EasyTrue1" };
             reportingDescriptor.FullDescription = new MultiformatMessageString() { Text = "EasyTrue1.  Lorem ipsum etc" };
 
-            Assert.True(reportingDescriptor.ShouldSerializeShortDescription());
+            AssertShouldSerializeShortDescription(reportingDescriptor, true);
 
             reportingDescriptor.ShortDescription = new MultiformatMessageString() { Text = "CASESENSITIVITY1" };
             reportingDescriptor.FullDescription = new MultiformatMessageString() { Text = "casesensitivity1" };
 
-            Assert.False(reportingDescriptor.ShouldSerializeShortDescription());
+            AssertShouldSerializeShortDescription(reportingDescriptor);
 
             reportingDescriptor.ShortDescription = new MultiformatMessageString() { Text = "    extraspace1" };
             reportingDescriptor.FullDescription = new MultiformatMessageString() { Text = "extraspace1      \t" + Environment.NewLine };
 
-            Assert.False(reportingDescriptor.ShouldSerializeShortDescription());
+            AssertShouldSerializeShortDescription(reportingDescriptor);
+        }
+
+        private void AssertShouldSerializeShortDescription(ReportingDescriptor reportingDescriptor, bool should = false)
+        {
+            Assert.False(should ^ reportingDescriptor.ShouldSerializeShortDescription());
+            string testSerializedString = JsonConvert.SerializeObject(reportingDescriptor);
+            Assert.False(should ^ testSerializedString.Contains(ShortDescription, StringComparison.InvariantCultureIgnoreCase));
         }
 
         //  TODO: Add unit tests for remaining ShouldSerialize methods
