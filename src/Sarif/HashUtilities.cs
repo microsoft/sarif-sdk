@@ -37,7 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 Console.WriteLine("Computing file hashes...");
             }
-            
+
             var fileToHashDataMap = new ConcurrentDictionary<string, HashData>();
 
             var queue = new ConcurrentQueue<string>(analysisTargets);

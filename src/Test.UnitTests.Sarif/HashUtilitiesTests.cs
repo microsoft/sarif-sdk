@@ -2,10 +2,12 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
-using System.IO;
 using System.Collections.Generic;
+using System.IO;
+
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
+
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif
@@ -38,7 +40,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif
             catch (Exception e)
             {
                 //  If anything fails, delete the files and fail the test
-                foreach(string filePath in filePaths)
+                foreach (string filePath in filePaths)
                 {
                     if (File.Exists(filePath)) { File.Delete(filePath); }
                 }
