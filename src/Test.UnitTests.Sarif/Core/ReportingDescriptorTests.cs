@@ -25,37 +25,37 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             };
 
             //  both null
-            AssertShouldSerializeShortDescription(reportingDescriptor);
+            AssertShouldNotSerializeShortDescription(reportingDescriptor);
 
             reportingDescriptor.ShortDescription = new MultiformatMessageString() { Text = "" };
 
             //  short empty, full null
-            AssertShouldSerializeShortDescription(reportingDescriptor);
+            AssertShouldNotSerializeShortDescription(reportingDescriptor);
 
             reportingDescriptor.FullDescription = new MultiformatMessageString() { Text = "" };
 
             //  short empty, full empty
-            AssertShouldSerializeShortDescription(reportingDescriptor);
+            AssertShouldNotSerializeShortDescription(reportingDescriptor);
 
             reportingDescriptor.ShortDescription = null;
 
             //  short null, full empty
-            AssertShouldSerializeShortDescription(reportingDescriptor);
+            AssertShouldNotSerializeShortDescription(reportingDescriptor);
 
             reportingDescriptor.FullDescription = new MultiformatMessageString() { Text = " " };
 
             //  short null, full space
-            AssertShouldSerializeShortDescription(reportingDescriptor);
+            AssertShouldNotSerializeShortDescription(reportingDescriptor);
 
             reportingDescriptor.ShortDescription = new MultiformatMessageString() { Text = " " };
 
             //  short space, full space
-            AssertShouldSerializeShortDescription(reportingDescriptor);
+            AssertShouldNotSerializeShortDescription(reportingDescriptor);
 
             reportingDescriptor.FullDescription = null;
 
             //  short space, full null
-            AssertShouldSerializeShortDescription(reportingDescriptor);
+            AssertShouldNotSerializeShortDescription(reportingDescriptor);
         }
 
         [Fact]
@@ -66,25 +66,25 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
                 ShortDescription = new MultiformatMessageString() { Text = "EasyFalse1" },
                 FullDescription = new MultiformatMessageString() { Text = "EasyFalse1" }
             };
-            AssertShouldSerializeShortDescription(reportingDescriptor);
+            AssertShouldNotSerializeShortDescription(reportingDescriptor);
 
             reportingDescriptor.ShortDescription = new MultiformatMessageString() { Text = "EasyTrue1" };
             reportingDescriptor.FullDescription = new MultiformatMessageString() { Text = "EasyTrue1.  Lorem ipsum etc" };
 
-            AssertShouldSerializeShortDescription(reportingDescriptor, true);
+            AssertShouldNotSerializeShortDescription(reportingDescriptor, true);
 
             reportingDescriptor.ShortDescription = new MultiformatMessageString() { Text = "CASESENSITIVITY1" };
             reportingDescriptor.FullDescription = new MultiformatMessageString() { Text = "casesensitivity1" };
 
-            AssertShouldSerializeShortDescription(reportingDescriptor);
+            AssertShouldNotSerializeShortDescription(reportingDescriptor);
 
             reportingDescriptor.ShortDescription = new MultiformatMessageString() { Text = "    extraspace1" };
             reportingDescriptor.FullDescription = new MultiformatMessageString() { Text = "extraspace1      \t" + Environment.NewLine };
 
-            AssertShouldSerializeShortDescription(reportingDescriptor);
+            AssertShouldNotSerializeShortDescription(reportingDescriptor);
         }
 
-        private void AssertShouldSerializeShortDescription(ReportingDescriptor reportingDescriptor, bool should = false)
+        private void AssertShouldNotSerializeShortDescription(ReportingDescriptor reportingDescriptor, bool should = false)
         {
             Assert.False(should ^ reportingDescriptor.ShouldSerializeShortDescription());
             string testSerializedString = JsonConvert.SerializeObject(reportingDescriptor);
