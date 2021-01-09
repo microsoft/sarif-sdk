@@ -558,7 +558,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     // So disable it, but don't complain that the rule was explicitly disabled.
                     disabledSkimmers.Add(skimmer.Id);
                 }
-                else if (skimmer.DefaultConfiguration.Level != failureLevel && ruleEnabled != RuleEnabledState.Default && ruleEnabled != RuleEnabledState.Disabled)
+                else if (skimmer.DefaultConfiguration.Level != failureLevel
+                    && ruleEnabled != RuleEnabledState.Default
+                    && ruleEnabled != RuleEnabledState.Disabled)
                 {
                     skimmer.DefaultConfiguration.Level = failureLevel;
                 }
