@@ -52,5 +52,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             return this.DefaultConfiguration != null && !this.DefaultConfiguration.ValueEquals(ReportingConfiguration.Empty);
         }
+
+        public bool ShouldSerializeShortDescription()
+        {
+            return !(this?.FullDescription?.Text ?? "").Trim()
+                .Equals((this?.ShortDescription?.Text ?? "").Trim(), System.StringComparison.InvariantCultureIgnoreCase);
+        }
     }
 }
