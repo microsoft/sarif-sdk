@@ -29,11 +29,15 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        public static IDictionary<string, HashData> MultithreadedComputeTargetFileHashes(IEnumerable<string> analysisTargets)
+        public static IDictionary<string, HashData> MultithreadedComputeTargetFileHashes(IEnumerable<string> analysisTargets, bool suppressConsoleOutput = false)
         {
             if (analysisTargets == null) { return null; }
 
-            Console.WriteLine("Computing file hashes...");
+            if (!suppressConsoleOutput)
+            {
+                Console.WriteLine("Computing file hashes...");
+            }
+
             var fileToHashDataMap = new ConcurrentDictionary<string, HashData>();
 
             var queue = new ConcurrentQueue<string>(analysisTargets);
@@ -54,7 +58,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }));
             }
             Task.WaitAll(tasks.ToArray());
-            Console.WriteLine("Hash computation complete.");
+
+            if (!suppressConsoleOutput)
+            {
+                Console.WriteLine("Hash computation complete.");
+            }
+
             return fileToHashDataMap;
         }
 
