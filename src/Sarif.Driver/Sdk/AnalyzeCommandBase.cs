@@ -574,7 +574,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 // If analysis is persisted to a disk log file, we will have already
                 // computed all file hashes and stored them to _pathToHashDataMap.
-                _pathToHashDataMap = _pathToHashDataMap ?? HashUtilities.MultithreadedComputeTargetFileHashes(targets);
+                _pathToHashDataMap = _pathToHashDataMap ?? HashUtilities.MultithreadedComputeTargetFileHashes(targets, options.Quiet);
             }
 
             foreach (string target in targets)
