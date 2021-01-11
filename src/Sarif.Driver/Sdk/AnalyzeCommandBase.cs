@@ -57,13 +57,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public override int Run(TOptions options)
         {
-            bool testBool = false;
-            testBool = true;
-            if (testBool)
-            {
-                throw new Exception("test exception");
-            }
-
 #pragma warning disable CS0618 // Type or member is obsolete
             if (options.ComputeFileHashes)
 
