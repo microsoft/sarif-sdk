@@ -89,14 +89,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
         }
 
-        public void LogMessage(bool verbose, string message)
-        {
-            if (Verbose)
-            {
-                WriteLineToConsole(message);
-            }
-        }
-
         public void Log(ReportingDescriptor rule, Result result)
         {
             if (result == null)

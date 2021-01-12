@@ -111,10 +111,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             notifications.Add(notification);
         }
 
-        public void LogMessage(bool verbose, string message)
-        {
-        }
-
         public void LogToolNotification(Notification notification)
         {
         }

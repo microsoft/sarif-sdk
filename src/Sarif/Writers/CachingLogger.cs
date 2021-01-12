@@ -69,10 +69,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             ConfigurationNotifications.Add(notification);
         }
 
-        public void LogMessage(bool verbose, string message)
-        {
-        }
-
         public void LogToolNotification(Notification notification)
         {
             ToolNotifications ??= new List<Notification>();

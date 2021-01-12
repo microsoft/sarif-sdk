@@ -43,12 +43,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
         }
 
-        public void LogMessage(bool verbose, string message)
-        {
-            Messages = Messages ?? new List<string>();
-            Messages.Add(message);
-        }
-
         public void Log(ReportingDescriptor rule, Result result)
         {
             NoteTestResult(result.Kind, result.Locations.First().PhysicalLocation.ArtifactLocation.Uri.LocalPath);

@@ -277,11 +277,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             GC.SuppressFinalize(this);
         }
 
-        public void LogMessage(bool verbose, string message)
-        {
-            // We do not persist these to log file
-        }
-
         public void AnalysisStarted()
         {
             _issueLogJsonWriter.OpenResults();
