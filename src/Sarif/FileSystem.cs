@@ -346,5 +346,19 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             return Directory.EnumerateFiles(path, searchPattern, searchOption);
         }
+
+        /// <summary>
+        /// Reads the lines of a file.
+        /// </summary>
+        /// <param name="path">
+        /// The file to open for reading.
+        /// </param>
+        /// <returns>
+        /// All the lines of the file, or the lines that are the result of a query.
+        /// </returns>
+        public IEnumerable<string> FileReadLines(string path)
+        {
+            return File.ReadLines(path);
+        }
     }
 }
