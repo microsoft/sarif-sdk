@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     // code paths. These conditions are a combination of fatal
     // and non-fatal circumstances
     [Flags]
-    public enum RuntimeConditions : int
+    public enum RuntimeConditions : uint
     {
         None = 0,
 
@@ -57,6 +57,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         TargetNotValidToAnalyze = 0x10000000,
         OneOrMoreWarningsFired = 0x20000000,
         OneOrMoreErrorsFired = 0x40000000,
+        ObsoleteOption = 0x80000000,
 
         Nonfatal = 0x7FF00000
     }
