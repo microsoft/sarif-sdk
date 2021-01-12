@@ -1,6 +1,7 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
 * BREAKING: Rename flag `VersionControlInformation` to `VersionControlDetails` from `OptionallyEmittedData`. [#2222](https://github.com/microsoft/sarif-sdk/pull/2222)
+* FEATURE: ensure all command options argument properties are settable (useful for API-driven invocation).
 
 ## **v2.3.14** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.14) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.14) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.14) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.14) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.3.14)
 * BUGFIX: Fix concurrency issue in when using `Cache`. [#2215](https://github.com/microsoft/sarif-sdk/pull/2215)
