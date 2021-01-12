@@ -96,5 +96,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                        "should be emitted to the console and log file (if appropriate). " +
                        "Valid values: ScanTime.")]
         public virtual IEnumerable<string> Traces { get; set; }
+
+        [Option(
+            "level",
+            Separator = ';',
+            Default = new FailureLevel[] { FailureLevel.Error, FailureLevel.Warning },
+            HelpText = "Filter results. Valid values: None, Note, Warning, and Error.")]
+        public IEnumerable<FailureLevel> Level { get; set; }
+
+        [Option(
+            "kind",
+            Separator = ';',
+            Default = new ResultKind[] { ResultKind.Fail },
+            HelpText = "Filter results. Valid values: None, NotApplicable, Pass, Facil, Review, Open, and Informational")]
+        public IEnumerable<ResultKind> Kind { get; set; }
     }
 }

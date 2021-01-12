@@ -15,7 +15,7 @@ using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
-    public class SarifLogger : IDisposable, IAnalysisLogger
+    public class SarifLogger : BaseLogger, IDisposable, IAnalysisLogger
     {
         private readonly Run _run;
         private readonly TextWriter _textWriter;
@@ -40,7 +40,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             IEnumerable<string> analysisTargets = null,
             IEnumerable<string> invocationTokensToRedact = null,
             IEnumerable<string> invocationPropertiesToLog = null,
-            string defaultFileEncoding = null)
+            string defaultFileEncoding = null,
+            IEnumerable<FailureLevel> level = null,
+            IEnumerable<ResultKind> kind = null)
             : this(new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.None)),
                   loggingOptions: loggingOptions,
                   dataToInsert: dataToInsert,
@@ -50,7 +52,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                   analysisTargets: analysisTargets,
                   invocationTokensToRedact: invocationTokensToRedact,
                   invocationPropertiesToLog: invocationPropertiesToLog,
-                  defaultFileEncoding: defaultFileEncoding)
+                  defaultFileEncoding: defaultFileEncoding,
+                  level: level,
+                  kind: kind)
         {
         }
 
@@ -65,7 +69,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             IEnumerable<string> invocationTokensToRedact = null,
             IEnumerable<string> invocationPropertiesToLog = null,
             string defaultFileEncoding = null,
-            bool closeWriterOnDispose = true) : this(textWriter, loggingOptions, closeWriterOnDispose)
+            bool closeWriterOnDispose = true,
+            IEnumerable<FailureLevel> level = null,
+            IEnumerable<ResultKind> kind = null) : this(textWriter, loggingOptions, closeWriterOnDispose, level, kind)
         {
             if (dataToInsert.HasFlag(OptionallyEmittedData.Hashes))
             {
@@ -110,7 +116,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 (_dataToInsert & OptionallyEmittedData.BinaryFiles) != 0;
         }
 
-        private SarifLogger(TextWriter textWriter, LoggingOptions loggingOptions, bool closeWriterOnDipose)
+        private SarifLogger(
+            TextWriter textWriter,
+            LoggingOptions loggingOptions,
+            bool closeWriterOnDipose,
+            IEnumerable<FailureLevel> level,
+            IEnumerable<ResultKind> kind) : base(failureLevels: level, resultKinds: kind)
         {
             _textWriter = textWriter;
             _closeWriterOnDispose = closeWriterOnDipose;
@@ -307,7 +318,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 throw new ArgumentException(message);
             }
 
-            if (!ShouldLog(result.Level))
+            if (!ShouldLog(result))
             {
                 return;
             }
@@ -330,7 +341,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 ruleIndex = RuleToIndexMap.Count;
                 RuleToIndexMap[rule] = ruleIndex;
-                _run.Tool.Driver.Rules = _run.Tool.Driver.Rules ?? new OrderSensitiveValueComparisonList<ReportingDescriptor>(ReportingDescriptor.ValueComparer);
+                _run.Tool.Driver.Rules ??= new OrderSensitiveValueComparisonList<ReportingDescriptor>(ReportingDescriptor.ValueComparer);
                 _run.Tool.Driver.Rules.Add(rule);
             }
 
@@ -472,11 +483,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         private void LogJsonIssue(FailureLevel level, string targetPath, Region region, string ruleId, int ruleIndex, string ruleMessageId, params string[] arguments)
         {
-            if (!ShouldLog(level))
-            {
-                return;
-            }
-
             Result result = new Result
             {
                 RuleId = ruleId,
@@ -505,35 +511,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 };
             }
 
-            _issueLogJsonWriter.WriteResult(result);
-        }
-
-        public bool ShouldLog(FailureLevel level)
-        {
-            switch (level)
+            if (!ShouldLog(result))
             {
-                case FailureLevel.None:
-                case FailureLevel.Note:
-                {
-                    if (!Verbose)
-                    {
-                        return false;
-                    }
-                    break;
-                }
-
-                case FailureLevel.Error:
-                case FailureLevel.Warning:
-                {
-                    break;
-                }
-
-                default:
-                {
-                    throw new InvalidOperationException();
-                }
+                return;
             }
-            return true;
+
+            _issueLogJsonWriter.WriteResult(result);
         }
 
         public void LogToolNotification(Notification notification)

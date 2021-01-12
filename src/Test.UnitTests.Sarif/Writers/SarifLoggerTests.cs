@@ -182,44 +182,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        [Theory]
-        // These values are emitted both verbose and non-verbose
-        [InlineData(FailureLevel.Error, true, true)]
-        [InlineData(FailureLevel.Error, false, true)]
-        [InlineData(FailureLevel.Warning, true, true)]
-        [InlineData(FailureLevel.Warning, false, true)]
-
-        // These values are emitted only in verbose mode
-        [InlineData(FailureLevel.Note, true, true)]
-        [InlineData(FailureLevel.Note, false, false)]
-        [InlineData(FailureLevel.None, true, true)]
-        [InlineData(FailureLevel.None, false, false)]
-        public void SarifLogger_ShouldLogByFailureLevel(FailureLevel level, bool verboseLogging, bool expectedReturn)
-        {
-            LoggingOptions loggingOptions = verboseLogging ? LoggingOptions.Verbose : LoggingOptions.None;
-
-            var sb = new StringBuilder();
-            var logger = new SarifLogger(new StringWriter(sb), loggingOptions);
-            bool result = logger.ShouldLog(level);
-            result.Should().Be(expectedReturn);
-        }
-
-        [Fact]
-        public void SarifLogger_ShouldLogRecognizesAllFailureLevels()
-        {
-            LoggingOptions loggingOptions = LoggingOptions.Verbose;
-            var sb = new StringBuilder();
-            var logger = new SarifLogger(new StringWriter(sb), loggingOptions);
-
-            foreach (object resultLevelObject in Enum.GetValues(typeof(FailureLevel)))
-            {
-                // The point of this test is that every defined enum value
-                // should pass a call to ShouldLog and will not raise an 
-                // exception because the enum value isn't recognized
-                logger.ShouldLog((FailureLevel)resultLevelObject);
-            }
-        }
-
         [Fact]
         public void SarifLogger_EmitHashesWithNullOrEmptyAnalysisTargets()
         {
