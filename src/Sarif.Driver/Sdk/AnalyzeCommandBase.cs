@@ -57,23 +57,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public override int Run(TOptions options)
         {
-            // 0. Initialize an common logger that drives all outputs. This
-            //    object drives logging for console, statistics, etc.
-            using (AggregatingLogger logger = InitializeLogger(options))
-            {
-                _rootContext = CreateContext(options, logger, RuntimeErrors);
 
 #pragma warning disable CS0618 // Type or member is obsolete
-                if (options.ComputeFileHashes)
+            //  To correctly initialize the logger, we must first add Hashes to dataToInsert
+            if (options.ComputeFileHashes)
+            {
+                OptionallyEmittedData dataToInsert = options.DataToInsert.ToFlags();
+                dataToInsert |= OptionallyEmittedData.Hashes;
 
+                options.DataToInsert = Enum.GetValues(typeof(OptionallyEmittedData)).Cast<OptionallyEmittedData>()
+                    .Where(oed => dataToInsert.HasFlag(oed)).ToList();
+            }
+
+                // 0. Initialize an common logger that drives all outputs. This
+                //    object drives logging for console, statistics, etc.
+                using (AggregatingLogger logger = InitializeLogger(options))
+            {
+                //  Once the logger has been correctly initialized, we can raise a warning
+                _rootContext = CreateContext(options, logger, RuntimeErrors);
+                if (options.ComputeFileHashes)
                 {
                     Warnings.LogObsoleteOption(_rootContext, options.ComputeFileHashes.ToString(), SdkResources.ComputeFileHashes_ReplaceInsertHashes);
 #pragma warning restore CS0618
-                    OptionallyEmittedData dataToInsert = options.DataToInsert.ToFlags();
-                    dataToInsert |= OptionallyEmittedData.Hashes;
-
-                    options.DataToInsert = Enum.GetValues(typeof(OptionallyEmittedData)).Cast<OptionallyEmittedData>()
-                        .Where(oed => dataToInsert.HasFlag(oed)).ToList();
                 }
 
                 try
