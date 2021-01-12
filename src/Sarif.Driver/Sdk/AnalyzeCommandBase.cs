@@ -246,13 +246,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (!analyzeOptions.Quiet)
             {
-                _consoleLogger = new ConsoleLogger(analyzeOptions.Verbose, _tool.Driver.Name) { CaptureOutput = _captureConsoleOutput };
+                _consoleLogger = new ConsoleLogger(analyzeOptions.Verbose, _tool.Driver.Name, analyzeOptions.Level, analyzeOptions.Kind) { CaptureOutput = _captureConsoleOutput };
                 logger.Loggers.Add(_consoleLogger);
             }
 
             if ((analyzeOptions.DataToInsert.ToFlags() & OptionallyEmittedData.Hashes) != 0)
             {
-                _cacheByFileHashLogger = new CacheByFileHashLogger(analyzeOptions.Verbose);
+                _cacheByFileHashLogger = new CacheByFileHashLogger(analyzeOptions.Level, analyzeOptions.Kind);
                 logger.Loggers.Add(_cacheByFileHashLogger);
             }
 
@@ -405,7 +405,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                     run: null,
                                     analysisTargets: targets,
                                     invocationTokensToRedact: GenerateSensitiveTokensList(),
-                                    invocationPropertiesToLog: analyzeOptions.InvocationPropertiesToLog);
+                                    invocationPropertiesToLog: analyzeOptions.InvocationPropertiesToLog,
+                                    level: analyzeOptions.Level,
+                                    kind: analyzeOptions.Kind);
                         }
                         else
                         {
@@ -418,7 +420,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                     run: null,
                                     analysisTargets: targets,
                                     invocationTokensToRedact: GenerateSensitiveTokensList(),
-                                    invocationPropertiesToLog: analyzeOptions.InvocationPropertiesToLog);
+                                    invocationPropertiesToLog: analyzeOptions.InvocationPropertiesToLog,
+                                    level: analyzeOptions.Level,
+                                    kind: analyzeOptions.Kind);
                         }
                         _pathToHashDataMap = sarifLogger.AnalysisTargetToHashDataMap;
                         sarifLogger.AnalysisStarted();

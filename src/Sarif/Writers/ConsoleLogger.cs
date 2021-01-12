@@ -2,15 +2,16 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
 
 namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
-    public class ConsoleLogger : IAnalysisLogger
+    public class ConsoleLogger : BaseLogger, IAnalysisLogger
     {
-        public ConsoleLogger(bool verbose, string toolName)
+        public ConsoleLogger(bool verbose, string toolName, IEnumerable<FailureLevel> level = null, IEnumerable<ResultKind> kind = null) : base(level, kind)
         {
             Verbose = verbose;
             _toolName = toolName.ToUpperInvariant();
@@ -102,59 +103,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             // Note that we can potentially emit many messages from a single result.
             PhysicalLocation physicalLocation = result.Locations?.First().PhysicalLocation;
 
-            WriteToConsole(
-                result.Kind,
-                result.Level,
-                physicalLocation?.ArtifactLocation?.Uri,
-                physicalLocation?.Region,
-                result.RuleId,
-                message);
-        }
-
-        private void WriteToConsole(ResultKind kind, FailureLevel level, Uri uri, Region region, string ruleId, string message)
-        {
-            ValidateKindAndLevel(kind, level);
-
-            switch (level)
+            if (!ShouldLog(result))
             {
-                // These result types are optionally emitted.
-                case FailureLevel.None:
-                case FailureLevel.Note:
-                {
-                    if (Verbose)
-                    {
-                        WriteLineToConsole(GetMessageText(_toolName, uri, region, ruleId, message, kind, level));
-                    }
-                    break;
-                }
-
-                // These result types are always emitted.
-                case FailureLevel.Error:
-                case FailureLevel.Warning:
-                {
-                    WriteLineToConsole(GetMessageText(_toolName, uri, region, ruleId, message, kind, level));
-                    break;
-                }
-
-                default:
-                {
-                    throw new InvalidOperationException();
-                }
-            }
-        }
-
-        private static void ValidateKindAndLevel(ResultKind kind, FailureLevel level)
-        {
-            if (level != FailureLevel.None && kind != ResultKind.Fail)
-            {
-                throw new ArgumentException("Level indicated a failure but kind was not set to 'Fail'.");
+                return;
             }
 
-            if (level == FailureLevel.None && kind == ResultKind.Fail)
-            {
-                throw new ArgumentException("Level did not indicate a failure but kind was set to 'Fail'.");
-            }
-            return;
+            WriteLineToConsole(GetMessageText(_toolName, physicalLocation?.ArtifactLocation?.Uri, physicalLocation?.Region, result.RuleId,, message, result.Kind, result.Level));
         }
 
         private static string GetMessageText(
@@ -166,11 +120,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             ResultKind kind,
             FailureLevel level)
         {
-            string path = null;
-
-            ValidateKindAndLevel(kind, level);
-
-            path = ConstructPathFromUri(uri);
+            string path = ConstructPathFromUri(uri);
 
             string issueType = null;
 
@@ -209,13 +159,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 location = region.FormatForVisualStudio();
             }
 
-            string messageText =
-                   (path != null ? (path + location) : toolName) + ": " +
-                   issueType + " " +
-                   (!string.IsNullOrEmpty(ruleId) ? (ruleId + ": ") : "") +
-                   detailedDiagnosis;
-
-            return messageText;
+            return (path != null ? (path + location) : toolName)
+                   + $": {issueType} "
+                   + (!string.IsNullOrEmpty(ruleId) ? (ruleId + ": ") : "")
+                   + detailedDiagnosis;
         }
 
         public static string NormalizeMessage(string message, bool enquote)

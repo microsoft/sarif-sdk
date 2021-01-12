@@ -6,6 +6,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     public interface IAnalysisLogger
     {
         void AnalysisStarted();
+
         void AnalysisStopped(RuntimeConditions runtimeConditions);
 
         void AnalyzingTarget(IAnalysisContext context);

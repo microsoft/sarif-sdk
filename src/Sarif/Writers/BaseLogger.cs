@@ -32,6 +32,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
         }
 
+        public bool ShouldLog(Notification notification)
+        {
+            return failureLevels.Contains(notification.Level);
+        }
+
         public bool ShouldLog(Result result)
         {
             // If resultKinds is the default value (Fail), we should just filter based on failureLevels

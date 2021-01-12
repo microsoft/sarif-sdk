@@ -30,16 +30,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             IEnumerable<string> analysisTargets = null,
             IEnumerable<string> invocationTokensToRedact = null,
             IEnumerable<string> invocationPropertiesToLog = null,
-            string defaultFileEncoding = null)
+            string defaultFileEncoding = null,
+            IEnumerable<FailureLevel> level = null,
+            IEnumerable<ResultKind> kind = null)
             : base(new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.None)),
                   loggingOptions: loggingOptions,
                   dataToInsert: dataToInsert,
                   dataToRemove: dataToRemove,
+                  defaultFileEncoding: defaultFileEncoding,
                   tool: tool,
                   run: run,
                   analysisTargets: analysisTargets,
                   invocationTokensToRedact: invocationTokensToRedact,
-                  invocationPropertiesToLog: invocationPropertiesToLog)
+                  invocationPropertiesToLog: invocationPropertiesToLog,
+                  level: level,
+                  kind: kind)
         {
             _outputFilePath = outputFilePath;
         }
