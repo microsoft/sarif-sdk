@@ -77,7 +77,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 _rootContext = CreateContext(options, logger, RuntimeErrors);
                 if (options.ComputeFileHashes)
                 {
-                    Warnings.LogObsoleteOption(_rootContext, options.ComputeFileHashes.ToString(), SdkResources.ComputeFileHashes_ReplaceInsertHashes);
+                    Warnings.LogObsoleteOption(_rootContext, "--hashes", SdkResources.ComputeFileHashes_ReplaceInsertHashes);
 #pragma warning restore CS0618
                 }
 
