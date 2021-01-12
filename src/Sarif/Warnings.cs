@@ -149,7 +149,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 message = string.Format(CultureInfo.InvariantCulture,
                                         SdkResources.WRN997_ObsoleteOptionWithReplacement,
-                                        obsoleteOption, 
+                                        obsoleteOption,
                                         replacement);
             }
 
