@@ -173,7 +173,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (!uri.IsAbsoluteUri)
             {
-                throw new InvalidOperationException();
+                var newAbsoluteUri = new Uri(new Uri("https://github.com/microsoft/sarif-sdk/"), uri.OriginalString);
+                return Path.GetFileName(newAbsoluteUri.LocalPath);
             }
 
             return Path.GetFileName(uri.LocalPath);

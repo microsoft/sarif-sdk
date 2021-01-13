@@ -60,8 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Kind = kind
             };
 
-            string targetPath = context.TargetUri?.LocalPath;
-            if (targetPath != null)
+            if (context.TargetUri != null)
             {
                 result.Locations = new List<Location> {
                     new Sarif.Location {
@@ -69,7 +68,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         {
                             ArtifactLocation = new ArtifactLocation
                             {
-                                Uri = new Uri(targetPath)
+                                Uri = context.TargetUri.IsAbsoluteUri ?  new Uri(context.TargetUri.LocalPath) : context.TargetUri
                             },
                             Region = region
                         }
