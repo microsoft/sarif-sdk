@@ -173,7 +173,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (!uri.IsAbsoluteUri)
             {
-                const string baseUri = "https://example.om";
+                const string baseUri = "https://example.com";
                 var newAbsoluteUri = new Uri(new Uri(baseUri), uri.OriginalString);
                 return Path.GetFileName(newAbsoluteUri.LocalPath);
             }
@@ -183,7 +183,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static string GetFilePath(this Uri uri)
         {
-            return uri.IsAbsoluteUri ? Path.GetFileName(uri.LocalPath) : uri.OriginalString;
+            return uri.IsAbsoluteUri ? uri.LocalPath : uri.OriginalString;
         }
 
         public static string FormatForVisualStudio(this Region region)

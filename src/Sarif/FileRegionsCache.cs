@@ -313,7 +313,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private NewLineIndex GetNewLineIndex(Uri uri, string fileText = null)
         {
-            string path = uri.IsAbsoluteUri ? uri.LocalPath : uri.OriginalString;
+            string path = uri.GetFilePath();
 
             NewLineIndex newLineIndex;
             if (!_cache.ContainsKey(path) && fileText != null)
