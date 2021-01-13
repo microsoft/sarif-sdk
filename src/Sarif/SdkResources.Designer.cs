@@ -97,6 +97,15 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to --insert Hashes.
+        /// </summary>
+        public static string ComputeFileHashes_ReplaceInsertHashes {
+            get {
+                return ResourceManager.GetString("ComputeFileHashes_ReplaceInsertHashes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}{1}: error {2}: {3}.
         /// </summary>
         public static string ERR1000_ParseError {
@@ -473,6 +482,24 @@ namespace Microsoft.CodeAnalysis.Sarif {
         public static string WRN997_InvalidTarget {
             get {
                 return ResourceManager.GetString("WRN997_InvalidTarget", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Option &apos;{0}&apos; is obsolete..
+        /// </summary>
+        public static string WRN997_ObsoleteOption {
+            get {
+                return ResourceManager.GetString("WRN997_ObsoleteOption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Option &apos;{0}&apos; is obsolete.  Use &apos;{1}&apos; instead..
+        /// </summary>
+        public static string WRN997_ObsoleteOptionWithReplacement {
+            get {
+                return ResourceManager.GetString("WRN997_ObsoleteOptionWithReplacement", resourceCulture);
             }
         }
         

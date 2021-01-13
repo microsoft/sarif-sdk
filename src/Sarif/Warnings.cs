@@ -10,8 +10,15 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class Warnings
     {
+        // Configuration warnings:
         public const string Wrn997_InvalidTarget = "WRN997.InvalidTarget";
+        public const string Wrn997_ObsoleteOption = "WRN997.ObsoleteOption";
+        public const string Wrn997_ObsoleteOptionWithReplacement = "WRN997.ObsoleteOptionWithReplacement";
+
+        // Rule disabling tool warnings:
         public const string Wrn998_UnsupportedPlatform = "WRN998.UnsupportedPlatform";
+
+        // Analysis halting tool warnings:
         public const string Wrn999_RuleExplicitlyDisabled = "WRN999.RuleExplicitlyDisabled";
 
         public static void LogExceptionInvalidTarget(IAnalysisContext context)
@@ -121,6 +128,43 @@ namespace Microsoft.CodeAnalysis.Sarif
                 });
 
             context.RuntimeErrors |= RuntimeConditions.RuleWasExplicitlyDisabled;
+        }
+
+        public static void LogObsoleteOption(IAnalysisContext context, string obsoleteOption, string replacement = null)
+        {
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
+            string message;
+
+            if (string.IsNullOrWhiteSpace(replacement))
+            {
+                message = string.Format(CultureInfo.InvariantCulture,
+                                        SdkResources.WRN997_ObsoleteOption,
+                                        obsoleteOption);
+            }
+            else
+            {
+                message = string.Format(CultureInfo.InvariantCulture,
+                                        SdkResources.WRN997_ObsoleteOptionWithReplacement,
+                                        obsoleteOption,
+                                        replacement);
+            }
+
+            context.Logger.LogConfigurationNotification(
+                new Notification
+                {
+                    Descriptor = new ReportingDescriptorReference
+                    {
+                        Id = Wrn997_ObsoleteOption
+                    },
+                    Message = new Message { Text = message },
+                    Level = FailureLevel.Warning,
+                });
+
+            context.RuntimeErrors |= RuntimeConditions.ObsoleteOption;
         }
     }
 }
