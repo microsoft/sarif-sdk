@@ -13,6 +13,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Sdk\CommandBase.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Sdk\CommandBase.cs">
+      <PackagePath>src</PackagePath>
+      <Pack>true</Pack>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Update="DriverResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <CustomToolNamespace>Microsoft.CodeAnalysis.Sarif.Driver</CustomToolNamespace>
@@ -37,7 +48,7 @@
     <PackageReference Include="Microsoft.Extensions.FileSystemGlobbing" Version="3.1.9" />
     <PackageReference Include="System.Composition" Version="5.0.0" />
     <PackageReference Include="System.Threading.Channels" Version="5.0.0" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All"/>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
   </ItemGroup>
 
 </Project>
