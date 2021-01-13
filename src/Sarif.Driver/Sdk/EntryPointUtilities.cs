@@ -48,9 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             foreach (string responseFileLine in responseFileLines)
             {
                 int argumentCount;
-                IntPtr pointer;
-
-                pointer = CommandLineToArgvW(responseFileLine.Trim(), out argumentCount);
+                IntPtr pointer = CommandLineToArgvW(responseFileLine.Trim(), out argumentCount);
 
                 if (pointer == IntPtr.Zero)
                 {
@@ -74,9 +72,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [DllImport("shell32.dll", SetLastError = true)]
-        static extern IntPtr CommandLineToArgvW([MarshalAs(UnmanagedType.LPWStr)] string lpCmdLine, out int pNumArgs);
+        private static extern IntPtr CommandLineToArgvW([MarshalAs(UnmanagedType.LPWStr)] string lpCmdLine, out int pNumArgs);
 
         [DllImport("kernel32.dll")]
-        static extern IntPtr LocalFree(IntPtr hMem);
+        private static extern IntPtr LocalFree(IntPtr hMem);
     }
 }
