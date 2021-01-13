@@ -313,18 +313,19 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private NewLineIndex GetNewLineIndex(Uri uri, string fileText = null)
         {
-            NewLineIndex newLineIndex = null;
+            string path = uri.IsAbsoluteUri ? uri.LocalPath : uri.OriginalString;
 
-            if (!_cache.ContainsKey(uri.LocalPath) && fileText != null)
+            NewLineIndex newLineIndex;
+            if (!_cache.ContainsKey(path) && fileText != null)
             {
                 newLineIndex = new NewLineIndex(fileText);
 
-                _cache[uri.LocalPath] =
-                    new Tuple<string, NewLineIndex>(item1: uri.LocalPath, item2: newLineIndex);
+                _cache[path] =
+                    new Tuple<string, NewLineIndex>(item1: path, item2: newLineIndex);
             }
             else
             {
-                Tuple<string, NewLineIndex> entry = _cache[uri.LocalPath];
+                Tuple<string, NewLineIndex> entry = _cache[path];
 
                 newLineIndex = entry.Item2;
             }
