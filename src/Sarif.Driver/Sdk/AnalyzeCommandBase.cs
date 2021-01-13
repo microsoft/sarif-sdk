@@ -57,10 +57,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public override int Run(TOptions options)
         {
+            //  To correctly initialize the logger, we must first add Hashes to dataToInsert
+#pragma warning disable CS0618 // Type or member is obsolete
+            if (options.ComputeFileHashes)
+#pragma warning restore CS0618
+            {
+                OptionallyEmittedData dataToInsert = options.DataToInsert.ToFlags();
+                dataToInsert |= OptionallyEmittedData.Hashes;
+
+                options.DataToInsert = Enum.GetValues(typeof(OptionallyEmittedData)).Cast<OptionallyEmittedData>()
+                    .Where(oed => dataToInsert.HasFlag(oed)).ToList();
+            }
+
             // 0. Initialize an common logger that drives all outputs. This
             //    object drives logging for console, statistics, etc.
             using (AggregatingLogger logger = InitializeLogger(options))
             {
+                //  Once the logger has been correctly initialized, we can raise a warning
+                _rootContext = CreateContext(options, logger, RuntimeErrors);
+#pragma warning disable CS0618 // Type or member is obsolete
+                if (options.ComputeFileHashes)
+#pragma warning restore CS0618
+                {
+                    Warnings.LogObsoleteOption(_rootContext, "--hashes", SdkResources.ComputeFileHashes_ReplaceInsertHashes);
+                }
+
                 try
                 {
                     Analyze(options, logger);
