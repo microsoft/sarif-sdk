@@ -16,6 +16,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class ExtensionMethods
     {
+        private static readonly Uri BaseUri = new Uri("https://github.com/microsoft/sarif-sdk/");
+
         public static IEnumerable<SarifLog> Split(this SarifLog sarifLog, SplittingStrategy splittingStrategy)
         {
             PartitionFunction<string> partitionFunction = null;
@@ -173,7 +175,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (!uri.IsAbsoluteUri)
             {
-                var newAbsoluteUri = new Uri(new Uri("https://github.com/microsoft/sarif-sdk/"), uri.OriginalString);
+                var newAbsoluteUri = new Uri(BaseUri, uri.OriginalString);
                 return Path.GetFileName(newAbsoluteUri.LocalPath);
             }
 
