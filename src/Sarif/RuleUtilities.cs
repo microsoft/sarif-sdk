@@ -68,7 +68,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         {
                             ArtifactLocation = new ArtifactLocation
                             {
-                                Uri = context.TargetUri.IsAbsoluteUri ?  new Uri(context.TargetUri.LocalPath) : context.TargetUri
+                                Uri = context.TargetUri
                             },
                             Region = region
                         }
