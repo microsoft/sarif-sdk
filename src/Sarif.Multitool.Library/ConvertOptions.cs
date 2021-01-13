@@ -15,18 +15,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             "tool",
             HelpText = "The tool format of the input file. Must be one of: AndroidStudio, ClangAnalyzer, CppCheck, ContrastSecurity, FlawFinderCsv, Fortify, FortifyFpr, FxCop, PREfast, Pylint, SemmleQL, StaticDriverVerifier, TSLint, or a tool format for which a plugin assembly provides the converter.",
             Required = true)]
-        public string ToolFormat { get; internal set; }
+        public string ToolFormat { get; set; }
 
         [Option(
             'a',
             "plugin-assembly-path",
             HelpText = "Path to plugin assembly containing converter types.")]
-        public string PluginAssemblyPath { get; internal set; }
+        public string PluginAssemblyPath { get; set; }
 
         [Option(
             "normalize-for-github",
             HelpText = "Normalize converted output to conform to GitHub Advanced Security code scanning ingestion requirements.")]
-        public bool NormalizeForGitHub { get; internal set; }
+        public bool NormalizeForGitHub { get; set; }
 
     }
 }
