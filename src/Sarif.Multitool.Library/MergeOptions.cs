@@ -14,12 +14,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             "output-file",
             Default = "merged.sarif",
             HelpText = "File name to write merged content to.")]
-        public string OutputFileName { get; internal set; }
+        public string OutputFileName { get; set; }
 
         [Option(
             "merge-empty-logs",
             HelpText = "Merge log files with no results into the final log.")]
-        public bool MergeEmptyLogs { get; internal set; }
+        public bool MergeEmptyLogs { get; set; }
 
         [Option(
             "split",
@@ -28,12 +28,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                        "no splitting strategy is applied (i.e. all input " +
                        "files will be merged into a single log).",
             Default = SplittingStrategy.None)]
-        public SplittingStrategy SplittingStrategy { get; internal set; }
+        public SplittingStrategy SplittingStrategy { get; set; }
 
         [Option(
             "merge-runs",
             HelpText = "Merge runs of the same tool + verion combination (requires " +
                        "eliding run-specific details such as invocations data.")]
-        public bool MergeRuns { get; internal set; }
+        public bool MergeRuns { get; set; }
     }
 }
