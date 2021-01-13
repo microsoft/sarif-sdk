@@ -1,7 +1,9 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Xml;
 using System.Xml.Linq;
 
@@ -409,6 +411,31 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             string actual = ExtensionMethods.GetFirstSentence(input);
             actual.Should().Be(expected);
+        }
+
+        [Fact]
+        public void Extensions_GetFileName()
+        {
+            var tuples = new List<Tuple<Uri, string>>
+            {
+                new Tuple<Uri, string>(new Uri("file.a", UriKind.Relative), "file.a"),
+                new Tuple<Uri, string>(new Uri("file.a?some-query-string", UriKind.Relative), "file.a"),
+                new Tuple<Uri, string>(new Uri("https://github.com/microsoft/sarif-sdk/NuGet.Config", UriKind.Absolute), "NuGet.Config"),
+                new Tuple<Uri, string>(new Uri("https://github.com/microsoft/sarif-sdk/NuGet.Config?some-query-string", UriKind.Absolute), "NuGet.Config"),
+            };
+
+            var sb = new StringBuilder();
+            foreach (Tuple<Uri, string> tuple in tuples)
+            {
+                string fileName = tuple.Item1.GetFileName();
+
+                if (!fileName.Equals(tuple.Item2))
+                {
+                    sb.Append($"{fileName} should be equal {tuple.Item2};");
+                }
+            }
+
+            sb.Length.Should().Be(0);
         }
     }
 }
