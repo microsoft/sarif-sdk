@@ -16,6 +16,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public const int SUCCESS = 0;
         public const int FAILURE = 1;
 
+        protected IFileSystem FileSystem { get; set; }
+
+        public CommandBase(IFileSystem fileSystem = null)
+        {
+            this.FileSystem = fileSystem ?? Sarif.FileSystem.Instance;
+        }
+
         protected static bool ValidateNonNegativeCommandLineOption<T>(long optionValue, string optionName)
         {
             bool valid = true;
@@ -44,12 +51,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        public static void WriteSarifFile<T>(IFileSystem fileSystem, T sarifFile, string outputName, Formatting formatting = Formatting.None, IContractResolver contractResolver = null)
+        public static void WriteSarifFile<T>(IFileSystem fileSystem,
+                                             T sarifFile, string outputName,
+                                             bool minify = false,
+                                             IContractResolver contractResolver = null)
         {
             var serializer = new JsonSerializer()
             {
                 ContractResolver = contractResolver,
-                Formatting = formatting
+                Formatting = minify ? 0 : Formatting.Indented
             };
 
             using (JsonTextWriter writer = new JsonTextWriter(new StreamWriter(fileSystem.FileCreate(outputName))))

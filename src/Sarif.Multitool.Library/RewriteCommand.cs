@@ -16,31 +16,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public RewriteCommand(IFileSystem fileSystem = null)
         {
-            _fileSystem = fileSystem ?? FileSystem.Instance;
+            _fileSystem = fileSystem ?? Sarif.FileSystem.Instance;
         }
 
-        public int Run(RewriteOptions rewriteOptions)
+        public int Run(RewriteOptions options)
         {
             try
             {
-                Console.WriteLine($"Rewriting '{rewriteOptions.InputFilePath}' => '{rewriteOptions.OutputFilePath}'...");
+                Console.WriteLine($"Rewriting '{options.InputFilePath}' => '{options.OutputFilePath}'...");
                 Stopwatch w = Stopwatch.StartNew();
 
-                bool valid = ValidateOptions(rewriteOptions);
+                bool valid = ValidateOptions(options);
                 if (!valid) { return FAILURE; }
 
-                SarifLog actualLog = ReadSarifFile<SarifLog>(_fileSystem, rewriteOptions.InputFilePath);
+                SarifLog actualLog = ReadSarifFile<SarifLog>(_fileSystem, options.InputFilePath);
 
-                OptionallyEmittedData dataToInsert = rewriteOptions.DataToInsert.ToFlags();
-                OptionallyEmittedData dataToRemove = rewriteOptions.DataToRemove.ToFlags();
-                IDictionary<string, ArtifactLocation> originalUriBaseIds = rewriteOptions.ConstructUriBaseIdsDictionary();
+                OptionallyEmittedData dataToInsert = options.DataToInsert.ToFlags();
+                OptionallyEmittedData dataToRemove = options.DataToRemove.ToFlags();
+                IDictionary<string, ArtifactLocation> originalUriBaseIds = options.ConstructUriBaseIdsDictionary();
 
                 SarifLog reformattedLog = new RemoveOptionalDataVisitor(dataToRemove).VisitSarifLog(actualLog);
                 reformattedLog = new InsertOptionalDataVisitor(dataToInsert, originalUriBaseIds).VisitSarifLog(reformattedLog);
 
-                string fileName = CommandUtilities.GetTransformedOutputFileName(rewriteOptions);
+                string fileName = CommandUtilities.GetTransformedOutputFileName(options);
 
-                WriteSarifFile(_fileSystem, reformattedLog, fileName, rewriteOptions.Formatting);
+                WriteSarifFile(_fileSystem, reformattedLog, fileName, options.Minify);
 
                 w.Stop();
                 Console.WriteLine($"Rewrite completed in {w.Elapsed}.");
