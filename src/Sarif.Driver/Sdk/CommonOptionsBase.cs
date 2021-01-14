@@ -38,6 +38,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public bool Force { get; set; }
 
         [Option(
+            'i',
+            "inline",
+            Default = false,
+            HelpText = "Overwrite each input file with the corresponding transformed file.")]
+        public bool Inline { get; set; }
+
+
+        [Option(
             "insert",
             Separator = ';',
             HelpText =
