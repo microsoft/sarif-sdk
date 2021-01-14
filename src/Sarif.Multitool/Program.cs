@@ -6,6 +6,8 @@ using System.Linq;
 
 using CommandLine;
 
+using Microsoft.CodeAnalysis.Sarif.Driver;
+
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     internal static class Program

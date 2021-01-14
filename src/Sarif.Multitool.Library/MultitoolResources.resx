@@ -135,9 +135,6 @@
   <data name="InputFileNotFound" xml:space="preserve">
     <value>Input file '{0}' was not found.</value>
   </data>
-  <data name="OptionValueMustBeNonNegative" xml:space="preserve">
-    <value>The value of the '{0}' option must be greater than or equal to zero.</value>
-  </data>
   <data name="ResultDifferenceSummary" xml:space="preserve">
     <value>{0:n0} identical, {1:n0} changed</value>
   </data>
