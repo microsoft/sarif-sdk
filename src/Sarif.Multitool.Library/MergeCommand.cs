@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public MergeCommand(IFileSystem fileSystem = null)
         {
-            _fileSystem = fileSystem ?? FileSystem.Instance;
+            _fileSystem = fileSystem ?? Sarif.FileSystem.Instance;
             _ruleIdToRunsMap = new Dictionary<string, Run>();
             _idToSarifLogMap = new Dictionary<string, SarifLog>();
         }
@@ -109,7 +109,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                     _fileSystem.DirectoryCreateDirectory(outputDirectory);
                     outputFilePath = Path.Combine(outputDirectory, GetOutputFileName(_options, key));
-                    WriteSarifFile(_fileSystem, mergedLog, outputFilePath, formatting);
+                    WriteSarifFile(_fileSystem, mergedLog, outputFilePath, _options.Minify);
                 }
             }
             catch (Exception ex)

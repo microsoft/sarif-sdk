@@ -53,11 +53,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public bool Force { get; set; } = false;
 
         [Option(
-            'p',
-            "pretty-print",
+            "minify",
             Default = false,
-            HelpText = "Produce pretty-printed JSON output rather than compact form.")]
-        public bool PrettyPrint { get; set; }
+            HelpText = "Produce compact JSON output rather than more readable, expanded form.")]
+        public bool Minify { get; set; }
 
         [Option(
             'o',
