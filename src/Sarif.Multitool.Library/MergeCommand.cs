@@ -102,11 +102,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     mergedLog.Version = SarifVersion.Current;
                     mergedLog.SchemaUri = mergedLog.Version.ConvertToSchemaUri();
 
-                    // Write output to file.
-                    Formatting formatting = _options.PrettyPrint
-                        ? Formatting.Indented
-                        : Formatting.None;
-
                     _fileSystem.DirectoryCreateDirectory(outputDirectory);
                     outputFilePath = Path.Combine(outputDirectory, GetOutputFileName(_options, key));
                     WriteSarifFile(_fileSystem, mergedLog, outputFilePath, _options.Minify);

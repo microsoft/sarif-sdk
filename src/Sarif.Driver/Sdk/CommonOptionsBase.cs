@@ -44,7 +44,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             HelpText = "Overwrite each input file with the corresponding transformed file.")]
         public bool Inline { get; set; }
 
-
         [Option(
             "insert",
             Separator = ';',
