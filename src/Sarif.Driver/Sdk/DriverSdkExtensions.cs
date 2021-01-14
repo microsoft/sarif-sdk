@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
+namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     public static class DriverSdkExtensions
     {

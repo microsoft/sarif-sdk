@@ -6,12 +6,10 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 
-using Microsoft.CodeAnalysis.Sarif.Driver;
-
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace Microsoft.CodeAnalysis.Sarif.Multitool
+namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     public abstract class CommandBase
     {
@@ -28,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 Console.Error.WriteLine(
                     string.Format(
                         CultureInfo.CurrentCulture,
-                        MultitoolResources.OptionValueMustBeNonNegative,
+                        DriverResources.OptionValueMustBeNonNegative,
                         optionDescription));
                 valid = false;
             }
