@@ -1,7 +1,8 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
-## **v2.3.16** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.16) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.16) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.16) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.16) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.3.16)
+* BREAKING: Move `CommandBase` class from `Multitool.Library` assembly to `Driver`. [#2238](https://github.com/microsoft/sarif-sdk/pull/2238)
 
+## **v2.3.16** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.16) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.16) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.16) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.16) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.3.16)
 * BREAKING: Rename flag `VersionControlInformation` to `VersionControlDetails` from `OptionallyEmittedData`. [#2222](https://github.com/microsoft/sarif-sdk/pull/2222)
 * BUGFIX: Fix filtering when using the command `analyze` with custom configuration. [#2230](https://github.com/microsoft/sarif-sdk/pull/2230)
 * FEATURE: If argument `computeFileHashes`, it will be converted to `OptionallyEmittedData.Hashes`. [#2231](https://github.com/microsoft/sarif-sdk/pull/2231)
