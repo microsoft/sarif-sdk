@@ -346,6 +346,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                     directory = Path.GetFullPath(directories.Dequeue());
 
+#if NETFRAMEWORK
+                    if (string.IsNullOrEmpty(filter))
+                    {
+                        filter = "*";
+                    }
+#endif
+
                     foreach (string file in Directory.EnumerateFiles(directory, filter, SearchOption.TopDirectoryOnly))
                     {
                         sortedFiles.Add(file);
