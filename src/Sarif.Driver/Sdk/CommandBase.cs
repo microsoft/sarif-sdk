@@ -11,12 +11,10 @@ using Newtonsoft.Json.Serialization;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
-    public abstract class CommandBase<TOptions>
+    public abstract class CommandBase
     {
         public const int SUCCESS = 0;
         public const int FAILURE = 1;
-
-        public abstract int Run(TOptions options);
 
         protected static bool ValidateNonNegativeCommandLineOption<T>(long optionValue, string optionName)
         {
