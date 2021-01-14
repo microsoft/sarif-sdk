@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             Required = true,
             HelpText = "Base path value to use while rebasing all paths.  E.x. 'C:\\bld\\1234\\bin\\'"
             )]
-        public string BasePath { get; internal set; }
+        public string BasePath { get; set; }
 
         [Option(
             't',
@@ -24,13 +24,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             Required = true,
             HelpText = "Variable to use for the base path token (e.x. 'SRCROOT')"
             )]
-        public string BasePathToken { get; internal set; }
+        public string BasePathToken { get; set; }
 
         [Option(
             "rebase-relative-uris",
             Default = false,
             HelpText = "All relative uris will be rebased to the base-path-value if true. Default is false."
             )]
-        public bool RebaseRelativeUris { get; internal set; }
+        public bool RebaseRelativeUris { get; set; }
     }
 }

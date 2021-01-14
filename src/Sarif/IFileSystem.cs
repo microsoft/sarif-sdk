@@ -186,12 +186,23 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Opens a text file, reads all lines of the file, and then closes the file.
         /// </summary>
         /// <param name="path">
-        /// The file to open for reading. 
+        /// The file to open for reading.
         /// </param>
         /// <returns>
         /// A string array containing all lines of the file.
         /// </returns>
         string[] FileReadAllLines(string path);
+
+        /// <summary>
+        /// Reads the lines of a file.
+        /// </summary>
+        /// <param name="path">
+        /// The file to open for reading.
+        /// </param>
+        /// <returns>
+        /// All the lines of the file, or the lines that are the result of a query.
+        /// </returns>
+        IEnumerable<string> FileReadLines(string path);
 
         /// <summary>
         /// Opens a text file, reads all text in the file as a single string, and then closes

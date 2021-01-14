@@ -263,4 +263,13 @@ You can also refer to properties in the result's property bag with 'properties.&
   <data name="ErrorInvalidQueryPropertyPrefix" xml:space="preserve">
     <value>Property name must start with one of: {0}</value>
   </data>
+  <data name="WRN997_ObsoleteOption" xml:space="preserve">
+    <value>Option '{0}' is obsolete.</value>
+  </data>
+  <data name="WRN997_ObsoleteOptionWithReplacement" xml:space="preserve">
+    <value>Option '{0}' is obsolete.  Use '{1}' instead.</value>
+  </data>
+  <data name="ComputeFileHashes_ReplaceInsertHashes" xml:space="preserve">
+    <value>--insert Hashes</value>
+  </data>
 </root>

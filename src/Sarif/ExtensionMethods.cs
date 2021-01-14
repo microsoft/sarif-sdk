@@ -173,10 +173,17 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (!uri.IsAbsoluteUri)
             {
-                throw new InvalidOperationException();
+                const string baseUri = "https://example.com";
+                var newAbsoluteUri = new Uri(new Uri(baseUri), uri.OriginalString);
+                return Path.GetFileName(newAbsoluteUri.LocalPath);
             }
 
             return Path.GetFileName(uri.LocalPath);
+        }
+
+        public static string GetFilePath(this Uri uri)
+        {
+            return uri.IsAbsoluteUri ? uri.LocalPath : uri.OriginalString;
         }
 
         public static string FormatForVisualStudio(this Region region)
