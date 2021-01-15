@@ -62,7 +62,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             valid &= ValidateNonNegativeCommandLineOption<PageOptions>(options.Index, nameof(options.Index));
             valid &= ValidateNonNegativeCommandLineOption<PageOptions>(options.Count, nameof(options.Count));
 
-
             if (!fileSystem.FileExists(options.InputFilePath))
             {
                 Console.Error.WriteLine(
@@ -181,7 +180,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 Console.WriteLine($"Page requested from Result {options.Index} to {options.Index + options.Count} but Run has only {results.Count} results.");
                 options.Count = results.Count - options.Index;
             }
-
 
             Console.WriteLine($"Run {options.RunIndex} in \"{options.InputFilePath}\" has {results.Count:n0} results.");
 

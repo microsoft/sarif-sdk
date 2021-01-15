@@ -24,8 +24,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// The '$schema' property must refer to the final version of the SARIF 2.1.0 schema. This
         /// enables IDEs to provide Intellisense for SARIF log files.
         ///
-        /// The SARIF standard was developed over several years, and many intermediate versions of 
-        /// the schema were produced.Now that the standard is final, only the OASIS standard version 
+        /// The SARIF standard was developed over several years, and many intermediate versions of
+        /// the schema were produced.Now that the standard is final, only the OASIS standard version
         /// of the schema is valid.
         /// </summary>
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF1011_ReferenceFinalSchema_FullDescription_Text };

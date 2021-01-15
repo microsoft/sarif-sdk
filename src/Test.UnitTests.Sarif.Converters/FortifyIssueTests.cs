@@ -61,7 +61,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
   </Primary>
 </Issue>";
 
-
         [Fact]
         public void FortifyIssue_CanBeConstructed_WithAllProperties()
         {

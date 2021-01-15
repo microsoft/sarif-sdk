@@ -9,7 +9,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
     /// A visitor that examines a specified SARIF log to extract all artifact locations for later processing.
     /// This will extract every location present in the log file, which may then need to be filtered by a
     /// downstream consumer.
-    /// 
+    ///
     /// User may optionally set a specific run before invoking, in order to only fetch artifact locations
     /// from a subset on an entire SARIF file.
     /// </summary>

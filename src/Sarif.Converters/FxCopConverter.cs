@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
     /// Converts FxCop report files to sarif format
     /// </summary>
     ///<remarks>
-    /// FxCop project files are not supported due to 
+    /// FxCop project files are not supported due to
     /// loss of source location information
     ///</remarks>
     internal sealed class FxCopConverter : ToolFileConverterBase
@@ -113,7 +113,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         Kind = SuppressionKind.InSource
                     }
                 };
-
             }
             else if ("ExcludedInProject".Equals(status))
             {
@@ -358,7 +357,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private const string FxCopReportSchema = "Microsoft.CodeAnalysis.Sarif.Converters.Schemata.FxCopReport.xsd";
 
         /// <summary>
-        /// Current context of the result 
+        /// Current context of the result
         /// </summary>
         /// <remarks>
         /// The context accumulates in memory during the streaming,

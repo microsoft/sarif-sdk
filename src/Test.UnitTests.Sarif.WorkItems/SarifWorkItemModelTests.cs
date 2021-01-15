@@ -8,12 +8,10 @@ using Microsoft.WorkItems;
 
 using Xunit;
 
-
 namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 {
     public class SarifWorkItemModelTests
     {
-
         [Fact]
         public void SarifWorkItemModel_PopulatesGitHubDescription()
         {

@@ -694,7 +694,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     continue;
                 }
 
-
                 string oldFilePath = artifactLocation.Uri.OriginalString;
                 string newFilePath = updatedUri.OriginalString;
 

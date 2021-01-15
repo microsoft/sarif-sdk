@@ -24,7 +24,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             { "TestKey", "TestValue" }
         };
 
-
         [Fact]
         public void PropertiesDictionary_RoundTripBoolean()
         {
@@ -42,13 +41,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             properties.GetProperty(BooleanProperty).Should().Be(nonDefaultValue);
         }
 
-
         [Fact]
         public void PropertiesDictionary_RoundTripStringSet()
         {
             var properties = new PropertiesDictionary();
             ValidateSets(properties.GetProperty(StringSetProperty), STRINGSET_DEFAULT);
-
 
             var nonDefaultValue = new StringSet(new string[] { "d", "e" });
             properties.SetProperty(StringSetProperty, nonDefaultValue);

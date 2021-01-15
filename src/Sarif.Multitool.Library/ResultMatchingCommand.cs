@@ -54,7 +54,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 WriteSarifFile(_fileSystem, output, outputFilePath, options.Minify);
             }
-
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());

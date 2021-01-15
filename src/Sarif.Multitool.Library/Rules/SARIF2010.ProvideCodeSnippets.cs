@@ -105,7 +105,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     continue;
                 }
 
-
                 // if mimetype exists and is binary, continue to next
                 if (!string.IsNullOrEmpty(artifact.MimeType) && MimeType.IsBinaryMimeType(artifact.MimeType))
                 {

@@ -108,7 +108,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             context.RuntimeErrors |= RuntimeConditions.NoRulesLoaded;
         }
 
-
         public static void LogAllRulesExplicitlyDisabled(IAnalysisContext context)
         {
             if (context == null)
@@ -399,7 +398,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             context.RuntimeErrors |= RuntimeConditions.ExceptionRaisedInSkimmerCanAnalyze;
         }
-
 
         public static void LogUnhandledExceptionInitializingRule(IAnalysisContext context, Exception exception)
         {

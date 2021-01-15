@@ -181,7 +181,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         }
 
         /// <summary>
-        /// Writes a result to the log. 
+        /// Writes a result to the log.
         /// </summary>
         /// <remarks>
         /// This function makes a copy of the data stored in <paramref name="result"/>; if a

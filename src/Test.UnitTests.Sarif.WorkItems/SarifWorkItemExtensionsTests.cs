@@ -272,7 +272,6 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
         private static SarifLog CreateLogWithEmptyRun()
         {
-
             return new SarifLog
             {
                 Runs = new[]
@@ -292,7 +291,6 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                                         Id = nameof(TestRuleId)
                                     }
                                 }
-
                             }
                         },
                         Results = new List<Result>()

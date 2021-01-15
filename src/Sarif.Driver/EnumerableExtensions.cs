@@ -53,6 +53,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             using (IEnumerator<T> leftEnumerator = leftSequence.GetEnumerator())
             using (IEnumerator<T> rightEnumerator = rightSequence.GetEnumerator())
+            {
                 for (; ; )
                 {
                     bool leftHasElements = leftEnumerator.MoveNext();
@@ -82,6 +83,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         return 1;
                     }
                 }
+            }
         }
 
         /// <summary>Removes elements from an array if they match a predicate.</summary>

@@ -102,7 +102,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             consolidator.Trim(r);
             Assert.True(Region.ValueComparer.Equals(rExpected, r));
 
-
             // Don't remove EndLine when EndLine != StartLine
             r.EndLine = 101;
             rExpected.EndLine = 101;
@@ -110,7 +109,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             consolidator.Trim(r);
             Assert.Equal(101, r.EndLine);
             Assert.True(Region.ValueComparer.Equals(rExpected, r));
-
 
             // Don't remove offsets when no line numbers
             r = new Region() { ByteOffset = 1024, ByteLength = 10 };
@@ -157,7 +155,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             consolidator.Trim(a);
             Assert.Null(a.Uri);
             Assert.True(ArtifactLocation.ValueComparer.Equals(aExpected, a));
-
 
             // Uri not removed when no Index
             a = new ArtifactLocation() { Uri = SampleUri, UriBaseId = "Root" };

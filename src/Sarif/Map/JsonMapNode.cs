@@ -33,7 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
         public long End { get; set; }
 
         /// <summary>
-        ///  Count is the number of array elements (for arrays) or properties 
+        ///  Count is the number of array elements (for arrays) or properties
         ///  (for objects) in the mapped object.
         /// </summary>
         public int Count { get; set; }
@@ -64,7 +64,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
         /// <summary>
         ///  For Arrays only, 'ArrayStarts' contains the start positions of the value of
         ///  some array elements. Values are delta-encoded in JSON, but have been decoded
-        ///  as absolute offsets in this array. 
+        ///  as absolute offsets in this array.
         ///  ArrayStarts[i] is the absolute start position of array[i*every].
         /// </summary>
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
