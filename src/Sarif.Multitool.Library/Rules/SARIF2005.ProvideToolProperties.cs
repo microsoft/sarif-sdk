@@ -23,12 +23,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// The tool's 'name' property should be no more than three words long. This makes it easy
         /// to remember and allows it to fit into a narrow column when displaying a list of results.
         /// If you need to provide more information about your tool, use the 'fullName' property.
-        /// 
+        ///
         /// The tool should provide either or both of the 'version' and 'semanticVersion' properties.
         /// This enables the log file consumer to determine whether the file was produced by an up
         /// to date version, and to avoid accidentally comparing log files produced by different tool
         /// versions.
-        /// 
+        ///
         /// If 'version' is used, facilitate comparison between versions by specifying a version number
         /// that starts with an integer, optionally followed by any desired characters.
         /// </summary>

@@ -64,7 +64,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             result.Results.Should().HaveCount(baseline.Results.Count());
         }
 
-
         [Fact]
         public void StrictBaseline_ChangedResult_AbsentAndNew()
         {

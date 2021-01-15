@@ -937,7 +937,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 if (sb.Length > 0) { sb.Append(", "); }
 
                 // Item1 is the name, Item2 is the source type, e.g., parameter
-                if (!string.IsNullOrWhiteSpace(tuple.Item1)) { sb.Append(tuple.Item1 + ": "); }
+                if (!string.IsNullOrWhiteSpace(tuple.Item1)) { sb.Append(tuple.Item1).Append(": "); }
 
                 string sourceType = !string.IsNullOrWhiteSpace(tuple.Item2)
                     ? tuple.Item2
@@ -1163,7 +1163,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private readonly SparseReaderDispatchTable _dispatchTable;
 
         /// <summary>
-        /// Current context of the result 
+        /// Current context of the result
         /// </summary>
         /// <remarks>
         /// The context accumulates in memory during the streaming,
@@ -1426,7 +1426,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             reader.ReadChildren(SchemaStrings.ElementFindings, parent);
         }
-
 
         private void ReadFinding(SparseReader reader, object parent)
         {

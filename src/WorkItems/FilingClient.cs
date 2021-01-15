@@ -16,7 +16,6 @@ namespace Microsoft.WorkItems
     /// </summary>
     public abstract class FilingClient : IDisposable
     {
-
         public enum SourceControlProvider
         {
             Github,

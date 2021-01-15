@@ -40,7 +40,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <returns>
         /// An object that represents the directory at the specified path. This object is
         /// returned regardless of whether a directory at the specified path already exists.
-        /// </returns>  
+        /// </returns>
         DirectoryInfo DirectoryCreateDirectory(string path);
 
         /// <summary>
@@ -209,7 +209,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// the file.
         /// </summary>
         /// <param name="path">
-        /// The file to open for reading. 
+        /// The file to open for reading.
         /// </param>
         /// <returns>
         /// A string containing all text in the file.

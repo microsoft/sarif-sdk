@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     /// <summary>Contains a function to make it less verbose to make key value pairs. Similar to C++'s
-    /// std::make_pair.</summary> 
+    /// std::make_pair.</summary>
     public static class Pair
     {
         /// <summary>Makes a pair, with the generic type parameters determined using generic argument deduction.</summary>

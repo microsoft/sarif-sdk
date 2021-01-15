@@ -7,7 +7,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters.TextFormats
 {
     /// <summary>
     ///  CsvReader provides a simple interface for reading CSV files.
-    ///  
+    ///
     ///  Usage:
     ///  using(CsvReader reader = new CsvReader("Input.csv"))
     ///  {

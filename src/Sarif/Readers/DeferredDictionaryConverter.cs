@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
     /// <summary>
     ///  DeferredDictionaryConverter is a JsonConverter which allows reading IDictionary&lt;string, T&gt;
     ///  items only at enumeration time, saving the memory cost of keeping every object around.
-    ///  
+    ///
     ///  The set of keys and the file position in the JSON stream of the values is pre-loaded and kept around
     ///  for fast retrieval.
     /// </summary>

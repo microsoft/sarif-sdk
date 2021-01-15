@@ -326,7 +326,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
         };
 
-
         [Fact]
         public void ResultLogJsonWriter_WritesConfigurationNotifications()
         {

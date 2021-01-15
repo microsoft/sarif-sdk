@@ -25,7 +25,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         protected override ResourceManager ResourceManager => MultitoolResources.ResourceManager;
 
-
         public override AnalysisApplicability CanAnalyze(AnalyzeTestContext context, out string reasonIfNotApplicable)
         {
             reasonIfNotApplicable = null;

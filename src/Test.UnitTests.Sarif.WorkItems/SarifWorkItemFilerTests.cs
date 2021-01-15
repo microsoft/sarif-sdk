@@ -61,7 +61,6 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             TestWorkItemFiler(sarifLog, context, false);
         }
 
-
         [Fact]
         public void WorkItemFiler_PerResultSplitStrategyPartitionsProperly()
         {

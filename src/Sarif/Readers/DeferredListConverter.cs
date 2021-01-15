@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
     /// <summary>
     ///  DeferredListConverter is a JsonConverter which allows reading a List&lt;T&gt;
     ///  only at enumeration time, saving the memory cost of keeping every object around.
-    ///  
+    ///
     ///  The position of each item is saved on the first random access, so that later use
     ///  of List[index] is fast.
     /// </summary>

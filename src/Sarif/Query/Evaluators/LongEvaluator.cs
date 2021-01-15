@@ -10,8 +10,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
     /// <summary>
     ///  LongEvaluator implements IExpressionEvaluator given a getter which can
     ///  get the desired Property Name as a long.
-    ///  
-    ///  Usage: 
+    ///
+    ///  Usage:
     ///    if (String.Equals(term.PropertyName, "ID", StringComparison.OrdinalIgnoreCase))
     ///    {
     ///        // Show the LongEvaluator how to get the 'ID' property as a long, and it'll implement the term matching.

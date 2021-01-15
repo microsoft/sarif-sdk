@@ -35,7 +35,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
             matchedResults.Should().BeEmpty();
         }
 
-
         [Fact]
         public void ContextRegionHeuristicMatcher_SameRegion_MatchesResults()
         {
