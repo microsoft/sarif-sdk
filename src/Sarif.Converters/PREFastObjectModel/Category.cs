@@ -23,7 +23,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters.PREFastObjectModel
             reader.Read();
 
             if (wasEmpty)
+            {
                 return;
+            }
 
             while (reader.NodeType != XmlNodeType.EndElement)
             {
@@ -31,7 +33,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters.PREFastObjectModel
                 string value = reader.ReadInnerXml();
 
                 if (string.IsNullOrWhiteSpace(key))
+                {
                     continue;
+                }
 
                 Add(key, value);
             }

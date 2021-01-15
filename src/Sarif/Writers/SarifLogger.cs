@@ -284,6 +284,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public void AnalysisStopped(RuntimeConditions runtimeConditions)
         {
+            _insertOptionalDataVisitor?.VisitRun(_run);
+
             if (_run.Invocations != null && _run.Invocations.Count > 0 &&
                 !_dataToRemove.HasFlag(OptionallyEmittedData.NondeterministicProperties))
             {
@@ -453,6 +455,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 fileLocation.Uri = null;
                 fileLocation.UriBaseId = null;
             }
+
+            _insertOptionalDataVisitor?.VisitArtifactLocation(fileLocation);
         }
 
         public void AnalyzingTarget(IAnalysisContext context)

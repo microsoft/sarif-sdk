@@ -57,7 +57,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
             string[] tokens = flagsEnumValue.Split(',');
 
-
             for (int i = 0; i < tokens.Length; i++)
             {
                 tokens[i] = EnumConverter.ConvertToCamelCase(tokens[i].Trim());

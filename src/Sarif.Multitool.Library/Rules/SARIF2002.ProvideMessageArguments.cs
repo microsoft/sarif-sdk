@@ -27,7 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// makes the SARIF file smaller. If the rule metadata is stored externally to the SARIF log file,
         /// the message text can be improved (for example, by adding more text, clarifying the phrasing,
         /// or fixing typos), and the result messages will pick up the improvements the next time it is
-        /// displayed. Finally, SARIF supports localizing messages into different languages, which is 
+        /// displayed. Finally, SARIF supports localizing messages into different languages, which is
         /// possible if the SARIF file contains 'message.id' and 'message.arguments', but not if it contains
         /// 'message.text' directly.
         /// </summary>

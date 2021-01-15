@@ -27,6 +27,5 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             "normalize-for-github",
             HelpText = "Normalize converted output to conform to GitHub Advanced Security code scanning ingestion requirements.")]
         public bool NormalizeForGitHub { get; set; }
-
     }
 }

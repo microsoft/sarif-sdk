@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
     /// <seealso cref="System.Collections.Generic.IEqualityComparer&lt;T&gt;"/>
     public class ReferenceEqualityComparer<T> : IEqualityComparer<T>
     {
-        /// <summary>The instance of equality comparer for T.</summary> 
+        /// <summary>The instance of equality comparer for T.</summary>
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes")]
         [SuppressMessage("Microsoft.Design", "CA1000:DoNotDeclareStaticMembersOnGenericTypes")]
         public static readonly ReferenceEqualityComparer<T> Instance = new ReferenceEqualityComparer<T>();

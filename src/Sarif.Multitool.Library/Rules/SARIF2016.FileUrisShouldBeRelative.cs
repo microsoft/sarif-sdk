@@ -22,18 +22,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// <summary>
         /// When an artifact location refers to a file on the local file system, specify a relative reference
         /// for the uri property and provide a uriBaseId property, rather than specifying an absolute URI.
-        /// 
+        ///
         /// There are several advantages to this approach:
         /// Portability: A log file that contains relative references together with uriBaseI properties can
         /// be interpreted on a machine where the files are located at a different absolute location.
-        /// 
+        ///
         /// Determinism: A log file that uses uriBaseId properties has a better chance of being “deterministic”;
         /// that is, of being identical from run to run if none of its inputs have changed, even if those runs
         /// occur on machines where the files are located at different absolute locations.
-        /// 
+        ///
         /// Security: The use of uriBaseId properties avoids the persistence of absolute path names in the
         /// log file.Absolute path names can reveal information that might be sensitive.
-        /// 
+        ///
         /// Semantics: Assuming the reader of the log file (an end user or another tool) has the necessary
         /// context, they can understand the meaning of the location specified by the uri property, for
         /// example, “this is a source file”.

@@ -21,8 +21,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// This guidance does not apply to Markdown messages, which might include formatting that makes
         /// the punctuation unnecessary.
         ///
-        /// This is part of a set of authoring practices that make your rule messages more readable, 
-        /// understandable, and actionable.See also `SARIF2014.ProvideDynamicMessageContent` and 
+        /// This is part of a set of authoring practices that make your rule messages more readable,
+        /// understandable, and actionable.See also `SARIF2014.ProvideDynamicMessageContent` and
         /// `SARIF2015.EnquoteDynamicMessageContent`.
         /// </summary>
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF2001_TerminateMessagesWithPeriod_FullDescription_Text };

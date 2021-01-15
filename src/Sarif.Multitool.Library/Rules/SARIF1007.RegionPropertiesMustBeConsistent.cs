@@ -71,7 +71,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     region.StartLine.ToInvariantString());
             }
 
-
             if (RegionIsOnOneLine(region, regionToken) &&
                 regionToken.HasProperty(SarifPropertyName.EndColumn) &&
                 region.EndColumn < region.StartColumn)

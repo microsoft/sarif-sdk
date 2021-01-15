@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     /// <summary>
-    /// The SemanticVersion class implements Semantic Versioning based on the 
+    /// The SemanticVersion class implements Semantic Versioning based on the
     /// http://semver.org/ summary 2.0.0
     /// </summary>
     public class SemanticVersion : IComparable
@@ -21,12 +21,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         /// <summary>
         /// Metadata which is not used for version comparison.
         /// This contains the value after the plus sign as described below
-        /// Build metadata MAY be denoted by appending a plus sign and a series of dot separated 
-        /// identifiers immediately following the patch or pre-release version. 
-        /// Identifiers MUST comprise only ASCII alphanumerics and hyphen [0-9A-Za-z-]. 
-        /// Identifiers MUST NOT be empty. 
-        /// Build metadata SHOULD be ignored when determining version precedence. 
-        /// Thus two versions that differ only in the build metadata, have the same precedence. 
+        /// Build metadata MAY be denoted by appending a plus sign and a series of dot separated
+        /// identifiers immediately following the patch or pre-release version.
+        /// Identifiers MUST comprise only ASCII alphanumerics and hyphen [0-9A-Za-z-].
+        /// Identifiers MUST NOT be empty.
+        /// Build metadata SHOULD be ignored when determining version precedence.
+        /// Thus two versions that differ only in the build metadata, have the same precedence.
         /// Examples: 1.0.0-alpha+001, 1.0.0+20130313144700, 1.0.0-beta+exp.sha.5114f85.
         /// </summary>
         public string Metadata { get; set; }
@@ -50,12 +50,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         /// <summary>
         /// This contains the value after the hyphen as described below.
         /// A pre-release version MAY be denoted by appending a hyphen and a series of dot separated
-        /// identifiers immediately following the patch version. Identifiers MUST comprise only 
-        /// ASCII alphanumerics and hyphen [0-9A-Za-z-]. Identifiers MUST NOT be empty. 
-        /// Numeric identifiers MUST NOT include leading zeroes. 
-        /// Pre-release versions have a lower precedence than the associated normal version. 
-        /// A pre-release version indicates that the version is unstable and might not satisfy 
-        /// the intended compatibility requirements as denoted by its associated normal version. 
+        /// identifiers immediately following the patch version. Identifiers MUST comprise only
+        /// ASCII alphanumerics and hyphen [0-9A-Za-z-]. Identifiers MUST NOT be empty.
+        /// Numeric identifiers MUST NOT include leading zeroes.
+        /// Pre-release versions have a lower precedence than the associated normal version.
+        /// A pre-release version indicates that the version is unstable and might not satisfy
+        /// the intended compatibility requirements as denoted by its associated normal version.
         /// Examples: 1.0.0-alpha, 1.0.0-alpha.1, 1.0.0-0.3.7, 1.0.0-x.7.z.92.
         /// </summary>
         public string Prerelease { get; set; }
@@ -189,8 +189,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         /// <returns></returns>
         public static bool operator ==(SemanticVersion left, SemanticVersion right)
         {
-            if (Object.Equals(left, null) && Object.Equals(right, null)) return true;
-            if (Object.Equals(left, null) || Object.Equals(right, null)) return false;
+            if (Object.Equals(left, null) && Object.Equals(right, null))
+            {
+                return true;
+            }
+
+            if (Object.Equals(left, null) || Object.Equals(right, null))
+            {
+                return false;
+            }
+
             return left.Equals(right);
         }
 

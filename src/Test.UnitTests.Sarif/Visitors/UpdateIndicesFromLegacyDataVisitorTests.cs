@@ -40,7 +40,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             };
         }
 
-
         [Fact]
         public void UpdateIndicesFromLegacyDataVisitor_FunctionsWithNullMaps()
         {

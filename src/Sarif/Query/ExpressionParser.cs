@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query
     ///   AndExpression   :=  Term (And Term)*
     ///   Term            :=  '(' Expression ')' | Not? PropertyName Operator Value
     ///   PropertyName    :=  String
-    ///   Value           :=  String  
+    ///   Value           :=  String
     ///   And             := 'AND' | '&&'
     ///   Or              := 'OR' | '||'
     ///   Not             := 'NOT' | '!'

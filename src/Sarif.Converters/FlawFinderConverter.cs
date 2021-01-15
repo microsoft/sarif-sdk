@@ -111,7 +111,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 }
             };
 
-
             result.SetProperty(
                 nameof(flawFinderCsvResult.Level),
                 flawFinderCsvResult.Level.ToString(CultureInfo.InvariantCulture));

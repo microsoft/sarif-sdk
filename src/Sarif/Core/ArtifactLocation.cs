@@ -9,7 +9,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     public partial class ArtifactLocation
     {
         /// <summary>
-        /// Attempt to reconstruct a URI, if appropriate, using Run instance 
+        /// Attempt to reconstruct a URI, if appropriate, using Run instance
         /// originalUriBaseId and uriBaseId properties. If this method cannot
         /// successfully reconstitute an absolute URI, it will return false
         /// and populate 'resolvedUri' with null.

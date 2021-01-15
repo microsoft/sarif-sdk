@@ -205,8 +205,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-
-
             string expectedRootDirectory = null;
             string actualRootDirectory = null;
 

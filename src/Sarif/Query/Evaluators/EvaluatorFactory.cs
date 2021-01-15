@@ -13,12 +13,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
     {
         /// <summary>
         ///  BuildPrimitiveEvaluator will build an IExpressionEvaluator for supported primitive
-        ///  types, set up to work directly on an array of primitives. you can use BuildPrimitiveEvaluator(typeof(int), 
+        ///  types, set up to work directly on an array of primitives. you can use BuildPrimitiveEvaluator(typeof(int),
         /// </summary>
         /// <example>
         ///  TermExpression term = ExpressionParser.Parse("value > 5");
         ///  IExpressionEvaluator&lt;int&gt; evaluator = BuildPrimitiveEvaluator(typeof(int), term);
-        ///  
+        ///
         ///  int[] set;
         /// BitArray matches = new BitArray(set.Length);
         ///  evaluator.Evaluate(set, matches);
