@@ -20,16 +20,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public RebaseUriCommand(IFileSystem fileSystem = null)
         {
-            _fileSystem = fileSystem ?? FileSystem.Instance;
+            _fileSystem = fileSystem ?? Sarif.FileSystem.Instance;
         }
 
-        public int Run(RebaseUriOptions rebaseOptions)
+        public int Run(RebaseUriOptions options)
         {
             try
             {
-                if (!Uri.TryCreate(rebaseOptions.BasePath, UriKind.Absolute, out Uri baseUri))
+                if (!Uri.TryCreate(options.BasePath, UriKind.Absolute, out Uri baseUri))
                 {
-                    Console.Error.WriteLine($"The value '{rebaseOptions.BasePath}' of the --base-path-value option is not an absolute URI.");
+                    Console.Error.WriteLine($"The value '{options.BasePath}' of the --base-path-value option is not an absolute URI.");
                     return FAILURE;
                 }
 
@@ -39,17 +39,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     baseUri = new Uri(baseUri.ToString() + "/");
                 }
 
-                IEnumerable<RebaseUriFile> rebaseUriFiles = GetRebaseUriFiles(rebaseOptions);
+                IEnumerable<RebaseUriFile> rebaseUriFiles = GetRebaseUriFiles(options);
 
-                if (!ValidateOptions(rebaseOptions, rebaseUriFiles)) { return FAILURE; }
+                if (!ValidateOptions(options, rebaseUriFiles)) { return FAILURE; }
 
-                if (!rebaseOptions.Inline)
+                if (!options.Inline)
                 {
-                    _fileSystem.DirectoryCreateDirectory(rebaseOptions.OutputDirectoryPath);
+                    _fileSystem.DirectoryCreateDirectory(options.OutputDirectoryPath);
                 }
 
-                OptionallyEmittedData dataToRemove = rebaseOptions.DataToRemove.ToFlags();
-                OptionallyEmittedData dataToInsert = rebaseOptions.DataToInsert.ToFlags();
+                OptionallyEmittedData dataToRemove = options.DataToRemove.ToFlags();
+                OptionallyEmittedData dataToInsert = options.DataToInsert.ToFlags();
 
                 foreach (RebaseUriFile rebaseUriFile in rebaseUriFiles)
                 {
@@ -63,9 +63,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         rebaseUriFile.Log = new InsertOptionalDataVisitor(dataToInsert).VisitSarifLog(rebaseUriFile.Log);
                     }
 
-                    rebaseUriFile.Log = rebaseUriFile.Log.RebaseUri(rebaseOptions.BasePathToken, rebaseOptions.RebaseRelativeUris, baseUri);
+                    rebaseUriFile.Log = rebaseUriFile.Log.RebaseUri(options.BasePathToken, options.RebaseRelativeUris, baseUri);
 
-                    WriteSarifFile(_fileSystem, rebaseUriFile.Log, rebaseUriFile.OutputFilePath, rebaseOptions.Formatting);
+                    WriteSarifFile(_fileSystem, rebaseUriFile.Log, rebaseUriFile.OutputFilePath, options.Minify);
                 }
             }
             catch (Exception ex)

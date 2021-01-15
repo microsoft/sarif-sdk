@@ -181,4 +181,7 @@
   <data name="XmlElementNameWasUnset" xml:space="preserve">
     <value>The local element name was not set.</value>
   </data>
+  <data name="OptionValueMustBeNonNegative" xml:space="preserve">
+    <value>The value of the '{0}' option must be greater than or equal to zero.</value>
+  </data>
 </root>

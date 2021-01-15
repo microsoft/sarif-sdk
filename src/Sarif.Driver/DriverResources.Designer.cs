@@ -124,6 +124,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No description available..
+        /// </summary>
+        internal static string NoRuleDescription {
+            get {
+                return ResourceManager.GetString("NoRuleDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The &apos;{0}&apos; and &apos;{1}&apos; options cannot be specified together..
         /// </summary>
         internal static string OptionsAreMutuallyExclusive {
@@ -131,13 +140,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver {
                 return ResourceManager.GetString("OptionsAreMutuallyExclusive", resourceCulture);
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to No description available..
+        ///   Looks up a localized string similar to The value of the &apos;{0}&apos; option must be greater than or equal to zero..
         /// </summary>
-        internal static string NoRuleDescription {
+        internal static string OptionValueMustBeNonNegative {
             get {
-                return ResourceManager.GetString("NoRuleDescription", resourceCulture);
+                return ResourceManager.GetString("OptionValueMustBeNonNegative", resourceCulture);
             }
         }
         
