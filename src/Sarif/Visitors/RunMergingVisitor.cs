@@ -8,19 +8,19 @@ using System.Diagnostics;
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
     /// <summary>
-    ///  RunMergingVisitor merges Results from multiple Runs. 
+    ///  RunMergingVisitor merges Results from multiple Runs.
     ///  It gathers things referenced by the Results, remaps indices in the Results to the merged collections,
     ///  and then populates the desired run with the merged sets.
-    ///  
+    ///
     ///  Used by Baselining and Run.MergeResultFrom(Run).
     /// </summary>
     /// <remarks>
     ///  Usage:
     ///   var visitor = new RunMergingVisitor();
-    ///   
+    ///
     ///   visitor.VisitRun(primary);
     ///   visitor.VisitRun(additional);
-    ///   
+    ///
     ///   visitor.PopulateMergedRun(primary);
     /// </remarks>
     public class RunMergingVisitor : SarifRewritingVisitor

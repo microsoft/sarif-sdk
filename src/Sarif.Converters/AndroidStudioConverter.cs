@@ -186,7 +186,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 if ("class".Equals(problem.EntryPointType, StringComparison.OrdinalIgnoreCase))
                 {
                     index = AddLogicalLocation(index, ref fullyQualifiedName, problem.EntryPointName, LogicalLocationKind.Type, delimiter);
-
                 }
                 else if ("method".Equals(problem.EntryPointType, StringComparison.OrdinalIgnoreCase))
                 {

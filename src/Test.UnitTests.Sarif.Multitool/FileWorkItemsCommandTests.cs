@@ -99,7 +99,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     ExpectedExitCode = 0
                 },
 
-
                 new TestCase {
                     Title = "Implicit splitting strategy",
                     Args = new string[] {
@@ -181,7 +180,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     },
                     ExpectedExitCode = 0
                 },
-
 
                 new TestCase {
                     Title = "Non-existent splitting strategy",

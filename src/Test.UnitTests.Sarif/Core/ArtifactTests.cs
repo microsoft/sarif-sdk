@@ -282,7 +282,6 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
                 fileData.Contents.Should().BeNull();
             }
 
-
         }
     }
 }

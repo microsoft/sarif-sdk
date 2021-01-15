@@ -300,7 +300,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             string defaultEncoding = "UTF7";
             List<string> redactionTokens = new List<string> { "[MY_REDACTION_TOKEN]" };
 
-
             var sb = new StringBuilder();
 
             var run = new Run();
@@ -1001,7 +1000,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 TestForLoggingOption((LoggingOptions)loggingOptionsObject);
             }
         }
-
 
         // This helper is intended to validate a single enum member only
         // and not arbitrary combinations of bits. One defined member,

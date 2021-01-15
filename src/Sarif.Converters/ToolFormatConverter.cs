@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     /// <summary>
-    /// A class that provides helpers for converting a log file produced by 
+    /// A class that provides helpers for converting a log file produced by
     /// one of a well-known set of tools to the SARIF format.
     /// </summary>
     public class ToolFormatConverter
@@ -63,7 +63,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 }
             }
         }
-
 
         /// <summary>Converts a tool log file represented as a stream into the SARIF format.</summary>
         /// <exception cref="ArgumentNullException">Thrown when one or more required arguments are null.</exception>

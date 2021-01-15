@@ -18,7 +18,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             foreach (string argument in args)
             {
-
                 if (!IsResponseFileArgument(argument))
                 {
                     expandedArguments.Add(argument);
@@ -62,7 +61,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     {
                         expandedArguments.Add(Marshal.PtrToStringUni(Marshal.ReadIntPtr(pointer, i * IntPtr.Size)));
                     }
-
                 }
                 finally
                 {

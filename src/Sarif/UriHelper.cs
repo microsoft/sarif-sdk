@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </returns>
         /// <remarks>
         /// In general, <paramref name="path"/> might be:
-        /// 
+        ///
         /// 1. Possible to interpret as an absolute path / absolute URI
         /// 2. Possible to interpret as a relative path / relative URI
         /// 3. Neither
@@ -34,13 +34,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// 2. Try to create a relative System.Uri. If that succeeds, we want to write it out,
         /// but since this is a relative URI, we can't access its AbsoluteUri or AbsolutePath
         /// property -- and again, Uri.ToString() does not perform percent encoding.
-        /// 
+        ///
         /// We use this workaround:
-        /// 
+        ///
         ///     a. Combine the relative path with an arbitrary scheme and host to form
         ///        an absolute URI.
         ///     b. Extract the AbsolutePath property, which will be percent encoded.
-        ///     
+        ///
         ///
         /// 3. If all else fails, we have a string that we can't convert to a System.Uri,
         /// so just percent encode the whole thing. This should be extremely rare in practice.

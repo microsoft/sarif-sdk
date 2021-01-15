@@ -8,7 +8,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
     /// <summary>
     /// This class caches analysis results for unique files (by hash). Consumers can retrieve and use these cached
-    /// results in preference of repeating the analysis. A binary drop point, for example, may contain multiple 
+    /// results in preference of repeating the analysis. A binary drop point, for example, may contain multiple
     /// copies of a common dependency that has been copied to the output directory of every component that
     /// references it. During analysis, this logger will capture and retain results produced for a single copy
     /// of the file. A consumer can consult this cache and retrieve the results for a file copy, in preference

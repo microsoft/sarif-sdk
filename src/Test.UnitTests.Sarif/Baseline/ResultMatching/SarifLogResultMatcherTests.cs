@@ -76,7 +76,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 AbsentResultProperties.Should().ContainKey("Run");
                 AbsentResultProperties["Run"].Should().BeEquivalentTo(baselineLog.Runs[0].AutomationDetails.Guid);
 
-
                 if (currentLog.Runs[0].Results.Count > 1)
                 {
                     calculatedNextBaseline.Runs[0].Results.Where(r => r.BaselineState == BaselineState.Unchanged).Should().HaveCount(currentLog.Runs[0].Results.Count - 1);

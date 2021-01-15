@@ -8,7 +8,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
 {
     /// <summary>
     ///  TrustMap determines how much to trust different Result attributes for matching.
-    ///  
+    ///
     ///  Trust is the product of how often values match and how unique the values were.
     ///  An attribute which always has the same value will have very low trust.
     ///  An attribute which never matches will have very low trust.

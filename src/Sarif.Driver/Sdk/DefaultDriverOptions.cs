@@ -6,8 +6,8 @@ using System.Collections.Generic;
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     /// <summary>
-    /// Options that cut across all rules that are provided by a driver. Currently restricted to a 
-    /// single setting that allows for rules to be explicitly disabled. In the future, this 
+    /// Options that cut across all rules that are provided by a driver. Currently restricted to a
+    /// single setting that allows for rules to be explicitly disabled. In the future, this
     /// same mechanism will be improved to allow configuration to alter the warning level
     /// for a result.
     /// </summary>

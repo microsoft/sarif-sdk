@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// No log file splitting strategy was specified.
         /// I.e., the total number of log files created is one (the original, unsplit log).
-        /// 
+        ///
         /// </summary>
         None = 0,
 
@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         PerResult,
 
         /// <summary>
-        /// Split SARIF log files into a single log for each rule. 
+        /// Split SARIF log files into a single log for each rule.
         /// I.e., the total number of log files created is the sum of distinct rules across all logs.
         /// </summary>
         PerRule,

@@ -17,7 +17,6 @@ namespace Microsoft.WorkItems
     {
         async public Task<IGitHubClientWrapper> ConnectAsync(string organization, string personalAccessToken)
         {
-
             var credentials = new Credentials(personalAccessToken);
             var credentialsStore = new InMemoryCredentialStore(credentials);
             GitHubClientWrapper gitHubClientWrapper;

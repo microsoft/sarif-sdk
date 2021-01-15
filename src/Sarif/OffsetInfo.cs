@@ -20,11 +20,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         // If profiling indicates that these Max calls are expensive it may make sense to sacrifice
         // some safety by turning them into asserts instead.
 
-        /// <summary>The zero-based index of the column where the offset is located.</summary> 
+        /// <summary>The zero-based index of the column where the offset is located.</summary>
         public int ColumnNumber { get { return Math.Max(_columnNumber, 0); } }
 
         /// <summary>The one-based index of the line in the file or string on which the offset is
-        /// located.</summary> 
+        /// located.</summary>
         public int LineNumber { get { return Math.Max(_lineNumber, 1); } }
 
         /// <summary>Initializes a new instance of the <see cref="OffsetInfo"/> struct.</summary>

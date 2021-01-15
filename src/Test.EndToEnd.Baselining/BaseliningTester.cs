@@ -174,7 +174,6 @@ namespace Test.EndToEnd.Baselining
                 }
             }
 
-
             if (baseline == null) { baseline = new SarifLog(); }
             AssignResultRIDs(baseline, 0);
             return baseline;

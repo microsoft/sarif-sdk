@@ -83,7 +83,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
         [Fact]
         public void DefaultBaseline_ChangedResultOnNonTrackedField_Existing()
         {
-
             Random random = RandomSarifLogGenerator.GenerateRandomAndLog(this.output);
             Run baseline = RandomSarifLogGenerator.GenerateRandomRunWithoutDuplicateIssues(random, DefaultBaseline.ResultBaselineEquals.DefaultInstance, random.Next(100) + 5);
             Run next = baseline.DeepClone();

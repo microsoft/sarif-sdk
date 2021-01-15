@@ -8,7 +8,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
 {
     /// <summary>
     /// Matches two results if every part of the result is identical, except the fields used in baselining.
-    /// 
+    ///
     /// If a run contains multiple identical results, we will match them in order.
     /// </summary>
     internal class IdenticalResultMatcher : IResultMatcher
@@ -74,7 +74,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
             public static readonly IdenticalResultEqualityComparer PropertyBagComparingInstance = new IdenticalResultEqualityComparer(considerPropertyBagsWhenComparing: true);
 
             public static readonly IdenticalResultEqualityComparer PropertyBagIgnoringInstance = new IdenticalResultEqualityComparer(considerPropertyBagsWhenComparing: false);
-
 
             public bool Equals(Result x, Result y)
             {

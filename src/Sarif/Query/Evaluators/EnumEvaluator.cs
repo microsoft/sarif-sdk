@@ -10,8 +10,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
     /// <summary>
     ///  EnumEvaluator implements IExpressionEvaluator given a getter which can
     ///  get the desired Property Name as an enum.
-    ///  
-    ///  Usage: 
+    ///
+    ///  Usage:
     ///    if (String.Equals(term.PropertyName, "BaselineState", StringComparison.OrdinalIgnoreCase))
     ///    {
     ///        // Show the EnumEvaluator how to get the 'BaselineState' property as an enum, and it'll implement the term matching.
