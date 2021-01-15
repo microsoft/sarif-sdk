@@ -938,7 +938,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             var sb = new StringBuilder();
 
             using (var writer = new StringWriter(sb))
-            using (var sarifLogger = new SarifLogger(writer, LoggingOptions.Verbose))
+            using (var sarifLogger = new SarifLogger(writer, LoggingOptions.Quiet))
             {
                 var rule = new ReportingDescriptor
                 {
@@ -1006,7 +1006,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     logger.OverwriteExistingOutputFile.Should().BeFalse();
                     logger.PrettyPrint.Should().BeFalse();
-                    logger.Verbose.Should().BeFalse();
+                    logger.Quiet.Should().BeFalse();
                     logger.Optimize.Should().BeFalse();
                     break;
                 }
@@ -1014,7 +1014,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     logger.OverwriteExistingOutputFile.Should().BeTrue();
                     logger.PrettyPrint.Should().BeFalse();
-                    logger.Verbose.Should().BeFalse();
+                    logger.Quiet.Should().BeFalse();
                     logger.Optimize.Should().BeFalse();
                     break;
                 }
@@ -1022,15 +1022,15 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     logger.OverwriteExistingOutputFile.Should().BeFalse();
                     logger.PrettyPrint.Should().BeTrue();
-                    logger.Verbose.Should().BeFalse();
+                    logger.Quiet.Should().BeFalse();
                     logger.Optimize.Should().BeFalse();
                     break;
                 }
-                case LoggingOptions.Verbose:
+                case LoggingOptions.Quiet:
                 {
                     logger.OverwriteExistingOutputFile.Should().BeFalse();
                     logger.PrettyPrint.Should().BeFalse();
-                    logger.Verbose.Should().BeTrue();
+                    logger.Quiet.Should().BeTrue();
                     logger.Optimize.Should().BeFalse();
                     break;
                 }
@@ -1038,7 +1038,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     logger.OverwriteExistingOutputFile.Should().BeFalse();
                     logger.PrettyPrint.Should().BeFalse();
-                    logger.Verbose.Should().BeFalse();
+                    logger.Quiet.Should().BeFalse();
                     logger.Optimize.Should().BeTrue();
                     break;
                 }
@@ -1046,7 +1046,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     logger.OverwriteExistingOutputFile.Should().BeTrue();
                     logger.PrettyPrint.Should().BeTrue();
-                    logger.Verbose.Should().BeTrue();
+                    logger.Quiet.Should().BeTrue();
                     logger.Optimize.Should().BeTrue();
                     break;
                 }

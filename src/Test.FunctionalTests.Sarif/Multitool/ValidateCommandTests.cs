@@ -470,8 +470,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 Quiet = true,
                 UpdateInputsToCurrentSarif = updateInputsToCurrentSarif,
                 PrettyPrint = true,
-                Optimize = true,
-                Verbose = true // Turn on note-level rules.
+                Optimize = true
             };
 
             var mockFileSystem = new Mock<IFileSystem>();

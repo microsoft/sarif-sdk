@@ -19,13 +19,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             LoggingOptions loggingOptions;
 
-            TestAnalyzeOptions analyzeOptions = new TestAnalyzeOptions()
-            {
-                Verbose = true
-            };
+            TestAnalyzeOptions analyzeOptions = new TestAnalyzeOptions();
 
             loggingOptions = analyzeOptions.ConvertToLoggingOptions();
-            loggingOptions.Should().Be(LoggingOptions.Verbose | LoggingOptions.PrettyPrint);
+            loggingOptions.Should().Be(LoggingOptions.Quiet | LoggingOptions.PrettyPrint);
 
             analyzeOptions = new TestAnalyzeOptions()
             {

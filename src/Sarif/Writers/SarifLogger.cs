@@ -246,7 +246,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public bool PrettyPrint => _loggingOptions.HasFlag(LoggingOptions.PrettyPrint);
 
-        public bool Verbose => _loggingOptions.HasFlag(LoggingOptions.Verbose);
+        public bool Quiet => _loggingOptions.HasFlag(LoggingOptions.Quiet);
 
         public bool Optimize => _loggingOptions.HasFlag(LoggingOptions.Optimize);
 
