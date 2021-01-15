@@ -23,9 +23,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         private void ValidateParameters()
         {
-            if (resultKinds.Any(kind => kind != ResultKind.Fail))
+            if (resultKinds!=null && resultKinds.Any(kind => kind != ResultKind.Fail))
             {
-                if (failureLevels.Contains(FailureLevel.Error))
+                if (failureLevels!=null && failureLevels.Contains(FailureLevel.Error))
                 {
                     throw new ArgumentException("Invalid kind & level combination");
                 }

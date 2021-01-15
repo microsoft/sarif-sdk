@@ -11,9 +11,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
     public class ConsoleLogger : BaseLogger, IAnalysisLogger
     {
-        public ConsoleLogger(bool verbose, string toolName, IEnumerable<FailureLevel> level = null, IEnumerable<ResultKind> kind = null) : base(level, kind)
+        public ConsoleLogger(bool quiet, string toolName, IEnumerable<FailureLevel> level = null, IEnumerable<ResultKind> kind = null) : base(level, kind)
         {
-            Verbose = verbose;
+            _quiet = quiet;
             _toolName = toolName.ToUpperInvariant();
         }
 
@@ -24,16 +24,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public string CapturedOutput => _capturedOutput?.ToString();
 
-        public bool Verbose { get; set; }
+        private readonly bool _quiet;
 
-        private void WriteLineToConsole(string text = null)
+        private void WriteLineToConsole(string text = null, bool ignoreQuiet = false)
         {
-            Console.WriteLine(text);
-
-            if (CaptureOutput)
+            if (!_quiet || ignoreQuiet)
             {
-                _capturedOutput = _capturedOutput ?? new StringBuilder();
-                _capturedOutput.AppendLine(text);
+                Console.WriteLine(text);
+
+                if (CaptureOutput)
+                {
+                    _capturedOutput = _capturedOutput ?? new StringBuilder();
+                    _capturedOutput.AppendLine(text);
+                }
             }
         }
 
@@ -82,12 +85,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 throw new ArgumentNullException(nameof(context));
             }
 
-            if (Verbose)
-            {
-                WriteLineToConsole(string.Format(CultureInfo.CurrentCulture,
+            WriteLineToConsole(string.Format(CultureInfo.CurrentCulture,
                     SdkResources.MSG001_AnalyzingTarget,
                         context.TargetUri.GetFileName()));
-            }
         }
 
         public void Log(ReportingDescriptor rule, Result result)
@@ -192,18 +192,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 // This notification type is optionally emitted.
                 case FailureLevel.None:
                 case FailureLevel.Note:
-                    if (Verbose)
-                    {
-                        WriteLineToConsole(FormatNotificationMessage(notification, _toolName));
-                    }
-                    break;
-
-                // These notification types are always emitted.
-                case FailureLevel.Error:
                 case FailureLevel.Warning:
                     WriteLineToConsole(FormatNotificationMessage(notification, _toolName));
                     break;
-
+                case FailureLevel.Error:
+                    WriteLineToConsole(FormatNotificationMessage(notification, _toolName), true);
+                    break;
                 default:
                     throw new InvalidOperationException();
             }
