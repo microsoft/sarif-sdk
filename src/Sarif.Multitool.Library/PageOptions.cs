@@ -62,5 +62,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             Required = false,
             Default = 0.01)]
         public double TargetMapSizeRatio { get; set; } = 0.01;
+
+        [Option(
+            "minify",
+            Default = false,
+            HelpText = "Produce compact JSON output rather than more readable, expanded form.")]
+        public bool Minify { get; set; }
     }
 }

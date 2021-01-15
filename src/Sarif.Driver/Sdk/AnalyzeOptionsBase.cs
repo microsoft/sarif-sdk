@@ -71,7 +71,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public IEnumerable<string> PluginFilePaths { get; set; }
 
         [Option(
-            'i',
             "invocation-properties",
             Separator = ';',
             HelpText = "Properties of the Invocation object to log. NOTE: StartTime and EndTime are always logged.")]

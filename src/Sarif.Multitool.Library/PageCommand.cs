@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public PageCommand(IFileSystem fileSystem = null)
         {
-            _fileSystem = fileSystem ?? FileSystem.Instance;
+            _fileSystem = fileSystem ?? Sarif.FileSystem.Instance;
         }
 
         public int Run(PageOptions options)
@@ -101,7 +101,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             // Filter to desired results only
             run.Results = run.Results.Skip(options.Index).Take(options.Count).ToList();
 
-            WriteSarifFile(_fileSystem, actualLog, options.OutputFilePath, Formatting.None);
+            WriteSarifFile(_fileSystem, actualLog, options.OutputFilePath, options.Minify);
             return actualLog;
         }
 

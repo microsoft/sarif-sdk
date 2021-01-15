@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     {
         public int Run(ConvertOptions convertOptions, IFileSystem fileSystem = null)
         {
-            fileSystem ??= FileSystem.Instance;
+            fileSystem ??= Sarif.FileSystem.Instance;
 
             try
             {
