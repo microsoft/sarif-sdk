@@ -33,13 +33,5 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The notification to log.
         /// </param>
         void LogConfigurationNotification(Notification notification);
-
-        /// <summary>
-        /// Log a simple message for display to users (which
-        /// will not be persisted to log files)
-        /// </summary>
-        /// <param name="verbose"></param>
-        /// <param name="message"></param>
-        void LogMessage(bool verbose, string message);
     }
 }
