@@ -67,12 +67,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return GetRuleByIndex(rules, this.RuleIndex);
                 }
 
-                // Look up by this.Rule.Index, if present
-                if (this.Rule?.Index >= 0)
-                {
-                    return GetRuleByIndex(rules, this.Rule.Index);
-                }
-
                 // Look up by this.Rule.Guid, if present
                 if (!string.IsNullOrEmpty(this.Rule?.Guid) && rules != null)
                 {
