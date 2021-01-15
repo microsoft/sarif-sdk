@@ -16,7 +16,6 @@ namespace Microsoft.WorkItems
         /// </remarks>
         public string Text { get; set; }
 
-
         /// <summary>
         /// The name of the attachment.
         /// </summary>

@@ -411,7 +411,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             }
         }
 
-
         private void Visit(Fix fix, string fixPointer)
         {
             if (fix.Description != null)

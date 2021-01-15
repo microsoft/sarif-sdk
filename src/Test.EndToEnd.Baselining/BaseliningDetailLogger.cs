@@ -15,7 +15,7 @@ namespace Test.EndToEnd.Baselining
     ///  Write a detail log for a single log series, with one section per SarifLog
     ///  and one line per Result indicating whether the Result matched and to which
     ///  other Result.
-    ///  
+    ///
     ///  The output contains Result GUIDs (replaced by RIDs) only.
     ///  This log is used to compare a current and previous baselining run in detail
     ///  and pass or fail the test run.

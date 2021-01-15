@@ -14,10 +14,10 @@ namespace Test.EndToEnd.Baselining
     /// <summary>
     ///  Convert a detail log for a single log series, adding details to help human
     ///  investigation to each Result line.
-    /// 
+    ///
     ///  This log is used for human investigation of baselining algorithm differences
-    ///  across runs. 
-    ///  
+    ///  across runs.
+    ///
     ///  The "enriched" logs are converted from the "canonical" detail logs after
     ///  the fact so that a developer debugging can change which Result details are
     ///  available for investigation without breaking existing test baselines.

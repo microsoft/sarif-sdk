@@ -17,33 +17,33 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public ResultMatchingCommand(IFileSystem fileSystem = null)
         {
-            _fileSystem = fileSystem ?? FileSystem.Instance;
+            this._fileSystem = fileSystem ?? Sarif.FileSystem.Instance;
         }
 
-        public int Run(ResultMatchingOptions matchingOptions)
+        public int Run(ResultMatchingOptions options)
         {
             try
             {
                 SarifLog baselineFile = null;
-                if (!string.IsNullOrEmpty(matchingOptions.PreviousFilePath))
+                if (!string.IsNullOrEmpty(options.PreviousFilePath))
                 {
-                    baselineFile = ReadSarifFile<SarifLog>(_fileSystem, matchingOptions.PreviousFilePath);
+                    baselineFile = ReadSarifFile<SarifLog>(_fileSystem, options.PreviousFilePath);
                 }
 
-                string outputFilePath = matchingOptions.OutputFilePath;
+                string outputFilePath = options.OutputFilePath;
                 if (string.IsNullOrEmpty(outputFilePath))
                 {
-                    outputFilePath = Path.GetFileNameWithoutExtension(matchingOptions.PreviousFilePath) + "-annotated.sarif";
+                    outputFilePath = Path.GetFileNameWithoutExtension(options.PreviousFilePath) + "-annotated.sarif";
                 }
 
-                if (!DriverUtilities.ReportWhetherOutputFileCanBeCreated(outputFilePath, matchingOptions.Force, _fileSystem))
+                if (!DriverUtilities.ReportWhetherOutputFileCanBeCreated(outputFilePath, options.Force, _fileSystem))
                 {
                     return FAILURE;
                 }
 
                 var currentSarifLogs = new List<SarifLog>();
 
-                foreach (string currentFilePath in matchingOptions.CurrentFilePaths)
+                foreach (string currentFilePath in options.CurrentFilePaths)
                 {
                     currentSarifLogs.Add(ReadSarifFile<SarifLog>(_fileSystem, currentFilePath));
                 }
@@ -52,9 +52,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 SarifLog output = matcher.Match(new SarifLog[] { baselineFile }, currentSarifLogs).First();
 
-                WriteSarifFile(_fileSystem, output, outputFilePath, matchingOptions.Formatting);
+                WriteSarifFile(_fileSystem, output, outputFilePath, options.Minify);
             }
-
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());

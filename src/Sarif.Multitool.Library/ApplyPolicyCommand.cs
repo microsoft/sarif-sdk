@@ -14,26 +14,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public ApplyPolicyCommand(IFileSystem fileSystem = null)
         {
-            _fileSystem = fileSystem ?? FileSystem.Instance;
+            _fileSystem = fileSystem ?? Sarif.FileSystem.Instance;
         }
 
-        public int Run(ApplyPolicyOptions applyPolicyOptions)
+        public int Run(ApplyPolicyOptions options)
         {
             try
             {
-                Console.WriteLine($"Applying policy '{applyPolicyOptions.InputFilePath}' => '{applyPolicyOptions.OutputFilePath}'...");
+                Console.WriteLine($"Applying policy '{options.InputFilePath}' => '{options.OutputFilePath}'...");
                 Stopwatch w = Stopwatch.StartNew();
 
-                bool valid = ValidateOptions(applyPolicyOptions);
+                bool valid = ValidateOptions(options);
                 if (!valid) { return FAILURE; }
 
-                SarifLog actualLog = ReadSarifFile<SarifLog>(_fileSystem, applyPolicyOptions.InputFilePath);
+                SarifLog actualLog = ReadSarifFile<SarifLog>(_fileSystem, options.InputFilePath);
 
                 actualLog.ApplyPolicies();
 
-                string fileName = CommandUtilities.GetTransformedOutputFileName(applyPolicyOptions);
+                string fileName = CommandUtilities.GetTransformedOutputFileName(options);
 
-                WriteSarifFile(_fileSystem, actualLog, fileName, applyPolicyOptions.Formatting);
+                WriteSarifFile(_fileSystem, actualLog, fileName, options.Minify);
 
                 w.Stop();
                 Console.WriteLine($"Rewrite completed in {w.Elapsed}.");

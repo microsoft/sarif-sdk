@@ -96,7 +96,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             actualLog.Runs[0].Results[0].Locations[0].PhysicalLocation.ContextRegion.Snippet.Should().BeNull();
         }
 
-
         [Fact]
         public void RebaseUriCommand_RebaseRunWithArtifacts()
         {

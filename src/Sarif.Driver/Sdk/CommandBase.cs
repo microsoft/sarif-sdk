@@ -6,17 +6,22 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 
-using Microsoft.CodeAnalysis.Sarif.Driver;
-
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace Microsoft.CodeAnalysis.Sarif.Multitool
+namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     public abstract class CommandBase
     {
         public const int SUCCESS = 0;
         public const int FAILURE = 1;
+
+        protected IFileSystem FileSystem { get; set; }
+
+        public CommandBase(IFileSystem fileSystem = null)
+        {
+            this.FileSystem = fileSystem ?? Sarif.FileSystem.Instance;
+        }
 
         protected static bool ValidateNonNegativeCommandLineOption<T>(long optionValue, string optionName)
         {
@@ -28,7 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 Console.Error.WriteLine(
                     string.Format(
                         CultureInfo.CurrentCulture,
-                        MultitoolResources.OptionValueMustBeNonNegative,
+                        DriverResources.OptionValueMustBeNonNegative,
                         optionDescription));
                 valid = false;
             }
@@ -46,12 +51,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
         }
 
-        public static void WriteSarifFile<T>(IFileSystem fileSystem, T sarifFile, string outputName, Formatting formatting = Formatting.None, IContractResolver contractResolver = null)
+        public static void WriteSarifFile<T>(IFileSystem fileSystem,
+                                             T sarifFile, string outputName,
+                                             bool minify = false,
+                                             IContractResolver contractResolver = null)
         {
             var serializer = new JsonSerializer()
             {
                 ContractResolver = contractResolver,
-                Formatting = formatting
+                Formatting = minify ? 0 : Formatting.Indented
             };
 
             using (JsonTextWriter writer = new JsonTextWriter(new StreamWriter(fileSystem.FileCreate(outputName))))

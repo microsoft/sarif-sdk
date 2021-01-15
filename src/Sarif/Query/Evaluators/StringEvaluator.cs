@@ -10,8 +10,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
     /// <summary>
     ///  StringEvaluator implements IExpressionEvaluator given a getter which can
     ///  get the desired Property Name as a string.
-    ///  
-    ///  Usage: 
+    ///
+    ///  Usage:
     ///    if (String.Equals(term.PropertyName, "FileName", StringComparison.OrdinalIgnoreCase))
     ///    {
     ///        // Show the StringEvaluator how to get the 'FileName' property string, and it'll implement the term matching.

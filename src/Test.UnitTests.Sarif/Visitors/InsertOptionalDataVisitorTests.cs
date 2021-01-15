@@ -498,7 +498,6 @@ Three";
                     }
                 });
 
-
             run.Results.Add(
                 new Result
                 {
@@ -509,7 +508,6 @@ Three";
                         Id = SharedMessageId
                     }
                 });
-
 
             var visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.FlattenedMessages);
             visitor.Visit(run);
@@ -541,7 +539,6 @@ Three";
                 });
             configurationNotifications.Add(toolNotifications[0]);
 
-
             // Notification that refers to a rule that does not contain a message with 
             // the same id as the specified notification id.In this case it is no surprise
             // that the message comes from the global string table.
@@ -560,7 +557,6 @@ Three";
                 });
             configurationNotifications.Add(toolNotifications[1]);
 
-
             // Notification that refers to a rule that contains a message with the same
             // id as the specified notification message id. The message should still be
             // retrieved from the global strings table.
@@ -578,7 +574,6 @@ Three";
                     Message = new Message { Id = SharedMessageId }
                 });
             configurationNotifications.Add(toolNotifications[2]);
-
 
             var visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.FlattenedMessages);
             visitor.Visit(run);

@@ -152,7 +152,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Opens a text file, reads all lines of the file, and then closes the file.
         /// </summary>
         /// <param name="path">
-        /// The file to open for reading. 
+        /// The file to open for reading.
         /// </param>
         /// <returns>
         /// A string array containing all lines of the file.
@@ -167,7 +167,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// the file.
         /// </summary>
         /// <param name="path">
-        /// The file to open for reading. 
+        /// The file to open for reading.
         /// </param>
         /// <returns>
         /// A string containing all text in the file.

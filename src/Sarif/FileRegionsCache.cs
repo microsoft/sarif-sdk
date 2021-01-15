@@ -242,7 +242,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             region.StartColumn = region.StartColumn == 0 ? 1 : region.StartColumn;
         }
 
-
         private void PopulateEndColumn(NewLineIndex lineIndex, Region region, string fileText)
         {
             // Populated at this point: StartLine, EndLine, StartColumn

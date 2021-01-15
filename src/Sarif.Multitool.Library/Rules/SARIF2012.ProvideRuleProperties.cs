@@ -23,11 +23,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         /// <summary>
         /// Rule metadata should provide information that makes it easy to understand and fix the problem.
-        /// 
+        ///
         /// Provide the 'name' property, which contains a "friendly name" that helps users see at a glance
         /// the purpose of the rule.For uniformity of experience across all tools that produce SARIF, the
         /// friendly name should be a single Pascal identifier, for example, 'ProvideRuleFriendlyName'.
-        /// 
+        ///
         /// Provide the 'helpUri' property, which contains a URI where users can find detailed information
         /// about the rule.This information should include a detailed description of the invalid pattern,
         /// an explanation of why the pattern is poor practice (particularly in contexts such as security

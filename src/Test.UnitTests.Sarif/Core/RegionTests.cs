@@ -119,7 +119,6 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
                 StartLine = 23,
                 CharOffset = 15,
                 ByteOffset = 15
-
             };
 
             region.IsLineColumnBasedTextRegion.Should().BeTrue();

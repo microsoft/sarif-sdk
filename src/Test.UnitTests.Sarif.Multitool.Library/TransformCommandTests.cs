@@ -207,7 +207,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             var transformCommand = new TransformCommand(mockFileSystem.Object);
 
-
             int returnCode = transformCommand.Run(options);
 
             return (transformedContents.ToString(), returnCode);

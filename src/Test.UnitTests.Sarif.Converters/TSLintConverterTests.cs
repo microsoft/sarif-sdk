@@ -14,7 +14,6 @@ using Moq;
 
 using Xunit;
 
-
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     public class TSLintConverterTests

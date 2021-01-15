@@ -22,13 +22,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             HelpText = "A directory to output the transformed files to. If absent, each transformed file is written to the same directory as the corresponding input file.")]
         public string OutputDirectoryPath { get; set; }
 
-        [Option(
-            'i',
-            "inline",
-            Default = false,
-            HelpText = "Overwrite each input file with the corresponding transformed file.")]
-        public bool Inline { get; set; }
-
         [Value(0,
             MetaName = "<files>",
             HelpText = "Files to process (wildcards ? and * allowed).",

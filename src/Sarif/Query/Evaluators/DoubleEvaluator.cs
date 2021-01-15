@@ -10,8 +10,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
     /// <summary>
     ///  DoubleEvaluator implements IExpressionEvaluator given a getter which can
     ///  get the desired Property Name as a double.
-    ///  
-    ///  Usage: 
+    ///
+    ///  Usage:
     ///    if (String.Equals(term.PropertyName, "ID", StringComparison.OrdinalIgnoreCase))
     ///    {
     ///        // Show the DoubleEvaluator how to get the 'ID' property as a double, and it'll implement the term matching.

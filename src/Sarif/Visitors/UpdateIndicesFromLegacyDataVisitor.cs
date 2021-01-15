@@ -8,7 +8,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
     /// <summary>
     /// Utility class that helps provide current SARIF v2 rule, file and logical location
-    /// index data, when transform SARIF v1 or SARIF v2 prerelease data. 
+    /// index data, when transform SARIF v1 or SARIF v2 prerelease data.
     /// </summary>
     public class UpdateIndicesFromLegacyDataVisitor : SarifRewritingVisitor
     {

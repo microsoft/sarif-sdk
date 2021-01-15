@@ -1195,7 +1195,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             _invocation.CommandLine = sb.ToString();
         }
 
-
         private void ParseErrors()
         {
             // Despite being expressed as XML elements named <Error>, these messages
