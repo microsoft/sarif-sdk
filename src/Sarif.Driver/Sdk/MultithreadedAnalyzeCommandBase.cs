@@ -347,6 +347,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     directory = Path.GetFullPath(directories.Dequeue());
 
 #if NETFRAMEWORK
+                    // For Directory.EnumerateFiles using NETFramework with empty filter, NO files will return.
+                    // For Directory.EnuemrateFiles using NET Core with empty filter, files will return.
                     if (string.IsNullOrEmpty(filter))
                     {
                         filter = "*";
