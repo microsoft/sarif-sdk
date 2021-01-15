@@ -282,8 +282,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     _repoRootUris ??= new HashSet<Uri>();
                     _repoRootUris.Add(repoRootUri);
 
-                    node.Uri = repoRootUri.MakeRelativeUri(uri);
-                    node.UriBaseId = GetUriBaseIdForRepoRoot(repoRootUri);
+                    Uri relativeUri = repoRootUri.MakeRelativeUri(uri);
+                    if (!string.IsNullOrEmpty(relativeUri.OriginalString))
+                    {
+                        node.Uri = relativeUri;
+                        node.UriBaseId = GetUriBaseIdForRepoRoot(repoRootUri);
+                    }
                 }
             }
 
