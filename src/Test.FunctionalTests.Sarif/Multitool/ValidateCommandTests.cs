@@ -467,10 +467,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 SarifOutputVersion = SarifVersion.Current,
                 TargetFileSpecifiers = new[] { inputLogFilePath },
                 OutputFilePath = actualLogFilePath,
-                Quiet = true,
+                Quiet = false,
                 UpdateInputsToCurrentSarif = updateInputsToCurrentSarif,
                 PrettyPrint = true,
-                Optimize = true
+                Optimize = true,
+                Level = new List<FailureLevel> { FailureLevel.Error, FailureLevel.Warning, FailureLevel.Note, FailureLevel.None },
             };
 
             var mockFileSystem = new Mock<IFileSystem>();
