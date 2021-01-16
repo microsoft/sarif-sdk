@@ -1010,8 +1010,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 TestRuleBehaviors = testCase.TestRuleBehaviors,
                 OutputFilePath = testCase.PersistLogFileToDisk ? Guid.NewGuid().ToString() : null,
-                TargetFileSpecifiers = new string[] { Guid.NewGuid().ToString() }
+                TargetFileSpecifiers = new string[] { Guid.NewGuid().ToString() },
             };
+
+            if (testCase.Verbose)
+            {
+                options.Level = new List<FailureLevel> { FailureLevel.Error, FailureLevel.Warning, FailureLevel.Note, FailureLevel.None };
+            }
 
             int expectedResultsCount = testCase.ExpectedWarningCount + testCase.ExpectedErrorCount;
             Run runWithoutCaching = RunAnalyzeCommand(options, testCase);
