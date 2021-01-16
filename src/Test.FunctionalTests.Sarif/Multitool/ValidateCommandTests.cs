@@ -467,7 +467,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 SarifOutputVersion = SarifVersion.Current,
                 TargetFileSpecifiers = new[] { inputLogFilePath },
                 OutputFilePath = actualLogFilePath,
-                Quiet = false,
+                Quiet = true,
                 UpdateInputsToCurrentSarif = updateInputsToCurrentSarif,
                 PrettyPrint = true,
                 Optimize = true,
