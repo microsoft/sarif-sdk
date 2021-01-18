@@ -1013,7 +1013,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (testCase.Verbose)
             {
-                options.Level = new List<FailureLevel> { FailureLevel.Error, FailureLevel.Warning, FailureLevel.Note, FailureLevel.None };
+                options.Level = new List<FailureLevel> { FailureLevel.Error, FailureLevel.Warning, FailureLevel.Note };
             }
 
             int expectedResultsCount = testCase.ExpectedWarningCount + testCase.ExpectedErrorCount;

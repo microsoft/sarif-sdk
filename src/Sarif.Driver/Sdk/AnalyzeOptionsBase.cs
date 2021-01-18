@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         [Option(
             'q',
             "quiet",
-            HelpText = "Do not log results to the console.")]
+            HelpText = "Suppress all console output (except for catastrophic tool runtime or configuration errors).")]
         public bool Quiet { get; set; }
 
         [Option(
