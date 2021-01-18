@@ -97,16 +97,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 throw new ArgumentNullException(nameof(result));
             }
 
+            if (!ShouldLog(result))
+            {
+                return;
+            }
+
             string message = result.GetMessageText(rule);
 
             // TODO we need better retrieval for locations than these defaults.
             // Note that we can potentially emit many messages from a single result.
             PhysicalLocation physicalLocation = result.Locations?.First().PhysicalLocation;
-
-            if (!ShouldLog(result))
-            {
-                return;
-            }
 
             WriteLineToConsole(GetMessageText(_toolName, physicalLocation?.ArtifactLocation?.Uri, physicalLocation?.Region, result.RuleId, message, result.Kind, result.Level));
         }
@@ -177,12 +177,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public void LogToolNotification(Notification notification)
         {
-            WriteToConsole(notification);
+            if (ShouldLog(notification))
+            {
+                WriteToConsole(notification);
+            }
         }
 
         public void LogConfigurationNotification(Notification notification)
         {
-            WriteToConsole(notification);
+            if (ShouldLog(notification))
+            {
+                WriteToConsole(notification);
+            }
         }
 
         private void WriteToConsole(Notification notification)
