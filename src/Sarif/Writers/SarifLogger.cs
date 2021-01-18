@@ -246,8 +246,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public bool PrettyPrint => _loggingOptions.HasFlag(LoggingOptions.PrettyPrint);
 
-        public bool Quiet => _loggingOptions.HasFlag(LoggingOptions.Quiet);
-
         public bool Optimize => _loggingOptions.HasFlag(LoggingOptions.Optimize);
 
         public virtual void Dispose()
@@ -463,63 +461,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
         }
 
-        public void Log(FailureLevel level, IAnalysisContext context, Region region, string ruleMessageId, params string[] arguments)
+        public void LogToolNotification(Notification notification)
         {
-            if (context == null)
-            {
-                throw new ArgumentNullException(nameof(context));
-            }
-
-            int ruleIndex = -1;
-            if (context.Rule != null)
-            {
-                ruleIndex = LogRule(context.Rule);
-            }
-
-            ruleMessageId = RuleUtilities.NormalizeRuleMessageId(ruleMessageId, context.Rule.Id);
-            LogJsonIssue(level, context.TargetUri.LocalPath, region, context.Rule.Id, ruleIndex, ruleMessageId, arguments);
-        }
-
-        private void LogJsonIssue(FailureLevel level, string targetPath, Region region, string ruleId, int ruleIndex, string ruleMessageId, params string[] arguments)
-        {
-            Result result = new Result
-            {
-                RuleId = ruleId,
-                RuleIndex = ruleIndex,
-                Message = new Message
-                {
-                    Id = ruleMessageId,
-                    Arguments = arguments
-                },
-                Level = level
-            };
-
-            if (targetPath != null)
-            {
-                result.Locations = new List<Location> {
-                    new Sarif.Location {
-                        PhysicalLocation = new PhysicalLocation
-                        {
-                            ArtifactLocation = new ArtifactLocation
-                            {
-                                Uri = new Uri(targetPath)
-                            },
-                            Region = region
-                        }
-                    }
-                };
-            }
-
-            if (!ShouldLog(result))
+            if (!ShouldLog(notification))
             {
                 return;
             }
 
-            _issueLogJsonWriter.WriteResult(result);
-        }
-
-        public void LogToolNotification(Notification notification)
-        {
             if (_run.Invocations.Count == 0)
             {
                 _run.Invocations.Add(new Invocation());
@@ -532,6 +480,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public void LogConfigurationNotification(Notification notification)
         {
+            if (!ShouldLog(notification))
+            {
+                return;
+            }
+
             if (_run.Invocations.Count == 0)
             {
                 _run.Invocations.Add(new Invocation());

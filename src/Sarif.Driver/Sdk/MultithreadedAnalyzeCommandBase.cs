@@ -365,7 +365,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         _fileContexts.Add(
                             CreateContext(
                                 options,
-                                new CachingLogger(),
+                                new CachingLogger(options.Level, options.Kind),
                                 rootContext.RuntimeErrors,
                                 rootContext.Policy,
                                 filePath: file)
