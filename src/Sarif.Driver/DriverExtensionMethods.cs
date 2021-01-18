@@ -10,15 +10,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     public static class DriverExtensionMethods
     {
-        public static LoggingOptions ConvertToLoggingOptions(this AnalyzeOptionsBase analyzeOptions)
+        public static LogFilePersistenceOptions ConvertToLoggingOptions(this AnalyzeOptionsBase analyzeOptions)
         {
-            LoggingOptions loggingOptions = LoggingOptions.PrettyPrint;
+            LogFilePersistenceOptions loggingOptions = LogFilePersistenceOptions.PrettyPrint;
 
-            if (analyzeOptions.Force) { loggingOptions |= LoggingOptions.OverwriteExistingOutputFile; }
-            if (analyzeOptions.Minify) { loggingOptions ^= LoggingOptions.PrettyPrint; }
-            if (analyzeOptions.Quiet) { loggingOptions |= LoggingOptions.Quiet; }
-            if (analyzeOptions.Optimize) { loggingOptions |= LoggingOptions.Optimize; }
-            if (analyzeOptions.PrettyPrint) { loggingOptions |= LoggingOptions.PrettyPrint; }
+            if (analyzeOptions.Force) { loggingOptions |= LogFilePersistenceOptions.OverwriteExistingOutputFile; }
+            if (analyzeOptions.Minify) { loggingOptions ^= LogFilePersistenceOptions.PrettyPrint; }
+            if (analyzeOptions.Optimize) { loggingOptions |= LogFilePersistenceOptions.Optimize; }
+            if (analyzeOptions.PrettyPrint) { loggingOptions |= LogFilePersistenceOptions.PrettyPrint; }
 
             return loggingOptions;
         }
@@ -139,10 +138,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             bool valid = true;
 
+            //  TODO:  Is it correct to modify options in a "validate" method?
             if (options.Inline)
             {
                 options.Force = true;
             }
+
+            return valid;
+        }
+
+        public static bool ValidateOutputOptions(this AnalyzeOptionsBase options)
+        {
+            bool valid = true;
+
+            valid &= !(options.Quiet && string.IsNullOrWhiteSpace(options.OutputFilePath));
 
             return valid;
         }

@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         [Fact]
         public void ConvertingAnalyzeOptionsToLoggingOptions_ProducesExpectedLoggingOptions()
         {
-            LoggingOptions loggingOptions;
+            LogFilePersistenceOptions loggingOptions;
 
             TestAnalyzeOptions analyzeOptions = new TestAnalyzeOptions()
             {
@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             };
 
             loggingOptions = analyzeOptions.ConvertToLoggingOptions();
-            loggingOptions.Should().Be(LoggingOptions.Quiet | LoggingOptions.PrettyPrint);
+            loggingOptions.Should().Be(LogFilePersistenceOptions.PrettyPrint);
 
             analyzeOptions = new TestAnalyzeOptions()
             {
@@ -33,7 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             };
 
             loggingOptions = analyzeOptions.ConvertToLoggingOptions();
-            loggingOptions.Should().Be(LoggingOptions.None);
+            loggingOptions.Should().Be(LogFilePersistenceOptions.None);
 
             analyzeOptions = new TestAnalyzeOptions()
             {
@@ -42,7 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             };
 
             loggingOptions = analyzeOptions.ConvertToLoggingOptions();
-            loggingOptions.Should().Be(LoggingOptions.PrettyPrint);
+            loggingOptions.Should().Be(LogFilePersistenceOptions.PrettyPrint);
 
             analyzeOptions = new TestAnalyzeOptions()
             {
@@ -51,8 +51,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             loggingOptions = analyzeOptions.ConvertToLoggingOptions();
             loggingOptions.Should().Be(
-                LoggingOptions.OverwriteExistingOutputFile |
-                LoggingOptions.PrettyPrint);
+                LogFilePersistenceOptions.OverwriteExistingOutputFile |
+                LogFilePersistenceOptions.PrettyPrint);
         }
 
         private class ValidateSingleFileOutputOptionsTestCase

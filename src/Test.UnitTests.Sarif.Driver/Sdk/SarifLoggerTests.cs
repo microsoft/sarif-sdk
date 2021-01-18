@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var logger = new SarifLogger(
                 textWriter,
                 analysisTargets: Enumerable.Empty<string>(),
-                loggingOptions: LoggingOptions.None,
+                loggingOptions: LogFilePersistenceOptions.None,
                 invocationTokensToRedact: null,
                 invocationPropertiesToLog: null);
 

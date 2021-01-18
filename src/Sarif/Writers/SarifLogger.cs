@@ -21,18 +21,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         private readonly TextWriter _textWriter;
         private readonly bool _persistArtifacts;
         private readonly bool _closeWriterOnDispose;
-        private readonly LoggingOptions _loggingOptions;
+        private readonly LogFilePersistenceOptions _loggingOptions;
         private readonly JsonTextWriter _jsonTextWriter;
         private readonly OptionallyEmittedData _dataToInsert;
         private readonly OptionallyEmittedData _dataToRemove;
         private readonly ResultLogJsonWriter _issueLogJsonWriter;
         private readonly InsertOptionalDataVisitor _insertOptionalDataVisitor;
 
-        protected const LoggingOptions DefaultLoggingOptions = LoggingOptions.PrettyPrint;
+        protected const LogFilePersistenceOptions DefaultLoggingOptions = LogFilePersistenceOptions.PrettyPrint;
 
         public SarifLogger(
             string outputFilePath,
-            LoggingOptions loggingOptions = DefaultLoggingOptions,
+            LogFilePersistenceOptions loggingOptions = DefaultLoggingOptions,
             OptionallyEmittedData dataToInsert = OptionallyEmittedData.None,
             OptionallyEmittedData dataToRemove = OptionallyEmittedData.None,
             Tool tool = null,
@@ -60,7 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public SarifLogger(
             TextWriter textWriter,
-            LoggingOptions loggingOptions = DefaultLoggingOptions,
+            LogFilePersistenceOptions loggingOptions = DefaultLoggingOptions,
             OptionallyEmittedData dataToInsert = OptionallyEmittedData.None,
             OptionallyEmittedData dataToRemove = OptionallyEmittedData.None,
             Tool tool = null,
@@ -118,7 +118,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         private SarifLogger(
             TextWriter textWriter,
-            LoggingOptions loggingOptions,
+            LogFilePersistenceOptions loggingOptions,
             bool closeWriterOnDipose,
             IEnumerable<FailureLevel> level,
             IEnumerable<ResultKind> kind) : base(failureLevels: level, resultKinds: kind)
@@ -242,11 +242,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public bool PersistEnvironment => _dataToInsert.HasFlag(OptionallyEmittedData.EnvironmentVariables);
 
-        public bool OverwriteExistingOutputFile => _loggingOptions.HasFlag(LoggingOptions.OverwriteExistingOutputFile);
+        public bool OverwriteExistingOutputFile => _loggingOptions.HasFlag(LogFilePersistenceOptions.OverwriteExistingOutputFile);
 
-        public bool PrettyPrint => _loggingOptions.HasFlag(LoggingOptions.PrettyPrint);
+        public bool PrettyPrint => _loggingOptions.HasFlag(LogFilePersistenceOptions.PrettyPrint);
 
-        public bool Optimize => _loggingOptions.HasFlag(LoggingOptions.Optimize);
+        public bool Optimize => _loggingOptions.HasFlag(LogFilePersistenceOptions.Optimize);
 
         public virtual void Dispose()
         {

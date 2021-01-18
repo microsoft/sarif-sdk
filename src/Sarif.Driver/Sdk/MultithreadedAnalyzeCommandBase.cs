@@ -642,7 +642,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 (
                     () =>
                     {
-                        LoggingOptions loggingOptions = analyzeOptions.ConvertToLoggingOptions();
+                        LogFilePersistenceOptions loggingOptions = analyzeOptions.ConvertToLoggingOptions();
 
                         OptionallyEmittedData dataToInsert = analyzeOptions.DataToInsert.ToFlags();
                         OptionallyEmittedData dataToRemove = analyzeOptions.DataToRemove.ToFlags();
