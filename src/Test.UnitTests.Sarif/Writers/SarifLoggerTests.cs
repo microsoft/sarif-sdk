@@ -56,7 +56,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             using (var logger = new SarifLogger(
                 streamWriter,
-                loggingOptions: LogFilePersistenceOptions.PrettyPrint,
+                logFilePersistenceOptions: LogFilePersistenceOptions.PrettyPrint,
                 dataToRemove: OptionallyEmittedData.NondeterministicProperties,
                 closeWriterOnDispose: closeWriterOnDispose))
             {
@@ -172,7 +172,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 using (var sarifLogger = new SarifLogger(
                     textWriter,
                     analysisTargets: null,
-                    loggingOptions: LogFilePersistenceOptions.None,
+                    logFilePersistenceOptions: LogFilePersistenceOptions.None,
                     invocationTokensToRedact: tokensToRedact,
                     invocationPropertiesToLog: new List<string> { "CommandLine" })) { }
 
@@ -226,7 +226,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 using (var sarifLogger = new SarifLogger(
                     textWriter,
                     analysisTargets: new string[] { @"example.cpp" },
-                    loggingOptions: LogFilePersistenceOptions.None,
+                    logFilePersistenceOptions: LogFilePersistenceOptions.None,
                     invocationTokensToRedact: null,
                     invocationPropertiesToLog: null))
                 {

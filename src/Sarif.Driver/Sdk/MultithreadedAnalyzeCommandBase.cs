@@ -642,7 +642,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 (
                     () =>
                     {
-                        LogFilePersistenceOptions loggingOptions = analyzeOptions.ConvertToLoggingOptions();
+                        LogFilePersistenceOptions logFilePersistenceOptions = analyzeOptions.ConvertToLogFilePersistenceOptions();
 
                         OptionallyEmittedData dataToInsert = analyzeOptions.DataToInsert.ToFlags();
                         OptionallyEmittedData dataToRemove = analyzeOptions.DataToRemove.ToFlags();
@@ -655,7 +655,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         {
                             sarifLogger = new SarifLogger(
                                     analyzeOptions.OutputFilePath,
-                                    loggingOptions,
+                                    logFilePersistenceOptions,
                                     dataToInsert,
                                     dataToRemove,
                                     tool: _tool,
@@ -668,7 +668,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         {
                             sarifLogger = new SarifOneZeroZeroLogger(
                                     analyzeOptions.OutputFilePath,
-                                    loggingOptions,
+                                    logFilePersistenceOptions,
                                     dataToInsert,
                                     dataToRemove,
                                     tool: _tool,

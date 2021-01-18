@@ -10,16 +10,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     public static class DriverExtensionMethods
     {
-        public static LogFilePersistenceOptions ConvertToLoggingOptions(this AnalyzeOptionsBase analyzeOptions)
+        public static LogFilePersistenceOptions ConvertToLogFilePersistenceOptions(this AnalyzeOptionsBase analyzeOptions)
         {
-            LogFilePersistenceOptions loggingOptions = LogFilePersistenceOptions.PrettyPrint;
+            LogFilePersistenceOptions logFilePersistenceOptions = LogFilePersistenceOptions.PrettyPrint;
 
-            if (analyzeOptions.Force) { loggingOptions |= LogFilePersistenceOptions.OverwriteExistingOutputFile; }
-            if (analyzeOptions.Minify) { loggingOptions ^= LogFilePersistenceOptions.PrettyPrint; }
-            if (analyzeOptions.Optimize) { loggingOptions |= LogFilePersistenceOptions.Optimize; }
-            if (analyzeOptions.PrettyPrint) { loggingOptions |= LogFilePersistenceOptions.PrettyPrint; }
+            if (analyzeOptions.Force) { logFilePersistenceOptions |= LogFilePersistenceOptions.OverwriteExistingOutputFile; }
+            if (analyzeOptions.Minify) { logFilePersistenceOptions ^= LogFilePersistenceOptions.PrettyPrint; }
+            if (analyzeOptions.Optimize) { logFilePersistenceOptions |= LogFilePersistenceOptions.Optimize; }
+            if (analyzeOptions.PrettyPrint) { logFilePersistenceOptions |= LogFilePersistenceOptions.PrettyPrint; }
 
-            return loggingOptions;
+            return logFilePersistenceOptions;
         }
 
         /// <summary>

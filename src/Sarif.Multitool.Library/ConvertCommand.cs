@@ -40,25 +40,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 if (!ValidateOptions(convertOptions, fileSystem)) { return FAILURE; }
 
-                LogFilePersistenceOptions loggingOptions = LogFilePersistenceOptions.None;
+                LogFilePersistenceOptions logFilePersistenceOptions = LogFilePersistenceOptions.None;
 
                 OptionallyEmittedData dataToInsert = convertOptions.DataToInsert.ToFlags();
 
                 if (convertOptions.PrettyPrint)
                 {
-                    loggingOptions |= LogFilePersistenceOptions.PrettyPrint;
+                    logFilePersistenceOptions |= LogFilePersistenceOptions.PrettyPrint;
                 }
 
                 if (convertOptions.Force)
                 {
-                    loggingOptions |= LogFilePersistenceOptions.OverwriteExistingOutputFile;
+                    logFilePersistenceOptions |= LogFilePersistenceOptions.OverwriteExistingOutputFile;
                 }
 
                 new ToolFormatConverter().ConvertToStandardFormat(
                                                 convertOptions.ToolFormat,
                                                 convertOptions.InputFilePath,
                                                 convertOptions.OutputFilePath,
-                                                loggingOptions,
+                                                logFilePersistenceOptions,
                                                 dataToInsert,
                                                 convertOptions.PluginAssemblyPath);
 

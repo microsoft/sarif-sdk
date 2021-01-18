@@ -21,18 +21,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         private readonly TextWriter _textWriter;
         private readonly bool _persistArtifacts;
         private readonly bool _closeWriterOnDispose;
-        private readonly LogFilePersistenceOptions _loggingOptions;
+        private readonly LogFilePersistenceOptions _logFilePersistenceOptions;
         private readonly JsonTextWriter _jsonTextWriter;
         private readonly OptionallyEmittedData _dataToInsert;
         private readonly OptionallyEmittedData _dataToRemove;
         private readonly ResultLogJsonWriter _issueLogJsonWriter;
         private readonly InsertOptionalDataVisitor _insertOptionalDataVisitor;
 
-        protected const LogFilePersistenceOptions DefaultLoggingOptions = LogFilePersistenceOptions.PrettyPrint;
+        protected const LogFilePersistenceOptions DefaultLogFilePersistenceOptions = LogFilePersistenceOptions.PrettyPrint;
 
         public SarifLogger(
             string outputFilePath,
-            LogFilePersistenceOptions loggingOptions = DefaultLoggingOptions,
+            LogFilePersistenceOptions logFilePersistenceOptions = DefaultLogFilePersistenceOptions,
             OptionallyEmittedData dataToInsert = OptionallyEmittedData.None,
             OptionallyEmittedData dataToRemove = OptionallyEmittedData.None,
             Tool tool = null,
@@ -44,7 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             IEnumerable<FailureLevel> level = null,
             IEnumerable<ResultKind> kind = null)
             : this(new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.None)),
-                  loggingOptions: loggingOptions,
+                  logFilePersistenceOptions: logFilePersistenceOptions,
                   dataToInsert: dataToInsert,
                   dataToRemove: dataToRemove,
                   tool: tool,
@@ -60,7 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public SarifLogger(
             TextWriter textWriter,
-            LogFilePersistenceOptions loggingOptions = DefaultLoggingOptions,
+            LogFilePersistenceOptions logFilePersistenceOptions = DefaultLogFilePersistenceOptions,
             OptionallyEmittedData dataToInsert = OptionallyEmittedData.None,
             OptionallyEmittedData dataToRemove = OptionallyEmittedData.None,
             Tool tool = null,
@@ -71,7 +71,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             string defaultFileEncoding = null,
             bool closeWriterOnDispose = true,
             IEnumerable<FailureLevel> level = null,
-            IEnumerable<ResultKind> kind = null) : this(textWriter, loggingOptions, closeWriterOnDispose, level, kind)
+            IEnumerable<ResultKind> kind = null) : this(textWriter, logFilePersistenceOptions, closeWriterOnDispose, level, kind)
         {
             if (dataToInsert.HasFlag(OptionallyEmittedData.Hashes))
             {
@@ -118,7 +118,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         private SarifLogger(
             TextWriter textWriter,
-            LogFilePersistenceOptions loggingOptions,
+            LogFilePersistenceOptions logFilePersistenceOptions,
             bool closeWriterOnDipose,
             IEnumerable<FailureLevel> level,
             IEnumerable<ResultKind> kind) : base(failureLevels: level, resultKinds: kind)
@@ -127,7 +127,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _closeWriterOnDispose = closeWriterOnDipose;
             _jsonTextWriter = new JsonTextWriter(_textWriter);
 
-            _loggingOptions = loggingOptions;
+            _logFilePersistenceOptions = logFilePersistenceOptions;
 
             if (PrettyPrint)
             {
@@ -242,11 +242,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public bool PersistEnvironment => _dataToInsert.HasFlag(OptionallyEmittedData.EnvironmentVariables);
 
-        public bool OverwriteExistingOutputFile => _loggingOptions.HasFlag(LogFilePersistenceOptions.OverwriteExistingOutputFile);
+        public bool OverwriteExistingOutputFile => _logFilePersistenceOptions.HasFlag(LogFilePersistenceOptions.OverwriteExistingOutputFile);
 
-        public bool PrettyPrint => _loggingOptions.HasFlag(LogFilePersistenceOptions.PrettyPrint);
+        public bool PrettyPrint => _logFilePersistenceOptions.HasFlag(LogFilePersistenceOptions.PrettyPrint);
 
-        public bool Optimize => _loggingOptions.HasFlag(LogFilePersistenceOptions.Optimize);
+        public bool Optimize => _logFilePersistenceOptions.HasFlag(LogFilePersistenceOptions.Optimize);
 
         public virtual void Dispose()
         {

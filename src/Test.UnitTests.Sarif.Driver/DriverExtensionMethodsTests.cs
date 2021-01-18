@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 Quiet = true
             };
 
-            loggingOptions = analyzeOptions.ConvertToLoggingOptions();
+            loggingOptions = analyzeOptions.ConvertToLogFilePersistenceOptions();
             loggingOptions.Should().Be(LogFilePersistenceOptions.PrettyPrint);
 
             analyzeOptions = new TestAnalyzeOptions()
@@ -32,7 +32,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 Minify = true
             };
 
-            loggingOptions = analyzeOptions.ConvertToLoggingOptions();
+            loggingOptions = analyzeOptions.ConvertToLogFilePersistenceOptions();
             loggingOptions.Should().Be(LogFilePersistenceOptions.None);
 
             analyzeOptions = new TestAnalyzeOptions()
@@ -41,7 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 PrettyPrint = true
             };
 
-            loggingOptions = analyzeOptions.ConvertToLoggingOptions();
+            loggingOptions = analyzeOptions.ConvertToLogFilePersistenceOptions();
             loggingOptions.Should().Be(LogFilePersistenceOptions.PrettyPrint);
 
             analyzeOptions = new TestAnalyzeOptions()
@@ -49,7 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 Force = true
             };
 
-            loggingOptions = analyzeOptions.ConvertToLoggingOptions();
+            loggingOptions = analyzeOptions.ConvertToLogFilePersistenceOptions();
             loggingOptions.Should().Be(
                 LogFilePersistenceOptions.OverwriteExistingOutputFile |
                 LogFilePersistenceOptions.PrettyPrint);

@@ -26,9 +26,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         private readonly bool _quietConsole;
 
-        private void WriteLineToConsole(string text = null, bool forceEmitOfErrorMessages = false)
+        private void WriteLineToConsole(string text = null, bool forceEmitOfErrorNotifications = false)
         {
-            if (!_quietConsole || forceEmitOfErrorMessages)
+            if (!_quietConsole || forceEmitOfErrorNotifications)
             {
                 Console.WriteLine(text);
 
@@ -202,7 +202,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     WriteLineToConsole(FormatNotificationMessage(notification, _toolName));
                     break;
                 case FailureLevel.Error:
-                    WriteLineToConsole(FormatNotificationMessage(notification, _toolName), forceEmitOfErrorMessages: true);
+                    WriteLineToConsole(FormatNotificationMessage(notification, _toolName), forceEmitOfErrorNotifications: true);
                     break;
                 default:
                     throw new InvalidOperationException();
