@@ -13,8 +13,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         // Indent persisted JSON for easy file viewing.
         PrettyPrint = 0x1,
 
-        // Persist verbose information to log file, such as informational messages.
-        Verbose = 0x2,
+        // Suppress all non-errors to the console and results file
+        Quiet = 0x2,
 
         // Overwrite previous version of log file, if it exists.
         OverwriteExistingOutputFile = 0x4,
@@ -22,6 +22,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         // Omit redundant properties, producing a smaller but non-human-readable log.
         Optimize = 0x8,
 
-        All = PrettyPrint | Verbose | OverwriteExistingOutputFile | Optimize
+        All = PrettyPrint | Quiet | OverwriteExistingOutputFile | Optimize
     }
 }

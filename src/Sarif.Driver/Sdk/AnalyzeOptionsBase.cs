@@ -22,11 +22,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public string OutputFilePath { get; set; }
 
         [Option(
-            "verbose",
-            HelpText = "Emit verbose output. The resulting comprehensive report is designed to provide appropriate evidence for compliance scenarios.")]
-        public bool Verbose { get; set; }
-
-        [Option(
             'r',
             "recurse",
             HelpText = "Recurse into subdirectories when evaluating file specifier arguments.")]
