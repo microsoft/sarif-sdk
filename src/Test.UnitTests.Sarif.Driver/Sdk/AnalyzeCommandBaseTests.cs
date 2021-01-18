@@ -64,8 +64,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 TargetFileSpecifiers = new string[0]
             };
 
-            analyzeOptions.Quiet = true;
-
             Assembly[] plugInAssemblies = null;
 
             if (analyzeOptions.DefaultPlugInFilePaths != null)

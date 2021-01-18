@@ -79,7 +79,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public void LogConfigurationNotification(Notification notification)
         {
-            if (!cacheLoggingData) { return; }
+            if (!cacheLoggingData || !ShouldLog(notification)) { return; }
 
             if (!HashToNotificationsMap.TryGetValue(currentFileHash, out List<Notification> notifications))
             {
@@ -90,6 +90,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public void LogToolNotification(Notification notification)
         {
+            //  In case someone adds something here:
+            if (!ShouldLog(notification))
+            {
+                return;
+            }
+            //  Add actual functionality below
         }
     }
 }

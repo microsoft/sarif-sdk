@@ -11,9 +11,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
     public class ConsoleLogger : BaseLogger, IAnalysisLogger
     {
-        public ConsoleLogger(bool quiet, string toolName, IEnumerable<FailureLevel> level = null, IEnumerable<ResultKind> kind = null) : base(level, kind)
+        public ConsoleLogger(bool quietConsole, string toolName, IEnumerable<FailureLevel> level = null, IEnumerable<ResultKind> kind = null) : base(level, kind)
         {
-            _quiet = quiet;
+            _quietConsole = quietConsole;
             _toolName = toolName.ToUpperInvariant();
         }
 
@@ -24,11 +24,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public string CapturedOutput => _capturedOutput?.ToString();
 
-        private readonly bool _quiet;
+        private readonly bool _quietConsole;
 
-        private void WriteLineToConsole(string text = null, bool ignoreQuiet = false)
+        private void WriteLineToConsole(string text = null, bool forceEmitOfErrorNotifications = false)
         {
-            if (!_quiet || ignoreQuiet)
+            if (!_quietConsole || forceEmitOfErrorNotifications)
             {
                 Console.WriteLine(text);
 
@@ -97,7 +97,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 throw new ArgumentNullException(nameof(result));
             }
 
-            if (!ShouldLog(result))
+            if (!ShouldLog(result) || _quietConsole)
             {
                 return;
             }
@@ -202,7 +202,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     WriteLineToConsole(FormatNotificationMessage(notification, _toolName));
                     break;
                 case FailureLevel.Error:
-                    WriteLineToConsole(FormatNotificationMessage(notification, _toolName), true);
+                    WriteLineToConsole(FormatNotificationMessage(notification, _toolName), forceEmitOfErrorNotifications: true);
                     break;
                 default:
                     throw new InvalidOperationException();

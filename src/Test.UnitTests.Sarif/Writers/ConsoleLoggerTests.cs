@@ -44,7 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 }
             };
 
-            var logger = new ConsoleLogger(quiet: false, toolName: tool)
+            var logger = new ConsoleLogger(quietConsole: false, toolName: tool)
             {
                 CaptureOutput = true
             };

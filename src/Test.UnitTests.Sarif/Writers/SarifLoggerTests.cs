@@ -56,7 +56,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             using (var logger = new SarifLogger(
                 streamWriter,
-                loggingOptions: LoggingOptions.PrettyPrint,
+                logFilePersistenceOptions: LogFilePersistenceOptions.PrettyPrint,
                 dataToRemove: OptionallyEmittedData.NondeterministicProperties,
                 closeWriterOnDispose: closeWriterOnDispose))
             {
@@ -172,7 +172,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 using (var sarifLogger = new SarifLogger(
                     textWriter,
                     analysisTargets: null,
-                    loggingOptions: LoggingOptions.None,
+                    logFilePersistenceOptions: LogFilePersistenceOptions.None,
                     invocationTokensToRedact: tokensToRedact,
                     invocationPropertiesToLog: new List<string> { "CommandLine" })) { }
 
@@ -226,7 +226,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 using (var sarifLogger = new SarifLogger(
                     textWriter,
                     analysisTargets: new string[] { @"example.cpp" },
-                    loggingOptions: LoggingOptions.None,
+                    logFilePersistenceOptions: LogFilePersistenceOptions.None,
                     invocationTokensToRedact: null,
                     invocationPropertiesToLog: null))
                 {
@@ -937,7 +937,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             var sb = new StringBuilder();
 
             using (var writer = new StringWriter(sb))
-            using (var sarifLogger = new SarifLogger(writer, LoggingOptions.Quiet))
+            using (var sarifLogger = new SarifLogger(writer))
             {
                 var rule = new ReportingDescriptor
                 {
@@ -957,16 +957,16 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void SarifLogger_LoggingOptions()
         {
-            foreach (object loggingOptionsObject in Enum.GetValues(typeof(LoggingOptions)))
+            foreach (object loggingOptionsObject in Enum.GetValues(typeof(LogFilePersistenceOptions)))
             {
-                TestForLoggingOption((LoggingOptions)loggingOptionsObject);
+                TestForLoggingOption((LogFilePersistenceOptions)loggingOptionsObject);
             }
         }
 
         // This helper is intended to validate a single enum member only
         // and not arbitrary combinations of bits. One defined member,
         // All, contains all bits.
-        private void TestForLoggingOption(LoggingOptions loggingOption)
+        private void TestForLoggingOption(LogFilePersistenceOptions loggingOption)
         {
             string fileName = Path.GetTempFileName();
 
@@ -996,55 +996,42 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        private void ValidateLoggerForExclusiveOption(SarifLogger logger, LoggingOptions loggingOptions)
+        private void ValidateLoggerForExclusiveOption(SarifLogger logger, LogFilePersistenceOptions loggingOptions)
         {
             switch (loggingOptions)
             {
-                case LoggingOptions.None:
+                case LogFilePersistenceOptions.None:
                 {
                     logger.OverwriteExistingOutputFile.Should().BeFalse();
                     logger.PrettyPrint.Should().BeFalse();
-                    logger.Quiet.Should().BeFalse();
                     logger.Optimize.Should().BeFalse();
                     break;
                 }
-                case LoggingOptions.OverwriteExistingOutputFile:
+                case LogFilePersistenceOptions.OverwriteExistingOutputFile:
                 {
                     logger.OverwriteExistingOutputFile.Should().BeTrue();
                     logger.PrettyPrint.Should().BeFalse();
-                    logger.Quiet.Should().BeFalse();
                     logger.Optimize.Should().BeFalse();
                     break;
                 }
-                case LoggingOptions.PrettyPrint:
+                case LogFilePersistenceOptions.PrettyPrint:
                 {
                     logger.OverwriteExistingOutputFile.Should().BeFalse();
                     logger.PrettyPrint.Should().BeTrue();
-                    logger.Quiet.Should().BeFalse();
                     logger.Optimize.Should().BeFalse();
                     break;
                 }
-                case LoggingOptions.Quiet:
+                case LogFilePersistenceOptions.Optimize:
                 {
                     logger.OverwriteExistingOutputFile.Should().BeFalse();
                     logger.PrettyPrint.Should().BeFalse();
-                    logger.Quiet.Should().BeTrue();
-                    logger.Optimize.Should().BeFalse();
-                    break;
-                }
-                case LoggingOptions.Optimize:
-                {
-                    logger.OverwriteExistingOutputFile.Should().BeFalse();
-                    logger.PrettyPrint.Should().BeFalse();
-                    logger.Quiet.Should().BeFalse();
                     logger.Optimize.Should().BeTrue();
                     break;
                 }
-                case LoggingOptions.All:
+                case LogFilePersistenceOptions.All:
                 {
                     logger.OverwriteExistingOutputFile.Should().BeTrue();
                     logger.PrettyPrint.Should().BeTrue();
-                    logger.Quiet.Should().BeTrue();
                     logger.Optimize.Should().BeTrue();
                     break;
                 }

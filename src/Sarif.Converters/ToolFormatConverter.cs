@@ -38,7 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string toolFormat,
             string inputFileName,
             string outputFileName,
-            LoggingOptions loggingOptions = LoggingOptions.None,
+            LogFilePersistenceOptions logFilePersistenceOptions = LogFilePersistenceOptions.None,
             OptionallyEmittedData dataToInsert = OptionallyEmittedData.None,
             string pluginAssemblyPath = null)
         {
@@ -52,7 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             using (var outputTextWriter = new StreamWriter(outputTextStream))
             using (var outputJson = new JsonTextWriter(outputTextWriter))
             {
-                if (loggingOptions.HasFlag(LoggingOptions.PrettyPrint))
+                if (logFilePersistenceOptions.HasFlag(LogFilePersistenceOptions.PrettyPrint))
                 {
                     outputJson.Formatting = Formatting.Indented;
                 }

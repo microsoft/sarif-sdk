@@ -365,7 +365,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         _fileContexts.Add(
                             CreateContext(
                                 options,
-                                new CachingLogger(),
+                                new CachingLogger(options.Level, options.Kind),
                                 rootContext.RuntimeErrors,
                                 rootContext.Policy,
                                 filePath: file)
@@ -642,7 +642,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 (
                     () =>
                     {
-                        LoggingOptions loggingOptions = analyzeOptions.ConvertToLoggingOptions();
+                        LogFilePersistenceOptions logFilePersistenceOptions = analyzeOptions.ConvertToLogFilePersistenceOptions();
 
                         OptionallyEmittedData dataToInsert = analyzeOptions.DataToInsert.ToFlags();
                         OptionallyEmittedData dataToRemove = analyzeOptions.DataToRemove.ToFlags();
@@ -655,7 +655,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         {
                             sarifLogger = new SarifLogger(
                                     analyzeOptions.OutputFilePath,
-                                    loggingOptions,
+                                    logFilePersistenceOptions,
                                     dataToInsert,
                                     dataToRemove,
                                     tool: _tool,
@@ -668,7 +668,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         {
                             sarifLogger = new SarifOneZeroZeroLogger(
                                     analyzeOptions.OutputFilePath,
-                                    loggingOptions,
+                                    logFilePersistenceOptions,
                                     dataToInsert,
                                     dataToRemove,
                                     tool: _tool,

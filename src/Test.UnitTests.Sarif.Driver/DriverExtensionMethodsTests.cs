@@ -17,23 +17,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         [Fact]
         public void ConvertingAnalyzeOptionsToLoggingOptions_ProducesExpectedLoggingOptions()
         {
-            LoggingOptions loggingOptions;
+            LogFilePersistenceOptions loggingOptions;
 
             TestAnalyzeOptions analyzeOptions = new TestAnalyzeOptions()
             {
                 Quiet = true
             };
 
-            loggingOptions = analyzeOptions.ConvertToLoggingOptions();
-            loggingOptions.Should().Be(LoggingOptions.Quiet | LoggingOptions.PrettyPrint);
+            loggingOptions = analyzeOptions.ConvertToLogFilePersistenceOptions();
+            loggingOptions.Should().Be(LogFilePersistenceOptions.PrettyPrint);
 
             analyzeOptions = new TestAnalyzeOptions()
             {
                 Minify = true
             };
 
-            loggingOptions = analyzeOptions.ConvertToLoggingOptions();
-            loggingOptions.Should().Be(LoggingOptions.None);
+            loggingOptions = analyzeOptions.ConvertToLogFilePersistenceOptions();
+            loggingOptions.Should().Be(LogFilePersistenceOptions.None);
 
             analyzeOptions = new TestAnalyzeOptions()
             {
@@ -41,18 +41,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 PrettyPrint = true
             };
 
-            loggingOptions = analyzeOptions.ConvertToLoggingOptions();
-            loggingOptions.Should().Be(LoggingOptions.PrettyPrint);
+            loggingOptions = analyzeOptions.ConvertToLogFilePersistenceOptions();
+            loggingOptions.Should().Be(LogFilePersistenceOptions.PrettyPrint);
 
             analyzeOptions = new TestAnalyzeOptions()
             {
                 Force = true
             };
 
-            loggingOptions = analyzeOptions.ConvertToLoggingOptions();
+            loggingOptions = analyzeOptions.ConvertToLogFilePersistenceOptions();
             loggingOptions.Should().Be(
-                LoggingOptions.OverwriteExistingOutputFile |
-                LoggingOptions.PrettyPrint);
+                LogFilePersistenceOptions.OverwriteExistingOutputFile |
+                LogFilePersistenceOptions.PrettyPrint);
         }
 
         private class ValidateSingleFileOutputOptionsTestCase

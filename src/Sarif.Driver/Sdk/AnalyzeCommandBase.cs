@@ -173,9 +173,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             succeeded &= ValidateFiles(context, analyzeOptions.PluginFilePaths, shouldExist: true);
             succeeded &= ValidateInvocationPropertiesToLog(context, analyzeOptions.InvocationPropertiesToLog);
             succeeded &= ValidateOutputFileCanBeCreated(context, analyzeOptions.OutputFilePath, analyzeOptions.Force);
+            succeeded &= analyzeOptions.ValidateOutputOptions();
 
             if (!succeeded)
             {
+                //  TODO: This seems like uninformative error output.  All these errors get squished into one generic message
+                //  whenever something goes wrong.
                 ThrowExitApplicationException(context, ExitReason.InvalidCommandLineOption);
             }
         }
@@ -408,7 +411,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 (
                     () =>
                     {
-                        LoggingOptions loggingOptions = analyzeOptions.ConvertToLoggingOptions();
+                        LogFilePersistenceOptions logFilePersistenceOptions = analyzeOptions.ConvertToLogFilePersistenceOptions();
 
                         OptionallyEmittedData dataToInsert = analyzeOptions.DataToInsert.ToFlags();
                         OptionallyEmittedData dataToRemove = analyzeOptions.DataToRemove.ToFlags();
@@ -419,7 +422,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         {
                             sarifLogger = new SarifLogger(
                                     analyzeOptions.OutputFilePath,
-                                    loggingOptions,
+                                    logFilePersistenceOptions,
                                     dataToInsert,
                                     dataToRemove,
                                     tool: _tool,
@@ -434,7 +437,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         {
                             sarifLogger = new SarifOneZeroZeroLogger(
                                     analyzeOptions.OutputFilePath,
-                                    loggingOptions,
+                                    logFilePersistenceOptions,
                                     dataToInsert,
                                     dataToRemove,
                                     tool: _tool,
