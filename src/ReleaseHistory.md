@@ -1,5 +1,9 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
+## **v2.3.18** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.18) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.18) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.18) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.18) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.3.18)
+* BREAKING: Entirely remove "verbose" whose fuctionality has been replaced by --level and --kind.  
+* FEATURE: --quiet will now suppress all console messages except for errors.
+
 ## **v2.3.17** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.17) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.17) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.17) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.17) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.3.17)
 * BREAKING: Move `CommandBase` class from `Multitool.Library` assembly to `Driver`. [#2238](https://github.com/microsoft/sarif-sdk/pull/2238)
 * FEASTURE: Argument `VersionControlDetails` for `OptionallyEmittedData` in a analysis command will fill `VersionControlProvenance`. [#2237](https://github.com/microsoft/sarif-sdk/pull/2237)
