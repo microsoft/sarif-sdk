@@ -104,7 +104,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
             if (run.Invocations?.Any() == true)
             {
-                foreach (Invocation invocation in run?.Invocations)
+                foreach (Invocation invocation in run.Invocations)
                 {
                     if (invocation.WorkingDirectory?.Uri != null)
                     {
