@@ -31,12 +31,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         public override bool EnabledByDefault => false;
 
-        private List<Uri> workingDirectoriesUri;
+        private List<Uri> workingDirectoryUris;
 
         protected override void Analyze(Run run, string runPointer)
         {
-            this.workingDirectoriesUri = new List<Uri>();
-            GetWorkingDirectoryUri(run);
+            this.workingDirectoryUris = new List<Uri>();
+            GetWorkingDirectoryUris(run);
         }
 
         protected override void Analyze(Result result, string resultPointer)
@@ -76,7 +76,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
             if (uri.IsAbsoluteUri && uri.Scheme != "file")
             {
-                if (this.workingDirectoriesUri.Any(workingDirectoryUri => uri
+                if (this.workingDirectoryUris.Any(workingDirectoryUri => uri
                     .OriginalString
                     .StartsWith(workingDirectoryUri.OriginalString, StringComparison.OrdinalIgnoreCase)))
                 {
@@ -100,7 +100,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             }
         }
 
-        private void GetWorkingDirectoryUri(Run run)
+        private void GetWorkingDirectoryUris(Run run)
         {
             if (run.Invocations?.Any() == true)
             {
@@ -108,7 +108,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 {
                     if (invocation.WorkingDirectory?.Uri != null)
                     {
-                        this.workingDirectoriesUri.Add(invocation.WorkingDirectory?.Uri);
+                        this.workingDirectoryUris.Add(invocation.WorkingDirectory?.Uri);
                     }
                 }
             }
