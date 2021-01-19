@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
             else
             {
-                _failureLevels = (List<FailureLevel>)failureLevels;
+                _failureLevels = failureLevels.ToList();
             }
 
             if (resultKinds == null || resultKinds.Count() == 0)
@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
             else
             {
-                _resultKinds = (List<ResultKind>)resultKinds;
+                _resultKinds = resultKinds.ToList();
             }
 
             ValidateParameters();
