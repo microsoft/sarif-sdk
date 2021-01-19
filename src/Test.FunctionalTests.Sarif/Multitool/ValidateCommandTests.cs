@@ -471,7 +471,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 UpdateInputsToCurrentSarif = updateInputsToCurrentSarif,
                 PrettyPrint = true,
                 Optimize = true,
-                Level = new List<FailureLevel> { FailureLevel.Error, FailureLevel.Warning, FailureLevel.Note },
+                Level = new List<FailureLevel> { FailureLevel.Error, FailureLevel.Warning, FailureLevel.Note, FailureLevel.None },
             };
 
             var mockFileSystem = new Mock<IFileSystem>();

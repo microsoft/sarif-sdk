@@ -23,9 +23,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         private void ValidateParameters()
         {
-            if (resultKinds.Any(kind => kind != ResultKind.Fail))
+            if (failureLevels.Count() == 0)
             {
-                if (failureLevels.Contains(FailureLevel.Error))
+                throw new ArgumentException("Failure levels cannot be empty.");
+            }
+
+            if (resultKinds.Count() == 0)
+            {
+                throw new ArgumentException("Result kinds cannot be empty.");
+            }
+
+            //  If we got here, both resultKinds and failurelevels can neither be null nor empty.
+            //  If resultKinds does not include "fail" then failureLevels MUST be none/zero
+            if (!resultKinds.Contains(ResultKind.Fail))
+            {
+                if (failureLevels.Count > 1 || failureLevels[0] != FailureLevel.None)
                 {
                     throw new ArgumentException("Invalid kind & level combination");
                 }
