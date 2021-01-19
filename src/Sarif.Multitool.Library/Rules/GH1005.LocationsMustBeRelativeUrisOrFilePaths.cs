@@ -80,7 +80,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     .OriginalString
                     .StartsWith(workingDirectoryUri.OriginalString, StringComparison.OrdinalIgnoreCase)))
                 {
-                    // We have a workingDirectoryUri and that is the begginig of the current URI
+                    // We have a workingDirectoryUri and that is the beginnig of the current URI
                     // And that is OK.
                     return;
                 }
