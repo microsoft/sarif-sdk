@@ -47,6 +47,38 @@
               }
             }
           ]
+        },
+        {
+          "ruleId": "TEST1001",
+          "message": {
+            "text": "A location that does not specify a file path."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "https://www.example.com/code/file.cs"
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "code/file.cs"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "invocations": [
+        {
+          "executionSuccessful": true,
+          "workingDirectory": {
+            "uri": "https://www.example.com"
+          }
         }
       ],
       "columnKind": "utf16CodeUnits"

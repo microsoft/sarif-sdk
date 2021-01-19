@@ -31,6 +31,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         public override bool EnabledByDefault => false;
 
+        private List<Uri> workingDirectoriesUri;
+
+        protected override void Analyze(Run run, string runPointer)
+        {
+            this.workingDirectoriesUri = new List<Uri>();
+            GetWorkingDirectoryUri(run);
+        }
+
         protected override void Analyze(Result result, string resultPointer)
         {
             if (!(result.Locations?.Any() == true))
@@ -68,6 +76,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
             if (uri.IsAbsoluteUri && uri.Scheme != "file")
             {
+                if (this.workingDirectoriesUri.Any(workingDirectoryUri => uri
+                    .OriginalString
+                    .StartsWith(workingDirectoryUri.OriginalString, StringComparison.OrdinalIgnoreCase)))
+                {
+                    // We have a workingDirectoryUri and that is the begginig of the current URI
+                    // And that is OK.
+                    return;
+                }
+
                 string uriPointer = locationPointer
                     .AtProperty(SarifPropertyName.PhysicalLocation)
                     .AtProperty(SarifPropertyName.ArtifactLocation)
@@ -80,6 +97,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     uriPointer,
                     nameof(RuleResources.GH1005_LocationsMustBeRelativeUrisOrFilePaths_Error_Default_Text),
                     uri.OriginalString);
+            }
+        }
+
+        private void GetWorkingDirectoryUri(Run run)
+        {
+            if (run.Invocations?.Any() == true)
+            {
+                foreach (Invocation invocation in run?.Invocations)
+                {
+                    if (invocation.WorkingDirectory?.Uri != null)
+                    {
+                        this.workingDirectoriesUri.Add(invocation.WorkingDirectory?.Uri);
+                    }
+                }
             }
         }
     }
