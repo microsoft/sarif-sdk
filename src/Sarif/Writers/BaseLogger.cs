@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         protected readonly List<FailureLevel> _failureLevels;
         protected readonly List<ResultKind> _resultKinds;
 
-        public BaseLogger(IEnumerable<FailureLevel> failureLevels,
+        protected BaseLogger(IEnumerable<FailureLevel> failureLevels,
             IEnumerable<ResultKind> resultKinds)
         {
             if (failureLevels == null || failureLevels.Count() == 0)

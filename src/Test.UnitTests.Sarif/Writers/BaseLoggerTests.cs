@@ -36,22 +36,21 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Writers
 
         private void AssertLevelAndKindAreNonEmpty(BaseLoggerTestConcrete baseLoggerTestConcrete)
         {
-            Assert.True(baseLoggerTestConcrete.FailureLevelsPublicViewer.Count > 0);
-            Assert.True(baseLoggerTestConcrete.ResultKindPublicViewer.Count > 0);
+            baseLoggerTestConcrete.FailureLevelsPublicViewer.Should().NotBeEmpty();
+            baseLoggerTestConcrete.ResultKindPublicViewer.Should().NotBeEmpty();
         }
 
         [Fact]
         public void BaseLogger_ShouldCorrectlyDefault()
         {
             BaseLoggerTestConcrete baseLoggerTestConcrete = new BaseLoggerTestConcrete(null, null);
-            
-            Assert.True(baseLoggerTestConcrete.ResultKindPublicViewer.Count == 1);
-            Assert.True(baseLoggerTestConcrete.ResultKindPublicViewer[0] == ResultKind.Fail);
-            
-            Assert.True(baseLoggerTestConcrete.FailureLevelsPublicViewer.Count == 2);
-            Assert.Contains(FailureLevel.Warning, baseLoggerTestConcrete.FailureLevelsPublicViewer);
-            Assert.Contains(FailureLevel.Error, baseLoggerTestConcrete.FailureLevelsPublicViewer);
 
+            baseLoggerTestConcrete.ResultKindPublicViewer.Count.Should().Be(1);
+            baseLoggerTestConcrete.ResultKindPublicViewer[0].Should().Be(ResultKind.Fail);
+
+            baseLoggerTestConcrete.FailureLevelsPublicViewer.Count.Should().Be(2);
+            baseLoggerTestConcrete.FailureLevelsPublicViewer.Should().Contain(FailureLevel.Warning);
+            baseLoggerTestConcrete.FailureLevelsPublicViewer.Should().Contain(FailureLevel.Error);
         }
 
         [Fact]
@@ -63,14 +62,10 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Writers
             {
                 baseLoggerTestConcrete = new BaseLoggerTestConcrete(new List<FailureLevel> { FailureLevel.Error },
                                                                     new List<ResultKind> { ResultKind.Informational });
+                Assert.True(false, "Expected exception not thrown, BaseLogger did not validate correctly.");
             }
             catch (ArgumentException)
-            {
-                return;
-            }
-
-            Assert.True(false, "Expected exception not thrown, BaseLogger did not validate correctly.");
-
+            {}
             //  The rest are fine.
             baseLoggerTestConcrete = new BaseLoggerTestConcrete(new List<FailureLevel> { FailureLevel.Error },
                                                                 new List<ResultKind> { ResultKind.Informational, ResultKind.Fail });
@@ -83,6 +78,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Writers
 
             baseLoggerTestConcrete = new BaseLoggerTestConcrete(new List<FailureLevel> { FailureLevel.None },
                                                                 new List<ResultKind> { ResultKind.Informational });
+
+            //  If there are no uncaught exceptions, the test passes.
         }
     }
 }
