@@ -24,7 +24,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 InputFilePath = InputFilePath,
                 Inline = true,
                 PrettyPrint = true,
-                Minify = true
+                Minify = true,
+                SarifOutputVersion = SarifVersion.Current
             };
 
             int returnCode = new RewriteCommand(mockFileSystem.Object).Run(options);

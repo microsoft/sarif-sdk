@@ -119,12 +119,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             bool valid = true;
 
-            if (transformOptions.SarifOutputVersion != SarifVersion.OneZeroZero && transformOptions.SarifOutputVersion != SarifVersion.Current)
-            {
-                Console.WriteLine(MultitoolResources.ErrorInvalidTransformTargetVersion);
-                valid = false;
-            }
-
             valid &= transformOptions.Validate();
 
             valid &= DriverUtilities.ReportWhetherOutputFileCanBeCreated(transformOptions.OutputFilePath, transformOptions.Force, _fileSystem);

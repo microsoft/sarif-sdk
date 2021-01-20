@@ -35,12 +35,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         /// </returns>
         public static bool Validate(this SingleFileOptionsBase options)
         {
-            bool valid = true;
+            if (options.SarifOutputVersion == SarifVersion.Unknown)
+            {
+                //  Parsing the output version failed and the the enum evaluated to 0.
+                Console.WriteLine(DriverResources.ErrorInvalidTransformTargetVersion);
+                return false;
+            }
 
-            valid &= options.ValidateOutputLocationOptions();
-            valid &= options.ValidateOutputFormatOptions();
+            if (!options.ValidateOutputLocationOptions())
+            {
+                return false;
+            }
 
-            return valid;
+            if (!options.ValidateOutputFormatOptions())
+            {
+                return false;
+            }
+
+            return true;
         }
 
         private static bool ValidateOutputLocationOptions(this SingleFileOptionsBase options)

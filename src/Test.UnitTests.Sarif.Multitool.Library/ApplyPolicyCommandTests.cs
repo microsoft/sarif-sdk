@@ -43,7 +43,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             {
                 InputFilePath = path,
                 OutputFilePath = path,
-                Force = true
+                Force = true,
+                SarifOutputVersion = SarifVersion.Current
             };
 
             // Verify command returned success

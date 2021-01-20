@@ -4,9 +4,12 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
+
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
@@ -30,6 +33,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 if (!valid) { return FAILURE; }
 
                 SarifLog actualLog = ReadSarifFile<SarifLog>(_fileSystem, options.InputFilePath);
+
+                if (options.SarifOutputVersion != SarifVersion.Current)
+                {
+                    //  The user specified an output version, so we need to see if a transformation is necessary
+                    if (actualLog.Version != options.SarifOutputVersion)
+                    {
+                        //  Transform the log before you begin inserting new stuff.
+                    }
+                }
 
                 OptionallyEmittedData dataToInsert = options.DataToInsert.ToFlags();
                 OptionallyEmittedData dataToRemove = options.DataToRemove.ToFlags();
