@@ -65,7 +65,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Writers
                 Assert.True(false, "Expected exception not thrown, BaseLogger did not validate correctly.");
             }
             catch (ArgumentException)
-            {}
+            { }
             //  The rest are fine.
             baseLoggerTestConcrete = new BaseLoggerTestConcrete(new List<FailureLevel> { FailureLevel.Error },
                                                                 new List<ResultKind> { ResultKind.Informational, ResultKind.Fail });
