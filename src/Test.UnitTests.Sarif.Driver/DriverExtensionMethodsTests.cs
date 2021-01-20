@@ -239,6 +239,32 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
+        [Fact]
+        public void ValidateAnalyzeOutputOptions_ProducesExpectedResults()
+        {
+            AnalyzeOptionsBase analyzeOptionsBase = new TestAnalyzeOptions();
+
+            //  quiet false, output empty
+            analyzeOptionsBase.Quiet = false;
+            analyzeOptionsBase.OutputFilePath = null;
+            Assert.True(analyzeOptionsBase.ValidateOutputOptions());
+
+            //  quiet false, output non-empty
+            analyzeOptionsBase.Quiet = false;
+            analyzeOptionsBase.OutputFilePath = "doodle";
+            Assert.True(analyzeOptionsBase.ValidateOutputOptions());
+
+            //  quiet true, output empty
+            analyzeOptionsBase.Quiet = true;
+            analyzeOptionsBase.OutputFilePath = null;
+            Assert.False(analyzeOptionsBase.ValidateOutputOptions());
+
+            //  quiet true, output non-empty
+            analyzeOptionsBase.Quiet = true;
+            analyzeOptionsBase.OutputFilePath = "doodle";
+            Assert.True(analyzeOptionsBase.ValidateOutputOptions());
+        }
+
         private class ValidateOutputFormatOptionsTestCase
         {
             public string Title;

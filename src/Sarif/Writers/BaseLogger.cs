@@ -7,25 +7,42 @@ using System.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
-    public class BaseLogger
+    public abstract class BaseLogger
     {
-        private readonly List<FailureLevel> failureLevels;
-        private readonly List<ResultKind> resultKinds;
+        protected readonly List<FailureLevel> _failureLevels;
+        protected readonly List<ResultKind> _resultKinds;
 
-        public BaseLogger(IEnumerable<FailureLevel> failureLevels,
+        protected BaseLogger(IEnumerable<FailureLevel> failureLevels,
             IEnumerable<ResultKind> resultKinds)
         {
-            this.failureLevels = failureLevels?.ToList() ?? new List<FailureLevel> { FailureLevel.Error, FailureLevel.Warning };
-            this.resultKinds = resultKinds?.ToList() ?? new List<ResultKind> { ResultKind.Fail };
+            if (failureLevels == null || failureLevels.Count() == 0)
+            {
+                _failureLevels = new List<FailureLevel> { FailureLevel.Error, FailureLevel.Warning };
+            }
+            else
+            {
+                _failureLevels = failureLevels.ToList();
+            }
+
+            if (resultKinds == null || resultKinds.Count() == 0)
+            {
+                _resultKinds = new List<ResultKind> { ResultKind.Fail };
+            }
+            else
+            {
+                _resultKinds = resultKinds.ToList();
+            }
 
             ValidateParameters();
         }
 
         private void ValidateParameters()
         {
-            if (resultKinds.Any(kind => kind != ResultKind.Fail))
+            //  If we got here, both resultKinds and failurelevels can neither be null nor empty.
+            //  If resultKinds does not include "fail" then failureLevels MUST be none/zero
+            if (!_resultKinds.Contains(ResultKind.Fail))
             {
-                if (failureLevels.Contains(FailureLevel.Error))
+                if (_failureLevels.Count > 1 || _failureLevels[0] != FailureLevel.None)
                 {
                     throw new ArgumentException("Invalid kind & level combination");
                 }
@@ -34,18 +51,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public bool ShouldLog(Notification notification)
         {
-            return failureLevels.Contains(notification.Level);
+            return _failureLevels.Contains(notification.Level);
         }
 
         public bool ShouldLog(Result result)
         {
             // If resultKinds is the default value (Fail), we should just filter based on failureLevels
-            if (resultKinds.Count == 1 && resultKinds[0] == ResultKind.Fail)
+            if (_resultKinds.Count == 1 && _resultKinds[0] == ResultKind.Fail)
             {
-                return failureLevels.Contains(result.Level);
+                return _failureLevels.Contains(result.Level);
             }
 
-            return resultKinds.Contains(result.Kind) && failureLevels.Contains(result.Level);
+            return _resultKinds.Contains(result.Kind) && _failureLevels.Contains(result.Level);
         }
     }
 }

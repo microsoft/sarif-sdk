@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         [Option(
             'q',
             "quiet",
-            HelpText = "Do not log results to the console.")]
+            HelpText = "Suppress all console output (except for catastrophic tool runtime or configuration errors).")]
         public bool Quiet { get; set; }
 
         [Option(
@@ -95,14 +95,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             "level",
             Separator = ';',
             Default = new FailureLevel[] { FailureLevel.Error, FailureLevel.Warning },
-            HelpText = "Filter results. Valid values: None, Note, Warning, and Error.")]
+            HelpText = "Filter output of scan results to one or more failure levels. Valid values: Error, Warning and Note.")]
         public IEnumerable<FailureLevel> Level { get; set; }
 
         [Option(
             "kind",
             Separator = ';',
             Default = new ResultKind[] { ResultKind.Fail },
-            HelpText = "Filter results. Valid values: None, NotApplicable, Pass, Facil, Review, Open, and Informational")]
+            HelpText = "Filter output one or more result kinds. Valid values: Fail (for literal scan results), Pass, Review, Open, NotApplicable and Informational.")]
         public IEnumerable<ResultKind> Kind { get; set; }
     }
 }
