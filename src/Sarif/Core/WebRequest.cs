@@ -103,7 +103,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 var sb = new StringBuilder("http://www.example.com");
                 if (!uri.OriginalString.StartsWith("/"))
                 {
-                    sb.Append("/");
+                    sb.Append('/');
                 }
 
                 sb.Append(uri.OriginalString);

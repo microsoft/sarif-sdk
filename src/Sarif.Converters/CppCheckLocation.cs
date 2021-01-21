@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             if (string.IsNullOrWhiteSpace(file))
             {
-                throw new ArgumentException(ConverterResources.CppCheckLocationNameEmpty, "file");
+                throw new ArgumentException(ConverterResources.CppCheckLocationNameEmpty, nameof(file));
             }
 
             if (line < 0)
