@@ -146,7 +146,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     // Set the unknown encoding name so the caller can provide useful reporting
                     ex.EncodingName = encodingName;
+#pragma warning disable CA2200 // Rethrow to preserve stack details
                     throw ex;
+#pragma warning restore CA2200 // Rethrow to preserve stack details
                 }
             }
 

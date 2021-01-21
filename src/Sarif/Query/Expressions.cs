@@ -46,9 +46,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Query
                 {
                     // Explicit parenthesis are only required on an OR expression inside and AND expression.
                     // AND takes precedence over OR, so A OR B AND C OR D => (A OR (B AND C) OR D)
-                    result.Append("(");
+                    result.Append('(');
                     result.Append(part);
-                    result.Append(")");
+                    result.Append(')');
                 }
                 else
                 {

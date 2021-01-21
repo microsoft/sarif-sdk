@@ -44,11 +44,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             var tasks = new List<Task>();
 
-            while (queue.Count > 0 && tasks.Count < Environment.ProcessorCount)
+            while (!queue.IsEmpty && tasks.Count < Environment.ProcessorCount)
             {
                 tasks.Add(Task.Factory.StartNew(() =>
                 {
-                    while (queue.Count > 0)
+                    while (!queue.IsEmpty)
                     {
                         if (queue.TryDequeue(out string filePath))
                         {
