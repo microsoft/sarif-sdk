@@ -89,9 +89,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     SarifLogVersionOne logV1 = ReadSarifFile<SarifLogVersionOne>(_fileSystem, options.InputFilePath, SarifContractResolverVersionOne.Instance);
                     logV1.SchemaUri = SarifVersion.OneZeroZero.ConvertToSchemaUri();
                     WriteSarifFile(_fileSystem, logV1, options.OutputFilePath, options.Minify, SarifContractResolverVersionOne.Instance);
+                    //  return;  Give some output to the user, they asked for something that doesn't make sense.
                 }
                 else
                 {
+                    //  Version 2 to version 1
                     string currentSarifVersion = SarifUtilities.StableSarifVersion;
 
                     string sarifText = _fileSystem.FileReadAllText(inputFilePath);

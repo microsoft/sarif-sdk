@@ -45,16 +45,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 SarifLog actualLog = ReadSarifFile<SarifLog>(_fileSystem, options.InputFilePath);
 
-                if (options.SarifOutputVersion != SarifVersion.Current)
+                string inputVersion = SniffVersion(options.InputFilePath);
+                if (TransformationNecessary(options.SarifOutputVersion, inputVersion))
                 {
-                    //  The user specified an output version, so we need to see if a transformation is necessary
-                    if (actualLog.Version != options.SarifOutputVersion)
-                    {
-                        //  Transform the log before you begin inserting new stuff.
-                        string inputVersion = SniffVersion(options.InputFilePath);
-
-                        TransformFile(options, options.InputFilePath, inputVersion);
-                    }
+                    TransformFile(options, options.InputFilePath, inputVersion);
                 }
 
                 OptionallyEmittedData dataToInsert = options.DataToInsert.ToFlags();
@@ -117,10 +111,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             // current v2, then drop it down to v1.
             // 
             // We do not support transforming to any obsoleted pre-release v2 formats. 
+            // SarifVersion can only be "OneZeroZero" or "Current" (2).  
             if (options.SarifOutputVersion == SarifVersion.Current)
             {
                 if (inputVersion == "1.0.0")
                 {
+                    //  Converting version 1 to version 2
                     SarifLogVersionOne actualLog = ReadSarifFile<SarifLogVersionOne>(_fileSystem, options.InputFilePath, SarifContractResolverVersionOne.Instance);
                     var visitor = new SarifVersionOneToCurrentVisitor();
                     visitor.VisitSarifLogVersionOne(actualLog);
@@ -128,7 +124,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 }
                 else
                 {
-                    // We have a pre-release v2 file that we should upgrade to current. 
+                    //  Converting prerelease version 2 to version 2
                     PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(
                         _fileSystem.FileReadAllText(inputFilePath),
                         formatting: options.Formatting,
@@ -141,12 +137,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             {
                 if (inputVersion == "1.0.0")
                 {
-                    SarifLogVersionOne logV1 = ReadSarifFile<SarifLogVersionOne>(_fileSystem, options.InputFilePath, SarifContractResolverVersionOne.Instance);
-                    logV1.SchemaUri = SarifVersion.OneZeroZero.ConvertToSchemaUri();
-                    WriteSarifFile(_fileSystem, logV1, options.OutputFilePath, options.Minify, SarifContractResolverVersionOne.Instance);
+                    //  Converting version 1 to version 1?
+                    return;
+                    //  TODO: Give some output to the user, they asked for something that doesn't make sense.
                 }
                 else
                 {
+                    //  Converting version 2 or prerelease version 2 to version 1
                     string currentSarifVersion = SarifUtilities.StableSarifVersion;
 
                     string sarifText = _fileSystem.FileReadAllText(inputFilePath);
@@ -171,6 +168,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                     WriteSarifFile(_fileSystem, visitor.SarifLogVersionOne, options.OutputFilePath, options.Minify, SarifContractResolverVersionOne.Instance);
                 }
+            }
+        }
+
+        private bool TransformationNecessary(SarifVersion requestedOutputVersion, string incomingVersion)
+        {
+            switch (requestedOutputVersion)
+            {
+                case SarifVersion.OneZeroZero:
+                    if (incomingVersion.Equals(SarifUtilities.V1_0_0))
+                    {
+                        return false;
+                    }
+
+                    return true;
+                case SarifVersion.Current:
+                    if (incomingVersion.Equals(SarifUtilities.StableSarifVersion))
+                    {
+                        return false;
+                    }
+
+                    return true;
+                default:
+                    throw new ArgumentException("Unable to determine whether file transformation is necessary.  Was a new sarif version added?");
             }
         }
     }

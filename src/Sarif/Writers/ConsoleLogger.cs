@@ -10,6 +10,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
     public class ConsoleLogger : IAnalysisLogger
     {
+        //  TODO:  We directly instantiate this logger in two classes, creating 
+        //  unamanged dependencies.  Fix this pattern with dependency injection or a factory.
         public ConsoleLogger(bool verbose, string toolName)
         {
             Verbose = verbose;
