@@ -42,69 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 string inputFilePath = options.InputFilePath;
                 string inputVersion = SniffVersion(inputFilePath);
-
-                // If the user wants to transform to current v2, we check to see whether the input
-                // file is v2 or pre-release v2. We upgrade both formats to current v2. 
-                // 
-                // Correspondingly, if the input file is v2 of any kind, we first ensure that it is 
-                // current v2, then drop it down to v1.
-                // 
-                // We do not support transforming to any obsoleted pre-release v2 formats. 
-                if (options.SarifOutputVersion == SarifVersion.Current)
-                {
-                    if (inputVersion == "1.0.0")
-                    {
-                        SarifLogVersionOne actualLog = ReadSarifFile<SarifLogVersionOne>(_fileSystem, options.InputFilePath, SarifContractResolverVersionOne.Instance);
-                        var visitor = new SarifVersionOneToCurrentVisitor();
-                        visitor.VisitSarifLogVersionOne(actualLog);
-                        WriteSarifFile(_fileSystem, visitor.SarifLog, options.OutputFilePath, options.Minify);
-                    }
-                    else
-                    {
-                        // We have a pre-release v2 file that we should upgrade to current. 
-                        PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(
-                            _fileSystem.FileReadAllText(inputFilePath),
-                            formatting: options.Formatting,
-                            out string sarifText);
-
-                        _fileSystem.FileWriteAllText(options.OutputFilePath, sarifText);
-                    }
-                }
-                else
-                {
-                    if (inputVersion == "1.0.0")
-                    {
-                        SarifLogVersionOne logV1 = ReadSarifFile<SarifLogVersionOne>(_fileSystem, options.InputFilePath, SarifContractResolverVersionOne.Instance);
-                        logV1.SchemaUri = SarifVersion.OneZeroZero.ConvertToSchemaUri();
-                        WriteSarifFile(_fileSystem, logV1, options.OutputFilePath, options.Minify, SarifContractResolverVersionOne.Instance);
-                    }
-                    else
-                    {
-                        string currentSarifVersion = SarifUtilities.StableSarifVersion;
-
-                        string sarifText = _fileSystem.FileReadAllText(inputFilePath);
-                        SarifLog actualLog = null;
-
-                        if (inputVersion != currentSarifVersion)
-                        {
-                            // Note that we don't provide formatting here. It is not required to indent the v2 SARIF - it 
-                            // will be transformed to v1 later, where we should apply the indentation settings.
-                            actualLog = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(
-                                sarifText,
-                                formatting: Formatting.None,
-                                out sarifText);
-                        }
-                        else
-                        {
-                            actualLog = JsonConvert.DeserializeObject<SarifLog>(sarifText);
-                        }
-
-                        var visitor = new SarifCurrentToVersionOneVisitor();
-                        visitor.VisitSarifLog(actualLog);
-
-                        WriteSarifFile(_fileSystem, visitor.SarifLogVersionOne, options.OutputFilePath, options.Minify, SarifContractResolverVersionOne.Instance);
-                    }
-                }
+                TransformFile(options, inputFilePath, inputVersion);
             }
             catch (Exception ex)
             {
@@ -113,6 +51,72 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
 
             return SUCCESS;
+        }
+
+        private void TransformFile(TransformOptions options, string inputFilePath, string inputVersion)
+        {
+            // If the user wants to transform to current v2, we check to see whether the input
+            // file is v2 or pre-release v2. We upgrade both formats to current v2. 
+            // 
+            // Correspondingly, if the input file is v2 of any kind, we first ensure that it is 
+            // current v2, then drop it down to v1.
+            // 
+            // We do not support transforming to any obsoleted pre-release v2 formats. 
+            if (options.SarifOutputVersion == SarifVersion.Current)
+            {
+                if (inputVersion == "1.0.0")
+                {
+                    SarifLogVersionOne actualLog = ReadSarifFile<SarifLogVersionOne>(_fileSystem, options.InputFilePath, SarifContractResolverVersionOne.Instance);
+                    var visitor = new SarifVersionOneToCurrentVisitor();
+                    visitor.VisitSarifLogVersionOne(actualLog);
+                    WriteSarifFile(_fileSystem, visitor.SarifLog, options.OutputFilePath, options.Minify);
+                }
+                else
+                {
+                    // We have a pre-release v2 file that we should upgrade to current. 
+                    PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(
+                        _fileSystem.FileReadAllText(inputFilePath),
+                        formatting: options.Formatting,
+                        out string sarifText);
+
+                    _fileSystem.FileWriteAllText(options.OutputFilePath, sarifText);
+                }
+            }
+            else
+            {
+                if (inputVersion == "1.0.0")
+                {
+                    SarifLogVersionOne logV1 = ReadSarifFile<SarifLogVersionOne>(_fileSystem, options.InputFilePath, SarifContractResolverVersionOne.Instance);
+                    logV1.SchemaUri = SarifVersion.OneZeroZero.ConvertToSchemaUri();
+                    WriteSarifFile(_fileSystem, logV1, options.OutputFilePath, options.Minify, SarifContractResolverVersionOne.Instance);
+                }
+                else
+                {
+                    string currentSarifVersion = SarifUtilities.StableSarifVersion;
+
+                    string sarifText = _fileSystem.FileReadAllText(inputFilePath);
+                    SarifLog actualLog = null;
+
+                    if (inputVersion != currentSarifVersion)
+                    {
+                        // Note that we don't provide formatting here. It is not required to indent the v2 SARIF - it 
+                        // will be transformed to v1 later, where we should apply the indentation settings.
+                        actualLog = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(
+                            sarifText,
+                            formatting: Formatting.None,
+                            out sarifText);
+                    }
+                    else
+                    {
+                        actualLog = JsonConvert.DeserializeObject<SarifLog>(sarifText);
+                    }
+
+                    var visitor = new SarifCurrentToVersionOneVisitor();
+                    visitor.VisitSarifLog(actualLog);
+
+                    WriteSarifFile(_fileSystem, visitor.SarifLogVersionOne, options.OutputFilePath, options.Minify, SarifContractResolverVersionOne.Instance);
+                }
+            }
         }
 
         private bool ValidateOptions(TransformOptions transformOptions)

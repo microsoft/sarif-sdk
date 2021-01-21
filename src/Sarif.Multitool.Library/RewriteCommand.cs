@@ -7,7 +7,10 @@ using System.Diagnostics;
 using System.IO;
 
 using Microsoft.CodeAnalysis.Sarif.Driver;
+using Microsoft.CodeAnalysis.Sarif.Readers;
+using Microsoft.CodeAnalysis.Sarif.VersionOne;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
+using Microsoft.CodeAnalysis.Sarif.Writers;
 
 using Newtonsoft.Json;
 
@@ -26,6 +29,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             try
             {
+                // Only set --output-file if --inline isn't specified. ValidateOptions will check
+                // to make sure that exactly one of those two options is set.
+                if (!options.Inline)
+                {
+                    //  TODO:  Find a more consistent way of correcting options
+                    options.OutputFilePath = CommandUtilities.GetTransformedOutputFileName(options);
+                }
+
                 Console.WriteLine($"Rewriting '{options.InputFilePath}' => '{options.OutputFilePath}'...");
                 Stopwatch w = Stopwatch.StartNew();
 
@@ -40,6 +51,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     if (actualLog.Version != options.SarifOutputVersion)
                     {
                         //  Transform the log before you begin inserting new stuff.
+                        string inputVersion = SniffVersion(options.InputFilePath);
+
+                        TransformFile(options, options.InputFilePath, inputVersion);
                     }
                 }
 
@@ -75,6 +89,89 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             valid &= DriverUtilities.ReportWhetherOutputFileCanBeCreated(rewriteOptions.OutputFilePath, rewriteOptions.Force, _fileSystem);
 
             return valid;
+        }
+
+        private string SniffVersion(string sarifPath)
+        {
+            using (JsonTextReader reader = new JsonTextReader(new StreamReader(_fileSystem.FileOpenRead(sarifPath))))
+            {
+                while (reader.Read())
+                {
+                    if (reader.TokenType == JsonToken.PropertyName && ((string)reader.Value).Equals("version"))
+                    {
+                        reader.Read();
+                        return (string)reader.Value;
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        private void TransformFile(SingleFileOptionsBase options, string inputFilePath, string inputVersion)
+        {
+            // If the user wants to transform to current v2, we check to see whether the input
+            // file is v2 or pre-release v2. We upgrade both formats to current v2. 
+            // 
+            // Correspondingly, if the input file is v2 of any kind, we first ensure that it is 
+            // current v2, then drop it down to v1.
+            // 
+            // We do not support transforming to any obsoleted pre-release v2 formats. 
+            if (options.SarifOutputVersion == SarifVersion.Current)
+            {
+                if (inputVersion == "1.0.0")
+                {
+                    SarifLogVersionOne actualLog = ReadSarifFile<SarifLogVersionOne>(_fileSystem, options.InputFilePath, SarifContractResolverVersionOne.Instance);
+                    var visitor = new SarifVersionOneToCurrentVisitor();
+                    visitor.VisitSarifLogVersionOne(actualLog);
+                    WriteSarifFile(_fileSystem, visitor.SarifLog, options.OutputFilePath, options.Minify);
+                }
+                else
+                {
+                    // We have a pre-release v2 file that we should upgrade to current. 
+                    PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(
+                        _fileSystem.FileReadAllText(inputFilePath),
+                        formatting: options.Formatting,
+                        out string sarifText);
+
+                    _fileSystem.FileWriteAllText(options.OutputFilePath, sarifText);
+                }
+            }
+            else
+            {
+                if (inputVersion == "1.0.0")
+                {
+                    SarifLogVersionOne logV1 = ReadSarifFile<SarifLogVersionOne>(_fileSystem, options.InputFilePath, SarifContractResolverVersionOne.Instance);
+                    logV1.SchemaUri = SarifVersion.OneZeroZero.ConvertToSchemaUri();
+                    WriteSarifFile(_fileSystem, logV1, options.OutputFilePath, options.Minify, SarifContractResolverVersionOne.Instance);
+                }
+                else
+                {
+                    string currentSarifVersion = SarifUtilities.StableSarifVersion;
+
+                    string sarifText = _fileSystem.FileReadAllText(inputFilePath);
+                    SarifLog actualLog = null;
+
+                    if (inputVersion != currentSarifVersion)
+                    {
+                        // Note that we don't provide formatting here. It is not required to indent the v2 SARIF - it 
+                        // will be transformed to v1 later, where we should apply the indentation settings.
+                        actualLog = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(
+                            sarifText,
+                            formatting: Formatting.None,
+                            out sarifText);
+                    }
+                    else
+                    {
+                        actualLog = JsonConvert.DeserializeObject<SarifLog>(sarifText);
+                    }
+
+                    var visitor = new SarifCurrentToVersionOneVisitor();
+                    visitor.VisitSarifLog(actualLog);
+
+                    WriteSarifFile(_fileSystem, visitor.SarifLogVersionOne, options.OutputFilePath, options.Minify, SarifContractResolverVersionOne.Instance);
+                }
+            }
         }
     }
 }

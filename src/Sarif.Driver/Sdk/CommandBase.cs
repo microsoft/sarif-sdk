@@ -18,11 +18,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         protected IFileSystem FileSystem { get; set; }
 
-        public CommandBase(IFileSystem fileSystem = null)
-        {
-            this.FileSystem = fileSystem ?? Sarif.FileSystem.Instance;
-        }
-
         protected static bool ValidateNonNegativeCommandLineOption<T>(long optionValue, string optionName)
         {
             bool valid = true;
