@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
     /// </summary>
     public class CachingLogger : BaseLogger, IAnalysisLogger
     {
-        public CachingLogger(IEnumerable<FailureLevel> level, IEnumerable<ResultKind> kind) : base(level, kind)
+        public CachingLogger(IEnumerable<FailureLevel> levels, IEnumerable<ResultKind> kinds) : base(levels, kinds)
         {
         }
 
@@ -69,20 +69,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public void LogConfigurationNotification(Notification notification)
         {
-            if (ShouldLog(notification))
+            if (!ShouldLog(notification))
             {
-                ConfigurationNotifications ??= new List<Notification>();
-                ConfigurationNotifications.Add(notification);
+                return;
             }
+
+            ConfigurationNotifications ??= new List<Notification>();
+            ConfigurationNotifications.Add(notification);
         }
 
         public void LogToolNotification(Notification notification)
         {
-            if (ShouldLog(notification))
+            if (!ShouldLog(notification))
             {
-                ToolNotifications ??= new List<Notification>();
-                ToolNotifications.Add(notification);
+                return;
             }
+
+            ToolNotifications ??= new List<Notification>();
+            ToolNotifications.Add(notification);
         }
     }
 }

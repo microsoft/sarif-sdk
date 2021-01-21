@@ -41,8 +41,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             IEnumerable<string> invocationTokensToRedact = null,
             IEnumerable<string> invocationPropertiesToLog = null,
             string defaultFileEncoding = null,
-            IEnumerable<FailureLevel> level = null,
-            IEnumerable<ResultKind> kind = null)
+            IEnumerable<FailureLevel> levels = null,
+            IEnumerable<ResultKind> kinds = null)
             : this(new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.None)),
                   logFilePersistenceOptions: logFilePersistenceOptions,
                   dataToInsert: dataToInsert,
@@ -53,8 +53,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                   invocationTokensToRedact: invocationTokensToRedact,
                   invocationPropertiesToLog: invocationPropertiesToLog,
                   defaultFileEncoding: defaultFileEncoding,
-                  level: level,
-                  kind: kind)
+                  levels: levels,
+                  kinds: kinds)
         {
         }
 
@@ -70,8 +70,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             IEnumerable<string> invocationPropertiesToLog = null,
             string defaultFileEncoding = null,
             bool closeWriterOnDispose = true,
-            IEnumerable<FailureLevel> level = null,
-            IEnumerable<ResultKind> kind = null) : this(textWriter, logFilePersistenceOptions, closeWriterOnDispose, level, kind)
+            IEnumerable<FailureLevel> levels = null,
+            IEnumerable<ResultKind> kinds = null) : this(textWriter, logFilePersistenceOptions, closeWriterOnDispose, levels, kinds)
         {
             if (dataToInsert.HasFlag(OptionallyEmittedData.Hashes))
             {

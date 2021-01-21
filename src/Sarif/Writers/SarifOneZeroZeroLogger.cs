@@ -43,8 +43,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                   analysisTargets: analysisTargets,
                   invocationTokensToRedact: invocationTokensToRedact,
                   invocationPropertiesToLog: invocationPropertiesToLog,
-                  level: level,
-                  kind: kind)
+                  levels: level,
+                  kinds: kind)
         {
             _outputFilePath = outputFilePath;
         }

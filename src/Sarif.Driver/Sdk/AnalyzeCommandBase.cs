@@ -430,8 +430,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                     analysisTargets: targets,
                                     invocationTokensToRedact: GenerateSensitiveTokensList(),
                                     invocationPropertiesToLog: analyzeOptions.InvocationPropertiesToLog,
-                                    level: analyzeOptions.Level,
-                                    kind: analyzeOptions.Kind);
+                                    levels: analyzeOptions.Level,
+                                    kinds: analyzeOptions.Kind);
                         }
                         else
                         {

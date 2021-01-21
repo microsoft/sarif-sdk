@@ -7,7 +7,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
     [Flags]
     public enum LogFilePersistenceOptions
-
     {
         None = 0,
 

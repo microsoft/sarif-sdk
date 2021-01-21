@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
     public class ConsoleLogger : BaseLogger, IAnalysisLogger
     {
-        public ConsoleLogger(bool quietConsole, string toolName, IEnumerable<FailureLevel> level = null, IEnumerable<ResultKind> kind = null) : base(level, kind)
+        public ConsoleLogger(bool quietConsole, string toolName, IEnumerable<FailureLevel> levels = null, IEnumerable<ResultKind> kinds = null) : base(levels, kinds)
         {
             _quietConsole = quietConsole;
             _toolName = toolName.ToUpperInvariant();
@@ -177,18 +177,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public void LogToolNotification(Notification notification)
         {
-            if (ShouldLog(notification))
+            if (!ShouldLog(notification))
             {
-                WriteToConsole(notification);
+                return;
             }
+
+            WriteToConsole(notification);
         }
 
         public void LogConfigurationNotification(Notification notification)
         {
-            if (ShouldLog(notification))
+            if (!ShouldLog(notification))
             {
-                WriteToConsole(notification);
+                return;
             }
+
+            WriteToConsole(notification);
         }
 
         private void WriteToConsole(Notification notification)
