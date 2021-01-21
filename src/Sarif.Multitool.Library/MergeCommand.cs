@@ -235,7 +235,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 new FixupVisitor().VisitSarifLog(sarifLog);
             }
 
-            _mergeLogsChannel.Writer.WriteAsync(sarifLog);
+            _mergeLogsChannel.Writer.TryWrite(sarifLog);
             Interlocked.Decrement(ref _filesToProcessCount);
         }
 

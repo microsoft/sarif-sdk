@@ -29,6 +29,7 @@
     <!-- The stable version of the SARIF specification. -->
     <StableSarifVersion>2.1.0</StableSarifVersion>
 
+    <AnalysisLevel>latest</AnalysisLevel>
   </PropertyGroup>
 
   <PropertyGroup Label="Build">
@@ -120,6 +121,14 @@
   <ItemGroup Condition=" '$(Configuration)' == 'Release' ">
     <EmbeddedFiles Include="$(GeneratedAssemblyInfoFile)"/>
     <SourceRoot Include="$(MSBuildThisFileDirectory)/" />
+  </ItemGroup>
+  
+
+  <ItemGroup Label="Common Packages">
+    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="5.0.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
 </Project>
