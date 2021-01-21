@@ -126,7 +126,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (type != null)
             {
                 sb.Append(type.FullName.Replace('+', '.'));
-                sb.Append(".");
+                sb.Append('.');
             }
             sb.Append(methodBase.Name);
 
@@ -134,14 +134,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (methodBase is MethodInfo methodInfo && methodInfo.IsGenericMethod)
             {
                 Type[] typeArguments = methodInfo.GetGenericArguments();
-                sb.Append("[");
+                sb.Append('[');
                 int k = 0;
                 bool firstTypeParameter = true;
                 while (k < typeArguments.Length)
                 {
-                    if (firstTypeParameter == false)
+                    if (!firstTypeParameter)
                     {
-                        sb.Append(",");
+                        sb.Append(',');
                     }
                     else
                     {
@@ -151,11 +151,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                     sb.Append(typeArguments[k].Name);
                     k++;
                 }
-                sb.Append("]");
+                sb.Append(']');
             }
 
             // arguments printing
-            sb.Append("(");
+            sb.Append('(');
             ParameterInfo[] parameterInfos = methodBase.GetParameters();
             bool firstParameterInfo = true;
             for (int j = 0; j < parameterInfos.Length; j++)
@@ -176,7 +176,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
                 sb.Append(typeName).Append(' ').Append(parameterInfos[j].Name);
             }
-            sb.Append(")");
+            sb.Append(')');
 
             return sb.ToString();
         }

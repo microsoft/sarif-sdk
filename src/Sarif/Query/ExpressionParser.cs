@@ -76,7 +76,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query
             // Otherwise, build the string, doubling each character to escape
             int nextCopyFrom = 0;
             StringBuilder result = new StringBuilder();
-            result.Append("'");
+            result.Append('\'');
 
             for (int i = 0; i < value.Length; ++i)
             {
@@ -96,7 +96,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query
                 result.Append(value, nextCopyFrom, value.Length - nextCopyFrom);
             }
 
-            result.Append("'");
+            result.Append('\'');
             return result.ToString();
         }
 
