@@ -54,10 +54,6 @@
          fail on AppVeyor (and only there, for some reason).
       -->
     <CopyLocalLockFileAssemblies Condition="'$(IsTestProject)' == 'true'">true</CopyLocalLockFileAssemblies>
-    
-    <!-- Enable NETAnalyzers -->
-    <EnableNETAnalyzers>true</EnableNETAnalyzers>
-    <AnalysisLevel>latest</AnalysisLevel>
   </PropertyGroup>
 
   <!-- Configuration specific properties -->
