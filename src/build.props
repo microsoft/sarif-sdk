@@ -54,6 +54,10 @@
          fail on AppVeyor (and only there, for some reason).
       -->
     <CopyLocalLockFileAssemblies Condition="'$(IsTestProject)' == 'true'">true</CopyLocalLockFileAssemblies>
+    
+    <!-- Enable NETAnalyzers -->
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <AnalysisLevel>latest</AnalysisLevel>
   </PropertyGroup>
 
   <!-- Configuration specific properties -->
@@ -120,6 +124,14 @@
   <ItemGroup Condition=" '$(Configuration)' == 'Release' ">
     <EmbeddedFiles Include="$(GeneratedAssemblyInfoFile)"/>
     <SourceRoot Include="$(MSBuildThisFileDirectory)/" />
+  </ItemGroup>
+  
+
+  <ItemGroup Label="Common Packages">
+    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="5.0.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
 </Project>

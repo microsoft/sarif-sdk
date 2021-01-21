@@ -154,7 +154,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     sb.Append(argument).Append(',');
                 }
                 sb.Length -= 1;
-                sb.Append("}");
+                sb.Append('}');
             }
 
             return sb.ToString();

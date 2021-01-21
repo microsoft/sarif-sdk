@@ -193,7 +193,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         {
             if (currentRuns == null || !currentRuns.Any())
             {
-                throw new ArgumentException(nameof(currentRuns));
+                throw new ArgumentNullException(nameof(currentRuns));
             }
 
             // Results should all be from the same tool, so we'll pull the log from the first run.
