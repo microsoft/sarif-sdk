@@ -31,8 +31,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             IEnumerable<string> invocationTokensToRedact = null,
             IEnumerable<string> invocationPropertiesToLog = null,
             string defaultFileEncoding = null,
-            IEnumerable<FailureLevel> level = null,
-            IEnumerable<ResultKind> kind = null)
+            IEnumerable<FailureLevel> levels = null,
+            IEnumerable<ResultKind> kinds = null)
             : base(new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.None)),
                   logFilePersistenceOptions: logFilePersistenceOptions,
                   dataToInsert: dataToInsert,
@@ -43,8 +43,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                   analysisTargets: analysisTargets,
                   invocationTokensToRedact: invocationTokensToRedact,
                   invocationPropertiesToLog: invocationPropertiesToLog,
-                  levels: level,
-                  kinds: kind)
+                  levels: levels,
+                  kinds: kinds)
         {
             _outputFilePath = outputFilePath;
         }

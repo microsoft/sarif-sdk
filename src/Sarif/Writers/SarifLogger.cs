@@ -120,8 +120,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             TextWriter textWriter,
             LogFilePersistenceOptions logFilePersistenceOptions,
             bool closeWriterOnDipose,
-            IEnumerable<FailureLevel> level,
-            IEnumerable<ResultKind> kind) : base(failureLevels: level, resultKinds: kind)
+            IEnumerable<FailureLevel> levels,
+            IEnumerable<ResultKind> kinds) : base(failureLevels: levels, resultKinds: kinds)
         {
             _textWriter = textWriter;
             _closeWriterOnDispose = closeWriterOnDipose;
