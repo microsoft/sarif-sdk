@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         private readonly IncludeResultPredicate predicate;
 
         private Run currentRun;
-        bool includeReferencedObjects = true;
+        private bool includeReferencedObjects = true;
 
         private IList<Result> filteredResults;
         private IList<Artifact> filteredArtifacts;

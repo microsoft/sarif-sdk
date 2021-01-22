@@ -164,7 +164,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     ERR997_ExceptionCreatingLogFile,
                     ruleId: null,
                     FailureLevel.Error,
-                    exception: null,
+                    exception: exception,
                     persistExceptionStack: false,
                     messageFormat: null,
                     fileName));
@@ -208,7 +208,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     ERR997_ExceptionAccessingFile,
                     ruleId: null,
                     FailureLevel.Error,
-                    exception: null,
+                    exception: exception,
                     persistExceptionStack: false,
                     messageFormat: null,
                     fileName));
@@ -307,7 +307,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     ERR997_ExceptionLoadingPlugIn,
                     ruleId: null,
                     FailureLevel.Error,
-                    exception: null,
+                    exception: exception,
                     persistExceptionStack: false,
                     messageFormat: null,
                     pluginFilePath));
