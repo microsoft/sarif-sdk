@@ -76,9 +76,37 @@
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "id": "Error_MessageIdMustExist",
+            "id": "Error_SupplyEnoughMessageArguments",
             "arguments": [
               "runs[0].results[1]",
+              "DoesExist",
+              "TEST1001",
+              "2",
+              "0"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 36,
+                  "startColumn": 9
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1012",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_MessageIdMustExist",
+            "arguments": [
+              "runs[0].results[2]",
               "DoesNotExist",
               "TEST1001"
             ]
@@ -90,7 +118,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 36,
+                  "startLine": 43,
                   "startColumn": 9
                 }
               }
