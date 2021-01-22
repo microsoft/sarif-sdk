@@ -22,8 +22,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             return type.GetConstructor(
                             BindingFlags.Instance | BindingFlags.Public,
                             binder: null,
-                            types: new Type[0], // The types of the constructor arguments.
-                            modifiers: new ParameterModifier[0]) != null;
+                            types: Array.Empty<Type>(), // The types of the constructor arguments.
+                            modifiers: Array.Empty<ParameterModifier>()) != null;
         }
 
         // Enforce the convention that the converter type name is derived from the tool name.

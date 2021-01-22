@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
 {
-    interface IResultMatchingComparer : IEqualityComparer<ExtractedResult>
+    internal interface IResultMatchingComparer : IEqualityComparer<ExtractedResult>
     {
         /// <summary>
         /// Checks if the result matcher applies to a particular result.
