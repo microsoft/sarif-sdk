@@ -1852,7 +1852,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             foreach (JProperty ruleEntry in rules.Properties())
             {
                 AddEntryToRuleToIndexMap(
-                    rules,
                     ruleEntry.Name,
                     (JObject)ruleEntry.Value,
                     jObjectToIndexMap,
@@ -1871,7 +1870,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             return new JArray(rulesArray);
         }
 
-        private static void AddEntryToRuleToIndexMap(JObject rulesDictionary, string key, JObject rule, Dictionary<JObject, int> jObjectToIndexMap, Dictionary<string, int> ruleKeyToIndexMap)
+        private static void AddEntryToRuleToIndexMap(string key, JObject rule, Dictionary<JObject, int> jObjectToIndexMap, Dictionary<string, int> ruleKeyToIndexMap)
         {
             ruleKeyToIndexMap = ruleKeyToIndexMap ?? throw new ArgumentNullException(nameof(ruleKeyToIndexMap));
             jObjectToIndexMap = jObjectToIndexMap ?? throw new ArgumentNullException(nameof(jObjectToIndexMap));
