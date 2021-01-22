@@ -133,7 +133,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     new ThreadFlow
                     {
-                        Locations = new List<ThreadFlowLocation>(locations ?? Array.Empty<ThreadFlowLocation>())
+                        Locations = new List<ThreadFlowLocation>(locations ?? new ThreadFlowLocation[]{ })
                     }
                 }
             };
