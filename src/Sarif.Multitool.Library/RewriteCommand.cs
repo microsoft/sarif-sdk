@@ -29,14 +29,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             try
             {
-                // Only set --output-file if --inline isn't specified. ValidateOptions will check
-                // to make sure that exactly one of those two options is set.
-                if (!options.Inline)
-                {
-                    //  TODO:  Find a more consistent way of correcting options
-                    options.OutputFilePath = CommandUtilities.GetTransformedOutputFileName(options);
-                }
-
                 Console.WriteLine($"Rewriting '{options.InputFilePath}' => '{options.OutputFilePath}'...");
                 Stopwatch w = Stopwatch.StartNew();
 
@@ -44,12 +36,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 if (!valid) { return FAILURE; }
 
                 SarifLog actualLog = ReadSarifFile<SarifLog>(_fileSystem, options.InputFilePath);
-
-                string inputVersion = SniffVersion(options.InputFilePath);
-                if (TransformationNecessary(options.SarifOutputVersion, inputVersion))
-                {
-                    TransformFile(options, options.InputFilePath, inputVersion);
-                }
 
                 OptionallyEmittedData dataToInsert = options.DataToInsert.ToFlags();
                 OptionallyEmittedData dataToRemove = options.DataToRemove.ToFlags();
@@ -61,6 +47,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 string fileName = CommandUtilities.GetTransformedOutputFileName(options);
 
                 WriteSarifFile(_fileSystem, reformattedLog, fileName, options.Minify);
+
+                string inputVersion = SniffVersion(fileName);
+                if (TransformationNecessary(options.SarifOutputVersion, inputVersion))
+                {
+                    TransformFile(options, fileName, inputVersion);
+                }
 
                 w.Stop();
                 Console.WriteLine($"Rewrite completed in {w.Elapsed}.");
@@ -76,15 +68,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         private bool ValidateOptions(RewriteOptions rewriteOptions)
         {
-            bool valid = true;
+            if(!rewriteOptions.Validate())
+            {
+                return false;
+            }
 
-            valid &= rewriteOptions.Validate();
+            if(!DriverUtilities.ReportWhetherOutputFileCanBeCreated(rewriteOptions.OutputFilePath, rewriteOptions.Force, _fileSystem))
+            {
+                return false;
+            }
 
-            valid &= DriverUtilities.ReportWhetherOutputFileCanBeCreated(rewriteOptions.OutputFilePath, rewriteOptions.Force, _fileSystem);
-
-            return valid;
+            return true;
         }
 
+        //  TODO Move this into a separate class for better unit testing
         private string SniffVersion(string sarifPath)
         {
             using (JsonTextReader reader = new JsonTextReader(new StreamReader(_fileSystem.FileOpenRead(sarifPath))))
@@ -137,8 +134,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             {
                 if (inputVersion == "1.0.0")
                 {
-                    //  Converting version 1 to version 1?
-                    return;
+                    //  Converting version 1 to version 1?  Do nothing.
                     //  TODO: Give some output to the user, they asked for something that doesn't make sense.
                 }
                 else
@@ -165,12 +161,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                     var visitor = new SarifCurrentToVersionOneVisitor();
                     visitor.VisitSarifLog(actualLog);
-
+                    
                     WriteSarifFile(_fileSystem, visitor.SarifLogVersionOne, options.OutputFilePath, options.Minify, SarifContractResolverVersionOne.Instance);
                 }
             }
         }
 
+        //  TODO: move this somewhere it can be unit tested
         private bool TransformationNecessary(SarifVersion requestedOutputVersion, string incomingVersion)
         {
             switch (requestedOutputVersion)

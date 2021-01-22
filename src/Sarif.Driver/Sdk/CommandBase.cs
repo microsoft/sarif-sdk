@@ -18,6 +18,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         protected IFileSystem FileSystem { get; set; }
 
+        //  TODO:  What's the point of having a bunch of static methods in an abstract class?
+        //  We even have a static class, "CommandUtilities" which seems like the more appropriate 
+        //  place for these to go.
         protected static bool ValidateNonNegativeCommandLineOption<T>(long optionValue, string optionName)
         {
             bool valid = true;
