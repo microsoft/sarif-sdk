@@ -362,7 +362,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         }
                         else
                         {
-                            arguments = new string[0];
+                            arguments = Array.Empty<string>();
                         }
 
                         text = GetFormattedMessage(formatString.Text, arguments);

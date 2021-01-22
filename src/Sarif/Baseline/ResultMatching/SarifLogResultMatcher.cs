@@ -62,12 +62,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
             foreach (string key in tools)
             {
-                IEnumerable<Run> baselineRuns = new Run[0];
+                IEnumerable<Run> baselineRuns = Array.Empty<Run>();
                 if (runsByToolPrevious.ContainsKey(key))
                 {
                     baselineRuns = runsByToolPrevious[key];
                 }
-                IEnumerable<Run> currentRuns = new Run[0];
+                IEnumerable<Run> currentRuns = Array.Empty<Run>();
 
                 if (runsByToolCurrent.ContainsKey(key))
                 {
