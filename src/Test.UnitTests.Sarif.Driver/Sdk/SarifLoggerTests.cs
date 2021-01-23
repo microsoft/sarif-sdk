@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
@@ -24,7 +25,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 analysisTargets: Enumerable.Empty<string>(),
                 logFilePersistenceOptions: LogFilePersistenceOptions.None,
                 invocationTokensToRedact: null,
-                invocationPropertiesToLog: null);
+                invocationPropertiesToLog: null,
+                kinds : new List<ResultKind> { ResultKind.Fail },
+                levels : new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error });
 
             string result = textWriter.ToString();
 

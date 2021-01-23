@@ -1,6 +1,7 @@
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System.Collections.Generic;
 using System.IO;
 
 using FluentAssertions;
@@ -50,7 +51,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             var options = new ValidateOptions
             {
                 SchemaFilePath = SchemaFilePath,
-                TargetFileSpecifiers = new string[] { logFilePath }
+                TargetFileSpecifiers = new string[] { logFilePath },
+                Kind = new List<ResultKind> { ResultKind.Fail },
+                Level = new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error }
             };
 
             int returnCode = validateCommand.Run(options);
@@ -77,7 +80,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             {
                 SchemaFilePath = SchemaFilePath,
                 TargetFileSpecifiers = new string[] { logFilePath },
-                OutputFilePath = OutputFilePath
+                OutputFilePath = OutputFilePath,
+                Kind = new List<ResultKind> { ResultKind.Fail },
+                Level = new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error }
             };
 
             int returnCode = validateCommand.Run(options);
@@ -118,7 +123,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 TargetFileSpecifiers = new string[] { path },
                 OutputFilePath = outputPath,
                 Force = true,
-                ConfigurationFilePath = configuration
+                ConfigurationFilePath = configuration,
+                Kind = new List<ResultKind> { ResultKind.Fail },
+                Level = new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error }
             };
 
             // Verify command returned success
