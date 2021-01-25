@@ -14,25 +14,13 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Writers
 {
     public class BaseLoggerTests
     {
-        private void AssertLevelAndKindAreNonEmpty(BaseLoggerTestConcrete baseLoggerTestConcrete)
-        {
-            baseLoggerTestConcrete.FailureLevelsPublicViewer.Should().NotBeEmpty();
-            baseLoggerTestConcrete.ResultKindPublicViewer.Should().NotBeEmpty();
-        }
-
         [Fact]
         public void BaseLogger_ShouldCorrectlyValidateParameters()
         {
             BaseLoggerTestConcrete baseLoggerTestConcrete = null;
 
-            try
-            {
-                baseLoggerTestConcrete = new BaseLoggerTestConcrete(new List<FailureLevel> { FailureLevel.Error },
-                                                                    new List<ResultKind> { ResultKind.Informational });
-                Assert.True(false, "Expected exception not thrown, BaseLogger did not validate correctly.");
-            }
-            catch (ArgumentException)
-            { }
+            Assert.Throws<ArgumentException>(() => new BaseLoggerTestConcrete(new List<FailureLevel> { FailureLevel.Error },
+                                                                    new List<ResultKind> { ResultKind.Informational }));
             //  The rest are fine.
             baseLoggerTestConcrete = new BaseLoggerTestConcrete(new List<FailureLevel> { FailureLevel.Error },
                                                                 new List<ResultKind> { ResultKind.Informational, ResultKind.Fail });
