@@ -1085,5 +1085,94 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
         }
+
+        [Fact]
+        public void SarifLogger_HonorsKindAndLevel()
+        {
+            IEnumerable<ResultKind> nonEmptyResultKinds = Enum.GetValues(typeof(ResultKind)).Cast<ResultKind>().Where(rk => rk != ResultKind.None).ToList();
+            IEnumerable<FailureLevel> nonEmptyFailureLevels = Enum.GetValues(typeof(FailureLevel)).Cast<FailureLevel>().Where(fl => fl != FailureLevel.None).ToList();
+
+            List<Result> allKindLevelCombinations = new List<Result>();
+            ReportingDescriptor rule = new ReportingDescriptor { Id = "RuleId" };
+
+            foreach (ResultKind rk in nonEmptyResultKinds)
+            {
+                if (rk == ResultKind.Fail)
+                {
+                    foreach (FailureLevel fl in nonEmptyFailureLevels)
+                    {
+                        allKindLevelCombinations.Add(new Result
+                        {
+                            RuleId = rule.Id,
+                            Message = new Message { Text = string.Format("Testing kind {0} and level {1}", rk, fl) },
+                            Kind = rk,
+                            Level = fl
+                        });
+                    }
+                }
+                else
+                {
+                    allKindLevelCombinations.Add(new Result
+                    {
+                        RuleId = rule.Id,
+                        Message = new Message { Text = string.Format("Testing kind {0}", rk) },
+                        Kind = rk
+                    });
+                }
+            }
+
+            List<ResultKind> desiredResultKinds = new List<ResultKind> { ResultKind.Fail };
+            List<FailureLevel> desiredFailureLevels = new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error };
+            SarifLog sarifLog = CreateSarifLog(allKindLevelCombinations, rule, desiredFailureLevels, desiredResultKinds);
+            VerifySarifLogHonoredKindAndLevel(desiredFailureLevels, desiredResultKinds, sarifLog);
+
+            desiredResultKinds = new List<ResultKind> { ResultKind.NotApplicable };
+            desiredFailureLevels = new List<FailureLevel> { FailureLevel.None };
+            sarifLog = CreateSarifLog(allKindLevelCombinations, rule, desiredFailureLevels, desiredResultKinds);
+            VerifySarifLogHonoredKindAndLevel(desiredFailureLevels, desiredResultKinds, sarifLog);
+
+            desiredResultKinds = new List<ResultKind> { ResultKind.Fail };
+            desiredFailureLevels = new List<FailureLevel> { FailureLevel.Error };
+            sarifLog = CreateSarifLog(allKindLevelCombinations, rule, desiredFailureLevels, desiredResultKinds);
+            VerifySarifLogHonoredKindAndLevel(desiredFailureLevels, desiredResultKinds, sarifLog);
+        }
+
+        private static void VerifySarifLogHonoredKindAndLevel(List<FailureLevel> desiredFailureLevels, List<ResultKind> desiredResultKinds, SarifLog sarifLog)
+        {
+            int expectedCount = desiredResultKinds.Count * desiredFailureLevels.Count;
+
+            IEnumerable<Result> results = sarifLog.Runs[0].Results;
+
+            results.Count().Should().Be(expectedCount);
+
+            foreach (Result result in results)
+            {
+                desiredResultKinds.Should().Contain(result.Kind);
+
+                Assert.True(result.Level == FailureLevel.None || desiredFailureLevels.Contains(result.Level));
+            }
+        }
+
+        private static SarifLog CreateSarifLog(List<Result> allKindLevelCombinations, ReportingDescriptor rule, List<FailureLevel> desiredFailureLevels, List<ResultKind> desiredResultKinds)
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+
+            using (var stringWriter = new StringWriter(stringBuilder))
+            {
+                using (var sarifLogger = new SarifLogger(
+                    stringWriter,
+                    levels: desiredFailureLevels,
+                    kinds: desiredResultKinds))
+                {
+                    foreach (Result r in allKindLevelCombinations)
+                    {
+                        sarifLogger.Log(rule, r);
+                    }
+                }
+            }
+
+            string logText = stringBuilder.ToString();
+            return JsonConvert.DeserializeObject<SarifLog>(logText);
+        }
     }
 }
