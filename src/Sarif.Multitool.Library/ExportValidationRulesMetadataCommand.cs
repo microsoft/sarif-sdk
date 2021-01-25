@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public class ExportValidationRulesMetadataCommand : ExportRulesMetadataCommandBase
     {
-        public override IEnumerable<Assembly> DefaultPlugInAssemblies
+        public override IEnumerable<Assembly> DefaultPluginAssemblies
         {
             get
             {

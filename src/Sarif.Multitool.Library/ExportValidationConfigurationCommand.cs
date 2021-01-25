@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public class ExportValidationConfigurationCommand : ExportConfigurationCommandBase
     {
-        public override IEnumerable<Assembly> DefaultPlugInAssemblies => new Assembly[] {
+        public override IEnumerable<Assembly> DefaultPluginAssemblies => new Assembly[] {
             this.GetType().Assembly
         };
     }

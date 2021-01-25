@@ -9,7 +9,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     internal interface ITestAnalyzeCommand
     {
-        IEnumerable<Assembly> DefaultPlugInAssemblies { get; set; }
+        IEnumerable<Assembly> DefaultPluginAssemblies { get; set; }
 
         Exception ExecutionException { get; set; }
 

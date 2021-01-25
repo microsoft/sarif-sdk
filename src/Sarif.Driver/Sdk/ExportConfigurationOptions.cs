@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System.Collections.Generic;
+
 using CommandLine;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
@@ -17,5 +19,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             Default = FileFormat.Json,
             HelpText = "The file format to persist settings to (if the format cannot be inferred from the file name extension).")]
         public FileFormat FileFormat { get; set; }
+
+        [Option(
+            "plugin",
+            Separator = ';',
+            HelpText = "Path to plugin that will be invoked to retrieve rule options.")]
+        public IEnumerable<string> PluginFilePaths { get; set; }
     }
 }
