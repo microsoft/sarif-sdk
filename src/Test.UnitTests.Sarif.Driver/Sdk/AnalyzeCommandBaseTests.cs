@@ -64,8 +64,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 TargetFileSpecifiers = new string[0]
             };
 
-            analyzeOptions.Quiet = true;
-
             Assembly[] plugInAssemblies = null;
 
             if (analyzeOptions.DefaultPlugInFilePaths != null)
@@ -327,7 +325,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     {
                         TargetFileSpecifiers = new string[] { GetThisTestAssemblyFilePath() },
                         OutputFilePath = path,
-                        Verbose = true,
                         Force = true
                     };
 
@@ -356,7 +353,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 {
                     TargetFileSpecifiers = new string[] { GetThisTestAssemblyFilePath() },
                     OutputFilePath = path,
-                    Verbose = true,
                     Force = true
                 };
 
@@ -376,8 +372,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var options = new TestAnalyzeOptions()
             {
                 TargetFileSpecifiers = new string[] { GetThisTestAssemblyFilePath() },
-                ConfigurationFilePath = path,
-                Verbose = true,
+                ConfigurationFilePath = path
             };
 
             ExceptionTestHelper(
@@ -395,8 +390,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var options = new TestAnalyzeOptions()
             {
                 TargetFileSpecifiers = new string[] { GetThisTestAssemblyFilePath() },
-                PluginFilePaths = new string[] { path },
-                Verbose = true,
+                PluginFilePaths = new string[] { path }
             };
 
             ExceptionTestHelper(
@@ -416,8 +410,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 var options = new TestAnalyzeOptions()
                 {
                     TargetFileSpecifiers = new string[] { GetThisTestAssemblyFilePath() },
-                    OutputFilePath = path,
-                    Verbose = true,
+                    OutputFilePath = path
                 };
 
                 // A missing output file is a good condition. :)
@@ -525,7 +518,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 var options = new TestAnalyzeOptions
                 {
                     TargetFileSpecifiers = new string[] { fileName },
-                    Verbose = true,
                     Quiet = true,
                     ConfigurationFilePath = configFileName ?? TestAnalyzeCommand.DefaultPolicyName,
                     Recurse = true,
@@ -594,7 +586,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 var options = new TestAnalyzeOptions
                 {
                     TargetFileSpecifiers = new string[] { fileName },
-                    Verbose = true,
                     Quiet = true,
                     DataToInsert = new OptionallyEmittedData[] { OptionallyEmittedData.Hashes },
                     ConfigurationFilePath = TestAnalyzeCommand.DefaultPolicyName,
@@ -766,7 +757,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var options = new TestAnalyzeOptions
             {
                 TargetFileSpecifiers = new string[] { "" },
-                Verbose = true,
                 Quiet = true,
                 DataToInsert = new OptionallyEmittedData[] { OptionallyEmittedData.Hashes },
                 ConfigurationFilePath = configValue,
@@ -1019,8 +1009,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 TestRuleBehaviors = testCase.TestRuleBehaviors,
                 OutputFilePath = testCase.PersistLogFileToDisk ? Guid.NewGuid().ToString() : null,
                 TargetFileSpecifiers = new string[] { Guid.NewGuid().ToString() },
-                Verbose = testCase.Verbose,
+                Kind = new List<ResultKind> { ResultKind.Fail },
+                Level = new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error }
             };
+
+            if (testCase.Verbose)
+            {
+                options.Kind = new List<ResultKind> { ResultKind.Informational, ResultKind.Open, ResultKind.Review, ResultKind.Fail, ResultKind.Pass, ResultKind.NotApplicable, ResultKind.None };
+                options.Level = new List<FailureLevel> { FailureLevel.Error, FailureLevel.Warning, FailureLevel.Note, FailureLevel.None };
+            }
 
             int expectedResultsCount = testCase.ExpectedWarningCount + testCase.ExpectedErrorCount;
             Run runWithoutCaching = RunAnalyzeCommand(options, testCase);

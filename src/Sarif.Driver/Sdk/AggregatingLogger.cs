@@ -53,14 +53,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        public void LogMessage(bool verbose, string message)
-        {
-            foreach (IAnalysisLogger logger in Loggers)
-            {
-                logger.LogMessage(verbose, message);
-            }
-        }
-
         public void Log(ReportingDescriptor rule, Result result)
         {
             foreach (IAnalysisLogger logger in Loggers)

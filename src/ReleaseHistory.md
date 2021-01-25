@@ -1,6 +1,9 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
-* BUGFIX: Fix NullReference in SARIF1012 rule validation. [#2254](https://github.com/microsoft/sarif-sdk/pull/2254)
+* BREAKING: Entirely remove `verbose` whose fuctionality has been replaced by `--level` and `--kind`. [#2241](https://github.com/microsoft/sarif-sdk/pull/2241)
+* BREAKING: Rename `LoggingOptions` to `LogFilePersistenceOptions`. [#2241](https://github.com/microsoft/sarif-sdk/pull/2241)
+* FEATURE: `--quiet` will now suppress all console messages except for errors. [#2241](https://github.com/microsoft/sarif-sdk/pull/2241)
+* BUGFIX: Fix NullReference in SARIF1012 rule validation [#2254]. (https://github.com/microsoft/sarif-sdk/pull/2254)
 * BREAKING: Rename `--plug-in` to `--plugin`. [#2264](https://github.com/microsoft/sarif-sdk/pull/2264)
 * FEATURE: Pass `--plugin` to load more binaries to analyze or export data. [#2264](https://github.com/microsoft/sarif-sdk/pull/2264)
 
