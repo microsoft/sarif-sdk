@@ -13,7 +13,7 @@ using Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
-    public abstract class AnalyzeCommandBase<TContext, TOptions> : PlugInDriverCommand<TOptions>
+    public abstract class AnalyzeCommandBase<TContext, TOptions> : PluginDriverCommand<TOptions>
         where TContext : IAnalysisContext, new()
         where TOptions : AnalyzeOptionsBase
     {
@@ -495,7 +495,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             try
             {
-                skimmers = CompositionUtilities.GetExports<Skimmer<TContext>>(RetrievePlugInAssemblies(DefaultPlugInAssemblies, analyzeOptions.PluginFilePaths));
+                skimmers = CompositionUtilities.GetExports<Skimmer<TContext>>(RetrievePluginAssemblies(DefaultPluginAssemblies, analyzeOptions.PluginFilePaths));
 
                 SupportedPlatform currentOS = GetCurrentRunningOS();
                 foreach (Skimmer<TContext> skimmer in skimmers)
@@ -512,7 +512,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
             catch (Exception ex)
             {
-                Errors.LogExceptionInstantiatingSkimmers(context, DefaultPlugInAssemblies, ex);
+                Errors.LogExceptionInstantiatingSkimmers(context, DefaultPluginAssemblies, ex);
                 ThrowExitApplicationException(context, ExitReason.UnhandledExceptionInstantiatingSkimmers, ex);
             }
 

@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
         }
 
-        public override IEnumerable<Assembly> DefaultPlugInAssemblies { get; set; }
+        public override IEnumerable<Assembly> DefaultPluginAssemblies { get; set; }
 
         public int Run(AnalyzeOptionsBase options)
         {

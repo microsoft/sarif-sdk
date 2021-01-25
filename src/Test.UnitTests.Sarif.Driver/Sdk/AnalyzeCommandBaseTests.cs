@@ -87,7 +87,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 ? (ITestAnalyzeCommand)new TestMultithreadedAnalyzeCommand()
                 : (ITestAnalyzeCommand)new TestAnalyzeCommand();
 
-            command.DefaultPlugInAssemblies = plugInAssemblies;
+            command.DefaultPluginAssemblies = plugInAssemblies;
 
             int result = command.Run(analyzeOptions);
 
@@ -536,7 +536,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 };
 
                 var command = new TestAnalyzeCommand();
-                command.DefaultPlugInAssemblies = new Assembly[] { this.GetType().Assembly };
+                command.DefaultPluginAssemblies = new Assembly[] { this.GetType().Assembly };
                 int result = command.Run(options);
 
                 result.Should().Be(expectedReturnCode);
@@ -606,7 +606,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 };
 
                 var command = new TestAnalyzeCommand();
-                command.DefaultPlugInAssemblies = new Assembly[] { this.GetType().Assembly };
+                command.DefaultPluginAssemblies = new Assembly[] { this.GetType().Assembly };
                 int returnValue = command.Run(options);
 
                 returnValue.Should().Be(0);
@@ -1090,7 +1090,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             bool captureConsoleOutput = string.IsNullOrEmpty(options.OutputFilePath);
 
             var command = new TestAnalyzeCommand(fileSystem) { _captureConsoleOutput = captureConsoleOutput };
-            command.DefaultPlugInAssemblies = new Assembly[] { typeof(AnalyzeCommandBaseTests).Assembly };
+            command.DefaultPluginAssemblies = new Assembly[] { typeof(AnalyzeCommandBaseTests).Assembly };
 
             try
             {

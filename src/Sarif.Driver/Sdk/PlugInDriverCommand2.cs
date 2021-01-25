@@ -7,22 +7,22 @@ using System.Reflection;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
-    public abstract class PlugInDriverCommand<T> : DriverCommand<T>
+    public abstract class PluginDriverCommand<T> : DriverCommand<T>
     {
-        public virtual IEnumerable<Assembly> DefaultPlugInAssemblies
+        public virtual IEnumerable<Assembly> DefaultPluginAssemblies
         {
             get { return null; }
             set { throw new InvalidOperationException(); }
         }
 
-        public IEnumerable<Assembly> RetrievePlugInAssemblies(IEnumerable<Assembly> defaultPlugInAssemblies, IEnumerable<string> pluginFilePaths)
+        public IEnumerable<Assembly> RetrievePluginAssemblies(IEnumerable<Assembly> defaultPluginAssemblies, IEnumerable<string> pluginFilePaths)
         {
             if (pluginFilePaths == null)
             {
-                return DefaultPlugInAssemblies;
+                return DefaultPluginAssemblies;
             }
 
-            var assemblies = new List<Assembly>(defaultPlugInAssemblies);
+            var assemblies = new List<Assembly>(defaultPluginAssemblies);
             foreach (string pluginFilePath in pluginFilePaths)
             {
                 assemblies.Add(Assembly.LoadFrom(pluginFilePath));

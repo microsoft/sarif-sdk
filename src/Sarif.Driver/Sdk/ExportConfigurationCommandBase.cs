@@ -8,7 +8,7 @@ using System.IO;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
-    public abstract class ExportConfigurationCommandBase : PlugInDriverCommand<ExportConfigurationOptions>
+    public abstract class ExportConfigurationCommandBase : PluginDriverCommand<ExportConfigurationOptions>
     {
         public override int Run(ExportConfigurationOptions exportOptions)
         {
@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 // The export command could be updated in the future to accept an arbitrary set
                 // of analyzers for which to build an options XML file suitable for configuring them.
-                ImmutableArray<IOptionsProvider> providers = CompositionUtilities.GetExports<IOptionsProvider>(RetrievePlugInAssemblies(DefaultPlugInAssemblies, exportOptions.PluginFilePaths));
+                ImmutableArray<IOptionsProvider> providers = CompositionUtilities.GetExports<IOptionsProvider>(RetrievePluginAssemblies(DefaultPluginAssemblies, exportOptions.PluginFilePaths));
                 foreach (IOptionsProvider provider in providers)
                 {
                     IOption sampleOption = null;
@@ -34,7 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 }
 
                 IEnumerable<ReportingDescriptor> rules;
-                rules = CompositionUtilities.GetExports<ReportingDescriptor>(DefaultPlugInAssemblies);
+                rules = CompositionUtilities.GetExports<ReportingDescriptor>(DefaultPluginAssemblies);
 
                 // This code injects properties that are provided for every rule instance.
                 foreach (ReportingDescriptor rule in rules)
