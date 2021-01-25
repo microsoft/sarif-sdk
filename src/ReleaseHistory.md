@@ -1,13 +1,13 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
-## **v2.4.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.4.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.4.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.4.0) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.4.0) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.4.0)
 * BREAKING: Entirely remove "verbose" whose fuctionality has been replaced by --level and --kind. [#2241](https://github.com/microsoft/sarif-sdk/pull/2241)
 * BREAKING: Rename "LoggingOptions" to "LogFilePersistenceOptions". [#2241](https://github.com/microsoft/sarif-sdk/pull/2241)
 * FEATURE: --quiet will now suppress all console messages except for errors. [#2241](https://github.com/microsoft/sarif-sdk/pull/2241)
+* BUGFIX: Fix NullReference in SARIF1012 rule validation [#2254](https://github.com/microsoft/sarif-sdk/pull/2254)
 
 ## **v2.3.17** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.17) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.17) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.17) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.17) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.3.17)
 * BREAKING: Move `CommandBase` class from `Multitool.Library` assembly to `Driver`. [#2238](https://github.com/microsoft/sarif-sdk/pull/2238)
-* FEASTURE: Argument `VersionControlDetails` for `OptionallyEmittedData` in a analysis command will fill `VersionControlProvenance`. [#2237](https://github.com/microsoft/sarif-sdk/pull/2237)
+* FEATURE: Argument `VersionControlDetails` for `OptionallyEmittedData` in a analysis command will fill `VersionControlProvenance`. [#2237](https://github.com/microsoft/sarif-sdk/pull/2237)
 
 ## **v2.3.16** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.16) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.16) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.16) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.16) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.3.16)
 * BREAKING: Rename flag `VersionControlInformation` to `VersionControlDetails` from `OptionallyEmittedData`. [#2222](https://github.com/microsoft/sarif-sdk/pull/2222)
