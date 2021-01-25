@@ -17,23 +17,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         [Fact]
         public void ConvertingAnalyzeOptionsToLoggingOptions_ProducesExpectedLoggingOptions()
         {
-            LoggingOptions loggingOptions;
+            LogFilePersistenceOptions loggingOptions;
 
             TestAnalyzeOptions analyzeOptions = new TestAnalyzeOptions()
             {
-                Verbose = true
+                Quiet = true
             };
 
-            loggingOptions = analyzeOptions.ConvertToLoggingOptions();
-            loggingOptions.Should().Be(LoggingOptions.Verbose | LoggingOptions.PrettyPrint);
+            loggingOptions = analyzeOptions.ConvertToLogFilePersistenceOptions();
+            loggingOptions.Should().Be(LogFilePersistenceOptions.PrettyPrint);
 
             analyzeOptions = new TestAnalyzeOptions()
             {
                 Minify = true
             };
 
-            loggingOptions = analyzeOptions.ConvertToLoggingOptions();
-            loggingOptions.Should().Be(LoggingOptions.None);
+            loggingOptions = analyzeOptions.ConvertToLogFilePersistenceOptions();
+            loggingOptions.Should().Be(LogFilePersistenceOptions.None);
 
             analyzeOptions = new TestAnalyzeOptions()
             {
@@ -41,18 +41,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 PrettyPrint = true
             };
 
-            loggingOptions = analyzeOptions.ConvertToLoggingOptions();
-            loggingOptions.Should().Be(LoggingOptions.PrettyPrint);
+            loggingOptions = analyzeOptions.ConvertToLogFilePersistenceOptions();
+            loggingOptions.Should().Be(LogFilePersistenceOptions.PrettyPrint);
 
             analyzeOptions = new TestAnalyzeOptions()
             {
                 Force = true
             };
 
-            loggingOptions = analyzeOptions.ConvertToLoggingOptions();
+            loggingOptions = analyzeOptions.ConvertToLogFilePersistenceOptions();
             loggingOptions.Should().Be(
-                LoggingOptions.OverwriteExistingOutputFile |
-                LoggingOptions.PrettyPrint);
+                LogFilePersistenceOptions.OverwriteExistingOutputFile |
+                LogFilePersistenceOptions.PrettyPrint);
         }
 
         private class ValidateSingleFileOutputOptionsTestCase
@@ -243,6 +243,32 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 failedTestCases.Should().BeEmpty();
             }
+        }
+
+        [Fact]
+        public void ValidateAnalyzeOutputOptions_ProducesExpectedResults()
+        {
+            AnalyzeOptionsBase analyzeOptionsBase = new TestAnalyzeOptions();
+
+            //  quiet false, output empty
+            analyzeOptionsBase.Quiet = false;
+            analyzeOptionsBase.OutputFilePath = null;
+            Assert.True(analyzeOptionsBase.ValidateOutputOptions());
+
+            //  quiet false, output non-empty
+            analyzeOptionsBase.Quiet = false;
+            analyzeOptionsBase.OutputFilePath = "doodle";
+            Assert.True(analyzeOptionsBase.ValidateOutputOptions());
+
+            //  quiet true, output empty
+            analyzeOptionsBase.Quiet = true;
+            analyzeOptionsBase.OutputFilePath = null;
+            Assert.False(analyzeOptionsBase.ValidateOutputOptions());
+
+            //  quiet true, output non-empty
+            analyzeOptionsBase.Quiet = true;
+            analyzeOptionsBase.OutputFilePath = "doodle";
+            Assert.True(analyzeOptionsBase.ValidateOutputOptions());
         }
 
         private class ValidateOutputFormatOptionsTestCase

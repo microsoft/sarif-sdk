@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public SarifOneZeroZeroLogger(
             string outputFilePath,
-            LoggingOptions loggingOptions = SarifLogger.DefaultLoggingOptions,
+            LogFilePersistenceOptions logFilePersistenceOptions = SarifLogger.DefaultLogFilePersistenceOptions,
             OptionallyEmittedData dataToInsert = OptionallyEmittedData.None,
             OptionallyEmittedData dataToRemove = OptionallyEmittedData.None,
             Tool tool = null,
@@ -30,16 +30,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             IEnumerable<string> analysisTargets = null,
             IEnumerable<string> invocationTokensToRedact = null,
             IEnumerable<string> invocationPropertiesToLog = null,
-            string defaultFileEncoding = null)
+            string defaultFileEncoding = null,
+            IEnumerable<FailureLevel> levels = null,
+            IEnumerable<ResultKind> kinds = null)
             : base(new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.None)),
-                  loggingOptions: loggingOptions,
+                  logFilePersistenceOptions: logFilePersistenceOptions,
                   dataToInsert: dataToInsert,
                   dataToRemove: dataToRemove,
+                  defaultFileEncoding: defaultFileEncoding,
                   tool: tool,
                   run: run,
                   analysisTargets: analysisTargets,
                   invocationTokensToRedact: invocationTokensToRedact,
-                  invocationPropertiesToLog: invocationPropertiesToLog)
+                  invocationPropertiesToLog: invocationPropertiesToLog,
+                  levels: levels,
+                  kinds: kinds)
         {
             _outputFilePath = outputFilePath;
         }

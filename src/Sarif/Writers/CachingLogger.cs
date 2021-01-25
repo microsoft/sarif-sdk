@@ -12,8 +12,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
     /// instances. The driver framework uses this mechanism to merge results
     /// produced by a multi-threaded analysis into a single output file.
     /// </summary>
-    public class CachingLogger : IAnalysisLogger
+    public class CachingLogger : BaseLogger, IAnalysisLogger
     {
+        public CachingLogger(IEnumerable<FailureLevel> levels, IEnumerable<ResultKind> kinds) : base(levels, kinds)
+        {
+        }
+
         public IDictionary<ReportingDescriptor, IList<Result>> Results { get; set; }
 
         public IList<Notification> ConfigurationNotifications { get; set; }
@@ -65,16 +69,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public void LogConfigurationNotification(Notification notification)
         {
+            if (!ShouldLog(notification))
+            {
+                return;
+            }
+
             ConfigurationNotifications ??= new List<Notification>();
             ConfigurationNotifications.Add(notification);
         }
 
-        public void LogMessage(bool verbose, string message)
-        {
-        }
-
         public void LogToolNotification(Notification notification)
         {
+            if (!ShouldLog(notification))
+            {
+                return;
+            }
+
             ToolNotifications ??= new List<Notification>();
             ToolNotifications.Add(notification);
         }

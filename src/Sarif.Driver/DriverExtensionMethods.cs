@@ -10,17 +10,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     public static class DriverExtensionMethods
     {
-        public static LoggingOptions ConvertToLoggingOptions(this AnalyzeOptionsBase analyzeOptions)
+        public static LogFilePersistenceOptions ConvertToLogFilePersistenceOptions(this AnalyzeOptionsBase analyzeOptions)
         {
-            LoggingOptions loggingOptions = LoggingOptions.PrettyPrint;
+            LogFilePersistenceOptions logFilePersistenceOptions = LogFilePersistenceOptions.PrettyPrint;
 
-            if (analyzeOptions.Force) { loggingOptions |= LoggingOptions.OverwriteExistingOutputFile; }
-            if (analyzeOptions.Minify) { loggingOptions ^= LoggingOptions.PrettyPrint; }
-            if (analyzeOptions.Verbose) { loggingOptions |= LoggingOptions.Verbose; }
-            if (analyzeOptions.Optimize) { loggingOptions |= LoggingOptions.Optimize; }
-            if (analyzeOptions.PrettyPrint) { loggingOptions |= LoggingOptions.PrettyPrint; }
+            if (analyzeOptions.Force) { logFilePersistenceOptions |= LogFilePersistenceOptions.OverwriteExistingOutputFile; }
+            if (analyzeOptions.Minify) { logFilePersistenceOptions ^= LogFilePersistenceOptions.PrettyPrint; }
+            if (analyzeOptions.Optimize) { logFilePersistenceOptions |= LogFilePersistenceOptions.Optimize; }
+            if (analyzeOptions.PrettyPrint) { logFilePersistenceOptions |= LogFilePersistenceOptions.PrettyPrint; }
 
-            return loggingOptions;
+            return logFilePersistenceOptions;
         }
 
         /// <summary>
@@ -151,10 +150,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             bool valid = true;
 
+            //  TODO:  Is it correct to modify options in a "validate" method?
             if (options.Inline)
             {
                 options.Force = true;
             }
+
+            return valid;
+        }
+
+        public static bool ValidateOutputOptions(this AnalyzeOptionsBase options)
+        {
+            bool valid = true;
+
+            valid &= !(options.Quiet && string.IsNullOrWhiteSpace(options.OutputFilePath));
 
             return valid;
         }

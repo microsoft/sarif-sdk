@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
     /// of simply repeating the analysis. This can result in significant performance gains, when that analysis
     /// is expensive (such as in the case of a binary analysis that retrieves and crawls binary PDBs).
     /// </summary>
-    public class CacheByFileHashLogger : IAnalysisLogger
+    public class CacheByFileHashLogger : BaseLogger, IAnalysisLogger
     {
         private bool cacheLoggingData;
         private string currentFileHash;
@@ -23,9 +23,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         public Dictionary<string, List<Notification>> HashToNotificationsMap { get; private set; }
         public Dictionary<string, List<Tuple<ReportingDescriptor, Result>>> HashToResultsMap { get; private set; }
 
-        public CacheByFileHashLogger(bool verbose)
+        public CacheByFileHashLogger(IEnumerable<FailureLevel> levels, IEnumerable<ResultKind> kinds) : base(levels, kinds)
         {
-            Verbose = verbose;
         }
 
         public void AnalysisStarted()
@@ -33,8 +32,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             HashToNotificationsMap = new Dictionary<string, List<Notification>>();
             HashToResultsMap = new Dictionary<string, List<Tuple<ReportingDescriptor, Result>>>();
         }
-
-        public bool Verbose { get; private set; }
 
         public void AnalysisStopped(RuntimeConditions runtimeConditions)
         {
@@ -63,32 +60,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             if (!cacheLoggingData) { return; }
 
-            switch (result.Level)
+            if (!ShouldLog(result))
             {
-                // These result types are optionally emitted.
-                case FailureLevel.None:
-                case FailureLevel.Note:
-                {
-                    if (Verbose)
-                    {
-                        CacheResult(rule, result);
-                    }
-                    break;
-                }
-
-                // These result types are always emitted.
-                case FailureLevel.Error:
-                case FailureLevel.Warning:
-                {
-                    CacheResult(rule, result);
-                    break;
-                }
-
-                default:
-                {
-                    throw new InvalidOperationException();
-                }
+                return;
             }
+
+            CacheResult(rule, result);
         }
 
         private void CacheResult(ReportingDescriptor rule, Result result)
@@ -102,7 +79,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public void LogConfigurationNotification(Notification notification)
         {
-            if (!cacheLoggingData) { return; }
+            if (!cacheLoggingData || !ShouldLog(notification)) { return; }
 
             if (!HashToNotificationsMap.TryGetValue(currentFileHash, out List<Notification> notifications))
             {
@@ -111,12 +88,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             notifications.Add(notification);
         }
 
-        public void LogMessage(bool verbose, string message)
-        {
-        }
-
         public void LogToolNotification(Notification notification)
         {
+            //  In case someone adds something here:
+            if (!ShouldLog(notification))
+            {
+                return;
+            }
+            //  Add actual functionality below
         }
     }
 }

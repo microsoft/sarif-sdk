@@ -26,7 +26,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 }
             };
 
-            var logger = new CachingLogger();
+            TestAnalyzeOptions testAnalyzeOptions = new TestAnalyzeOptions();
+
+            var logger = new CachingLogger(testAnalyzeOptions.Level, testAnalyzeOptions.Kind);
             logger.LogConfigurationNotification(notification);
             logger.ConfigurationNotifications.Should().HaveCount(1);
 
@@ -40,7 +42,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             Result result01 = GenerateResult();
             ReportingDescriptor rule01 = GenerateRule();
 
-            var logger = new CachingLogger();
+            TestAnalyzeOptions testAnalyzeOptions = new TestAnalyzeOptions();
+
+            var logger = new CachingLogger(testAnalyzeOptions.Level, testAnalyzeOptions.Kind);
 
             Assert.Throws<ArgumentNullException>(() => logger.Log(null, result01));
             Assert.Throws<ArgumentNullException>(() => logger.Log(rule01, null));
