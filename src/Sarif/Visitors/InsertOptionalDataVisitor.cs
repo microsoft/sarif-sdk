@@ -100,7 +100,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 Region expandedRegion;
                 ArtifactLocation artifactLocation = node.ArtifactLocation;
 
-                _fileRegionsCache ??= new FileRegionsCache();
+                _fileRegionsCache ??= FileRegionsCache.Instance;
 
                 if (artifactLocation.Uri == null && artifactLocation.Index >= 0)
                 {
@@ -116,8 +116,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     resolvedUri = artifactLocation.Uri;
                 }
-
-                if (!resolvedUri.IsAbsoluteUri) { goto Exit; }
 
                 expandedRegion = _fileRegionsCache.PopulateTextRegionProperties(node.Region, resolvedUri, populateSnippet: insertRegionSnippets);
 
