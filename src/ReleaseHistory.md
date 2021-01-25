@@ -4,6 +4,9 @@
 * BREAKING: Rename `--plug-in` to `--plugin`. [#2264](https://github.com/microsoft/sarif-sdk/pull/2264)
 * FEATURE: Pass `--plugin` to load more binaries to analyze or export data. [#2264](https://github.com/microsoft/sarif-sdk/pull/2264)
 
+## **v2.3.18** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.18) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.18) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.18) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.18) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.3.18)
+* FEATURE: Relax GH1005. [#2248](https://github.com/microsoft/sarif-sdk/pull/2248)
+
 ## **v2.3.17** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.17) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.17) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.17) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.17) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.3.17)
 * BREAKING: Move `CommandBase` class from `Multitool.Library` assembly to `Driver`. [#2238](https://github.com/microsoft/sarif-sdk/pull/2238)
 * FEATURE: Argument `VersionControlDetails` for `OptionallyEmittedData` in a analysis command will fill `VersionControlProvenance`. [#2237](https://github.com/microsoft/sarif-sdk/pull/2237)
