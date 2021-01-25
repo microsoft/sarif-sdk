@@ -662,7 +662,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                     run: _run,
                                     analysisTargets: null,
                                     invocationTokensToRedact: GenerateSensitiveTokensList(),
-                                    invocationPropertiesToLog: analyzeOptions.InvocationPropertiesToLog);
+                                    invocationPropertiesToLog: analyzeOptions.InvocationPropertiesToLog,
+                                    levels: analyzeOptions.Level,
+                                    kinds: analyzeOptions.Kind);
                         }
                         else
                         {
@@ -675,7 +677,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                     run: _run,
                                     analysisTargets: null,
                                     invocationTokensToRedact: GenerateSensitiveTokensList(),
-                                    invocationPropertiesToLog: analyzeOptions.InvocationPropertiesToLog);
+                                    invocationPropertiesToLog: analyzeOptions.InvocationPropertiesToLog,
+                                    levels: analyzeOptions.Level,
+                                    kinds: analyzeOptions.Kind);
                         }
                         _pathToHashDataMap = sarifLogger.AnalysisTargetToHashDataMap;
                         sarifLogger.AnalysisStarted();

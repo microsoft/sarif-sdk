@@ -15,36 +15,35 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         protected BaseLogger(IEnumerable<FailureLevel> failureLevels,
             IEnumerable<ResultKind> resultKinds)
         {
-            if (failureLevels == null || failureLevels.Count() == 0)
-            {
-                _failureLevels = new List<FailureLevel> { FailureLevel.Error, FailureLevel.Warning };
-            }
-            else
-            {
-                _failureLevels = failureLevels.ToList();
-            }
-
-            if (resultKinds == null || resultKinds.Count() == 0)
-            {
-                _resultKinds = new List<ResultKind> { ResultKind.Fail };
-            }
-            else
-            {
-                _resultKinds = resultKinds.ToList();
-            }
+            _failureLevels = failureLevels?.ToList() ?? new List<FailureLevel>();
+            _resultKinds = resultKinds?.ToList() ?? new List<ResultKind>();
 
             ValidateParameters();
         }
 
         private void ValidateParameters()
         {
-            //  If we got here, both resultKinds and failurelevels can neither be null nor empty.
-            //  If resultKinds does not include "fail" then failureLevels MUST be none/zero
-            if (!_resultKinds.Contains(ResultKind.Fail))
+            if (_resultKinds.Count == 0 || (_resultKinds.Count == 1 && _resultKinds[0] == ResultKind.None))
             {
-                if (_failureLevels.Count > 1 || _failureLevels[0] != FailureLevel.None)
+                throw new ArgumentException("At least one kind is required");
+            }
+
+            bool failureLevelsEffectivelyEmpty = _failureLevels == null
+                                                    || _failureLevels.Count == 0
+                                                    || (_failureLevels.Count == 1 && _failureLevels[0] == FailureLevel.None);
+
+            if (_resultKinds.Contains(ResultKind.Fail))
+            {
+                if (failureLevelsEffectivelyEmpty)
                 {
-                    throw new ArgumentException("Invalid kind & level combination");
+                    throw new ArgumentException("Failure level required if logging kind 'fail'");
+                }
+            }
+            else
+            {
+                if (!failureLevelsEffectivelyEmpty)
+                {
+                    throw new ArgumentException("Failure level must be empty if logging kind does not include 'fail'");
                 }
             }
         }
@@ -56,13 +55,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public bool ShouldLog(Result result)
         {
-            // If resultKinds is the default value (Fail), we should just filter based on failureLevels
-            if (_resultKinds.Count == 1 && _resultKinds[0] == ResultKind.Fail)
+            if (_resultKinds.Contains(result.Kind))
             {
-                return _failureLevels.Contains(result.Level);
+                if (result.Kind == ResultKind.Fail)
+                {
+                    return _failureLevels.Contains(result.Level);
+                }
+
+                return true;
             }
 
-            return _resultKinds.Contains(result.Kind) && _failureLevels.Contains(result.Level);
+            return false;
         }
     }
 }

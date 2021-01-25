@@ -178,7 +178,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             if (!succeeded)
             {
                 //  TODO: This seems like uninformative error output.  All these errors get squished into one generic message
-                //  whenever something goes wrong.
+                //  whenever something goes wrong. #2260 https://github.com/microsoft/sarif-sdk/issues/2260
                 ThrowExitApplicationException(context, ExitReason.InvalidCommandLineOption);
             }
         }
