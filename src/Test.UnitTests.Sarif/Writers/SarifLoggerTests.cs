@@ -60,7 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 dataToRemove: OptionallyEmittedData.NondeterministicProperties,
                 closeWriterOnDispose: closeWriterOnDispose,
                 levels: new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
-                kinds: new List<ResultKind> { ResultKind.Fail } ))
+                kinds: new List<ResultKind> { ResultKind.Fail }))
             {
                 logger.Log(
                     new ReportingDescriptor { Id = "MyId" },
@@ -831,7 +831,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             using (var textWriter = new StringWriter(sb))
             {
-                using (var sarifLogger = new SarifLogger(   textWriter: textWriter, 
+                using (var sarifLogger = new SarifLogger(textWriter: textWriter,
                                                             levels: new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
                                                             kinds: new List<ResultKind> { ResultKind.Fail }))
                 {
@@ -973,7 +973,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             var sb = new StringBuilder();
 
             using (var writer = new StringWriter(sb))
-            using (var sarifLogger = new SarifLogger(   writer,
+            using (var sarifLogger = new SarifLogger(writer,
                                                         levels: new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
                                                         kinds: new List<ResultKind> { ResultKind.Fail }))
             {
@@ -1013,7 +1013,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 SarifLogger logger;
 
                 // Validates overload that accept a path argument.
-                using (logger = new SarifLogger(fileName, 
+                using (logger = new SarifLogger(fileName,
                                                 loggingOption,
                                                 levels: new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
                                                 kinds: new List<ResultKind> { ResultKind.Fail }))
@@ -1026,7 +1026,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 // StringBuilder instance).
                 var sb = new StringBuilder();
                 var stringWriter = new StringWriter(sb);
-                using (logger = new SarifLogger(stringWriter, 
+                using (logger = new SarifLogger(stringWriter,
                                                 loggingOption,
                                                 levels: new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
                                                 kinds: new List<ResultKind> { ResultKind.Fail }))

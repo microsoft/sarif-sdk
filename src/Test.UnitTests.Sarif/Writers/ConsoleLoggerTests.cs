@@ -45,7 +45,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 }
             };
 
-            var logger = new ConsoleLogger( quietConsole: false, 
+            var logger = new ConsoleLogger(quietConsole: false,
                                             toolName: tool,
                                             levels: new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
                                             kinds: new List<ResultKind> { ResultKind.Fail })

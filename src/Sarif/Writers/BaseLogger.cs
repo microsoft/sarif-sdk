@@ -23,12 +23,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         private void ValidateParameters()
         {
-            if (_resultKinds.Count==0 || (_resultKinds.Count==1 && _resultKinds[0] == ResultKind.None))
+            if (_resultKinds.Count == 0 || (_resultKinds.Count == 1 && _resultKinds[0] == ResultKind.None))
             {
                 throw new ArgumentException("At least one kind is required");
             }
 
-            bool failureLevelsEffectivelyEmpty =    _failureLevels == null
+            bool failureLevelsEffectivelyEmpty = _failureLevels == null
                                                     || _failureLevels.Count == 0
                                                     || (_failureLevels.Count == 1 && _failureLevels[0] == FailureLevel.None);
 

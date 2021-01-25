@@ -26,8 +26,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 logFilePersistenceOptions: LogFilePersistenceOptions.None,
                 invocationTokensToRedact: null,
                 invocationPropertiesToLog: null,
-                kinds : new List<ResultKind> { ResultKind.Fail },
-                levels : new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error });
+                kinds: new List<ResultKind> { ResultKind.Fail },
+                levels: new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error });
 
             string result = textWriter.ToString();
 
