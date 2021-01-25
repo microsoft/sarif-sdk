@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             try
             {
-                ImmutableArray<ReportingDescriptor> skimmers = CompositionUtilities.GetExports<ReportingDescriptor>(DefaultPlugInAssemblies);
+                ImmutableArray<ReportingDescriptor> skimmers = CompositionUtilities.GetExports<ReportingDescriptor>(RetrievePlugInAssemblies(DefaultPlugInAssemblies, exportOptions.PluginFilePaths));
 
                 string format = "";
                 string outputFilePath = exportOptions.OutputFilePath;

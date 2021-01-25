@@ -727,11 +727,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         protected virtual ISet<Skimmer<TContext>> CreateSkimmers(TOptions options, TContext context)
         {
             IEnumerable<Skimmer<TContext>> skimmers;
-            SortedSet<Skimmer<TContext>> result = new SortedSet<Skimmer<TContext>>(SkimmerIdComparer<TContext>.Instance);
+            var result = new SortedSet<Skimmer<TContext>>(SkimmerIdComparer<TContext>.Instance);
 
             try
             {
-                skimmers = CompositionUtilities.GetExports<Skimmer<TContext>>(DefaultPlugInAssemblies);
+                skimmers = CompositionUtilities.GetExports<Skimmer<TContext>>(RetrievePlugInAssemblies(DefaultPlugInAssemblies, options.PluginFilePaths));
 
                 SupportedPlatform currentOS = GetCurrentRunningOS();
                 foreach (Skimmer<TContext> skimmer in skimmers)

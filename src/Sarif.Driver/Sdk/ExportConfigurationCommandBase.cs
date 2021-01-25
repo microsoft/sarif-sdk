@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 // The export command could be updated in the future to accept an arbitrary set
                 // of analyzers for which to build an options XML file suitable for configuring them.
-                ImmutableArray<IOptionsProvider> providers = CompositionUtilities.GetExports<IOptionsProvider>(DefaultPlugInAssemblies);
+                ImmutableArray<IOptionsProvider> providers = CompositionUtilities.GetExports<IOptionsProvider>(RetrievePlugInAssemblies(DefaultPlugInAssemblies, exportOptions.PluginFilePaths));
                 foreach (IOptionsProvider provider in providers)
                 {
                     IOption sampleOption = null;

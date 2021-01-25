@@ -142,7 +142,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             InitializeOutputFile(options, _rootContext, targets);
 
             // 6. Instantiate skimmers.
-            ISet<Skimmer<TContext>> skimmers = CreateSkimmers(_rootContext);
+            ISet<Skimmer<TContext>> skimmers = CreateSkimmers(options, _rootContext);
 
             // 7. Initialize configuration. This step must be done after initializing
             //    the skimmers, as rules define their specific context objects and
@@ -488,14 +488,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        protected virtual ISet<Skimmer<TContext>> CreateSkimmers(TContext context)
+        protected virtual ISet<Skimmer<TContext>> CreateSkimmers(TOptions analyzeOptions, TContext context)
         {
             IEnumerable<Skimmer<TContext>> skimmers;
-            SortedSet<Skimmer<TContext>> result = new SortedSet<Skimmer<TContext>>(SkimmerIdComparer<TContext>.Instance);
+            var result = new SortedSet<Skimmer<TContext>>(SkimmerIdComparer<TContext>.Instance);
 
             try
             {
-                skimmers = CompositionUtilities.GetExports<Skimmer<TContext>>(DefaultPlugInAssemblies);
+                skimmers = CompositionUtilities.GetExports<Skimmer<TContext>>(RetrievePlugInAssemblies(DefaultPlugInAssemblies, analyzeOptions.PluginFilePaths));
 
                 SupportedPlatform currentOS = GetCurrentRunningOS();
                 foreach (Skimmer<TContext> skimmer in skimmers)

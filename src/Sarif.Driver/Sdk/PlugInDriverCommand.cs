@@ -14,5 +14,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             get { return null; }
             set { throw new InvalidOperationException(); }
         }
+
+        public IEnumerable<Assembly> RetrievePlugInAssemblies(IEnumerable<Assembly> defaultPlugInAssemblies, IEnumerable<string> pluginFilePaths)
+        {
+            if (pluginFilePaths == null)
+            {
+                return DefaultPlugInAssemblies;
+            }
+
+            var assemblies = new List<Assembly>(defaultPlugInAssemblies);
+            foreach (string pluginFilePath in pluginFilePaths)
+            {
+                assemblies.Add(Assembly.LoadFrom(pluginFilePath));
+            }
+
+            return assemblies;
+        }
     }
 }
