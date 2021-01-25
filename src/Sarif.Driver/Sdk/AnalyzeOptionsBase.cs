@@ -65,9 +65,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public bool LogEnvironment { get; set; }
 
         [Option(
-            "plug-in",
+            "plugin",
             Separator = ';',
-            HelpText = "Path to plug-in that will be invoked against all targets in the analysis set.")]
+            HelpText = "Path to plugin that will be invoked against all targets in the analysis set.")]
         public IEnumerable<string> PluginFilePaths { get; set; }
 
         [Option(

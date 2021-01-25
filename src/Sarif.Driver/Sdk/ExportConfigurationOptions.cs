@@ -21,9 +21,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public FileFormat FileFormat { get; set; }
 
         [Option(
-            "plug-in",
+            "plugin",
             Separator = ';',
-            HelpText = "Path to plug-in that will be invoked to retrieve rule options.")]
+            HelpText = "Path to plugin that will be invoked to retrieve rule options.")]
         public IEnumerable<string> PluginFilePaths { get; set; }
     }
 }

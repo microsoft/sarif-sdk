@@ -1,6 +1,8 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
-* BUGFIX: Fix NullReference in SARIF1012 rule validation [#2254](https://github.com/microsoft/sarif-sdk/pull/2254)
+* BUGFIX: Fix NullReference in SARIF1012 rule validation. [#2254](https://github.com/microsoft/sarif-sdk/pull/2254)
+* BREAKING: Rename `--plug-in` to `--plugin`. [#2264](https://github.com/microsoft/sarif-sdk/pull/2264)
+* FEATURE: Pass `--plugin` to load more binaries to analyze or export data. [#2264](https://github.com/microsoft/sarif-sdk/pull/2264)
 
 ## **v2.3.17** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.17) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.17) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.17) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.17) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.3.17)
 * BREAKING: Move `CommandBase` class from `Multitool.Library` assembly to `Driver`. [#2238](https://github.com/microsoft/sarif-sdk/pull/2238)
