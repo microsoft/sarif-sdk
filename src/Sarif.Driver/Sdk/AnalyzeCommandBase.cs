@@ -173,9 +173,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             succeeded &= ValidateFiles(context, analyzeOptions.PluginFilePaths, shouldExist: true);
             succeeded &= ValidateInvocationPropertiesToLog(context, analyzeOptions.InvocationPropertiesToLog);
             succeeded &= ValidateOutputFileCanBeCreated(context, analyzeOptions.OutputFilePath, analyzeOptions.Force);
+            succeeded &= analyzeOptions.ValidateOutputOptions();
 
             if (!succeeded)
             {
+                //  TODO: This seems like uninformative error output.  All these errors get squished into one generic message
+                //  whenever something goes wrong. #2260 https://github.com/microsoft/sarif-sdk/issues/2260
                 ThrowExitApplicationException(context, ExitReason.InvalidCommandLineOption);
             }
         }
@@ -267,13 +270,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (!analyzeOptions.Quiet)
             {
-                _consoleLogger = new ConsoleLogger(analyzeOptions.Verbose, _tool.Driver.Name) { CaptureOutput = _captureConsoleOutput };
+                _consoleLogger = new ConsoleLogger(analyzeOptions.Quiet, _tool.Driver.Name, analyzeOptions.Level, analyzeOptions.Kind) { CaptureOutput = _captureConsoleOutput };
                 logger.Loggers.Add(_consoleLogger);
             }
 
             if ((analyzeOptions.DataToInsert.ToFlags() & OptionallyEmittedData.Hashes) != 0)
             {
-                _cacheByFileHashLogger = new CacheByFileHashLogger(analyzeOptions.Verbose);
+                _cacheByFileHashLogger = new CacheByFileHashLogger(analyzeOptions.Level, analyzeOptions.Kind);
                 logger.Loggers.Add(_cacheByFileHashLogger);
             }
 
@@ -408,7 +411,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 (
                     () =>
                     {
-                        LoggingOptions loggingOptions = analyzeOptions.ConvertToLoggingOptions();
+                        LogFilePersistenceOptions logFilePersistenceOptions = analyzeOptions.ConvertToLogFilePersistenceOptions();
 
                         OptionallyEmittedData dataToInsert = analyzeOptions.DataToInsert.ToFlags();
                         OptionallyEmittedData dataToRemove = analyzeOptions.DataToRemove.ToFlags();
@@ -419,27 +422,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         {
                             sarifLogger = new SarifLogger(
                                     analyzeOptions.OutputFilePath,
-                                    loggingOptions,
+                                    logFilePersistenceOptions,
                                     dataToInsert,
                                     dataToRemove,
                                     tool: _tool,
                                     run: null,
                                     analysisTargets: targets,
                                     invocationTokensToRedact: GenerateSensitiveTokensList(),
-                                    invocationPropertiesToLog: analyzeOptions.InvocationPropertiesToLog);
+                                    invocationPropertiesToLog: analyzeOptions.InvocationPropertiesToLog,
+                                    levels: analyzeOptions.Level,
+                                    kinds: analyzeOptions.Kind);
                         }
                         else
                         {
                             sarifLogger = new SarifOneZeroZeroLogger(
                                     analyzeOptions.OutputFilePath,
-                                    loggingOptions,
+                                    logFilePersistenceOptions,
                                     dataToInsert,
                                     dataToRemove,
                                     tool: _tool,
                                     run: null,
                                     analysisTargets: targets,
                                     invocationTokensToRedact: GenerateSensitiveTokensList(),
-                                    invocationPropertiesToLog: analyzeOptions.InvocationPropertiesToLog);
+                                    invocationPropertiesToLog: analyzeOptions.InvocationPropertiesToLog,
+                                    levels: analyzeOptions.Level,
+                                    kinds: analyzeOptions.Kind);
                         }
                         _pathToHashDataMap = sarifLogger.AnalysisTargetToHashDataMap;
                         sarifLogger.AnalysisStarted();
