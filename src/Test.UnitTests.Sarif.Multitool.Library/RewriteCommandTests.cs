@@ -209,7 +209,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             mockFileSystem.Setup(x => x.FileWriteAllText(options.InputFilePath, It.IsAny<string>())).Callback<string, string>((path, contents) =>
             {
                 transformedContents.Clear();
-                transformedContents.Append(contents); 
+                transformedContents.Append(contents);
             });
 
             var rewriteCommand = new RewriteCommand(mockFileSystem.Object);

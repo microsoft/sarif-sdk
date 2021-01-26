@@ -33,9 +33,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 Stopwatch w = Stopwatch.StartNew();
 
                 bool valid = ValidateOptions(options);
-                if (!valid) 
-                { 
-                    return FAILURE; 
+                if (!valid)
+                {
+                    return FAILURE;
                 }
 
                 string actualOutputPath = CommandUtilities.GetTransformedOutputFileName(options);
@@ -90,12 +90,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         private bool ValidateOptions(RewriteOptions rewriteOptions)
         {
-            if(!rewriteOptions.Validate())
+            if (!rewriteOptions.Validate())
             {
                 return false;
             }
 
-            if(!DriverUtilities.ReportWhetherOutputFileCanBeCreated(rewriteOptions.OutputFilePath, rewriteOptions.Force, _fileSystem))
+            if (!DriverUtilities.ReportWhetherOutputFileCanBeCreated(rewriteOptions.OutputFilePath, rewriteOptions.Force, _fileSystem))
             {
                 return false;
             }
