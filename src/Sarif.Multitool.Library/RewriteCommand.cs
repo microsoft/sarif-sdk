@@ -92,6 +92,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             //  While this is returning true for inline cases, I think it's doing so for the wrong reasons.
             //  TODO: validate whether "actualOutputPath" can be created.
+            //  #2270 https://github.com/microsoft/sarif-sdk/issues/2270
             if (!DriverUtilities.ReportWhetherOutputFileCanBeCreated(rewriteOptions.OutputFilePath, rewriteOptions.Force, _fileSystem))
             {
                 return false;
@@ -101,6 +102,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         //  TODO Move this into a separate class for better unit testing
+        //  #2271 https://github.com/microsoft/sarif-sdk/issues/2271
         private string SniffVersion(string sarifPath)
         {
             using (JsonTextReader reader = new JsonTextReader(new StreamReader(_fileSystem.FileOpenRead(sarifPath))))

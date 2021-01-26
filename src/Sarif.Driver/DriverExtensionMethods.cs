@@ -151,6 +151,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             bool valid = true;
 
             //  TODO:  Is it correct to modify options in a "validate" method?
+            //  #2267 https://github.com/microsoft/sarif-sdk/issues/2267
             if (options.Inline)
             {
                 options.Force = true;
