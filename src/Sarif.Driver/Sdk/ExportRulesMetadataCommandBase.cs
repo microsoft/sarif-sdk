@@ -12,7 +12,7 @@ using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
-    public abstract class ExportRulesMetadataCommandBase : PlugInDriverCommand<ExportRulesMetadataOptions>
+    public abstract class ExportRulesMetadataCommandBase : PluginDriverCommand<ExportRulesMetadataOptions>
     {
         private readonly string[] _levels = new string[] { "Error", "Warning", "Note", "None", "Pass", "NotApplicable" };
         private static readonly Regex s_friendlyNameRegex = new Regex("(?<level>Error|Warning|Note|None|Pass|NotApplicable)_(?<friendlyName>[^_]+)$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             try
             {
-                ImmutableArray<ReportingDescriptor> skimmers = CompositionUtilities.GetExports<ReportingDescriptor>(DefaultPlugInAssemblies);
+                ImmutableArray<ReportingDescriptor> skimmers = CompositionUtilities.GetExports<ReportingDescriptor>(RetrievePluginAssemblies(DefaultPluginAssemblies, exportOptions.PluginFilePaths));
 
                 string format = "";
                 string outputFilePath = exportOptions.OutputFilePath;

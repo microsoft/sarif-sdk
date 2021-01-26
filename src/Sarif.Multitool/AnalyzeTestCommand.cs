@@ -12,10 +12,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public class AnalyzeTestCommand : MultithreadedAnalyzeCommandBase<AnalyzeTestContext, AnalyzeTestOptions>
     {
-        public override IEnumerable<Assembly> DefaultPlugInAssemblies
+        public override IEnumerable<Assembly> DefaultPluginAssemblies
         {
             get => new Assembly[] { this.GetType().Assembly };
-            set => base.DefaultPlugInAssemblies = value;
+            set => base.DefaultPluginAssemblies = value;
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
         }
 
-        public override IEnumerable<Assembly> DefaultPlugInAssemblies { get; set; }
+        public override IEnumerable<Assembly> DefaultPluginAssemblies { get; set; }
 
         protected override TestAnalysisContext CreateContext(
             TestAnalyzeOptions options,
