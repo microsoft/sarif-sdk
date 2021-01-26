@@ -198,13 +198,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
 
             var transformedContents = new StringBuilder();
+            transformedContents.Append(logFileContents);
 
-            // Complex: TransformCommand has code paths that use Create and OpenRead, but also ReadAllText and WriteAllText.
             var mockFileSystem = new Mock<IFileSystem>();
-            mockFileSystem.Setup(x => x.FileReadAllText(options.InputFilePath)).Returns(logFileContents);
-            mockFileSystem.Setup(x => x.FileOpenRead(options.InputFilePath)).Returns(() => new MemoryStream(Encoding.UTF8.GetBytes(logFileContents)));
+            //  This only works because we're testing "Inline"
+            //  TODO: Verify a separate OutputFilePath works as expected
+            mockFileSystem.Setup(x => x.FileReadAllText(options.InputFilePath)).Returns(transformedContents.ToString());
+            mockFileSystem.Setup(x => x.FileOpenRead(options.InputFilePath)).Returns(() => new MemoryStream(Encoding.UTF8.GetBytes(transformedContents.ToString())));
             mockFileSystem.Setup(x => x.FileCreate(options.InputFilePath)).Returns(() => new MemoryStreamToStringBuilder(transformedContents));
-            mockFileSystem.Setup(x => x.FileWriteAllText(options.InputFilePath, It.IsAny<string>())).Callback<string, string>((path, contents) =>{ transformedContents.Append(contents); });
+            mockFileSystem.Setup(x => x.FileWriteAllText(options.InputFilePath, It.IsAny<string>())).Callback<string, string>((path, contents) =>
+            {
+                transformedContents.Clear();
+                transformedContents.Append(contents); 
+            });
 
             var rewriteCommand = new RewriteCommand(mockFileSystem.Object);
 
