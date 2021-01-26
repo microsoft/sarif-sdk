@@ -44,16 +44,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 string inputVersion = SniffVersion(options.InputFilePath);
                 if (!inputVersion.Equals(SarifUtilities.StableSarifVersion))
-                {
-                    //  Transform file and write to output path.  Then continue rewriting as before.
-                    //  TODO:  Consolidate this so only a single write is necessary.
-                    TransformFileToVersionTwo(options, inputVersion, actualOutputPath);
-                    //  We wrote to the output path, so read from it again.
-                    actualLog = ReadSarifFile<SarifLog>(_fileSystem, actualOutputPath);
+                {   
+                    actualLog = TransformFileToVersionTwo(options.InputFilePath, inputVersion);
                 }
                 else
                 {
-                    //  Read from the original input path.
                     actualLog = ReadSarifFile<SarifLog>(_fileSystem, options.InputFilePath);
                 }
 
@@ -123,25 +118,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             return null;
         }
 
-        private void TransformFileToVersionTwo(SingleFileOptionsBase options, string inputVersion, string outputFilePath)
+        private SarifLog TransformFileToVersionTwo(string inputFilePath, string inputVersion)
         {
             if (inputVersion == "1.0.0")
             {
                 //  Converting version 1 to version 2
-                SarifLogVersionOne actualLog = ReadSarifFile<SarifLogVersionOne>(_fileSystem, options.InputFilePath, SarifContractResolverVersionOne.Instance);
+                SarifLogVersionOne actualLog = ReadSarifFile<SarifLogVersionOne>(_fileSystem, inputFilePath, SarifContractResolverVersionOne.Instance);
                 var visitor = new SarifVersionOneToCurrentVisitor();
                 visitor.VisitSarifLogVersionOne(actualLog);
-                WriteSarifFile(_fileSystem, visitor.SarifLog, outputFilePath, options.Minify);
+                return visitor.SarifLog;
             }
             else
             {
                 //  Converting prerelease version 2 to version 2
-                PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(
-                    _fileSystem.FileReadAllText(options.InputFilePath),
-                    formatting: options.Formatting,
-                    out string sarifText);
-
-                _fileSystem.FileWriteAllText(outputFilePath, sarifText);
+                return PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(
+                    _fileSystem.FileReadAllText(inputFilePath),
+                    formatting: Formatting.None,
+                    out string _);
             }
         }
     }

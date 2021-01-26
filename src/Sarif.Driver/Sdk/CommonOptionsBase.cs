@@ -76,7 +76,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             HelpText =
             "The SARIF version of the output log file. Valid values are OneZeroZero and Current",
             Default = SarifVersion.Current)]
-        public SarifVersion SarifOutputVersion { get; set; }
+        public SarifVersion SarifOutputVersion { get; set; } = SarifVersion.Current;
 
         [Option(
             "threads",
