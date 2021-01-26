@@ -1,5 +1,6 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
+## **v2.4.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.4.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.4.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.4.0) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.4.0) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.4.0)
 * BREAKING: Entirely remove `verbose` whose fuctionality has been replaced by `--level` and `--kind`. [#2241](https://github.com/microsoft/sarif-sdk/pull/2241)
 * BREAKING: Rename `LoggingOptions` to `LogFilePersistenceOptions`. [#2241](https://github.com/microsoft/sarif-sdk/pull/2241)
 * FEATURE: `--quiet` will now suppress all console messages except for errors. [#2241](https://github.com/microsoft/sarif-sdk/pull/2241)
