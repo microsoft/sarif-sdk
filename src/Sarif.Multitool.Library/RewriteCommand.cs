@@ -44,7 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 string inputVersion = SniffVersion(options.InputFilePath);
                 if (!inputVersion.Equals(SarifUtilities.StableSarifVersion))
-                {   
+                {
                     actualLog = TransformFileToVersionTwo(options.InputFilePath, inputVersion);
                 }
                 else
