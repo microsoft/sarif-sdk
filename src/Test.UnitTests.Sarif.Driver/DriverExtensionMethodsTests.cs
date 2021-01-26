@@ -78,8 +78,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     {
                         Inline = true,
                         Force = false,
-                        OutputFilePath = null,
-                        SarifOutputVersion = SarifVersion.Current
+                        OutputFilePath = null
                     },
                     ExpectedResult = true,
                     ExpectedForce = true
@@ -92,8 +91,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     {
                         Inline = true,
                         Force = true,
-                        OutputFilePath = null,
-                        SarifOutputVersion = SarifVersion.Current
+                        OutputFilePath = null
                     },
                     ExpectedResult = true,
                     ExpectedForce = true
@@ -106,8 +104,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     {
                         Inline = false,
                         Force = true,
-                        OutputFilePath = "output.sarif",
-                        SarifOutputVersion = SarifVersion.Current
+                        OutputFilePath = "output.sarif"
                     },
                     ExpectedResult = true,
                     ExpectedForce = true
@@ -120,8 +117,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     {
                         Inline = false,
                         Force = false,
-                        OutputFilePath = "output.sarif",
-                        SarifOutputVersion = SarifVersion.Current
+                        OutputFilePath = "output.sarif"
                     },
                     ExpectedResult = true,
                     ExpectedForce = false
@@ -134,8 +130,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     {
                         Inline = false,
                         Force = false,
-                        OutputFilePath = null,
-                        SarifOutputVersion = SarifVersion.Current
+                        OutputFilePath = null
                     },
                     ExpectedResult = true
                 },
@@ -147,8 +142,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     {
                         Inline = true,
                         Force = false,
-                        OutputFilePath = "output.sarif",
-                        SarifOutputVersion = SarifVersion.Current
+                        OutputFilePath = "output.sarif"
                     },
                     ExpectedResult = false
                 }
@@ -293,8 +287,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     Options = new SingleFileOptionsBase
                     {
                         PrettyPrint = true,
-                        Minify = false,
-                        SarifOutputVersion = SarifVersion.Current
+                        Minify = false
                     },
                     ExpectedResult = true,
                     ExpectedPrettyPrint = true
@@ -306,8 +299,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     Options = new SingleFileOptionsBase
                     {
                         PrettyPrint = false,
-                        Minify = true,
-                        SarifOutputVersion = SarifVersion.Current
+                        Minify = true
                     },
                     ExpectedResult = true,
                     ExpectedPrettyPrint = false
@@ -319,8 +311,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     Options = new SingleFileOptionsBase
                     {
                         PrettyPrint = false,
-                        Minify = false,
-                        SarifOutputVersion = SarifVersion.Current
+                        Minify = false
                     },
                     ExpectedResult = true,
                     ExpectedPrettyPrint = true
@@ -332,8 +323,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     Options = new SingleFileOptionsBase
                     {
                         PrettyPrint = true,
-                        Minify = true,
-                        SarifOutputVersion = SarifVersion.Current
+                        Minify = true
                     },
                     ExpectedResult = false,
                     ExpectedPrettyPrint = true

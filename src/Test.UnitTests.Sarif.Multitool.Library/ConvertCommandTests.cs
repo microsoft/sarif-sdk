@@ -30,8 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 ToolFormat = ToolFormat.SemmleQL,
                 InputFilePath = sampleFilePath,
                 OutputFilePath = outputFilePath,
-                Force = true,
-                SarifOutputVersion = SarifVersion.Current
+                Force = true
             };
 
             // Verify command returned success
