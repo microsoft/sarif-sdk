@@ -18,6 +18,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         protected IFileSystem FileSystem { get; set; }
 
+        // TODO:  Removing this constructor broke the one of AbsoluteUriCommand entirely but all unit tests were passing
+        // Add unit tests that will break when this constructor is deleted or malfunctioning.
+        public CommandBase(IFileSystem fileSystem = null)
+        {
+            this.FileSystem = fileSystem ?? Sarif.FileSystem.Instance;
+        }
+
         //  TODO:  What's the point of having a bunch of static methods in an abstract class?
         //  We even have a static class, "CommandUtilities" which seems like the more appropriate 
         //  place for these to go.
