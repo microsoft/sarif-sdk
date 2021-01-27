@@ -36,6 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 RewriteOptions,
                 TransformOptions,
                 ValidateOptions>(args)
+                .WithParsed<ValidateOptions>(x => { new OptionsInterpretter().ConsumeEnvVarsAndInterpretOptions(x); })
                 .MapResult(
                 (AbsoluteUriOptions absoluteUriOptions) => new AbsoluteUriCommand().Run(absoluteUriOptions),
 #if DEBUG

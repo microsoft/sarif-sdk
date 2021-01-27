@@ -272,4 +272,7 @@ You can also refer to properties in the result's property bag with 'properties.&
   <data name="ComputeFileHashes_ReplaceInsertHashes" xml:space="preserve">
     <value>--insert Hashes</value>
   </data>
+  <data name="EnvironmentVariable_Additive_Format" xml:space="preserve">
+    <value>SARIF_{0}_ADDITION</value>
+  </data>
 </root>
