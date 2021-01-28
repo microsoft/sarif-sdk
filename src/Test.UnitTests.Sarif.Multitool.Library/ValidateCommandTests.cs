@@ -43,7 +43,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             mockFileSystem.Setup(x => x.DirectoryExists(LogFileDirectoryWithSpace)).Returns(true);
             mockFileSystem.Setup(x => x.DirectoryEnumerateFiles(It.IsAny<string>())).Returns(new string[0]);
             mockFileSystem.Setup(x => x.DirectoryGetFiles(LogFileDirectoryWithSpace, LogFileName)).Returns(new string[] { logFilePath });
-            mockFileSystem.Setup(x => x.FileReadAllText(logFilePath)).Returns(TransformCommandTests.MinimalCurrentV2Text);
+            mockFileSystem.Setup(x => x.FileReadAllText(logFilePath)).Returns(RewriteCommandTests.MinimalCurrentV2Text);
             mockFileSystem.Setup(x => x.FileReadAllText(SchemaFilePath)).Returns(SchemaFileContents);
 
             var validateCommand = new ValidateCommand(mockFileSystem.Object);
@@ -71,7 +71,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             mockFileSystem.Setup(x => x.DirectoryExists(LogFileDirectory)).Returns(true);
             mockFileSystem.Setup(x => x.DirectoryGetDirectories(It.IsAny<string>())).Returns(new string[0]);
             mockFileSystem.Setup(x => x.DirectoryGetFiles(LogFileDirectory, LogFileName)).Returns(new string[] { logFilePath });
-            mockFileSystem.Setup(x => x.FileReadAllText(logFilePath)).Returns(TransformCommandTests.MinimalCurrentV2Text);
+            mockFileSystem.Setup(x => x.FileReadAllText(logFilePath)).Returns(RewriteCommandTests.MinimalCurrentV2Text);
             mockFileSystem.Setup(x => x.FileReadAllText(SchemaFilePath)).Returns(SchemaFileContents);
 
             var validateCommand = new ValidateCommand(mockFileSystem.Object);
