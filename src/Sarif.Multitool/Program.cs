@@ -17,6 +17,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         /// <returns>0 on success; nonzero on failure.</returns>
         public static int Main(string[] args)
         {
+            OptionsInterpretter optionsInterpretter = new OptionsInterpretter();
+
             return Parser.Default.ParseArguments<
                 // Keep this in alphabetical order
                 AbsoluteUriOptions,
@@ -36,7 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 RewriteOptions,
                 TransformOptions,
                 ValidateOptions>(args)
-                .WithParsed<ValidateOptions>(x => { new OptionsInterpretter().ConsumeEnvVarsAndInterpretOptions(x); })
+                .WithParsed<ValidateOptions>(x => { optionsInterpretter.ConsumeEnvVarsAndInterpretOptions(x); })
                 .MapResult(
                 (AbsoluteUriOptions absoluteUriOptions) => new AbsoluteUriCommand().Run(absoluteUriOptions),
 #if DEBUG
