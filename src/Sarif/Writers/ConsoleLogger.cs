@@ -11,6 +11,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
     public class ConsoleLogger : BaseLogger, IAnalysisLogger
     {
+        //  TODO:  We directly instantiate this logger in two classes, creating 
+        //  unamanged dependencies.  Fix this pattern with dependency injection or a factory.
+        //  #2272 https://github.com/microsoft/sarif-sdk/issues/2272
         public ConsoleLogger(bool quietConsole, string toolName, IEnumerable<FailureLevel> levels = null, IEnumerable<ResultKind> kinds = null) : base(levels, kinds)
         {
             _quietConsole = quietConsole;

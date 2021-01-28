@@ -34,12 +34,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         /// </returns>
         public static bool Validate(this SingleFileOptionsBase options)
         {
-            bool valid = true;
+            if (options.SarifOutputVersion == SarifVersion.Unknown)
+            {
+                //  Parsing the output version failed and the the enum evaluated to 0.
+                Console.WriteLine(DriverResources.ErrorInvalidTransformTargetVersion);
+                return false;
+            }
 
-            valid &= options.ValidateOutputLocationOptions();
-            valid &= options.ValidateOutputFormatOptions();
+            if (!options.ValidateOutputLocationOptions())
+            {
+                return false;
+            }
 
-            return valid;
+            if (!options.ValidateOutputFormatOptions())
+            {
+                return false;
+            }
+
+            return true;
         }
 
         private static bool ValidateOutputLocationOptions(this SingleFileOptionsBase options)
@@ -139,6 +151,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             bool valid = true;
 
             //  TODO:  Is it correct to modify options in a "validate" method?
+            //  #2267 https://github.com/microsoft/sarif-sdk/issues/2267
             if (options.Inline)
             {
                 options.Force = true;
