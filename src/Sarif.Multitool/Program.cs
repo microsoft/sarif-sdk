@@ -53,7 +53,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 (QueryOptions queryOptions) => new QueryCommand().Run(queryOptions),
                 (RebaseUriOptions rebaseOptions) => new RebaseUriCommand().Run(rebaseOptions),
                 (RewriteOptions rewriteOptions) => new RewriteCommand().Run(rewriteOptions),
-                (TransformOptions transformOptions) => new TransformCommand().Run(transformOptions),
                 (ValidateOptions validateOptions) => new ValidateCommand().Run(validateOptions),
                  _ => HandleParseError(args));
         }

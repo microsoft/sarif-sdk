@@ -1,9 +1,20 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
+
 using FluentAssertions;
 
+using Microsoft.CodeAnalysis.Sarif.Driver;
+using Microsoft.CodeAnalysis.Sarif.Readers;
+using Microsoft.CodeAnalysis.Sarif.VersionOne;
+
 using Moq;
+
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 using Xunit;
 
@@ -11,28 +22,201 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public class RewriteCommandTests
     {
-        [Fact]
-        public void RewriteCommand_WhenOutputFormatOptionsAreInconsistent_Fails()
+        public const string MinimalPrereleaseV2Text =
+    @"{
+  ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
+  ""version"": ""2.0.0-csd.2.beta.2018-10-10"",
+  ""runs"": [
+    {
+      ""tool"": {
+        ""name"": ""TestTool""
+      },
+      ""results"": []
+    }
+  ]
+}";
+
+        public static readonly SarifLog MinimalCurrentV2 = new SarifLog
         {
-            const string InputFilePath = "AnyFile.sarif";
+            Runs = new List<Run>
+            {
+                new Run
+                {
+                    Tool = new Tool
+                    {
+                        Driver = new ToolComponent
+                        {
+                            Name = "TestTool"
+                        }
+                    },
+                    Results = new List<Result>()
+                }
+            }
+        };
 
-            var mockFileSystem = new Mock<IFileSystem>();
-            mockFileSystem.Setup(_ => _.FileExists(InputFilePath)).Returns(true);
+        public static readonly string MinimalCurrentV2Text = JsonConvert.SerializeObject(MinimalCurrentV2);
 
+        // A minimal valid log file. We add a single result to ensure
+        // there's enough v1 contents so that we trigger any bad code
+        // paths that assume the file contents is v2.
+        public const string MinimalV1Text =
+@"{
+  ""version"": ""1.0.0"",
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
+  ""runs"": [
+    {
+      ""tool"": {
+        ""name"": ""TestTool""
+      },
+      ""results"": [{ ""ruleId"" : ""JS1001"", ""message"" : ""My rule message."" } ]
+    }
+  ]
+}";
+
+        [Fact]
+        public void TransformCommand_TransformsMinimalCurrentV2FileToCurrentV2()
+        {
+            // A minimal valid pre-release v2 log file.
+            string logFileContents = MinimalCurrentV2Text;
+
+            RunTransformationToV2Test(logFileContents);
+        }
+
+        [Fact]
+        public void TransformCommand_TransformsMinimalPrereleaseV2FileToCurrentV2()
+        {
+            // A minimal valid pre-release v2 log file.
+            string logFileContents = MinimalPrereleaseV2Text;
+
+            // First, ensure that our test sample\ schema uri and SARIF version differs 
+            // from current. Otherwise we won't realize any value from this test
+
+            PrereleaseSarifLogVersionDiffersFromCurrent(MinimalPrereleaseV2Text);
+
+            RunTransformationToV2Test(logFileContents);
+        }
+
+        [Fact]
+        public void TransformCommand_TransformsMinimalV1FileToCurrentV2()
+        {
+            RunTransformationToV2Test(MinimalV1Text);
+        }
+
+        [Fact]
+        public void TransformCommand_TransformsMinimalCurrentV2FileToV1()
+        {
+            // A minimal valid pre-release v2 log file.
+            string logFileContents = MinimalCurrentV2Text;
+
+            RunTransformationToV1Test(logFileContents);
+        }
+
+        [Fact]
+        public void TransformCommand_TransformsMinimalPrereleaseV2FileToV1()
+        {
+            // A minimal valid pre-release v2 log file.
+            string logFileContents = MinimalPrereleaseV2Text;
+
+            PrereleaseSarifLogVersionDiffersFromCurrent(MinimalPrereleaseV2Text);
+
+            RunTransformationToV1Test(logFileContents);
+        }
+
+        [Fact]
+        public void TransformCommand_TransformsMinimalV1FileToV1()
+        {
+            RunTransformationToV1Test(MinimalV1Text);
+        }
+
+        [Fact]
+        public void TransformCommand_WhenOutputFormatOptionsAreInconsistent_Fails()
+        {
             var options = new RewriteOptions
             {
-                InputFilePath = InputFilePath,
-                Inline = true,
                 PrettyPrint = true,
                 Minify = true
             };
 
-            int returnCode = new RewriteCommand(mockFileSystem.Object).Run(options);
-
+            (string _, int returnCode) = RunTransformationCore(MinimalV1Text, SarifVersion.Current, options);
             returnCode.Should().Be(1);
+        }
 
-            mockFileSystem.Verify(_ => _.FileExists(InputFilePath), Times.Once);
-            mockFileSystem.VerifyNoOtherCalls();
+        private static void RunTransformationToV2Test(string logFileContents)
+        {
+            (string transformedContents, int returnCode) = RunTransformationCore(logFileContents, SarifVersion.Current);
+            returnCode.Should().Be(0);
+
+            // Finally, ensure that transformation corrected schema uri and SARIF version.
+            SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(transformedContents);
+            sarifLog.SchemaUri.Should().Be(SarifUtilities.SarifSchemaUri);
+            sarifLog.Version.Should().Be(SarifVersion.Current);
+        }
+
+        private void PrereleaseSarifLogVersionDiffersFromCurrent(string prereleaseV2Text)
+        {
+            JObject sarifLog = JObject.Parse(prereleaseV2Text);
+
+            ((string)sarifLog["$schema"]).Should().NotBe(SarifUtilities.SarifSchemaUri);
+            ((string)sarifLog["version"]).Should().NotBe(SarifUtilities.StableSarifVersion);
+        }
+
+        private void RunTransformationToV1Test(string logFileContents)
+        {
+            (string transformedContents, int returnCode) = RunTransformationCore(logFileContents, SarifVersion.OneZeroZero);
+            returnCode.Should().Be(0);
+
+            // Finally, ensure that transformation corrected schema uri and SARIF version.
+            var settings = new JsonSerializerSettings { ContractResolver = SarifContractResolverVersionOne.Instance };
+            SarifLogVersionOne v1SarifLog = JsonConvert.DeserializeObject<SarifLogVersionOne>(transformedContents, settings);
+            v1SarifLog.SchemaUri.Should().Be(SarifVersion.OneZeroZero.ConvertToSchemaUri());
+            v1SarifLog.Version.Should().Be(SarifVersionVersionOne.OneZeroZero);
+        }
+
+        private static (string transformedContents, int returnCode) RunTransformationCore(
+            string logFileContents,
+            SarifVersion targetVersion,
+            RewriteOptions options = null)
+        {
+            const string LogFilePath = @"c:\logs\mylog.sarif";
+
+            options ??= new RewriteOptions
+            {
+                Inline = true,
+                SarifOutputVersion = targetVersion,
+                InputFilePath = LogFilePath
+            };
+
+            if (options.SarifOutputVersion == SarifVersion.Unknown)
+            {
+                options.SarifOutputVersion = targetVersion;
+            }
+
+            if (options.InputFilePath == null)
+            {
+                options.Inline = true;
+                options.InputFilePath = LogFilePath;
+            }
+
+            var transformedContents = new StringBuilder();
+            transformedContents.Append(logFileContents);
+
+            var mockFileSystem = new Mock<IFileSystem>();
+            //  This only works because we're testing "Inline"
+            //  TODO: Verify a separate OutputFilePath works as expected
+            mockFileSystem.Setup(x => x.FileReadAllText(options.InputFilePath)).Returns(transformedContents.ToString());
+            mockFileSystem.Setup(x => x.FileOpenRead(options.InputFilePath)).Returns(() => new MemoryStream(Encoding.UTF8.GetBytes(transformedContents.ToString())));
+            mockFileSystem.Setup(x => x.FileCreate(options.InputFilePath)).Returns(() => new MemoryStreamToStringBuilder(transformedContents));
+            mockFileSystem.Setup(x => x.FileWriteAllText(options.InputFilePath, It.IsAny<string>())).Callback<string, string>((path, contents) =>
+            {
+                transformedContents.Clear();
+                transformedContents.Append(contents);
+            });
+
+            var rewriteCommand = new RewriteCommand(mockFileSystem.Object);
+
+            int returnCode = rewriteCommand.Run(options);
+
+            return (transformedContents.ToString(), returnCode);
         }
     }
 }

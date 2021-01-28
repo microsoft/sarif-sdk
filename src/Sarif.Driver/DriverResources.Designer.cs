@@ -61,6 +61,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Target version must be 1 or 2.
+        /// </summary>
+        internal static string ErrorInvalidTransformTargetVersion {
+            get {
+                return ResourceManager.GetString("ErrorInvalidTransformTargetVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Exactly one of the &apos;{0}&apos; and &apos;{1}&apos; options must be present..
         /// </summary>
         internal static string ExactlyOneOfTwoOptionsIsRequired {

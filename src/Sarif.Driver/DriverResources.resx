@@ -184,4 +184,7 @@
   <data name="OptionValueMustBeNonNegative" xml:space="preserve">
     <value>The value of the '{0}' option must be greater than or equal to zero.</value>
   </data>
+  <data name="ErrorInvalidTransformTargetVersion" xml:space="preserve">
+    <value>Target version must be 1 or 2</value>
+  </data>
 </root>
