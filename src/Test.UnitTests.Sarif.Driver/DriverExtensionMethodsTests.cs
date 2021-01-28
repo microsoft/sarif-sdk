@@ -104,7 +104,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     {
                         Inline = false,
                         Force = true,
-                        OutputFilePath = "output.sarif",
+                        OutputFilePath = "output.sarif"
                     },
                     ExpectedResult = true,
                     ExpectedForce = true
@@ -117,7 +117,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     {
                         Inline = false,
                         Force = false,
-                        OutputFilePath = "output.sarif",
+                        OutputFilePath = "output.sarif"
                     },
                     ExpectedResult = true,
                     ExpectedForce = false

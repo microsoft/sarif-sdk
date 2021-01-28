@@ -46,6 +46,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 SarifLogVersionOne.Runs.Add(CreateRunVersionOne(v2Run));
             }
 
+            //  TODO: We always return null here.  Is there a pattern that allows us to change the method signature to "void" ?
+            //  #2266  https://github.com/microsoft/sarif-sdk/issues/2266
             return null;
         }
 
