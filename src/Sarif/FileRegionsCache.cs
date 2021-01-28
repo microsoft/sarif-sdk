@@ -84,6 +84,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                 populateSnippet);
         }
 
+        /// <summary>
+        /// Clear current cache.
+        /// </summary>
+        public void ClearCache()
+        {
+            this._cache.Clear();
+        }
+
         private Region PopulateTextRegionProperties(NewLineIndex lineIndex, Region inputRegion, string fileText, bool populateSnippet)
         {
             // A GENERAL NOTE ON THE PROPERTY POPULATION PROCESS:

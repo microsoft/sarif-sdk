@@ -105,5 +105,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             return _cache.ContainsKey(key);
         }
+
+        /// <summary>
+        /// Clear current cache.
+        /// </summary>
+        public void Clear()
+        {
+            this._cache.Clear();
+            this._keysInUseOrder.Clear();
+        }
     }
 }
