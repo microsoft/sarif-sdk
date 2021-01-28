@@ -26,9 +26,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public void ConsumeEnvVarsAndInterpretOptions(CommonOptionsBase commonOptionsBase)
         {
-            IEnumerable<OptionallyEmittedData> toInsertFromEnvVar = 
+            IEnumerable<OptionallyEmittedData> toInsertFromEnvVar =
                 GetOptionEnumFromEnvVar<OptionallyEmittedData>(nameof(commonOptionsBase.DataToInsert));
-            IEnumerable<OptionallyEmittedData> toRemoveFromEnvVar = 
+            IEnumerable<OptionallyEmittedData> toRemoveFromEnvVar =
                 GetOptionEnumFromEnvVar<OptionallyEmittedData>(nameof(commonOptionsBase.DataToRemove));
 
             commonOptionsBase.DataToInsert = NullCheckAndDistinctUnionLists(commonOptionsBase.DataToInsert, toInsertFromEnvVar);
