@@ -12,19 +12,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     public class OptionsInterpretter
     {
         //  Poor man's dependency injection
-        public OptionsInterpretter() : this (new EnvironmentVariableGetter())
+        public OptionsInterpretter() : this(new EnvironmentVariableGetter())
         {
 
         }
-        
+
         public OptionsInterpretter(IEnvironmentVariableGetter environmentVariableGetter)
         {
-            if (environmentVariableGetter == null)
-            {
-                throw new ArgumentException("Required parameter", nameof(environmentVariableGetter));
-            }
-
-            _environmentVariableGetter = environmentVariableGetter;
+            _environmentVariableGetter = environmentVariableGetter ?? throw new ArgumentNullException(nameof(environmentVariableGetter));
         }
 
         private readonly IEnvironmentVariableGetter _environmentVariableGetter;
@@ -32,17 +27,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public void ConsumeEnvVarsAndInterpretOptions(AnalyzeOptionsBase analyzeOptionsBase)
         {
             //  Level and Kind are the only two properties we're reading from env variables for now.  See if they are populated.
-            IEnumerable<ResultKind> kindsFromEnv = getOptionEnumFromEnvVar<ResultKind>(nameof(analyzeOptionsBase.Kind));
-            IEnumerable<FailureLevel> levelsFromEnv = getOptionEnumFromEnvVar<FailureLevel>(nameof(analyzeOptionsBase.Level));
+            IEnumerable<ResultKind> kindsFromEnv = GetOptionEnumFromEnvVar<ResultKind>(nameof(analyzeOptionsBase.Kind));
+            IEnumerable<FailureLevel> levelsFromEnv = GetOptionEnumFromEnvVar<FailureLevel>(nameof(analyzeOptionsBase.Level));
 
             //  Union in C# is distinct
-            analyzeOptionsBase.Kind = analyzeOptionsBase.Kind.Union(kindsFromEnv);
-            analyzeOptionsBase.Level = analyzeOptionsBase.Level.Union(levelsFromEnv);
+            if (kindsFromEnv != null)
+            {
+                analyzeOptionsBase.Kind = analyzeOptionsBase?.Kind.Union(kindsFromEnv);
+            }
+
+            if (levelsFromEnv != null)
+            {
+                analyzeOptionsBase.Level = analyzeOptionsBase?.Level.Union(levelsFromEnv);
+            }
         }
 
-        private IEnumerable<T> getOptionEnumFromEnvVar<T>(string propertyName)
+        private IEnumerable<T> GetOptionEnumFromEnvVar<T>(string propertyName)
         {
-            return _environmentVariableGetter.GetEnvironmentVariable(FormEnvironmentVariableName(propertyName))?.Split(';')?.Select(x => Enum.Parse(typeof(T), x, ignoreCase: true))?.ToList()?.Cast<T>();
+            return _environmentVariableGetter
+                .GetEnvironmentVariable(FormEnvironmentVariableName(propertyName))?
+                .Split(';')?
+                .Select(x => Enum.Parse(typeof(T), x, ignoreCase: true))?
+                .ToList()?
+                .Cast<T>();
         }
 
         private static string FormEnvironmentVariableName(string propertyName)
