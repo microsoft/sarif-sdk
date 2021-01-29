@@ -1171,6 +1171,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                     if (_currentV2Run.LogicalLocations != null &&
                         location.LogicalLocation != null &&
+                        location.LogicalLocation.Index != -1 &&
                         !string.IsNullOrWhiteSpace(_currentV2Run.LogicalLocations[location.LogicalLocation.Index].FullyQualifiedName))
                     {
                         stackFrame.FullyQualifiedLogicalName = _currentV2Run.LogicalLocations[location.LogicalLocation.Index].FullyQualifiedName;
