@@ -1,5 +1,5 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
-
+* FEATURE: kind, level, insert, and remove options can now be added to from environment variables. [#2273](https://github.com/microsoft/sarif-sdk/pull/2273)
 * BREAKING: Move `transform` functionality into `rewrite` and delete redundant `transform` command. [#2252](https://github.com/microsoft/sarif-sdk/pull/2252)
 
 ## **v2.4.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.4.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.4.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.4.0) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.4.0) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.4.0)
