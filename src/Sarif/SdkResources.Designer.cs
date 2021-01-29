@@ -106,6 +106,15 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SARIF_{0}_ADDITION.
+        /// </summary>
+        public static string EnvironmentVariable_Additive_Format {
+            get {
+                return ResourceManager.GetString("EnvironmentVariable_Additive_Format", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}{1}: error {2}: {3}.
         /// </summary>
         public static string ERR1000_ParseError {
