@@ -78,10 +78,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             ConsumeEnvVarsAndInterpretOptions((MultipleFilesOptionsBase)absoluteUriOptions);
         }
 
+#if DEBUG
         public void ConsumeEnvVarsAndInterpretOptions(AnalyzeTestOptions analyzeTestOptions)
         {
             ConsumeEnvVarsAndInterpretOptions((AnalyzeOptionsBase)analyzeTestOptions);
         }
+#endif
 
         public void ConsumeEnvVarsAndInterpretOptions(ApplyPolicyOptions applyPolicyOptions)
         {
@@ -122,7 +124,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public void ConsumeEnvVarsAndInterpretOptions(PageOptions pageOptions)
 #pragma warning restore IDE0060
         {
-            
+
         }
 
 #pragma warning disable IDE0060 // Ignore unused parameter for now

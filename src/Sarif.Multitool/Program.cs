@@ -38,7 +38,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 RewriteOptions,
                 ValidateOptions>(args)
                 .WithParsed<AbsoluteUriOptions>(x => { optionsInterpretter.ConsumeEnvVarsAndInterpretOptions(x); })
+#if DEBUG
                 .WithParsed<AnalyzeTestOptions>(x => { optionsInterpretter.ConsumeEnvVarsAndInterpretOptions(x); })
+#endif
                 .WithParsed<ApplyPolicyOptions>(x => { optionsInterpretter.ConsumeEnvVarsAndInterpretOptions(x); })
                 .WithParsed<ConvertOptions>(x => { optionsInterpretter.ConsumeEnvVarsAndInterpretOptions(x); })
                 .WithParsed<ExportValidationConfigurationOptions>(x => { optionsInterpretter.ConsumeEnvVarsAndInterpretOptions(x); })
