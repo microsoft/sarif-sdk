@@ -31,7 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             OptionsInterpretter optionsInterpretter = new OptionsInterpretter(mockEnvironmentVariableGetter.Object);
 
-            List<AnalyzeOptionsBase> beforeAndAfter = new List<AnalyzeOptionsBase>(2);
+            List<ValidateOptions> beforeAndAfter = new List<ValidateOptions>(2);
 
             for (int i = 0; i < beforeAndAfter.Capacity; i++)
             {
@@ -65,7 +65,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             OptionsInterpretter optionsInterpretter = new OptionsInterpretter(mockEnvironmentVariableGetter.Object);
 
-            AnalyzeOptionsBase analyzeOptionsBase = new ValidateOptions
+            ValidateOptions analyzeOptionsBase = new ValidateOptions
             {
                 DataToInsert = new List<OptionallyEmittedData> { OptionallyEmittedData.Hashes, OptionallyEmittedData.EnvironmentVariables },
                 DataToRemove = new List<OptionallyEmittedData> { OptionallyEmittedData.VersionControlDetails },

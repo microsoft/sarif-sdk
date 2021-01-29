@@ -24,7 +24,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         private readonly IEnvironmentVariableGetter _environmentVariableGetter;
 
-        public void ConsumeEnvVarsAndInterpretOptions(CommonOptionsBase commonOptionsBase)
+        //  Protected methods for abstract classes and public methods for concrete classes to ensure proper roll up and no 
+        //  redundant execution.  Only leaves of the class diagram should have public methods and be called outside this class
+        protected void ConsumeEnvVarsAndInterpretOptions(CommonOptionsBase commonOptionsBase)
         {
             IEnumerable<OptionallyEmittedData> toInsertFromEnvVar =
                 GetOptionEnumFromEnvVar<OptionallyEmittedData>(nameof(commonOptionsBase.DataToInsert));
@@ -35,7 +37,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             commonOptionsBase.DataToRemove = NullCheckAndDistinctUnionLists(commonOptionsBase.DataToRemove, toRemoveFromEnvVar);
         }
 
-        public void ConsumeEnvVarsAndInterpretOptions(AnalyzeOptionsBase analyzeOptionsBase)
+#pragma warning disable IDE0060 // Ignore unused parameter for now
+        protected void ConsumeEnvVarsAndInterpretOptions(ExportConfigurationOptions exportConfigurationOptions)
+#pragma warning restore IDE0060
+        {
+
+        }
+
+#pragma warning disable IDE0060 // Ignore unused parameter for now
+        protected void ConsumeEnvVarsAndInterpretOptions(ExportRulesMetadataOptions exportConfigurationOptions)
+#pragma warning restore IDE0060
+        {
+
+        }
+
+        protected void ConsumeEnvVarsAndInterpretOptions(AnalyzeOptionsBase analyzeOptionsBase)
         {
             ConsumeEnvVarsAndInterpretOptions((CommonOptionsBase)analyzeOptionsBase);
 
@@ -45,6 +61,90 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             analyzeOptionsBase.Kind = NullCheckAndDistinctUnionLists(analyzeOptionsBase.Kind, kindsFromEnv);
             analyzeOptionsBase.Level = NullCheckAndDistinctUnionLists(analyzeOptionsBase.Level, levelsFromEnv);
+        }
+
+        protected void ConsumeEnvVarsAndInterpretOptions(MultipleFilesOptionsBase multipleFilesOptionsBase)
+        {
+            ConsumeEnvVarsAndInterpretOptions((CommonOptionsBase)multipleFilesOptionsBase);
+        }
+
+        protected void ConsumeEnvVarsAndInterpretOptions(SingleFileOptionsBase singleFileOptionsBase)
+        {
+            ConsumeEnvVarsAndInterpretOptions((CommonOptionsBase)singleFileOptionsBase);
+        }
+
+        public void ConsumeEnvVarsAndInterpretOptions(AbsoluteUriOptions absoluteUriOptions)
+        {
+            ConsumeEnvVarsAndInterpretOptions((MultipleFilesOptionsBase)absoluteUriOptions);
+        }
+
+        public void ConsumeEnvVarsAndInterpretOptions(AnalyzeTestOptions analyzeTestOptions)
+        {
+            ConsumeEnvVarsAndInterpretOptions((AnalyzeOptionsBase)analyzeTestOptions);
+        }
+
+        public void ConsumeEnvVarsAndInterpretOptions(ApplyPolicyOptions applyPolicyOptions)
+        {
+            ConsumeEnvVarsAndInterpretOptions((SingleFileOptionsBase)applyPolicyOptions);
+        }
+
+        public void ConsumeEnvVarsAndInterpretOptions(ConvertOptions convertOptions)
+        {
+            ConsumeEnvVarsAndInterpretOptions((SingleFileOptionsBase)convertOptions);
+        }
+
+        public void ConsumeEnvVarsAndInterpretOptions(ExportValidationConfigurationOptions exportValidationConfigurationOptions)
+        {
+            ConsumeEnvVarsAndInterpretOptions((ExportConfigurationOptions)exportValidationConfigurationOptions);
+        }
+
+        public void ConsumeEnvVarsAndInterpretOptions(ExportValidationRulesMetadataOptions exportValidationRulesMetadataOptions)
+        {
+            ConsumeEnvVarsAndInterpretOptions((ExportRulesMetadataOptions)exportValidationRulesMetadataOptions);
+        }
+
+        public void ConsumeEnvVarsAndInterpretOptions(FileWorkItemsOptions fileWorkItemsOptions)
+        {
+            ConsumeEnvVarsAndInterpretOptions((SingleFileOptionsBase)fileWorkItemsOptions);
+        }
+
+        public void ConsumeEnvVarsAndInterpretOptions(ResultMatchingOptions resultMatchingOptions)
+        {
+            ConsumeEnvVarsAndInterpretOptions((CommonOptionsBase)resultMatchingOptions);
+        }
+
+        public void ConsumeEnvVarsAndInterpretOptions(MergeOptions mergeOptions)
+        {
+            ConsumeEnvVarsAndInterpretOptions((MultipleFilesOptionsBase)mergeOptions);
+        }
+
+#pragma warning disable IDE0060 // Ignore unused parameter for now
+        public void ConsumeEnvVarsAndInterpretOptions(PageOptions pageOptions)
+#pragma warning restore IDE0060
+        {
+            
+        }
+
+#pragma warning disable IDE0060 // Ignore unused parameter for now
+        public void ConsumeEnvVarsAndInterpretOptions(QueryOptions queryOptions)
+#pragma warning restore IDE0060
+        {
+
+        }
+
+        public void ConsumeEnvVarsAndInterpretOptions(RebaseUriOptions rebaseUriOptions)
+        {
+            ConsumeEnvVarsAndInterpretOptions((MultipleFilesOptionsBase)rebaseUriOptions);
+        }
+
+        public void ConsumeEnvVarsAndInterpretOptions(RewriteOptions rewriteOptions)
+        {
+            ConsumeEnvVarsAndInterpretOptions((SingleFileOptionsBase)rewriteOptions);
+        }
+
+        public void ConsumeEnvVarsAndInterpretOptions(ValidateOptions validateOptions)
+        {
+            ConsumeEnvVarsAndInterpretOptions((AnalyzeOptionsBase)validateOptions);
         }
 
         private static IEnumerable<T> NullCheckAndDistinctUnionLists<T>(IEnumerable<T> firstList, IEnumerable<T> secondList)

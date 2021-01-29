@@ -36,8 +36,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 QueryOptions,
                 RebaseUriOptions,
                 RewriteOptions,
-                TransformOptions,
                 ValidateOptions>(args)
+                .WithParsed<AbsoluteUriOptions>(x => { optionsInterpretter.ConsumeEnvVarsAndInterpretOptions(x); })
+                .WithParsed<AnalyzeTestOptions>(x => { optionsInterpretter.ConsumeEnvVarsAndInterpretOptions(x); })
+                .WithParsed<ApplyPolicyOptions>(x => { optionsInterpretter.ConsumeEnvVarsAndInterpretOptions(x); })
+                .WithParsed<ConvertOptions>(x => { optionsInterpretter.ConsumeEnvVarsAndInterpretOptions(x); })
+                .WithParsed<ExportValidationConfigurationOptions>(x => { optionsInterpretter.ConsumeEnvVarsAndInterpretOptions(x); })
+                .WithParsed<ExportValidationRulesMetadataOptions>(x => { optionsInterpretter.ConsumeEnvVarsAndInterpretOptions(x); })
+                .WithParsed<FileWorkItemsOptions>(x => { optionsInterpretter.ConsumeEnvVarsAndInterpretOptions(x); })
+                .WithParsed<ResultMatchingOptions>(x => { optionsInterpretter.ConsumeEnvVarsAndInterpretOptions(x); })
+                .WithParsed<MergeOptions>(x => { optionsInterpretter.ConsumeEnvVarsAndInterpretOptions(x); })
+                .WithParsed<PageOptions>(x => { optionsInterpretter.ConsumeEnvVarsAndInterpretOptions(x); })
+                .WithParsed<QueryOptions>(x => { optionsInterpretter.ConsumeEnvVarsAndInterpretOptions(x); })
+                .WithParsed<RebaseUriOptions>(x => { optionsInterpretter.ConsumeEnvVarsAndInterpretOptions(x); })
+                .WithParsed<RewriteOptions>(x => { optionsInterpretter.ConsumeEnvVarsAndInterpretOptions(x); })
                 .WithParsed<ValidateOptions>(x => { optionsInterpretter.ConsumeEnvVarsAndInterpretOptions(x); })
                 .MapResult(
                 (AbsoluteUriOptions absoluteUriOptions) => new AbsoluteUriCommand().Run(absoluteUriOptions),
