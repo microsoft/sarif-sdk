@@ -40,6 +40,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             RunTest("NoInputFiles.sarif");
         }
 
+        [Fact]
+        public void MergeCommand_WhenThereAreDuplicatedResults_ProducesNonDuplicatedResults()
+        {
+            RunTest("DuplicatedResults.sarif");
+        }
+
         protected override string ConstructTestOutputFromInputResource(string inputResourceName, object parameter)
         {
             const string InputFolderPath = @"C:\input";
@@ -49,15 +55,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             string outputFilePath = Path.Combine(OutputFolderPath, outputFileName);
 
             var mockFileSystem = new Mock<IFileSystem>();
-
-            // We mock the file system to fake out the read operations.
-            mockFileSystem.Setup(x => x.FileExists(outputFilePath)).Returns(false);
-            mockFileSystem.Setup(x => x.DirectoryExists(InputFolderPath)).Returns(true);
-            mockFileSystem.Setup(x => x.DirectoryEnumerateFiles(InputFolderPath, inputResourceName, SearchOption.TopDirectoryOnly)).Returns(new string[0]); // <= The hard-coded return value in question.
-
-            // But we really do want to create the output file, so tell the mock to execute the actual write operations.
-            mockFileSystem.Setup(x => x.DirectoryCreateDirectory(OutputFolderPath)).Returns((string path) => { return Directory.CreateDirectory(path); });
-            mockFileSystem.Setup(x => x.FileCreate(outputFilePath)).Returns((string path) => { return File.Create(path); });
+            PrepareFileSystemMock(inputResourceName, InputFolderPath, outputFilePath, mockFileSystem);
 
             IFileSystem fileSystem = mockFileSystem.Object;
 
@@ -66,7 +64,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 PrettyPrint = true,
                 OutputDirectoryPath = OutputFolderPath,
                 TargetFileSpecifiers = new[] { targetFileSpecifier },
-                OutputFileName = outputFileName
+                OutputFileName = outputFileName,
+                Force = true
             };
 
             var mergeCommand = new MergeCommand(fileSystem);
@@ -75,6 +74,38 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             returnCode.Should().Be(0);
 
             return File.ReadAllText(outputFilePath);
+        }
+
+        private void PrepareFileSystemMock(string inputResourceName, string inputFolderPath, string outputFilePath, Mock<IFileSystem> mockFileSystem)
+        {
+            if (inputResourceName.EndsWith("NoInputFiles.sarif"))
+            {
+                // We mock the file system to fake out the read operations.
+                mockFileSystem.Setup(x => x.FileExists(outputFilePath)).Returns(false);
+                mockFileSystem.Setup(x => x.DirectoryExists(inputFolderPath)).Returns(true);
+                mockFileSystem.Setup(x => x.DirectoryEnumerateFiles(inputFolderPath, inputResourceName, SearchOption.TopDirectoryOnly)).Returns(new string[0]); // <= The hard-coded return value in question.
+
+                // But we really do want to create the output file, so tell the mock to execute the actual write operations.
+                mockFileSystem.Setup(x => x.DirectoryCreateDirectory(OutputFolderPath)).Returns((string path) => { return Directory.CreateDirectory(path); });
+                mockFileSystem.Setup(x => x.FileCreate(outputFilePath)).Returns((string path) => { return File.Create(path); });
+
+                return;
+            }
+
+            if (inputResourceName.EndsWith("DuplicatedResults.sarif"))
+            {
+                // We mock the file system to fake out the read operations.
+                mockFileSystem.Setup(x => x.FileExists(outputFilePath)).Returns(true);
+                mockFileSystem.Setup(x => x.DirectoryExists(inputFolderPath)).Returns(true);
+                mockFileSystem.Setup(x => x.DirectoryEnumerateFiles(inputFolderPath, inputResourceName, SearchOption.TopDirectoryOnly)).Returns(new string[] { inputResourceName });
+                mockFileSystem.Setup(x => x.FileReadAllText(inputResourceName)).Returns(GetResourceText(inputResourceName));
+
+                // But we really do want to create the output file, so tell the mock to execute the actual write operations.
+                mockFileSystem.Setup(x => x.DirectoryCreateDirectory(OutputFolderPath)).Returns((string path) => { return Directory.CreateDirectory(path); });
+                mockFileSystem.Setup(x => x.FileCreate(outputFilePath)).Returns((string path) => { return File.Create(path); });
+
+                return;
+            }
         }
     }
 }

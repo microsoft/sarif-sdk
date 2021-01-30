@@ -26,12 +26,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         private Channel<string> _logLoadChannel;
         private Channel<SarifLog> _mergeLogsChannel;
         private readonly Dictionary<string, Run> _ruleIdToRunsMap;
+        private readonly Dictionary<string, HashSet<Result>> _ruleIdToResultsMap;
         private readonly Dictionary<string, SarifLog> _idToSarifLogMap;
 
         public MergeCommand(IFileSystem fileSystem = null)
         {
             _fileSystem = fileSystem ?? Sarif.FileSystem.Instance;
             _ruleIdToRunsMap = new Dictionary<string, Run>();
+            _ruleIdToResultsMap = new Dictionary<string, HashSet<Result>>();
             _idToSarifLogMap = new Dictionary<string, SarifLog>();
         }
 
@@ -173,14 +175,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                                 if (!_ruleIdToRunsMap.TryGetValue(key, out Run splitRun))
                                 {
-                                    splitRun = _ruleIdToRunsMap[key] = new Run()
-                                    {
-                                        Tool = emptyRun.Tool,
-                                        Results = new List<Result>()
-                                    };
+                                    emptyRun.Results = new List<Result>();
+                                    splitRun = _ruleIdToRunsMap[key] = emptyRun;
                                     splitLog.Runs.Add(splitRun);
+                                    _ruleIdToResultsMap[key] = new HashSet<Result>(Result.ValueComparer);
                                 }
-                                splitRun.Results.Add(result);
+
+                                if (!_ruleIdToResultsMap[key].Contains(result))
+                                {
+                                    _ruleIdToResultsMap[key].Add(result);
+                                    splitRun.Results.Add(result);
+                                }
                             }
                         }
                     }
@@ -226,7 +231,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         private void ProcessInputSarifLog(string filePath)
         {
             SarifLog sarifLog = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(
-                File.ReadAllText(filePath),
+                _fileSystem.FileReadAllText(filePath),
                 formatting: Formatting.None,
                 out string sarifText);
 
