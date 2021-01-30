@@ -22,7 +22,9 @@
     <None Remove="TestData\ExportRuleDocumentationCommand\ExpectedOutputs\NonStandardMessageStringKey.md" />
     <None Remove="TestData\ExportRuleDocumentationCommand\ExpectedOutputs\StandardMessageStringKey.md" />
     <None Remove="TestData\ExportRuleDocumentationCommand\ExpectedOutputs\TextShortDescription.md" />
+    <None Remove="TestData\MergeCommand\ExpectedOutputs\DuplicatedResults.sarif" />
     <None Remove="TestData\MergeCommand\ExpectedOutputs\NoInputFiles.sarif" />
+    <None Remove="TestData\MergeCommand\Inputs\DuplicatedResults.sarif" />
     <None Remove="TestData\PageCommand\elfie-arriba - Copy.sarif" />
     <None Remove="TestData\PageCommand\elfie-arriba.sarif" />
     <None Remove="TestData\RebaseUriCommand\ExpectedOutputs\RunWithArtifacts.sarif" />
@@ -47,7 +49,9 @@
     <EmbeddedResource Include="TestData\ExportRuleDocumentationCommand\ExpectedOutputs\MarkdownShortDescription.md" />
     <EmbeddedResource Include="TestData\ExportRuleDocumentationCommand\ExpectedOutputs\MarkdownFullDescription.md" />
     <EmbeddedResource Include="TestData\ExportRuleDocumentationCommand\ExpectedOutputs\NoDescription.md" />
+    <EmbeddedResource Include="TestData\MergeCommand\ExpectedOutputs\DuplicatedResults.sarif" />
     <EmbeddedResource Include="TestData\MergeCommand\ExpectedOutputs\NoInputFiles.sarif" />
+    <EmbeddedResource Include="TestData\MergeCommand\Inputs\DuplicatedResults.sarif" />
     <EmbeddedResource Include="TestData\QueryCommand\elfie-arriba.CSCAN0020.sarif" />
     <EmbeddedResource Include="TestData\PageCommand\elfie-arriba.sarif" />
     <EmbeddedResource Include="TestData\RebaseUriCommand\ExpectedOutputs\RunWithArtifacts.sarif" />
