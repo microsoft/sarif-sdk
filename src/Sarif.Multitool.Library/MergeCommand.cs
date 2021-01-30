@@ -4,7 +4,9 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Channels;
 using System.Threading.Tasks;
@@ -45,6 +47,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 _options = mergeOptions;
                 string outputDirectory = mergeOptions.OutputDirectoryPath ?? Environment.CurrentDirectory;
                 string outputFilePath = Path.Combine(outputDirectory, GetOutputFileName(_options));
+
+                if (mergeOptions.Inline)
+                {
+                    Console.Error.WriteLine(
+                    string.Format(
+                        CultureInfo.CurrentCulture,
+                        SdkResources.WRN997_InvalidOption,
+                        nameof(mergeOptions.Inline)));
+                    return FAILURE;
+                }
 
                 if (_options.SplittingStrategy == 0)
                 {

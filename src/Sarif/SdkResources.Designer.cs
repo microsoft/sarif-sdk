@@ -486,6 +486,15 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Option &apos;{0}&apos; is invalid for this command..
+        /// </summary>
+        public static string WRN997_InvalidOption {
+            get {
+                return ResourceManager.GetString("WRN997_InvalidOption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &apos;{0}&apos; was not analyzed as it does not appear to be a valid file type for analysis..
         /// </summary>
         public static string WRN997_InvalidTarget {
