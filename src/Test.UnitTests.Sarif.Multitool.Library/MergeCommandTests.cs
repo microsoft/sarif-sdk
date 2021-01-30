@@ -41,8 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
-        [Trait(TestTraits.Bug, "https://github.com/microsoft/sarif-sdk/issues/1592")]
-        public void MergeCommand_WhenThereAreNoInputFiles_ProducesEmptyRunsArray2()
+        public void MergeCommand_WhenThereAreDuplicatedResults_ProducesNonDuplicatedResults()
         {
             RunTest("DuplicatedResults.sarif");
         }
