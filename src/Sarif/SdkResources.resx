@@ -275,4 +275,7 @@ You can also refer to properties in the result's property bag with 'properties.&
   <data name="EnvironmentVariable_Additive_Format" xml:space="preserve">
     <value>SARIF_{0}_ADDITION</value>
   </data>
+  <data name="WRN997_InvalidOption" xml:space="preserve">
+    <value>Option '{0}' is invalid for this command.</value>
+  </data>
 </root>
