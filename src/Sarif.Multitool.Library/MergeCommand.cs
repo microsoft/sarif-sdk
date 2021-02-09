@@ -161,6 +161,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                             }
                         }
 
+                        run.SetRunOnResults();
                         IList<Result> cachedResults = run.Results;
                         run.Results = null;
 
@@ -172,7 +173,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         {
                             foreach (Result result in run.Results)
                             {
-                                result.InlineArtifacts(run);
+                                result.InlineArtifacts();
                                 string key = _options.SplittingStrategy == SplittingStrategy.PerRule
                                     ? result.RuleId
                                     : string.Empty;
