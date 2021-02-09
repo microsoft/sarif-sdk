@@ -165,12 +165,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         run.Results = null;
 
                         Run emptyRun = run.DeepClone();
+                        emptyRun.Artifacts = null;
                         run.Results = cachedResults;
 
                         if (run.Results != null)
                         {
                             foreach (Result result in run.Results)
                             {
+                                result.InlineArtifacts(run);
                                 string key = _options.SplittingStrategy == SplittingStrategy.PerRule
                                     ? result.RuleId
                                     : string.Empty;
@@ -310,6 +312,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     internal class FixupVisitor : SarifRewritingVisitor
     {
         private Run _run;
+
         public override Run VisitRun(Run node)
         {
             _run = node;
