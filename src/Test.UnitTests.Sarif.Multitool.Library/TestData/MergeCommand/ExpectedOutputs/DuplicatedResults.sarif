@@ -8,7 +8,12 @@
           "name": "SARIF",
           "fullName": "SARIF",
           "version": "1.0.0.0",
-          "informationUri": "https://github.com/microsoft/sarif-sdk"
+          "informationUri": "https://github.com/microsoft/sarif-sdk",
+          "rules": [
+            {
+              "id": "C28750"
+            }
+          ]
         }
       },
       "invocations": [
@@ -22,9 +27,19 @@
           "uri": "file:///c:/basedir/"
         }
       },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "relative/folder/file.cpp",
+            "uriBaseId": "BASEDIR",
+            "index": 0
+          }
+        }
+      ],
       "results": [
         {
           "ruleId": "C28750",
+          "ruleIndex": 0,
           "message": {
             "text": "Banned usage of lstrlen and its variants:  lstrlenA is a banned API for improved error handling purposes."
           },
@@ -32,7 +47,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///c:/basedir/relative/folder/file.cpp"
+                  "index": 0
                 },
                 "region": {
                   "startLine": 16,
@@ -53,6 +68,7 @@
         },
         {
           "ruleId": "C28750",
+          "ruleIndex": 0,
           "message": {
             "text": "Banned usage of lstrlen and its variants:  lstrlenA is a banned API for improved error handling purposes."
           },
@@ -60,7 +76,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///c:/basedir/relative/folder/file.cpp"
+                  "index": 0
                 },
                 "region": {
                   "startLine": 17,
