@@ -123,39 +123,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             return true;
         }
 
-        public void InlineArtifacts(Run run = null)
-        {
-            // Ensure run argument or Result.Run was set
-            if (run == null)
-            {
-                EnsureRunProvided();
-                run = this.Run;
-            }
-
-            if (run != null && this.Locations != null)
-            {
-                foreach (Location location in this.Locations)
-                {
-                    if (location.PhysicalLocation?.ArtifactLocation?.Index >= 0)
-                    {
-                        Uri directory = null;
-                        Artifact artifact = run.Artifacts[location.PhysicalLocation.ArtifactLocation.Index];
-                        if (artifact.Location != null &&
-                            !string.IsNullOrEmpty(artifact.Location.UriBaseId) &&
-                            run.OriginalUriBaseIds.ContainsKey(artifact.Location.UriBaseId))
-                        {
-                            directory = run.OriginalUriBaseIds[artifact.Location.UriBaseId].Uri;
-                        }
-
-                        location.PhysicalLocation.ArtifactLocation.Uri = directory == null
-                            ? artifact.Location.Uri
-                            : new Uri(directory, artifact.Location.Uri);
-                        location.PhysicalLocation.ArtifactLocation.Index = -1;
-                    }
-                }
-            }
-        }
-
         private static ReportingDescriptor GetRuleByIndex(IList<ReportingDescriptor> rules, int ruleIndex)
         {
             if (rules == null)

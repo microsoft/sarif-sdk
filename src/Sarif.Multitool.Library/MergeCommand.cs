@@ -201,9 +201,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                                 if (!_ruleIdToResultsMap[key].Contains(result))
                                 {
                                     _ruleIdToResultsMap[key].Add(result);
-                                    _ruleIdToMergeVisitorsMap[key].CurrentRun = result.Run;
-                                    _ruleIdToMergeVisitorsMap[key].VisitResult(result.DeepClone());
-                                    _ruleIdToMergeVisitorsMap[key].PopulateWithMerged(splitRun);
+
+                                    RunMergingVisitor currentVisitor = _ruleIdToMergeVisitorsMap[key];
+                                    currentVisitor.CurrentRun = result.Run;
+                                    currentVisitor.VisitResult(result.DeepClone());
+                                    currentVisitor.PopulateWithMerged(splitRun);
                                 }
                             }
                         }
