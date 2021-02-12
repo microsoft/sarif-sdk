@@ -1,11 +1,45 @@
 {
-  "version": "2.1.0",
   "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "version": "2.1.0",
   "runs": [
     {
+      "tool": {
+        "driver": {
+          "name": "SARIF",
+          "fullName": "SARIF",
+          "version": "1.0.0.0",
+          "informationUri": "https://github.com/microsoft/sarif-sdk",
+          "rules": [
+            {
+              "id": "C28750"
+            }
+          ]
+        }
+      },
+      "invocations": [
+        {
+          "commandLine": "commandline",
+          "executionSuccessful": true
+        }
+      ],
+      "originalUriBaseIds": {
+        "BASEDIR": {
+          "uri": "file:///c:/basedir/"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "relative/folder/file.cpp",
+            "uriBaseId": "BASEDIR",
+            "index": 0
+          }
+        }
+      ],
       "results": [
         {
           "ruleId": "C28750",
+          "ruleIndex": 0,
           "message": {
             "text": "Banned usage of lstrlen and its variants:  lstrlenA is a banned API for improved error handling purposes."
           },
@@ -34,6 +68,7 @@
         },
         {
           "ruleId": "C28750",
+          "ruleIndex": 0,
           "message": {
             "text": "Banned usage of lstrlen and its variants:  lstrlenA is a banned API for improved error handling purposes."
           },
@@ -61,33 +96,7 @@
           "suppressions": []
         }
       ],
-      "tool": {
-        "driver": {
-          "name": "SARIF",
-          "fullName": "SARIF",
-          "version": "1.0.0.0",
-          "informationUri": "https://github.com/microsoft/sarif-sdk"
-        }
-      },
-      "invocations": [
-        {
-          "commandLine": "commandline",
-          "executionSuccessful": true
-        }
-      ],
-      "artifacts": [
-        {
-          "location": {
-            "uri": "relative/folder/file.cpp",
-            "uriBaseId": "BASEDIR"
-          }
-        }
-      ],
-      "originalUriBaseIds": {
-        "BASEDIR": {
-          "uri": "file:///c:/basedir/"
-        }
-      }
+      "columnKind": "utf16CodeUnits"
     }
   ]
 }

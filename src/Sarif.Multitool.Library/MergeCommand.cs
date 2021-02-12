@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Processors;
+using Microsoft.CodeAnalysis.Sarif.Visitors;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 
 using Newtonsoft.Json;
@@ -28,6 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         private Channel<string> _logLoadChannel;
         private Channel<SarifLog> _mergeLogsChannel;
         private readonly Dictionary<string, Run> _ruleIdToRunsMap;
+        private readonly Dictionary<string, RunMergingVisitor> _ruleIdToMergeVisitorsMap;
         private readonly Dictionary<string, HashSet<Result>> _ruleIdToResultsMap;
         private readonly Dictionary<string, SarifLog> _idToSarifLogMap;
 
@@ -35,6 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             _fileSystem = fileSystem ?? Sarif.FileSystem.Instance;
             _ruleIdToRunsMap = new Dictionary<string, Run>();
+            _ruleIdToMergeVisitorsMap = new Dictionary<string, RunMergingVisitor>();
             _ruleIdToResultsMap = new Dictionary<string, HashSet<Result>>();
             _idToSarifLogMap = new Dictionary<string, SarifLog>();
         }
@@ -161,6 +164,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                             }
                         }
 
+                        run.SetRunOnResults();
                         IList<Result> cachedResults = run.Results;
                         run.Results = null;
 
@@ -191,12 +195,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                                     splitRun = _ruleIdToRunsMap[key] = emptyRun;
                                     splitLog.Runs.Add(splitRun);
                                     _ruleIdToResultsMap[key] = new HashSet<Result>(Result.ValueComparer);
+                                    _ruleIdToMergeVisitorsMap[key] = new RunMergingVisitor();
                                 }
 
                                 if (!_ruleIdToResultsMap[key].Contains(result))
                                 {
                                     _ruleIdToResultsMap[key].Add(result);
-                                    splitRun.Results.Add(result);
+
+                                    RunMergingVisitor currentVisitor = _ruleIdToMergeVisitorsMap[key];
+                                    currentVisitor.CurrentRun = result.Run;
+                                    currentVisitor.VisitResult(result.DeepClone());
+                                    currentVisitor.PopulateWithMerged(splitRun);
                                 }
                             }
                         }
@@ -310,6 +319,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     internal class FixupVisitor : SarifRewritingVisitor
     {
         private Run _run;
+
         public override Run VisitRun(Run node)
         {
             _run = node;

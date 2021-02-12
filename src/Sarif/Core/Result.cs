@@ -17,9 +17,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </remarks>
         public Run Run { get; set; }
 
-        public bool ShouldSerializeWorkItemUris() { return this.WorkItemUris != null && this.WorkItemUris.Any((s) => s != null); }
+        public bool ShouldSerializeWorkItemUris()
+        {
+            return this.WorkItemUris != null && this.WorkItemUris.Any((s) => s != null);
+        }
 
-        public bool ShouldSerializeLevel() { return this.Level != FailureLevel.Warning; }
+        public bool ShouldSerializeLevel()
+        {
+            return this.Level != FailureLevel.Warning;
+        }
 
         public void EnsureRunProvided()
         {
@@ -133,6 +139,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
 #if DEBUG
+
         public override string ToString()
         {
             var sb = new System.Text.StringBuilder();
@@ -159,6 +166,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             return sb.ToString();
         }
+
 #endif
     }
 }
