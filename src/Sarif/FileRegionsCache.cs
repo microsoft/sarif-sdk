@@ -158,13 +158,28 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             int maxLineNumber = newLineIndex.MaximumLineNumber;
 
-            // Currently, we just grab a single line before and after the region start
-            // and end lines, respectively. In the future, we could make this configurable.
-            var region = new Region()
+            var region = new Region();
+
+            if (maxLineNumber == 1)
             {
-                StartLine = inputRegion.StartLine == 1 ? 1 : inputRegion.StartLine - 1,
-                EndLine = inputRegion.EndLine == maxLineNumber ? maxLineNumber : inputRegion.EndLine + 1
-            };
+                // We are going to grab 120 characters from left and from right if possible.
+                const int maxLength = 120;
+                region.CharOffset = inputRegion.CharOffset < maxLength
+                    ? 0
+                    : inputRegion.CharOffset - maxLength;
+
+                region.CharLength = inputRegion.CharLength + inputRegion.CharOffset + maxLength < newLineIndex.Text.Length
+                    ? inputRegion.CharLength + inputRegion.CharOffset + maxLength
+                    : newLineIndex.Text.Length - region.CharOffset;
+            }
+            else
+            {
+                // Currently, we just grab a single line before and after the region start
+                // and end lines, respectively. In the future, we could make this configurable.
+                region.StartLine = inputRegion.StartLine == 1 ? 1 : inputRegion.StartLine - 1;
+                region.EndLine = inputRegion.EndLine == maxLineNumber ? maxLineNumber : inputRegion.EndLine + 1;
+            }
+
             return this.PopulateTextRegionProperties(region, uri, populateSnippet: true);
         }
 

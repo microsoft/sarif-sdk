@@ -583,5 +583,34 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
             region = fileRegionsCache.PopulateTextRegionProperties(inputRegion: null, uri: uri, populateSnippet: true);
             region.Should().BeNull();
         }
+
+        [Fact]
+        public void FileRegionsCache_PopulatesWithOneLineText()
+        {
+            const int maxLength = 120;
+            Uri uri = new Uri(@"c:\temp\myFile.cpp");
+            const string fileContent = "This is a long text that will be one line only. With this, we want to get a few character before and a few after. This is the match text. So we can generate the region instead of adding the entire file to region, which does not make sense. What do you think?";
+
+            var region = new Region
+            {
+                CharOffset = 114,
+                CharLength = 22,
+            };
+
+            var fileRegionsCache = new FileRegionsCache();
+            Region newRegion = fileRegionsCache.PopulateTextRegionProperties(region, uri, true, fileContent);
+            newRegion.Snippet.Text.Should().Be(fileContent.Substring(region.CharOffset, region.CharLength));
+
+            Region multilineRegion = fileRegionsCache.ConstructMultilineContextSnippet(newRegion, uri);
+            multilineRegion.Snippet.Text.Should().Be(fileContent.Substring(0, region.CharOffset + region.CharLength + maxLength));
+
+            region.CharOffset = 125;
+            region.CharLength = 22;
+            newRegion = fileRegionsCache.PopulateTextRegionProperties(region, uri, true, fileContent);
+            newRegion.Snippet.Text.Should().Be(fileContent.Substring(region.CharOffset, region.CharLength));
+
+            multilineRegion = fileRegionsCache.ConstructMultilineContextSnippet(newRegion, uri);
+            multilineRegion.Snippet.Text.Should().Be(fileContent.Substring(region.CharOffset - maxLength, fileContent.Length - (region.CharOffset - maxLength)));
+        }
     }
 }
