@@ -156,29 +156,41 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return null;
             }
 
+            const int maxSnippetLength = 512;
+            const int reasonableSnippetLength = 256;
+            const int smallSnippetLength = 128;
+
+            // If this is big enough, we don't need to create a new snippet.
+            if (inputRegion.Snippet?.Text.Length >= reasonableSnippetLength)
+            {
+                return null;
+            }
+
             int maxLineNumber = newLineIndex.MaximumLineNumber;
 
-            var region = new Region();
-
-            if (maxLineNumber == 1)
+            var region = new Region
             {
-                // We are going to grab 120 characters from left and from right if possible.
-                const int maxLength = 120;
-                region.CharOffset = inputRegion.CharOffset < maxLength
-                    ? 0
-                    : inputRegion.CharOffset - maxLength;
+                StartLine = inputRegion.StartLine == 1 ? 1 : inputRegion.StartLine - 1,
+                EndLine = inputRegion.EndLine == maxLineNumber ? maxLineNumber : inputRegion.EndLine + 1
+            };
 
-                region.CharLength = inputRegion.CharLength + inputRegion.CharOffset + maxLength < newLineIndex.Text.Length
-                    ? inputRegion.CharLength + inputRegion.CharOffset + maxLength
-                    : newLineIndex.Text.Length - region.CharOffset;
-            }
-            else
+            Region multilineContextSnippet = this.PopulateTextRegionProperties(region, uri, populateSnippet: true);
+
+            // If the new snippet is big enough, we will use. Otherwise, we will
+            // generate a new snippet
+            if (multilineContextSnippet.Snippet.Text.Length <= maxSnippetLength)
             {
-                // Currently, we just grab a single line before and after the region start
-                // and end lines, respectively. In the future, we could make this configurable.
-                region.StartLine = inputRegion.StartLine == 1 ? 1 : inputRegion.StartLine - 1;
-                region.EndLine = inputRegion.EndLine == maxLineNumber ? maxLineNumber : inputRegion.EndLine + 1;
+                return multilineContextSnippet;
             }
+
+            // We are going to grab 128 characters from left and from right if possible.
+            region.CharOffset = inputRegion.CharOffset < smallSnippetLength
+                ? 0
+                : inputRegion.CharOffset - smallSnippetLength;
+
+            region.CharLength = inputRegion.CharLength + inputRegion.CharOffset + smallSnippetLength < newLineIndex.Text.Length
+                ? inputRegion.CharLength + inputRegion.CharOffset + smallSnippetLength
+                : newLineIndex.Text.Length - region.CharOffset;
 
             return this.PopulateTextRegionProperties(region, uri, populateSnippet: true);
         }

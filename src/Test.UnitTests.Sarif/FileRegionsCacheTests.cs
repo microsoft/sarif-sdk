@@ -587,14 +587,14 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
         [Fact]
         public void FileRegionsCache_PopulatesWithOneLineText()
         {
-            const int maxLength = 120;
+            const int maxLength = 128;
             Uri uri = new Uri(@"c:\temp\myFile.cpp");
-            const string fileContent = "This is a long text that will be one line only. With this, we want to get a few character before and a few after. This is the match text. So we can generate the region instead of adding the entire file to region, which does not make sense. What do you think?";
+            const string fileContent = @"internal Region ConstructMultilineContextSnippet(Region inputRegion, Uri uri){if (inputRegion == null || inputRegion.IsBinaryRegion){return null;}NewLineIndex newLineIndex = GetNewLineIndex(uri, fileText: null);if (newLineIndex == null){return null;}if (inputRegion.Snippet.Text.Length >= 512){return null;}int maxLineNumber = newLineIndex.MaximumLineNumber;var region = new Region{StartLine = inputRegion.StartLine == 1 ? 1 : inputRegion.StartLine - 1,EndLine = inputRegion.EndLine == maxLineNumber ? maxLineNumber : inputRegion.EndLine + 1};Region multilineContextSnippet = this.PopulateTextRegionProperties(region, uri, populateSnippet: true);if (multilineContextSnippet.Snippet.Text.Length <= 512){return multilineContextSnippet;} const int maxLength = 128;region.CharOffset = inputRegion.CharOffset < maxLength? 0: inputRegion.CharOffset - maxLength;region.CharLength = inputRegion.CharLength + inputRegion.CharOffset + maxLength < newLineIndex.Text.Length? inputRegion.CharLength + inputRegion.CharOffset + maxLength: newLineIndex.Text.Length - region.CharOffset;return this.PopulateTextRegionProperties(region, uri, populateSnippet: true);}";
 
             var region = new Region
             {
                 CharOffset = 114,
-                CharLength = 22,
+                CharLength = 600,
             };
 
             var fileRegionsCache = new FileRegionsCache();
@@ -602,7 +602,9 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
             newRegion.Snippet.Text.Should().Be(fileContent.Substring(region.CharOffset, region.CharLength));
 
             Region multilineRegion = fileRegionsCache.ConstructMultilineContextSnippet(newRegion, uri);
-            multilineRegion.Snippet.Text.Should().Be(fileContent.Substring(0, region.CharOffset + region.CharLength + maxLength));
+
+            // This should be null, since the newRegion already is big enough
+            multilineRegion.Should().BeNull();
 
             region.CharOffset = 125;
             region.CharLength = 22;
@@ -610,7 +612,9 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
             newRegion.Snippet.Text.Should().Be(fileContent.Substring(region.CharOffset, region.CharLength));
 
             multilineRegion = fileRegionsCache.ConstructMultilineContextSnippet(newRegion, uri);
-            multilineRegion.Snippet.Text.Should().Be(fileContent.Substring(region.CharOffset - maxLength, fileContent.Length - (region.CharOffset - maxLength)));
+
+            // This should get from 0 -> (125(offset) + 128(maxlength) + 22(charlength))
+            multilineRegion.Snippet.Text.Should().Be(fileContent.Substring(0, region.CharOffset + region.CharLength + maxLength));
         }
     }
 }
