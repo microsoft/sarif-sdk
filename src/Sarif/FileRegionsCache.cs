@@ -160,8 +160,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             const int reasonableSnippetLength = 256;
             const int smallSnippetLength = 128;
 
-            // If this is big enough, we don't need to create a new snippet.
-            if (inputRegion.CharLength >= reasonableSnippetLength)
+            // If charOffset is valid and charLength big enough, we don't need to create a new snippet.
+            if (inputRegion.CharOffset != -1 && inputRegion.CharLength >= reasonableSnippetLength)
             {
                 return null;
             }
@@ -192,7 +192,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 ? inputRegion.CharLength + inputRegion.CharOffset + smallSnippetLength
                 : newLineIndex.Text.Length - region.CharOffset;
 
-            return this.PopulateTextRegionProperties(region, uri, populateSnippet: true);
+            multilineContextSnippet = this.PopulateTextRegionProperties(region, uri, populateSnippet: true);
+
+            // We can't generate a contextRegion which is smaller than the original region.
+            Debug.Assert(multilineContextSnippet.CharLength >= inputRegion.CharLength);
+            return multilineContextSnippet;
         }
 
         private void PopulatePropertiesFromCharOffsetAndLength(NewLineIndex newLineIndex, Region region)
