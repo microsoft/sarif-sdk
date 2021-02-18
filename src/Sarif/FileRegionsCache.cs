@@ -161,7 +161,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             const int smallSnippetLength = 128;
 
             // If this is big enough, we don't need to create a new snippet.
-            if (inputRegion.Snippet?.Text.Length >= reasonableSnippetLength)
+            if (inputRegion.CharLength >= reasonableSnippetLength)
             {
                 return null;
             }
@@ -178,7 +178,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             // If the new snippet is big enough, we will use. Otherwise, we will
             // generate a new snippet
-            if (multilineContextSnippet.Snippet.Text.Length <= maxSnippetLength)
+            if (multilineContextSnippet.CharLength <= maxSnippetLength)
             {
                 return multilineContextSnippet;
             }
