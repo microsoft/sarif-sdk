@@ -585,11 +585,10 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
         }
 
         [Fact]
-        public void FileRegionsCache_PopulatesWithOneLineText()
+        public void FileRegionsCache_IncreasingToLeftAndRight()
         {
-            const int maxLength = 128;
             Uri uri = new Uri(@"c:\temp\myFile.cpp");
-            const string fileContent = @"internal Region ConstructMultilineContextSnippet(Region inputRegion, Uri uri){if (inputRegion == null || inputRegion.IsBinaryRegion){return null;}NewLineIndex newLineIndex = GetNewLineIndex(uri, fileText: null);if (newLineIndex == null){return null;}if (inputRegion.Snippet.Text.Length >= 512){return null;}int maxLineNumber = newLineIndex.MaximumLineNumber;var region = new Region{StartLine = inputRegion.StartLine == 1 ? 1 : inputRegion.StartLine - 1,EndLine = inputRegion.EndLine == maxLineNumber ? maxLineNumber : inputRegion.EndLine + 1};Region multilineContextSnippet = this.PopulateTextRegionProperties(region, uri, populateSnippet: true);if (multilineContextSnippet.Snippet.Text.Length <= 512){return multilineContextSnippet;} const int maxLength = 128;region.CharOffset = inputRegion.CharOffset < maxLength? 0: inputRegion.CharOffset - maxLength;region.CharLength = inputRegion.CharLength + inputRegion.CharOffset + maxLength < newLineIndex.Text.Length? inputRegion.CharLength + inputRegion.CharOffset + maxLength: newLineIndex.Text.Length - region.CharOffset;return this.PopulateTextRegionProperties(region, uri, populateSnippet: true);}";
+            string fileContent = $"{new string('a', 200)}{new string('b', 800)}";
 
             var region = new Region
             {
@@ -598,23 +597,12 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
             };
 
             var fileRegionsCache = new FileRegionsCache();
-            Region newRegion = fileRegionsCache.PopulateTextRegionProperties(region, uri, true, fileContent);
-            newRegion.Snippet.Text.Should().Be(fileContent.Substring(region.CharOffset, region.CharLength));
+            region = fileRegionsCache.PopulateTextRegionProperties(region, uri, true, fileContent);
 
-            Region multilineRegion = fileRegionsCache.ConstructMultilineContextSnippet(newRegion, uri);
+            Region multilineRegion = fileRegionsCache.ConstructMultilineContextSnippet(region, uri);
 
-            // This should be null, since the newRegion already is big enough
-            multilineRegion.Should().BeNull();
-
-            region.CharOffset = 125;
-            region.CharLength = 22;
-            newRegion = fileRegionsCache.PopulateTextRegionProperties(region, uri, true, fileContent);
-            newRegion.Snippet.Text.Should().Be(fileContent.Substring(region.CharOffset, region.CharLength));
-
-            multilineRegion = fileRegionsCache.ConstructMultilineContextSnippet(newRegion, uri);
-
-            // This should get from 0 -> (125(offset) + 128(maxlength) + 22(charlength))
-            multilineRegion.Snippet.Text.Should().Be(fileContent.Substring(0, region.CharOffset + region.CharLength + maxLength));
+            // 114 (charoffset) + 600 (charlength) + 128 (grabbing right content)
+            multilineRegion.CharLength.Should().Be(114 + 600 + 128);
         }
 
         [Fact]
@@ -653,6 +641,8 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
             region = fileRegionsCache.PopulateTextRegionProperties(region, uri, true, content);
             Region multilineRegion = fileRegionsCache.ConstructMultilineContextSnippet(region, uri);
 
+            // Since the content is 400, the charLength will be 400
+            // and the snippet.Text will be the entire content.
             multilineRegion.CharLength.Should().Be(content.Length);
             multilineRegion.Snippet.Text.Should().Be(content);
         }
