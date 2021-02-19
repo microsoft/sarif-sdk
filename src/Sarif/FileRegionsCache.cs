@@ -144,7 +144,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         internal Region ConstructMultilineContextSnippet(Region inputRegion, Uri uri)
         {
-            if (inputRegion == null || inputRegion.IsBinaryRegion)
+            if (inputRegion?.IsBinaryRegion != false)
             {
                 // Context snippets are relevant only for textual regions.
                 return null;
@@ -156,15 +156,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return null;
             }
 
-            const int maxSnippetLength = 512;
-            const int reasonableSnippetLength = 256;
+            const int bigSnippetLength = 512;
             const int smallSnippetLength = 128;
 
-            // If charOffset is valid and charLength big enough, we don't need to create a new snippet.
-            if (inputRegion.CharOffset != -1 && inputRegion.CharLength >= reasonableSnippetLength)
-            {
-                return null;
-            }
+            // Generating full inputRegion to prevent issues.
+            Region originalRegion = this.PopulateTextRegionProperties(inputRegion, uri, populateSnippet: true);
 
             int maxLineNumber = newLineIndex.MaximumLineNumber;
 
@@ -174,28 +170,29 @@ namespace Microsoft.CodeAnalysis.Sarif
                 EndLine = inputRegion.EndLine == maxLineNumber ? maxLineNumber : inputRegion.EndLine + 1
             };
 
+            // Generating multilineRegion with one line before and after.
             Region multilineContextSnippet = this.PopulateTextRegionProperties(region, uri, populateSnippet: true);
 
-            // If the new snippet is big enough, we will use. Otherwise, we will
-            // generate a new snippet
-            if (multilineContextSnippet.CharLength <= maxSnippetLength)
+            if (originalRegion.CharLength <= multilineContextSnippet.CharLength &&
+                multilineContextSnippet.CharLength <= bigSnippetLength)
             {
                 return multilineContextSnippet;
             }
 
-            // We are going to grab 128 characters from left and from right if possible.
-            region.CharOffset = inputRegion.CharOffset < smallSnippetLength
+            region.CharOffset = originalRegion.CharOffset < smallSnippetLength
                 ? 0
-                : inputRegion.CharOffset - smallSnippetLength;
+                : originalRegion.CharOffset - smallSnippetLength;
 
-            region.CharLength = inputRegion.CharLength + inputRegion.CharOffset + smallSnippetLength < newLineIndex.Text.Length
-                ? inputRegion.CharLength + inputRegion.CharOffset + smallSnippetLength
+            region.CharLength = originalRegion.CharLength + originalRegion.CharOffset + smallSnippetLength < newLineIndex.Text.Length
+                ? originalRegion.CharLength + originalRegion.CharOffset + smallSnippetLength
                 : newLineIndex.Text.Length - region.CharOffset;
 
+            // Generating  multineRegion with 128 characters to the left and right from the
+            // originalRegion if possible.
             multilineContextSnippet = this.PopulateTextRegionProperties(region, uri, populateSnippet: true);
 
             // We can't generate a contextRegion which is smaller than the original region.
-            Debug.Assert(multilineContextSnippet.CharLength >= inputRegion.CharLength);
+            Debug.Assert(originalRegion.CharLength <= multilineContextSnippet.CharLength);
             return multilineContextSnippet;
         }
 
