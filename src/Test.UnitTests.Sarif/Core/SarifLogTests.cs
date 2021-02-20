@@ -7,6 +7,8 @@ using System.Linq;
 
 using FluentAssertions;
 
+using Microsoft.CodeAnalysis.Sarif.Visitors;
+
 using Newtonsoft.Json;
 
 using Xunit;
@@ -100,6 +102,19 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
                                 Fingerprints = new Dictionary<string, string>
                                 {
                                     { "fingerprint", "a" }
+                                },
+                                Locations = new []
+                                {
+                                    new Location
+                                    {
+                                        PhysicalLocation = new PhysicalLocation
+                                        {
+                                           ArtifactLocation = new ArtifactLocation
+                                           {
+                                               Uri = new Uri("1.txt", UriKind.RelativeOrAbsolute)
+                                           }
+                                        }
+                                    }
                                 }
                             },
                             new Result
@@ -107,6 +122,19 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
                                 Fingerprints = new Dictionary<string, string>
                                 {
                                     { "fingerprint", "a" }
+                                },
+                                Locations = new []
+                                {
+                                    new Location
+                                    {
+                                        PhysicalLocation = new PhysicalLocation
+                                        {
+                                           ArtifactLocation = new ArtifactLocation
+                                           {
+                                               Uri = new Uri("2.txt", UriKind.RelativeOrAbsolute)
+                                           }
+                                        }
+                                    }
                                 }
                             },
                             new Result
@@ -114,6 +142,19 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
                                 Fingerprints = new Dictionary<string, string>
                                 {
                                     { "fingerprint", "b" }
+                                },
+                                Locations = new []
+                                {
+                                    new Location
+                                    {
+                                        PhysicalLocation = new PhysicalLocation
+                                        {
+                                           ArtifactLocation = new ArtifactLocation
+                                           {
+                                               Uri = new Uri("1.txt", UriKind.RelativeOrAbsolute)
+                                           }
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -125,6 +166,10 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
             splitSarif.Should().HaveCount(2);
             splitSarif.Count(r => r.Runs.Any(x => x.Results.Count == 2)).Should().Be(1);
             splitSarif.Count(r => r.Runs.Any(x => x.Results.Count == 1)).Should().Be(1);
+
+            var splitting = new PerRunPerFingerprintSplittingVisitor();
+            splitting.Visit(sarif);
+
         }
 
         private Run SerializeAndDeserialize(Run run)
