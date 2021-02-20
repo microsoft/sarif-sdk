@@ -2,6 +2,8 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 using FluentAssertions;
 
@@ -80,6 +82,49 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
 
             sarifLog = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, 3);
             sarifLog.Split(SplittingStrategy.PerRun).Should().HaveCount(3);
+        }
+
+        [Fact]
+        public void SarifLog_SplitPerFingerprint()
+        {
+            var sarif = new SarifLog
+            {
+                Runs = new[]
+                {
+                    new Run
+                    {
+                        Results = new []
+                        {
+                            new Result
+                            {
+                                Fingerprints = new Dictionary<string, string>
+                                {
+                                    { "fingerprint", "a" }
+                                }
+                            },
+                            new Result
+                            {
+                                Fingerprints = new Dictionary<string, string>
+                                {
+                                    { "fingerprint", "a" }
+                                }
+                            },
+                            new Result
+                            {
+                                Fingerprints = new Dictionary<string, string>
+                                {
+                                    { "fingerprint", "b" }
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+
+            var splitSarif = sarif.Split(SplittingStrategy.PerFingerprint);
+            splitSarif.Should().HaveCount(2);
+            splitSarif.Count(r => r.Runs.Any(x => x.Results.Count == 2)).Should().Be(1);
+            splitSarif.Count(r => r.Runs.Any(x => x.Results.Count == 1)).Should().Be(1);
         }
 
         private Run SerializeAndDeserialize(Run run)
