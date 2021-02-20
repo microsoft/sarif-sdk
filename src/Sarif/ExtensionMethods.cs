@@ -37,13 +37,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     partitionFunction = (result) => result.Run.GetHashCode().ToString();
                     break;
                 }
-                case SplittingStrategy.PerFingerprint:
-                {
-                    partitionFunction = (result) => result.Fingerprints.Count > 0
-                        ? result.Fingerprints.First().Value
-                        : null;
-                    break;
-                }
                 default:
                 {
                     throw new NotImplementedException($"SplittingStrategy: {splittingStrategy}");
@@ -317,14 +310,19 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 case ResultKind.Informational:
                     return "info";
+
                 case ResultKind.NotApplicable:
                     return "notapplicable";
+
                 case ResultKind.Open:
                     return "open";
+
                 case ResultKind.Pass:
                     return "pass";
+
                 case ResultKind.Review:
                     return "review";
+
                 default:
                     return "info";
             }

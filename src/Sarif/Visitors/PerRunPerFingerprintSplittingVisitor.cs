@@ -48,7 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
             else
             {
-                sarifLog = SplitSarifLogs.First();
+                sarifLog = SplitSarifLogs[0];
             }
 
             if (!_fingerprintToResultMap.TryGetValue(fingerprint, out Result result))
@@ -56,28 +56,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 result = node;
                 result.Locations ??= new List<Location>();
                 _fingerprintToResultMap[fingerprint] = result;
+
+                sarifLog.Runs[0].Results.Add(result);
             }
             else
             {
                 if (node.Locations != null)
                 {
                     var locations = result.Locations.ToList();
-                    foreach (var location in node.Locations)
+                    foreach (Location location in node.Locations)
                     {
                         locations.Add(location);
                     }
                     result.Locations = locations;
                 }
-            }
-
-            var current = sarifLog.Runs[0].Results.FirstOrDefault(f => f.Fingerprints.First().Value == fingerprint);
-            if (current == null)
-            {
-                sarifLog.Runs[0].Results.Add(result);
-            }
-            else
-            {
-                current = result;
             }
 
             return node;

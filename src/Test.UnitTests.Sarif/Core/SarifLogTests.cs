@@ -2,12 +2,8 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 using FluentAssertions;
-
-using Microsoft.CodeAnalysis.Sarif.Visitors;
 
 using Newtonsoft.Json;
 
@@ -35,7 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
 
             run = SerializeAndDeserialize(run);
 
-            // Certain non-null but entirely empty collections should not 
+            // Certain non-null but entirely empty collections should not
             // be persisted during serialization. As a result, these properties
             // should be null after round-tripping, reflecting the actual
             // (i.e., entirely absent) representation on disk when saved.
@@ -46,7 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
             run.LogicalLocations.Should().BeNull();
 
             // If arrays are non-empty but only contain object instances
-            // that consist of nothing but default values, these also 
+            // that consist of nothing but default values, these also
             // should not be persisted to disk
             run.Graphs = new Graph[] { new Graph() };
             run.Artifacts = new Artifact[] { new Artifact() };
@@ -84,92 +80,6 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
 
             sarifLog = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, 3);
             sarifLog.Split(SplittingStrategy.PerRun).Should().HaveCount(3);
-        }
-
-        [Fact]
-        public void SarifLog_SplitPerFingerprint()
-        {
-            var sarif = new SarifLog
-            {
-                Runs = new[]
-                {
-                    new Run
-                    {
-                        Results = new []
-                        {
-                            new Result
-                            {
-                                Fingerprints = new Dictionary<string, string>
-                                {
-                                    { "fingerprint", "a" }
-                                },
-                                Locations = new []
-                                {
-                                    new Location
-                                    {
-                                        PhysicalLocation = new PhysicalLocation
-                                        {
-                                           ArtifactLocation = new ArtifactLocation
-                                           {
-                                               Uri = new Uri("1.txt", UriKind.RelativeOrAbsolute)
-                                           }
-                                        }
-                                    }
-                                }
-                            },
-                            new Result
-                            {
-                                Fingerprints = new Dictionary<string, string>
-                                {
-                                    { "fingerprint", "a" }
-                                },
-                                Locations = new []
-                                {
-                                    new Location
-                                    {
-                                        PhysicalLocation = new PhysicalLocation
-                                        {
-                                           ArtifactLocation = new ArtifactLocation
-                                           {
-                                               Uri = new Uri("2.txt", UriKind.RelativeOrAbsolute)
-                                           }
-                                        }
-                                    }
-                                }
-                            },
-                            new Result
-                            {
-                                Fingerprints = new Dictionary<string, string>
-                                {
-                                    { "fingerprint", "b" }
-                                },
-                                Locations = new []
-                                {
-                                    new Location
-                                    {
-                                        PhysicalLocation = new PhysicalLocation
-                                        {
-                                           ArtifactLocation = new ArtifactLocation
-                                           {
-                                               Uri = new Uri("1.txt", UriKind.RelativeOrAbsolute)
-                                           }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            };
-
-            var splitSarif = sarif.Split(SplittingStrategy.PerFingerprint);
-            splitSarif.Should().HaveCount(2);
-            splitSarif.Count(r => r.Runs.Any(x => x.Results.Count == 2)).Should().Be(1);
-            splitSarif.Count(r => r.Runs.Any(x => x.Results.Count == 1)).Should().Be(1);
-
-            var splitting = new PerRunPerFingerprintSplittingVisitor();
-            splitting.Visit(sarif);
-
         }
 
         private Run SerializeAndDeserialize(Run run)
