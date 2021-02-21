@@ -310,14 +310,19 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 case ResultKind.Informational:
                     return "info";
+
                 case ResultKind.NotApplicable:
                     return "notapplicable";
+
                 case ResultKind.Open:
                     return "open";
+
                 case ResultKind.Pass:
                     return "pass";
+
                 case ResultKind.Review:
                     return "review";
+
                 default:
                     return "info";
             }
