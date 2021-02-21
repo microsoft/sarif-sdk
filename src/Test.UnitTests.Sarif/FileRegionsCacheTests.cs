@@ -583,5 +583,68 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
             region = fileRegionsCache.PopulateTextRegionProperties(inputRegion: null, uri: uri, populateSnippet: true);
             region.Should().BeNull();
         }
+
+        [Fact]
+        public void FileRegionsCache_IncreasingToLeftAndRight()
+        {
+            Uri uri = new Uri(@"c:\temp\myFile.cpp");
+            string fileContent = $"{new string('a', 200)}{new string('b', 800)}";
+
+            var region = new Region
+            {
+                CharOffset = 114,
+                CharLength = 600,
+            };
+
+            var fileRegionsCache = new FileRegionsCache();
+            region = fileRegionsCache.PopulateTextRegionProperties(region, uri, true, fileContent);
+
+            Region multilineRegion = fileRegionsCache.ConstructMultilineContextSnippet(region, uri);
+
+            // 114 (charoffset) + 600 (charlength) + 128 (grabbing right content)
+            multilineRegion.CharLength.Should().Be(114 + 600 + 128);
+        }
+
+        [Fact]
+        public void FileRegionsCache_PopulatesWithOneLine_IncreasingToTheRight()
+        {
+            string content = $"{new string('a', 200)}{new string('b', 800)}";
+            var uri = new Uri(@"c:\temp\myFile.cpp");
+            var region = new Region
+            {
+                CharOffset = 0,
+                CharLength = 300,
+            };
+
+            var fileRegionsCache = new FileRegionsCache();
+            region = fileRegionsCache.PopulateTextRegionProperties(region, uri, true, content);
+            Region multilineRegion = fileRegionsCache.ConstructMultilineContextSnippet(region, uri);
+
+            // CharLength + 128 to the right = 428 characters
+            // 200 letters a + 228 letters b
+            multilineRegion.CharLength.Should().Be(300 + 128);
+            multilineRegion.Snippet.Text.Should().Be($"{new string('a', 200)}{new string('b', 228)}");
+        }
+
+        [Fact]
+        public void FileRegionsCache_PopulatesWithOneLine_Everything()
+        {
+            string content = $"{new string('a', 200)}{new string('b', 200)}";
+            var uri = new Uri(@"c:\temp\myFile.cpp");
+            var region = new Region
+            {
+                CharOffset = 0,
+                CharLength = 300,
+            };
+
+            var fileRegionsCache = new FileRegionsCache();
+            region = fileRegionsCache.PopulateTextRegionProperties(region, uri, true, content);
+            Region multilineRegion = fileRegionsCache.ConstructMultilineContextSnippet(region, uri);
+
+            // Since the content is 400, the charLength will be 400
+            // and the snippet.Text will be the entire content.
+            multilineRegion.CharLength.Should().Be(content.Length);
+            multilineRegion.Snippet.Text.Should().Be(content);
+        }
     }
 }
