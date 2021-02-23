@@ -1,7 +1,6 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
 * FEATURE: `ConstructMultilineContextSnippet` will retrieve a few character after/before to prevent entire file when the file is one line only. [#2288](https://github.com/microsoft/sarif-sdk/pull/2288)
-* FEATURE: New splitting visitor `PerRunPerFingerprintSplittingVisitor`. [#2289](https://github.com/microsoft/sarif-sdk/pull/2289)
 * BUGFIX: Fix AzureDevOps title maxLength. [#2292](https://github.com/microsoft/sarif-sdk/pull/2292)
 
 ## **v2.4.1** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.4.1) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.4.1) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.4.1) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.4.1) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.4.1)
