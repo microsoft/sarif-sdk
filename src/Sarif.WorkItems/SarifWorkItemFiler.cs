@@ -140,9 +140,9 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                     SarifLog splitLog = logsToProcess[splitFileIndex];
                     SarifWorkItemModel sarifWorkItemModel = FileWorkItemInternal(splitLog, this.FilingContext, this.FilingClient);
 
-                    // IMPORTANT: as we update our partitioned logs, we are actually modifying the input log file 
+                    // IMPORTANT: as we update our partitioned logs, we are actually modifying the input log file
                     // as well. That's because our partitioning is configured to reuse references to existing
-                    // run and result objects, even though they are partitioned into a separate log file. 
+                    // run and result objects, even though they are partitioned into a separate log file.
                     // This approach also us to update the original log file with the filed work item details
                     // without requiring us to build a map of results between the original log and its
                     // partioned log files.
@@ -232,6 +232,11 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                             partitionFunction = (result) => result.ShouldBeFiled() ? result.GetPerRepositoryFingerprintSplittingStrategyId() : null;
                             break;
                         }
+                        case SplittingStrategy.PerFingerprint:
+                        {
+                            partitionFunction = (result) => result.ShouldBeFiled() ? result.Fingerprints.Count == 0 ? null : result.Fingerprints.First().Value : null;
+                            break;
+                        }
                         default:
                         {
                             throw new ArgumentOutOfRangeException($"SplittingStrategy: {splittingStrategy}");
@@ -284,7 +289,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 try
                 {
                     // Populate the work item with the target organization/repository information.
-                    // In ADO, certain fields (such as the area path) will defaut to the 
+                    // In ADO, certain fields (such as the area path) will defaut to the
                     // project name and so this information is used in at least that context.
                     sarifWorkItemModel.OwnerOrAccount = filingClient.AccountOrOrganization;
                     sarifWorkItemModel.RepositoryOrProject = filingClient.ProjectOrRepository;
@@ -302,7 +307,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                         {
                             SarifWorkItemModel updatedSarifWorkItemModel = transformer.Transform(sarifWorkItemModel);
 
-                            // If a transformer has set the model to null, that indicates 
+                            // If a transformer has set the model to null, that indicates
                             // it should be pulled from the work flow (i.e., not filed).
                             if (updatedSarifWorkItemModel == null)
                             {
@@ -400,9 +405,11 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 case FilingResult.Canceled:
                     coreEventId = EventIds.WorkItemCanceledCoreMetrics;
                     break;
+
                 case FilingResult.ExceptionRaised:
                     coreEventId = EventIds.WorkItemExceptionCoreMetrics;
                     break;
+
                 default:
                     coreEventId = EventIds.WorkItemFiledCoreMetrics;
                     break;

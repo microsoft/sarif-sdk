@@ -63,5 +63,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// I.e., the total number of log files created is the sum of the unique fingerprint by organization, entity type, and repository.
         /// </summary>
         PerRunPerOrgPerEntityTypePerRepositoryPerPartialFingerprint,
+
+        /// <summary>
+        /// Split SARIF log files into a single log for each fingerprint.
+        /// I.e., the total number of log files created is the sum of distinct fingerprints across all logs.
+        /// </summary>
+        PerFingerprint,
     }
 }
