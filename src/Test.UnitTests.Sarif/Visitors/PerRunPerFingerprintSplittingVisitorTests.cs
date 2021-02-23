@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using FluentAssertions;
 
@@ -101,11 +102,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             SarifLog sarifLog = splitting.SplitSarifLogs[0];
 
-            // We must find one result with fingerprint a with two locations.
-            sarifLog.Runs[0].Results[0].Locations.Count.Should().Be(2);
+            // We must find one run with two results pointing to fingerprint=a
+            sarifLog.Runs[0].Results.Should().HaveCount(2);
+            sarifLog.Runs[0].Results.Count(r => r.Fingerprints["fingerprint"] == "a").Should().Be(2);
 
-            // We must find one result with fingerprint b with two locations.
-            sarifLog.Runs[0].Results[1].Locations.Count.Should().Be(1);
+            // We must find one run with one result pointing to fingerprint=b
+            sarifLog.Runs[1].Results.Should().HaveCount(1);
+            sarifLog.Runs[1].Results.Count(r => r.Fingerprints["fingerprint"] == "b").Should().Be(1);
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
     public class PerRunPerFingerprintSplittingVisitor : SplittingVisitor
     {
-        private Dictionary<string, Result> _fingerprintToResultMap;
+        private Dictionary<string, Run> _fingerprintToRunMap;
 
         public PerRunPerFingerprintSplittingVisitor(Func<Result, bool> filteringStrategy = null) : base(filteringStrategy)
         {
@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         public override Run VisitRun(Run node)
         {
-            _fingerprintToResultMap = new Dictionary<string, Result>();
+            _fingerprintToRunMap = new Dictionary<string, Run>();
             return base.VisitRun(node);
         }
 
@@ -32,18 +32,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             SarifLog sarifLog;
             if (SplitSarifLogs.Count == 0)
             {
-                sarifLog = new SarifLog()
-                {
-                    Runs = new[]
-                    {
-                        new Run
-                        {
-                            Tool = CurrentRun.Tool,
-                            Invocations = CurrentRun.Invocations,
-                            Results = new List<Result>()
-                        },
-                    }
-                };
+                sarifLog = new SarifLog() { Runs = new List<Run>() };
                 SplitSarifLogs.Add(sarifLog);
             }
             else
@@ -51,26 +40,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 sarifLog = SplitSarifLogs[0];
             }
 
-            if (!_fingerprintToResultMap.TryGetValue(fingerprint, out Result result))
+            if (!_fingerprintToRunMap.TryGetValue(fingerprint, out Run run))
             {
-                result = node;
-                result.Locations ??= new List<Location>();
-                _fingerprintToResultMap[fingerprint] = result;
-
-                sarifLog.Runs[0].Results.Add(result);
-            }
-            else
-            {
-                if (node.Locations != null)
+                run = new Run
                 {
-                    var locations = result.Locations.ToList();
-                    foreach (Location location in node.Locations)
-                    {
-                        locations.Add(location);
-                    }
-                    result.Locations = locations;
-                }
+                    Tool = CurrentRun.Tool,
+                    Invocations = CurrentRun.Invocations,
+                    Results = new List<Result>()
+                };
+                sarifLog.Runs.Add(run);
+                _fingerprintToRunMap[fingerprint] = run;
             }
+
+            run.Results.Add(node);
 
             return node;
         }
