@@ -45,6 +45,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             {
                 // Baseline result and current result have been matched => existing.
                 result = ConstructExistingResult(resultMatchingProperties, out originalResultMatchingProperties);
+
+                var previousResult = new Result { Locations = PreviousResult.Result.Locations };
+                var currenResult = new Result { Locations = CurrentResult.Result.Locations };
+
+                if (previousResult.ValueGetHashCode() != currenResult.ValueGetHashCode())
+                {
+                    result.BaselineState = BaselineState.Updated;
+                }
             }
             else if (PreviousResult == null && CurrentResult != null)
             {
