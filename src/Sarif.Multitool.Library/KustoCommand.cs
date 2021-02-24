@@ -45,7 +45,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         {
                             Driver = new ToolComponent
                             {
-                                Name = "SARIF Kusto",
+                                Name = "spam",
                                 Rules = sarifResults.Item2,
                             }
                         },
@@ -110,7 +110,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     int regionCharLength = dataReader.GetInt32(GetIndex(dataReader, dataReaderIndex, "RegionCharLength"));
                     string resultKind = dataReader.GetString(GetIndex(dataReader, dataReaderIndex, "ResultKind"));
                     string level = dataReader.GetString(GetIndex(dataReader, dataReaderIndex, "Level"));
-                    string resultMessageText = dataReader.GetString(GetIndex(dataReader, dataReaderIndex, "ResultMessageText"));
+                    //string resultMessageText = dataReader.GetString(GetIndex(dataReader, dataReaderIndex, "ResultMessageText"));
                     string result = dataReader.GetString(GetIndex(dataReader, dataReaderIndex, "Result"));
 
                     Result resultObj = JsonConvert.DeserializeObject<Result>(result);

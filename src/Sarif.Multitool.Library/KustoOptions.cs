@@ -9,7 +9,7 @@ using Microsoft.CodeAnalysis.Sarif.Driver;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
-    [Verb("kusto", HelpText = "TODO.")]
+    [Verb("kusto", HelpText = "Export a SARIF file from a kusto query.")]
     public class KustoOptions : CommonOptionsBase
     {
         [Value(
@@ -20,19 +20,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         [Option(
             "host-address",
-            HelpText = "TODO",
+            HelpText = "The host address from where we will fetch the data.",
             Required = true)]
         public string HostAddress { get; set; }
 
         [Option(
             "database",
-            HelpText = "TODO",
+            HelpText = "The database that we will connect.",
             Required = true)]
         public string Database { get; set; }
 
         [Option(
             "query",
-            HelpText = "TODO",
+            HelpText = "The query that will be used to generate the SARIF.",
             Required = true)]
         public string Query { get; set; }
 
