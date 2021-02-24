@@ -8,13 +8,14 @@
           "ruleId": "buffer/strcpy",
           "level": "error",
           "message": {
-            "text": "Does not check for buffer overflows when copying to destination [MS-banned] (CWE-120)"
+            "text": "Does not check for buffer overflows when copying to destination [MS-banned] (CWE-120)."
           },
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "test1.cpp",
+                  "uriBaseId": "REPO_ROOT",
                   "index": 0
                 },
                 "region": {
@@ -28,8 +29,8 @@
               }
             }
           ],
-          "partialFingerprints": {
-            "matchHash": "2db56aa048ca3a81aaf1e24e9caeffab66b8ee8325382d5d92f0332be3045c46"
+          "fingerprints": {
+            "contextHash/v1": "2db56aa048ca3a81aaf1e24e9caeffab66b8ee8325382d5d92f0332be3045c46"
           },
           "properties": {
             "Level": "4"
@@ -37,14 +38,16 @@
         },
         {
           "ruleId": "buffer/char",
+          "level": "note",
           "message": {
-            "text": "Statically-sized arrays can be improperly restricted, leading to potential overflows or other issues (CWE-119!/CWE-120)"
+            "text": "Statically-sized arrays can be improperly restricted, leading to potential overflows or other issues (CWE-119!/CWE-120)."
           },
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "test2.cpp",
+                  "uriBaseId": "REPO_ROOT",
                   "index": 1
                 },
                 "region": {
@@ -58,8 +61,8 @@
               }
             }
           ],
-          "partialFingerprints": {
-            "matchHash": "84c75bcb5ee170bf920db84570e2c58abee39ac26e0893e96dd88392b7e8f33a"
+          "fingerprints": {
+            "contextHash/v1": "84c75bcb5ee170bf920db84570e2c58abee39ac26e0893e96dd88392b7e8f33a"
           },
           "properties": {
             "Level": "2"
@@ -69,13 +72,14 @@
           "ruleId": "buffer/strcpy",
           "level": "error",
           "message": {
-            "text": "Does not check for buffer overflows when copying to destination [MS-banned] (CWE-120)"
+            "text": "Does not check for buffer overflows when copying to destination [MS-banned] (CWE-120)."
           },
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "test3.cpp",
+                  "uriBaseId": "REPO_ROOT",
                   "index": 2
                 },
                 "region": {
@@ -89,8 +93,8 @@
               }
             }
           ],
-          "partialFingerprints": {
-            "matchHash": "2db56aa048ca3a81aaf1e24e9caeffab66b8ee8325382d5d92f0332be3045c46"
+          "fingerprints": {
+            "contextHash/v1": "2db56aa048ca3a81aaf1e24e9caeffab66b8ee8325382d5d92f0332be3045c46"
           },
           "properties": {
             "Level": "4"
@@ -99,12 +103,12 @@
       ],
       "tool": {
         "driver": {
-          "name": "FlawFinder",
+          "name": "Flawfinder",
           "rules": [
             {
               "id": "buffer/strcpy",
               "shortDescription": {
-                "text": "Does not check for buffer overflows when copying to destination [MS-banned] (CWE-120)"
+                "text": "Does not check for buffer overflows when copying to destination [MS-banned] (CWE-120)."
               },
               "defaultConfiguration": {
                 "level": "error"
@@ -113,7 +117,10 @@
             {
               "id": "buffer/char",
               "shortDescription": {
-                "text": "Statically-sized arrays can be improperly restricted, leading to potential overflows or other issues (CWE-119!/CWE-120)"
+                "text": "Statically-sized arrays can be improperly restricted, leading to potential overflows or other issues (CWE-119!/CWE-120)."
+              },
+              "defaultConfiguration": {
+                "level": "note"
               }
             }
           ]
@@ -122,17 +129,20 @@
       "artifacts": [
         {
           "location": {
-            "uri": "test1.cpp"
+            "uri": "test1.cpp",
+            "uriBaseId": "REPO_ROOT"
           }
         },
         {
           "location": {
-            "uri": "test2.cpp"
+            "uri": "test2.cpp",
+            "uriBaseId": "REPO_ROOT"
           }
         },
         {
           "location": {
-            "uri": "test3.cpp"
+            "uri": "test3.cpp",
+            "uriBaseId": "REPO_ROOT"
           }
         }
       ],

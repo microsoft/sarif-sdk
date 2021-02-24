@@ -13,9 +13,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     public class FlawFinderConverter : ToolFileConverterBase
     {
-        private const string PartialFingerprintKey = "matchHash";
+        private const string FingerprintKey = "contextHash/v1";
 
-        public override string ToolName => "FlawFinder";
+        private const string PeriodString = ".";
+
+        private const string UriBaseIdString = "REPO_ROOT";
+
+        public override string ToolName => "Flawfinder";
 
         public override void Convert(Stream input, IResultLogWriter output, OptionallyEmittedData dataToInsert)
         {
@@ -37,10 +41,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     Driver = new ToolComponent
                     {
                         Name = ToolName,
-                        Rules = rules
+                        Rules = rules,
                     }
                 },
-                Results = results
+                Results = results,
             };
 
             PersistResults(output, results, run);
@@ -73,12 +77,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 Id = RuleIdFromFlawFinderCsvResult(flawFinderCsvResult),
                 ShortDescription = new MultiformatMessageString
                 {
-                    Text = flawFinderCsvResult.Warning
+                    Text = AppendPeriod(flawFinderCsvResult.Warning),
                 },
                 DefaultConfiguration = new ReportingConfiguration
                 {
-                    Level = SarifLevelFromFlawFinderLevel(flawFinderCsvResult.Level)
-                }
+                    Level = SarifLevelFromFlawFinderLevel(flawFinderCsvResult.Level),
+                },
             };
 
         private static Result SarifResultFromFlawFinderCsvResult(FlawFinderCsvResult flawFinderCsvResult)
@@ -88,7 +92,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 RuleId = RuleIdFromFlawFinderCsvResult(flawFinderCsvResult),
                 Message = new Message
                 {
-                    Text = flawFinderCsvResult.Warning
+                    Text = AppendPeriod(flawFinderCsvResult.Warning),
                 },
                 Level = SarifLevelFromFlawFinderLevel(flawFinderCsvResult.Level),
                 Locations = new List<Location>
@@ -99,16 +103,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         {
                             ArtifactLocation = new ArtifactLocation
                             {
-                                Uri = new Uri(flawFinderCsvResult.File, UriKind.RelativeOrAbsolute)
+                                Uri = new Uri(flawFinderCsvResult.File, UriKind.RelativeOrAbsolute),
+                                UriBaseId = UriBaseIdString,
                             },
-                            Region = RegionFromFlawFinderCsvResult(flawFinderCsvResult)
-                        }
-                    }
+                            Region = RegionFromFlawFinderCsvResult(flawFinderCsvResult),
+                        },
+                    },
                 },
-                PartialFingerprints = new Dictionary<string, string>
+                Fingerprints = new Dictionary<string, string>
                 {
-                    [PartialFingerprintKey] = flawFinderCsvResult.Fingerprint
-                }
+                    [FingerprintKey] = flawFinderCsvResult.Fingerprint,
+                },
             };
 
             result.SetProperty(
@@ -133,7 +138,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 }
             };
 
-        private static FailureLevel SarifLevelFromFlawFinderLevel(int flawFinderLevel) =>
-                flawFinderLevel < 4 ? FailureLevel.Warning : FailureLevel.Error;
+        private static FailureLevel SarifLevelFromFlawFinderLevel(int flawFinderLevel)
+        {
+            // level 4 & 5
+            if (flawFinderLevel >= 4)
+            {
+                return FailureLevel.Error;
+            }
+
+            // level 3
+            if (flawFinderLevel == 3)
+            {
+                return FailureLevel.Warning;
+            }
+
+            // level 0 1 2
+            return FailureLevel.Note;
+        }
+
+        private static string AppendPeriod(string text) =>
+            text.EndsWith(PeriodString, StringComparison.OrdinalIgnoreCase) ? text : text + PeriodString;
     }
 }

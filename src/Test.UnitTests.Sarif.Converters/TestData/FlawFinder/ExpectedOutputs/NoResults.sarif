@@ -6,7 +6,7 @@
       "results": [],
       "tool": {
         "driver": {
-          "name": "FlawFinder"
+          "name": "Flawfinder"
         }
       },
       "columnKind": "utf16CodeUnits"
