@@ -84,13 +84,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     filingContext.DataToInsert = options.DataToInsert.ToFlags();
                 }
 
+                filingContext.PropertyName = options.PropertyName;
+
                 SarifLog sarifLog = null;
                 using (var filer = new SarifWorkItemFiler(filingContext.HostUri, filingContext))
                 {
                     sarifLog = filer.FileWorkItems(logFileContents);
                 }
 
-                // By the time we're here, we have updated options.OutputFilePath with the 
+                // By the time we're here, we have updated options.OutputFilePath with the
                 // options.InputFilePath argument (in the presence of --inline) and validated
                 // that we can write to this location with one exception: we do not currently
                 // handle inlining to a read-only location.
@@ -136,6 +138,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             if (!string.IsNullOrEmpty(options.OutputFilePath))
             {
                 valid &= DriverUtilities.ReportWhetherOutputFileCanBeCreated(options.OutputFilePath, options.Force, fileSystem);
+            }
+
+            if ((options.SplittingStrategy == SplittingStrategy.PerFingerprint ||
+                options.SplittingStrategy == SplittingStrategy.PerPropertyBagProperty) &&
+                string.IsNullOrEmpty(options.PropertyName))
+            {
+                valid &= false;
             }
 
             valid &= EnsurePersonalAccessToken(sarifWorkItemContext);
@@ -192,7 +201,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             if (string.IsNullOrEmpty(workItemFilingConfiguration.PersonalAccessToken))
             {
-                // "No security token was provided. Populate the 'SarifWorkItemFilingPat' environment 
+                // "No security token was provided. Populate the 'SarifWorkItemFilingPat' environment
                 // variable with a valid personal access token or pass a token in a configuration file using
                 // the --configuration arguement."
                 Console.Error.WriteLine(MultitoolResources.WorkItemFiling_NoPatFound);
