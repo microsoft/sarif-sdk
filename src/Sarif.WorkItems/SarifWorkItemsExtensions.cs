@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -81,9 +82,9 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                     firstResult.Level.ToString() + "]: " +
                     fullRuleId;
 
-            // In ADO, the title cannot be longer than 256 characters
+            // In ADO, the title cannot be longer than 255 characters
             const string ellipsis = "...";
-            const int maxChars = 256;
+            const int maxChars = 255;
             int remainingChars = maxChars - titlePrefix.Length - 6; // " ({0})".Length == 6
 
             // We encapsulate logical names in apostrophes to help indicate they are a symbol

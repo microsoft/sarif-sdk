@@ -1,9 +1,9 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Text;
 
 using FluentAssertions;
@@ -60,7 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         [Fact]
         public void SarifWorkItemExtensions_CreateWorkItemTitle_LongTitleFromUrl()
         {
-            int maxLength = 256;
+            int maxLength = 255;
             string ruleId = "TestRuleId";
             string expectedTemplate = "[aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa:Warning]: TestRuleId: Test Rule (in al...)";
             string expected = $":Warning]: TestRuleId: Test Rule (in al" + new string('a', maxLength - expectedTemplate.Length) + "...)";
@@ -97,7 +97,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             run.Results.Add(result);
 
             // A logical location longer than 128 char is truncated with ellipses
-            int maxLength = 256;
+            int maxLength = 255;
             string expectedTemplate = "[aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa:Warning]: TestRuleId: Test Rule (in 'll...')";
             string expected = $":Warning]: TestRuleId: Test Rule (in 'll" + new string('b', maxLength - expectedTemplate.Length) + "...')";
             result.Locations[0].LogicalLocation.FullyQualifiedName = "ll" + new string('b', 1024);
