@@ -95,14 +95,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             "level",
             Separator = ';',
             Default = new FailureLevel[] { FailureLevel.Error, FailureLevel.Warning },
-            HelpText = "Filter output of scan results to one or more failure levels. Valid values: Error, Warning and Note.")]
+            HelpText = "A semicolon delimited list to filter output of scan results to one or more failure levels. Valid values: Error, Warning and Note.")]
         public IEnumerable<FailureLevel> Level { get; set; }
 
         [Option(
             "kind",
             Separator = ';',
             Default = new ResultKind[] { ResultKind.Fail },
-            HelpText = "Filter output one or more result kinds. Valid values: Fail (for literal scan results), Pass, Review, Open, NotApplicable and Informational.")]
+            HelpText = "A semicolon delimited list to filter output to one or more result kinds. Valid values: Fail (for literal scan results), Pass, Review, Open, NotApplicable and Informational.")]
         public IEnumerable<ResultKind> Kind { get; set; }
     }
 }
