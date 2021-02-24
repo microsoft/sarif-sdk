@@ -20,8 +20,8 @@
     having all the relevant values in one place. This property is actually used by the PowerShell
     script that hides ("delists") the previous package versions on nuget.org.
     -->
-    <VersionPrefix>2.4.1</VersionPrefix>
-    <PreviousVersionPrefix>2.4.0</PreviousVersionPrefix>
+    <VersionPrefix>2.4.2</VersionPrefix>
+    <PreviousVersionPrefix>2.4.1</PreviousVersionPrefix>
 
     <!-- SchemaVersionAsPublishedToSchemaStoreOrg identifies the current published version on json schema store at https://schemastore.azurewebsites.net/schemas/json/ -->
     <SchemaVersionAsPublishedToSchemaStoreOrg>2.1.0-rtm.5</SchemaVersionAsPublishedToSchemaStoreOrg>
@@ -107,7 +107,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="$(MsBuildThisFileDirectory)..\triskelion.png" Pack="true" PackagePath="\"/>
+    <None Include="$(MsBuildThisFileDirectory)..\triskelion.png" Pack="true" PackagePath="\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -119,10 +119,9 @@
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <ItemGroup Condition=" '$(Configuration)' == 'Release' ">
-    <EmbeddedFiles Include="$(GeneratedAssemblyInfoFile)"/>
+    <EmbeddedFiles Include="$(GeneratedAssemblyInfoFile)" />
     <SourceRoot Include="$(MSBuildThisFileDirectory)/" />
   </ItemGroup>
-  
 
   <ItemGroup Label="Common Packages">
     <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="5.0.3">
@@ -130,5 +129,4 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
   </ItemGroup>
-
 </Project>
