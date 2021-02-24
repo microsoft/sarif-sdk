@@ -17,7 +17,9 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             this.AssemblyLocationMap = new Dictionary<string, string>();
         }
 
-        public SarifWorkItemContext(SarifWorkItemContext initializer) : base(initializer) { }
+        public SarifWorkItemContext(SarifWorkItemContext initializer) : base(initializer)
+        {
+        }
 
         public FilingClient.SourceControlProvider CurrentProvider { get; set; }
 
@@ -99,6 +101,12 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             set { this.SetProperty(AdditionalTagsOption, value); }
         }
 
+        public string PropertyName
+        {
+            get { return this.GetProperty(PropertyNameOption); }
+            set { this.SetProperty(PropertyNameOption, value); }
+        }
+
         public string CreateLinkText(string text, string url)
         {
             if (this.CurrentProvider == Microsoft.WorkItems.FilingClient.SourceControlProvider.AzureDevOps)
@@ -127,6 +135,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         }
 
         private List<SarifWorkItemModelTransformer> workItemModelTransformers;
+
         private IReadOnlyList<SarifWorkItemModelTransformer> PopulateWorkItemModelTransformers()
         {
             if (this.workItemModelTransformers == null)
@@ -179,7 +188,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         {
             // TODO: Thoughtfully instrument this location and others
             //       in pipeline via current logging mechanism.
-            // 
+            //
             // https://github.com/microsoft/sarif-sdk/issues/1836
 
             Assembly a = null;
@@ -269,5 +278,10 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             new PerLanguageOption<StringSet>(
                 "Extensibility", nameof(AdditionalTags),
                 defaultValue: () => { return new StringSet(); });
+
+        public static PerLanguageOption<string> PropertyNameOption { get; } =
+            new PerLanguageOption<string>(
+                "Extensibility", nameof(PropertyName),
+                defaultValue: () => null);
     }
 }

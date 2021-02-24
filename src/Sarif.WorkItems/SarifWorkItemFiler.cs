@@ -234,7 +234,20 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                         }
                         case SplittingStrategy.PerFingerprint:
                         {
-                            partitionFunction = (result) => result.ShouldBeFiled() ? result.Fingerprints.Count == 0 ? null : result.Fingerprints.First().Value : null;
+                            partitionFunction = (result) => result.ShouldBeFiled()
+                                ? result.Fingerprints.ContainsKey(this.FilingContext.PropertyName)
+                                    ? result.Fingerprints[this.FilingContext.PropertyName]
+                                    : null
+                                : null;
+                            break;
+                        }
+                        case SplittingStrategy.PerPropertyBagProperty:
+                        {
+                            partitionFunction = (result) => result.ShouldBeFiled()
+                                ? result.TryGetProperty(this.FilingContext.PropertyName, out string value)
+                                    ? value
+                                    : null
+                                : null;
                             break;
                         }
                         default:

@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 
 namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 {
@@ -24,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             //
             // Open: a sound analysis is 'open' indicating that the analysis requires
             //       more configuration or other data in order to produce a determination.
-            // 
+            //
             // Review: an open item which can't be automated, i.e., which requires a
             //         manual review to resolve.
             return result.Kind == ResultKind.Fail ||
@@ -34,7 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             // Designations which are not appropriate for filing:
             //
             // Pass: the scan target explicitly passed analysis.
-            // 
+            //
             // Not applicable: analysis was skipped because it was not
             //                 relevant to the scan target.
             //

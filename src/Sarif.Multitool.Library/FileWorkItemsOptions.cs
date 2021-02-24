@@ -46,5 +46,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             "no-validate",
             HelpText = "Do not validate the SARIF log file before filing.")]
         public bool DoNotValidate { get; set; }
+
+        [Option(
+            "property-name",
+            HelpText = "The property name that will be used to split per Fingerprint or per PropertyBag")]
+        public string PropertyName { get; set; }
     }
 }
