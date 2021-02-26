@@ -6,8 +6,12 @@
       "results": [],
       "tool": {
         "driver": {
-          "name": "Flawfinder"
+          "name": "Flawfinder",
+          "informationUri": "https://dwheeler.com/flawfinder/"
         }
+      },
+      "originalUriBaseIds": {
+        "REPO_ROOT": {}
       },
       "columnKind": "utf16CodeUnits"
     }

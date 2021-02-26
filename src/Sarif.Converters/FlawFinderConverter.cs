@@ -9,6 +9,8 @@ using System.Linq;
 
 using CsvHelper;
 
+using Microsoft.CodeAnalysis.Sarif.Visitors;
+
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     public class FlawFinderConverter : ToolFileConverterBase
@@ -18,6 +20,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private const string PeriodString = ".";
 
         private const string UriBaseIdString = "REPO_ROOT";
+
+        private const string ToolInformationUri = "https://dwheeler.com/flawfinder/";
 
         public override string ToolName => "Flawfinder";
 
@@ -41,13 +45,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     Driver = new ToolComponent
                     {
                         Name = ToolName,
+                        Version = flawFinderCsvResults?.FirstOrDefault()?.ToolVersion,
+                        InformationUri = new Uri(ToolInformationUri),
                         Rules = rules,
                     }
                 },
+                OriginalUriBaseIds = new Dictionary<string, ArtifactLocation>() { {UriBaseIdString, new ArtifactLocation { Uri = null } } },
                 Results = results,
             };
 
             PersistResults(output, results, run);
+        }
+
+        internal new void PersistResults(IResultLogWriter output, IList<Result> results, Run run)
+        {
+            output.Initialize(run);
+
+            run.Results = results;
+
+            if (run.Results != null)
+            {
+                output.OpenResults();
+                output.WriteResults(run.Results);
+                output.CloseResults();
+            }
         }
 
         private static IList<ReportingDescriptor> ExtractRules(IList<FlawFinderCsvResult> flawFinderCsvResults)
@@ -83,6 +104,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 {
                     Level = SarifLevelFromFlawFinderLevel(flawFinderCsvResult.Level),
                 },
+                HelpUri = new Uri(flawFinderCsvResult.HelpUri),
             };
 
         private static Result SarifResultFromFlawFinderCsvResult(FlawFinderCsvResult flawFinderCsvResult)
@@ -92,7 +114,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 RuleId = RuleIdFromFlawFinderCsvResult(flawFinderCsvResult),
                 Message = new Message
                 {
-                    Text = AppendPeriod(flawFinderCsvResult.Warning),
+                    Text = AppendPeriod(MessageFromFlawFinderCsvResult(flawFinderCsvResult)),
                 },
                 Level = SarifLevelFromFlawFinderLevel(flawFinderCsvResult.Level),
                 Locations = new List<Location>
@@ -103,7 +125,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         {
                             ArtifactLocation = new ArtifactLocation
                             {
-                                Uri = new Uri(flawFinderCsvResult.File, UriKind.RelativeOrAbsolute),
+                                Uri = new Uri(UriHelper.MakeValidUri(flawFinderCsvResult.File), UriKind.RelativeOrAbsolute),
                                 UriBaseId = UriBaseIdString,
                             },
                             Region = RegionFromFlawFinderCsvResult(flawFinderCsvResult),
@@ -123,8 +145,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             return result;
         }
 
-        private static string RuleIdFromFlawFinderCsvResult(FlawFinderCsvResult flawFinderCsvResult) =>
-            $"{flawFinderCsvResult.Category}{SarifConstants.HierarchicalComponentSeparator}{flawFinderCsvResult.Name}";
+        private static string RuleIdFromFlawFinderCsvResult(FlawFinderCsvResult flawFinderCsvResult) => flawFinderCsvResult.RuleId;
+
+        // keep same format as html report
+        private static string MessageFromFlawFinderCsvResult(FlawFinderCsvResult flawFinderCsvResult) => 
+            $"({flawFinderCsvResult.Category}) {flawFinderCsvResult.Name}: {flawFinderCsvResult.Warning}{flawFinderCsvResult.Note}";
 
         private static Region RegionFromFlawFinderCsvResult(FlawFinderCsvResult flawFinderCsvResult) =>
             new Region

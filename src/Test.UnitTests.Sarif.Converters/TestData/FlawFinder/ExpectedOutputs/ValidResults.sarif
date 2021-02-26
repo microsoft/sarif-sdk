@@ -5,7 +5,7 @@
     {
       "results": [
         {
-          "ruleId": "buffer/strcpy",
+          "ruleId": "FF1001",
           "level": "error",
           "message": {
             "text": "Does not check for buffer overflows when copying to destination [MS-banned] (CWE-120)."
@@ -15,8 +15,7 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "test1.cpp",
-                  "uriBaseId": "REPO_ROOT",
-                  "index": 0
+                  "uriBaseId": "REPO_ROOT"
                 },
                 "region": {
                   "startLine": 32,
@@ -37,7 +36,7 @@
           }
         },
         {
-          "ruleId": "buffer/char",
+          "ruleId": "FF1002",
           "level": "note",
           "message": {
             "text": "Statically-sized arrays can be improperly restricted, leading to potential overflows or other issues (CWE-119!/CWE-120)."
@@ -47,8 +46,7 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "test2.cpp",
-                  "uriBaseId": "REPO_ROOT",
-                  "index": 1
+                  "uriBaseId": "REPO_ROOT"
                 },
                 "region": {
                   "startLine": 31,
@@ -69,7 +67,7 @@
           }
         },
         {
-          "ruleId": "buffer/strcpy",
+          "ruleId": "FF1001",
           "level": "error",
           "message": {
             "text": "Does not check for buffer overflows when copying to destination [MS-banned] (CWE-120)."
@@ -79,8 +77,7 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "test3.cpp",
-                  "uriBaseId": "REPO_ROOT",
-                  "index": 2
+                  "uriBaseId": "REPO_ROOT"
                 },
                 "region": {
                   "startLine": 56,
@@ -104,48 +101,35 @@
       "tool": {
         "driver": {
           "name": "Flawfinder",
+          "version": "2.0.15",
+          "informationUri": "https://dwheeler.com/flawfinder/",
           "rules": [
             {
-              "id": "buffer/strcpy",
+              "id": "FF1001",
               "shortDescription": {
                 "text": "Does not check for buffer overflows when copying to destination [MS-banned] (CWE-120)."
               },
               "defaultConfiguration": {
                 "level": "error"
-              }
+              },
+              "helpUri": "https://dwheeler.com/flawfinder#FF1001"
             },
             {
-              "id": "buffer/char",
+              "id": "FF1002",
               "shortDescription": {
                 "text": "Statically-sized arrays can be improperly restricted, leading to potential overflows or other issues (CWE-119!/CWE-120)."
               },
               "defaultConfiguration": {
                 "level": "note"
-              }
+              },
+              "helpUri": "https://dwheeler.com/flawfinder#FF1002"
             }
           ]
         }
       },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "test1.cpp",
-            "uriBaseId": "REPO_ROOT"
-          }
-        },
-        {
-          "location": {
-            "uri": "test2.cpp",
-            "uriBaseId": "REPO_ROOT"
-          }
-        },
-        {
-          "location": {
-            "uri": "test3.cpp",
-            "uriBaseId": "REPO_ROOT"
-          }
-        }
-      ],
+      "originalUriBaseIds": {
+        "REPO_ROOT": {}
+      },
       "columnKind": "utf16CodeUnits"
     }
   ]

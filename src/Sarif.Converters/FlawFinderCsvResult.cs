@@ -23,5 +23,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         public string CWEs { get; set; }
         public string Context { get; set; }
         public string Fingerprint { get; set; }
+        public string ToolVersion { get; set; }
+        public string RuleId { get; set; }
+        public string HelpUri { get; set; }
     }
 }
