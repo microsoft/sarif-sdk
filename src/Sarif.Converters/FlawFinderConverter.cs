@@ -50,7 +50,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         Rules = rules,
                     }
                 },
-                OriginalUriBaseIds = new Dictionary<string, ArtifactLocation>() { {UriBaseIdString, new ArtifactLocation { Uri = null } } },
+                OriginalUriBaseIds = new Dictionary<string, ArtifactLocation>() { { UriBaseIdString, new ArtifactLocation { Uri = null } } },
                 Results = results,
             };
 
@@ -148,7 +148,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private static string RuleIdFromFlawFinderCsvResult(FlawFinderCsvResult flawFinderCsvResult) => flawFinderCsvResult.RuleId;
 
         // keep same format as html report
-        private static string MessageFromFlawFinderCsvResult(FlawFinderCsvResult flawFinderCsvResult) => 
+        private static string MessageFromFlawFinderCsvResult(FlawFinderCsvResult flawFinderCsvResult) =>
             $"({flawFinderCsvResult.Category}) {flawFinderCsvResult.Name}: {flawFinderCsvResult.Warning}{flawFinderCsvResult.Note}";
 
         private static Region RegionFromFlawFinderCsvResult(FlawFinderCsvResult flawFinderCsvResult) =>
