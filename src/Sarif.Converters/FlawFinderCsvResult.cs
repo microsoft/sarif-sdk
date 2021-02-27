@@ -11,6 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         public string File { get; set; }
         public int Line { get; set; }
         public int Column { get; set; }
+        public int DefaultLevel { get; set; }
         public int Level { get; set; }
         public string Category { get; set; }
         public string Name { get; set; }

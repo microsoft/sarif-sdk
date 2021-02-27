@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private const string PeriodString = ".";
 
-        private const string UriBaseIdString = "REPO_ROOT";
+        private const string UriBaseIdString = "SRCROOT";
 
         private const string ToolInformationUri = "https://dwheeler.com/flawfinder/";
 
@@ -50,7 +50,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         Rules = rules,
                     }
                 },
-                OriginalUriBaseIds = new Dictionary<string, ArtifactLocation>() { { UriBaseIdString, new ArtifactLocation { Uri = null } } },
+
                 Results = results,
             };
 
@@ -102,7 +102,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 },
                 DefaultConfiguration = new ReportingConfiguration
                 {
-                    Level = SarifLevelFromFlawFinderLevel(flawFinderCsvResult.Level),
+                    Level = SarifLevelFromFlawFinderLevel(flawFinderCsvResult.DefaultLevel),
                 },
                 HelpUri = new Uri(flawFinderCsvResult.HelpUri),
             };
@@ -117,6 +117,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     Text = AppendPeriod(MessageFromFlawFinderCsvResult(flawFinderCsvResult)),
                 },
                 Level = SarifLevelFromFlawFinderLevel(flawFinderCsvResult.Level),
+                Rank = SarifRankFromFlawFinderLevel(flawFinderCsvResult.Level),
                 Locations = new List<Location>
                 {
                     new Location
@@ -138,25 +139,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 },
             };
 
-            result.SetProperty(
-                nameof(flawFinderCsvResult.Level),
-                flawFinderCsvResult.Level.ToString(CultureInfo.InvariantCulture));
-
             return result;
         }
 
-        private static string RuleIdFromFlawFinderCsvResult(FlawFinderCsvResult flawFinderCsvResult) => flawFinderCsvResult.RuleId;
+        private static string RuleIdFromFlawFinderCsvResult(FlawFinderCsvResult flawFinderCsvResult) =>
+            $"{flawFinderCsvResult.RuleId}/{flawFinderCsvResult.Name}";
 
         // keep same format as html report
         private static string MessageFromFlawFinderCsvResult(FlawFinderCsvResult flawFinderCsvResult) =>
-            $"({flawFinderCsvResult.Category}) {flawFinderCsvResult.Name}: {flawFinderCsvResult.Warning}{flawFinderCsvResult.Note}";
+            $"{flawFinderCsvResult.Category}/{flawFinderCsvResult.Name}: {flawFinderCsvResult.Warning}";
 
         private static Region RegionFromFlawFinderCsvResult(FlawFinderCsvResult flawFinderCsvResult) =>
             new Region
             {
                 StartLine = flawFinderCsvResult.Line,
                 StartColumn = flawFinderCsvResult.Column,
-                EndColumn = flawFinderCsvResult.Column + flawFinderCsvResult.Context.Length,
+                EndColumn = flawFinderCsvResult.Context.Length + 1,
                 Snippet = new ArtifactContent
                 {
                     Text = flawFinderCsvResult.Context
@@ -180,6 +178,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             // level 0 1 2
             return FailureLevel.Note;
         }
+
+        private static double SarifRankFromFlawFinderLevel(int flawFinderLevel) =>
+            /*
+            SARIF rank  FF Level    SARIF level Default Viewer Action
+            0.0         0           note        Does not display by default
+            0.2         1           note        Does not display by default
+            0.4         2           note        Does not display by default
+            0.6         3           warning     Displays by default, does not break build / other processes
+            0.8         4           error       Displays by default, breaks build/ other processes
+            1.0         5           error       Displays by default, breaks build/ other processes
+            */
+            // round to 1 decimal to avoid value like 0.60000000000000009
+            Math.Round(flawFinderLevel * 0.2, 1);
 
         private static string AppendPeriod(string text) =>
             text.EndsWith(PeriodString, StringComparison.OrdinalIgnoreCase) ? text : text + PeriodString;
