@@ -1,5 +1,8 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
+## **v2.4.3** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.4.3) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.4.3) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.4.3) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.4.3) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.4.3)
+* BUGFIX: Fix issue when executing sarif.multitool. [#2298](https://github.com/microsoft/sarif-sdk/pull/2298)
+
 ## **v2.4.2** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.4.2) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.4.2) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.4.2) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.4.2) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.4.2)
 * FEATURE: `ConstructMultilineContextSnippet` will retrieve a few character after/before to prevent entire file when the file is one line only. [#2288](https://github.com/microsoft/sarif-sdk/pull/2288)
 * FEATURE: `baseliner` will consider `locations`. [2290](https://github.com/microsoft/sarif-sdk/pull/2290)
