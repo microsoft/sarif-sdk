@@ -228,13 +228,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     if (currentIndex > item) { break; }
 
                     TContext context = default;
-                    bool didAnalyze;
                     try
                     {
                         context = _fileContexts[currentIndex];
-                        didAnalyze = false;
 
-                        while (context?.AnalysisComplete == true && !didAnalyze)
+                        while (context?.AnalysisComplete == true)
                         {
                             var cachingLogger = (CachingLogger)context.Logger;
                             IDictionary<ReportingDescriptor, IList<Result>> results = cachingLogger.Results;
@@ -279,19 +277,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                             RuntimeErrors |= context.RuntimeErrors;
 
+                            context.Dispose();
                             _fileContexts[currentIndex] = default;
+
+                            context = currentIndex < (_fileContexts.Count - 1)
+                                ? _fileContexts[currentIndex + 1]
+                                : default;
+
                             currentIndex++;
-                            didAnalyze = true;
                         }
                     }
                     catch (Exception e)
                     {
+                        context?.Dispose();
+                        context = default;
                         RuntimeErrors |= Errors.LogUnhandledEngineException(rootContext, e);
                         ThrowExitApplicationException(context, ExitReason.ExceptionWritingToLogFile, e);
-                    }
-                    finally
-                    {
-                        context?.Dispose();
                     }
                 }
             }
