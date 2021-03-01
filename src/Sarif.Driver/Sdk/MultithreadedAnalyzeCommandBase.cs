@@ -227,7 +227,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     // processed, we just ignore this notification.
                     if (currentIndex > item) { break; }
 
-                    TContext context;
+                    TContext context = default;
                     try
                     {
                         context = _fileContexts[currentIndex];
@@ -281,7 +281,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                             _fileContexts[currentIndex] = default;
 
                             context = currentIndex < (_fileContexts.Count - 1)
-                                ? context = _fileContexts[currentIndex + 1]
+                                ? _fileContexts[currentIndex + 1]
                                 : default;
 
                             currentIndex++;
@@ -289,6 +289,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     }
                     catch (Exception e)
                     {
+                        context?.Dispose();
                         context = default;
                         RuntimeErrors |= Errors.LogUnhandledEngineException(rootContext, e);
                         ThrowExitApplicationException(context, ExitReason.ExceptionWritingToLogFile, e);
