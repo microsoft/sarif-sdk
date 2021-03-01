@@ -75,6 +75,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             RunTestCase(input, expectedOutput);
         }
 
+        [Fact]
+        public void Converter_WhenCsvIsOldVersion_ReturnsExpectedOutput()
+        {
+            string input = GetResourceText("Inputs.OldVersionResult.csv");
+            Action action = () => RunTestCase(input, NoOutputExpected);
+            action.Should().Throw<HeaderValidationException>();
+        }
+
         private static readonly ResourceExtractor s_extractor = new ResourceExtractor(typeof(FlawFinderConverterTests));
         private const string ResourceNamePrefix = ToolFormat.FlawFinder;
 
