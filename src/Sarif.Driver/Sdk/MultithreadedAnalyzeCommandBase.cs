@@ -27,6 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         // ways depending on whether output is captured to a log file disk or not. In the latter case,
         // the captured output is useful to verify behavior.
         internal bool _captureConsoleOutput;
+
         internal ConsoleLogger _consoleLogger;
 
         private Run _run;
@@ -84,7 +85,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                     if (!(ex is ExitApplicationException<ExitReason>))
                     {
-                        // These exceptions escaped our net and must be logged here                    
+                        // These exceptions escaped our net and must be logged here
                         RuntimeErrors |= Errors.LogUnhandledEngineException(_rootContext, ex);
                     }
                     ExecutionException = ex;
@@ -220,9 +221,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     itemsSeen.Add(item);
 
                     // This condition can occur if currentIndex moves
-                    // ahead in array processing due to operations 
-                    // against it by other threads. For this case, 
-                    // since the relevant file has already been 
+                    // ahead in array processing due to operations
+                    // against it by other threads. For this case,
+                    // since the relevant file has already been
                     // processed, we just ignore this notification.
                     if (currentIndex > item) { break; }
 
@@ -233,7 +234,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                         while (context?.AnalysisComplete == true)
                         {
-                            CachingLogger cachingLogger = ((CachingLogger)context.Logger);
+                            var cachingLogger = (CachingLogger)context.Logger;
                             IDictionary<ReportingDescriptor, IList<Result>> results = cachingLogger.Results;
 
                             if (results?.Count > 0)
@@ -276,10 +277,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                             RuntimeErrors |= context.RuntimeErrors;
 
+                            context.Dispose();
                             _fileContexts[currentIndex] = default;
 
                             context = currentIndex < (_fileContexts.Count - 1)
-                                ? context = _fileContexts[currentIndex + 1]
+                                ? _fileContexts[currentIndex + 1]
                                 : default;
 
                             currentIndex++;
@@ -287,6 +289,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     }
                     catch (Exception e)
                     {
+                        context?.Dispose();
                         context = default;
                         RuntimeErrors |= Errors.LogUnhandledEngineException(rootContext, e);
                         ThrowExitApplicationException(context, ExitReason.ExceptionWritingToLogFile, e);
@@ -1017,7 +1020,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             SortedSet<Skimmer<TContext>> disabledSkimmers = new SortedSet<Skimmer<TContext>>(SkimmerIdComparer<TContext>.Instance);
 
-            // ONE-TIME initialization of skimmers. Do not call 
+            // ONE-TIME initialization of skimmers. Do not call
             // Initialize more than once per skimmer instantiation
             foreach (Skimmer<TContext> skimmer in skimmers)
             {
