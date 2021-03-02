@@ -48,6 +48,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 throw new ArgumentNullException(nameof(result));
             }
 
+            if (!ShouldLog(result))
+            {
+                return;
+            }
+
             if (rule.GetType().Name != nameof(ReportingDescriptor))
             {
                 rule = rule.DeepClone();
