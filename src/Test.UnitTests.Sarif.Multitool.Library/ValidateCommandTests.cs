@@ -25,6 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
   ""$schema"": ""http://json-schema.org/draft-04/schema#"",
   ""type"": ""object""
 }";
+
         private const string SchemaFilePath = @"c:\schemas\SimpleSchemaForTest.json";
         private const string LogFileDirectory = @"C:\Users\John\logs";
         private const string LogFileName = "example.sarif";
@@ -103,10 +104,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
-        public void WhenWeDoHaveConfigurationChangingFailureLevel()
+        public void WhenWeDoHaveConfigurationChangingFailureLevelXml()
         {
             string path = "ValidateSarif.sarif";
             string configuration = "Configuration.xml";
+            string outputPath = "ValidateSarifOutput.sarif";
+            File.WriteAllText(path, Extractor.GetResourceText($"ValidateCommand.{path}"));
+            File.WriteAllText(configuration, Extractor.GetResourceText($"ValidateCommand.{configuration}"));
+
+            SarifLog sarifLog = ExecuteTest(path, outputPath, configuration);
+            sarifLog.Runs.Count.Should().Be(1);
+            sarifLog.Runs[0].Results.Count.Should().Be(1);
+        }
+
+        [Fact]
+        public void WhenWeDoHaveConfigurationChangingFailureLevelJson()
+        {
+            string path = "ValidateSarif.sarif";
+            string configuration = "Configuration.json";
             string outputPath = "ValidateSarifOutput.sarif";
             File.WriteAllText(path, Extractor.GetResourceText($"ValidateCommand.{path}"));
             File.WriteAllText(configuration, Extractor.GetResourceText($"ValidateCommand.{configuration}"));

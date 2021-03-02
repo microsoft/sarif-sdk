@@ -10,6 +10,7 @@ using System.Runtime.Serialization;
 using System.Xml;
 
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -20,7 +21,9 @@ namespace Microsoft.CodeAnalysis.Sarif
     {
         internal const string DEFAULT_POLICY_NAME = "default";
 
-        public PropertiesDictionary() : this(null) { }
+        public PropertiesDictionary() : this(null)
+        {
+        }
 
         public PropertiesDictionary(PropertiesDictionary initializer) :
             this(initializer, null)
@@ -157,8 +160,9 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             var settings = new JsonSerializerSettings
             {
-                Formatting = formatting
+                Formatting = formatting,
             };
+            settings.Converters.Add(new StringEnumConverter());
 
             File.WriteAllText(filePath, JsonConvert.SerializeObject(this, settings));
         }
