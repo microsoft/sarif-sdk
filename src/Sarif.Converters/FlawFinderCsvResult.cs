@@ -11,6 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         public string File { get; set; }
         public int Line { get; set; }
         public int Column { get; set; }
+        public int DefaultLevel { get; set; }
         public int Level { get; set; }
         public string Category { get; set; }
         public string Name { get; set; }
@@ -23,5 +24,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         public string CWEs { get; set; }
         public string Context { get; set; }
         public string Fingerprint { get; set; }
+        public string ToolVersion { get; set; }
+        public string RuleId { get; set; }
+        public string HelpUri { get; set; }
     }
 }

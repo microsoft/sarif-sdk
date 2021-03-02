@@ -5,22 +5,22 @@
     {
       "results": [
         {
-          "ruleId": "buffer/strcpy",
+          "ruleId": "FF1001",
           "level": "error",
           "message": {
-            "text": "Does not check for buffer overflows when copying to destination [MS-banned] (CWE-120)"
+            "text": "buffer/strcpy: Does not check for buffer overflows when copying to destination [MS-banned] (CWE-120)."
           },
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "test1.cpp",
-                  "index": 0
+                  "uriBaseId": "SRCROOT"
                 },
                 "region": {
                   "startLine": 32,
                   "startColumn": 13,
-                  "endColumn": 35,
+                  "endColumn": 23,
                   "snippet": {
                     "text": "\tstrcpy(tim, argv[0]);"
                   }
@@ -28,29 +28,28 @@
               }
             }
           ],
-          "partialFingerprints": {
-            "matchHash": "2db56aa048ca3a81aaf1e24e9caeffab66b8ee8325382d5d92f0332be3045c46"
+          "fingerprints": {
+            "contextHash/v1": "2db56aa048ca3a81aaf1e24e9caeffab66b8ee8325382d5d92f0332be3045c46"
           },
-          "properties": {
-            "Level": "4"
-          }
+          "rank": 0.8
         },
         {
-          "ruleId": "buffer/char",
+          "ruleId": "FF1002",
+          "level": "note",
           "message": {
-            "text": "Statically-sized arrays can be improperly restricted, leading to potential overflows or other issues (CWE-119!/CWE-120)"
+            "text": "buffer/char: Statically-sized arrays can be improperly restricted, leading to potential overflows or other issues (CWE-119!/CWE-120)."
           },
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "test2.cpp",
-                  "index": 1
+                  "uriBaseId": "SRCROOT"
                 },
                 "region": {
                   "startLine": 31,
                   "startColumn": 17,
-                  "endColumn": 32,
+                  "endColumn": 16,
                   "snippet": {
                     "text": "\tchar tim[256];"
                   }
@@ -58,30 +57,28 @@
               }
             }
           ],
-          "partialFingerprints": {
-            "matchHash": "84c75bcb5ee170bf920db84570e2c58abee39ac26e0893e96dd88392b7e8f33a"
+          "fingerprints": {
+            "contextHash/v1": "84c75bcb5ee170bf920db84570e2c58abee39ac26e0893e96dd88392b7e8f33a"
           },
-          "properties": {
-            "Level": "2"
-          }
+          "rank": 0.4
         },
         {
-          "ruleId": "buffer/strcpy",
+          "ruleId": "FF1001",
           "level": "error",
           "message": {
-            "text": "Does not check for buffer overflows when copying to destination [MS-banned] (CWE-120)"
+            "text": "buffer/strcpy: Does not check for buffer overflows when copying to destination [MS-banned] (CWE-120)."
           },
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "test3.cpp",
-                  "index": 2
+                  "uriBaseId": "SRCROOT"
                 },
                 "region": {
                   "startLine": 56,
                   "startColumn": 21,
-                  "endColumn": 43,
+                  "endColumn": 23,
                   "snippet": {
                     "text": "\tstrcpy(tim, argv[0]);"
                   }
@@ -89,53 +86,43 @@
               }
             }
           ],
-          "partialFingerprints": {
-            "matchHash": "2db56aa048ca3a81aaf1e24e9caeffab66b8ee8325382d5d92f0332be3045c46"
+          "fingerprints": {
+            "contextHash/v1": "2db56aa048ca3a81aaf1e24e9caeffab66b8ee8325382d5d92f0332be3045c46"
           },
-          "properties": {
-            "Level": "4"
-          }
+          "rank": 0.8
         }
       ],
       "tool": {
         "driver": {
-          "name": "FlawFinder",
+          "name": "Flawfinder",
+          "version": "2.0.15",
+          "informationUri": "https://dwheeler.com/flawfinder/",
           "rules": [
             {
-              "id": "buffer/strcpy",
+              "id": "FF1001",
+              "name": "buffer/strcpy",
               "shortDescription": {
-                "text": "Does not check for buffer overflows when copying to destination [MS-banned] (CWE-120)"
+                "text": "Does not check for buffer overflows when copying to destination [MS-banned] (CWE-120)."
               },
               "defaultConfiguration": {
                 "level": "error"
-              }
+              },
+              "helpUri": "https://dwheeler.com/flawfinder#FF1001"
             },
             {
-              "id": "buffer/char",
+              "id": "FF1002",
+              "name": "buffer/char",
               "shortDescription": {
-                "text": "Statically-sized arrays can be improperly restricted, leading to potential overflows or other issues (CWE-119!/CWE-120)"
-              }
+                "text": "Statically-sized arrays can be improperly restricted, leading to potential overflows or other issues (CWE-119!/CWE-120)."
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "helpUri": "https://dwheeler.com/flawfinder#FF1002"
             }
           ]
         }
       },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "test1.cpp"
-          }
-        },
-        {
-          "location": {
-            "uri": "test2.cpp"
-          }
-        },
-        {
-          "location": {
-            "uri": "test3.cpp"
-          }
-        }
-      ],
       "columnKind": "utf16CodeUnits"
     }
   ]
