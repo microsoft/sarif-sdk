@@ -5,7 +5,7 @@
     {
       "results": [
         {
-          "ruleId": "FF1001/strcpy",
+          "ruleId": "FF1001",
           "level": "error",
           "message": {
             "text": "buffer/strcpy: Does not check for buffer overflows when copying to destination [MS-banned] (CWE-120)."
@@ -34,7 +34,7 @@
           "rank": 0.8
         },
         {
-          "ruleId": "FF1002/char",
+          "ruleId": "FF1002",
           "level": "note",
           "message": {
             "text": "buffer/char: Statically-sized arrays can be improperly restricted, leading to potential overflows or other issues (CWE-119!/CWE-120)."
@@ -63,7 +63,7 @@
           "rank": 0.4
         },
         {
-          "ruleId": "FF1001/strcpy",
+          "ruleId": "FF1001",
           "level": "error",
           "message": {
             "text": "buffer/strcpy: Does not check for buffer overflows when copying to destination [MS-banned] (CWE-120)."
@@ -99,7 +99,8 @@
           "informationUri": "https://dwheeler.com/flawfinder/",
           "rules": [
             {
-              "id": "FF1001/strcpy",
+              "id": "FF1001",
+              "name": "buffer/strcpy",
               "shortDescription": {
                 "text": "Does not check for buffer overflows when copying to destination [MS-banned] (CWE-120)."
               },
@@ -109,7 +110,8 @@
               "helpUri": "https://dwheeler.com/flawfinder#FF1001"
             },
             {
-              "id": "FF1002/char",
+              "id": "FF1002",
+              "name": "buffer/char",
               "shortDescription": {
                 "text": "Statically-sized arrays can be improperly restricted, leading to potential overflows or other issues (CWE-119!/CWE-120)."
               },

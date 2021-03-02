@@ -96,6 +96,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             new ReportingDescriptor
             {
                 Id = RuleIdFromFlawFinderCsvResult(flawFinderCsvResult),
+                Name = $"{flawFinderCsvResult.Category}/{flawFinderCsvResult.Name}",
                 ShortDescription = new MultiformatMessageString
                 {
                     Text = AppendPeriod(flawFinderCsvResult.Warning),
@@ -143,7 +144,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         }
 
         private static string RuleIdFromFlawFinderCsvResult(FlawFinderCsvResult flawFinderCsvResult) =>
-            $"{flawFinderCsvResult.RuleId}/{flawFinderCsvResult.Name}";
+            $"{flawFinderCsvResult.RuleId}";
 
         // keep same format as html report
         private static string MessageFromFlawFinderCsvResult(FlawFinderCsvResult flawFinderCsvResult) =>
