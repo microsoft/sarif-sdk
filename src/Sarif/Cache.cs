@@ -103,7 +103,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <returns>True if value in cache, False otherwise</returns>
         public bool ContainsKey(TKey key)
         {
-            return _cache.ContainsKey(key);
+            lock (_keysInUseOrder)
+            {
+                return _cache.ContainsKey(key);
+            }
         }
 
         /// <summary>
@@ -111,8 +114,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         public void Clear()
         {
-            this._cache.Clear();
-            this._keysInUseOrder.Clear();
+            lock (_keysInUseOrder)
+            {
+                this._cache.Clear();
+                this._keysInUseOrder.Clear();
+            }
         }
     }
 }
