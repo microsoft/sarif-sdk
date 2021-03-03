@@ -1,5 +1,11 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
+## **v2.4.4** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.4.4) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.4.4) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.4.4) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.4.4) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.4.4)
+* BUGFIX: Fix performance issue in `CachingLogger`. [#2301](https://github.com/microsoft/sarif-sdk/pull/2301)
+* BUGFIX: Fix context dispose while analyzing. [#2303](https://github.com/microsoft/sarif-sdk/pull/2303)
+* BUGFIX: Fix export json configuration. [#2305](https://github.com/microsoft/sarif-sdk/pull/2305)
+* BUGFIX: Fix thread issues while using `Cache`. [#2306](https://github.com/microsoft/sarif-sdk/pull/2306)
+
 ## **v2.4.3** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.4.3) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.4.3) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.4.3) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.4.3) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.4.3)
 * BUGFIX: Fix issue when executing sarif.multitool. [#2298](https://github.com/microsoft/sarif-sdk/pull/2298)
 
