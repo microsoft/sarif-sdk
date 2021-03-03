@@ -81,7 +81,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         private (List<Result>, List<ReportingDescriptor>) RetrieveResultsFromKusto()
         {
-            Dictionary<string, int> dataReaderIndex = new Dictionary<string, int>();
+            var dataReaderIndex = new Dictionary<string, int>();
             var results = new List<Result>();
             var rules = new Dictionary<string, ReportingDescriptor>();
 
@@ -96,7 +96,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     string itemPathUri = dataReader.GetString(GetIndex(dataReader, dataReaderIndex, "ItemPathUri"));
                     string organizationName = dataReader.GetString(GetIndex(dataReader, dataReaderIndex, "OrganizationName"));
                     string projectName = dataReader.GetString(GetIndex(dataReader, dataReaderIndex, "ProjectName"));
+                    string projectId = dataReader.GetString(GetIndex(dataReader, dataReaderIndex, "ProjectId"));
                     string repositoryName = dataReader.GetString(GetIndex(dataReader, dataReaderIndex, "RepositoryName"));
+                    string repositoryId = dataReader.GetString(GetIndex(dataReader, dataReaderIndex, "RepositoryId"));
                     string regionSnippet = dataReader.GetString(GetIndex(dataReader, dataReaderIndex, "RegionSnippet"));
                     string validationFingerprint = dataReader.GetString(GetIndex(dataReader, dataReaderIndex, "ValidationFingerprint"));
                     string globalFingerprint = dataReader.GetString(GetIndex(dataReader, dataReaderIndex, "GlobalFingerprint"));
@@ -110,10 +112,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     int regionCharLength = dataReader.GetInt32(GetIndex(dataReader, dataReaderIndex, "RegionCharLength"));
                     string resultKind = dataReader.GetString(GetIndex(dataReader, dataReaderIndex, "ResultKind"));
                     string level = dataReader.GetString(GetIndex(dataReader, dataReaderIndex, "Level"));
-                    //string resultMessageText = dataReader.GetString(GetIndex(dataReader, dataReaderIndex, "ResultMessageText"));
+                    string resultMessageText = dataReader.GetString(GetIndex(dataReader, dataReaderIndex, "ResultMessageText"));
                     string result = dataReader.GetString(GetIndex(dataReader, dataReaderIndex, "Result"));
 
+                    string contextRegionSnippet = null;
+
+                    if (GetIndex(dataReader, dataReaderIndex, "ContextRegionSnippet") != -1)
+                    {
+                        contextRegionSnippet = dataReader.GetString(GetIndex(dataReader, dataReaderIndex, "ContextRegionSnippet"));
+                    }
+
                     Result resultObj = JsonConvert.DeserializeObject<Result>(result);
+                    resultObj.Message = new Message
+                    {
+                        Text = resultMessageText
+                    };
                     // Removing this, because the ruleIndex might not be in the correct place.
                     resultObj.RuleIndex = -1;
                     resultObj.Level = (FailureLevel)Enum.Parse(typeof(FailureLevel), level);
@@ -135,6 +148,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                                     Text = regionSnippet
                                 }
                             },
+                            ContextRegion = string.IsNullOrEmpty(contextRegionSnippet)
+                                ? null
+                                : new Region
+                                {
+                                    Snippet = new ArtifactContent
+                                    {
+                                        Text = contextRegionSnippet
+                                    }
+                                },
                             ArtifactLocation = new ArtifactLocation
                             {
                                 Uri = new Uri(itemPathUri)
@@ -143,7 +165,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     });
                     resultObj.SetProperty("organizationName", organizationName);
                     resultObj.SetProperty("projectName", projectName);
+                    resultObj.SetProperty("projectId", projectId);
                     resultObj.SetProperty("repositoryName", repositoryName);
+                    resultObj.SetProperty("repositoryId", repositoryId);
                     resultObj.Fingerprints.Add("ValidationFingerprint", validationFingerprint);
                     resultObj.Fingerprints.Add("GlobalFingerprint", globalFingerprint);
 
@@ -169,9 +193,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         private static int GetIndex(IDataReader dataReader, Dictionary<string, int> dataReaderIndex, string key)
         {
-            if (!dataReaderIndex.TryGetValue(key, out int index))
+            int index;
+            try
             {
-                dataReaderIndex[key] = index = dataReader.GetOrdinal(key);
+                if (!dataReaderIndex.TryGetValue(key, out index))
+                {
+                    dataReaderIndex[key] = index = dataReader.GetOrdinal(key);
+                }
+            }
+            catch (ArgumentException)
+            {
+                // When we don't find, let's set to -1.
+                dataReaderIndex[key] = index = -1;
             }
 
             return index;
