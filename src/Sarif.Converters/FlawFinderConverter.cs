@@ -9,13 +9,21 @@ using System.Linq;
 
 using CsvHelper;
 
+using Microsoft.CodeAnalysis.Sarif.Visitors;
+
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     public class FlawFinderConverter : ToolFileConverterBase
     {
-        private const string PartialFingerprintKey = "matchHash";
+        private const string FingerprintKey = "contextHash/v1";
 
-        public override string ToolName => "FlawFinder";
+        private const string PeriodString = ".";
+
+        private const string UriBaseIdString = "SRCROOT";
+
+        private const string ToolInformationUri = "https://dwheeler.com/flawfinder/";
+
+        public override string ToolName => "Flawfinder";
 
         public override void Convert(Stream input, IResultLogWriter output, OptionallyEmittedData dataToInsert)
         {
@@ -37,13 +45,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     Driver = new ToolComponent
                     {
                         Name = ToolName,
-                        Rules = rules
+                        Version = flawFinderCsvResults?.FirstOrDefault()?.ToolVersion,
+                        InformationUri = new Uri(ToolInformationUri),
+                        Rules = rules,
                     }
                 },
-                Results = results
+
+                Results = results,
             };
 
             PersistResults(output, results, run);
+        }
+
+        internal new void PersistResults(IResultLogWriter output, IList<Result> results, Run run)
+        {
+            output.Initialize(run);
+
+            run.Results = results;
+
+            if (run.Results != null)
+            {
+                output.OpenResults();
+                output.WriteResults(run.Results);
+                output.CloseResults();
+            }
         }
 
         private static IList<ReportingDescriptor> ExtractRules(IList<FlawFinderCsvResult> flawFinderCsvResults)
@@ -71,14 +96,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             new ReportingDescriptor
             {
                 Id = RuleIdFromFlawFinderCsvResult(flawFinderCsvResult),
+                Name = $"{flawFinderCsvResult.Category}/{flawFinderCsvResult.Name}",
                 ShortDescription = new MultiformatMessageString
                 {
-                    Text = flawFinderCsvResult.Warning
+                    Text = AppendPeriod(flawFinderCsvResult.Warning),
                 },
                 DefaultConfiguration = new ReportingConfiguration
                 {
-                    Level = SarifLevelFromFlawFinderLevel(flawFinderCsvResult.Level)
-                }
+                    Level = SarifLevelFromFlawFinderLevel(flawFinderCsvResult.DefaultLevel),
+                },
+                HelpUri = new Uri(flawFinderCsvResult.HelpUri),
             };
 
         private static Result SarifResultFromFlawFinderCsvResult(FlawFinderCsvResult flawFinderCsvResult)
@@ -88,9 +115,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 RuleId = RuleIdFromFlawFinderCsvResult(flawFinderCsvResult),
                 Message = new Message
                 {
-                    Text = flawFinderCsvResult.Warning
+                    Text = AppendPeriod(MessageFromFlawFinderCsvResult(flawFinderCsvResult)),
                 },
                 Level = SarifLevelFromFlawFinderLevel(flawFinderCsvResult.Level),
+                Rank = SarifRankFromFlawFinderLevel(flawFinderCsvResult.Level),
                 Locations = new List<Location>
                 {
                     new Location
@@ -99,41 +127,73 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         {
                             ArtifactLocation = new ArtifactLocation
                             {
-                                Uri = new Uri(flawFinderCsvResult.File, UriKind.RelativeOrAbsolute)
+                                Uri = new Uri(UriHelper.MakeValidUri(flawFinderCsvResult.File), UriKind.RelativeOrAbsolute),
+                                UriBaseId = UriBaseIdString,
                             },
-                            Region = RegionFromFlawFinderCsvResult(flawFinderCsvResult)
-                        }
-                    }
+                            Region = RegionFromFlawFinderCsvResult(flawFinderCsvResult),
+                        },
+                    },
                 },
-                PartialFingerprints = new Dictionary<string, string>
+                Fingerprints = new Dictionary<string, string>
                 {
-                    [PartialFingerprintKey] = flawFinderCsvResult.Fingerprint
-                }
+                    [FingerprintKey] = flawFinderCsvResult.Fingerprint,
+                },
             };
-
-            result.SetProperty(
-                nameof(flawFinderCsvResult.Level),
-                flawFinderCsvResult.Level.ToString(CultureInfo.InvariantCulture));
 
             return result;
         }
 
         private static string RuleIdFromFlawFinderCsvResult(FlawFinderCsvResult flawFinderCsvResult) =>
-            $"{flawFinderCsvResult.Category}{SarifConstants.HierarchicalComponentSeparator}{flawFinderCsvResult.Name}";
+            $"{flawFinderCsvResult.RuleId}";
+
+        // keep same format as html report
+        private static string MessageFromFlawFinderCsvResult(FlawFinderCsvResult flawFinderCsvResult) =>
+            $"{flawFinderCsvResult.Category}/{flawFinderCsvResult.Name}: {flawFinderCsvResult.Warning}";
 
         private static Region RegionFromFlawFinderCsvResult(FlawFinderCsvResult flawFinderCsvResult) =>
             new Region
             {
                 StartLine = flawFinderCsvResult.Line,
                 StartColumn = flawFinderCsvResult.Column,
-                EndColumn = flawFinderCsvResult.Column + flawFinderCsvResult.Context.Length,
+                EndColumn = flawFinderCsvResult.Context.Length + 1,
                 Snippet = new ArtifactContent
                 {
                     Text = flawFinderCsvResult.Context
                 }
             };
 
-        private static FailureLevel SarifLevelFromFlawFinderLevel(int flawFinderLevel) =>
-                flawFinderLevel < 4 ? FailureLevel.Warning : FailureLevel.Error;
+        private static FailureLevel SarifLevelFromFlawFinderLevel(int flawFinderLevel)
+        {
+            // level 4 & 5
+            if (flawFinderLevel >= 4)
+            {
+                return FailureLevel.Error;
+            }
+
+            // level 3
+            if (flawFinderLevel == 3)
+            {
+                return FailureLevel.Warning;
+            }
+
+            // level 0 1 2
+            return FailureLevel.Note;
+        }
+
+        private static double SarifRankFromFlawFinderLevel(int flawFinderLevel) =>
+            /*
+            SARIF rank  FF Level    SARIF level Default Viewer Action
+            0.0         0           note        Does not display by default
+            0.2         1           note        Does not display by default
+            0.4         2           note        Does not display by default
+            0.6         3           warning     Displays by default, does not break build / other processes
+            0.8         4           error       Displays by default, breaks build/ other processes
+            1.0         5           error       Displays by default, breaks build/ other processes
+            */
+            // round to 1 decimal to avoid value like 0.60000000000000009
+            Math.Round(flawFinderLevel * 0.2, 1);
+
+        private static string AppendPeriod(string text) =>
+            text.EndsWith(PeriodString, StringComparison.OrdinalIgnoreCase) ? text : text + PeriodString;
     }
 }

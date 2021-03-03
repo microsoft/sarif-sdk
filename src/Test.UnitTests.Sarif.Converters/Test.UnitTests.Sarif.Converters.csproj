@@ -19,6 +19,7 @@
     <None Remove="TestData\FlawFinder\Inputs\Empty.csv" />
     <None Remove="TestData\FlawFinder\Inputs\InvalidHeader.csv" />
     <None Remove="TestData\FlawFinder\Inputs\InvalidResult.csv" />
+    <None Remove="TestData\FlawFinder\Inputs\OldVersionResult.csv" />
     <None Remove="TestData\FlawFinder\Inputs\OnlyHeaderLine.csv" />
     <None Remove="TestData\FlawFinder\Inputs\ValidResults.csv" />
   </ItemGroup>
@@ -46,6 +47,7 @@
     <EmbeddedResource Include="TestData\FlawFinder\ExpectedOutputs\ValidResults.sarif" />
     <EmbeddedResource Include="TestData\FlawFinder\Inputs\Empty.csv" />
     <EmbeddedResource Include="TestData\FlawFinder\Inputs\InvalidHeader.csv" />
+    <EmbeddedResource Include="TestData\FlawFinder\Inputs\OldVersionResult.csv" />
     <EmbeddedResource Include="TestData\FlawFinder\Inputs\ValidResults.csv" />
     <EmbeddedResource Include="TestData\FlawFinder\Inputs\InvalidResult.csv" />
     <EmbeddedResource Include="TestData\FlawFinder\Inputs\OnlyHeaderLine.csv" />
