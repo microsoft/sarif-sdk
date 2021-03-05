@@ -95,14 +95,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         private Region PopulateTextRegionProperties(NewLineIndex lineIndex, Region inputRegion, string fileText, bool populateSnippet)
         {
             // A GENERAL NOTE ON THE PROPERTY POPULATION PROCESS:
-            // 
-            // As a rule, if we find some existing data on the region, we will trust it 
-            // and avoid overwriting it. We will take every opportunity, however, to 
+            //
+            // As a rule, if we find some existing data on the region, we will trust it
+            // and avoid overwriting it. We will take every opportunity, however, to
             // validate that the existing information matches what the new line index
             // computes. Note that we could consider making the new line index more
-            // efficient by deferring its newline computations until they are 
-            // actually requested. If we do so, we could update this code to 
-            // avoid verifying region data in cases where regions are fully 
+            // efficient by deferring its newline computations until they are
+            // actually requested. If we do so, we could update this code to
+            // avoid verifying region data in cases where regions are fully
             // populated (and we can skip file parsing required to build
             // the map of new line offsets).
             Assert(!inputRegion.IsBinaryRegion);
@@ -183,8 +183,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                 ? 0
                 : originalRegion.CharOffset - smallSnippetLength;
 
-            region.CharLength = originalRegion.CharLength + originalRegion.CharOffset + smallSnippetLength < newLineIndex.Text.Length
-                ? originalRegion.CharLength + originalRegion.CharOffset + smallSnippetLength
+            region.CharLength = originalRegion.CharLength + region.CharOffset + 2 * smallSnippetLength < newLineIndex.Text.Length
+                ? originalRegion.CharLength + 2 * smallSnippetLength
                 : newLineIndex.Text.Length - region.CharOffset;
 
             // Generating  multineRegion with 128 characters to the left and right from the
@@ -234,7 +234,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             Assert(region.StartLine > 0);
 
-            // Note: execution order of these helpers is important, as some 
+            // Note: execution order of these helpers is important, as some
             // calls assume that certain preceding helpers have executed,
             // with the result that certain properties are populated
 
