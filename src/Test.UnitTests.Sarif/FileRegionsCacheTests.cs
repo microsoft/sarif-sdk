@@ -620,8 +620,8 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
             region = fileRegionsCache.PopulateTextRegionProperties(region, uri, true, content);
             Region multilineRegion = fileRegionsCache.ConstructMultilineContextSnippet(region, uri);
 
-            // CharLength + 128 to the right + 128 to the left= 556 characters
-            multilineRegion.CharLength.Should().Be(300 + 2 * 128);
+            // CharLength + 128 to the right = 428 characters
+            multilineRegion.CharLength.Should().Be(300 + 128);
             multilineRegion.Snippet.Text.Should().NotBeNullOrEmpty();
         }
 

@@ -183,8 +183,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                 ? 0
                 : originalRegion.CharOffset - smallSnippetLength;
 
-            region.CharLength = originalRegion.CharLength + region.CharOffset + 2 * smallSnippetLength < newLineIndex.Text.Length
-                ? originalRegion.CharLength + 2 * smallSnippetLength
+            region.CharLength = originalRegion.CharLength + region.CharOffset + smallSnippetLength < newLineIndex.Text.Length
+                ? originalRegion.CharLength + smallSnippetLength + Math.Abs(region.CharOffset - originalRegion.CharOffset)
                 : newLineIndex.Text.Length - region.CharOffset;
 
             // Generating  multineRegion with 128 characters to the left and right from the
