@@ -1,5 +1,8 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
+## **v2.4.5** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.4.5) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.4.5) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.4.5) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.4.5) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.4.5)
+* BUGFIX: Fix `FileRegionsCache` logic. [#2309](https://github.com/microsoft/sarif-sdk/pull/2309)
+
 ## **v2.4.4** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.4.4) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.4.4) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.4.4) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.4.4) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.4.4)
 * BUGFIX: Fix performance issue in `CachingLogger`. [#2301](https://github.com/microsoft/sarif-sdk/pull/2301)
 * BUGFIX: Fix context dispose while analyzing. [#2303](https://github.com/microsoft/sarif-sdk/pull/2303)
