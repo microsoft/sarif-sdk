@@ -24,6 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         // ways depending on whether output is captured to a log file disk or not. In the latter case,
         // the captured output is useful to verify behavior.
         internal bool _captureConsoleOutput;
+
         internal ConsoleLogger _consoleLogger;
 
         private Tool _tool;
@@ -94,7 +95,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 }
                 catch (Exception ex)
                 {
-                    // These exceptions escaped our net and must be logged here                    
+                    // These exceptions escaped our net and must be logged here
                     RuntimeErrors |= Errors.LogUnhandledEngineException(_rootContext, ex);
                     ExecutionException = ex;
                     return FAILURE;
@@ -129,10 +130,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             //    the command line parser library is capable of.
             ValidateOptions(_rootContext, options);
 
-            // 3. Produce a comprehensive set of analysis targets 
+            // 3. Produce a comprehensive set of analysis targets
             ISet<string> targets = CreateTargetsSet(options);
 
-            // 4. Proactively validate that we can locate and 
+            // 4. Proactively validate that we can locate and
             //    access all analysis targets. Helper will return
             //    a list that potentially filters out files which
             //    did not exist, could not be accessed, etc.
@@ -428,6 +429,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                     tool: _tool,
                                     run: null,
                                     analysisTargets: targets,
+                                    quiet: analyzeOptions.Quiet,
                                     invocationTokensToRedact: GenerateSensitiveTokensList(),
                                     invocationPropertiesToLog: analyzeOptions.InvocationPropertiesToLog,
                                     levels: analyzeOptions.Level,

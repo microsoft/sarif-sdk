@@ -41,6 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             IEnumerable<string> invocationTokensToRedact = null,
             IEnumerable<string> invocationPropertiesToLog = null,
             string defaultFileEncoding = null,
+            bool quiet = false,
             IEnumerable<FailureLevel> levels = null,
             IEnumerable<ResultKind> kinds = null)
             : this(new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.None)),
@@ -53,6 +54,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                   invocationTokensToRedact: invocationTokensToRedact,
                   invocationPropertiesToLog: invocationPropertiesToLog,
                   defaultFileEncoding: defaultFileEncoding,
+                  quiet: quiet,
                   levels: levels,
                   kinds: kinds)
         {
@@ -70,12 +72,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             IEnumerable<string> invocationPropertiesToLog = null,
             string defaultFileEncoding = null,
             bool closeWriterOnDispose = true,
+            bool quiet = false,
             IEnumerable<FailureLevel> levels = null,
             IEnumerable<ResultKind> kinds = null) : this(textWriter, logFilePersistenceOptions, closeWriterOnDispose, levels, kinds)
         {
             if (dataToInsert.HasFlag(OptionallyEmittedData.Hashes))
             {
-                AnalysisTargetToHashDataMap = HashUtilities.MultithreadedComputeTargetFileHashes(analysisTargets);
+                AnalysisTargetToHashDataMap = HashUtilities.MultithreadedComputeTargetFileHashes(analysisTargets, quiet);
             }
 
             _run = run ?? new Run();
@@ -250,7 +253,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public virtual void Dispose()
         {
-            // Disposing the json writer closes the stream but the textwriter 
+            // Disposing the json writer closes the stream but the textwriter
             // still needs to be disposed or closed to write the results
             if (_issueLogJsonWriter != null)
             {

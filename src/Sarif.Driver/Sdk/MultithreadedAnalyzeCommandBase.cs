@@ -664,6 +664,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                     tool: _tool,
                                     run: _run,
                                     analysisTargets: null,
+                                    quiet: analyzeOptions.Quiet,
                                     invocationTokensToRedact: GenerateSensitiveTokensList(),
                                     invocationPropertiesToLog: analyzeOptions.InvocationPropertiesToLog,
                                     levels: analyzeOptions.Level,
