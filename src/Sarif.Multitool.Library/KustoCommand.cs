@@ -131,38 +131,59 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     resultObj.RuleIndex = -1;
                     resultObj.Level = (FailureLevel)Enum.Parse(typeof(FailureLevel), level);
                     resultObj.Kind = (ResultKind)Enum.Parse(typeof(ResultKind), resultKind);
-                    resultObj.Locations.Add(new Location
+
+                    if (resultObj?.Locations.Count > 0)
                     {
-                        PhysicalLocation = new PhysicalLocation
+                        resultObj.Locations[0].PhysicalLocation.ArtifactLocation.Uri = new Uri(itemPathUri);
+                        resultObj.Locations[0].PhysicalLocation.Region.Snippet = new ArtifactContent
                         {
-                            Region = new Region
+                            Text = regionSnippet
+                        };
+
+                        if (!string.IsNullOrEmpty(contextRegionSnippet))
+                        {
+                            resultObj.Locations[0].PhysicalLocation.ContextRegion.Snippet = new ArtifactContent
                             {
-                                CharLength = regionCharLength,
-                                CharOffset = regionCharOffset,
-                                StartColumn = regionStartColumn,
-                                StartLine = regionStartLine,
-                                EndColumn = regionEndColumn,
-                                EndLine = regionEndLine,
-                                Snippet = new ArtifactContent
+                                Text = contextRegionSnippet
+                            };
+                        }
+                    }
+                    else
+                    {
+                        resultObj.Locations.Add(new Location
+                        {
+                            PhysicalLocation = new PhysicalLocation
+                            {
+                                Region = new Region
                                 {
-                                    Text = regionSnippet
-                                }
-                            },
-                            ContextRegion = string.IsNullOrEmpty(contextRegionSnippet)
-                                ? null
-                                : new Region
-                                {
+                                    CharLength = regionCharLength,
+                                    CharOffset = regionCharOffset,
+                                    StartColumn = regionStartColumn,
+                                    StartLine = regionStartLine,
+                                    EndColumn = regionEndColumn,
+                                    EndLine = regionEndLine,
                                     Snippet = new ArtifactContent
                                     {
-                                        Text = contextRegionSnippet
+                                        Text = regionSnippet
                                     }
                                 },
-                            ArtifactLocation = new ArtifactLocation
-                            {
-                                Uri = new Uri(itemPathUri)
-                            }
-                        },
-                    });
+                                ContextRegion = string.IsNullOrEmpty(contextRegionSnippet)
+                                    ? null
+                                    : new Region
+                                    {
+                                        Snippet = new ArtifactContent
+                                        {
+                                            Text = contextRegionSnippet
+                                        }
+                                    },
+                                ArtifactLocation = new ArtifactLocation
+                                {
+                                    Uri = new Uri(itemPathUri)
+                                }
+                            },
+                        });
+                    }
+
                     resultObj.SetProperty("organizationName", organizationName);
                     resultObj.SetProperty("projectName", projectName);
                     resultObj.SetProperty("projectId", projectId);
