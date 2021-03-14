@@ -203,7 +203,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             else
             {
                 Console.WriteLine($"Done. {_fileContextsCount:n0} files scanned.");
-                Console.WriteLine($"Done. {_fileContexts.Count:n0} files remaining.");
             }
         }
 
