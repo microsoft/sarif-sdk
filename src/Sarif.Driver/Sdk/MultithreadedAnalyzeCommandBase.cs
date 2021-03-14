@@ -292,7 +292,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 }
             }
 
-            Debug.Assert(currentIndex == _fileContexts.Count);
+            Debug.Assert(_fileContexts.Count == 0);
+            Debug.Assert(_fileContextsCount == currentIndex);
 
             return true;
         }
