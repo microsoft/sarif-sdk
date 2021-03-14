@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -33,8 +34,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         private Run _run;
         private Tool _tool;
         private bool _computeHashes;
+        private int _fileContextsCount;
         private TContext _rootContext;
-        private IList<TContext> _fileContexts;
+        private ConcurrentDictionary<int, TContext> _fileContexts;
         private Channel<int> _resultsWritingChannel;
         private Channel<int> _fileEnumerationChannel;
         private IDictionary<string, HashData> _pathToHashDataMap;
@@ -196,18 +198,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (rootContext.Traces.HasFlag(DefaultTraces.ScanTime))
             {
-                Console.WriteLine($"Done. {_fileContexts.Count:n0} files scanned in {sw.Elapsed}.");
+                Console.WriteLine($"Done. {_fileContextsCount:n0} files scanned in {sw.Elapsed}.");
             }
             else
             {
-                Console.WriteLine($"Done. {_fileContexts.Count:n0} files scanned.");
+                Console.WriteLine($"Done. {_fileContextsCount:n0} files scanned.");
+                Console.WriteLine($"Done. {_fileContexts.Count:n0} files remaining.");
             }
         }
 
         private async Task<bool> WriteResultsAsync(TContext rootContext)
         {
             int currentIndex = 0;
-            var itemsSeen = new HashSet<int>();
 
             ChannelReader<int> reader = _resultsWritingChannel.Reader;
 
@@ -217,9 +219,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 // Loop while there is work to do.
                 while (reader.TryRead(out int item))
                 {
-                    Debug.Assert(!itemsSeen.Contains(item));
-                    itemsSeen.Add(item);
-
                     // This condition can occur if currentIndex moves
                     // ahead in array processing due to operations
                     // against it by other threads. For this case,
@@ -278,11 +277,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                             RuntimeErrors |= context.RuntimeErrors;
 
                             context.Dispose();
-                            _fileContexts[currentIndex] = default;
-
-                            context = currentIndex < (_fileContexts.Count - 1)
-                                ? _fileContexts[currentIndex + 1]
-                                : default;
+                            _fileContexts.TryRemove(currentIndex, out _);
+                            _fileContexts.TryGetValue(currentIndex + 1, out context);
 
                             currentIndex++;
                         }
@@ -298,14 +294,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
 
             Debug.Assert(currentIndex == _fileContexts.Count);
-            Debug.Assert(itemsSeen.Count == _fileContexts.Count);
 
             return true;
         }
 
         private async Task<bool> FindFilesAsync(TOptions options, TContext rootContext)
         {
-            this._fileContexts = new List<TContext>();
+            this._fileContextsCount = 0;
+            this._fileContexts = new ConcurrentDictionary<int, TContext>();
 
             foreach (string specifier in options.TargetFileSpecifiers)
             {
@@ -318,8 +314,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         normalizedSpecifier = uri.LocalPath;
                     }
                 }
-
-                int contextIndex = 0;
 
                 string filter = Path.GetFileName(normalizedSpecifier);
                 string directory = Path.GetDirectoryName(normalizedSpecifier);
@@ -365,7 +359,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                     foreach (string file in sortedFiles)
                     {
-                        _fileContexts.Add(
+                        _fileContexts.TryAdd(
+                            _fileContextsCount,
                             CreateContext(
                                 options,
                                 new CachingLogger(options.Level, options.Kind),
@@ -374,15 +369,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                 filePath: file)
                         );
 
-                        Debug.Assert(_fileContexts.Count == contextIndex + 1);
-
-                        await _fileEnumerationChannel.Writer.WriteAsync(contextIndex++);
+                        await _fileEnumerationChannel.Writer.WriteAsync(_fileContextsCount++);
                     }
                 }
             }
             _fileEnumerationChannel.Writer.Complete();
 
-            if (_fileContexts.Count == 0)
+            if (_fileContextsCount == 0)
             {
                 Errors.LogNoValidAnalysisTargets(rootContext);
                 ThrowExitApplicationException(rootContext, ExitReason.NoValidAnalysisTargets);
