@@ -1,5 +1,5 @@
 {
-  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0.json",
   "version": "2.1.0",
   "runs": [
     {
@@ -9,10 +9,7 @@
           "semanticVersion": "2.1.0",
           "properties": {
             "foo": "bar",
-            "tags": [
-  "1",
-  "2"
-]
+            "tags": ["1","2"]
           }
         }
       },
