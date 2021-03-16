@@ -93,6 +93,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             {
                 try
                 {
+                    string itemPath = dataReader.GetString(GetIndex(dataReader, dataReaderIndex, "ItemPath"));
                     string itemPathUri = dataReader.GetString(GetIndex(dataReader, dataReaderIndex, "ItemPathUri"));
                     string organizationName = dataReader.GetString(GetIndex(dataReader, dataReaderIndex, "OrganizationName"));
                     string projectName = dataReader.GetString(GetIndex(dataReader, dataReaderIndex, "ProjectName"));
@@ -104,22 +105,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     string globalFingerprint = dataReader.GetString(GetIndex(dataReader, dataReaderIndex, "GlobalFingerprint"));
                     string ruleId = dataReader.GetString(GetIndex(dataReader, dataReaderIndex, "RuleId"));
                     string ruleName = dataReader.GetString(GetIndex(dataReader, dataReaderIndex, "RuleName"));
-                    int regionStartLine = dataReader.GetInt32(GetIndex(dataReader, dataReaderIndex, "RegionStartLine"));
-                    int regionEndLine = dataReader.GetInt32(GetIndex(dataReader, dataReaderIndex, "RegionEndLine"));
-                    int regionStartColumn = dataReader.GetInt32(GetIndex(dataReader, dataReaderIndex, "RegionStartColumn"));
-                    int regionEndColumn = dataReader.GetInt32(GetIndex(dataReader, dataReaderIndex, "RegionEndColumn"));
-                    int regionCharOffset = dataReader.GetInt32(GetIndex(dataReader, dataReaderIndex, "RegionCharOffset"));
-                    int regionCharLength = dataReader.GetInt32(GetIndex(dataReader, dataReaderIndex, "RegionCharLength"));
                     string resultKind = dataReader.GetString(GetIndex(dataReader, dataReaderIndex, "ResultKind"));
                     string level = dataReader.GetString(GetIndex(dataReader, dataReaderIndex, "Level"));
                     string resultMessageText = dataReader.GetString(GetIndex(dataReader, dataReaderIndex, "ResultMessageText"));
                     string result = dataReader.GetString(GetIndex(dataReader, dataReaderIndex, "Result"));
+                    string etlEntity = dataReader.GetString(GetIndex(dataReader, dataReaderIndex, "EtlEntity"));
 
                     string contextRegionSnippet = null;
 
                     if (GetIndex(dataReader, dataReaderIndex, "ContextRegionSnippet") != -1)
                     {
                         contextRegionSnippet = dataReader.GetString(GetIndex(dataReader, dataReaderIndex, "ContextRegionSnippet"));
+                    }
+
+                    if (etlEntity == "Build" || etlEntity == "Release")
+                    {
+                        itemPath = itemPath.Replace("vsrm.visualstudio.com", "visualstudio.com");
+                        itemPath = itemPath.Replace("_apis/build/Definitions/", "_build?definitionId=");
+                        itemPath = itemPath.Replace("_apis/Release/definitions/", "_release?_a=releases&view=mine&definitionId=");
+
+                        resultMessageText += $" This pipeline can be updated on [Azure DevOps]({itemPath}) to secure the variable that exposes this secret.";
                     }
 
                     Result resultObj = JsonConvert.DeserializeObject<Result>(result);
@@ -150,6 +155,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     }
                     else
                     {
+                        int regionStartLine = dataReader.GetInt32(GetIndex(dataReader, dataReaderIndex, "RegionStartLine"));
+                        int regionEndLine = dataReader.GetInt32(GetIndex(dataReader, dataReaderIndex, "RegionEndLine"));
+                        int regionStartColumn = dataReader.GetInt32(GetIndex(dataReader, dataReaderIndex, "RegionStartColumn"));
+                        int regionEndColumn = dataReader.GetInt32(GetIndex(dataReader, dataReaderIndex, "RegionEndColumn"));
+                        int regionCharOffset = dataReader.GetInt32(GetIndex(dataReader, dataReaderIndex, "RegionCharOffset"));
+                        int regionCharLength = dataReader.GetInt32(GetIndex(dataReader, dataReaderIndex, "RegionCharLength"));
                         resultObj.Locations.Add(new Location
                         {
                             PhysicalLocation = new PhysicalLocation
