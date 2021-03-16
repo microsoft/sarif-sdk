@@ -120,9 +120,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                     if (etlEntity == "Build" || etlEntity == "Release")
                     {
-                        itemPath = itemPath.Replace("vsrm.visualstudio.com", "visualstudio.com", StringComparison.OrdinalIgnoreCase);
-                        itemPath = itemPath.Replace("_apis/build/Definitions/", "_build?definitionId=", StringComparison.OrdinalIgnoreCase);
-                        itemPath = itemPath.Replace("_apis/Release/definitions/", "_release?_a=releases&view=mine&definitionId=", StringComparison.OrdinalIgnoreCase);
+                        itemPath = itemPath.Replace("vsrm.visualstudio.com", "visualstudio.com");
+                        itemPath = itemPath.Replace("_apis/build/Definitions/", "_build?definitionId=");
+                        itemPath = itemPath.Replace("_apis/Release/definitions/", "_release?_a=releases&view=mine&definitionId=");
 
                         resultMessageText += $" This pipeline can be updated on [Azure DevOps]({itemPath}) to secure the variable that exposes this secret.";
                     }
