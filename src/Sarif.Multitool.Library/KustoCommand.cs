@@ -127,7 +127,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     bool? onDemandValidated = null;
                     if (GetIndex(dataReader, dataReaderIndex, "OnDemandValidated") != -1)
                     {
-                        onDemandValidated = dataReader.GetBoolean(GetIndex(dataReader, dataReaderIndex, "OnDemandValidated"));
+                        onDemandValidated = (sbyte)dataReader.GetValue(GetIndex(dataReader, dataReaderIndex, "OnDemandValidated")) == 1;
                     }
 
                     if (etlEntity == "Build" || etlEntity == "Release")
