@@ -102,6 +102,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     string repositoryId = dataReader.GetString(GetIndex(dataReader, dataReaderIndex, "RepositoryId"));
                     string regionSnippet = dataReader.GetString(GetIndex(dataReader, dataReaderIndex, "RegionSnippet"));
                     string validationFingerprint = dataReader.GetString(GetIndex(dataReader, dataReaderIndex, "ValidationFingerprint"));
+                    string validationFingerprintHash = dataReader.GetString(GetIndex(dataReader, dataReaderIndex, "ValidationFingerprintHash"));
                     string globalFingerprint = dataReader.GetString(GetIndex(dataReader, dataReaderIndex, "GlobalFingerprint"));
                     string ruleId = dataReader.GetString(GetIndex(dataReader, dataReaderIndex, "RuleId"));
                     string ruleName = dataReader.GetString(GetIndex(dataReader, dataReaderIndex, "RuleName"));
@@ -112,10 +113,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     string etlEntity = dataReader.GetString(GetIndex(dataReader, dataReaderIndex, "EtlEntity"));
 
                     string contextRegionSnippet = null;
-
                     if (GetIndex(dataReader, dataReaderIndex, "ContextRegionSnippet") != -1)
                     {
                         contextRegionSnippet = dataReader.GetString(GetIndex(dataReader, dataReaderIndex, "ContextRegionSnippet"));
+                    }
+
+                    string assetFingerprint = null;
+                    if (GetIndex(dataReader, dataReaderIndex, "AssetFingerprint") != -1)
+                    {
+                        assetFingerprint = dataReader.GetString(GetIndex(dataReader, dataReaderIndex, "AssetFingerprint"));
+                    }
+
+                    bool? onDemandValidated = null;
+                    if (GetIndex(dataReader, dataReaderIndex, "OnDemandValidated") != -1)
+                    {
+                        onDemandValidated = dataReader.GetBoolean(GetIndex(dataReader, dataReaderIndex, "OnDemandValidated"));
                     }
 
                     if (etlEntity == "Build" || etlEntity == "Release")
@@ -136,6 +148,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     resultObj.RuleIndex = -1;
                     resultObj.Level = (FailureLevel)Enum.Parse(typeof(FailureLevel), level);
                     resultObj.Kind = (ResultKind)Enum.Parse(typeof(ResultKind), resultKind);
+
+                    if (onDemandValidated.HasValue)
+                    {
+                        // If on demand is true, it means that we searched validated that credential
+                        // and that returned that the credential is not valid anymore.
+                        resultObj.BaselineState = onDemandValidated.Value
+                            ? BaselineState.Absent
+                            : BaselineState.New;
+                    }
 
                     if (resultObj?.Locations.Count > 0)
                     {
@@ -200,8 +221,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     resultObj.SetProperty("projectId", projectId);
                     resultObj.SetProperty("repositoryName", repositoryName);
                     resultObj.SetProperty("repositoryId", repositoryId);
-                    resultObj.Fingerprints.Add("ValidationFingerprint", validationFingerprint);
-                    resultObj.Fingerprints.Add("GlobalFingerprint", globalFingerprint);
+                    resultObj.Fingerprints.Add("AssetFingerprint/v1", assetFingerprint);
+                    resultObj.Fingerprints.Add("GlobalFingerprint/v1", globalFingerprint);
+                    resultObj.Fingerprints.Add("ValidationFingerprint/v1", validationFingerprint);
+                    resultObj.Fingerprints.Add("ValidationFingerprintHash/v1", validationFingerprintHash);
 
                     if (!rules.ContainsKey(ruleId))
                     {
