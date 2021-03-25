@@ -83,17 +83,20 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private void SetValue(TKey key, TValue value)
         {
-            // If cache full, remove least recently used item
-            if (Capacity > 0 && _cache.Count >= Capacity)
+            lock (_keysInUseOrder)
             {
-                TKey oldest = _keysInUseOrder.Last.Value;
+                // If cache full, remove least recently used item
+                if (Capacity > 0 && _cache.Count >= Capacity)
+                {
+                    TKey oldest = _keysInUseOrder.Last.Value;
 
-                _keysInUseOrder.RemoveLast();
-                _cache.TryRemove(oldest, out _);
+                    _keysInUseOrder.RemoveLast();
+                    _cache.TryRemove(oldest, out _);
+                }
+
+                _cache[key] = value;
+                _keysInUseOrder.AddFirst(key);
             }
-
-            _cache[key] = value;
-            _keysInUseOrder.AddFirst(key);
         }
 
         /// <summary>
@@ -103,10 +106,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <returns>True if value in cache, False otherwise</returns>
         public bool ContainsKey(TKey key)
         {
-            lock (_keysInUseOrder)
-            {
-                return _cache.ContainsKey(key);
-            }
+            return _cache.ContainsKey(key);
         }
 
         /// <summary>
