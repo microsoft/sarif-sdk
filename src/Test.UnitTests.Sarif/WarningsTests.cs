@@ -39,14 +39,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             testContext.Setup(x => x.Logger).Returns(testLogger.Object);
 
             Warnings.LogObsoleteOption(testContext.Object, "testObsoleteOption");
-
             testLogger.Verify(x => x.LogConfigurationNotification(It.IsAny<Notification>()), Times.Once);
-            Assert.Equal(RuntimeConditions.ObsoleteOption, testContext.Object.RuntimeErrors);
             //  We don't verify the specifics of the output string
 
             Warnings.LogObsoleteOption(testContext.Object, "testObsoleteOption", "testReplacement");
             testLogger.Verify(x => x.LogConfigurationNotification(It.IsAny<Notification>()), Times.Exactly(2));
-            Assert.Equal(RuntimeConditions.ObsoleteOption, testContext.Object.RuntimeErrors);
         }
     }
 }
