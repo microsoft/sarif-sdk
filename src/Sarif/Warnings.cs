@@ -11,6 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     {
         // Configuration warnings:
         public const string Wrn997_InvalidTarget = "WRN997.InvalidTarget";
+
         public const string Wrn997_ObsoleteOption = "WRN997.ObsoleteOption";
         public const string Wrn997_ObsoleteOptionWithReplacement = "WRN997.ObsoleteOptionWithReplacement";
 
@@ -103,7 +104,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public static void LogRuleExplicitlyDisabled(IAnalysisContext context, string ruleId)
         {
             // Rule '{0}' was explicitly disabled by the user. As result, this too run
-            // cannot be used to for compliance or other auditing processes that 
+            // cannot be used to for compliance or other auditing processes that
             // require a comprehensive analysis.
 
             if (context == null)
@@ -162,8 +163,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     Message = new Message { Text = message },
                     Level = FailureLevel.Warning,
                 });
-
-            context.RuntimeErrors |= RuntimeConditions.ObsoleteOption;
         }
     }
 }
