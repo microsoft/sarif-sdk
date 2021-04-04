@@ -97,7 +97,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         protected virtual IDictionary<string, string> ConstructTestOutputsFromInputResources(IEnumerable<string> inputResourceNames, object parameter)
             => throw new NotImplementedException(nameof(ConstructTestOutputsFromInputResources));
 
-        protected virtual void RunTest(string inputResourceName, string expectedOutputResourceName = null, object parameter = null)
+        protected virtual void RunTest(string inputResourceName,
+                                       string expectedOutputResourceName = null,
+                                       object parameter = null,
+                                       bool enforceNotificationsFree = false)
         {
             // In the simple case of one input file and one output file, the output resource name
             // can be inferred from the input resource name. In the case of arbitrary numbers of
@@ -137,10 +140,17 @@ namespace Microsoft.CodeAnalysis.Sarif
                 [SingleOutputDictionaryKey] = actualSarifText
             };
 
-            CompareActualToExpected(inputResourceNames, expectedOutputResourceNameDictionary, expectedSarifTexts, actualSarifTexts);
+            CompareActualToExpected(inputResourceNames,
+                                    expectedOutputResourceNameDictionary,
+                                    expectedSarifTexts,
+                                    actualSarifTexts,
+                                    enforceNotificationsFree);
         }
 
-        protected virtual void RunTest(IList<string> inputResourceNames, IDictionary<string, string> expectedOutputResourceNames, object parameter = null)
+        protected virtual void RunTest(IList<string> inputResourceNames,
+                                       IDictionary<string, string> expectedOutputResourceNames,
+                                       object parameter = null,
+                                       bool enforceNotificationsFree = false)
         {
             var expectedSarifTexts = expectedOutputResourceNames.ToDictionary(
                 pair => pair.Key,
@@ -150,14 +160,19 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             IDictionary<string, string> actualSarifTexts = ConstructTestOutputsFromInputResources(fullInputResourceNames, parameter);
 
-            CompareActualToExpected(inputResourceNames, expectedOutputResourceNames, expectedSarifTexts, actualSarifTexts);
+            CompareActualToExpected(inputResourceNames,
+                                    expectedOutputResourceNames,
+                                    expectedSarifTexts,
+                                    actualSarifTexts,
+                                    enforceNotificationsFree);
         }
 
         private void CompareActualToExpected(
             IList<string> inputResourceNames,
             IDictionary<string, string> expectedOutputResourceNameDictionary,
             IDictionary<string, string> expectedSarifTextDictionary,
-            IDictionary<string, string> actualSarifTextDictionary)
+            IDictionary<string, string> actualSarifTextDictionary,
+            bool enforceNotificationsFree)
         {
             if (inputResourceNames.Count == 0)
             {
@@ -202,7 +217,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                                                           expectedSarifTextDictionary[key],
                                                           out SarifLog actual);
 
-                        if (actual != null && 
+                        if (enforceNotificationsFree &&
+                            actual != null &&
                             (actual.Runs[0].Invocations?[0].ToolExecutionNotifications != null ||
                              actual.Runs[0].Invocations?[0].ToolConfigurationNotifications != null))
                         {
@@ -213,8 +229,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     else
                     {
                         passed &= AreEquivalent<SarifLogVersionOne>(
-                            actualSarifTextDictionary[key], 
-                            expectedSarifTextDictionary[key], 
+                            actualSarifTextDictionary[key],
+                            expectedSarifTextDictionary[key],
                             out SarifLogVersionOne actual,
                             SarifContractResolverVersionOne.Instance);
                     }
@@ -342,7 +358,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return fullPath;
         }
 
-        public static bool AreEquivalent<T>(string actualSarif, 
+        public static bool AreEquivalent<T>(string actualSarif,
                                             string expectedSarif,
                                             out T actualObject,
                                             IContractResolver contractResolver = null)

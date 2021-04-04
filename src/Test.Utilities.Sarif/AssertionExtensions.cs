@@ -114,8 +114,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             Execute.Assertion
                 .ForCondition(
                     FileDiffingFunctionalTests.AreEquivalent<T>(
-                        actualSarif: assertion.Subject, 
-                        expected, 
+                        actualSarif: assertion.Subject,
+                        expected,
                         out T actualObject)
                 )
                 .BecauseOf(because, becauseArgs)
