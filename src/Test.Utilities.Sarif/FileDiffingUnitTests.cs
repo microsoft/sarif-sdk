@@ -180,6 +180,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             bool passed = true;
+            var filesWithErrors = new List<string>();
+
             if (RebaselineExpectedResults)
             {
                 passed = false;
@@ -196,11 +198,25 @@ namespace Microsoft.CodeAnalysis.Sarif
                         PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(expectedSarifTextDictionary[key], Formatting.Indented, out string transformedSarifText);
                         expectedSarifTextDictionary[key] = transformedSarifText;
 
-                        passed &= AreEquivalent<SarifLog>(actualSarifTextDictionary[key], expectedSarifTextDictionary[key]);
+                        passed &= AreEquivalent<SarifLog>(actualSarifTextDictionary[key],
+                                                          expectedSarifTextDictionary[key],
+                                                          out SarifLog actual);
+
+                        if (actual != null && 
+                            (actual.Runs[0].Invocations?[0].ToolExecutionNotifications != null ||
+                             actual.Runs[0].Invocations?[0].ToolConfigurationNotifications != null))
+                        {
+                            passed = false;
+                            filesWithErrors.Add(key);
+                        }
                     }
                     else
                     {
-                        passed &= AreEquivalent<SarifLogVersionOne>(actualSarifTextDictionary[key], expectedSarifTextDictionary[key], SarifContractResolverVersionOne.Instance);
+                        passed &= AreEquivalent<SarifLogVersionOne>(
+                            actualSarifTextDictionary[key], 
+                            expectedSarifTextDictionary[key], 
+                            out SarifLogVersionOne actual,
+                            SarifContractResolverVersionOne.Instance);
                     }
                 }
             }
@@ -233,7 +249,19 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (!passed)
             {
-                string errorMessage = string.Format(@"there should be no unexpected diffs detected comparing actual results to '{0}'.", string.Join(", ", inputResourceNames));
+                string errorMessage = string.Empty;
+
+                if (filesWithErrors.Count > 0)
+                {
+                    errorMessage =
+                        "one or more files contain an unexpected notification (which likely " +
+                        "indicates that an unhandled exception was encountered at analysis time): " +
+                        Environment.NewLine +
+                        string.Join(Environment.NewLine, filesWithErrors) +
+                        Environment.NewLine + Environment.NewLine;
+                }
+
+                errorMessage += string.Format(@"there should be no unexpected diffs detected comparing actual results to '{0}'.", string.Join(", ", inputResourceNames));
                 sb = new StringBuilder(errorMessage);
 
                 sb.AppendLine("To compare all difference for this test suite:");
@@ -314,8 +342,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             return fullPath;
         }
 
-        public static bool AreEquivalent<T>(string actualSarif, string expectedSarif, IContractResolver contractResolver = null)
+        public static bool AreEquivalent<T>(string actualSarif, 
+                                            string expectedSarif,
+                                            out T actualObject,
+                                            IContractResolver contractResolver = null)
         {
+            actualObject = default;
+
             expectedSarif = expectedSarif ?? "{}";
             JToken expectedToken = JsonConvert.DeserializeObject<JToken>(expectedSarif);
 
@@ -329,13 +362,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Formatting = Formatting.Indented
             };
 
-            T actualSarifObject = JsonConvert.DeserializeObject<T>(actualSarif, settings);
-            string roundTrippedSarif = JsonConvert.SerializeObject(actualSarifObject, settings);
+            actualObject = JsonConvert.DeserializeObject<T>(actualSarif, settings);
+            string roundTrippedSarif = JsonConvert.SerializeObject(actualObject, settings);
 
             JToken roundTrippedToken = JsonConvert.DeserializeObject<JToken>(roundTrippedSarif);
-            if (!JToken.DeepEquals(actualToken, roundTrippedToken)) { return false; }
-
-            return true;
+            return (JToken.DeepEquals(actualToken, roundTrippedToken));
         }
 
         private string GetExpectedSarifTextFromResource(string resourceName)
