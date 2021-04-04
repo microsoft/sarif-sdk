@@ -97,7 +97,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         protected virtual IDictionary<string, string> ConstructTestOutputsFromInputResources(IEnumerable<string> inputResourceNames, object parameter)
             => throw new NotImplementedException(nameof(ConstructTestOutputsFromInputResources));
 
-        protected virtual void RunTest(string inputResourceName, string expectedOutputResourceName = null, object parameter = null)
+        protected virtual void RunTest(string inputResourceName,
+                                       string expectedOutputResourceName = null,
+                                       object parameter = null,
+                                       bool enforceNotificationsFree = false)
         {
             // In the simple case of one input file and one output file, the output resource name
             // can be inferred from the input resource name. In the case of arbitrary numbers of
@@ -137,10 +140,17 @@ namespace Microsoft.CodeAnalysis.Sarif
                 [SingleOutputDictionaryKey] = actualSarifText
             };
 
-            CompareActualToExpected(inputResourceNames, expectedOutputResourceNameDictionary, expectedSarifTexts, actualSarifTexts);
+            CompareActualToExpected(inputResourceNames,
+                                    expectedOutputResourceNameDictionary,
+                                    expectedSarifTexts,
+                                    actualSarifTexts,
+                                    enforceNotificationsFree);
         }
 
-        protected virtual void RunTest(IList<string> inputResourceNames, IDictionary<string, string> expectedOutputResourceNames, object parameter = null)
+        protected virtual void RunTest(IList<string> inputResourceNames,
+                                       IDictionary<string, string> expectedOutputResourceNames,
+                                       object parameter = null,
+                                       bool enforceNotificationsFree = false)
         {
             var expectedSarifTexts = expectedOutputResourceNames.ToDictionary(
                 pair => pair.Key,
@@ -150,14 +160,19 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             IDictionary<string, string> actualSarifTexts = ConstructTestOutputsFromInputResources(fullInputResourceNames, parameter);
 
-            CompareActualToExpected(inputResourceNames, expectedOutputResourceNames, expectedSarifTexts, actualSarifTexts);
+            CompareActualToExpected(inputResourceNames,
+                                    expectedOutputResourceNames,
+                                    expectedSarifTexts,
+                                    actualSarifTexts,
+                                    enforceNotificationsFree);
         }
 
         private void CompareActualToExpected(
             IList<string> inputResourceNames,
             IDictionary<string, string> expectedOutputResourceNameDictionary,
             IDictionary<string, string> expectedSarifTextDictionary,
-            IDictionary<string, string> actualSarifTextDictionary)
+            IDictionary<string, string> actualSarifTextDictionary,
+            bool enforceNotificationsFree)
         {
             if (inputResourceNames.Count == 0)
             {
@@ -180,6 +195,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             bool passed = true;
+            var filesWithErrors = new List<string>();
+
             if (RebaselineExpectedResults)
             {
                 passed = false;
@@ -196,11 +213,26 @@ namespace Microsoft.CodeAnalysis.Sarif
                         PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(expectedSarifTextDictionary[key], Formatting.Indented, out string transformedSarifText);
                         expectedSarifTextDictionary[key] = transformedSarifText;
 
-                        passed &= AreEquivalent<SarifLog>(actualSarifTextDictionary[key], expectedSarifTextDictionary[key]);
+                        passed &= AreEquivalent<SarifLog>(actualSarifTextDictionary[key],
+                                                          expectedSarifTextDictionary[key],
+                                                          out SarifLog actual);
+
+                        if (enforceNotificationsFree &&
+                            actual != null &&
+                            (actual.Runs[0].Invocations?[0].ToolExecutionNotifications != null ||
+                             actual.Runs[0].Invocations?[0].ToolConfigurationNotifications != null))
+                        {
+                            passed = false;
+                            filesWithErrors.Add(key);
+                        }
                     }
                     else
                     {
-                        passed &= AreEquivalent<SarifLogVersionOne>(actualSarifTextDictionary[key], expectedSarifTextDictionary[key], SarifContractResolverVersionOne.Instance);
+                        passed &= AreEquivalent<SarifLogVersionOne>(
+                            actualSarifTextDictionary[key],
+                            expectedSarifTextDictionary[key],
+                            out SarifLogVersionOne actual,
+                            SarifContractResolverVersionOne.Instance);
                     }
                 }
             }
@@ -233,7 +265,19 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (!passed)
             {
-                string errorMessage = string.Format(@"there should be no unexpected diffs detected comparing actual results to '{0}'.", string.Join(", ", inputResourceNames));
+                string errorMessage = string.Empty;
+
+                if (filesWithErrors.Count > 0)
+                {
+                    errorMessage =
+                        "one or more files contain an unexpected notification (which likely " +
+                        "indicates that an unhandled exception was encountered at analysis time): " +
+                        Environment.NewLine +
+                        string.Join(Environment.NewLine, filesWithErrors) +
+                        Environment.NewLine + Environment.NewLine;
+                }
+
+                errorMessage += string.Format(@"there should be no unexpected diffs detected comparing actual results to '{0}'.", string.Join(", ", inputResourceNames));
                 sb = new StringBuilder(errorMessage);
 
                 sb.AppendLine("To compare all difference for this test suite:");
@@ -314,8 +358,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             return fullPath;
         }
 
-        public static bool AreEquivalent<T>(string actualSarif, string expectedSarif, IContractResolver contractResolver = null)
+        public static bool AreEquivalent<T>(string actualSarif,
+                                            string expectedSarif,
+                                            out T actualObject,
+                                            IContractResolver contractResolver = null)
         {
+            actualObject = default;
+
             expectedSarif = expectedSarif ?? "{}";
             JToken expectedToken = JsonConvert.DeserializeObject<JToken>(expectedSarif);
 
@@ -329,13 +378,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Formatting = Formatting.Indented
             };
 
-            T actualSarifObject = JsonConvert.DeserializeObject<T>(actualSarif, settings);
-            string roundTrippedSarif = JsonConvert.SerializeObject(actualSarifObject, settings);
+            actualObject = JsonConvert.DeserializeObject<T>(actualSarif, settings);
+            string roundTrippedSarif = JsonConvert.SerializeObject(actualObject, settings);
 
             JToken roundTrippedToken = JsonConvert.DeserializeObject<JToken>(roundTrippedSarif);
-            if (!JToken.DeepEquals(actualToken, roundTrippedToken)) { return false; }
-
-            return true;
+            return (JToken.DeepEquals(actualToken, roundTrippedToken));
         }
 
         private string GetExpectedSarifTextFromResource(string resourceName)
