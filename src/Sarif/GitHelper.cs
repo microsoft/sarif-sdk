@@ -63,6 +63,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                     repoPath,
                     args: "remote get-url origin");
 
+            if (!string.IsNullOrEmpty(uriText) && uriText.Contains("@"))
+            {
+                int index = uriText.IndexOf('@');
+                uriText = $"https://{uriText.Substring(index + 1)}";
+            }
+
             return uriText == null
                 ? null
                 : new Uri(uriText, UriKind.Absolute);
