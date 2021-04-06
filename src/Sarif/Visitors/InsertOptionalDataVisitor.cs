@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
     public class InsertOptionalDataVisitor : SarifRewritingVisitor
     {
         private static readonly Regex versionControlPropertiesRegex =
-            new Regex(@"runs\[(?<run>\d?)\]\.invocations\[(?<invocation>\d?)\].versionControlProvenance.properties.(?<property>[a-zA-Z]+)=(?<value>.*)", RegexOptions.Compiled);
+            new Regex(@"(?i)runs\[(?<run>\d?)\]\.invocations\[(?<invocation>\d?)\].versionControlProvenance.properties.(?<property>[a-zA-Z]+)=(?<value>.*)", RegexOptions.Compiled);
 
         private readonly IFileSystem _fileSystem;
         private readonly GitHelper.ProcessRunner _processRunner;
