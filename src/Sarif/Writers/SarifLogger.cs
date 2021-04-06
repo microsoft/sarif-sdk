@@ -43,7 +43,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             string defaultFileEncoding = null,
             bool quiet = false,
             IEnumerable<FailureLevel> levels = null,
-            IEnumerable<ResultKind> kinds = null)
+            IEnumerable<ResultKind> kinds = null,
+            IEnumerable<string> insertProperties = null)
             : this(new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.None)),
                   logFilePersistenceOptions: logFilePersistenceOptions,
                   dataToInsert: dataToInsert,
@@ -56,7 +57,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                   defaultFileEncoding: defaultFileEncoding,
                   quiet: quiet,
                   levels: levels,
-                  kinds: kinds)
+                  kinds: kinds,
+                  insertProperties: insertProperties)
         {
         }
 
@@ -74,7 +76,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             bool closeWriterOnDispose = true,
             bool quiet = false,
             IEnumerable<FailureLevel> levels = null,
-            IEnumerable<ResultKind> kinds = null) : this(textWriter, logFilePersistenceOptions, closeWriterOnDispose, levels, kinds)
+            IEnumerable<ResultKind> kinds = null,
+            IEnumerable<string> insertProperties = null) : this(textWriter, logFilePersistenceOptions, closeWriterOnDispose, levels, kinds)
         {
             if (dataToInsert.HasFlag(OptionallyEmittedData.Hashes))
             {
@@ -83,9 +86,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             _run = run ?? new Run();
 
-            if (dataToInsert.HasFlag(OptionallyEmittedData.RegionSnippets) || dataToInsert.HasFlag(OptionallyEmittedData.ContextRegionSnippets))
+            if (dataToInsert.HasFlag(OptionallyEmittedData.RegionSnippets) ||
+                dataToInsert.HasFlag(OptionallyEmittedData.ContextRegionSnippets))
             {
-                _insertOptionalDataVisitor = new InsertOptionalDataVisitor(dataToInsert, _run);
+                _insertOptionalDataVisitor = new InsertOptionalDataVisitor(dataToInsert, _run, insertProperties);
             }
 
             EnhanceRun(

@@ -324,20 +324,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 }
             };
 
+            var properties = new List<string>
+            {
+                "runs[].invocations[].versionControlProvenance.properties.organizationId=orgId",
+                "runs[].invocations[].versionControlProvenance.properties.projectId=projId"
+            };
+
             var visitor = new InsertOptionalDataVisitor(
                 OptionallyEmittedData.VersionControlDetails,
                 originalUriBaseIds: null,
                 fileSystem: mockFileSystem.Object,
-                processRunner: mockProcessRunner.Object);
+                processRunner: mockProcessRunner.Object,
+                insertProperties: properties);
             visitor.Visit(run);
 
             run.VersionControlProvenance[0].MappedTo.Uri.LocalPath.Should().Be($@"{ParentRepoRoot}\");
             run.VersionControlProvenance[0].Branch.Should().Be(ParentRepoBranch);
             run.VersionControlProvenance[0].RevisionId.Should().Be(ParentRepoCommit);
+            run.VersionControlProvenance[0].GetProperty("organizationId").Should().Be("orgId");
+            run.VersionControlProvenance[0].GetProperty("projectId").Should().Be("projId");
 
             run.VersionControlProvenance[1].MappedTo.Uri.LocalPath.Should().Be($@"{SubmoduleRepoRoot}\");
             run.VersionControlProvenance[1].Branch.Should().Be(SubmoduleBranch);
             run.VersionControlProvenance[1].RevisionId.Should().Be(SubmoduleCommit);
+            run.VersionControlProvenance[1].GetProperty("organizationId").Should().Be("orgId");
+            run.VersionControlProvenance[1].GetProperty("projectId").Should().Be("projId");
 
             run.OriginalUriBaseIds["REPO_ROOT_2"].Uri.LocalPath.Should().Be($@"{ParentRepoRoot}\");
 
@@ -404,7 +415,7 @@ Three";
                     }
                 };
 
-                var visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.RegionSnippets, run);
+                var visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.RegionSnippets, run, insertProperties: null);
 
                 visitor.VisitResult(run.Results[0]);
 
@@ -539,7 +550,7 @@ Three";
                 });
             configurationNotifications.Add(toolNotifications[0]);
 
-            // Notification that refers to a rule that does not contain a message with 
+            // Notification that refers to a rule that does not contain a message with
             // the same id as the specified notification id.In this case it is no surprise
             // that the message comes from the global string table.
             toolNotifications.Add(

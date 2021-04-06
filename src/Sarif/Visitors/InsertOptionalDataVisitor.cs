@@ -6,11 +6,15 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
     public class InsertOptionalDataVisitor : SarifRewritingVisitor
     {
+        private static readonly Regex versionControlPropertiesRegex =
+            new Regex(@"runs\[(?<run>\d?)\]\.invocations\[(?<invocation>\d?)\].versionControlProvenance.properties.(?<property>[a-zA-Z]+)=(?<value>.*)", RegexOptions.Compiled);
+
         private readonly IFileSystem _fileSystem;
         private readonly GitHelper.ProcessRunner _processRunner;
 
@@ -22,9 +26,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         private FileRegionsCache _fileRegionsCache;
         private readonly OptionallyEmittedData _dataToInsert;
         private readonly IDictionary<string, ArtifactLocation> _originalUriBaseIds;
+        private readonly IEnumerable<string> _insertProperties;
 
-        public InsertOptionalDataVisitor(OptionallyEmittedData dataToInsert, Run run)
-            : this(dataToInsert, run?.OriginalUriBaseIds)
+        public InsertOptionalDataVisitor(OptionallyEmittedData dataToInsert, Run run, IEnumerable<string> insertProperties)
+            : this(dataToInsert, run?.OriginalUriBaseIds, insertProperties: insertProperties)
         {
             _run = run ?? throw new ArgumentNullException(nameof(run));
         }
@@ -33,15 +38,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             OptionallyEmittedData dataToInsert,
             IDictionary<string, ArtifactLocation> originalUriBaseIds = null,
             IFileSystem fileSystem = null,
-            GitHelper.ProcessRunner processRunner = null)
+            GitHelper.ProcessRunner processRunner = null,
+            IEnumerable<string> insertProperties = null)
         {
             _fileSystem = fileSystem ?? FileSystem.Instance;
             _processRunner = processRunner;
 
-            _dataToInsert = dataToInsert;
-            _originalUriBaseIds = originalUriBaseIds;
             _ruleIndex = -1;
             _gitHelper = new GitHelper();
+            _dataToInsert = dataToInsert;
+            _originalUriBaseIds = originalUriBaseIds;
+            _insertProperties = insertProperties ?? new List<string>();
         }
 
         public override Run VisitRun(Run node)
@@ -240,7 +247,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         private List<VersionControlDetails> CreateVersionControlProvenance()
         {
+            var matches = new List<Match>();
             var versionControlProvenance = new List<VersionControlDetails>();
+
+            foreach (string property in _insertProperties)
+            {
+                Match match = versionControlPropertiesRegex.Match(property);
+                if (match.Success)
+                {
+                    matches.Add(match);
+                }
+            }
 
             foreach (Uri repoRootUri in _repoRootUris)
             {
@@ -248,14 +265,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 Uri repoRemoteUri = _gitHelper.GetRemoteUri(repoRootPath);
                 if (repoRemoteUri != null)
                 {
-                    versionControlProvenance.Add(
-                        new VersionControlDetails
-                        {
-                            RepositoryUri = repoRemoteUri,
-                            RevisionId = _gitHelper.GetCurrentCommit(repoRootPath),
-                            Branch = _gitHelper.GetCurrentBranch(repoRootPath),
-                            MappedTo = new ArtifactLocation { Uri = repoRootUri }
-                        });
+                    var versionControlDetail = new VersionControlDetails
+                    {
+                        RepositoryUri = repoRemoteUri,
+                        RevisionId = _gitHelper.GetCurrentCommit(repoRootPath),
+                        Branch = _gitHelper.GetCurrentBranch(repoRootPath),
+                        MappedTo = new ArtifactLocation { Uri = repoRootUri }
+                    };
+
+                    foreach (Match match in matches)
+                    {
+                        versionControlDetail.SetProperty(match.Groups["property"].Value, match.Groups["value"].Value);
+                    }
+
+                    versionControlProvenance.Add(versionControlDetail);
                 }
             }
 

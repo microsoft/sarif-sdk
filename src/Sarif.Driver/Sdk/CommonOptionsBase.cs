@@ -83,6 +83,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             HelpText = "A count of threads that should be used for multithreaded operations.")]
         public int Threads { get; set; }
 
+        [Option(
+            "insert-property",
+            Separator = ';',
+            HelpText = "Insert properties will enhance the SARIF file.")]
+        public IEnumerable<string> InsertProperties { get; set; }
+
         public Formatting Formatting => this.PrettyPrint ? Formatting.Indented : Formatting.None;
     }
 }
