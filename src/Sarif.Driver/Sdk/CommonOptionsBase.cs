@@ -86,7 +86,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         [Option(
             "insert-property",
             Separator = ';',
-            HelpText = "Insert properties will enhance the SARIF file.")]
+            HelpText =
+            "A semicolon-delimited list of JSON path + property values that should be inserted into the output log. Currently, " +
+            "only paths that point to a version control provenance property bag is supported, e.g., 'runs[0].invocations[1]." +
+            "versionControlProvenance.properties.myProperty=myValue'.")]
         public IEnumerable<string> InsertProperties { get; set; }
 
         public Formatting Formatting => this.PrettyPrint ? Formatting.Indented : Formatting.None;
