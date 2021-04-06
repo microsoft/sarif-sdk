@@ -43,7 +43,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 repoPath.Substring(0, repoPath.Length - 1) :
                 repoPath;
 
-            return repoPath.Equals(GetTopLevel(repoPath));
+            return repoPath.Equals(GetTopLevel(repoPath), StringComparison.OrdinalIgnoreCase);
         }
 
         public GitHelper(IFileSystem fileSystem = null, ProcessRunner processRunner = null)
