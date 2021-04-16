@@ -1,4 +1,4 @@
-Use the SARIF Multitool to transform, enrich, filter, result match, and do other common operations against SARIF files.
+Use the SARIF Multitool to rewrite, enrich, filter, result match, and do other common operations against SARIF files.
 
 ## Modes
 | Mode | Purpose |
@@ -15,7 +15,6 @@ Use the SARIF Multitool to transform, enrich, filter, result match, and do other
 | query | Find the matching subset of a SARIF file and output it or log it. |
 | rebaseuri | Rebase the URIs in one or more sarif files. |
 | rewrite | Transform a SARIF file to a reformatted version |
-| transform | Transform a SARIF log to a different SARIF version |
 | validate | Validate a SARIF File against the schema and against additional correctness rules. |
 | help | See Usage |
 | version | Display version information |
@@ -40,6 +39,9 @@ Sarif.Multitool rewrite Current.sarif --insert "TextFiles,RegionSnippets" --inli
 : Remove codeFlows from results regions to SARIF
 Sarif.Multitool rewrite Current.sarif --remove "CodeFlows" --inline
 
+: Transform to latest SARIF version (if older)
+Sarif.Multitool rewrite OlderFormat.sarif --output CurrentFormat.sarif --sarif-output-version Current
+
 : Rebase URIs from local paths to a token (for later resolution against remote URLs)
 Sarif.Multitool rebaseuri Current.sarif --base-path-value "C:\Local\Path\To\Repo" --base-path-token REPO
 
@@ -54,10 +56,6 @@ Sarif.Multitool export-validation-rules ValidationRules.md
 
 : Extract new Results only from New Baseline
 Sarif.Multitool query NewBaseline.sarif --expression "BaselineState == 'New'" --output Current.NewResults.sarif
-
-: ----
-: Transform to latest SARIF version (if older)
-Sarif.Multitool transform OlderFormat.sarif --output CurrentFormat.sarif --sarif-output-version Current
 
 : Validate a SARIF file conforms to the schema
 Sarif.Multitool validate Other.sarif
