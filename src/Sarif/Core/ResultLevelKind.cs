@@ -6,6 +6,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     public class ResultLevelKind
     {
         private ResultKind? resultKind;
+        private FailureLevel level;
 
         public ResultKind Kind
         {
@@ -25,9 +26,32 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 return resultKind.Value;
             }
-            set { resultKind = value; }
+            set
+            {
+                if (value != ResultKind.Fail)
+                {
+                    Level = FailureLevel.None;
+                }
+
+                resultKind = value;
+            }
         }
 
-        public FailureLevel Level { get; set; }
+        public FailureLevel Level
+        {
+            get
+            {
+                return level;
+            }
+            set
+            {
+                if (value != FailureLevel.None)
+                {
+                    resultKind = ResultKind.Fail;
+                }
+
+                level = value;
+            }
+        }
     }
 }
