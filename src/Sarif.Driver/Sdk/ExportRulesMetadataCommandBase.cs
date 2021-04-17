@@ -187,23 +187,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 ?? DriverResources.NoRuleDescription).AppendLine(Environment.NewLine);
             sb.Append("### Messages").AppendLine(Environment.NewLine);
 
-            foreach (KeyValuePair<string, MultiformatMessageString> message in rule.MessageStrings)
+            if (rule.MessageStrings != null)
             {
-                string ruleName = message.Key;
-                string ruleLevel;
-                Match match = s_friendlyNameRegex.Match(message.Key);
-                if (match.Success)
+                foreach (KeyValuePair<string, MultiformatMessageString> message in rule.MessageStrings)
                 {
-                    ruleName = match.Groups["friendlyName"].Value;
-                    ruleLevel = match.Groups["level"].Value;
-                }
-                else
-                {
-                    ruleLevel = GetLevelFromRuleName(ruleName);
-                }
+                    string ruleName = message.Key;
+                    string ruleLevel;
+                    Match match = s_friendlyNameRegex.Match(message.Key);
+                    if (match.Success)
+                    {
+                        ruleName = match.Groups["friendlyName"].Value;
+                        ruleLevel = match.Groups["level"].Value;
+                    }
+                    else
+                    {
+                        ruleLevel = GetLevelFromRuleName(ruleName);
+                    }
 
-                sb.Append("#### `").Append(ruleName).Append("`: ").Append(ruleLevel).AppendLine(Environment.NewLine);
-                sb.Append(message.Value.Markdown ?? message.Value.Text).AppendLine(Environment.NewLine);
+                    sb.Append("#### `").Append(ruleName).Append("`: ").Append(ruleLevel).AppendLine(Environment.NewLine);
+                    sb.Append(message.Value.Markdown ?? message.Value.Text).AppendLine(Environment.NewLine);
+                }
             }
 
             sb.Append("---").AppendLine(Environment.NewLine);
