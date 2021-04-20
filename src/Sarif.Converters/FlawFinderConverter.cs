@@ -48,9 +48,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         Version = flawFinderCsvResults?.FirstOrDefault()?.ToolVersion,
                         InformationUri = new Uri(ToolInformationUri),
                         Rules = rules,
+                        SupportedTaxonomies = new List<ToolComponentReference>() { new ToolComponentReference() { Name = "CWE", Guid = "FFC64C90-42B6-44CE-8BEB-F6B7DAE649E5" } }
                     }
                 },
-
+                ExternalPropertyFileReferences = new ExternalPropertyFileReferences()
+                {
+                    Taxonomies = new List<ExternalPropertyFileReference>()
+                    {
+                        new ExternalPropertyFileReference()
+                        {
+                            Location = new ArtifactLocation()
+                            {
+                                Uri = new Uri("https://raw.githubusercontent.com/sarif-standard/taxonomies/main/CWE_v4.4.sarif"),
+                            },
+                            Guid = "FFC64C90-42B6-44CE-8BEB-F6B7DAE649E5"
+                        }
+                    }
+                },
                 Results = results,
             };
 
@@ -106,6 +120,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     Level = SarifLevelFromFlawFinderLevel(flawFinderCsvResult.DefaultLevel),
                 },
                 HelpUri = new Uri(flawFinderCsvResult.HelpUri),
+                Relationships = new List<ReportingDescriptorRelationship>(
+                    flawFinderCsvResult.CWEs.Split(new char[] { ',', '/' }, StringSplitOptions.RemoveEmptyEntries)
+                    .Select(p => p.Trim()).Where(p => !string.IsNullOrWhiteSpace(p)).ToList().OrderBy(o => int.Parse(o.Replace("CWE-", "").Replace("!", "")))
+                    .Select(s => new ReportingDescriptorRelationship()
+                    {
+                        Target = new ReportingDescriptorReference()
+                        {
+                            Id = s.Replace("!", ""),
+                            ToolComponent = new ToolComponentReference()
+                            {
+                                Name = "CWE",
+                                Guid = "FFC64C90-42B6-44CE-8BEB-F6B7DAE649E5"
+                            }
+                        },
+                        Kinds = new List<string>() { s.EndsWith("!") ? "incomparable" : "relevant" },
+                    }))
             };
 
         private static Result SarifResultFromFlawFinderCsvResult(FlawFinderCsvResult flawFinderCsvResult)
