@@ -1,4 +1,4 @@
-﻿{
+{
   "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
   "version": "2.1.0",
   "runs": [
@@ -107,7 +107,21 @@
               "defaultConfiguration": {
                 "level": "error"
               },
-              "helpUri": "https://dwheeler.com/flawfinder#FF1001"
+              "helpUri": "https://dwheeler.com/flawfinder#FF1001",
+              "relationships": [
+                {
+                  "target": {
+                    "id": "CWE-120",
+                    "toolComponent": {
+                      "name": "CWE",
+                      "guid": "FFC64C90-42B6-44CE-8BEB-F6B7DAE649E5"
+                    }
+                  },
+                  "kinds": [
+                    "relevant"
+                  ]
+                }
+              ]
             },
             {
               "id": "FF1002",
@@ -118,12 +132,54 @@
               "defaultConfiguration": {
                 "level": "note"
               },
-              "helpUri": "https://dwheeler.com/flawfinder#FF1002"
+              "helpUri": "https://dwheeler.com/flawfinder#FF1002",
+              "relationships": [
+                {
+                  "target": {
+                    "id": "CWE-119",
+                    "toolComponent": {
+                      "name": "CWE",
+                      "guid": "FFC64C90-42B6-44CE-8BEB-F6B7DAE649E5"
+                    }
+                  },
+                  "kinds": [
+                    "incomparable"
+                  ]
+                },
+                {
+                  "target": {
+                    "id": "CWE-120",
+                    "toolComponent": {
+                      "name": "CWE",
+                      "guid": "FFC64C90-42B6-44CE-8BEB-F6B7DAE649E5"
+                    }
+                  },
+                  "kinds": [
+                    "relevant"
+                  ]
+                }
+              ]
+            }
+          ],
+          "supportedTaxonomies": [
+            {
+              "name": "CWE",
+              "guid": "FFC64C90-42B6-44CE-8BEB-F6B7DAE649E5"
             }
           ]
         }
       },
-      "columnKind": "utf16CodeUnits"
+      "columnKind": "utf16CodeUnits",
+      "externalPropertyFileReferences": {
+        "taxonomies": [
+          {
+            "location": {
+              "uri": "https://raw.githubusercontent.com/sarif-standard/taxonomies/main/CWE_v4.4.sarif"
+            },
+            "guid": "FFC64C90-42B6-44CE-8BEB-F6B7DAE649E5"
+          }
+        ]
+      }
     }
   ]
 }

@@ -1,4 +1,4 @@
-﻿{
+{
   "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
   "version": "2.1.0",
   "runs": [
@@ -7,10 +7,26 @@
       "tool": {
         "driver": {
           "name": "Flawfinder",
-          "informationUri": "https://dwheeler.com/flawfinder/"
+          "informationUri": "https://dwheeler.com/flawfinder/",
+          "supportedTaxonomies": [
+            {
+              "name": "CWE",
+              "guid": "FFC64C90-42B6-44CE-8BEB-F6B7DAE649E5"
+            }
+          ]
         }
       },
-      "columnKind": "utf16CodeUnits"
+      "columnKind": "utf16CodeUnits",
+      "externalPropertyFileReferences": {
+        "taxonomies": [
+          {
+            "location": {
+              "uri": "https://raw.githubusercontent.com/sarif-standard/taxonomies/main/CWE_v4.4.sarif"
+            },
+            "guid": "FFC64C90-42B6-44CE-8BEB-F6B7DAE649E5"
+          }
+        ]
+      }
     }
   ]
 }
