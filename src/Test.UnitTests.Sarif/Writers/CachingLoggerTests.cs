@@ -69,6 +69,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             logger.Results[rule01].Should().HaveCount(2);
         }
 
+        [Fact]
+        public void CachingLogger_ShouldEmitCorrectlyWhenResultContainsSubId()
+        {
+            Result result01 = GenerateResult();
+            ReportingDescriptor rule01 = GenerateRule();
+
+            TestAnalyzeOptions testAnalyzeOptions = new TestAnalyzeOptions();
+
+            var logger = new CachingLogger(testAnalyzeOptions.Level, testAnalyzeOptions.Kind);
+
+            rule01.Id = "TEST0001";
+            result01.RuleId = "TEST0001/001";
+
+            // Validate simple insert
+            logger.Log(rule01, result01);
+            logger.Results.Should().HaveCount(1);
+            logger.Results.Should().ContainKey(rule01);
+
+            // Updating value from a specific key
+            logger.Log(rule01, result01);
+            logger.Results.Should().HaveCount(1);
+            logger.Results.Should().ContainKey(rule01);
+            logger.Results[rule01].Should().HaveCount(2);
+        }
+
         private static ReportingDescriptor GenerateRule()
         {
             return new ReportingDescriptor { Id = $"TEST00{Random.Next(100)}" };
