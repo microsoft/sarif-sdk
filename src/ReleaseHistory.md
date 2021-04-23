@@ -1,5 +1,10 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
+## **v2.4.6** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.4.6) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.4.6) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.4.6) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.4.6) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.4.6)
+* FEATURE: Add CWE relationship in FlawFinder converter. [#2332](https://github.com/microsoft/sarif-sdk/pull/2332)
+* FEATURE: Add `ResultLevelKind` which will handle `FailureLevel` and `ResultKind`. [#2331](https://github.com/microsoft/sarif-sdk/pull/2331)
+* BUGFIX: Fix `GitHelper` logic. [#2327](https://github.com/microsoft/sarif-sdk/pull/2327)
+
 ## **v2.4.5** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.4.5) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.4.5) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.4.5) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.4.5) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.4.5)
 * BUGFIX: Fix `FileRegionsCache` logic. [#2309](https://github.com/microsoft/sarif-sdk/pull/2309)
 
