@@ -58,7 +58,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 rule = rule.DeepClone();
             }
 
-            if (rule.Id != result.RuleId)
+            if (!result.RuleId.IsEqualToOrHierarchicalDescendantOf(rule.Id))
             {
                 throw new ArgumentException($"rule.Id is not equal to result.RuleId ({rule.Id} != {result.RuleId})");
             }
