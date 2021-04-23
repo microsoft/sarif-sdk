@@ -130,8 +130,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         onDemandValidated = (sbyte)dataReader.GetValue(GetIndex(dataReader, dataReaderIndex, "OnDemandValidated")) == 1;
                     }
 
-                    if (etlEntity == "Build" || etlEntity == "Release")
+                    if (etlEntity == "Build" || etlEntity == "Release" || etlEntity == "BuildDefinition" || etlEntity == "ReleaseDefinition")
                     {
+                        //https://dev.azure.com/skype/e54c15f5-9715-4ec8-bf57-43fbd00fe57b/_build?definitionId=3084
                         itemPath = itemPath.Replace("vsrm.visualstudio.com", "visualstudio.com");
                         itemPath = itemPath.Replace("_apis/build/Definitions/", "_build?definitionId=");
                         itemPath = itemPath.Replace("_apis/Release/definitions/", "_release?_a=releases&view=mine&definitionId=");
