@@ -130,13 +130,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         onDemandValidated = (sbyte)dataReader.GetValue(GetIndex(dataReader, dataReaderIndex, "OnDemandValidated")) == 1;
                     }
 
-                    if (etlEntity == "Build" || etlEntity == "Release" || etlEntity == "BuildDefinition" || etlEntity == "ReleaseDefinition")
+                    if (etlEntity == "Build" || etlEntity == "BuildDefinition" ||
+                        etlEntity == "Release" || etlEntity == "ReleaseDefinition")
                     {
                         itemPath = itemPath.Replace("vsrm.visualstudio.com", "visualstudio.com");
                         itemPath = itemPath.Replace("_apis/build/Definitions/", "_build?definitionId=");
                         itemPath = itemPath.Replace("_apis/Release/definitions/", "_release?_a=releases&view=mine&definitionId=");
+                        itemPath = itemPath.Replace("_apis/wit/workItems/", "_workitems/edit/");
 
                         resultMessageText += $" This pipeline can be updated on [Azure DevOps]({itemPath}) to secure the variable that exposes this secret.";
+                    }
+
+                    if (etlEntity == "WorkItem")
+                    {
+                        itemPath = itemPath.Replace("_apis/wit/workItems/", "_workitems/edit/");
+
+                        resultMessageText += $" This work item can be updated on [Azure DevOps]({itemPath}) to secure the variable that exposes this secret.";
                     }
 
                     Result resultObj = JsonConvert.DeserializeObject<Result>(result);
