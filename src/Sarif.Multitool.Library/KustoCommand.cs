@@ -131,21 +131,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     }
 
                     if (etlEntity == "Build" || etlEntity == "BuildDefinition" ||
-                        etlEntity == "Release" || etlEntity == "ReleaseDefinition")
+                        etlEntity == "Release" || etlEntity == "ReleaseDefinition" ||
+                        etlEntity == "WorkItem")
                     {
                         itemPath = itemPath.Replace("vsrm.visualstudio.com", "visualstudio.com");
                         itemPath = itemPath.Replace("_apis/build/Definitions/", "_build?definitionId=");
                         itemPath = itemPath.Replace("_apis/Release/definitions/", "_release?_a=releases&view=mine&definitionId=");
                         itemPath = itemPath.Replace("_apis/wit/workItems/", "_workitems/edit/");
 
-                        resultMessageText += $" This pipeline can be updated on [Azure DevOps]({itemPath}) to secure the variable that exposes this secret.";
-                    }
-
-                    if (etlEntity == "WorkItem")
-                    {
-                        itemPath = itemPath.Replace("_apis/wit/workItems/", "_workitems/edit/");
-
-                        resultMessageText += $" This work item can be updated on [Azure DevOps]({itemPath}) to secure the variable that exposes this secret.";
+                        itemPathUri = itemPath;
                     }
 
                     Result resultObj = JsonConvert.DeserializeObject<Result>(result);
