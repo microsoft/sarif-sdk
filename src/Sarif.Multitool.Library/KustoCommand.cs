@@ -130,6 +130,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         onDemandValidated = (sbyte)dataReader.GetValue(GetIndex(dataReader, dataReaderIndex, "OnDemandValidated")) == 1;
                     }
 
+                    string subscriptionId = null;
+                    if (GetIndex(dataReader, dataReaderIndex, "SubscriptionId") != -1)
+                    {
+                        subscriptionId = dataReader.GetString(GetIndex(dataReader, dataReaderIndex, "SubscriptionId"));
+                    }
+
+                    string subscriptionName = null;
+                    if (GetIndex(dataReader, dataReaderIndex, "SubscriptionName") != -1)
+                    {
+                        subscriptionName = dataReader.GetString(GetIndex(dataReader, dataReaderIndex, "SubscriptionName"));
+                    }
+
+                    if (!string.IsNullOrEmpty(subscriptionId) && !string.IsNullOrEmpty(subscriptionName))
+                    {
+                        resultMessageText += $" The resource is in the '{subscriptionName}' ({subscriptionId}) subscription.";
+                    }
+
                     if (etlEntity == "Build" || etlEntity == "BuildDefinition" ||
                         etlEntity == "Release" || etlEntity == "ReleaseDefinition" ||
                         etlEntity == "WorkItem")
