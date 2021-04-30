@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
+using Microsoft.CodeAnalysis.Sarif.Converters.HdfModel;
+
 using Newtonsoft.Json.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
@@ -23,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             input = input ?? throw new ArgumentNullException(nameof(input));
             output = output ?? throw new ArgumentNullException(nameof(output));
 
-            var textReader = new StreamReader(input);
+            using var textReader = new StreamReader(input);
             string jsonString = textReader.ReadToEnd();
             var hdfFile = HdfFile.FromJson(jsonString);
 
@@ -130,7 +132,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     }))
             };
 
-            var results = new List<Result>();
+            var results = new List<Result>(execJsonControl.Results.Count);
             foreach (ControlResult controlResult in execJsonControl.Results)
             {
                 var result = new Result
