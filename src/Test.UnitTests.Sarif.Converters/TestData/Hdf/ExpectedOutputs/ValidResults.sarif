@@ -1,0 +1,1685 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "results": [
+        {
+          "ruleId": "10104",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/favicon.ico\nMethod: GET\nParam: Header User-Agent\nAttack: Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "10104",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/transfer-funds-verify.html\nMethod: GET\nParam: Header User-Agent\nAttack: Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "10104",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/account-activity-show-transactions.html\nMethod: GET\nParam: Header User-Agent\nAttack: Mozilla/5.0 (iPhone; U; CPU iPhone OS 3_0 like Mac OS X; en-us) AppleWebKit/528.18 (KHTML, like Gecko) Version/4.0 Mobile/7A341 Safari/528.16\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "10104",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/sendFeedback.html\nMethod: GET\nParam: Header User-Agent\nAttack: Mozilla/5.0 (iPhone; U; CPU iPhone OS 3_0 like Mac OS X; en-us) AppleWebKit/528.18 (KHTML, like Gecko) Version/4.0 Mobile/7A341 Safari/528.16\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "10104",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/help.html?topic=/help/topic2.html\nMethod: GET\nParam: Header User-Agent\nAttack: Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "10104",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/robots.txt\nMethod: GET\nParam: Header User-Agent\nAttack: Mozilla/5.0 (iPhone; U; CPU iPhone OS 3_0 like Mac OS X; en-us) AppleWebKit/528.18 (KHTML, like Gecko) Version/4.0 Mobile/7A341 Safari/528.16\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "10104",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/auth\nMethod: GET\nParam: Header User-Agent\nAttack: Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "10104",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/index.html\nMethod: GET\nParam: Header User-Agent\nAttack: Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1)\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "10104",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/signin.html\nMethod: GET\nParam: Header User-Agent\nAttack: Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "10104",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/signin.html\nMethod: POST\nParam: Header User-Agent\nAttack: Mozilla/5.0 (iPhone; U; CPU iPhone OS 3_0 like Mac OS X; en-us) AppleWebKit/528.18 (KHTML, like Gecko) Version/4.0 Mobile/7A341 Safari/528.16\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "10104",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/online-statements.html\nMethod: GET\nParam: Header User-Agent\nAttack: Mozilla/5.0 (iPhone; U; CPU iPhone OS 3_0 like Mac OS X; en-us) AppleWebKit/528.18 (KHTML, like Gecko) Version/4.0 Mobile/7A341 Safari/528.16\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "10104",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank\nMethod: GET\nParam: Header User-Agent\nAttack: Mozilla/5.0 (iPhone; U; CPU iPhone OS 3_0 like Mac OS X; en-us) AppleWebKit/528.18 (KHTML, like Gecko) Version/4.0 Mobile/7A341 Safari/528.16\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "10104",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/money-map-get-spendings-by-type.html?_dc=1544043856896\nMethod: GET\nParam: Header User-Agent\nAttack: Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "10104",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/auth/security-check.html?user_token=8c797e39-7ab3-41d2-a53a-2a6449f13866\nMethod: GET\nParam: Header User-Agent\nAttack: msnbot/1.1 (+http://search.msn.com/msnbot.htm)\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "10104",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/account-summary.html\nMethod: GET\nParam: Header User-Agent\nAttack: Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "10104",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/login.html?login_error=true\nMethod: GET\nParam: Header User-Agent\nAttack: Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "10104",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/online-statements-for-account.html\nMethod: POST\nParam: Header User-Agent\nAttack: Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "10104",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/pay-bills-new-payee.html\nMethod: GET\nParam: Header User-Agent\nAttack: msnbot/1.1 (+http://search.msn.com/msnbot.htm)\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "10104",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/money-map-get-spendings-by-type.html?_dc=1544043856896\nMethod: GET\nParam: Header User-Agent\nAttack: Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "10104",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/logout.html\nMethod: GET\nParam: Header User-Agent\nAttack: Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "10016",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/resources/font/\nMethod: GET\nParam: X-XSS-Protection\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "10016",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/help.html\nMethod: GET\nParam: X-XSS-Protection\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "10016",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/resources/extjs/app/controller/\nMethod: GET\nParam: X-XSS-Protection\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "10016",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/pay-bills-new-payee.html\nMethod: GET\nParam: X-XSS-Protection\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "10016",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/help.html?topic=/help/topic3.html\nMethod: GET\nParam: X-XSS-Protection\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "10016",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/\nMethod: GET\nParam: X-XSS-Protection\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "10016",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/resources/extjs/app/\nMethod: GET\nParam: X-XSS-Protection\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "10016",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/account-activity.html\nMethod: GET\nParam: X-XSS-Protection\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "10016",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/resources/extjs/ext/\nMethod: GET\nParam: X-XSS-Protection\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "10016",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/account-summary.html\nMethod: GET\nParam: X-XSS-Protection\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "10016",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/resources/themes/\nMethod: GET\nParam: X-XSS-Protection\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "10016",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/index.html\nMethod: GET\nParam: X-XSS-Protection\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "10016",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/online-statements-for-account.html\nMethod: POST\nParam: X-XSS-Protection\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "10016",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/account-activity.html?accountId=1\nMethod: GET\nParam: X-XSS-Protection\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "10016",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/online-banking.html\nMethod: GET\nParam: X-XSS-Protection\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "10016",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/resources/extjs/app/view/\nMethod: GET\nParam: X-XSS-Protection\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "10016",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/transfer-funds-verify.html\nMethod: POST\nParam: X-XSS-Protection\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "10016",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/account-activity.html?accountId=2\nMethod: GET\nParam: X-XSS-Protection\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "10016",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/resources/extjs/\nMethod: GET\nParam: X-XSS-Protection\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "10016",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/account-activity.html?accountId=3\nMethod: GET\nParam: X-XSS-Protection\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "90027.1",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/account-activity.html?accountId=4\nMethod: GET\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "90027.1",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/pay-bills.html\nMethod: GET\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "90027.1",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/sitemap.xml\nMethod: GET\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "90027.1",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/login.html?login_error=true\nMethod: GET\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "90027.1",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/account-activity-find-transactions.html\nMethod: GET\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "90027.1",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/pay-bills-new-payee.html\nMethod: POST\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "90027.1",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/account-activity-show-transactions.html\nMethod: GET\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "90027.1",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/help.html?topic=/help/topic2.html\nMethod: GET\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "90027.1",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/sendFeedback.html\nMethod: GET\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "90027.1",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/auth\nMethod: GET\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "90027.1",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/online-statements.html\nMethod: GET\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "90027.1",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/forgotten-password-send.html\nMethod: POST\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "90027.1",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/logout.html\nMethod: GET\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "90027.1",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/signin.html\nMethod: GET\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "90027.1",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/signin.html\nMethod: POST\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "90027.1",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/help.html\nMethod: GET\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "90027.1",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/pay-bills-purchase-currency.html\nMethod: GET\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "90027.1",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/forgot-password.html\nMethod: GET\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "90027.1",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/account-summary.html\nMethod: GET\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "90027.1",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/transfer-funds-verify.html\nMethod: GET\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "90027.2",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/pay-bills-get-payee-details.html\nMethod: GET\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "90027.2",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/pay-bills-conversion-rate-for-currency.html\nMethod: GET\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "90027.2",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/index.html\nMethod: GET\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "90027.2",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/transfer-funds-verify.html\nMethod: GET\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "90027.2",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/auth/security-check.html?user_token=8c797e39-7ab3-41d2-a53a-2a6449f13866\nMethod: GET\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "90027.2",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank\nMethod: GET\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "90027.2",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/auth/accept-certs.html?user_token=8c797e39-7ab3-41d2-a53a-2a6449f13866\nMethod: GET\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "90027.2",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/money-map-get-spendings-by-type.html?_dc=1544043856896\nMethod: GET\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "90027.2",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/redirect.html?url=account-summary.html\nMethod: GET\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "90027.2",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/auth\nMethod: GET\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "90027.2",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/online-statements-for-account.html\nMethod: GET\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "40025.1",
+          "level": "error",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/index.html\nMethod: GET\nAttack: TRACE, OPTIONS methods with 'Max-Forwards' header. TRACK method.\n."
+          },
+          "rank": 0.7
+        },
+        {
+          "ruleId": "40025.1",
+          "level": "error",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/online-statements.html\nMethod: GET\nAttack: TRACE, OPTIONS methods with 'Max-Forwards' header. TRACK method.\n."
+          },
+          "rank": 0.7
+        },
+        {
+          "ruleId": "40025.1",
+          "level": "error",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/account-activity-show-transactions.html\nMethod: GET\nAttack: TRACE, OPTIONS methods with 'Max-Forwards' header. TRACK method.\n."
+          },
+          "rank": 0.7
+        },
+        {
+          "ruleId": "40025.1",
+          "level": "error",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/online-statements-for-account.html\nMethod: GET\nAttack: TRACE, OPTIONS methods with 'Max-Forwards' header. TRACK method.\n."
+          },
+          "rank": 0.7
+        },
+        {
+          "ruleId": "40025.1",
+          "level": "error",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/\nMethod: GET\nAttack: TRACE, OPTIONS methods with 'Max-Forwards' header. TRACK method.\n."
+          },
+          "rank": 0.7
+        },
+        {
+          "ruleId": "40025.1",
+          "level": "error",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/account-activity.html\nMethod: GET\nAttack: TRACE, OPTIONS methods with 'Max-Forwards' header. TRACK method.\n."
+          },
+          "rank": 0.7
+        },
+        {
+          "ruleId": "40025.1",
+          "level": "error",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/transfer-funds-verify.html\nMethod: GET\nAttack: TRACE, OPTIONS methods with 'Max-Forwards' header. TRACK method.\n."
+          },
+          "rank": 0.7
+        },
+        {
+          "ruleId": "40025.1",
+          "level": "error",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/help.html\nMethod: GET\nAttack: TRACE, OPTIONS methods with 'Max-Forwards' header. TRACK method.\n."
+          },
+          "rank": 0.7
+        },
+        {
+          "ruleId": "40025.1",
+          "level": "error",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank\nMethod: GET\nAttack: TRACE, OPTIONS methods with 'Max-Forwards' header. TRACK method.\n."
+          },
+          "rank": 0.7
+        },
+        {
+          "ruleId": "40025.1",
+          "level": "error",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/pay-bills-purchase-currency.html\nMethod: GET\nAttack: TRACE, OPTIONS methods with 'Max-Forwards' header. TRACK method.\n."
+          },
+          "rank": 0.7
+        },
+        {
+          "ruleId": "40025.1",
+          "level": "error",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/pay-bills.html\nMethod: GET\nAttack: TRACE, OPTIONS methods with 'Max-Forwards' header. TRACK method.\n."
+          },
+          "rank": 0.7
+        },
+        {
+          "ruleId": "40025.1",
+          "level": "error",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/redirect.html?url=account-summary.html\nMethod: GET\nAttack: TRACE, OPTIONS methods with 'Max-Forwards' header. TRACK method.\n."
+          },
+          "rank": 0.7
+        },
+        {
+          "ruleId": "40025.1",
+          "level": "error",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/auth/security-check.html?user_token=230c3296-ed16-4c56-b15a-21dec9a0b296\nMethod: GET\nAttack: TRACE, OPTIONS methods with 'Max-Forwards' header. TRACK method.\n."
+          },
+          "rank": 0.7
+        },
+        {
+          "ruleId": "40025.1",
+          "level": "error",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/favicon.ico\nMethod: GET\nAttack: TRACE, OPTIONS methods with 'Max-Forwards' header. TRACK method.\n."
+          },
+          "rank": 0.7
+        },
+        {
+          "ruleId": "40025.1",
+          "level": "error",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/help.html?topic=/help/topic2.html\nMethod: GET\nAttack: TRACE, OPTIONS methods with 'Max-Forwards' header. TRACK method.\n."
+          },
+          "rank": 0.7
+        },
+        {
+          "ruleId": "40025.1",
+          "level": "error",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/pay-bills-get-payee-details.html\nMethod: GET\nAttack: TRACE, OPTIONS methods with 'Max-Forwards' header. TRACK method.\n."
+          },
+          "rank": 0.7
+        },
+        {
+          "ruleId": "40025.1",
+          "level": "error",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/money-map.html\nMethod: GET\nAttack: TRACE, OPTIONS methods with 'Max-Forwards' header. TRACK method.\n."
+          },
+          "rank": 0.7
+        },
+        {
+          "ruleId": "40025.1",
+          "level": "error",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/money-map-get-spendings-by-type.html?_dc=1544043856896\nMethod: GET\nAttack: TRACE, OPTIONS methods with 'Max-Forwards' header. TRACK method.\n."
+          },
+          "rank": 0.7
+        },
+        {
+          "ruleId": "40025.1",
+          "level": "error",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/signin.html\nMethod: GET\nAttack: TRACE, OPTIONS methods with 'Max-Forwards' header. TRACK method.\n."
+          },
+          "rank": 0.7
+        },
+        {
+          "ruleId": "10021",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/pay-bills-get-payee-details.html\nMethod: POST\nParam: X-Content-Type-Options\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "10021",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/pay-bills-conversion-rate-for-currency.html\nMethod: POST\nParam: X-Content-Type-Options\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "10021",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/resources/js/jquery-1.6.4.min.js\nMethod: GET\nParam: X-Content-Type-Options\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "10021",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/resources/extjs/app/view/DetailedReport.js\nMethod: GET\nParam: X-Content-Type-Options\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "10021",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/transfer-funds.html\nMethod: GET\nParam: X-Content-Type-Options\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "10021",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/feedback.html\nMethod: GET\nParam: X-Content-Type-Options\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "10021",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/index.html\nMethod: GET\nParam: X-Content-Type-Options\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "10021",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/resources/js/jquery-1.7.2.min.js\nMethod: GET\nParam: X-Content-Type-Options\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "10021",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/resources/themes/images/gray/tools/tool-sprites.gif\nMethod: GET\nParam: X-Content-Type-Options\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "10021",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/account-activity.html\nMethod: GET\nParam: X-Content-Type-Options\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "10021",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/resources/extjs/app/store/ReportOutFlow.js\nMethod: GET\nParam: X-Content-Type-Options\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "10021",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/pay-bills-new-payee.html\nMethod: GET\nParam: X-Content-Type-Options\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "10021",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/resources/extjs/app/view/Report.js\nMethod: GET\nParam: X-Content-Type-Options\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "10021",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/resources/css/ext-all-gray.css\nMethod: GET\nParam: X-Content-Type-Options\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "10021",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/online-banking.html\nMethod: GET\nParam: X-Content-Type-Options\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "10021",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/resources/extjs/app/model/DetailedReport.js\nMethod: GET\nParam: X-Content-Type-Options\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "10021",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/resources/extjs/app/view/SummaryReport.js\nMethod: GET\nParam: X-Content-Type-Options\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "10021",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/resources/extjs/app/model/Report.js\nMethod: GET\nParam: X-Content-Type-Options\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "10021",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/resources/extjs/app/view/Viewport.js\nMethod: GET\nParam: X-Content-Type-Options\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "10021",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/resources/css/jquery-ui-1.8.16.custom.css\nMethod: GET\nParam: X-Content-Type-Options\n."
+          },
+          "rank": 0.3
+        },
+        {
+          "ruleId": "40024",
+          "level": "error",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/forgotten-password-send.html\nMethod: GET\nParam: query\nAttack: case randomblob(10000000) when not null then 1 else 1 end \nEvidence: The query time is controllable using parameter value [case randomblob(10000000) when not null then 1 else 1 end ], which caused the request to take [449] milliseconds, parameter value [case randomblob(10000000) when not null then 1 else 1 end ], which caused the request to take [449] milliseconds, when the original unmodified query with value [query] took [13] milliseconds.\n."
+          },
+          "rank": 0.7
+        },
+        {
+          "ruleId": "40024",
+          "level": "error",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/money-map-get-spendings-by-type.html?_dc=1544043856896\nMethod: POST\nParam: _dc\nAttack: 1544043856896 * case randomblob(10000000) when not null then 1 else 1 end \nEvidence: The query time is controllable using parameter value [1544043856896 * case randomblob(10000000) when not null then 1 else 1 end ], which caused the request to take [509] milliseconds, parameter value [1544043856896 * case randomblob(10000000) when not null then 1 else 1 end ], which caused the request to take [509] milliseconds, when the original unmodified query with value [1544043856896] took [10] milliseconds.\n."
+          },
+          "rank": 0.7
+        },
+        {
+          "ruleId": "40024",
+          "level": "error",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/pay-bills.html\nMethod: GET\nParam: query\nAttack: case randomblob(10000000) when not null then 1 else 1 end \nEvidence: The query time is controllable using parameter value [case randomblob(10000000) when not null then 1 else 1 end ], which caused the request to take [469] milliseconds, parameter value [case randomblob(10000000) when not null then 1 else 1 end ], which caused the request to take [469] milliseconds, when the original unmodified query with value [query] took [21] milliseconds.\n."
+          },
+          "rank": 0.7
+        },
+        {
+          "ruleId": "40024",
+          "level": "error",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/money-map.html\nMethod: GET\nParam: query\nAttack: \" | case randomblob(100000000) when not null then \"\" else \"\" end | \"\nEvidence: The query time is controllable using parameter value [\" | case randomblob(100000000) when not null then \"\" else \"\" end | \"], which caused the request to take [517] milliseconds, parameter value [\" | case randomblob(100000000) when not null then \"\" else \"\" end | \"], which caused the request to take [517] milliseconds, when the original unmodified query with value [query] took [21] milliseconds.\n."
+          },
+          "rank": 0.7
+        },
+        {
+          "ruleId": "40024",
+          "level": "error",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/signin.html\nMethod: POST\nParam: user_password\nAttack: case randomblob(100000) when not null then 1 else 1 end \nEvidence: The query time is controllable using parameter value [case randomblob(100000) when not null then 1 else 1 end ], which caused the request to take [453] milliseconds, parameter value [case randomblob(100000) when not null then 1 else 1 end ], which caused the request to take [453] milliseconds, when the original unmodified query with value [password] took [19] milliseconds.\n."
+          },
+          "rank": 0.7
+        },
+        {
+          "ruleId": "40024",
+          "level": "error",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank\nMethod: GET\nParam: query\nAttack: \" | case randomblob(1000000) when not null then \"\" else \"\" end | \"\nEvidence: The query time is controllable using parameter value [\" | case randomblob(1000000) when not null then \"\" else \"\" end | \"], which caused the request to take [586] milliseconds, parameter value [\" | case randomblob(1000000) when not null then \"\" else \"\" end | \"], which caused the request to take [586] milliseconds, when the original unmodified query with value [query] took [490] milliseconds.\n."
+          },
+          "rank": 0.7
+        },
+        {
+          "ruleId": "40024",
+          "level": "error",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/pay-bills-purchase-currency.html\nMethod: GET\nParam: query\nAttack: case randomblob(100000000) when not null then 1 else 1 end \nEvidence: The query time is controllable using parameter value [case randomblob(100000000) when not null then 1 else 1 end ], which caused the request to take [474] milliseconds, parameter value [case randomblob(100000000) when not null then 1 else 1 end ], which caused the request to take [474] milliseconds, when the original unmodified query with value [query] took [11] milliseconds.\n."
+          },
+          "rank": 0.7
+        },
+        {
+          "ruleId": "40024",
+          "level": "error",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/signin.html\nMethod: POST\nParam: user_remember_me\nAttack: case randomblob(1000000) when not null then 1 else 1 end \nEvidence: The query time is controllable using parameter value [case randomblob(1000000) when not null then 1 else 1 end ], which caused the request to take [446] milliseconds, parameter value [case randomblob(1000000) when not null then 1 else 1 end ], which caused the request to take [446] milliseconds, when the original unmodified query with value [on] took [21] milliseconds.\n."
+          },
+          "rank": 0.7
+        },
+        {
+          "ruleId": "40024",
+          "level": "error",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/signin.html\nMethod: GET\nParam: query\nAttack: ' | case randomblob(1000000000) when not null then \"\" else \"\" end | '\nEvidence: The query time is controllable using parameter value [' | case randomblob(1000000000) when not null then \"\" else \"\" end | '], which caused the request to take [497] milliseconds, parameter value [' | case randomblob(1000000000) when not null then \"\" else \"\" end | '], which caused the request to take [497] milliseconds, when the original unmodified query with value [query] took [32] milliseconds.\n."
+          },
+          "rank": 0.7
+        },
+        {
+          "ruleId": "40024",
+          "level": "error",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/transfer-funds-verify.html\nMethod: POST\nParam: fromAccountId\nAttack: case randomblob(10000000) when not null then 1 else 1 end \nEvidence: The query time is controllable using parameter value [case randomblob(10000000) when not null then 1 else 1 end ], which caused the request to take [549] milliseconds, parameter value [case randomblob(10000000) when not null then 1 else 1 end ], which caused the request to take [549] milliseconds, when the original unmodified query with value [4] took [21] milliseconds.\n."
+          },
+          "rank": 0.7
+        },
+        {
+          "ruleId": "40024",
+          "level": "error",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/sendFeedback.html\nMethod: POST\nParam: query\nAttack: case randomblob(1000000) when not null then 1 else 1 end \nEvidence: The query time is controllable using parameter value [case randomblob(1000000) when not null then 1 else 1 end ], which caused the request to take [445] milliseconds, parameter value [case randomblob(1000000) when not null then 1 else 1 end ], which caused the request to take [445] milliseconds, when the original unmodified query with value [query] took [18] milliseconds.\n."
+          },
+          "rank": 0.7
+        },
+        {
+          "ruleId": "40024",
+          "level": "error",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/login.html?login_error=true\nMethod: GET\nParam: login_error\nAttack: case randomblob(100000000) when not null then 1 else 1 end \nEvidence: The query time is controllable using parameter value [case randomblob(100000000) when not null then 1 else 1 end ], which caused the request to take [451] milliseconds, parameter value [case randomblob(100000000) when not null then 1 else 1 end ], which caused the request to take [451] milliseconds, when the original unmodified query with value [true] took [8] milliseconds.\n."
+          },
+          "rank": 0.7
+        },
+        {
+          "ruleId": "40024",
+          "level": "error",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/signin.html\nMethod: POST\nParam: query\nAttack: case randomblob(100000000) when not null then 1 else 1 end \nEvidence: The query time is controllable using parameter value [case randomblob(100000000) when not null then 1 else 1 end ], which caused the request to take [497] milliseconds, parameter value [case randomblob(100000000) when not null then 1 else 1 end ], which caused the request to take [497] milliseconds, when the original unmodified query with value [query] took [17] milliseconds.\n."
+          },
+          "rank": 0.7
+        },
+        {
+          "ruleId": "40024",
+          "level": "error",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/online-statements.html\nMethod: GET\nParam: query\nAttack: \" | case randomblob(1000000000) when not null then \"\" else \"\" end | \"\nEvidence: The query time is controllable using parameter value [\" | case randomblob(1000000000) when not null then \"\" else \"\" end | \"], which caused the request to take [480] milliseconds, parameter value [\" | case randomblob(1000000000) when not null then \"\" else \"\" end | \"], which caused the request to take [480] milliseconds, when the original unmodified query with value [query] took [25] milliseconds.\n."
+          },
+          "rank": 0.7
+        },
+        {
+          "ruleId": "40024",
+          "level": "error",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/pay-bills-conversion-rate-for-currency.html\nMethod: POST\nParam: query\nAttack: ' | case randomblob(100000) when not null then \"\" else \"\" end --\nEvidence: The query time is controllable using parameter value [' | case randomblob(100000) when not null then \"\" else \"\" end --], which caused the request to take [449] milliseconds, parameter value [' | case randomblob(100000) when not null then \"\" else \"\" end --], which caused the request to take [449] milliseconds, when the original unmodified query with value [query] took [12] milliseconds.\n."
+          },
+          "rank": 0.7
+        },
+        {
+          "ruleId": "40024",
+          "level": "error",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/transfer-funds-verify.html\nMethod: POST\nParam: query\nAttack: case randomblob(1000000000) when not null then 1 else 1 end \nEvidence: The query time is controllable using parameter value [case randomblob(1000000000) when not null then 1 else 1 end ], which caused the request to take [20] milliseconds, parameter value [case randomblob(1000000000) when not null then 1 else 1 end ], which caused the request to take [20] milliseconds, when the original unmodified query with value [query] took [464] milliseconds.\n."
+          },
+          "rank": 0.7
+        },
+        {
+          "ruleId": "40024",
+          "level": "error",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/forgot-password.html\nMethod: GET\nParam: query\nAttack: case randomblob(10000000) when not null then 1 else 1 end \nEvidence: The query time is controllable using parameter value [case randomblob(10000000) when not null then 1 else 1 end ], which caused the request to take [11] milliseconds, parameter value [case randomblob(10000000) when not null then 1 else 1 end ], which caused the request to take [11] milliseconds, when the original unmodified query with value [query] took [9] milliseconds.\n."
+          },
+          "rank": 0.7
+        },
+        {
+          "ruleId": "40024",
+          "level": "error",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/signin.html\nMethod: POST\nParam: submit\nAttack: ' | case randomblob(100000000) when not null then \"\" else \"\" end | '\nEvidence: The query time is controllable using parameter value [' | case randomblob(100000000) when not null then \"\" else \"\" end | '], which caused the request to take [518] milliseconds, parameter value [' | case randomblob(100000000) when not null then \"\" else \"\" end | '], which caused the request to take [518] milliseconds, when the original unmodified query with value [Sign in] took [482] milliseconds.\n."
+          },
+          "rank": 0.7
+        },
+        {
+          "ruleId": "40024",
+          "level": "error",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/sendFeedback.html\nMethod: POST\nParam: email\nAttack: case randomblob(1000000) when not null then 1 else 1 end \nEvidence: The query time is controllable using parameter value [case randomblob(1000000) when not null then 1 else 1 end ], which caused the request to take [19] milliseconds, parameter value [case randomblob(1000000) when not null then 1 else 1 end ], which caused the request to take [19] milliseconds, when the original unmodified query with value [ZAP] took [10] milliseconds.\n."
+          },
+          "rank": 0.7
+        },
+        {
+          "ruleId": "40024",
+          "level": "error",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/signin.html\nMethod: POST\nParam: query\nAttack: ' | case randomblob(100000000) when not null then \"\" else \"\" end | '\nEvidence: The query time is controllable using parameter value [' | case randomblob(100000000) when not null then \"\" else \"\" end | '], which caused the request to take [443] milliseconds, parameter value [' | case randomblob(100000000) when not null then \"\" else \"\" end | '], which caused the request to take [443] milliseconds, when the original unmodified query with value [query] took [18] milliseconds.\n."
+          },
+          "rank": 0.7
+        },
+        {
+          "ruleId": "10020",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/money-map.html\nMethod: GET\nParam: X-Frame-Options\n."
+          },
+          "rank": 0.5
+        },
+        {
+          "ruleId": "10020",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/account-activity.html?accountId=1\nMethod: GET\nParam: X-Frame-Options\n."
+          },
+          "rank": 0.5
+        },
+        {
+          "ruleId": "10020",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/online-statements-for-account.html\nMethod: POST\nParam: X-Frame-Options\n."
+          },
+          "rank": 0.5
+        },
+        {
+          "ruleId": "10020",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/account-summary.html\nMethod: GET\nParam: X-Frame-Options\n."
+          },
+          "rank": 0.5
+        },
+        {
+          "ruleId": "10020",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/pay-bills-new-payee.html\nMethod: POST\nParam: X-Frame-Options\n."
+          },
+          "rank": 0.5
+        },
+        {
+          "ruleId": "10020",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/login.html?login_error=true\nMethod: GET\nParam: X-Frame-Options\n."
+          },
+          "rank": 0.5
+        },
+        {
+          "ruleId": "10020",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/help.html?topic=/help/topic2.html\nMethod: GET\nParam: X-Frame-Options\n."
+          },
+          "rank": 0.5
+        },
+        {
+          "ruleId": "10020",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/account-activity.html?accountId=6\nMethod: GET\nParam: X-Frame-Options\n."
+          },
+          "rank": 0.5
+        },
+        {
+          "ruleId": "10020",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/account-activity-find-transactions.html\nMethod: GET\nParam: X-Frame-Options\n."
+          },
+          "rank": 0.5
+        },
+        {
+          "ruleId": "10020",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/help.html\nMethod: GET\nParam: X-Frame-Options\n."
+          },
+          "rank": 0.5
+        },
+        {
+          "ruleId": "10020",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/account-activity.html?accountId=2\nMethod: GET\nParam: X-Frame-Options\n."
+          },
+          "rank": 0.5
+        },
+        {
+          "ruleId": "10020",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/account-activity.html?accountId=3\nMethod: GET\nParam: X-Frame-Options\n."
+          },
+          "rank": 0.5
+        },
+        {
+          "ruleId": "10020",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/account-activity.html?accountId=4\nMethod: GET\nParam: X-Frame-Options\n."
+          },
+          "rank": 0.5
+        },
+        {
+          "ruleId": "10020",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/forgotten-password-send.html\nMethod: POST\nParam: X-Frame-Options\n."
+          },
+          "rank": 0.5
+        },
+        {
+          "ruleId": "10020",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/account-activity.html?accountId=5\nMethod: GET\nParam: X-Frame-Options\n."
+          },
+          "rank": 0.5
+        },
+        {
+          "ruleId": "10020",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/online-statements.html\nMethod: GET\nParam: X-Frame-Options\n."
+          },
+          "rank": 0.5
+        },
+        {
+          "ruleId": "10020",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/help.html?topic=/help/topic3.html\nMethod: GET\nParam: X-Frame-Options\n."
+          },
+          "rank": 0.5
+        },
+        {
+          "ruleId": "10020",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/search.html?searchTerm=ZAP\nMethod: GET\nParam: X-Frame-Options\n."
+          },
+          "rank": 0.5
+        },
+        {
+          "ruleId": "10020",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/account-activity-show-transactions.html\nMethod: GET\nParam: X-Frame-Options\n."
+          },
+          "rank": 0.5
+        },
+        {
+          "ruleId": "10020",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/pay-bills-new-payee.html\nMethod: GET\nParam: X-Frame-Options\n."
+          },
+          "rank": 0.5
+        },
+        {
+          "ruleId": "40025.2",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/transfer-funds-verify.html\nMethod: POST\nAttack: TRACE, OPTIONS methods with 'Max-Forwards' header. TRACK method.\n."
+          },
+          "rank": 0.5
+        },
+        {
+          "ruleId": "40025.2",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/account-activity-show-transactions.html\nMethod: POST\nAttack: TRACE, OPTIONS methods with 'Max-Forwards' header. TRACK method.\n."
+          },
+          "rank": 0.5
+        },
+        {
+          "ruleId": "40025.2",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/pay-bills-conversion-rate-for-currency.html\nMethod: POST\nAttack: TRACE, OPTIONS methods with 'Max-Forwards' header. TRACK method.\n."
+          },
+          "rank": 0.5
+        },
+        {
+          "ruleId": "40025.2",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/sendFeedback.html\nMethod: POST\nAttack: TRACE, OPTIONS methods with 'Max-Forwards' header. TRACK method.\n."
+          },
+          "rank": 0.5
+        },
+        {
+          "ruleId": "40025.2",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/account-activity-find-transactions.html\nMethod: POST\nAttack: TRACE, OPTIONS methods with 'Max-Forwards' header. TRACK method.\n."
+          },
+          "rank": 0.5
+        },
+        {
+          "ruleId": "40025.2",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/signin.html\nMethod: POST\nAttack: TRACE, OPTIONS methods with 'Max-Forwards' header. TRACK method.\n."
+          },
+          "rank": 0.5
+        },
+        {
+          "ruleId": "40025.2",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/money-map-get-spendings-by-type.html?_dc=1544043856896\nMethod: POST\nAttack: TRACE, OPTIONS methods with 'Max-Forwards' header. TRACK method.\n."
+          },
+          "rank": 0.5
+        },
+        {
+          "ruleId": "40025.2",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/pay-bills-get-payee-details.html\nMethod: POST\nAttack: TRACE, OPTIONS methods with 'Max-Forwards' header. TRACK method.\n."
+          },
+          "rank": 0.5
+        },
+        {
+          "ruleId": "40025.2",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/online-statements-for-account.html\nMethod: POST\nAttack: TRACE, OPTIONS methods with 'Max-Forwards' header. TRACK method.\n."
+          },
+          "rank": 0.5
+        },
+        {
+          "ruleId": "40025.2",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/forgotten-password-send.html\nMethod: POST\nAttack: TRACE, OPTIONS methods with 'Max-Forwards' header. TRACK method.\n."
+          },
+          "rank": 0.5
+        },
+        {
+          "ruleId": "40025.2",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/pay-bills-new-payee.html\nMethod: POST\nAttack: TRACE, OPTIONS methods with 'Max-Forwards' header. TRACK method.\n."
+          },
+          "rank": 0.5
+        },
+        {
+          "ruleId": "40027",
+          "level": "error",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/redirect.html?url=account-summary.html\nMethod: GET\nParam: url\nAttack: account-summary.html) WAITFOR DELAY '0:0:15' -- \n."
+          },
+          "rank": 0.7
+        },
+        {
+          "ruleId": "40027",
+          "level": "error",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/bank/pay-bills.html\nMethod: GET\nParam: query\nAttack: query\" WAITFOR DELAY '0:0:15' -- \n."
+          },
+          "rank": 0.7
+        },
+        {
+          "ruleId": "6",
+          "level": "error",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/help.html?topic=WEB-INF%2Fweb.xml\nMethod: GET\nParam: topic\nAttack: WEB-INF/web.xml\nEvidence: </web-app>\n."
+          },
+          "rank": 0.7
+        },
+        {
+          "ruleId": "7",
+          "level": "error",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/help.html?topic=http%3A%2F%2Fwww.google.com%2F\nMethod: GET\nParam: topic\nAttack: http://www.google.com/\nEvidence: <title>Google</title>\n."
+          },
+          "rank": 0.7
+        },
+        {
+          "ruleId": "30002",
+          "message": {
+            "text": "Uri: http://zero.webappsecurity.com/signin.html\nMethod: POST\nParam: user_token\nAttack: ZAP%n%s%n%s%n%s%n%s%n%s%n%s%n%s%n%s%n%s%n%s%n%s%n%s%n%s%n%s%n%s%n%s%n%s%n%s%n%s%n%s\n\n."
+          },
+          "rank": 0.5
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "Heimdall Tools",
+          "version": "1.3.40",
+          "informationUri": "https://saf.cms.gov/#/normalize",
+          "rules": [
+            {
+              "id": "10104",
+              "name": "User Agent Fuzzer",
+              "shortDescription": {
+                "text": "Check for differences in response based on fuzzed User Agent (eg. mobile sites, access as a Search Engine Crawler). Compares the response statuscode and the hashcode of the response body with the original response."
+              },
+              "relationships": [
+                {
+                  "target": {
+                    "id": "RA-5",
+                    "toolComponent": {
+                      "name": "NIST",
+                      "guid": "AAFBAB93-5201-419E-8443-D4925C542398"
+                    }
+                  },
+                  "kinds": [
+                    "relevant"
+                  ]
+                },
+                {
+                  "target": {
+                    "id": "SA-11",
+                    "toolComponent": {
+                      "name": "NIST",
+                      "guid": "AAFBAB93-5201-419E-8443-D4925C542398"
+                    }
+                  },
+                  "kinds": [
+                    "relevant"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "10016",
+              "name": "Web Browser XSS Protection Not Enabled",
+              "shortDescription": {
+                "text": "Web Browser XSS Protection is not enabled, or is disabled by the configuration of the 'X-XSS-Protection' HTTP response header on the web server."
+              },
+              "relationships": [
+                {
+                  "target": {
+                    "id": "RA-5",
+                    "toolComponent": {
+                      "name": "NIST",
+                      "guid": "AAFBAB93-5201-419E-8443-D4925C542398"
+                    }
+                  },
+                  "kinds": [
+                    "relevant"
+                  ]
+                },
+                {
+                  "target": {
+                    "id": "SA-11",
+                    "toolComponent": {
+                      "name": "NIST",
+                      "guid": "AAFBAB93-5201-419E-8443-D4925C542398"
+                    }
+                  },
+                  "kinds": [
+                    "relevant"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "90027.1",
+              "name": "Cookie Slack Detector",
+              "shortDescription": {
+                "text": "Repeated GET requests: drop a different cookie each time, followed by normal request with all cookies to stabilize session, compare responses against original baseline GET. This can reveal areas where cookie based authentication/attributes are not actually enforced."
+              },
+              "relationships": [
+                {
+                  "target": {
+                    "id": "Rev_4",
+                    "toolComponent": {
+                      "name": "NIST",
+                      "guid": "AAFBAB93-5201-419E-8443-D4925C542398"
+                    }
+                  },
+                  "kinds": [
+                    "relevant"
+                  ]
+                },
+                {
+                  "target": {
+                    "id": "SC-8",
+                    "toolComponent": {
+                      "name": "NIST",
+                      "guid": "AAFBAB93-5201-419E-8443-D4925C542398"
+                    }
+                  },
+                  "kinds": [
+                    "relevant"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "90027.2",
+              "name": "Cookie Slack Detector",
+              "shortDescription": {
+                "text": "Repeated GET requests: drop a different cookie each time, followed by normal request with all cookies to stabilize session, compare responses against original baseline GET. This can reveal areas where cookie based authentication/attributes are not actually enforced."
+              },
+              "relationships": [
+                {
+                  "target": {
+                    "id": "Rev_4",
+                    "toolComponent": {
+                      "name": "NIST",
+                      "guid": "AAFBAB93-5201-419E-8443-D4925C542398"
+                    }
+                  },
+                  "kinds": [
+                    "relevant"
+                  ]
+                },
+                {
+                  "target": {
+                    "id": "SC-8",
+                    "toolComponent": {
+                      "name": "NIST",
+                      "guid": "AAFBAB93-5201-419E-8443-D4925C542398"
+                    }
+                  },
+                  "kinds": [
+                    "relevant"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "40025.1",
+              "name": "Proxy Disclosure",
+              "shortDescription": {
+                "text": "1 proxy server(s) were detected or fingerprinted. This information helps a potential attacker to determine  - A list of targets for an attack against the application. - Potential vulnerabilities on the proxy servers that service the application. - The presence or absence of any proxy-based components that might cause attacks against the application to be detected, prevented, or mitigated. ."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "relationships": [
+                {
+                  "target": {
+                    "id": "Rev_4",
+                    "toolComponent": {
+                      "name": "NIST",
+                      "guid": "AAFBAB93-5201-419E-8443-D4925C542398"
+                    }
+                  },
+                  "kinds": [
+                    "relevant"
+                  ]
+                },
+                {
+                  "target": {
+                    "id": "SC-8",
+                    "toolComponent": {
+                      "name": "NIST",
+                      "guid": "AAFBAB93-5201-419E-8443-D4925C542398"
+                    }
+                  },
+                  "kinds": [
+                    "relevant"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "10021",
+              "name": "X-Content-Type-Options Header Missing",
+              "shortDescription": {
+                "text": "The Anti-MIME-Sniffing header X-Content-Type-Options was not set to 'nosniff'. This allows older versions of Internet Explorer and Chrome to perform MIME-sniffing on the response body, potentially causing the response body to be interpreted and displayed as a content type other than the declared content type. Current (early 2014) and legacy versions of Firefox will use the declared content type (if one is set), rather than performing MIME-sniffing."
+              },
+              "relationships": [
+                {
+                  "target": {
+                    "id": "RA-5",
+                    "toolComponent": {
+                      "name": "NIST",
+                      "guid": "AAFBAB93-5201-419E-8443-D4925C542398"
+                    }
+                  },
+                  "kinds": [
+                    "relevant"
+                  ]
+                },
+                {
+                  "target": {
+                    "id": "SA-11",
+                    "toolComponent": {
+                      "name": "NIST",
+                      "guid": "AAFBAB93-5201-419E-8443-D4925C542398"
+                    }
+                  },
+                  "kinds": [
+                    "relevant"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "40024",
+              "name": "SQL Injection - SQLite",
+              "shortDescription": {
+                "text": "SQL injection may be possible."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "relationships": [
+                {
+                  "target": {
+                    "id": "Rev_4",
+                    "toolComponent": {
+                      "name": "NIST",
+                      "guid": "AAFBAB93-5201-419E-8443-D4925C542398"
+                    }
+                  },
+                  "kinds": [
+                    "relevant"
+                  ]
+                },
+                {
+                  "target": {
+                    "id": "SI-10",
+                    "toolComponent": {
+                      "name": "NIST",
+                      "guid": "AAFBAB93-5201-419E-8443-D4925C542398"
+                    }
+                  },
+                  "kinds": [
+                    "relevant"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "10020",
+              "name": "X-Frame-Options Header Not Set",
+              "shortDescription": {
+                "text": "X-Frame-Options header is not included in the HTTP response to protect against 'ClickJacking' attacks."
+              },
+              "relationships": [
+                {
+                  "target": {
+                    "id": "RA-5",
+                    "toolComponent": {
+                      "name": "NIST",
+                      "guid": "AAFBAB93-5201-419E-8443-D4925C542398"
+                    }
+                  },
+                  "kinds": [
+                    "relevant"
+                  ]
+                },
+                {
+                  "target": {
+                    "id": "SA-11",
+                    "toolComponent": {
+                      "name": "NIST",
+                      "guid": "AAFBAB93-5201-419E-8443-D4925C542398"
+                    }
+                  },
+                  "kinds": [
+                    "relevant"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "40025.2",
+              "name": "Proxy Disclosure",
+              "shortDescription": {
+                "text": "1 proxy server(s) were detected or fingerprinted. This information helps a potential attacker to determine  - A list of targets for an attack against the application. - Potential vulnerabilities on the proxy servers that service the application. - The presence or absence of any proxy-based components that might cause attacks against the application to be detected, prevented, or mitigated. ."
+              },
+              "relationships": [
+                {
+                  "target": {
+                    "id": "Rev_4",
+                    "toolComponent": {
+                      "name": "NIST",
+                      "guid": "AAFBAB93-5201-419E-8443-D4925C542398"
+                    }
+                  },
+                  "kinds": [
+                    "relevant"
+                  ]
+                },
+                {
+                  "target": {
+                    "id": "SC-8",
+                    "toolComponent": {
+                      "name": "NIST",
+                      "guid": "AAFBAB93-5201-419E-8443-D4925C542398"
+                    }
+                  },
+                  "kinds": [
+                    "relevant"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "40027",
+              "name": "SQL Injection - MsSQL",
+              "shortDescription": {
+                "text": "SQL injection may be possible."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "relationships": [
+                {
+                  "target": {
+                    "id": "Rev_4",
+                    "toolComponent": {
+                      "name": "NIST",
+                      "guid": "AAFBAB93-5201-419E-8443-D4925C542398"
+                    }
+                  },
+                  "kinds": [
+                    "relevant"
+                  ]
+                },
+                {
+                  "target": {
+                    "id": "SI-10",
+                    "toolComponent": {
+                      "name": "NIST",
+                      "guid": "AAFBAB93-5201-419E-8443-D4925C542398"
+                    }
+                  },
+                  "kinds": [
+                    "relevant"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "6",
+              "name": "Path Traversal",
+              "shortDescription": {
+                "text": "The Path Traversal attack technique allows an attacker access to files, directories, and commands that potentially reside outside the web document root directory. An attacker may manipulate a URL in such a way that the web site will execute or reveal the contents of arbitrary files anywhere on the web server. Any device that exposes an HTTP-based interface is potentially vulnerable to Path Traversal.Most web sites restrict user access to a specific portion of the file-system, typically called the \"web document root\" or \"CGI root\" directory. These directories contain the files intended for user access and the executable necessary to drive web application functionality. To access files or execute commands anywhere on the file-system, Path Traversal attacks will utilize the ability of special-characters sequences.The most basic Path Traversal attack uses the \"../\" special-character sequence to alter the resource location requested in the URL. Although most popular web servers will prevent this technique from escaping the web document root, alternate encodings of the \"../\" sequence may help bypass the security filters. These method variations include valid and invalid Unicode-encoding (\"..%u2216\" or \"..%c0%af\") of the forward slash character, backslash characters (\"..\\\") on Windows-based servers, URL encoded characters \"%2e%2e%2f\"), and double URL encoding (\"..%255c\") of the backslash character.Even if the web server properly restricts Path Traversal attempts in the URL path, a web application itself may still be vulnerable due to improper handling of user-supplied input. This is a common problem of web applications that use template mechanisms or load static text from files. In variations of the attack, the original URL parameter value is substituted with the file name of one of the web application's dynamic scripts. Consequently, the results can reveal source code because the file is interpreted as text instead of an executable script. These techniques often employ additional special characters such as the dot (\".\") to reveal the listing of the current working directory, or \"%00\" NULL characters in order to bypass rudimentary file extension checks."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "relationships": [
+                {
+                  "target": {
+                    "id": "Rev_4",
+                    "toolComponent": {
+                      "name": "NIST",
+                      "guid": "AAFBAB93-5201-419E-8443-D4925C542398"
+                    }
+                  },
+                  "kinds": [
+                    "relevant"
+                  ]
+                },
+                {
+                  "target": {
+                    "id": "SI-10",
+                    "toolComponent": {
+                      "name": "NIST",
+                      "guid": "AAFBAB93-5201-419E-8443-D4925C542398"
+                    }
+                  },
+                  "kinds": [
+                    "relevant"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "7",
+              "name": "Remote File Inclusion",
+              "shortDescription": {
+                "text": "Remote File Include (RFI) is an attack technique used to exploit \"dynamic file include\" mechanisms in web applications. When web applications take user input (URL, parameter value, etc.) and pass them into file include commands, the web application might be tricked into including remote files with malicious code.Almost all web application frameworks support file inclusion. File inclusion is mainly used for packaging common code into separate files that are later referenced by main application modules. When a web application references an include file, the code in this file may be executed implicitly or explicitly by calling specific procedures. If the choice of module to load is based on elements from the HTTP request, the web application might be vulnerable to RFI.An attacker can use RFI for:    * Running malicious code on the server: any code in the included malicious files will be run by the server. If the file include is not executed using some wrapper, code in include files is executed in the context of the server user. This could lead to a complete system compromise.    * Running malicious code on clients: the attacker's malicious code can manipulate the content of the response sent to the client. The attacker can embed malicious code in the response that will be run by the client (for example, Javascript to steal the client session cookies).PHP is particularly vulnerable to RFI attacks due to the extensive use of \"file includes\" in PHP programming and due to default server configurations that increase susceptibility to an RFI attack."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "relationships": [
+                {
+                  "target": {
+                    "id": "RA-5",
+                    "toolComponent": {
+                      "name": "NIST",
+                      "guid": "AAFBAB93-5201-419E-8443-D4925C542398"
+                    }
+                  },
+                  "kinds": [
+                    "relevant"
+                  ]
+                },
+                {
+                  "target": {
+                    "id": "SA-11",
+                    "toolComponent": {
+                      "name": "NIST",
+                      "guid": "AAFBAB93-5201-419E-8443-D4925C542398"
+                    }
+                  },
+                  "kinds": [
+                    "relevant"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "30002",
+              "name": "Format String Error",
+              "shortDescription": {
+                "text": "A Format String error occurs when the submitted data of an input string is evaluated as a command by the application. ."
+              },
+              "relationships": [
+                {
+                  "target": {
+                    "id": "Rev_4",
+                    "toolComponent": {
+                      "name": "NIST",
+                      "guid": "AAFBAB93-5201-419E-8443-D4925C542398"
+                    }
+                  },
+                  "kinds": [
+                    "relevant"
+                  ]
+                },
+                {
+                  "target": {
+                    "id": "SI-10",
+                    "toolComponent": {
+                      "name": "NIST",
+                      "guid": "AAFBAB93-5201-419E-8443-D4925C542398"
+                    }
+                  },
+                  "kinds": [
+                    "relevant"
+                  ]
+                }
+              ]
+            }
+          ],
+          "supportedTaxonomies": [
+            {
+              "name": "NIST SP800-53 v5",
+              "guid": "AAFBAB93-5201-419E-8443-D4925C542398"
+            }
+          ]
+        }
+      },
+      "columnKind": "utf16CodeUnits",
+      "externalPropertyFileReferences": {
+        "taxonomies": [
+          {
+            "location": {
+              "uri": "https://raw.githubusercontent.com/sarif-standard/taxonomies/main/NIST_SP800-53_v5.sarif"
+            },
+            "guid": "AAFBAB93-5201-419E-8443-D4925C542398"
+          }
+        ]
+      }
+    }
+  ]
+}
