@@ -1,0 +1,29 @@
+{
+  "platform": {
+    "name": "Heimdall Tools",
+    "release": "1.3.40",
+    "target_id": ""
+  },
+  "version": "1.3.40",
+  "statistics": {
+    "duration": null
+  },
+  "profiles": [
+    {
+      "name": "OWASP ZAP Scan",
+      "version": "2.7.0",
+      "title": "OWASP ZAP Scan of Host: zero.webappsecurity.com",
+      "maintainer": null,
+      "summary": "OWASP ZAP Scan of Host: zero.webappsecurity.com",
+      "license": null,
+      "copyright": null,
+      "copyright_email": null,
+      "supports": [],
+      "attributes": [],
+      "depends": [],
+      "groups": [],
+      "status": "loaded",
+      "sha256": "70dca33d352cb5eb1b882b8785a2658b8b8996a30318a9d02b14c22a4c669e14"
+    }
+  ]
+}

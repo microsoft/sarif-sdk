@@ -14,12 +14,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="TestData\Hdf\ExpectedOutputs\NoResults.sarif" />
+    <None Remove="TestData\Hdf\ExpectedOutputs\ValidResults.sarif" />
+    <None Remove="TestData\Hdf\Inputs\Empty.json" />
+    <None Remove="TestData\Hdf\Inputs\InvalidResult.json" />
+	<None Remove="TestData\Hdf\Inputs\ValidResult.json" />
     <None Remove="TestData\FlawFinder\ExpectedOutputs\NoResults.sarif" />
     <None Remove="TestData\FlawFinder\ExpectedOutputs\ValidResults.sarif" />
     <None Remove="TestData\FlawFinder\Inputs\Empty.csv" />
     <None Remove="TestData\FlawFinder\Inputs\InvalidHeader.csv" />
     <None Remove="TestData\FlawFinder\Inputs\InvalidResult.csv" />
-    <None Remove="TestData\FlawFinder\Inputs\OldVersionResult.csv" />
+	<None Remove="TestData\FlawFinder\Inputs\OldVersionResult.csv" />
     <None Remove="TestData\FlawFinder\Inputs\OnlyHeaderLine.csv" />
     <None Remove="TestData\FlawFinder\Inputs\ValidResults.csv" />
   </ItemGroup>
@@ -43,11 +48,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="TestData\Hdf\ExpectedOutputs\NoResults.sarif" />
+    <EmbeddedResource Include="TestData\Hdf\ExpectedOutputs\ValidResults.sarif" />
+    <EmbeddedResource Include="TestData\Hdf\Inputs\ValidResults.json" />
+    <EmbeddedResource Include="TestData\Hdf\Inputs\InvalidResult.json" />
+    <EmbeddedResource Include="TestData\Hdf\Inputs\Empty.json" />
     <EmbeddedResource Include="TestData\FlawFinder\ExpectedOutputs\NoResults.sarif" />
     <EmbeddedResource Include="TestData\FlawFinder\ExpectedOutputs\ValidResults.sarif" />
     <EmbeddedResource Include="TestData\FlawFinder\Inputs\Empty.csv" />
     <EmbeddedResource Include="TestData\FlawFinder\Inputs\InvalidHeader.csv" />
-    <EmbeddedResource Include="TestData\FlawFinder\Inputs\OldVersionResult.csv" />
+	<EmbeddedResource Include="TestData\FlawFinder\Inputs\OldVersionResult.csv" />
     <EmbeddedResource Include="TestData\FlawFinder\Inputs\ValidResults.csv" />
     <EmbeddedResource Include="TestData\FlawFinder\Inputs\InvalidResult.csv" />
     <EmbeddedResource Include="TestData\FlawFinder\Inputs\OnlyHeaderLine.csv" />
