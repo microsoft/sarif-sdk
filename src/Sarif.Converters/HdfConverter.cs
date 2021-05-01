@@ -64,20 +64,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             PersistResults(output, rulesAndResults.Item2, run);
         }
 
-        private new static void PersistResults(IResultLogWriter output, IList<Result> results, Run run)
-        {
-            output.Initialize(run);
-
-            run.Results = results;
-
-            if (run.Results != null)
-            {
-                output.OpenResults();
-                output.WriteResults(run.Results);
-                output.CloseResults();
-            }
-        }
-
         private static (List<ReportingDescriptor>, List<Result>) ExtractRulesAndResults(HdfFile hdfFile)
         {
             var rules = new List<ReportingDescriptor>();
