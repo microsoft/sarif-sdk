@@ -8,9 +8,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
     public class GitHubIngestionVisitor : SarifRewritingVisitor
     {
-        // GitHub reportedly has an ingestion limit of 500 issues.
+        // GitHub reportedly has an ingestion limit of 5000 issues.
         // Internal static rather than private const to allow a unit test with a practical limit.
-        internal static int s_MaxResults = 500;
+        internal static int s_MaxResults = 5000;
 
         private IList<Artifact> artifacts;
         private IList<ThreadFlowLocation> threadFlowLocations;
