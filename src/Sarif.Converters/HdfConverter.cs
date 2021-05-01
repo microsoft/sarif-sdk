@@ -64,7 +64,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             PersistResults(output, rulesAndResults.Item2, run);
         }
 
-        internal new static void PersistResults(IResultLogWriter output, IList<Result> results, Run run)
+        private new static void PersistResults(IResultLogWriter output, IList<Result> results, Run run)
         {
             output.Initialize(run);
 
