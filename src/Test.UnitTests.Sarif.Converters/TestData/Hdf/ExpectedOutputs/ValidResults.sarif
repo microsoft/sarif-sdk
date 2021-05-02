@@ -1669,12 +1669,20 @@
           ]
         }
       },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "https://raw.githubusercontent.com/sarif-standard/taxonomies/main/NIST_SP800-53_v5.sarif"
+          }
+        }
+      ],
       "columnKind": "utf16CodeUnits",
       "externalPropertyFileReferences": {
         "taxonomies": [
           {
             "location": {
-              "uri": "https://raw.githubusercontent.com/sarif-standard/taxonomies/main/NIST_SP800-53_v5.sarif"
+              "uri": "https://raw.githubusercontent.com/sarif-standard/taxonomies/main/NIST_SP800-53_v5.sarif",
+              "index": 0
             },
             "guid": "AAFBAB93-5201-419E-8443-D4925C542398"
           }
