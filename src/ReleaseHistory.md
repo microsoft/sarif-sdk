@@ -1,5 +1,8 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
+## **v2.4.7** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.4.7) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.4.7) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.4.7) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.4.7) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.4.7)
+* FEATURE: Add Hdf converter. [#2340](https://github.com/microsoft/sarif-sdk/pull/2340)
+
 ## **v2.4.6** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.4.6) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.4.6) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.4.6) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.4.6) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.4.6)
 * FEATURE: Add CWE relationship in FlawFinder converter. [#2332](https://github.com/microsoft/sarif-sdk/pull/2332)
 * FEATURE: Add `ResultLevelKind` which will handle `FailureLevel` and `ResultKind`. [#2331](https://github.com/microsoft/sarif-sdk/pull/2331)
