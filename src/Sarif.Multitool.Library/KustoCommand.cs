@@ -144,7 +144,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                     if (!string.IsNullOrEmpty(subscriptionId) && !string.IsNullOrEmpty(subscriptionName))
                     {
-                        resultMessageText += $" The resource is in the '{subscriptionName}' ({subscriptionId}) subscription.";
+                        resultMessageText += $" The resource is in the '[{subscriptionName}](https://portal.azure.com/#resource/subscriptions/{subscriptionId}/overview)' ({subscriptionId}) subscription.";
                     }
 
                     if (etlEntity == "Build" || etlEntity == "BuildDefinition" ||
@@ -155,6 +155,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         itemPath = itemPath.Replace("_apis/build/Definitions/", "_build?definitionId=");
                         itemPath = itemPath.Replace("_apis/Release/definitions/", "_release?_a=releases&view=mine&definitionId=");
                         itemPath = itemPath.Replace("_apis/wit/workItems/", "_workitems/edit/");
+
+                        resultMessageText += $" This can be viewed on [Azure DevOps]({itemPathUri}).";
 
                         itemPathUri = itemPath;
                     }
