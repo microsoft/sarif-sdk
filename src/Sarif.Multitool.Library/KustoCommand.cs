@@ -151,6 +151,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         etlEntity == "Release" || etlEntity == "ReleaseDefinition" ||
                         etlEntity == "WorkItem")
                     {
+                        itemPath = itemPath.Replace("vsrm.dev.azure.com", "dev.azure.com");
                         itemPath = itemPath.Replace("_apis/wit/workItems/", "_workitems/edit/");
                         itemPath = itemPath.Replace("vsrm.visualstudio.com", "visualstudio.com");
                         itemPath = itemPath.Replace("_apis/build/Definitions/", "_build?definitionId=");
