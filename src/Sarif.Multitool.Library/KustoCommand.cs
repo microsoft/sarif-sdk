@@ -151,12 +151,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         etlEntity == "Release" || etlEntity == "ReleaseDefinition" ||
                         etlEntity == "WorkItem")
                     {
+                        itemPath = itemPath.Replace("vsrm.dev.azure.com", "dev.azure.com");
+                        itemPath = itemPath.Replace("_apis/wit/workItems/", "_workitems/edit/");
                         itemPath = itemPath.Replace("vsrm.visualstudio.com", "visualstudio.com");
                         itemPath = itemPath.Replace("_apis/build/Definitions/", "_build?definitionId=");
                         itemPath = itemPath.Replace("_apis/Release/definitions/", "_release?_a=releases&view=mine&definitionId=");
-                        itemPath = itemPath.Replace("_apis/wit/workItems/", "_workitems/edit/");
 
-                        resultMessageText += $" This can be viewed on [Azure DevOps]({itemPathUri}).";
+                        resultMessageText += $" The raw data that was scanned for this finding can be viewed [here]({itemPathUri}).";
 
                         itemPathUri = itemPath;
                     }
