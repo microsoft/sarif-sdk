@@ -144,7 +144,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                     if (!string.IsNullOrEmpty(subscriptionId) && !string.IsNullOrEmpty(subscriptionName))
                     {
-                        resultMessageText += $" The resource is in the '[{subscriptionName}](https://portal.azure.com/#resource/subscriptions/{subscriptionId}/overview)' ({subscriptionId}) subscription.";
+                        resultMessageText += $" The resource is in the '[{subscriptionName}](https://portal.azure.com/#resource/subscriptions/{subscriptionId}/overview)' subscription.";
                     }
 
                     string serviceName = null;
