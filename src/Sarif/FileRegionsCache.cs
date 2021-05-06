@@ -179,6 +179,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return multilineContextSnippet;
             }
 
+            // We need this to re-calculate the region values when we call PopulateTextRegionProperties.
+            region.StartColumn = 0;
+            region.EndColumn = 0;
+            region.StartLine = 0;
+            region.EndLine = 0;
             region.CharOffset = originalRegion.CharOffset < smallSnippetLength
                 ? 0
                 : originalRegion.CharOffset - smallSnippetLength;
