@@ -147,6 +147,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         resultMessageText += $" The resource is in the '[{subscriptionName}](https://portal.azure.com/#resource/subscriptions/{subscriptionId}/overview)' ({subscriptionId}) subscription.";
                     }
 
+                    string serviceName = null;
+                    if (GetIndex(dataReader, dataReaderIndex, "STServiceName") != -1)
+                    {
+                        serviceName = dataReader.GetString(GetIndex(dataReader, dataReaderIndex, "STServiceName"));
+                        if (!string.IsNullOrEmpty(serviceName))
+                        {
+                            resultMessageText += $" The subscription backing this Azure resource is associated with the '{serviceName}'";
+
+                            string serviceOwner = null;
+                            if (GetIndex(dataReader, dataReaderIndex, "STOwner") != -1)
+                            {
+                                serviceOwner = dataReader.GetString(GetIndex(dataReader, dataReaderIndex, "STOwner"));
+                                if (!string.IsNullOrEmpty(serviceOwner))
+                                {
+                                    resultMessageText += $" which is owned by {serviceOwner}.";
+                                }
+                            }
+                        }
+                    }
+
                     if (etlEntity == "Build" || etlEntity == "BuildDefinition" ||
                         etlEntity == "Release" || etlEntity == "ReleaseDefinition" ||
                         etlEntity == "WorkItem")
