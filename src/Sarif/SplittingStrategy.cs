@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// No log file splitting strategy was specified.
         /// I.e., the total number of log files created is one (the original, unsplit log).
-        /// 
+        ///
         /// </summary>
         None = 0,
 
@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         PerResult,
 
         /// <summary>
-        /// Split SARIF log files into a single log for each rule. 
+        /// Split SARIF log files into a single log for each rule.
         /// I.e., the total number of log files created is the sum of distinct rules across all logs.
         /// </summary>
         PerRule,
@@ -63,5 +63,17 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// I.e., the total number of log files created is the sum of the unique fingerprint by organization, entity type, and repository.
         /// </summary>
         PerRunPerOrgPerEntityTypePerRepositoryPerPartialFingerprint,
+
+        /// <summary>
+        /// Split SARIF log files into a single log for each fingerprint.
+        /// I.e., the total number of log files created is the sum of distinct fingerprints across all logs.
+        /// </summary>
+        PerFingerprint,
+
+        /// <summary>
+        /// Split SARIF log files into a single log for each property bag property.
+        /// I.e., the total number of log files created is the sum of distinct property bag property across all logs.
+        /// </summary>
+        PerPropertyBagProperty,
     }
 }

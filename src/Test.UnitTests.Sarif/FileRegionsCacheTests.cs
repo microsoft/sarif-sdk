@@ -2,10 +2,14 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Text;
+using System.Threading.Tasks;
+
 using FluentAssertions;
+
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.UnitTests
@@ -31,12 +35,11 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
         }
 
         //                                   0            10         19
-        //                                   0123 4 5678 9 01234 5 6789 
+        //                                   0123 4 5678 9 01234 5 6789
         private const string SPEC_EXAMPLE = "abcd\r\nefg\r\nhijk\r\nlmn";
 
-
         // Breaking the lines for readability and per-line column details
-        // 
+        //
         // Column: 123 4 5 6
         // Line 1: abc d\r\n
         //      2: efg\r\n
@@ -285,7 +288,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
 
         private static readonly ReadOnlyCollection<TestCaseData> s_specExampleTestCases =
             new ReadOnlyCollection<TestCaseData>(new TestCaseData[]
-            {   
+            {
                 // Insertion point at beginning of an offset based text file
                 new TestCaseData(outputRegion : s_Insertion_Beginning_Of_OffsetBased_Text_File,
                     inputRegion: new Region() { CharOffset = 0}),
@@ -347,8 +350,8 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
 
         private static readonly ReadOnlyCollection<TestCaseData> s_newLineTestCases =
             new ReadOnlyCollection<TestCaseData>(new TestCaseData[]
-            { 
-                // 
+            {
+                //
                 // Sanity check sample with new line characters only
                 new TestCaseData(outputRegion: s_Complete_File_New_Lines_Only,
                     inputRegion: new Region() { CharOffset = 0, CharLength = 12 }),
@@ -358,7 +361,6 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
 
                 new TestCaseData(outputRegion: s_Complete_File_New_Lines_Only,
                     inputRegion: new Region() { StartLine = 1, EndLine = 4, CharOffset = 0, CharLength = 12 }),
-
 
                 new TestCaseData(outputRegion: s_Fragment_New_Lines_Only,
                     inputRegion: new Region() { CharOffset = 3, CharLength = 9 }),
@@ -373,7 +375,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
         private static readonly ReadOnlyCollection<TestCaseData> s_carriageReturnTestCasess =
             new ReadOnlyCollection<TestCaseData>(new TestCaseData[]
             {
-                // 
+                //
                 // Sanity check sample with carriage return characters only
                 new TestCaseData(outputRegion: s_Complete_File_Carriage_Returns_Only,
                     inputRegion: new Region() { CharOffset = 0, CharLength = 10  }),
@@ -395,7 +397,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
         public void FileRegionsCache_PopulatesFromMissingFile()
         {
             var run = new Run();
-            var fileRegionsCache = new FileRegionsCache(run);
+            var fileRegionsCache = new FileRegionsCache();
 
             Uri uri = new Uri(@"c:\temp\DoesNotExist\" + Guid.NewGuid().ToString() + ".cpp");
 
@@ -404,6 +406,45 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
             // Region should not be touched in any way if the file it references is missing
             fileRegionsCache.PopulateTextRegionProperties(region, uri, populateSnippet: false).ValueEquals(region).Should().BeTrue();
             fileRegionsCache.PopulateTextRegionProperties(region, uri, populateSnippet: true).ValueEquals(region).Should().BeTrue();
+        }
+
+        [Fact]
+        public void FileRegionsCache_PopulatesUsingProvidedText()
+        {
+            var run = new Run();
+            var fileRegionsCache = new FileRegionsCache();
+
+            Uri uri = new Uri(@"c:\temp\DoesNotExist\" + Guid.NewGuid().ToString() + ".cpp");
+
+            string fileText = "12345\n56790\n";
+            int charOffset = 6;
+            int charLength = 1;
+
+            // Region should grab the second line of text in 'fileText'.
+            Region region = new Region() { CharOffset = charOffset, CharLength = charLength };
+
+            Region expected = new Region()
+            {
+                CharOffset = charOffset,
+                CharLength = charLength,
+                StartLine = 2,
+                EndLine = 2,
+                StartColumn = 1,
+                EndColumn = 2
+            };
+
+            Region actual;
+
+            // Region should not be touched in any way if the file it references is missing
+            actual = fileRegionsCache.PopulateTextRegionProperties(region, uri, populateSnippet: false, fileText: fileText);
+            actual.ValueEquals(expected).Should().BeTrue();
+            actual.Snippet.Should().BeNull();
+
+            actual = fileRegionsCache.PopulateTextRegionProperties(region, uri, populateSnippet: true, fileText: fileText);
+            actual.Snippet.Text.Should().Be(fileText.Substring(charOffset, charLength));
+
+            actual.Snippet = null;
+            actual.ValueEquals(expected).Should().BeTrue();
         }
 
         [Fact]
@@ -424,13 +465,32 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
             ExecuteTests(COMPLETE_FILE_CARRIAGE_RETURNS_ONLY, s_carriageReturnTestCasess);
         }
 
+        [Fact]
+        public void FileRegionsCache_ValidateConcurrencyData()
+        {
+            Exception exception = Record.Exception(() =>
+            {
+                var fileRegionsCache = new FileRegionsCache();
+                List<Task> taskList = new List<Task>();
+
+                for (int i = 0; i < 1_000; i++)
+                {
+                    taskList.Add(Task.Factory.StartNew(() =>
+                    fileRegionsCache.PopulateTextRegionProperties(new Region { }, new Uri($"file:///c:/{Guid.NewGuid()}.txt"), true)));
+                }
+
+                Task.WaitAll(taskList.ToArray());
+            });
+            Assert.Null(exception);
+        }
+
         private static void ExecuteTests(string fileText, ReadOnlyCollection<TestCaseData> testCases)
         {
             Uri uri = new Uri(@"c:\temp\myFile.cpp");
 
             var run = new Run();
             IFileSystem mockFileSystem = MockFactory.MakeMockFileSystem(uri.LocalPath, fileText);
-            var fileRegionsCache = new FileRegionsCache(run, fileSystem: mockFileSystem);
+            var fileRegionsCache = new FileRegionsCache(fileSystem: mockFileSystem);
 
             ExecuteTests(testCases, fileRegionsCache, uri);
         }
@@ -483,7 +543,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
 
             Run run = new Run();
             IFileSystem mockFileSystem = MockFactory.MakeMockFileSystem(uri.LocalPath, fileContents.ToString());
-            FileRegionsCache fileRegionsCache = new FileRegionsCache(run, fileSystem: mockFileSystem);
+            FileRegionsCache fileRegionsCache = new FileRegionsCache(fileSystem: mockFileSystem);
 
             Region region = new Region()
             {
@@ -515,13 +575,75 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
 
             var run = new Run();
             IFileSystem mockFileSystem = MockFactory.MakeMockFileSystem(uri.LocalPath, SPEC_EXAMPLE);
-            var fileRegionsCache = new FileRegionsCache(run, fileSystem: mockFileSystem);
+            var fileRegionsCache = new FileRegionsCache(fileSystem: mockFileSystem);
 
             Region region = fileRegionsCache.PopulateTextRegionProperties(inputRegion: null, uri: uri, populateSnippet: false);
             region.Should().BeNull();
 
             region = fileRegionsCache.PopulateTextRegionProperties(inputRegion: null, uri: uri, populateSnippet: true);
             region.Should().BeNull();
+        }
+
+        [Fact]
+        public void FileRegionsCache_IncreasingToLeftAndRight()
+        {
+            Uri uri = new Uri(@"c:\temp\myFile.cpp");
+            string fileContent = $"{new string('a', 200)}{new string('b', 800)}";
+
+            var region = new Region
+            {
+                CharOffset = 114,
+                CharLength = 600,
+            };
+
+            var fileRegionsCache = new FileRegionsCache();
+            region = fileRegionsCache.PopulateTextRegionProperties(region, uri, true, fileContent);
+
+            Region multilineRegion = fileRegionsCache.ConstructMultilineContextSnippet(region, uri);
+
+            // 114 (charoffset) + 600 (charlength) + 128 (grabbing right content)
+            multilineRegion.CharLength.Should().Be(114 + 600 + 128);
+        }
+
+        [Fact]
+        public void FileRegionsCache_PopulatesWithOneLine_IncreasingToTheRight()
+        {
+            string content = $"{new string('a', 200)}{new string('b', 800)}";
+            var uri = new Uri(@"c:\temp\myFile.cpp");
+            var region = new Region
+            {
+                CharOffset = 0,
+                CharLength = 300,
+            };
+
+            var fileRegionsCache = new FileRegionsCache();
+            region = fileRegionsCache.PopulateTextRegionProperties(region, uri, true, content);
+            Region multilineRegion = fileRegionsCache.ConstructMultilineContextSnippet(region, uri);
+
+            // CharLength + 128 to the right = 428 characters
+            multilineRegion.CharLength.Should().Be(300 + 128);
+            multilineRegion.Snippet.Text.Should().NotBeNullOrEmpty();
+        }
+
+        [Fact]
+        public void FileRegionsCache_PopulatesWithOneLine_Everything()
+        {
+            string content = $"{new string('a', 200)}{new string('b', 200)}";
+            var uri = new Uri(@"c:\temp\myFile.cpp");
+            var region = new Region
+            {
+                CharOffset = 0,
+                CharLength = 300,
+            };
+
+            var fileRegionsCache = new FileRegionsCache();
+            region = fileRegionsCache.PopulateTextRegionProperties(region, uri, true, content);
+            Region multilineRegion = fileRegionsCache.ConstructMultilineContextSnippet(region, uri);
+
+            // Since the content is 400, the charLength will be 400
+            // and the snippet.Text will be the entire content.
+            multilineRegion.CharLength.Should().Be(content.Length);
+            multilineRegion.Snippet.Text.Should().Be(content);
         }
     }
 }

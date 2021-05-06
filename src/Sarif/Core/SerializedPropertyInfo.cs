@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-
 using Microsoft.CodeAnalysis.Sarif.Readers;
+
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The string representation of the JSON value of the property.
         /// </param>
         /// <param name="isString">
-        /// <code>true</code> if the property is a string; otherwise <code>false</code>.
+        /// <c>true</c> if the property is a string; otherwise <c>false</c>.
         /// </param>
         /// <remarks>
         /// This representation allows properties to be read from JSON into memory and
@@ -30,22 +30,22 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// a lot of memory for objects that are part of a large JSON file.
         /// </remarks>
         /// <example>
-        /// The integer-value JSON property <code>"n": 42</code>
+        /// The integer-value JSON property <c>"n": 42</c>
         /// is represented by
         /// <code>
         /// new SerializedPropertyInfo("42", JTokenType.Integer)
         /// </code>
-        /// The string-valued JSON property <code>"s": "abc"</code>
+        /// The string-valued JSON property <c>"s": "abc"</c>
         /// is represented by
         /// <code>
         /// new SerializedPropertyInfo("\"abc\"", JTokenType.String)
         /// </code>
-        /// The array-valued JSON property <code>"a": [ 1, "b" ]</code>
+        /// The array-valued JSON property <c>"a": [ 1, "b" ]</c>
         /// is represented by
         /// <code>
         /// new SerializedPropertyInfo("[ 1, \"b\" ]", JTokenType.Array)
         /// </code>
-        /// The object-values JSON property <code>"o": { "a": 1, "b": false }</code>
+        /// The object-values JSON property <c>"o": { "a": 1, "b": false }</c>
         /// is represented by
         /// <code>
         /// new SerializedPropertyInfo("{ \"a\": 1, \"b\": false }", JTokenType.Object)

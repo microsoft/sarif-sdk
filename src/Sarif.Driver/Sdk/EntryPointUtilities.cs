@@ -18,7 +18,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             foreach (string argument in args)
             {
-
                 if (!IsResponseFileArgument(argument))
                 {
                     expandedArguments.Add(argument);
@@ -28,9 +27,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 string responseFile = argument.Trim('"').Substring(1);
 
                 responseFile = environmentVariables.ExpandEnvironmentVariables(responseFile);
-                responseFile = fileSystem.GetFullPath(responseFile);
+                responseFile = fileSystem.PathGetFullPath(responseFile);
 
-                string[] responseFileLines = fileSystem.ReadAllLines(responseFile);
+                string[] responseFileLines = fileSystem.FileReadAllLines(responseFile);
 
                 ExpandResponseFile(responseFileLines, expandedArguments);
             }
@@ -48,9 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             foreach (string responseFileLine in responseFileLines)
             {
                 int argumentCount;
-                IntPtr pointer;
-
-                pointer = CommandLineToArgvW(responseFileLine.Trim(), out argumentCount);
+                IntPtr pointer = CommandLineToArgvW(responseFileLine.Trim(), out argumentCount);
 
                 if (pointer == IntPtr.Zero)
                 {
@@ -64,7 +61,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     {
                         expandedArguments.Add(Marshal.PtrToStringUni(Marshal.ReadIntPtr(pointer, i * IntPtr.Size)));
                     }
-
                 }
                 finally
                 {
@@ -74,9 +70,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [DllImport("shell32.dll", SetLastError = true)]
-        static extern IntPtr CommandLineToArgvW([MarshalAs(UnmanagedType.LPWStr)] string lpCmdLine, out int pNumArgs);
+        private static extern IntPtr CommandLineToArgvW([MarshalAs(UnmanagedType.LPWStr)] string lpCmdLine, out int pNumArgs);
 
         [DllImport("kernel32.dll")]
-        static extern IntPtr LocalFree(IntPtr hMem);
+        private static extern IntPtr LocalFree(IntPtr hMem);
     }
 }

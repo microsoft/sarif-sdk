@@ -1,5 +1,5 @@
-// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License.
+// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
 using System.IO;
@@ -67,15 +67,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             {
                 bomWidth = 2;
             }
-            else if(buffer[0] == 0xFF && buffer[1] == 0xFE)
+            else if (buffer[0] == 0xFF && buffer[1] == 0xFE)
             {
                 bomWidth = 2;
             }
-            else if(buffer[0] == 0xEF && buffer[1] == 0xBB && buffer[2] == 0xBF)
+            else if (buffer[0] == 0xEF && buffer[1] == 0xBB && buffer[2] == 0xBF)
             {
                 bomWidth = 3;
             }
-            else if(buffer[0] == 0x00 && buffer[1] == 0x00 && buffer[2] == 0xFE && buffer[3] == 0xFF)
+            else if (buffer[0] == 0x00 && buffer[1] == 0x00 && buffer[2] == 0xFE && buffer[3] == 0xFF)
             {
                 bomWidth = 4;
             }
@@ -243,11 +243,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             // Count bytes in last line until end of buffer
             if (lastEnd < index + charsRead)
             {
-                bytesRead += this.CurrentEncoding.GetByteCount(buffer, lastEnd, (index + charsRead) - lastEnd);
+                bytesRead += this.CurrentEncoding.GetByteCount(buffer, lastEnd, index + charsRead - lastEnd);
             }
 
             // Count chars in the last line in this buffer
-            _lastLineChars = (index + charsRead) - lastEnd;
+            _lastLineChars = index + charsRead - lastEnd;
 
             _bytesRead = bytesRead;
             return charsRead;

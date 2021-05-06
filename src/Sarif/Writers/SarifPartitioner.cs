@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+
 using Microsoft.CodeAnalysis.Sarif.Visitors;
 
 namespace Microsoft.CodeAnalysis.Sarif.Writers
@@ -32,9 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             SarifLog newLog = log.DeepClone();
 
             var visitor = new FilteringVisitor(predicate);
-            newLog = visitor.VisitSarifLog(newLog);
-
-            return newLog;
+            return visitor.VisitSarifLog(newLog);
         }
 
         /// <summary>
@@ -58,8 +57,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         /// </param>
         /// <param name="deepClone">
         /// A value that specifies how the partitioned logs are constructed from the original log.
-        /// If <code>true</code>, each partitioned log is constructed from a deep clone of the
-        /// original log; if <code>false</code>, each partitioned log is constructed from a shallow
+        /// If <c>true</c>, each partitioned log is constructed from a deep clone of the
+        /// original log; if <c>false</c>, each partitioned log is constructed from a shallow
         /// copy of the original log. Deep cloning ensures that the original and partitioned logs
         /// do not share any objects, so they can be modified safely, but at a cost of increased
         /// partitioning time and  working set. Shallow copying reduces partitioning time and

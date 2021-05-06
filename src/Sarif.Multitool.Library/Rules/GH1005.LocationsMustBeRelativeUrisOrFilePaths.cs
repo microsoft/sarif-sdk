@@ -11,6 +11,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class LocationsMustBeRelativeUrisOrFilePaths : SarifValidationSkimmerBase
     {
+        public LocationsMustBeRelativeUrisOrFilePaths()
+        {
+            this.DefaultConfiguration.Level = FailureLevel.Error;
+        }
+
         /// <summary>
         /// GH1005
         /// </summary>
@@ -24,9 +29,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             nameof(RuleResources.GH1005_LocationsMustBeRelativeUrisOrFilePaths_Error_Default_Text)
         };
 
-        public override FailureLevel DefaultLevel => FailureLevel.Error;
-
         public override bool EnabledByDefault => false;
+
+        private List<Uri> workingDirectoryUris;
+
+        protected override void Analyze(Run run, string runPointer)
+        {
+            this.workingDirectoryUris = new List<Uri>();
+            GetWorkingDirectoryUris(run);
+        }
 
         protected override void Analyze(Result result, string resultPointer)
         {
@@ -65,6 +76,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
             if (uri.IsAbsoluteUri && uri.Scheme != "file")
             {
+                if (this.workingDirectoryUris.Any(workingDirectoryUri => uri
+                    .OriginalString
+                    .StartsWith(workingDirectoryUri.OriginalString, StringComparison.OrdinalIgnoreCase)))
+                {
+                    // We have a workingDirectoryUri and that is the beginnig of the current URI
+                    // And that is OK.
+                    return;
+                }
+
                 string uriPointer = locationPointer
                     .AtProperty(SarifPropertyName.PhysicalLocation)
                     .AtProperty(SarifPropertyName.ArtifactLocation)
@@ -77,6 +97,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     uriPointer,
                     nameof(RuleResources.GH1005_LocationsMustBeRelativeUrisOrFilePaths_Error_Default_Text),
                     uri.OriginalString);
+            }
+        }
+
+        private void GetWorkingDirectoryUris(Run run)
+        {
+            if (run.Invocations?.Any() == true)
+            {
+                foreach (Invocation invocation in run.Invocations)
+                {
+                    if (invocation.WorkingDirectory?.Uri != null)
+                    {
+                        this.workingDirectoryUris.Add(invocation.WorkingDirectory?.Uri);
+                    }
+                }
             }
         }
     }

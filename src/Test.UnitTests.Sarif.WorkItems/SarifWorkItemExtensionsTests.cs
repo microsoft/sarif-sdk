@@ -1,12 +1,15 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Text;
+
 using FluentAssertions;
+
 using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
+
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.WorkItems
@@ -57,7 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         [Fact]
         public void SarifWorkItemExtensions_CreateWorkItemTitle_LongTitleFromUrl()
         {
-            int maxLength = 256;
+            int maxLength = 255;
             string ruleId = "TestRuleId";
             string expectedTemplate = "[aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa:Warning]: TestRuleId: Test Rule (in al...)";
             string expected = $":Warning]: TestRuleId: Test Rule (in al" + new string('a', maxLength - expectedTemplate.Length) + "...)";
@@ -88,13 +91,13 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             result.Locations = new List<Location>();
             result.Locations.Add(location);
             result.RuleId = "TestRuleId";
-            
+
             SarifLog sarifLog = CreateLogWithEmptyRun();
             Run run = sarifLog.Runs[0];
             run.Results.Add(result);
 
             // A logical location longer than 128 char is truncated with ellipses
-            int maxLength = 256;
+            int maxLength = 255;
             string expectedTemplate = "[aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa:Warning]: TestRuleId: Test Rule (in 'll...')";
             string expected = $":Warning]: TestRuleId: Test Rule (in 'll" + new string('b', maxLength - expectedTemplate.Length) + "...')";
             result.Locations[0].LogicalLocation.FullyQualifiedName = "ll" + new string('b', 1024);
@@ -243,13 +246,13 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                             }
                         }
                     }
-                }                
+                }
             }),
             new Tuple<string, Result>("Result with rule.Id", new Result
             {
                 Rule = new ReportingDescriptorReference
                 {
-                    Id = TestRuleId                     
+                    Id = TestRuleId
                 }
             }),
             new Tuple<string, Result>("Result with rule index only", new Result
@@ -269,7 +272,6 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
         private static SarifLog CreateLogWithEmptyRun()
         {
-
             return new SarifLog
             {
                 Runs = new[]
@@ -284,12 +286,11 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                                 Rules = new ReportingDescriptor[]
                                 {
                                     new ReportingDescriptor
-                                    { 
+                                    {
                                         Name = "Test Rule",
                                         Id = nameof(TestRuleId)
                                     }
                                 }
-
                             }
                         },
                         Results = new List<Result>()

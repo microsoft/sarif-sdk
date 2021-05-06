@@ -7,6 +7,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
     {
         None,
         ExceptionCreatingLogFile,
+        ExceptionWritingToLogFile,
         UnhandledExceptionInstantiatingSkimmers,
         UnhandledExceptionInEngine,
         NoRulesLoaded,

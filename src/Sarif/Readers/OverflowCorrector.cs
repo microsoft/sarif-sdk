@@ -1,5 +1,5 @@
-﻿// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License.
+﻿// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 namespace Microsoft.CodeAnalysis.Sarif.Readers
 {
@@ -29,10 +29,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             else
             {
                 // On each overflow, add a correction
-                bool isNegative = (charInLine < 0);
+                bool isNegative = charInLine < 0;
                 if (_currentlyNegative == false && isNegative == true)
                 {
-
                     _overflowCorrection += PerOverflowCorrection;
                 }
                 _currentlyNegative = isNegative;

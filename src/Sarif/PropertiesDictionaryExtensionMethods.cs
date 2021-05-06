@@ -29,7 +29,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             string name,
             Dictionary<string, string> settingNameToDescriptionMap)
         {
-
             if (propertyBag == null)
             {
                 throw new ArgumentNullException(nameof(propertyBag));
@@ -283,9 +282,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             while (reader.IsStartElement(ITEM_ID))
             {
                 T item;
-                bool isEmptyItem;
-
-                isEmptyItem = reader.IsEmptyElement;
+                bool isEmptyItem = reader.IsEmptyElement;
                 reader.ReadStartElement();
 
                 TypeConverter tc = TypeDescriptor.GetConverter(typeof(T));
@@ -324,7 +321,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
             return propertyType;
         }
-
 
         #endregion
 

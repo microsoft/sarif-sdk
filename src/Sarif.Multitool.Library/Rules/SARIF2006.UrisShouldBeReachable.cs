@@ -12,6 +12,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class UrisShouldBeReachable : SarifValidationSkimmerBase
     {
+        internal IHttpClient httpProvider;
+
+        public UrisShouldBeReachable()
+        {
+            this.httpProvider = new HttpClientWrapper();
+            this.DefaultConfiguration.Level = FailureLevel.Note;
+        }
+
         /// <summary>
         /// SARIF2006
         /// </summary>
@@ -27,9 +35,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             nameof(RuleResources.SARIF2006_UrisShouldBeReachable_Note_Default_Text)
         };
 
-        public override FailureLevel DefaultLevel => FailureLevel.Note;
-
-        private static readonly HttpClient s_httpClient = new HttpClient();
+        // cache stores all visited Uris
         private static readonly Dictionary<string, bool> s_checkedUris = new Dictionary<string, bool>();
 
         protected override void Analyze(SarifLog log, string logPointer)
@@ -88,8 +94,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 {
                     // {0}: The URI '{1}' was not reachable via an HTTP GET request.
                     LogResult(
-                        pointer, 
-                        nameof(RuleResources.SARIF2006_UrisShouldBeReachable_Note_Default_Text), 
+                        pointer,
+                        nameof(RuleResources.SARIF2006_UrisShouldBeReachable_Note_Default_Text),
                         uriString);
                 }
             }
@@ -102,7 +108,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 return s_checkedUris[uriString];
             }
 
-            HttpResponseMessage httpResponseMessage = s_httpClient.GetAsync(uriString).GetAwaiter().GetResult();
+            // http wrapper handles the cache all Uris has been accessed
+            HttpResponseMessage httpResponseMessage = httpProvider.GetAsync(uriString).GetAwaiter().GetResult();
             s_checkedUris.Add(uriString, httpResponseMessage.IsSuccessStatusCode);
             return httpResponseMessage.IsSuccessStatusCode;
         }

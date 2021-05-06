@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             _specifier = specifier;
             _recurse = recurse;
-            _fileSystem = fileSystem ?? new FileSystem();
+            _fileSystem = fileSystem ?? FileSystem.Instance;
         }
 
         private readonly bool _recurse;
@@ -59,7 +59,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (directory.Length == 0)
             {
-                directory = @".\";
+                directory = $".{Path.DirectorySeparatorChar}";
             }
 
             AddFilesFromDirectory(directory, filter);
@@ -69,7 +69,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             if (_fileSystem.DirectoryExists(dir))
             {
-                foreach (string file in _fileSystem.GetFilesInDirectory(dir, filter))
+                foreach (string file in _fileSystem.DirectoryGetFiles(dir, filter))
                 {
                     AddFileToList(file);
                 }
@@ -78,7 +78,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 {
                     try
                     {
-                        foreach (string subdir in _fileSystem.GetDirectoriesInDirectory(dir))
+                        foreach (string subdir in _fileSystem.DirectoryGetDirectories(dir))
                         {
                             AddFilesFromDirectory(subdir, filter);
                         }

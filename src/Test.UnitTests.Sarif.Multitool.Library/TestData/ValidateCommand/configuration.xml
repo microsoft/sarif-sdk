@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Properties >
+  <Properties Key="SARIF2002.ProvideMessageArguments.Options" >
+    <Property Key="RuleEnabled" Value="error" />
+  </Properties>
+</Properties>

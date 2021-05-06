@@ -10,9 +10,6 @@
             {
               "id": "SARIF1011",
               "name": "ReferenceFinalSchema",
-              "shortDescription": {
-                "text": "The '$schema' property must refer to the final version of the SARIF 2.1.0 schema."
-              },
               "fullDescription": {
                 "text": "The '$schema' property must refer to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.\r\n\r\nThe SARIF standard was developed over several years, and many intermediate versions of the schema were produced. Now that the standard is final, only the OASIS standard version of the schema is valid."
               },

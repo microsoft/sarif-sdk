@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
         /// <summary>
         /// Take an action on each sarif log, return the accumulated result.
         /// </summary>
-        /// <param name="list">List to fold over</param>
+        /// <param name="collection">Collection to fold over</param>
         /// <param name="accumulator">Accumulator to use.</param>
         /// <returns>The accumulated result.</returns>
         T Fold(IEnumerable<T> collection, T accumulator);

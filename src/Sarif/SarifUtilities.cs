@@ -42,12 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             get
             {
-                if (s_stableSarifVersion == null)
-                {
-                    s_stableSarifVersion = VersionConstants.StableSarifVersion;
-                }
-
-                return s_stableSarifVersion;
+                return s_stableSarifVersion ??= VersionConstants.StableSarifVersion;
             }
         }
 
@@ -93,7 +88,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 throw new ArgumentNullException(nameof(resourceManager));
             }
-
 
             // Note this dictionary provides for case-insensitive keys
             var dictionary = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);

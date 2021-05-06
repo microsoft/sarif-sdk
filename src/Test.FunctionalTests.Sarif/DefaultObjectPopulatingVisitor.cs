@@ -4,13 +4,14 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+
 using Microsoft.Json.Schema;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// This visitor will exhaustively populate a SARIF log with default values, starting at 
-    /// whatever level in the tree is visited. This has the effect of comprehehsively 
+    /// This visitor will exhaustively populate a SARIF log with default values, starting at
+    /// whatever level in the tree is visited. This has the effect of comprehehsively
     /// 'hydrating' all possible SARIF constructs as defined by the C# OM.
     /// </summary>
     public class DefaultObjectPopulatingVisitor : SarifRewritingVisitor
@@ -67,7 +68,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         // producing samples of these types.
         private bool _visitingGraphNode;
         private bool _visitingExceptionData;
-
 
         public override object Visit(ISarifNode node)
         {

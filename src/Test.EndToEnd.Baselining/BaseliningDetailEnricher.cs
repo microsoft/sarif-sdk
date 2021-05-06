@@ -1,5 +1,5 @@
-// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License.
+// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Collections.Generic;
 using System.IO;
@@ -14,10 +14,10 @@ namespace Test.EndToEnd.Baselining
     /// <summary>
     ///  Convert a detail log for a single log series, adding details to help human
     ///  investigation to each Result line.
-    /// 
+    ///
     ///  This log is used for human investigation of baselining algorithm differences
-    ///  across runs. 
-    ///  
+    ///  across runs.
+    ///
     ///  The "enriched" logs are converted from the "canonical" detail logs after
     ///  the fact so that a developer debugging can change which Result details are
     ///  available for investigation without breaking existing test baselines.

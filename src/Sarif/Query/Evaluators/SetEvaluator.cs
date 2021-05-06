@@ -1,5 +1,5 @@
-// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License.
+// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
 using System.Collections;
@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
     /// <summary>
     ///  SetEvaluator implements IExpressionEvaluator for sets rather than single values.
     ///  If any of the values matches the term, the item matches.
-    ///  
+    ///
     ///  For example, a SetEvaluator for Result.Urls[] and the term 'contains /inner/'
     ///  would return true for Results which have any Url containing '/inner/'.
     /// </summary>

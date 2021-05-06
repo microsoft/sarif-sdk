@@ -14,9 +14,10 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public delegate string ProcessRunner(string workingDirectory, string exePath, string arguments);
 
-        private static readonly ProcessRunner DefaultProcessRunner =
-            (string workingDirectory, string exePath, string arguments)
-                => new ExternalProcess(workingDirectory, exePath, arguments, stdOut: null, acceptableReturnCodes: null).StdOut.Text;
+        private static string DefaultProcessRunnerImpl(string workingDirectory, string exePath, string arguments)
+        {
+            return new ExternalProcess(workingDirectory, exePath, arguments, stdOut: null, acceptableReturnCodes: null).StdOut.Text;
+        }
 
         private readonly IFileSystem fileSystem;
         private readonly ProcessRunner processRunner;
@@ -36,23 +37,40 @@ namespace Microsoft.CodeAnalysis.Sarif
         // appropriately.
         internal readonly Dictionary<string, string> directoryToRepoRootPathDictionary = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
-        public bool IsRepositoryRoot(string repositoryPath) => this.fileSystem.DirectoryExists(Path.Combine(repositoryPath, ".git"));
+        public bool IsRepositoryRoot(string repoPath)
+        {
+            repoPath = repoPath.EndsWith(@"\") ?
+                repoPath.Substring(0, repoPath.Length - 1) :
+                repoPath;
+
+            return repoPath.Equals(GetTopLevel(repoPath), StringComparison.OrdinalIgnoreCase);
+        }
 
         public GitHelper(IFileSystem fileSystem = null, ProcessRunner processRunner = null)
         {
-            this.fileSystem = fileSystem ?? new FileSystem();
-            this.processRunner = processRunner ?? DefaultProcessRunner;
+            this.fileSystem = fileSystem ?? FileSystem.Instance;
 
-            GitExePath = GetGitExePath();
+            this.processRunner = processRunner ?? DefaultProcessRunnerImpl;
+
+            GitExePath = GetGitExePath(this.fileSystem);
         }
 
-        public string GitExePath { get; }
+        public string GitExePath { get; set; }
 
         public Uri GetRemoteUri(string repoPath)
         {
             string uriText = GetSimpleGitCommandOutput(
                     repoPath,
-                    args: $"remote get-url origin");
+                    args: "remote get-url origin");
+
+            // Sometimes, the uri contains the following format:
+            // user:password@repositoryurl. With that, we are removing
+            // the sensitive information from it.
+            if (!string.IsNullOrEmpty(uriText) && uriText.Contains("@"))
+            {
+                int index = uriText.IndexOf('@');
+                uriText = $"https://{uriText.Substring(index + 1)}";
+            }
 
             return uriText == null
                 ? null
@@ -73,8 +91,15 @@ namespace Microsoft.CodeAnalysis.Sarif
                 args: $"checkout {commitSha}");
         }
 
-        private string GetGitExePath()
-            => this.fileSystem.FileExists(s_expectedGitExePath) ? s_expectedGitExePath : null;
+        internal static string GetGitExePath(IFileSystem fileSystem)
+        {
+            if (fileSystem.FileExists(s_expectedGitExePath))
+            {
+                return s_expectedGitExePath;
+            }
+
+            return FileSearcherHelper.SearchForFileInEnvironmentVariable("PATH", "git.exe", fileSystem);
+        }
 
         public string GetCurrentBranch(string repoPath)
         {
@@ -83,21 +108,79 @@ namespace Microsoft.CodeAnalysis.Sarif
                 args: "rev-parse --abbrev-ref HEAD");
         }
 
-        private string GetSimpleGitCommandOutput(string repositoryPath, string args)
+        public string GetTopLevel(string repoPath)
         {
-            string gitPath = this.GitExePath;
+            const string args = "rev-parse --show-toplevel";
+            string currentDirectory = this.fileSystem.EnvironmentCurrentDirectory;
 
-            if (gitPath == null || !IsRepositoryRoot(repositoryPath))
+            try
             {
-                return null;
+                string gitPath = this.GitExePath;
+
+                if (gitPath == null)
+                {
+                    return null;
+                }
+
+                if (!this.fileSystem.DirectoryExists(repoPath) &&
+                    !this.fileSystem.FileExists(repoPath))
+                {
+                    return null;
+                }
+
+                if (this.fileSystem.FileExists(repoPath))
+                {
+                    repoPath = Path.GetDirectoryName(repoPath);
+                }
+
+                this.fileSystem.EnvironmentCurrentDirectory = Path.GetDirectoryName(repoPath);
+
+                string stdOut = this.processRunner(
+                    workingDirectory: repoPath,
+                    exePath: gitPath,
+                    arguments: args);
+
+                // Normalize directory separator as backslash.
+                return stdOut != null ?
+                    new DirectoryInfo(TrimNewlines(stdOut)).FullName :
+                    null;
             }
+            finally
+            {
+                this.fileSystem.EnvironmentCurrentDirectory = currentDirectory;
+            }
+        }
 
-            string stdOut = this.processRunner(
-                workingDirectory: repositoryPath,
-                exePath: gitPath,
-                arguments: args);
+        private string GetSimpleGitCommandOutput(string repoPath, string args)
+        {
+            string currentDirectory = this.fileSystem.EnvironmentCurrentDirectory;
 
-            return TrimNewlines(stdOut);
+            repoPath = repoPath.Replace("/", @"\");
+
+            try
+            {
+                string gitPath = this.GitExePath;
+
+                if (gitPath == null || !IsRepositoryRoot(repoPath))
+                {
+                    return null;
+                }
+
+                this.fileSystem.EnvironmentCurrentDirectory = repoPath;
+
+                string stdOut = this.processRunner(
+                    workingDirectory: repoPath,
+                    exePath: gitPath,
+                    arguments: args);
+
+                return stdOut != null ?
+                    TrimNewlines(stdOut) :
+                    null;
+            }
+            finally
+            {
+                this.fileSystem.EnvironmentCurrentDirectory = currentDirectory;
+            }
         }
 
         private static string TrimNewlines(string text) => text
@@ -135,22 +218,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            repoRootPath = path;
-            while (!string.IsNullOrEmpty(repoRootPath) && !IsRepositoryRoot(repoRootPath))
-            {
-                repoRootPath = Path.GetDirectoryName(repoRootPath);
-            }
+            string topLevelPath = GetTopLevel(path);
 
-            // It's important to terminate with a slash because the value returned from this method
-            // will be used to create an absolute URI on which MakeUriRelative will be called. For
-            // example, suppose this method returns @"C:\\dev\sarif-sdk\". The caller will use it
-            // to create an absolute URI (call it repoRootUri) "file:///C:/dev/sarif-sdk/". The
-            // caller will use this URI to "rebase" another URI (call it artifactUri) such as
-            // "file:///C:/dev/sarif-sdk/src/Sarif". The caller will do that by calling
-            // repoRootUri.MakeRelativeUri(artifactUri). It turns out that unless repoRootUri
-            // ends with a slash, this call will return "sarif-sdk/src/Sarif" rather than the
-            // expected (at least for me) "src/Sarif".
-            if (repoRootPath != null && !repoRootPath.EndsWith(@"\")) { repoRootPath += @"\"; }
+            // Normalize directory separator to backslash
+            repoRootPath = topLevelPath != null ?
+                new DirectoryInfo(GetTopLevel(path)).FullName :
+                null;
 
             if (useCache)
             {

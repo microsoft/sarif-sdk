@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.
+﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
@@ -17,15 +17,21 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </remarks>
         public Run Run { get; set; }
 
-        public bool ShouldSerializeWorkItemUris() { return this.WorkItemUris != null && this.WorkItemUris.Any((s) => s != null); }
+        public bool ShouldSerializeWorkItemUris()
+        {
+            return this.WorkItemUris != null && this.WorkItemUris.Any((s) => s != null);
+        }
 
-        public bool ShouldSerializeLevel() { return this.Level != FailureLevel.Warning; }
+        public bool ShouldSerializeLevel()
+        {
+            return this.Level != FailureLevel.Warning;
+        }
 
         public void EnsureRunProvided()
         {
             if (this.Run == null)
             {
-                throw new ArgumentException($"Result.Run was required but not provided. Ensure Result.Run properties are populated by calling Run.SetRunOnResults().");
+                throw new ArgumentException("Result.Run was required but not provided. Ensure Result.Run properties are populated by calling Run.SetRunOnResults().");
             }
         }
 
@@ -93,6 +99,30 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ReportingDescriptor() { Id = this.RuleId ?? this.Rule?.Id };
         }
 
+        public bool TryIsSuppressed(out bool isSuppressed)
+        {
+            isSuppressed = false;
+            if (this == null)
+            {
+                return false;
+            }
+
+            IList<Suppression> suppressions = this.Suppressions;
+            if (suppressions == null)
+            {
+                return false;
+            }
+
+            if (suppressions.Count == 0)
+            {
+                return true;
+            }
+
+            isSuppressed = suppressions.Any(s => s.Status == SuppressionStatus.Accepted)
+                && !suppressions.Any(s => s.Status == SuppressionStatus.Rejected || s.Status == SuppressionStatus.UnderReview);
+            return true;
+        }
+
         private static ReportingDescriptor GetRuleByIndex(IList<ReportingDescriptor> rules, int ruleIndex)
         {
             if (rules == null)
@@ -109,32 +139,34 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
 #if DEBUG
+
         public override string ToString()
         {
             var sb = new System.Text.StringBuilder();
 
             sb.Append(this.Locations?[0].PhysicalLocation?.ArtifactLocation?.Uri);
-            sb.Append(" : " + this.RuleId);
-            sb.Append(" : " + this.Level);
-            sb.Append(" : " + this.Kind);
+            sb.Append(" : ").Append(this.RuleId);
+            sb.Append(" : ").Append(this.Level);
+            sb.Append(" : ").Append(this.Kind);
 
             if (!string.IsNullOrEmpty(this.Message?.Text))
             {
-                sb.Append(" : " + this.Message.Text);
+                sb.Append(" : ").Append(this.Message.Text);
             }
             else if (this.Message?.Arguments != null)
             {
                 sb.Append(" : {");
                 foreach (string argument in this.Message.Arguments)
                 {
-                    sb.Append(argument + ",");
+                    sb.Append(argument).Append(',');
                 }
                 sb.Length -= 1;
-                sb.Append("}");
+                sb.Append('}');
             }
 
             return sb.ToString();
         }
+
 #endif
     }
 }

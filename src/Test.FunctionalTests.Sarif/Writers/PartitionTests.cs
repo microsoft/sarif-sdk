@@ -3,9 +3,13 @@
 
 using System.Collections.Generic;
 using System.Linq;
+
 using FluentAssertions;
+
 using Microsoft.CodeAnalysis.Sarif.Visitors;
+
 using Newtonsoft.Json;
+
 using Xunit;
 using Xunit.Abstractions;
 

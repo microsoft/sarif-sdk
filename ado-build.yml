@@ -1,20 +1,29 @@
 pr:
-- '*'
+- 'main'
 
 pool:
   vmImage: 'windows-latest'
 
-steps:
+jobs:
+- job: NET_pipeline
+  steps:
+  # Build and test
+  - task: PowerShell@2
+    displayName: Build and Test
+    inputs:
+      targetType: filePath
+      filePath: ./scripts/BuildAndTest.ps1
+  
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathToPublish: 'msbuild.binlog'
+      artifactName: 'binlog'
 
-# Restore NuGet packages
-- task: DotNetCoreCLI@2
-  displayName: Build
-  inputs:
-    command: build
-    projects: src/Sarif.Sdk.sln
-
-- task: DotNetCoreCLI@2
-  displayName: Run unit tests for netstandard2.0
-  inputs:
-    command: test
-    projects: src/Sarif.Sdk.sln
+- job: npm_pipeline
+  steps:
+  # Build Multitool for npm
+  - task: PowerShell@2
+    displayName: Build Multitool for npm
+    inputs:
+      targetType: filePath
+      filePath: ./scripts/BuildMultitoolForNpm.ps1

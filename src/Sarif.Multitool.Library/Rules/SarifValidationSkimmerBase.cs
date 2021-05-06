@@ -6,8 +6,10 @@ using System.Collections.Generic;
 using System.Resources;
 using System.Text;
 using System.Text.RegularExpressions;
+
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.Json.Pointer;
+
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -30,7 +32,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override sealed ResourceManager ResourceManager => RuleResources.ResourceManager;
 
-        private readonly string[] _emptyMessageResourceNames = new string[0];
+        private readonly string[] _emptyMessageResourceNames = Array.Empty<string>();
 
         protected override IEnumerable<string> MessageResourceNames => _emptyMessageResourceNames;
 
@@ -53,7 +55,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             argsWithPointer[0] = JsonPointerToJavaScript(jPointer);
 
             Context.Logger.Log(this,
-                RuleUtilities.BuildResult(DefaultLevel, Context, region, formatId, argsWithPointer));
+                RuleUtilities.BuildResult(
+                    DefaultConfiguration.Level,
+                    Context,
+                    region,
+                    formatId,
+                    argsWithPointer));
         }
 
         protected virtual void Analyze(Address address, string addressPointer)
@@ -403,7 +410,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 Visit(edgeTraversal.Message, edgeTraversalPointer.AtProperty(SarifPropertyName.Message));
             }
         }
-
 
         private void Visit(Fix fix, string fixPointer)
         {

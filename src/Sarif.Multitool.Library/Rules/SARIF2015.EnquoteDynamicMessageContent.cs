@@ -11,6 +11,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class EnquoteDynamicMessageContent : SarifValidationSkimmerBase
     {
+        public EnquoteDynamicMessageContent()
+        {
+            this.DefaultConfiguration.Level = FailureLevel.Note;
+        }
+
         /// <summary>
         /// SARIF2015
         /// </summary>
@@ -22,9 +27,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// and most especially when the string might be empty (and so would be invisible if it weren't for
         /// the quotes). We recommend single quotes for a less cluttered appearance, even though US English
         /// usage would require double quotes.
-        /// 
-        /// This is part of a set of authoring practices that make your rule messages more readable, 
-        /// understandable, and actionable. See also 'SARIF2001.TerminateMessagesWithPeriod' and 
+        ///
+        /// This is part of a set of authoring practices that make your rule messages more readable,
+        /// understandable, and actionable. See also 'SARIF2001.TerminateMessagesWithPeriod' and
         /// 'SARIF2014.ProvideDynamicMessageContent'.
         /// </summary>
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF2015_EnquoteDynamicMessageContent_FullDescription_Text };
@@ -32,8 +37,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         protected override IEnumerable<string> MessageResourceNames => new string[] {
             nameof(RuleResources.SARIF2015_EnquoteDynamicMessageContent_Note_Default_Text)
         };
-
-        public override FailureLevel DefaultLevel => FailureLevel.Note;
 
         private static readonly Regex s_nonEnquotedDynamicContextRegex = new Regex(@"(^|[^'])\{[0-9]+\}", RegexOptions.Compiled | RegexOptions.CultureInvariant);
 

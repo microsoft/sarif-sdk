@@ -4,9 +4,14 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
+
 using Microsoft.CodeAnalysis.Sarif.Driver;
-using Microsoft.CodeAnalysis.Sarif.Driver.Sdk;
+using Microsoft.CodeAnalysis.Sarif.Readers;
+using Microsoft.CodeAnalysis.Sarif.VersionOne;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
+using Microsoft.CodeAnalysis.Sarif.Writers;
+
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
@@ -17,33 +22,54 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public RewriteCommand(IFileSystem fileSystem = null)
         {
-            _fileSystem = fileSystem ?? new FileSystem();
+            _fileSystem = fileSystem ?? Sarif.FileSystem.Instance;
         }
 
-        public int Run(RewriteOptions rewriteOptions)
+        public int Run(RewriteOptions options)
         {
             try
             {
-                Console.WriteLine($"Rewriting '{rewriteOptions.InputFilePath}' => '{rewriteOptions.OutputFilePath}'...");
+                Console.WriteLine($"Rewriting '{options.InputFilePath}' => '{options.OutputFilePath}'...");
                 Stopwatch w = Stopwatch.StartNew();
 
-                bool valid = ValidateOptions(rewriteOptions);
-                if (!valid) { return FAILURE; }
+                bool valid = ValidateOptions(options);
+                if (!valid)
+                {
+                    return FAILURE;
+                }
 
-                SarifLog actualLog = ReadSarifFile<SarifLog>(_fileSystem, rewriteOptions.InputFilePath);
+                string actualOutputPath = CommandUtilities.GetTransformedOutputFileName(options);
 
-                OptionallyEmittedData dataToInsert = rewriteOptions.DataToInsert.ToFlags();
-                IDictionary<string, ArtifactLocation> originalUriBaseIds = rewriteOptions.ConstructUriBaseIdsDictionary();
+                SarifLog actualLog = null;
 
-                SarifLog reformattedLog = new InsertOptionalDataVisitor(dataToInsert, originalUriBaseIds).VisitSarifLog(actualLog);
+                string inputVersion = SniffVersion(options.InputFilePath);
+                if (!inputVersion.Equals(SarifUtilities.StableSarifVersion))
+                {
+                    actualLog = TransformFileToVersionTwo(options.InputFilePath, inputVersion);
+                }
+                else
+                {
+                    actualLog = ReadSarifFile<SarifLog>(_fileSystem, options.InputFilePath);
+                }
 
-                string fileName = CommandUtilities.GetTransformedOutputFileName(rewriteOptions);
+                OptionallyEmittedData dataToInsert = options.DataToInsert.ToFlags();
+                OptionallyEmittedData dataToRemove = options.DataToRemove.ToFlags();
+                IDictionary<string, ArtifactLocation> originalUriBaseIds = options.ConstructUriBaseIdsDictionary();
 
-                Formatting formatting = rewriteOptions.PrettyPrint
-                    ? Formatting.Indented
-                    : Formatting.None;
+                SarifLog reformattedLog = new RemoveOptionalDataVisitor(dataToRemove).VisitSarifLog(actualLog);
+                reformattedLog = new InsertOptionalDataVisitor(dataToInsert, originalUriBaseIds, insertProperties: options.InsertProperties).VisitSarifLog(reformattedLog);
 
-                WriteSarifFile(_fileSystem, reformattedLog, fileName, formatting);
+                if (options.SarifOutputVersion == SarifVersion.OneZeroZero)
+                {
+                    var visitor = new SarifCurrentToVersionOneVisitor();
+                    visitor.VisitSarifLog(reformattedLog);
+
+                    WriteSarifFile(_fileSystem, visitor.SarifLogVersionOne, actualOutputPath, options.Minify, SarifContractResolverVersionOne.Instance);
+                }
+                else
+                {
+                    WriteSarifFile(_fileSystem, reformattedLog, actualOutputPath, options.Minify);
+                }
 
                 w.Stop();
                 Console.WriteLine($"Rewrite completed in {w.Elapsed}.");
@@ -59,13 +85,59 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         private bool ValidateOptions(RewriteOptions rewriteOptions)
         {
-            bool valid = true;
+            if (!rewriteOptions.Validate())
+            {
+                return false;
+            }
 
-            valid &= rewriteOptions.ValidateOutputOptions();
+            //  While this is returning true for inline cases, I think it's doing so for the wrong reasons.
+            //  TODO: validate whether "actualOutputPath" can be created.
+            //  #2270 https://github.com/microsoft/sarif-sdk/issues/2270
+            if (!DriverUtilities.ReportWhetherOutputFileCanBeCreated(rewriteOptions.OutputFilePath, rewriteOptions.Force, _fileSystem))
+            {
+                return false;
+            }
 
-            valid &= DriverUtilities.ReportWhetherOutputFileCanBeCreated(rewriteOptions.OutputFilePath, rewriteOptions.Force, _fileSystem);
+            return true;
+        }
 
-            return valid;
+        //  TODO Move this into a separate class for better unit testing
+        //  #2271 https://github.com/microsoft/sarif-sdk/issues/2271
+        private string SniffVersion(string sarifPath)
+        {
+            using (JsonTextReader reader = new JsonTextReader(new StreamReader(_fileSystem.FileOpenRead(sarifPath))))
+            {
+                while (reader.Read())
+                {
+                    if (reader.TokenType == JsonToken.PropertyName && ((string)reader.Value).Equals("version"))
+                    {
+                        reader.Read();
+                        return (string)reader.Value;
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        private SarifLog TransformFileToVersionTwo(string inputFilePath, string inputVersion)
+        {
+            if (inputVersion == "1.0.0")
+            {
+                //  Converting version 1 to version 2
+                SarifLogVersionOne actualLog = ReadSarifFile<SarifLogVersionOne>(_fileSystem, inputFilePath, SarifContractResolverVersionOne.Instance);
+                var visitor = new SarifVersionOneToCurrentVisitor();
+                visitor.VisitSarifLogVersionOne(actualLog);
+                return visitor.SarifLog;
+            }
+            else
+            {
+                //  Converting prerelease version 2 to version 2
+                return PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(
+                    _fileSystem.FileReadAllText(inputFilePath),
+                    formatting: Formatting.None,
+                    out string _);
+            }
         }
     }
 }

@@ -31,9 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
             {
                 int hs = 0;
 
-                hs = hs ^ ListComparisonHelpers.GetHashOfListContentsOrdered(obj.Frames, StackFrameBaselineEquals.Instance);
-
-                return hs;
+                return hs ^ ListComparisonHelpers.GetHashOfListContentsOrdered(obj.Frames, StackFrameBaselineEquals.Instance);
             }
         }
     }

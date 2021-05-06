@@ -7,8 +7,10 @@ using System.IO;
 using System.Linq;
 using System.Security;
 using System.Text;
+
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
 using Microsoft.CodeAnalysis.Sarif.Writers;
+
 using Utilities = Microsoft.CodeAnalysis.Sarif.Visitors.SarifTransformerUtilities;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
@@ -44,6 +46,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 SarifLogVersionOne.Runs.Add(CreateRunVersionOne(v2Run));
             }
 
+            //  TODO: We always return null here.  Is there a pattern that allows us to change the method signature to "void" ?
+            //  #2266  https://github.com/microsoft/sarif-sdk/issues/2266
             return null;
         }
 
@@ -144,7 +148,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     // Set the unknown encoding name so the caller can provide useful reporting
                     ex.EncodingName = encodingName;
+#pragma warning disable CA2200 // Rethrow to preserve stack details
                     throw ex;
+#pragma warning restore CA2200 // Rethrow to preserve stack details
                 }
             }
 
@@ -660,19 +666,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                             }
                             catch (FileNotFoundException ex)
                             {
-                                failureReason = $"File '{uri.LocalPath}' could not be found: {ex.ToString()}";
+                                failureReason = $"File '{uri.LocalPath}' could not be found: {ex}";
                             }
                             catch (IOException ex)
                             {
-                                failureReason = $"File '{uri.LocalPath}' could not be read: {ex.ToString()}";
+                                failureReason = $"File '{uri.LocalPath}' could not be read: {ex}";
                             }
                             catch (SecurityException ex)
                             {
-                                failureReason = $"File '{uri.LocalPath}' could not be accessed: {ex.ToString()}";
+                                failureReason = $"File '{uri.LocalPath}' could not be accessed: {ex}";
                             }
                             catch (UnauthorizedAccessException ex)
                             {
-                                failureReason = $"File '{uri.LocalPath}' could not be accessed: {ex.ToString()}";
+                                failureReason = $"File '{uri.LocalPath}' could not be accessed: {ex}";
                             }
                         }
                     }
@@ -1165,6 +1171,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                     if (_currentV2Run.LogicalLocations != null &&
                         location.LogicalLocation != null &&
+                        location.LogicalLocation.Index != -1 &&
                         !string.IsNullOrWhiteSpace(_currentV2Run.LogicalLocations[location.LogicalLocation.Index].FullyQualifiedName))
                     {
                         stackFrame.FullyQualifiedLogicalName = _currentV2Run.LogicalLocations[location.LogicalLocation.Index].FullyQualifiedName;

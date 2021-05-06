@@ -3,8 +3,11 @@
 
 using System;
 using System.Collections.Generic;
+
 using FluentAssertions;
+
 using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
+
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
@@ -48,7 +51,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         };
 
         public static IEnumerable<object[]> FailureLevelFormatForVisualStudioTestCases => new[]
-        {            
+        {
             // Default core failure cases, verbose and non-verbose
             BuildDefaultTestCase(FailureLevel.Error),
             BuildDefaultTestCase(FailureLevel.Warning),

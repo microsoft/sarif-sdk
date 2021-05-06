@@ -1,11 +1,10 @@
-﻿// Copyright (c) Microsoft. All rights reserved. Licensed under the MIT        
-// license. See LICENSE file in the project root for full license information. 
+﻿// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Collections.Generic;
 
 namespace Microsoft.CodeAnalysis.Sarif.Processors
 {
-
     public class SarifLogActionTuple
     {
         public SarifLogAction Action;
@@ -16,8 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
         /// </summary>
         public override bool Equals(object obj)
         {
-            SarifLogActionTuple other = obj as SarifLogActionTuple;
-            if (other == null)
+            if (!(obj is SarifLogActionTuple other))
             {
                 return base.Equals(obj);
             }

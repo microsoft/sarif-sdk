@@ -7,22 +7,24 @@ using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Text;
+
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.WorkItems;
 using Microsoft.Json.Schema;
 using Microsoft.Json.Schema.Validation;
+
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     /// <summary>
-    /// A class that drives SARIF work item filing. This class is responsible for 
+    /// A class that drives SARIF work item filing. This class is responsible for
     /// collecting and verifying all options relevant to driving the work item filing
-    /// process. These options may be retrieved from a serialized version of the 
+    /// process. These options may be retrieved from a serialized version of the
     /// aggregated configuration (currently rendered as XML, via the PropertiesDictionary
-    /// class). Command-line arguments will override any options specified in the 
+    /// class). Command-line arguments will override any options specified in the
     /// file-based serialized configuration (if present). After verifying that all
-    /// configured options are valid, the command will instantiate an instance of 
+    /// configured options are valid, the command will instantiate an instance of
     /// SarifWorkItemFiler in order to complete the work.
     /// </summary>
     public class FileWorkItemsCommand : CommandBase
@@ -50,7 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 // For unit tests: allow us to just validate the options and return.
                 if (s_validateOptionsOnly) { return SUCCESS; }
 
-                string logFileContents = fileSystem.ReadAllText(options.InputFilePath);
+                string logFileContents = fileSystem.FileReadAllText(options.InputFilePath);
 
                 if (!options.DoNotValidate)
                 {
@@ -82,24 +84,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     filingContext.DataToInsert = options.DataToInsert.ToFlags();
                 }
 
+                filingContext.PropertyName = options.PropertyName;
+
                 SarifLog sarifLog = null;
                 using (var filer = new SarifWorkItemFiler(filingContext.HostUri, filingContext))
                 {
                     sarifLog = filer.FileWorkItems(logFileContents);
                 }
 
-                // By the time we're here, we have updated options.OutputFilePath with the 
+                // By the time we're here, we have updated options.OutputFilePath with the
                 // options.InputFilePath argument (in the presence of --inline) and validated
                 // that we can write to this location with one exception: we do not currently
                 // handle inlining to a read-only location.
                 string outputFilePath = options.OutputFilePath;
                 if (!string.IsNullOrEmpty(outputFilePath))
                 {
-                    Formatting formatting = options.PrettyPrint ? Formatting.Indented : Formatting.None;
+                    string sarifLogText = JsonConvert.SerializeObject(sarifLog, options.Formatting);
 
-                    string sarifLogText = JsonConvert.SerializeObject(sarifLog, formatting);
-
-                    fileSystem.WriteAllText(outputFilePath, sarifLogText);
+                    fileSystem.FileWriteAllText(outputFilePath, sarifLogText);
                 }
             }
 
@@ -131,11 +133,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             valid &= ValidateHostUri(options.HostUri, sarifWorkItemContext);
 
-            valid &= options.ValidateOutputOptions();
+            valid &= options.Validate();
 
             if (!string.IsNullOrEmpty(options.OutputFilePath))
             {
                 valid &= DriverUtilities.ReportWhetherOutputFileCanBeCreated(options.OutputFilePath, options.Force, fileSystem);
+            }
+
+            if ((options.SplittingStrategy == SplittingStrategy.PerFingerprint ||
+                options.SplittingStrategy == SplittingStrategy.PerPropertyBagProperty) &&
+                string.IsNullOrEmpty(options.PropertyName))
+            {
+                valid &= false;
             }
 
             valid &= EnsurePersonalAccessToken(sarifWorkItemContext);
@@ -163,7 +172,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             // Any command-line argument that's provided overrides values specified in the configuration.
             workItemFilingConfiguration.HostUri = hostUri ?? workItemFilingConfiguration.HostUri;
-
 
             if (!workItemFilingConfiguration.HostUri.IsAbsoluteUri)
             {
@@ -193,7 +201,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             if (string.IsNullOrEmpty(workItemFilingConfiguration.PersonalAccessToken))
             {
-                // "No security token was provided. Populate the 'SarifWorkItemFilingPat' environment 
+                // "No security token was provided. Populate the 'SarifWorkItemFilingPat' environment
                 // variable with a valid personal access token or pass a token in a configuration file using
                 // the --configuration arguement."
                 Console.Error.WriteLine(MultitoolResources.WorkItemFiling_NoPatFound);

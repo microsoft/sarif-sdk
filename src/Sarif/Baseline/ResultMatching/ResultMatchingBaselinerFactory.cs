@@ -2,12 +2,13 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Collections.Generic;
+
 using Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers;
 using Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 {
-    public class ResultMatchingBaselinerFactory
+    public static class ResultMatchingBaselinerFactory
     {
         /// <summary>
         /// Get a Result Matching Baseliner that matches results between two groups of Sarif Logs using a sensible default set of rules for matching results.
@@ -43,7 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         }
 
         /// <summary>
-        /// Get a result matching baseliner that matches results between two groups of sarif logs using a 
+        /// Get a result matching baseliner that matches results between two groups of sarif logs using a
         /// </summary>
         /// <param name="exactMatchers"></param>
         /// <param name="heuristicMatchers"></param>

@@ -138,6 +138,12 @@
   <data name="NonOwningDisposableViewAccess" xml:space="preserve">
     <value>Attempted to access a DisposableEnumerable which is non-owning.</value>
   </data>
+  <data name="OptionsAreMutuallyExclusive" xml:space="preserve">
+    <value>The '{0}' and '{1}' options cannot be specified together.</value>
+  </data>
+  <data name="NoRuleDescription" xml:space="preserve">
+    <value>No description available.</value>
+  </data>
   <data name="PREfastDefectBuilderCannotFreeze" xml:space="preserve">
     <value>Invalid PREfast defect state.</value>
   </data>
@@ -174,5 +180,11 @@
   </data>
   <data name="XmlElementNameWasUnset" xml:space="preserve">
     <value>The local element name was not set.</value>
+  </data>
+  <data name="OptionValueMustBeNonNegative" xml:space="preserve">
+    <value>The value of the '{0}' option must be greater than or equal to zero.</value>
+  </data>
+  <data name="ErrorInvalidTransformTargetVersion" xml:space="preserve">
+    <value>Target version must be 1 or 2</value>
   </data>
 </root>

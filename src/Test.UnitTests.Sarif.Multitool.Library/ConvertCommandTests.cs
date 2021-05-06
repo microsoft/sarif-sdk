@@ -1,17 +1,21 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using FluentAssertions;
-using Microsoft.CodeAnalysis.Sarif.Converters;
-using Moq;
 using System.IO;
+
+using FluentAssertions;
+
+using Microsoft.CodeAnalysis.Sarif.Converters;
+
+using Moq;
+
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public class ConvertCommandTests
     {
-        private static readonly ResourceExtractor Extractor = new ResourceExtractor(typeof(PageCommandTests));
+        private static readonly ResourceExtractor Extractor = new ResourceExtractor(typeof(ConvertCommandTests));
 
         [Fact]
         public void ConvertCommand_SemmleQlExample()
@@ -85,6 +89,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             };
 
             int returnCode = new ConvertCommand().Run(options, fileSystem);
+
+            returnCode.Should().Be(1);
+        }
+
+        [Fact]
+        public void Run_WhenOutputFormatOptionsAreInconsistent_Fails()
+        {
+            // Run on the same sample file that succeeded in the test ConvertCommand_SemmleQlExample.
+            // This time we expect it to fail because of the inconsistent output format options.
+            string sampleFilePath = "SemmleQlSample.csv";
+            string outputFilePath = Path.ChangeExtension(sampleFilePath, ".sarif");
+            File.WriteAllText(sampleFilePath, Extractor.GetResourceText($"ConvertCommand.{sampleFilePath}"));
+
+            var options = new ConvertOptions
+            {
+                ToolFormat = ToolFormat.SemmleQL,
+                InputFilePath = sampleFilePath,
+                OutputFilePath = outputFilePath,
+                Force = true,
+                PrettyPrint = true,
+                Minify = true
+            };
+
+            int returnCode = new ConvertCommand().Run(options);
 
             returnCode.Should().Be(1);
         }

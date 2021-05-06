@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class DriverResources {
@@ -57,6 +57,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Target version must be 1 or 2.
+        /// </summary>
+        internal static string ErrorInvalidTransformTargetVersion {
+            get {
+                return ResourceManager.GetString("ErrorInvalidTransformTargetVersion", resourceCulture);
             }
         }
         
@@ -120,6 +129,33 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver {
         internal static string NonOwningDisposableViewAccess {
             get {
                 return ResourceManager.GetString("NonOwningDisposableViewAccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No description available..
+        /// </summary>
+        internal static string NoRuleDescription {
+            get {
+                return ResourceManager.GetString("NoRuleDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The &apos;{0}&apos; and &apos;{1}&apos; options cannot be specified together..
+        /// </summary>
+        internal static string OptionsAreMutuallyExclusive {
+            get {
+                return ResourceManager.GetString("OptionsAreMutuallyExclusive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The value of the &apos;{0}&apos; option must be greater than or equal to zero..
+        /// </summary>
+        internal static string OptionValueMustBeNonNegative {
+            get {
+                return ResourceManager.GetString("OptionValueMustBeNonNegative", resourceCulture);
             }
         }
         

@@ -81,9 +81,9 @@ namespace Microsoft.CodeAnalysis.Sarif {
         /// <summary>
         ///   Looks up a localized string similar to Cannot provide version control information because the current directory &apos;{0}&apos; is not under a Git repository root directory..
         /// </summary>
-        public static string CannotProvideVersionControlInformation {
+        public static string CannotProvideVersionControlDetails {
             get {
-                return ResourceManager.GetString("CannotProvideVersionControlInformation", resourceCulture);
+                return ResourceManager.GetString("CannotProvideVersionControlDetails", resourceCulture);
             }
         }
         
@@ -93,6 +93,24 @@ namespace Microsoft.CodeAnalysis.Sarif {
         public static string CannotWriteResultToolMissing {
             get {
                 return ResourceManager.GetString("CannotWriteResultToolMissing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to --insert Hashes.
+        /// </summary>
+        public static string ComputeFileHashes_ReplaceInsertHashes {
+            get {
+                return ResourceManager.GetString("ComputeFileHashes_ReplaceInsertHashes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SARIF_{0}_ADDITION.
+        /// </summary>
+        public static string EnvironmentVariable_Additive_Format {
+            get {
+                return ResourceManager.GetString("EnvironmentVariable_Additive_Format", resourceCulture);
             }
         }
         
@@ -214,7 +232,7 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An exception was raised analyzing &apos;{0}&apos; for check &apos;{1}&apos; (which has been disabled). The exception may have resulted from a problem related to parsing the analysis target, and not specific to the rule, however..
+        ///   Looks up a localized string similar to An exception of type &apos;{0}&apos; was raised analyzing &apos;{1}&apos; for check &apos;{2}&apos; (which has been disabled). The exception may have resulted from a problem related to parsing the analysis target, and not specific to the rule, however..
         /// </summary>
         public static string ERR998_ExceptionInAnalyze {
             get {
@@ -241,11 +259,31 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An exception was raised during analysis..
+        ///   Looks up a localized string similar to {0}.
         /// </summary>
         public static string ERR999_UnhandledEngineException {
             get {
                 return ResourceManager.GetString("ERR999_UnhandledEngineException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The property name &apos;{0}&apos; is unrecognized.
+        ///Known property names: baselineState, correlationGuid, guid, hostedViewerUri, kind, level, message.text, occurrenceCount, rank, ruleId
+        ///You can also refer to properties in the result&apos;s property bag with &apos;properties.&lt;propertyName&gt;&apos;, or to properties in the associated rule&apos;s property bag with &apos;properties.rule.&lt;propertyName&gt;&apos;..
+        /// </summary>
+        public static string ErrorInvalidQueryPropertyName {
+            get {
+                return ResourceManager.GetString("ErrorInvalidQueryPropertyName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Property name must start with one of: {0}.
+        /// </summary>
+        public static string ErrorInvalidQueryPropertyPrefix {
+            get {
+                return ResourceManager.GetString("ErrorInvalidQueryPropertyPrefix", resourceCulture);
             }
         }
         
@@ -349,7 +387,7 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} ({1}).
+        ///   Looks up a localized string similar to {0} &apos;{1}&apos;.
         /// </summary>
         public static string NotificationWithExceptionMessage {
             get {
@@ -448,11 +486,38 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Option &apos;{0}&apos; is invalid for this command..
+        /// </summary>
+        public static string WRN997_InvalidOption {
+            get {
+                return ResourceManager.GetString("WRN997_InvalidOption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &apos;{0}&apos; was not analyzed as it does not appear to be a valid file type for analysis..
         /// </summary>
         public static string WRN997_InvalidTarget {
             get {
                 return ResourceManager.GetString("WRN997_InvalidTarget", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Option &apos;{0}&apos; is obsolete..
+        /// </summary>
+        public static string WRN997_ObsoleteOption {
+            get {
+                return ResourceManager.GetString("WRN997_ObsoleteOption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Option &apos;{0}&apos; is obsolete.  Use &apos;{1}&apos; instead..
+        /// </summary>
+        public static string WRN997_ObsoleteOptionWithReplacement {
+            get {
+                return ResourceManager.GetString("WRN997_ObsoleteOptionWithReplacement", resourceCulture);
             }
         }
         

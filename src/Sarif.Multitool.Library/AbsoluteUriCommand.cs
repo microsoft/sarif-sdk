@@ -3,45 +3,35 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Processors;
-using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
-    public class AbsoluteUriCommand : CommandBase
+    public class AbsoluteUriCommand : MultifileCommandBase
     {
-        private readonly IFileSystem _fileSystem;
+        protected override string ProcessingName => "absolute";
 
-        public AbsoluteUriCommand(IFileSystem fileSystem = null)
-        {
-            _fileSystem = fileSystem ?? new FileSystem();
-        }
-
-        public int Run(AbsoluteUriOptions absoluteUriOptions)
+        public int Run(AbsoluteUriOptions options)
         {
             try
             {
-                IEnumerable<AbsoluteUriFile> absoluteUriFiles = GetAbsoluteUriFiles(absoluteUriOptions);
+                IEnumerable<FileProcessingData> filesData = GetFilesToProcess(options);
 
-                if (!ValidateOptions(absoluteUriOptions, absoluteUriFiles)) { return FAILURE; }
-
-                if (!absoluteUriOptions.Inline)
+                if (!ValidateOptions(options, filesData))
                 {
-                    _fileSystem.DirectoryCreate(absoluteUriOptions.OutputDirectoryPath);
+                    return FAILURE;
                 }
 
-                Formatting formatting = absoluteUriOptions.PrettyPrint
-                    ? Formatting.Indented
-                    : Formatting.None;
-
-                foreach (AbsoluteUriFile absoluteUriFile in absoluteUriFiles)
+                foreach (FileProcessingData fileData in filesData)
                 {
-                    absoluteUriFile.Log = absoluteUriFile.Log.MakeUrisAbsolute();
+                    fileData.SarifLog = fileData.SarifLog.MakeUrisAbsolute();
 
-                    WriteSarifFile(_fileSystem, absoluteUriFile.Log, absoluteUriFile.OutputFilePath, formatting);
+                    WriteSarifFile(FileSystem,
+                                   fileData.SarifLog,
+                                   fileData.OutputFilePath,
+                                   options.PrettyPrint);
                 }
             }
             catch (Exception ex)
@@ -51,49 +41,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
 
             return SUCCESS;
-        }
-
-        private bool ValidateOptions(AbsoluteUriOptions absoluteUriOptions, IEnumerable<AbsoluteUriFile> absoluteUriFiles)
-        {
-            bool valid = true;
-
-            valid &= absoluteUriOptions.ValidateOutputOptions();
-
-            valid &= DriverUtilities.ReportWhetherOutputFilesCanBeCreated(absoluteUriFiles.Select(f => f.OutputFilePath), absoluteUriOptions.Force, _fileSystem);
-
-            return valid;
-        }
-
-        private IEnumerable<AbsoluteUriFile> GetAbsoluteUriFiles(AbsoluteUriOptions absoluteUriOptions)
-        {
-            // Get files names first, as we may write more sarif logs to the same directory as we rebase them.
-            HashSet<string> inputFilePaths = CreateTargetsSet(absoluteUriOptions.TargetFileSpecifiers, absoluteUriOptions.Recurse, _fileSystem);
-            foreach (string inputFilePath in inputFilePaths)
-            {
-                yield return new AbsoluteUriFile
-                {
-                    InputFilePath = inputFilePath,
-                    OutputFilePath = GetOutputFilePath(inputFilePath, absoluteUriOptions),
-                    Log = ReadSarifFile<SarifLog>(_fileSystem, inputFilePath)
-                };
-            }
-        }
-
-        internal string GetOutputFilePath(string inputFilePath, AbsoluteUriOptions absoluteUriOptions)
-        {
-            if (absoluteUriOptions.Inline) { return inputFilePath; }
-
-            return !string.IsNullOrEmpty(absoluteUriOptions.OutputDirectoryPath)
-                ? Path.GetFullPath(absoluteUriOptions.OutputDirectoryPath) + Path.DirectorySeparatorChar + Path.GetFileNameWithoutExtension(inputFilePath) + "-absolute.sarif"
-                : Path.GetDirectoryName(inputFilePath) + Path.DirectorySeparatorChar + Path.GetFileNameWithoutExtension(inputFilePath) + "-absolute.sarif";
-        }
-
-        private class AbsoluteUriFile
-        {
-            public string InputFilePath;
-            public string OutputFilePath;
-
-            public SarifLog Log;
         }
     }
 }

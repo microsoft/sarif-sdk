@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.
+﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Collections.Generic;
@@ -51,6 +51,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public bool ShouldSerializeDefaultConfiguration()
         {
             return this.DefaultConfiguration != null && !this.DefaultConfiguration.ValueEquals(ReportingConfiguration.Empty);
+        }
+
+        public bool ShouldSerializeShortDescription()
+        {
+            return !(this?.FullDescription?.Text ?? "").Trim()
+                .Equals((this?.ShortDescription?.Text ?? "").Trim(), System.StringComparison.InvariantCultureIgnoreCase);
         }
     }
 }

@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Writers
@@ -40,17 +41,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         public ResultLogJsonWriter(JsonWriter jsonWriter)
         {
             _jsonWriter = jsonWriter;
-            _serializer = new JsonSerializer()
-            {
-            };
+            _serializer = new JsonSerializer();
         }
 
         /// <summary>
         /// Initializes the SARIF log by emitting properties and other constructs
         /// sufficient to being populating a run with results.
         /// </summary>
-        /// <param name="id">A string that uniquely identifies a run.</param>
-        /// <param name="automationId">A global identifier for a run that permits correlation with a larger automation process.</param>
+        /// <param name="run"></param>
         public void Initialize(Run run)
         {
             if (run == null)
@@ -183,7 +181,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         }
 
         /// <summary>
-        /// Writes a result to the log. 
+        /// Writes a result to the log.
         /// </summary>
         /// <remarks>
         /// This function makes a copy of the data stored in <paramref name="result"/>; if a
@@ -259,7 +257,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 {
                     OpenResults();
                 }
-            }            
+            }
         }
 
         public void CloseResults()

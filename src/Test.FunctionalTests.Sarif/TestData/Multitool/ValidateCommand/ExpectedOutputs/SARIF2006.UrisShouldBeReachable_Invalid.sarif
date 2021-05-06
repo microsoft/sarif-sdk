@@ -10,9 +10,6 @@
             {
               "id": "SARIF2006",
               "name": "UrisShouldBeReachable",
-              "shortDescription": {
-                "text": "URIs that refer to locations such as rule help pages and result-related work items should be reachable via an HTTP GET request."
-              },
               "fullDescription": {
                 "text": "URIs that refer to locations such as rule help pages and result-related work items should be reachable via an HTTP GET request."
               },

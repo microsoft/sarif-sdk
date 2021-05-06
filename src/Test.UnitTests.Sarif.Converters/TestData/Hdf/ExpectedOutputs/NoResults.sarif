@@ -1,0 +1,41 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "results": [],
+      "tool": {
+        "driver": {
+          "name": "Heimdall Tools",
+          "version": "1.3.40",
+          "informationUri": "https://saf.cms.gov/#/normalize",
+          "supportedTaxonomies": [
+            {
+              "name": "NIST SP800-53 v5",
+              "guid": "AAFBAB93-5201-419E-8443-D4925C542398"
+            }
+          ]
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "https://raw.githubusercontent.com/sarif-standard/taxonomies/main/NIST_SP800-53_v5.sarif"
+          }
+        }
+      ],
+      "columnKind": "utf16CodeUnits",
+      "externalPropertyFileReferences": {
+        "taxonomies": [
+          {
+            "location": {
+              "uri": "https://raw.githubusercontent.com/sarif-standard/taxonomies/main/NIST_SP800-53_v5.sarif",
+              "index": 0
+            },
+            "guid": "AAFBAB93-5201-419E-8443-D4925C542398"
+          }
+        ]
+      }
+    }
+  ]
+}

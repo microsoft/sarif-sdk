@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
         public MatchedResults(ExtractedResult previous, ExtractedResult current)
         {
-            if (previous == null && current == null) { throw new ArgumentException($"MatchedResults requires at least one non-null Result."); }
+            if (previous == null && current == null) { throw new ArgumentException("MatchedResults requires at least one non-null Result."); }
             this.PreviousResult = previous;
             this.CurrentResult = current;
             this.Run = current?.OriginalRun ?? previous?.OriginalRun;
@@ -45,6 +45,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             {
                 // Baseline result and current result have been matched => existing.
                 result = ConstructExistingResult(resultMatchingProperties, out originalResultMatchingProperties);
+
+                var previousResult = new Result { Locations = PreviousResult.Result.Locations };
+                var currenResult = new Result { Locations = CurrentResult.Result.Locations };
+
+                if (previousResult.ValueGetHashCode() != currenResult.ValueGetHashCode())
+                {
+                    result.BaselineState = BaselineState.Updated;
+                }
             }
             else if (PreviousResult == null && CurrentResult != null)
             {
@@ -89,6 +97,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             }
 
             Run = PreviousResult.OriginalRun;
+            result.Run = Run;
 
             return result;
         }
@@ -117,6 +126,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             }
 
             Run = CurrentResult.OriginalRun;
+            result.Run = Run;
 
             return result;
         }
@@ -144,6 +154,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             }
 
             Run = CurrentResult.OriginalRun;
+            result.Run = Run;
 
             return result;
         }

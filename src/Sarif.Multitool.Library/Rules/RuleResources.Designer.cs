@@ -200,38 +200,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: This related location does not have a &apos;message&apos; property, so GitHub Advanced Security code scanning will reject the entire log file. This is a bug in GitHub. You can set &apos;message&apos; to an empty string if you don&apos;t have anything else to say about the location..
+        ///   Looks up a localized string similar to The two identity-related properties of a SARIF rule must be consistent. The required &apos;id&apos; property must be a &quot;stable, opaque identifier&quot; (the SARIF specification ([3.49.3](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317839)) explains the reasons for this). The optional &apos;name&apos; property ([3.49.7](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317843)) is an identifer that is understandable to an end user. Therefore if both &apos;id&apos; and &apos;name&apos; are pres [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string GH1007_ProvideRequiredRelatedLocationProperties_Error_Default_Text {
+        internal static string SARIF1001_RuleIdentifiersMustBeValid_FullDescription_Text {
             get {
-                return ResourceManager.GetString("GH1007_ProvideRequiredRelatedLocationProperties_Error_Default_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to GitHub Advanced Security code scanning will reject a SARIF file that includes a &quot;related location&quot; with no &apos;message&apos; property. This is a bug in GitHub. You can set &apos;message&apos; to an empty string if you don&apos;t have anything else to say about the location..
-        /// </summary>
-        internal static string GH1007_ProvideRequiredRelatedLocationProperties_FullDescription_Text {
-            get {
-                return ResourceManager.GetString("GH1007_ProvideRequiredRelatedLocationProperties_FullDescription_Text", resourceCulture);
+                return ResourceManager.GetString("SARIF1001_RuleIdentifiersMustBeValid_FullDescription_Text", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to {0}: The rule &apos;{1}&apos; has a &apos;name&apos; property that is identical to its &apos;id&apos; property. The required &apos;id&apos; property must be a &quot;stable, opaque identifier&quot; (the SARIF specification ([3.49.3](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317839)) explains the reasons for this). The optional &apos;name&apos; property ([3.49.7](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317843)) is an identifer that is understandable to an end user. Therefore if both &apos;id&apos; and &apos;name [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string SARIF1001_RuleIdentifiersMustBeValid_Error_Default_Text {
+        internal static string SARIF1001_RuleIdentifiersMustBeValid_Warning_Default_Text {
             get {
-                return ResourceManager.GetString("SARIF1001_RuleIdentifiersMustBeValid_Error_Default_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The two identity-related properties of a SARIF rule must be consistent. The required &apos;id&apos; property must be a &quot;stable, opaque identifier&quot; (the SARIF specification ([3.49.3](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317839)) explains the reasons for this). The optional &apos;name&apos; property ([3.49.7](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317843)) is an identifer that is understandable to an end user. Therefore if both &apos;id&apos; and &apos;name&apos; are pres [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string SARIF1001_RuleIdentifiersMustBeValid_FullDescription_Text {
-            get {
-                return ResourceManager.GetString("SARIF1001_RuleIdentifiersMustBeValid_FullDescription_Text", resourceCulture);
+                return ResourceManager.GetString("SARIF1001_RuleIdentifiersMustBeValid_Warning_Default_Text", resourceCulture);
             }
         }
         
@@ -254,13 +236,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Specify a valid URI reference for every URI-valued property.
-        ///
-        ///URIs must conform to [RFC 3986](https://tools.ietf.org/html/rfc3986). In addition, &apos;file&apos; URIs must not include &apos;..&apos; segments. If symbolic links are present, &apos;..&apos; might have different meanings on the machine that produced the log file and the machine where an end user or a tool consumes it..
+        ///   Looks up a localized string similar to Specify a valid URI reference for every URI-valued property. URIs must conform to [RFC 3986](https://tools.ietf.org/html/rfc3986). In addition, &apos;file&apos; URIs must not include &apos;..&apos; segments. If symbolic links are present, &apos;..&apos; might have different meanings on the machine that produced the log file and the machine where an end user or a tool consumes it..
         /// </summary>
         internal static string SARIF1002_UrisMustBeValid_FullDescription_Text {
             get {
                 return ResourceManager.GetString("SARIF1002_UrisMustBeValid_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The relative reference &apos;{0}&apos; begins with a slash, which will prevent it from combining properly with the absolute URI specified by a &apos;uriBaseId&apos;..
+        /// </summary>
+        internal static string SARIF1004_ExpressUriBaseIdsCorrectly_Error_RelativeReferenceMustNotBeginWithSlash_Text {
+            get {
+                return ResourceManager.GetString("SARIF1004_ExpressUriBaseIdsCorrectly_Error_RelativeReferenceMustNotBeginWithSlash" +
+                        "_Text", resourceCulture);
             }
         }
         
@@ -312,11 +302,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to When using the &apos;uriBaseId&apos; property, obey the requirements in the SARIF specification [3.4.4](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317431) that enable it to fulfill its purpose of resolving relative references to absolute locations. In particular:
-        ///
-        ///If an &apos;artifactLocation&apos; object has a &apos;uriBaseId&apos; property, its &apos;uri&apos; property must be a relative reference, because if &apos;uri&apos; is an absolute URI then &apos;uriBaseId&apos; serves no purpose.
-        ///
-        ///Every URI reference in &apos;originalUriBa [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to When using the &apos;uriBaseId&apos; property, obey the requirements in the SARIF specification [3.4.4](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317431) that enable it to fulfill its purpose of resolving relative references to absolute locations. In particular: If an &apos;artifactLocation&apos; object has a &apos;uriBaseId&apos; property, its &apos;uri&apos; property must be a relative reference, because if &apos;uri&apos; is an absolute URI then &apos;uriBaseId&apos; serves no purpose. Every URI reference in &apos;originalUriBaseIds&apos; [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SARIF1004_ExpressUriBaseIdsCorrectly_FullDescription_Text {
             get {
@@ -353,9 +339,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The properties of an &apos;invocation&apos; object must be consistent.
-        ///
-        ///If the &apos;invocation&apos; object specifies both &apos;startTimeUtc&apos; and &apos;endTimeUtc&apos;, then &apos;endTimeUtc&apos; must not precede &apos;startTimeUtc&apos;. To allow for the possibility that the duration of the run is less than the resolution of the string representation of the time, the start time and the end time may be equal..
+        ///   Looks up a localized string similar to The properties of an &apos;invocation&apos; object must be consistent. If the &apos;invocation&apos; object specifies both &apos;startTimeUtc&apos; and &apos;endTimeUtc&apos;, then &apos;endTimeUtc&apos; must not precede &apos;startTimeUtc&apos;. To allow for the possibility that the duration of the run is less than the resolution of the string representation of the time, the start time and the end time may be equal..
         /// </summary>
         internal static string SARIF1006_InvocationPropertiesMustBeConsistent_FullDescription_Text {
             get {
@@ -394,9 +378,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The properties of a &apos;region&apos; object must be consistent.
-        ///
-        ///SARIF can specify a &apos;region&apos; (a contiguous portion of a file) in a variety of ways: with line and column numbers, with a character offset and count, or with a byte offset and count. The specification states certain constraints on these properties, both within each property group (for example, the start line cannot be greater than end line) and between the groups (for example, if more than one group is present, they must independently specify the sam [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to The properties of a &apos;region&apos; object must be consistent. SARIF can specify a &apos;region&apos; (a contiguous portion of a file) in a variety of ways: with line and column numbers, with a character offset and count, or with a byte offset and count. The specification states certain constraints on these properties, both within each property group (for example, the start line cannot be greater than end line) and between the groups (for example, if more than one group is present, they must independently specify the same p [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SARIF1007_RegionPropertiesMustBeConsistent_FullDescription_Text {
             get {
@@ -425,11 +407,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ensure consistency among the properties of a &apos;physicalLocation&apos; object.
-        ///
-        ///A SARIF &apos;physicalLocation&apos; object has two related properties &apos;region&apos; and &apos;contextRegion&apos;. If &apos;contextRegion&apos; is present, then &apos;region&apos; must also be present, and &apos;contextRegion&apos; must be a &quot;proper superset&quot; of &apos;region&apos;. That is, &apos;contextRegion&apos; must completely contain &apos;region&apos;, and it must be larger than &apos;region&apos;. To understand why this is so we must understand the roles of the &apos;region&apos; and &apos;contextRegion&apos; properties.
-        ///
-        ///&apos;region&apos; allo [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to Ensure consistency among the properties of a &apos;physicalLocation&apos; object. A SARIF &apos;physicalLocation&apos; object has two related properties &apos;region&apos; and &apos;contextRegion&apos;. If &apos;contextRegion&apos; is present, then &apos;region&apos; must also be present, and &apos;contextRegion&apos; must be a &quot;proper superset&quot; of &apos;region&apos;. That is, &apos;contextRegion&apos; must completely contain &apos;region&apos;, and it must be larger than &apos;region&apos;. To understand why this is so we must understand the roles of the &apos;region&apos; and &apos;contextRegion&apos; properties. &apos;region&apos; allows bot [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SARIF1008_PhysicalLocationPropertiesMustBeConsistent_FullDescription_Text {
             get {
@@ -772,9 +750,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adopt uniform naming conventions for rule ids.
-        ///
-        ///Many tools follow a conventional format for the &apos;reportingDescriptor.id&apos; property: a short string identifying the tool concatenated with a numeric rule number, for example, &apos;CS2001&apos; for a diagnostic from the Roslyn C# compiler. For uniformity of experience across tools, we recommend this format..
+        ///   Looks up a localized string similar to Adopt uniform naming conventions for rule ids. Many tools follow a conventional format for the &apos;reportingDescriptor.id&apos; property: a short string identifying the tool concatenated with a numeric rule number, for example, &apos;CS2001&apos; for a diagnostic from the Roslyn C# compiler. For uniformity of experience across tools, we recommend this format..
         /// </summary>
         internal static string SARIF2009_ConsiderConventionalIdentifierValues_FullDescription_Text {
             get {
@@ -830,9 +806,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         /// <summary>
         ///   Looks up a localized string similar to Rule metadata should provide information that makes it easy to understand and fix the problem.
         ///
-        ///Provide the &apos;name&apos; property, which contains a &quot;friendly name&quot; that helps users see at a glance the purpose of the rule. For uniformity of experience across all tools that produce SARIF, the friendly name should be a single Pascal identifier, for example, &apos;ProvideRuleFriendlyName&apos;.
+        ///Provide the &apos;name&apos; property, which contains a &quot;friendly name&quot; that helps users see at a glance the purpose of the rule. For uniformity of experience across all tools that produce SARIF, the friendly name should be a single Pascal-case identifier, for example, &apos;ProvideRuleFriendlyName&apos;.
         ///
-        ///Provide the &apos;helpUri&apos; property, which contains a URI where users can find detailed information about the rule. This information s [rest of string was truncated]&quot;;.
+        ///Provide the &apos;helpUri&apos; property, which contains a URI where users can find detailed information about the rule. This informat [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SARIF2012_ProvideRuleProperties_FullDescription_Text {
             get {
@@ -841,7 +817,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: &apos;{1}&apos; is not a Pascal identifier. For uniformity of experience across all tools that produce SARIF, the friendly name should be a single Pascal identifier, for example, &apos;ProvideRuleFriendlyName&apos;..
+        ///   Looks up a localized string similar to {0}: &apos;{1}&apos; is not a Pascal-case identifier. For uniformity of experience across all tools that produce SARIF, the friendly name should be a single Pascal-case identifier, for example, &apos;ProvideRuleFriendlyName&apos;..
         /// </summary>
         internal static string SARIF2012_ProvideRuleProperties_Note_FriendlyNameNotAPascalIdentifier_Text {
             get {
@@ -850,7 +826,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The rule &apos;{1}&apos; does not provide a &quot;friendly name&quot; in its &apos;name&apos; property. The friendly name should be a single Pascal identifier, for example, &apos;ProvideRuleFriendlyName&apos;, that helps users see at a glance the purpose of the analysis rule..
+        ///   Looks up a localized string similar to {0}: The rule &apos;{1}&apos; does not provide a &quot;friendly name&quot; in its &apos;name&apos; property. The friendly name should be a single Pascal-case identifier, for example, &apos;ProvideRuleFriendlyName&apos;, that helps users see at a glance the purpose of the analysis rule..
         /// </summary>
         internal static string SARIF2012_ProvideRuleProperties_Note_ProvideFriendlyName_Text {
             get {
@@ -864,6 +840,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         internal static string SARIF2012_ProvideRuleProperties_Note_ProvideHelpUri_Text {
             get {
                 return ResourceManager.GetString("SARIF2012_ProvideRuleProperties_Note_ProvideHelpUri_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos; does not provide a &apos;rules&apos; property. &apos;rules&apos; contain information that helps users understand why each rule fires and what the user can do to fix it..
+        /// </summary>
+        internal static string SARIF2012_ProvideRuleProperties_Note_ProvideMetadataForAllViolatedRules_Text {
+            get {
+                return ResourceManager.GetString("SARIF2012_ProvideRuleProperties_Note_ProvideMetadataForAllViolatedRules_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos; does not provide metadata for rule &apos;{1}&apos;. Rule metadata contains information that helps the user understand why each rule fires and what the user can do to fix it..
+        /// </summary>
+        internal static string SARIF2012_ProvideRuleProperties_Note_ProvideRuleMetadata_Text {
+            get {
+                return ResourceManager.GetString("SARIF2012_ProvideRuleProperties_Note_ProvideRuleMetadata_Text", resourceCulture);
             }
         }
         
@@ -946,6 +940,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         internal static string SARIF2016_FileUrisShouldBeRelative_Note_Default_Text {
             get {
                 return ResourceManager.GetString("SARIF2016_FileUrisShouldBeRelative_Note_Default_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The relative file URL &apos;{1}&apos; contains one or more backslashes, which will be preserved when concatenating to an absolute URL. This can result in inconsistent representations, compared to URLs created from an absolute file path, which may be regarded as not equivalent. Replace all backslashes with forward slashes..
+        /// </summary>
+        internal static string SARIF2016_FileUrisShouldBeRelative_Note_ShouldNotContainBackSlash_Text {
+            get {
+                return ResourceManager.GetString("SARIF2016_FileUrisShouldBeRelative_Note_ShouldNotContainBackSlash_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The relative file URL &apos;{1}&apos; is prefixed with a leading slash, which can lead to unintended behavior when concatenating with absolute URLs. Remove the leading slash..
+        /// </summary>
+        internal static string SARIF2016_FileUrisShouldBeRelative_Note_ShouldNotStartWithSlash_Text {
+            get {
+                return ResourceManager.GetString("SARIF2016_FileUrisShouldBeRelative_Note_ShouldNotStartWithSlash_Text", resourceCulture);
             }
         }
     }

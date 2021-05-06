@@ -53,13 +53,6 @@
           "defaultConfiguration": {
             "enabled": true
           }
-        },
-        {
-          "id": "GH1007",
-          "name": "ProvideRequiredRelatedLocationProperties",
-          "defaultConfiguration": {
-            "enabled": true
-          }
         }
       ]
     }

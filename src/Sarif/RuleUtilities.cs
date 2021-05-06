@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Resources;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -61,8 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Kind = kind
             };
 
-            string targetPath = context.TargetUri?.LocalPath;
-            if (targetPath != null)
+            if (context.TargetUri != null)
             {
                 result.Locations = new List<Location> {
                     new Sarif.Location {
@@ -70,7 +68,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         {
                             ArtifactLocation = new ArtifactLocation
                             {
-                                Uri = new Uri(targetPath)
+                                Uri = context.TargetUri
                             },
                             Region = region
                         }
@@ -143,7 +141,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             //      <Level>_<MessageName>
             //
             string[] messageComponents = ruleMessageId.Split('_');
-            if (messageComponents.Count() == 5)
+            if (messageComponents.Length == 5)
             {
                 return $"{messageComponents[2]}_{messageComponents[3]}";
             }

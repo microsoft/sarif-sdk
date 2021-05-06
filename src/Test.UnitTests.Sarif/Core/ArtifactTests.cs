@@ -4,10 +4,16 @@
 using System;
 using System.IO;
 using System.Text;
+
 using FluentAssertions;
+
 using Microsoft.CodeAnalysis.Sarif;
+using Microsoft.CodeAnalysis.Sarif.Writers;
+
 using Moq;
+
 using Newtonsoft.Json;
+
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
@@ -97,8 +103,17 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
 
                 if (shouldBePersisted)
                 {
-                    fileData.Contents.Binary.Should().Be(encodedFileContents);
-                    fileData.Contents.Text.Should().BeNull();
+                    string mimeType = MimeType.DetermineFromFileExtension(uri);
+                    if (MimeType.IsBinaryMimeType(mimeType))
+                    {
+                        fileData.Contents.Binary.Should().Be(encodedFileContents);
+                        fileData.Contents.Text.Should().BeNull();
+                    }
+                    else
+                    {
+                        fileData.Contents.Binary.Should().BeNull();
+                        fileData.Contents.Text.Should().Be(fileContents);
+                    }
                 }
                 else
                 {
@@ -244,8 +259,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
         private static IFileSystem SetUnauthorizedAccessExceptionMock()
         {
             Mock<IFileSystem> mock = GetDefaultFileSystemMock();
-            mock.Setup(fs => fs.ReadAllText(It.IsAny<string>(), It.IsAny<Encoding>())).Returns((string s, Encoding encoding) => { throw new UnauthorizedAccessException(); });
-            mock.Setup(fs => fs.ReadAllBytes(It.IsAny<string>())).Returns((string s) => { throw new UnauthorizedAccessException(); });
+            mock.Setup(fs => fs.FileReadAllText(It.IsAny<string>(), It.IsAny<Encoding>())).Returns((string s, Encoding encoding) => { throw new UnauthorizedAccessException(); });
+            mock.Setup(fs => fs.FileReadAllBytes(It.IsAny<string>())).Returns((string s) => { throw new UnauthorizedAccessException(); });
             return mock.Object;
         }
 
@@ -266,7 +281,6 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             {
                 fileData.Contents.Should().BeNull();
             }
-
 
         }
     }

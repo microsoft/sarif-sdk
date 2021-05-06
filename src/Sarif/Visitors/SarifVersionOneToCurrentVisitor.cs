@@ -6,8 +6,10 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
+
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
 using Microsoft.CodeAnalysis.Sarif.Writers;
+
 using Utilities = Microsoft.CodeAnalysis.Sarif.Visitors.SarifTransformerUtilities;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
@@ -269,7 +271,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             Invocation invocation = CreateInvocation(v1Invocation);
             IList<Notification> toolNotifications = v1ToolNotifications?.Select(CreateNotification).ToList();
-            IList<Notification> configurationNotifications = v1ConfigurationNotifications?.Select(CreateNotification).ToList(); ;
+            IList<Notification> configurationNotifications = v1ConfigurationNotifications?.Select(CreateNotification).ToList();
 
             if (toolNotifications?.Count > 0 || configurationNotifications?.Count > 0)
             {

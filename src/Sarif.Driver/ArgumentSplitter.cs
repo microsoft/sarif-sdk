@@ -40,7 +40,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (input == null)
             {
-                throw new ArgumentNullException("input");
+                throw new ArgumentNullException(nameof(input));
             }
 
             WhitespaceMode whitespaceMode = WhitespaceMode.Ignore;

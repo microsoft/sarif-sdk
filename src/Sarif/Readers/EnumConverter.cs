@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Readers
@@ -89,7 +90,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                 return isPrefixedWithTwoLetterWord;
             }
 
-            return (char.IsDigit(name[2]) || char.IsUpper(name[2]));
+            return char.IsDigit(name[2]) || char.IsUpper(name[2]);
         }
     }
 }

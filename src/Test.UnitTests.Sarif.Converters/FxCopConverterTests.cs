@@ -6,7 +6,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml;
+
 using FluentAssertions;
+
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
@@ -433,7 +435,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var expectedLogicalLocations = new List<LogicalLocation>
             {
-
                     new LogicalLocation { ParentIndex = -1, Name = "mynamespace", Kind = LogicalLocationKind.Namespace },
                     new LogicalLocation { ParentIndex =  0, Name = "mytype",    FullyQualifiedName = "mynamespace.mytype", Kind = LogicalLocationKind.Type },
                     new LogicalLocation { ParentIndex =  1, Name = "mymember(string)", FullyQualifiedName = "mynamespace.mytype.mymember(string)", Kind = LogicalLocationKind.Member }

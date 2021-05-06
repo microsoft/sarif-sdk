@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using FluentAssertions;
+
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.UnitTests
@@ -53,6 +54,9 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
             cache.ContainsKey(20).Should().BeTrue();
             cache.Keys.Should().Contain(20);
             cache.Keys.Should().NotContain(15);
+
+            cache.Clear();
+            cache.Keys.Should().BeEmpty();
         }
     }
 }

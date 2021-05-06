@@ -1,8 +1,10 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.
+﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using FluentAssertions;
+
 using Microsoft.CodeAnalysis.Sarif;
+
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
@@ -117,7 +119,6 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
                 StartLine = 23,
                 CharOffset = 15,
                 ByteOffset = 15
-
             };
 
             region.IsLineColumnBasedTextRegion.Should().BeTrue();

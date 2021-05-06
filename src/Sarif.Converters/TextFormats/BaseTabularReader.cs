@@ -42,7 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters.TextFormats
         /// <remarks>
         ///  Implementers must find the cells and end of the next row,
         ///  filling _currentRow with the new cell values.
-        ///  
+        ///
         ///  See TsvReader for a simple but full implementation.
         /// </remarks>
         /// <returns>True if another row was found, False otherwise</returns>

@@ -2,15 +2,15 @@
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp2.1;net461</TargetFrameworks>
     <LangVersion>8.0</LangVersion>
+    <GenerateDocumentationFile Condition="'$(IsTestProject)' == 'false'">true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Label="AssemblyAttributes">
     <Company Condition=" '$(Company)' == '' ">Microsoft</Company>
     <Product Condition=" '$(Product)' == '' ">Microsoft SARIF SDK</Product>
     <Copyright Condition=" '$(Copyright)' == '' ">© Microsoft Corporation. All rights reserved.</Copyright>
-    
+
     <!--
     VersionPrefix denotes the current version of the SDK. You must update it before every nuget drop.
 
@@ -20,15 +20,16 @@
     having all the relevant values in one place. This property is actually used by the PowerShell
     script that hides ("delists") the previous package versions on nuget.org.
     -->
-    <VersionPrefix>2.3.7</VersionPrefix>
-    <PreviousVersionPrefix>2.3.6</PreviousVersionPrefix>
+    <VersionPrefix>2.4.7</VersionPrefix>
+    <PreviousVersionPrefix>2.4.6</PreviousVersionPrefix>
 
-     <!-- SchemaVersionAsPublishedToSchemaStoreOrg identifies the current published version on json schema store at https://schemastore.azurewebsites.net/schemas/json/ -->
+    <!-- SchemaVersionAsPublishedToSchemaStoreOrg identifies the current published version on json schema store at https://schemastore.azurewebsites.net/schemas/json/ -->
     <SchemaVersionAsPublishedToSchemaStoreOrg>2.1.0-rtm.5</SchemaVersionAsPublishedToSchemaStoreOrg>
-      
+
     <!-- The stable version of the SARIF specification. -->
     <StableSarifVersion>2.1.0</StableSarifVersion>
 
+    <AnalysisLevel>latest</AnalysisLevel>
   </PropertyGroup>
 
   <PropertyGroup Label="Build">
@@ -44,10 +45,11 @@
     <PublishDir>$(OutputPath)\Publish\$(TargetFramework)\</PublishDir>
     <PublishDir Condition=" '$(RuntimeIdentifier)' != '' ">$(PublishDir)\$(RuntimeIdentifier)\</PublishDir>
     <SolutionDir Condition=" '$(SolutionDir)' == '' ">$(MsBuildThisFileDirectory)</SolutionDir>
+    <PackageOutputPath>$(MsBuildThisFileDirectory)..\bld\Publish\Nuget\$(Configuration)\</PackageOutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <HighEntropyVA>true</HighEntropyVA> 
+    <HighEntropyVA>true</HighEntropyVA>
     <!-- The line causes the assemblies in a project's referenced NuGet packages to be
          copied to the output directory. If we omit it from a test project, the tests
          fail on AppVeyor (and only there, for some reason).
@@ -63,8 +65,8 @@
     <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' "
-                 Label="Release build">
-    <DebugType>pdbonly</DebugType>
+               Label="Release build">
+    <DebugType>portable</DebugType>
     <Optimize>true</Optimize>
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
@@ -95,14 +97,36 @@
     See https://github.com/NuGet/Home/issues/4687#issuecomment-393302779.
     -->
     <NoWarn>NU5105</NoWarn>
+
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/Microsoft/sarif-sdk</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="$(MsBuildThisFileDirectory)..\triskelion.png" Pack="true" PackagePath="\"/>
+    <None Include="$(MsBuildThisFileDirectory)..\triskelion.png" Pack="true" PackagePath="\" />
   </ItemGroup>
 
   <ItemGroup>
     <Compile Include="$(MsBuildThisFileDirectory)Shared\CommonAssemblyInfo.cs" />
   </ItemGroup>
 
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <ItemGroup Condition=" '$(Configuration)' == 'Release' ">
+    <EmbeddedFiles Include="$(GeneratedAssemblyInfoFile)" />
+    <SourceRoot Include="$(MSBuildThisFileDirectory)/" />
+  </ItemGroup>
+
+  <ItemGroup Label="Common Packages">
+    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="5.0.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
 </Project>

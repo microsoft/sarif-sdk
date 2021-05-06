@@ -3,14 +3,16 @@
 
 using System.Collections.Generic;
 using System.IO;
+
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
+
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
     /// <summary>
-    /// A SARIF logger that works by generating a SARIF v2 log file which is transformed into 
+    /// A SARIF logger that works by generating a SARIF v2 log file which is transformed into
     /// SARIF v1 when the instance is disposed. The file location used to produced the preliminary
     /// v2 content is overwritten in place to produce the transformed v1 file.
     /// </summary>
@@ -20,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public SarifOneZeroZeroLogger(
             string outputFilePath,
-            LoggingOptions loggingOptions = SarifLogger.DefaultLoggingOptions,
+            LogFilePersistenceOptions logFilePersistenceOptions = SarifLogger.DefaultLogFilePersistenceOptions,
             OptionallyEmittedData dataToInsert = OptionallyEmittedData.None,
             OptionallyEmittedData dataToRemove = OptionallyEmittedData.None,
             Tool tool = null,
@@ -28,16 +30,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             IEnumerable<string> analysisTargets = null,
             IEnumerable<string> invocationTokensToRedact = null,
             IEnumerable<string> invocationPropertiesToLog = null,
-            string defaultFileEncoding = null)
+            string defaultFileEncoding = null,
+            IEnumerable<FailureLevel> levels = null,
+            IEnumerable<ResultKind> kinds = null,
+            IEnumerable<string> insertProperties = null)
             : base(new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.None)),
-                  loggingOptions: loggingOptions,
+                  logFilePersistenceOptions: logFilePersistenceOptions,
                   dataToInsert: dataToInsert,
                   dataToRemove: dataToRemove,
+                  defaultFileEncoding: defaultFileEncoding,
                   tool: tool,
                   run: run,
                   analysisTargets: analysisTargets,
                   invocationTokensToRedact: invocationTokensToRedact,
-                  invocationPropertiesToLog: invocationPropertiesToLog)
+                  invocationPropertiesToLog: invocationPropertiesToLog,
+                  levels: levels,
+                  kinds: kinds,
+                  insertProperties: insertProperties)
         {
             _outputFilePath = outputFilePath;
         }

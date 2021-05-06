@@ -1,10 +1,12 @@
-﻿// Copyright(c) Microsoft.All rights reserved.
+﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Collections.Generic;
 using System.Globalization;
+
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
+
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
@@ -196,8 +198,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             if (v1SuppressionStates.HasFlag(SuppressionStatesVersionOne.SuppressedExternally))
             {
-                suppressions = new List<Suppression>();
-                suppressions.Add(new Suppression { Kind = SuppressionKind.External });
+                suppressions = new List<Suppression>
+                {
+                    new Suppression { Kind = SuppressionKind.External }
+                };
             }
 
             if (v1SuppressionStates.HasFlag(SuppressionStatesVersionOne.SuppressedInSource))

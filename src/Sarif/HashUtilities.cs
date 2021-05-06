@@ -13,39 +13,42 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class HashUtilities
     {
-        static HashUtilities() => FileSystem = new FileSystem();
+        static HashUtilities() => FileSystem = Sarif.FileSystem.Instance;
 
         private static IFileSystem _fileSystem;
         internal static IFileSystem FileSystem
         {
             get
             {
-                _fileSystem = _fileSystem ?? new FileSystem();
+                _fileSystem ??= Sarif.FileSystem.Instance;
                 return _fileSystem;
             }
-
             set
             {
                 _fileSystem = value;
             }
         }
 
-        public static IDictionary<string, HashData> MultithreadedComputeTargetFileHashes(IEnumerable<string> analysisTargets)
+        public static IDictionary<string, HashData> MultithreadedComputeTargetFileHashes(IEnumerable<string> analysisTargets, bool suppressConsoleOutput = false)
         {
             if (analysisTargets == null) { return null; }
 
-            Console.WriteLine("Computing file hashes...");
+            if (!suppressConsoleOutput)
+            {
+                Console.WriteLine("Computing file hashes...");
+            }
+
             var fileToHashDataMap = new ConcurrentDictionary<string, HashData>();
 
             var queue = new ConcurrentQueue<string>(analysisTargets);
 
             var tasks = new List<Task>();
 
-            while (queue.Count > 0 && tasks.Count < Environment.ProcessorCount)
+            while (!queue.IsEmpty && tasks.Count < Environment.ProcessorCount)
             {
                 tasks.Add(Task.Factory.StartNew(() =>
                 {
-                    while (queue.Count > 0)
+                    while (!queue.IsEmpty)
                     {
                         if (queue.TryDequeue(out string filePath))
                         {
@@ -55,7 +58,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }));
             }
             Task.WaitAll(tasks.ToArray());
-            Console.WriteLine("Hash computation complete.");
+
+            if (!suppressConsoleOutput)
+            {
+                Console.WriteLine("Hash computation complete.");
+            }
+
             return fileToHashDataMap;
         }
 
@@ -65,7 +73,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             try
             {
-                using (Stream stream = FileSystem.OpenRead(fileName))
+                using (Stream stream = FileSystem.FileOpenRead(fileName))
                 {
                     using (var bufferedStream = new BufferedStream(stream, 1024 * 32))
                     {
@@ -111,7 +119,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             try
             {
-                using (Stream stream = FileSystem.OpenRead(fileName))
+                using (Stream stream = FileSystem.FileOpenRead(fileName))
                 {
                     using (var bufferedStream = new BufferedStream(stream, 1024 * 32))
                     {
@@ -135,7 +143,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             try
             {
-                using (Stream stream = FileSystem.OpenRead(fileName))
+                using (Stream stream = FileSystem.FileOpenRead(fileName))
                 {
                     using (var bufferedStream = new BufferedStream(stream, 1024 * 32))
                     {
@@ -159,7 +167,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             try
             {
-                using (Stream stream = FileSystem.OpenRead(fileName))
+                using (Stream stream = FileSystem.FileOpenRead(fileName))
                 {
                     using (var bufferedStream = new BufferedStream(stream, 1024 * 32))
                     {

@@ -1,5 +1,5 @@
-// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License.
+// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
 using System.Collections.Generic;
@@ -24,11 +24,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            IDictionary<string, SerializedPropertyInfo> dictionary = (existingValue as IDictionary<string, SerializedPropertyInfo> ?? new Dictionary<string, SerializedPropertyInfo>());
+            IDictionary<string, SerializedPropertyInfo> dictionary = existingValue as IDictionary<string, SerializedPropertyInfo> ?? new Dictionary<string, SerializedPropertyInfo>();
 
             reader.Read();
 
-            while(reader.TokenType == JsonToken.PropertyName)
+            while (reader.TokenType == JsonToken.PropertyName)
             {
                 string name = (string)reader.Value;
                 reader.Read();

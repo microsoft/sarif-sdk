@@ -3,6 +3,7 @@
 
 using System;
 using System.IO;
+
 using Newtonsoft.Json.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
@@ -40,6 +41,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             get { return "application/sarif-json"; }
             set { throw new InvalidOperationException(); }
         }
+
+        public bool AnalysisComplete { get; set; }
 
         public HashData Hashes { get; set; }
 
@@ -90,6 +93,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public ReportingDescriptorKind CurrentReportingDescriptorKind { get; internal set; }
 
         public JToken InputLogToken { get; internal set; }
+
+        public DefaultTraces Traces { get; set; }
 
         public void Dispose()
         {

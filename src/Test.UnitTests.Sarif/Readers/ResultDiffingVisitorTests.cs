@@ -1,9 +1,9 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-
 using System.Collections.Generic;
 using System.Linq;
+
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Readers
@@ -36,7 +36,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
             result2 = new Result { RuleId = "TST0002" };
             result3 = new Result { RuleId = "TST0003" };
-
 
             var newResults = new Result[]
             {

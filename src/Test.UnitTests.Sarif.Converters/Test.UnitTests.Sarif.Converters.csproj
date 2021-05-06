@@ -2,22 +2,39 @@
 
   <PropertyGroup Label="AssemblyAttributes">
     <AssemblyTitle>SARIF Converters Library Unit Tests</AssemblyTitle>
+    <RootNamespace>Microsoft.CodeAnalysis.Sarif.Converters</RootNamespace>
   </PropertyGroup>
 
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp2.1</TargetFrameworks>
+    <TargetFrameworks>netcoreapp3.1</TargetFrameworks>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="TestData\Hdf\ExpectedOutputs\NoResults.sarif" />
+    <None Remove="TestData\Hdf\ExpectedOutputs\ValidResults.sarif" />
+    <None Remove="TestData\Hdf\Inputs\Empty.json" />
+    <None Remove="TestData\Hdf\Inputs\InvalidResult.json" />
+    <None Remove="TestData\Hdf\Inputs\ValidResult.json" />
+    <None Remove="TestData\FlawFinder\ExpectedOutputs\NoResults.sarif" />
+    <None Remove="TestData\FlawFinder\ExpectedOutputs\ValidResults.sarif" />
+    <None Remove="TestData\FlawFinder\Inputs\Empty.csv" />
+    <None Remove="TestData\FlawFinder\Inputs\InvalidHeader.csv" />
+    <None Remove="TestData\FlawFinder\Inputs\InvalidResult.csv" />
+    <None Remove="TestData\FlawFinder\Inputs\OldVersionResult.csv" />
+    <None Remove="TestData\FlawFinder\Inputs\OnlyHeaderLine.csv" />
+    <None Remove="TestData\FlawFinder\Inputs\ValidResults.csv" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.10.2" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
     <PackageReference Include="Moq" Version="4.13.1" />
-    <PackageReference Include="System.Collections.Immutable" Version="1.7.0" />
-    <PackageReference Include="System.Composition" Version="1.4.0" />
+    <PackageReference Include="System.Collections.Immutable" Version="5.0.0" />
+    <PackageReference Include="System.Composition" Version="5.0.0" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.console" Version="2.4.1">
       <PrivateAssets>all</PrivateAssets>
@@ -28,6 +45,22 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="TestData\Hdf\ExpectedOutputs\NoResults.sarif" />
+    <EmbeddedResource Include="TestData\Hdf\ExpectedOutputs\ValidResults.sarif" />
+    <EmbeddedResource Include="TestData\Hdf\Inputs\ValidResults.json" />
+    <EmbeddedResource Include="TestData\Hdf\Inputs\InvalidResult.json" />
+    <EmbeddedResource Include="TestData\Hdf\Inputs\Empty.json" />
+    <EmbeddedResource Include="TestData\FlawFinder\ExpectedOutputs\NoResults.sarif" />
+    <EmbeddedResource Include="TestData\FlawFinder\ExpectedOutputs\ValidResults.sarif" />
+    <EmbeddedResource Include="TestData\FlawFinder\Inputs\Empty.csv" />
+    <EmbeddedResource Include="TestData\FlawFinder\Inputs\InvalidHeader.csv" />
+    <EmbeddedResource Include="TestData\FlawFinder\Inputs\OldVersionResult.csv" />
+    <EmbeddedResource Include="TestData\FlawFinder\Inputs\ValidResults.csv" />
+    <EmbeddedResource Include="TestData\FlawFinder\Inputs\InvalidResult.csv" />
+    <EmbeddedResource Include="TestData\FlawFinder\Inputs\OnlyHeaderLine.csv" />
   </ItemGroup>
 
   <ItemGroup>

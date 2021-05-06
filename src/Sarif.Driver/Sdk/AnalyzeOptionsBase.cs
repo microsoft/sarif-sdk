@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using System.Collections.Generic;
 
 using CommandLine;
@@ -21,11 +22,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public string OutputFilePath { get; set; }
 
         [Option(
-            "verbose",
-            HelpText = "Emit verbose output. The resulting comprehensive report is designed to provide appropriate evidence for compliance scenarios.")]
-        public bool Verbose { get; set; }
-
-        [Option(
             'r',
             "recurse",
             HelpText = "Recurse into subdirectories when evaluating file specifier arguments.")]
@@ -40,19 +36,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         [Option(
             'q',
             "quiet",
-            HelpText = "Do not log results to the console.")]
+            HelpText = "Suppress all console output (except for catastrophic tool runtime or configuration errors).")]
         public bool Quiet { get; set; }
 
         [Option(
             's',
             "statistics",
             HelpText = "Generate timing and other statistics for analysis session.")]
+        [Obsolete()]
         public bool Statistics { get; set; }
 
         [Option(
             'h',
             "hashes",
             HelpText = "Output MD5, SHA1, and SHA-256 hash of analysis targets when emitting SARIF reports.")]
+        [Obsolete("Use --insert instead, passing 'Hashes' along with any other references to data to be inserted.")]
         public bool ComputeFileHashes { get; set; }
 
         [Option(
@@ -62,13 +60,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public bool LogEnvironment { get; set; }
 
         [Option(
-            "plug-in",
+            "plugin",
             Separator = ';',
-            HelpText = "Path to plug-in that will be invoked against all targets in the analysis set.")]
+            HelpText = "Path to plugin that will be invoked against all targets in the analysis set.")]
         public IEnumerable<string> PluginFilePaths { get; set; }
 
         [Option(
-            'i',
             "invocation-properties",
             Separator = ';',
             HelpText = "Properties of the Invocation object to log. NOTE: StartTime and EndTime are always logged.")]
@@ -84,5 +81,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             "optimize",
             HelpText = "Omit redundant properties, producing a smaller but non-human-readable log.")]
         public bool Optimize { get; set; }
+
+        [Option(
+            "trace",
+            Separator = ';',
+            Default = new string[] { },
+            HelpText = "Execution traces, expressed as a semicolon-delimited list, that " +
+                       "should be emitted to the console and log file (if appropriate). " +
+                       "Valid values: ScanTime.")]
+        public virtual IEnumerable<string> Traces { get; set; }
+
+        [Option(
+            "level",
+            Separator = ';',
+            Default = new FailureLevel[] { FailureLevel.Error, FailureLevel.Warning },
+            HelpText = "A semicolon delimited list to filter output of scan results to one or more failure levels. Valid values: Error, Warning and Note.")]
+        public IEnumerable<FailureLevel> Level { get; set; }
+
+        [Option(
+            "kind",
+            Separator = ';',
+            Default = new ResultKind[] { ResultKind.Fail },
+            HelpText = "A semicolon delimited list to filter output to one or more result kinds. Valid values: Fail (for literal scan results), Pass, Review, Open, NotApplicable and Informational.")]
+        public IEnumerable<ResultKind> Kind { get; set; }
     }
 }

@@ -1,7 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <RootNamespace>Microsoft.WorkItems</RootNamespace>
+  <PropertyGroup Label="Packaging">
+    <!--
+    Without this property setting, the id of the NuGet package would match the
+    assembly name, "Microsoft.WorkItems".
+    -->
+    <PackageId>Microsoft.WorkItems</PackageId>
   </PropertyGroup>
 
   <PropertyGroup Label="AssemblyAttributes">
@@ -12,7 +16,10 @@
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+    <TargetFrameworks Condition="$(OS) == 'Windows_NT'">$(TargetFrameworks);net472</TargetFrameworks>
+    <AssemblyName>WorkItems</AssemblyName>
+    <RootNamespace>Microsoft.WorkItems</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,6 +31,8 @@
     <PackageReference Include="Microsoft.Json.Schema" Version="1.1.1" />
     <PackageReference Include="Microsoft.Json.Schema.Validation" Version="1.1.1" />
     <PackageReference Include="Microsoft.TeamFoundationServer.Client" Version="16.153.0" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+    <PackageReference Include="System.Text.Encodings.Web" Version="5.0.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -35,5 +44,4 @@
   <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
-
 </Project>

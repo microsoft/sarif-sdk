@@ -14,13 +14,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public string InputFilePath { get; set; }
 
         [Option(
-            'i',
-            "inline",
-            Default = false,
-            HelpText = "Write all newly generated content to the input file.")]
-        public bool Inline { get; set; }
-
-        [Option(
             'o',
             "output",
             HelpText = "A file path to the generated SARIF log.")]

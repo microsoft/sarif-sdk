@@ -11,18 +11,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class ProvideDynamicMessageContent : SarifValidationSkimmerBase
     {
+        public ProvideDynamicMessageContent()
+        {
+            this.DefaultConfiguration.Level = FailureLevel.Note;
+        }
+
         /// <summary>
         /// SARIF2014
         /// </summary>
         public override string Id => RuleId.ProvideDynamicMessageContent;
 
         /// <summary>
-        /// Include "dynamic content" (information that varies among results from the same rule) to 
-        /// makes your messages more specific, and to avoid the "wall of bugs" phenomenon, where 
+        /// Include "dynamic content" (information that varies among results from the same rule) to
+        /// makes your messages more specific, and to avoid the "wall of bugs" phenomenon, where
         /// hundreds of occurrences of the same message appear unapproachable.
         ///
         /// This is part of a set of authoring practices that make your rule messages more readable,
-        /// understandable, and actionable. See also 'SARIF2001.TerminateMessagesWithPeriod' and 
+        /// understandable, and actionable. See also 'SARIF2001.TerminateMessagesWithPeriod' and
         /// 'SARIF2015.EnquoteDynamicMessageContent'.
         /// </summary>
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF2014_ProvideDynamicMessageContent_FullDescription_Text };
@@ -30,8 +35,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         protected override IEnumerable<string> MessageResourceNames => new string[] {
             nameof(RuleResources.SARIF2014_ProvideDynamicMessageContent_Note_Default_Text)
         };
-
-        public override FailureLevel DefaultLevel => FailureLevel.Note;
 
         private static readonly Regex s_dynamicContentRegex = new Regex(@"\{[0-9]+\}", RegexOptions.Compiled | RegexOptions.CultureInvariant);
 

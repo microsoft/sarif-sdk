@@ -1,5 +1,5 @@
-// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License.
+// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
 using System.Collections;
@@ -10,8 +10,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
     /// <summary>
     ///  LongEvaluator implements IExpressionEvaluator given a getter which can
     ///  get the desired Property Name as a long.
-    ///  
-    ///  Usage: 
+    ///
+    ///  Usage:
     ///    if (String.Equals(term.PropertyName, "ID", StringComparison.OrdinalIgnoreCase))
     ///    {
     ///        // Show the LongEvaluator how to get the 'ID' property as a long, and it'll implement the term matching.
