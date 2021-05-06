@@ -144,17 +144,40 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                     if (!string.IsNullOrEmpty(subscriptionId) && !string.IsNullOrEmpty(subscriptionName))
                     {
-                        resultMessageText += $" The resource is in the '{subscriptionName}' ({subscriptionId}) subscription.";
+                        resultMessageText += $" The resource is in the '[{subscriptionName}](https://portal.azure.com/#resource/subscriptions/{subscriptionId}/overview)' subscription.";
+                    }
+
+                    string serviceName = null;
+                    if (GetIndex(dataReader, dataReaderIndex, "STServiceName") != -1)
+                    {
+                        serviceName = dataReader.GetString(GetIndex(dataReader, dataReaderIndex, "STServiceName"));
+                        if (!string.IsNullOrEmpty(serviceName))
+                        {
+                            resultMessageText += $" The subscription backing this Azure resource is associated with the '{serviceName}'";
+
+                            string serviceOwner = null;
+                            if (GetIndex(dataReader, dataReaderIndex, "STOwner") != -1)
+                            {
+                                serviceOwner = dataReader.GetString(GetIndex(dataReader, dataReaderIndex, "STOwner"));
+                                if (!string.IsNullOrEmpty(serviceOwner))
+                                {
+                                    resultMessageText += $" which is owned by {serviceOwner}.";
+                                }
+                            }
+                        }
                     }
 
                     if (etlEntity == "Build" || etlEntity == "BuildDefinition" ||
                         etlEntity == "Release" || etlEntity == "ReleaseDefinition" ||
                         etlEntity == "WorkItem")
                     {
+                        itemPath = itemPath.Replace("vsrm.dev.azure.com", "dev.azure.com");
+                        itemPath = itemPath.Replace("_apis/wit/workItems/", "_workitems/edit/");
                         itemPath = itemPath.Replace("vsrm.visualstudio.com", "visualstudio.com");
                         itemPath = itemPath.Replace("_apis/build/Definitions/", "_build?definitionId=");
                         itemPath = itemPath.Replace("_apis/Release/definitions/", "_release?_a=releases&view=mine&definitionId=");
-                        itemPath = itemPath.Replace("_apis/wit/workItems/", "_workitems/edit/");
+
+                        resultMessageText += $" The raw data that was scanned for this finding can be viewed [here]({itemPathUri}).";
 
                         itemPathUri = itemPath;
                     }
