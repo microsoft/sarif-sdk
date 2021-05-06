@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 using System;
 using System.IO;
+
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Readers
@@ -11,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
     ///  the byte offset in the stream where the current token begins. It is used to
     ///  enable deferred collections, which look like other collections but are deserialized
     ///  only when enumerated, saving memory.
-    ///  
+    ///
     ///  JsonPositionedTextReader requires a *streamProvider* function which can
     ///  open the desired stream multiple times. This is so that deferred collections
     ///  made from the reader pass know how to open another copy of the file to
@@ -93,7 +94,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         {
             // Read StartArray
             this.Read();
-            if (this.TokenType != JsonToken.StartArray) { throw new ArgumentException($"ReadToArrayIndex must be given an array to search"); }
+            if (this.TokenType != JsonToken.StartArray) { throw new ArgumentException("ReadToArrayIndex must be given an array to search"); }
 
             // If first item desired, it's at ArrayStart + 1
             if (desiredIndex == 0) { return this.TokenPosition + 1; }

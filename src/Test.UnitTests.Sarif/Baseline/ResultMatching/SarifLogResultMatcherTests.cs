@@ -4,7 +4,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using FluentAssertions;
+
 using Xunit;
 using Xunit.Abstractions;
 
@@ -73,7 +75,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 calculatedNextBaseline.Runs[0].Results.Where(r => r.BaselineState == BaselineState.Absent).First().TryGetProperty(SarifLogResultMatcher.ResultMatchingResultPropertyName, out Dictionary<string, string> AbsentResultProperties).Should().BeTrue();
                 AbsentResultProperties.Should().ContainKey("Run");
                 AbsentResultProperties["Run"].Should().BeEquivalentTo(baselineLog.Runs[0].AutomationDetails.Guid);
-
 
                 if (currentLog.Runs[0].Results.Count > 1)
                 {

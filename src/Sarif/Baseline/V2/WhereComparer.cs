@@ -1,5 +1,5 @@
-// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License.
+// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
 using System.Collections.Generic;
@@ -157,12 +157,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
 
         private static int ResolvedStartColumn(Region region)
         {
-            return (region.StartColumn == -1 ? 1 : region.StartColumn);
+            return region.StartColumn == -1 ? 1 : region.StartColumn;
         }
 
         private static int ResolvedEndLine(Region region)
         {
-            return (region.EndLine == -1 ? region.StartLine : region.EndLine);
+            return region.EndLine == -1 ? region.StartLine : region.EndLine;
         }
 
         public static int CompareTo(Uri left, Uri right)
@@ -218,7 +218,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
                 }
 
                 string fullyQualifiedName = LocationFullyQualifiedName(location);
-                if(fullyQualifiedName != null)
+                if (fullyQualifiedName != null)
                 {
                     toSet.Add(fullyQualifiedName);
                 }

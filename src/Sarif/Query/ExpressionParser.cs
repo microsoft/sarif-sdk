@@ -1,5 +1,5 @@
-// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License.
+// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
 using System.Collections.Generic;
@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query
     ///   AndExpression   :=  Term (And Term)*
     ///   Term            :=  '(' Expression ')' | Not? PropertyName Operator Value
     ///   PropertyName    :=  String
-    ///   Value           :=  String  
+    ///   Value           :=  String
     ///   And             := 'AND' | '&&'
     ///   Or              := 'OR' | '||'
     ///   Not             := 'NOT' | '!'
@@ -76,7 +76,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query
             // Otherwise, build the string, doubling each character to escape
             int nextCopyFrom = 0;
             StringBuilder result = new StringBuilder();
-            result.Append("'");
+            result.Append('\'');
 
             for (int i = 0; i < value.Length; ++i)
             {
@@ -96,7 +96,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query
                 result.Append(value, nextCopyFrom, value.Length - nextCopyFrom);
             }
 
-            result.Append("'");
+            result.Append('\'');
             return result.ToString();
         }
 
@@ -146,8 +146,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Query
             ConsumeWhitespace(ref text);
             if (text.Length == 0) { return new AllExpression(); }
 
-            List<IExpression> terms = new List<IExpression>();
-            terms.Add(ParseAndExpression(ref text));
+            List<IExpression> terms = new List<IExpression>
+            {
+                ParseAndExpression(ref text)
+            };
 
             while (true)
             {
@@ -163,13 +165,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Query
                 }
             }
 
-            return (terms.Count == 1 ? terms[0] : new OrExpression(terms));
+            return terms.Count == 1 ? terms[0] : new OrExpression(terms);
         }
 
         private static IExpression ParseAndExpression(ref StringSlice text)
         {
-            List<IExpression> terms = new List<IExpression>();
-            terms.Add(ParseTerm(ref text));
+            List<IExpression> terms = new List<IExpression>
+            {
+                ParseTerm(ref text)
+            };
 
             while (true)
             {
@@ -185,7 +189,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query
                 }
             }
 
-            return (terms.Count == 1 ? terms[0] : new AndExpression(terms));
+            return terms.Count == 1 ? terms[0] : new AndExpression(terms);
         }
 
         private static IExpression ParseTerm(ref StringSlice text)

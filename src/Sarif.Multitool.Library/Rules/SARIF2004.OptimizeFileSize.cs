@@ -41,15 +41,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// some scenarios (for example, when assessing compliance with policy), the 'artifacts' array
         /// might be used to record the full set of artifacts that were analyzed. In such a scenario,
         /// the 'artifacts' array should be retained even if it contains only location information.
-        /// 
+        ///
         /// In addition to the avoiding unnecessary arrays, there are other ways to optimize the
         /// size of SARIF log files.
-        /// 
+        ///
         /// Prefer the result object properties 'ruleId' and 'ruleIndex' to the nested object-valued
         /// property 'result.rule', unless the rule comes from a tool component other than the driver
         /// (in which case only 'result.rule' can accurately point to the metadata for the rule).
         /// The 'ruleId' and 'ruleIndex' properties are shorter and just as clear.
-        /// 
+        ///
         /// Do not specify the result object's 'analysisTarget' property unless it differs from the
         /// result location. The canonical scenario for using 'result.analysisTarget' is a C/C++ language
         /// analyzer that is instructed to analyze example.c, and detects a result in the included file
@@ -64,8 +64,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             nameof(RuleResources.SARIF2004_OptimizeFileSize_Warning_EliminateIdOnlyRules_Text),
             nameof(RuleResources.SARIF2004_OptimizeFileSize_Warning_PreferRuleId_Text)
         };
-
-        public override FailureLevel DefaultLevel => FailureLevel.Warning;
 
         private string driverGuid;
 
@@ -111,7 +109,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                                 resultPointer,
                                 nameof(RuleResources.SARIF2004_OptimizeFileSize_Warning_AvoidDuplicativeResultRuleInformation_Text));
                         }
-                    }                    
+                    }
                 }
                 else
                 {

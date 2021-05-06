@@ -4,7 +4,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using FluentAssertions;
+
 using Xunit;
 using Xunit.Abstractions;
 
@@ -61,7 +63,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             result.Results.Where(r => r.BaselineState == BaselineState.Absent).Should().ContainSingle();
             result.Results.Should().HaveCount(baseline.Results.Count());
         }
-
 
         [Fact]
         public void StrictBaseline_ChangedResult_AbsentAndNew()

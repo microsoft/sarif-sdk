@@ -7,30 +7,51 @@ using System.Reflection;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
-    public class TestAnalyzeCommand : AnalyzeCommandBase<TestAnalysisContext, TestAnalyzeOptions>
+    public class TestAnalyzeCommand : AnalyzeCommandBase<TestAnalysisContext, TestAnalyzeOptions>, ITestAnalyzeCommand
     {
         public TestAnalyzeCommand(IFileSystem fileSystem = null) : base(fileSystem)
         {
         }
 
-        public override IEnumerable<Assembly> DefaultPlugInAssemblies { get; set; }
+        public override IEnumerable<Assembly> DefaultPluginAssemblies { get; set; }
+
+        public int Run(AnalyzeOptionsBase options)
+        {
+            return base.Run((TestAnalyzeOptions)options);
+        }
 
         protected override TestAnalysisContext CreateContext(
             TestAnalyzeOptions options,
             IAnalysisLogger logger,
             RuntimeConditions runtimeErrors,
+            PropertiesDictionary policy = null,
             string filePath = null)
         {
-            TestAnalysisContext context = base.CreateContext(options, logger, runtimeErrors, filePath);
-            context.IsValidAnalysisTarget = options.RegardAnalysisTargetAsValid;
-            context.TargetLoadException = options.RegardAnalysisTargetAsCorrupted ? new InvalidOperationException() : null;
+            TestAnalysisContext context = base.CreateContext(options, logger, runtimeErrors, policy, filePath);
+
+            if (context.Policy == null)
+            {
+                context.Policy ??= new PropertiesDictionary();
+                context.Policy.SetProperty(TestRule.Behaviors, options.TestRuleBehaviors);
+            }
+
+            context.IsValidAnalysisTarget =
+                !context.Policy
+                .GetProperty(TestRule.Behaviors)
+                .HasFlag(TestRuleBehaviors.RegardAnalysisTargetAsInvalid);
+
+            if (options.TestRuleBehaviors.HasFlag(TestRuleBehaviors.RegardAnalysisTargetAsCorrupted))
+            {
+                context.TargetLoadException = new InvalidOperationException();
+            }
+
             context.Options = options;
             return context;
         }
 
         protected override void ValidateOptions(TestAnalysisContext context, TestAnalyzeOptions options)
         {
-            if (options.RegardOptionsAsInvalid)
+            if (context.Policy.GetProperty(TestRule.Behaviors).HasFlag(TestRuleBehaviors.RegardOptionsAsInvalid))
             {
                 context.RuntimeErrors |= RuntimeConditions.InvalidCommandLineOption;
                 ThrowExitApplicationException(context, ExitReason.InvalidCommandLineOption);

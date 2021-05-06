@@ -300,6 +300,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             => RunInvalidTestForRule(RuleId.ProvideRuleProperties);
 
         [Fact]
+        public void SARIF2012_ProvideRuleProperties_WithoutRuleMetadata()
+            => RunTest("SARIF2012.ProvideRuleProperties_WithoutRuleMetadata.sarif");
+
+        [Fact]
+        public void SARIF2012_ProvideRuleProperties_WithoutRules()
+            => RunTest("SARIF2012.ProvideRuleProperties_WithoutRules.sarif");
+
+        [Fact]
         public void SARIF2013_ProvideEmbeddedFileContent_Valid()
             => RunValidTestForRule(RuleId.ProvideEmbeddedFileContent);
 
@@ -379,14 +387,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public void GH1006_ProvideCheckoutPath_Invalid()
             => RunInvalidTestForRule(RuleId.ProvideCheckoutPath);
 
-        [Fact]
-        public void GH1007_ProvideRequiredRelatedLocationProperties_Valid()
-            => RunValidTestForRule(RuleId.ProvideRequiredRelatedLocationProperties);
-
-        [Fact]
-        public void GH1007_ProvideRequiredRelatedLocationProperties_Invalid()
-            => RunInvalidTestForRule(RuleId.ProvideRequiredRelatedLocationProperties);
-
         private void RunArrayLimitTest(string testFileNameSuffix)
         {
             // Some of the actual limits are impractically large for testing purposes,
@@ -422,7 +422,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         private void RunValidTestForRule(string ruleId)
             => RunTestForRule(ruleId, ValidTestFileNameSuffix);
-        
+
         private void RunInvalidTestForRule(string ruleId)
             => RunTestForRule(ruleId, InvalidTestFileNameSuffix);
 
@@ -471,17 +471,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 UpdateInputsToCurrentSarif = updateInputsToCurrentSarif,
                 PrettyPrint = true,
                 Optimize = true,
-                Verbose = true // Turn on note-level rules.
+                Kind = new List<ResultKind> { ResultKind.Fail },
+                Level = new List<FailureLevel> { FailureLevel.Error, FailureLevel.Warning, FailureLevel.Note, FailureLevel.None },
             };
 
             var mockFileSystem = new Mock<IFileSystem>();
 
             mockFileSystem.Setup(x => x.DirectoryExists(inputLogDirectory)).Returns(true);
-            mockFileSystem.Setup(x => x.GetDirectoriesInDirectory(It.IsAny<string>())).Returns(new string[0]);
-            mockFileSystem.Setup(x => x.GetFilesInDirectory(inputLogDirectory, inputLogFileName)).Returns(new string[] { inputLogFilePath });
-            mockFileSystem.Setup(x => x.ReadAllText(inputLogFilePath)).Returns(v2LogText);
-            mockFileSystem.Setup(x => x.ReadAllText(It.IsNotIn<string>(inputLogFilePath))).Returns<string>(path => File.ReadAllText(path));
-            mockFileSystem.Setup(x => x.WriteAllText(It.IsAny<string>(), It.IsAny<string>()));
+            mockFileSystem.Setup(x => x.DirectoryGetDirectories(It.IsAny<string>())).Returns(new string[0]);
+            mockFileSystem.Setup(x => x.DirectoryGetFiles(inputLogDirectory, inputLogFileName)).Returns(new string[] { inputLogFilePath });
+            mockFileSystem.Setup(x => x.FileReadAllText(inputLogFilePath)).Returns(v2LogText);
+            mockFileSystem.Setup(x => x.FileReadAllText(It.IsNotIn<string>(inputLogFilePath))).Returns<string>(path => File.ReadAllText(path));
+            mockFileSystem.Setup(x => x.FileWriteAllText(It.IsAny<string>(), It.IsAny<string>()));
 
             // Some rules are disabled by default, so create a configuration file that explicitly
             // enables the rule under test.
@@ -602,7 +603,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             // Select one rule arbitrarily, find out what assembly it's in, and get all the other
             // rules from that assembly.
             Assembly validationRuleAssembly = typeof(RuleIdentifiersMustBeValid).Assembly;
-            
+
             return CompositionUtilities.GetExports<SarifValidationSkimmerBase>(
                 new Assembly[]
                 {

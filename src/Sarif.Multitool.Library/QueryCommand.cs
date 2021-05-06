@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Diagnostics;
 using System.Linq;
+
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Query;
 using Microsoft.CodeAnalysis.Sarif.Query.Evaluators;
@@ -21,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public QueryCommand(IFileSystem fileSystem = null)
         {
-            _fileSystem = fileSystem ?? new FileSystem();
+            _fileSystem = fileSystem ?? Sarif.FileSystem.Instance;
         }
 
         public int Run(QueryOptions options)
@@ -90,7 +91,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             if (!string.IsNullOrEmpty(options.OutputFilePath) && (options.Force || !_fileSystem.FileExists(options.OutputFilePath)))
             {
                 Console.WriteLine($"Writing matches to {options.OutputFilePath}.");
-                WriteSarifFile<SarifLog>(_fileSystem, log, options.OutputFilePath, (options.PrettyPrint ? Formatting.Indented : Formatting.None));
+                WriteSarifFile<SarifLog>(_fileSystem, log, options.OutputFilePath, options.Minify);
             }
 
             // Return exit code based on configuration

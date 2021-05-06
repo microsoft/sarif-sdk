@@ -1,16 +1,23 @@
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System.Collections.Generic;
 using System.IO;
+
 using FluentAssertions;
+
 using Microsoft.CodeAnalysis.Sarif.Driver;
+
 using Moq;
+
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public class ValidateCommandTests
     {
+        private static readonly ResourceExtractor Extractor = new ResourceExtractor(typeof(ValidateCommandTests));
+
         // A simple schema against which a SARIF log file successfully validates.
         // This way, we don't have to read the SARIF schema from disk to run these tests.
         private const string SchemaFileContents =
@@ -18,6 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
   ""$schema"": ""http://json-schema.org/draft-04/schema#"",
   ""type"": ""object""
 }";
+
         private const string SchemaFilePath = @"c:\schemas\SimpleSchemaForTest.json";
         private const string LogFileDirectory = @"C:\Users\John\logs";
         private const string LogFileName = "example.sarif";
@@ -34,17 +42,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             var mockFileSystem = new Mock<IFileSystem>();
             mockFileSystem.Setup(x => x.DirectoryExists(LogFileDirectoryWithSpace)).Returns(true);
-            mockFileSystem.Setup(x => x.GetDirectoriesInDirectory(It.IsAny<string>())).Returns(new string[0]);
-            mockFileSystem.Setup(x => x.GetFilesInDirectory(LogFileDirectoryWithSpace, LogFileName)).Returns(new string[] { logFilePath });
-            mockFileSystem.Setup(x => x.ReadAllText(logFilePath)).Returns(TransformCommandTests.MinimalCurrentV2Text);
-            mockFileSystem.Setup(x => x.ReadAllText(SchemaFilePath)).Returns(SchemaFileContents);
+            mockFileSystem.Setup(x => x.DirectoryEnumerateFiles(It.IsAny<string>())).Returns(new string[0]);
+            mockFileSystem.Setup(x => x.DirectoryGetFiles(LogFileDirectoryWithSpace, LogFileName)).Returns(new string[] { logFilePath });
+            mockFileSystem.Setup(x => x.FileReadAllText(logFilePath)).Returns(RewriteCommandTests.MinimalCurrentV2Text);
+            mockFileSystem.Setup(x => x.FileReadAllText(SchemaFilePath)).Returns(SchemaFileContents);
 
             var validateCommand = new ValidateCommand(mockFileSystem.Object);
 
             var options = new ValidateOptions
             {
                 SchemaFilePath = SchemaFilePath,
-                TargetFileSpecifiers = new string[] { logFilePath }
+                TargetFileSpecifiers = new string[] { logFilePath },
+                Kind = new List<ResultKind> { ResultKind.Fail },
+                Level = new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error }
             };
 
             int returnCode = validateCommand.Run(options);
@@ -60,10 +70,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             var mockFileSystem = new Mock<IFileSystem>();
             mockFileSystem.Setup(x => x.FileExists(OutputFilePath)).Returns(true);
             mockFileSystem.Setup(x => x.DirectoryExists(LogFileDirectory)).Returns(true);
-            mockFileSystem.Setup(x => x.GetDirectoriesInDirectory(It.IsAny<string>())).Returns(new string[0]);
-            mockFileSystem.Setup(x => x.GetFilesInDirectory(LogFileDirectory, LogFileName)).Returns(new string[] { logFilePath });
-            mockFileSystem.Setup(x => x.ReadAllText(logFilePath)).Returns(TransformCommandTests.MinimalCurrentV2Text);
-            mockFileSystem.Setup(x => x.ReadAllText(SchemaFilePath)).Returns(SchemaFileContents);
+            mockFileSystem.Setup(x => x.DirectoryGetDirectories(It.IsAny<string>())).Returns(new string[0]);
+            mockFileSystem.Setup(x => x.DirectoryGetFiles(LogFileDirectory, LogFileName)).Returns(new string[] { logFilePath });
+            mockFileSystem.Setup(x => x.FileReadAllText(logFilePath)).Returns(RewriteCommandTests.MinimalCurrentV2Text);
+            mockFileSystem.Setup(x => x.FileReadAllText(SchemaFilePath)).Returns(SchemaFileContents);
 
             var validateCommand = new ValidateCommand(mockFileSystem.Object);
 
@@ -71,12 +81,73 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             {
                 SchemaFilePath = SchemaFilePath,
                 TargetFileSpecifiers = new string[] { logFilePath },
-                OutputFilePath = OutputFilePath
+                OutputFilePath = OutputFilePath,
+                Kind = new List<ResultKind> { ResultKind.Fail },
+                Level = new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error }
             };
 
             int returnCode = validateCommand.Run(options);
             returnCode.Should().Be(1);
             validateCommand.ExecutionException.Should().BeOfType<ExitApplicationException<ExitReason>>();
+        }
+
+        [Fact]
+        public void WhenWeDoNotHaveResultsWithoutVerbose()
+        {
+            string path = "ValidateSarif.sarif";
+            string outputPath = "ValidateSarifOutput.sarif";
+            File.WriteAllText(path, Extractor.GetResourceText($"ValidateCommand.{path}"));
+
+            SarifLog sarifLog = ExecuteTest(path, outputPath);
+            sarifLog.Runs.Count.Should().Be(1);
+            sarifLog.Runs[0].Results.Should().BeEmpty();
+        }
+
+        [Fact]
+        public void WhenWeDoHaveConfigurationChangingFailureLevelXml()
+        {
+            string path = "ValidateSarif.sarif";
+            string configuration = "Configuration.xml";
+            string outputPath = "ValidateSarifOutput.sarif";
+            File.WriteAllText(path, Extractor.GetResourceText($"ValidateCommand.{path}"));
+            File.WriteAllText(configuration, Extractor.GetResourceText($"ValidateCommand.{configuration}"));
+
+            SarifLog sarifLog = ExecuteTest(path, outputPath, configuration);
+            sarifLog.Runs.Count.Should().Be(1);
+            sarifLog.Runs[0].Results.Count.Should().Be(1);
+        }
+
+        [Fact]
+        public void WhenWeDoHaveConfigurationChangingFailureLevelJson()
+        {
+            string path = "ValidateSarif.sarif";
+            string configuration = "Configuration.json";
+            string outputPath = "ValidateSarifOutput.sarif";
+            File.WriteAllText(path, Extractor.GetResourceText($"ValidateCommand.{path}"));
+            File.WriteAllText(configuration, Extractor.GetResourceText($"ValidateCommand.{configuration}"));
+
+            SarifLog sarifLog = ExecuteTest(path, outputPath, configuration);
+            sarifLog.Runs.Count.Should().Be(1);
+            sarifLog.Runs[0].Results.Count.Should().Be(1);
+        }
+
+        private static SarifLog ExecuteTest(string path, string outputPath, string configuration = null)
+        {
+            var options = new ValidateOptions
+            {
+                TargetFileSpecifiers = new string[] { path },
+                OutputFilePath = outputPath,
+                Force = true,
+                ConfigurationFilePath = configuration,
+                Kind = new List<ResultKind> { ResultKind.Fail },
+                Level = new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error }
+            };
+
+            // Verify command returned success
+            int returnCode = new ValidateCommand().Run(options);
+            returnCode.Should().Be(0);
+
+            return SarifLog.Load(outputPath);
         }
 
         // Note: I would have liked to provide tests for two other conditions:

@@ -132,7 +132,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         internal static Suppression GenerateSuppression(AdditionalInfo additionalInfo)
         {
             // If this sentinel key does not exist, we have no suppression data.
-            if (!additionalInfo.ContainsKey("SuppressedMatch")) return null;
+            if (!additionalInfo.ContainsKey("SuppressedMatch"))
+            {
+                return null;
+            }
 
             additionalInfo.TryGetValue("HashKey", out string hashKey);
             additionalInfo.TryGetValue("MatchingScore", out string matchingScore);
@@ -183,7 +186,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private void SetRank(Defect defect, Result result)
         {
             if (string.IsNullOrWhiteSpace(defect.Rank))
+            {
                 return;
+            }
 
             result.SetProperty("rank", defect.Rank);
         }
@@ -191,7 +196,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private void SetProbability(Defect defect, Result result)
         {
             if (string.IsNullOrWhiteSpace(defect.Probability))
+            {
                 return;
+            }
 
             result.SetProperty("probability", defect.Probability);
         }

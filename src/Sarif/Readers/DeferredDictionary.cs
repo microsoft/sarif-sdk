@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
     ///  DeferredDictionary is an IDictionary&lt;string, T&gt; which uses JSON.NET
     ///  to read the dictionary items as they are accessed. It pre-builds the mapping
     ///  from string to JSON file position for fast retrieval.
-    ///  
+    ///
     ///  Enumerate KeyValuePairs for best performance:
     ///  foreach(KeyValuePair&lt;T, U&gt;> item in dictionary)
     ///  { ... }
@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
     ///  If you foreach over the KeyValuePairs, it constructs one reader and loads the items as you read them.
     ///  If you ask for the Keys, Values, or Dictionary[key], it must build a map from each key to the file position for that value,
     ///  and must seek in the file for each read.
-    ///  
+    ///
     ///  Items are expensive to iterate each time; they are not kept in memory. Copy the values to a List or array to keep them.
     /// </remarks>
     /// <typeparam name="T">Type of items in Dictionary</typeparam>
@@ -180,7 +180,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
         private bool TryGetValue(string key, bool readValue, out T value)
         {
-            value = default(T);
+            value = default;
             if (_stream == null) { _stream = _streamProvider(); }
 
             EnsurePositionsBuilt();
@@ -229,7 +229,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
         public void CopyTo(KeyValuePair<string, T>[] array, int arrayIndex)
         {
-            if (arrayIndex < 0 || arrayIndex + this.Count > array.Length) { throw new ArgumentOutOfRangeException("arrayIndex"); }
+            if (arrayIndex < 0 || arrayIndex + this.Count > array.Length) { throw new ArgumentOutOfRangeException(nameof(arrayIndex)); }
 
             int index = arrayIndex;
             foreach (KeyValuePair<string, T> item in this)
@@ -260,7 +260,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         /// <summary>
         ///  JsonObjectMemberStreamReader is used to get JsonTextReader to read a property name and
         ///  value somewhere in an outer object.
-        ///  
+        ///
         ///  It alters the first read so that there's a fake outer object (a starting '{') and
         ///  whitespace and any comma before the property name are hidden.
         /// </summary>
@@ -305,7 +305,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         /// <summary>
         ///  JsonDeferredDictionaryEnumerator provides enumeration over a Dictionary in a
         ///  Json object starting at a given position.
-        ///  
+        ///
         ///  Items are not pre-loaded and are not kept after enumeration, allowing use with
         ///  collections too large for memory.
         /// </summary>
@@ -429,7 +429,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
             public void CopyTo(U[] array, int arrayIndex)
             {
-                if (arrayIndex < 0 || arrayIndex + this.Count > array.Length) { throw new ArgumentOutOfRangeException("arrayIndex"); }
+                if (arrayIndex < 0 || arrayIndex + this.Count > array.Length) { throw new ArgumentOutOfRangeException(nameof(arrayIndex)); }
 
                 int index = arrayIndex;
                 foreach (U value in this)
@@ -448,7 +448,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                 return _enumeratorFactory();
             }
         }
-
 
         /// <summary>
         ///  ValueEnumeratorAdapter converts an IEnumerator&lt;KeyValuePair&lt;U, V&gt;&gt;

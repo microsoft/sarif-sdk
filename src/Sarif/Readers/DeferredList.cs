@@ -1,5 +1,5 @@
-// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License.
+// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
 using System.Collections;
@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
     ///  DeferredList is an IList&lt;T&gt; which wraps a specific position in a JSON stream.
     ///  It uses JSON.NET to read the items from the stream when they are enumerated in the list,
     ///  saving the memory cost of keeping them around.
-    ///  
+    ///
     ///  Enumerate for best performance:
     ///  foreach(T item in list)
     ///  { ... }
@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
     ///  If you foreach over the array, it creates one reader and loads the items as you read them.
     ///  If you ask for List[index] or the Count, it must build an array of the file position of each item
     ///  and seek each time you request one.
-    ///  
+    ///
     ///  Items are expensive to iterate each time; they are not kept in memory. Copy the values to a List or array to keep them.
     /// </remarks>
     /// <typeparam name="T">Type of items in list</typeparam>
@@ -187,7 +187,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
         public void CopyTo(T[] array, int arrayIndex)
         {
-            if (arrayIndex < 0 || arrayIndex + this.Count > array.Length) { throw new ArgumentOutOfRangeException("arrayIndex"); }
+            if (arrayIndex < 0 || arrayIndex + this.Count > array.Length) { throw new ArgumentOutOfRangeException(nameof(arrayIndex)); }
 
             int index = arrayIndex;
             foreach (T item in this)

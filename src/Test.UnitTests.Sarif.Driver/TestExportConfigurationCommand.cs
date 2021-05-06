@@ -8,6 +8,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     public class TestExportConfigurationCommand : ExportConfigurationCommandBase
     {
-        public override IEnumerable<Assembly> DefaultPlugInAssemblies { get; set; }
+        public override IEnumerable<Assembly> DefaultPluginAssemblies { get; set; }
     }
 }

@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             this.Options = new Dictionary<string, string>();
             this.DefaultConfiguration = new ReportingConfiguration
             {
-                Level = this.DefaultLevel,
+                Level = FailureLevel.Warning,
                 Enabled = this.EnabledByDefault
             };
         }
@@ -24,8 +24,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         protected virtual ResourceManager ResourceManager => null;
 
         protected virtual IEnumerable<string> MessageResourceNames => throw new NotImplementedException();
-
-        virtual public FailureLevel DefaultLevel => FailureLevel.Warning;
 
         virtual public bool EnabledByDefault => true;
 
@@ -51,7 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public override MultiformatMessageString FullDescription => throw new InvalidOperationException($"The {nameof(FullDescription)} property must be overridden in the SkimmerBase-derived class.");
 
-        public override MultiformatMessageString ShortDescription => new MultiformatMessageString { Text = ExtensionMethods.GetFirstSentence(FullDescription.Text) };
+        public override MultiformatMessageString ShortDescription => null;
 
         public override string Name => this.GetType().Name;
 

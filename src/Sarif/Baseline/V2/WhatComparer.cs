@@ -1,5 +1,5 @@
-// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License.
+// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Collections.Generic;
 using System.Globalization;
@@ -71,6 +71,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
         /// <summary>
         ///  Match the 'What' properties of two ExtractedResults.
         /// </summary>
+        /// <param name="left">ExtractedResult to match</param>
         /// <param name="right">ExtractedResult to match</param>
         /// <returns>True if *any* 'What' property matches, False otherwise</returns>
         public static bool MatchesWhat(ExtractedResult left, ExtractedResult right, TrustMap trustMap = null)
@@ -133,7 +134,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
                 if (weightOfComparableValues > 0)
                 {
                     // Return whether at least half of the partialFingerprints matched weighted by trust
-                    return (matchWeight * 2 >= weightOfComparableValues);
+                    return matchWeight * 2 >= weightOfComparableValues;
                 }
             }
 

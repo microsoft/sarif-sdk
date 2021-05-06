@@ -18,10 +18,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         // If profiling indicates that these Max calls are expensive it may make sense to sacrifice
         // some safety by turning them into asserts instead.
 
-        /// <summary>The zero-based index into a file or string at which a given line starts.</summary> 
+        /// <summary>The zero-based index into a file or string at which a given line starts.</summary>
         public int StartOffset { get { return Math.Max(_startOffset, 0); } }
 
-        /// <summary>The one-based index of the line in the file or string.</summary> 
+        /// <summary>The one-based index of the line in the file or string.</summary>
         public int LineNumber { get { return Math.Max(_lineNumber, 1); } }
 
         /// <summary>Initializes a new instance of the <see cref="LineInfo"/> struct.</summary>

@@ -8,7 +8,9 @@ using System.ComponentModel;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Xml;
+
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -19,7 +21,9 @@ namespace Microsoft.CodeAnalysis.Sarif
     {
         internal const string DEFAULT_POLICY_NAME = "default";
 
-        public PropertiesDictionary() : this(null) { }
+        public PropertiesDictionary() : this(null)
+        {
+        }
 
         public PropertiesDictionary(PropertiesDictionary initializer) :
             this(initializer, null)
@@ -96,19 +100,19 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         internal bool TryGetProperty<T>(string key, out T value)
         {
-            value = default(T);
+            value = default;
 
             object result;
             if (this.TryGetValue(key, out result))
             {
-                if (result is T)
+                if (result is T t)
                 {
-                    value = (T)result;
+                    value = t;
                     return true;
                 }
-                else if (result is JToken)
+                else if (result is JToken jTokens)
                 {
-                    value = ((JToken)result).ToObject<T>();
+                    value = jTokens.ToObject<T>();
                     return true;
                 }
                 return TryConvertFromString((string)result, out value);
@@ -141,7 +145,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private static bool TryConvertFromString<T>(string source, out T destination)
         {
-            destination = default(T);
+            destination = default;
             if (source == null) { return false; }
             TypeConverter converter = TypeDescriptor.GetConverter(typeof(T));
             destination = (T)converter.ConvertFrom(source);
@@ -150,19 +154,18 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public void SaveToJson(string filePath, bool prettyPrint = true)
         {
-
             Newtonsoft.Json.Formatting formatting = prettyPrint
                 ? Newtonsoft.Json.Formatting.Indented
                 : Newtonsoft.Json.Formatting.None;
 
             var settings = new JsonSerializerSettings
             {
-                Formatting = formatting
+                Formatting = formatting,
             };
+            settings.Converters.Add(new StringEnumConverter());
 
             File.WriteAllText(filePath, JsonConvert.SerializeObject(this, settings));
         }
-
 
         public void LoadFromJson(string filePath)
         {

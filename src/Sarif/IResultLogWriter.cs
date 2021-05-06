@@ -10,12 +10,11 @@ namespace Microsoft.CodeAnalysis.Sarif
     {
         /// <summary>
         /// Initialize the current output log. This method persists all run properties
-        /// except for those that may be populated during the course of persisting 
+        /// except for those that may be populated during the course of persisting
         /// results. A result might produce a new file object to be stored in run.files,
         /// for example, so run.Files will not be persisted on initialization.
         /// </summary>
-        /// <param name="id">A string that uniquely identifies a run.</param>
-        /// <param name="automationId">A global identifier for a run that permits correlation with a larger automation process.</param> 
+        /// <param name="run"></param>
         void Initialize(Run run);
 
         /// <summary>
@@ -54,7 +53,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Initialize the results array associated with the current output log. SARIF producers that
         /// are explicitly generating results (as opposed to other SARIF scenarios such as publishing
-        /// rules metadata) should proactively call this method in order to ensure that an explicit 
+        /// rules metadata) should proactively call this method in order to ensure that an explicit
         /// (but empty) results array exists in the log when no literal results were produced.
         /// </summary>
         void OpenResults();

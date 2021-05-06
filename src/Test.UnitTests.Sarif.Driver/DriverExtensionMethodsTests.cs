@@ -2,8 +2,12 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+
 using FluentAssertions;
+
 using Microsoft.CodeAnalysis.Sarif.Writers;
+
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
@@ -13,31 +17,42 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         [Fact]
         public void ConvertingAnalyzeOptionsToLoggingOptions_ProducesExpectedLoggingOptions()
         {
-            LoggingOptions loggingOptions;
+            LogFilePersistenceOptions loggingOptions;
 
             TestAnalyzeOptions analyzeOptions = new TestAnalyzeOptions()
             {
-                Verbose = true
+                Quiet = true
             };
 
-            loggingOptions = analyzeOptions.ConvertToLoggingOptions();
-            loggingOptions.Should().Be(LoggingOptions.Verbose);
+            loggingOptions = analyzeOptions.ConvertToLogFilePersistenceOptions();
+            loggingOptions.Should().Be(LogFilePersistenceOptions.PrettyPrint);
 
             analyzeOptions = new TestAnalyzeOptions()
             {
+                Minify = true
+            };
+
+            loggingOptions = analyzeOptions.ConvertToLogFilePersistenceOptions();
+            loggingOptions.Should().Be(LogFilePersistenceOptions.None);
+
+            analyzeOptions = new TestAnalyzeOptions()
+            {
+                Minify = true,
                 PrettyPrint = true
             };
 
-            loggingOptions = analyzeOptions.ConvertToLoggingOptions();
-            loggingOptions.Should().Be(LoggingOptions.PrettyPrint);
+            loggingOptions = analyzeOptions.ConvertToLogFilePersistenceOptions();
+            loggingOptions.Should().Be(LogFilePersistenceOptions.PrettyPrint);
 
             analyzeOptions = new TestAnalyzeOptions()
             {
                 Force = true
             };
 
-            loggingOptions = analyzeOptions.ConvertToLoggingOptions();
-            loggingOptions.Should().Be(LoggingOptions.OverwriteExistingOutputFile);
+            loggingOptions = analyzeOptions.ConvertToLogFilePersistenceOptions();
+            loggingOptions.Should().Be(
+                LogFilePersistenceOptions.OverwriteExistingOutputFile |
+                LogFilePersistenceOptions.PrettyPrint);
         }
 
         private class ValidateSingleFileOutputOptionsTestCase
@@ -53,8 +68,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             public bool ExpectedForce;
         }
 
-        private static readonly ValidateSingleFileOutputOptionsTestCase[] s_validateSingleFileOutputOptionsTestCases =
-            new[]
+        private static readonly ReadOnlyCollection<ValidateSingleFileOutputOptionsTestCase> s_validateSingleFileOutputOptionsTestCases =
+            new List<ValidateSingleFileOutputOptionsTestCase>
             {
                 new ValidateSingleFileOutputOptionsTestCase
                 {
@@ -89,7 +104,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     {
                         Inline = false,
                         Force = true,
-                        OutputFilePath = "output.sarif",
+                        OutputFilePath = "output.sarif"
                     },
                     ExpectedResult = true,
                     ExpectedForce = true
@@ -102,7 +117,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     {
                         Inline = false,
                         Force = false,
-                        OutputFilePath = "output.sarif",
+                        OutputFilePath = "output.sarif"
                     },
                     ExpectedResult = true,
                     ExpectedForce = false
@@ -131,7 +146,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     },
                     ExpectedResult = false
                 }
-            };
+            }.AsReadOnly();
 
         [Fact]
         [Trait(TestTraits.Bug, "https://github.com/microsoft/sarif-sdk/issues/1642")]
@@ -141,7 +156,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             foreach (ValidateSingleFileOutputOptionsTestCase testCase in s_validateSingleFileOutputOptionsTestCases)
             {
-                bool result = testCase.Options.ValidateOutputOptions();
+                bool result = testCase.Options.Validate();
 
                 if (result != testCase.ExpectedResult)
                 {
@@ -165,8 +180,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             public bool ExpectedForce;
         }
 
-        private static readonly ValidateMultipleFilesOutputOptionsTestCase[] s_validateMultipleFileOutputOptionsTestCases =
-            new[]
+        private static readonly ReadOnlyCollection<ValidateMultipleFilesOutputOptionsTestCase> s_validateMultipleFileOutputOptionsTestCases =
+            new List<ValidateMultipleFilesOutputOptionsTestCase>
             {
                 new ValidateMultipleFilesOutputOptionsTestCase
                 {
@@ -203,7 +218,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     ExpectedResult = true,
                     ExpectedForce = true
                 }
-            };
+            }.AsReadOnly();
 
         [Fact]
         [Trait(TestTraits.Bug, "https://github.com/microsoft/sarif-sdk/issues/1642")]
@@ -214,6 +229,116 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             foreach (ValidateMultipleFilesOutputOptionsTestCase testCase in s_validateMultipleFileOutputOptionsTestCases)
             {
                 bool result = testCase.Options.ValidateOutputOptions();
+
+                if (result != testCase.ExpectedResult)
+                {
+                    failedTestCases.Add(testCase.Title);
+                }
+
+                failedTestCases.Should().BeEmpty();
+            }
+        }
+
+        [Fact]
+        public void ValidateAnalyzeOutputOptions_ProducesExpectedResults()
+        {
+            AnalyzeOptionsBase analyzeOptionsBase = new TestAnalyzeOptions();
+
+            //  quiet false, output empty
+            analyzeOptionsBase.Quiet = false;
+            analyzeOptionsBase.OutputFilePath = null;
+            Assert.True(analyzeOptionsBase.ValidateOutputOptions());
+
+            //  quiet false, output non-empty
+            analyzeOptionsBase.Quiet = false;
+            analyzeOptionsBase.OutputFilePath = "doodle";
+            Assert.True(analyzeOptionsBase.ValidateOutputOptions());
+
+            //  quiet true, output empty
+            analyzeOptionsBase.Quiet = true;
+            analyzeOptionsBase.OutputFilePath = null;
+            Assert.False(analyzeOptionsBase.ValidateOutputOptions());
+
+            //  quiet true, output non-empty
+            analyzeOptionsBase.Quiet = true;
+            analyzeOptionsBase.OutputFilePath = "doodle";
+            Assert.True(analyzeOptionsBase.ValidateOutputOptions());
+        }
+
+        private class ValidateOutputFormatOptionsTestCase
+        {
+            public string Title;
+            public SingleFileOptionsBase Options;
+
+            // The expected return value from ValidateOutputFormatOptions.
+            public bool ExpectedResult;
+
+            // The expected (possibly adjusted) value of PrettyPrint after the call to
+            // ValidateOutputFormatOptions. Not applicable if ExpectedResult is false.
+            public bool ExpectedPrettyPrint;
+        }
+
+        private static readonly ReadOnlyCollection<ValidateOutputFormatOptionsTestCase> s_validateOutputFormatOptionsTestCases =
+            new List<ValidateOutputFormatOptionsTestCase>
+            {
+                new ValidateOutputFormatOptionsTestCase
+                {
+                    Title = "--pretty-print and not --minify",
+                    Options = new SingleFileOptionsBase
+                    {
+                        PrettyPrint = true,
+                        Minify = false
+                    },
+                    ExpectedResult = true,
+                    ExpectedPrettyPrint = true
+                },
+
+                new ValidateOutputFormatOptionsTestCase
+                {
+                    Title = "--minify and not --pretty-print",
+                    Options = new SingleFileOptionsBase
+                    {
+                        PrettyPrint = false,
+                        Minify = true
+                    },
+                    ExpectedResult = true,
+                    ExpectedPrettyPrint = false
+                },
+
+                new ValidateOutputFormatOptionsTestCase
+                {
+                    Title = "Neither --pretty-print nor --minify",
+                    Options = new SingleFileOptionsBase
+                    {
+                        PrettyPrint = false,
+                        Minify = false
+                    },
+                    ExpectedResult = true,
+                    ExpectedPrettyPrint = true
+                },
+
+                new ValidateOutputFormatOptionsTestCase
+                {
+                    Title = "Both --pretty-print and --minify",
+                    Options = new SingleFileOptionsBase
+                    {
+                        PrettyPrint = true,
+                        Minify = true
+                    },
+                    ExpectedResult = false,
+                    ExpectedPrettyPrint = true
+                }
+            }.AsReadOnly();
+
+        [Fact]
+        [Trait(TestTraits.Bug, "https://github.com/microsoft/sarif-sdk/issues/2098")]
+        public void ValidatingOutputFormatOptions_ProducesExpectedResults()
+        {
+            var failedTestCases = new List<string>();
+
+            foreach (ValidateOutputFormatOptionsTestCase testCase in s_validateOutputFormatOptionsTestCases)
+            {
+                bool result = testCase.Options.Validate();
 
                 if (result != testCase.ExpectedResult)
                 {

@@ -2,7 +2,9 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Collections.Generic;
+
 using FluentAssertions;
+
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
@@ -66,7 +68,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             originalUriBaseIdsDictionary[FortifyFprConverter.FileLocationUriBaseId].Uri.Should().Be(@"file:///C:/");
             originalUriBaseIdsDictionary[FortifyFprConverter.FileLocationUriBaseId].UriBaseId.Should().BeNull();
-
         }
 
         [Fact]
@@ -106,6 +107,5 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             originalUriBaseIdsDictionary.Should().BeNull();
         }
-
     }
 }

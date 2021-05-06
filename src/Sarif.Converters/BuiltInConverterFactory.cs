@@ -31,6 +31,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             CreateConverterRecord<FortifyConverter>(result, ToolFormat.Fortify);
             CreateConverterRecord<FortifyFprConverter>(result, ToolFormat.FortifyFpr);
             CreateConverterRecord<FxCopConverter>(result, ToolFormat.FxCop);
+            CreateConverterRecord<FlawFinderConverter>(result, ToolFormat.FlawFinder);
+            CreateConverterRecord<HdfConverter>(result, ToolFormat.Hdf);
             CreateConverterRecord<PREfastConverter>(result, ToolFormat.PREfast);
             CreateConverterRecord<PylintConverter>(result, ToolFormat.Pylint);
             CreateConverterRecord<SemmleQLConverter>(result, ToolFormat.SemmleQL);

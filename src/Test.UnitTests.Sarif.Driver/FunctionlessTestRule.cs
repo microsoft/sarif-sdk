@@ -4,6 +4,7 @@
 using System.Collections.Generic;
 using System.Composition;
 using System.Resources;
+
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Driver.Sdk;
 
@@ -44,6 +45,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static PerLanguageOption<bool> UnusedOption { get; } =
             new PerLanguageOption<bool>(
-                AnalyzerName, nameof(TestRuleBehaviors), () => true);
+                AnalyzerName, nameof(UnusedOption), () => true);
     }
 }

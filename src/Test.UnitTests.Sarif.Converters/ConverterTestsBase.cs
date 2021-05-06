@@ -2,10 +2,12 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Collections.Generic;
+
 using FluentAssertions;
 
 using Microsoft.CodeAnalysis.Sarif.Converters;
 using Microsoft.CodeAnalysis.Sarif.Writers;
+
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -65,11 +67,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
             };
-        }
-
-        private static string BuildToolSpecificEmptyLogText()
-        {
-            return JsonConvert.SerializeObject(BuildToolSpecificEmptyLog());
         }
 
         public readonly SarifLog EmptyLog = BuildToolSpecificEmptyLog();

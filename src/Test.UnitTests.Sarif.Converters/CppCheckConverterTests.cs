@@ -4,8 +4,11 @@
 using System;
 using System.IO;
 using System.Xml;
+
 using Microsoft.CodeAnalysis.Sarif.Writers;
+
 using Newtonsoft.Json;
+
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters

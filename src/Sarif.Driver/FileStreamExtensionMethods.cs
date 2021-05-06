@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             while ((byteRead = stream.ReadByte()) > 0)
             {
                 byteCount++;
-            };
+            }
 
             stream.Seek(startPosition, SeekOrigin.Begin);
             byte[] abString = stream.ReadToArray(byteCount);

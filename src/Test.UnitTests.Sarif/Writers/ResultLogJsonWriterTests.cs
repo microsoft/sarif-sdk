@@ -5,8 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+
 using FluentAssertions;
+
 using Newtonsoft.Json;
+
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Writers
@@ -322,7 +325,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 }
             }
         };
-
 
         [Fact]
         public void ResultLogJsonWriter_WritesConfigurationNotifications()

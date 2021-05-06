@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 
 using FluentAssertions;
+
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
@@ -41,7 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 };
 
                 var command = new TestExportConfigurationCommand();
-                command.DefaultPlugInAssemblies = new Assembly[] { typeof(ExportConfigurationCommandBaseTests).Assembly };
+                command.DefaultPluginAssemblies = new Assembly[] { typeof(ExportConfigurationCommandBaseTests).Assembly };
                 int result = command.Run(options);
 
                 Assert.Equal(TestAnalyzeCommand.SUCCESS, result);

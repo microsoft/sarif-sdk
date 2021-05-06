@@ -10,6 +10,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class ProvideRequiredLocationProperties : SarifValidationSkimmerBase
     {
+        public ProvideRequiredLocationProperties()
+        {
+            this.DefaultConfiguration.Level = FailureLevel.Error;
+        }
+
         /// <summary>
         /// GH1001
         /// </summary>
@@ -27,8 +32,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             nameof(RuleResources.GH1001_ProvideRequiredLocationProperties_Error_EmptyLocationsArray_Text),
             nameof(RuleResources.GH1001_ProvideRequiredLocationProperties_Error_MissingLocationProperty_Text)
         };
-
-        public override FailureLevel DefaultLevel => FailureLevel.Error;
 
         public override bool EnabledByDefault => false;
 

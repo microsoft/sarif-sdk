@@ -37,6 +37,13 @@
           "ruleId": "TEST1001",
           "ruleIndex": 0,
           "message": {
+            "id": "DoesExist"
+          }
+        },
+        {
+          "ruleId": "TEST1001",
+          "ruleIndex": 0,
+          "message": {
             "id": "DoesNotExist",
             "arguments": [
               "runs[0].originalUriBaseIds.SRCINVALID"

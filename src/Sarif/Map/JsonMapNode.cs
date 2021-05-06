@@ -1,5 +1,5 @@
-// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License.
+// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
 using System.Collections.Generic;
@@ -33,7 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
         public long End { get; set; }
 
         /// <summary>
-        ///  Count is the number of array elements (for arrays) or properties 
+        ///  Count is the number of array elements (for arrays) or properties
         ///  (for objects) in the mapped object.
         /// </summary>
         public int Count { get; set; }
@@ -43,7 +43,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
         ///  Since End and Start are inclusive, it's one more than the difference.
         /// </summary>
         [JsonIgnore]
-        public long Length => (1 + End - Start);
+        public long Length => 1 + End - Start;
 
         /// <summary>
         ///  Nodes contains JsonMapNodes for each child of this node which is
@@ -64,7 +64,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
         /// <summary>
         ///  For Arrays only, 'ArrayStarts' contains the start positions of the value of
         ///  some array elements. Values are delta-encoded in JSON, but have been decoded
-        ///  as absolute offsets in this array. 
+        ///  as absolute offsets in this array.
         ///  ArrayStarts[i] is the absolute start position of array[i*every].
         /// </summary>
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
@@ -81,7 +81,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
         /// <returns>Absolute byte offset of the start array[index] within this array</returns>
         public long FindArrayStart(int index, Func<Stream> inputStreamProvider)
         {
-            if (index < 0 || index > this.Count) { throw new ArgumentOutOfRangeException("index"); }
+            if (index < 0 || index > this.Count) { throw new ArgumentOutOfRangeException(nameof(index)); }
 
             if (index == this.Count)
             {
@@ -116,7 +116,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
                 // If there are array positions, read from the nearest previous element available
                 int startToRead = index / this.Every;
                 readFromPosition = this.ArrayStarts[startToRead];
-                readToPosition = (this.ArrayStarts.Count > startToRead + 1 ? this.ArrayStarts[startToRead + 1] : this.End);
+                readToPosition = this.ArrayStarts.Count > startToRead + 1 ? this.ArrayStarts[startToRead + 1] : this.End;
                 startIndex = startToRead * this.Every;
             }
 
@@ -138,7 +138,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
                     long relativePosition = reader.ReadToArrayIndex(index - startIndex);
 
                     // Convert back to an absolute position (buffer[0] was (readFromPosition - 1)
-                    return (readFromPosition - 1) + relativePosition;
+                    return readFromPosition - 1 + relativePosition;
                 }
             }
         }

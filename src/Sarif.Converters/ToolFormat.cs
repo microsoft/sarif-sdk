@@ -21,6 +21,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <summary>CppCheck's file format.</summary>
         public const string CppCheck = nameof(CppCheck);
 
+        /// <summary>FlawFinder's file format.</summary>
+        public const string FlawFinder = nameof(FlawFinder);
+
         /// <summary>Fortify's report file format.</summary>
         public const string Fortify = nameof(Fortify);
 
@@ -29,6 +32,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         /// <summary>FxCop's file format.</summary>
         public const string FxCop = nameof(FxCop);
+
+        /// <summary>Heimdall Tools's file format.</summary>
+        public const string Hdf = nameof(Hdf);
 
         /// <summary>PREfast's file format.</summary>
         public const string PREfast = nameof(PREfast);

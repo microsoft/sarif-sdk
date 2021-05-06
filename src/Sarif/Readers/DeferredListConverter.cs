@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 using System;
 using System.Collections.Generic;
+
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Readers
@@ -9,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
     /// <summary>
     ///  DeferredListConverter is a JsonConverter which allows reading a List&lt;T&gt;
     ///  only at enumeration time, saving the memory cost of keeping every object around.
-    ///  
+    ///
     ///  The position of each item is saved on the first random access, so that later use
     ///  of List[index] is fast.
     /// </summary>
@@ -30,8 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             }
 
             // If we don't have a positioned reader, we must return an error
-            JsonPositionedTextReader r = reader as JsonPositionedTextReader;
-            if (r == null)
+            if (!(reader is JsonPositionedTextReader r))
             {
                 throw new InvalidOperationException($"{nameof(DeferredListConverter<T>)} requires a {nameof(JsonPositionedTextReader)} be used for deserialization.");
             }

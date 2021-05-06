@@ -9,6 +9,7 @@ using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Microsoft.Json.Schema;
 using Microsoft.Json.Schema.Validation;
+
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
@@ -21,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
         }
 
-        public override IEnumerable<Assembly> DefaultPlugInAssemblies
+        public override IEnumerable<Assembly> DefaultPluginAssemblies
         {
             get
             {
@@ -37,9 +38,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
         }
 
-        protected override SarifValidationContext CreateContext(ValidateOptions options, IAnalysisLogger logger, RuntimeConditions runtimeErrors, string filePath = null)
+        protected override SarifValidationContext CreateContext(
+            ValidateOptions options,
+            IAnalysisLogger logger,
+            RuntimeConditions runtimeErrors,
+            PropertiesDictionary policy = null,
+            string filePath = null)
         {
-            SarifValidationContext context = base.CreateContext(options, logger, runtimeErrors, filePath);
+            SarifValidationContext context = base.CreateContext(options, logger, runtimeErrors, policy, filePath);
             context.SchemaFilePath = options.SchemaFilePath;
             context.UpdateInputsToCurrentSarif = options.UpdateInputsToCurrentSarif;
             return context;
@@ -97,7 +103,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             try
             {
-                instanceText = FileSystem.ReadAllText(instanceFilePath);
+                instanceText = FileSystem.FileReadAllText(instanceFilePath);
 
                 if (updateToCurrentSarifVersion)
                 {
@@ -136,7 +142,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             if (schemaFilePath != null)
             {
-                schemaText = FileSystem.ReadAllText(schemaFilePath);
+                schemaText = FileSystem.FileReadAllText(schemaFilePath);
             }
             else
             {

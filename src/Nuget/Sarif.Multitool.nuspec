@@ -21,42 +21,28 @@
   </metadata>
   <files>
     <!-- The subfolder layout for the different TargetFrameworks is intentionally inconsistent -->
-    <!-- net461 and netcoreapp2.1 pack to tools\TargetFramework\* for backcompat -->
-    <file src="bld\bin\$platform$_$configuration$\Sarif.Multitool\Publish\net461\Sarif.Multitool.exe.config"
-          target="tools\net461"
-          />
-    <file src="bld\bin\$platform$_$configuration$\Sarif.Multitool\Publish\net461\**"
-          target="tools\net461"
-          exclude="bld\bin\$platform$_$configuration$\Sarif.Multitool\Publish\net461\Sarif*;bld\bin\$platform$_$configuration$\Sarif.Multitool\Publish\net461\WorkItems.dll;"
-          />
-    <file src="bld\bin\Signing\net461\**"
-          target="tools\net461"
-          />
-    <file src="bld\bin\$platform$_$configuration$\Sarif.Multitool\Publish\netcoreapp2.1\**"
-          target="tools\netcoreapp2.1"
-          exclude="bld\bin\$platform$_$configuration$\Sarif.Multitool\Publish\netcoreapp2.1\Sarif*.dll;bld\bin\$platform$_$configuration$\Sarif.Multitool\Publish\netcoreapp2.1\WorkItems.dll"
-          />
-    <file src="bld\bin\Signing\netcoreapp2.1\**"
-          target="tools\netcoreapp2.1"
-          />
-    <file src="bld\bin\Signing\netstandard2.0\**"
-          target="tools\netcoreapp2.1"
-          />
+    <!-- net472 and netcoreapp3.1 pack to tools\TargetFramework\* for backcompat -->
+    <file src="bld\bin\$platform$_$configuration$\Sarif.Multitool\Publish\net472\Sarif.Multitool.exe.config"
+          target="tools\net472" />
+    <file src="bld\bin\$platform$_$configuration$\Sarif.Multitool\Publish\net472\**"
+          target="tools\net472"
+          exclude="bld\bin\$platform$_$configuration$\Sarif.Multitool\Publish\net472\Sarif*;bld\bin\$platform$_$configuration$\Sarif.Multitool\Publish\net472\WorkItems.dll;" />
+    <file src="bld\bin\Signing\net472\**"
+          target="tools\net472" />
 
-    <!-- netcoreapp2.1 packs to tools\TargetFramework\any\* for compatibility with dotnet tool install -->
-    <file src="bld\bin\$platform$_$configuration$\Sarif.Multitool\Publish\netcoreapp2.1\**"
-          target="tools\netcoreapp2.1\any"
-          exclude="bld\bin\$platform$_$configuration$\Sarif.Multitool\Publish\netcoreapp2.1\Sarif*.dll;bld\bin\$platform$_$configuration$\Sarif.Multitool\Publish\netcoreapp2.1\WorkItems.dll"
-          />
-    <file src="bld\bin\Signing\netcoreapp2.1\**"
-          target="tools\netcoreapp2.1\any"
-          />
+    <!-- netcoreapp3.1 packs to tools\TargetFramework\any\* for compatibility with dotnet tool install -->
+    <file src="bld\bin\$platform$_$configuration$\Sarif.Multitool\Publish\netcoreapp3.1\**"
+          target="tools\netcoreapp3.1\any"
+          exclude="bld\bin\$platform$_$configuration$\Sarif.Multitool\Publish\netcoreapp3.1\Sarif*.dll;bld\bin\$platform$_$configuration$\Sarif.Multitool\Publish\netcoreapp3.1\WorkItems.dll" />
+    <file src="bld\bin\Signing\netcoreapp3.1\**"
+          target="tools\netcoreapp3.1\any" />
     <file src="bld\bin\Signing\netstandard2.0\**"
-          target="tools\netcoreapp2.1\any"
-          />
+          target="tools\netcoreapp3.1\any" />
+    <file src="bld\bin\Signing\netstandard2.1\**"
+          target="tools\netcoreapp3.1\any" />
 
     <file src="triskelion.png" />
     <file src="src\ReleaseHistory.md" />
-    <file src="src\Sarif.Multitool\**\*.cs" target="src" />
+    <file src="src\Sarif.Multitool.Library\**\*.cs" target="src" />
   </files>
 </package>

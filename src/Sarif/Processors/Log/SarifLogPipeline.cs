@@ -1,9 +1,10 @@
-﻿// Copyright (c) Microsoft. All rights reserved. Licensed under the MIT        
-// license. See LICENSE file in the project root for full license information. 
+﻿// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Processors
@@ -41,9 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
         /// </summary>
         public override bool Equals(object obj)
         {
-            SarifLogPipeline other = obj as SarifLogPipeline;
-
-            if (other == null)
+            if (!(obj is SarifLogPipeline other))
             {
                 return base.Equals(obj);
             }

@@ -1,15 +1,20 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
     public class InsertOptionalDataVisitor : SarifRewritingVisitor
     {
+        private static readonly Regex versionControlPropertiesRegex =
+            new Regex(@"(?i)runs\[(?<run>\d?)\]\.invocations\[(?<invocation>\d?)\].versionControlProvenance.properties.(?<property>[a-zA-Z]+)=(?<value>.*)", RegexOptions.Compiled);
+
         private readonly IFileSystem _fileSystem;
         private readonly GitHelper.ProcessRunner _processRunner;
 
@@ -21,9 +26,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         private FileRegionsCache _fileRegionsCache;
         private readonly OptionallyEmittedData _dataToInsert;
         private readonly IDictionary<string, ArtifactLocation> _originalUriBaseIds;
+        private readonly IEnumerable<string> _insertProperties;
 
-        public InsertOptionalDataVisitor(OptionallyEmittedData dataToInsert, Run run)
-            : this(dataToInsert, run?.OriginalUriBaseIds)
+        public InsertOptionalDataVisitor(OptionallyEmittedData dataToInsert, Run run, IEnumerable<string> insertProperties)
+            : this(dataToInsert, run?.OriginalUriBaseIds, insertProperties: insertProperties)
         {
             _run = run ?? throw new ArgumentNullException(nameof(run));
         }
@@ -32,14 +38,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             OptionallyEmittedData dataToInsert,
             IDictionary<string, ArtifactLocation> originalUriBaseIds = null,
             IFileSystem fileSystem = null,
-            GitHelper.ProcessRunner processRunner = null)
+            GitHelper.ProcessRunner processRunner = null,
+            IEnumerable<string> insertProperties = null)
         {
-            _fileSystem = fileSystem ?? new FileSystem();
+            _fileSystem = fileSystem ?? FileSystem.Instance;
             _processRunner = processRunner;
 
+            _ruleIndex = -1;
+            _gitHelper = new GitHelper();
             _dataToInsert = dataToInsert;
             _originalUriBaseIds = originalUriBaseIds;
-            _ruleIndex = -1;
+            _insertProperties = insertProperties ?? new List<string>();
         }
 
         public override Run VisitRun(Run node)
@@ -50,7 +59,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             if (_originalUriBaseIds != null)
             {
-                _run.OriginalUriBaseIds = _run.OriginalUriBaseIds ?? new Dictionary<string, ArtifactLocation>();
+                _run.OriginalUriBaseIds ??= new Dictionary<string, ArtifactLocation>();
 
                 foreach (string key in _originalUriBaseIds.Keys)
                 {
@@ -73,7 +82,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             Run visited = base.VisitRun(node);
 
             // After all the ArtifactLocations have been visited,
-            if (_run.VersionControlProvenance == null && _dataToInsert.HasFlag(OptionallyEmittedData.VersionControlInformation))
+            if (_run.VersionControlProvenance == null && _dataToInsert.HasFlag(OptionallyEmittedData.VersionControlDetails))
             {
                 _run.VersionControlProvenance = CreateVersionControlProvenance();
             }
@@ -98,7 +107,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 Region expandedRegion;
                 ArtifactLocation artifactLocation = node.ArtifactLocation;
 
-                _fileRegionsCache = _fileRegionsCache ?? new FileRegionsCache(_run);
+                _fileRegionsCache ??= FileRegionsCache.Instance;
 
                 if (artifactLocation.Uri == null && artifactLocation.Index >= 0)
                 {
@@ -114,8 +123,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     resolvedUri = artifactLocation.Uri;
                 }
-
-                if (!resolvedUri.IsAbsoluteUri) { goto Exit; }
 
                 expandedRegion = _fileRegionsCache.PopulateTextRegionProperties(node.Region, resolvedUri, populateSnippet: insertRegionSnippets);
 
@@ -188,7 +195,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         public override ArtifactLocation VisitArtifactLocation(ArtifactLocation node)
         {
-            if (_dataToInsert.HasFlag(OptionallyEmittedData.VersionControlInformation))
+            if (_dataToInsert.HasFlag(OptionallyEmittedData.VersionControlDetails))
             {
                 node = ExpressRelativeToRepoRoot(node);
             }
@@ -240,7 +247,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         private List<VersionControlDetails> CreateVersionControlProvenance()
         {
+            var matches = new List<Match>();
             var versionControlProvenance = new List<VersionControlDetails>();
+
+            foreach (string property in _insertProperties)
+            {
+                Match match = versionControlPropertiesRegex.Match(property);
+                if (match.Success)
+                {
+                    matches.Add(match);
+                }
+            }
 
             foreach (Uri repoRootUri in _repoRootUris)
             {
@@ -248,14 +265,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 Uri repoRemoteUri = _gitHelper.GetRemoteUri(repoRootPath);
                 if (repoRemoteUri != null)
                 {
-                    versionControlProvenance.Add(
-                        new VersionControlDetails
-                        {
-                            RepositoryUri = repoRemoteUri,
-                            RevisionId = _gitHelper.GetCurrentCommit(repoRootPath),
-                            Branch = _gitHelper.GetCurrentBranch(repoRootPath),
-                            MappedTo = new ArtifactLocation { Uri = repoRootUri }
-                        });
+                    var versionControlDetail = new VersionControlDetails
+                    {
+                        RepositoryUri = repoRemoteUri,
+                        RevisionId = _gitHelper.GetCurrentCommit(repoRootPath),
+                        Branch = _gitHelper.GetCurrentBranch(repoRootPath),
+                        MappedTo = new ArtifactLocation { Uri = repoRootUri }
+                    };
+
+                    foreach (Match match in matches)
+                    {
+                        versionControlDetail.SetProperty(match.Groups["property"].Value, match.Groups["value"].Value);
+                    }
+
+                    versionControlProvenance.Add(versionControlDetail);
                 }
             }
 
@@ -275,12 +298,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 string repoRootPath = _gitHelper.GetRepositoryRoot(uri.LocalPath);
                 if (repoRootPath != null)
                 {
-                    var repoRootUri = new Uri(repoRootPath, UriKind.Absolute);
+                    var repoRootUri = new Uri(repoRootPath + @"\", UriKind.Absolute);
+
+                    _repoRootUris ??= new HashSet<Uri>();
                     _repoRootUris.Add(repoRootUri);
 
-                    Uri repoRelativeUri = repoRootUri.MakeRelativeUri(uri);
-                    node.Uri = repoRelativeUri;
-                    node.UriBaseId = GetUriBaseIdForRepoRoot(repoRootUri);
+                    Uri relativeUri = repoRootUri.MakeRelativeUri(uri);
+                    if (!string.IsNullOrEmpty(relativeUri.OriginalString))
+                    {
+                        node.Uri = relativeUri;
+                        node.UriBaseId = GetUriBaseIdForRepoRoot(repoRootUri);
+                    }
                 }
             }
 

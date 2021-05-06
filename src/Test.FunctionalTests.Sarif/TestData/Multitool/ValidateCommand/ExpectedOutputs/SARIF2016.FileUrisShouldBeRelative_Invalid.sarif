@@ -10,15 +10,18 @@
             {
               "id": "SARIF2016",
               "name": "FileUrisShouldBeRelative",
-              "shortDescription": {
-                "text": "When an artifact location refers to a file on the local file system, specify a relative reference for the uri property and provide a uriBaseId property, rather than specifying an absolute URI."
-              },
               "fullDescription": {
                 "text": "When an artifact location refers to a file on the local file system, specify a relative reference for the uri property and provide a uriBaseId property, rather than specifying an absolute URI.\r\n\r\nThere are several advantages to this approach:\r\n\r\nPortability: A log file that contains relative references together with uriBaseI properties can be interpreted on a machine where the files are located at a different absolute location.\r\n\r\nDeterminism: A log file that uses uriBaseId properties has a better chance of being 'deterministic'; that is, of being identical from run to run if none of its inputs have changed, even if those runs occur on machines where the files are located at different absolute locations.\r\n\r\nSecurity: The use of uriBaseId properties avoids the persistence of absolute path names in the log file. Absolute path names can reveal information that might be sensitive.\r\n\r\nSemantics: Assuming the reader of the log file (an end user or another tool) has the necessary context, they can understand the meaning of the location specified by the uri property, for example, 'this is a source file'."
               },
               "messageStrings": {
                 "Note_Default": {
                   "text": "{0}: The file location '{1}' is specified with absolute URI. Prefer a relative reference together with a uriBaseId property."
+                },
+                "Note_ShouldNotContainBackSlash": {
+                  "text": "{0}: The relative file URL '{1}' contains one or more backslashes, which will be preserved when concatenating to an absolute URL. This can result in inconsistent representations, compared to URLs created from an absolute file path, which may be regarded as not equivalent. Replace all backslashes with forward slashes."
+                },
+                "Note_ShouldNotStartWithSlash": {
+                  "text": "{0}: The relative file URL '{1}' is prefixed with a leading slash, which can lead to unintended behavior when concatenating with absolute URLs. Remove the leading slash."
                 }
               },
               "defaultConfiguration": {
@@ -63,6 +66,56 @@
                 "region": {
                   "startLine": 28,
                   "startColumn": 48
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF2016",
+          "ruleIndex": 0,
+          "level": "note",
+          "message": {
+            "id": "Note_ShouldNotStartWithSlash",
+            "arguments": [
+              "runs[0].results[0].locations[1].physicalLocation.artifactLocation.uri",
+              "/src/test.c"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 35,
+                  "startColumn": 38
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF2016",
+          "ruleIndex": 0,
+          "level": "note",
+          "message": {
+            "id": "Note_ShouldNotContainBackSlash",
+            "arguments": [
+              "runs[0].results[0].locations[2].physicalLocation.artifactLocation.uri",
+              "\\src\\test.c"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 42,
+                  "startColumn": 40
                 }
               }
             }

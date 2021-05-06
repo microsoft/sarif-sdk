@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Diagnostics;
 using System.Linq;
+
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
@@ -92,7 +93,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                         break;
                     }
                 }
-
             }
 
             return result;
@@ -101,16 +101,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
             JArray ja;
-            if (value is StringSet)
+            if (value is StringSet stringSet)
             {
-                StringSet hashSet = (StringSet)value;
-                ja = new JArray(hashSet.Select(i => new JValue(i)));
+                ja = new JArray(stringSet.Select(i => new JValue(i)));
                 ja.WriteTo(writer);
             }
-            else if (value is IntegerSet)
+            else if (value is IntegerSet integetSet)
             {
-                IntegerSet hashSet = (IntegerSet)value;
-                ja = new JArray(hashSet.Select(i => new JValue(i)));
+                ja = new JArray(integetSet.Select(i => new JValue(i)));
                 ja.WriteTo(writer);
             }
             else
@@ -124,7 +122,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                     object dictionaryValue = dictionary[key];
 
-                    Type t = typeof(object);
                     if (dictionaryValue is IDictionary ||
                         dictionaryValue is IntegerSet ||
                         dictionaryValue is StringSet)
@@ -145,5 +142,4 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
     }
-
 }

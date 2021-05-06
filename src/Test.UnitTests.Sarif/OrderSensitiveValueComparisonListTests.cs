@@ -3,7 +3,9 @@
 
 using System;
 using System.Collections.Generic;
+
 using FluentAssertions;
+
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.UnitTests
@@ -14,7 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
     /// behavior provided by Object.Equals and friends (this functionality is
     /// what's invoked when calling List.Contains). Our comparer only exists
     /// for testing, because ObjectEqualityComparer is an internal type. We
-    /// don't cover all possible cases to make the types equivalent; the 
+    /// don't cover all possible cases to make the types equivalent; the
     /// implementation covers enough for core validation.
     /// </summary>
     /// <typeparam name="T"></typeparam>

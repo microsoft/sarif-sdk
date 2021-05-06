@@ -30,6 +30,8 @@
     Do not create a directory containing the binaries that need to be signed.
 .PARAMETER Associate
     Associate SARIF files with Visual Studio.
+.PARAMETER NoFormat
+    Do not format files based on dotnet-format tool
 #>
 
 [CmdletBinding()]
@@ -71,7 +73,10 @@ param(
     $NoSigningDirectory,
 
     [switch]
-    $Associate
+    $Associate,
+    
+    [switch]
+    $NoFormat
 )
 
 Set-StrictMode -Version Latest
@@ -81,32 +86,25 @@ $InformationPreference = "Continue"
 $ScriptName = $([io.Path]::GetFileNameWithoutExtension($PSCommandPath))
 
 Import-Module -Force $PSScriptRoot\ScriptUtilities.psm1
+Import-Module -Force $PSScriptRoot\NuGetUtilities.psm1
 Import-Module -Force $PSScriptRoot\Projects.psm1
 
 function Invoke-DotNetBuild($solutionFileRelativePath) {
     Write-Information "Building $solutionFileRelativePath..."
 
     $solutionFilePath = Join-Path $SourceRoot $solutionFileRelativePath
-    & dotnet build  $solutionFilePath -c $Configuration -v $BuildVerbosity -maxcpucount:1 --no-incremental
+    & dotnet build $solutionFilePath --configuration $Configuration --verbosity $BuildVerbosity --no-incremental -bl
     
     if ($LASTEXITCODE -ne 0) {
         Exit-WithFailureMessage $ScriptName "Build of $solutionFilePath failed."
     }
 }
 
-function Invoke-Build {
-    Invoke-DotNetBuild $SolutionFile
-}
-
-function Invoke-BuildSample {
-    Invoke-DotNetBuild $sampleSolutionFile
-}
-
 # Create a directory containing all files necessary to execute an application.
 # This operation is called "publish" because it is performed by "dotnet publish".
 function Publish-Application($project, $framework) {
     Write-Information "Publishing $project for $framework ..."
-    dotnet publish $SourceRoot\$project\$project.csproj --no-restore --configuration $Configuration --framework $framework
+    dotnet publish $SourceRoot\$project\$project.csproj --no-build --configuration $Configuration --framework $framework
 }
 
 # Create a directory populated with the binaries that need to be signed.
@@ -157,20 +155,70 @@ function Set-SarifFileAssociationRegistrySettings {
     }
 }
 
-& $PSScriptRoot\BeforeBuild.ps1 -NuGetVerbosity $NuGetVerbosity -NoClean:$NoClean -NoRestore:$NoRestore -NoObjectModel:$NoObjectModel
+function Remove-BuildOutput {
+    Remove-DirectorySafely $BuildRoot
+    foreach ($project in $Projects.All) {
+        $objDir = "$SourceRoot\$project\obj"
+        Remove-DirectorySafely $objDir
+    }
+}
+
+# Install-VersionConstantsFile
+#
+# Create a source file containing a class that specifies the NuGet package
+# version number, and place it in the Sarif project directory.
+#
+function Install-VersionConstantsFile {
+    # The name of the project in which to install VersionConstants.cs.
+    $targetProjectName = "Sarif"
+
+    # The element in build.props from which to extract the root of the namespace
+    # used in VersionConstants.cs.
+    $xPath = "/msbuild:Project/msbuild:PropertyGroup[@Label='Build']/msbuild:RootNamespaceBase"
+    $xml = Select-Xml -Path $BuildPropsPath -Namespace $MSBuildXmlNamespaces -XPath $xPath
+    $rootNamespaceBase = $xml.Node.InnerText
+
+    $targetProjectDirectory = "$SourceRoot\$targetProjectName"
+    $rootNamespace = "$rootNamespaceBase.$targetProjectName"
+
+    & $PSScriptRoot\New-VersionConstantsFile.ps1 $targetProjectDirectory $rootNamespace
+}
+
+if (-not $NoClean) {
+    Remove-BuildOutput
+}
+
+Install-VersionConstantsFile
+
+if (-not $NoRestore) {
+    Write-Information "Restoring NuGet packages for $SampleSolutionFile..."
+        & $NuGetExePath restore -ConfigFile $NuGetConfigFile -Verbosity $NuGetVerbosity -OutputDirectory $NuGetSamplesPackageRoot $SourceRoot\$SampleSolutionFile
+    if ($LASTEXITCODE -ne 0) {
+        Exit-WithFailureMessage $ScriptName "NuGet restore failed for $SampleSolutionFile."
+    }
+}
+
+if (-not $NoObjectModel) {
+    # Generate the SARIF object model classes from the SARIF JSON schema.
+    dotnet msbuild /verbosity:minimal /target:BuildAndInjectObjectModel $SourceRoot\Sarif\Sarif.csproj /fileloggerparameters:Verbosity=detailed`;LogFile=CodeGen.log
+    if ($LASTEXITCODE -ne 0) {
+        Exit-WithFailureMessage $ScriptName "SARIF object model generation failed."
+    }
+}
+
 if (-not $?) {
     Exit-WithFailureMessage $ScriptName "BeforeBuild failed."
 }
 
 if (-not $NoBuild) {
-    Invoke-Build
-    Invoke-BuildSample
+    Invoke-DotNetBuild $SolutionFile
+    Invoke-DotNetBuild $sampleSolutionFile
 }
 
 if (-not $NoTest) {
-    & $PSScriptRoot\Run-Tests.ps1 $Configuration
-    if (-not $?) {
-        Exit-WithFailureMessage $ScriptName "RunTests failed."
+    & dotnet test $SourceRoot\$SolutionFile --no-build --configuration $Configuration
+    if ($LASTEXITCODE -ne 0) {
+        Exit-WithFailureMessage $ScriptName "Tests failed."
     }
 }
 
@@ -187,7 +235,15 @@ if (-not $NoSigningDirectory) {
 }
 
 if (-not $NoPackage) {
-    New-NuGetPackages $Configuration $Projects
+    & dotnet pack $SourceRoot\$SolutionFile --no-build --configuration $Configuration
+    if ($LASTEXITCODE -ne 0) {
+        Exit-WithFailureMessage $ScriptName "Tests failed."
+    }
+}
+
+if (-not $NoFormat) {
+    dotnet tool update --global dotnet-format --version 4.1.131201
+    dotnet-format --folder --exclude .\src\Sarif\Autogenerated\
 }
 
 if ($Associate) {

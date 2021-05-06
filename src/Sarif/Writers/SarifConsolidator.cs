@@ -1,5 +1,5 @@
-// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License.
+// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Collections.Generic;
 using System.Linq;
@@ -58,7 +58,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     if (a.Location != null)
                     {
                         a.Location.Index = -1;
-                        a.Location.UriBaseId = (this.RemoveUriBaseIds ? null : a.Location.UriBaseId);
+                        a.Location.UriBaseId = this.RemoveUriBaseIds ? null : a.Location.UriBaseId;
                     }
                 }
             }
@@ -83,13 +83,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             if (result == null) { return; }
 
             // Remove Result components if configured to
-            result.CodeFlows = (this.RemoveCodeFlows ? null : result.CodeFlows);
-            result.RelatedLocations = (this.RemoveRelatedLocations ? null : result.RelatedLocations);
-            result.Graphs = (this.RemoveGraphs ? null : result.Graphs);
-            result.GraphTraversals = (this.RemoveGraphs ? null : result.GraphTraversals);
-            result.Stacks = (this.RemoveStacks ? null : result.Stacks);
-            result.WebRequest = (this.RemoveWebRequests ? null : result.WebRequest);
-            result.WebResponse = (this.RemoveWebResponses ? null : result.WebResponse);
+            result.CodeFlows = this.RemoveCodeFlows ? null : result.CodeFlows;
+            result.RelatedLocations = this.RemoveRelatedLocations ? null : result.RelatedLocations;
+            result.Graphs = this.RemoveGraphs ? null : result.Graphs;
+            result.GraphTraversals = this.RemoveGraphs ? null : result.GraphTraversals;
+            result.Stacks = this.RemoveStacks ? null : result.Stacks;
+            result.WebRequest = this.RemoveWebRequests ? null : result.WebRequest;
+            result.WebResponse = this.RemoveWebResponses ? null : result.WebResponse;
 
             // Truncate long Messages if configured
             if (this.MessageLengthLimitChars > 0)

@@ -33,6 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         protected override void Dispose(bool disposing)
         {
+            OutputTo.Clear();
             OutputTo.Append(Encoding.UTF8.GetString(this.ToArray()));
             base.Dispose(disposing);
         }

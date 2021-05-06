@@ -1,8 +1,13 @@
-﻿using System;
+﻿// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+
 using Microsoft.CodeAnalysis.Sarif.Query.Evaluators;
+
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Query
@@ -83,7 +88,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Query
 
             // Value (bool) didn't parse
             Assert.Throws<QueryParseException>(() => Run(0, "InProgress != 40", set));
-
         }
 
         private static void Run(int expectedCount, string query, IList<SampleItem> set)
@@ -119,7 +123,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Query
 
             Assert.Throws<QueryParseException>(() => Run(0, "Unknown > 5", values));
             Assert.Throws<QueryParseException>(() => Run(0, "Value > Bill", values));
-
         }
 
         private static void Run(int expectedCount, string query, long[] values)

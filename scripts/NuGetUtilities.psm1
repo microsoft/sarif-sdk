@@ -58,7 +58,6 @@ function New-NuGetPackageFromNuSpecFile($configuration, $project, $version, $suf
 
     $arguments=
         "pack", $nuspecFile,
-        "-Symbols",
         "-Properties", "platform=$Platform;configuration=$configuration;version=$version",
         "-Verbosity", "Quiet",
         "-BasePath", ".\",

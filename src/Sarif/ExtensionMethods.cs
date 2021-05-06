@@ -1,17 +1,16 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.using System;
-
-using Microsoft.CodeAnalysis.Sarif.Visitors;
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml;
+
+using Microsoft.CodeAnalysis.Sarif.Visitors;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -26,6 +25,16 @@ namespace Microsoft.CodeAnalysis.Sarif
                 case SplittingStrategy.PerResult:
                 {
                     partitionFunction = (result) => result.RuleId;
+                    break;
+                }
+                case SplittingStrategy.PerRun:
+                {
+                    foreach (Run run in sarifLog.Runs)
+                    {
+                        run.SetRunOnResults();
+                    }
+
+                    partitionFunction = (result) => result.Run.GetHashCode().ToString();
                     break;
                 }
                 default:
@@ -145,8 +154,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     phrasedWithAnd = string.Join(", ", phrasedWithAnd, string.Format("'{0}'", words[j]));
                 }
-                phrasedWithAnd = string.Join(" and ", phrasedWithAnd, string.Format("'{0}'", words[words.Count - 1]));
-                return phrasedWithAnd;
+                return string.Join(" and ", phrasedWithAnd, string.Format("'{0}'", words[words.Count - 1]));
             }
         }
 
@@ -165,10 +173,17 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (!uri.IsAbsoluteUri)
             {
-                throw new InvalidOperationException();
+                const string baseUri = "https://example.com";
+                var newAbsoluteUri = new Uri(new Uri(baseUri), uri.OriginalString);
+                return Path.GetFileName(newAbsoluteUri.LocalPath);
             }
 
             return Path.GetFileName(uri.LocalPath);
+        }
+
+        public static string GetFilePath(this Uri uri)
+        {
+            return uri.IsAbsoluteUri ? uri.LocalPath : uri.OriginalString;
         }
 
         public static string FormatForVisualStudio(this Region region)
@@ -191,7 +206,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             //    (startLine,startColumn,endLine,endColumn)
 
             bool multiline = region.EndLine > region.StartLine;
-            bool multicolumn = (multiline || region.EndColumn > region.StartColumn);
+            bool multicolumn = multiline || region.EndColumn > region.StartColumn;
 
             if (multiline)
             {
@@ -295,14 +310,19 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 case ResultKind.Informational:
                     return "info";
+
                 case ResultKind.NotApplicable:
                     return "notapplicable";
+
                 case ResultKind.Open:
                     return "open";
+
                 case ResultKind.Pass:
                     return "pass";
+
                 case ResultKind.Review:
                     return "review";
+
                 default:
                     return "info";
             }

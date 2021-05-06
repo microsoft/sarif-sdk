@@ -1,5 +1,5 @@
-// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License.
+// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
 using System.Collections;
@@ -10,8 +10,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
     /// <summary>
     ///  StringEvaluator implements IExpressionEvaluator given a getter which can
     ///  get the desired Property Name as a string.
-    ///  
-    ///  Usage: 
+    ///
+    ///  Usage:
     ///    if (String.Equals(term.PropertyName, "FileName", StringComparison.OrdinalIgnoreCase))
     ///    {
     ///        // Show the StringEvaluator how to get the 'FileName' property string, and it'll implement the term matching.
@@ -72,7 +72,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
             int i = 0;
             foreach (T item in list)
             {
-                matches.Set(i, string.Compare(_getter(item) ?? "", _value, _stringComparison) == 0);
+                matches.Set(i, string.Equals(_getter(item) ?? "", _value, _stringComparison));
                 i++;
             }
         }
@@ -82,7 +82,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
             int i = 0;
             foreach (T item in list)
             {
-                matches.Set(i, string.Compare(_getter(item) ?? "", _value, _stringComparison) != 0);
+                matches.Set(i, !string.Equals(_getter(item) ?? "", _value, _stringComparison));
                 i++;
             }
         }

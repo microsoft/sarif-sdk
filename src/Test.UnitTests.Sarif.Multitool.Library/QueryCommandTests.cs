@@ -2,7 +2,9 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.IO;
+
 using Microsoft.CodeAnalysis.Sarif.Query;
+
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
@@ -42,7 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             // Verify output file
             string outputFilePath = "elfie-arriba.CSCAN0020.actual.sarif";
-            RunAndVerifyCount(1, new QueryOptions() { Expression = "RuleId = 'CSCAN0020/0'", InputFilePath = filePath, OutputFilePath = outputFilePath, PrettyPrint = true, Force = true });
+            RunAndVerifyCount(1, new QueryOptions() { Expression = "RuleId = 'CSCAN0020/0'", InputFilePath = filePath, OutputFilePath = outputFilePath, Minify = false, Force = true });
 
             string expected = Extractor.GetResourceText("QueryCommand.elfie-arriba.CSCAN0020.sarif");
             string actual = File.ReadAllText(outputFilePath);

@@ -6,6 +6,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     public interface IAnalysisLogger
     {
         void AnalysisStarted();
+
         void AnalysisStopped(RuntimeConditions runtimeConditions);
 
         void AnalyzingTarget(IAnalysisContext context);
@@ -32,12 +33,5 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The notification to log.
         /// </param>
         void LogConfigurationNotification(Notification notification);
-
-        /// <summary>
-        /// Log a simple message for display to users (which 
-        /// will not be persisted to log files)
-        /// </summary>
-        /// <param name="message"></param>
-        void LogMessage(bool verbose, string message);
     }
 }

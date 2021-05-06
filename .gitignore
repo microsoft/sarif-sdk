@@ -3,6 +3,7 @@
 
 # Dev machine files
 appsettings.local.json
+*.binlog
 
 # User-specific files
 *.suo
@@ -11,6 +12,7 @@ appsettings.local.json
 *.sln.docstates
 *.opendb
 *.db
+*.binlog 
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs

@@ -1,11 +1,11 @@
-﻿// Copyright (c) Microsoft. All rights reserved. Licensed under the MIT        
-// license. See LICENSE file in the project root for full license information. 
-
-using Microsoft.CodeAnalysis.Sarif.Visitors;
+﻿// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
+using Microsoft.CodeAnalysis.Sarif.Visitors;
 
 namespace Microsoft.CodeAnalysis.Sarif.Processors
 {
@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
 
         public static SarifLog RebaseUri(this SarifLog sarifLog, string basePathToken, bool rebaseRelativeUris, Uri uri)
         {
-            return (new List<SarifLog>() { sarifLog }).RebaseUri(basePathToken, rebaseRelativeUris, uri).Single();
+            return new List<SarifLog>() { sarifLog }.RebaseUri(basePathToken, rebaseRelativeUris, uri).Single();
         }
 
         public static IEnumerable<SarifLog> MakeUrisAbsolute(this IEnumerable<SarifLog> sarifLogs)
@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
 
         public static SarifLog MakeUrisAbsolute(this SarifLog sarifLog)
         {
-            return (new List<SarifLog>() { sarifLog }).MakeUrisAbsolute().Single();
+            return new List<SarifLog>() { sarifLog }.MakeUrisAbsolute().Single();
         }
 
         public static IEnumerable<SarifLog> RemoveOptionalData(this IEnumerable<SarifLog> sarifLogs, OptionallyEmittedData optionalData)
@@ -46,7 +46,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
 
         public static SarifLog RemoveOptionalData(this SarifLog sarifLog, OptionallyEmittedData optionalData)
         {
-            return (new List<SarifLog>() { sarifLog }).RemoveOptionalData(optionalData).Single();
+            return new List<SarifLog>() { sarifLog }.RemoveOptionalData(optionalData).Single();
         }
 
         public static IEnumerable<SarifLog> InsertOptionalData(this IEnumerable<SarifLog> sarifLogs, OptionallyEmittedData optionalData)
@@ -56,7 +56,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
 
         public static SarifLog InsertOptionalData(this SarifLog sarifLog, OptionallyEmittedData optionalData)
         {
-            return (new List<SarifLog>() { sarifLog }).InsertOptionalData(optionalData).Single();
+            return new List<SarifLog>() { sarifLog }.InsertOptionalData(optionalData).Single();
         }
     }
 }

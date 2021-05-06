@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.
+﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
@@ -36,12 +36,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             while (exceptions.Count > 0)
             {
                 Stack stack;
-                Exception current;
+                Exception current = exceptions.Dequeue();
 
-                current = exceptions.Dequeue();
-
-                var aggregated = current as AggregateException;
-                if (aggregated != null)
+                if (current is AggregateException aggregated)
                 {
                     foreach (Exception e in aggregated.InnerExceptions)
                     {
@@ -105,13 +102,10 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             stack.Frames = new List<StackFrame>();
 
-            var regex = new Regex(StackFrame.AT + @"([^)]+\))(" + StackFrame.IN + @"([^:]+:[^:]+)" + StackFrame.LINE + @" (.*))?", RegexOptions.Compiled);
+            var regex = new Regex(StackFrame.AT + @"([^)]+\))(" + StackFrame.IN + "([^:]+:[^:]+)" + StackFrame.LINE + " (.*))?", RegexOptions.Compiled);
 
             foreach (string line in stackTrace.Split(new string[] { Environment.NewLine }, StringSplitOptions.None))
             {
-                // at Type.Method() in File.cs : line X
-                string current = line;
-
                 var stackFrame = new StackFrame();
 
                 Match match = regex.Match(line);

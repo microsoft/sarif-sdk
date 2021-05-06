@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.
+﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
@@ -9,12 +9,11 @@ namespace Microsoft.CodeAnalysis.Sarif
     public partial class ArtifactLocation
     {
         /// <summary>
-        /// Attempt to reconstruct a URI, if appropriate, using Run instance 
+        /// Attempt to reconstruct a URI, if appropriate, using Run instance
         /// originalUriBaseId and uriBaseId properties. If this method cannot
         /// successfully reconstitute an absolute URI, it will return false
         /// and populate 'resolvedUri' with null.
         /// </summary>
-        /// <param name="fileLocation">The fileLocatio instance from which an absolute URI should be reconstructed, if possible.</param>
         /// <param name="originalUriBaseIds">The original uri base id values associated with the tool run.</param>
         /// <param name="resolvedUri">The reconstructed absolute URI or null (if an absolute URI cannot be reconstructed).</param>
         /// <returns></returns>
@@ -50,11 +49,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                // I'd like to use the ctor new Uri(baseUri, relativeUri) here, but it fails with
-                // ArgumentOutOfRangeException, perhaps because it doesn't like the baseUri argument
-                // to be relative. So...
                 string artifactLocationOriginalUriString = artifactLocation.Uri.OriginalString;
-                if (!artifactLocationOriginalUriString.EndsWith("/")) { artifactLocationOriginalUriString += "/"; }
+                if (!artifactLocation.Uri.ToString().EndsWith("/")) { artifactLocationOriginalUriString += "/"; }
                 stemUri = new Uri(artifactLocationOriginalUriString + stemUri.OriginalString, UriKind.RelativeOrAbsolute);
             }
 

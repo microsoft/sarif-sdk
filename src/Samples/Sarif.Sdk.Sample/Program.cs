@@ -5,9 +5,12 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+
 using CommandLine;
+
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.CodeAnalysis.Sarif.Writers;
+
 using Newtonsoft.Json;
 
 namespace Sarif.Sdk.Sample
@@ -298,7 +301,7 @@ namespace Sarif.Sdk.Sample
             {
                 using (var sarifLogger = new SarifLogger(
                     textWriter,
-                    loggingOptions: LoggingOptions.PrettyPrint, // Use PrettyPrint to generate readable (multi-line, indented) JSON
+                    logFilePersistenceOptions: LogFilePersistenceOptions.PrettyPrint, // Use PrettyPrint to generate readable (multi-line, indented) JSON
                     dataToInsert:
                         OptionallyEmittedData.TextFiles |       // Embed source file content directly in the log file -- great for portability of the log!
                         OptionallyEmittedData.Hashes |

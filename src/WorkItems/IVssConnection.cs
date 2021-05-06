@@ -9,7 +9,7 @@ namespace Microsoft.WorkItems
     /// <summary>
     /// This interface allows for mocking of the low-level VssConnection class.
     /// </summary>
-    internal interface IVssConnection: IDisposable
+    internal interface IVssConnection : IDisposable
     {
         /// <summary>
         /// Provide for both the instantiation of the connection instance followed by
@@ -21,9 +21,8 @@ namespace Microsoft.WorkItems
         Task ConnectAsync(Uri accountUri, string personalAccessToken);
 
         /// <summary>
-        ///  Interface abstraction for VssConnection.GetClientAsync
+        /// Interface abstraction for VssConnection.GetClientAsync
         /// </summary>
-        /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         Task<IWorkItemTrackingHttpClient> GetClientAsync();
     }

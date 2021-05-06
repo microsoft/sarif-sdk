@@ -6,10 +6,13 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Reflection;
 using System.Text;
+
 using FluentAssertions;
+
 using Microsoft.CodeAnalysis.Sarif.Converters;
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Writers;
+
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -73,7 +76,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             string file = this.GetType().Assembly.Location;
             string doesNotExist = Guid.NewGuid().ToString();
-            Action action = () => _converter.ConvertToStandardFormat(ToolFormat.AndroidStudio, doesNotExist, file, LoggingOptions.OverwriteExistingOutputFile);
+            Action action = () => _converter.ConvertToStandardFormat(ToolFormat.AndroidStudio, doesNotExist, file, LogFilePersistenceOptions.OverwriteExistingOutputFile);
 
             action.Should().Throw<FileNotFoundException>();
         }
@@ -96,7 +99,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 string expectedOutput = File.ReadAllText(expectedOutputFileName, Encoding.UTF8);
                 string actualOutputFileName = tempDir.Write("output_actual.xml", new string('a', expectedOutput.Length + 4096));
-                _converter.ConvertToStandardFormat(ToolFormat.CppCheck, inputFileName, actualOutputFileName, LoggingOptions.OverwriteExistingOutputFile);
+                _converter.ConvertToStandardFormat(ToolFormat.CppCheck, inputFileName, actualOutputFileName, LogFilePersistenceOptions.OverwriteExistingOutputFile);
                 string actualOutput = File.ReadAllText(actualOutputFileName, Encoding.UTF8);
 
                 actualOutput.Should().Be(expectedOutput);
@@ -118,7 +121,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     ToolName,
                     inputFilePath,
                     outputFilePath,
-                    LoggingOptions.None,
+                    LogFilePersistenceOptions.None,
                     OptionallyEmittedData.None,
                     PluginAssemblyPath);
 
@@ -150,7 +153,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     ToolName,
                     inputFilePath,
                     outputFilePath,
-                    LoggingOptions.None,
+                    LogFilePersistenceOptions.None,
                     OptionallyEmittedData.None,
                     PluginAssemblyPath);
 
@@ -174,7 +177,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     ToolName,
                     inputFilePath,
                     outputFilePath,
-                    LoggingOptions.None,
+                    LogFilePersistenceOptions.None,
                     OptionallyEmittedData.None,
                     pluginAssemblyPath);
 
@@ -198,7 +201,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     ToolName,
                     inputFilePath,
                     outputFilePath,
-                    LoggingOptions.None,
+                    LogFilePersistenceOptions.None,
                     OptionallyEmittedData.None,
                     pluginAssemblyPath);
 
@@ -224,7 +227,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     ToolName,
                     inputFilePath,
                     outputFilePath,
-                    LoggingOptions.None,
+                    LogFilePersistenceOptions.None,
                     OptionallyEmittedData.None,
                     pluginAssemblyPath);
 
@@ -248,7 +251,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     ToolName,
                     inputFilePath,
                     outputFilePath,
-                    LoggingOptions.None,
+                    LogFilePersistenceOptions.None,
                     OptionallyEmittedData.None,
                     pluginAssemblyPath);
 
@@ -272,7 +275,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     ToolName,
                     inputFilePath,
                     outputFilePath,
-                    LoggingOptions.None,
+                    LogFilePersistenceOptions.None,
                     OptionallyEmittedData.None,
                     pluginAssemblyPath);
 
@@ -296,7 +299,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     ToolName,
                     inputFilePath,
                     outputFilePath,
-                    LoggingOptions.None,
+                    LogFilePersistenceOptions.None,
                     OptionallyEmittedData.None,
                     pluginAssemblyPath);
 
@@ -320,7 +323,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     ToolName,
                     inputFilePath,
                     outputFilePath,
-                    LoggingOptions.None,
+                    LogFilePersistenceOptions.None,
                     OptionallyEmittedData.None,
                     pluginAssemblyPath);
 
@@ -346,7 +349,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     ToolFormat.AndroidStudio,
                     inputFilePath,
                     outputFilePath,
-                    LoggingOptions.None,
+                    LogFilePersistenceOptions.None,
                     OptionallyEmittedData.None,
                     pluginAssemblyPath);
 

@@ -1,5 +1,5 @@
-// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License.
+// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
 {
     /// <summary>
     ///  TrustMap determines how much to trust different Result attributes for matching.
-    ///  
+    ///
     ///  Trust is the product of how often values match and how unique the values were.
     ///  An attribute which always has the same value will have very low trust.
     ///  An attribute which never matches will have very low trust.
@@ -43,11 +43,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
                 {
                     // Simplification of (Match / Unique) * (Unique / Use)
                     // The product of how many values match and how many unique values there were
-                    return Math.Max(DefaultTrust, ((float)value.MatchCount) / (float)(value.UseCount));
+                    return Math.Max(DefaultTrust, ((float)value.MatchCount) / (float)value.UseCount);
                 }
                 else
                 {
-                    return Math.Max(DefaultTrust, ((float)value.UniqueValues.Count) / (float)(value.UseCount));
+                    return Math.Max(DefaultTrust, ((float)value.UniqueValues.Count) / (float)value.UseCount);
                 }
             }
 
@@ -145,9 +145,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
 
             public override bool Equals(object obj)
             {
-                if (obj is TrustKey)
+                if (obj is TrustKey trustKey)
                 {
-                    return Equals((TrustKey)obj);
+                    return Equals(trustKey);
                 }
 
                 return false;

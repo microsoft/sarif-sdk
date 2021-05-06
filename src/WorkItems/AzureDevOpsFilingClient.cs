@@ -6,12 +6,14 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+
 using Microsoft.Extensions.Logging;
 using Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models;
 using Microsoft.VisualStudio.Services.WebApi;
 using Microsoft.VisualStudio.Services.WebApi.Patch;
 using Microsoft.VisualStudio.Services.WebApi.Patch.Json;
 using Microsoft.WorkItems.Logging;
+
 using Newtonsoft.Json;
 
 namespace Microsoft.WorkItems
@@ -265,14 +267,12 @@ namespace Microsoft.WorkItems
                         });
                 }
 
-                WorkItem workItem = null;
-
                 try
                 {
                     if (int.TryParse(workItemModel.Uri.OriginalString.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries).LastOrDefault(), out int workItemId))
                     {
                         Logger.LogInformation($"Updating work item id: {workItemId}");
-                        workItem = await _witClient.UpdateWorkItemAsync(patchDocument, id: workItemId);
+                        _ = await _witClient.UpdateWorkItemAsync(patchDocument, id: workItemId);
 
                         Logger.LogInformation($"UPDATED: {workItemModel.Uri}");
                     }

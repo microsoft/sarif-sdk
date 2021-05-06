@@ -4,9 +4,13 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+
 using FluentAssertions;
+
 using Moq;
+
 using Newtonsoft.Json;
+
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
@@ -29,9 +33,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             RunAndCompare(new PageOptions() { Index = 3, Count = 2, InputFilePath = sampleFilePath, OutputFilePath = pagedSamplePath });
 
             string minifiedPath = "elfie-arriba.min.sarif";
-            IFileSystem fileSystem = new FileSystem();
+            IFileSystem fileSystem = FileSystem.Instance;
             SarifLog log = PageCommand.ReadSarifFile<SarifLog>(fileSystem, sampleFilePath);
-            PageCommand.WriteSarifFile(fileSystem, log, minifiedPath, Formatting.None);
+            PageCommand.WriteSarifFile(fileSystem, log, minifiedPath, minify: true);
 
             // Minified file, valid subsets
             RunAndCompare(new PageOptions() { Index = 1, Count = 2, InputFilePath = minifiedPath, OutputFilePath = pagedSamplePath });
@@ -184,7 +188,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         private static void RunAndCompare(PageOptions options)
         {
-            IFileSystem fileSystem = new FileSystem();
+            IFileSystem fileSystem = FileSystem.Instance;
             string actualPath = Path.ChangeExtension(options.OutputFilePath, "act.json");
             string expectPath = Path.ChangeExtension(options.OutputFilePath, "exp.json");
 
@@ -203,11 +207,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             // Rewrite indented
             SarifLog actual = PageCommand.ReadSarifFile<SarifLog>(fileSystem, options.OutputFilePath);
-            PageCommand.WriteSarifFile(fileSystem, actual, actualPath, Formatting.Indented);
+            PageCommand.WriteSarifFile(fileSystem, actual, actualPath, minify: false);
 
             // Run "Page via OM"
             SarifLog expected = command.PageViaOm(options);
-            PageCommand.WriteSarifFile(fileSystem, expected, expectPath, Formatting.Indented);
+            PageCommand.WriteSarifFile(fileSystem, expected, expectPath, minify: false);
 
             string actualText = File.ReadAllText(actualPath);
             string expectedText = File.ReadAllText(expectPath);

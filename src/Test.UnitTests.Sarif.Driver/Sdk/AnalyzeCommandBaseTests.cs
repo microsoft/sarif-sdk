@@ -7,13 +7,19 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+
 using FluentAssertions;
+
 using Microsoft.CodeAnalysis.Sarif.Converters;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
 using Microsoft.CodeAnalysis.Sarif.Writers;
+using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
+
 using Moq;
+
 using Newtonsoft.Json;
+
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
@@ -24,20 +30,39 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         private const int SUCCESS = AnalyzeCommandBase<TestAnalysisContext, AnalyzeOptionsBase>.SUCCESS;
 
         private void ExceptionTestHelper(
-            TestRuleBehaviors testRuleBehaviors,
             RuntimeConditions runtimeConditions,
             ExitReason expectedExitReason = ExitReason.None,
             TestAnalyzeOptions analyzeOptions = null)
         {
-            TestRule.s_testRuleBehaviors = testRuleBehaviors;
-            analyzeOptions = analyzeOptions ?? new TestAnalyzeOptions()
+            analyzeOptions ??= new TestAnalyzeOptions()
             {
-                TargetFileSpecifiers = new string[0]
+                TargetFileSpecifiers = new string[] { }
             };
 
-            analyzeOptions.Quiet = true;
+            ExceptionTestHelperImplementation(
+                runtimeConditions, expectedExitReason,
+                analyzeOptions,
+                multithreaded: false);
 
-            var command = new TestAnalyzeCommand();
+            ExceptionTestHelperImplementation(
+                runtimeConditions, expectedExitReason,
+                analyzeOptions,
+                multithreaded: true);
+        }
+
+        private void ExceptionTestHelperImplementation(
+             RuntimeConditions runtimeConditions,
+             ExitReason expectedExitReason,
+             TestAnalyzeOptions analyzeOptions,
+             bool multithreaded)
+        {
+            TestRule.s_testRuleBehaviors = analyzeOptions.TestRuleBehaviors.AccessibleOutsideOfContextOnly();
+
+            analyzeOptions = analyzeOptions ?? new TestAnalyzeOptions()
+            {
+                TestRuleBehaviors = analyzeOptions.TestRuleBehaviors.AccessibleWithinContextOnly(),
+                TargetFileSpecifiers = new string[0]
+            };
 
             Assembly[] plugInAssemblies = null;
 
@@ -56,7 +81,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 plugInAssemblies = new Assembly[] { typeof(TestRule).Assembly };
             }
 
-            command.DefaultPlugInAssemblies = plugInAssemblies;
+            ITestAnalyzeCommand command = multithreaded
+                ? (ITestAnalyzeCommand)new TestMultithreadedAnalyzeCommand()
+                : (ITestAnalyzeCommand)new TestAnalyzeCommand();
+
+            command.DefaultPluginAssemblies = plugInAssemblies;
 
             int result = command.Run(analyzeOptions);
 
@@ -85,17 +114,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             TestRule.s_testRuleBehaviors = TestRuleBehaviors.None;
         }
 
-
         [Fact]
         public void InvalidCommandLineOption()
         {
             var options = new TestAnalyzeOptions
             {
-                RegardOptionsAsInvalid = true
+                TestRuleBehaviors =
+                    TestRuleBehaviors.RaiseExceptionValidatingOptions |
+                    TestRuleBehaviors.RegardOptionsAsInvalid
             };
 
             ExceptionTestHelper(
-                TestRuleBehaviors.RaiseExceptionValidatingOptions,
                 RuntimeConditions.InvalidCommandLineOption,
                 ExitReason.InvalidCommandLineOption,
                 options);
@@ -106,28 +135,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             var options = new TestAnalyzeOptions()
             {
-                TargetFileSpecifiers = new string[] { GetThisTestAssemblyFilePath() },
-                RegardAnalysisTargetAsNotApplicable = true
+                TestRuleBehaviors = TestRuleBehaviors.RegardAnalysisTargetAsNotApplicable,
+                TargetFileSpecifiers = new string[] { GetThisTestAssemblyFilePath() }
             };
 
             ExceptionTestHelper(
-                TestRuleBehaviors.None,
                 RuntimeConditions.RuleNotApplicableToTarget,
                 analyzeOptions: options);
         }
-
 
         [Fact]
         public void InvalidTarget()
         {
             var options = new TestAnalyzeOptions()
             {
+                TestRuleBehaviors = TestRuleBehaviors.RegardAnalysisTargetAsInvalid,
                 TargetFileSpecifiers = new string[] { GetThisTestAssemblyFilePath() },
-                RegardAnalysisTargetAsValid = false
             };
 
             ExceptionTestHelper(
-                TestRuleBehaviors.None,
                 RuntimeConditions.TargetNotValidToAnalyze,
                 analyzeOptions: options);
         }
@@ -137,12 +163,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             var options = new TestAnalyzeOptions()
             {
-                TargetFileSpecifiers = new string[] { GetThisTestAssemblyFilePath() },
-                RegardAnalysisTargetAsCorrupted = true
+                TestRuleBehaviors = TestRuleBehaviors.RegardAnalysisTargetAsCorrupted,
+                TargetFileSpecifiers = new string[] { GetThisTestAssemblyFilePath() }
             };
 
             ExceptionTestHelper(
-                TestRuleBehaviors.None,
                 RuntimeConditions.ExceptionLoadingTargetFile,
                 analyzeOptions: options);
         }
@@ -152,11 +177,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             var options = new TestAnalyzeOptions()
             {
+                TestRuleBehaviors = TestRuleBehaviors.RaiseExceptionInvokingConstructor,
                 TargetFileSpecifiers = new string[] { GetThisTestAssemblyFilePath() },
             };
 
             ExceptionTestHelper(
-                TestRuleBehaviors.RaiseExceptionInvokingConstructor,
                 RuntimeConditions.ExceptionInstantiatingSkimmers,
                 ExitReason.UnhandledExceptionInstantiatingSkimmers,
                 analyzeOptions: options);
@@ -174,7 +199,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             };
 
             ExceptionTestHelper(
-                TestRuleBehaviors.None,
                 RuntimeConditions.NoRulesLoaded,
                 ExitReason.NoRulesLoaded,
                 analyzeOptions: options
@@ -185,7 +209,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public void NoValidAnalysisTargets()
         {
             ExceptionTestHelper(
-                TestRuleBehaviors.None,
                 RuntimeConditions.NoValidAnalysisTargets,
                 ExitReason.NoValidAnalysisTargets
             );
@@ -196,11 +219,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             var options = new TestAnalyzeOptions()
             {
+                TestRuleBehaviors = TestRuleBehaviors.RaiseExceptionInvokingInitialize,
                 TargetFileSpecifiers = new string[] { GetThisTestAssemblyFilePath() },
             };
 
             ExceptionTestHelper(
-                TestRuleBehaviors.RaiseExceptionInvokingInitialize,
                 RuntimeConditions.ExceptionInSkimmerInitialize,
                 analyzeOptions: options
             );
@@ -217,7 +240,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             };
 
             ExceptionTestHelper(
-                TestRuleBehaviors.None,
                 RuntimeConditions.None,
                 analyzeOptions: options
             );
@@ -228,11 +250,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             var options = new TestAnalyzeOptions()
             {
+                TestRuleBehaviors = TestRuleBehaviors.RaiseTargetParseError,
                 TargetFileSpecifiers = new string[] { GetThisTestAssemblyFilePath() },
             };
 
             ExceptionTestHelper(
-                TestRuleBehaviors.RaiseTargetParseError,
                 RuntimeConditions.TargetParseError,
                 analyzeOptions: options
             );
@@ -243,11 +265,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             var options = new TestAnalyzeOptions()
             {
+                TestRuleBehaviors = TestRuleBehaviors.RaiseExceptionInvokingCanAnalyze,
                 TargetFileSpecifiers = new string[] { GetThisTestAssemblyFilePath() },
             };
 
             ExceptionTestHelper(
-                TestRuleBehaviors.RaiseExceptionInvokingCanAnalyze,
                 RuntimeConditions.ExceptionRaisedInSkimmerCanAnalyze,
                 analyzeOptions: options
             );
@@ -258,11 +280,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             var options = new TestAnalyzeOptions()
             {
+                TestRuleBehaviors = TestRuleBehaviors.RaiseExceptionInvokingAnalyze,
                 TargetFileSpecifiers = new string[] { GetThisTestAssemblyFilePath() },
             };
 
             ExceptionTestHelper(
-                TestRuleBehaviors.RaiseExceptionInvokingAnalyze,
                 RuntimeConditions.ExceptionInSkimmerAnalyze,
                 analyzeOptions: options
             );
@@ -272,6 +294,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public void ExceptionRaisedInEngine()
         {
             TestAnalyzeCommand.RaiseUnhandledExceptionInDriverCode = true;
+            TestMultithreadedAnalyzeCommand.RaiseUnhandledExceptionInDriverCode = true;
 
             var options = new TestAnalyzeOptions()
             {
@@ -279,7 +302,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             };
 
             ExceptionTestHelper(
-                TestRuleBehaviors.None,
                 RuntimeConditions.ExceptionInEngine,
                 ExitReason.UnhandledExceptionInEngine,
                 analyzeOptions: options);
@@ -303,12 +325,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     {
                         TargetFileSpecifiers = new string[] { GetThisTestAssemblyFilePath() },
                         OutputFilePath = path,
-                        Verbose = true,
                         Force = true
                     };
 
                     ExceptionTestHelper(
-                        TestRuleBehaviors.None,
                         RuntimeConditions.ExceptionCreatingLogFile,
                         expectedExitReason: ExitReason.ExceptionCreatingLogFile,
                         analyzeOptions: options);
@@ -333,12 +353,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 {
                     TargetFileSpecifiers = new string[] { GetThisTestAssemblyFilePath() },
                     OutputFilePath = path,
-                    Verbose = true,
                     Force = true
                 };
 
                 ExceptionTestHelper(
-                    TestRuleBehaviors.None,
                     RuntimeConditions.ExceptionCreatingLogFile,
                     expectedExitReason: ExitReason.ExceptionCreatingLogFile,
                     analyzeOptions: options);
@@ -354,12 +372,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var options = new TestAnalyzeOptions()
             {
                 TargetFileSpecifiers = new string[] { GetThisTestAssemblyFilePath() },
-                ConfigurationFilePath = path,
-                Verbose = true,
+                ConfigurationFilePath = path
             };
 
             ExceptionTestHelper(
-                TestRuleBehaviors.None,
                 RuntimeConditions.MissingFile,
                 expectedExitReason: ExitReason.InvalidCommandLineOption,
                 analyzeOptions: options);
@@ -374,12 +390,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var options = new TestAnalyzeOptions()
             {
                 TargetFileSpecifiers = new string[] { GetThisTestAssemblyFilePath() },
-                PluginFilePaths = new string[] { path },
-                Verbose = true,
+                PluginFilePaths = new string[] { path }
             };
 
             ExceptionTestHelper(
-                TestRuleBehaviors.None,
                 RuntimeConditions.MissingFile,
                 expectedExitReason: ExitReason.InvalidCommandLineOption,
                 analyzeOptions: options);
@@ -396,21 +410,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 var options = new TestAnalyzeOptions()
                 {
                     TargetFileSpecifiers = new string[] { GetThisTestAssemblyFilePath() },
-                    OutputFilePath = path,
-                    Verbose = true,
+                    OutputFilePath = path
                 };
 
                 // A missing output file is a good condition. :)
-                ExceptionTestHelper(
-                    TestRuleBehaviors.None,
+                ExceptionTestHelperImplementation(
                     RuntimeConditions.None,
                     expectedExitReason: ExitReason.None,
-                    analyzeOptions: options);
+                    analyzeOptions: options,
+                    multithreaded: false);
 
                 if (File.Exists(path)) { File.Delete(path); }
+
+                ExceptionTestHelperImplementation(
+                    RuntimeConditions.None,
+                    expectedExitReason: ExitReason.None,
+                    analyzeOptions: options,
+                    multithreaded: true);
             }
             finally
             {
+                if (File.Exists(path)) { File.Delete(path); }
             }
         }
 
@@ -423,7 +443,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             };
 
             ExceptionTestHelper(
-                TestRuleBehaviors.None,
                 RuntimeConditions.InvalidCommandLineOption,
                 expectedExitReason: ExitReason.InvalidCommandLineOption,
                 analyzeOptions: options);
@@ -434,18 +453,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             var options = new TestAnalyzeOptions()
             {
+                TestRuleBehaviors = TestRuleBehaviors.TreatPlatformAsInvalid,
                 TargetFileSpecifiers = new string[] { GetThisTestAssemblyFilePath() },
             };
 
             // There are two default rules, so when this check is not on a supported platform, 
             // a single rule will still be loaded.
             ExceptionTestHelper(
-                TestRuleBehaviors.TreatPlatformAsInvalid,
                 RuntimeConditions.RuleCannotRunOnPlatform,
                 expectedExitReason: ExitReason.None,
                 analyzeOptions: options);
         }
-
 
         [Fact]
         public void AnalyzeCommandBase_ReportsWarningOnUnsupportedPlatformForRuleAndNoRulesLoaded()
@@ -456,8 +474,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             try
             {
                 allRulesDisabledConfiguration.SaveToXml(path);
+
                 var options = new TestAnalyzeOptions()
                 {
+                    // This option needs to be specified here as the file-based 
+                    // configuration has not yet been read when skimmers are loaded.
+                    // This means we can't use that data to inject a skimmer 
+                    // behavior to assert that it doesn't work against the current
+                    // platform.
+                    TestRuleBehaviors = TestRuleBehaviors.TreatPlatformAsInvalid,
                     TargetFileSpecifiers = new string[] { GetThisTestAssemblyFilePath() },
                     ConfigurationFilePath = path
                 };
@@ -465,7 +490,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 // There are two default rules. One of which is disabled by configuration,
                 // the other is disabled as unsupported on current platform.
                 ExceptionTestHelper(
-                    TestRuleBehaviors.TreatPlatformAsInvalid,
                     RuntimeConditions.NoRulesLoaded | RuntimeConditions.RuleWasExplicitlyDisabled | RuntimeConditions.RuleCannotRunOnPlatform,
                     expectedExitReason: ExitReason.NoRulesLoaded,
                     analyzeOptions: options);
@@ -481,6 +505,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public Run AnalyzeFile(
             string fileName,
+            TestRuleBehaviors behaviors = TestRuleBehaviors.None,
             string configFileName = null,
             RuntimeConditions runtimeConditions = RuntimeConditions.None,
             int expectedReturnCode = TestAnalyzeCommand.SUCCESS)
@@ -493,19 +518,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 var options = new TestAnalyzeOptions
                 {
                     TargetFileSpecifiers = new string[] { fileName },
-                    Verbose = true,
-                    Statistics = true,
                     Quiet = true,
-                    ComputeFileHashes = true,
                     ConfigurationFilePath = configFileName ?? TestAnalyzeCommand.DefaultPolicyName,
                     Recurse = true,
                     OutputFilePath = path,
                     SarifOutputVersion = SarifVersion.Current,
-                    Force = true
+                    Force = true,
+                    TestRuleBehaviors = behaviors
                 };
 
                 var command = new TestAnalyzeCommand();
-                command.DefaultPlugInAssemblies = new Assembly[] { this.GetType().Assembly };
+                command.DefaultPluginAssemblies = new Assembly[] { this.GetType().Assembly };
                 int result = command.Run(options);
 
                 result.Should().Be(expectedReturnCode);
@@ -531,16 +554,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             string location = GetThisTestAssemblyFilePath();
 
-            Run run = null;
-            try
-            {
-                TestRule.s_testRuleBehaviors = TestRuleBehaviors.LogError;
-                run = AnalyzeFile(location);
-            }
-            finally
-            {
-                TestRule.s_testRuleBehaviors = TestRuleBehaviors.None;
-            }
+            Run run = AnalyzeFile(location, TestRuleBehaviors.LogError);
 
             int resultCount = 0;
             int toolNotificationCount = 0;
@@ -572,10 +586,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 var options = new TestAnalyzeOptions
                 {
                     TargetFileSpecifiers = new string[] { fileName },
-                    Verbose = true,
-                    Statistics = true,
                     Quiet = true,
-                    ComputeFileHashes = true,
+                    DataToInsert = new OptionallyEmittedData[] { OptionallyEmittedData.Hashes },
                     ConfigurationFilePath = TestAnalyzeCommand.DefaultPolicyName,
                     Recurse = true,
                     OutputFilePath = path,
@@ -585,7 +597,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 };
 
                 var command = new TestAnalyzeCommand();
-                command.DefaultPlugInAssemblies = new Assembly[] { this.GetType().Assembly };
+                command.DefaultPluginAssemblies = new Assembly[] { this.GetType().Assembly };
                 int returnValue = command.Run(options);
 
                 returnValue.Should().Be(0);
@@ -612,16 +624,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             string location = GetThisTestAssemblyFilePath();
 
-            Run run = null;
-            try
-            {
-                TestRule.s_testRuleBehaviors = TestRuleBehaviors.LogError;
-                run = AnalyzeFile(location);
-            }
-            finally
-            {
-                TestRule.s_testRuleBehaviors = TestRuleBehaviors.None;
-            }
+            Run run = AnalyzeFile(location, TestRuleBehaviors.LogError);
 
             int resultCount = 0;
             int toolNotificationCount = 0;
@@ -671,7 +674,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 // As configured by context, we should see a single error raised. 
                 resultCount.Should().Be(1);
-                run.Results.Where((result) => result.Level == FailureLevel.Error).Count().Should().Be(1);
+                run.Results.Count((result) => result.Level == FailureLevel.Error).Should().Be(1);
 
                 toolNotificationCount.Should().Be(0);
                 configurationNotificationCount.Should().Be(0);
@@ -722,11 +725,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 run.Invocations.Count.Should().Be(1);
 
                 // Error: all rules were disabled
-                run.Invocations[0].ToolConfigurationNotifications.Where((notification) => notification.Level == FailureLevel.Error).Count().Should().Be(1);
-                run.Invocations[0].ToolConfigurationNotifications.Where((notification) => notification.Descriptor.Id == Errors.ERR997_AllRulesExplicitlyDisabled).Count().Should().Be(1);
+                run.Invocations[0].ToolConfigurationNotifications.Count((notification) => notification.Level == FailureLevel.Error).Should().Be(1);
+                run.Invocations[0].ToolConfigurationNotifications.Count((notification) => notification.Descriptor.Id == Errors.ERR997_AllRulesExplicitlyDisabled).Should().Be(1);
 
                 // Warnings: one per disabled rule.
-                run.Invocations[0].ToolConfigurationNotifications.Where((notification) => notification.Level == FailureLevel.Warning).Count().Should().Be(2);
+                run.Invocations[0].ToolConfigurationNotifications.Count((notification) => notification.Level == FailureLevel.Warning).Should().Be(2);
                 run.Invocations[0].ToolConfigurationNotifications.Where((notification) => notification.Descriptor.Id == Warnings.Wrn999_RuleExplicitlyDisabled).Count().Should().Be(2);
 
                 // We raised a notification error, which means the invocation failed.
@@ -754,18 +757,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var options = new TestAnalyzeOptions
             {
                 TargetFileSpecifiers = new string[] { "" },
-                Verbose = true,
-                Statistics = true,
                 Quiet = true,
-                ComputeFileHashes = true,
+                DataToInsert = new OptionallyEmittedData[] { OptionallyEmittedData.Hashes },
                 ConfigurationFilePath = configValue,
                 Recurse = true,
                 OutputFilePath = "",
             };
 
-            var command = new TestAnalyzeCommand();
+            var mockFileSystem = new Mock<IFileSystem>();
 
-            string fileName = command.GetConfigurationFileName(options, defaultFileExists);
+            mockFileSystem.Setup(x => x.FileExists(It.IsAny<string>())).Returns(defaultFileExists);
+
+            var command = new TestAnalyzeCommand(mockFileSystem.Object);
+
+            string fileName = command.GetConfigurationFileName(options);
             if (string.IsNullOrEmpty(expectedFileName))
             {
                 fileName.Should().BeNull();
@@ -819,7 +824,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 Message = new Message
                 {
                     Arguments = new List<string> { filePath, fileName },
-                    Text = string.Format(@"Found an issue in {0} (full path is {1}", filePath, fileName)
+                    Text = string.Format("Found an issue in {0} (full path is {1}", filePath, fileName)
                 }
             };
         }
@@ -832,13 +837,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var testCases = new Tuple<string, string>[]
             {
                 new Tuple<string, string>(null, null),
-                new Tuple<string, string>(@"file.txt", "file.txt"),
+                new Tuple<string, string>("file.txt", "file.txt"),
                 new Tuple<string, string>(@".\file.txt", "file.txt"),
                 new Tuple<string, string>(@"c:\directory\file.txt", "file.txt"),
                 new Tuple<string, string>(@"\\computer\computer\file.txt", "file.txt"),
-                new Tuple<string, string>(@"file://directory/file.txt", "file.txt"),
-                new Tuple<string, string>(@"/file.txt", "file.txt"),
-                new Tuple<string, string>(@"directory/file.txt", "file.txt"),
+                new Tuple<string, string>("file://directory/file.txt", "file.txt"),
+                new Tuple<string, string>("/file.txt", "file.txt"),
+                new Tuple<string, string>("directory/file.txt", "file.txt"),
             };
 
             foreach (Tuple<string, string> testCase in testCases)
@@ -850,7 +855,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 if (!object.Equals(actualFileName, expectedFileName))
                 {
-                    sb.AppendLine(string.Format("Incorrect file name returned for uri '{0}'. Expected '{1}' but saw '{2}'.", uri, expectedFileName, actualFileName));
+                    sb.AppendFormat("Incorrect file name returned for uri '{0}'. Expected '{1}' but saw '{2}'.", uri, expectedFileName, actualFileName).AppendLine();
                 }
             }
             sb.Length.Should().Be(0, because: "all URI to file name conversions should succeed but the following cases failed." + Environment.NewLine + sb.ToString());
@@ -872,7 +877,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             testCase.Verbose = true;
             RunResultsCachingTestCase(testCase);
         }
-
 
         [Fact]
         public void AnalyzeCommandBase_CachesNotes()
@@ -1002,16 +1006,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             var options = new TestAnalyzeOptions
             {
+                TestRuleBehaviors = testCase.TestRuleBehaviors,
                 OutputFilePath = testCase.PersistLogFileToDisk ? Guid.NewGuid().ToString() : null,
                 TargetFileSpecifiers = new string[] { Guid.NewGuid().ToString() },
-                Verbose = testCase.Verbose,
-                ComputeFileHashes = false,
+                Kind = new List<ResultKind> { ResultKind.Fail },
+                Level = new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error }
             };
+
+            if (testCase.Verbose)
+            {
+                options.Kind = new List<ResultKind> { ResultKind.Informational, ResultKind.Open, ResultKind.Review, ResultKind.Fail, ResultKind.Pass, ResultKind.NotApplicable, ResultKind.None };
+                options.Level = new List<FailureLevel> { FailureLevel.Error, FailureLevel.Warning, FailureLevel.Note, FailureLevel.None };
+            }
 
             int expectedResultsCount = testCase.ExpectedWarningCount + testCase.ExpectedErrorCount;
             Run runWithoutCaching = RunAnalyzeCommand(options, testCase);
 
-            options.ComputeFileHashes = true;
+            options.DataToInsert = new OptionallyEmittedData[] { OptionallyEmittedData.Hashes };
             Run runWithCaching = RunAnalyzeCommand(options, testCase);
 
             // Core static analysis results
@@ -1036,16 +1047,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var mockFileSystem = new Mock<IFileSystem>();
 
             mockFileSystem.Setup(x => x.DirectoryExists(It.IsAny<string>())).Returns(true);
-            mockFileSystem.Setup(x => x.GetDirectoriesInDirectory(It.IsAny<string>())).Returns(new string[0]);
-            mockFileSystem.Setup(x => x.GetFilesInDirectory(It.IsAny<string>(), It.IsAny<string>())).Returns(files);
+            mockFileSystem.Setup(x => x.DirectoryEnumerateFiles(It.IsAny<string>())).Returns(new string[0]);
+            mockFileSystem.Setup(x => x.DirectoryGetFiles(It.IsAny<string>(), It.IsAny<string>())).Returns(files);
 
             for (int i = 0; i < files.Count; i++)
             {
                 string fullyQualifiedName = Environment.CurrentDirectory + @"\" + files[i];
                 string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fullyQualifiedName);
-                mockFileSystem.Setup(x => x.ReadAllText(It.Is<string>(f => f == fullyQualifiedName))).Returns(logFileContents);
+                mockFileSystem.Setup(x => x.FileReadAllText(It.Is<string>(f => f == fullyQualifiedName))).Returns(logFileContents);
 
-                mockFileSystem.Setup(x => x.OpenRead(It.Is<string>(f => f == fullyQualifiedName)))
+                mockFileSystem.Setup(x => x.FileOpenRead(It.Is<string>(f => f == fullyQualifiedName)))
                     .Returns(new MemoryStream(Encoding.UTF8.GetBytes(fileNameWithoutExtension)));
             }
             return mockFileSystem.Object;
@@ -1057,7 +1068,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             SarifLog sarifLog;
             try
             {
-                TestRule.s_testRuleBehaviors = testCase.TestRuleBehaviors;
+                TestRule.s_testRuleBehaviors = testCase.TestRuleBehaviors.AccessibleOutsideOfContextOnly();
                 sarifLog = RunAnalyzeCommand(options, testCase.FileSystem, testCase.ExpectedReturnCode);
                 run = sarifLog.Runs[0];
 
@@ -1076,7 +1087,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             bool captureConsoleOutput = string.IsNullOrEmpty(options.OutputFilePath);
 
             var command = new TestAnalyzeCommand(fileSystem) { _captureConsoleOutput = captureConsoleOutput };
-            command.DefaultPlugInAssemblies = new Assembly[] { typeof(AnalyzeCommandBaseTests).Assembly };
+            command.DefaultPluginAssemblies = new Assembly[] { typeof(AnalyzeCommandBaseTests).Assembly };
 
             try
             {
@@ -1125,11 +1136,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 get
                 {
-                    if (_fileSystem == null)
-                    {
-                        _fileSystem = CreateDefaultFileSystemForResultsCaching(Files);
-                    }
-                    return _fileSystem;
+                    return _fileSystem ??= CreateDefaultFileSystemForResultsCaching(Files);
                 }
 
                 set => _fileSystem = value;
@@ -1192,7 +1199,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             // to results. This will require us to recompute expected notification vs.
             // results counts depending on whether we are examining the console output
             // or an actual persisted log file to validate outcomes.
-            bool NotificationsWillBeConvertedToErrorResults => TestRuleBehaviors == TestRuleBehaviors.RaiseTargetParseError && !PersistLogFileToDisk;
+            public bool NotificationsWillBeConvertedToErrorResults => TestRuleBehaviors == TestRuleBehaviors.RaiseTargetParseError && !PersistLogFileToDisk;
         }
         #endregion ResultsCachingTestsAndHelpers
     }

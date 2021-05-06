@@ -8,11 +8,12 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security;
+
 using Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
-    public abstract class AnalyzeCommandBase<TContext, TOptions> : PlugInDriverCommand<TOptions>
+    public abstract class AnalyzeCommandBase<TContext, TOptions> : PluginDriverCommand<TOptions>
         where TContext : IAnalysisContext, new()
         where TOptions : AnalyzeOptionsBase
     {
@@ -23,11 +24,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         // ways depending on whether output is captured to a log file disk or not. In the latter case,
         // the captured output is useful to verify behavior.
         internal bool _captureConsoleOutput;
+
         internal ConsoleLogger _consoleLogger;
 
         private Tool _tool;
         private TContext _rootContext;
-        private ResultsCachingLogger _resultsCachingLogger;
+        private CacheByFileHashLogger _cacheByFileHashLogger;
         private IDictionary<string, HashData> _pathToHashDataMap;
 
         public Exception ExecutionException { get; set; }
@@ -42,7 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         protected AnalyzeCommandBase(IFileSystem fileSystem = null)
         {
-            FileSystem = fileSystem ?? new FileSystem();
+            FileSystem = fileSystem ?? Sarif.FileSystem.Instance;
         }
 
         public string DefaultConfigurationPath
@@ -54,15 +56,36 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        public override int Run(TOptions analyzeOptions)
+        public override int Run(TOptions options)
         {
+            //  To correctly initialize the logger, we must first add Hashes to dataToInsert
+#pragma warning disable CS0618 // Type or member is obsolete
+            if (options.ComputeFileHashes)
+#pragma warning restore CS0618
+            {
+                OptionallyEmittedData dataToInsert = options.DataToInsert.ToFlags();
+                dataToInsert |= OptionallyEmittedData.Hashes;
+
+                options.DataToInsert = Enum.GetValues(typeof(OptionallyEmittedData)).Cast<OptionallyEmittedData>()
+                    .Where(oed => dataToInsert.HasFlag(oed)).ToList();
+            }
+
             // 0. Initialize an common logger that drives all outputs. This
             //    object drives logging for console, statistics, etc.
-            using (AggregatingLogger logger = InitializeLogger(analyzeOptions))
+            using (AggregatingLogger logger = InitializeLogger(options))
             {
+                //  Once the logger has been correctly initialized, we can raise a warning
+                _rootContext = CreateContext(options, logger, RuntimeErrors);
+#pragma warning disable CS0618 // Type or member is obsolete
+                if (options.ComputeFileHashes)
+#pragma warning restore CS0618
+                {
+                    Warnings.LogObsoleteOption(_rootContext, "--hashes", SdkResources.ComputeFileHashes_ReplaceInsertHashes);
+                }
+
                 try
                 {
-                    Analyze(analyzeOptions, logger);
+                    Analyze(options, logger);
                 }
                 catch (ExitApplicationException<ExitReason> ex)
                 {
@@ -72,7 +95,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 }
                 catch (Exception ex)
                 {
-                    // These exceptions escaped our net and must be logged here                    
+                    // These exceptions escaped our net and must be logged here
                     RuntimeErrors |= Errors.LogUnhandledEngineException(_rootContext, ex);
                     ExecutionException = ex;
                     return FAILURE;
@@ -85,7 +108,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             bool succeeded = (RuntimeErrors & ~RuntimeConditions.Nonfatal) == RuntimeConditions.None;
 
-            if (analyzeOptions.RichReturnCode)
+            if (options.RichReturnCode)
             {
                 return (int)RuntimeErrors;
             }
@@ -93,7 +116,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return succeeded ? SUCCESS : FAILURE;
         }
 
-        private void Analyze(TOptions analyzeOptions, AggregatingLogger logger)
+        private void Analyze(TOptions options, AggregatingLogger logger)
         {
             // 0. Log analysis initiation
             logger.AnalysisStarted();
@@ -101,31 +124,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             // 1. Create context object to pass to skimmers. The logger
             //    and configuration objects are common to all context
             //    instances and will be passed on again for analysis.
-            _rootContext = CreateContext(analyzeOptions, logger, RuntimeErrors);
+            _rootContext = CreateContext(options, logger, RuntimeErrors);
 
             // 2. Perform any command line argument validation beyond what
             //    the command line parser library is capable of.
-            ValidateOptions(_rootContext, analyzeOptions);
+            ValidateOptions(_rootContext, options);
 
-            // 3. Produce a comprehensive set of analysis targets 
-            ISet<string> targets = CreateTargetsSet(analyzeOptions);
+            // 3. Produce a comprehensive set of analysis targets
+            ISet<string> targets = CreateTargetsSet(options);
 
-            // 4. Proactively validate that we can locate and 
+            // 4. Proactively validate that we can locate and
             //    access all analysis targets. Helper will return
             //    a list that potentially filters out files which
             //    did not exist, could not be accessed, etc.
             targets = ValidateTargetsExist(_rootContext, targets);
 
             // 5. Initialize report file, if configured.
-            InitializeOutputFile(analyzeOptions, _rootContext, targets);
+            InitializeOutputFile(options, _rootContext, targets);
 
             // 6. Instantiate skimmers.
-            ISet<Skimmer<TContext>> skimmers = CreateSkimmers(_rootContext);
+            ISet<Skimmer<TContext>> skimmers = CreateSkimmers(options, _rootContext);
 
             // 7. Initialize configuration. This step must be done after initializing
             //    the skimmers, as rules define their specific context objects and
             //    so those assemblies must be loaded.
-            InitializeConfiguration(analyzeOptions, _rootContext);
+            InitializeConfiguration(options, _rootContext);
 
             // 8. Initialize skimmers. Initialize occurs a single time only. This
             //    step needs to occurs after initializing configuration in order
@@ -133,7 +156,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             skimmers = InitializeSkimmers(skimmers, _rootContext);
 
             // 9. Run all analysis
-            AnalyzeTargets(analyzeOptions, skimmers, _rootContext, targets);
+            AnalyzeTargets(options, skimmers, _rootContext, targets);
 
             // 10. For test purposes, raise an unhandled exception if indicated
             if (RaiseUnhandledExceptionInDriverCode)
@@ -151,9 +174,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             succeeded &= ValidateFiles(context, analyzeOptions.PluginFilePaths, shouldExist: true);
             succeeded &= ValidateInvocationPropertiesToLog(context, analyzeOptions.InvocationPropertiesToLog);
             succeeded &= ValidateOutputFileCanBeCreated(context, analyzeOptions.OutputFilePath, analyzeOptions.Force);
+            succeeded &= analyzeOptions.ValidateOutputOptions();
 
             if (!succeeded)
             {
+                //  TODO: This seems like uninformative error output.  All these errors get squished into one generic message
+                //  whenever something goes wrong. #2260 https://github.com/microsoft/sarif-sdk/issues/2260
                 ThrowExitApplicationException(context, ExitReason.InvalidCommandLineOption);
             }
         }
@@ -245,19 +271,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (!analyzeOptions.Quiet)
             {
-                _consoleLogger = new ConsoleLogger(analyzeOptions.Verbose, _tool.Driver.Name) { CaptureOutput = _captureConsoleOutput };
+                _consoleLogger = new ConsoleLogger(analyzeOptions.Quiet, _tool.Driver.Name, analyzeOptions.Level, analyzeOptions.Kind) { CaptureOutput = _captureConsoleOutput };
                 logger.Loggers.Add(_consoleLogger);
             }
 
-            if (analyzeOptions.ComputeFileHashes)
+            if ((analyzeOptions.DataToInsert.ToFlags() & OptionallyEmittedData.Hashes) != 0)
             {
-                _resultsCachingLogger = new ResultsCachingLogger(analyzeOptions.Verbose);
-                logger.Loggers.Add(_resultsCachingLogger);
-            }
-
-            if (analyzeOptions.Statistics)
-            {
-                logger.Loggers.Add(new StatisticsLogger());
+                _cacheByFileHashLogger = new CacheByFileHashLogger(analyzeOptions.Level, analyzeOptions.Kind);
+                logger.Loggers.Add(_cacheByFileHashLogger);
             }
 
             return logger;
@@ -299,19 +320,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             TOptions options,
             IAnalysisLogger logger,
             RuntimeConditions runtimeErrors,
+            PropertiesDictionary policy = null,
             string filePath = null)
         {
             var context = new TContext
             {
                 Logger = logger,
-                RuntimeErrors = runtimeErrors
+                RuntimeErrors = runtimeErrors,
+                Policy = policy
             };
 
             if (filePath != null)
             {
                 context.TargetUri = new Uri(filePath);
 
-                if (options.ComputeFileHashes)
+                if ((options.DataToInsert.ToFlags() & OptionallyEmittedData.Hashes) != 0)
                 {
                     if (_pathToHashDataMap != null && _pathToHashDataMap.TryGetValue(filePath, out HashData hashData))
                     {
@@ -331,10 +354,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         /// Calculate the file to load the configuration from.
         /// </summary>
         /// <param name="options">Options</param>
-        /// <param name="unitTestFileExists">Used only in unit testing, overrides "File.Exists".  
-        /// TODO--Restructure Sarif.Driver to use Sarif.IFileSystem for actions on file, to enable unit testing here instead.</param>
         /// <returns>Configuration file path, or null if the built in configuration should be used.</returns>
-        internal string GetConfigurationFileName(TOptions options, bool unitTestFileExists = false)
+        internal string GetConfigurationFileName(TOptions options)
         {
             if (options.ConfigurationFilePath == DefaultPolicyName)
             {
@@ -343,19 +364,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (string.IsNullOrEmpty(options.ConfigurationFilePath))
             {
-                if (!FileSystem.FileExists(DefaultConfigurationPath) && !unitTestFileExists)
-                {
-                    return null;
-                }
-
-                return DefaultConfigurationPath;
+                return !this.FileSystem.FileExists(this.DefaultConfigurationPath)
+                    ? null
+                    : DefaultConfigurationPath;
             }
             return options.ConfigurationFilePath;
         }
 
         protected virtual void InitializeConfiguration(TOptions options, TContext context)
         {
-            context.Policy = new PropertiesDictionary();
+            context.Policy ??= new PropertiesDictionary();
 
             string configurationFileName = GetConfigurationFileName(options);
             if (string.IsNullOrEmpty(configurationFileName))
@@ -394,15 +412,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 (
                     () =>
                     {
-                        LoggingOptions loggingOptions;
-                        loggingOptions = analyzeOptions.ConvertToLoggingOptions();
+                        LogFilePersistenceOptions logFilePersistenceOptions = analyzeOptions.ConvertToLogFilePersistenceOptions();
 
                         OptionallyEmittedData dataToInsert = analyzeOptions.DataToInsert.ToFlags();
                         OptionallyEmittedData dataToRemove = analyzeOptions.DataToRemove.ToFlags();
-
-                        // This code is required in order to support the obsolete ComputeFileHashes argument
-                        // on the analyze command-line.
-                        if (analyzeOptions.ComputeFileHashes) { dataToInsert |= OptionallyEmittedData.Hashes; }
 
                         SarifLogger sarifLogger;
 
@@ -410,27 +423,32 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         {
                             sarifLogger = new SarifLogger(
                                     analyzeOptions.OutputFilePath,
-                                    loggingOptions,
+                                    logFilePersistenceOptions,
                                     dataToInsert,
                                     dataToRemove,
                                     tool: _tool,
                                     run: null,
                                     analysisTargets: targets,
+                                    quiet: analyzeOptions.Quiet,
                                     invocationTokensToRedact: GenerateSensitiveTokensList(),
-                                    invocationPropertiesToLog: analyzeOptions.InvocationPropertiesToLog);
+                                    invocationPropertiesToLog: analyzeOptions.InvocationPropertiesToLog,
+                                    levels: analyzeOptions.Level,
+                                    kinds: analyzeOptions.Kind);
                         }
                         else
                         {
                             sarifLogger = new SarifOneZeroZeroLogger(
                                     analyzeOptions.OutputFilePath,
-                                    loggingOptions,
+                                    logFilePersistenceOptions,
                                     dataToInsert,
                                     dataToRemove,
                                     tool: _tool,
                                     run: null,
                                     analysisTargets: targets,
                                     invocationTokensToRedact: GenerateSensitiveTokensList(),
-                                    invocationPropertiesToLog: analyzeOptions.InvocationPropertiesToLog);
+                                    invocationPropertiesToLog: analyzeOptions.InvocationPropertiesToLog,
+                                    levels: analyzeOptions.Level,
+                                    kinds: analyzeOptions.Kind);
                         }
                         _pathToHashDataMap = sarifLogger.AnalysisTargetToHashDataMap;
                         sarifLogger.AnalysisStarted();
@@ -479,14 +497,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        protected virtual ISet<Skimmer<TContext>> CreateSkimmers(TContext context)
+        protected virtual ISet<Skimmer<TContext>> CreateSkimmers(TOptions analyzeOptions, TContext context)
         {
             IEnumerable<Skimmer<TContext>> skimmers;
-            SortedSet<Skimmer<TContext>> result = new SortedSet<Skimmer<TContext>>(SkimmerIdComparer<TContext>.Instance);
+            var result = new SortedSet<Skimmer<TContext>>(SkimmerIdComparer<TContext>.Instance);
 
             try
             {
-                skimmers = CompositionUtilities.GetExports<Skimmer<TContext>>(DefaultPlugInAssemblies);
+                skimmers = CompositionUtilities.GetExports<Skimmer<TContext>>(RetrievePluginAssemblies(DefaultPluginAssemblies, analyzeOptions.PluginFilePaths));
 
                 SupportedPlatform currentOS = GetCurrentRunningOS();
                 foreach (Skimmer<TContext> skimmer in skimmers)
@@ -503,7 +521,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
             catch (Exception ex)
             {
-                Errors.LogExceptionInstantiatingSkimmers(context, DefaultPlugInAssemblies, ex);
+                Errors.LogExceptionInstantiatingSkimmers(context, DefaultPluginAssemblies, ex);
                 ThrowExitApplicationException(context, ExitReason.UnhandledExceptionInstantiatingSkimmers, ex);
             }
 
@@ -554,6 +572,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     DefaultDriverOptions.CreateRuleSpecificOption(skimmer, DefaultDriverOptions.RuleEnabled);
 
                 RuleEnabledState ruleEnabled = rootContext.Policy.GetProperty(ruleEnabledProperty);
+                FailureLevel failureLevel = (ruleEnabled == RuleEnabledState.Default || ruleEnabled == RuleEnabledState.Disabled)
+                    ? default
+                    : (FailureLevel)Enum.Parse(typeof(FailureLevel), ruleEnabled.ToString());
 
                 if (ruleEnabled == RuleEnabledState.Disabled)
                 {
@@ -567,6 +588,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     // So disable it, but don't complain that the rule was explicitly disabled.
                     disabledSkimmers.Add(skimmer.Id);
                 }
+                else if (skimmer.DefaultConfiguration.Level != failureLevel
+                    && ruleEnabled != RuleEnabledState.Default
+                    && ruleEnabled != RuleEnabledState.Disabled)
+                {
+                    skimmer.DefaultConfiguration.Level = failureLevel;
+                }
             }
 
             if (disabledSkimmers.Count == skimmers.Count())
@@ -575,11 +602,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 ThrowExitApplicationException(rootContext, ExitReason.NoRulesLoaded);
             }
 
-            if (options.ComputeFileHashes)
+            if ((options.DataToInsert.ToFlags() & OptionallyEmittedData.Hashes) != 0)
             {
                 // If analysis is persisted to a disk log file, we will have already
                 // computed all file hashes and stored them to _pathToHashDataMap.
-                _pathToHashDataMap = _pathToHashDataMap ?? HashUtilities.MultithreadedComputeTargetFileHashes(targets);
+                _pathToHashDataMap = _pathToHashDataMap ?? HashUtilities.MultithreadedComputeTargetFileHashes(targets, options.Quiet);
             }
 
             foreach (string target in targets)
@@ -598,13 +625,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             string target,
             ISet<string> disabledSkimmers)
         {
-            TContext context = CreateContext(options, rootContext.Logger, rootContext.RuntimeErrors, target);
-            context.Policy = rootContext.Policy;
+            TContext context = CreateContext(
+                options,
+                rootContext.Logger,
+                rootContext.RuntimeErrors,
+                rootContext.Policy,
+                target);
 
-            if (options.ComputeFileHashes)
+            if ((options.DataToInsert.ToFlags() & OptionallyEmittedData.Hashes) != 0)
             {
-                _resultsCachingLogger.HashToResultsMap.TryGetValue(context.Hashes.Sha256, out List<Tuple<ReportingDescriptor, Result>> cachedResultTuples);
-                _resultsCachingLogger.HashToNotificationsMap.TryGetValue(context.Hashes.Sha256, out List<Notification> cachedNotifications);
+                _cacheByFileHashLogger.HashToResultsMap.TryGetValue(context.Hashes.Sha256, out List<Tuple<ReportingDescriptor, Result>> cachedResultTuples);
+                _cacheByFileHashLogger.HashToNotificationsMap.TryGetValue(context.Hashes.Sha256, out List<Notification> cachedNotifications);
 
                 bool replayCachedData = (cachedResultTuples != null || cachedNotifications != null);
 
@@ -672,7 +703,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     continue;
                 }
 
-
                 string oldFilePath = artifactLocation.Uri.OriginalString;
                 string newFilePath = updatedUri.OriginalString;
 
@@ -726,7 +756,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 }
                 catch (Exception ex)
                 {
-                    RuntimeErrors |= Errors.LogUnhandledRuleExceptionAnalyzingTarget(disabledSkimmers, context, ex);
+                    Errors.LogUnhandledRuleExceptionAnalyzingTarget(disabledSkimmers, context, ex);
+                    RuntimeErrors |= context.RuntimeErrors;
                 }
             }
         }
@@ -793,8 +824,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             SortedSet<Skimmer<TContext>> disabledSkimmers = new SortedSet<Skimmer<TContext>>(SkimmerIdComparer<TContext>.Instance);
 
-            // ONE-TIME initialization of skimmers. Do not call 
-            // Initialize more than once per skimmer instantiation
+            // ONE-TIME initialization of skimmers. Do not
+            // call more than once per skimmer instantiation.
             foreach (Skimmer<TContext> skimmer in skimmers)
             {
                 try

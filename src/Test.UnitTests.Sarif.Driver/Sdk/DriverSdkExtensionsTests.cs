@@ -4,8 +4,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using FluentAssertions;
-using Microsoft.CodeAnalysis.Sarif.Driver.Sdk;
+
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
@@ -39,11 +40,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             int childDirectoryCount = path.Split('\\').Length;
 
-
             string[] parentDirectorySpecifiers = new string[childDirectoryCount];
             for (int i = 0; i < childDirectoryCount; i++)
             {
-                parentDirectorySpecifiers[i] = @"..";
+                parentDirectorySpecifiers[i] = "..";
             }
 
             // Trim the drive letter off the path

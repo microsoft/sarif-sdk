@@ -1,10 +1,10 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 
 namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 {
@@ -13,18 +13,19 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         public static bool ShouldBeFiled(this Result result)
         {
             if (result.BaselineState == BaselineState.Absent ||
-                result.BaselineState == BaselineState.Updated)
+                result.BaselineState == BaselineState.Updated ||
+                result.BaselineState == BaselineState.Unchanged)
             {
                 return false;
             }
-                        
+
             if (result.Suppressions?.Count > 0) { return false; }
 
             // Fail: an explicit failure occurred.
             //
             // Open: a sound analysis is 'open' indicating that the analysis requires
             //       more configuration or other data in order to produce a determination.
-            // 
+            //
             // Review: an open item which can't be automated, i.e., which requires a
             //         manual review to resolve.
             return result.Kind == ResultKind.Fail ||
@@ -34,7 +35,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             // Designations which are not appropriate for filing:
             //
             // Pass: the scan target explicitly passed analysis.
-            // 
+            //
             // Not applicable: analysis was skipped because it was not
             //                 relevant to the scan target.
             //
@@ -82,16 +83,16 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                     firstResult.Level.ToString() + "]: " +
                     fullRuleId;
 
-            // In ADO, the title cannot be longer than 256 characters
+            // In ADO, the title cannot be longer than 255 characters
             const string ellipsis = "...";
-            const int maxChars = 256;
+            const int maxChars = 255;
             int remainingChars = maxChars - titlePrefix.Length - 6; // " ({0})".Length == 6
 
             // We encapsulate logical names in apostrophes to help indicate they are a symbol
             string locationName = "'" + firstResult.Locations?[0].LogicalLocation?.FullyQualifiedName + "'";
 
             if (locationName.Length > remainingChars)
-            { 
+            {
                 locationName = "'" + Path.GetFileName(firstResult.Locations?[0].LogicalLocation?.FullyQualifiedName) + "'";
 
                 if (locationName.Length > remainingChars)
@@ -139,7 +140,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                     .Select(result => result.ShouldBeFiled() ? 1 : 0).Sum())
                 .Sum() ?? 0;
         }
-        
+
         public static string CreateWorkItemDescription(this SarifLog log, SarifWorkItemContext context, IList<Uri> locationUris)
         {
             int totalResults = log.GetAggregateFilableResultsCount();

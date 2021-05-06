@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 using System;
 using System.Collections.Generic;
+
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Readers
@@ -9,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
     /// <summary>
     ///  DeferredDictionaryConverter is a JsonConverter which allows reading IDictionary&lt;string, T&gt;
     ///  items only at enumeration time, saving the memory cost of keeping every object around.
-    ///  
+    ///
     ///  The set of keys and the file position in the JSON stream of the values is pre-loaded and kept around
     ///  for fast retrieval.
     /// </summary>
@@ -30,8 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             }
 
             // If we don't have a positioned reader, we must return an error
-            JsonPositionedTextReader r = reader as JsonPositionedTextReader;
-            if (r == null)
+            if (!(reader is JsonPositionedTextReader r))
             {
                 throw new InvalidOperationException($"{nameof(DeferredDictionaryConverter<T>)} requires a {nameof(JsonPositionedTextReader)} be used for deserialization.");
             }

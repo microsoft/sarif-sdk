@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Microsoft.Json.Pointer;
 
@@ -11,6 +12,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class ProvideCodeSnippets : SarifValidationSkimmerBase
     {
+        public ProvideCodeSnippets()
+        {
+            this.DefaultConfiguration.Level = FailureLevel.Note;
+        }
+
         /// <summary>
         /// SARIF2010
         /// </summary>
@@ -25,8 +31,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         protected override IEnumerable<string> MessageResourceNames => new string[] {
             nameof(RuleResources.SARIF2010_ProvideCodeSnippets_Note_Default_Text)
         };
-
-        public override FailureLevel DefaultLevel => FailureLevel.Note;
 
         private IList<Artifact> artifacts;
         private IDictionary<string, ArtifactLocation> originalUriBaseIds;
@@ -100,7 +104,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 {
                     continue;
                 }
-
 
                 // if mimetype exists and is binary, continue to next
                 if (!string.IsNullOrEmpty(artifact.MimeType) && MimeType.IsBinaryMimeType(artifact.MimeType))

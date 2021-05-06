@@ -5,7 +5,9 @@ using System;
 using System.Collections.Immutable;
 using System.Xml;
 using System.Xml.Linq;
+
 using FluentAssertions;
+
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
@@ -58,7 +60,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
     <Snippet> Does Not Matter</Snippet>
   </Primary>
 </Issue>";
-
 
         [Fact]
         public void FortifyIssue_CanBeConstructed_WithAllProperties()

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.
+﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Creates a SARIF StackFrame instance from a .NET StackFrame instance
         /// </summary>
-        /// <param name="stackTrace"></param>
+        /// <param name="dotNetStackFrame"></param>
         /// <returns></returns>
         public static StackFrame Create(System.Diagnostics.StackFrame dotNetStackFrame)
         {
@@ -126,22 +126,22 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (type != null)
             {
                 sb.Append(type.FullName.Replace('+', '.'));
-                sb.Append(".");
+                sb.Append('.');
             }
             sb.Append(methodBase.Name);
 
             // deal with the generic portion of the method
-            if (methodBase is MethodInfo && ((MethodInfo)methodBase).IsGenericMethod)
+            if (methodBase is MethodInfo methodInfo && methodInfo.IsGenericMethod)
             {
-                Type[] typeArguments = ((MethodInfo)methodBase).GetGenericArguments();
-                sb.Append("[");
+                Type[] typeArguments = methodInfo.GetGenericArguments();
+                sb.Append('[');
                 int k = 0;
                 bool firstTypeParameter = true;
                 while (k < typeArguments.Length)
                 {
-                    if (firstTypeParameter == false)
+                    if (!firstTypeParameter)
                     {
-                        sb.Append(",");
+                        sb.Append(',');
                     }
                     else
                     {
@@ -151,11 +151,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                     sb.Append(typeArguments[k].Name);
                     k++;
                 }
-                sb.Append("]");
+                sb.Append(']');
             }
 
             // arguments printing
-            sb.Append("(");
+            sb.Append('(');
             ParameterInfo[] parameterInfos = methodBase.GetParameters();
             bool firstParameterInfo = true;
             for (int j = 0; j < parameterInfos.Length; j++)
@@ -174,9 +174,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     typeName = parameterInfos[j].ParameterType.Name;
                 }
-                sb.Append(typeName + " " + parameterInfos[j].Name);
+                sb.Append(typeName).Append(' ').Append(parameterInfos[j].Name);
             }
-            sb.Append(")");
+            sb.Append(')');
 
             return sb.ToString();
         }

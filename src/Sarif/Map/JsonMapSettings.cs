@@ -1,5 +1,5 @@
-﻿// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License.
+﻿// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
 
@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
         /// <param name="mapMaximumSizeBytes">Map size limit, in bytes (ex: 10 * JsonMapSettings.Megabyte), 0 for no limit</param>
         public JsonMapSettings(double mapSizeRatio, double mapMaximumSizeBytes = 0)
         {
-            if (mapSizeRatio <= 0 || mapSizeRatio > 100) { throw new ArgumentOutOfRangeException("maxFileSizePercentage must be > 0 and <= 100."); }
+            if (mapSizeRatio <= 0 || mapSizeRatio > 100) { throw new ArgumentOutOfRangeException(nameof(mapSizeRatio), $"{nameof(mapSizeRatio)} must be > 0 and <= 100."); }
             MapDesiredSizeRatio = mapSizeRatio;
             MapMaximumSizeBytes = mapMaximumSizeBytes;
         }

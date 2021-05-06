@@ -6,12 +6,16 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+
 using FluentAssertions;
+
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Microsoft.Json.Schema;
 using Microsoft.Json.Schema.Validation;
+
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -192,7 +196,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             @"v2\ConverterTestData",
             @"v2\SpecExamples",
             @"v2\ObsoleteFormats",
-            @"..\..\Test.UnitTests.Sarif\netcoreapp2.1\TestData"
+            @"..\..\Test.UnitTests.Sarif\netcoreapp3.1\TestData"
         };
 
         private static IEnumerable<string> s_testCases;

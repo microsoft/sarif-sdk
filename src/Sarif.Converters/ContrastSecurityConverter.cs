@@ -11,7 +11,9 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
+
 using Microsoft.CodeAnalysis.Sarif.Writers;
+
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -264,14 +266,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             foreach (string key in properties.Keys)
             {
                 if (KeyIsReservedPropertyName(key)) { continue; }
-                string value = properties[key];
                 locations.Add(new Location
                 {
                     PhysicalLocation = CreatePhysicalLocation(key)
                 });
 
-                examplePage = examplePage ?? key;
-                exampleHeader = exampleHeader ?? properties[key];
+                examplePage ??= key;
+                exampleHeader ??= properties[key];
             }
 
             string pageCount = locations.Count.ToString();
@@ -404,7 +405,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             foreach (string key in properties.Keys)
             {
                 if (KeyIsReservedPropertyName(key)) { continue; }
-                string value = properties[key];
                 locations.Add(new Location
                 {
                     PhysicalLocation = CreatePhysicalLocation(key)
@@ -937,7 +937,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 if (sb.Length > 0) { sb.Append(", "); }
 
                 // Item1 is the name, Item2 is the source type, e.g., parameter
-                if (!string.IsNullOrWhiteSpace(tuple.Item1)) { sb.Append(tuple.Item1 + ": "); }
+                if (!string.IsNullOrWhiteSpace(tuple.Item1)) { sb.Append(tuple.Item1).Append(": "); }
 
                 string sourceType = !string.IsNullOrWhiteSpace(tuple.Item2)
                     ? tuple.Item2
@@ -1163,7 +1163,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private readonly SparseReaderDispatchTable _dispatchTable;
 
         /// <summary>
-        /// Current context of the result 
+        /// Current context of the result
         /// </summary>
         /// <remarks>
         /// The context accumulates in memory during the streaming,
@@ -1426,7 +1426,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             reader.ReadChildren(SchemaStrings.ElementFindings, parent);
         }
-
 
         private void ReadFinding(SparseReader reader, object parent)
         {

@@ -3,9 +3,11 @@
 
 using System;
 using System.Threading.Tasks;
+
 using Microsoft.TeamFoundation.WorkItemTracking.WebApi;
 using Microsoft.VisualStudio.Services.Common;
 using Microsoft.VisualStudio.Services.WebApi;
+
 using Octokit;
 using Octokit.Internal;
 
@@ -15,7 +17,6 @@ namespace Microsoft.WorkItems
     {
         async public Task<IGitHubClientWrapper> ConnectAsync(string organization, string personalAccessToken)
         {
-
             var credentials = new Credentials(personalAccessToken);
             var credentialsStore = new InMemoryCredentialStore(credentials);
             GitHubClientWrapper gitHubClientWrapper;

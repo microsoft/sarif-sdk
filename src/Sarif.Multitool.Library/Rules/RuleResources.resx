@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="SARIF1001_RuleIdentifiersMustBeValid_Error_Default_Text" xml:space="preserve">
+  <data name="SARIF1001_RuleIdentifiersMustBeValid_Warning_Default_Text" xml:space="preserve">
     <value>{0}: The rule '{1}' has a 'name' property that is identical to its 'id' property. The required 'id' property must be a "stable, opaque identifier" (the SARIF specification ([3.49.3](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317839)) explains the reasons for this). The optional 'name' property ([3.49.7](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317843)) is an identifer that is understandable to an end user. Therefore if both 'id' and 'name' are present, they must be different. If they are identical, the tool must omit the 'name' property.</value>
   </data>
   <data name="SARIF1001_RuleIdentifiersMustBeValid_FullDescription_Text" xml:space="preserve">
@@ -127,17 +127,13 @@
     <value>{0}: The string '{1}' is not a valid URI reference. URIs must conform to [RFC 3986](https://tools.ietf.org/html/rfc3986).</value>
   </data>
   <data name="SARIF1002_UrisMustBeValid_FullDescription_Text" xml:space="preserve">
-    <value>Specify a valid URI reference for every URI-valued property.
-
-URIs must conform to [RFC 3986](https://tools.ietf.org/html/rfc3986). In addition, 'file' URIs must not include '..' segments. If symbolic links are present, '..' might have different meanings on the machine that produced the log file and the machine where an end user or a tool consumes it.</value>
+    <value>Specify a valid URI reference for every URI-valued property. URIs must conform to [RFC 3986](https://tools.ietf.org/html/rfc3986). In addition, 'file' URIs must not include '..' segments. If symbolic links are present, '..' might have different meanings on the machine that produced the log file and the machine where an end user or a tool consumes it.</value>
   </data>
   <data name="SARIF1006_InvocationPropertiesMustBeConsistent_Error_EndTimeMustNotPrecedeStartTime_Text" xml:space="preserve">
     <value>{0}: The 'endTimeUtc' value '{1}' precedes the 'startTimeUtc' value '{2}'. The properties of an 'invocation' object must be internally consistent.</value>
   </data>
   <data name="SARIF1006_InvocationPropertiesMustBeConsistent_FullDescription_Text" xml:space="preserve">
-    <value>The properties of an 'invocation' object must be consistent.
-
-If the 'invocation' object specifies both 'startTimeUtc' and 'endTimeUtc', then 'endTimeUtc' must not precede 'startTimeUtc'. To allow for the possibility that the duration of the run is less than the resolution of the string representation of the time, the start time and the end time may be equal.</value>
+    <value>The properties of an 'invocation' object must be consistent. If the 'invocation' object specifies both 'startTimeUtc' and 'endTimeUtc', then 'endTimeUtc' must not precede 'startTimeUtc'. To allow for the possibility that the duration of the run is less than the resolution of the string representation of the time, the start time and the end time may be equal.</value>
   </data>
   <data name="SARIF2001_TerminateMessagesWithPeriod_Warning_Default_Text" xml:space="preserve">
     <value>{0}: In rule '{1}', the message with id '{2}' does not end in a period. Express plain text rule messages as complete sentences. This guidance does not apply to Markdown messages, which might include formatting that makes the punctuation unnecessary.</value>
@@ -151,11 +147,7 @@ This is part of a set of authoring practices that make your rule messages more r
     <value>{0}: This 'artifactLocation' object has a 'uriBaseId' property '{1}', but its 'uri' property '{2}' is an absolute URI. Since the purpose of 'uriBaseId' is to resolve a relative reference to an absolute URI, it is not allowed when the 'uri' property is already an absolute URI.</value>
   </data>
   <data name="SARIF1004_ExpressUriBaseIdsCorrectly_FullDescription_Text" xml:space="preserve">
-    <value>When using the 'uriBaseId' property, obey the requirements in the SARIF specification [3.4.4](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317431) that enable it to fulfill its purpose of resolving relative references to absolute locations. In particular:
-
-If an 'artifactLocation' object has a 'uriBaseId' property, its 'uri' property must be a relative reference, because if 'uri' is an absolute URI then 'uriBaseId' serves no purpose.
-
-Every URI reference in 'originalUriBaseIds' must resolve to an absolute URI in the manner described in the SARIF specification [3.14.14](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317498).</value>
+    <value>When using the 'uriBaseId' property, obey the requirements in the SARIF specification [3.4.4](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317431) that enable it to fulfill its purpose of resolving relative references to absolute locations. In particular: If an 'artifactLocation' object has a 'uriBaseId' property, its 'uri' property must be a relative reference, because if 'uri' is an absolute URI then 'uriBaseId' serves no purpose. Every URI reference in 'originalUriBaseIds' must resolve to an absolute URI in the manner described in the SARIF specification [3.14.14](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317498). Finally, a relative reference in 'artifactLocation.uri' must not begin with a slash, because that prevents it from combining properly with the absolute URI specified by a 'uriBaseId'.</value>
   </data>
   <data name="SARIF1005_UriMustBeAbsolute_Error_Default_Text" xml:space="preserve">
     <value>{0}: The value of this property is required to be an absolute URI, but '{1}' is a relative URI reference.</value>
@@ -164,15 +156,7 @@ Every URI reference in 'originalUriBaseIds' must resolve to an absolute URI in t
     <value>Certain URIs are required to be absolute. For the most part, these are URIs that refer to http addresses, such as work items or rule help topics.</value>
   </data>
   <data name="SARIF1008_PhysicalLocationPropertiesMustBeConsistent_FullDescription_Text" xml:space="preserve">
-    <value>Ensure consistency among the properties of a 'physicalLocation' object.
-
-A SARIF 'physicalLocation' object has two related properties 'region' and 'contextRegion'. If 'contextRegion' is present, then 'region' must also be present, and 'contextRegion' must be a "proper superset" of 'region'. That is, 'contextRegion' must completely contain 'region', and it must be larger than 'region'. To understand why this is so we must understand the roles of the 'region' and 'contextRegion' properties.
-
-'region' allows both users and tools to distinguish similar results within the same artifact. If a SARIF viewer has access to the artifact, it can display it, and highlight the location identified by the analysis tool. If the region has a 'snippet' property, then even if the viewer doesn't have access to the artifact (which might be the case for a web-based viewer), it can still display the faulty code.
-
-'contextRegion' provides users with a broader view of the result location. Typically, it consists of a range starting a few lines before 'region' and ending a few lines after. Again, if a SARIF viewer has access to the artifact, it can display it, and highlight the context region (perhaps in a lighter shade than the region itself). This isn't terribly useful since the user can already see the whole file, with the 'region' already highlighted. But if 'contextRegion' has a 'snippet' property, then even a viewer without access to the artifact can display a few lines of code surrounding the actual result, which is helpful to users.
-
-If the validator reports that 'contextRegion' is not a proper superset of 'region', then it's possible that the tool reversed 'region' and 'contextRegion'. If 'region' and 'contextRegion' are identical, the tool should simply omit 'contextRegion'.</value>
+    <value>Ensure consistency among the properties of a 'physicalLocation' object. A SARIF 'physicalLocation' object has two related properties 'region' and 'contextRegion'. If 'contextRegion' is present, then 'region' must also be present, and 'contextRegion' must be a "proper superset" of 'region'. That is, 'contextRegion' must completely contain 'region', and it must be larger than 'region'. To understand why this is so we must understand the roles of the 'region' and 'contextRegion' properties. 'region' allows both users and tools to distinguish similar results within the same artifact. If a SARIF viewer has access to the artifact, it can display it, and highlight the location identified by the analysis tool. If the region has a 'snippet' property, then even if the viewer doesn't have access to the artifact (which might be the case for a web-based viewer), it can still display the faulty code. 'contextRegion' provides users with a broader view of the result location. Typically, it consists of a range starting a few lines before 'region' and ending a few lines after. Again, if a SARIF viewer has access to the artifact, it can display it, and highlight the context region (perhaps in a lighter shade than the region itself). This isn't terribly useful since the user can already see the whole file, with the 'region' already highlighted. But if 'contextRegion' has a 'snippet' property, then even a viewer without access to the artifact can display a few lines of code surrounding the actual result, which is helpful to users. If the validator reports that 'contextRegion' is not a proper superset of 'region', then it's possible that the tool reversed 'region' and 'contextRegion'. If 'region' and 'contextRegion' are identical, the tool should simply omit 'contextRegion'.</value>
   </data>
   <data name="SARIF1008_PhysicalLocationPropertiesMustBeConsistent_Error_ContextRegionRequiresRegion_Text" xml:space="preserve">
     <value>{0}: This 'physicalLocation' object contains a 'contextRegion' property, but it does not contain a 'region' property. This is invalid because the purpose of 'contextRegion' is to provide a viewing context around the 'region' which is the location of the result. If a tool associates only one region with a result, it must populate 'region', not 'contextRegion'.</value>
@@ -222,9 +206,7 @@ The SARIF standard was developed over several years, and many intermediate versi
     <value>{0}: In this 'region' object, the 'endLine' property '{1}' is less than the 'startLine' property '{2}'. The properties of a 'region' object must be internally consistent.</value>
   </data>
   <data name="SARIF1007_RegionPropertiesMustBeConsistent_FullDescription_Text" xml:space="preserve">
-    <value>The properties of a 'region' object must be consistent.
-
-SARIF can specify a 'region' (a contiguous portion of a file) in a variety of ways: with line and column numbers, with a character offset and count, or with a byte offset and count. The specification states certain constraints on these properties, both within each property group (for example, the start line cannot be greater than end line) and between the groups (for example, if more than one group is present, they must independently specify the same portion of the file). See the SARIF specification ([3.30](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317685)).</value>
+    <value>The properties of a 'region' object must be consistent. SARIF can specify a 'region' (a contiguous portion of a file) in a variety of ways: with line and column numbers, with a character offset and count, or with a byte offset and count. The specification states certain constraints on these properties, both within each property group (for example, the start line cannot be greater than end line) and between the groups (for example, if more than one group is present, they must independently specify the same portion of the file). See the SARIF specification ([3.30](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317685)).</value>
   </data>
   <data name="SARIF1008_PhysicalLocationPropertiesMustBeConsistent_Error_ContextRegionMustBeProperSupersetOfRegion_Text" xml:space="preserve">
     <value>{0}: This 'physicalLocation' object contains both a 'region' and a 'contextRegion' property, but 'contextRegion' is not a proper superset of 'region'. This is invalid because the purpose of 'contextRegion' is to provide a viewing context around the 'region' which is the location of the result. It's possible that the tool reversed 'region' and 'contextRegion'. If 'region' and 'contextRegion' are identical, the tool must omit 'contextRegion'.</value>
@@ -257,9 +239,7 @@ If 'version' is used, facilitate comparison between versions by specifying a ver
     <value>{0}: The 'file' URI '{1}' contains a '..' segment. This is dangerous because if symbolic links are present, '..' might have different meanings on the machine that produced the log file and the machine where an end user or a tool consumes it.</value>
   </data>
   <data name="SARIF2009_ConsiderConventionalIdentifierValues_FullDescription_Text" xml:space="preserve">
-    <value>Adopt uniform naming conventions for rule ids.
-
-Many tools follow a conventional format for the 'reportingDescriptor.id' property: a short string identifying the tool concatenated with a numeric rule number, for example, 'CS2001' for a diagnostic from the Roslyn C# compiler. For uniformity of experience across tools, we recommend this format.</value>
+    <value>Adopt uniform naming conventions for rule ids. Many tools follow a conventional format for the 'reportingDescriptor.id' property: a short string identifying the tool concatenated with a numeric rule number, for example, 'CS2001' for a diagnostic from the Roslyn C# compiler. For uniformity of experience across tools, we recommend this format.</value>
   </data>
   <data name="SARIF2009_ConsiderConventionalIdentifierValues_Note_UseConventionalRuleIds_Text" xml:space="preserve">
     <value>{0}: The 'id' property of the rule '{1}' does not follow the recommended format: a short string identifying the tool concatenated with a numeric rule number, for example, 'CS2001'. Using a conventional format for the rule id provides a more uniform experience across tools.</value>
@@ -357,7 +337,7 @@ This is part of a set of authoring practices that make your rule messages more r
   <data name="SARIF2012_ProvideRuleProperties_FullDescription_Text" xml:space="preserve">
     <value>Rule metadata should provide information that makes it easy to understand and fix the problem.
 
-Provide the 'name' property, which contains a "friendly name" that helps users see at a glance the purpose of the rule. For uniformity of experience across all tools that produce SARIF, the friendly name should be a single Pascal identifier, for example, 'ProvideRuleFriendlyName'.
+Provide the 'name' property, which contains a "friendly name" that helps users see at a glance the purpose of the rule. For uniformity of experience across all tools that produce SARIF, the friendly name should be a single Pascal-case identifier, for example, 'ProvideRuleFriendlyName'.
 
 Provide the 'helpUri' property, which contains a URI where users can find detailed information about the rule. This information should include a detailed description of the invalid pattern, an explanation of why the pattern is poor practice (particularly in contexts such as security or accessibility where driving considerations might not be readily apparent), guidance for resolving the problem (including describing circumstances in which ignoring the problem altogether might be appropriate), examples of invalid and valid patterns, and special considerations (such as noting when a violation should never be ignored or suppressed, noting when a violation could cause downstream tool noise, and noting when a rule can be configured in some way to refine or alter the analysis).</value>
   </data>
@@ -446,19 +426,28 @@ Semantics: Assuming the reader of the log file (an end user or another tool) has
   <data name="GH1006_ProvideCheckoutPath_Error_Default_Text" xml:space="preserve">
     <value>{0}: This result location is expressed as an absolute 'file' URI. GitHub Advanced Security code scanning will reject this file because it cannot determine the location of the repository root (which it refers to as the "checkout path"). Either express result locations as relative URI references with respect to the checkout path, place the checkout path in 'invocations[].workingDirectory', or place the checkout path in a configuration file at the root of the repository.</value>
   </data>
-  <data name="GH1007_ProvideRequiredRelatedLocationProperties_Error_Default_Text" xml:space="preserve">
-    <value>{0}: This related location does not have a 'message' property, so GitHub Advanced Security code scanning will reject the entire log file. This is a bug in GitHub. You can set 'message' to an empty string if you don't have anything else to say about the location.</value>
-  </data>
-  <data name="GH1007_ProvideRequiredRelatedLocationProperties_FullDescription_Text" xml:space="preserve">
-    <value>GitHub Advanced Security code scanning will reject a SARIF file that includes a "related location" with no 'message' property. This is a bug in GitHub. You can set 'message' to an empty string if you don't have anything else to say about the location.</value>
-  </data>
   <data name="SARIF2005_ProvideToolProperties_Warning_ProvideToolnformationUri_Text" xml:space="preserve">
     <value>{0}: The tool '{1}' does not provide 'informationUri'. This property helps the developer responsible for addessing a result by providing a way to learn more about the tool.</value>
   </data>
   <data name="SARIF2012_ProvideRuleProperties_Note_ProvideFriendlyName_Text" xml:space="preserve">
-    <value>{0}: The rule '{1}' does not provide a "friendly name" in its 'name' property. The friendly name should be a single Pascal identifier, for example, 'ProvideRuleFriendlyName', that helps users see at a glance the purpose of the analysis rule.</value>
+    <value>{0}: The rule '{1}' does not provide a "friendly name" in its 'name' property. The friendly name should be a single Pascal-case identifier, for example, 'ProvideRuleFriendlyName', that helps users see at a glance the purpose of the analysis rule.</value>
   </data>
   <data name="SARIF2012_ProvideRuleProperties_Note_FriendlyNameNotAPascalIdentifier_Text" xml:space="preserve">
-    <value>{0}: '{1}' is not a Pascal identifier. For uniformity of experience across all tools that produce SARIF, the friendly name should be a single Pascal identifier, for example, 'ProvideRuleFriendlyName'.</value>
+    <value>{0}: '{1}' is not a Pascal-case identifier. For uniformity of experience across all tools that produce SARIF, the friendly name should be a single Pascal-case identifier, for example, 'ProvideRuleFriendlyName'.</value>
+  </data>
+  <data name="SARIF1004_ExpressUriBaseIdsCorrectly_Error_RelativeReferenceMustNotBeginWithSlash_Text" xml:space="preserve">
+    <value>The relative reference '{0}' begins with a slash, which will prevent it from combining properly with the absolute URI specified by a 'uriBaseId'.</value>
+  </data>
+  <data name="SARIF2012_ProvideRuleProperties_Note_ProvideMetadataForAllViolatedRules_Text" xml:space="preserve">
+    <value>'{0}' does not provide a 'rules' property. 'rules' contain information that helps users understand why each rule fires and what the user can do to fix it.</value>
+  </data>
+  <data name="SARIF2012_ProvideRuleProperties_Note_ProvideRuleMetadata_Text" xml:space="preserve">
+    <value>'{0}' does not provide metadata for rule '{1}'. Rule metadata contains information that helps the user understand why each rule fires and what the user can do to fix it.</value>
+  </data>
+  <data name="SARIF2016_FileUrisShouldBeRelative_Note_ShouldNotStartWithSlash_Text" xml:space="preserve">
+    <value>{0}: The relative file URL '{1}' is prefixed with a leading slash, which can lead to unintended behavior when concatenating with absolute URLs. Remove the leading slash.</value>
+  </data>
+  <data name="SARIF2016_FileUrisShouldBeRelative_Note_ShouldNotContainBackSlash_Text" xml:space="preserve">
+    <value>{0}: The relative file URL '{1}' contains one or more backslashes, which will be preserved when concatenating to an absolute URL. This can result in inconsistent representations, compared to URLs created from an absolute file path, which may be regarded as not equivalent. Replace all backslashes with forward slashes.</value>
   </data>
 </root>

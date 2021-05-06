@@ -1,9 +1,10 @@
-﻿// Copyright (c) Microsoft. All rights reserved. Licensed under the MIT        
-// license. See LICENSE file in the project root for full license information. 
+﻿// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
 using System.Collections.Generic;
 using System.IO;
+
 using FluentAssertions;
 
 using Microsoft.CodeAnalysis.Sarif.Driver;
@@ -11,7 +12,9 @@ using Microsoft.CodeAnalysis.Sarif.Writers;
 using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
 
 using Moq;
+
 using Newtonsoft.Json;
+
 using Xunit;
 using Xunit.Abstractions;
 
@@ -43,11 +46,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             // path. Therefore we replace the fixed string with the actual path, execute the
             // visitor, and then restore the fixed string so the actual output can be compared
             // to the expected output.
-            string currentDirectory = Environment.CurrentDirectory;
-            string enlistmentRoot = currentDirectory
-                .Substring(0, currentDirectory.IndexOf(@"\bld\"))
-                .Replace('\\', '/');
-            if (!enlistmentRoot.EndsWith("/")) { enlistmentRoot += "/"; }
+            string enlistmentRoot = GitHelper.Default.GetRepositoryRoot(Environment.CurrentDirectory, useCache: false);
 
             if (inputResourceName == "Inputs.CoreTests-Relative.sarif")
             {
@@ -71,7 +70,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     Uri repoRootUri = artifactLocation.Uri;
                     string repoRootString = repoRootUri.ToString();
-                    repoRootString = repoRootString.Replace(enlistmentRoot, EnlistmentRoot);
+                    repoRootString = repoRootString.Replace(enlistmentRoot.Replace(@"\", "/"), EnlistmentRoot);
 
                     actualLog.Runs[0].OriginalUriBaseIds[repoRootUriBaseId] = new ArtifactLocation { Uri = new Uri(repoRootString, UriKind.Absolute) };
                 }
@@ -109,15 +108,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 }
             }
 
-            if (_currentOptionallyEmittedData.HasFlag(OptionallyEmittedData.VersionControlInformation))
+            if (_currentOptionallyEmittedData.HasFlag(OptionallyEmittedData.VersionControlDetails))
             {
                 VersionControlDetails versionControlDetails = actualLog.Runs[0].VersionControlProvenance[0];
 
                 // Verify and replace the mapped directory (enlistment root), because it varies
                 // from machine to machine.
-                var mappedUri = new Uri(enlistmentRoot, UriKind.Absolute);
+                var mappedUri = new Uri(enlistmentRoot + @"\", UriKind.Absolute);
                 versionControlDetails.MappedTo.Uri.Should().Be(mappedUri);
-                versionControlDetails.MappedTo.Uri = new Uri($"file:///{EnlistmentRoot}");
+                versionControlDetails.MappedTo.Uri = new Uri($"file:///{EnlistmentRoot}/");
 
                 // When OptionallyEmittedData includes any file-related content, the visitor inserts
                 // an artifact that points to the enlistment root. So we have to verify and adjust
@@ -126,7 +125,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 if (artifacts.Count >= 2)
                 {
                     artifacts[1].Location.Uri.Should().Be(enlistmentRoot);
-                    artifacts[1].Location.Uri = new Uri($"file:///{EnlistmentRoot}");
+                    artifacts[1].Location.Uri = new Uri($"file:///{EnlistmentRoot}/");
                 }
 
                 // Verify and replace the remote repo URI, because it would be different in a fork.
@@ -207,7 +206,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         [Fact]
         public void InsertOptionalDataVisitor_PersistsVersionControlInformation()
         {
-            RunTest("CoreTests-Relative.sarif", OptionallyEmittedData.VersionControlInformation);
+            RunTest("CoreTests-Relative.sarif", OptionallyEmittedData.VersionControlDetails);
         }
 
         [Fact]
@@ -241,11 +240,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         [Fact]
         public void InsertOptionalDataVisitor_SkipsExistingRepoRootSymbolsAndHandlesMultipleRoots()
         {
-            const string ParentRepoRoot = @"C:\repo\";
+            const string ParentRepoRoot = @"C:\repo";
             const string ParentRepoBranch = "users/mary/my-feature";
             const string ParentRepoCommit = "11111";
 
-            const string SubmoduleRepoRoot = @"C:\repo\submodule\";
+            const string SubmoduleRepoRoot = @"C:\repo\submodule";
             const string SubmoduleBranch = "main";
             const string SubmoduleCommit = "22222";
 
@@ -254,27 +253,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             mockFileSystem.Setup(x => x.DirectoryExists(It.IsAny<string>())).Returns(false);
             mockFileSystem.Setup(x => x.FileExists(It.IsAny<string>())).Returns(false);
 
-            mockFileSystem.Setup(x => x.DirectoryExists(@$"{ParentRepoRoot}.git")).Returns(true);
-            mockFileSystem.Setup(x => x.DirectoryExists(@$"C:\repo")).Returns(true);
-            mockFileSystem.Setup(x => x.DirectoryExists(@$"{ParentRepoRoot}src")).Returns(true);
-            mockFileSystem.Setup(x => x.FileExists(@$"{ParentRepoRoot}src\File.cs")).Returns(true);
+            mockFileSystem.Setup(x => x.DirectoryExists(@$"{ParentRepoRoot}\.git")).Returns(true);
+            mockFileSystem.Setup(x => x.DirectoryExists(@$"{ParentRepoRoot}")).Returns(true);
+            mockFileSystem.Setup(x => x.DirectoryExists(@$"{ParentRepoRoot}\src")).Returns(true);
+            mockFileSystem.Setup(x => x.FileExists(@$"{ParentRepoRoot}\src\File.cs")).Returns(true);
 
-            mockFileSystem.Setup(x => x.DirectoryExists($@"{SubmoduleRepoRoot}.git")).Returns(true);
-            mockFileSystem.Setup(x => x.DirectoryExists(@$"C:\repo\submodule")).Returns(true);
-            mockFileSystem.Setup(x => x.DirectoryExists(@$"{SubmoduleRepoRoot}src")).Returns(true);
-            mockFileSystem.Setup(x => x.FileExists(@$"{SubmoduleRepoRoot}src\File2.cs")).Returns(true);
+            mockFileSystem.Setup(x => x.DirectoryExists($@"{SubmoduleRepoRoot}\.git")).Returns(false);
+            mockFileSystem.Setup(x => x.DirectoryExists(@$"{ParentRepoRoot}\submodule")).Returns(true);
+            mockFileSystem.Setup(x => x.DirectoryExists(@$"{SubmoduleRepoRoot}\src")).Returns(true);
+            mockFileSystem.Setup(x => x.FileExists(@$"{SubmoduleRepoRoot}\src\File2.cs")).Returns(true);
 
             mockFileSystem.Setup(x => x.FileExists(GitHelper.s_expectedGitExePath)).Returns(true);
 
             var mockProcessRunner = new Mock<GitHelper.ProcessRunner>();
 
-            mockProcessRunner.Setup(x => x(ParentRepoRoot, GitHelper.s_expectedGitExePath, "remote get-url origin")).Returns(ParentRepoRoot);
-            mockProcessRunner.Setup(x => x(ParentRepoRoot, GitHelper.s_expectedGitExePath, "rev-parse --abbrev-ref HEAD")).Returns(ParentRepoBranch);
-            mockProcessRunner.Setup(x => x(ParentRepoRoot, GitHelper.s_expectedGitExePath, "rev-parse --verify HEAD")).Returns(ParentRepoCommit);
+            mockProcessRunner.Setup(x => x(@$"{ParentRepoRoot}", GitHelper.s_expectedGitExePath, "rev-parse --show-toplevel")).Returns(ParentRepoRoot);
+            mockProcessRunner.Setup(x => x(@$"{ParentRepoRoot}\src", GitHelper.s_expectedGitExePath, "rev-parse --show-toplevel")).Returns(ParentRepoRoot);
+            mockProcessRunner.Setup(x => x($@"{ParentRepoRoot}\", GitHelper.s_expectedGitExePath, "remote get-url origin")).Returns(ParentRepoRoot);
+            mockProcessRunner.Setup(x => x($@"{ParentRepoRoot}\", GitHelper.s_expectedGitExePath, "rev-parse --abbrev-ref HEAD")).Returns(ParentRepoBranch);
+            mockProcessRunner.Setup(x => x($@"{ParentRepoRoot}\", GitHelper.s_expectedGitExePath, "rev-parse --verify HEAD")).Returns(ParentRepoCommit);
 
-            mockProcessRunner.Setup(x => x(SubmoduleRepoRoot, GitHelper.s_expectedGitExePath, "remote get-url origin")).Returns(SubmoduleRepoRoot);
-            mockProcessRunner.Setup(x => x(SubmoduleRepoRoot, GitHelper.s_expectedGitExePath, "rev-parse --abbrev-ref HEAD")).Returns(SubmoduleBranch);
-            mockProcessRunner.Setup(x => x(SubmoduleRepoRoot, GitHelper.s_expectedGitExePath, "rev-parse --verify HEAD")).Returns(SubmoduleCommit);
+            mockProcessRunner.Setup(x => x(@$"{SubmoduleRepoRoot}", GitHelper.s_expectedGitExePath, "rev-parse --show-toplevel")).Returns(SubmoduleRepoRoot);
+            mockProcessRunner.Setup(x => x(@$"{SubmoduleRepoRoot}\src", GitHelper.s_expectedGitExePath, "rev-parse --show-toplevel")).Returns(SubmoduleRepoRoot);
+            mockProcessRunner.Setup(x => x(@$"{SubmoduleRepoRoot}\", GitHelper.s_expectedGitExePath, "remote get-url origin")).Returns(SubmoduleRepoRoot);
+            mockProcessRunner.Setup(x => x(@$"{SubmoduleRepoRoot}\", GitHelper.s_expectedGitExePath, "rev-parse --abbrev-ref HEAD")).Returns(SubmoduleBranch);
+            mockProcessRunner.Setup(x => x(@$"{SubmoduleRepoRoot}\", GitHelper.s_expectedGitExePath, "rev-parse --verify HEAD")).Returns(SubmoduleCommit);
 
             var run = new Run
             {
@@ -283,7 +286,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     // Called "REPO_ROOT" but doesn't actually point to a repo.
                     ["REPO_ROOT"] = new ArtifactLocation
                     {
-                        Uri = new Uri(@"C:\dir1\dir2", UriKind.Absolute)
+                        Uri = new Uri(@"C:\dir1\dir2\", UriKind.Absolute)
                     }
                 },
                 Results = new List<Result>
@@ -302,7 +305,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                                         // is under a repo root. It will invent a uriBaseId symbol
                                         // for this repo. Since REPO_ROOT is already taken, it will
                                         // choose REPO_ROOT_2
-                                        Uri = new Uri(@$"{ParentRepoRoot}src\File.cs", UriKind.Absolute)
+                                        Uri = new Uri(@$"{ParentRepoRoot}\src\File.cs", UriKind.Absolute)
                                     }
                                 }
                             },
@@ -312,7 +315,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                                 {
                                     ArtifactLocation = new ArtifactLocation
                                     {
-                                        Uri = new Uri(@$"{SubmoduleRepoRoot}src\File2.cs", UriKind.Absolute)
+                                        Uri = new Uri(@$"{SubmoduleRepoRoot}\src\File2.cs", UriKind.Absolute)
                                     }
                                 }
                             }
@@ -321,22 +324,33 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 }
             };
 
+            var properties = new List<string>
+            {
+                "runs[].invocations[].versionControlProvenance.properties.organizationId=orgId",
+                "runs[].invocations[].versionControlProvenance.properties.projectId=projId"
+            };
+
             var visitor = new InsertOptionalDataVisitor(
-                OptionallyEmittedData.VersionControlInformation,
+                OptionallyEmittedData.VersionControlDetails,
                 originalUriBaseIds: null,
                 fileSystem: mockFileSystem.Object,
-                processRunner: mockProcessRunner.Object);
+                processRunner: mockProcessRunner.Object,
+                insertProperties: properties);
             visitor.Visit(run);
 
-            run.VersionControlProvenance[0].MappedTo.Uri.LocalPath.Should().Be(ParentRepoRoot);
+            run.VersionControlProvenance[0].MappedTo.Uri.LocalPath.Should().Be($@"{ParentRepoRoot}\");
             run.VersionControlProvenance[0].Branch.Should().Be(ParentRepoBranch);
             run.VersionControlProvenance[0].RevisionId.Should().Be(ParentRepoCommit);
+            run.VersionControlProvenance[0].GetProperty("organizationId").Should().Be("orgId");
+            run.VersionControlProvenance[0].GetProperty("projectId").Should().Be("projId");
 
-            run.VersionControlProvenance[1].MappedTo.Uri.LocalPath.Should().Be(SubmoduleRepoRoot);
+            run.VersionControlProvenance[1].MappedTo.Uri.LocalPath.Should().Be($@"{SubmoduleRepoRoot}\");
             run.VersionControlProvenance[1].Branch.Should().Be(SubmoduleBranch);
             run.VersionControlProvenance[1].RevisionId.Should().Be(SubmoduleCommit);
+            run.VersionControlProvenance[1].GetProperty("organizationId").Should().Be("orgId");
+            run.VersionControlProvenance[1].GetProperty("projectId").Should().Be("projId");
 
-            run.OriginalUriBaseIds["REPO_ROOT_2"].Uri.LocalPath.Should().Be(ParentRepoRoot);
+            run.OriginalUriBaseIds["REPO_ROOT_2"].Uri.LocalPath.Should().Be($@"{ParentRepoRoot}\");
 
             IList<Location> resultLocations = run.Results[0].Locations;
 
@@ -401,7 +415,7 @@ Three";
                     }
                 };
 
-                var visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.RegionSnippets, run);
+                var visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.RegionSnippets, run, insertProperties: null);
 
                 visitor.VisitResult(run.Results[0]);
 
@@ -495,7 +509,6 @@ Three";
                     }
                 });
 
-
             run.Results.Add(
                 new Result
                 {
@@ -506,7 +519,6 @@ Three";
                         Id = SharedMessageId
                     }
                 });
-
 
             var visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.FlattenedMessages);
             visitor.Visit(run);
@@ -538,8 +550,7 @@ Three";
                 });
             configurationNotifications.Add(toolNotifications[0]);
 
-
-            // Notification that refers to a rule that does not contain a message with 
+            // Notification that refers to a rule that does not contain a message with
             // the same id as the specified notification id.In this case it is no surprise
             // that the message comes from the global string table.
             toolNotifications.Add(
@@ -556,7 +567,6 @@ Three";
                     Message = new Message { Id = UniqueGlobalMessageId }
                 });
             configurationNotifications.Add(toolNotifications[1]);
-
 
             // Notification that refers to a rule that contains a message with the same
             // id as the specified notification message id. The message should still be
@@ -575,7 +585,6 @@ Three";
                     Message = new Message { Id = SharedMessageId }
                 });
             configurationNotifications.Add(toolNotifications[2]);
-
 
             var visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.FlattenedMessages);
             visitor.Visit(run);

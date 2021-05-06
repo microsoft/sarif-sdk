@@ -272,7 +272,29 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline2
                     },
                     ExpectedBaselineState = BaselineState.Unchanged,
                     ExpectedFirstDetectionTime = previousRunEndTime
-                }
+                },
+                new FirstDetectionTimeTestCase
+                {
+                    Name = "Updated, new location",
+                    PreviousResult = new Result
+                    {
+                        Locations = new []
+                        {
+                            new Location { PhysicalLocation = new PhysicalLocation { ArtifactLocation = new ArtifactLocation{ Uri = new Uri("a.sarif", UriKind.Relative)}}}
+                        }
+                    },
+                    PreviousRun = new Run(),
+                    CurrentResult = new Result
+                    {
+                        Locations = new []
+                        {
+                            new Location { PhysicalLocation = new PhysicalLocation { ArtifactLocation = new ArtifactLocation{ Uri = new Uri("a.sarif", UriKind.Relative)}}},
+                            new Location { PhysicalLocation = new PhysicalLocation { ArtifactLocation = new ArtifactLocation{ Uri = new Uri("b.sarif", UriKind.Relative)}}},
+                        }
+                    }, // Matches because the result matcher looks at only certain properties, and Provenance isn't one of them.
+                    CurrentRun = new Run(),
+                    ExpectedBaselineState = BaselineState.Updated,
+                },
             };
 
         [Fact]

@@ -1,8 +1,9 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.
+﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 using Microsoft.CodeAnalysis.Sarif.Readers;
@@ -16,6 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         private static readonly Artifact EmptyFile = new Artifact();
         private static readonly Invocation EmptyInvocation = new Invocation();
         private static readonly LogicalLocation EmptyLogicalLocation = new LogicalLocation();
+        private Dictionary<string, FailureLevel> PoliciesCache;
 
         private IDictionary<ArtifactLocation, int> _artifactLocationToIndexMap;
 
@@ -217,5 +219,110 @@ namespace Microsoft.CodeAnalysis.Sarif
         public bool ShouldSerializeLogicalLocations() { return this.LogicalLocations.HasAtLeastOneNonDefaultValue(LogicalLocation.ValueComparer); }
 
         public bool ShouldSerializeNewlineSequences() { return this.NewlineSequences.HasAtLeastOneNonNullValue(); }
+
+        internal static Dictionary<string, FailureLevel> ComputePolicies(IEnumerable<ToolComponent> policies)
+        {
+            Dictionary<string, FailureLevel> localCache = new Dictionary<string, FailureLevel>();
+
+            // checking if we have have policies
+            if (policies == null || !policies.Any())
+            {
+                return localCache;
+            }
+
+            foreach (ToolComponent policy in policies)
+            {
+                foreach (ReportingDescriptor rule in policy.Rules)
+                {
+                    localCache[rule.Id] = rule.DefaultConfiguration.Level;
+                }
+            }
+
+            return localCache;
+        }
+
+        /// <summary>
+        /// Applies the policies contained in this run, if any, to remap result failure levels.
+        /// When multiple policies remap the same rule, the last policy in the policies
+        /// collection has precedence.
+        /// </summary>
+        public void ApplyPolicies(Dictionary<string, FailureLevel> policiesCache = null)
+        {
+            // Use policies cache if exist
+            if (policiesCache != null)
+            {
+                PoliciesCache = policiesCache;
+            }
+
+            // Compute policies
+            if (PoliciesCache == null || PoliciesCache.Count == 0)
+            {
+                PoliciesCache = ComputePolicies(this.Policies);
+            }
+
+            if (PoliciesCache.Count == 0)
+            {
+                return;
+            }
+
+            foreach (Result result in this.Results)
+            {
+                string ruleId = result.ResolvedRuleId(this);
+
+                if (PoliciesCache.ContainsKey(ruleId))
+                {
+                    result.Level = PoliciesCache[ruleId];
+                }
+            }
+        }
+
+        public bool HasResults() => this.Results?.Count > 0;
+
+        /// <summary>
+        /// Returns a value indicating whether this run has any results whose baseline state
+        /// is "absent".
+        /// </summary>
+        /// <param name="run">
+        /// The <see cref="Run"/> whose results are to be examined.
+        /// </param>
+        /// <returns>
+        /// <c>true</c> if <paramref name="run"/> has any absent results, otherwise
+        /// <c>false</c>.
+        /// </returns>
+        /// <remarks>
+        /// The SARIF spec states that the property <see cref="Result.BaselineState"/> must either
+        /// be present on all results or on none of them. This requirement is intended to optimize
+        /// performance of SARIF consumers such as results viewers, which (for example) need only
+        /// examine the first result to decide whether to display a "Baseline state" column.
+        /// Therefore if the first result has <see cref="BaselineState.None"/>, this method does
+        /// not examine the rest of the results, and it returns <c>false</c>.
+        /// </remarks>
+        public bool HasAbsentResults() =>
+            this.HasResults()
+            && this.Results[0].BaselineState != BaselineState.None
+            && this.Results.Any(r => r.BaselineState == BaselineState.Absent);
+
+        /// <summary>
+        /// Returns a value indicating whether this run has any suppressed results.
+        /// </summary>
+        /// <param name="run">
+        /// The <see cref="Run"/> whose results are to be examined.
+        /// </param>
+        /// <returns>
+        /// <c>true</c> if <paramref name="run"/> has any suppressed results, otherwise
+        /// <c>false</c>.
+        /// </returns>
+        /// <remarks>
+        /// The SARIF spec states that the property <see cref="Result.Suppressions"/> must either
+        /// be present on all results or on none of them. This requirement is intended to optimize
+        /// performance of SARIF consumers such as results viewers, which (for example) need only
+        /// examine the first result to decide whether to display a "Suppressed" column. Therefore
+        /// if the first result has a Suppressions value of null, this method does examine the rest
+        /// of the results, and it returns <c>false</c>.
+        /// </remarks>
+        public bool HasSuppressedResults() =>
+            this.HasResults()
+            && this.Results[0].Suppressions != null
+            && this.Results.Any(r => r.TryIsSuppressed(out bool isSuppressed) && isSuppressed);
     }
 }

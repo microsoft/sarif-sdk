@@ -1,37 +1,60 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.using System;
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
 using System.Globalization;
+
 using Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     public static class DriverExtensionMethods
     {
-        public static LoggingOptions ConvertToLoggingOptions(this AnalyzeOptionsBase analyzeOptions)
+        public static LogFilePersistenceOptions ConvertToLogFilePersistenceOptions(this AnalyzeOptionsBase analyzeOptions)
         {
-            LoggingOptions loggingOptions = LoggingOptions.None;
+            LogFilePersistenceOptions logFilePersistenceOptions = LogFilePersistenceOptions.PrettyPrint;
 
-            if (analyzeOptions.Verbose) { loggingOptions |= LoggingOptions.Verbose; }
-            if (analyzeOptions.PrettyPrint) { loggingOptions |= LoggingOptions.PrettyPrint; }
-            if (analyzeOptions.Force) { loggingOptions |= LoggingOptions.OverwriteExistingOutputFile; }
-            if (analyzeOptions.Optimize) { loggingOptions |= LoggingOptions.Optimize; }
+            if (analyzeOptions.Force) { logFilePersistenceOptions |= LogFilePersistenceOptions.OverwriteExistingOutputFile; }
+            if (analyzeOptions.Minify) { logFilePersistenceOptions ^= LogFilePersistenceOptions.PrettyPrint; }
+            if (analyzeOptions.Optimize) { logFilePersistenceOptions |= LogFilePersistenceOptions.Optimize; }
+            if (analyzeOptions.PrettyPrint) { logFilePersistenceOptions |= LogFilePersistenceOptions.PrettyPrint; }
 
-            return loggingOptions;
+            return logFilePersistenceOptions;
         }
 
         /// <summary>
-        /// Ensures the consistency of the SingleFileOptionsBase command line options related to
-        /// the location of the output file, and adjusts the options for ease of use.
+        /// Ensures the consistency of the command line options related to the location and format
+        /// of the output file, and adjusts the options for ease of use.
         /// </summary>
         /// <param name="options">
-        /// A <see cref="SingleFileOptionsBase"/> object containing the relevant options.
+        /// A <see cref="SingleFileOptionsBase"/> object containing the command line options.
         /// </param>
         /// <returns>
         /// true if the options are internally consistent; otherwise false.
         /// </returns>
-        public static bool ValidateOutputOptions(this SingleFileOptionsBase options)
+        public static bool Validate(this SingleFileOptionsBase options)
+        {
+            if (options.SarifOutputVersion == SarifVersion.Unknown)
+            {
+                //  Parsing the output version failed and the the enum evaluated to 0.
+                Console.WriteLine(DriverResources.ErrorInvalidTransformTargetVersion);
+                return false;
+            }
+
+            if (!options.ValidateOutputLocationOptions())
+            {
+                return false;
+            }
+
+            if (!options.ValidateOutputFormatOptions())
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        private static bool ValidateOutputLocationOptions(this SingleFileOptionsBase options)
         {
             bool valid = true;
 
@@ -44,7 +67,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 }
                 else
                 {
-                    ReportInvalidOutputOptions(options);
+                    ReportInvalidOutputOptions();
                     valid = false;
                 }
             }
@@ -52,17 +75,47 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return valid;
         }
 
-        private static void ReportInvalidOutputOptions(SingleFileOptionsBase options)
+        private static void ReportInvalidOutputOptions()
         {
-            string inlineOptionsDescription = DriverUtilities.GetOptionDescription<SingleFileOptionsBase>(nameof(options.Inline));
-            string outputFilePathOptionDescription = DriverUtilities.GetOptionDescription<SingleFileOptionsBase>(nameof(options.OutputFilePath));
+            string inlineOptionDescription = DriverUtilities.GetOptionDescription<SingleFileOptionsBase>(nameof(SingleFileOptionsBase.Inline));
+            string outputFilePathOptionDescription = DriverUtilities.GetOptionDescription<SingleFileOptionsBase>(nameof(SingleFileOptionsBase.OutputFilePath));
 
             Console.Error.WriteLine(
                 string.Format(
                     CultureInfo.CurrentCulture,
                     DriverResources.ExactlyOneOfTwoOptionsIsRequired,
-                    inlineOptionsDescription,
+                    inlineOptionDescription,
                     outputFilePathOptionDescription));
+        }
+
+        private static bool ValidateOutputFormatOptions(this SingleFileOptionsBase options)
+        {
+            bool valid = true;
+
+            if (options.PrettyPrint && options.Minify)
+            {
+                ReportInvalidOutputFormatOptions();
+                valid = false;
+            }
+            else if (!options.PrettyPrint && !options.Minify)
+            {
+                options.PrettyPrint = true;
+            }
+
+            return valid;
+        }
+
+        private static void ReportInvalidOutputFormatOptions()
+        {
+            string prettyPrintOptionDescription = DriverUtilities.GetOptionDescription<CommonOptionsBase>(nameof(CommonOptionsBase.PrettyPrint));
+            string minifyOptionDescription = DriverUtilities.GetOptionDescription<CommonOptionsBase>(nameof(CommonOptionsBase.Minify));
+
+            Console.Error.WriteLine(
+                string.Format(
+                    CultureInfo.CurrentCulture,
+                    DriverResources.OptionsAreMutuallyExclusive,
+                    prettyPrintOptionDescription,
+                    minifyOptionDescription));
         }
 
         /// <summary>
@@ -97,10 +150,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             bool valid = true;
 
+            //  TODO:  Is it correct to modify options in a "validate" method?
+            //  #2267 https://github.com/microsoft/sarif-sdk/issues/2267
             if (options.Inline)
             {
                 options.Force = true;
             }
+
+            return valid;
+        }
+
+        public static bool ValidateOutputOptions(this AnalyzeOptionsBase options)
+        {
+            bool valid = true;
+
+            valid &= !(options.Quiet && string.IsNullOrWhiteSpace(options.OutputFilePath));
 
             return valid;
         }

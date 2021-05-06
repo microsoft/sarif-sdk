@@ -4,9 +4,11 @@
 using System;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+
 using FluentAssertions;
 using FluentAssertions.Execution;
 using FluentAssertions.Primitives;
+
 using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -111,7 +113,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             Execute.Assertion
                 .ForCondition(
-                    FileDiffingFunctionalTests.AreEquivalent<T>(actualSarif: assertion.Subject, expected)
+                    FileDiffingFunctionalTests.AreEquivalent<T>(
+                        actualSarif: assertion.Subject,
+                        expected,
+                        out T actualObject)
                 )
                 .BecauseOf(because, becauseArgs)
                 .FailWith(TestUtilitiesResources.BeCrossPlatformEquivalentError);

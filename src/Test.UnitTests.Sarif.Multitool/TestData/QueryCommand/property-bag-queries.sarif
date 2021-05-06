@@ -1,0 +1,173 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "Query Tests",
+          "rules": [
+            {
+              "id": "TEST1001",
+              "name": "NoPropertyBag"
+            },
+            {
+              "id": "TEST1002",
+              "name": "PropertyBagWithNoMatchingProperty",
+              "properties": {
+                "someOtherProperty": "x"
+              }
+            },
+            {
+              "id": "TEST1003",
+              "name": "PropertyBagWithMatchingPropertyMismatchedValue",
+              "properties": {
+                "Category": "privacy"
+              }
+            },
+            {
+              "id": "TEST1004",
+              "name": "PropertyBagWithMatchingValue",
+              "properties": {
+                "Category": "security"
+              }
+            },
+            {
+              "id": "TEST1005",
+              "name": "PropertyBagWithCaseInsensitiveMatchingValue",
+              "properties": {
+                "Category": "Security"
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "TEST1001",
+          "ruleIndex": 0,
+          "message": {
+            "text": "Message."
+          },
+          "properties": {
+            "comment": "Exact match.",
+            "name": "Terisa"
+          }
+        },
+        {
+          "ruleId": "TEST1001",
+          "ruleIndex": 0,
+          "message": {
+            "text": "Message."
+          },
+          "properties": {
+            "comment": "Case-insensitive match.",
+            "name": "terisa"
+          }
+        },
+        {
+          "ruleId": "TEST1001",
+          "ruleIndex": 0,
+          "message": {
+            "text": "Message."
+          },
+          "properties": {
+            "comment": "No 'name' property.",
+            "SomeOtherProperty": "5.0"
+          }
+        },
+        {
+          "ruleId": "TEST1001",
+          "ruleIndex": 0,
+          "message": {
+            "text": "Message."
+          }
+        },
+        {
+          "ruleId": "TEST1001",
+          "ruleIndex": 0,
+          "message": {
+            "text": "Message."
+          },
+          "properties": {
+            "count": 42
+          }
+        },
+        {
+          "ruleId": "TEST1001",
+          "ruleIndex": 0,
+          "message": {
+            "text": "Message."
+          },
+          "properties": {
+            "count": 54
+          }
+        },
+        {
+          "ruleId": "TEST1001",
+          "ruleIndex": 0,
+          "message": {
+            "text": "Message."
+          },
+          "properties": {
+            "confidence": 0.89
+          }
+        },
+        {
+          "ruleId": "TEST1001",
+          "ruleIndex": 0,
+          "message": {
+            "text": "Message."
+          },
+          "properties": {
+            "confidence": 0.95
+          }
+        },
+        {
+          "ruleId": "TEST1001",
+          "ruleIndex": 0,
+          "message": {
+            "text": "Message."
+          },
+          "properties": {
+            "confidence": 0.96
+          }
+        },
+        {
+          "ruleId": "TEST1002",
+          "ruleIndex": 1,
+          "message": {
+            "text": "Message."
+          }
+        },
+        {
+          "ruleId": "TEST1003",
+          "ruleIndex": 2,
+          "message": {
+            "text": "Message."
+          }
+        },
+        {
+          "ruleId": "TEST1004",
+          "ruleIndex": 3,
+          "message": {
+            "text": "Message."
+          }
+        },
+        {
+          "ruleId": "TEST1005",
+          "ruleIndex": 4,
+          "message": {
+            "text": "Message."
+          }
+        },
+        {
+          "ruleId": "TEST1006",
+          "message": {
+            "text": "This result doesn't point to a rule, so a rule.properties query on it should return no results."
+          }
+        }
+      ]
+    }
+  ]
+}

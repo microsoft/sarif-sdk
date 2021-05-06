@@ -1,5 +1,5 @@
-// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License.
+// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
 using System.Collections.Generic;
@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
         // This dictionary tracks which WhatComponents are unique.
         // The value is the index of the result with that value, if unique, or -1 if in several.
         private readonly Dictionary<WhatComponent, int> _map;
-        
+
         public WhatMap()
         {
             _map = new Dictionary<WhatComponent, int>();
@@ -31,7 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             string locationSpecifier = WhereComparer.LocationSpecifier(result, otherRunLocations);
 
             // Add Result attributes used as matching hints in a "bucket" for the Rule x LocationSpecifier x AttributeName
-            foreach(WhatComponent component in result.WhatProperties(locationSpecifier))
+            foreach (WhatComponent component in result.WhatProperties(locationSpecifier))
             {
                 Add(component, index);
             }

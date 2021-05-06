@@ -16,26 +16,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             // XML <Paragraph> and <AltParagraph> tags
             { "<[/]?(Alt)?Paragraph>", Environment.NewLine },
-            
+
             // XML <ConditionalText> and <IfDef> tags
             { "<[/]?(ConditionalText|IfDef){1}[^>]*>", string.Empty },
-            
+
             // Multiple newlines, plus (sometimes) spaces
             { "\\n[\\r\\n ]*\\n", Environment.NewLine + Environment.NewLine },
-            
+
             // HTML <b> => Markdown bold
             { "<[/]?b>", "**" },
-            
+
             // HTML <i> => Markdown italics
             { "<[/]?i>", "_" },
-            
+
             // HTML <code> => Markdown monospace
             { "<[/]?code>", "`" },
-            
+
             // HTML <pre> => Markdown monospace
             { "<[/]?pre>", "`" }
         };
-
 
         private static readonly Regex s_replaceKeyRegex = new Regex("<Replace key=\\\"([^\\\"]+)\\\"/>", RegexOptions.Compiled | RegexOptions.CultureInvariant);
         private const string ReplacementTokenFormat = "<Replace key=\"{0}\"/>";
@@ -47,10 +46,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 content = Regex.Replace(content, pattern, FormattedTextReplacements[pattern], RegexOptions.Compiled);
             }
 
-            foreach(Match match in s_replaceKeyRegex.Matches(content))
+            foreach (Match match in s_replaceKeyRegex.Matches(content))
             {
                 string key = match.Groups[1].Value;
-                content = content.Replace(string.Format(ReplacementTokenFormat, key), "{"+ key + "}");
+                content = content.Replace(string.Format(ReplacementTokenFormat, key), "{" + key + "}");
             }
 
             return content.Trim(new[] { '\r', '\n', ' ' });

@@ -7,8 +7,10 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Map;
+
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
@@ -19,7 +21,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public PageCommand(IFileSystem fileSystem = null)
         {
-            _fileSystem = fileSystem ?? new FileSystem();
+            _fileSystem = fileSystem ?? Sarif.FileSystem.Instance;
         }
 
         public int Run(PageOptions options)
@@ -60,7 +62,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             valid &= ValidateNonNegativeCommandLineOption<PageOptions>(options.Index, nameof(options.Index));
             valid &= ValidateNonNegativeCommandLineOption<PageOptions>(options.Count, nameof(options.Count));
 
-
             if (!fileSystem.FileExists(options.InputFilePath))
             {
                 Console.Error.WriteLine(
@@ -99,7 +100,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             // Filter to desired results only
             run.Results = run.Results.Skip(options.Index).Take(options.Count).ToList();
 
-            WriteSarifFile(_fileSystem, actualLog, options.OutputFilePath, Formatting.None);
+            WriteSarifFile(_fileSystem, actualLog, options.OutputFilePath, options.Minify);
             return actualLog;
         }
 
@@ -110,11 +111,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             string mapPath = Path.ChangeExtension(options.InputFilePath, ".map.json");
 
-            if (_fileSystem.FileExists(mapPath) && _fileSystem.GetLastWriteTime(mapPath) > _fileSystem.GetLastWriteTime(options.InputFilePath))
+            if (_fileSystem.FileExists(mapPath) && _fileSystem.FileGetLastWriteTime(mapPath) > _fileSystem.FileGetLastWriteTime(options.InputFilePath))
             {
                 // If map exists and is up-to-date, just reload it
                 Console.WriteLine($"Loading Json Map \"{mapPath}\"...");
-                root = JsonConvert.DeserializeObject<JsonMapNode>(_fileSystem.ReadAllText(mapPath));
+                root = JsonConvert.DeserializeObject<JsonMapNode>(_fileSystem.FileReadAllText(mapPath));
             }
             else
             {
@@ -122,11 +123,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 double mapSizeLimit = 10 * JsonMapSettings.Megabyte * (options.TargetMapSizeRatio / 0.01);
 
                 Console.WriteLine($"Building {options.TargetMapSizeRatio:p0} Json Map of \"{options.InputFilePath}\" into \"{mapPath}\"...");
-                root = JsonMapBuilder.Build(() => _fileSystem.OpenRead(options.InputFilePath), new JsonMapSettings(options.TargetMapSizeRatio, mapSizeLimit));
+                root = JsonMapBuilder.Build(() => _fileSystem.FileOpenRead(options.InputFilePath), new JsonMapSettings(options.TargetMapSizeRatio, mapSizeLimit));
 
                 if (root != null)
                 {
-                    _fileSystem.WriteAllText(mapPath, JsonConvert.SerializeObject(root, Formatting.None));
+                    _fileSystem.FileWriteAllText(mapPath, JsonConvert.SerializeObject(root, Formatting.None));
                 }
             }
 
@@ -180,10 +181,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 options.Count = results.Count - options.Index;
             }
 
-
             Console.WriteLine($"Run {options.RunIndex} in \"{options.InputFilePath}\" has {results.Count:n0} results.");
 
-            Func<Stream> inputStreamProvider = () => _fileSystem.OpenRead(options.InputFilePath);
+            Func<Stream> inputStreamProvider = () => _fileSystem.FileOpenRead(options.InputFilePath);
             long firstResultStart = results.FindArrayStart(options.Index, inputStreamProvider);
             long lastResultEnd = results.FindArrayStart(options.Index + options.Count, inputStreamProvider) - 1;
 
@@ -196,7 +196,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             byte[] buffer = new byte[64 * 1024];
 
             using (Stream output = _fileSystem.FileCreate(options.OutputFilePath))
-            using (Stream source = _fileSystem.OpenRead(options.InputFilePath))
+            using (Stream source = _fileSystem.FileOpenRead(options.InputFilePath))
             {
                 // Copy everything up to 'runs' (includes the '[')
                 JsonMapNode.CopyStreamBytes(source, output, 0, runs.Start, buffer);

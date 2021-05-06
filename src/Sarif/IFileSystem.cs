@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Text;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -12,12 +13,78 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// An interface for accessing the file system.
     /// </summary>
     /// <remarks>
-    /// Clients wishing to access the file system should instantiate a FileSystem object rather
-    /// than directly using the .NET file system classes, so they can mock the IFileSystem
-    /// interface in unit tests.
+    /// Clients wishing to access the file system should instantiate a FileSystem
+    /// object rather than directly using the .NET file system and other classes,
+    ///  so they can mock the IFileSystem interface in unit tests.
     /// </remarks>
     public interface IFileSystem
     {
+        /// <summary>
+        /// Loads an assembly given its file name or path.
+        /// </summary>
+        /// <param name="assemblyFile">
+        /// The name or path of the file that contains the manifest of the assembly.
+        /// </param>
+        /// <returns>
+        /// The loaded assembly.
+        /// </returns>
+        Assembly AssemblyLoadFrom(string assemblyFile);
+
+        /// <summary>
+        /// Creates all directories and subdirectories in the specified path unless they
+        /// already exist.
+        /// </summary>
+        /// <param name="path">
+        /// The directory to create.
+        /// </param>
+        /// <returns>
+        /// An object that represents the directory at the specified path. This object is
+        /// returned regardless of whether a directory at the specified path already exists.
+        /// </returns>
+        DirectoryInfo DirectoryCreateDirectory(string path);
+
+        /// <summary>
+        /// Deletes an empty directory from a specified path.
+        /// </summary>
+        /// <param name="path">
+        /// The name of the empty directory to remove. This directory must be writable and empty.
+        /// </param>
+        void DirectoryDelete(string path, bool recursive = false);
+
+        /// <summary>
+        /// Returns an enumerable collection of file names in a specified path.
+        /// </summary>
+        /// <param name="path">
+        /// The relative or absolute path to the directory to search. This string is not case-sensitive.
+        /// </param>
+        /// <returns>
+        /// An enumerable collection of the full names (including paths) for the files in the directory
+        /// the directory specified by path.
+        /// </returns>
+        IEnumerable<string> DirectoryEnumerateFiles(string path);
+
+        /// <summary>
+        /// Returns an enumerable collection of full file names that match a search pattern in a
+        /// specified path, and optionally searches subdirectories.
+        /// </summary>
+        /// <param name="path">
+        /// The relative or absolute path to the directory to search. This string is not case-sensitive.
+        /// </param>
+        /// <param name="searchPattern">
+        /// The search string to match against the names of files in path. This parameter can contain a
+        /// combination of valid literal path and wildcard (* and ?) characters, but it doesn't support
+        /// regular expressions.
+        /// </param>
+        /// <param name="searchOption">
+        /// One of the enumeration values that specifies whether the search operation should include only
+        /// the current directory or should include all subdirectories. The default value is TopDirectoryOnly.
+        /// </param>
+        /// <returns>
+        /// An enumerable collection of the full names (including paths) for the files in the directory
+        /// specified by path and that match the specified search pattern and search option.
+        /// </returns>
+        IEnumerable<string> DirectoryEnumerateFiles(string path, string searchPattern, SearchOption searchOption);
+
         /// <summary>
         /// Determines whether the given path refers to an existing directory on disk.
         /// </summary>
@@ -29,18 +96,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         bool DirectoryExists(string path);
 
         /// <summary>
-        /// Determines whether the specified file exists.
-        /// </summary>
-        /// <param name="path">
-        /// The file to check.
-        /// </param>
-        /// <returns>
-        /// true if the caller has the required permissions and <paramref name="path"/> contains
-        /// the name of an existing file; otherwise, false.
-        /// </returns>
-        bool FileExists(string path);
-
-        /// <summary>
         /// Returns the names of subdirectories (including their paths) in the specified directory.
         /// </summary>
         /// <param name="path">
@@ -50,7 +105,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// An array of the full names (including paths) of subdirectories in the specified path,
         /// or an empty array if no directories are found.
         /// </returns>
-        IEnumerable<string> GetDirectoriesInDirectory(string path);
+        IEnumerable<string> DirectoryGetDirectories(string path);
 
         /// <summary>
         /// Returns the names of files (including their paths) that match the specified search pattern
@@ -68,18 +123,42 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// An array of the full names (including paths) for the files in the specified directory
         /// that match the specified search pattern, or an empty array if no files are found.
         /// </returns>
-        IEnumerable<string> GetFilesInDirectory(string path, string searchPattern);
+        IEnumerable<string> DirectoryGetFiles(string path, string searchPattern);
 
         /// <summary>
-        /// Returns the absolute path for the specified path string.
+        /// Gets or sets the fully qualified path of the current working directory.
+        /// </summary>
+        /// <returns>
+        /// A string containing a directory path.
+        /// </returns>
+        string EnvironmentCurrentDirectory { get; set; }
+
+        /// <summary>
+        ///  Create (or overwrite) a new file for writing.
+        /// </summary>
+        /// <param name="path">File System path of file to open</param>
+        /// <returns>Stream to write file</returns>
+        Stream FileCreate(string path);
+
+        /// <summary>
+        /// Deletes the specified file.
         /// </summary>
         /// <param name="path">
-        /// The file or directory for which to obtain absolute path information.
+        /// The name of the file to be deleted. Wildcard characters are not supported.
+        /// </param>
+        void FileDelete(string path);
+
+        /// <summary>
+        /// Determines whether the specified file exists.
+        /// </summary>
+        /// <param name="path">
+        /// The file to check.
         /// </param>
         /// <returns>
-        /// The fully qualified location of <paramref name="path"/>, such as "C:\MyFile.txt".
+        /// true if the caller has the required permissions and <paramref name="path"/> contains
+        /// the name of an existing file; otherwise, false.
         /// </returns>
-        string GetFullPath(string path);
+        bool FileExists(string path);
 
         /// <summary>
         /// Returns the date and time the specified file or directory was last written to.
@@ -90,7 +169,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <returns>
         /// A DateTime structure set to the date and time that the specified file or directory was last written to.
         /// </returns>
-        DateTime GetLastWriteTime(string path);
+        DateTime FileGetLastWriteTime(string path);
 
         /// <summary>
         /// Opens a binary file, reads all contents into a byte array, and then closes the file.
@@ -101,30 +180,41 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <returns>
         /// A byte array containing the contents of the file
         /// </returns>
-        byte[] ReadAllBytes(string path);
+        byte[] FileReadAllBytes(string path);
 
         /// <summary>
         /// Opens a text file, reads all lines of the file, and then closes the file.
         /// </summary>
         /// <param name="path">
-        /// The file to open for reading. 
+        /// The file to open for reading.
         /// </param>
         /// <returns>
         /// A string array containing all lines of the file.
         /// </returns>
-        string[] ReadAllLines(string path);
+        string[] FileReadAllLines(string path);
+
+        /// <summary>
+        /// Reads the lines of a file.
+        /// </summary>
+        /// <param name="path">
+        /// The file to open for reading.
+        /// </param>
+        /// <returns>
+        /// All the lines of the file, or the lines that are the result of a query.
+        /// </returns>
+        IEnumerable<string> FileReadLines(string path);
 
         /// <summary>
         /// Opens a text file, reads all text in the file as a single string, and then closes
         /// the file.
         /// </summary>
         /// <param name="path">
-        /// The file to open for reading. 
+        /// The file to open for reading.
         /// </param>
         /// <returns>
         /// A string containing all text in the file.
         /// </returns>
-        string ReadAllText(string path);
+        string FileReadAllText(string path);
 
         /// <summary>
         /// Opens a text file, reads all text in the file as a single string using the specified
@@ -139,14 +229,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <returns>
         /// A string containing all text in the file.
         /// </returns>
-        string ReadAllText(string path, Encoding encoding);
+        string FileReadAllText(string path, Encoding encoding);
 
         /// <summary>
         /// Sets the date and time that the specified file was last written to.
         /// </summary>
         /// <param name="path">The file for which to set the date and time information.</param>
         /// <param name="lastWriteTime">A DateTime containing the value to set for the last write date and time of path. This value is expressed in local time.</param>
-        void SetLastWriteTime(string path, DateTime lastWriteTime);
+        void FileSetLastWriteTime(string path, DateTime lastWriteTime);
 
         /// <summary>
         /// Creates a new file, writes the specified bytes to the file, and then closes the file.
@@ -158,7 +248,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="bytes">
         /// The bytes to write to the file.
         /// </param>
-        void WriteAllBytes(string path, byte[] bytes);
+        void FileWriteAllBytes(string path, byte[] bytes);
 
         /// <summary>
         /// Creates a new file, writes the specified string to the file, and then closes the file.
@@ -170,21 +260,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="contents">
         /// The string to write to the file.
         /// </param>
-        void WriteAllText(string path, string contents);
+        void FileWriteAllText(string path, string contents);
 
         /// <summary>
         ///  Open an existing file for reading.
         /// </summary>
         /// <param name="path">File System path of file to open</param>
         /// <returns>Stream to read file</returns>
-        Stream OpenRead(string path);
-
-        /// <summary>
-        ///  Create (or overwrite) a new file for writing.
-        /// </summary>
-        /// <param name="path">File System path of file to open</param>
-        /// <returns>Stream to write file</returns>
-        Stream FileCreate(string path);
+        Stream FileOpenRead(string path);
 
         /// <summary>
         /// Sets the specified <see cref="FileAttributes"/> of the file on the specified path.
@@ -195,35 +278,17 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="fileAttributes">
         /// A bitwise combination of the enumeration values.
         /// </param>
-        void SetAttributes(string path, FileAttributes fileAttributes);
+        void FileSetAttributes(string path, FileAttributes fileAttributes);
 
         /// <summary>
-        /// Creates all directories and subdirectories in the specified path unless they
-        /// already exist.
+        /// Returns the absolute path for the specified path string.
         /// </summary>
         /// <param name="path">
-        /// The directory to create.
+        /// The file or directory for which to obtain absolute path information.
         /// </param>
         /// <returns>
-        /// An object that represents the directory at the specified path. This object is
-        /// returned regardless of whether a directory at the specified path already exists.
-        /// </returns>  
-        DirectoryInfo DirectoryCreate(string path);
-
-        /// <summary>
-        /// Deletes an empty directory from a specified path.
-        /// </summary>
-        /// <param name="path">
-        /// The name of the empty directory to remove. This directory must be writable and empty.
-        /// </param>
-        void DirectoryDelete(string path, bool recursive = false);
-
-        /// <summary>
-        /// Deletes the specified file.
-        /// </summary>
-        /// <param name="path">
-        /// The name of the file to be deleted. Wildcard characters are not supported.
-        /// </param>
-        void FileDelete(string path);
+        /// The fully qualified location of <paramref name="path"/>, such as "C:\MyFile.txt".
+        /// </returns>
+        string PathGetFullPath(string path);
     }
 }
