@@ -153,6 +153,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         serviceName = dataReader.GetString(GetIndex(dataReader, dataReaderIndex, "STServiceName"));
                         if (!string.IsNullOrEmpty(serviceName))
                         {
+                            var owners = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                             resultMessageText += $" The subscription backing this Azure resource is associated with the '{serviceName}'";
 
                             string serviceOwner = null;
@@ -161,8 +162,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                                 serviceOwner = dataReader.GetString(GetIndex(dataReader, dataReaderIndex, "STOwner"));
                                 if (!string.IsNullOrEmpty(serviceOwner))
                                 {
-                                    resultMessageText += $" which is owned by {serviceOwner}.";
+                                    owners.Add(serviceOwner);
                                 }
+                            }
+
+                            string STAllOwners = null;
+                            if (GetIndex(dataReader, dataReaderIndex, "STAllOwners") != -1)
+                            {
+                                STAllOwners = dataReader.GetString(GetIndex(dataReader, dataReaderIndex, "STAllOwners"));
+                                if (!string.IsNullOrEmpty(STAllOwners))
+                                {
+                                    List<string> ownersList = JsonConvert.DeserializeObject<List<string>>(STAllOwners);
+                                    ownersList.ForEach((o) => owners.Add(o));
+                                }
+                            }
+
+                            if (owners.Count > 0)
+                            {
+                                string emails = string.Join(";", owners.Select(o => $"{o}@microsoft.com"));
+                                resultMessageText += $" which is owned by '[{string.Join(";", owners)}](mailto:{emails})'.";
                             }
                         }
                     }
