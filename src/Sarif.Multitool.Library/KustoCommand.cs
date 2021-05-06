@@ -166,13 +166,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                                 }
                             }
 
-                            string STAllOwners = null;
                             if (GetIndex(dataReader, dataReaderIndex, "STAllOwners") != -1)
                             {
-                                STAllOwners = dataReader.GetString(GetIndex(dataReader, dataReaderIndex, "STAllOwners"));
-                                if (!string.IsNullOrEmpty(STAllOwners))
+                                var STAllOwners = dataReader.GetValue(GetIndex(dataReader, dataReaderIndex, "STAllOwners")) as Newtonsoft.Json.Linq.JArray;
+                                if (STAllOwners?.Count > 0)
                                 {
-                                    List<string> ownersList = JsonConvert.DeserializeObject<List<string>>(STAllOwners);
+                                    List<string> ownersList = STAllOwners.ToObject<List<string>>();
                                     ownersList.ForEach((o) => owners.Add(o));
                                 }
                             }
