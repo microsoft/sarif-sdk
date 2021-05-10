@@ -1,5 +1,9 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
+## **v2.4.8** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.4.8) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.4.8) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.4.8) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.4.8) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.4.8)
+* BUGFIX: Fix `file-work-item` baselining. [#2344](https://github.com/microsoft/sarif-sdk/pull/2344)
+* BUGFIX: Fix `FileRegionsCache` context region construction. [#2348](https://github.com/microsoft/sarif-sdk/pull/2348)
+
 ## **v2.4.7** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.4.7) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.4.7) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.4.7) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.4.7) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.4.7)
 * BUGFIX: Fix `SubId` handling in `CachingLogger`. [#2334](https://github.com/microsoft/sarif-sdk/pull/2334)
 * FEATURE: Add Hdf converter. [#2340](https://github.com/microsoft/sarif-sdk/pull/2340)
