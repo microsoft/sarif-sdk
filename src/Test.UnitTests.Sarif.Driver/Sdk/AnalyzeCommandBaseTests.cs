@@ -290,6 +290,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             );
         }
 
+
+        [Fact]
+        public void ExceptionRaisedInvokingAnalyze_PersistInnerException()
+        {
+            string location = GetThisTestAssemblyFilePath();
+
+            Run run = AnalyzeFile(location,
+                                  TestRuleBehaviors.RaiseExceptionInvokingAnalyze,
+                                  runtimeConditions: RuntimeConditions.ExceptionInSkimmerAnalyze,
+                                  expectedReturnCode: 1);
+
+            run.Invocations[0]?.ToolExecutionNotifications.Count.Should().Be(1);
+            Stack stack = run.Invocations[0]?.ToolExecutionNotifications[0].Exception.Stack;
+            string fqn = stack.Frames[0].Location.LogicalLocation.FullyQualifiedName;
+            fqn.Contains(nameof(TestRule.RaiseExceptionViaReflection)).Should().BeTrue();
+        }
+
+
         [Fact]
         public void ExceptionRaisedInEngine()
         {
