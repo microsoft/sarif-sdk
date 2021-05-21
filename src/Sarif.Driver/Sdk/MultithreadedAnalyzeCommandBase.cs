@@ -652,7 +652,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                             sarifLogger = new SarifLogger(analyzeOptions.OutputFilePath,
                                                           logFilePersistenceOptions,
                                                           dataToInsert,
-                                                          dataToRemove,                                                          
+                                                          dataToRemove,
                                                           tool: _tool,
                                                           run: _run,
                                                           analysisTargets: null,
