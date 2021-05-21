@@ -1,8 +1,10 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Text.RegularExpressions;
 
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
@@ -312,6 +314,119 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 default:
                     return AnnotatedCodeLocationImportanceVersionOne.Important;
             }
+        }
+
+        public interface IBlameHunk
+        {
+            string Name { get; set; }
+
+            string Email { get; set; }
+
+            string CommitSha { get; set; }
+
+            int LineCount { get; }
+
+            int FinalStartLineNumber { get; }
+
+            bool ContainsLine(int line);
+        }
+
+        private class BlameHunk : IBlameHunk
+        {
+            private readonly string _Name;
+            private readonly string _Email;
+            private readonly string _CommitSha;
+            private readonly int _LineCount;
+            private readonly int _FinalStartLineNumber;
+
+            public BlameHunk(string name, string email, string commitSha, int lineCount, int finalStartLineNumber)
+            {
+                _Name = name;
+                _Email = email;
+                _CommitSha = commitSha;
+                _LineCount = lineCount;
+                _FinalStartLineNumber = finalStartLineNumber;
+            }
+
+            public string Name { get => _Name; set => throw new System.NotImplementedException(); }
+            public string Email { get => _Email; set => throw new System.NotImplementedException(); }
+            public string CommitSha { get => _CommitSha; set => throw new System.NotImplementedException(); }
+
+            public int LineCount { get => _LineCount; set => throw new System.NotImplementedException(); }
+
+            public int FinalStartLineNumber { get => _FinalStartLineNumber; set => throw new System.NotImplementedException(); }
+
+            public bool ContainsLine(int line)
+            {
+                if (line >= _FinalStartLineNumber && line <= _FinalStartLineNumber + _LineCount)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        public static IEnumerable<IBlameHunk> ParseBlameInformation(string blameText)
+        {
+            string[] lines = blameText.Split('\n');
+            var blameHunks = new List<BlameHunk>();
+
+            string commitShaPattern = @"^(?<hash>[0-9a-f]{40}).*$";
+            int commitShaLength = 40;
+            string authorTZPattern = @"^author-tz";
+            string authorTimePattern = @"^author-time";
+            string authorMailPattern = @"^author-mail";
+            string authorPattern = @"^author";
+
+            string name = null, email = null, commitSha = null;
+            int lineCount = 0, finalStartLineNumber = 0;
+
+            for (int i = 0; i < lines.Length; i++)
+            {
+                if (Regex.IsMatch(lines[i], commitShaPattern))
+                {
+                    string currentCommitSha = lines[i].Substring(0, commitShaLength - 1);
+
+                    if (!currentCommitSha.Equals(commitSha))
+                    {
+                        if(commitSha != null)
+                        {
+                            // we have seen at least one valid commit detail before,
+                            // so flush the existing data
+                            blameHunks.Add(new BlameHunk(name, email, commitSha, lineCount, finalStartLineNumber));
+                        }
+
+                        // we are observing a fresh commit region
+                        commitSha = currentCommitSha;
+                        string[] commitInfoLine = lines[i].Split(' ');
+                        finalStartLineNumber = int.Parse(commitInfoLine[2]);
+                        lineCount = int.Parse(commitInfoLine[3]);
+                    }
+                }
+                else if (Regex.IsMatch(lines[i], authorTZPattern))
+                {
+                    continue;
+                }
+                else if (Regex.IsMatch(lines[i], authorTimePattern))
+                {
+                    continue;
+                }
+                else if (Regex.IsMatch(lines[i], authorMailPattern))
+                {
+                    email = lines[i].Substring(13, (lines[i].Length - 1));
+                    continue;
+                }
+                else if (Regex.IsMatch(lines[i], authorPattern))
+                {
+                    name = lines[i].Substring(6);
+                    continue;
+                }
+            }
+
+            return blameHunks;
         }
     }
 }

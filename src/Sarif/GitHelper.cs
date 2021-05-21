@@ -84,6 +84,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                 args: "rev-parse --verify HEAD");
         }
 
+        public string GetBlame(string repoPath)
+        {
+            return GetSimpleGitCommandOutput(
+                repoPath,
+                args: "blame -f --porcelain");
+        }
+
         public void Checkout(string repoPath, string commitSha)
         {
             GetSimpleGitCommandOutput(

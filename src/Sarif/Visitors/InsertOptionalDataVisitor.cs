@@ -28,6 +28,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         private readonly IDictionary<string, ArtifactLocation> _originalUriBaseIds;
         private readonly IEnumerable<string> _insertProperties;
 
+        private const string Name = nameof(Name);
+        private const string Email = nameof(Email);
+        private const string CommitSha = nameof(CommitSha);
+
         public InsertOptionalDataVisitor(OptionallyEmittedData dataToInsert, Run run, IEnumerable<string> insertProperties)
             : this(dataToInsert, run?.OriginalUriBaseIds, insertProperties: insertProperties)
         {
@@ -212,6 +216,38 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             if (string.IsNullOrEmpty(node.Guid) && _dataToInsert.HasFlag(OptionallyEmittedData.Guids))
             {
                 node.Guid = Guid.NewGuid().ToString(SarifConstants.GuidFormat);
+            }
+
+            if (_dataToInsert.HasFlag(OptionallyEmittedData.GitBlameInformation))
+            {
+                Uri repoUri = null;
+                node.Locations[0].PhysicalLocation.ArtifactLocation.TryReconstructAbsoluteUri(_originalUriBaseIds, out repoUri);
+                
+                if (repoUri != null)
+                {
+                    string repoPath = repoUri.AbsoluteUri;
+
+                    // add git blame information to the result
+                    IEnumerable<SarifTransformerUtilities.IBlameHunk> blameHunks = SarifTransformerUtilities.ParseBlameInformation(
+                        _gitHelper.GetBlame(repoPath)
+                        );
+
+                    Region region = node.Locations[0].PhysicalLocation.Region;
+                    if (region != null)
+                    {
+                        foreach (SarifTransformerUtilities.IBlameHunk blameHunk in blameHunks)
+                        {
+                            if (!blameHunk.ContainsLine(region.StartLine))
+                            {
+                                continue;
+                            }
+                            node.SetProperty(nameof(CommitSha), blameHunk.CommitSha);
+                            node.SetProperty(Email, blameHunk.Email);
+                            node.SetProperty(Name, blameHunk.Name);
+                            break;
+                        }
+                    }
+                }
             }
 
             return node;
