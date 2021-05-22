@@ -15,6 +15,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
     public static class SarifTransformerUtilities
     {
+        private static readonly Regex CommitShaRegex = new Regex(@"^(?<hash>[0-9a-f]{40}).*$");
+        private static readonly int CommitShaLength = 40;
+        private static readonly Regex AuthorTZRegex = new Regex(@"^author-tz");
+        private static readonly Regex AuthorTimeRegex = new Regex(@"^author-time");
+        private static readonly Regex AuthorMailRegex = new Regex(@"^author-mail");
+        private static readonly string authorMailString = "author-mail <>";
+        private static readonly Regex AuthorRegex = new Regex(@"^author");
+
         public static readonly Dictionary<SarifVersion, string> PropertyBagTransformerItemPrefixes = new Dictionary<SarifVersion, string>()
         {
             { SarifVersion.OneZeroZero, "sarifv1" },
@@ -373,22 +381,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             string[] lines = blameText.Split('\n');
             var blameHunks = new List<BlameHunk>();
-
-            string commitShaPattern = @"^(?<hash>[0-9a-f]{40}).*$";
-            int commitShaLength = 40;
-            string authorTZPattern = @"^author-tz";
-            string authorTimePattern = @"^author-time";
-            string authorMailPattern = @"^author-mail";
-            string authorPattern = @"^author";
-
+            
             string name = null, email = null, commitSha = null;
             int lineCount = 0, finalStartLineNumber = 0;
 
             for (int i = 0; i < lines.Length; i++)
             {
-                if (Regex.IsMatch(lines[i], commitShaPattern))
+                if (CommitShaRegex.IsMatch(lines[i]))
                 {
-                    string currentCommitSha = lines[i].Substring(0, commitShaLength - 1);
+                    string currentCommitSha = lines[i].Substring(0, CommitShaLength - 1);
 
                     if (!currentCommitSha.Equals(commitSha))
                     {
@@ -406,24 +407,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         lineCount = int.Parse(commitInfoLine[3]);
                     }
                 }
-                else if (Regex.IsMatch(lines[i], authorTZPattern))
+                else if (AuthorTZRegex.IsMatch(lines[i]))
                 {
                     continue;
                 }
-                else if (Regex.IsMatch(lines[i], authorTimePattern))
+                else if (AuthorTimeRegex.IsMatch(lines[i]))
                 {
                     continue;
                 }
-                else if (Regex.IsMatch(lines[i], authorMailPattern))
+                else if (AuthorMailRegex.IsMatch(lines[i]))
                 {
-                    email = lines[i].Substring(13, (lines[i].Length - 1));
+                    email = lines[i].Substring(13, (lines[i].Length - authorMailString.Length));
                     continue;
                 }
-                else if (Regex.IsMatch(lines[i], authorPattern))
+                else if (AuthorRegex.IsMatch(lines[i]))
                 {
                     name = lines[i].Substring(6);
                     continue;
                 }
+            }
+
+            // We always need to flush out the last seen commit hunk,
+            // since there is no subsequent commit hunk which will trigger the flush operation.
+            if (commitSha != null)
+            {
+                blameHunks.Add(new BlameHunk(name, email, commitSha, lineCount, finalStartLineNumber));
             }
 
             return blameHunks;

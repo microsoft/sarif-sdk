@@ -10,12 +10,5 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     [Verb("rewrite", HelpText = "Enrich a SARIF file with additional data.")]
     public class RewriteOptions : SingleFileOptionsBase
     {
-        [Option(
-            'b',
-            "blame",
-            Default = false,
-            HelpText = "Enrich SARIF log with blame information.")]
-        public bool GitBlameInformation { get; set; }
-
     }
 }
