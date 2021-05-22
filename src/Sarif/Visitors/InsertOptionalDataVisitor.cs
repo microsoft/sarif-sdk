@@ -221,23 +221,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             if (_dataToInsert.HasFlag(OptionallyEmittedData.GitBlameInformation))
             {
                 // add git blame information to the result
-                IEnumerable<SarifTransformerUtilities.IBlameHunk> blameHunks = SarifTransformerUtilities.ParseBlameInformation(
-                    _gitHelper.GetBlame(GetRepoPath(node.Locations[0].PhysicalLocation.ArtifactLocation))
-                    ); ;
+                string filePath = GetFilePath(node.Locations[0].PhysicalLocation.ArtifactLocation);
 
-                Region region = node.Locations[0].PhysicalLocation.Region;
-                if (region != null)
+                if (filePath != null)
                 {
-                    foreach (SarifTransformerUtilities.IBlameHunk blameHunk in blameHunks)
+                    IEnumerable<SarifTransformerUtilities.IBlameHunk> blameHunks = SarifTransformerUtilities.ParseBlameInformation(
+                                                                                        _gitHelper.GetBlame(filePath));
+
+                    Region region = node.Locations[0].PhysicalLocation.Region;
+                    if (region != null)
                     {
-                        if (!blameHunk.ContainsLine(region.StartLine))
+                        foreach (SarifTransformerUtilities.IBlameHunk blameHunk in blameHunks)
                         {
-                            continue;
+                            if (!blameHunk.ContainsLine(region.StartLine))
+                            {
+                                continue;
+                            }
+                            node.SetProperty(nameof(CommitSha), blameHunk.CommitSha);
+                            node.SetProperty(Email, blameHunk.Email);
+                            node.SetProperty(Name, blameHunk.Name);
+                            break;
                         }
-                        node.SetProperty(nameof(CommitSha), blameHunk.CommitSha);
-                        node.SetProperty(Email, blameHunk.Email);
-                        node.SetProperty(Name, blameHunk.Name);
-                        break;
                     }
                 }
             }
@@ -389,20 +393,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
         }
 
-        private string GetRepoPath(ArtifactLocation node)
+        private string GetFilePath(ArtifactLocation node)
         {
             Uri uri = node.Uri;
             if (uri == null && node.Index >= 0 && _run.Artifacts?.Count > node.Index)
             {
                 uri = _run.Artifacts[node.Index].Location.Uri;
             }
-
-            if (uri.IsFile)
+            else
             {
-                return uri.GetFilePath();
+                node.TryReconstructAbsoluteUri(_run.OriginalUriBaseIds, out uri);
             }
 
-            return null;
+            return uri.IsFile ? uri.GetFilePath() : null;
         }
 
         private const string RepoRootUriBaseIdStem = "REPO_ROOT";
