@@ -149,11 +149,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        private void MultithreadedAnalyzeTargets(
-            TOptions options,
-            TContext rootContext,
-            IEnumerable<Skimmer<TContext>> skimmers,
-            ISet<string> disabledSkimmers)
+        private void MultithreadedAnalyzeTargets(TOptions options,
+                                                 TContext rootContext,
+                                                 IEnumerable<Skimmer<TContext>> skimmers,
+                                                 ISet<string> disabledSkimmers)
         {
             options.Threads = options.Threads > 0 ?
                 options.Threads :
@@ -344,15 +343,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     directory = Path.GetFullPath(directories.Dequeue());
 
 #if NETFRAMEWORK
-                    // For Directory.EnumerateFiles using NETFramework with empty filter, NO files will return.
-                    // For Directory.EnuemrateFiles using NET Core with empty filter, files will return.
+                    // .NET Framework: Directory.Enumerate with empty filter returns NO files.
+                    // .NET Core: Directory.Enumerate with empty filter returns all files in directory.
+                    // We will standardize on the .NET Core behavior.
                     if (string.IsNullOrEmpty(filter))
                     {
                         filter = "*";
                     }
 #endif
 
-                    foreach (string file in Directory.EnumerateFiles(directory, filter, SearchOption.TopDirectoryOnly))
+                    foreach (string file in FileSystem.DirectoryEnumerateFiles(directory,
+                                                                               filter,
+                                                                               SearchOption.TopDirectoryOnly))
                     {
                         sortedFiles.Add(file);
                     }
@@ -361,12 +363,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     {
                         _fileContexts.TryAdd(
                             _fileContextsCount,
-                            CreateContext(
-                                options,
-                                new CachingLogger(options.Level, options.Kind),
-                                rootContext.RuntimeErrors,
-                                rootContext.Policy,
-                                filePath: file)
+                            CreateContext(options,
+                                          new CachingLogger(options.Level, options.Kind),
+                                          rootContext.RuntimeErrors,
+                                          rootContext.Policy,
+                                          filePath: file)
                         );
 
                         await _fileEnumerationChannel.Writer.WriteAsync(_fileContextsCount++);
@@ -554,12 +555,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return logger;
         }
 
-        protected virtual TContext CreateContext(
-            TOptions options,
-            IAnalysisLogger logger,
-            RuntimeConditions runtimeErrors,
-            PropertiesDictionary policy = null,
-            string filePath = null)
+        protected virtual TContext CreateContext(TOptions options,
+                                                 IAnalysisLogger logger,
+                                                 RuntimeConditions runtimeErrors,
+                                                 PropertiesDictionary policy = null,
+                                                 string filePath = null)
         {
             var context = new TContext
             {
@@ -649,36 +649,34 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                         if (analyzeOptions.SarifOutputVersion != SarifVersion.OneZeroZero)
                         {
-                            sarifLogger = new SarifLogger(
-                                    analyzeOptions.OutputFilePath,
-                                    logFilePersistenceOptions,
-                                    dataToInsert,
-                                    dataToRemove,
-                                    tool: _tool,
-                                    run: _run,
-                                    analysisTargets: null,
-                                    quiet: analyzeOptions.Quiet,
-                                    invocationTokensToRedact: GenerateSensitiveTokensList(),
-                                    invocationPropertiesToLog: analyzeOptions.InvocationPropertiesToLog,
-                                    levels: analyzeOptions.Level,
-                                    kinds: analyzeOptions.Kind,
-                                    insertProperties: analyzeOptions.InsertProperties);
+                            sarifLogger = new SarifLogger(analyzeOptions.OutputFilePath,
+                                                          logFilePersistenceOptions,
+                                                          dataToInsert,
+                                                          dataToRemove,
+                                                          tool: _tool,
+                                                          run: _run,
+                                                          analysisTargets: null,
+                                                          quiet: analyzeOptions.Quiet,
+                                                          invocationTokensToRedact: GenerateSensitiveTokensList(),
+                                                          invocationPropertiesToLog: analyzeOptions.InvocationPropertiesToLog,
+                                                          levels: analyzeOptions.Level,
+                                                          kinds: analyzeOptions.Kind,
+                                                          insertProperties: analyzeOptions.InsertProperties);
                         }
                         else
                         {
-                            sarifLogger = new SarifOneZeroZeroLogger(
-                                    analyzeOptions.OutputFilePath,
-                                    logFilePersistenceOptions,
-                                    dataToInsert,
-                                    dataToRemove,
-                                    tool: _tool,
-                                    run: _run,
-                                    analysisTargets: null,
-                                    invocationTokensToRedact: GenerateSensitiveTokensList(),
-                                    invocationPropertiesToLog: analyzeOptions.InvocationPropertiesToLog,
-                                    levels: analyzeOptions.Level,
-                                    kinds: analyzeOptions.Kind,
-                                    insertProperties: analyzeOptions.InsertProperties);
+                            sarifLogger = new SarifOneZeroZeroLogger(analyzeOptions.OutputFilePath,
+                                                                     logFilePersistenceOptions,
+                                                                     dataToInsert,
+                                                                     dataToRemove,
+                                                                     tool: _tool,
+                                                                     run: _run,
+                                                                     analysisTargets: null,
+                                                                     invocationTokensToRedact: GenerateSensitiveTokensList(),
+                                                                     invocationPropertiesToLog: analyzeOptions.InvocationPropertiesToLog,
+                                                                     levels: analyzeOptions.Level,
+                                                                     kinds: analyzeOptions.Kind,
+                                                                     insertProperties: analyzeOptions.InsertProperties);
                         }
                         _pathToHashDataMap = sarifLogger.AnalysisTargetToHashDataMap;
                         sarifLogger.AnalysisStarted();

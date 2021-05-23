@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Composition;
 using System.IO;
+using System.Reflection;
 using System.Resources;
 
 using FluentAssertions;
@@ -148,7 +149,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 case TestRuleBehaviors.RaiseExceptionInvokingAnalyze:
                 {
-                    throw new InvalidOperationException(nameof(TestRuleBehaviors.RaiseExceptionInvokingAnalyze));
+                    MethodInfo mi = this.GetType().GetMethod("RaiseExceptionViaReflection");
+                    mi.Invoke(null, new object[] { });
+                    break;
                 }
 
                 case TestRuleBehaviors.RaiseTargetParseError:
@@ -233,6 +236,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                     nameof(SkimmerBaseTestResources.TEST1001_Information),
                     context.TargetUri.GetFileName()));
             }
+        }
+
+        public static void RaiseExceptionViaReflection()
+        {
+            throw new InvalidOperationException(nameof(TestRuleBehaviors.RaiseExceptionInvokingAnalyze));
         }
 
         public IEnumerable<IOption> GetOptions()
