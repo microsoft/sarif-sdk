@@ -182,7 +182,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     arguments: args);
 
                 return stdOut != null ?
-                    (trimLines? TrimNewlines(stdOut) : stdOut) :
+                    (trimLines ? TrimNewlines(stdOut) : stdOut) :
                     null;
             }
             finally

@@ -381,7 +381,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             string[] lines = blameText.Split('\n');
             var blameHunks = new List<BlameHunk>();
-            
             string name = null, email = null, commitSha = null;
             int lineCount = 0, finalStartLineNumber = 0;
 
@@ -393,7 +392,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                     if (!currentCommitSha.Equals(commitSha))
                     {
-                        if(commitSha != null)
+                        if (commitSha != null)
                         {
                             // we have seen at least one valid commit detail before,
                             // so flush the existing data
