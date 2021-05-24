@@ -24,13 +24,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             this.finalStartLineNumber = finalStartLineNumber;
         }
 
-        public string Name { get => name; }
-        public string Email { get => email; }
-        public string CommitSha { get => commitSha; }
+        public string Name => name;
+        public string Email => email;
+        public string CommitSha => commitSha;
 
-        public int LineCount { get => lineCount; set => throw new System.NotImplementedException(); }
+        public int LineCount => lineCount;
 
-        public int FinalStartLineNumber { get => finalStartLineNumber; }
+        public int FinalStartLineNumber => finalStartLineNumber;
 
         public bool ContainsLine(int line)
         {
