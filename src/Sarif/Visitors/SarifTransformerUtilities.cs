@@ -15,13 +15,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
     public static class SarifTransformerUtilities
     {
-        private static readonly Regex CommitShaRegex = new Regex(@"^(?<hash>[0-9a-f]{40}).*$", RegexOptions.Compiled);
         private static readonly int CommitShaLength = 40;
+        private static readonly string authorMailString = "author-mail <>";
+        private static readonly Regex AuthorRegex = new Regex(@"^author", RegexOptions.Compiled);
         private static readonly Regex AuthorTZRegex = new Regex(@"^author-tz", RegexOptions.Compiled);
         private static readonly Regex AuthorTimeRegex = new Regex(@"^author-time", RegexOptions.Compiled);
         private static readonly Regex AuthorMailRegex = new Regex(@"^author-mail", RegexOptions.Compiled);
-        private static readonly string authorMailString = "author-mail <>";
-        private static readonly Regex AuthorRegex = new Regex(@"^author", RegexOptions.Compiled);
+        private static readonly Regex CommitShaRegex = new Regex(@"^(?<hash>[0-9a-f]{40}).*$", RegexOptions.Compiled);
 
         public static readonly Dictionary<SarifVersion, string> PropertyBagTransformerItemPrefixes = new Dictionary<SarifVersion, string>()
         {

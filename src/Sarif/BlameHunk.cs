@@ -25,7 +25,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         public string Name => name;
+
         public string Email => email;
+
         public string CommitSha => commitSha;
 
         public int LineCount => lineCount;
