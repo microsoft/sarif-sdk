@@ -225,19 +225,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 if (filePath != null)
                 {
-                    IEnumerable<SarifTransformerUtilities.IBlameHunk> blameHunks = SarifTransformerUtilities.ParseBlameInformation(
+                    IEnumerable<IBlameHunk> blameHunks = SarifTransformerUtilities.ParseBlameInformation(
                                                                                         _gitHelper.GetBlame(filePath));
 
                     Region region = node.Locations[0].PhysicalLocation.Region;
                     if (region != null)
                     {
-                        foreach (SarifTransformerUtilities.IBlameHunk blameHunk in blameHunks)
+                        foreach (IBlameHunk blameHunk in blameHunks)
                         {
                             if (!blameHunk.ContainsLine(region.StartLine))
                             {
                                 continue;
                             }
-                            node.SetProperty(nameof(CommitSha), blameHunk.CommitSha);
+                            node.SetProperty(CommitSha, blameHunk.CommitSha);
                             node.SetProperty(Email, blameHunk.Email);
                             node.SetProperty(Name, blameHunk.Name);
                             break;
@@ -396,9 +396,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         private string GetFilePath(ArtifactLocation node)
         {
             Uri uri = node.Uri;
-            if (uri == null && node.Index >= 0 && _run.Artifacts?.Count > node.Index)
+            if (uri == null)
             {
-                uri = _run.Artifacts[node.Index].Location.Uri;
+                uri = node.Resolve(_run).Uri;
             }
             else
             {

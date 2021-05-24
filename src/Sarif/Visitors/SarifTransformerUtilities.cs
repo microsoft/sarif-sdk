@@ -15,13 +15,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
     public static class SarifTransformerUtilities
     {
-        private static readonly Regex CommitShaRegex = new Regex(@"^(?<hash>[0-9a-f]{40}).*$");
+        private static readonly Regex CommitShaRegex = new Regex(@"^(?<hash>[0-9a-f]{40}).*$", RegexOptions.Compiled);
         private static readonly int CommitShaLength = 40;
-        private static readonly Regex AuthorTZRegex = new Regex(@"^author-tz");
-        private static readonly Regex AuthorTimeRegex = new Regex(@"^author-time");
-        private static readonly Regex AuthorMailRegex = new Regex(@"^author-mail");
+        private static readonly Regex AuthorTZRegex = new Regex(@"^author-tz", RegexOptions.Compiled);
+        private static readonly Regex AuthorTimeRegex = new Regex(@"^author-time", RegexOptions.Compiled);
+        private static readonly Regex AuthorMailRegex = new Regex(@"^author-mail", RegexOptions.Compiled);
         private static readonly string authorMailString = "author-mail <>";
-        private static readonly Regex AuthorRegex = new Regex(@"^author");
+        private static readonly Regex AuthorRegex = new Regex(@"^author", RegexOptions.Compiled);
 
         public static readonly Dictionary<SarifVersion, string> PropertyBagTransformerItemPrefixes = new Dictionary<SarifVersion, string>()
         {
@@ -324,59 +324,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
         }
 
-        public interface IBlameHunk
-        {
-            string Name { get; set; }
-
-            string Email { get; set; }
-
-            string CommitSha { get; set; }
-
-            int LineCount { get; }
-
-            int FinalStartLineNumber { get; }
-
-            bool ContainsLine(int line);
-        }
-
-        private class BlameHunk : IBlameHunk
-        {
-            private readonly string _Name;
-            private readonly string _Email;
-            private readonly string _CommitSha;
-            private readonly int _LineCount;
-            private readonly int _FinalStartLineNumber;
-
-            public BlameHunk(string name, string email, string commitSha, int lineCount, int finalStartLineNumber)
-            {
-                _Name = name;
-                _Email = email;
-                _CommitSha = commitSha;
-                _LineCount = lineCount;
-                _FinalStartLineNumber = finalStartLineNumber;
-            }
-
-            public string Name { get => _Name; set => throw new System.NotImplementedException(); }
-            public string Email { get => _Email; set => throw new System.NotImplementedException(); }
-            public string CommitSha { get => _CommitSha; set => throw new System.NotImplementedException(); }
-
-            public int LineCount { get => _LineCount; set => throw new System.NotImplementedException(); }
-
-            public int FinalStartLineNumber { get => _FinalStartLineNumber; set => throw new System.NotImplementedException(); }
-
-            public bool ContainsLine(int line)
-            {
-                if (line >= _FinalStartLineNumber && line <= _FinalStartLineNumber + _LineCount)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-        }
-
         public static IEnumerable<IBlameHunk> ParseBlameInformation(string blameText)
         {
             string[] lines = blameText.Split('\n');
@@ -388,7 +335,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 if (CommitShaRegex.IsMatch(lines[i]))
                 {
-                    string currentCommitSha = lines[i].Substring(0, CommitShaLength - 1);
+                    string currentCommitSha = lines[i].Substring(0, CommitShaLength);
 
                     if (!currentCommitSha.Equals(commitSha))
                     {
@@ -421,7 +368,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 }
                 else if (AuthorRegex.IsMatch(lines[i]))
                 {
-                    name = lines[i].Substring(6);
+                    name = lines[i].Substring(6).Trim();
                     continue;
                 }
             }
