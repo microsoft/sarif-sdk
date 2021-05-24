@@ -498,7 +498,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             string message = string.Format(CultureInfo.CurrentCulture, messageFormat, args);
 
             ExceptionData exceptionData = exception != null && persistExceptionStack
-                ? ExceptionData.Create(exception)
+                ? ExceptionData.Create(exception.InnerException ?? exception)
                 : null;
 
             PhysicalLocation physicalLocation = uri != null

@@ -53,6 +53,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             return this.DefaultConfiguration != null && !this.DefaultConfiguration.ValueEquals(ReportingConfiguration.Empty);
         }
 
+        public bool ShouldSerializeFullDescription()
+        {
+            return !string.IsNullOrEmpty(this?.FullDescription?.Text);
+        }
+
         public bool ShouldSerializeShortDescription()
         {
             return !(this?.FullDescription?.Text ?? "").Trim()
