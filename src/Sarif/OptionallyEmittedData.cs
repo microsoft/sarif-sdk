@@ -86,7 +86,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         // be preserved.
         OverwriteExistingData = 0x40000000,
 
-        // Insert Everything - should include every flag except the overwrite one
-        All = ~OverwriteExistingData
+        // Insert Everything - should include every flag except the overwrite and git blame information ones
+        All = ~OverwriteExistingData & ~GitBlameInformation
     }
 }

@@ -404,8 +404,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 node.TryReconstructAbsoluteUri(_run.OriginalUriBaseIds, out uri);
             }
-
-            return uri.IsFile ? uri.GetFilePath() : null;
+            return uri.IsAbsoluteUri && uri.IsFile ? uri.GetFilePath() : null;
         }
 
         private const string RepoRootUriBaseIdStem = "REPO_ROOT";
