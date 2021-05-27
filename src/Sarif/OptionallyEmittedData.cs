@@ -77,13 +77,16 @@ namespace Microsoft.CodeAnalysis.Sarif
         // to detecting a result.
         CodeFlows = 0x800,
 
+        // Enrich SARIF log with git blame information
+        GitBlameInformation = 0x1000,
+
         // A special enum value that indicates that insertion should overwrite any existing
         // information in the SARIF log file. In the absence of this setting, any existing
         // data that would otherwise have been overwritten by the insert operation will
         // be preserved.
         OverwriteExistingData = 0x40000000,
 
-        // Insert Everything - should include every flag except the overwrite one
-        All = ~OverwriteExistingData
+        // Insert Everything - should include every flag except the overwrite and git blame information ones
+        All = ~OverwriteExistingData & ~GitBlameInformation
     }
 }

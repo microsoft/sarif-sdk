@@ -28,6 +28,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         private readonly IDictionary<string, ArtifactLocation> _originalUriBaseIds;
         private readonly IEnumerable<string> _insertProperties;
 
+        private const string Name = nameof(Name);
+        private const string Email = nameof(Email);
+        private const string CommitSha = nameof(CommitSha);
+
         public InsertOptionalDataVisitor(OptionallyEmittedData dataToInsert, Run run, IEnumerable<string> insertProperties)
             : this(dataToInsert, run?.OriginalUriBaseIds, insertProperties: insertProperties)
         {
@@ -214,6 +218,34 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 node.Guid = Guid.NewGuid().ToString(SarifConstants.GuidFormat);
             }
 
+            if (_dataToInsert.HasFlag(OptionallyEmittedData.GitBlameInformation))
+            {
+                // add git blame information to the result
+                string filePath = GetFilePath(node.Locations[0].PhysicalLocation.ArtifactLocation);
+
+                if (filePath != null)
+                {
+                    IEnumerable<IBlameHunk> blameHunks = SarifTransformerUtilities.ParseBlameInformation(
+                                                                                        _gitHelper.GetBlame(filePath));
+
+                    Region region = node.Locations[0].PhysicalLocation.Region;
+                    if (region != null)
+                    {
+                        foreach (IBlameHunk blameHunk in blameHunks)
+                        {
+                            if (!blameHunk.ContainsLine(region.StartLine))
+                            {
+                                continue;
+                            }
+                            node.SetProperty(CommitSha, blameHunk.CommitSha);
+                            node.SetProperty(Email, blameHunk.Email);
+                            node.SetProperty(Name, blameHunk.Name);
+                            break;
+                        }
+                    }
+                }
+            }
+
             return node;
         }
 
@@ -359,6 +391,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     return uriBaseId;
                 }
             }
+        }
+
+        private string GetFilePath(ArtifactLocation node)
+        {
+            Uri uri = node.Uri;
+            if (uri == null)
+            {
+                uri = node.Resolve(_run).Uri;
+            }
+            else
+            {
+                node.TryReconstructAbsoluteUri(_run.OriginalUriBaseIds, out uri);
+            }
+            return uri.IsAbsoluteUri && uri.IsFile ? uri.GetFilePath() : null;
         }
 
         private const string RepoRootUriBaseIdStem = "REPO_ROOT";

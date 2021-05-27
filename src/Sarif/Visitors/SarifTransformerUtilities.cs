@@ -1,8 +1,10 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Text.RegularExpressions;
 
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
@@ -13,6 +15,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
     public static class SarifTransformerUtilities
     {
+        private static readonly int CommitShaLength = 40;
+        private static readonly string authorMailString = "author-mail <>";
+        private static readonly Regex AuthorRegex = new Regex(@"^author", RegexOptions.Compiled);
+        private static readonly Regex AuthorTZRegex = new Regex(@"^author-tz", RegexOptions.Compiled);
+        private static readonly Regex AuthorTimeRegex = new Regex(@"^author-time", RegexOptions.Compiled);
+        private static readonly Regex AuthorMailRegex = new Regex(@"^author-mail", RegexOptions.Compiled);
+        private static readonly Regex CommitShaRegex = new Regex(@"^(?<hash>[0-9a-f]{40}).*$", RegexOptions.Compiled);
+
         public static readonly Dictionary<SarifVersion, string> PropertyBagTransformerItemPrefixes = new Dictionary<SarifVersion, string>()
         {
             { SarifVersion.OneZeroZero, "sarifv1" },
@@ -312,6 +322,65 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 default:
                     return AnnotatedCodeLocationImportanceVersionOne.Important;
             }
+        }
+
+        public static IEnumerable<IBlameHunk> ParseBlameInformation(string blameText)
+        {
+            string[] lines = blameText.Split('\n');
+            var blameHunks = new List<BlameHunk>();
+            string name = null, email = null, commitSha = null;
+            int lineCount = 0, finalStartLineNumber = 0;
+
+            for (int i = 0; i < lines.Length; i++)
+            {
+                if (CommitShaRegex.IsMatch(lines[i]))
+                {
+                    string currentCommitSha = lines[i].Substring(0, CommitShaLength);
+
+                    if (!currentCommitSha.Equals(commitSha))
+                    {
+                        if (commitSha != null)
+                        {
+                            // we have seen at least one valid commit detail before,
+                            // so flush the existing data
+                            blameHunks.Add(new BlameHunk(name, email, commitSha, lineCount, finalStartLineNumber));
+                        }
+
+                        // we are observing a fresh commit region
+                        commitSha = currentCommitSha;
+                        string[] commitInfoLine = lines[i].Split(' ');
+                        finalStartLineNumber = int.Parse(commitInfoLine[2]);
+                        lineCount = int.Parse(commitInfoLine[3]);
+                    }
+                }
+                else if (AuthorTZRegex.IsMatch(lines[i]))
+                {
+                    continue;
+                }
+                else if (AuthorTimeRegex.IsMatch(lines[i]))
+                {
+                    continue;
+                }
+                else if (AuthorMailRegex.IsMatch(lines[i]))
+                {
+                    email = lines[i].Substring(13, (lines[i].Length - authorMailString.Length));
+                    continue;
+                }
+                else if (AuthorRegex.IsMatch(lines[i]))
+                {
+                    name = lines[i].Substring(6).Trim();
+                    continue;
+                }
+            }
+
+            // We always need to flush out the last seen commit hunk,
+            // since there is no subsequent commit hunk which will trigger the flush operation.
+            if (commitSha != null)
+            {
+                blameHunks.Add(new BlameHunk(name, email, commitSha, lineCount, finalStartLineNumber));
+            }
+
+            return blameHunks;
         }
     }
 }

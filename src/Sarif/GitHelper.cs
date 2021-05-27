@@ -84,6 +84,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                 args: "rev-parse --verify HEAD");
         }
 
+        public string GetBlame(string filePath)
+        {
+            return GetSimpleGitCommandOutput(
+                Path.GetDirectoryName(filePath),
+                args: $"blame -f --porcelain {Path.GetFileName(filePath)}",
+                trimLines: false);
+        }
+
         public void Checkout(string repoPath, string commitSha)
         {
             GetSimpleGitCommandOutput(
@@ -151,7 +159,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        private string GetSimpleGitCommandOutput(string repoPath, string args)
+        private string GetSimpleGitCommandOutput(string repoPath, string args, bool trimLines = true)
         {
             string currentDirectory = this.fileSystem.EnvironmentCurrentDirectory;
 
@@ -174,7 +182,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     arguments: args);
 
                 return stdOut != null ?
-                    TrimNewlines(stdOut) :
+                    (trimLines ? TrimNewlines(stdOut) : stdOut) :
                     null;
             }
             finally
