@@ -314,7 +314,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             Directory.CreateDirectory(expected);
 
-            string diffText = string.Format(CultureInfo.InvariantCulture, "xcopy /Y \"{0}\" \"{1}\"", expected, actual);
+            string diffText = string.Format(CultureInfo.InvariantCulture, "xcopy /Y \"{0}\" \"{1}\"", actual, expected);
 
             string qualifier = string.Empty;
 
