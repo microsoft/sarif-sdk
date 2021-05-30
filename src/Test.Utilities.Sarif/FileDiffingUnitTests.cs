@@ -193,8 +193,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             bool passed = true;
             var filesWithErrors = new List<string>();
 
-                // Reify the list of keys because we're going to modify the dictionary in place.
-                List<string> keys = expectedSarifTextDictionary.Keys.ToList();
+            // Reify the list of keys because we're going to modify the dictionary in place.
+            List<string> keys = expectedSarifTextDictionary.Keys.ToList();
 
             foreach (string key in keys)
             {
