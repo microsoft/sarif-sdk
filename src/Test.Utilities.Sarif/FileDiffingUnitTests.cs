@@ -25,10 +25,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public abstract class FileDiffingUnitTests
     {
-        protected virtual bool VerifyRebaselineExpectedResultsIsFalse => true;
-
-        protected virtual bool RebaselineExpectedResults => false;
-
         public static string GetTestDirectory(string subdirectory = "")
         {
             return Path.GetFullPath(Path.Combine(@$"TestData\", subdirectory));
@@ -197,43 +193,36 @@ namespace Microsoft.CodeAnalysis.Sarif
             bool passed = true;
             var filesWithErrors = new List<string>();
 
-            if (RebaselineExpectedResults)
-            {
-                passed = false;
-            }
-            else
-            {
-                // Reify the list of keys because we're going to modify the dictionary in place.
-                List<string> keys = expectedSarifTextDictionary.Keys.ToList();
+            // Reify the list of keys because we're going to modify the dictionary in place.
+            List<string> keys = expectedSarifTextDictionary.Keys.ToList();
 
-                foreach (string key in keys)
+            foreach (string key in keys)
+            {
+                if (_testProducesSarifCurrentVersion)
                 {
-                    if (_testProducesSarifCurrentVersion)
-                    {
-                        PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(expectedSarifTextDictionary[key], Formatting.Indented, out string transformedSarifText);
-                        expectedSarifTextDictionary[key] = transformedSarifText;
+                    PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(expectedSarifTextDictionary[key], Formatting.Indented, out string transformedSarifText);
+                    expectedSarifTextDictionary[key] = transformedSarifText;
 
-                        passed &= AreEquivalent<SarifLog>(actualSarifTextDictionary[key],
-                                                          expectedSarifTextDictionary[key],
-                                                          out SarifLog actual);
+                    passed &= AreEquivalent<SarifLog>(actualSarifTextDictionary[key],
+                                                      expectedSarifTextDictionary[key],
+                                                      out SarifLog actual);
 
-                        if (enforceNotificationsFree &&
-                            actual != null &&
-                            (actual.Runs[0].Invocations?[0].ToolExecutionNotifications != null ||
-                             actual.Runs[0].Invocations?[0].ToolConfigurationNotifications != null))
-                        {
-                            passed = false;
-                            filesWithErrors.Add(key);
-                        }
-                    }
-                    else
+                    if (enforceNotificationsFree &&
+                        actual != null &&
+                        (actual.Runs[0].Invocations?[0].ToolExecutionNotifications != null ||
+                         actual.Runs[0].Invocations?[0].ToolConfigurationNotifications != null))
                     {
-                        passed &= AreEquivalent<SarifLogVersionOne>(
-                            actualSarifTextDictionary[key],
-                            expectedSarifTextDictionary[key],
-                            out SarifLogVersionOne actual,
-                            SarifContractResolverVersionOne.Instance);
+                        passed = false;
+                        filesWithErrors.Add(key);
                     }
+                }
+                else
+                {
+                    passed &= AreEquivalent<SarifLogVersionOne>(
+                        actualSarifTextDictionary[key],
+                        expectedSarifTextDictionary[key],
+                        out SarifLogVersionOne actual,
+                        SarifContractResolverVersionOne.Instance);
                 }
             }
 
@@ -284,32 +273,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                 sb.AppendLine(GenerateDiffCommand(TypeUnderTest, expectedRootDirectory, actualRootDirectory) + Environment.NewLine);
 
                 sb.AppendLine(
-                    "To rebaseline with current behavior, set 'RebaselineExpectedResults'" +
-                    "to true in the test class and run again.");
-            }
+                    "To rebaseline with current behavior:");
 
-            if (RebaselineExpectedResults)
-            {
                 string testDirectory = Path.Combine(ProductTestDataDirectory, "ExpectedOutputs");
-                Directory.CreateDirectory(testDirectory);
-
-                // We retrieve all test strings from embedded resources. To rebaseline, we need to
-                // compute the enlistment location from which these resources are compiled.
-                foreach (string key in expectedOutputResourceNameDictionary.Keys)
-                {
-                    string expectedFilePath = Path.Combine(testDirectory, expectedOutputResourceNameDictionary[key]);
-                    File.WriteAllText(expectedFilePath, actualSarifTextDictionary[key]);
-                }
-            }
-            else
-            {
-                ValidateResults(sb?.ToString());
+                sb.AppendLine(GenerateRebaselineCommand(TypeUnderTest, testDirectory, actualRootDirectory));
             }
 
-            if (VerifyRebaselineExpectedResultsIsFalse)
-            {
-                RebaselineExpectedResults.Should().BeFalse();
-            }
+            ValidateResults(sb?.ToString());
         }
 
         protected string GetOutputFilePath(string directory, string resourceName)
@@ -336,6 +306,30 @@ namespace Microsoft.CodeAnalysis.Sarif
                 output.Length.Should().Be(0, because: output);
             }
         }
+
+        public static string GenerateRebaselineCommand(string suiteName, string expected, string actual)
+        {
+            actual = Path.GetFullPath(actual);
+            expected = Path.GetFullPath(expected);
+
+            Directory.CreateDirectory(expected);
+
+            string diffText = string.Format(CultureInfo.InvariantCulture, "xcopy /Y \"{0}\" \"{1}\"", actual, expected);
+
+            string qualifier = string.Empty;
+
+            if (File.Exists(expected))
+            {
+                qualifier = Path.GetFileNameWithoutExtension(expected);
+            }
+
+            string fullPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            fullPath = Path.Combine(fullPath, "Rebaseline" + suiteName + qualifier + ".cmd");
+
+            File.WriteAllText(fullPath, diffText);
+            return fullPath;
+        }
+
 
         public static string GenerateDiffCommand(string suiteName, string expected, string actual)
         {
