@@ -11,10 +11,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
     public class ConsoleLogger : BaseLogger, IAnalysisLogger
     {
-        //  TODO:  We directly instantiate this logger in two classes, creating 
+        //  TODO:  We directly instantiate this logger in two classes, creating
         //  unamanged dependencies.  Fix this pattern with dependency injection or a factory.
         //  #2272 https://github.com/microsoft/sarif-sdk/issues/2272
-        public ConsoleLogger(bool quietConsole, string toolName, IEnumerable<FailureLevel> levels = null, IEnumerable<ResultKind> kinds = null) : base(levels, kinds)
+        public ConsoleLogger(bool quietConsole, string toolName, IList<FailureLevel> levels = null, IList<ResultKind> kinds = null) : base(levels, kinds)
         {
             _quietConsole = quietConsole;
             _toolName = toolName.ToUpperInvariant();
@@ -208,9 +208,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 case FailureLevel.Warning:
                     WriteLineToConsole(FormatNotificationMessage(notification, _toolName));
                     break;
+
                 case FailureLevel.Error:
                     WriteLineToConsole(FormatNotificationMessage(notification, _toolName), forceEmitOfErrorNotifications: true);
                     break;
+
                 default:
                     throw new InvalidOperationException();
             }
@@ -283,7 +285,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             if (uri != null)
             {
-                // If a path refers to a URI of form file://blah, we will convert to the local path           
+                // If a path refers to a URI of form file://blah, we will convert to the local path
                 if (uri.IsAbsoluteUri && uri.Scheme == Uri.UriSchemeFile)
                 {
                     path = uri.LocalPath;

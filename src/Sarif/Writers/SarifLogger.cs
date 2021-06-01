@@ -42,8 +42,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             IEnumerable<string> invocationPropertiesToLog = null,
             string defaultFileEncoding = null,
             bool quiet = false,
-            IEnumerable<FailureLevel> levels = null,
-            IEnumerable<ResultKind> kinds = null,
+            IList<FailureLevel> levels = null,
+            IList<ResultKind> kinds = null,
             IEnumerable<string> insertProperties = null)
             : this(new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.None)),
                   logFilePersistenceOptions: logFilePersistenceOptions,
@@ -75,8 +75,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             string defaultFileEncoding = null,
             bool closeWriterOnDispose = true,
             bool quiet = false,
-            IEnumerable<FailureLevel> levels = null,
-            IEnumerable<ResultKind> kinds = null,
+            IList<FailureLevel> levels = null,
+            IList<ResultKind> kinds = null,
             IEnumerable<string> insertProperties = null) : this(textWriter, logFilePersistenceOptions, closeWriterOnDispose, levels, kinds)
         {
             if (dataToInsert.HasFlag(OptionallyEmittedData.Hashes))
@@ -127,8 +127,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             TextWriter textWriter,
             LogFilePersistenceOptions logFilePersistenceOptions,
             bool closeWriterOnDipose,
-            IEnumerable<FailureLevel> levels,
-            IEnumerable<ResultKind> kinds) : base(failureLevels: levels, resultKinds: kinds)
+            IList<FailureLevel> levels,
+            IList<ResultKind> kinds) : base(failureLevels: levels, resultKinds: kinds)
         {
             _textWriter = textWriter;
             _closeWriterOnDispose = closeWriterOnDipose;

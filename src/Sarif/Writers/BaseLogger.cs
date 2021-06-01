@@ -3,20 +3,19 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
     public abstract class BaseLogger
     {
-        protected readonly List<FailureLevel> _failureLevels;
-        protected readonly List<ResultKind> _resultKinds;
+        protected readonly IList<FailureLevel> _failureLevels;
+        protected readonly IList<ResultKind> _resultKinds;
 
-        protected BaseLogger(IEnumerable<FailureLevel> failureLevels,
-            IEnumerable<ResultKind> resultKinds)
+        protected BaseLogger(IList<FailureLevel> failureLevels,
+            IList<ResultKind> resultKinds)
         {
-            _failureLevels = failureLevels?.ToList() ?? new List<FailureLevel>();
-            _resultKinds = resultKinds?.ToList() ?? new List<ResultKind>();
+            _failureLevels = failureLevels ?? new List<FailureLevel>();
+            _resultKinds = resultKinds ?? new List<ResultKind>();
 
             ValidateParameters();
         }

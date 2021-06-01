@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
     /// </summary>
     public class CachingLogger : BaseLogger, IAnalysisLogger
     {
-        public CachingLogger(IEnumerable<FailureLevel> levels, IEnumerable<ResultKind> kinds) : base(levels, kinds)
+        public CachingLogger(IList<FailureLevel> levels, IList<ResultKind> kinds) : base(levels, kinds)
         {
         }
 

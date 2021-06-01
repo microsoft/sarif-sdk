@@ -4,8 +4,6 @@
 using System;
 using System.Collections.Generic;
 
-using FluentAssertions;
-
 using Microsoft.CodeAnalysis.Sarif;
 
 using Xunit;
@@ -19,6 +17,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Writers
         {
             BaseLoggerTestConcrete baseLoggerTestConcrete = null;
 
+            Assert.Throws<ArgumentException>(() => new BaseLoggerTestConcrete(null, null));
             Assert.Throws<ArgumentException>(() => new BaseLoggerTestConcrete(new List<FailureLevel> { FailureLevel.Error },
                                                                     new List<ResultKind> { ResultKind.Informational }));
             //  The rest are fine.
