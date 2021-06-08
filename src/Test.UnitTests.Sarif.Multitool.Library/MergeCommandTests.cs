@@ -31,7 +31,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         protected override string TestLogResourceNameRoot => "Microsoft.CodeAnalysis.Sarif.Multitool.TestData." + TypeUnderTest;
 
-        public MergeCommandTests(ITestOutputHelper outputHelper) : base(outputHelper) { }
+        public MergeCommandTests(ITestOutputHelper outputHelper) : base(outputHelper)
+        {
+        }
 
         [Fact]
         [Trait(TestTraits.Bug, "https://github.com/microsoft/sarif-sdk/issues/1592")]
@@ -65,7 +67,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 OutputDirectoryPath = OutputFolderPath,
                 TargetFileSpecifiers = new[] { targetFileSpecifier },
                 OutputFileName = outputFileName,
-                Force = true
+                Force = true,
             };
 
             var mergeCommand = new MergeCommand(fileSystem);

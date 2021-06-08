@@ -22,24 +22,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public class MergeCommand : CommandBase
     {
-        private readonly IFileSystem _fileSystem;
-
         private MergeOptions _options;
         private long _filesToProcessCount;
         private Channel<string> _logLoadChannel;
         private Channel<SarifLog> _mergeLogsChannel;
         private readonly Dictionary<string, Run> _ruleIdToRunsMap;
-        private readonly Dictionary<string, RunMergingVisitor> _ruleIdToMergeVisitorsMap;
-        private readonly Dictionary<string, HashSet<Result>> _ruleIdToResultsMap;
         private readonly Dictionary<string, SarifLog> _idToSarifLogMap;
+        private readonly Dictionary<string, HashSet<Result>> _ruleIdToResultsMap;
+        private readonly Dictionary<string, RunMergingVisitor> _ruleIdToMergeVisitorsMap;
 
-        public MergeCommand(IFileSystem fileSystem = null)
+        public MergeCommand(IFileSystem fileSystem = null) : base(fileSystem)
         {
-            _fileSystem = fileSystem ?? Sarif.FileSystem.Instance;
             _ruleIdToRunsMap = new Dictionary<string, Run>();
-            _ruleIdToMergeVisitorsMap = new Dictionary<string, RunMergingVisitor>();
-            _ruleIdToResultsMap = new Dictionary<string, HashSet<Result>>();
             _idToSarifLogMap = new Dictionary<string, SarifLog>();
+            _ruleIdToResultsMap = new Dictionary<string, HashSet<Result>>();
+            _ruleIdToMergeVisitorsMap = new Dictionary<string, RunMergingVisitor>();
         }
 
         public int Run(MergeOptions mergeOptions)
@@ -63,7 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 if (_options.SplittingStrategy == 0)
                 {
-                    if (!DriverUtilities.ReportWhetherOutputFileCanBeCreated(outputFilePath, _options.Force, _fileSystem))
+                    if (!DriverUtilities.ReportWhetherOutputFileCanBeCreated(outputFilePath, _options.Force, FileSystem))
                     {
                         return FAILURE;
                     }
@@ -119,9 +116,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     mergedLog.Version = SarifVersion.Current;
                     mergedLog.SchemaUri = mergedLog.Version.ConvertToSchemaUri();
 
-                    _fileSystem.DirectoryCreateDirectory(outputDirectory);
+                    FileSystem.DirectoryCreateDirectory(outputDirectory);
                     outputFilePath = Path.Combine(outputDirectory, GetOutputFileName(_options, key));
-                    WriteSarifFile(_fileSystem, mergedLog, outputFilePath, _options.Minify);
+                    WriteSarifFile(FileSystem, mergedLog, outputFilePath, _options.Minify);
                 }
             }
             catch (Exception ex)
@@ -165,11 +162,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         }
 
                         run.SetRunOnResults();
-                        IList<Result> cachedResults = run.Results;
-                        run.Results = null;
-
-                        Run emptyRun = run.DeepClone();
-                        run.Results = cachedResults;
 
                         if (run.Results != null)
                         {
@@ -187,11 +179,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                                     };
                                 }
 
-                                key = CreateRuleKey(result.RuleId, emptyRun);
+                                key = CreateRuleKey(result.RuleId, run);
 
                                 if (!_ruleIdToRunsMap.TryGetValue(key, out Run splitRun))
                                 {
-                                    emptyRun.Results = new List<Result>();
+                                    Run emptyRun = run.DeepClone();
+                                    emptyRun.Results.Clear();
                                     splitRun = _ruleIdToRunsMap[key] = emptyRun;
                                     splitLog.Runs.Add(splitRun);
                                     _ruleIdToResultsMap[key] = new HashSet<Result>(Result.ValueComparer);
@@ -215,14 +208,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             return true;
         }
 
-        private string CreateRuleKey(string ruleId, Run emptyRun)
+        private string CreateRuleKey(string ruleId, Run run)
         {
             return
                 (ruleId ?? "") +
-                (emptyRun.Tool.Driver.Name ?? "") +
-                (emptyRun.Tool.Driver.Version ?? "") +
-                (emptyRun.Tool.Driver.SemanticVersion ?? "") +
-                (emptyRun.Tool.Driver.DottedQuadFileVersion ?? "");
+                (run.Tool.Driver.Name ?? "") +
+                (run.Tool.Driver.Version ?? "") +
+                (run.Tool.Driver.SemanticVersion ?? "") +
+                (run.Tool.Driver.DottedQuadFileVersion ?? "");
         }
 
         private async Task<bool> LoadSarifLogs()
@@ -252,7 +245,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         private void ProcessInputSarifLog(string filePath)
         {
             SarifLog sarifLog = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(
-                _fileSystem.FileReadAllText(filePath),
+                FileSystem.FileReadAllText(filePath),
                 formatting: Formatting.None,
                 out string sarifText);
 
@@ -283,12 +276,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     directory = @".\";
                 }
 
-                if (!_fileSystem.DirectoryExists(directory))
+                if (!FileSystem.DirectoryExists(directory))
                 {
                     continue;
                 }
 
-                foreach (string file in _fileSystem.DirectoryEnumerateFiles(directory, filter, searchOption))
+                foreach (string file in FileSystem.DirectoryEnumerateFiles(directory, filter, searchOption))
                 {
                     Interlocked.Increment(ref _filesToProcessCount);
                     await _logLoadChannel.Writer.WriteAsync(file);
