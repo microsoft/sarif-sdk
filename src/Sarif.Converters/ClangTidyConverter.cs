@@ -4,10 +4,10 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 using Microsoft.CodeAnalysis.Sarif.Converters.ClangTidyObjectModel;
 
-using YamlDotNet.RepresentationModel;
 using YamlDotNet.Serialization;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
@@ -129,24 +129,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private static (List<ReportingDescriptor>, List<Result>) ExtractRulesAndResults(ClangTidyLog log)
         {
-            var rules = new List<ReportingDescriptor>();
-            var ruleIds = new HashSet<string>();
+            var rules = new Dictionary<string, ReportingDescriptor>(StringComparer.OrdinalIgnoreCase);
             var results = new List<Result>();
 
             foreach (ClangTidyDiagnostic diagnostic in log.Diagnostics)
             {
                 string ruleId = diagnostic.DiagnosticName;
                 (ReportingDescriptor, Result) ruleAndResult = SarifRuleAndResultFromClangTidyDiagnostic(diagnostic);
-                if (!ruleIds.Contains(ruleId))
+                if (!rules.ContainsKey(ruleId))
                 {
-                    rules.Add(ruleAndResult.Item1);
-                    ruleIds.Add(ruleId);
+                    rules.Add(ruleId, ruleAndResult.Item1);
                 }
 
                 results.Add(ruleAndResult.Item2);
             }
 
-            return (rules, results);
+            return (rules.Values.ToList(), results);
         }
 
         private static (ReportingDescriptor, Result) SarifRuleAndResultFromClangTidyDiagnostic(ClangTidyDiagnostic diagnostic)
@@ -154,10 +152,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var reportingDescriptor = new ReportingDescriptor
             {
                 Id = diagnostic.DiagnosticName,
-                DefaultConfiguration = new ReportingConfiguration
-                {
-                    Level = FailureLevel.Warning,
-                },
                 HelpUri = diagnostic.DiagnosticName.Equals("clang-diagnostic-error", StringComparison.OrdinalIgnoreCase)
                 ? null
                 : new Uri($"https://clang.llvm.org/extra/clang-tidy/checks/{diagnostic.DiagnosticName}.html")
