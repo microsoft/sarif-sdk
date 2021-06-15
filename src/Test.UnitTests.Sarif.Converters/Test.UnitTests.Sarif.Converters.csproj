@@ -14,6 +14,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="TestData\ClangTidy\ExpectedOutputs\NoResults.sarif" />
+    <None Remove="TestData\ClangTidy\ExpectedOutputs\ValidResults.sarif" />
+    <None Remove="TestData\ClangTidy\Inputs\Empty.yaml" />
+    <None Remove="TestData\ClangTidy\Inputs\InvalidResult.yaml" />
+    <None Remove="TestData\ClangTidy\Inputs\ValidResults.yaml" />
     <None Remove="TestData\Hdf\ExpectedOutputs\NoResults.sarif" />
     <None Remove="TestData\Hdf\ExpectedOutputs\ValidResults.sarif" />
     <None Remove="TestData\Hdf\Inputs\Empty.json" />
@@ -48,6 +53,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="TestData\ClangTidy\ExpectedOutputs\NoResults.sarif" />
+    <EmbeddedResource Include="TestData\ClangTidy\ExpectedOutputs\ValidResults.sarif" />
+    <EmbeddedResource Include="TestData\ClangTidy\Inputs\Empty.yaml" />
+    <EmbeddedResource Include="TestData\ClangTidy\Inputs\InvalidResult.yaml" />
+    <EmbeddedResource Include="TestData\ClangTidy\Inputs\ValidResults.yaml" />
     <EmbeddedResource Include="TestData\Hdf\ExpectedOutputs\NoResults.sarif" />
     <EmbeddedResource Include="TestData\Hdf\ExpectedOutputs\ValidResults.sarif" />
     <EmbeddedResource Include="TestData\Hdf\Inputs\ValidResults.json" />

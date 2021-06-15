@@ -1,0 +1,272 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "results": [
+        {
+          "ruleId": "clang-diagnostic-error",
+          "message": {
+            "text": "too many errors emitted, stopping now"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "",
+                  "index": 0
+                },
+                "region": {
+                  "charOffset": 0
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "readability-convert-member-functions-to-static",
+          "message": {
+            "text": "method 'print' can be made static"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/home/lsp/projects/staticlib/src/Hello.cpp",
+                  "index": 1
+                },
+                "region": {
+                  "charOffset": 60
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "/home/lsp/projects/staticlib/src/Hello.cpp",
+                    "index": 1
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 67
+                      },
+                      "insertedContent": {
+                        "text": "static "
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "clang-diagnostic-error",
+          "message": {
+            "text": "non-ASCII characters are not allowed outside of literals and identifiers"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/home/lsp/projects/staticlib/src/README.adoc",
+                  "index": 2
+                },
+                "region": {
+                  "charOffset": 385
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "/home/lsp/projects/staticlib/src/README.adoc",
+                    "index": 2
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 385,
+                        "charLength": 3
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "modernize-use-trailing-return-type",
+          "message": {
+            "text": "use a trailing return type for this function"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/home/lsp/projects/staticlib/src/main.cpp",
+                  "index": 3
+                },
+                "region": {
+                  "charOffset": 31
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "/home/lsp/projects/staticlib/src/main.cpp",
+                    "index": 3
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 27,
+                        "charLength": 3
+                      },
+                      "insertedContent": {
+                        "text": "auto"
+                      }
+                    },
+                    {
+                      "deletedRegion": {
+                        "charOffset": 59
+                      },
+                      "insertedContent": {
+                        "text": " -> int"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "misc-unused-parameters",
+          "message": {
+            "text": "parameter 'argc' is unused"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/home/lsp/projects/staticlib/src/main.cpp",
+                  "index": 3
+                },
+                "region": {
+                  "charOffset": 40
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "/home/lsp/projects/staticlib/src/main.cpp",
+                    "index": 3
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 40,
+                        "charLength": 4
+                      },
+                      "insertedContent": {
+                        "text": " /*argc*/"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "misc-unused-parameters",
+          "message": {
+            "text": "parameter 'argv' is unused"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/home/lsp/projects/staticlib/src/main.cpp",
+                  "index": 3
+                },
+                "region": {
+                  "charOffset": 52
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "/home/lsp/projects/staticlib/src/main.cpp",
+                    "index": 3
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 52,
+                        "charLength": 4
+                      },
+                      "insertedContent": {
+                        "text": " /*argv*/"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "Clang-Tidy",
+          "informationUri": "https://clang.llvm.org/extra/clang-tidy/"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": ""
+          }
+        },
+        {
+          "location": {
+            "uri": "/home/lsp/projects/staticlib/src/Hello.cpp"
+          }
+        },
+        {
+          "location": {
+            "uri": "/home/lsp/projects/staticlib/src/README.adoc"
+          }
+        },
+        {
+          "location": {
+            "uri": "/home/lsp/projects/staticlib/src/main.cpp"
+          }
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}
