@@ -241,7 +241,24 @@
       "tool": {
         "driver": {
           "name": "Clang-Tidy",
-          "informationUri": "https://clang.llvm.org/extra/clang-tidy/"
+          "informationUri": "https://clang.llvm.org/extra/clang-tidy/",
+          "rules": [
+            {
+              "id": "clang-diagnostic-error"
+            },
+            {
+              "id": "readability-convert-member-functions-to-static",
+              "helpUri": "https://clang.llvm.org/extra/clang-tidy/checks/readability-convert-member-functions-to-static.html"
+            },
+            {
+              "id": "modernize-use-trailing-return-type",
+              "helpUri": "https://clang.llvm.org/extra/clang-tidy/checks/modernize-use-trailing-return-type.html"
+            },
+            {
+              "id": "misc-unused-parameters",
+              "helpUri": "https://clang.llvm.org/extra/clang-tidy/checks/misc-unused-parameters.html"
+            }
+          ]
         }
       },
       "artifacts": [

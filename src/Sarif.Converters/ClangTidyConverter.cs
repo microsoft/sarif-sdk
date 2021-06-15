@@ -23,16 +23,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             input = input ?? throw new ArgumentNullException(nameof(input));
             output = output ?? throw new ArgumentNullException(nameof(output));
 
-            var yaml = new YamlStream();
             IDeserializer deserializer = new DeserializerBuilder().Build();
             using var textReader = new StreamReader(input);
-            ClangTidyLog order = deserializer.Deserialize<ClangTidyLog>(textReader);
+            ClangTidyLog log = deserializer.Deserialize<ClangTidyLog>(textReader);
 
-            var results = new List<Result>();
-            foreach (ClangTidyDiagnostic entry in order.Diagnostics)
-            {
-                results.Add(CreateResult(entry));
-            }
+            (List<ReportingDescriptor>, List<Result>) rulesAndResults = ExtractRulesAndResults(log);
 
             var run = new Run
             {
@@ -42,15 +37,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     {
                         Name = ToolName,
                         InformationUri = new Uri(ToolInformationUri),
+                        Rules = rulesAndResults.Item1,
                     }
                 },
-                Results = results,
+                Results = rulesAndResults.Item2,
             };
 
-            PersistResults(output, results, run);
+            PersistResults(output, rulesAndResults.Item2, run);
         }
 
-        internal Result CreateResult(ClangTidyDiagnostic entry)
+        internal static Result CreateResult(ClangTidyDiagnostic entry)
         {
             entry = entry ?? throw new ArgumentNullException(nameof(entry));
 
@@ -129,6 +125,47 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
 
             return result;
+        }
+
+        private static (List<ReportingDescriptor>, List<Result>) ExtractRulesAndResults(ClangTidyLog log)
+        {
+            var rules = new List<ReportingDescriptor>();
+            var ruleIds = new HashSet<string>();
+            var results = new List<Result>();
+
+            foreach (ClangTidyDiagnostic diagnostic in log.Diagnostics)
+            {
+                string ruleId = diagnostic.DiagnosticName;
+                (ReportingDescriptor, Result) ruleAndResult = SarifRuleAndResultFromClangTidyDiagnostic(diagnostic);
+                if (!ruleIds.Contains(ruleId))
+                {
+                    rules.Add(ruleAndResult.Item1);
+                    ruleIds.Add(ruleId);
+                }
+
+                results.Add(ruleAndResult.Item2);
+            }
+
+            return (rules, results);
+        }
+
+        private static (ReportingDescriptor, Result) SarifRuleAndResultFromClangTidyDiagnostic(ClangTidyDiagnostic diagnostic)
+        {
+            var reportingDescriptor = new ReportingDescriptor
+            {
+                Id = diagnostic.DiagnosticName,
+                DefaultConfiguration = new ReportingConfiguration
+                {
+                    Level = FailureLevel.Warning,
+                },
+                HelpUri = diagnostic.DiagnosticName.Equals("clang-diagnostic-error", StringComparison.OrdinalIgnoreCase)
+                ? null
+                : new Uri($"https://clang.llvm.org/extra/clang-tidy/checks/{diagnostic.DiagnosticName}.html")
+            };
+
+            Result result = CreateResult(diagnostic);
+
+            return (reportingDescriptor, result);
         }
     }
 }

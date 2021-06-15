@@ -1,9 +1,10 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
+* FEATURE: Add Clang-Tidy converter. [#2367](https://github.com/microsoft/sarif-sdk/pull/2367)
+
 ## **v2.4.9** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.4.9) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.4.9) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.4.9) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.4.9) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.4.9)
 * FEATURE: Report inner exception details if available. [#2357](https://github.com/microsoft/sarif-sdk/pull/2357)
 * FEATURE: Add support for git blame. [#2358](https://github.com/microsoft/sarif-sdk/pull/2358)
-* FEATURE: Add Clang-Tidy converter. [#2367](https://github.com/microsoft/sarif-sdk/pull/2367)
 
 ## **v2.4.8** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.4.8) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.4.8) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.4.8) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.4.8) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.4.8)
 * BUGFIX: Fix `file-work-item` baselining. [#2344](https://github.com/microsoft/sarif-sdk/pull/2344)
