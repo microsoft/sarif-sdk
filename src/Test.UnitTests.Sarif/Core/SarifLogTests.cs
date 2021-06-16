@@ -2,6 +2,8 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 using FluentAssertions;
 
@@ -80,6 +82,22 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
 
             sarifLog = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, 3);
             sarifLog.Split(SplittingStrategy.PerRun).Should().HaveCount(3);
+        }
+
+        [Fact]
+        public void SarifLog_SplitPerResult()
+        {
+            var random = new Random();
+            SarifLog sarifLog = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, 1);
+            IList<SarifLog> logs = sarifLog.Split(SplittingStrategy.PerResult).ToList();
+            logs.Count.Should().Be(5);
+            foreach (SarifLog log in logs)
+            {
+                // optimized partitioned log should only include rules referenced by its results
+                log.Runs.Count.Should().Be(1);
+                int ruleCount = log.Runs[0].Results.Select(r => r.RuleId).Distinct().Count();
+                ruleCount.Should().Be(log.Runs[0].Tool.Driver.Rules.Count);
+            }
         }
 
         private Run SerializeAndDeserialize(Run run)

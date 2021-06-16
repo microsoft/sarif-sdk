@@ -61,6 +61,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         // the original log (if true) or from a shallow copy of the original log (if false).
         private readonly bool deepClone;
 
+        // A flag presents if optimize rules for each emitted logs, by removing rules which are not referenced
+        // by existing results.
+        private readonly bool remapRules;
+
         // The log file being partitioned.
         private SarifLog originalLog;
 
@@ -103,10 +107,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         /// working set, but it is not safe to modify any of the resulting logs because this class
         /// makes no guarantee about which objects are shared. The default is <c>false</c>.
         /// </param>
-        public PartitioningVisitor(PartitionFunction<T> partitionFunction, bool deepClone)
+        public PartitioningVisitor(PartitionFunction<T> partitionFunction, bool deepClone, bool remapRules = true)
         {
             this.partitionFunction = partitionFunction;
             this.deepClone = deepClone;
+            this.remapRules = remapRules;
         }
 
         /// <summary>
@@ -338,6 +343,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                             originalRun.Properties);
                     }
 
+                    if (this.remapRules)
+                    {
+                        partitionRun.Tool.Driver.Rules = this.RemapResultsToRules(partitionRun.Tool.Driver.Rules, results);
+                    }
+
                     partitionRun.Results = results;
 
                     // Construct a mapping from the indices in the original run to the indices
@@ -393,6 +403,53 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             remappingVisitor.VisitSarifLog(partitionLog);
 
             return partitionLog;
+        }
+
+        private IList<ReportingDescriptor> RemapResultsToRules(IList<ReportingDescriptor> rules, List<Result> results)
+        {
+            if (rules == null || !rules.Any() || results == null || !results.Any())
+            {
+                return null;
+            }
+
+            var referencedRulesByIndex = new Dictionary<ReportingDescriptor, int>();
+            int index = 0;
+
+            foreach (Result result in results)
+            {
+                ReportingDescriptor currentRule = null;
+                if (result.RuleIndex >= 0 && result.RuleIndex < rules.Count)
+                {
+                    // find the rule by RuleIndex
+                    currentRule = rules.ElementAt(result.RuleIndex);
+                }
+
+                if (currentRule == null && !string.IsNullOrWhiteSpace(result.RuleId))
+                {
+                    // find rule by RuleId, rule id is case sensitive
+                    currentRule = rules.FirstOrDefault(r => r.Id.Equals(result.RuleId, StringComparison.Ordinal));
+                }
+
+                if (currentRule == null)
+                {
+                    continue; // no rule found
+                }
+
+
+                int currentIndex = index;
+                if (!referencedRulesByIndex.TryGetValue(currentRule, out currentIndex))
+                {
+                    referencedRulesByIndex.Add(currentRule, index++);
+                }
+
+                // only update result RuleIndex if it has valid value
+                if (result.RuleIndex != -1)
+                {
+                    result.RuleIndex = currentIndex;
+                }
+            }
+
+            return referencedRulesByIndex.OrderBy(dict => dict.Value).Select(kv => kv.Key).ToList();
         }
 
         // This class contains information accumulated from an individual run in the

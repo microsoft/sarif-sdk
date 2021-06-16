@@ -102,9 +102,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             int fileIndex = random.Next(filePaths.Count);
             for (int i = 0; i < resultCount; i++)
             {
+                int ruleIndex = random.Next(ruleIds.Count);
                 results.Add(new Result()
                 {
-                    RuleId = ruleIds[random.Next(ruleIds.Count)],
+                    RuleId = ruleIds[ruleIndex],
+                    RuleIndex = ruleIndex,
                     Locations = new Location[]
                     {
                         new Location
