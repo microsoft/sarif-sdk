@@ -1,38 +1,48 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
+## **v2.4.10** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.4.10) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.4.10) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.4.10) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.4.10) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.4.10)
+
 * FEATURE: Add Clang-Tidy converter. [#2367](https://github.com/microsoft/sarif-sdk/pull/2367)
 
 ## **v2.4.9** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.4.9) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.4.9) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.4.9) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.4.9) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.4.9)
+
 * FEATURE: Report inner exception details if available. [#2357](https://github.com/microsoft/sarif-sdk/pull/2357)
 * FEATURE: Add support for git blame. [#2358](https://github.com/microsoft/sarif-sdk/pull/2358)
 
 ## **v2.4.8** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.4.8) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.4.8) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.4.8) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.4.8) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.4.8)
+
 * BUGFIX: Fix `file-work-item` baselining. [#2344](https://github.com/microsoft/sarif-sdk/pull/2344)
 * BUGFIX: Fix `FileRegionsCache` context region construction. [#2348](https://github.com/microsoft/sarif-sdk/pull/2348)
 
 ## **v2.4.7** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.4.7) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.4.7) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.4.7) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.4.7) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.4.7)
+
 * BUGFIX: Fix `SubId` handling in `CachingLogger`. [#2334](https://github.com/microsoft/sarif-sdk/pull/2334)
 * FEATURE: Add Hdf converter. [#2340](https://github.com/microsoft/sarif-sdk/pull/2340)
 * BUGFIX: Fix max result ingestion from `GitHubIngestionVisitor`. [#2341](https://github.com/microsoft/sarif-sdk/pull/2341)
 
 ## **v2.4.6** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.4.6) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.4.6) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.4.6) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.4.6) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.4.6)
+
 * FEATURE: Add CWE relationship in FlawFinder converter. [#2332](https://github.com/microsoft/sarif-sdk/pull/2332)
 * FEATURE: Add `ResultLevelKind` which will handle `FailureLevel` and `ResultKind`. [#2331](https://github.com/microsoft/sarif-sdk/pull/2331)
 * BUGFIX: Fix `GitHelper` logic. [#2327](https://github.com/microsoft/sarif-sdk/pull/2327)
 
 ## **v2.4.5** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.4.5) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.4.5) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.4.5) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.4.5) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.4.5)
+
 * BUGFIX: Fix `FileRegionsCache` logic. [#2309](https://github.com/microsoft/sarif-sdk/pull/2309)
 
 ## **v2.4.4** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.4.4) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.4.4) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.4.4) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.4.4) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.4.4)
+
 * BUGFIX: Fix performance issue in `CachingLogger`. [#2301](https://github.com/microsoft/sarif-sdk/pull/2301)
 * BUGFIX: Fix context dispose while analyzing. [#2303](https://github.com/microsoft/sarif-sdk/pull/2303)
 * BUGFIX: Fix export json configuration. [#2305](https://github.com/microsoft/sarif-sdk/pull/2305)
 * BUGFIX: Fix thread issues while using `Cache`. [#2306](https://github.com/microsoft/sarif-sdk/pull/2306)
 
 ## **v2.4.3** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.4.3) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.4.3) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.4.3) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.4.3) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.4.3)
+
 * BUGFIX: Fix issue when executing sarif.multitool. [#2298](https://github.com/microsoft/sarif-sdk/pull/2298)
 
 ## **v2.4.2** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.4.2) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.4.2) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.4.2) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.4.2) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.4.2)
+
 * FEATURE: `ConstructMultilineContextSnippet` will retrieve a few character after/before to prevent entire file when the file is one line only. [#2288](https://github.com/microsoft/sarif-sdk/pull/2288)
 * FEATURE: `baseliner` will consider `locations`. [2290](https://github.com/microsoft/sarif-sdk/pull/2290)
 * BUGFIX: Fix AzureDevOps title maxLength. [#2292](https://github.com/microsoft/sarif-sdk/pull/2292)
@@ -40,27 +50,32 @@
 * FEATURE: Add `kusto` command in Sarif.Multitool. [#2296](https://github.com/microsoft/sarif-sdk/pull/2296)
 
 ## **v2.4.1** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.4.1) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.4.1) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.4.1) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.4.1) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.4.1)
+
 * BREAKING: Move `transform` functionality into `rewrite` and delete redundant `transform` command. [#2252](https://github.com/microsoft/sarif-sdk/pull/2252)
 * FEATURE: kind, level, insert, and remove options can now be added to from environment variables. [#2273](https://github.com/microsoft/sarif-sdk/pull/2273)
 * FEATURE: `Merge` command will de-duplicate results. [#2280](https://github.com/microsoft/sarif-sdk/pull/2280)
 * FEATURE: `Merge` command will merge artifacts. [#2285](https://github.com/microsoft/sarif-sdk/pull/2285)
 
 ## **v2.4.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.4.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.4.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.4.0) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.4.0) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.4.0)
+
 * BREAKING: Entirely remove `verbose` whose fuctionality has been replaced by `--level` and `--kind`. [#2241](https://github.com/microsoft/sarif-sdk/pull/2241)
 * BREAKING: Rename `LoggingOptions` to `LogFilePersistenceOptions`. [#2241](https://github.com/microsoft/sarif-sdk/pull/2241)
 * FEATURE: `--quiet` will now suppress all console messages except for errors. [#2241](https://github.com/microsoft/sarif-sdk/pull/2241)
-* BUGFIX: Fix NullReference in SARIF1012 rule validation [#2254]. (https://github.com/microsoft/sarif-sdk/pull/2254)
+* BUGFIX: Fix NullReference in SARIF1012 rule validation [#2254]. (<https://github.com/microsoft/sarif-sdk/pull/2254>)
 * BREAKING: Rename `--plug-in` to `--plugin`. [#2264](https://github.com/microsoft/sarif-sdk/pull/2264)
 * FEATURE: Pass `--plugin` to load more binaries to analyze or export data. [#2264](https://github.com/microsoft/sarif-sdk/pull/2264)
 
 ## **v2.3.18** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.18) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.18) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.18) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.18) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.3.18)
+
 * FEATURE: Relax GH1005. [#2248](https://github.com/microsoft/sarif-sdk/pull/2248)
 
 ## **v2.3.17** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.17) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.17) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.17) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.17) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.3.17)
+
 * BREAKING: Move `CommandBase` class from `Multitool.Library` assembly to `Driver`. [#2238](https://github.com/microsoft/sarif-sdk/pull/2238)
 * FEATURE: Argument `VersionControlDetails` for `OptionallyEmittedData` in a analysis command will fill `VersionControlProvenance`. [#2237](https://github.com/microsoft/sarif-sdk/pull/2237)
 
 ## **v2.3.16** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.16) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.16) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.16) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.16) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.3.16)
+
 * BREAKING: Rename flag `VersionControlInformation` to `VersionControlDetails` from `OptionallyEmittedData`. [#2222](https://github.com/microsoft/sarif-sdk/pull/2222)
 * BUGFIX: Fix filtering when using the command `analyze` with custom configuration. [#2230](https://github.com/microsoft/sarif-sdk/pull/2230)
 * FEATURE: If argument `computeFileHashes`, it will be converted to `OptionallyEmittedData.Hashes`. [#2231](https://github.com/microsoft/sarif-sdk/pull/2231)
@@ -68,19 +83,23 @@
 * FEATURE: TargetUri from context can be relative. [#2235](https://github.com/microsoft/sarif-sdk/pull/2235)
 
 ## **v2.3.14** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.14) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.14) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.14) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.14) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.3.14)
+
 * BUGFIX: Fix concurrency issue in when using `Cache`. [#2215](https://github.com/microsoft/sarif-sdk/pull/2215)
 * FEATURE: `ConsoleLogger` will print exception if that exists. [#2217](https://github.com/microsoft/sarif-sdk/pull/2217)
 * BUGFIX: Fix `WebRequest` parameters parse that resulted in regex hang [#2219](https://github.com/microsoft/sarif-sdk/pull/2219)
 
 ## **v2.3.11** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.11) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.11) | [Converters]
+
 * DEPENDENCY BREAKING: SARIF now requires Newtonsoft.JSON 12.0.3.
 * Add `PerRun` splitting strategy for log file refactoring.
 
 ## **v2.3.10** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.10) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.10) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.10) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.10) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.3.10)
+
 * BREAKING: Rename package `WorkItems` to `Microsoft.WorkItems`. [#2180](https://github.com/microsoft/sarif-sdk/pull/2180)
 * BUGFIX: Fix `export-validation-config` exception. [#2181](https://github.com/microsoft/sarif-sdk/pull/2181)
 
 ## **v2.3.9** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.9) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.9) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.9) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.9) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.3.9)
+
 * FEATURE: Multitool SARIF rewrite accepts `remove` parameter. [#2160](https://github.com/microsoft/sarif-sdk/pull/2160)
 * BREAKING: Remove command `export-validation-docs` and extend `export-validation-rules` command to export markdown file. [#2156](https://github.com/microsoft/sarif-sdk/pull/2156)
 * DEPENDENCY BREAKING: SARIF now requires Newtonsoft.JSON 11.0.2 (rather than 10.0.3). [#2172](https://github.com/microsoft/sarif-sdk/pull/2172)
@@ -88,11 +107,13 @@
 * BREAKING: Rename various methods in `IFileSystem` and `FileSystem` classes (to consistently prefix all method names with their containing .NET static type, e.g. `Directory`. [#2173](https://github.com/microsoft/sarif-sdk/pull/2173)
 
 ## **v2.3.8** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.8) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.8) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.8) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.8) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.3.8)
+
 * FEATURE: PACKAGE BREAKING: Upgrade from .NET Framework 4.5 to .NET Framework 4.5.2. [#2135](https://github.com/microsoft/sarif-sdk/pull/2135)
 * FEATURE: Multitool SARIF merge accepts `threads` parameter. [#2026](https://github.com/microsoft/sarif-sdk/pull/2026)
 * FEATURE: Enable GitHub SourceLink to all project [#2148](https://github.com/microsoft/sarif-sdk/pull/2148)
 
 ## **v2.3.7** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.7) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.7) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.7) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.7) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.3.7)
+
 * DEPENDENCY BREAKING: SARIF now requires Newtonsoft.JSON 11.0.2 (rather than 10.0.3)
 * DEPENDENCY: SARIF TypeScript package now requires minimist 1.2.3 or later (rather than >=1.2.0)
 * BUGFIX: Fix index out of range exception when baselining [#2102](https://github.com/microsoft/sarif-sdk/pull/2102)
@@ -107,32 +128,38 @@
 * FEATURE: Add `apply-policy` command to Multitool. [#2118](https://github.com/microsoft/sarif-sdk/pull/2118)
 
 ## **v2.3.6** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.6) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.6) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.6) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.6) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.3.6)
+
 * BUGFIX: Restore multitool client app package build.
 * BUGFIX: Fix ESLint additional formatter corner cases that result in invalid SARIF.
 * FEATURE: COMMAND-LINE BREAKING: The analysis rules that validate a SARIF file's compatibility with GitHub Advanced Security code scanning now have rule ids that begin with `GH` rather than `SARIF`.
 
 ## **v2.3.5** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.5) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.5) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.5) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.5) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.3.5)
+
 * FEATURE: COMMAND-LINE BREAKING: Validation rule `SARIF2005.ProvideToolProperties` now requires `informationUri`, it allows `dottedQuadFileVersion` to satisfy the requirement that version information be present, and it is configurable.
 * FEATURE: Extract the public APIs from Sarif.Multitool into a new dependency package Sarif.Multitool.Library. Sarif.Multitool remains as a dotnet tool package.
 * FEATURE: Validation rule `SARIF2012` now checks for the presence of a friendly name in PascalCase in the `name` property, and is renamed from `ProvideHelpUris` to `ProvideRuleProperties`.
 * FEATURE: The Multitool `rewrite` command now accepts `VersionControlInformation` as an argument to the `--insert` option. This argument populates `run.versionControlProvenance`, and it re-expresses all absolute URIs as relative references with respect to the nearest enclosing repository root, if any.
 
 ## **v2.3.4** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.4) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.4) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.4) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.4)
+
 * COMMAND-LINE BREAKING: Change `merge` command output directory argument name to `output-directory`.
 * FEATURE: Add analysis rules appropriate for SARIF files that are to be uploaded to GitHub Advanced Security code scanning.
 * BUGFIX: Various Fortify FPR converter improvements (such as improve variable expansion in result messages).
 * BUGFIX: The validator no longer reports `SARIF2010.ProvideCodeSnippets` if embedded file content for the specified artifact is present. [#2003](https://github.com/microsoft/sarif-sdk/issues/2003)
 
 ## **v2.3.3** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.3) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.3) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.3) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.3)
+
 * FEATURE: Improve `SarifSdkSample` application: use `uriBaseIds`.
 * FEATURE: Add additional checks to SARIF analysis rule `SARIF2004.OptimizeFileSize`.
 * FEATURE: Introduce new SARIF analysis rule `SARIF2016.FileUrisShouldBeRelative`.
 * BUGFIX: If you created a URI from an absolute file path (for example, `C:\test\file.c`), then it would be serialized with that exact string, which is not a valid URI. This is now fixed. [#2001](https://github.com/microsoft/sarif-sdk/issues/2001)
 
 ## **v2.3.2** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.2) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.2) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.2) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.2)
+
 * FEATURE: The `Sarif.Multitool` command line verbs are now exposed programmatically. For example, the `validate` verb is exposed through the classes `ValidateCommand` and `ValidateOptions`.
 
 ## **v2.3.1** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.1) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.1) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.1) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.1)
+
 * FEATURE: Revised and improved validation rules in `Sarif.Multitool`.
 * FEATURE: Properties serialization performance improved (~20% faster load when Results use Properties).
 * FEATURE: Allow result messages to be truncated for display. [#1915](https://github.com/microsoft/sarif-sdk/issues/1915)
@@ -141,6 +168,7 @@
 * BUGFIX: Fix DateTime roundtripping in properties collections to follow normal DateTime output format.
 
 ## **v2.3.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.3.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.3.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.3.0) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.3.0)
+
 * BUGFIX: `ResultLogJsonWriter` now creates an empty `results` array if there are no results, rather than leaving `results` as `null`. [#1821](https://github.com/microsoft/sarif-sdk/issues/1821)
 * BUGFIX: In validation rules, `shortDescription` is now calculated by `GetFirstSentence` method, fixing a bug in sentence breaking. [#1887](https://github.com/microsoft/sarif-sdk/issues/1887)
 * BUGFIX: `WorkItemFiler` now logs correctly the details for `LogMetricsForProcessedModel` method [#1896](https://github.com/microsoft/sarif-sdk/issues/1896)
@@ -150,14 +178,17 @@
 * BREAKING: Rename `RemapIndicesVisitor` to `RunMergingVisitor` and redesign to control how much merging occurs internally.
 
 ## **v2.2.5** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.2.5) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.2.5) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.2.5) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.2.5)
-* BUGFIX: Fix SDK doubling Uris with certain escaped characters (ex: '-' and '_') on every Load/Save cycle (cause: https://github.com/dotnet/runtime/issues/36288)
+
+* BUGFIX: Fix SDK doubling Uris with certain escaped characters (ex: '-' and '_') on every Load/Save cycle (cause: <https://github.com/dotnet/runtime/issues/36288>)
 
 ## **v2.2.4** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.2.4) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.2.4) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.2.4) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.2.4)
+
 * BUGFIX: Validation rule SARIF1018 was not checking for a trailing slash on `uri` properties in `originalUriBaseIds` if `uriBaseId` was present.
 * BUGFIX: Build Sarif.Multitool NPM package non-trimmed to avoid more assembly load problems.
 * FEATURE: DeferredList will cache last item returned and won't throw if same instance written. (SarifRewritingVisitor + Deferred OM usable)
 
 ## **v2.2.3** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.2.3) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.2.3) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.2.3) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.2.3)
+
 * FEATURE: Introduce `SarifConstants.SarifFileExtension` with value `".sarif"`.
 * FEATURE: In validation rule SARIF1018, require `uri` values in `originalUriBaseIds` to end with a slash, per the SARIF spec.
 * BUGFIX: Result.GetRule will look up by RuleId if RuleIndex not present.
@@ -166,17 +197,20 @@
 * BUGFIX: Remove CsvHelper dependency to avoid assembly load problem in Sarif.Multitool NPM package.
 
 ## **v2.2.2** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.2.2) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.2.2) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.2.2) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.2.2)
+
 * BUGFIX: `dotnet tool install` command for Multitool now produces a working installation rather than reporting missing `Sarif.Converters` binary.
 * BUGFIX: Result.GetRule will look up by RuleId if RuleIndex not present.
 * BUGFIX: Baselining will properly persist Run.Tool.Driver.Rules if Results reference by RuleId.
 * BUGFIX: DeferredOM will properly load files with a BOM. (LineMappingStreamReader fix)
 
 ## **v2.2.1** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.2.1) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.2.1) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.2.1) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.2.1)
+
 * FEATURE: Multitool `remove` option now supports `Guids` value to remove `Result.Guid`.
 * FEATURE: Significant Baselining algorithm improvements: dynamic `partialFingerprint` trust, location-specific unique what property matching, 'nearby' matching, correct omitted `Region` property handling, correct `ReportingDescriptor.DeprecatedIds` handling.
 * DEPENDENCY BREAKING: SARIF now requires Newtonsoft.JSON 10.0.3 (rather than 9.0.x).
 
 ## **v2.2.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.2.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.2.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.2.0) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.2.0)
+
 * PACKAGE BREAKING: Update tool directory to netstandard2.1, to reflect use of that version of .NET Core.
 * FEATURE: Multitool `rewrite` command performance when populating regions and snippets is greatly improved.
 * FEATURE: Multitool `insert` option now supports `Guids` value to populate `Result.Guid`.
@@ -186,13 +220,16 @@
 * BUGFIX: Resolve crash on converting PREfast log files with non-null but empty help URLs.
 
 ## **v2.1.25** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.25) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.25) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.25) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.25)
+
 * FEATURE: The baseliner (available through the Multitool's `match-results-forward` command) now populates `result.provenance.firstDetectionTimeUtc` so you can now track the age of each issue. [#1737](https://github.com/microsoft/sarif-sdk/issues/1737)
 
 ## **v2.1.24** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.24) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.24) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.24) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.24)
+
 * FEATURE: Introduce API to partition log files by arbitrary criteria (method `SarifPartitioner.Partition` and class `PartitioningVisitor`).
 * BUGFIX: `Tool.CreateFromAssembly` now properly handles file versions that contain extra characters after the "dotted quad" string. [#1728](https://github.com/microsoft/sarif-sdk/issues/1728)
 
 ## **v2.1.23** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.23) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.23) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.23) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.23)
+
 * API BREAKING: Remove 'Errors.LogExceptionLoadingPdb' helper (as not relevant to core SDK).
 * FEATURE: Allow emitting non-failure tool notifications as debug/informational messages.
 * FEATURE: `SarifLogger` now populates `tool.driver`'s `organization` and `product` properties instead of adding `"Company"` and `"ProductName"` to `tool.driver'`s property bag. [#1716](https://github.com/microsoft/sarif-sdk/issues/1716)
@@ -202,12 +239,15 @@
 * BUGFIX: Baselining now matches the first and last Result per URI as an additional pass.
 
 ## **v2.1.22** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.22) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.22) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.22) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.22)
+
 * BUGFIX: Fix bug in validation rule `EndTimeMustNotBeBeforeStartTime`, which threw if `invocation.startTimeUtc` was present but `endTimeUtc` was absent.
 
 ## **v2.1.21** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.21) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.21) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.21) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.21)
+
 * FEATURE: Provide an API `SarifPartitioner.Filter` that selects results according to a predicate, and filters `run.artifacts` to only those artifacts used by the included results.
 
 ## **v2.1.20** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.20) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.20) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.20) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.20)
+
 * FEATURE: Added Stream-based SarifLog.Load and Save overloads
 * FEATURE: Enhanced property bag serialization unit testing. [#1673](https://github.com/microsoft/sarif-sdk/issues/1673)
 * BUGFIX: Fix packaging warning NU5048 during build. [#1687](https://github.com/microsoft/sarif-sdk/issues/1687)
@@ -220,6 +260,7 @@
 * BUGFIX: Console logger now outputs file location, if available, when writing notifications.
 
 ## **v2.1.19** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.19) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.19) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.19) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.19)
+
 * Sort driver skimmers by rule id + name during analysis, in order to improve deterministic ordering of log file data.
 * API BREAKING: Convert various public SARIF Driver framework API to prefer abstract ISet<string> type over HashSet<string>.
 * API BREAKING: Remove helper method `SarifUtilities.DeserializeObject` introduced in 2.1.15 to fix. [#1577](https://github.com/microsoft/sarif-sdk/issues/1577)
@@ -228,18 +269,21 @@ Now that an underlying bug in `PropertyBagConverter` has been fixed, there is no
 * FEATURE: Adding Result.Run and a populating method, so that methods which need the Run context for a given Result have an integrated way to retrieve it.
 
 ## **v2.1.17** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.17) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.17) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.17) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.17)
+
 * API NON-BREAKING: emit all core object model members as 'virtual'.
 * FEATURE: Introduce SarifConsolidator to shrink large log files. [#1675](https://github.com/microsoft/sarif-sdk/issues/1675)
 * BUGFIX: Analysis rule SARIF1017 incorrectly rejected index-valued properties that referred to taxonomies. [#1678](https://github.com/microsoft/sarif-sdk/issues/1678)
 * BUGFIX: `match-results-forward-command` dropped log contents and mishandled `rules` array. [#1684](https://github.com/microsoft/sarif-sdk/issues/1684)
 
 ## **v2.1.16** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.16) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.16) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.16) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.16)
+
 * BUGFIX, BREAKING: In the Multitool `page` command, the default for `--force` was `true` and it could not be changed. [#1630](https://github.com/microsoft/sarif-sdk/issues/1630)
 * BUGFIX: The Multitool `match-results-forward` command failed if results included logical locations. [#1656](https://github.com/microsoft/sarif-sdk/issues/1656)
 * BUGFIX: `SarifLogger(ReportingDescriptor rule, Result result)` failed if it tried to log a result whose `ruleId` was a sub-rule; for example, `rule.Id == "TEST0001"` but `result.ruleId == "TEST0001/1"`. [#1668](https://github.com/microsoft/sarif-sdk/issues/1668)
 * FEATURE: Implement results and notifications caching when `--hashes` is specified on the SARIF driver command line.
 
 ## **v2.1.15** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.15) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.15) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.15) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.15)
+
 * BUGFIX: Validation rule `SARIF1015` incorrectly required `originalUriBaseIds` to be contain URIs. [#1485](https://github.com/microsoft/sarif-sdk/issues/1485)
 * BUGFIX: Persist Fortify rule metadata properties. [#1490](https://github.com/microsoft/sarif-sdk/issues/1490)
 * BUGFIX: Multitool transform mishandled dottedQuadFileVersion. [#1532](https://github.com/microsoft/sarif-sdk/issues/1532)
@@ -254,48 +298,60 @@ Now that an underlying bug in `PropertyBagConverter` has been fixed, there is no
 * FEATURE: Improve presentation of option validation messages from the Multitool `page` command. [#1629](https://github.com/microsoft/sarif-sdk/issues/1629)
 
 ## **v2.1.14** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.14) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.14) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.14) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.14)
+
 * BUGFIX: FxCop converter produced logicalLocation.index but did not produce the run.logicalLocations array. [#1571](https://github.com/microsoft/sarif-sdk/issues/1571)
 * BUGFIX: Include Sarif.WorkItemFiling.dll in the Sarif.Multitool NuGet package. [#1636](https://github.com/microsoft/sarif-sdk/issues/1636)
 * FEATURE: Add validation rule to ensure that all array-index-valued properties are consistent with their respective arrays.
 
 ## **v2.1.13** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.13) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.13) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.13) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.13)
+
 * BUGFIX: Respect the --force option in Sarif.Multitool rather than overwriting the output file. [#1340](https://github.com/microsoft/sarif-sdk/issues/1340)
 * BUGFIX: Accept URI-valued properties whose value is the empty string. [#1632](https://github.com/microsoft/sarif-sdk/issues/1632)
 
 ## **v2.1.12** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.12) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.12) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.12) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.12)
+
 * BUGFIX: Improve handling of `null` values in property bags. [#1581](https://github.com/microsoft/sarif-sdk/issues/1581)
 
 ## **v2.1.11** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.11) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.11) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.11) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.11)
+
 * BUGFIX: Result matching should prefer the suppression info from the current run. [#1600](https://github.com/microsoft/sarif-sdk/issues/1600)
 
 ## **v2.1.10** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.10) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.10) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.10) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.10)
-* BUGFIX: Resolve a performance issue in web request parsing code. https://github.com/microsoft/sarif-sdk/issues/1608
+
+* BUGFIX: Resolve a performance issue in web request parsing code. <https://github.com/microsoft/sarif-sdk/issues/1608>
 
 ## **v2.1.9** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.9) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.9) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.9) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.9)
+
 * FEATURE: add --remove switch to eliminate certain properties (currently timestamps only) from log file output.
 * BUGFIX: remove verbose 'Analyzing file..' reporting for drivers.
 
 ## **v2.1.8** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.8) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.8) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.8) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.8)
+
 * BUGFIX: Add missing `"additionalProperties": false` constraints to schema; add missing object descriptions and improve other object descriptions in schema; update schema version to -rtm.4.
 
 ## **v2.1.7** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.7) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.7) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.7) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.7)
+
 * BUGFIX: Multitool rewrite InsertOptionalData operations fail if a result object references `run.artifacts` using the `index` property.
 * BUGFIX: The `SarifCurrentToVersionOneVisitor` was not translating v2 `result.partialFingerprints` to v1 `result.toolFingerprintContribution`. [#1556](https://github.com/microsoft/sarif-sdk/issues/1556)
 * BUGFIX: The `SarifCurrentToVersionOneVisitor` was dropping `run.id` and emitting an empty `run.stableId`. [#1557](https://github.com/microsoft/sarif-sdk/issues/1557)
 
 ## **v2.1.6** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.6) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.6) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.6) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.6)
+
 * BUGFIX: Fortify FPR converter does not populate originalUriBaseIds if the source is a drive letter (e.g. C:)
 * BUGFIX: Multitool rebaseUri command throws null reference exception if results reference run.artifacts using the index property.
 * BUGFIX: Pre-release transformer does not upgrade schema uri if input version is higher than rtm.1.
 
 ## **v2.1.5** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.5) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.5) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.5) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.5)
+
 * Change schemas back to draft-04 to reenable Intellisense in the Visual Studio JSON editor.
 
 ## **v2.1.4** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.4) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.4) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.4) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.4)
+
 * BUGFIX: Fix bugs related to parsing the query portion of a URI, and to the parsing of header strings.
 * API NON-BREAKING: Introduce `WebRequest.TryParse` and `WebResponse.TryParse` to accompany existing `Parse` methods.
 
 ## **v2.1.3** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.3) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.3) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.3) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.3)
+
 * Change schema uri to secure (https) instance.
 * BUGFIX: Fix tranformer bug where schema id would not be updated if no other transformation occurred.
 * BUGFIX: `ThreadFlowLocation.Kind` value is getting lost during pre-release transformation. [#1502](https://github.com/microsoft/sarif-sdk/issues/1502)
@@ -314,17 +370,21 @@ Now that an underlying bug in `PropertyBagConverter` has been fixed, there is no
 * API NON-BREAKING: Introduce `PropertyBagHolder.{Try}GetSerializedPropertyInfo`, a safe way of retrieving a property whose type is unknown.
 
 ## **v2.1.2** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.2) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.2) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.2) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.2)
+
 * API BREAKING: Change location.logicalLocation to logicalLocations array. [oasis-tcs/sarif-spec#414](https://github.com/oasis-tcs/sarif-spec/issues/414)
 
 ## **v2.1.1** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.1) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.1) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.1) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.1)
+
 * BUGFIX: Multitool crashes on launch: Can't find CommandLine.dll. [#1487](https://github.com/microsoft/sarif-sdk/issues/1487)
 
 ## **v2.1.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.0) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.0)
+
 * API NON-BREAKING: `PhysicalLocation.id` property is getting lost during 2.1.0 pre-release transformation. [#1479](https://github.com/microsoft/sarif-sdk/issues/1479)
 * Add support for converting TSLint logs to SARIF
 * Add support for converting Pylint logs to SARIF
 
 ## **v2.1.0-rtm.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.0-rtm.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.0-rtm.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.0-rtm.0)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.0-rtm.0)
+
 * API BREAKING: OneOf `graphTraversal.runGraphIndex` and `graphTraversal.resultGraphIndex` is required.
 * API NON-BREAKING: Add address.kind well-known values "instruction" and "data". [oasis-tcs/sarif-spec#397](https://github.com/oasis-tcs/sarif-spec/issues/397)
 * API BREAKING: Rename `invocation.toolExecutionSuccessful` to `invocation.executionSuccessful`. [oasis-tcs/sarif-spec#399](https://github.com/oasis-tcs/sarif-spec/issues/399)
@@ -333,6 +393,7 @@ Now that an underlying bug in `PropertyBagConverter` has been fixed, there is no
 * API BREAKING: Improve `address` object design. [oasis-tcs/sarif-spec#401](https://github.com/oasis-tcs/sarif-spec/issues/401)
 
 ## **v2.1.0-beta.2** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.0-beta.2) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.0-beta.2) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.0-beta.2)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.0-beta.2)
+
 * API NON-BREAKING: Change `request.target` type to string. [oasis-tcs/sarif-spec#362](https://github.com/oasis-tcs/sarif-spec/issues/362)
 * API BREAKING: anyOf `physicalLocation.artifactLocation` and `physicalLocation.address` is required. [oasis-tcs/sarif-spec#353](https://github.com/oasis-tcs/sarif-spec/issues/353)
 * API BREAKING: Rename `run.defaultFileEncoding` to `run.defaultEncoding`.
@@ -388,26 +449,32 @@ Now that an underlying bug in `PropertyBagConverter` has been fixed, there is no
 * API BREAKING: Change `notification.physicalLocation` of type `physicalLocation` to `notification.locations` of type `locations`.
 
 ## **v2.1.0-beta.1** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.0-beta.1) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.0-beta.1) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.0-beta.1)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.0-beta.1))
+
 * API BREAKING: Change `request.uri` to `request.target`. [oasis-tcs/sarif-spec#362](https://github.com/oasis-tcs/sarif-spec/issues/362)
 
 ## **v2.1.0-beta.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.0-beta.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.0-beta.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.0-beta.0)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.0-beta.0))
+
 * API BREAKING: All SARIF state dictionaries now contains multiformat strings as values. [oasis-tcs/sarif-spec#361](https://github.com/oasis-tcs/sarif-spec/issues/361)
 * API NON-BREAKING: Define `request` and `response` objects. [oasis-tcs/sarif-spec#362](https://github.com/oasis-tcs/sarif-spec/issues/362)
 
 ## **v2.0.0-csd.2.beta.2019.04-03.3** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.2.beta.2019.04-03.3) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.2.beta.2019.04-03.3) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.2.beta.2019.04-03.3)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.2.beta.2019.04-03.3))
+
 * API BREAKING: Rename `reportingDescriptor.descriptor` to `reportingDescriptor.target`. [oasis-tcs/sarif-spec#356](https://github.com/oasis-tcs/sarif-spec/issues/356)
 * API NON-BREAKING: Remove `canPrecedeOrFollow` from relationship kind list. [oasis-tcs/sarif-spec#356](https://github.com/oasis-tcs/sarif-spec/issues/356)
 
 ## **v2.0.0-csd.2.beta.2019.04-03.2** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.2.beta.2019.04-03.2) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.2.beta.2019.04-03.2) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.2.beta.2019.04-03.2)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.2.beta.2019.04-03.2))
+
 * API NON-BREAKING: Add `module` to `address.kind`. [oasis-tcs/sarif-spec#353](https://github.com/oasis-tcs/sarif-spec/issues/353)
 * API BREAKING: `address.baseAddress` & `address.offset` to int. [oasis-tcs/sarif-spec#353](https://github.com/oasis-tcs/sarif-spec/issues/353)
 * API BREAKING: Update how reporting descriptors describe their taxonomic relationships. [oasis-tcs/sarif-spec#356](https://github.com/oasis-tcs/sarif-spec/issues/356)
 * API NON-BREAKING: Add `initialState` and `immutableState` properties to thread flow object. Add `immutableState` to `graphTraversal` object. [oasis-tcs/sarif-spec#168](https://github.com/oasis-tcs/sarif-spec/issues/168)
 
 ## **v2.0.0-csd.2.beta.2019.04-03.1** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.2.beta.2019.04-03.1) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.2.beta.2019.04-03.1) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.2.beta.2019.04-03.1)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.2.beta.2019.04-03.1))
-* API BREAKING: Rename `message.messageId` property to `message.id`. https://github.com/oasis-tcs/sarif-spec/issues/352
+
+* API BREAKING: Rename `message.messageId` property to `message.id`. <https://github.com/oasis-tcs/sarif-spec/issues/352>
 
 ## **v2.0.0-csd.2.beta.2019.04-03.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.2.beta.2019.04-03.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.2.beta.2019.04-03.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.2.beta.2019.04-03.0)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.2.beta.2019.04-03.0))
+
 * API NON-BREAKING: Introduce new localization mechanism (post ballot changes). [oasis-tcs/sarif-spec#338](https://github.com/oasis-tcs/sarif-spec/issues/338)
 * API BREAKING: Add `address` property to a `location` object (post ballot changes). [oasis-tcs/sarif-spec#302](https://github.com/oasis-tcs/sarif-spec/issues/302)
 * API NON-BREAKING: Define result `taxonomies`. [oasis-tcs/sarif-spec#314](https://github.com/oasis-tcs/sarif-spec/issues/314)
@@ -421,6 +488,7 @@ Now that an underlying bug in `PropertyBagConverter` has been fixed, there is no
 * API NON-BREAKING: Rename `reportingConfigurationOverride` to `configurationOverride`. [oasis-tcs/sarif-spec#350](https://github.com/oasis-tcs/sarif-spec/issues/350)
 
 ## **v2.0.0-csd.2.beta.2019.02-20** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.2.beta.2019.02-20) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.2.beta.2019.02-20) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.2.beta.2019.02-20)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.2.beta.2019.02-20))
+
 * COMMAND-LINE BREAKING: Rename `--sarif-version` to `--sarif-output-version`. Remove duplicative tranform `--target-version` command-line argument.
 * COMMAND-LINE NON-BREAKING: add `--inline` option to multitool `rebaseuri` verb, to write output directly into input files.
 * API NON-BREAKING: Add additional properties to `toolComponent`. [oasis-tcs/sarif-spec#336](https://github.com/oasis-tcs/sarif-spec/issues/336)
@@ -437,9 +505,11 @@ Now that an underlying bug in `PropertyBagConverter` has been fixed, there is no
 * API BREAKING: External property file related renames. [oasis-tcs/sarif-spec#335](https://github.com/oasis-tcs/sarif-spec/issues/335)
 
 ## **v2.0.0-csd.2.beta.2019.01-24.1** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.2.beta.2019.01-24.1) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.2.beta.2019.01-24.1) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.2.beta.2019.01-24.1)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.2.beta.2019.01-24.1))
-* BUGFIX: `region.charOffset` default value should be -1 (invalid value) rather than 0. Fixes an issue where `region.charLength` is > 0 but `region.charOffset` is absent (because its value of 0 was incorrectly elided due to being the default value). 
+
+* BUGFIX: `region.charOffset` default value should be -1 (invalid value) rather than 0. Fixes an issue where `region.charLength` is > 0 but `region.charOffset` is absent (because its value of 0 was incorrectly elided due to being the default value).
 
 ## **v2.0.0-csd.2.beta.2019.01-24** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.2.beta.2019.01-24) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.2.beta.2019.01-24) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.2.beta.2019.01-24)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.2.beta.2019.01-24))
+
 * BUGFIX: SDK compatibility update for sample apps.
 * BUGFIX: Add Sarif.Multitool.exe.config file to multitool package to resolve "Could not load file or assembly `Newtonsoft.Json, Version=9.0.0.0`" exception on using validate command.
 * API BREAKING: rename baselineState `existing` value to `unchanged`. Add new baselineState value `updated`. [oasis-tcs/sarif-spec#312](https://github.com/oasis-tcs/sarif-spec/issues/312)
@@ -452,13 +522,14 @@ Now that an underlying bug in `PropertyBagConverter` has been fixed, there is no
 * API BREAKING: `file` renamed to `artifact`. `fileLocation` renamed to `artifactLocation`. `run.files` renamed to `run.artifacts`. [oasis-tcs/sarif-spec#309](https://github.com/oasis-tcs/sarif-spec/issues/309)
 
 ## **v2.0.0-csd.2.beta.2019-01-09** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.2.beta.2019-01-09) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.2.beta.2019-01-09) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.2.beta.2019-01-09) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.2.beta.2019-01-09)
+
 * BUGFIX: Result matching improvements in properties persistence.
 * FEATURE: Fortify FPR converter improvements.
 * API NON-BREAKING: Remove uniqueness requirement from `result.locations`.
 * API NON-BREAKING: Add `run.newlineSequences` to schema. [oasis-tcs/sarif-spec#169](https://github.com/oasis-tcs/sarif-spec/issues/169)
 * API NON-BREAKING: Add `rule.deprecatedIds` to schema. [oasis-tcs/sarif-spec#293](https://github.com/oasis-tcs/sarif-spec/issues/293)
 * API NON-BREAKING: Add `versionControlDetails.mappedTo`. [oasis-tcs/sarif-spec#248](https://github.com/oasis-tcs/sarif-spec/issues/248)
-* API NON-BREAKING: Add result.rank`. Add `ruleConfiguration.defaultRank`.
+* API NON-BREAKING: Add result.rank`. Add`ruleConfiguration.defaultRank`.
 * API NON-BREAKING: Add `file.sourceLocation` and `region.sourceLanguage` to guide in snippet colorization. `run.defaultSourceLanguage` provides a default value. [oasis-tcs/sarif-spec#286](https://github.com/oasis-tcs/sarif-spec/issues/286)
 * API NON-BREAKING: default values for `result.rank` and `ruleConfiguration.defaultRank` is now -1.0 (from 0.0). [oasis-tcs/sarif-spec#303](https://github.com/oasis-tcs/sarif-spec/issues/303)
 * API BREAKING: Remove `run.architecture` [oasis-tcs/sarif-spec#262](https://github.com/oasis-tcs/sarif-spec/issues/262)
@@ -474,13 +545,16 @@ Now that an underlying bug in `PropertyBagConverter` has been fixed, there is no
 * API BREAKING: `run.logicalLocations` now requires unique array elements. [oasis-tcs/sarif-spec#304](https://github.com/oasis-tcs/sarif-spec/issues/304)
 
 ## **v2.0.0-csd.2.beta.2018-10-10.2** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.2.beta.2018-10-10.2) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.2.beta.2018-10-10.2) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.2.beta.2018-10-10.2) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.2.beta.2018-10-10.2)
+
 * BUGFIX: Don`t emit v2 analysisTarget if there is no v1 resultFile.
 * BUILD: Bring NuGet publishing scripts into conformance with new Microsoft requirements.
 
 ## **v2.0.0-csd.2.beta.2018-10-10.1** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.2.beta.2018-10-10.1) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.2.beta.2018-10-10.1) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.2.beta.2018-10-10.1) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.2.beta.2018-10-10.1)
+
 * BUGFIX: Persist region information associated with analysis target
 
 ## **v2.0.0-csd.2.beta.2018-10-10** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.2.beta.2018-10-10) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.2.beta.2018-10-10) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.2.beta.2018-10-10) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.2.beta.2018-10-10)
+
 * FEATURE:Add --sarif-version command to driver (to transform SARIF output to v1 format)
 * BUGFIX: Drop erroneous persistence of redaction tokens as files objects.
 * API NON-BREAKING: Add `result.occurrenceCount` (denotes # of occurrences of an identical results within an analysisRun)
@@ -499,84 +573,103 @@ Now that an underlying bug in `PropertyBagConverter` has been fixed, there is no
 * API BREAKING: `invocation.workingDirectory` is now a FileLocation object (and not a URI expressed as a string)
 
 ## **v2.0.0-csd.1.0.2** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.1.0.2) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.1.0.2) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.1.0.2) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.1.0.2)
+
 * BUGFIX: In result matching algorithm, an empty or null previous log no longer causes a NullReferenceException.
 * BUGFIX: In result matching algorithm, duplicate data is no longer incorrectly detected across files. Also: changed a "NotImplementedException" to the correct "InvalidOperationException".
 
 ## **v2.0.0-csd.1.0.1** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.1.0.1) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.1.0.1) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.1.0.1) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.1.0.1)
+
 * API BREAKING CHANGE: Fix weakly typed CreateNotification calls and make API more strongly typed
 * API BREAKING CHANGE: Rename OptionallyEmittedData.ContextCodeSnippets to ContextRegionSnippets
 * API BREAKING CHANGE: Eliminate result.ruleMessageId (in favor of result.message.messageId)
 
 ## **v2.0.0-csd.1** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.1) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.1) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.1) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.1)
+
 * Convert object model to conform to SARIF v2 CSD.1 draft specification
 * Distinguish textual vs. binary file persistence in rewrite option (and allow for both in multitool rewrite verb)
-*   NOTE: the change above introduces a command-line breaking change. --persist-file-contents is now renamed to --insert
+* NOTE: the change above introduces a command-line breaking change. --persist-file-contents is now renamed to --insert
 * Add ComprehensiveRegionProperties, RegionSnippets and ContextCodeSnippets as possible qualifier to --insert option
 * Provide SARIF v1.0 object model and v1 <-> v2 transformation API
 
 ## **v1.7.5** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/1.7.5) | [Driver](https://www.nuget.org/packages/Sarif.Driver/1.7.5) | [Converters](https://www.nuget.org/packages/Sarif.Converters/1.7.5) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/1.7.5)
+
 * Disabling skimmers text fix
 * Fix a serialization bug with strings in a PropertyBag (not correctly escaped after a reserializing the data structure).
 * Multitool improvements--added "rebaseUri" and "absoluteUri" tasks, which will either make the URIs in a SARIF log relative to some base URI, or take base URIs stored in SARIF and make the URIs absolute again.
 * Added a "processing pipeline" model to the SARIF SDK in order to allow easy chaining of operations on SARIF logs (like making all URIs relative/absolute).
 
 ## **v1.7.4** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/1.7.4) | [Driver](https://www.nuget.org/packages/Sarif.Driver/1.7.4) | [Converters](https://www.nuget.org/packages/Sarif.Converters/1.7.4) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/1.7.4)
+
 * Platform Specific Tooling Text Fix
 * Skimmers can now be disabled via the configuration file
 * The Driver will now pull configuration from a default location to allow for easier re-packaging of tools with custom configurations
 
 ## **v1.7.3** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/1.7.3) | [Driver](https://www.nuget.org/packages/Sarif.Driver/1.7.3) | [Converters](https://www.nuget.org/packages/Sarif.Converters/1.7.3) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/1.7.3)
+
 * Make SupportedPlatform a first class concept for skimmers
 * Rename --pretty argument to --pretty-print
 
 ## **v1.7.2** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/1.7.2) | [Driver](https://www.nuget.org/packages/Sarif.Driver/1.7.2) | [Converters](https://www.nuget.org/packages/Sarif.Converters/1.7.2) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/1.7.2)
+
 * Update Multitool nuget package build
 * Enable "pretty print" .sarif formatting via --pretty argument
 * Code sign 3rd party dependency assemblies (CommandLineParser, CsvHelper, Newtonsoft.Json)
 * Remove -beta flag from Driver and Multitool packages
 
 ## **v1.7.1** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/1.7.1) | [Driver](https://www.nuget.org/packages/Sarif.Driver/1.7.1) | [Converters](https://www.nuget.org/packages/Sarif.Converters/1.7.1) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/1.7.1)
+
 * Update nuget package build
 
 ## **v1.7.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/1.7.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/1.7.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/1.7.0) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/1.7.0)
+
 * Security and accessibility clean-up
 * TSLint converter fixes
 * Provide .NET core version
 * VSIX improvements (including auto-expansion of file contents persisted to SARIF logs)
 
 ## **v1.6.0** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.6.0) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.6.0)
+
 * Enable persistence of base64-encoded file contents via SarifLogger.
 * Rename AnalyzeOptions.ComputeTargetsHash to ComputeFileHashes
 * Fix bug in Semmle conversion (crash on embedded file:// scheme links)
 
 ## **v1.5.47** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.47) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.47)
+
 * Enable converter plugins
-* Adjust RuntimeConditions enum so that `command line parse` error is 0x1. 
+* Adjust RuntimeConditions enum so that `command line parse` error is 0x1.
 
 ## **v1.5.46** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.46) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.46)
+
 * Resolved crash deserializing empty property bags
 
 ## **v1.5.45** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.45) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.45)
+
 * Track RuntimeConditions.OneOrMoreWarnings|ErrorsFired in RuleUtilities.BuildResult
 
 ## **v1.5.44** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.44) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.44)
+
 * Update default AnalyzeCommandBase behavior to utilize rich return code, if specified.
 
 ## **v1.5.43** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.43) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.43)
+
 * Expose EntryPointUtilities helpers as public
 
 ## **v1.5.42** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.42) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.42)
+
 * Add EntryPointUtilities class that provides response file injection assistance
 * Rich return code support
 
 ## **v1.5.41** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.41) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.41)
+
 * Control invocation property logging
 
 ## **v1.5.40** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.40) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.40)
-* Add JSON settings persistence 
+
+* Add JSON settings persistence
 * Populate context objects from configuration file argument
 
 ## **v1.5.39** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.39) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.39)
+
 * Loosen requirement to explicitly provide --config argument for default configuration
 * Convert Semmle embedded links to related locations
 * Add File/Open of Semmle CSV to VS add-ing
@@ -584,38 +677,49 @@ Now that an underlying bug in `PropertyBagConverter` has been fixed, there is no
 * Update FileSpecifier to resolve patternts such as File* properly
 
 ## **v1.5.38** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.38) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.38)
+
 * Preliminary Semmle converter
 
 ## **v1.5.37** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.37) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.37)
+
 * Further refinements to output on analysis completion.
 
 ## **v1.5.36** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.36) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.36)
+
 * Provide better reporting for non-fatal messages.
 
 ## **v1.5.35** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.35) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.35)
+
 * Add `configuration` member to rule objects
 
 ## **v1.5.34** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.34) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.34)
+
 * Update schema for `annotations` object required properties
 
 ## **v1.5.33** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.33) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.33)
+
 * Resolve crash generating `not applicable` messages
 
 ## **v1.5.32** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.32) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.32)
+
 * Add `annotations` member to annotatedCodeLocation object.
 * Rename annotatedCodeLocation `variables` member to `state`
 * Rename annotatedCodeLocation `parameters` member to `values`
 
 ## **v1.5.31** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.31) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.31)
+
 * API BREAKING CHANGE: RuleUtilities.BuildResult no longer automatically prepends the target file path to the list of FormattedRuleMessage.Arguments array in the Result object being built.
 
 ## **v1.5.30** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.30) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.30)
+
 * Add static helper method `AnalyzeCommandBase.LogToolNotification`.
 
 ## **v1.5.29** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.29) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.29)
+
 * Add `--quiet` option to suppress console output.
 
 ## **v1.5.28** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.28) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.28)
+
 * API BREAKING change: rename PropertyBagDictionary to PropertiesDictionary
 * Add `functionReturn` to annotatedCodeLocation.kind
 * Remove `source`, `sink` and `sanitizer` from annotatedCodeLocation.kind
@@ -625,9 +729,11 @@ Now that an underlying bug in `PropertyBagConverter` has been fixed, there is no
 * Rename annotatedCodeLocation.calleeKey member to `targetKey`
 
 ## **v1.5.27** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.27) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.27)
+
 * Ship checked in CommandLine.dll in order to allow this `beta` NuGet component to ship in Driver non-beta release
 
 ## **v1.5.26** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.26) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.26)  
+
 * API BREAKING change on SarifLogger to explicitly specify hash computation for all files  
 * SarifLogger now automatically persists file data for all URIs through format  
 * Add run.stableId, a consistent run-over-run log identifier  
@@ -636,19 +742,23 @@ Now that an underlying bug in `PropertyBagConverter` has been fixed, there is no
 * Drop .NET framework dependency to 4.5 (from 4.5.1)
 
 ## **v1.5.25** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.25) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.25)
+
 * NOTE: NON-BETA RELEASE
 * Add a converter for Static Driver Verifier trace files
 * Add SuppressedExternally to SuppressionStates enum
 
 ## **v1.5.24-beta** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.24-beta) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.24-beta)
+
 * Permit annotatedCodeLocation.id to be a numeric value (in addition to a string)
 
 ## **v1.5.23-beta** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.23-beta) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.23-beta)
+
 * Rename `codeSnippet` to `snippet`
 * Remove requirement to specify `description` on code fixes
 * Add `architecture` back to `run` object
 
 ## **v1.5.22-beta** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.22-beta) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.22-beta)
+
 * Add suppressionStates enum (with a single current value, indicating `suppressedInSource`)
 * Add `id` and `correlationId` as arguments to ResultLogJsonWriter.Initialize. Log `id` is populated with a generated guid by default.
 * Add `sarifLoggerVersion` that identifies the SDK logger version used to produce a log file.
@@ -669,16 +779,19 @@ Now that an underlying bug in `PropertyBagConverter` has been fixed, there is no
 * Add `physicalLocation` property to notification
 
 ## **v1.5.21-beta** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.21-beta) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.21-beta)
+
 * Persist mime-type for files in SarifLogger
 * Remove stack persistence for configuration notification exceptions
 * Reclassify `could not parse target` as a configuration notification
 * Fix diffing visitor to diff using value type semantics rather than by reference equality
 
 ## **v1.5.20-beta** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.20-beta) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.20-beta)
+
 * Rename Microsoft.CodeAnalysis.Sarif.Sdk namespace to Microsoft.CodeAnalysis.Sarif
 * Rename Microsoft.CodeAnalysis.Sarif.Driver namespace to Microsoft.CodeAnalysis.Driver
 * Eliminate some tool version details. Add SarifLogger version as tool property
 
 ## **v1.5.19-beta** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.19-beta) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.19-beta)
+
 * Moved SarifLogger and its dependencies from driver to SDK package
 * Include this file and JSON schema in packages
