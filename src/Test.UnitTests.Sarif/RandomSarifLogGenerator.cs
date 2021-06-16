@@ -99,9 +99,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         public static IList<Result> GenerateFakeResults(Random random, List<string> ruleIds, List<Uri> filePaths, int resultCount)
         {
             List<Result> results = new List<Result>();
-            int fileIndex = random.Next(filePaths.Count);
             for (int i = 0; i < resultCount; i++)
             {
+                int fileIndex = random.Next(filePaths.Count);
                 int ruleIndex = random.Next(ruleIds.Count);
                 results.Add(new Result()
                 {

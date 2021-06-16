@@ -100,6 +100,30 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
             }
         }
 
+        [Fact]
+        public void SarifLog_SplitPerTarget()
+        {
+            var random = new Random();
+            SarifLog sarifLog = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, 1);
+            IList<SarifLog> logs = sarifLog.Split(SplittingStrategy.PerRunPerTarget).ToList();
+            logs.Count.Should().Be(
+                sarifLog.Runs[0].Results.Select(r => r.Locations[0].PhysicalLocation.ArtifactLocation.Uri).Distinct().Count());
+            foreach (SarifLog log in logs)
+            {
+                // optimized partitioned log should only include rules referenced by its results
+                log.Runs.Count.Should().Be(1);
+                int ruleCount = log.Runs[0].Results.Select(r => r.RuleId).Distinct().Count();
+                ruleCount.Should().Be(log.Runs[0].Tool.Driver.Rules.Count);
+
+                // verify result's RuleIndex reference to right rule
+                foreach (Result result in log.Runs[0].Results)
+                {
+                    result.RuleId.Should().Be(
+                        log.Runs[0].Tool.Driver.Rules.ElementAt(result.RuleIndex).Id);
+                }
+            }
+        }
+
         private Run SerializeAndDeserialize(Run run)
         {
             return JsonConvert.DeserializeObject<Run>(JsonConvert.SerializeObject(run));

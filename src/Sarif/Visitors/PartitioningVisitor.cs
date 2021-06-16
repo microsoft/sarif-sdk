@@ -345,7 +345,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                     if (this.remapRules)
                     {
-                        partitionRun.Tool.Driver.Rules = this.RemapResultsToRules(partitionRun.Tool.Driver.Rules, results);
+                        partitionRun.Tool.Driver.Rules = this.RemapResultsToRules(partitionRun, results);
                     }
 
                     partitionRun.Results = results;
@@ -405,40 +405,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return partitionLog;
         }
 
-        private IList<ReportingDescriptor> RemapResultsToRules(IList<ReportingDescriptor> rules, List<Result> results)
+        private IList<ReportingDescriptor> RemapResultsToRules(Run partitionRun, List<Result> results)
         {
+            IList<ReportingDescriptor> rules = partitionRun.Tool.Driver.Rules;
             if (rules == null || !rules.Any() || results == null || !results.Any())
             {
                 return null;
             }
 
-            var referencedRulesByIndex = new Dictionary<ReportingDescriptor, int>();
+            var referencedRulesByIndex = new Dictionary<ReportingDescriptor, int>(new ReportingDescriptorEqualityComparer());
             int index = 0;
 
             foreach (Result result in results)
             {
-                ReportingDescriptor currentRule = null;
-                if (result.RuleIndex >= 0 && result.RuleIndex < rules.Count)
+                ReportingDescriptor currentRule = result.GetRule(partitionRun);
+                if (!referencedRulesByIndex.TryGetValue(currentRule, out int currentIndex))
                 {
-                    // find the rule by RuleIndex
-                    currentRule = rules.ElementAt(result.RuleIndex);
-                }
-
-                if (currentRule == null && !string.IsNullOrWhiteSpace(result.RuleId))
-                {
-                    // find rule by RuleId, rule id is case sensitive
-                    currentRule = rules.FirstOrDefault(r => r.Id.Equals(result.RuleId, StringComparison.Ordinal));
-                }
-
-                if (currentRule == null)
-                {
-                    continue; // no rule found
-                }
-
-
-                int currentIndex = index;
-                if (!referencedRulesByIndex.TryGetValue(currentRule, out currentIndex))
-                {
+                    currentIndex = index;
                     referencedRulesByIndex.Add(currentRule, index++);
                 }
 
