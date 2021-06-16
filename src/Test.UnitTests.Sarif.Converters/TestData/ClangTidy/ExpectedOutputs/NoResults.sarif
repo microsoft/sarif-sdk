@@ -1,0 +1,16 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "results": [],
+      "tool": {
+        "driver": {
+          "name": "Clang-Tidy",
+          "informationUri": "https://clang.llvm.org/extra/clang-tidy/"
+        }
+      },
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}
