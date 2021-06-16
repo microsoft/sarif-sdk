@@ -27,6 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             CreateConverterRecord<AndroidStudioConverter>(result, ToolFormat.AndroidStudio);
             CreateConverterRecord<CppCheckConverter>(result, ToolFormat.CppCheck);
             CreateConverterRecord<ClangAnalyzerConverter>(result, ToolFormat.ClangAnalyzer);
+            CreateConverterRecord<ClangTidyConverter>(result, ToolFormat.ClangTidy);
             CreateConverterRecord<ContrastSecurityConverter>(result, ToolFormat.ContrastSecurity);
             CreateConverterRecord<FortifyConverter>(result, ToolFormat.Fortify);
             CreateConverterRecord<FortifyFprConverter>(result, ToolFormat.FortifyFpr);
