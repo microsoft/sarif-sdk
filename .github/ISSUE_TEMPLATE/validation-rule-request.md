@@ -1,9 +1,10 @@
 ---
-name        : Validation rule request
-about       : A detailed specification for a new SARIF validation rule to add to the Sarif.Multitool validate command.
-title       : "[RULE REQUEST] Concise description of new analysis"
-labels      : validation-rule-request
-assignees   : ''
+name: Validation rule request
+about: A detailed specification for a new SARIF validation rule to add to the Sarif.Multitool
+  validate command.
+title: "[RULE REQUEST] Concise description of new analysis"
+labels: ''
+assignees: ''
 
 ---
 
