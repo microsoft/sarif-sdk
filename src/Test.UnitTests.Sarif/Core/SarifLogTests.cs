@@ -129,7 +129,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
         {
             var random = new Random();
             SarifLog sarifLog = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, 1);
-            
+
             // set random result's location to empty
             IList<Result> results = sarifLog.Runs.First().Results;
             Result randomResult = results.ElementAt(random.Next(results.Count));
