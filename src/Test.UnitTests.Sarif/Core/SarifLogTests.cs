@@ -124,6 +124,52 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
             }
         }
 
+        [Fact]
+        public void SarifLog_SplitPerTarget_WithEmptyLocations()
+        {
+            var random = new Random();
+            SarifLog sarifLog = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, 1);
+            
+            // set random result's location to empty
+            IList<Result> results = sarifLog.Runs.First().Results;
+            Result randomResult = results.ElementAt(random.Next(results.Count));
+            randomResult.Locations = null;
+            randomResult = results.ElementAt(random.Next(results.Count));
+            if (randomResult.Locations?.FirstOrDefault()?.PhysicalLocation != null)
+            {
+                randomResult.Locations.FirstOrDefault().PhysicalLocation = null;
+            }
+            randomResult = results.ElementAt(random.Next(results.Count));
+            if (randomResult.Locations?.FirstOrDefault()?.PhysicalLocation?.ArtifactLocation != null)
+            {
+                randomResult.Locations.FirstOrDefault().PhysicalLocation.ArtifactLocation = null;
+            }
+            randomResult = results.ElementAt(random.Next(results.Count));
+            if (randomResult.Locations?.FirstOrDefault()?.PhysicalLocation?.ArtifactLocation?.Uri != null)
+            {
+                randomResult.Locations.FirstOrDefault().PhysicalLocation.ArtifactLocation.Uri = null;
+            }
+
+            IList<SarifLog> logs = sarifLog.Split(SplittingStrategy.PerRunPerTarget).ToList();
+            logs.Count.Should().Be(
+                sarifLog.Runs[0].Results.Select(r => r.Locations?.FirstOrDefault()?.PhysicalLocation?.ArtifactLocation?.Uri).Distinct().Count());
+            foreach (SarifLog log in logs)
+            {
+                // optimized partitioned log should only include rules referenced by its results
+                log.Runs.Count.Should().Be(1);
+                int ruleCount = log.Runs[0].Results.Select(r => r.RuleId).Distinct().Count();
+                ruleCount.Should().Be(log.Runs[0].Tool.Driver.Rules.Count);
+
+                // verify result's RuleIndex reference to right rule
+                foreach (Result result in log.Runs[0].Results)
+                {
+                    result.RuleId.Should().Be(
+                        log.Runs[0].Tool.Driver.Rules.ElementAt(result.RuleIndex).Id);
+                }
+            }
+        }
+
+
         private Run SerializeAndDeserialize(Run run)
         {
             return JsonConvert.DeserializeObject<Run>(JsonConvert.SerializeObject(run));
