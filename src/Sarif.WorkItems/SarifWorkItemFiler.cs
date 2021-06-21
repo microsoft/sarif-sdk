@@ -177,8 +177,6 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 this.FilingResult = FilingResult.None;
                 this.FiledWorkItems = new List<WorkItemModel>();
 
-                sarifLog = sarifLog ?? throw new ArgumentNullException(nameof(sarifLog));
-
                 OptionallyEmittedData optionallyEmittedData = this.FilingContext.DataToRemove;
                 if (optionallyEmittedData != OptionallyEmittedData.None)
                 {
@@ -257,7 +255,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                     }
 
                     Logger.LogDebug("Begin splitting logs");
-                    var partitioningVisitor = new PartitioningVisitor<string>(partitionFunction, deepClone: false);
+                    var partitioningVisitor = new PartitioningVisitor<string>(partitionFunction, deepClone: false, remapRules: true);
                     partitioningVisitor.VisitSarifLog(sarifLog);
 
                     Logger.LogDebug("Begin retrieving split logs");

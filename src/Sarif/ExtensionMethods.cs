@@ -37,6 +37,20 @@ namespace Microsoft.CodeAnalysis.Sarif
                     partitionFunction = (result) => result.Run.GetHashCode().ToString();
                     break;
                 }
+                case SplittingStrategy.PerRunPerTarget:
+                {
+                    foreach (Run run in sarifLog.Runs)
+                    {
+                        run.SetRunOnResults();
+                    }
+                    partitionFunction = (result) =>
+                    {
+                        string runHashCode = result.Run.GetHashCode().ToString();
+                        string targetFile = result.Locations?.FirstOrDefault()?.PhysicalLocation?.ArtifactLocation?.Uri?.OriginalString;
+                        return $"{runHashCode}:{targetFile}";
+                    };
+                    break;
+                }
                 default:
                 {
                     throw new NotImplementedException($"SplittingStrategy: {splittingStrategy}");
