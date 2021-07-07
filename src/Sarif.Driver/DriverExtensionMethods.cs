@@ -166,6 +166,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             valid &= !(options.Quiet && string.IsNullOrWhiteSpace(options.OutputFilePath));
 
+            // baseline process now depends on output file
+            valid &= !(string.IsNullOrWhiteSpace(options.OutputFilePath) && !string.IsNullOrWhiteSpace(options.BaselineSarifFile));
+
             return valid;
         }
     }

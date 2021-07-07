@@ -3,7 +3,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Reflection;
+
+using Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching;
+
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
@@ -29,6 +35,48 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
 
             return assemblies;
+        }
+
+        protected virtual bool ProcessBaseline(T driverOptions, IFileSystem fileSystem)
+        {
+            if (!(driverOptions is AnalyzeOptionsBase options))
+            {
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(options.BaselineSarifFile) || string.IsNullOrEmpty(options.OutputFilePath))
+            {
+                return false;
+            }
+
+
+            var serializer = new JsonSerializer();
+            serializer.Formatting = options.PrettyPrint || (!options.PrettyPrint && !options.Minify) ?
+                                    Formatting.Indented :
+                                    Formatting.None;
+
+            SarifLog baselineFile;
+            using (JsonTextReader reader = new JsonTextReader(new StreamReader(fileSystem.FileOpenRead(options.BaselineSarifFile))))
+            {
+                baselineFile = serializer.Deserialize<SarifLog>(reader);
+            }
+
+            SarifLog currentSarifLog;
+            using (JsonTextReader reader = new JsonTextReader(new StreamReader(fileSystem.FileOpenRead(options.OutputFilePath))))
+            {
+                currentSarifLog = serializer.Deserialize<SarifLog>(reader);
+            }
+            ISarifLogMatcher matcher = ResultMatchingBaselinerFactory.GetDefaultResultMatchingBaseliner();
+
+            SarifLog baseline = matcher.Match(new SarifLog[] { baselineFile }, new SarifLog[] { currentSarifLog }).First();
+
+            string targetFile = options.Inline ? options.BaselineSarifFile : options.OutputFilePath;
+            using (JsonTextWriter writer = new JsonTextWriter(new StreamWriter(fileSystem.FileCreate(targetFile))))
+            {
+                serializer.Serialize(writer, baseline);
+            }
+
+            return true;
         }
     }
 }
