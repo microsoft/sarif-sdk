@@ -112,11 +112,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 try
                 {
-                    ProcessBaseline(options, FileSystem);
+                    ProcessBaseline(_rootContext, options, FileSystem);
                 }
                 catch (Exception ex)
                 {
-                    RuntimeErrors |= RuntimeConditions.ExceptionInEngine;
+                    RuntimeErrors |= RuntimeConditions.ExceptionProcessingBaseline;
                     ExecutionException = ex;
                     return FAILURE;
                 }
@@ -186,9 +186,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             succeeded &= ValidateFile(context, analyzeOptions.OutputFilePath, shouldExist: null);
             succeeded &= ValidateFile(context, analyzeOptions.ConfigurationFilePath, shouldExist: true);
             succeeded &= ValidateFiles(context, analyzeOptions.PluginFilePaths, shouldExist: true);
+            succeeded &= ValidateFile(context, analyzeOptions.BaselineSarifFile, shouldExist: true);
             succeeded &= ValidateInvocationPropertiesToLog(context, analyzeOptions.InvocationPropertiesToLog);
             succeeded &= ValidateOutputFileCanBeCreated(context, analyzeOptions.OutputFilePath, analyzeOptions.Force);
-            succeeded &= analyzeOptions.ValidateOutputOptions();
+            succeeded &= analyzeOptions.ValidateOutputOptions(context);
 
             if (!succeeded)
             {

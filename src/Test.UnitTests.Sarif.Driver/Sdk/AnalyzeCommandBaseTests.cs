@@ -290,6 +290,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             );
         }
 
+        [Fact]
+        public void ExceptionRaisedProcessingBaseline()
+        {
+            var options = new TestAnalyzeOptions()
+            {
+                TestRuleBehaviors = TestRuleBehaviors.RaiseExceptionProcessingBaseline,
+                TargetFileSpecifiers = new string[] { GetThisTestAssemblyFilePath() },
+            };
+
+            ExceptionTestHelper(
+                RuntimeConditions.ExceptionProcessingBaseline,
+                expectedExitReason: ExitReason.ExceptionProcessingBaseline,
+                analyzeOptions: options
+            );
+        }
+
 
         [Fact]
         public void ExceptionRaisedInvokingAnalyze_PersistInnerException()
@@ -449,6 +465,47 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             finally
             {
                 if (File.Exists(path)) { File.Delete(path); }
+            }
+        }
+
+        [Fact]
+        public void MissingBaselineFile()
+        {
+            string outputFilePath = Path.GetTempFileName() + ".sarif";
+            string baselineFilePath = Path.GetTempFileName() + ".sarif";
+
+            var options = new TestAnalyzeOptions()
+            {
+                TargetFileSpecifiers = new string[] { GetThisTestAssemblyFilePath() },
+                OutputFilePath = outputFilePath,
+                BaselineSarifFile = baselineFilePath
+            };
+
+            ExceptionTestHelper(
+                RuntimeConditions.MissingFile,
+                expectedExitReason: ExitReason.InvalidCommandLineOption,
+                analyzeOptions: options);
+        }
+
+        [Fact]
+        public void BaselineWithoutOutputFile()
+        {
+            string path = Path.GetTempFileName() + ".sarif";
+
+            using (FileStream stream = File.Create(path, 1, FileOptions.DeleteOnClose))
+            {
+                var options = new TestAnalyzeOptions()
+                {
+                    TargetFileSpecifiers = new string[] { GetThisTestAssemblyFilePath() },
+                    Quiet = true,
+                    OutputFilePath = null,
+                    BaselineSarifFile = path
+                };
+
+                ExceptionTestHelper(
+                    RuntimeConditions.InvalidCommandLineOption,
+                    expectedExitReason: ExitReason.InvalidCommandLineOption,
+                    analyzeOptions: options);
             }
         }
 

@@ -37,7 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return assemblies;
         }
 
-        protected virtual void ProcessBaseline(T driverOptions, IFileSystem fileSystem)
+        protected virtual void ProcessBaseline(IAnalysisContext context, T driverOptions, IFileSystem fileSystem)
         {
             if (!(driverOptions is AnalyzeOptionsBase options))
             {
@@ -49,34 +49,54 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 return;
             }
 
-
-            var serializer = new JsonSerializer();
-            serializer.Formatting = options.PrettyPrint || (!options.PrettyPrint && !options.Minify) ?
+            var serializer = new JsonSerializer
+            {
+                Formatting = options.PrettyPrint || (!options.PrettyPrint && !options.Minify) ?
                                     Formatting.Indented :
-                                    Formatting.None;
+                                    Formatting.None
+            };
 
             SarifLog baselineFile;
-            using (JsonTextReader reader = new JsonTextReader(new StreamReader(fileSystem.FileOpenRead(options.BaselineSarifFile))))
+            using (var reader = new JsonTextReader(new StreamReader(fileSystem.FileOpenRead(options.BaselineSarifFile))))
             {
                 baselineFile = serializer.Deserialize<SarifLog>(reader);
             }
 
             SarifLog currentSarifLog;
-            using (JsonTextReader reader = new JsonTextReader(new StreamReader(fileSystem.FileOpenRead(options.OutputFilePath))))
+            using (var reader = new JsonTextReader(new StreamReader(fileSystem.FileOpenRead(options.OutputFilePath))))
             {
                 currentSarifLog = serializer.Deserialize<SarifLog>(reader);
             }
-            ISarifLogMatcher matcher = ResultMatchingBaselinerFactory.GetDefaultResultMatchingBaseliner();
 
-            SarifLog baseline = matcher.Match(new SarifLog[] { baselineFile }, new SarifLog[] { currentSarifLog }).First();
-
-            string targetFile = options.Inline ? options.BaselineSarifFile : options.OutputFilePath;
-            using (JsonTextWriter writer = new JsonTextWriter(new StreamWriter(fileSystem.FileCreate(targetFile))))
+            SarifLog baseline;
+            try
             {
-                serializer.Serialize(writer, baseline);
+                ISarifLogMatcher matcher = ResultMatchingBaselinerFactory.GetDefaultResultMatchingBaseliner();
+                baseline = matcher.Match(new SarifLog[] { baselineFile }, new SarifLog[] { currentSarifLog }).First();
+            }
+            catch (Exception ex)
+            {
+                throw new ExitApplicationException<ExitReason>(DriverResources.MSG_UnexpectedApplicationExit, ex)
+                {
+                    ExitReason = ExitReason.ExceptionProcessingBaseline
+                };
             }
 
-            return;
+            try
+            {
+                string targetFile = options.Inline ? options.BaselineSarifFile : options.OutputFilePath;
+                using (var writer = new JsonTextWriter(new StreamWriter(fileSystem.FileCreate(targetFile))))
+                {
+                    serializer.Serialize(writer, baseline);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ExitApplicationException<ExitReason>(DriverResources.MSG_UnexpectedApplicationExit, ex)
+                {
+                    ExitReason = ExitReason.ExceptionWritingToLogFile
+                };
+            }
         }
     }
 }

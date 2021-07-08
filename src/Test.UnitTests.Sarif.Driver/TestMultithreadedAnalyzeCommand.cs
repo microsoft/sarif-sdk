@@ -70,5 +70,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             return base.DetermineApplicabilityAndAnalyze(context, skimmers, disabledSkimmers);
         }
+
+        protected override void ProcessBaseline(IAnalysisContext context, TestAnalyzeOptions options, IFileSystem fileSystem)
+        {
+            if (context.Policy.GetProperty(TestRule.Behaviors).HasFlag(TestRuleBehaviors.RaiseExceptionProcessingBaseline))
+            {
+                context.RuntimeErrors |= RuntimeConditions.ExceptionProcessingBaseline;
+                ThrowExitApplicationException((TestAnalysisContext)context, ExitReason.ExceptionProcessingBaseline);
+            }
+
+            base.ProcessBaseline(context, options, fileSystem);
+        }
     }
 }

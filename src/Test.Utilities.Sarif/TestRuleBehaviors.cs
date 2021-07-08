@@ -38,6 +38,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         RegardAnalysisTargetAsInvalid = 0x2000,
 
         // Assume one or more options are invalid
-        RegardOptionsAsInvalid = 0x4000
+        RegardOptionsAsInvalid = 0x4000,
+
+        RaiseExceptionProcessingBaseline = 0x8000
     }
 }
