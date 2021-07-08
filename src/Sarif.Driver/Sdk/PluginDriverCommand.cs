@@ -37,16 +37,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return assemblies;
         }
 
-        protected virtual bool ProcessBaseline(T driverOptions, IFileSystem fileSystem)
+        protected virtual void ProcessBaseline(T driverOptions, IFileSystem fileSystem)
         {
             if (!(driverOptions is AnalyzeOptionsBase options))
             {
-                return false;
+                return;
             }
 
             if (string.IsNullOrEmpty(options.BaselineSarifFile) || string.IsNullOrEmpty(options.OutputFilePath))
             {
-                return false;
+                return;
             }
 
 
@@ -76,7 +76,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 serializer.Serialize(writer, baseline);
             }
 
-            return true;
+            return;
         }
     }
 }

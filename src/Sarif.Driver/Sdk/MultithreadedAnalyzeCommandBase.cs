@@ -101,15 +101,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             bool succeeded = (RuntimeErrors & ~RuntimeConditions.Nonfatal) == RuntimeConditions.None;
 
-            try
+            if (succeeded)
             {
-                succeeded = ProcessBaseline(options, FileSystem);
-            }
-            catch (Exception ex)
-            {
-                RuntimeErrors |= RuntimeConditions.ExceptionInEngine;
-                ExecutionException = ex;
-                return FAILURE;
+                try
+                {
+                    ProcessBaseline(options, FileSystem);
+                }
+                catch (Exception ex)
+                {
+                    RuntimeErrors |= RuntimeConditions.ExceptionInEngine;
+                    ExecutionException = ex;
+                    return FAILURE;
+                }
             }
 
             if (options.RichReturnCode)
