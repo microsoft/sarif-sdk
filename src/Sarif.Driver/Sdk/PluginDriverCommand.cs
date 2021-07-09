@@ -56,18 +56,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                     Formatting.None
             };
 
-            SarifLog baselineFile;
-            using (var reader = new JsonTextReader(new StreamReader(fileSystem.FileOpenRead(options.BaselineSarifFile))))
-            {
-                baselineFile = serializer.Deserialize<SarifLog>(reader);
-            }
-
-            SarifLog currentSarifLog;
-            using (var reader = new JsonTextReader(new StreamReader(fileSystem.FileOpenRead(options.OutputFilePath))))
-            {
-                currentSarifLog = serializer.Deserialize<SarifLog>(reader);
-            }
-
+            var baselineFile = SarifLog.Load(options.BaselineSarifFile);
+            var currentSarifLog = SarifLog.Load(options.OutputFilePath);
             SarifLog baseline;
             try
             {
