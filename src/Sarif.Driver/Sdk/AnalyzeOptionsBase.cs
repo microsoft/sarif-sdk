@@ -104,5 +104,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             Default = new ResultKind[] { ResultKind.Fail },
             HelpText = "A semicolon delimited list to filter output to one or more result kinds. Valid values: Fail (for literal scan results), Pass, Review, Open, NotApplicable and Informational.")]
         public IEnumerable<ResultKind> Kind { get; set; }
+
+        [Option(
+            "baseline",
+            HelpText = "A Sarif file to be used as baseline")]
+        public string BaselineSarifFile { get; set; }
     }
 }

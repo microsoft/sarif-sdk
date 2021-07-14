@@ -243,26 +243,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public void ValidateAnalyzeOutputOptions_ProducesExpectedResults()
         {
             AnalyzeOptionsBase analyzeOptionsBase = new TestAnalyzeOptions();
+            TestAnalysisContext context = new TestAnalysisContext();
 
             //  quiet false, output empty
             analyzeOptionsBase.Quiet = false;
             analyzeOptionsBase.OutputFilePath = null;
-            Assert.True(analyzeOptionsBase.ValidateOutputOptions());
+            Assert.True(analyzeOptionsBase.ValidateOutputOptions(context));
 
             //  quiet false, output non-empty
             analyzeOptionsBase.Quiet = false;
             analyzeOptionsBase.OutputFilePath = "doodle";
-            Assert.True(analyzeOptionsBase.ValidateOutputOptions());
+            Assert.True(analyzeOptionsBase.ValidateOutputOptions(context));
 
             //  quiet true, output empty
             analyzeOptionsBase.Quiet = true;
             analyzeOptionsBase.OutputFilePath = null;
-            Assert.False(analyzeOptionsBase.ValidateOutputOptions());
+            Assert.False(analyzeOptionsBase.ValidateOutputOptions(context));
 
             //  quiet true, output non-empty
             analyzeOptionsBase.Quiet = true;
             analyzeOptionsBase.OutputFilePath = "doodle";
-            Assert.True(analyzeOptionsBase.ValidateOutputOptions());
+            Assert.True(analyzeOptionsBase.ValidateOutputOptions(context));
         }
 
         private class ValidateOutputFormatOptionsTestCase

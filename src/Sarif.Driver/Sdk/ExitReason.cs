@@ -12,6 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         UnhandledExceptionInEngine,
         NoRulesLoaded,
         NoValidAnalysisTargets,
-        InvalidCommandLineOption
+        InvalidCommandLineOption,
+        ExceptionProcessingBaseline
     }
 }

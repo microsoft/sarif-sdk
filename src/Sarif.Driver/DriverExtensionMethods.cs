@@ -160,11 +160,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return valid;
         }
 
-        public static bool ValidateOutputOptions(this AnalyzeOptionsBase options)
+        public static bool ValidateOutputOptions(this AnalyzeOptionsBase options, IAnalysisContext context)
         {
             bool valid = true;
 
             valid &= !(options.Quiet && string.IsNullOrWhiteSpace(options.OutputFilePath));
+
+            // baseline process now depends on output file
+            valid &= !(string.IsNullOrWhiteSpace(options.OutputFilePath) && !string.IsNullOrWhiteSpace(options.BaselineSarifFile));
+
+            if (!valid)
+            {
+                context.RuntimeErrors |= RuntimeConditions.InvalidCommandLineOption;
+            }
 
             return valid;
         }

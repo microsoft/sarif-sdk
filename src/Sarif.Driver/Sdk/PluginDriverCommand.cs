@@ -3,7 +3,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Reflection;
+
+using Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching;
+
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
@@ -29,6 +35,58 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
 
             return assemblies;
+        }
+
+        protected virtual void ProcessBaseline(IAnalysisContext context, T driverOptions, IFileSystem fileSystem)
+        {
+            if (!(driverOptions is AnalyzeOptionsBase options))
+            {
+                return;
+            }
+
+            if (string.IsNullOrEmpty(options.BaselineSarifFile) || string.IsNullOrEmpty(options.OutputFilePath))
+            {
+                return;
+            }
+
+            var serializer = new JsonSerializer
+            {
+                Formatting = options.PrettyPrint || (!options.PrettyPrint && !options.Minify) ?
+                                    Formatting.Indented :
+                                    Formatting.None
+            };
+
+            var baselineFile = SarifLog.Load(options.BaselineSarifFile);
+            var currentSarifLog = SarifLog.Load(options.OutputFilePath);
+            SarifLog baseline;
+            try
+            {
+                ISarifLogMatcher matcher = ResultMatchingBaselinerFactory.GetDefaultResultMatchingBaseliner();
+                baseline = matcher.Match(new SarifLog[] { baselineFile }, new SarifLog[] { currentSarifLog }).First();
+            }
+            catch (Exception ex)
+            {
+                throw new ExitApplicationException<ExitReason>(DriverResources.MSG_UnexpectedApplicationExit, ex)
+                {
+                    ExitReason = ExitReason.ExceptionProcessingBaseline
+                };
+            }
+
+            try
+            {
+                string targetFile = options.Inline ? options.BaselineSarifFile : options.OutputFilePath;
+                using (var writer = new JsonTextWriter(new StreamWriter(fileSystem.FileCreate(targetFile))))
+                {
+                    serializer.Serialize(writer, baseline);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ExitApplicationException<ExitReason>(DriverResources.MSG_UnexpectedApplicationExit, ex)
+                {
+                    ExitReason = ExitReason.ExceptionWritingToLogFile
+                };
+            }
         }
     }
 }

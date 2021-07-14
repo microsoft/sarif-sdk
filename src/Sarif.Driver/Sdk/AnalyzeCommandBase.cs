@@ -108,6 +108,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             bool succeeded = (RuntimeErrors & ~RuntimeConditions.Nonfatal) == RuntimeConditions.None;
 
+            if (succeeded)
+            {
+                try
+                {
+                    ProcessBaseline(_rootContext, options, FileSystem);
+                }
+                catch (Exception ex)
+                {
+                    RuntimeErrors |= RuntimeConditions.ExceptionProcessingBaseline;
+                    ExecutionException = ex;
+                    return FAILURE;
+                }
+            }
+
             if (options.RichReturnCode)
             {
                 return (int)RuntimeErrors;
@@ -172,9 +186,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             succeeded &= ValidateFile(context, analyzeOptions.OutputFilePath, shouldExist: null);
             succeeded &= ValidateFile(context, analyzeOptions.ConfigurationFilePath, shouldExist: true);
             succeeded &= ValidateFiles(context, analyzeOptions.PluginFilePaths, shouldExist: true);
+            succeeded &= ValidateFile(context, analyzeOptions.BaselineSarifFile, shouldExist: true);
             succeeded &= ValidateInvocationPropertiesToLog(context, analyzeOptions.InvocationPropertiesToLog);
             succeeded &= ValidateOutputFileCanBeCreated(context, analyzeOptions.OutputFilePath, analyzeOptions.Force);
-            succeeded &= analyzeOptions.ValidateOutputOptions();
+            succeeded &= analyzeOptions.ValidateOutputOptions(context);
 
             if (!succeeded)
             {
