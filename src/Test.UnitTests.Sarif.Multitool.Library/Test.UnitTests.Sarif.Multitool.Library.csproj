@@ -60,6 +60,7 @@
     <EmbeddedResource Include="TestData\ValidateCommand\Configuration.json" />
     <EmbeddedResource Include="TestData\ValidateCommand\Configuration.xml" />
     <EmbeddedResource Include="TestData\ValidateCommand\ValidateSarif.sarif" />
+    <EmbeddedResource Include="TestData\ValidateCommand\Baseline.sarif" />
   </ItemGroup>
 
   <ItemGroup>

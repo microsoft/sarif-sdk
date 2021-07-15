@@ -1,0 +1,311 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "SARIF Functional Testing",
+          "rules": [
+            {
+              "id": "SARIF2003",
+              "name": "ProvideVersionControlProvenance",
+              "fullDescription": {
+                "text": "Provide 'versionControlProvenance' to record which version of the code was analyzed, and to enable paths to be expressed relative to the root of the repository."
+              },
+              "messageStrings": {
+                "Note_Default": {
+                  "text": "{0}: This run does not provide 'versionControlProvenance'. As a result, it is not possible to determine which version of code was analyzed, nor to map relative paths to their locations within the repository."
+                }
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+            },
+            {
+              "id": "SARIF2002",
+              "name": "ProvideMessageArguments",
+              "fullDescription": {
+                "text": "In result messages, use the 'message.id' and 'message.arguments' properties rather than 'message.text'. This has several advantages. If 'text' is lengthy, using 'id' and 'arguments' makes the SARIF file smaller. If the rule metadata is stored externally to the SARIF log file, the message text can be improved (for example, by adding more text, clarifying the phrasing, or fixing typos), and the result messages will pick up the improvements the next time it is displayed. Finally, SARIF supports localizing messages into different languages, which is possible if the SARIF file contains 'message.id' and 'message.arguments', but not if it contains 'message.text' directly."
+              },
+              "messageStrings": {
+                "Note_Default": {
+                  "text": "{0}: The 'message' property of this result contains a 'text' property. Consider replacing it with 'id' and 'arguments' properties. This potentially reduces the log file size, allows the message text to be improved without modifying the log file, and enables localization."
+                }
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+            },
+            {
+              "id": "SARIF2005",
+              "name": "ProvideToolProperties",
+              "fullDescription": {
+                "text": "Provide information that makes it easy to identify the name and version of your tool.\r\n\r\nThe tool's 'name' property should be no more than three words long. This makes it easy to remember and allows it to fit into a narrow column when displaying a list of results. If you need to provide more information about your tool, use the 'fullName' property.\r\n\r\nThe tool should provide either or both of the 'version' and 'semanticVersion' properties. This enables the log file consumer to determine whether the file was produced by an up to date version, and to avoid accidentally comparing log files produced by different tool versions.\r\n\r\nIf 'version' is used, facilitate comparison between versions by specifying a version number that starts with an integer, optionally followed by any desired characters."
+              },
+              "messageStrings": {
+                "Warning_ProvideToolVersion": {
+                  "text": "{0}: The tool '{1}' does not provide any of the version-related properties {2}. Providing version information enables the log file consumer to determine whether the file was produced by an up to date version, and to avoid accidentally comparing log files produced by different tool versions."
+                },
+                "Warning_ProvideConciseToolName": {
+                  "text": "{0}: The tool name '{1}' contains {2} words, which is more than the recommended maximum of {3} words. A short tool name is easy to remember and fits into a narrow column when displaying a list of results. If you need to provide more information about your tool, use the 'fullName' property."
+                },
+                "Warning_UseNumericToolVersions": {
+                  "text": "{0}: The tool '{1}' contains the 'version' property '{2}', which is not numeric. To facilitate comparison between versions, specify a 'version' that starts with an integer, optionally followed by any desired characters."
+                },
+                "Warning_ProvideToolnformationUri": {
+                  "text": "{0}: The tool '{1}' does not provide 'informationUri'. This property helps the developer responsible for addessing a result by providing a way to learn more about the tool."
+                }
+              },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+            },
+            {
+              "id": "SARIF2012",
+              "name": "ProvideRuleProperties",
+              "fullDescription": {
+                "text": "Rule metadata should provide information that makes it easy to understand and fix the problem.\r\n\r\nProvide the 'name' property, which contains a \"friendly name\" that helps users see at a glance the purpose of the rule. For uniformity of experience across all tools that produce SARIF, the friendly name should be a single Pascal-case identifier, for example, 'ProvideRuleFriendlyName'.\r\n\r\nProvide the 'helpUri' property, which contains a URI where users can find detailed information about the rule. This information should include a detailed description of the invalid pattern, an explanation of why the pattern is poor practice (particularly in contexts such as security or accessibility where driving considerations might not be readily apparent), guidance for resolving the problem (including describing circumstances in which ignoring the problem altogether might be appropriate), examples of invalid and valid patterns, and special considerations (such as noting when a violation should never be ignored or suppressed, noting when a violation could cause downstream tool noise, and noting when a rule can be configured in some way to refine or alter the analysis)."
+              },
+              "messageStrings": {
+                "Note_FriendlyNameNotAPascalIdentifier": {
+                  "text": "{0}: '{1}' is not a Pascal-case identifier. For uniformity of experience across all tools that produce SARIF, the friendly name should be a single Pascal-case identifier, for example, 'ProvideRuleFriendlyName'."
+                },
+                "Note_ProvideFriendlyName": {
+                  "text": "{0}: The rule '{1}' does not provide a \"friendly name\" in its 'name' property. The friendly name should be a single Pascal-case identifier, for example, 'ProvideRuleFriendlyName', that helps users see at a glance the purpose of the analysis rule."
+                },
+                "Note_ProvideHelpUri": {
+                  "text": "{0}: The rule '{1}' does not provide a help URI. Providing a URI where users can find detailed information about the rule helps users to understand the result and how they can best address it."
+                },
+                "Note_ProvideMetadataForAllViolatedRules": {
+                  "text": "'{0}' does not provide a 'rules' property. 'rules' contain information that helps users understand why each rule fires and what the user can do to fix it."
+                },
+                "Note_ProvideRuleMetadata": {
+                  "text": "'{0}' does not provide metadata for rule '{1}'. Rule metadata contains information that helps the user understand why each rule fires and what the user can do to fix it."
+                }
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+            }
+          ]
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "FunctionalTestOutput.BaselineOption/ToBeValidated.sarif",
+            "uriBaseId": "TEST_DIR",
+            "index": 0
+          }
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "SARIF2003",
+          "ruleIndex": 0,
+          "level": "note",
+          "message": {
+            "id": "Note_Default",
+            "arguments": [
+              "runs[0]"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 5,
+                  "startColumn": 5
+                }
+              }
+            }
+          ],
+          "baselineState": "unchanged",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "SARIF2002",
+          "ruleIndex": 1,
+          "level": "note",
+          "message": {
+            "id": "Note_Default",
+            "arguments": [
+              "runs[0].results[0].message"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 9,
+                  "startColumn": 22
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "SARIF2002",
+          "ruleIndex": 1,
+          "level": "note",
+          "message": {
+            "id": "Note_Default",
+            "arguments": [
+              "runs[0].results[1].message"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 15,
+                  "startColumn": 22
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "SARIF2002",
+          "ruleIndex": 1,
+          "level": "note",
+          "message": {
+            "id": "Note_Default",
+            "arguments": [
+              "runs[0].results[2].message"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 21,
+                  "startColumn": 22
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "SARIF2005",
+          "ruleIndex": 2,
+          "message": {
+            "id": "Warning_ProvideToolnformationUri",
+            "arguments": [
+              "runs[0].tool.driver",
+              "TestScanner"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 27,
+                  "startColumn": 19
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "SARIF2005",
+          "ruleIndex": 2,
+          "message": {
+            "id": "Warning_ProvideToolVersion",
+            "arguments": [
+              "runs[0].tool.driver",
+              "TestScanner",
+              "'version', 'semanticVersion', 'dottedQuadFileVersion'"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 27,
+                  "startColumn": 19
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "SARIF2012",
+          "ruleIndex": 3,
+          "level": "note",
+          "message": {
+            "id": "Note_ProvideMetadataForAllViolatedRules",
+            "arguments": [
+              "runs[0].tool.driver"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 27,
+                  "startColumn": 19
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}

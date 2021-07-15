@@ -38,7 +38,12 @@
     <None Remove="TestData\Multitool\ValidateCommand\**\*.*" />
     <EmbeddedResource Include="TestData\Multitool\ValidateCommand\**\*.*" />
   </ItemGroup>
-  
+
+  <ItemGroup>
+    <None Remove="TestData\Multitool\BaselineOption\**\*.*" />
+    <EmbeddedResource Include="TestData\Multitool\BaselineOption\**\*.*" />
+  </ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.10.2" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />

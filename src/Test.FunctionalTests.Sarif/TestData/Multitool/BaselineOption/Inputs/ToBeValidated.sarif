@@ -1,0 +1,34 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "results": [
+        {
+          "ruleId": "TEST1001",
+          "message": {
+            "text": "This is a test.@"
+          }
+        },
+        {
+          "ruleId": "TEST1002",
+          "message": {
+            "text": "This is a sentence.\r\nThis is another."
+          }
+        },
+        {
+          "ruleId": "TEST1003",
+          "message": {
+            "text": "The System.Enum type and enum constraint \r\n The System.Enum type is the abstract base class of all enumeration types. \r\nIt provides a number of methods to get information about an enumeration type and its values. For more information and examples, see the System.Enum API reference page. Beginning with C# 7.3, you can use System.Enum in a base class constraint (that is known as the enum constraint) to specify that a type parameter is an enumeration type. Any enumeration type also satisfies the struct constraint, which is used to specify that a type parameter is a non-nullable value type."
+          }
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "TestScanner"
+        }
+      },
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}
