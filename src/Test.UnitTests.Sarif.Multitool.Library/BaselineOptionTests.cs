@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 
 using FluentAssertions;
 
@@ -20,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     public class BaselineOptionTests
     {
         private static readonly ResourceExtractor Extractor = new ResourceExtractor(typeof(ValidateCommandTests));
-        
+
         // test setup
         private const string LogFileDirectory = @"C:\Users\John\Sarif logs";
         private const string LogFileName = "example.sarif";
