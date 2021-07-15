@@ -22,45 +22,54 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     {
         private bool IsInline = false;
 
-        public BaselineOptionTests(ITestOutputHelper outputHelper, bool testProducesSarifCurrentVersion = true) : 
-            base(outputHelper, testProducesSarifCurrentVersion)
+        public BaselineOptionTests(ITestOutputHelper outputHelper, bool testProducesSarifCurrentVersion = true)
+            : base(outputHelper, testProducesSarifCurrentVersion)
         {
         }
 
         [Fact]
-        public void TEST1001_ValidateWithBaseline() => RunBaselineOptionTest("TEST1001.ValidateWithBaseline.sarif", "TEST1001");
+        public void TEST1001_ValidateWithBaseline() =>
+            RunBaselineOptionTest("TEST1001.ValidateWithBaseline.sarif", "TEST1001");
 
-        // baseline doesn't have results
-        // all new result shoule be in new baseline status
         [Fact]
-        public void TEST1002_ValidateBaseline_NoResults() => RunBaselineOptionTest("TEST1002.ValidateBaseline.NoResults.sarif", "TEST1002");
+        public void TEST1002_ValidateBaseline_NoResults() =>
+            // baseline doesn't have results
+            // all new result shoule be in new baseline status
+            RunBaselineOptionTest("TEST1002.ValidateBaseline.NoResults.sarif", "TEST1002");
 
-        // all results of baseline are in absent baseline status.
-        // New results should be in New status.
         [Fact]
-        public void TEST1003_ValidateBaseline_AbsentResults() => RunBaselineOptionTest("TEST1003.ValidateBaseline.AbsentResults.sarif", "TEST1003");
+        public void TEST1003_ValidateBaseline_AbsentResults() =>
+            // all results of baseline are in absent baseline status.
+            // New results should be in New status.
+            RunBaselineOptionTest("TEST1003.ValidateBaseline.AbsentResults.sarif", "TEST1003");
 
-        // all results of baseline are in new baseline status.
-        // New results should be in unchange status.
         [Fact]
-        public void TEST1004_ValidateBaseline_NewResults() => RunBaselineOptionTest("TEST1004.ValidateBaseline.NewResults.sarif", "TEST1004");
+        public void TEST1004_ValidateBaseline_NewResults() =>
+            // all results of baseline are in new baseline status.
+            // New results should be in unchange status.
+            RunBaselineOptionTest("TEST1004.ValidateBaseline.NewResults.sarif", "TEST1004");
 
-        // all results of baseline are in unchanged baseline status.
-        // New results should be in unchanged status.
         [Fact]
-        public void TEST1005_ValidateBaseline_UnchangedResults() => RunBaselineOptionTest("TEST1005.ValidateBaseline.UnchangedResults.sarif", "TEST1005");
+        public void TEST1005_ValidateBaseline_UnchangedResults() =>
+            // all results of baseline are in unchanged baseline status.
+            // New results should be in unchanged status.
+            RunBaselineOptionTest("TEST1005.ValidateBaseline.UnchangedResults.sarif", "TEST1005");
 
-        // New results are different than baseline results, should be in updated status.
         [Fact]
-        public void TEST1006_ValidateBaseline_UpdatedResults() => RunBaselineOptionTest("TEST1006.ValidateBaseline.UpdatedResults.sarif", "TEST1006");
+        public void TEST1006_ValidateBaseline_UpdatedResults() =>
+            // New results are different than baseline results, should be in updated status.
+            RunBaselineOptionTest("TEST1006.ValidateBaseline.UpdatedResults.sarif", "TEST1006");
 
-        // New results are less than baseline results (means issue resolved).
         [Fact]
-        public void TEST1007_ValidateBaseline_LessResultsThanBaseline() => RunBaselineOptionTest("TEST1007.ValidateBaseline.LessResultsThanBaseline.sarif", "TEST1007");
+        public void TEST1007_ValidateBaseline_LessResultsThanBaseline() =>
+            // New results are less than baseline results (means issue resolved).
+            RunBaselineOptionTest("TEST1007.ValidateBaseline.LessResultsThanBaseline.sarif", "TEST1007");
 
-        // Work with inline otpion, will update baseline sarif result with the new results.
+
         [Fact]
-        public void TEST1008_ValidateBaseline_InlineUpdate() => RunBaselineOptionTest("TEST1008.ValidateBaseline.InlineUpdate.sarif", "TEST1008", true);
+        public void TEST1008_ValidateBaseline_InlineUpdate() =>
+            // Work with inline otpion, will update baseline sarif result with the new results.
+            RunBaselineOptionTest("TEST1008.ValidateBaseline.InlineUpdate.sarif", "TEST1008", true);
 
         private void RunBaselineOptionTest(string testFileName, string testName, bool inline = false)
         {
