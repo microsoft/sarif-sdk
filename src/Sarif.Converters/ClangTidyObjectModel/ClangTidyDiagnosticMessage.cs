@@ -10,6 +10,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters.ClangTidyObjectModel
         public string Message { get; set; }
         public string FilePath { get; set; }
         public int FileOffset { get; set; }
+        public int LineNumber { get; set; }
+        public int ColumnNumber { get; set; }
         public List<ClangTidyReplacement> Replacements { get; set; }
     }
 }

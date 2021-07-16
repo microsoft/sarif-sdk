@@ -1,0 +1,21 @@
+15125 warnings generated.
+30203 warnings generated.
+/usr/bin/../lib/gcc/x86_64-linux-gnu/9/../../../../include/c++/9/array:29:9: warning: header guard does not follow preferred style [llvm-header-guard]
+#ifndef _GLIBCXX_ARRAY
+        ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/9/../../../../include/c++/9/array:30:9: error: macro '_GLIBCXX_ARRAY' used to declare a constant; consider using a 'constexpr' constant [cppcoreguidelines-macro-usage]
+#define _GLIBCXX_ARRAY 1
+        ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/9/../../../../include/c++/9/array:38:1: warning: #includes are not sorted properly [llvm-include-order]
+#include <utility>
+^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/9/../../../../include/c++/9/array:50:7: error: use 'using' instead of 'typedef' [modernize-use-using]
+      typedef _Tp _Type[_Nm];
+      ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/9/../../../../include/c++/9/array:50:15: warning: do not declare C-style arrays, use std::array<> instead [cppcoreguidelines-avoid-c-arrays]
+      typedef _Tp _Type[_Nm];
+              ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/9/../../../../include/c++/9/array:50:15: note: do not declare C-style arrays, use std::array<> instead 
+/usr/bin/../lib/gcc/x86_64-linux-gnu/9/../../../../include/c++/9/array:100:15: warning: do not declare C-style arrays, use std::array<> instead [cppcoreguidelines-avoid-c-arrays]
+      typedef _Tp _Type[_Nm];
+              ^

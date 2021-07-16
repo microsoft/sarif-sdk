@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters.ClangTidyObjectModel
 {
-    public class ClangTidyLog
+    public class ClangTidyReport
     {
         public string MainSourceFile { get; set; }
         public List<ClangTidyDiagnostic> Diagnostics { get; set; }

@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 using Microsoft.CodeAnalysis.Sarif.Converters.ClangTidyObjectModel;
 
@@ -15,6 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
     public class ClangTidyConverter : ToolFileConverterBase
     {
         private const string ToolInformationUri = "https://clang.llvm.org/extra/clang-tidy/";
+        private static readonly Regex ClangTidyLogRegex = new Regex("(.*):(\\d*):(\\d*): (warning|error): (.*) \\[(.*)\\]", RegexOptions.Compiled);
 
         public override string ToolName => "Clang-Tidy";
 
@@ -25,9 +27,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             IDeserializer deserializer = new DeserializerBuilder().Build();
             using var textReader = new StreamReader(input);
-            ClangTidyLog log = deserializer.Deserialize<ClangTidyLog>(textReader);
+            ClangTidyReport report = deserializer.Deserialize<ClangTidyReport>(textReader);
 
-            (List<ReportingDescriptor>, List<Result>) rulesAndResults = ExtractRulesAndResults(log);
+            List<ClangTidyConsoleDiagnostic> logs = new List<ClangTidyConsoleDiagnostic>();
+            if (report != null)
+            {
+                string reportPath = (input as FileStream)?.Name;
+                if (reportPath != null)
+                {
+                    string logPath = reportPath + ".log";
+                    if (File.Exists(logPath))
+                    {
+                        logs = LoadLogFile(logPath);
+                    }
+                }
+            }
+
+            AddLineNumberAndColumnNumber(report, logs);
+
+            (List<ReportingDescriptor>, List<Result>) rulesAndResults = ExtractRulesAndResults(report);
 
             var run = new Run
             {
@@ -44,6 +62,46 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             };
 
             PersistResults(output, rulesAndResults.Item2, run);
+        }
+
+        private void AddLineNumberAndColumnNumber(ClangTidyReport report, List<ClangTidyConsoleDiagnostic> logs)
+        {
+            if (report.Diagnostics.Count == logs.Count)
+            {
+                for (int i = 0; i < logs.Count; i++)
+                {
+                    report.Diagnostics[i].DiagnosticMessage.LineNumber = logs[i].LineNumber;
+                    report.Diagnostics[i].DiagnosticMessage.ColumnNumber = logs[i].ColumnNumber;
+                }
+            }
+        }
+
+        private List<ClangTidyConsoleDiagnostic> LoadLogFile(string logFilePath)
+        {
+            List<ClangTidyConsoleDiagnostic> returnValue = new List<ClangTidyConsoleDiagnostic>();
+
+            var logLines = File.ReadAllLines(logFilePath).ToList();
+            foreach (string line in logLines)
+            {
+                Match match = ClangTidyLogRegex.Match(line);
+
+                if (match.Success)
+                {
+                    int lineNumber;
+                    int columnNumber;
+                    if (int.TryParse(match.Groups[2].Value, out lineNumber) && int.TryParse(match.Groups[3].Value, out columnNumber))
+                    {
+                        ClangTidyConsoleDiagnostic consoleDiagnostic = new ClangTidyConsoleDiagnostic()
+                        {
+                            LineNumber = lineNumber,
+                            ColumnNumber = columnNumber
+                        };
+                        returnValue.Add(consoleDiagnostic);
+                    }
+                }
+            }
+
+            return returnValue;
         }
 
         internal static Result CreateResult(ClangTidyDiagnostic entry)
@@ -63,6 +121,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Region region = new Region()
             {
                 CharOffset = entry.DiagnosticMessage.FileOffset,
+                StartLine = entry.DiagnosticMessage.LineNumber,
+                StartColumn = entry.DiagnosticMessage.ColumnNumber,
             };
 
             Uri analysisTargetUri = new Uri(entry.DiagnosticMessage.FilePath, UriKind.RelativeOrAbsolute);
@@ -127,12 +187,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             return result;
         }
 
-        private static (List<ReportingDescriptor>, List<Result>) ExtractRulesAndResults(ClangTidyLog log)
+        private static (List<ReportingDescriptor>, List<Result>) ExtractRulesAndResults(ClangTidyReport report)
         {
             var rules = new Dictionary<string, ReportingDescriptor>(StringComparer.OrdinalIgnoreCase);
             var results = new List<Result>();
 
-            foreach (ClangTidyDiagnostic diagnostic in log.Diagnostics)
+            foreach (ClangTidyDiagnostic diagnostic in report.Diagnostics)
             {
                 string ruleId = diagnostic.DiagnosticName;
                 (ReportingDescriptor, Result) ruleAndResult = SarifRuleAndResultFromClangTidyDiagnostic(diagnostic);

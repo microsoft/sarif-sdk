@@ -1,0 +1,64 @@
+---
+MainSourceFile:  '/home/lsp/projects/staticlib/src/Hello.cpp'
+Diagnostics:
+  - DiagnosticName:  clang-diagnostic-error
+    DiagnosticMessage:
+      Message:         too many errors emitted, stopping now
+      FilePath:        ''
+      FileOffset:      0
+      Replacements:    []
+  - DiagnosticName:  readability-convert-member-functions-to-static
+    DiagnosticMessage:
+      Message:         'method ''print'' can be made static'
+      FilePath:        '/home/lsp/projects/staticlib/src/Hello.cpp'
+      FileOffset:      60
+      Replacements:
+        - FilePath:        '/home/lsp/projects/staticlib/include/static/Hello.h'
+          Offset:          67
+          Length:          0
+          ReplacementText: 'static '
+  - DiagnosticName:  clang-diagnostic-error
+    DiagnosticMessage:
+      Message:         non-ASCII characters are not allowed outside of literals and identifiers
+      FilePath:        '/home/lsp/projects/staticlib/src/README.adoc'
+      FileOffset:      385
+      Replacements:
+        - FilePath:        '/home/lsp/projects/staticlib/src/README.adoc'
+          Offset:          385
+          Length:          3
+          ReplacementText: ''
+  - DiagnosticName:  modernize-use-trailing-return-type
+    DiagnosticMessage:
+      Message:         use a trailing return type for this function
+      FilePath:        '/home/lsp/projects/staticlib/src/main.cpp'
+      FileOffset:      31
+      Replacements:
+        - FilePath:        '/home/lsp/projects/staticlib/src/main.cpp'
+          Offset:          27
+          Length:          3
+          ReplacementText: auto
+        - FilePath:        '/home/lsp/projects/staticlib/src/main.cpp'
+          Offset:          59
+          Length:          0
+          ReplacementText: ' -> int'
+  - DiagnosticName:  misc-unused-parameters
+    DiagnosticMessage:
+      Message:         'parameter ''argc'' is unused'
+      FilePath:        '/home/lsp/projects/staticlib/src/main.cpp'
+      FileOffset:      40
+      Replacements:
+        - FilePath:        '/home/lsp/projects/staticlib/src/main.cpp'
+          Offset:          40
+          Length:          4
+          ReplacementText: ' /*argc*/'
+  - DiagnosticName:  misc-unused-parameters
+    DiagnosticMessage:
+      Message:         'parameter ''argv'' is unused'
+      FilePath:        '/home/lsp/projects/staticlib/src/main.cpp'
+      FileOffset:      52
+      Replacements:
+        - FilePath:        '/home/lsp/projects/staticlib/src/main.cpp'
+          Offset:          52
+          Length:          4
+          ReplacementText: ' /*argv*/'
+...
