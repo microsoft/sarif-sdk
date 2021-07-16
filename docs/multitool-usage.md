@@ -66,6 +66,7 @@ Run ```Sarif.Multitool convert --help``` for the current list.
 
 - AndroidStudio
 - ClangAnalyzer
+- ClangTidy
 - CppCheck
 - ContrastSecurity
 - Fortify
@@ -76,6 +77,15 @@ Run ```Sarif.Multitool convert --help``` for the current list.
 - SemmleQL
 - StaticDriverVerifier
 - TSLint
+
+### Observation
+
+For Clang-tidy you can also provide an extra log file with file name [report file name with extension].log (e.g. report.yml.log) that will ingest and enhance the SARIF file with line number and column number.  
+Example:
+```
+clang-tidy --checks=* --header-filter=.* --system-headers --export-fixes=report.yml &>report.yml.log
+```
+This will generate an extra report.yml.log, leave in the same folder with the input report.yml file.
 
 ## Common Arguments
 
