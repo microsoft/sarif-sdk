@@ -1,5 +1,11 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
+## **v2.4.11** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.4.11) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.4.11) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.4.11) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.4.11) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.4.11)
+
+* BUGFIX: Fix partitioning visitor log duplication. [#2369](https://github.com/microsoft/sarif-sdk/pull/2369)
+* FEATURE: Add `baseline` argument in `AnalyzeCommandBase` classes. [#2371](https://github.com/microsoft/sarif-sdk/pull/2371)
+* FEATURE: Clang-Tidy converter will also accept console output log. [#2373](https://github.com/microsoft/sarif-sdk/pull/2373)
+
 ## **v2.4.10** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.4.10) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.4.10) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.4.10) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.4.10) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.4.10)
 
 * FEATURE: Add Clang-Tidy converter. [#2367](https://github.com/microsoft/sarif-sdk/pull/2367)
