@@ -101,11 +101,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         {
             Random random = RandomSarifLogGenerator.GenerateRandomAndLog(this.output);
             SarifLog baselineLog = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, 1);
-            SarifLog baselineLog2 = baselineLog.DeepClone();
             SarifLog currentLog = baselineLog.DeepClone();
+            baselineLog.Runs[0].Tool.Driver.Name = "test";
 
-            baselineLog2.Runs[0].Tool.Driver.Name = "Test1";
-            baselineLog.Runs.Add(baselineLog2.Runs[0]);
+            Run customRun = baselineLog.Runs[0].DeepClone();
+            customRun.Tool.Driver.Name = "test1";
+            baselineLog.Runs.Add(customRun);
 
             SarifLog calculatedNextBaseline = baseliner.Match(new SarifLog[] { baselineLog }, new SarifLog[] { currentLog }).First();
             calculatedNextBaseline.Runs.Should().HaveCount(1);

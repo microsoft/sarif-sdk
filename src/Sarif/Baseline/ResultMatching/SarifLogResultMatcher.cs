@@ -53,31 +53,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         /// <returns>A SARIF log with the merged set of results.</returns>
         public IEnumerable<SarifLog> Match(IEnumerable<SarifLog> previousLogs, IEnumerable<SarifLog> currentLogs)
         {
-            Dictionary<string, List<Run>> runsByToolPrevious = GetRunsByTool(previousLogs);
+            var resultToolLogs = new List<SarifLog>();
             Dictionary<string, List<Run>> runsByToolCurrent = GetRunsByTool(currentLogs);
+            Dictionary<string, List<Run>> runsByToolPrevious = GetRunsByTool(previousLogs);
 
-            List<string> tools = runsByToolPrevious.Keys.Union(runsByToolCurrent.Keys).ToList();
-
-            List<SarifLog> resultToolLogs = new List<SarifLog>();
-
-            foreach (string key in tools)
+            foreach (KeyValuePair<string, List<Run>> runByToolCurrent in runsByToolCurrent)
             {
+                string key = runByToolCurrent.Key;
+
                 IEnumerable<Run> baselineRuns = new Run[0];
                 if (runsByToolPrevious.ContainsKey(key))
                 {
                     baselineRuns = runsByToolPrevious[key];
                 }
 
-                IEnumerable<Run> currentRuns = new Run[0];
-                if (runsByToolCurrent.ContainsKey(key))
-                {
-                    currentRuns = runsByToolCurrent[key];
-                }
-
-                if (currentRuns.Any())
-                {
-                    resultToolLogs.Add(BaselineSarifLogs(baselineRuns, currentRuns));
-                }
+                IEnumerable<Run> currentRuns = runByToolCurrent.Value;
+                resultToolLogs.Add(BaselineSarifLogs(baselineRuns, currentRuns));
             }
 
             return new List<SarifLog> { resultToolLogs.Merge(mergeEmptyLogs: true) };
@@ -85,7 +76,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
         private static Dictionary<string, List<Run>> GetRunsByTool(IEnumerable<SarifLog> sarifLogs)
         {
-            var runsByTool = new Dictionary<string, List<Run>>();
+            var runsByTool = new Dictionary<string, List<Run>>(StringComparer.OrdinalIgnoreCase);
             if (sarifLogs == null)
             {
                 return runsByTool;
@@ -100,7 +91,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
                 foreach (Run run in sarifLog.Runs)
                 {
-                    string toolName = run.Tool.Driver.Name.ToLower();
+                    string toolName = run.Tool.Driver.Name;
                     if (runsByTool.ContainsKey(toolName))
                     {
                         runsByTool[toolName].Add(run);
