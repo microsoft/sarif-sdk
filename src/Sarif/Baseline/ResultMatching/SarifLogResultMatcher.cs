@@ -74,7 +74,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                     currentRuns = runsByToolCurrent[key];
                 }
 
-                if (baselineRuns.Any() && currentRuns.Any())
+                if (currentRuns.Any())
                 {
                     resultToolLogs.Add(BaselineSarifLogs(baselineRuns, currentRuns));
                 }
