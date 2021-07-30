@@ -2,12 +2,22 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.IO;
+using System.Linq;
 
 using CommandLine;
 
 using FluentAssertions;
 
+using Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching;
+using Microsoft.CodeAnalysis.Sarif.VersionOne;
+using Microsoft.CodeAnalysis.Sarif.Visitors;
+using Newtonsoft.Json.Serialization;
+
+using Newtonsoft.Json;
+
 using Xunit;
+using Microsoft.CodeAnalysis.Sarif.Readers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {

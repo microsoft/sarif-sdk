@@ -67,14 +67,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 {
                     baselineRuns = runsByToolPrevious[key];
                 }
-                IEnumerable<Run> currentRuns = new Run[0];
 
+                IEnumerable<Run> currentRuns = new Run[0];
                 if (runsByToolCurrent.ContainsKey(key))
                 {
                     currentRuns = runsByToolCurrent[key];
                 }
 
-                resultToolLogs.Add(BaselineSarifLogs(baselineRuns, currentRuns));
+                if (baselineRuns.Any() && currentRuns.Any())
+                {
+                    resultToolLogs.Add(BaselineSarifLogs(baselineRuns, currentRuns));
+                }
             }
 
             return new List<SarifLog> { resultToolLogs.Merge(mergeEmptyLogs: true) };
@@ -82,7 +85,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
         private static Dictionary<string, List<Run>> GetRunsByTool(IEnumerable<SarifLog> sarifLogs)
         {
-            Dictionary<string, List<Run>> runsByTool = new Dictionary<string, List<Run>>();
+            var runsByTool = new Dictionary<string, List<Run>>();
             if (sarifLogs == null)
             {
                 return runsByTool;
@@ -94,9 +97,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 {
                     continue;
                 }
+
                 foreach (Run run in sarifLog.Runs)
                 {
-                    string toolName = run.Tool.Driver.Name;
+                    string toolName = run.Tool.Driver.Name.ToLower();
                     if (runsByTool.ContainsKey(toolName))
                     {
                         runsByTool[toolName].Add(run);
@@ -107,6 +111,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                     }
                 }
             }
+
             return runsByTool;
         }
 
@@ -223,7 +228,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
             if (previousRuns != null && previousRuns.Any())
             {
-                // We flow the baseline instance id forward (which becomes the 
+                // We flow the baseline instance id forward (which becomes the
                 // baseline guid for the merged log).
                 run.BaselineGuid = previousRuns.First().AutomationDetails?.Guid;
             }
@@ -328,7 +333,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                     propertyBagHolderToMerge.Properties = null;
                 }
 
-                // Now that we've emptied any properties, we can ensure that the base value and the value to 
+                // Now that we've emptied any properties, we can ensure that the base value and the value to
                 // merge are equivalent. If they aren't we throw: there is no good way to understand which
                 // construct to prefer.
                 S baseValue = baseDictionary[pair.Key];

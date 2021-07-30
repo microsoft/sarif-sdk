@@ -81,5 +81,34 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 NewResultProperties["Run"].Should().BeEquivalentTo(currentLog.Runs[0].AutomationDetails.Guid);
             }
         }
+
+        [Fact]
+        public void ResultMatchingBaseliner_ShouldNotThrowExceptionWhenNoSimilarToolsAreFound()
+        {
+            Random random = RandomSarifLogGenerator.GenerateRandomAndLog(this.output);
+            SarifLog baselineLog = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, 1);
+            SarifLog currentLog = baselineLog.DeepClone();
+
+            baselineLog.Runs[0].Tool.Driver.Name = "Test1";
+            currentLog.Runs[0].Tool.Driver.Name = "Test2";
+
+            var exception = Record.Exception(() => baseliner.Match(new SarifLog[] { baselineLog }, new SarifLog[] { currentLog }).First());
+            Assert.Null(exception);
+        }
+
+        [Fact]
+        public void ResultMatchingBaseliner_ShouldIgnoreRunsThatDontMatch()
+        {
+            Random random = RandomSarifLogGenerator.GenerateRandomAndLog(this.output);
+            SarifLog baselineLog = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, 1);
+            SarifLog baselineLog2 = baselineLog.DeepClone();
+            SarifLog currentLog = baselineLog.DeepClone();
+
+            baselineLog2.Runs[0].Tool.Driver.Name = "Test1";
+            baselineLog.Runs.Add(baselineLog2.Runs[0]);
+
+            SarifLog calculatedNextBaseline = baseliner.Match(new SarifLog[] { baselineLog }, new SarifLog[] { currentLog }).First();
+            calculatedNextBaseline.Runs.Should().HaveCount(1);
+        }
     }
 }
