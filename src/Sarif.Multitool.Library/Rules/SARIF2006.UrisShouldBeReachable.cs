@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -36,7 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         };
 
         // cache stores all visited Uris
-        private static readonly Dictionary<string, bool> s_checkedUris = new Dictionary<string, bool>();
+        private static readonly ConcurrentDictionary<string, bool> s_checkedUris = new ConcurrentDictionary<string, bool>();
 
         protected override void Analyze(SarifLog log, string logPointer)
         {
@@ -103,14 +104,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         private bool IsUriReachable(string uriString)
         {
-            if (s_checkedUris.ContainsKey(uriString))
+            if (s_checkedUris.TryGetValue(uriString, out bool value))
             {
-                return s_checkedUris[uriString];
+                return value;
             }
 
             // http wrapper handles the cache all Uris has been accessed
             HttpResponseMessage httpResponseMessage = httpProvider.GetAsync(uriString).GetAwaiter().GetResult();
-            s_checkedUris.Add(uriString, httpResponseMessage.IsSuccessStatusCode);
+            s_checkedUris.TryAdd(uriString, httpResponseMessage.IsSuccessStatusCode);
             return httpResponseMessage.IsSuccessStatusCode;
         }
     }
