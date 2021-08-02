@@ -19,6 +19,8 @@ jobs:
       pathToPublish: 'msbuild.binlog'
       artifactName: 'binlog'
 
+  - task: ComponentGovernanceComponentDetection@0
+
 - job: npm_pipeline
   steps:
   # Build Multitool for npm
