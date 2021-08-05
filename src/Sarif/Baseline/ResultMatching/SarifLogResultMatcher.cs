@@ -62,9 +62,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 string key = runByToolCurrent.Key;
 
                 IEnumerable<Run> baselineRuns = new Run[0];
-                if (runsByToolPrevious.ContainsKey(key))
+                if (runsByToolPrevious.TryGetValue(key, out List<Run> runs))
                 {
-                    baselineRuns = runsByToolPrevious[key];
+                    baselineRuns = runs;
                 }
 
                 IEnumerable<Run> currentRuns = runByToolCurrent.Value;
