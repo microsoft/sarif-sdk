@@ -505,9 +505,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     Dictionary<int, int> artifactIndexRemappingDictionary = artifactIndexRemappingDictionaries[currentRunIndex];
 
-                    if (artifactIndexRemappingDictionary.ContainsKey(node.Index))
+                    if (artifactIndexRemappingDictionary.TryGetValue(node.Index, out int value))
                     {
-                        node.Index = artifactIndexRemappingDictionary[node.Index];
+                        node.Index = value;
                     }
                 }
 
@@ -520,9 +520,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     Dictionary<int, int> artifactIndexRemappingDictionary = artifactIndexRemappingDictionaries[currentRunIndex];
 
-                    if (artifactIndexRemappingDictionary.ContainsKey(node.ParentIndex))
+                    if (artifactIndexRemappingDictionary.TryGetValue(node.ParentIndex, out int value))
                     {
-                        node.ParentIndex = artifactIndexRemappingDictionary[node.ParentIndex];
+                        node.ParentIndex = value;
                     }
                 }
 

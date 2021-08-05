@@ -193,13 +193,13 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public bool ShouldSerializeColumnKind()
         {
-            // This serialization helper does two things. 
-            // 
-            // First, if ColumnKind has not been 
-            // explicitly set, we will set it to the value that works for the Microsoft 
+            // This serialization helper does two things.
+            //
+            // First, if ColumnKind has not been
+            // explicitly set, we will set it to the value that works for the Microsoft
             // platform (which is not the specified SARIF default). This makes sure that
-            // the value is set appropriate for code running on the Microsoft platform, 
-            // even if the SARIF producer is not aware of this rather obscure value. 
+            // the value is set appropriate for code running on the Microsoft platform,
+            // even if the SARIF producer is not aware of this rather obscure value.
             if (this.ColumnKind == ColumnKind.None)
             {
                 this.ColumnKind = ColumnKind.Utf16CodeUnits;
@@ -210,15 +210,30 @@ namespace Microsoft.CodeAnalysis.Sarif
             return true;
         }
 
-        public bool ShouldSerializeArtifacts() { return this.Artifacts.HasAtLeastOneNonDefaultValue(Artifact.ValueComparer); }
+        public bool ShouldSerializeArtifacts()
+        {
+            return this.Artifacts.HasAtLeastOneNonDefaultValue(Artifact.ValueComparer);
+        }
 
-        public bool ShouldSerializeGraphs() { return this.Graphs.HasAtLeastOneNonDefaultValue(Graph.ValueComparer); }
+        public bool ShouldSerializeGraphs()
+        {
+            return this.Graphs.HasAtLeastOneNonDefaultValue(Graph.ValueComparer);
+        }
 
-        public bool ShouldSerializeInvocations() { return this.Invocations.HasAtLeastOneNonNullValue(); }
+        public bool ShouldSerializeInvocations()
+        {
+            return this.Invocations.HasAtLeastOneNonNullValue();
+        }
 
-        public bool ShouldSerializeLogicalLocations() { return this.LogicalLocations.HasAtLeastOneNonDefaultValue(LogicalLocation.ValueComparer); }
+        public bool ShouldSerializeLogicalLocations()
+        {
+            return this.LogicalLocations.HasAtLeastOneNonDefaultValue(LogicalLocation.ValueComparer);
+        }
 
-        public bool ShouldSerializeNewlineSequences() { return this.NewlineSequences.HasAtLeastOneNonNullValue(); }
+        public bool ShouldSerializeNewlineSequences()
+        {
+            return this.NewlineSequences.HasAtLeastOneNonNullValue();
+        }
 
         internal static Dictionary<string, FailureLevel> ComputePolicies(IEnumerable<ToolComponent> policies)
         {
@@ -269,9 +284,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 string ruleId = result.ResolvedRuleId(this);
 
-                if (PoliciesCache.ContainsKey(ruleId))
+                if (PoliciesCache.TryGetValue(ruleId, out FailureLevel level))
                 {
-                    result.Level = PoliciesCache[ruleId];
+                    result.Level = level;
                 }
             }
         }
