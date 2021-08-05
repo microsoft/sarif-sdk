@@ -92,9 +92,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 foreach (Run run in sarifLog.Runs)
                 {
                     string toolName = run.Tool.Driver.Name;
-                    if (runsByTool.ContainsKey(toolName))
+                    if (runsByTool.TryGetValue(toolName, out List<Run> runs))
                     {
-                        runsByTool[toolName].Add(run);
+                        runs.Add(run);
                     }
                     else
                     {
@@ -295,7 +295,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         {
             foreach (KeyValuePair<T, S> pair in dictionaryToAdd)
             {
-                if (!baseDictionary.ContainsKey(pair.Key))
+                if (!baseDictionary.TryGetValue(pair.Key, out S value))
                 {
                     // The baseline does not contain the current dictionary value. This means
                     // that we can transport all properties associated with the new value.
@@ -311,7 +311,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 PropertyBagHolder basePropertyBagHolder, propertyBagHolderToMerge;
                 IDictionary<string, SerializedPropertyInfo> baseProperties = null, propertiesToMerge = null;
 
-                basePropertyBagHolder = baseDictionary[pair.Key] as PropertyBagHolder;
+                basePropertyBagHolder = value as PropertyBagHolder;
 
                 if (basePropertyBagHolder != null)
                 {

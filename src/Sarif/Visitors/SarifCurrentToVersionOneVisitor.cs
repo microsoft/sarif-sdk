@@ -18,6 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
     public class SarifCurrentToVersionOneVisitor : SarifRewritingVisitor
     {
         private static readonly SarifVersion FromSarifVersion = SarifVersion.Current;
+
         private static readonly string FromPropertyBagPrefix =
             Utilities.PropertyBagTransformerItemPrefixes[FromSarifVersion];
 
@@ -26,6 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         // To understand the purpose of these fields, see the comment on CreateFileKeyIndexMappings.
         private IDictionary<string, int> _v1FileKeyToV2IndexMap;
+
         private IDictionary<int, string> _v2FileIndexToV1KeyMap;
 
         // To understand the purpose of this field, see the comment on CreateRuleIndexToKeyMapping.
@@ -553,7 +555,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 if (reader != null)
                 {
-                    if (v2Region.StartLine > 0) // Use line and column 
+                    if (v2Region.StartLine > 0) // Use line and column
                     {
                         string sourceLine = string.Empty;
 
@@ -586,7 +588,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         char[] buffer = new char[v2Region.CharOffset];
                         reader.Read(buffer, 0, buffer.Length);
 
-                        // Read the next charLength characters  
+                        // Read the next charLength characters
                         buffer = new char[v2Region.CharLength];
                         reader.Read(buffer, 0, buffer.Length);
 
@@ -1080,8 +1082,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     string ruleId = rules[i].Id;
                     if (ruleId != null)
                     {
-                        ruleIdToCountMap[ruleId] = ruleIdToCountMap.ContainsKey(ruleId)
-                            ? ruleIdToCountMap[ruleId] + 1
+                        ruleIdToCountMap[ruleId] = ruleIdToCountMap.TryGetValue(ruleId, out int value)
+                            ? value + 1
                             : 1;
 
                         v2RuleIndexToV1KeyMap[i] = ruleIdToCountMap[ruleId] == 1
