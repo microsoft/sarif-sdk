@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             analyzeOptions ??= new TestAnalyzeOptions()
             {
-                TargetFileSpecifiers = new string[] { }
+                TargetFileSpecifiers = Array.Empty<string>()
             };
 
             ExceptionTestHelperImplementation(
@@ -57,13 +57,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
              bool multithreaded)
         {
             TestRule.s_testRuleBehaviors = analyzeOptions.TestRuleBehaviors.AccessibleOutsideOfContextOnly();
-
-            analyzeOptions = analyzeOptions ?? new TestAnalyzeOptions()
-            {
-                TestRuleBehaviors = analyzeOptions.TestRuleBehaviors.AccessibleWithinContextOnly(),
-                TargetFileSpecifiers = new string[0]
-            };
-
             Assembly[] plugInAssemblies = null;
 
             if (analyzeOptions.DefaultPlugInFilePaths != null)
