@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text.RegularExpressions;
@@ -53,7 +54,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         internal static readonly string s_codeFlowsPerResultKey = $"{s_resultsPerRunKey}/0/{SarifPropertyName.CodeFlows}";
         internal static readonly string s_locationsPerThreadFlowKey = $"{s_codeFlowsPerResultKey}/0/{SarifPropertyName.ThreadFlows}/0/{SarifPropertyName.Locations}";
 
-        internal static Dictionary<string, int> s_arraySizeLimitDictionary = new Dictionary<string, int>
+        internal static ConcurrentDictionary<string, int> s_arraySizeLimitDictionary = new ConcurrentDictionary<string, int>
         {
             [s_runsPerLogKey] = 5,
             [s_rulesPerRunKey] = 1000,
