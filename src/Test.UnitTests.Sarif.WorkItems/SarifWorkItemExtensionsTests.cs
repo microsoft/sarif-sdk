@@ -191,7 +191,6 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         [Fact]
         public void SarifWorkItemExtensions_GetAggregateResultCount_ComputeResultCountsFromLogs()
         {
-            var context = new SarifWorkItemContext();
             SarifLog sarifLog = TestData.CreateOneIdThreeLocations();
 
             int resultCount = sarifLog.GetAggregateFilableResultsCount();
@@ -209,7 +208,6 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         [Fact]
         public void SarifWorkItemExtensions_GetRunToolNames_FetchesAllRunToolNames()
         {
-            var context = new SarifWorkItemContext();
             SarifLog sarifLog = TestData.CreateOneIdThreeLocations();
 
             List<string> toolNames = sarifLog.GetToolNames();
