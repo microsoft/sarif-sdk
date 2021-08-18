@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             testLogger.Messages.Should().BeNull();
             testLogger.ToolNotifications.Should().BeNull();
             testLogger.ConfigurationNotifications.Count.Should().Equals(1);
-            testLogger.ConfigurationNotifications[0].Descriptor.Id.Should().Equals(ruleId);
+            testLogger.ConfigurationNotifications[0].Descriptor.Id.Should().BeEquivalentTo(Warnings.Wrn999_RuleExplicitlyDisabled);
         }
 
         [Fact]
