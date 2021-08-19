@@ -142,14 +142,13 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             //       This implies created both the connection mocks and the mocks for filing, updating, and attaching work items.
             //       We are required to put this mock behind an interface due to an inability to mock these types directly.
 
-            FilingClient filingClient;
             if (adoClient == true)
             {
-                filingClient = CreateAdoMocksAndFilingClient(attachmentReference, workItem, filer);
+                CreateAdoMocksAndFilingClient(attachmentReference, workItem, filer);
             }
             else
             {
-                filingClient = CreateGitHubMocksAndFilingClient(bugUriText, bugHtmlUriText, filer);
+                CreateGitHubMocksAndFilingClient(bugUriText, bugHtmlUriText, filer);
             }
 
             string sarifLogText = JsonConvert.SerializeObject(sarifLog);

@@ -416,7 +416,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 new LogicalLocation { ParentIndex = 2, Name = "mymember(string)", FullyQualifiedName = "mybinary.dll!mynamespace.mytype.mymember(string)", Kind = LogicalLocationKind.Member }
             };
             var converter = new FxCopConverter();
-            Result result = converter.CreateResult(context);
+            converter.CreateResult(context);
 
             ValidateLogicalLocations(expectedLogicalLocations, converter.LogicalLocations);
         }
@@ -441,7 +441,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             };
 
             var converter = new FxCopConverter();
-            Result result = converter.CreateResult(context);
+            converter.CreateResult(context);
 
             ValidateLogicalLocations(expectedLogicalLocations, converter.LogicalLocations);
         }
@@ -464,7 +464,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             };
 
             var converter = new FxCopConverter();
-            Result result = converter.CreateResult(context);
+            converter.CreateResult(context);
 
             ValidateLogicalLocations(expectedLogicalLocations, converter.LogicalLocations);
         }

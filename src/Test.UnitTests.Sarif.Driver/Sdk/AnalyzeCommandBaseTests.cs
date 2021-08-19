@@ -343,7 +343,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             try
             {
-                using (FileStream stream = File.OpenWrite(path))
+                using (_ = File.OpenWrite(path))
                 {
                     // Our log file is locked for write
                     // causing exceptions at analysis time.
@@ -373,7 +373,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             path = Path.Combine(path, Guid.NewGuid().ToString());
 
-            using (FileStream stream = File.Create(path, 1, FileOptions.DeleteOnClose))
+            using (_ = File.Create(path, 1, FileOptions.DeleteOnClose))
             {
                 // Attempt to persist to unauthorized location will raise exception.
                 var options = new TestAnalyzeOptions()
@@ -485,7 +485,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             string path = Path.GetTempFileName() + ".sarif";
 
-            using (FileStream stream = File.Create(path, 1, FileOptions.DeleteOnClose))
+            using (_ = File.Create(path, 1, FileOptions.DeleteOnClose))
             {
                 var options = new TestAnalyzeOptions()
                 {
@@ -1087,7 +1087,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 options.Level = new List<FailureLevel> { FailureLevel.Error, FailureLevel.Warning, FailureLevel.Note, FailureLevel.None };
             }
 
-            int expectedResultsCount = testCase.ExpectedWarningCount + testCase.ExpectedErrorCount;
             Run runWithoutCaching = RunAnalyzeCommand(options, testCase);
 
             options.DataToInsert = new OptionallyEmittedData[] { OptionallyEmittedData.Hashes };

@@ -34,14 +34,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void ConverterBase_SingleLogicalLocation()
         {
-            Location location = new Location
-            {
-                LogicalLocation = new LogicalLocation
-                {
-                    FullyQualifiedName = "a"
-                }
-            };
-
             var logicalLocation = new LogicalLocation
             {
                 Name = "a",
@@ -61,22 +53,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void ConverterBase_TwoIdenticalLogicalLocations()
         {
-            Location location1 = new Location
-            {
-                LogicalLocation = new LogicalLocation
-                {
-                    FullyQualifiedName = "a"
-                }
-            };
-
-            Location location2 = new Location
-            {
-                LogicalLocation = new LogicalLocation
-                {
-                    FullyQualifiedName = "a"
-                }
-            };
-
             var logicalLocation1 = new LogicalLocation
             {
                 Name = "a",
@@ -107,26 +83,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void ConverterBase_MultipleDistinctIdenticallyNamedLogicalLocations()
         {
-            Location location1 = new Location
-            {
-                LogicalLocation = new LogicalLocation
-                {
-                    FullyQualifiedName = "a"
-                }
-            };
-
             var logicalLocation1 = new LogicalLocation
             {
                 Name = "a",
                 Kind = LogicalLocationKind.Namespace
-            };
-
-            Location location2 = new Location
-            {
-                LogicalLocation = new LogicalLocation
-                {
-                    FullyQualifiedName = "a"
-                }
             };
 
             var logicalLocation2 = new LogicalLocation
