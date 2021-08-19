@@ -104,7 +104,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void FortifyConverter_Convert_ShortMessageIsUnset()
         {
-            Result result = FortifyConverter.ConvertFortifyIssueToSarifIssue(FortifyConverterTests.GetBasicIssue());
+            FortifyConverter.ConvertFortifyIssueToSarifIssue(FortifyConverterTests.GetBasicIssue());
         }
 
         [Fact]

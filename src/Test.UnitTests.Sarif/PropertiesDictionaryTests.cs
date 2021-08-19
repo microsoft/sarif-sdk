@@ -139,7 +139,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             foreach (T member in expected)
             {
-                actual.Should().Contain(expected);
+                actual.Should().Contain(member);
             }
             actual.Count.Should().Be(expected.Count);
         }

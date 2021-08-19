@@ -171,7 +171,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     Assert.False(true, pathToExe + " " + commandLine);
                 }
 
-                using (var sarifLogger = new SarifLogger(
+                using (_ = new SarifLogger(
                     textWriter,
                     analysisTargets: null,
                     logFilePersistenceOptions: LogFilePersistenceOptions.None,
@@ -243,10 +243,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             string output = sb.ToString();
-            SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(output);
+            JsonConvert.DeserializeObject<SarifLog>(output);
 
             string sarifLoggerLocation = typeof(SarifLogger).Assembly.Location;
-            string expectedVersion = FileVersionInfo.GetVersionInfo(sarifLoggerLocation).FileVersion;
+            _ = FileVersionInfo.GetVersionInfo(sarifLoggerLocation).FileVersion;
         }
 
         [Fact]
@@ -254,14 +254,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             string propertyName = "numberValue";
             double propertyValue = 3.14;
-            string logicalId = nameof(logicalId) + ":" + Guid.NewGuid().ToString();
             string baselineInstanceGuid = nameof(baselineInstanceGuid) + ":" + Guid.NewGuid().ToString();
             string runInstanceGuid = Guid.NewGuid().ToString();
             string automationLogicalId = nameof(automationLogicalId) + ":" + Guid.NewGuid().ToString();
             string runInstanceId = automationLogicalId + "/" + runInstanceGuid;
-            string architecture = nameof(architecture) + ":" + "x86";
             var conversion = new Conversion() { Tool = DefaultTool };
-            DateTime utcNow = DateTime.UtcNow;
             var versionControlUri = new Uri("https://www.github.com/contoso/contoso");
             var versionControlDetails = new VersionControlDetails() { RepositoryUri = versionControlUri, AsOfTimeUtc = DateTime.UtcNow };
             string originalUriBaseIdKey = "testBase";
@@ -291,7 +288,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 run.DefaultEncoding = defaultEncoding;
                 run.RedactionTokens = redactionTokens;
 
-                using (var sarifLogger = new SarifLogger(
+                using (_ = new SarifLogger(
                     textWriter,
                     run: run,
                     invocationPropertiesToLog: null,
@@ -363,8 +360,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             using (var tempFile = new TempFile(".txt"))
             {
                 string tempFilePath = tempFile.Name;
-                string tempFileDirectory = Path.GetDirectoryName(tempFilePath);
-                string tempFileName = Path.GetFileName(tempFilePath);
 
                 File.WriteAllText(tempFilePath, "#include \"windows.h\";");
 
@@ -383,7 +378,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 using (var textWriter = new StringWriter(sb))
                 {
                     // Create a logger that inserts artifact contents.
-                    using (var sarifLogger = new SarifLogger(
+                    using (_ = new SarifLogger(
                         textWriter,
                         run: run,
                         analysisTargets: analysisTargets,
@@ -854,7 +849,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             using (var textWriter = new StringWriter(sb))
             {
-                using (var sarifLogger = new SarifLogger(
+                using (_ = new SarifLogger(
                     textWriter,
                     run: run,
                     levels: new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
@@ -900,7 +895,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             using (var textWriter = new StringWriter(sb))
             {
-                using (var sarifLogger = new SarifLogger(
+                using (_ = new SarifLogger(
                     textWriter,
                     run: run,
                     analysisTargets: analysisTargets,
@@ -935,7 +930,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             using (var textWriter = new StringWriter(sb))
             {
                 // Create a logger that uses that run but specifies a different encoding.
-                using (var sarifLogger = new SarifLogger(
+                using (_ = new SarifLogger(
                     textWriter,
                     run: run,
                     defaultFileEncoding: Utf7,

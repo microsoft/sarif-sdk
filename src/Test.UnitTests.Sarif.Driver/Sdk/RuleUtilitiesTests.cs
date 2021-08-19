@@ -63,7 +63,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             (context.RuntimeErrors & RuntimeConditions.OneOrMoreWarningsFired).Should().Be(RuntimeConditions.None);
             (context.RuntimeErrors & RuntimeConditions.OneOrMoreErrorsFired).Should().Be(RuntimeConditions.OneOrMoreErrorsFired);
 
-            result = RuleUtilities.BuildResult(
+            RuleUtilities.BuildResult(
                 FailureLevel.Warning,
                 context,
                 region,
