@@ -54,7 +54,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         internal static readonly string s_codeFlowsPerResultKey = $"{s_resultsPerRunKey}/0/{SarifPropertyName.CodeFlows}";
         internal static readonly string s_locationsPerThreadFlowKey = $"{s_codeFlowsPerResultKey}/0/{SarifPropertyName.ThreadFlows}/0/{SarifPropertyName.Locations}";
 
-        internal static ConcurrentDictionary<string, int> s_arraySizeLimitDictionary = new ConcurrentDictionary<string, int>
+        internal static readonly ConcurrentDictionary<string, int> s_arraySizeLimitDictionary = new ConcurrentDictionary<string, int>
         {
             [s_runsPerLogKey] = 5,
             [s_rulesPerRunKey] = 1000,
