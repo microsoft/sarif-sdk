@@ -47,9 +47,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Specifies the failure level for the report.
         /// </summary>
-        [DataMember(Name = "level", IsRequired = false, EmitDefaultValue = false)]
+        [DataMember(Name = "level", IsRequired = false, EmitDefaultValue = true)]
         [DefaultValue(FailureLevel.Warning)]
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate)]
         [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter))]
         public FailureLevel Level { get; set; }
 
