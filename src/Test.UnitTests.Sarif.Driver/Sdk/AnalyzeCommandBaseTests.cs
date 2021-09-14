@@ -953,7 +953,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var testCase = new ResultsCachingTestCase()
             {
                 Files = new List<string> { "Note.dll", "Note.exe", "Note.sys" },
-                PersistLogFileToDisk = true
             };
 
             // Notes are verbose only results
@@ -1001,6 +1000,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             testCase.Verbose = true;
             RunResultsCachingTestCase(testCase);
+
+            testCase.Files = ComprehensiveKindAndLevelsByFilePath;
+            RunResultsCachingTestCase(testCase, multithreaded: true);
+
+            testCase.Verbose = true;
+            RunResultsCachingTestCase(testCase, multithreaded: true);
         }
 
         [Fact]
@@ -1031,12 +1036,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             testCase.Verbose = true;
             RunResultsCachingTestCase(testCase);
 
-            testCase = new ResultsCachingTestCase
-            {
-                Files = ComprehensiveKindAndLevelsByFilePath,
-                PersistLogFileToDisk = true,
-            };
-
+            testCase.Files = ComprehensiveKindAndLevelsByFilePath;
             RunResultsCachingTestCase(testCase, multithreaded: true);
             testCase.Verbose = true;
             RunResultsCachingTestCase(testCase, multithreaded: true);
