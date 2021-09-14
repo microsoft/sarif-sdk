@@ -184,7 +184,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         new Uri(target, UriKind.RelativeOrAbsolute),
                         dataToInsert,
                         encoding,
-                        hashData: hashData);
+                        hashData);
 
                     var fileLocation = new ArtifactLocation
                     {
@@ -197,9 +197,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     artifact.Location.Index = _run.GetFileIndex(
                         artifact.Location,
                         addToFilesTableIfNotPresent: true,
-                        dataToInsert: dataToInsert,
-                        encoding: encoding,
-                        hashData: hashData);
+                        dataToInsert,
+                        encoding,
+                        hashData);
                 }
             }
 
@@ -456,7 +456,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 addToFilesTableIfNotPresent: _persistArtifacts,
                 _dataToInsert,
                 encoding,
-                hashData: hashData);
+                hashData);
 
             // Remove redundant Uri and UriBaseId once index has been set
             if (index > -1 && this.Optimize)
