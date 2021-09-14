@@ -432,7 +432,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var sortedDiskItems = new SortedSet<string>();
 
             queue.Enqueue(directory);
-            foreach (string childDirectory in Directory.EnumerateDirectories(directory, "*", SearchOption.TopDirectoryOnly))
+            foreach (string childDirectory in FileSystem.DirectoryEnumerateDirectories(directory, "*", SearchOption.TopDirectoryOnly))
             {
                 sortedDiskItems.Add(childDirectory);
             }
