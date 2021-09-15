@@ -1046,6 +1046,51 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             RunResultsCachingTestCase(testCase, multithreaded: true);
         }
 
+        [Fact]
+        public void AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread()
+        {
+            var testCase = new ResultsCachingTestCase
+            {
+                Files = ComprehensiveKindAndLevelsByFileName,
+                PersistLogFileToDisk = true,
+                FileSystem = null
+            };
+
+            var options = new TestAnalyzeOptions
+            {
+                TestRuleBehaviors = testCase.TestRuleBehaviors,
+                OutputFilePath = testCase.PersistLogFileToDisk ? Guid.NewGuid().ToString() : null,
+                TargetFileSpecifiers = new string[] { Guid.NewGuid().ToString() },
+                Kind = new List<ResultKind> { ResultKind.Fail },
+                Level = new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
+                DataToInsert = new OptionallyEmittedData[] { OptionallyEmittedData.Hashes },
+            };
+
+            Run runSingleThread = RunAnalyzeCommand(options, testCase);
+
+            testCase.FileSystem = null;
+            testCase.Files = ComprehensiveKindAndLevelsByFilePath;
+            Run runMultiThread = RunAnalyzeCommand(options, testCase, multithreaded: true);
+
+            for (int i = 0; i < runSingleThread.Results.Count; i++)
+            {
+                Result singleThreadCache = runSingleThread.Results[i];
+                Result multiThreadCache = runMultiThread.Results[i];
+
+                singleThreadCache.Level.Should().Be(multiThreadCache.Level);
+                singleThreadCache.RuleId.Should().Be(multiThreadCache.RuleId);
+                singleThreadCache.Message.Should().BeEquivalentTo(multiThreadCache.Message);
+
+                singleThreadCache.Locations.Count.Should().Be(multiThreadCache.Locations.Count);
+                singleThreadCache.Locations[0].PhysicalLocation.ArtifactLocation.Uri
+                    .Should()
+                    .Be(multiThreadCache.Locations[0].PhysicalLocation.ArtifactLocation.Uri);
+            }
+
+            runMultiThread.Artifacts.Should().NotBeEmpty();
+            runSingleThread.Artifacts.Should().NotBeEmpty();
+        }
+
         private static readonly IList<string> ComprehensiveKindAndLevelsByFileName = new List<string>(new string[20]
             {
                 // Every one of these files will be regarded as identical in content by level/kind. So every file
