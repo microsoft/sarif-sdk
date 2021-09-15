@@ -947,18 +947,33 @@ namespace Microsoft.CodeAnalysis.Sarif
             sarifLog.Runs[0].DefaultEncoding.Should().Be(Utf7);
         }
 
-        private void LogSimpleResult(SarifLogger sarifLogger)
+        private void LogSimpleResult(SarifLogger sarifLogger, bool relativePath = false)
         {
-            ReportingDescriptor rule = new ReportingDescriptor { Id = "RuleId" };
-            sarifLogger.Log(rule, CreateSimpleResult(rule));
+            var rule = new ReportingDescriptor { Id = "RuleId" };
+            sarifLogger.Log(rule, CreateSimpleResult(rule, relativePath));
         }
 
-        private Result CreateSimpleResult(ReportingDescriptor rule)
+        private Result CreateSimpleResult(ReportingDescriptor rule, bool relativePath)
         {
             return new Result
             {
                 RuleId = rule.Id,
-                Message = new Message { Text = "Some testing occurred." }
+                Message = new Message { Text = "Some testing occurred." },
+                Locations = !relativePath
+                    ? null
+                    : new[]
+                    {
+                        new Location
+                        {
+                            PhysicalLocation = new PhysicalLocation
+                            {
+                                ArtifactLocation = new ArtifactLocation
+                                {
+                                    Uri = new Uri("file.txt", UriKind.Relative)
+                                }
+                            }
+                        }
+                    }
             };
         }
 
@@ -969,8 +984,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             using (var writer = new StringWriter(sb))
             using (var sarifLogger = new SarifLogger(writer,
-                                                        levels: new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
-                                                        kinds: new List<ResultKind> { ResultKind.Fail }))
+                                                     levels: new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
+                                                     kinds: new List<ResultKind> { ResultKind.Fail }))
             {
                 var rule = new ReportingDescriptor
                 {
@@ -1130,6 +1145,31 @@ namespace Microsoft.CodeAnalysis.Sarif
             desiredFailureLevels = new List<FailureLevel> { FailureLevel.Error };
             sarifLog = CreateSarifLog(allKindLevelCombinations, rule, desiredFailureLevels, desiredResultKinds);
             VerifySarifLogHonoredKindAndLevel(desiredFailureLevels, desiredResultKinds, sarifLog);
+        }
+
+        [Fact]
+        public void SarifLogger_ShouldAddToArtifactsOnlyIfResultHasLocation()
+        {
+            var sb = new StringBuilder();
+
+            using (var textWriter = new StringWriter(sb))
+            {
+                using (var sarifLogger = new SarifLogger(
+                    textWriter,
+                    analysisTargets: null,
+                    dataToInsert: OptionallyEmittedData.Hashes,
+                    levels: new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
+                    kinds: new List<ResultKind> { ResultKind.Fail }))
+                {
+                    LogSimpleResult(sarifLogger);
+                    LogSimpleResult(sarifLogger, relativePath: true);
+                }
+            }
+
+            string logText = sb.ToString();
+
+            SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
+            sarifLog.Runs[0].Artifacts.Should().HaveCount(1);
         }
 
         private static void VerifySarifLogHonoredKindAndLevel(List<FailureLevel> desiredFailureLevels, List<ResultKind> desiredResultKinds, SarifLog sarifLog)
