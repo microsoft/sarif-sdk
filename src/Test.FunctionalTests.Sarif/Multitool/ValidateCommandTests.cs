@@ -257,7 +257,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         [Fact]
         public void SARIF2007_ExpressPathsRelativeToRepoRoot_DoNotLoadNotRelatedUriBaseId_Invalid()
-            => RunInvalidTestForRule("SARIF2007.ExpressPathsRelativeToRepoRoot_DoNotLoadNotRelatedUriBaseId_Invalid.sarif");
+            => RunTest("SARIF2007.ExpressPathsRelativeToRepoRoot_DoNotLoadNotRelatedUriBaseId_Invalid.sarif");
 
         [Fact]
         public void SARIF2007_ExpressPathsRelativeToRepoRoot_Invalid()
