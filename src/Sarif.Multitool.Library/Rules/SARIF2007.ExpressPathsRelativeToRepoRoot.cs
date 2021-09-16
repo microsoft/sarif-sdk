@@ -60,7 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     {
                         string validUriBaseId = run.VersionControlProvenance[i].MappedTo.UriBaseId;
                         this.uriBaseIds.Add(validUriBaseId);
-                        run.OriginalUriBaseIds.Where(baseId => baseId.Value?.UriBaseId == validUriBaseId).ToList()
+                        run.OriginalUriBaseIds?.Where(baseId => baseId.Value?.UriBaseId == validUriBaseId).ToList()
                             .ForEach(baseId => this.uriBaseIds.Add(baseId.Key));
                     }
                 }
