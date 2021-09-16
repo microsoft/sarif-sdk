@@ -252,6 +252,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             => RunTest("SARIF2007.ExpressPathsRelativeToRepoRoot_WithoutVersionControlProvenance_Valid.sarif");
 
         [Fact]
+        public void SARIF2007_ExpressPathsRelativeToRepoRoot_LoadRelatedUriBaseId_Valid()
+            => RunTest("SARIF2007.ExpressPathsRelativeToRepoRoot_LoadRelatedUriBaseId_Valid.sarif");
+
+        [Fact]
+        public void SARIF2007_ExpressPathsRelativeToRepoRoot_DoNotLoadNotRelatedUriBaseId_Invalid()
+            => RunInvalidTestForRule("SARIF2007.ExpressPathsRelativeToRepoRoot_DoNotLoadNotRelatedUriBaseId_Invalid.sarif");
+
+        [Fact]
         public void SARIF2007_ExpressPathsRelativeToRepoRoot_Invalid()
             => RunInvalidTestForRule(RuleId.ExpressPathsRelativeToRepoRoot);
 
