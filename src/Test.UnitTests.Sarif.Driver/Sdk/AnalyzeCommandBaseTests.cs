@@ -299,7 +299,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             );
         }
 
-
         [Fact]
         public void ExceptionRaisedInvokingAnalyze_PersistInnerException()
         {
@@ -315,7 +314,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             string fqn = stack.Frames[0].Location.LogicalLocation.FullyQualifiedName;
             fqn.Contains(nameof(TestRule.RaiseExceptionViaReflection)).Should().BeTrue();
         }
-
 
         [Fact]
         public void ExceptionRaisedInEngine()
@@ -334,6 +332,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 analyzeOptions: options);
 
             TestAnalyzeCommand.RaiseUnhandledExceptionInDriverCode = false;
+            TestMultithreadedAnalyzeCommand.RaiseUnhandledExceptionInDriverCode = false;
         }
 
         [Fact]
