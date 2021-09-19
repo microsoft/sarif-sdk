@@ -36,10 +36,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         private bool _computeHashes;
         private int _fileContextsCount;
         private TContext _rootContext;
-        private ConcurrentDictionary<int, TContext> _fileContexts;
+        private OptionallyEmittedData _dataToInsert;
         private Channel<int> _resultsWritingChannel;
         private Channel<int> _fileEnumerationChannel;
         private IDictionary<string, HashData> _pathToHashDataMap;
+        private ConcurrentDictionary<int, TContext> _fileContexts;
+        private ConcurrentDictionary<string, IAnalysisLogger> _analysisLoggerCache;
 
         public Exception ExecutionException { get; set; }
 
@@ -245,46 +247,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                         while (context?.AnalysisComplete == true)
                         {
-                            var cachingLogger = (CachingLogger)context.Logger;
-                            IDictionary<ReportingDescriptor, IList<Result>> results = cachingLogger.Results;
-
-                            if (results?.Count > 0)
+                            if (_computeHashes)
                             {
-                                if (context.Hashes != null)
+                                if (_analysisLoggerCache.TryGetValue(context.Hashes.Sha256, out IAnalysisLogger logger))
                                 {
-                                    Debug.Assert(_run != null);
-                                    int index = _run.GetFileIndex(new ArtifactLocation() { Uri = context.TargetUri });
-
-                                    _run.Artifacts[index].Hashes = new Dictionary<string, string>
-                                    {
-                                        { "sha-256", context.Hashes.Sha256 },
-                                    };
+                                    LogCachingLogger(rootContext, logger, context, clone: true);
                                 }
-
-                                foreach (KeyValuePair<ReportingDescriptor, IList<Result>> kv in results)
+                                else
                                 {
-                                    foreach (Result result in kv.Value)
-                                    {
-                                        rootContext.Logger.Log(kv.Key, result);
-                                    }
+                                    Debug.Assert(logger != null, "Logger should always exist in cache.");
                                 }
                             }
-
-                            if (cachingLogger.ToolNotifications != null)
+                            else
                             {
-                                foreach (Notification notification in cachingLogger.ToolNotifications)
-                                {
-                                    rootContext.Logger.LogToolNotification(notification);
-                                }
+                                LogCachingLogger(rootContext, context.Logger, context);
                             }
 
-                            if (cachingLogger.ConfigurationNotifications != null)
-                            {
-                                foreach (Notification notification in cachingLogger.ConfigurationNotifications)
-                                {
-                                    rootContext.Logger.LogConfigurationNotification(notification);
-                                }
-                            }
 
                             RuntimeErrors |= context.RuntimeErrors;
 
@@ -298,17 +276,68 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     catch (Exception e)
                     {
                         context?.Dispose();
-                        context = default;
                         RuntimeErrors |= Errors.LogUnhandledEngineException(rootContext, e);
                         ThrowExitApplicationException(context, ExitReason.ExceptionWritingToLogFile, e);
                     }
                 }
             }
 
-            Debug.Assert(_fileContexts.Count == 0);
+            Debug.Assert(_fileContexts.IsEmpty);
             Debug.Assert(_fileContextsCount == currentIndex);
 
             return true;
+        }
+
+        private void LogCachingLogger(TContext rootContext, IAnalysisLogger logger, TContext context, bool clone = false)
+        {
+            var cachingLogger = (CachingLogger)logger;
+            IDictionary<ReportingDescriptor, IList<Result>> results = cachingLogger.Results;
+
+            if (results?.Count > 0)
+            {
+                foreach (KeyValuePair<ReportingDescriptor, IList<Result>> kv in results)
+                {
+                    foreach (Result result in kv.Value)
+                    {
+                        Result currentResult = result;
+                        if (clone)
+                        {
+                            Result clonedResult = result.DeepClone();
+
+                            UpdateLocationsAndMessageWithCurrentUri(clonedResult.Locations, clonedResult.Message, context.TargetUri);
+
+                            currentResult = clonedResult;
+                        }
+
+                        rootContext.Logger.Log(kv.Key, currentResult);
+                    }
+                }
+            }
+
+            if (cachingLogger.ToolNotifications != null)
+            {
+                foreach (Notification notification in cachingLogger.ToolNotifications)
+                {
+                    rootContext.Logger.LogToolNotification(notification);
+                }
+            }
+
+            if (cachingLogger.ConfigurationNotifications != null)
+            {
+                foreach (Notification notification in cachingLogger.ConfigurationNotifications)
+                {
+                    Notification currentNotification = notification;
+                    if (clone)
+                    {
+                        Notification clonedNotification = notification.DeepClone();
+                        UpdateLocationsAndMessageWithCurrentUri(clonedNotification.Locations, notification.Message, context.TargetUri);
+
+                        currentNotification = clonedNotification;
+                    }
+
+                    rootContext.Logger.LogConfigurationNotification(currentNotification);
+                }
+            }
         }
 
         private async Task<bool> FindFilesAsync(TOptions options, TContext rootContext)
@@ -404,7 +433,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var sortedDiskItems = new SortedSet<string>();
 
             queue.Enqueue(directory);
-            foreach (string childDirectory in Directory.EnumerateDirectories(directory, "*", SearchOption.TopDirectoryOnly))
+            foreach (string childDirectory in FileSystem.DirectoryEnumerateDirectories(directory, "*", SearchOption.TopDirectoryOnly))
             {
                 sortedDiskItems.Add(childDirectory);
             }
@@ -432,15 +461,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         context = _fileContexts[item];
 
                         DetermineApplicabilityAndAnalyze(context, skimmers, disabledSkimmers);
-
-                        if (_computeHashes && ((CachingLogger)context.Logger).Results?.Count > 0)
-                        {
-                            Debug.Assert(context.Hashes == null);
-
-                            string sha256Hash = HashUtilities.ComputeSha256Hash(context.TargetUri.LocalPath);
-
-                            context.Hashes = new HashData(md5: null, sha1: null, sha256: sha256Hash);
-                        }
                     }
                     catch (Exception e)
                     {
@@ -458,7 +478,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         protected virtual void ValidateOptions(TOptions options, TContext context)
         {
-            _computeHashes = (options.DataToInsert.ToFlags() & OptionallyEmittedData.Hashes) != 0;
+            _dataToInsert = options.DataToInsert.ToFlags();
+            _computeHashes = (_dataToInsert & OptionallyEmittedData.Hashes) != 0;
 
             bool succeeded = true;
 
@@ -568,6 +589,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 logger.Loggers.Add(_consoleLogger);
             }
 
+            if ((analyzeOptions.DataToInsert.ToFlags() & OptionallyEmittedData.Hashes) != 0)
+            {
+                _analysisLoggerCache = new ConcurrentDictionary<string, IAnalysisLogger>();
+            }
+
             return logger;
         }
 
@@ -587,6 +613,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             if (filePath != null)
             {
                 context.TargetUri = new Uri(filePath);
+
+                if (_computeHashes)
+                {
+                    context.Hashes = HashUtilities.ComputeHashes(filePath);
+                    if (_pathToHashDataMap != null)
+                    {
+                        _pathToHashDataMap[filePath] = context.Hashes;
+                        _run.GetFileIndex(new ArtifactLocation { Uri = context.TargetUri },
+                                          dataToInsert: _dataToInsert,
+                                          hashData: context.Hashes);
+                    }
+                }
             }
 
             return context;
@@ -656,7 +694,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     {
                         LogFilePersistenceOptions logFilePersistenceOptions = analyzeOptions.ConvertToLogFilePersistenceOptions();
 
-                        OptionallyEmittedData dataToInsert = analyzeOptions.DataToInsert.ToFlags();
+                        OptionallyEmittedData dataToInsert = _dataToInsert;
                         OptionallyEmittedData dataToRemove = analyzeOptions.DataToRemove.ToFlags();
 
                         SarifLogger sarifLogger;
@@ -859,7 +897,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 return context;
             }
 
+            // If computeHashes exists and we already added in the cache,
+            // we can just return the context.
+            if (_computeHashes && _analysisLoggerCache.ContainsKey(context.Hashes.Sha256))
+            {
+                return context;
+            }
+
             context.Logger.AnalyzingTarget(context);
+
+            if (_computeHashes)
+            {
+                _analysisLoggerCache[context.Hashes.Sha256] = context.Logger;
+            }
+
             IEnumerable<Skimmer<TContext>> applicableSkimmers = DetermineApplicabilityForTarget(context, skimmers, disabledSkimmers);
             AnalyzeTarget(context, applicableSkimmers, disabledSkimmers);
 
