@@ -448,10 +448,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
 
             HashData hashData = null;
-            if (fileLocation.Uri.IsAbsoluteUri)
-            {
-                AnalysisTargetToHashDataMap?.TryGetValue(fileLocation.Uri.LocalPath, out hashData);
-            }
+            AnalysisTargetToHashDataMap?.TryGetValue(fileLocation.Uri.OriginalString, out hashData);
 
             // Ensure Artifact is in Run.Artifacts and ArtifactLocation.Index is set to point to it
             int index = _run.GetFileIndex(
