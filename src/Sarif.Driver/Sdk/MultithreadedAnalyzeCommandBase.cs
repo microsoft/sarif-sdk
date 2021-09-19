@@ -617,10 +617,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 if (_computeHashes)
                 {
                     context.Hashes = HashUtilities.ComputeHashes(filePath);
-                    _pathToHashDataMap[filePath] = context.Hashes;
-                    _run.GetFileIndex(new ArtifactLocation { Uri = context.TargetUri },
-                                      dataToInsert: _dataToInsert,
-                                      hashData: context.Hashes);
+                    if (_pathToHashDataMap != null)
+                    {
+                        _pathToHashDataMap[filePath] = context.Hashes;
+                        _run.GetFileIndex(new ArtifactLocation { Uri = context.TargetUri },
+                                          dataToInsert: _dataToInsert,
+                                          hashData: context.Hashes);
+                    }
                 }
             }
 

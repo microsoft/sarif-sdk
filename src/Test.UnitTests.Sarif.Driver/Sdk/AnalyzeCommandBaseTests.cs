@@ -983,6 +983,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             testCase.Verbose = true;
             RunResultsCachingTestCase(testCase);
+
+            testCase.Files = ComprehensiveKindAndLevelsByFilePath;
+            testCase.Verbose = false;
+            RunResultsCachingTestCase(testCase, multithreaded: true);
+
+            testCase.Verbose = true;
+            RunResultsCachingTestCase(testCase, multithreaded: true);
         }
 
         [Fact]
@@ -1022,6 +1029,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             testCase.Verbose = true;
             RunResultsCachingTestCase(testCase);
+
+            testCase.Files = ComprehensiveKindAndLevelsByFilePath;
+            testCase.Verbose = false;
+            RunResultsCachingTestCase(testCase, multithreaded: true);
+
+            testCase.Verbose = true;
+            RunResultsCachingTestCase(testCase, multithreaded: true);
         }
 
         [Fact]
