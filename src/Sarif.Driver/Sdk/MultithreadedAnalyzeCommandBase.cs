@@ -36,10 +36,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         private bool _computeHashes;
         private int _fileContextsCount;
         private TContext _rootContext;
-        private ConcurrentDictionary<int, TContext> _fileContexts;
+        private OptionallyEmittedData _dataToInsert;
         private Channel<int> _resultsWritingChannel;
         private Channel<int> _fileEnumerationChannel;
         private IDictionary<string, HashData> _pathToHashDataMap;
+        private ConcurrentDictionary<int, TContext> _fileContexts;
         private ConcurrentDictionary<string, IAnalysisLogger> _analysisLoggerCache;
 
         public Exception ExecutionException { get; set; }
@@ -477,7 +478,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         protected virtual void ValidateOptions(TOptions options, TContext context)
         {
-            _computeHashes = (options.DataToInsert.ToFlags() & OptionallyEmittedData.Hashes) != 0;
+            _dataToInsert = options.DataToInsert.ToFlags();
+            _computeHashes = (_dataToInsert & OptionallyEmittedData.Hashes) != 0;
 
             bool succeeded = true;
 
@@ -614,15 +616,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 if (_computeHashes)
                 {
-                    if (_pathToHashDataMap.TryGetValue(filePath, out HashData hashData))
-                    {
-                        context.Hashes = hashData;
-                    }
-                    else
-                    {
-                        context.Hashes = HashUtilities.ComputeHashes(filePath);
-                        _pathToHashDataMap[filePath] = context.Hashes;
-                    }
+                    context.Hashes = HashUtilities.ComputeHashes(filePath);
+                    _pathToHashDataMap[filePath] = context.Hashes;
+                    _run.GetFileIndex(new ArtifactLocation { Uri = context.TargetUri },
+                                      dataToInsert: _dataToInsert,
+                                      hashData: context.Hashes);
                 }
             }
 
@@ -693,7 +691,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     {
                         LogFilePersistenceOptions logFilePersistenceOptions = analyzeOptions.ConvertToLogFilePersistenceOptions();
 
-                        OptionallyEmittedData dataToInsert = analyzeOptions.DataToInsert.ToFlags();
+                        OptionallyEmittedData dataToInsert = _dataToInsert;
                         OptionallyEmittedData dataToRemove = analyzeOptions.DataToRemove.ToFlags();
 
                         SarifLogger sarifLogger;

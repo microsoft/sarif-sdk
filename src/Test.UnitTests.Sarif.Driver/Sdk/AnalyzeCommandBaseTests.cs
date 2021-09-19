@@ -1049,46 +1049,61 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         [Fact]
         public void AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread()
         {
-            var testCase = new ResultsCachingTestCase
+            // This will generate the following scenarios:
+            // 010 Errors + 05 Warnings + 01 Note
+            // 050 Errors + 25 Warnings + 05 Note
+            // 100 Errors + 50 Warnings + 10 Note
+            int[] scenarios = new int[] { 10, 50, 100 };
+
+            foreach (int scenario in scenarios)
             {
-                Files = ComprehensiveKindAndLevelsByFileName,
-                PersistLogFileToDisk = true,
-                FileSystem = null
-            };
+                var singleThreadTargets = new List<string>();
+                var multiThreadTargets = new List<string>();
 
-            var options = new TestAnalyzeOptions
-            {
-                TestRuleBehaviors = testCase.TestRuleBehaviors,
-                OutputFilePath = testCase.PersistLogFileToDisk ? Guid.NewGuid().ToString() : null,
-                TargetFileSpecifiers = new string[] { Guid.NewGuid().ToString() },
-                Kind = new List<ResultKind> { ResultKind.Fail },
-                Level = new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
-                DataToInsert = new OptionallyEmittedData[] { OptionallyEmittedData.Hashes },
-            };
+                for (int i = 0; i < scenario; i++)
+                {
+                    singleThreadTargets.Add($"Error.{i}.cpp");
+                    multiThreadTargets.Add($@"{Environment.CurrentDirectory}\Error.{i}.cpp");
+                }
 
-            Run runSingleThread = RunAnalyzeCommand(options, testCase);
+                for (int i = 0; i < scenario / 2; i++)
+                {
+                    singleThreadTargets.Add($"Warning.{i}.cpp");
+                    multiThreadTargets.Add($@"{Environment.CurrentDirectory}\Warning.{i}.cpp");
+                }
 
-            testCase.FileSystem = null;
-            testCase.Files = ComprehensiveKindAndLevelsByFilePath;
-            Run runMultiThread = RunAnalyzeCommand(options, testCase, multithreaded: true);
+                for (int i = 0; i < scenario / 5; i++)
+                {
+                    singleThreadTargets.Add($"Note.{i}.cpp");
+                    multiThreadTargets.Add($@"{Environment.CurrentDirectory}\Note.{i}.cpp");
+                }
 
-            for (int i = 0; i < runSingleThread.Results.Count; i++)
-            {
-                Result singleThreadCache = runSingleThread.Results[i];
-                Result multiThreadCache = runMultiThread.Results[i];
+                var testCase = new ResultsCachingTestCase
+                {
+                    Files = singleThreadTargets,
+                    PersistLogFileToDisk = true,
+                    FileSystem = null
+                };
 
-                singleThreadCache.Level.Should().Be(multiThreadCache.Level);
-                singleThreadCache.RuleId.Should().Be(multiThreadCache.RuleId);
-                singleThreadCache.Message.Should().BeEquivalentTo(multiThreadCache.Message);
+                var options = new TestAnalyzeOptions
+                {
+                    TestRuleBehaviors = testCase.TestRuleBehaviors,
+                    OutputFilePath = testCase.PersistLogFileToDisk ? Guid.NewGuid().ToString() : null,
+                    TargetFileSpecifiers = new string[] { Guid.NewGuid().ToString() },
+                    Kind = new List<ResultKind> { ResultKind.Fail },
+                    Level = new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
+                    DataToInsert = new OptionallyEmittedData[] { OptionallyEmittedData.Hashes },
+                };
 
-                singleThreadCache.Locations.Count.Should().Be(multiThreadCache.Locations.Count);
-                singleThreadCache.Locations[0].PhysicalLocation.ArtifactLocation.Uri
-                    .Should()
-                    .Be(multiThreadCache.Locations[0].PhysicalLocation.ArtifactLocation.Uri);
+                Run runSingleThread = RunAnalyzeCommand(options, testCase);
+
+                testCase.FileSystem = null;
+                testCase.Files = multiThreadTargets;
+                Run runMultiThread = RunAnalyzeCommand(options, testCase, multithreaded: true);
+
+                runMultiThread.Results.Should().BeEquivalentTo(runSingleThread.Results);
+                runMultiThread.Artifacts.Should().BeEquivalentTo(runSingleThread.Artifacts);
             }
-
-            runMultiThread.Artifacts.Should().NotBeEmpty();
-            runSingleThread.Artifacts.Should().NotBeEmpty();
         }
 
         private static readonly IList<string> ComprehensiveKindAndLevelsByFileName = new List<string>(new string[20]
