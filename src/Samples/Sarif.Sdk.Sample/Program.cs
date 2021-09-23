@@ -15,6 +15,11 @@ using Newtonsoft.Json;
 
 namespace Sarif.Sdk.Sample
 {
+    /// <summary>
+    /// Example: 
+    /// .\SarifSdkSample.exe create C:\SarifLog\sample1.sarif --numResult 5000 --useFileStream
+    /// .\SarifSdkSample.exe create C:\SarifLog\sample1.sarif --numResult 500
+    /// </summary>
     public class Program
     {
         private const float BytesPerMB = (float)(1024 * 1024);
@@ -26,7 +31,7 @@ namespace Sarif.Sdk.Sample
             int result = Parser.Default.ParseArguments<LoadOptions, CreateOptions>(args)
                 .MapResult(
                     (LoadOptions options) => LoadSarifLogFile(options),
-                    (CreateOptions options) => Measure(CreateSarifLogFile, options),
+                    (CreateOptions options) => CreateSarifLogFile(options),
                     errors => 1);
 
             return result;
@@ -299,8 +304,22 @@ namespace Sarif.Sdk.Sample
                 }
             };
 
-            // write to file stream
-            using (TextWriter textWriter = new StreamWriter(options.OutputFilePath))
+            var sb = new StringBuilder();
+            Measure(() =>
+            {
+                SerializeSarifResult(options.OutputFilePath, options.NumOfResultPerRule, options.UseFileStream,
+                    sb, run, rules, regions, messageArguments, artifactLocation, fixes);
+
+                return $"Serialize Sarif Result using {(options.UseFileStream ? "FileStream" : "StringBuilder")}";
+            });
+
+            return 0;
+        }
+
+        private static void SerializeSarifResult(string filePath, int numResult, bool useFileStream, StringBuilder stringBuilder, Run run, IList<ReportingDescriptor> rules, IList<Region> regions, string[][] messageArguments, ArtifactLocation artifactLocation, IList<Fix[]> fixes)
+        {
+            // write to file stream or stringbuilder
+            using (TextWriter textWriter = useFileStream ? new StreamWriter(filePath) : (TextWriter)new StringWriter(stringBuilder))
             {
                 using (var sarifLogger = new SarifLogger(
                     textWriter,
@@ -325,7 +344,7 @@ namespace Sarif.Sdk.Sample
                         Region region = regions[i];
 
                         foreach (Result result in GenerateResults(
-                                                    options.NumOfResultPerRule,
+                                                    numResult,
                                                     rule,
                                                     messageArguments[i],
                                                     artifactLocation,
@@ -338,7 +357,10 @@ namespace Sarif.Sdk.Sample
                 }
             }
 
-            return 0;
+            if (!useFileStream)
+            {
+                File.WriteAllText(filePath, stringBuilder.ToString());
+            }
         }
 
         private static IEnumerable<Result> GenerateResults(int num, ReportingDescriptor rule, string[] messageArgs, ArtifactLocation artifactLocation, Region region, Fix[] fixes)
@@ -499,19 +521,19 @@ namespace Sarif.Sdk.Sample
             }
         }
 
-        private static int Measure(Func<CreateOptions, int> action, CreateOptions options)
+        private static void Measure(Func<string> action)
         {
             long ramBefore = GC.GetTotalMemory(true);
+            // long ramBefore = System.Diagnostics.Process.GetCurrentProcess().VirtualMemorySize64;
             var w = System.Diagnostics.Stopwatch.StartNew();
 
-            int result = action(options);
+            string message = action();
 
             w.Stop();
             long ramAfter = GC.GetTotalMemory(true);
+            // long ramAfter = System.Diagnostics.Process.GetCurrentProcess().VirtualMemorySize64;
 
-            Console.WriteLine($"{action.Method.Name} in {w.ElapsedMilliseconds:n0} ms and {((ramAfter - ramBefore) / BytesPerMB):n1} MB RAM.");
-
-            return result;
+            Console.WriteLine($"{message} in {w.ElapsedMilliseconds:n0} ms and {((ramAfter - ramBefore) / BytesPerMB):n1} MB RAM.");
         }
     }
 }
