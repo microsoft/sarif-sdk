@@ -17,6 +17,7 @@ namespace Sarif.Sdk.Sample
 {
     public class Program
     {
+        private const float BytesPerMB = (float)(1024 * 1024);
         private const string RepoRootBaseId = "REPO_ROOT";
         private const string BinRootBaseId = "BIN_ROOT";
 
@@ -25,7 +26,7 @@ namespace Sarif.Sdk.Sample
             int result = Parser.Default.ParseArguments<LoadOptions, CreateOptions>(args)
                 .MapResult(
                     (LoadOptions options) => LoadSarifLogFile(options),
-                    (CreateOptions options) => CreateSarifLogFile(options),
+                    (CreateOptions options) => Measure(CreateSarifLogFile, options),
                     errors => 1);
 
             return result;
@@ -53,6 +54,10 @@ namespace Sarif.Sdk.Sample
         /// <returns>Exit code</returns>
         internal static int CreateSarifLogFile(CreateOptions options)
         {
+            if (options.NumOfResultPerRule < 0 || options.NumOfResultPerRule > int.MaxValue)
+            {
+                return -1;
+            }
             // We'll use this source file for several defect results -- the
             // SampleSourceFiles folder should be a child of the project folder,
             // two levels up from the folder that contains the EXE (e.g., bin\Debug).
@@ -294,10 +299,8 @@ namespace Sarif.Sdk.Sample
                 }
             };
 
-            // The SarifLogger will write the JSON-formatted log to this StringBuilder
-            var sb = new StringBuilder();
-
-            using (var textWriter = new StringWriter(sb))
+            // write to file stream
+            using (TextWriter textWriter = new StreamWriter(options.OutputFilePath))
             {
                 using (var sarifLogger = new SarifLogger(
                     textWriter,
@@ -308,6 +311,8 @@ namespace Sarif.Sdk.Sample
                         OptionallyEmittedData.RegionSnippets,
                     tool: null,
                     run: run,
+                    kinds: new ResultKind[] { ResultKind.Fail, ResultKind.Pass },
+                    levels: new FailureLevel[] { FailureLevel.Error, FailureLevel.Warning, FailureLevel.Note },
                     analysisTargets: null,
                     invocationTokensToRedact: null,
                     invocationPropertiesToLog: null,
@@ -319,169 +324,194 @@ namespace Sarif.Sdk.Sample
                         ReportingDescriptor rule = rules[i];
                         Region region = regions[i];
 
-                        var result = new Result()
+                        foreach (Result result in GenerateResults(
+                                                    options.NumOfResultPerRule,
+                                                    rule,
+                                                    messageArguments[i],
+                                                    artifactLocation,
+                                                    region,
+                                                    fixes[i]))
                         {
-                            RuleId = rule.Id,
-                            AnalysisTarget = new ArtifactLocation
+                            sarifLogger.Log(rule, result);
+                        }
+                    }
+                }
+            }
+
+            return 0;
+        }
+
+        private static IEnumerable<Result> GenerateResults(int num, ReportingDescriptor rule, string[] messageArgs, ArtifactLocation artifactLocation, Region region, Fix[] fixes)
+        {
+            for (int j = 0; j < num; j++)
+            {
+                yield return new Result()
+                {
+                    RuleId = rule.Id,
+                    AnalysisTarget = new ArtifactLocation
+                    {
+                        Uri = new Uri("example.dll", UriKind.Relative), // This is the file that was analyzed
+                        UriBaseId = BinRootBaseId
+                    },
+                    Message = new Message
+                    {
+                        Id = "Default",
+                        Arguments = messageArgs,
+                    },
+                    Locations = new[]
+                    {
+                        new Location
+                        {
+                            PhysicalLocation = new PhysicalLocation
                             {
-                                Uri = new Uri("example.dll", UriKind.Relative), // This is the file that was analyzed
-                                UriBaseId = BinRootBaseId
-                            },
-                            Message = new Message
+                                ArtifactLocation = artifactLocation,
+                                Region = region
+                            }
+                        },
+                    },
+                    Fixes = fixes,
+                    RelatedLocations = new[]
+                    {
+                        new Location
+                        {
+                            PhysicalLocation = new PhysicalLocation
                             {
-                                Id = "Default",
-                                Arguments = messageArguments[i]
-                            },
-                            Locations = new[]
-                            {
-                                new Location
+                                ArtifactLocation = new ArtifactLocation
                                 {
-                                    PhysicalLocation = new PhysicalLocation
-                                    {
-                                        ArtifactLocation = artifactLocation,
-                                        Region = region
-                                    }
+                                    // Because this file doesn't exist, it will be included in the files list but will only have a path and MIME type
+                                    // This is the behavior you'll see any time a file can't be located/accessed
+                                    Uri = new Uri("SomeOtherSourceFile.cs", UriKind.Relative),
+                                    UriBaseId = RepoRootBaseId
                                 },
-                            },
-                            Fixes = fixes[i],
-                            RelatedLocations = new[]
-                            {
-                                new Location
+                                Region = new Region
                                 {
-                                    PhysicalLocation = new PhysicalLocation
+                                    StartLine = 147,
+                                    StartColumn = 19,
+                                    EndLine = 147,
+                                    EndColumn = 40
+                                }
+                            }
+                        }
+                    },
+                    Stacks = new[]
+                    {
+                        new Stack
+                        {
+                            Frames = new[]
+                            {
+                                new StackFrame
+                                {
+                                    // The method that contains the defect
+                                    Location = new Location
                                     {
-                                        ArtifactLocation = new ArtifactLocation
+                                        PhysicalLocation = new PhysicalLocation
                                         {
-                                            // Because this file doesn't exist, it will be included in the files list but will only have a path and MIME type
-                                            // This is the behavior you'll see any time a file can't be located/accessed
-                                            Uri = new Uri("SomeOtherSourceFile.cs", UriKind.Relative),
-                                            UriBaseId = RepoRootBaseId
-                                        },
-                                        Region = new Region
-                                        {
-                                            StartLine = 147,
-                                            StartColumn = 19,
-                                            EndLine = 147,
-                                            EndColumn = 40
+                                            ArtifactLocation = artifactLocation,
+                                            Region = new Region
+                                            {
+                                                StartLine = 17
+                                            }
                                         }
                                     }
-                                }
-                            },
-                            Stacks = new[]
-                            {
-                                new Stack
+                                },
+                                new StackFrame
                                 {
-                                    Frames = new[]
+                                    // The method that calls the one above, e.g. ComputeSomeValue()
+                                    Location = new Location
                                     {
-                                        new StackFrame
+                                        PhysicalLocation = new PhysicalLocation
                                         {
-                                            // The method that contains the defect
-                                            Location = new Location
+                                            ArtifactLocation = artifactLocation,
+                                            Region = new Region
                                             {
-                                                PhysicalLocation = new PhysicalLocation
-                                                {
-                                                    ArtifactLocation = artifactLocation,
-                                                    Region = new Region
-                                                    {
-                                                        StartLine = 17
-                                                    }
-                                                }
+                                                StartLine = 24 // Fake example
                                             }
-                                        },
-                                        new StackFrame
+                                        }
+                                    }
+                                },
+                                new StackFrame
+                                {
+                                    // The method that calls the one above, e.g. Main()
+                                    Location = new Location
+                                    {
+                                        PhysicalLocation = new PhysicalLocation
                                         {
-                                            // The method that calls the one above, e.g. ComputeSomeValue()
-                                            Location = new Location
+                                            ArtifactLocation = artifactLocation,
+                                            Region = new Region
                                             {
-                                                PhysicalLocation = new PhysicalLocation
-                                                {
-                                                    ArtifactLocation = artifactLocation,
-                                                    Region = new Region
-                                                    {
-                                                        StartLine = 24 // Fake example
-                                                    }
-                                                }
-                                            }
-                                        },
-                                        new StackFrame
-                                        {
-                                            // The method that calls the one above, e.g. Main()
-                                            Location = new Location
-                                            {
-                                                PhysicalLocation = new PhysicalLocation
-                                                {
-                                                    ArtifactLocation = artifactLocation,
-                                                    Region = new Region
-                                                    {
-                                                        StartLine = 26 // Fake example
-                                                    }
-                                                }
+                                                StartLine = 26 // Fake example
                                             }
                                         }
                                     }
                                 }
                             }
-                        };
-
-                        // Let's add a CodeFlow for the first defect (properties shouldn't return arrays)
-                        // This flow shows where the array is declared, and where it is returned by a property
-                        if (i == 0)
+                        }
+                    },
+                    CodeFlows = new[] 
+                    {
+                        new CodeFlow
                         {
-                            var codeFlow = new CodeFlow
+                            // This is what a single-threaded result looks like
+                            // TIP: use SarifUtilities.CreateSingleThreadedCodeFlow to reduce repetition
+                            // Multi-threaded example coming soon!
+                            ThreadFlows = new[]
                             {
-                                // This is what a single-threaded result looks like
-                                // TIP: use SarifUtilities.CreateSingleThreadedCodeFlow to reduce repetition
-                                // Multi-threaded example coming soon!
-                                ThreadFlows = new[]
+                                new ThreadFlow
                                 {
-                                    new ThreadFlow
+                                    Locations = new[]
                                     {
-                                        Locations = new[]
+                                        new ThreadFlowLocation
                                         {
-                                            new ThreadFlowLocation
+                                            // This is the defect statement's location
+                                            Location = new Location
                                             {
-                                                // This is the defect statement's location
-                                                Location = new Location
+                                                PhysicalLocation = new PhysicalLocation
                                                 {
-                                                    PhysicalLocation = new PhysicalLocation
-                                                    {
-                                                        ArtifactLocation = artifactLocation,
-                                                        Region = region
-                                                    }
-                                                },
-                                                Importance = ThreadFlowLocationImportance.Essential
+                                                    ArtifactLocation = artifactLocation,
+                                                    Region = region
+                                                }
                                             },
-                                            new ThreadFlowLocation
+                                            Importance = ThreadFlowLocationImportance.Essential
+                                        },
+                                        new ThreadFlowLocation
+                                        {
+                                            // This is the declaration of the array
+                                            Location = new Location
                                             {
-                                                // This is the declaration of the array
-                                                Location = new Location
+                                                PhysicalLocation = new PhysicalLocation
                                                 {
-                                                    PhysicalLocation = new PhysicalLocation
+                                                    ArtifactLocation = artifactLocation,
+                                                    Region = new Region
                                                     {
-                                                        ArtifactLocation = artifactLocation,
-                                                        Region = new Region
-                                                        {
-                                                            StartLine = 12
-                                                        }
+                                                        StartLine = 12
                                                     }
-                                                },
-                                                NestingLevel = 1,
-                                                Importance = ThreadFlowLocationImportance.Important
-                                            }
+                                                }
+                                            },
+                                            NestingLevel = 1,
+                                            Importance = ThreadFlowLocationImportance.Important
                                         }
                                     }
                                 }
-                            };
-                            result.CodeFlows = new[] { codeFlow };
-                        }
-
-                        sarifLogger.Log(rule, result);
+                            }
                     }
                 }
+                };
             }
+        }
 
-            File.WriteAllText(options.OutputFilePath, sb.ToString());
-            return 0;
+        private static int Measure(Func<CreateOptions, int> action, CreateOptions options)
+        {
+            long ramBefore = GC.GetTotalMemory(true);
+            var w = System.Diagnostics.Stopwatch.StartNew();
+
+            int result = action(options);
+
+            w.Stop();
+            long ramAfter = GC.GetTotalMemory(true);
+
+            Console.WriteLine($"{action.Method.Name} in {w.ElapsedMilliseconds:n0} ms and {((ramAfter - ramBefore) / BytesPerMB):n1} MB RAM.");
+
+            return result;
         }
     }
 }

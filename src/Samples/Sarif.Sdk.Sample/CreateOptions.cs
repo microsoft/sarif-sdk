@@ -13,5 +13,12 @@ namespace Sarif.Sdk.Sample
                HelpText = "The path of the file to be written.",
                Required = true)]
         public string OutputFilePath { get; internal set; }
+
+        [Option('n',
+                "numResult",
+                Default = 1,
+                HelpText = "Number of results per rule to be generated in the sample program",
+                Required = true)]
+        public int NumOfResultPerRule { get; set; }
     }
 }
