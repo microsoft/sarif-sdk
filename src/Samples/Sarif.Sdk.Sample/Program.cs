@@ -447,7 +447,7 @@ namespace Sarif.Sdk.Sample
                             }
                         }
                     },
-                    CodeFlows = new[] 
+                    CodeFlows = new[]
                     {
                         new CodeFlow
                         {
