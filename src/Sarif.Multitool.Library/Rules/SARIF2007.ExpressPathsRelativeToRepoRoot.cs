@@ -45,7 +45,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 for (int i = 0; i < run.VersionControlProvenance.Count; i++)
                 {
                     string versionControlDetailsPointer = versionControlProvenancePointer.AtIndex(i);
-                    if (run.VersionControlProvenance[i].MappedTo == null || string.IsNullOrWhiteSpace(run.VersionControlProvenance[i].MappedTo.UriBaseId))
+                    if (run.VersionControlProvenance[i].MappedTo == null ||
+                        string.IsNullOrWhiteSpace(run.VersionControlProvenance[i].MappedTo.UriBaseId))
                     {
                         // {0}: The 'versionControlDetails' object that describes the repository '{1}'
                         // does not provide 'mappedTo.uriBaseId'. As a result, it will not be possible
@@ -58,7 +59,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     }
                     else
                     {
-                        this.uriBaseIds.Add(run.VersionControlProvenance[i].MappedTo.UriBaseId);
+                        string validUriBaseId = run.VersionControlProvenance[i].MappedTo.UriBaseId;
+                        this.uriBaseIds.Add(validUriBaseId);
+
+                        if (run.OriginalUriBaseIds != null)
+                        {
+                            foreach (KeyValuePair<string, ArtifactLocation> uriBaseId in run.OriginalUriBaseIds)
+                            {
+                                if (uriBaseId.Value?.UriBaseId == validUriBaseId)
+                                {
+                                    this.uriBaseIds.Add(uriBaseId.Key);
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -84,8 +97,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 if (location.PhysicalLocation.ArtifactLocation != null)
                 {
                     string artifactLocation = physicalLocation.AtProperty(SarifPropertyName.ArtifactLocation);
-                    if (string.IsNullOrWhiteSpace(location.PhysicalLocation.ArtifactLocation.UriBaseId)
-                        || !this.uriBaseIds.Contains(location.PhysicalLocation.ArtifactLocation.UriBaseId))
+                    if (string.IsNullOrWhiteSpace(location.PhysicalLocation.ArtifactLocation.UriBaseId) ||
+                        !this.uriBaseIds.Contains(location.PhysicalLocation.ArtifactLocation.UriBaseId))
                     {
                         // {0}: This result location does not provide any of the 'uriBaseId' values
                         // that specify repository locations: {1}. As a result, it will not be possible
