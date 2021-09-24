@@ -316,6 +316,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             this._fileContextsCount = 0;
             this._fileContexts = new ConcurrentDictionary<int, TContext>();
 
+            var sortedFiles = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
+
             foreach (string specifier in options.TargetFileSpecifiers)
             {
                 string normalizedSpecifier = Environment.ExpandEnvironmentVariables(specifier);
@@ -348,12 +350,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     directories.Enqueue(directory);
                 }
 
-                var sortedFiles = new SortedSet<string>();
-
                 while (directories.Count > 0)
                 {
-                    sortedFiles.Clear();
-
                     directory = Path.GetFullPath(directories.Dequeue());
 
 #if NETFRAMEWORK
@@ -372,22 +370,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     {
                         sortedFiles.Add(file);
                     }
-
-                    foreach (string file in sortedFiles)
-                    {
-                        _fileContexts.TryAdd(
-                            _fileContextsCount,
-                            CreateContext(options,
-                                          new CachingLogger(options.Level, options.Kind),
-                                          rootContext.RuntimeErrors,
-                                          rootContext.Policy,
-                                          filePath: file)
-                        );
-
-                        await _fileEnumerationChannel.Writer.WriteAsync(_fileContextsCount++);
-                    }
                 }
             }
+
+            foreach (string file in sortedFiles)
+            {
+                _fileContexts.TryAdd(
+                    _fileContextsCount,
+                    CreateContext(options,
+                                  new CachingLogger(options.Level, options.Kind),
+                                  rootContext.RuntimeErrors,
+                                  rootContext.Policy,
+                                  filePath: file)
+                );
+
+                await _fileEnumerationChannel.Writer.WriteAsync(_fileContextsCount++);
+            }
+
             _fileEnumerationChannel.Writer.Complete();
 
             if (_fileContextsCount == 0)
