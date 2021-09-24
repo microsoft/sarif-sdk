@@ -299,7 +299,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             );
         }
 
-
         [Fact]
         public void ExceptionRaisedInvokingAnalyze_PersistInnerException()
         {
@@ -315,7 +314,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             string fqn = stack.Frames[0].Location.LogicalLocation.FullyQualifiedName;
             fqn.Contains(nameof(TestRule.RaiseExceptionViaReflection)).Should().BeTrue();
         }
-
 
         [Fact]
         public void ExceptionRaisedInEngine()
@@ -334,6 +332,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 analyzeOptions: options);
 
             TestAnalyzeCommand.RaiseUnhandledExceptionInDriverCode = false;
+            TestMultithreadedAnalyzeCommand.RaiseUnhandledExceptionInDriverCode = false;
         }
 
         [Fact]
@@ -525,7 +524,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 TargetFileSpecifiers = new string[] { GetThisTestAssemblyFilePath() },
             };
 
-            // There are two default rules, so when this check is not on a supported platform, 
+            // There are two default rules, so when this check is not on a supported platform,
             // a single rule will still be loaded.
             ExceptionTestHelper(
                 RuntimeConditions.RuleCannotRunOnPlatform,
@@ -545,9 +544,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 var options = new TestAnalyzeOptions()
                 {
-                    // This option needs to be specified here as the file-based 
+                    // This option needs to be specified here as the file-based
                     // configuration has not yet been read when skimmers are loaded.
-                    // This means we can't use that data to inject a skimmer 
+                    // This means we can't use that data to inject a skimmer
                     // behavior to assert that it doesn't work against the current
                     // platform.
                     TestRuleBehaviors = TestRuleBehaviors.TreatPlatformAsInvalid,
@@ -704,7 +703,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 (toolNotification) => { toolNotificationCount++; },
                 (configurationNotification) => { configurationNotificationCount++; });
 
-            // As configured by the inject TestRuleBehaviors value, we should see 
+            // As configured by the inject TestRuleBehaviors value, we should see
             // an error for every scan target (of which there is one file in this test).
             resultCount.Should().Be(1);
             run.Results[0].Level.Should().Be(FailureLevel.Error);
@@ -740,7 +739,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     (toolNotification) => { toolNotificationCount++; },
                     (configurationNotification) => { configurationNotificationCount++; });
 
-                // As configured by context, we should see a single error raised. 
+                // As configured by context, we should see a single error raised.
                 resultCount.Should().Be(1);
                 run.Results.Count((result) => result.Level == FailureLevel.Error).Should().Be(1);
 
@@ -781,7 +780,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     (toolNotification) => { toolNotificationCount++; },
                     (configurationNotification) => { configurationNotificationCount++; });
 
-                // When rules are disabled, we expect a configuration warning for each 
+                // When rules are disabled, we expect a configuration warning for each
                 // disabled check that documents it was turned off for the analysis.
                 resultCount.Should().Be(0);
 
@@ -944,6 +943,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             testCase.Verbose = true;
             RunResultsCachingTestCase(testCase);
+
+            testCase.Files = ComprehensiveKindAndLevelsByFilePath;
+            testCase.Verbose = false;
+            RunResultsCachingTestCase(testCase, multithreaded: true);
+
+            testCase.Verbose = true;
+            RunResultsCachingTestCase(testCase, multithreaded: true);
         }
 
         [Fact]
@@ -983,6 +989,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             testCase.Verbose = true;
             RunResultsCachingTestCase(testCase);
+
+            testCase.Files = ComprehensiveKindAndLevelsByFilePath;
+            testCase.Verbose = false;
+            RunResultsCachingTestCase(testCase, multithreaded: true);
+
+            testCase.Verbose = true;
+            RunResultsCachingTestCase(testCase, multithreaded: true);
         }
 
         [Fact]
@@ -1000,6 +1013,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             testCase.Verbose = true;
             RunResultsCachingTestCase(testCase);
+
+            testCase.Files = ComprehensiveKindAndLevelsByFilePath;
+            testCase.Verbose = false;
+            RunResultsCachingTestCase(testCase, multithreaded: true);
+
+            testCase.Verbose = true;
+            RunResultsCachingTestCase(testCase, multithreaded: true);
         }
 
         [Fact]
@@ -1015,6 +1035,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             testCase.Verbose = true;
             RunResultsCachingTestCase(testCase);
+
+            testCase.Files = ComprehensiveKindAndLevelsByFilePath;
+            testCase.Verbose = false;
+            RunResultsCachingTestCase(testCase, multithreaded: true);
+
+            testCase.Verbose = true;
+            RunResultsCachingTestCase(testCase, multithreaded: true);
         }
 
         [Fact]
@@ -1030,44 +1057,143 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             testCase.Verbose = true;
             RunResultsCachingTestCase(testCase);
+
+            testCase.Files = ComprehensiveKindAndLevelsByFilePath;
+            testCase.Verbose = false;
+            RunResultsCachingTestCase(testCase, multithreaded: true);
+
+            testCase.Verbose = true;
+            RunResultsCachingTestCase(testCase, multithreaded: true);
         }
 
-        private static readonly IList<string> ComprehensiveKindAndLevelsByFileName = new List<string>(new string[20]
-            {
-                // Every one of these files will be regarded as identical in content by level/kind. So every file
-                // with 'Error' as a prefix should produce an error result, whether using results caching or not.
-                // We distinguish file names as this is required in the actual scenario, i.e., when 'replaying'
-                // cached results we must retain the unique fully qualified directory + file name for each copy.
-                // In actual production systems, this differentiation mostly occurs by directory name (i.e., copies
-                // of files tend to have the same name but appear in different directories). For a source code scanner, 
-                // however, two files in the same directory may hash the same (an empty file that produces no scan
-                // results is an obvious case).
-                "Error.1.of.5.cpp",
-                "Error.2.of.5.cs",
-                "Error.3.of.5.exe",
-                "Error.4.of.5.h",
-                "Error.5.of.5.sys",
-                "Warning.1.of.2.java",
-                "Warning.2.of.2.cs",
-                "Note.1.of.3.dll",
-                "Note.2.of.3.exe",
-                "Note.3.of.3jar",
-                "Pass.1.of.4.cs",
-                "Pass.2.of.4.cpp",
-                "Pass.3.of.4.exe",
-                "Pass.4.of.4.dll",
-                "NotApplicable.1.of.2.js",
-                "NotApplicable.2.of.2.exe",
-                "Informational.1.of.1.sys",
-                "Open.1.of.1.cab",
-                "Review.1.of.2.txt",
-                "Review.2.of.2.dll"
-            });
+        [Fact]
+        public void AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread()
+        {
+            // This will generate the following scenarios:
+            //  10 Errors +  5 Warnings +  1 Note
+            //  50 Errors + 25 Warnings + 05 Note
+            // 100 Errors + 50 Warnings + 10 Note
+            int[] scenarios = new int[] { 10, 50, 100 };
 
-        private static void RunResultsCachingTestCase(ResultsCachingTestCase testCase)
+            foreach (int scenario in scenarios)
+            {
+                var singleThreadTargets = new List<string>();
+                var multiThreadTargets = new List<string>();
+
+                for (int i = 0; i < scenario; i++)
+                {
+                    singleThreadTargets.Add($"Error.{i}.cpp");
+                    multiThreadTargets.Add($@"{Environment.CurrentDirectory}\Error.{i}.cpp");
+                }
+
+                for (int i = 0; i < scenario / 2; i++)
+                {
+                    singleThreadTargets.Add($"Warning.{i}.cpp");
+                    multiThreadTargets.Add($@"{Environment.CurrentDirectory}\Warning.{i}.cpp");
+                }
+
+                for (int i = 0; i < scenario / 5; i++)
+                {
+                    singleThreadTargets.Add($"Note.{i}.cpp");
+                    multiThreadTargets.Add($@"{Environment.CurrentDirectory}\Note.{i}.cpp");
+                }
+
+                var testCase = new ResultsCachingTestCase
+                {
+                    Files = singleThreadTargets,
+                    PersistLogFileToDisk = true,
+                    FileSystem = null
+                };
+
+                var options = new TestAnalyzeOptions
+                {
+                    TestRuleBehaviors = testCase.TestRuleBehaviors,
+                    OutputFilePath = testCase.PersistLogFileToDisk ? Guid.NewGuid().ToString() : null,
+                    TargetFileSpecifiers = new string[] { Guid.NewGuid().ToString() },
+                    Kind = new List<ResultKind> { ResultKind.Fail },
+                    Level = new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
+                    DataToInsert = new OptionallyEmittedData[] { OptionallyEmittedData.Hashes },
+                };
+
+                Run runSingleThread = RunAnalyzeCommand(options, testCase);
+
+                testCase.FileSystem = null;
+                testCase.Files = multiThreadTargets;
+                Run runMultiThread = RunAnalyzeCommand(options, testCase, multithreaded: true);
+
+                runMultiThread.Results.Should().BeEquivalentTo(runSingleThread.Results);
+                runMultiThread.Artifacts.Should().BeEquivalentTo(runSingleThread.Artifacts);
+            }
+        }
+
+        private static readonly IList<string> ComprehensiveKindAndLevelsByFileName = new List<string>
+        {
+            // Every one of these files will be regarded as identical in content by level/kind. So every file
+            // with 'Error' as a prefix should produce an error result, whether using results caching or not.
+            // We distinguish file names as this is required in the actual scenario, i.e., when 'replaying'
+            // cached results we must retain the unique fully qualified directory + file name for each copy.
+            // In actual production systems, this differentiation mostly occurs by directory name (i.e., copies
+            // of files tend to have the same name but appear in different directories). For a source code scanner,
+            // however, two files in the same directory may hash the same (an empty file that produces no scan
+            // results is an obvious case).
+            "Error.1.of.5.cpp",
+            "Error.2.of.5.cs",
+            "Error.3.of.5.exe",
+            "Error.4.of.5.h",
+            "Error.5.of.5.sys",
+            "Warning.1.of.2.java",
+            "Warning.2.of.2.cs",
+            "Note.1.of.3.dll",
+            "Note.2.of.3.exe",
+            "Note.3.of.3jar",
+            "Pass.1.of.4.cs",
+            "Pass.2.of.4.cpp",
+            "Pass.3.of.4.exe",
+            "Pass.4.of.4.dll",
+            "NotApplicable.1.of.2.js",
+            "NotApplicable.2.of.2.exe",
+            "Informational.1.of.1.sys",
+            "Open.1.of.1.cab",
+            "Review.1.of.2.txt",
+            "Review.2.of.2.dll"
+        };
+
+        private static readonly IList<string> ComprehensiveKindAndLevelsByFilePath = new List<string>
+        {
+            // Every one of these files will be regarded as identical in content by level/kind. So every file
+            // with 'Error' as a prefix should produce an error result, whether using results caching or not.
+            // We distinguish file names as this is required in the actual scenario, i.e., when 'replaying'
+            // cached results we must retain the unique fully qualified directory + file name for each copy.
+            // In actual production systems, this differentiation mostly occurs by directory name (i.e., copies
+            // of files tend to have the same name but appear in different directories). For a source code scanner,
+            // however, two files in the same directory may hash the same (an empty file that produces no scan
+            // results is an obvious case).
+            $@"{Environment.CurrentDirectory}\Error.1.of.5.cpp",
+            $@"{Environment.CurrentDirectory}\Error.2.of.5.cs",
+            $@"{Environment.CurrentDirectory}\Error.3.of.5.exe",
+            $@"{Environment.CurrentDirectory}\Error.4.of.5.h",
+            $@"{Environment.CurrentDirectory}\Error.5.of.5.sys",
+            $@"{Environment.CurrentDirectory}\Warning.1.of.2.java",
+            $@"{Environment.CurrentDirectory}\Warning.2.of.2.cs",
+            $@"{Environment.CurrentDirectory}\Note.1.of.3.dll",
+            $@"{Environment.CurrentDirectory}\Note.2.of.3.exe",
+            $@"{Environment.CurrentDirectory}\Note.3.of.3jar",
+            $@"{Environment.CurrentDirectory}\Pass.1.of.4.cs",
+            $@"{Environment.CurrentDirectory}\Pass.2.of.4.cpp",
+            $@"{Environment.CurrentDirectory}\Pass.3.of.4.exe",
+            $@"{Environment.CurrentDirectory}\Pass.4.of.4.dll",
+            $@"{Environment.CurrentDirectory}\NotApplicable.1.of.2.js",
+            $@"{Environment.CurrentDirectory}\NotApplicable.2.of.2.exe",
+            $@"{Environment.CurrentDirectory}\Informational.1.of.1.sys",
+            $@"{Environment.CurrentDirectory}\Open.1.of.1.cab",
+            $@"{Environment.CurrentDirectory}\Review.1.of.2.txt",
+            $@"{Environment.CurrentDirectory}\Review.2.of.2.dll"
+        };
+
+        private static void RunResultsCachingTestCase(ResultsCachingTestCase testCase, bool multithreaded = false)
         {
             // This makes sure that we will reinitialize the mock file system. This
-            // allows callers to reuse test case instances, by adjusting specific 
+            // allows callers to reuse test case instances, by adjusting specific
             // property values. The mock file system cannot be reused in this way, once
             // a test executes, it must be reset.
             testCase.FileSystem = null;
@@ -1087,14 +1213,34 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 options.Level = new List<FailureLevel> { FailureLevel.Error, FailureLevel.Warning, FailureLevel.Note, FailureLevel.None };
             }
 
-            Run runWithoutCaching = RunAnalyzeCommand(options, testCase);
+            Run runWithoutCaching = RunAnalyzeCommand(options, testCase, multithreaded);
 
             options.DataToInsert = new OptionallyEmittedData[] { OptionallyEmittedData.Hashes };
-            Run runWithCaching = RunAnalyzeCommand(options, testCase);
+            Run runWithCaching = RunAnalyzeCommand(options, testCase, multithreaded);
 
             // Core static analysis results
-            runWithCaching.Results.Should().BeEquivalentTo(runWithoutCaching.Results);
+            runWithCaching.Results.Count.Should().Be(runWithoutCaching.Results.Count);
 
+            for (int i = 0; i < runWithCaching.Results.Count; i++)
+            {
+                Result withCache = runWithCaching.Results[i];
+                Result withoutCache = runWithCaching.Results[i];
+
+                withCache.Level.Should().Be(withoutCache.Level);
+                withCache.RuleId.Should().Be(withoutCache.RuleId);
+                withCache.Message.Should().BeEquivalentTo(withoutCache.Message);
+
+                if (testCase.PersistLogFileToDisk)
+                {
+                    withCache.Locations.Count.Should().Be(withoutCache.Locations.Count);
+                    withCache.Locations[0].PhysicalLocation.ArtifactLocation.Uri.Should().Be(withoutCache.Locations[0].PhysicalLocation.ArtifactLocation.Uri);
+                }
+            }
+
+            if (testCase.PersistLogFileToDisk)
+            {
+                runWithCaching.Artifacts.Should().NotBeEmpty();
+            }
             // Tool configuration errors, such as 'Could not locate scan target PDB.'
             runWithoutCaching.Invocations?[0].ToolConfigurationNotifications?.Should()
                 .BeEquivalentTo(runWithCaching.Invocations?[0].ToolConfigurationNotifications);
@@ -1115,11 +1261,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             mockFileSystem.Setup(x => x.DirectoryExists(It.IsAny<string>())).Returns(true);
             mockFileSystem.Setup(x => x.DirectoryEnumerateFiles(It.IsAny<string>())).Returns(new string[0]);
+            mockFileSystem.Setup(x => x.DirectoryEnumerateFiles(It.IsAny<string>(), It.IsAny<string>(), SearchOption.TopDirectoryOnly)).Returns(files);
             mockFileSystem.Setup(x => x.DirectoryGetFiles(It.IsAny<string>(), It.IsAny<string>())).Returns(files);
 
             for (int i = 0; i < files.Count; i++)
             {
-                string fullyQualifiedName = Environment.CurrentDirectory + @"\" + files[i];
+                string fullyQualifiedName = Path.GetFileName(files[i]) == files[i]
+                    ? Environment.CurrentDirectory + @"\" + files[i]
+                    : files[i];
                 string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fullyQualifiedName);
                 mockFileSystem.Setup(x => x.FileReadAllText(It.Is<string>(f => f == fullyQualifiedName))).Returns(logFileContents);
 
@@ -1129,14 +1278,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return mockFileSystem.Object;
         }
 
-        private static Run RunAnalyzeCommand(TestAnalyzeOptions options, ResultsCachingTestCase testCase)
+        private static Run RunAnalyzeCommand(TestAnalyzeOptions options,
+                                             ResultsCachingTestCase testCase,
+                                             bool multithreaded = false)
         {
             Run run = null;
             SarifLog sarifLog;
             try
             {
                 TestRule.s_testRuleBehaviors = testCase.TestRuleBehaviors.AccessibleOutsideOfContextOnly();
-                sarifLog = RunAnalyzeCommand(options, testCase.FileSystem, testCase.ExpectedReturnCode);
+                sarifLog = RunAnalyzeCommand(options, testCase.FileSystem, testCase.ExpectedReturnCode, multithreaded);
                 run = sarifLog.Runs[0];
 
                 run.Results.Count.Should().Be(testCase.ExpectedResultsCount);
@@ -1148,12 +1299,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return run;
         }
 
-        private static SarifLog RunAnalyzeCommand(TestAnalyzeOptions options, IFileSystem fileSystem, int expectedReturnCode)
+        private static SarifLog RunAnalyzeCommand(TestAnalyzeOptions options,
+                                                  IFileSystem fileSystem,
+                                                  int expectedReturnCode,
+                                                  bool multithreaded)
         {
             // If no log file is specified, we will convert the console output into a log file
             bool captureConsoleOutput = string.IsNullOrEmpty(options.OutputFilePath);
 
-            var command = new TestAnalyzeCommand(fileSystem) { _captureConsoleOutput = captureConsoleOutput };
+            ITestAnalyzeCommand command;
+            if (multithreaded)
+            {
+                command = new TestMultithreadedAnalyzeCommand(fileSystem) { _captureConsoleOutput = captureConsoleOutput };
+            }
+            else
+            {
+                command = new TestAnalyzeCommand(fileSystem) { _captureConsoleOutput = captureConsoleOutput };
+            }
             command.DefaultPluginAssemblies = new Assembly[] { typeof(AnalyzeCommandBaseTests).Assembly };
 
             try
@@ -1166,8 +1328,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 HashUtilities.FileSystem = null;
             }
 
+            ConsoleLogger consoleLogger = multithreaded
+                ? (command as TestMultithreadedAnalyzeCommand)._consoleLogger
+                : (command as TestAnalyzeCommand)._consoleLogger;
+
             return captureConsoleOutput
-                ? ConvertConsoleOutputToSarifLog(command._consoleLogger.CapturedOutput)
+                ? ConvertConsoleOutputToSarifLog(consoleLogger.CapturedOutput)
                 : JsonConvert.DeserializeObject<SarifLog>(File.ReadAllText(options.OutputFilePath));
         }
 
@@ -1268,6 +1434,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             // or an actual persisted log file to validate outcomes.
             public bool NotificationsWillBeConvertedToErrorResults => TestRuleBehaviors == TestRuleBehaviors.RaiseTargetParseError && !PersistLogFileToDisk;
         }
+
         #endregion ResultsCachingTestsAndHelpers
     }
 }
