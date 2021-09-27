@@ -1126,6 +1126,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
+        [Fact]
+        public void AnalyzeCommandBase_MultithreadedShouldUseCacheIfFilesAreTheSame()
+        {
+            // Generating 20 files with different names but same content.
+            RunMultithreadedAnalyzeCommand(ComprehensiveKindAndLevelsByFilePath,
+                                           generateSameOutput: true,
+                                           expectedResultCode: 0,
+                                           expectedResultCount: 20,
+                                           expectedCacheSize: 1);
+
+            // Generating 20 files with different names and content.
+            RunMultithreadedAnalyzeCommand(ComprehensiveKindAndLevelsByFilePath,
+                                           generateSameOutput: false,
+                                           expectedResultCode: 0,
+                                           expectedResultCount: 7,
+                                           expectedCacheSize: 0);
+        }
+
         private static readonly IList<string> ComprehensiveKindAndLevelsByFileName = new List<string>
         {
             // Every one of these files will be regarded as identical in content by level/kind. So every file
@@ -1250,7 +1268,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 .BeEquivalentTo(runWithCaching.Invocations?[0].ToolExecutionNotifications);
         }
 
-        private static IFileSystem CreateDefaultFileSystemForResultsCaching(IList<string> files)
+        private static IFileSystem CreateDefaultFileSystemForResultsCaching(IList<string> files, bool generateSameInput = false)
         {
             // This helper creates a file system that returns the same file contents for
             // every file passed in the 'files' argument.
@@ -1273,7 +1291,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 mockFileSystem.Setup(x => x.FileReadAllText(It.Is<string>(f => f == fullyQualifiedName))).Returns(logFileContents);
 
                 mockFileSystem.Setup(x => x.FileOpenRead(It.Is<string>(f => f == fullyQualifiedName)))
-                    .Returns(new MemoryStream(Encoding.UTF8.GetBytes(fileNameWithoutExtension)));
+                        .Returns(new MemoryStream(Encoding.UTF8.GetBytes(generateSameInput ? logFileContents : fileNameWithoutExtension)));
             }
             return mockFileSystem.Object;
         }
@@ -1335,6 +1353,50 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return captureConsoleOutput
                 ? ConvertConsoleOutputToSarifLog(consoleLogger.CapturedOutput)
                 : JsonConvert.DeserializeObject<SarifLog>(File.ReadAllText(options.OutputFilePath));
+        }
+
+        private static void RunMultithreadedAnalyzeCommand(IList<string> files,
+                                                           bool generateSameOutput,
+                                                           int expectedResultCode,
+                                                           int expectedResultCount,
+                                                           int expectedCacheSize)
+        {
+            var testCase = new ResultsCachingTestCase
+            {
+                Files = files,
+                PersistLogFileToDisk = true,
+                FileSystem = CreateDefaultFileSystemForResultsCaching(files, generateSameOutput)
+            };
+
+            var options = new TestAnalyzeOptions
+            {
+                OutputFilePath = Guid.NewGuid().ToString(),
+                TargetFileSpecifiers = new string[] { Guid.NewGuid().ToString() },
+                Kind = new List<ResultKind> { ResultKind.Fail },
+                Level = new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
+                DataToInsert = new OptionallyEmittedData[] { OptionallyEmittedData.Hashes }
+            };
+
+            try
+            {
+                TestRule.s_testRuleBehaviors = testCase.TestRuleBehaviors.AccessibleOutsideOfContextOnly();
+
+                var command = new TestMultithreadedAnalyzeCommand(testCase.FileSystem)
+                {
+                    DefaultPluginAssemblies = new Assembly[] { typeof(AnalyzeCommandBaseTests).Assembly }
+                };
+
+                HashUtilities.FileSystem = testCase.FileSystem;
+                command.Run(options).Should().Be(expectedResultCode);
+
+                SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(File.ReadAllText(options.OutputFilePath));
+                sarifLog.Runs[0].Results.Count.Should().Be(expectedResultCount);
+                command._analysisLoggerCache.Count.Should().Be(expectedCacheSize);
+            }
+            finally
+            {
+                TestRule.s_testRuleBehaviors = TestRuleBehaviors.None;
+            }
         }
 
         private static SarifLog ConvertConsoleOutputToSarifLog(string consoleOutput)

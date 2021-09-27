@@ -30,6 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         internal bool _captureConsoleOutput;
 
         internal ConsoleLogger _consoleLogger;
+        internal ConcurrentDictionary<string, IAnalysisLogger> _analysisLoggerCache;
 
         private Run _run;
         private Tool _tool;
@@ -42,7 +43,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         private Channel<int> _fileEnumerationChannel;
         private Dictionary<string, List<string>> _hashToFilesMap;
         private ConcurrentDictionary<int, TContext> _fileContexts;
-        private ConcurrentDictionary<string, IAnalysisLogger> _analysisLoggerCache;
 
         public Exception ExecutionException { get; set; }
 
