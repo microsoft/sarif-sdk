@@ -16,11 +16,15 @@ using Microsoft.CodeAnalysis.Sarif.VersionOne;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
 
+using Microsoft.Coyote;
+using Microsoft.Coyote.SystematicTesting;
+
 using Moq;
 
 using Newtonsoft.Json;
 
 using Xunit;
+using Xunit.Abstractions;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
@@ -28,6 +32,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
     {
         private const int FAILURE = AnalyzeCommandBase<TestAnalysisContext, AnalyzeOptionsBase>.FAILURE;
         private const int SUCCESS = AnalyzeCommandBase<TestAnalysisContext, AnalyzeOptionsBase>.SUCCESS;
+
+        private readonly ITestOutputHelper Output;
+
+        public AnalyzeCommandBaseTests(ITestOutputHelper output)
+        {
+            this.Output = output;
+        }
+
 
         private void ExceptionTestHelper(
             RuntimeConditions runtimeConditions,
@@ -1066,15 +1078,49 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             RunResultsCachingTestCase(testCase, multithreaded: true);
         }
 
+#if DEBUG
+        [Fact(Timeout = 5000)]
+        public void AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread_CoyoteTest()
+        {
+            Configuration config = Configuration.Create().WithTestingIterations(100).WithConcurrencyFuzzingEnabled();
+            var engine = TestingEngine.Create(config, AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread_CoyoteHelper);
+            string TestLogDirectory = ".";
+
+            engine.Run();
+            TestReport report = engine.TestReport;
+          
+            var filenames = new List<string>(engine.TryEmitTraces(TestLogDirectory, "AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread_CoyoteTest_Log"));
+            foreach (string item in filenames)
+            {
+                Output.WriteLine("See log file: {0}", item);
+            }
+
+            Assert.True(report.NumOfFoundBugs == 0, $"Coyote found {report.NumOfFoundBugs} bug(s).");
+        }
+#endif
+
         [Fact]
         public void AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread()
         {
-            // This will generate the following scenarios:
-            //  10 Errors +  5 Warnings +  1 Note
-            //  50 Errors + 25 Warnings + 05 Note
-            // 100 Errors + 50 Warnings + 10 Note
-            int[] scenarios = new int[] { 10, 50, 100 };
+            int[] scenarios = SetupScenarios();
+            AnalyzeScenarios(scenarios); 
+        }
 
+        private void AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread_CoyoteHelper()
+        {
+            int[] scenarios = SetupScenarios(true);
+            AnalyzeScenarios(scenarios);
+        }
+
+        private int[] SetupScenarios (bool IsCoyoteTest = false)
+        {
+            Coyote.Random.Generator random = Coyote.Random.Generator.Create();
+
+            return IsCoyoteTest ? new int[] { 10 * (random.NextInteger(10) + 1) } : new int[] { 10, 50, 100 };
+        }
+
+        private void AnalyzeScenarios (int[] scenarios)
+        {
             foreach (int scenario in scenarios)
             {
                 var singleThreadTargets = new List<string>();
