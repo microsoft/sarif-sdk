@@ -1088,7 +1088,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             engine.Run();
             TestReport report = engine.TestReport;
-          
+
             var filenames = new List<string>(engine.TryEmitTraces(TestLogDirectory, "AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread_CoyoteTest_Log"));
             foreach (string item in filenames)
             {
@@ -1103,7 +1103,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public void AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread()
         {
             int[] scenarios = SetupScenarios();
-            AnalyzeScenarios(scenarios); 
+            AnalyzeScenarios(scenarios);
         }
 
         private void AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread_CoyoteHelper()
@@ -1112,14 +1112,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             AnalyzeScenarios(scenarios);
         }
 
-        private int[] SetupScenarios (bool IsCoyoteTest = false)
+        private int[] SetupScenarios(bool IsCoyoteTest = false)
         {
             Coyote.Random.Generator random = Coyote.Random.Generator.Create();
 
             return IsCoyoteTest ? new int[] { 10 * (random.NextInteger(10) + 1) } : new int[] { 10, 50, 100 };
         }
 
-        private void AnalyzeScenarios (int[] scenarios)
+        private void AnalyzeScenarios(int[] scenarios)
         {
             foreach (int scenario in scenarios)
             {
