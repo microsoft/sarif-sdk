@@ -1,0 +1,4 @@
+{
+  "AssembliesPath":"..\\..\\bld\\bin\\AnyCPU_Debug\\Test.UnitTests.Sarif.Driver\\netcoreapp3.1",
+  "Assemblies":["Sarif.Driver.dll", "Sarif.dll", "Test.UnitTests.Sarif.Driver.dll"]
+}

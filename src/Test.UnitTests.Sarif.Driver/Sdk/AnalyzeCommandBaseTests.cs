@@ -40,7 +40,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             this.Output = output;
         }
 
-
         private void ExceptionTestHelper(
             RuntimeConditions runtimeConditions,
             ExitReason expectedExitReason = ExitReason.None,
@@ -1078,7 +1077,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             RunResultsCachingTestCase(testCase, multithreaded: true);
         }
 
-#if DEBUG
         [Fact(Timeout = 5000)]
         public void AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread_CoyoteTest()
         {
@@ -1097,7 +1095,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             Assert.True(report.NumOfFoundBugs == 0, $"Coyote found {report.NumOfFoundBugs} bug(s).");
         }
-#endif
 
         [Fact]
         public void AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread()
@@ -1116,7 +1113,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             Coyote.Random.Generator random = Coyote.Random.Generator.Create();
 
-            return IsCoyoteTest ? new int[] { 10 * (random.NextInteger(10) + 1) } : new int[] { 10, 50, 100 };
+            return IsCoyoteTest ? new int[] { (random.NextInteger(10) + 1) } : new int[] { 10, 50, 100 };
         }
 
         private void AnalyzeScenarios(int[] scenarios)
