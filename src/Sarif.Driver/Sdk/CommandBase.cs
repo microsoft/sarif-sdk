@@ -27,7 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         //  TODO:  What's the point of having a bunch of static methods in an abstract class?
-        //  We even have a static class, "CommandUtilities" which seems like the more appropriate 
+        //  We even have a static class, "CommandUtilities" which seems like the more appropriate
         //  place for these to go.
         //  #2269 https://github.com/microsoft/sarif-sdk/issues/2269
         protected static bool ValidateNonNegativeCommandLineOption<T>(long optionValue, string optionName)
@@ -59,7 +59,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         public static void WriteSarifFile<T>(IFileSystem fileSystem,
-                                             T sarifFile, string outputName,
+                                             T sarifFile,
+                                             string outputName,
                                              bool minify = false,
                                              IContractResolver contractResolver = null)
         {

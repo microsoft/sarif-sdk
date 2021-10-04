@@ -2,7 +2,10 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+
+using Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching;
 
 using Xunit;
 
@@ -138,6 +141,24 @@ namespace Microsoft.CodeAnalysis.Sarif
             int maxLength = Expected.Length - 1;    // The -1 is for the ellipsis character.
             string actual = result.GetMessageText(rule, concise: true, maxLength);
             Assert.Equal(Expected, actual);
+        }
+
+        [Fact]
+        public void x()
+        {
+            var baseLog = SarifLog.Load(@"c:\temp\binskim-baseline.sarif");
+            var current = SarifLog.Load(@"c:\temp\binskim-original.sarif");
+
+            // Baseline the complete log
+            ISarifLogMatcher matcher = ResultMatchingBaselinerFactory.GetDefaultResultMatchingBaseliner();
+            SarifLog outputLog = matcher.Match(new[] { baseLog }, new[] { current }).First();
+
+            baseLog = SarifLog.Load(@"c:\temp\base210-base.sarif");
+            current = SarifLog.Load(@"c:\temp\base210-current.sarif");
+
+            // Baseline the complete log
+            matcher = ResultMatchingBaselinerFactory.GetDefaultResultMatchingBaseliner();
+            outputLog = matcher.Match(new[] { baseLog }, new[] { current }).First();
         }
     }
 }

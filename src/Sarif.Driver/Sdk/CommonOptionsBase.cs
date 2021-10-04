@@ -92,6 +92,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             "versionControlProvenance.properties.myProperty=myValue'.")]
         public IEnumerable<string> InsertProperties { get; set; }
 
-        public Formatting Formatting => this.PrettyPrint ? Formatting.Indented : Formatting.None;
+        public Formatting Formatting => this.PrettyPrint || (!this.PrettyPrint && !this.Minify)
+            ? Formatting.Indented
+            : Formatting.None;
     }
 }

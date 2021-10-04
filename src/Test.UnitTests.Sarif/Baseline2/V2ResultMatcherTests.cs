@@ -270,7 +270,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
         public void V2ResultMatcher_IgnoresConstantPartialFingerprint()
         {
             // If there's a PartialFingerprint which is useless (the same for every result),
-            // the baseliner needs to recognize the situation and disregard that partialFingerprint. 
+            // the baseliner needs to recognize the situation and disregard that partialFingerprint.
 
             // Spam had this issue with CanonicalLogicalLocation in JSON files where
             // all user content is in one place (WorkItemHyperLink -> "url")
@@ -351,13 +351,13 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
         }
 
         [Fact]
-        public void V2ResultMatcher_WhenExistingSuppressedIssueIsNewlyUnsuppressed_DoesNotSupressTheResultInTheOutput()
+        public void V2ResultMatcher_WhenExistingSuppressedIssueIsNewlyUnsuppressed_SupressesTheResultInTheOutput()
         {
             Run matchedRun = CreateMatchedRun(SuppressionTestPreviousLog, SuppressionTestCurrentLog);
 
             Result existingResultNewlyUnsuppressed = matchedRun.Results.Single(r => r.Message.Text == "Existing, originally suppressed result.");
 
-            existingResultNewlyUnsuppressed.Suppressions.Should().BeNull();
+            existingResultNewlyUnsuppressed.Suppressions.Count.Should().Be(1);
             AssertMatchedRunInvariants(matchedRun);
         }
 
