@@ -225,6 +225,94 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             toolNames.Count.Should().Be(0);
         }
 
+        [Fact]
+        public void SarifWorkItemExtensions_CreateWorkItemDescription_SingleResultMultipleLocations()
+        {
+            string toolName = "TestToolName";
+            string firstLocation = @"C:\Test\Data\File1.sarif";
+            string additionLocationCount = "2";
+
+            SarifLog sarifLog = TestData.CreateOneIdThreeLocations();
+            sarifLog.Runs[0].VersionControlProvenance = null;
+
+            string description = sarifLog.CreateWorkItemDescription(new SarifWorkItemContext() { CurrentProvider = Microsoft.WorkItems.FilingClient.SourceControlProvider.AzureDevOps });
+
+            description.Should().BeEquivalentTo($"This work item contains 1 '{toolName}' issue(s) detected in {firstLocation} (+{additionLocationCount} locations). Click the 'Scans' tab to review results.");
+        }
+
+        [Fact]
+        public void SarifWorkItemExtensions_CreateWorkItemDescription_SingleResultWithMultipleArtifacts()
+        {
+            string toolName = "TestToolName";
+            string firstLocation = @"C:\Test\Data\File1.sarif";
+            string secondLocation = @"C:\Test\Data\File2.sarif";
+            string thirdLocation = @"C:\Test\Data\File3.sarif";
+
+            SarifLog sarifLog = TestData.CreateSimpleLogWithRules(0, 1);
+            sarifLog.Runs[0].Results[0].Locations = new[]
+            {
+                new Location
+                {
+                    PhysicalLocation = new PhysicalLocation
+                    {
+                        ArtifactLocation = new ArtifactLocation
+                        {
+                            Uri = new Uri(firstLocation),
+                        }
+                    }
+                }
+            };
+
+            sarifLog.Runs[0].Results[0].RelatedLocations = new[]
+            {
+                new Location
+                {
+                    PhysicalLocation = new PhysicalLocation
+                    {
+                        ArtifactLocation = new ArtifactLocation
+                        {
+                            Uri = new Uri(secondLocation),
+                        }
+                    }
+                }
+            };
+
+            sarifLog.Runs[0].Results[0].CodeFlows = new[]
+            {
+                new CodeFlow
+                {
+                    ThreadFlows = new[]
+                    {
+                        new ThreadFlow
+                        {
+                            Locations = new[]
+                            {
+                                new ThreadFlowLocation
+                                {
+                                    Location = new Location
+                                    {
+                                        PhysicalLocation = new PhysicalLocation
+                                        {
+                                            ArtifactLocation = new ArtifactLocation
+                                            {
+                                                Uri = new Uri(thirdLocation),
+                                            }
+                                       }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+
+            sarifLog.Runs[0].VersionControlProvenance = null;
+
+            string description = sarifLog.CreateWorkItemDescription(new SarifWorkItemContext() { CurrentProvider = Microsoft.WorkItems.FilingClient.SourceControlProvider.AzureDevOps });
+
+            description.Should().BeEquivalentTo($"This work item contains 1 '{toolName}' issue(s) detected in {firstLocation}. Click the 'Scans' tab to review results.");
+        }
+
         private static readonly string ToolName = Guid.NewGuid().ToString();
 
         public Tuple<string, Result>[] ResultsWithVariousRuleExpressions = new[]
