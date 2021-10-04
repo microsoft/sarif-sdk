@@ -142,23 +142,5 @@ namespace Microsoft.CodeAnalysis.Sarif
             string actual = result.GetMessageText(rule, concise: true, maxLength);
             Assert.Equal(Expected, actual);
         }
-
-        [Fact]
-        public void x()
-        {
-            var baseLog = SarifLog.Load(@"c:\temp\binskim-baseline.sarif");
-            var current = SarifLog.Load(@"c:\temp\binskim-original.sarif");
-
-            // Baseline the complete log
-            ISarifLogMatcher matcher = ResultMatchingBaselinerFactory.GetDefaultResultMatchingBaseliner();
-            SarifLog outputLog = matcher.Match(new[] { baseLog }, new[] { current }).First();
-
-            baseLog = SarifLog.Load(@"c:\temp\base210-base.sarif");
-            current = SarifLog.Load(@"c:\temp\base210-current.sarif");
-
-            // Baseline the complete log
-            matcher = ResultMatchingBaselinerFactory.GetDefaultResultMatchingBaseliner();
-            outputLog = matcher.Match(new[] { baseLog }, new[] { current }).First();
-        }
     }
 }

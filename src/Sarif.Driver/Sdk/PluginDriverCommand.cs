@@ -80,11 +80,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     var visitor = new SarifCurrentToVersionOneVisitor();
                     visitor.VisitSarifLog(baseline);
 
-                    WriteSarifFile(fileSystem, visitor.SarifLogVersionOne, targetFile, options.Minify, SarifContractResolverVersionOne.Instance);
+                    WriteSarifFile(fileSystem, visitor.SarifLogVersionOne, targetFile, options.Formatting, SarifContractResolverVersionOne.Instance);
                 }
                 else
                 {
-                    WriteSarifFile(fileSystem, baseline, targetFile, options.Minify);
+                    WriteSarifFile(fileSystem, baseline, targetFile, options.Formatting);
                 }
             }
             catch (Exception ex)
