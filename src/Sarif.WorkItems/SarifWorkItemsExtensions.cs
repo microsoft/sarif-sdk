@@ -148,7 +148,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             string phrasedToolNames = toolNames.ToAndPhrase();
             string multipleToolsFooter = toolNames.Count > 1 ? WorkItemsResources.MultipleToolsFooter : string.Empty;
 
-            IEnumerable<Result> results = log.Runs?[0]?.Results.Where(r => r.ShouldBeFiled());
+            IEnumerable<Result> results = log?.Runs?[0]?.Results.Where(r => r.ShouldBeFiled());
             Uri runRepositoryUri = log?.Runs.FirstOrDefault()?.VersionControlProvenance?.FirstOrDefault().RepositoryUri;
             Uri detectionLocationUri = !string.IsNullOrEmpty(runRepositoryUri?.OriginalString) ?
                                        runRepositoryUri :
@@ -158,7 +158,8 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 ? context.CreateLinkText(detectionLocationUri.OriginalString, detectionLocationUri?.OriginalString)
                 : detectionLocationUri?.OriginalString;
 
-            int locCount = results
+            int locCount = results == null ? 0 :
+                           results
                            .Where(r => r.Locations != null)
                            .SelectMany(r => r.Locations)
                            .Where(l => l.PhysicalLocation != null && l.PhysicalLocation.ArtifactLocation != null && l.PhysicalLocation.ArtifactLocation.Uri != null)
