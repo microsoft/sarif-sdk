@@ -9,6 +9,7 @@ using System.Text;
 using FluentAssertions;
 
 using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
+using Microsoft.VisualStudio.Services.Common;
 
 using Xunit;
 
@@ -238,6 +239,76 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             string description = sarifLog.CreateWorkItemDescription(new SarifWorkItemContext() { CurrentProvider = Microsoft.WorkItems.FilingClient.SourceControlProvider.AzureDevOps });
 
             description.Should().BeEquivalentTo($"This work item contains 1 '{toolName}' issue(s) detected in {firstLocation} (+{additionLocationCount} locations). Click the 'Scans' tab to review results.");
+        }
+
+        [Fact]
+        public void SarifWorkItemExtensions_CreateWorkItemDescription_MultipleResults()
+        {
+            string toolName = "TestToolName";
+            string firstLocation = @"C:\Test\Data\File{0}sarif";
+            int numOfResult = 15;
+            string additionLocationCount = "14";
+
+            int index = 1;
+            SarifLog sarifLog = TestData.CreateSimpleLogWithRules(0, numOfResult);
+            sarifLog.Runs[0].Results.ForEach(r => r.Locations
+                                               = new[]
+                                               {
+                                                   new Location
+                                                   {
+                                                       PhysicalLocation = new PhysicalLocation
+                                                       {
+                                                           ArtifactLocation = new ArtifactLocation
+                                                           {
+                                                               Uri = new Uri(string.Format(firstLocation, index++))
+                                                           }
+                                                       }
+                                                   }
+                                               });
+
+            string description = sarifLog.CreateWorkItemDescription(new SarifWorkItemContext() { CurrentProvider = Microsoft.WorkItems.FilingClient.SourceControlProvider.AzureDevOps });
+
+            description.Should().BeEquivalentTo($"This work item contains {numOfResult} '{toolName}' issue(s) detected in {string.Format(firstLocation, 1)} (+{additionLocationCount} locations). Click the 'Scans' tab to review results.");
+        }
+
+        [Fact]
+        public void SarifWorkItemExtensions_CreateWorkItemDescription_MultipleResultsMultipleLocations()
+        {
+            string toolName = "TestToolName";
+            string firstLocation = @"C:\Test\Data\File{0}sarif";
+            int numOfResult = 15;
+            string additionLocationCount = "29"; // 15 results each results have 2 locations
+
+            int index = 1;
+            SarifLog sarifLog = TestData.CreateSimpleLogWithRules(0, numOfResult);
+            sarifLog.Runs[0].Results.ForEach(r => r.Locations
+                                               = new[]
+                                               {
+                                                   new Location
+                                                   {
+                                                       PhysicalLocation = new PhysicalLocation
+                                                       {
+                                                           ArtifactLocation = new ArtifactLocation
+                                                           {
+                                                               Uri = new Uri(string.Format(firstLocation, index++))
+                                                           }
+                                                       }
+                                                   },
+                                                   new Location
+                                                   {
+                                                       PhysicalLocation = new PhysicalLocation
+                                                       {
+                                                           ArtifactLocation = new ArtifactLocation
+                                                           {
+                                                               Uri = new Uri(string.Format(firstLocation, index++))
+                                                           }
+                                                       }
+                                                   }
+                                               });
+
+            string description = sarifLog.CreateWorkItemDescription(new SarifWorkItemContext() { CurrentProvider = Microsoft.WorkItems.FilingClient.SourceControlProvider.AzureDevOps });
+
+            description.Should().BeEquivalentTo($"This work item contains {numOfResult} '{toolName}' issue(s) detected in {string.Format(firstLocation, 1)} (+{additionLocationCount} locations). Click the 'Scans' tab to review results.");
         }
 
         [Fact]
