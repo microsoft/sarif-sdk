@@ -153,6 +153,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 resultMatchingProperties.Add(MatchedResults.MatchResultMetadata_PreviousGuid, PreviousResult.Result.Guid);
             }
 
+            if (PreviousResult.Result.Suppressions != null && CurrentResult.Result.Suppressions == null)
+            {
+                result.Suppressions = PreviousResult.Result.Suppressions;
+            }
+
             Run = CurrentResult.OriginalRun;
             result.Run = Run;
 

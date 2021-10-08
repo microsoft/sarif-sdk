@@ -52,8 +52,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public virtual FileFormat ConfigurationFormat { get { return FileFormat.Json; } }
 
-        protected IFileSystem FileSystem { get; }
-
         protected MultithreadedAnalyzeCommandBase(IFileSystem fileSystem = null)
         {
             FileSystem = fileSystem ?? Sarif.FileSystem.Instance;
