@@ -41,8 +41,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         private OptionallyEmittedData _dataToInsert;
         private Channel<int> _resultsWritingChannel;
         private Channel<int> _fileEnumerationChannel;
+        private Dictionary<string, List<string>> _hashToFilesMap;
         private ConcurrentDictionary<int, TContext> _fileContexts;
-        private ConcurrentDictionary<string, List<string>> _hashToFilesMap;
 
         public Exception ExecutionException { get; set; }
 
@@ -191,23 +191,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var sw = Stopwatch.StartNew();
 
             var workers = new Task<bool>[options.Threads];
-            var hashWorkers = new Task<bool>[options.Threads];
 
             for (int i = 0; i < options.Threads; i++)
             {
-                hashWorkers[i] = HashAsync();
                 workers[i] = AnalyzeTargetAsync(skimmers, disabledSkimmers);
             }
 
+            Task<bool> hashFiles = HashAsync();
             Task<bool> findFiles = FindFilesAsync(options, rootContext);
             Task<bool> writeResults = WriteResultsAsync(rootContext);
 
             // FindFiles is single-thread and will close its write channel
             findFiles.Wait();
-
-            Task.WhenAll(hashWorkers)
-                .ContinueWith(_ => _fileEnumerationChannel.Writer.Complete())
-                .Wait();
+            hashFiles.Wait();
 
             Task.WhenAll(workers)
                 .ContinueWith(_ => _resultsWritingChannel.Writer.Complete())
@@ -344,7 +340,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             this._fileContextsCount = 0;
             this._fileContexts = new ConcurrentDictionary<int, TContext>();
-            this._hashToFilesMap = new ConcurrentDictionary<string, List<string>>();
 
             foreach (string specifier in options.TargetFileSpecifiers)
             {
@@ -458,6 +453,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 {
                     if (_computeHashes)
                     {
+                        if (_hashToFilesMap == null)
+                        {
+                            _hashToFilesMap = new Dictionary<string, List<string>>();
+                        }
+
                         TContext context = _fileContexts[index];
                         string localPath = context.TargetUri.LocalPath;
 
@@ -480,6 +480,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     await _fileEnumerationChannel.Writer.WriteAsync(index);
                 }
             }
+
+            _fileEnumerationChannel.Writer.Complete();
 
             return true;
         }
