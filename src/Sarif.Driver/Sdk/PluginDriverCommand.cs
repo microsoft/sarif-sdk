@@ -3,13 +3,13 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 
 using Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching;
-
-using Newtonsoft.Json;
+using Microsoft.CodeAnalysis.Sarif.Readers;
+using Microsoft.CodeAnalysis.Sarif.Visitors;
+using Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
@@ -49,15 +49,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 return;
             }
 
-            var serializer = new JsonSerializer
-            {
-                Formatting = options.PrettyPrint || (!options.PrettyPrint && !options.Minify) ?
-                                    Formatting.Indented :
-                                    Formatting.None
-            };
+            SarifLog baselineFile = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(fileSystem.FileReadAllText(options.BaselineSarifFile),
+                                                                                              options.Formatting,
+                                                                                              out string _);
 
-            var baselineFile = SarifLog.Load(options.BaselineSarifFile);
-            var currentSarifLog = SarifLog.Load(options.OutputFilePath);
+            SarifLog currentSarifLog = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(fileSystem.FileReadAllText(options.OutputFilePath),
+                                                                                                 options.Formatting,
+                                                                                                 out string _);
+
             SarifLog baseline;
             try
             {
@@ -75,9 +74,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             try
             {
                 string targetFile = options.Inline ? options.BaselineSarifFile : options.OutputFilePath;
-                using (var writer = new JsonTextWriter(new StreamWriter(fileSystem.FileCreate(targetFile))))
+
+                if (options.SarifOutputVersion == SarifVersion.OneZeroZero)
                 {
-                    serializer.Serialize(writer, baseline);
+                    var visitor = new SarifCurrentToVersionOneVisitor();
+                    visitor.VisitSarifLog(baseline);
+
+                    WriteSarifFile(fileSystem, visitor.SarifLogVersionOne, targetFile, options.Formatting, SarifContractResolverVersionOne.Instance);
+                }
+                else
+                {
+                    WriteSarifFile(fileSystem, baseline, targetFile, options.Formatting);
                 }
             }
             catch (Exception ex)

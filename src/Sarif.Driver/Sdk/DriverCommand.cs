@@ -3,11 +3,8 @@
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
-    public abstract class DriverCommand<T>
+    public abstract class DriverCommand<T> : CommandBase
     {
         abstract public int Run(T options);
-
-        internal const int FAILURE = 1;
-        internal const int SUCCESS = 0;
     }
 }

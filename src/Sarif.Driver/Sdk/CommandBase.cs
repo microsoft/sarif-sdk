@@ -27,7 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         //  TODO:  What's the point of having a bunch of static methods in an abstract class?
-        //  We even have a static class, "CommandUtilities" which seems like the more appropriate 
+        //  We even have a static class, "CommandUtilities" which seems like the more appropriate
         //  place for these to go.
         //  #2269 https://github.com/microsoft/sarif-sdk/issues/2269
         protected static bool ValidateNonNegativeCommandLineOption<T>(long optionValue, string optionName)
@@ -59,17 +59,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         public static void WriteSarifFile<T>(IFileSystem fileSystem,
-                                             T sarifFile, string outputName,
+                                             T sarifFile,
+                                             string outputName,
                                              bool minify = false,
+                                             IContractResolver contractResolver = null)
+        {
+            WriteSarifFile(fileSystem, sarifFile, outputName, minify ? 0 : Formatting.Indented, contractResolver);
+        }
+
+        public static void WriteSarifFile<T>(IFileSystem fileSystem,
+                                             T sarifFile,
+                                             string outputName,
+                                             Formatting formatting = Formatting.None,
                                              IContractResolver contractResolver = null)
         {
             var serializer = new JsonSerializer()
             {
                 ContractResolver = contractResolver,
-                Formatting = minify ? 0 : Formatting.Indented
+                Formatting = formatting
             };
 
-            using (JsonTextWriter writer = new JsonTextWriter(new StreamWriter(fileSystem.FileCreate(outputName))))
+            using (var writer = new JsonTextWriter(new StreamWriter(fileSystem.FileCreate(outputName))))
             {
                 serializer.Serialize(writer, sarifFile);
             }
