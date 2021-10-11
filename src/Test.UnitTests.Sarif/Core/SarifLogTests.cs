@@ -88,9 +88,10 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
         public void SarifLog_SplitPerResult()
         {
             var random = new Random();
-            SarifLog sarifLog = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, 1);
+            SarifLog sarifLog = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, runCount: 1, resultCount: 5);
+            int countOfDistinctRules = sarifLog.Runs[0].Results.Select(r => r.RuleId).Distinct().Count();
             IList<SarifLog> logs = sarifLog.Split(SplittingStrategy.PerResult).ToList();
-            logs.Count.Should().Be(5);
+            logs.Count.Should().Be(countOfDistinctRules);
             foreach (SarifLog log in logs)
             {
                 // optimized partitioned log should only include rules referenced by its results
@@ -168,7 +169,6 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
                 }
             }
         }
-
 
         private Run SerializeAndDeserialize(Run run)
         {
