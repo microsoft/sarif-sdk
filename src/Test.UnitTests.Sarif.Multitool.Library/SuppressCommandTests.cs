@@ -22,6 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         [Fact]
         public void SuppressCommand_ShouldReturnFailure_WhenBadArgumentsAreSupplied()
         {
+            const string outputPath = @"c:\output.sarif";
             var optionsTestCases = new SuppressOptions[]
             {
                 new SuppressOptions
@@ -30,17 +31,34 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 },
                 new SuppressOptions
                 {
+                    ExpiryInDays = 1,
                     Justification = string.Empty
                 },
                 new SuppressOptions
                 {
+                    ExpiryInDays = 1,
+                    Justification = "some justification",
                     Status = SuppressionStatus.Rejected
                 },
                 new SuppressOptions
                 {
+                    ExpiryInDays = 1,
+                    Justification = "some justification",
+                    Status = SuppressionStatus.Accepted,
                     SarifOutputVersion = SarifVersion.Unknown
                 },
+                new SuppressOptions
+                {
+                    ExpiryInDays = -1,
+                    Justification = "some justification",
+                    OutputFilePath = outputPath,
+                    Status = SuppressionStatus.Accepted
+                },
             };
+
+            var mock = new Mock<IFileSystem>();
+            mock.Setup(f => f.FileExists(outputPath))
+                .Returns(false);
 
             foreach (SuppressOptions options in optionsTestCases)
             {
