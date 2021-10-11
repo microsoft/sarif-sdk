@@ -60,15 +60,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             if (timestamps)
             {
-                //suppression.SetProperty("timeUtc", timeUtc.ToString(SarifUtilities.SarifDateTimeFormatMillisecondsPrecision,
-                //                                                    CultureInfo.InvariantCulture));
-                suppression.SetProperty("timeUtc", timeUtc);
+                suppression.SetProperty(nameof(timeUtc), timeUtc);
             }
 
             if (expiryInDays > 0)
             {
-                suppression.SetProperty("expiryUtc", expiryUtc.ToString(SarifUtilities.SarifDateTimeFormatMillisecondsPrecision,
-                                                                        CultureInfo.InvariantCulture));
+                suppression.SetProperty(nameof(expiryUtc), expiryUtc);
             }
 
             node.Suppressions.Add(suppression);
