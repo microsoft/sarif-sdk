@@ -29,7 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return random;
         }
 
-        public static SarifLog GenerateSarifLogWithRuns(Random randomGen, int runCount)
+        public static SarifLog GenerateSarifLogWithRuns(Random randomGen, int runCount, int? resultCount = null)
         {
             SarifLog log = new SarifLog();
 
@@ -40,7 +40,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             for (int i = 0; i < runCount; i++)
             {
-                log.Runs.Add(GenerateRandomRun(randomGen));
+                log.Runs.Add(GenerateRandomRun(randomGen, resultCount));
             }
 
             return log;
