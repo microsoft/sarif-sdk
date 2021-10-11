@@ -62,7 +62,7 @@ Sarif.Multitool merge C:\Input\*.sarif --recurse --output-directory=C:\Output\ -
 Sarif.Multitool query NewBaseline.sarif --expression "BaselineState == 'New'" --output Current.NewResults.sarif
 
 : Suppress Results
-Sarif.Multitool suppress current.sarif --justification "some justification" --alias "some alias" --guids --timestamps --expiryInDays 5 --output suppressed.sarif
+Sarif.Multitool suppress current.sarif --justification "some justification" --alias "some alias" --guids --timestamps --expiryInDays 5 --status Accepted --output suppressed.sarif
 
 : Validate a SARIF file conforms to the schema
 Sarif.Multitool validate Other.sarif

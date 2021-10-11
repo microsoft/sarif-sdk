@@ -45,7 +45,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             var suppression = new Suppression
             {
                 Status = suppressionStatus,
-                Justification = justification
+                Justification = justification,
+                Kind = SuppressionKind.External
             };
 
             if (!string.IsNullOrWhiteSpace(alias))

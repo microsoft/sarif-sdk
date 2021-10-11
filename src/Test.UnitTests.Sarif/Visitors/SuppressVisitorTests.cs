@@ -111,6 +111,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
                 Suppression suppression = result.Suppressions[0];
                 suppression.Status.Should().Be(suppressionStatus);
                 suppression.Justification.Should().Be(justification);
+                suppression.Kind.Should().Be(SuppressionKind.External);
 
                 if (!string.IsNullOrWhiteSpace(alias))
                 {

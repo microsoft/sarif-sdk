@@ -150,6 +150,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             Suppression suppression = suppressed.Runs[0].Results[0].Suppressions[0];
             suppression.Status.Should().Be(options.Status);
+            suppression.Kind.Should().Be(SuppressionKind.External);
             suppression.Justification.Should().Be(options.Justification);
 
             if (!string.IsNullOrWhiteSpace(options.Alias))
