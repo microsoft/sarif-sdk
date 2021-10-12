@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
@@ -46,7 +45,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 Status = suppressionStatus,
                 Justification = justification,
-                Kind = SuppressionKind.External
+                Kind = SuppressionKind.External,
             };
 
             if (!string.IsNullOrWhiteSpace(alias))
@@ -56,7 +55,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             if (guids)
             {
-                suppression.SetProperty("guid", Guid.NewGuid());
+                suppression.Guid = Guid.NewGuid().ToString(SarifConstants.GuidFormat);
             }
 
             if (timestamps)

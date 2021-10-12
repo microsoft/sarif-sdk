@@ -158,9 +158,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 suppression.GetProperty("alias").Should().Be(options.Alias);
             }
 
-            if (options.Guids && suppression.TryGetProperty("guid", out Guid guid))
+            if (options.Guids)
             {
-                guid.Should().NotBeEmpty();
+                suppression.Guid.Should().NotBeNullOrEmpty();
             }
 
             if (options.Timestamps && suppression.TryGetProperty("timeUtc", out DateTime timeUtc))
