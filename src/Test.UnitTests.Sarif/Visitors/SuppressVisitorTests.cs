@@ -118,9 +118,9 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
                     suppression.GetProperty("alias").Should().Be(alias);
                 }
 
-                if (guids && suppression.TryGetProperty("guid", out Guid guid))
+                if (guids)
                 {
-                    guid.Should().NotBeEmpty();
+                    suppression.Guid.Should().NotBeNullOrEmpty();
                 }
 
                 if (timestamps && suppression.TryGetProperty("timeUtc", out DateTime timeUtc))
