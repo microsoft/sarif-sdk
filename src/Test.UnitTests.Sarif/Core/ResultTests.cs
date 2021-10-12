@@ -57,11 +57,12 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             {
                 Suppressions = new List<Suppression>()
             };
-            result.TryIsSuppressed(out bool _).Should().BeTrue();
+            result.TryIsSuppressed(out bool isSuppressed).Should().BeTrue();
+            isSuppressed.Should().BeFalse();
 
             // Suppression with 'UnderReview' only.
             result.Suppressions.Add(new Suppression { Status = SuppressionStatus.UnderReview });
-            result.TryIsSuppressed(out bool isSuppressed).Should().BeTrue();
+            result.TryIsSuppressed(out isSuppressed).Should().BeTrue();
             isSuppressed.Should().BeFalse();
 
             // Suppression with 'UnderReview' and 'Accepted'.
