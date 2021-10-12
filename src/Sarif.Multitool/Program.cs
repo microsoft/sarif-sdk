@@ -37,6 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 QueryOptions,
                 RebaseUriOptions,
                 RewriteOptions,
+                SuppressOptions,
                 ValidateOptions>(args)
                 .WithParsed<AbsoluteUriOptions>(x => { optionsInterpretter.ConsumeEnvVarsAndInterpretOptions(x); })
 #if DEBUG
@@ -53,6 +54,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 .WithParsed<QueryOptions>(x => { optionsInterpretter.ConsumeEnvVarsAndInterpretOptions(x); })
                 .WithParsed<RebaseUriOptions>(x => { optionsInterpretter.ConsumeEnvVarsAndInterpretOptions(x); })
                 .WithParsed<RewriteOptions>(x => { optionsInterpretter.ConsumeEnvVarsAndInterpretOptions(x); })
+                .WithParsed<SuppressOptions>(x => { optionsInterpretter.ConsumeEnvVarsAndInterpretOptions(x); })
                 .WithParsed<ValidateOptions>(x => { optionsInterpretter.ConsumeEnvVarsAndInterpretOptions(x); })
                 .MapResult(
                 (AbsoluteUriOptions absoluteUriOptions) => new AbsoluteUriCommand().Run(absoluteUriOptions),
@@ -71,6 +73,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 (QueryOptions queryOptions) => new QueryCommand().Run(queryOptions),
                 (RebaseUriOptions rebaseOptions) => new RebaseUriCommand().Run(rebaseOptions),
                 (RewriteOptions rewriteOptions) => new RewriteCommand().Run(rewriteOptions),
+                (SuppressOptions options) => new SuppressCommand().Run(options),
                 (ValidateOptions validateOptions) => new ValidateCommand().Run(validateOptions),
                  _ => HandleParseError(args));
         }
