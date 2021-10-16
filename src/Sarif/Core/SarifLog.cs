@@ -51,18 +51,26 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <returns>SarifLog instance for file</returns>
         public static SarifLog Load(Stream source, bool deferred = false)
         {
-            JsonSerializer serializer = new JsonSerializer();
+            var serializer = new JsonSerializer();
 
-            if (deferred)
+            using (var sr = new StreamReader(source))
             {
-                serializer.ContractResolver = new SarifDeferredContractResolver();
-            }
-
-            using (StreamReader sr = new StreamReader(source))
-            using (JsonTextReader jtr = new JsonTextReader(sr))
-            {
-                // NOTE: Load with JsonSerializer.Deserialize, not JsonConvert.DeserializeObject, to avoid a string of the whole file in memory.
-                return serializer.Deserialize<SarifLog>(jtr);
+                if (deferred)
+                {
+                    serializer.ContractResolver = new SarifDeferredContractResolver();
+                    using (var jptr = new JsonPositionedTextReader(() => source))
+                    {
+                        return serializer.Deserialize<SarifLog>(jptr);
+                    }
+                }
+                else
+                {
+                    using (var jtr = new JsonTextReader(sr))
+                    {
+                        // NOTE: Load with JsonSerializer.Deserialize, not JsonConvert.DeserializeObject, to avoid a string of the whole file in memory.
+                        return serializer.Deserialize<SarifLog>(jtr);
+                    }
+                }
             }
         }
 

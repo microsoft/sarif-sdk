@@ -3,7 +3,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 
 using FluentAssertions;
 
@@ -168,6 +170,19 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
                         log.Runs[0].Tool.Driver.Rules.ElementAt(result.RuleIndex).Id);
                 }
             }
+        }
+
+        [Fact]
+        public void SarifLog_LoadDeferred()
+        {
+            var random = new Random();
+            SarifLog sarifLog = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, 1);
+            string sarifLogText = JsonConvert.SerializeObject(sarifLog);
+            byte[] byteArray = Encoding.ASCII.GetBytes(sarifLogText);
+            using var stream = new MemoryStream(byteArray);
+            var newSarifLog = SarifLog.Load(stream, deferred: true);
+            newSarifLog.Runs[0].Tool.Driver.Name.Should().Be(sarifLog.Runs[0].Tool.Driver.Name);
+            newSarifLog.Runs[0].Results.Count.Should().Be(sarifLog.Runs[0].Results.Count);
         }
 
         private Run SerializeAndDeserialize(Run run)
