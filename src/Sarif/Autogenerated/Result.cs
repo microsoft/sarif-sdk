@@ -61,44 +61,42 @@ namespace Microsoft.CodeAnalysis.Sarif
         // than fail, we automatically set Level to FailureLevel.None. Similarly, if Level is 
         // set to any value other than None we update Kind to ResultKind.Fail
 
-        private ResultKind _kind;
+        private ResultKind? _kind;
 
         /// <summary>
         /// A value that categorizes results by evaluation state.
         /// </summary>
         [DataMember(Name = "kind", IsRequired = false, EmitDefaultValue = false)]
-        [DefaultValue(ResultKind.Fail)]
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter))]
-        public ResultKind Kind
+        public ResultKind? Kind
         {
             get { return _kind; }
             set
             {
                 _kind = value;
-                if (_kind != ResultKind.Fail)
+                if (_kind != ResultKind.Fail && !_level.HasValue)
                 {
                     _level = FailureLevel.None;
                 }
             }
         }
 
-        private FailureLevel _level;
+        private FailureLevel? _level;
 
         /// <summary>
         /// A value specifying the severity level of the result.
         /// </summary>
         [DataMember(Name = "level", IsRequired = false, EmitDefaultValue = false)]
-        [DefaultValue(FailureLevel.Warning)]
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter))]
-        public FailureLevel Level
+        public FailureLevel? Level
         {
             get { return _level; }
             set
             {
                 _level = value;
-                if (_level != FailureLevel.None)
+                if (_level != FailureLevel.None && !_kind.HasValue)
                 {
                     _kind = ResultKind.Fail;
                 }
