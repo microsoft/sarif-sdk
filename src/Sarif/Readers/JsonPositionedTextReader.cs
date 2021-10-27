@@ -21,7 +21,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
     public class JsonPositionedTextReader : JsonTextReader
     {
         private readonly LineMappingStreamReader _streamReader;
-        private readonly Stream _stream;
 
         private long _cachedPosition;
         private int _cachedPositionLineNumber;
