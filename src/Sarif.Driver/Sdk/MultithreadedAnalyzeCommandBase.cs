@@ -731,6 +731,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                         _run = new Run();
 
+                        if (!string.IsNullOrWhiteSpace(analyzeOptions.AutomationId) || !string.IsNullOrWhiteSpace(analyzeOptions.AutomationGuid))
+                        {
+                            _run.AutomationDetails = new RunAutomationDetails
+                            {
+                                Id = analyzeOptions.AutomationId,
+                                Guid = analyzeOptions.AutomationGuid
+                            };
+                        }
+
                         if (analyzeOptions.SarifOutputVersion != SarifVersion.OneZeroZero)
                         {
                             sarifLogger = new SarifLogger(analyzeOptions.OutputFilePath,

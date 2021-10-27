@@ -107,7 +107,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         [Option(
             "baseline",
-            HelpText = "A Sarif file to be used as baseline")]
+            HelpText = "A SARIF file to be used as baseline.")]
         public string BaselineSarifFile { get; set; }
+
+        [Option(
+            "automationId",
+            HelpText = "An id that will be used in the output SARIF and show in the 'automationDetails.id' under 'run'.")]
+        public string AutomationId { get; set; }
+
+        [Option(
+            "automationGuid",
+            HelpText = "A guid that will be used in the output SARIF and show in the 'automationDetails.guid' under 'run'.")]
+        public string AutomationGuid { get; set; }
     }
 }

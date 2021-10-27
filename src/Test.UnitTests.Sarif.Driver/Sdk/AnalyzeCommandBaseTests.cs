@@ -1265,7 +1265,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 OutputFilePath = testCase.PersistLogFileToDisk ? Guid.NewGuid().ToString() : null,
                 TargetFileSpecifiers = new string[] { Guid.NewGuid().ToString() },
                 Kind = new List<ResultKind> { ResultKind.Fail },
-                Level = new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error }
+                Level = new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
+                AutomationId = "Test Automation",
+                AutomationGuid = Guid.NewGuid().ToString()
             };
 
             if (testCase.Verbose)
@@ -1296,6 +1298,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     withCache.Locations.Count.Should().Be(withoutCache.Locations.Count);
                     withCache.Locations[0].PhysicalLocation.ArtifactLocation.Uri.Should().Be(withoutCache.Locations[0].PhysicalLocation.ArtifactLocation.Uri);
                 }
+            }
+
+            if (testCase.PersistLogFileToDisk)
+            {
+                runWithCaching.AutomationDetails.Id.Should().Be(options.AutomationId);
+                runWithCaching.AutomationDetails.Guid.Should().Be(options.AutomationGuid);
+                runWithCaching.AutomationDetails.Should().BeEquivalentTo(runWithoutCaching.AutomationDetails);
             }
 
             if (testCase.PersistLogFileToDisk)
