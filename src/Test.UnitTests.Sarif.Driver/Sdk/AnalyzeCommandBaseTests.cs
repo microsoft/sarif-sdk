@@ -1302,14 +1302,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (testCase.PersistLogFileToDisk)
             {
+                runWithCaching.Artifacts.Should().NotBeEmpty();
                 runWithCaching.AutomationDetails.Id.Should().Be(options.AutomationId);
                 runWithCaching.AutomationDetails.Guid.Should().Be(options.AutomationGuid);
                 runWithCaching.AutomationDetails.Should().BeEquivalentTo(runWithoutCaching.AutomationDetails);
-            }
-
-            if (testCase.PersistLogFileToDisk)
-            {
-                runWithCaching.Artifacts.Should().NotBeEmpty();
             }
             // Tool configuration errors, such as 'Could not locate scan target PDB.'
             runWithoutCaching.Invocations?[0].ToolConfigurationNotifications?.Should()
