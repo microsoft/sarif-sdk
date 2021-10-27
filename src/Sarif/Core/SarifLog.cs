@@ -53,17 +53,17 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             var serializer = new JsonSerializer();
 
-            using (var sr = new StreamReader(source))
+            if (deferred)
             {
-                if (deferred)
+                serializer.ContractResolver = new SarifDeferredContractResolver();
+                using (var jptr = new JsonPositionedTextReader(source))
                 {
-                    serializer.ContractResolver = new SarifDeferredContractResolver();
-                    using (var jptr = new JsonPositionedTextReader(source))
-                    {
-                        return serializer.Deserialize<SarifLog>(jptr);
-                    }
+                    return serializer.Deserialize<SarifLog>(jptr);
                 }
-                else
+            }
+            else
+            {
+                using (var sr = new StreamReader(source))
                 {
                     using (var jtr = new JsonTextReader(sr))
                     {
