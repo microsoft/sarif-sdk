@@ -23,7 +23,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         private readonly LineMappingStreamReader _streamReader;
         private readonly Stream _stream;
 
-        private bool _disposed;
         private long _cachedPosition;
         private int _cachedPositionLineNumber;
         private int _cachedPositionLinePosition;
@@ -39,6 +38,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         public JsonPositionedTextReader(string filePath) : this(() => File.OpenRead(filePath))
         { }
 
+
+        /// <summary>
+        /// Create a JsonPositionedTextReader based on a Stream and passes this to deferred collections.
+        /// </summary>
+        /// <param name="stream"></param>
+        public JsonPositionedTextReader(Stream stream) : this(() => new DelegatingStream(stream))
+        {
+            if (!stream.CanSeek)
+            {
+                throw new ArgumentException("The stream should be seekable.", nameof(stream));
+            }
+        }
+
         /// <summary>
         ///  Create a JsonPositionedTextReader. Takes a function to open the Stream so that deferred
         ///  collections created know how to open separate copies to seek to the collections when
@@ -47,22 +59,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         /// <param name="streamProvider"></param>
         public JsonPositionedTextReader(Func<Stream> streamProvider) : this(streamProvider, new LineMappingStreamReader(streamProvider()))
         { }
-
-        /// <summary>
-        /// Create a JsonPositionedTextReader. Takes a stream and wrapes it using Stream.Synchronized
-        /// so that deferred collections created know how to open separate copies to seek to the collections when
-        /// they are enumerated.
-        /// </summary>
-        /// <param name="stream"></param>
-        public JsonPositionedTextReader(Stream stream) : this(() => Stream.Synchronized(stream))
-        {
-            if (!stream.CanSeek)
-            {
-                throw new ArgumentException("The stream should be seekable.", nameof(stream));
-            }
-
-            _stream = stream;
-        }
 
         internal JsonPositionedTextReader(Func<Stream> streamProvider, LineMappingStreamReader reader) : base(reader)
         {
@@ -132,23 +128,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
             // Return two after the last item end (past the last character and the comma)
             return this.TokenPosition + 2;
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (_disposed)
-            {
-                return;
-            }
-
-            if (disposing)
-            {
-                _stream?.Dispose();
-                _streamReader?.Dispose();
-            }
-
-            base.Dispose(disposing);
-            _disposed = true;
         }
     }
 }
