@@ -58,7 +58,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 if (deferred)
                 {
                     serializer.ContractResolver = new SarifDeferredContractResolver();
-                    using (var jptr = new JsonPositionedTextReader(() => source))
+                    using (var jptr = new JsonPositionedTextReader(source))
                     {
                         return serializer.Deserialize<SarifLog>(jptr);
                     }
