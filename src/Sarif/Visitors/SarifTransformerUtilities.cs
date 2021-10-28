@@ -166,9 +166,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
         }
 
-        public static ResultLevelVersionOne CreateResultLevelVersionOne(FailureLevel v2FailureLevel, ResultKind v2ResultKind)
+        public static ResultLevelVersionOne CreateResultLevelVersionOne(FailureLevel? v2FailureLevel, ResultKind? v2ResultKind)
         {
-            if (v2ResultKind != ResultKind.Fail)
+            if (v2ResultKind != null && v2ResultKind != ResultKind.Fail)
             {
                 v2FailureLevel = FailureLevel.None;
             }
@@ -183,12 +183,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     return ResultLevelVersionOne.Warning;
                 case FailureLevel.None:
                     return CreateResultLevelVersionOneFromResultKind(v2ResultKind);
+                case null:
                 default:
                     return ResultLevelVersionOne.Default;
             }
         }
 
-        private static ResultLevelVersionOne CreateResultLevelVersionOneFromResultKind(ResultKind v2ResultKind)
+        private static ResultLevelVersionOne CreateResultLevelVersionOneFromResultKind(ResultKind? v2ResultKind)
         {
             switch (v2ResultKind)
             {
@@ -197,6 +198,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 case ResultKind.NotApplicable:
                     return ResultLevelVersionOne.NotApplicable;
                 // no mapped values for review, open
+                case null:
                 default:
                     return ResultLevelVersionOne.Default;
             }

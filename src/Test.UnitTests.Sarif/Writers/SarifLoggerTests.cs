@@ -1142,9 +1142,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             foreach (Result result in results)
             {
-                desiredResultKinds.Should().Contain(result.Kind);
+                result.Kind.Should().NotBeNull();
+                desiredResultKinds.Should().Contain(result.Kind.Value);
 
-                Assert.True(result.Level == FailureLevel.None || desiredFailureLevels.Contains(result.Level));
+                result.Level.Should().NotBeNull();
+                Assert.True(result.Level == FailureLevel.None || desiredFailureLevels.Contains(result.Level.Value));
             }
         }
 

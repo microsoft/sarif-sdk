@@ -300,7 +300,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return string.Join(Environment.NewLine, messageLines);
         }
 
-        public static string FormatForVisualStudio(this FailureLevel level)
+        public static string FormatForVisualStudio(this FailureLevel? level)
         {
             switch (level)
             {
@@ -313,12 +313,15 @@ namespace Microsoft.CodeAnalysis.Sarif
                 case FailureLevel.Note:
                     return "note";
 
+                case null:
+                    return string.Empty;
+
                 default:
                     throw new InvalidOperationException();
             }
         }
 
-        public static string FormatForVisualStudio(this ResultKind kind)
+        public static string FormatForVisualStudio(this ResultKind? kind)
         {
             switch (kind)
             {
@@ -336,6 +339,9 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 case ResultKind.Review:
                     return "review";
+
+                case null:
+                    return string.Empty;
 
                 default:
                     return "info";

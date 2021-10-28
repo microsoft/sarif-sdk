@@ -120,8 +120,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             Region region,
             string ruleId,
             string message,
-            ResultKind kind,
-            FailureLevel level)
+            ResultKind? kind,
+            FailureLevel? level)
         {
             string path = ConstructPathFromUri(uri);
 
@@ -141,8 +141,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     issueType = "warning";
                     break;
 
+                case null:
                 case FailureLevel.None:
-                    issueType = kind.ToString().ToLowerInvariant();
+                    issueType = kind == null ? string.Empty : kind.ToString().ToLowerInvariant();
                     // Shorten to 'info' for compatibility with previous behavior.
                     if (issueType == "informational") { issueType = "info"; }
                     break;

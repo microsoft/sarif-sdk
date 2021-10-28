@@ -55,11 +55,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public bool ShouldLog(Result result)
         {
-            if (_resultKinds.Contains(result.Kind))
+            if (result.Kind.HasValue && _resultKinds.Contains(result.Kind.Value))
             {
                 if (result.Kind == ResultKind.Fail)
                 {
-                    return _failureLevels.Contains(result.Level);
+                    return result.Level.HasValue && _failureLevels.Contains(result.Level.Value);
                 }
 
                 return true;

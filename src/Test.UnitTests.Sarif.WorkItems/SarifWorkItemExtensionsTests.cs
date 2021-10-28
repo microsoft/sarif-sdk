@@ -42,8 +42,8 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                     sb.AppendLine($"[Test case '{tuple.Item1}']: Title did not contain expected rule id '{ruleId}'.");
                 }
 
-                FailureLevel level = result.Level;
-                if (!title.Contains(level.ToString()))
+                FailureLevel? level = result.Level;
+                if (level.HasValue && !title.Contains(level.ToString()))
                 {
                     sb.AppendLine($"[Test case '{tuple.Item1}']: Title did not contain expected failure level '{level}'.");
                 }
