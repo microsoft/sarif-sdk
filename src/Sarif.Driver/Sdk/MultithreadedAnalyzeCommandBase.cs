@@ -114,6 +114,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     ExecutionException = ex;
                     return FAILURE;
                 }
+
+                try
+                {
+                    Export(_rootContext, options, FileSystem);
+                }
+                catch (Exception ex)
+                {
+                    RuntimeErrors |= RuntimeConditions.ExceptionExportingLogFile;
+                    ExecutionException = ex;
+                    return FAILURE;
+                }
             }
 
             if (options.RichReturnCode)
@@ -525,98 +536,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             bool succeeded = true;
 
-            succeeded &= ValidateFile(context, options.OutputFilePath, shouldExist: null);
-            succeeded &= ValidateFile(context, options.ConfigurationFilePath, shouldExist: true);
-            succeeded &= ValidateFiles(context, options.PluginFilePaths, shouldExist: true);
-            succeeded &= ValidateFile(context, options.BaselineSarifFile, shouldExist: true);
+            succeeded &= ValidateFile(context, options.OutputFilePath, DefaultPolicyName, shouldExist: null);
+            succeeded &= ValidateFile(context, options.ConfigurationFilePath, DefaultPolicyName, shouldExist: true);
+            succeeded &= ValidateFiles(context, options.PluginFilePaths, DefaultPolicyName, shouldExist: true);
+            succeeded &= ValidateFile(context, options.BaselineSarifFile, DefaultPolicyName, shouldExist: true);
             succeeded &= ValidateInvocationPropertiesToLog(context, options.InvocationPropertiesToLog);
             succeeded &= ValidateOutputFileCanBeCreated(context, options.OutputFilePath, options.Force);
             succeeded &= options.ValidateOutputOptions(context);
+            succeeded &= ValidateExport(options.OutputFilePath, options.Export);
 
             if (!succeeded)
             {
                 ThrowExitApplicationException(context, ExitReason.InvalidCommandLineOption);
             }
-        }
-
-        private bool ValidateFiles(TContext context, IEnumerable<string> filePaths, bool shouldExist)
-        {
-            if (filePaths == null) { return true; }
-
-            bool succeeded = true;
-
-            foreach (string filePath in filePaths)
-            {
-                succeeded &= ValidateFile(context, filePath, shouldExist);
-            }
-
-            return succeeded;
-        }
-
-        private bool ValidateFile(TContext context, string filePath, bool? shouldExist)
-        {
-            if (filePath == null || filePath == DefaultPolicyName) { return true; }
-
-            Exception exception = null;
-
-            try
-            {
-                bool fileExists = FileSystem.FileExists(filePath);
-
-                if (fileExists || shouldExist == null || !shouldExist.Value)
-                {
-                    return true;
-                }
-
-                Errors.LogMissingFile(context, filePath);
-            }
-            catch (IOException ex) { exception = ex; }
-            catch (SecurityException ex) { exception = ex; }
-            catch (UnauthorizedAccessException ex) { exception = ex; }
-
-            if (exception != null)
-            {
-                Errors.LogExceptionAccessingFile(context, filePath, exception);
-            }
-
-            return false;
-        }
-
-        private static bool ValidateInvocationPropertiesToLog(TContext context, IEnumerable<string> propertiesToLog)
-        {
-            bool succeeded = true;
-
-            if (propertiesToLog != null)
-            {
-                var validPropertyNames = new HashSet<string>(
-                    typeof(Invocation).GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                        .Select(propInfo => propInfo.Name),
-                    StringComparer.OrdinalIgnoreCase);
-
-                foreach (string propertyName in propertiesToLog)
-                {
-                    if (!validPropertyNames.Contains(propertyName))
-                    {
-                        Errors.LogInvalidInvocationPropertyName(context, propertyName);
-                        succeeded = false;
-                    }
-                }
-            }
-
-            return succeeded;
-        }
-
-        private bool ValidateOutputFileCanBeCreated(TContext context, string outputFilePath, bool force)
-        {
-            bool succeeded = true;
-
-            if (!DriverUtilities.CanCreateOutputFile(outputFilePath, force, FileSystem))
-            {
-                Errors.LogOutputFileAlreadyExists(context, outputFilePath);
-                succeeded = false;
-            }
-
-            return succeeded;
         }
 
         internal AggregatingLogger InitializeLogger(AnalyzeOptionsBase analyzeOptions)

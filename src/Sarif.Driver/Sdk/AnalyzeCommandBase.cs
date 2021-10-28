@@ -118,6 +118,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     ExecutionException = ex;
                     return FAILURE;
                 }
+
+                try
+                {
+                    Export(_rootContext, options, FileSystem);
+                }
+                catch (Exception ex)
+                {
+                    RuntimeErrors |= RuntimeConditions.ExceptionExportingLogFile;
+                    ExecutionException = ex;
+                    return FAILURE;
+                }
             }
 
             if (options.RichReturnCode)
@@ -181,13 +192,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             bool succeeded = true;
 
-            succeeded &= ValidateFile(context, analyzeOptions.OutputFilePath, shouldExist: null);
-            succeeded &= ValidateFile(context, analyzeOptions.ConfigurationFilePath, shouldExist: true);
-            succeeded &= ValidateFiles(context, analyzeOptions.PluginFilePaths, shouldExist: true);
-            succeeded &= ValidateFile(context, analyzeOptions.BaselineSarifFile, shouldExist: true);
+            succeeded &= ValidateFile(context, analyzeOptions.OutputFilePath, DefaultPolicyName, shouldExist: null);
+            succeeded &= ValidateFile(context, analyzeOptions.ConfigurationFilePath, DefaultPolicyName, shouldExist: true);
+            succeeded &= ValidateFiles(context, analyzeOptions.PluginFilePaths, DefaultPolicyName, shouldExist: true);
+            succeeded &= ValidateFile(context, analyzeOptions.BaselineSarifFile, DefaultPolicyName, shouldExist: true);
             succeeded &= ValidateInvocationPropertiesToLog(context, analyzeOptions.InvocationPropertiesToLog);
             succeeded &= ValidateOutputFileCanBeCreated(context, analyzeOptions.OutputFilePath, analyzeOptions.Force);
             succeeded &= analyzeOptions.ValidateOutputOptions(context);
+            succeeded &= ValidateExport(analyzeOptions.OutputFilePath, analyzeOptions.Export);
 
             if (!succeeded)
             {
@@ -195,85 +207,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 //  whenever something goes wrong. #2260 https://github.com/microsoft/sarif-sdk/issues/2260
                 ThrowExitApplicationException(context, ExitReason.InvalidCommandLineOption);
             }
-        }
-
-        private bool ValidateFiles(TContext context, IEnumerable<string> filePaths, bool shouldExist)
-        {
-            if (filePaths == null) { return true; }
-
-            bool succeeded = true;
-
-            foreach (string filePath in filePaths)
-            {
-                succeeded &= ValidateFile(context, filePath, shouldExist);
-            }
-
-            return succeeded;
-        }
-
-        private bool ValidateFile(TContext context, string filePath, bool? shouldExist)
-        {
-            if (filePath == null || filePath == DefaultPolicyName) { return true; }
-
-            Exception exception = null;
-
-            try
-            {
-                bool fileExists = FileSystem.FileExists(filePath);
-
-                if (fileExists || shouldExist == null || !shouldExist.Value)
-                {
-                    return true;
-                }
-
-                Errors.LogMissingFile(context, filePath);
-            }
-            catch (IOException ex) { exception = ex; }
-            catch (SecurityException ex) { exception = ex; }
-            catch (UnauthorizedAccessException ex) { exception = ex; }
-
-            if (exception != null)
-            {
-                Errors.LogExceptionAccessingFile(context, filePath, exception);
-            }
-
-            return false;
-        }
-
-        private static bool ValidateInvocationPropertiesToLog(TContext context, IEnumerable<string> propertiesToLog)
-        {
-            bool succeeded = true;
-
-            if (propertiesToLog != null)
-            {
-                List<string> validPropertyNames = typeof(Invocation).GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                    .Select(propInfo => propInfo.Name.ToUpperInvariant())
-                    .ToList();
-
-                foreach (string propertyName in propertiesToLog)
-                {
-                    if (!validPropertyNames.Contains(propertyName.ToUpperInvariant()))
-                    {
-                        Errors.LogInvalidInvocationPropertyName(context, propertyName);
-                        succeeded = false;
-                    }
-                }
-            }
-
-            return succeeded;
-        }
-
-        private bool ValidateOutputFileCanBeCreated(TContext context, string outputFilePath, bool force)
-        {
-            bool succeeded = true;
-
-            if (!DriverUtilities.CanCreateOutputFile(outputFilePath, force, FileSystem))
-            {
-                Errors.LogOutputFileAlreadyExists(context, outputFilePath);
-                succeeded = false;
-            }
-
-            return succeeded;
         }
 
         internal AggregatingLogger InitializeLogger(AnalyzeOptionsBase analyzeOptions)

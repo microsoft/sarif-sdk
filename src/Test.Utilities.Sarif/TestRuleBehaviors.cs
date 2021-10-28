@@ -15,6 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         // Various code paths where we want to ensure behavior if an exception is raised.
         RaiseExceptionAccessingId = 0x2,
+
         RaiseExceptionAccessingName = 0x4,
         RaiseExceptionInvokingConstructor = 0x8,
         RaiseExceptionInvokingAnalyze = 0x10,
@@ -40,6 +41,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         // Assume one or more options are invalid
         RegardOptionsAsInvalid = 0x4000,
 
-        RaiseExceptionProcessingBaseline = 0x8000
+        RaiseExceptionProcessingBaseline = 0x8000,
+
+        RaiseExceptionExportingLogFile = 0x10000
     }
 }

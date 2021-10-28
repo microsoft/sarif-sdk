@@ -81,5 +81,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             base.ProcessBaseline(context, options, fileSystem);
         }
+
+        protected override void Export(IAnalysisContext context, TestAnalyzeOptions options, IFileSystem fileSystem)
+        {
+            if (context.Policy.GetProperty(TestRule.Behaviors).HasFlag(TestRuleBehaviors.RaiseExceptionExportingLogFile))
+            {
+                context.RuntimeErrors |= RuntimeConditions.ExceptionExportingLogFile;
+                ThrowExitApplicationException((TestAnalysisContext)context, ExitReason.ExceptionExportingLogFile);
+            }
+
+            base.Export(context, options, fileSystem);
+        }
     }
 }

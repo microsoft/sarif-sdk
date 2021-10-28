@@ -109,5 +109,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             "baseline",
             HelpText = "A Sarif file to be used as baseline")]
         public string BaselineSarifFile { get; set; }
+
+        [Option(
+            "export",
+            HelpText = "An URI that accepts SARIF as a POST.")]
+        public string Export { get; set; }
     }
 }

@@ -5,7 +5,7 @@ using System;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
-    // This enum is used to identify specific runtime conditions 
+    // This enum is used to identify specific runtime conditions
     // encountered during execution. This mechanism is used by
     // unit tests to ensure that failure conditions travel expected
     // code paths. These conditions are a combination of fatal
@@ -26,12 +26,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         //LoggerRaisedExceptionOnClose,
 
         // Fatal conditions
-        // InvalidCommandLineOption is a useful bit to 
-        // use as value 0x1. This allows for a consistent 
+        // InvalidCommandLineOption is a useful bit to
+        // use as value 0x1. This allows for a consistent
         // return value in cases where a command-line argument
-        // for --rich-return-code can't be detected because it 
-        // fails to parse. 
+        // for --rich-return-code can't be detected because it
+        // fails to parse.
         InvalidCommandLineOption = 0x1,
+
         ExceptionInSkimmerInitialize = 0x2,
         ExceptionRaisedInSkimmerCanAnalyze = 0x4,
         ExceptionInSkimmerAnalyze = 0x8,
@@ -49,9 +50,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         ExceptionInstantiatingSkimmers = 0x8000,
         OutputFileAlreadyExists = 0x10000,
         ExceptionProcessingBaseline = 0x20000,
+        ExceptionExportingLogFile = 0x40000,
 
         // Non-fatal conditions
         UnassignedNonfatal = 0x01F00000,
+
         RuleWasExplicitlyDisabled = 0x02000000,
         RuleCannotRunOnPlatform = 0x04000000,
         RuleNotApplicableToTarget = 0x08000000,

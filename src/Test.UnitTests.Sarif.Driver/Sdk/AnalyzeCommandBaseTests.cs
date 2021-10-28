@@ -311,6 +311,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
+        public void ExceptionRasedExportingLogFile()
+        {
+            var options = new TestAnalyzeOptions()
+            {
+                TestRuleBehaviors = TestRuleBehaviors.RaiseExceptionExportingLogFile,
+                TargetFileSpecifiers = new string[] { GetThisTestAssemblyFilePath() },
+            };
+
+            ExceptionTestHelper(
+                RuntimeConditions.ExceptionExportingLogFile,
+                expectedExitReason: ExitReason.ExceptionExportingLogFile,
+                analyzeOptions: options
+            );
+        }
+
+        [Fact]
         public void ExceptionRaisedInvokingAnalyze_PersistInnerException()
         {
             string location = GetThisTestAssemblyFilePath();
