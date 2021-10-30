@@ -543,7 +543,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             succeeded &= ValidateInvocationPropertiesToLog(context, options.InvocationPropertiesToLog);
             succeeded &= ValidateOutputFileCanBeCreated(context, options.OutputFilePath, options.Force);
             succeeded &= options.ValidateOutputOptions(context);
-            succeeded &= ValidateExport(options.OutputFilePath, options.Export);
+            succeeded &= ValidateExportUri(options.OutputFilePath, options.ExportUri);
 
             if (!succeeded)
             {

@@ -18,6 +18,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     public abstract class PluginDriverCommand<T> : DriverCommand<T>
     {
+        private HttpClient _httpClient;
+
         public virtual IEnumerable<Assembly> DefaultPluginAssemblies
         {
             get { return null; }
@@ -40,19 +42,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return assemblies;
         }
 
-        public bool ValidateExport(string outputFilePath, string exportUri)
+        public bool ValidateExportUri(string outputFilePath, string exportUri)
         {
             if (string.IsNullOrEmpty(exportUri))
             {
                 return true;
             }
 
+            // If exportUri is not empty, then outputFilePath must exist.
             if (string.IsNullOrEmpty(outputFilePath))
             {
                 return false;
             }
 
-            return true;
+            return Uri.IsWellFormedUriString(exportUri, UriKind.Absolute);
         }
 
         public bool ValidateFile(IAnalysisContext context, string filePath, string policyName, bool? shouldExist)
@@ -201,18 +204,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 return;
             }
 
-            if (string.IsNullOrEmpty(options.Export))
+            if (string.IsNullOrEmpty(options.ExportUri))
             {
                 return;
             }
 
             try
             {
-                using var fileStream = fileSystem.FileOpenRead(options.OutputFilePath);
-
-                var httpClient = new HttpClient();
-                using var response = httpClient
-                    .PostAsync(options.Export, new StreamContent(fileStream))
+                using Stream fileStream = fileSystem.FileOpenRead(options.OutputFilePath);
+                using var streamContent = new StreamContent(fileStream);
+                using HttpClient httpClient = _httpClient ?? new HttpClient();
+                using HttpResponseMessage response = httpClient
+                    .PostAsync(options.ExportUri, streamContent)
                     .GetAwaiter()
                     .GetResult();
 
@@ -225,6 +228,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     ExitReason = ExitReason.ExceptionExportingLogFile
                 };
             }
+        }
+
+        /// <summary>
+        /// This method will be used to mock the HttpClient so we can add tests.
+        /// </summary>
+        /// <param name="httpClient"></param>
+        internal void SetHttpClient(HttpClient httpClient)
+        {
+            _httpClient = httpClient;
         }
     }
 }
