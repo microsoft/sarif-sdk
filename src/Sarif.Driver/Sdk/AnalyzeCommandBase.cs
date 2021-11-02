@@ -197,7 +197,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             succeeded &= ValidateInvocationPropertiesToLog(context, analyzeOptions.InvocationPropertiesToLog);
             succeeded &= ValidateOutputFileCanBeCreated(context, analyzeOptions.OutputFilePath, analyzeOptions.Force);
             succeeded &= analyzeOptions.ValidateOutputOptions(context);
-            succeeded &= ValidatePostUri(analyzeOptions.OutputFilePath, analyzeOptions.PostUri);
 
             if (!succeeded)
             {

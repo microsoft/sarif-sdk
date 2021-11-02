@@ -169,6 +169,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             // baseline process now depends on output file
             valid &= !(string.IsNullOrWhiteSpace(options.OutputFilePath) && !string.IsNullOrWhiteSpace(options.BaselineSarifFile));
 
+            // post SARIF process now depends on output file
+            valid &= !(string.IsNullOrWhiteSpace(options.OutputFilePath) && !string.IsNullOrWhiteSpace(options.PostUri));
+            valid &= !(!string.IsNullOrWhiteSpace(options.PostUri) && !Uri.IsWellFormedUriString(options.PostUri, UriKind.Absolute));
+
             if (!valid)
             {
                 context.RuntimeErrors |= RuntimeConditions.InvalidCommandLineOption;

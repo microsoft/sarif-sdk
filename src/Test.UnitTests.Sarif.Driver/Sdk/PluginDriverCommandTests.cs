@@ -19,57 +19,6 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Driver.Sdk
     public class PluginDriverCommandTests
     {
         [Fact]
-        public void PluginDriverCommand_ValidatePostUri_ShouldValidateParameters()
-        {
-            var testCases = new[]
-            {
-                new
-                {
-                    Title = "Empty 'postUri' should return true",
-                    OutputFilePath = string.Empty,
-                    PostUri = string.Empty,
-                    Expected = true
-                },
-                new
-                {
-                    Title = "Valid 'postUri' but empty 'outputFilePath' should return false",
-                    OutputFilePath = string.Empty,
-                    PostUri = "some string",
-                    Expected = false
-                },
-                new
-                {
-                    Title = "Valid 'postUri' with valid 'outputFilePath' should return false when 'postUri' is invalid",
-                    OutputFilePath = "some path",
-                    PostUri = "some string",
-                    Expected = false
-                },
-                new
-                {
-                    Title = "Valid 'postUri' with valid 'outputFilePath' should return false when 'postUri' is valid",
-                    OutputFilePath = "some path",
-                    PostUri = "https://github.com",
-                    Expected = true
-                }
-            };
-
-            var sb = new StringBuilder();
-
-            foreach (var testCase in testCases)
-            {
-                bool current = PluginDriverCommand<string>.ValidatePostUri(testCase.OutputFilePath,
-                                                                           testCase.PostUri);
-
-                if (current != testCase.Expected)
-                {
-                    sb.AppendLine($"The test '{testCase.Title}' was expecting '{testCase.Expected}' but found '{current}'.");
-                }
-            }
-
-            sb.Length.Should().Be(0, sb.ToString());
-        }
-
-        [Fact]
         public void PluginDriverCommand_ValidateInvocationPropertiesToLog_ShouldValidateParameters()
         {
             var testCases = new[]

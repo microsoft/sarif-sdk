@@ -42,22 +42,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return assemblies;
         }
 
-        internal static bool ValidatePostUri(string outputFilePath, string postUri)
-        {
-            if (string.IsNullOrEmpty(postUri))
-            {
-                return true;
-            }
-
-            // If postUri is not empty, then outputFilePath must exist.
-            if (string.IsNullOrEmpty(outputFilePath))
-            {
-                return false;
-            }
-
-            return Uri.IsWellFormedUriString(postUri, UriKind.Absolute);
-        }
-
         internal static bool ValidateInvocationPropertiesToLog(IAnalysisContext context, IEnumerable<string> propertiesToLog)
         {
             bool succeeded = true;
