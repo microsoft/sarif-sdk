@@ -433,16 +433,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                         SarifLogger sarifLogger;
 
-                        _run = new Run();
-
-                        if (!string.IsNullOrWhiteSpace(analyzeOptions.AutomationId) || !string.IsNullOrWhiteSpace(analyzeOptions.AutomationGuid))
+                        _run = new Run()
                         {
-                            _run.AutomationDetails = new RunAutomationDetails
+                            AutomationDetails = new RunAutomationDetails
                             {
                                 Id = analyzeOptions.AutomationId,
                                 Guid = analyzeOptions.AutomationGuid
-                            };
-                        }
+                            }
+                        };
 
                         if (analyzeOptions.SarifOutputVersion != SarifVersion.OneZeroZero)
                         {

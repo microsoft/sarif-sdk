@@ -112,12 +112,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         [Option(
             "automationId",
-            HelpText = "An id that will be used in the output SARIF and show in the 'automationDetails.id' under 'run'.")]
+            HelpText = "An id that will be persisted to the 'Run.AutomationDetails.Id' property. See section '3.17.3' of the SARIF specification for more information.")]
         public string AutomationId { get; set; }
 
         [Option(
             "automationGuid",
-            HelpText = "A guid that will be used in the output SARIF and show in the 'automationDetails.guid' under 'run'.")]
+            HelpText = "A guid that will be persisted to the 'Run.AutomationDetails.Guid' property. See section '3.17.4' of the SARIF specification for more information.")]
         public string AutomationGuid { get; set; }
     }
 }

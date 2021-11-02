@@ -21,6 +21,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
     {
         private const string s_UriBaseId = "$$SomeUriBaseId$$";
         private readonly Uri s_Uri = new Uri("relativeUri/toSomeFile.txt", UriKind.Relative);
+
         private static readonly ReadOnlyCollection<HasAbsentResultsTestCase> s_hasAbsentResultsTestCases = new List<HasAbsentResultsTestCase>
         {
             new HasAbsentResultsTestCase
@@ -124,6 +125,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
                 ExpectedResult = false
             }
         }.AsReadOnly();
+
         private static readonly ReadOnlyCollection<HasSuppressedResultsTestCase> s_hasSuppressedResultsTestCases = new List<HasSuppressedResultsTestCase>
         {
             new HasSuppressedResultsTestCase
@@ -329,7 +331,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
         {
             // In our Windows-specific SDK, if no one has explicitly set ColumnKind, we
             // will set it to the windows-specific value of Utf16CodeUnits. Otherwise,
-            // the SARIF file will pick up the ColumnKind default value of 
+            // the SARIF file will pick up the ColumnKind default value of
             // UnicodeCodePoints, which is not appropriate for Windows frameworks.
             RoundTripColumnKind(persistedValue: ColumnKind.None, expectedRoundTrippedValue: ColumnKind.Utf16CodeUnits);
 
@@ -488,6 +490,85 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             }
 
             sb.Length.Should().Be(0, "failed test cases:\n" + sb.ToString());
+        }
+
+        [Fact]
+        public void Run_ShouldSerializeAutomationDetails_WhenIdOrGuidIsNotNullOrWhiteSpace()
+        {
+            const string id = "automation-id";
+            const string guid = "automation-guid";
+
+            var sarifLog = new SarifLog
+            {
+                Runs = new[] { new Run() }
+            };
+            sarifLog.Runs[0].AutomationDetails = new RunAutomationDetails();
+
+            sarifLog.Runs[0].AutomationDetails.Id = id;
+            sarifLog.Runs[0].AutomationDetails.Guid = string.Empty;
+
+            AsserAutomationDetailsValues(sarifLog, id, string.Empty);
+
+            sarifLog.Runs[0].AutomationDetails.Id = string.Empty;
+            sarifLog.Runs[0].AutomationDetails.Guid = guid;
+
+            AsserAutomationDetailsValues(sarifLog, string.Empty, guid);
+
+            sarifLog.Runs[0].AutomationDetails.Id = id;
+            sarifLog.Runs[0].AutomationDetails.Guid = guid;
+
+            AsserAutomationDetailsValues(sarifLog, id, guid);
+        }
+
+        [Fact]
+        public void Run_ShouldNotSerializeAutomationDetails_WhenIdAndGuidAreNullOrWhiteSpace()
+        {
+            const string whiteSpace = " ";
+
+            var sarifLog = new SarifLog
+            {
+                Runs = new[] { new Run() }
+            };
+            sarifLog.Runs[0].AutomationDetails = new RunAutomationDetails();
+
+            sarifLog.Runs[0].AutomationDetails.Id = string.Empty;
+            sarifLog.Runs[0].AutomationDetails.Guid = string.Empty;
+
+            AsserAutomationDetailsValues(sarifLog, string.Empty, string.Empty);
+
+            sarifLog.Runs[0].AutomationDetails.Id = null;
+            sarifLog.Runs[0].AutomationDetails.Guid = null;
+
+            AsserAutomationDetailsValues(sarifLog, string.Empty, string.Empty);
+
+            sarifLog.Runs[0].AutomationDetails.Id = whiteSpace;
+            sarifLog.Runs[0].AutomationDetails.Guid = whiteSpace;
+
+            AsserAutomationDetailsValues(sarifLog, whiteSpace, whiteSpace);
+        }
+
+        private void AsserAutomationDetailsValues(SarifLog sarifLog, string id, string guid)
+        {
+            string sarifLogText = JsonConvert.SerializeObject(sarifLog);
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                // Checking if the property 'id' exists.
+                sarifLogText.Should().NotContain($@"""{nameof(id)}""");
+            }
+            else
+            {
+                sarifLogText.Should().Contain(id);
+            }
+
+            if (string.IsNullOrWhiteSpace(guid))
+            {
+                // Checking if the property 'guid' exists.
+                sarifLogText.Should().NotContain($@"""{nameof(guid)}""");
+            }
+            else
+            {
+                sarifLogText.Should().Contain(guid);
+            }
         }
 
         private void RoundTripColumnKind(ColumnKind persistedValue, ColumnKind expectedRoundTrippedValue)
