@@ -119,7 +119,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 try
                 {
-                    Export(_rootContext, options, FileSystem);
+                    ProcessPostUri(_rootContext, options, FileSystem);
                 }
                 catch (Exception ex)
                 {

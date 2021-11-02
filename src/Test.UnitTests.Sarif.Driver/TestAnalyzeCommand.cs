@@ -71,7 +71,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             base.ProcessBaseline(context, options, fileSystem);
         }
 
-        protected override void Export(IAnalysisContext context, TestAnalyzeOptions options, IFileSystem fileSystem)
+        protected override void ProcessPostUri(IAnalysisContext context, TestAnalyzeOptions options, IFileSystem fileSystem)
         {
             if (context.Policy.GetProperty(TestRule.Behaviors).HasFlag(TestRuleBehaviors.RaiseExceptionExportingLogFile))
             {
@@ -79,7 +79,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 ThrowExitApplicationException((TestAnalysisContext)context, ExitReason.ExceptionPostingLog);
             }
 
-            base.Export(context, options, fileSystem);
+            base.ProcessPostUri(context, options, fileSystem);
         }
     }
 }

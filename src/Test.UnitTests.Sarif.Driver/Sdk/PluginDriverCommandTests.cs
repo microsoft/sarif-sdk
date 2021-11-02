@@ -3,6 +3,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Net.Http;
 using System.Text;
 
 using FluentAssertions;
@@ -67,6 +69,65 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Driver.Sdk
             }
 
             sb.Length.Should().Be(0, sb.ToString());
+        }
+
+        [Fact]
+        public void PluginDriverCommand_ProcessPostUri()
+        {
+            var mockFileSystem = new Mock<IFileSystem>();
+
+            // Nothing should happen, since driverOptions is not an 'AnalyzeOptionsBase' object.
+            PluginDriverCommand<string>.ProcessPostUri(string.Empty,
+                                                       mockFileSystem.Object,
+                                                       httpClient: null);
+
+            // Nothing should happen, since driverOptions does not have a valid 'PostUri'.
+            var options = new TestAnalyzeOptions();
+            PluginDriverCommand<AnalyzeOptionsBase>.ProcessPostUri(options,
+                                                                   mockFileSystem.Object,
+                                                                   httpClient: null);
+
+            // Generating some random exception and verifying if we are throwing
+            // a new ExitApplicationException.
+            options.PostUri = "https://github.com/microsoft/sarif-sdk";
+            Exception exception = Record.Exception(() =>
+            {
+                PluginDriverCommand<AnalyzeOptionsBase>.ProcessPostUri(options,
+                                                                       fileSystem: null,
+                                                                       httpClient: null);
+            });
+            exception.Should().BeOfType(typeof(ExitApplicationException<ExitReason>));
+
+            var sarifLog = new SarifLog();
+            var httpMock = new HttpMockHelper();
+            var memoryStream = new MemoryStream();
+            sarifLog.Save(memoryStream);
+            mockFileSystem
+                .Setup(f => f.FileOpenRead(It.IsAny<string>()))
+                .Returns(memoryStream);
+
+            // If not OK, we should expect a new ExitApplicationException
+            httpMock.Mock(
+                new HttpRequestMessage(HttpMethod.Post, options.PostUri) { Content = new StreamContent(memoryStream) },
+                HttpMockHelper.BadRequestResponse);
+
+            exception = Record.Exception(() =>
+            {
+                PluginDriverCommand<AnalyzeOptionsBase>.ProcessPostUri(options,
+                                                                   mockFileSystem.Object,
+                                                                   new HttpClient(httpMock));
+            });
+            exception.Should().BeOfType(typeof(ExitApplicationException<ExitReason>));
+            httpMock.Clear();
+
+            // Valid request and valid response.
+            httpMock.Mock(
+                new HttpRequestMessage(HttpMethod.Post, options.PostUri) { Content = new StreamContent(memoryStream) },
+                HttpMockHelper.OKResponse);
+            PluginDriverCommand<AnalyzeOptionsBase>.ProcessPostUri(options,
+                                                                   mockFileSystem.Object,
+                                                                   new HttpClient(httpMock));
+            httpMock.Clear();
         }
     }
 }

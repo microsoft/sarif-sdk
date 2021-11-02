@@ -18,8 +18,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     public abstract class PluginDriverCommand<T> : DriverCommand<T>
     {
-        private HttpClient _httpClient;
-
         public virtual IEnumerable<Assembly> DefaultPluginAssemblies
         {
             get { return null; }
@@ -181,7 +179,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        protected virtual void Export(IAnalysisContext context, T driverOptions, IFileSystem fileSystem)
+        protected virtual void ProcessPostUri(IAnalysisContext context, T driverOptions, IFileSystem fileSystem)
+        {
+            ProcessPostUri(driverOptions, fileSystem, new HttpClient());
+        }
+
+        internal static void ProcessPostUri(T driverOptions, IFileSystem fileSystem, HttpClient httpClient)
         {
             if (!(driverOptions is AnalyzeOptionsBase options))
             {
@@ -197,7 +200,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 using Stream fileStream = fileSystem.FileOpenRead(options.OutputFilePath);
                 using var streamContent = new StreamContent(fileStream);
-                using HttpClient httpClient = _httpClient ?? new HttpClient();
                 using HttpResponseMessage response = httpClient
                     .PostAsync(options.PostUri, streamContent)
                     .GetAwaiter()
@@ -212,15 +214,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     ExitReason = ExitReason.ExceptionPostingLog
                 };
             }
-        }
-
-        /// <summary>
-        /// This method will be used to mock the HttpClient so we can add tests.
-        /// </summary>
-        /// <param name="httpClient"></param>
-        internal void SetHttpClient(HttpClient httpClient)
-        {
-            _httpClient = httpClient;
         }
     }
 }
