@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using System;
 using System.IO;
 using System.Text;
 
@@ -13,61 +12,59 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 {
     public class DelegatingStreamTests
     {
-        [Fact]
-        public void DelegatingStreamBasicRead()
-        {
-            const string testStr = "Hello";
-            MemoryStream memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(testStr));
-            DelegatingStream delegatingStream = new DelegatingStream(memoryStream);
-
-            Assert.Equal(0, delegatingStream.Position);
-            Assert.Equal(memoryStream.Position, delegatingStream.Position);
-            using StreamReader streamReader = new StreamReader(delegatingStream);
-            Assert.Equal(testStr, streamReader.ReadToEnd());
-            Assert.Equal(testStr.Length, delegatingStream.Position);
-            Assert.Equal(memoryStream.Position, delegatingStream.Position);
-        }
+        private const int position = 3;
+        private const string text = "Hello";
 
         [Fact]
-        public void DelegatingStreamBasicSeek()
+        public void DelegatingStream_BasicRead()
         {
-            const string testStr = "Hello";
-            const int newPosition = 3;
-            MemoryStream memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(testStr));
-            DelegatingStream delegatingStream = new DelegatingStream(memoryStream);
+            var memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(text));
+            var delegatingStream = new DelegatingStream(memoryStream);
 
             Assert.Equal(0, delegatingStream.Position);
             Assert.Equal(memoryStream.Position, delegatingStream.Position);
 
-            delegatingStream.Position = newPosition;
-
-            Assert.Equal(newPosition, delegatingStream.Position);
+            using var streamReader = new StreamReader(delegatingStream);
+            Assert.Equal(text, streamReader.ReadToEnd());
+            Assert.Equal(text.Length, delegatingStream.Position);
             Assert.Equal(memoryStream.Position, delegatingStream.Position);
         }
 
         [Fact]
-        public void DelegatingStreamDontPerturbPositionOnCtor()
+        public void DelegatingStream_BasicSeek()
         {
-            const string testStr = "Hello";
-            const int startingPosition = 3;
-            MemoryStream memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(testStr));
-            memoryStream.Position = startingPosition;
-            DelegatingStream delegatingStream = new DelegatingStream(memoryStream);
+            var memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(text));
+            var delegatingStream = new DelegatingStream(memoryStream);
 
-            Assert.Equal(startingPosition, delegatingStream.Position);
+            Assert.Equal(0, delegatingStream.Position);
+            Assert.Equal(memoryStream.Position, delegatingStream.Position);
+
+            delegatingStream.Position = position;
+
+            Assert.Equal(position, delegatingStream.Position);
             Assert.Equal(memoryStream.Position, delegatingStream.Position);
         }
 
         [Fact]
-        public void DelegatingStreamNonSeekable()
+        public void DelegatingStream_DontPerturbPositionOnCtor()
         {
-            const string testStr = "Hello";
-            MemoryStream memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(testStr));
-            NonSeekableStream nonSeekableStream = new NonSeekableStream(memoryStream);
-            DelegatingStream delegatingStream = new DelegatingStream(nonSeekableStream);
+            var memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(text));
+            memoryStream.Position = position;
+            var delegatingStream = new DelegatingStream(memoryStream);
 
-            using StreamReader streamReader = new StreamReader(delegatingStream);
-            Assert.Equal(testStr, streamReader.ReadToEnd());
+            Assert.Equal(position, delegatingStream.Position);
+            Assert.Equal(memoryStream.Position, delegatingStream.Position);
+        }
+
+        [Fact]
+        public void DelegatingStream_NonSeekable()
+        {
+            var memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(text));
+            var nonSeekableStream = new NonSeekableStream(memoryStream);
+            var delegatingStream = new DelegatingStream(nonSeekableStream);
+
+            using var streamReader = new StreamReader(delegatingStream);
+            Assert.Equal(text, streamReader.ReadToEnd());
         }
     }
 }

@@ -59,6 +59,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 var jsonPositionedTextReader = JsonPositionedTextReader.FromStream(Stream.Synchronized(source));
                 return serializer.Deserialize<SarifLog>(jsonPositionedTextReader);
             }
+
             using (var streamReader = new StreamReader(source))
             using (var jsonTextReader = new JsonTextReader(streamReader))
             {

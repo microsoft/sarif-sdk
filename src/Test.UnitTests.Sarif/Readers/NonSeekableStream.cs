@@ -7,7 +7,8 @@ using System.IO;
 using System.Text;
 
 namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Readers
-{internal class NonSeekableStream : Stream
+{
+    internal class NonSeekableStream : Stream
     {
         private readonly Stream stream;
 
