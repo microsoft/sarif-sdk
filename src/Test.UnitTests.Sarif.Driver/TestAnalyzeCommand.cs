@@ -73,7 +73,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         protected override void ProcessPostUri(IAnalysisContext context, TestAnalyzeOptions options, IFileSystem fileSystem)
         {
-            if (context.Policy.GetProperty(TestRule.Behaviors).HasFlag(TestRuleBehaviors.RaiseExceptionExportingLogFile))
+            if (context.Policy.GetProperty(TestRule.Behaviors).HasFlag(TestRuleBehaviors.RaiseExceptionProcessingPostUri))
             {
                 context.RuntimeErrors |= RuntimeConditions.ExceptionPostingLog;
                 ThrowExitApplicationException((TestAnalysisContext)context, ExitReason.ExceptionPostingLog);

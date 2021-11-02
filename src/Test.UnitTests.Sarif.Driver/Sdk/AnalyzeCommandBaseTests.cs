@@ -311,11 +311,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public void ExceptionRasedExportingLogFile()
+        public void ExceptionRasedProcessingPostUri()
         {
             var options = new TestAnalyzeOptions()
             {
-                TestRuleBehaviors = TestRuleBehaviors.RaiseExceptionExportingLogFile,
+                TestRuleBehaviors = TestRuleBehaviors.RaiseExceptionProcessingPostUri,
                 TargetFileSpecifiers = new string[] { GetThisTestAssemblyFilePath() },
             };
 
