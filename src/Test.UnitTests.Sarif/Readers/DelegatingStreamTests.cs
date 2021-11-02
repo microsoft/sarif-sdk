@@ -66,5 +66,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             using var streamReader = new StreamReader(delegatingStream);
             Assert.Equal(text, streamReader.ReadToEnd());
         }
+
+        [Fact]
+        public void DelegatingStream_WriteToStream()
+        {
+            byte[] bytes = Encoding.UTF8.GetBytes(text);
+            var memoryStream = new MemoryStream();
+            var delegatingStream = new DelegatingStream(memoryStream);
+            if (delegatingStream.CanWrite)
+            {
+                delegatingStream.Write(bytes, 0, bytes.Length);
+                delegatingStream.Position = 0;
+            }
+
+            using var streamReader = new StreamReader(delegatingStream);
+            Assert.Equal(text, streamReader.ReadToEnd());
+            Assert.Equal(text.Length, delegatingStream.Position);
+        }
     }
 }
