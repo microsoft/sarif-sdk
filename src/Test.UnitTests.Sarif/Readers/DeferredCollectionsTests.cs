@@ -39,14 +39,37 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             CompareReadNormalToReadDeferred(LogModelSampleBuilder.SampleOneLinePath);
         }
 
-        private static void CompareReadNormalToReadDeferred(string filePath)
+        [Fact]
+        public void EndToEnd_NormalLog_WithStream()
+        {
+            CompareReadNormalToReadDeferredWithStreams(LogModelSampleBuilder.SampleLogPath);
+        }
+
+        [Fact]
+        public void EndToEnd_EmptyLog_WithStream()
+        {
+            CompareReadNormalToReadDeferredWithStreams(LogModelSampleBuilder.SampleEmptyPath);
+        }
+
+        [Fact]
+        public void EndToEnd_NoDictionary_WithStream()
+        {
+            CompareReadNormalToReadDeferredWithStreams(LogModelSampleBuilder.SampleNoCodeContextsPath);
+        }
+
+        [Fact]
+        public void EndToEnd_SingleLineJson_WithStream()
+        {
+            CompareReadNormalToReadDeferredWithStreams(LogModelSampleBuilder.SampleOneLinePath);
+        }
+
+        private static void CompareReadNormalToReadDeferredWithStreams(string filePath)
         {
             LogModelSampleBuilder.EnsureSamplesBuilt();
             JsonSerializer serializer = new JsonSerializer();
 
             Log expected;
             Log actual;
-
             // Read normally (JsonSerializer -> JsonTextReader -> StreamReader)
             using (JsonTextReader reader = new JsonTextReader(new StreamReader(filePath)))
             {
@@ -57,13 +80,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
             // Read with Deferred collections
             serializer.ContractResolver = new LogModelDeferredContractResolver();
-            using (JsonPositionedTextReader reader = new JsonPositionedTextReader(filePath))
+            Stream contents = File.OpenRead(filePath);
+
+            using (JsonPositionedTextReader reader = JsonPositionedTextReader.FromStream(contents))
             {
                 actual = serializer.Deserialize<Log>(reader);
                 Assert.IsType<DeferredDictionary<CodeContext>>(actual.CodeContexts);
                 Assert.IsType<DeferredList<LogMessage>>(actual.Messages);
             }
 
+            CompareReadNormalToReadDeferredLogs(expected, actual);
+        }
+
+        private static void CompareReadNormalToReadDeferredLogs(Log expected, Log actual)
+        {
             // Deep compare objects which were returned
             AssertEqual(expected, actual);
 
@@ -124,6 +154,34 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                 valueCount++;
             }
             Assert.Equal(contextsCopy.Count, valueCount);
+        }
+
+        private static void CompareReadNormalToReadDeferred(string filePath)
+        {
+            LogModelSampleBuilder.EnsureSamplesBuilt();
+            JsonSerializer serializer = new JsonSerializer();
+
+            Log expected;
+            Log actual;
+
+            // Read normally (JsonSerializer -> JsonTextReader -> StreamReader)
+            using (JsonTextReader reader = new JsonTextReader(new StreamReader(filePath)))
+            {
+                expected = serializer.Deserialize<Log>(reader);
+                Assert.IsType<Dictionary<string, CodeContext>>(expected.CodeContexts);
+                Assert.IsType<List<LogMessage>>(expected.Messages);
+            }
+
+            // Read with Deferred collections
+            serializer.ContractResolver = new LogModelDeferredContractResolver();
+            using (JsonPositionedTextReader reader = new JsonPositionedTextReader(filePath))
+            {
+                actual = serializer.Deserialize<Log>(reader);
+                Assert.IsType<DeferredDictionary<CodeContext>>(actual.CodeContexts);
+                Assert.IsType<DeferredList<LogMessage>>(actual.Messages);
+            }
+
+            CompareReadNormalToReadDeferredLogs(expected, actual);
         }
 
         private static void AssertEqual(Log expected, Log actual)

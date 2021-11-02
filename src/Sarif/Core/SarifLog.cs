@@ -56,19 +56,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (deferred)
             {
                 serializer.ContractResolver = new SarifDeferredContractResolver();
-                var jptr = new JsonPositionedTextReader(Stream.Synchronized(source));
-                return serializer.Deserialize<SarifLog>(jptr);
+                var jsonPositionedTextReader = JsonPositionedTextReader.FromStream(Stream.Synchronized(source));
+                return serializer.Deserialize<SarifLog>(jsonPositionedTextReader);
             }
-            else
+            using (var streamReader = new StreamReader(source))
+            using (var jsonTextReader = new JsonTextReader(streamReader))
             {
-                using (var sr = new StreamReader(source))
-                {
-                    using (var jtr = new JsonTextReader(sr))
-                    {
-                        // NOTE: Load with JsonSerializer.Deserialize, not JsonConvert.DeserializeObject, to avoid a string of the whole file in memory.
-                        return serializer.Deserialize<SarifLog>(jtr);
-                    }
-                }
+                // NOTE: Load with JsonSerializer.Deserialize, not JsonConvert.DeserializeObject, to avoid a string of the whole file in memory.
+                return serializer.Deserialize<SarifLog>(jsonTextReader);
             }
         }
 
