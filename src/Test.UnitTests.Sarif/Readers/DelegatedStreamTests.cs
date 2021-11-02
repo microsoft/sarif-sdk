@@ -73,8 +73,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             private readonly Stream stream;
 
             /// <summary>
-            /// This is a wrapper for a stream that protects the underlying stream from being disposed.
-            /// Disposing this object is a no-op. To dispose the underlying stream use the DisposeUnderlyingStream method.
+            /// This is a wrapper for a that prevents seeking for tests.
             /// </summary>
             /// <param name="underlyingStream"></param>
             internal NonSeekableStream(Stream underlyingStream)
@@ -109,12 +108,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
             public override void Write(byte[] buffer, int offset, int count) => stream.Write(buffer, offset, count);
 
-            /// <summary>
-            /// Calls the dispose method on the wrapped stream.
-            /// </summary>
-            public void DisposeUnderlyingStream()
+            protected override void Dispose(bool disposing)
             {
-                stream.Dispose();
+                if (disposing)
+                {
+                    stream.Dispose();
+                }
+                base.Dispose(disposing);
             }
         }
 
