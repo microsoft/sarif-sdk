@@ -1289,7 +1289,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             $@"{Environment.CurrentDirectory}\Review.2.of.2.dll"
         };
 
-        private static void RunResultsCachingTestCase(ResultsCachingTestCase testCase, bool multithreaded = false, TestAnalyzeOptions enhancedOptions = null)
+        private static void RunResultsCachingTestCase(ResultsCachingTestCase testCase,
+                                                      bool multithreaded = false,
+                                                      TestAnalyzeOptions enhancedOptions = null)
         {
             // This makes sure that we will reinitialize the mock file system. This
             // allows callers to reuse test case instances, by adjusting specific
