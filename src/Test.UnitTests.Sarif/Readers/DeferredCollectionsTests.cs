@@ -89,6 +89,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                 Assert.IsType<DeferredList<LogMessage>>(actual.Messages);
             }
 
+            CompareReadNormalToReadDeferredLogs(expected, actual);
+        }
+
+        private static void CompareReadNormalToReadDeferredLogs(Log expected, Log actual)
+        {
             // Deep compare objects which were returned
             AssertEqual(expected, actual);
 
@@ -176,66 +181,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                 Assert.IsType<DeferredList<LogMessage>>(actual.Messages);
             }
 
-            // Deep compare objects which were returned
-            AssertEqual(expected, actual);
-
-            // DeferredList Code Coverage - CopyTo()
-            LogMessage[] messages = new LogMessage[actual.Messages.Count + 1];
-            actual.Messages.CopyTo(messages, 1);
-            if (actual.Messages.Count > 0) { Assert.Equal<LogMessage>(actual.Messages[0], messages[1]); }
-
-            // DeferredDictionary Code Coverage
-            CodeContext context;
-
-            // TryGetValue
-            Assert.False(actual.CodeContexts.TryGetValue("missing", out context));
-            if (actual.CodeContexts.Count > 0) { Assert.True(actual.CodeContexts.TryGetValue("load", out context)); }
-
-            // ContainsKey
-            Assert.False(actual.CodeContexts.ContainsKey("missing"));
-            if (actual.CodeContexts.Count > 0) { Assert.True(actual.CodeContexts.ContainsKey("load")); }
-
-            // Contains
-            context = new CodeContext() { Name = "LoadRules()", Type = CodeContextType.Method, ParentContextID = "run" };
-            Assert.False(actual.CodeContexts.Contains(new KeyValuePair<string, CodeContext>("missing", context)));        // Missing Key
-            Assert.False(actual.CodeContexts.Contains(new KeyValuePair<string, CodeContext>("run", context)));            // Different Value
-
-            if (actual.CodeContexts.Count > 0)
-            {
-                Assert.True(actual.CodeContexts.Contains(new KeyValuePair<string, CodeContext>("load", context)));        // Match
-                Assert.False(actual.CodeContexts.Contains(new KeyValuePair<string, CodeContext>("load", null)));          // Match vs. Null
-            }
-
-            // CopyTo
-            KeyValuePair<string, CodeContext>[] contexts = new KeyValuePair<string, CodeContext>[actual.CodeContexts.Count + 1];
-            actual.CodeContexts.CopyTo(contexts, 1);
-            if (actual.CodeContexts.Count > 0) { Assert.Equal(actual.CodeContexts.First(), contexts[1]); }
-
-            // Enumeration
-            Dictionary<string, CodeContext> contextsCopy = new Dictionary<string, CodeContext>();
-            foreach (KeyValuePair<string, CodeContext> pair in actual.CodeContexts)
-            {
-                contextsCopy[pair.Key] = pair.Value;
-            }
-            Assert.Equal(actual.CodeContexts.Count, contextsCopy.Count);
-
-            // Enumerate Keys
-            int keyCount = 0;
-            foreach (string key in actual.CodeContexts.Keys)
-            {
-                Assert.True(contextsCopy.ContainsKey(key));
-                keyCount++;
-            }
-            Assert.Equal(contextsCopy.Count, keyCount);
-
-            // Enumerate Values
-            int valueCount = 0;
-            foreach (CodeContext value in actual.CodeContexts.Values)
-            {
-                Assert.True(contextsCopy.ContainsValue(value));
-                valueCount++;
-            }
-            Assert.Equal(contextsCopy.Count, valueCount);
+            CompareReadNormalToReadDeferredLogs(expected, actual);
         }
 
         private static void AssertEqual(Log expected, Log actual)
