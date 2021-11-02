@@ -29,10 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public override long Position
         {
-            set
-            {
-                stream.Position = value;
-            }
+            set => throw new System.NotImplementedException();
             get => stream.Position;
         }
 
@@ -46,9 +43,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public override void Write(byte[] buffer, int offset, int count) => stream.Write(buffer, offset, count);
 
-        /// <summary>
-        /// Calls the dispose method on the wrapped stream.
-        /// </summary>
         public void DisposeUnderlyingStream()
         {
             stream.Dispose();

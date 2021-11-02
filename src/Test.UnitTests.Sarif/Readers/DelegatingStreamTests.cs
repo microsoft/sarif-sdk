@@ -1,8 +1,11 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using System.IO;
 using System.Text;
+
+using FluentAssertions;
 
 using Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Readers;
 
@@ -31,7 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         }
 
         [Fact]
-        public void DelegatingStream_BasicSeek()
+        public void DelegatingStream_BasicSeek_ShouldGenerateException()
         {
             var memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(text));
             var delegatingStream = new DelegatingStream(memoryStream);
@@ -39,10 +42,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             Assert.Equal(0, delegatingStream.Position);
             Assert.Equal(memoryStream.Position, delegatingStream.Position);
 
-            delegatingStream.Position = position;
+            Exception exception = Record.Exception(() => delegatingStream.Position = position);
 
-            Assert.Equal(position, delegatingStream.Position);
-            Assert.Equal(memoryStream.Position, delegatingStream.Position);
+            exception.Should().BeOfType(typeof(NotImplementedException));
         }
 
         [Fact]
@@ -65,23 +67,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
             using var streamReader = new StreamReader(delegatingStream);
             Assert.Equal(text, streamReader.ReadToEnd());
-        }
-
-        [Fact]
-        public void DelegatingStream_WriteToStream()
-        {
-            byte[] bytes = Encoding.UTF8.GetBytes(text);
-            var memoryStream = new MemoryStream();
-            var delegatingStream = new DelegatingStream(memoryStream);
-            if (delegatingStream.CanWrite)
-            {
-                delegatingStream.Write(bytes, 0, bytes.Length);
-                delegatingStream.Position = 0;
-            }
-
-            using var streamReader = new StreamReader(delegatingStream);
-            Assert.Equal(text, streamReader.ReadToEnd());
-            Assert.Equal(text.Length, delegatingStream.Position);
         }
     }
 }
