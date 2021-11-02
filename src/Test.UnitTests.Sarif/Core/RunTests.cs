@@ -493,10 +493,11 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
         }
 
         [Fact]
-        public void Run_ShouldSerializeAutomationDetails_WhenIdOrGuidIsNotNullOrWhiteSpace()
+        public void Run_ShouldSerializeAutomationDetails_WhenAnyPropertyIsValid()
         {
             const string id = "automation-id";
             const string guid = "automation-guid";
+            const string correlationGuid = "automation-correlation-guid";
 
             var sarifLog = new SarifLog
             {
@@ -506,22 +507,40 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
 
             sarifLog.Runs[0].AutomationDetails.Id = id;
             sarifLog.Runs[0].AutomationDetails.Guid = string.Empty;
+            sarifLog.Runs[0].AutomationDetails.CorrelationGuid = string.Empty;
 
-            AsserAutomationDetailsValues(sarifLog, id, string.Empty);
+            // Only 'id' should appear in the JSON.
+            VaildateAutomationDetailsValues(sarifLog);
 
             sarifLog.Runs[0].AutomationDetails.Id = string.Empty;
             sarifLog.Runs[0].AutomationDetails.Guid = guid;
+            sarifLog.Runs[0].AutomationDetails.CorrelationGuid = string.Empty;
 
-            AsserAutomationDetailsValues(sarifLog, string.Empty, guid);
+            // Only 'guid' should appear in the JSON.
+            VaildateAutomationDetailsValues(sarifLog);
+
+            sarifLog.Runs[0].AutomationDetails.Id = string.Empty;
+            sarifLog.Runs[0].AutomationDetails.Guid = string.Empty;
+            sarifLog.Runs[0].AutomationDetails.CorrelationGuid = correlationGuid;
+
+            // Only 'correlationGuid' should appear in the JSON.
+            VaildateAutomationDetailsValues(sarifLog);
 
             sarifLog.Runs[0].AutomationDetails.Id = id;
             sarifLog.Runs[0].AutomationDetails.Guid = guid;
+            sarifLog.Runs[0].AutomationDetails.CorrelationGuid = correlationGuid;
 
-            AsserAutomationDetailsValues(sarifLog, id, guid);
+            // 'id', 'guid', and 'correlationGuid' should appear in the JSON
+            VaildateAutomationDetailsValues(sarifLog);
+
+            sarifLog.Runs[0].AutomationDetails.Description = new Message { Text = "some-text" };
+
+            // 'id', 'guid', 'correlationGuid', and 'description' should appear in the JSON
+            VaildateAutomationDetailsValues(sarifLog);
         }
 
         [Fact]
-        public void Run_ShouldNotSerializeAutomationDetails_WhenIdAndGuidAreNullOrWhiteSpace()
+        public void Run_ShouldNotSerializeAutomationDetails_WhenAllPropertiesAreNullOrWhiteSpace()
         {
             const string whiteSpace = " ";
 
@@ -533,41 +552,68 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
 
             sarifLog.Runs[0].AutomationDetails.Id = string.Empty;
             sarifLog.Runs[0].AutomationDetails.Guid = string.Empty;
+            sarifLog.Runs[0].AutomationDetails.CorrelationGuid = string.Empty;
 
-            AsserAutomationDetailsValues(sarifLog, string.Empty, string.Empty);
+            // 'id', 'guid', and 'correlationGuid' should NOT appear in the JSON
+            VaildateAutomationDetailsValues(sarifLog);
 
             sarifLog.Runs[0].AutomationDetails.Id = null;
             sarifLog.Runs[0].AutomationDetails.Guid = null;
+            sarifLog.Runs[0].AutomationDetails.CorrelationGuid = null;
 
-            AsserAutomationDetailsValues(sarifLog, string.Empty, string.Empty);
+            // 'id', 'guid', and 'correlationGuid' should NOT appear in the JSON
+            VaildateAutomationDetailsValues(sarifLog);
 
             sarifLog.Runs[0].AutomationDetails.Id = whiteSpace;
             sarifLog.Runs[0].AutomationDetails.Guid = whiteSpace;
+            sarifLog.Runs[0].AutomationDetails.CorrelationGuid = whiteSpace;
 
-            AsserAutomationDetailsValues(sarifLog, whiteSpace, whiteSpace);
+            // 'id', 'guid', and 'correlationGuid' should NOT appear in the JSON
+            VaildateAutomationDetailsValues(sarifLog);
         }
 
-        private void AsserAutomationDetailsValues(SarifLog sarifLog, string id, string guid)
+        private void VaildateAutomationDetailsValues(SarifLog sarifLog)
         {
+            RunAutomationDetails automationDetails = sarifLog.Runs[0].AutomationDetails;
             string sarifLogText = JsonConvert.SerializeObject(sarifLog);
-            if (string.IsNullOrWhiteSpace(id))
+            if (string.IsNullOrWhiteSpace(automationDetails.Id))
             {
                 // Checking if the property 'id' exists.
-                sarifLogText.Should().NotContain($@"""{nameof(id)}""");
+                sarifLogText.Should().NotContain(@"""id""");
             }
             else
             {
-                sarifLogText.Should().Contain(id);
+                sarifLogText.Should().Contain(automationDetails.Id);
             }
 
-            if (string.IsNullOrWhiteSpace(guid))
+            if (string.IsNullOrWhiteSpace(automationDetails.Guid))
             {
                 // Checking if the property 'guid' exists.
-                sarifLogText.Should().NotContain($@"""{nameof(guid)}""");
+                sarifLogText.Should().NotContain(@"""guid""");
             }
             else
             {
-                sarifLogText.Should().Contain(guid);
+                sarifLogText.Should().Contain(automationDetails.Guid);
+            }
+
+            if (string.IsNullOrWhiteSpace(automationDetails.CorrelationGuid))
+            {
+                // Checking if the property 'correlationGuid' exists.
+                sarifLogText.Should().NotContain(@"""correlationGuid""");
+            }
+            else
+            {
+                sarifLogText.Should().Contain(automationDetails.CorrelationGuid);
+            }
+
+            if (automationDetails.Description == null)
+            {
+                // Checking if the property 'correlationGuid' exists.
+                sarifLogText.Should().NotContain(@"""description""");
+            }
+            else
+            {
+                sarifLogText.Should().Contain(automationDetails.Description.Text);
             }
         }
 

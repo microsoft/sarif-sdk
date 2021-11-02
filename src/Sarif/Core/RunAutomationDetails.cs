@@ -8,8 +8,12 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// </summary>
     public partial class RunAutomationDetails
     {
+        public bool ShouldSerializeDescription() => this.Description != null;
+
         public bool ShouldSerializeId() => !string.IsNullOrWhiteSpace(this.Id);
 
         public bool ShouldSerializeGuid() => !string.IsNullOrWhiteSpace(this.Guid);
+
+        public bool ShouldSerializeCorrelationGuid() => !string.IsNullOrWhiteSpace(this.CorrelationGuid);
     }
 }

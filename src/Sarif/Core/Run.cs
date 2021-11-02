@@ -222,8 +222,10 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public bool ShouldSerializeAutomationDetails()
         {
-            return !string.IsNullOrWhiteSpace(this.AutomationDetails?.Id) ||
-                !string.IsNullOrWhiteSpace(this.AutomationDetails?.Guid);
+            return this.AutomationDetails?.Description != null ||
+                !string.IsNullOrWhiteSpace(this.AutomationDetails?.Id) ||
+                !string.IsNullOrWhiteSpace(this.AutomationDetails?.Guid) ||
+                !string.IsNullOrWhiteSpace(this.AutomationDetails?.CorrelationGuid);
         }
 
         public bool ShouldSerializeInvocations()
