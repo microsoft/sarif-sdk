@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 
 using FluentAssertions;
@@ -12,11 +13,19 @@ using FluentAssertions;
 using Newtonsoft.Json;
 
 using Xunit;
+using Xunit.Abstractions;
 
 namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
 {
     public class SarifLogTests
     {
+        private readonly ITestOutputHelper output;
+
+        public SarifLogTests(ITestOutputHelper output)
+        {
+            this.output = output;
+        }
+
         [Fact]
         public void SarifLog_DoesNotSerializeNonNullEmptyCollections()
         {
@@ -175,7 +184,13 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
         [Fact]
         public void SarifLog_LoadDeferred()
         {
-            var random = new Random();
+            byte[] data = new byte[4];
+            RandomNumberGenerator.Fill(data);
+            int seed = BitConverter.ToInt32(data);
+            var random = new Random(seed);
+
+            output.WriteLine($"The seed used was: '{seed}'");
+
             SarifLog sarifLog = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, 1);
             string sarifLogText = JsonConvert.SerializeObject(sarifLog);
             byte[] byteArray = Encoding.ASCII.GetBytes(sarifLogText);
