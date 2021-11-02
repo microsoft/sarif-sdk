@@ -49,7 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             {
                 throw new ArgumentException("The stream should be seekable.", nameof(stream));
             }
-            return new JsonPositionedTextReader(() => new DelegatingStream(stream));
+            return new JsonPositionedTextReader(() => new NonDisposingDelegatingStream(stream));
         }
 
         /// <summary>

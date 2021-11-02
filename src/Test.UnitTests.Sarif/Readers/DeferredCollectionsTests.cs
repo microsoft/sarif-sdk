@@ -159,13 +159,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         private static void CompareReadNormalToReadDeferred(string filePath)
         {
             LogModelSampleBuilder.EnsureSamplesBuilt();
-            JsonSerializer serializer = new JsonSerializer();
+            var serializer = new JsonSerializer();
 
             Log expected;
             Log actual;
 
             // Read normally (JsonSerializer -> JsonTextReader -> StreamReader)
-            using (JsonTextReader reader = new JsonTextReader(new StreamReader(filePath)))
+            using (var reader = new JsonTextReader(new StreamReader(filePath)))
             {
                 expected = serializer.Deserialize<Log>(reader);
                 Assert.IsType<Dictionary<string, CodeContext>>(expected.CodeContexts);
@@ -174,7 +174,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
             // Read with Deferred collections
             serializer.ContractResolver = new LogModelDeferredContractResolver();
-            using (JsonPositionedTextReader reader = new JsonPositionedTextReader(filePath))
+            using (var reader = new JsonPositionedTextReader(filePath))
             {
                 actual = serializer.Deserialize<Log>(reader);
                 Assert.IsType<DeferredDictionary<CodeContext>>(actual.CodeContexts);

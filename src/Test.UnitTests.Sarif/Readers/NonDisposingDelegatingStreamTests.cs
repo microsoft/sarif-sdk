@@ -13,16 +13,23 @@ using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Readers
 {
-    public class DelegatingStreamTests
+    public class NonDisposingDelegatingStreamTests
     {
         private const int position = 3;
         private const string text = "Hello";
 
         [Fact]
-        public void DelegatingStream_BasicRead()
+        public void NonDisposingDelegatingStream_NullStream_ShouldThrowArgumentNullException()
+        {
+            Exception exception = Record.Exception(() => new NonDisposingDelegatingStream(null));
+            exception.Should().BeOfType(typeof(ArgumentNullException));
+        }
+
+        [Fact]
+        public void NonDisposingDelegatingStream_BasicRead()
         {
             var memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(text));
-            var delegatingStream = new DelegatingStream(memoryStream);
+            var delegatingStream = new NonDisposingDelegatingStream(memoryStream);
 
             Assert.Equal(0, delegatingStream.Position);
             Assert.Equal(memoryStream.Position, delegatingStream.Position);
@@ -34,10 +41,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         }
 
         [Fact]
-        public void DelegatingStream_BasicSeek_ShouldGenerateException()
+        public void NonDisposingDelegatingStream_BasicSeek_ShouldGenerateException()
         {
             var memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(text));
-            var delegatingStream = new DelegatingStream(memoryStream);
+            var delegatingStream = new NonDisposingDelegatingStream(memoryStream);
 
             Assert.Equal(0, delegatingStream.Position);
             Assert.Equal(memoryStream.Position, delegatingStream.Position);
@@ -48,25 +55,43 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         }
 
         [Fact]
-        public void DelegatingStream_DontPerturbPositionOnCtor()
+        public void NonDisposingDelegatingStream_DontPerturbPositionOnCtor()
         {
             var memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(text));
             memoryStream.Position = position;
-            var delegatingStream = new DelegatingStream(memoryStream);
+            var delegatingStream = new NonDisposingDelegatingStream(memoryStream);
 
             Assert.Equal(position, delegatingStream.Position);
             Assert.Equal(memoryStream.Position, delegatingStream.Position);
         }
 
         [Fact]
-        public void DelegatingStream_NonSeekable()
+        public void NonDisposingDelegatingStream_NonSeekable()
         {
             var memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(text));
             var nonSeekableStream = new NonSeekableStream(memoryStream);
-            var delegatingStream = new DelegatingStream(nonSeekableStream);
+            var delegatingStream = new NonDisposingDelegatingStream(nonSeekableStream);
 
             using var streamReader = new StreamReader(delegatingStream);
             Assert.Equal(text, streamReader.ReadToEnd());
+        }
+
+        [Fact]
+        public void NonDisposingDelegatingStream_VerifyingDipose()
+        {
+            var memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(text));
+            var delegatingStream = new NonDisposingDelegatingStream(memoryStream);
+
+            delegatingStream.Dispose();
+            memoryStream.Length.Should().NotBe(0);
+
+            delegatingStream.Dispose();
+            memoryStream.Length.Should().NotBe(0);
+
+            delegatingStream.DisposeUnderlyingStream();
+
+            Exception exception = Record.Exception(() => memoryStream.Length.Should().NotBe(0));
+            exception.Should().BeOfType(typeof(ObjectDisposedException));
         }
     }
 }
