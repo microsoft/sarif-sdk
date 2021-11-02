@@ -5,6 +5,8 @@ using System;
 using System.IO;
 using System.Text;
 
+using Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Readers;
+
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Readers
@@ -67,56 +69,5 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             using StreamReader streamReader = new StreamReader(delegatingStream);
             Assert.Equal(testStr, streamReader.ReadToEnd());
         }
-
-        private class NonSeekableStream : Stream
-        {
-            private readonly Stream stream;
-
-            /// <summary>
-            /// This is a wrapper for a that prevents seeking for tests.
-            /// </summary>
-            /// <param name="underlyingStream"></param>
-            internal NonSeekableStream(Stream underlyingStream)
-            {
-                stream = underlyingStream;
-            }
-
-            public override bool CanRead => stream.CanRead;
-
-            public override bool CanSeek => false;
-
-            public override bool CanWrite => stream.CanWrite;
-
-            public override long Length => stream.Length;
-
-            public override long Position
-            {
-                set
-                {
-                    throw new NotSupportedException();
-                }
-                get => stream.Position;
-            }
-
-            public override void Flush() => stream.Flush();
-
-            public override int Read(byte[] buffer, int offset, int count) => stream.Read(buffer, offset, count);
-
-            public override long Seek(long offset, SeekOrigin origin) => throw new NotSupportedException();
-
-            public override void SetLength(long value) => stream.SetLength(value);
-
-            public override void Write(byte[] buffer, int offset, int count) => stream.Write(buffer, offset, count);
-
-            protected override void Dispose(bool disposing)
-            {
-                if (disposing)
-                {
-                    stream.Dispose();
-                }
-                base.Dispose(disposing);
-            }
-        }
-
     }
 }
