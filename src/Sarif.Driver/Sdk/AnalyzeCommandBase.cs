@@ -5,9 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Security;
 
 using Microsoft.CodeAnalysis.Sarif.Writers;
 
@@ -125,7 +123,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 }
                 catch (Exception ex)
                 {
-                    RuntimeErrors |= RuntimeConditions.ExceptionExportingLogFile;
+                    RuntimeErrors |= RuntimeConditions.ExceptionPostingLog;
                     ExecutionException = ex;
                     return FAILURE;
                 }
@@ -199,7 +197,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             succeeded &= ValidateInvocationPropertiesToLog(context, analyzeOptions.InvocationPropertiesToLog);
             succeeded &= ValidateOutputFileCanBeCreated(context, analyzeOptions.OutputFilePath, analyzeOptions.Force);
             succeeded &= analyzeOptions.ValidateOutputOptions(context);
-            succeeded &= ValidateExportUri(analyzeOptions.OutputFilePath, analyzeOptions.ExportUri);
+            succeeded &= ValidatePostUri(analyzeOptions.OutputFilePath, analyzeOptions.PostUri);
 
             if (!succeeded)
             {

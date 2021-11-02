@@ -121,7 +121,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 }
                 catch (Exception ex)
                 {
-                    RuntimeErrors |= RuntimeConditions.ExceptionExportingLogFile;
+                    RuntimeErrors |= RuntimeConditions.ExceptionPostingLog;
                     ExecutionException = ex;
                     return FAILURE;
                 }
@@ -543,7 +543,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             succeeded &= ValidateInvocationPropertiesToLog(context, options.InvocationPropertiesToLog);
             succeeded &= ValidateOutputFileCanBeCreated(context, options.OutputFilePath, options.Force);
             succeeded &= options.ValidateOutputOptions(context);
-            succeeded &= ValidateExportUri(options.OutputFilePath, options.ExportUri);
+            succeeded &= ValidatePostUri(options.OutputFilePath, options.PostUri);
 
             if (!succeeded)
             {

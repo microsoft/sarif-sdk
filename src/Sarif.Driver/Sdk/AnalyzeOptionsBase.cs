@@ -111,8 +111,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public string BaselineSarifFile { get; set; }
 
         [Option(
-            "exportUri",
+            "postUri",
             HelpText = "An URI that accepts SARIF as content in a POST method.")]
-        public string ExportUri { get; set; }
+        public string PostUri { get; set; }
     }
 }

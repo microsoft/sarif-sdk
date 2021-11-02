@@ -320,8 +320,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             };
 
             ExceptionTestHelper(
-                RuntimeConditions.ExceptionExportingLogFile,
-                expectedExitReason: ExitReason.ExceptionExportingLogFile,
+                RuntimeConditions.ExceptionPostingLog,
+                expectedExitReason: ExitReason.ExceptionPostingLog,
                 analyzeOptions: options
             );
         }

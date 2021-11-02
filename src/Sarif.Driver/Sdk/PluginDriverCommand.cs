@@ -42,23 +42,47 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return assemblies;
         }
 
-        public bool ValidateExportUri(string outputFilePath, string exportUri)
+        internal static bool ValidatePostUri(string outputFilePath, string postUri)
         {
-            if (string.IsNullOrEmpty(exportUri))
+            if (string.IsNullOrEmpty(postUri))
             {
                 return true;
             }
 
-            // If exportUri is not empty, then outputFilePath must exist.
+            // If postUri is not empty, then outputFilePath must exist.
             if (string.IsNullOrEmpty(outputFilePath))
             {
                 return false;
             }
 
-            return Uri.IsWellFormedUriString(exportUri, UriKind.Absolute);
+            return Uri.IsWellFormedUriString(postUri, UriKind.Absolute);
         }
 
-        public bool ValidateFile(IAnalysisContext context, string filePath, string policyName, bool? shouldExist)
+        internal static bool ValidateInvocationPropertiesToLog(IAnalysisContext context, IEnumerable<string> propertiesToLog)
+        {
+            bool succeeded = true;
+
+            if (propertiesToLog != null)
+            {
+                var validPropertyNames = new HashSet<string>(
+                    typeof(Invocation).GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                        .Select(propInfo => propInfo.Name),
+                    StringComparer.OrdinalIgnoreCase);
+
+                foreach (string propertyName in propertiesToLog)
+                {
+                    if (!validPropertyNames.Contains(propertyName))
+                    {
+                        Errors.LogInvalidInvocationPropertyName(context, propertyName);
+                        succeeded = false;
+                    }
+                }
+            }
+
+            return succeeded;
+        }
+
+        internal bool ValidateFile(IAnalysisContext context, string filePath, string policyName, bool? shouldExist)
         {
             if (filePath == null || filePath == policyName) { return true; }
 
@@ -87,7 +111,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return false;
         }
 
-        public bool ValidateFiles(IAnalysisContext context, IEnumerable<string> filePaths, string policyName, bool shouldExist)
+        internal bool ValidateFiles(IAnalysisContext context, IEnumerable<string> filePaths, string policyName, bool shouldExist)
         {
             if (filePaths == null) { return true; }
 
@@ -101,31 +125,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return succeeded;
         }
 
-        public bool ValidateInvocationPropertiesToLog(IAnalysisContext context, IEnumerable<string> propertiesToLog)
-        {
-            bool succeeded = true;
-
-            if (propertiesToLog != null)
-            {
-                var validPropertyNames = new HashSet<string>(
-                    typeof(Invocation).GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                        .Select(propInfo => propInfo.Name),
-                    StringComparer.OrdinalIgnoreCase);
-
-                foreach (string propertyName in propertiesToLog)
-                {
-                    if (!validPropertyNames.Contains(propertyName))
-                    {
-                        Errors.LogInvalidInvocationPropertyName(context, propertyName);
-                        succeeded = false;
-                    }
-                }
-            }
-
-            return succeeded;
-        }
-
-        public bool ValidateOutputFileCanBeCreated(IAnalysisContext context, string outputFilePath, bool force)
+        internal bool ValidateOutputFileCanBeCreated(IAnalysisContext context, string outputFilePath, bool force)
         {
             bool succeeded = true;
 
@@ -204,7 +204,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 return;
             }
 
-            if (string.IsNullOrEmpty(options.ExportUri))
+            if (string.IsNullOrEmpty(options.PostUri))
             {
                 return;
             }
@@ -215,7 +215,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 using var streamContent = new StreamContent(fileStream);
                 using HttpClient httpClient = _httpClient ?? new HttpClient();
                 using HttpResponseMessage response = httpClient
-                    .PostAsync(options.ExportUri, streamContent)
+                    .PostAsync(options.PostUri, streamContent)
                     .GetAwaiter()
                     .GetResult();
 
@@ -225,7 +225,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 throw new ExitApplicationException<ExitReason>(DriverResources.MSG_UnexpectedApplicationExit, ex)
                 {
-                    ExitReason = ExitReason.ExceptionExportingLogFile
+                    ExitReason = ExitReason.ExceptionPostingLog
                 };
             }
         }

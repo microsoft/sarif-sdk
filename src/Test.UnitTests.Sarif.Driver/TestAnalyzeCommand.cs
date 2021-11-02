@@ -75,8 +75,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             if (context.Policy.GetProperty(TestRule.Behaviors).HasFlag(TestRuleBehaviors.RaiseExceptionExportingLogFile))
             {
-                context.RuntimeErrors |= RuntimeConditions.ExceptionExportingLogFile;
-                ThrowExitApplicationException((TestAnalysisContext)context, ExitReason.ExceptionExportingLogFile);
+                context.RuntimeErrors |= RuntimeConditions.ExceptionPostingLog;
+                ThrowExitApplicationException((TestAnalysisContext)context, ExitReason.ExceptionPostingLog);
             }
 
             base.Export(context, options, fileSystem);
