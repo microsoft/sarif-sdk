@@ -14,6 +14,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         NoValidAnalysisTargets,
         InvalidCommandLineOption,
         ExceptionProcessingBaseline,
-        ExceptionPostingLog
+        ExceptionPostingLogFile
     }
 }

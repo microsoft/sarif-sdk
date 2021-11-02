@@ -72,29 +72,29 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Driver.Sdk
         }
 
         [Fact]
-        public void PluginDriverCommand_ProcessPostUri()
+        public void PluginDriverCommand_ProcessPostLogFile()
         {
             var mockFileSystem = new Mock<IFileSystem>();
 
             // Nothing should happen, since driverOptions is not an 'AnalyzeOptionsBase' object.
-            PluginDriverCommand<string>.ProcessPostUri(string.Empty,
-                                                       mockFileSystem.Object,
-                                                       httpClient: null);
+            PluginDriverCommand<string>.PostLogFile(string.Empty,
+                                                    mockFileSystem.Object,
+                                                    httpClient: null);
 
             // Nothing should happen, since driverOptions does not have a valid 'PostUri'.
             var options = new TestAnalyzeOptions();
-            PluginDriverCommand<AnalyzeOptionsBase>.ProcessPostUri(options,
-                                                                   mockFileSystem.Object,
-                                                                   httpClient: null);
+            PluginDriverCommand<AnalyzeOptionsBase>.PostLogFile(options,
+                                                                mockFileSystem.Object,
+                                                                httpClient: null);
 
             // Generating some random exception and verifying if we are throwing
             // a new ExitApplicationException.
             options.PostUri = "https://github.com/microsoft/sarif-sdk";
             Exception exception = Record.Exception(() =>
             {
-                PluginDriverCommand<AnalyzeOptionsBase>.ProcessPostUri(options,
-                                                                       fileSystem: null,
-                                                                       httpClient: null);
+                PluginDriverCommand<AnalyzeOptionsBase>.PostLogFile(options,
+                                                                    fileSystem: null,
+                                                                    httpClient: null);
             });
             exception.Should().BeOfType(typeof(ExitApplicationException<ExitReason>));
 
@@ -113,9 +113,9 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Driver.Sdk
 
             exception = Record.Exception(() =>
             {
-                PluginDriverCommand<AnalyzeOptionsBase>.ProcessPostUri(options,
-                                                                   mockFileSystem.Object,
-                                                                   new HttpClient(httpMock));
+                PluginDriverCommand<AnalyzeOptionsBase>.PostLogFile(options,
+                                                                    mockFileSystem.Object,
+                                                                    new HttpClient(httpMock));
             });
             exception.Should().BeOfType(typeof(ExitApplicationException<ExitReason>));
             httpMock.Clear();
@@ -124,9 +124,9 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Driver.Sdk
             httpMock.Mock(
                 new HttpRequestMessage(HttpMethod.Post, options.PostUri) { Content = new StreamContent(memoryStream) },
                 HttpMockHelper.OKResponse);
-            PluginDriverCommand<AnalyzeOptionsBase>.ProcessPostUri(options,
-                                                                   mockFileSystem.Object,
-                                                                   new HttpClient(httpMock));
+            PluginDriverCommand<AnalyzeOptionsBase>.PostLogFile(options,
+                                                                mockFileSystem.Object,
+                                                                new HttpClient(httpMock));
             httpMock.Clear();
         }
     }

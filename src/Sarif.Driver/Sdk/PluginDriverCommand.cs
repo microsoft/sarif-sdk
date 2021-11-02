@@ -179,12 +179,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        protected virtual void ProcessPostUri(IAnalysisContext context, T driverOptions, IFileSystem fileSystem)
+        protected virtual void PostLogFile(IAnalysisContext context, T driverOptions, IFileSystem fileSystem)
         {
-            ProcessPostUri(driverOptions, fileSystem, new HttpClient());
+            PostLogFile(driverOptions, fileSystem, new HttpClient());
         }
 
-        internal static void ProcessPostUri(T driverOptions, IFileSystem fileSystem, HttpClient httpClient)
+        internal static void PostLogFile(T driverOptions, IFileSystem fileSystem, HttpClient httpClient)
         {
             if (!(driverOptions is AnalyzeOptionsBase options))
             {
@@ -211,7 +211,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 throw new ExitApplicationException<ExitReason>(DriverResources.MSG_UnexpectedApplicationExit, ex)
                 {
-                    ExitReason = ExitReason.ExceptionPostingLog
+                    ExitReason = ExitReason.ExceptionPostingLogFile
                 };
             }
         }

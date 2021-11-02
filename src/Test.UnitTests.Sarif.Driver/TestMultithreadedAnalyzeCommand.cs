@@ -82,15 +82,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             base.ProcessBaseline(context, options, fileSystem);
         }
 
-        protected override void ProcessPostUri(IAnalysisContext context, TestAnalyzeOptions options, IFileSystem fileSystem)
+        protected override void PostLogFile(IAnalysisContext context, TestAnalyzeOptions options, IFileSystem fileSystem)
         {
-            if (context.Policy.GetProperty(TestRule.Behaviors).HasFlag(TestRuleBehaviors.RaiseExceptionProcessingPostUri))
+            if (context.Policy.GetProperty(TestRule.Behaviors).HasFlag(TestRuleBehaviors.RaiseExceptionPostingLogFile))
             {
                 context.RuntimeErrors |= RuntimeConditions.ExceptionPostingLog;
-                ThrowExitApplicationException((TestAnalysisContext)context, ExitReason.ExceptionPostingLog);
+                ThrowExitApplicationException((TestAnalysisContext)context, ExitReason.ExceptionPostingLogFile);
             }
 
-            base.ProcessPostUri(context, options, fileSystem);
+            base.PostLogFile(context, options, fileSystem);
         }
     }
 }

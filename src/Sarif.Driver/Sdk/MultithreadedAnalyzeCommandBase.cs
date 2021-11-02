@@ -117,7 +117,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 try
                 {
-                    ProcessPostUri(_rootContext, options, FileSystem);
+                    PostLogFile(_rootContext, options, FileSystem);
                 }
                 catch (Exception ex)
                 {

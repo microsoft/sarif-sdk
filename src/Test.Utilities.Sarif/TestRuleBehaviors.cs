@@ -43,6 +43,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         RaiseExceptionProcessingBaseline = 0x8000,
 
-        RaiseExceptionProcessingPostUri = 0x10000
+        RaiseExceptionPostingLogFile = 0x10000
     }
 }
