@@ -480,7 +480,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 PrettyPrint = true,
                 Optimize = true,
                 Kind = new List<ResultKind> { ResultKind.Fail },
-                Level = new List<FailureLevel> { FailureLevel.Error, FailureLevel.Warning, FailureLevel.Note, FailureLevel.None },
+                Level = new List<FailureLevel?> { FailureLevel.Error, FailureLevel.Warning, FailureLevel.Note, FailureLevel.None },
             };
 
             var mockFileSystem = new Mock<IFileSystem>();

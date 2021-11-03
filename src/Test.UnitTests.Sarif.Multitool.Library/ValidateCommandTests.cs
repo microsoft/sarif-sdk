@@ -54,7 +54,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 SchemaFilePath = SchemaFilePath,
                 TargetFileSpecifiers = new string[] { logFilePath },
                 Kind = new List<ResultKind> { ResultKind.Fail },
-                Level = new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error }
+                Level = new List<FailureLevel?> { FailureLevel.Warning, FailureLevel.Error }
             };
 
             int returnCode = validateCommand.Run(options);
@@ -83,7 +83,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 TargetFileSpecifiers = new string[] { logFilePath },
                 OutputFilePath = OutputFilePath,
                 Kind = new List<ResultKind> { ResultKind.Fail },
-                Level = new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error }
+                Level = new List<FailureLevel?> { FailureLevel.Warning, FailureLevel.Error }
             };
 
             int returnCode = validateCommand.Run(options);
@@ -140,7 +140,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 Force = true,
                 ConfigurationFilePath = configuration,
                 Kind = new List<ResultKind> { ResultKind.Fail },
-                Level = new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error }
+                Level = new List<FailureLevel?> { FailureLevel.Warning, FailureLevel.Error }
             };
 
             // Verify command returned success

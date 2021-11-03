@@ -51,7 +51,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             NoteTestResult(result.Kind, result.Locations.First().PhysicalLocation.ArtifactLocation.Uri.LocalPath);
         }
 
-        public void NoteTestResult(ResultKind? kind, string targetPath)
+        public void NoteTestResult(ResultKind kind, string targetPath)
         {
             switch (kind)
             {
@@ -70,12 +70,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 case ResultKind.NotApplicable:
                 {
                     NotApplicableTargets.Add(targetPath);
-                    break;
-                }
-
-                case null:
-                {
-                    NullTargets.Add(targetPath);
                     break;
                 }
 

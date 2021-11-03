@@ -56,7 +56,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             //  Level and Kind are the only two properties we're reading from env variables for now.  See if they are populated.
             IEnumerable<ResultKind> kindsFromEnv = GetOptionEnumFromEnvVar<ResultKind>(nameof(analyzeOptionsBase.Kind));
-            IEnumerable<FailureLevel> levelsFromEnv = GetOptionEnumFromEnvVar<FailureLevel>(nameof(analyzeOptionsBase.Level));
+            IEnumerable<FailureLevel?> levelsFromEnv = GetOptionEnumNullableFromEnvVar<FailureLevel?>(nameof(analyzeOptionsBase.Level));
 
             analyzeOptionsBase.Kind = NullCheckAndDistinctUnionLists(analyzeOptionsBase.Kind, kindsFromEnv);
             analyzeOptionsBase.Level = NullCheckAndDistinctUnionLists(analyzeOptionsBase.Level, levelsFromEnv);
@@ -174,6 +174,33 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 .Select(x => Enum.Parse(typeof(T), x, ignoreCase: true))?
                 .ToList()?
                 .Cast<T>();
+        }
+
+        private IEnumerable<T> GetOptionEnumNullableFromEnvVar<T>(string propertyName)
+        {
+            string[] items = _environmentVariableGetter
+                .GetEnvironmentVariable(FormEnvironmentVariableName(propertyName))?
+                .Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+
+            if (items == null)
+            {
+                return null;
+            }
+
+            var list = new List<T>(items.Length);
+            foreach (string item in items)
+            {
+                if (!Enum.IsDefined(typeof(T), item))
+                {
+                    list.Add(default(T));
+                }
+                else
+                {
+                    list.Add((T)Enum.Parse(typeof(T), item, ignoreCase: true));
+                }
+            }
+
+            return list;
         }
 
         private static string FormEnvironmentVariableName(string propertyName)

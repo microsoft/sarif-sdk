@@ -65,7 +65,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             // New results are less than baseline results (means issue resolved).
             RunBaselineOptionTest("TEST1007.ValidateBaseline.LessResultsThanBaseline.sarif", "TEST1007");
 
-
         [Fact]
         public void TEST1008_ValidateBaseline_InlineUpdate() =>
             // Work with inline otpion, will update baseline sarif result with the new results.
@@ -112,7 +111,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 PrettyPrint = true,
                 Optimize = true,
                 Kind = new List<ResultKind> { ResultKind.Fail },
-                Level = new List<FailureLevel> { FailureLevel.Error, FailureLevel.Warning, FailureLevel.Note, FailureLevel.None },
+                Level = new List<FailureLevel?> { FailureLevel.Error, FailureLevel.Warning, FailureLevel.Note, FailureLevel.None },
             };
 
             var mockFileSystem = new Mock<IFileSystem>();
@@ -142,7 +141,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             SarifLog actualLog = JsonConvert.DeserializeObject<SarifLog>(actualLogFileContents);
             Run run = actualLog.Runs[0];
 
-            // guid/correlation guid/provenance detection time changes every time 
+            // guid/correlation guid/provenance detection time changes every time
             // remove them to not failuring the comparing
             foreach (Result result in run.Results)
             {

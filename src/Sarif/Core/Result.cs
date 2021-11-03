@@ -22,11 +22,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             return this.WorkItemUris != null && this.WorkItemUris.Any((s) => s != null);
         }
 
-        public bool ShouldSerializeLevel()
-        {
-            return this.Level != FailureLevel.Warning;
-        }
-
         public void EnsureRunProvided()
         {
             if (this.Run == null)

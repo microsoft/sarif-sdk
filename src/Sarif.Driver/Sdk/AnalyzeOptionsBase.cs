@@ -96,7 +96,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             Separator = ';',
             Default = new FailureLevel[] { FailureLevel.Error, FailureLevel.Warning },
             HelpText = "A semicolon delimited list to filter output of scan results to one or more failure levels. Valid values: Error, Warning and Note.")]
-        public IEnumerable<FailureLevel> Level { get; set; }
+        public IEnumerable<FailureLevel?> Level { get; set; }
 
         [Option(
             "kind",

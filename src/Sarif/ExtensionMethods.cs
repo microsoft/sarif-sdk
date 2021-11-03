@@ -321,7 +321,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        public static string FormatForVisualStudio(this ResultKind? kind)
+        public static string FormatForVisualStudio(this ResultKind kind)
         {
             switch (kind)
             {
@@ -339,9 +339,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 case ResultKind.Review:
                     return "review";
-
-                case null:
-                    return string.Empty;
 
                 default:
                     return "info";

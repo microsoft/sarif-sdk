@@ -40,7 +40,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     DataToInsert = new List<OptionallyEmittedData> { OptionallyEmittedData.Hashes, OptionallyEmittedData.EnvironmentVariables },
                     DataToRemove = new List<OptionallyEmittedData> { OptionallyEmittedData.VersionControlDetails },
                     Kind = new List<ResultKind> { ResultKind.Fail },
-                    Level = new List<FailureLevel> { FailureLevel.Error, FailureLevel.Warning }
+                    Level = new List<FailureLevel?> { FailureLevel.Error, FailureLevel.Warning }
                 });
             }
 
@@ -70,7 +70,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 DataToInsert = new List<OptionallyEmittedData> { OptionallyEmittedData.Hashes, OptionallyEmittedData.EnvironmentVariables },
                 DataToRemove = new List<OptionallyEmittedData> { OptionallyEmittedData.VersionControlDetails },
                 Kind = new List<ResultKind> { ResultKind.Fail },
-                Level = new List<FailureLevel> { FailureLevel.Error, FailureLevel.Warning }
+                Level = new List<FailureLevel?> { FailureLevel.Error, FailureLevel.Warning }
             };
 
             optionsInterpretter.ConsumeEnvVarsAndInterpretOptions(analyzeOptionsBase);
