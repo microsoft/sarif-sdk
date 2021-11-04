@@ -189,7 +189,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
             int seed = BitConverter.ToInt32(data);
             var random = new Random(seed);
 
-            output.WriteLine($"The seed used was: '{seed}'");
+            this.output.WriteLine($"The seed passed to the Random instance was : {seed}.");
 
             SarifLog sarifLog = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, 1);
             string sarifLogText = JsonConvert.SerializeObject(sarifLog);

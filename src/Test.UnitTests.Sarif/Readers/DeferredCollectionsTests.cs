@@ -161,25 +161,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             LogModelSampleBuilder.EnsureSamplesBuilt();
             var serializer = new JsonSerializer();
 
-            Log expected;
             Log actual;
+            Log expected;
 
             // Read normally (JsonSerializer -> JsonTextReader -> StreamReader)
-            using (var reader = new JsonTextReader(new StreamReader(filePath)))
-            {
-                expected = serializer.Deserialize<Log>(reader);
-                Assert.IsType<Dictionary<string, CodeContext>>(expected.CodeContexts);
-                Assert.IsType<List<LogMessage>>(expected.Messages);
-            }
+            using var normalReading = new JsonTextReader(new StreamReader(filePath));
+            expected = serializer.Deserialize<Log>(normalReading);
+            Assert.IsType<Dictionary<string, CodeContext>>(expected.CodeContexts);
+            Assert.IsType<List<LogMessage>>(expected.Messages);
 
             // Read with Deferred collections
             serializer.ContractResolver = new LogModelDeferredContractResolver();
-            using (var reader = new JsonPositionedTextReader(filePath))
-            {
-                actual = serializer.Deserialize<Log>(reader);
-                Assert.IsType<DeferredDictionary<CodeContext>>(actual.CodeContexts);
-                Assert.IsType<DeferredList<LogMessage>>(actual.Messages);
-            }
+            using var deferredReading = new JsonPositionedTextReader(filePath);
+            actual = serializer.Deserialize<Log>(deferredReading);
+            Assert.IsType<DeferredDictionary<CodeContext>>(actual.CodeContexts);
+            Assert.IsType<DeferredList<LogMessage>>(actual.Messages);
 
             CompareReadNormalToReadDeferredLogs(expected, actual);
         }
