@@ -3,18 +3,29 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 
 using FluentAssertions;
 
 using Newtonsoft.Json;
 
 using Xunit;
+using Xunit.Abstractions;
 
 namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
 {
     public class SarifLogTests
     {
+        private readonly ITestOutputHelper output;
+
+        public SarifLogTests(ITestOutputHelper output)
+        {
+            this.output = output;
+        }
+
         [Fact]
         public void SarifLog_DoesNotSerializeNonNullEmptyCollections()
         {
@@ -168,6 +179,25 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
                         log.Runs[0].Tool.Driver.Rules.ElementAt(result.RuleIndex).Id);
                 }
             }
+        }
+
+        [Fact]
+        public void SarifLog_LoadDeferred()
+        {
+            byte[] data = new byte[4];
+            RandomNumberGenerator.Fill(data);
+            int seed = BitConverter.ToInt32(data);
+            var random = new Random(seed);
+
+            this.output.WriteLine($"The seed passed to the Random instance was : {seed}.");
+
+            SarifLog sarifLog = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, 1);
+            string sarifLogText = JsonConvert.SerializeObject(sarifLog);
+            byte[] byteArray = Encoding.ASCII.GetBytes(sarifLogText);
+            using var stream = new MemoryStream(byteArray);
+            var newSarifLog = SarifLog.Load(stream, deferred: true);
+            newSarifLog.Runs[0].Tool.Driver.Name.Should().Be(sarifLog.Runs[0].Tool.Driver.Name);
+            newSarifLog.Runs[0].Results.Count.Should().Be(sarifLog.Runs[0].Results.Count);
         }
 
         private Run SerializeAndDeserialize(Run run)
