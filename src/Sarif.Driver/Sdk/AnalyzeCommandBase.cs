@@ -124,7 +124,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 }
                 catch (Exception ex)
                 {
-                    RuntimeErrors |= RuntimeConditions.ExceptionPostingLog;
+                    RuntimeErrors |= RuntimeConditions.ExceptionPostingLogFile;
                     ExecutionException = ex;
                     return FAILURE;
                 }

@@ -34,26 +34,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public static readonly HttpResponseMessage NonAuthoritativeInformationResponse =
             new HttpResponseMessage(HttpStatusCode.NonAuthoritativeInformation);
 
-        private readonly List<Tuple<HttpRequestMessage, HttpResponseMessage>> _fakeResponses =
+        private readonly List<Tuple<HttpRequestMessage, HttpResponseMessage>> fakeResponses =
             new List<Tuple<HttpRequestMessage, HttpResponseMessage>>();
 
         public void Mock(HttpRequestMessage httpRequestMessage, HttpStatusCode httpStatusCode, HttpContent httpContent)
         {
-            _fakeResponses.Add(new Tuple<HttpRequestMessage, HttpResponseMessage>(
+            this.fakeResponses.Add(new Tuple<HttpRequestMessage, HttpResponseMessage>(
                 httpRequestMessage,
                 new HttpResponseMessage(httpStatusCode) { RequestMessage = httpRequestMessage, Content = httpContent }));
         }
 
         public void Mock(HttpRequestMessage httpRequestMessage, HttpResponseMessage httpResponseMessage)
         {
-            _fakeResponses.Add(new Tuple<HttpRequestMessage, HttpResponseMessage>(
+            this.fakeResponses.Add(new Tuple<HttpRequestMessage, HttpResponseMessage>(
                 httpRequestMessage,
                 httpResponseMessage));
         }
 
         public void Clear()
         {
-            _fakeResponses.Clear();
+            this.fakeResponses.Clear();
         }
 
         private static bool CompareHeaders(HttpRequestHeaders headers1, HttpRequestHeaders headers2)
@@ -84,13 +84,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (request.Headers.IsEmptyEnumerable())
             {
-                fakeResponse = _fakeResponses.Find(fr =>
+                fakeResponse = this.fakeResponses.Find(fr =>
                     fr.Item1.RequestUri == request.RequestUri
                     && fr.Item1.Headers.IsEmptyEnumerable());
             }
             else
             {
-                fakeResponse = _fakeResponses.Find(fr =>
+                fakeResponse = this.fakeResponses.Find(fr =>
                     fr.Item1.RequestUri == request.RequestUri
                     && CompareHeaders(request.Headers, fr.Item1.Headers));
             }

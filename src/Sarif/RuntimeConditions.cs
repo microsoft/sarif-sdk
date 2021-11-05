@@ -50,7 +50,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         ExceptionInstantiatingSkimmers = 0x8000,
         OutputFileAlreadyExists = 0x10000,
         ExceptionProcessingBaseline = 0x20000,
-        ExceptionPostingLog = 0x40000,
+        ExceptionPostingLogFile = 0x40000,
 
         // Non-fatal conditions
         UnassignedNonfatal = 0x01F00000,

@@ -245,49 +245,40 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var context = new TestAnalysisContext();
             var analyzeOptionsBase = new TestAnalyzeOptions();
 
-            // quiet false, output empty
             analyzeOptionsBase.Quiet = false;
             analyzeOptionsBase.OutputFilePath = null;
             Assert.True(analyzeOptionsBase.ValidateOutputOptions(context));
 
-            // quiet false, output non-empty
             analyzeOptionsBase.Quiet = false;
-            analyzeOptionsBase.OutputFilePath = "doodle";
+            analyzeOptionsBase.OutputFilePath = "SomeFile.txt";
             Assert.True(analyzeOptionsBase.ValidateOutputOptions(context));
 
-            // quiet true, output empty
             analyzeOptionsBase.Quiet = true;
             analyzeOptionsBase.OutputFilePath = null;
             Assert.False(analyzeOptionsBase.ValidateOutputOptions(context));
 
-            // quiet true, output non-empty
             analyzeOptionsBase.Quiet = true;
-            analyzeOptionsBase.OutputFilePath = "doodle";
+            analyzeOptionsBase.OutputFilePath = "SomeFile.txt";
             Assert.True(analyzeOptionsBase.ValidateOutputOptions(context));
 
-            // postUri non-empty and outputFilePath empty = false
-            analyzeOptionsBase.PostUri = "doodle";
+            analyzeOptionsBase.PostUri = "https://NotNull.example.com";
             analyzeOptionsBase.OutputFilePath = null;
             Assert.False(analyzeOptionsBase.ValidateOutputOptions(context));
 
-            // postUri valid non-empty and outputFilePath empty = false
-            analyzeOptionsBase.PostUri = "https://github.com/microsoft/sarif-sdk";
+            analyzeOptionsBase.PostUri = "https://NotNull.example.com";
             analyzeOptionsBase.OutputFilePath = null;
             Assert.False(analyzeOptionsBase.ValidateOutputOptions(context));
 
-            // postUri non-empty and outputFilePath non-empty = true
-            analyzeOptionsBase.PostUri = "doodle";
-            analyzeOptionsBase.OutputFilePath = "doodle";
+            analyzeOptionsBase.PostUri = "InvalidUrlText";
+            analyzeOptionsBase.OutputFilePath = "SomeFile.txt";
             Assert.False(analyzeOptionsBase.ValidateOutputOptions(context));
 
-            // postUri empty and outputFilePath non-empty = true
             analyzeOptionsBase.PostUri = null;
-            analyzeOptionsBase.OutputFilePath = "doodle";
+            analyzeOptionsBase.OutputFilePath = "SomeFile.txt";
             Assert.True(analyzeOptionsBase.ValidateOutputOptions(context));
 
-            // postUri valid non-empty and outputFilePath non-empty = true
-            analyzeOptionsBase.PostUri = "https://github.com/microsoft/sarif-sdk";
-            analyzeOptionsBase.OutputFilePath = "doodle";
+            analyzeOptionsBase.PostUri = "https://NotNull.example.com";
+            analyzeOptionsBase.OutputFilePath = "SomeFile.txt";
             Assert.True(analyzeOptionsBase.ValidateOutputOptions(context));
         }
 
