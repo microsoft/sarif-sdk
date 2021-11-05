@@ -21,6 +21,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
     {
         private const string s_UriBaseId = "$$SomeUriBaseId$$";
         private readonly Uri s_Uri = new Uri("relativeUri/toSomeFile.txt", UriKind.Relative);
+
         private static readonly ReadOnlyCollection<HasAbsentResultsTestCase> s_hasAbsentResultsTestCases = new List<HasAbsentResultsTestCase>
         {
             new HasAbsentResultsTestCase
@@ -124,6 +125,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
                 ExpectedResult = false
             }
         }.AsReadOnly();
+
         private static readonly ReadOnlyCollection<HasSuppressedResultsTestCase> s_hasSuppressedResultsTestCases = new List<HasSuppressedResultsTestCase>
         {
             new HasSuppressedResultsTestCase
@@ -329,7 +331,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
         {
             // In our Windows-specific SDK, if no one has explicitly set ColumnKind, we
             // will set it to the windows-specific value of Utf16CodeUnits. Otherwise,
-            // the SARIF file will pick up the ColumnKind default value of 
+            // the SARIF file will pick up the ColumnKind default value of
             // UnicodeCodePoints, which is not appropriate for Windows frameworks.
             RoundTripColumnKind(persistedValue: ColumnKind.None, expectedRoundTrippedValue: ColumnKind.Utf16CodeUnits);
 
@@ -488,6 +490,131 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             }
 
             sb.Length.Should().Be(0, "failed test cases:\n" + sb.ToString());
+        }
+
+        [Fact]
+        public void Run_ShouldSerializeAutomationDetails_WhenAnyPropertyIsValid()
+        {
+            const string id = "automation-id";
+            const string guid = "automation-guid";
+            const string correlationGuid = "automation-correlation-guid";
+
+            var sarifLog = new SarifLog
+            {
+                Runs = new[] { new Run() }
+            };
+            sarifLog.Runs[0].AutomationDetails = new RunAutomationDetails();
+
+            sarifLog.Runs[0].AutomationDetails.Id = id;
+            sarifLog.Runs[0].AutomationDetails.Guid = string.Empty;
+            sarifLog.Runs[0].AutomationDetails.CorrelationGuid = string.Empty;
+
+            // Only 'id' should appear in the JSON.
+            VaildateAutomationDetailsValues(sarifLog);
+
+            sarifLog.Runs[0].AutomationDetails.Id = string.Empty;
+            sarifLog.Runs[0].AutomationDetails.Guid = guid;
+            sarifLog.Runs[0].AutomationDetails.CorrelationGuid = string.Empty;
+
+            // Only 'guid' should appear in the JSON.
+            VaildateAutomationDetailsValues(sarifLog);
+
+            sarifLog.Runs[0].AutomationDetails.Id = string.Empty;
+            sarifLog.Runs[0].AutomationDetails.Guid = string.Empty;
+            sarifLog.Runs[0].AutomationDetails.CorrelationGuid = correlationGuid;
+
+            // Only 'correlationGuid' should appear in the JSON.
+            VaildateAutomationDetailsValues(sarifLog);
+
+            sarifLog.Runs[0].AutomationDetails.Id = id;
+            sarifLog.Runs[0].AutomationDetails.Guid = guid;
+            sarifLog.Runs[0].AutomationDetails.CorrelationGuid = correlationGuid;
+
+            // 'id', 'guid', and 'correlationGuid' should appear in the JSON
+            VaildateAutomationDetailsValues(sarifLog);
+
+            sarifLog.Runs[0].AutomationDetails.Description = new Message { Text = "some-text" };
+
+            // 'id', 'guid', 'correlationGuid', and 'description' should appear in the JSON
+            VaildateAutomationDetailsValues(sarifLog);
+        }
+
+        [Fact]
+        public void Run_ShouldNotSerializeAutomationDetails_WhenAllPropertiesAreNullOrWhiteSpace()
+        {
+            const string whiteSpace = " ";
+
+            var sarifLog = new SarifLog
+            {
+                Runs = new[] { new Run() }
+            };
+            sarifLog.Runs[0].AutomationDetails = new RunAutomationDetails();
+
+            sarifLog.Runs[0].AutomationDetails.Id = string.Empty;
+            sarifLog.Runs[0].AutomationDetails.Guid = string.Empty;
+            sarifLog.Runs[0].AutomationDetails.CorrelationGuid = string.Empty;
+
+            // 'id', 'guid', and 'correlationGuid' should NOT appear in the JSON
+            VaildateAutomationDetailsValues(sarifLog);
+
+            sarifLog.Runs[0].AutomationDetails.Id = null;
+            sarifLog.Runs[0].AutomationDetails.Guid = null;
+            sarifLog.Runs[0].AutomationDetails.CorrelationGuid = null;
+
+            // 'id', 'guid', and 'correlationGuid' should NOT appear in the JSON
+            VaildateAutomationDetailsValues(sarifLog);
+
+            sarifLog.Runs[0].AutomationDetails.Id = whiteSpace;
+            sarifLog.Runs[0].AutomationDetails.Guid = whiteSpace;
+            sarifLog.Runs[0].AutomationDetails.CorrelationGuid = whiteSpace;
+
+            // 'id', 'guid', and 'correlationGuid' should NOT appear in the JSON
+            VaildateAutomationDetailsValues(sarifLog);
+        }
+
+        private void VaildateAutomationDetailsValues(SarifLog sarifLog)
+        {
+            RunAutomationDetails automationDetails = sarifLog.Runs[0].AutomationDetails;
+            string sarifLogText = JsonConvert.SerializeObject(sarifLog);
+            if (string.IsNullOrWhiteSpace(automationDetails.Id))
+            {
+                // Checking if the property 'id' exists.
+                sarifLogText.Should().NotContain(@"""id""");
+            }
+            else
+            {
+                sarifLogText.Should().Contain(automationDetails.Id);
+            }
+
+            if (string.IsNullOrWhiteSpace(automationDetails.Guid))
+            {
+                // Checking if the property 'guid' exists.
+                sarifLogText.Should().NotContain(@"""guid""");
+            }
+            else
+            {
+                sarifLogText.Should().Contain(automationDetails.Guid);
+            }
+
+            if (string.IsNullOrWhiteSpace(automationDetails.CorrelationGuid))
+            {
+                // Checking if the property 'correlationGuid' exists.
+                sarifLogText.Should().NotContain(@"""correlationGuid""");
+            }
+            else
+            {
+                sarifLogText.Should().Contain(automationDetails.CorrelationGuid);
+            }
+
+            if (automationDetails.Description == null)
+            {
+                // Checking if the property 'correlationGuid' exists.
+                sarifLogText.Should().NotContain(@"""description""");
+            }
+            else
+            {
+                sarifLogText.Should().Contain(automationDetails.Description.Text);
+            }
         }
 
         private void RoundTripColumnKind(ColumnKind persistedValue, ColumnKind expectedRoundTrippedValue)
