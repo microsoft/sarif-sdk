@@ -3,6 +3,7 @@
 
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Text;
 
 using FluentAssertions;
 
@@ -280,6 +281,61 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             analyzeOptionsBase.PostUri = "https://NotNull.example.com";
             analyzeOptionsBase.OutputFilePath = "SomeFile.txt";
             Assert.True(analyzeOptionsBase.ValidateOutputOptions(context));
+        }
+
+        [Fact]
+        public void ValidateAnalyzeOutputOptions_ProducesExpectedResultsWhenUsingPostUriParameter()
+        {
+            var context = new TestAnalysisContext();
+            var analyzeOptionsBase = new TestAnalyzeOptions();
+
+            var testCases = new[]
+            {
+                new
+                {
+                    Title = "Invalid OutputFilePath",
+                    PostUri = "https://NotNull.example.com",
+                    OutputFilePath = string.Empty,
+                    ExpectedValue = false
+                },
+                new
+                {
+                    Title = "Invalid PostUri",
+                    PostUri = "InvalidUrlText",
+                    OutputFilePath = "SomeFile.txt",
+                    ExpectedValue = false
+                },
+                new
+                {
+                    Title = "Invalid PostUri",
+                    PostUri = string.Empty,
+                    OutputFilePath = "SomeFile.txt",
+                    ExpectedValue = true
+                },
+                new
+                {
+                    Title = "Invalid PostUri",
+                    PostUri = "https://NotNull.example.com",
+                    OutputFilePath = "SomeFile.txt",
+                    ExpectedValue = true
+                },
+            };
+
+            var sb = new StringBuilder();
+
+            foreach (var testCase in testCases)
+            {
+                analyzeOptionsBase.PostUri = testCase.PostUri;
+                analyzeOptionsBase.OutputFilePath = testCase.OutputFilePath;
+
+                bool validationResult = analyzeOptionsBase.ValidateOutputOptions(context);
+                if (validationResult != testCase.ExpectedValue)
+                {
+                    sb.AppendLine($"The test '{testCase.Title}' was expecting '{testCase.ExpectedValue}' but found '{validationResult}'.");
+                }
+            }
+
+            sb.Length.Should().Be(0, sb.ToString());
         }
 
         private class ValidateOutputFormatOptionsTestCase
