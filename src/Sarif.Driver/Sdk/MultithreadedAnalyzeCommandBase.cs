@@ -660,7 +660,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                         SarifLogger sarifLogger;
 
-                        _run = new Run();
+                        _run = new Run()
+                        {
+                            AutomationDetails = new RunAutomationDetails
+                            {
+                                Id = analyzeOptions.AutomationId,
+                                Guid = analyzeOptions.AutomationGuid
+                            }
+                        };
 
                         if (analyzeOptions.SarifOutputVersion != SarifVersion.OneZeroZero)
                         {

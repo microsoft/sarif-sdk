@@ -37,6 +37,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         public JsonPositionedTextReader(string filePath) : this(() => File.OpenRead(filePath))
         { }
 
+
+        /// <summary>
+        /// Create a JsonPositionedTextReader based on a single Stream to be reused. Note: The stream must be seekable.
+        /// </summary>
+        /// <param name="stream"></param>
+        /// <exception cref="ArgumentException">If the stream is not seekable.</exception>
+        public static JsonPositionedTextReader FromStream(Stream stream)
+        {
+            if (!stream.CanSeek)
+            {
+                throw new ArgumentException("The stream should be seekable.", nameof(stream));
+            }
+            return new JsonPositionedTextReader(() => new NonDisposingDelegatingStream(stream));
+        }
+
         /// <summary>
         ///  Create a JsonPositionedTextReader. Takes a function to open the Stream so that deferred
         ///  collections created know how to open separate copies to seek to the collections when

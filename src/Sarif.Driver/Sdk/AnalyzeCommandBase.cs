@@ -25,6 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         internal ConsoleLogger _consoleLogger;
 
+        private Run _run;
         private Tool _tool;
         private TContext _rootContext;
         private CacheByFileHashLogger _cacheByFileHashLogger;
@@ -362,6 +363,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                         SarifLogger sarifLogger;
 
+                        _run = new Run()
+                        {
+                            AutomationDetails = new RunAutomationDetails
+                            {
+                                Id = analyzeOptions.AutomationId,
+                                Guid = analyzeOptions.AutomationGuid
+                            }
+                        };
+
                         if (analyzeOptions.SarifOutputVersion != SarifVersion.OneZeroZero)
                         {
                             sarifLogger = new SarifLogger(
@@ -370,7 +380,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                     dataToInsert,
                                     dataToRemove,
                                     tool: _tool,
-                                    run: null,
+                                    run: _run,
                                     analysisTargets: targets,
                                     quiet: analyzeOptions.Quiet,
                                     invocationTokensToRedact: GenerateSensitiveTokensList(),
@@ -386,7 +396,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                     dataToInsert,
                                     dataToRemove,
                                     tool: _tool,
-                                    run: null,
+                                    run: _run,
                                     analysisTargets: targets,
                                     invocationTokensToRedact: GenerateSensitiveTokensList(),
                                     invocationPropertiesToLog: analyzeOptions.InvocationPropertiesToLog,
