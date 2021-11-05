@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Reflection;
 using System.Security;
+using System.Threading.Tasks;
 
 using Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching;
 using Microsoft.CodeAnalysis.Sarif.Readers;
@@ -181,10 +182,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         protected virtual void PostLogFile(string postUri, string outputFilePath, IFileSystem fileSystem)
         {
-            PostLogFile(postUri, outputFilePath, fileSystem, new HttpClient());
+            PostLogFile(postUri, outputFilePath, fileSystem, new HttpClient())
+                .GetAwaiter()
+                .GetResult();
         }
 
-        internal static void PostLogFile(string postUri, string outputFilePath, IFileSystem fileSystem, HttpClient httpClient)
+        public static async Task PostLogFile(string postUri, string outputFilePath, IFileSystem fileSystem, HttpClient httpClient)
         {
             if (string.IsNullOrEmpty(postUri))
             {
@@ -195,10 +198,32 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 using Stream fileStream = fileSystem.FileOpenRead(outputFilePath);
                 using var streamContent = new StreamContent(fileStream);
-                using HttpResponseMessage response = httpClient
-                    .PostAsync(postUri, streamContent)
-                    .GetAwaiter()
-                    .GetResult();
+                using HttpResponseMessage response = await httpClient
+                    .PostAsync(postUri, streamContent);
+
+                response.EnsureSuccessStatusCode();
+            }
+            catch (Exception ex)
+            {
+                throw new ExitApplicationException<ExitReason>(DriverResources.MSG_UnexpectedApplicationExit, ex)
+                {
+                    ExitReason = ExitReason.ExceptionPostingLogFile
+                };
+            }
+        }
+
+        public static async Task PostLogStream(string postUri, Stream stream, HttpClient httpClient)
+        {
+            if (string.IsNullOrEmpty(postUri))
+            {
+                return;
+            }
+
+            try
+            {
+                using var streamContent = new StreamContent(stream);
+                using HttpResponseMessage response = await httpClient
+                    .PostAsync(postUri, streamContent);
 
                 response.EnsureSuccessStatusCode();
             }
