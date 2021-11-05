@@ -179,29 +179,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        protected virtual void PostLogFile(IAnalysisContext context, T driverOptions, IFileSystem fileSystem)
+        protected virtual void PostLogFile(string postUri, string outputFilePath, IFileSystem fileSystem)
         {
-            PostLogFile(driverOptions, fileSystem, new HttpClient());
+            PostLogFile(postUri, outputFilePath, fileSystem, new HttpClient());
         }
 
-        internal static void PostLogFile(T driverOptions, IFileSystem fileSystem, HttpClient httpClient)
+        internal static void PostLogFile(string postUri, string outputFilePath, IFileSystem fileSystem, HttpClient httpClient)
         {
-            if (!(driverOptions is AnalyzeOptionsBase options))
-            {
-                return;
-            }
-
-            if (string.IsNullOrEmpty(options.PostUri))
+            if (string.IsNullOrEmpty(postUri))
             {
                 return;
             }
 
             try
             {
-                using Stream fileStream = fileSystem.FileOpenRead(options.OutputFilePath);
+                using Stream fileStream = fileSystem.FileOpenRead(outputFilePath);
                 using var streamContent = new StreamContent(fileStream);
                 using HttpResponseMessage response = httpClient
-                    .PostAsync(options.PostUri, streamContent)
+                    .PostAsync(postUri, streamContent)
                     .GetAwaiter()
                     .GetResult();
 

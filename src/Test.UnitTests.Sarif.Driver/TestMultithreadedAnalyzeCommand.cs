@@ -81,16 +81,5 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             base.ProcessBaseline(context, options, fileSystem);
         }
-
-        protected override void PostLogFile(IAnalysisContext context, TestAnalyzeOptions options, IFileSystem fileSystem)
-        {
-            if (context.Policy.GetProperty(TestRule.Behaviors).HasFlag(TestRuleBehaviors.RaiseExceptionPostingLogFile))
-            {
-                context.RuntimeErrors |= RuntimeConditions.ExceptionPostingLogFile;
-                ThrowExitApplicationException((TestAnalysisContext)context, ExitReason.ExceptionPostingLogFile);
-            }
-
-            base.PostLogFile(context, options, fileSystem);
-        }
     }
 }
