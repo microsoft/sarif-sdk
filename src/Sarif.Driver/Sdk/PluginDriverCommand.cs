@@ -187,45 +187,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 .GetResult();
         }
 
-        public static async Task PostLogFile(string postUri, string outputFilePath, IFileSystem fileSystem, HttpClient httpClient)
+        internal static async Task PostLogFile(string postUri, string outputFilePath, IFileSystem fileSystem, HttpClient httpClient)
         {
-            if (string.IsNullOrEmpty(postUri))
-            {
-                return;
-            }
-
             try
             {
-                using Stream fileStream = fileSystem.FileOpenRead(outputFilePath);
-                using var streamContent = new StreamContent(fileStream);
-                using HttpResponseMessage response = await httpClient
-                    .PostAsync(postUri, streamContent);
-
-                response.EnsureSuccessStatusCode();
-            }
-            catch (Exception ex)
-            {
-                throw new ExitApplicationException<ExitReason>(DriverResources.MSG_UnexpectedApplicationExit, ex)
-                {
-                    ExitReason = ExitReason.ExceptionPostingLogFile
-                };
-            }
-        }
-
-        public static async Task PostLogStream(string postUri, Stream stream, HttpClient httpClient)
-        {
-            if (string.IsNullOrEmpty(postUri))
-            {
-                return;
-            }
-
-            try
-            {
-                using var streamContent = new StreamContent(stream);
-                using HttpResponseMessage response = await httpClient
-                    .PostAsync(postUri, streamContent);
-
-                response.EnsureSuccessStatusCode();
+                await SarifLog.Post(postUri, outputFilePath, fileSystem, httpClient);
             }
             catch (Exception ex)
             {

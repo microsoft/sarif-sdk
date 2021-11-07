@@ -3,6 +3,8 @@
 
 using System.Collections.Generic;
 using System.IO;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 using Microsoft.CodeAnalysis.Sarif.Readers;
 
@@ -20,12 +22,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <returns>SarifLog instance for file</returns>
         public static SarifLog LoadDeferred(string sarifFilePath)
         {
-            JsonSerializer serializer = new JsonSerializer();
+            var serializer = new JsonSerializer();
             serializer.ContractResolver = new SarifDeferredContractResolver();
 
-            using (JsonPositionedTextReader jptr = new JsonPositionedTextReader(sarifFilePath))
+            using (var jsonPositionedTextReader = new JsonPositionedTextReader(sarifFilePath))
             {
-                return serializer.Deserialize<SarifLog>(jptr);
+                return serializer.Deserialize<SarifLog>(jsonPositionedTextReader);
             }
         }
 
@@ -69,6 +71,48 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
+        /// Post the SARIF file to an URI that accepts it in a POST method.
+        /// </summary>
+        /// <param name="postUri"></param>
+        /// <param name="filePath"></param>
+        /// <param name="fileSystem"></param>
+        /// <param name="httpClient"></param>
+        /// <returns></returns>
+        public static async Task<bool> Post(string postUri,
+                                            string filePath,
+                                            IFileSystem fileSystem,
+                                            HttpClient httpClient)
+        {
+            if (!fileSystem.FileExists(filePath) || string.IsNullOrWhiteSpace(postUri))
+            {
+                return false;
+            }
+
+            using Stream fileStream = fileSystem.FileOpenRead(filePath);
+            return await Post(postUri, fileStream, httpClient);
+        }
+
+        /// <summary>
+        /// Post the SARIF stream to an URI that accepts it in a POST method.
+        /// </summary>
+        /// <param name="postUri"></param>
+        /// <param name="stream"></param>
+        /// <param name="httpClient"></param>
+        public static async Task<bool> Post(string postUri, Stream stream, HttpClient httpClient)
+        {
+            if (string.IsNullOrWhiteSpace(postUri) || stream == null || httpClient == null )
+            {
+                return false;
+            }
+
+            using var streamContent = new StreamContent(stream);
+            using HttpResponseMessage response = await httpClient
+                .PostAsync(postUri, streamContent);
+
+            return response.StatusCode == System.Net.HttpStatusCode.OK;
+        }
+
+        /// <summary>
         ///  Write a SARIF log to disk as a file.
         /// </summary>
         /// <param name="sarifFilePath">File Path to Sarif file to write to</param>
@@ -86,7 +130,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="stream">Stream to write SARIF to</param>
         public void Save(Stream stream)
         {
-            using (StreamWriter streamWriter = new StreamWriter(stream))
+            using (var streamWriter = new StreamWriter(stream))
             {
                 this.Save(streamWriter);
             }
@@ -98,9 +142,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="streamWriter">StreamWriter to write SARIF to</param>
         public void Save(StreamWriter streamWriter)
         {
-            JsonSerializer serializer = new JsonSerializer();
+            var serializer = new JsonSerializer();
 
-            using (JsonTextWriter writer = new JsonTextWriter(streamWriter))
+            using (var writer = new JsonTextWriter(streamWriter))
             {
                 serializer.Serialize(writer, this);
             }
@@ -133,7 +177,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return;
             }
 
-            Dictionary<string, FailureLevel> localCache = new Dictionary<string, FailureLevel>();
+            var localCache = new Dictionary<string, FailureLevel>();
 
             foreach (Run run in sarifLog.Runs)
             {

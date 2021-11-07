@@ -5,10 +5,14 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading.Tasks;
 
 using FluentAssertions;
+
+using Moq;
 
 using Newtonsoft.Json;
 
@@ -198,6 +202,112 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
             var newSarifLog = SarifLog.Load(stream, deferred: true);
             newSarifLog.Runs[0].Tool.Driver.Name.Should().Be(sarifLog.Runs[0].Tool.Driver.Name);
             newSarifLog.Runs[0].Results.Count.Should().Be(sarifLog.Runs[0].Results.Count);
+        }
+
+        [Fact]
+        public async Task SarifLog_PostStream_WithInvalidParameters_ShouldReturnFalse()
+        {
+            var testCases = new[]
+            {
+                new
+                {
+                    Title = "Empty 'postUri' parameter",
+                    PostUri = string.Empty,
+                    Stream = (Stream)new MemoryStream(),
+                    HttpClient = new HttpClient()
+                },
+                new
+                {
+                    Title = "Null 'stream' parameter",
+                    PostUri = "https://github.com/microsoft/sarif-sdk",
+                    Stream = (Stream)null,
+                    HttpClient = new HttpClient()
+                },
+                new
+                {
+                    Title = "Null 'httpClient' parameter",
+                    PostUri = "https://github.com/microsoft/sarif-sdk",
+                    Stream = (Stream)new MemoryStream(),
+                    HttpClient = (HttpClient)null
+                },
+            };
+
+            var sb = new StringBuilder();
+
+            foreach (var testCase in testCases)
+            {
+                bool result = await SarifLog.Post(testCase.PostUri,
+                                                  testCase.Stream,
+                                                  testCase.HttpClient);
+
+                if (result)
+                {
+                    sb.AppendLine($"The test '{testCase.Title}' was expecting 'false' value.");
+                }
+            }
+
+            sb.Length.Should().Be(0, sb.ToString());
+        }
+
+        [Fact]
+        public async Task SarifLog_PostFile_WithInvalidParameters_ShouldReturnFalse()
+        {
+            string postUri = string.Empty;
+            string filePath = "SomeFile.txt";
+            var fileSystem = new Mock<IFileSystem>();
+            fileSystem
+                .Setup(f => f.FileExists(It.IsAny<string>()))
+                .Returns(true);
+
+            bool result = await SarifLog.Post(postUri,
+                                              filePath,
+                                              fileSystem.Object,
+                                              httpClient: null);
+            result.Should().BeFalse();
+
+            postUri = "https://github.com/microsoft/sarif-sdk";
+            fileSystem = new Mock<IFileSystem>();
+            fileSystem
+                .Setup(f => f.FileExists(It.IsAny<string>()))
+                .Returns(false);
+
+            result = await SarifLog.Post(postUri,
+                                         filePath,
+                                         fileSystem.Object,
+                                         httpClient: null);
+            result.Should().BeFalse();
+        }
+
+        [Fact]
+        public async Task SarifLog_Post_WithValidParameters_ShouldNotThrownAnException()
+        {
+            string postUri = "https://github.com/microsoft/sarif-sdk";
+            var sarifLog = new SarifLog();
+            var httpMock = new HttpMockHelper();
+            var memoryStream = new MemoryStream();
+            sarifLog.Save(memoryStream);
+
+            httpMock.Mock(
+                new HttpRequestMessage(HttpMethod.Post, postUri) { Content = new StreamContent(memoryStream) },
+                HttpMockHelper.BadRequestResponse);
+
+            bool result = await SarifLog.Post(postUri,
+                                              memoryStream,
+                                              new HttpClient(httpMock));
+            result.Should().BeFalse();
+            httpMock.Clear();
+
+            memoryStream = new MemoryStream();
+            sarifLog.Save(memoryStream);
+            httpMock.Mock(
+                new HttpRequestMessage(HttpMethod.Post, postUri) { Content = new StreamContent(memoryStream) },
+                HttpMockHelper.OKResponse);
+
+            result = await SarifLog.Post(postUri,
+                                         memoryStream,
+                                         new HttpClient(httpMock));
+            result.Should().BeTrue();
+            httpMock.Clear();
         }
 
         private Run SerializeAndDeserialize(Run run)
