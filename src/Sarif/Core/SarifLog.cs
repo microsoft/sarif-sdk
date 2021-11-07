@@ -100,7 +100,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="httpClient"></param>
         public static async Task<bool> Post(string postUri, Stream stream, HttpClient httpClient)
         {
-            if (string.IsNullOrWhiteSpace(postUri) || stream == null || httpClient == null )
+            if (string.IsNullOrWhiteSpace(postUri) || stream == null || httpClient == null)
             {
                 return false;
             }
