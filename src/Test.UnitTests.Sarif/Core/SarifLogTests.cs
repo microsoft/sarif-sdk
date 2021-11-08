@@ -205,7 +205,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
         }
 
         [Fact]
-        public async Task SarifLog_PostStream_WithInvalidParameters_ShouldReturnFalse()
+        public async Task SarifLog_PostStream_WithInvalidParameters_ShouldThrowArgumentNullException()
         {
             var testCases = new[]
             {
@@ -236,11 +236,14 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
 
             foreach (var testCase in testCases)
             {
-                bool result = await SarifLog.Post(testCase.PostUri,
-                                                  testCase.Stream,
-                                                  testCase.HttpClient);
+                Exception exception = await Record.ExceptionAsync(async () =>
+                {
+                    await SarifLog.Post(testCase.PostUri,
+                                        testCase.Stream,
+                                        testCase.HttpClient);
+                });
 
-                if (result)
+                if (exception == null || exception.GetType() != typeof(ArgumentNullException))
                 {
                     sb.AppendLine($"The test '{testCase.Title}' was expecting 'false' value.");
                 }
@@ -250,36 +253,40 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
         }
 
         [Fact]
-        public async Task SarifLog_PostFile_WithInvalidParameters_ShouldReturnFalse()
+        public async Task SarifLog_PostFile_WithInvalidParameters_ShouldThrowException()
         {
             string postUri = string.Empty;
-            string filePath = "SomeFile.txt";
+            string filePath = string.Empty;
             var fileSystem = new Mock<IFileSystem>();
-            fileSystem
-                .Setup(f => f.FileExists(It.IsAny<string>()))
-                .Returns(true);
 
-            bool result = await SarifLog.Post(postUri,
-                                              filePath,
-                                              fileSystem.Object,
-                                              httpClient: null);
-            result.Should().BeFalse();
+            Exception exception = await Record.ExceptionAsync(async () =>
+            {
+                await SarifLog.Post(postUri,
+                                    filePath,
+                                    fileSystem.Object,
+                                    httpClient: null);
+            });
 
-            postUri = "https://github.com/microsoft/sarif-sdk";
-            fileSystem = new Mock<IFileSystem>();
+            exception.Should().BeOfType(typeof(ArgumentNullException));
+
+            filePath = "SomeFile.txt";
             fileSystem
                 .Setup(f => f.FileExists(It.IsAny<string>()))
                 .Returns(false);
 
-            result = await SarifLog.Post(postUri,
-                                         filePath,
-                                         fileSystem.Object,
-                                         httpClient: null);
-            result.Should().BeFalse();
+            exception = await Record.ExceptionAsync(async () =>
+            {
+                await SarifLog.Post(postUri,
+                                    filePath,
+                                    fileSystem.Object,
+                                    httpClient: null);
+            });
+
+            exception.Should().BeOfType(typeof(ArgumentException));
         }
 
         [Fact]
-        public async Task SarifLog_Post_WithValidParameters_ShouldNotThrownAnException()
+        public async Task SarifLog_Post_WithValidParameters_ShouldNotThrownAnExceptionWhenRequestIsValid()
         {
             string postUri = "https://github.com/microsoft/sarif-sdk";
             var sarifLog = new SarifLog();
@@ -291,10 +298,13 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
                 new HttpRequestMessage(HttpMethod.Post, postUri) { Content = new StreamContent(memoryStream) },
                 HttpMockHelper.BadRequestResponse);
 
-            bool result = await SarifLog.Post(postUri,
-                                              memoryStream,
-                                              new HttpClient(httpMock));
-            result.Should().BeFalse();
+            Exception exception = await Record.ExceptionAsync(async () =>
+            {
+                await SarifLog.Post(postUri,
+                                    memoryStream,
+                                    new HttpClient(httpMock));
+            });
+            exception.Should().BeOfType(typeof(HttpRequestException));
             httpMock.Clear();
 
             memoryStream = new MemoryStream();
@@ -303,10 +313,13 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
                 new HttpRequestMessage(HttpMethod.Post, postUri) { Content = new StreamContent(memoryStream) },
                 HttpMockHelper.OKResponse);
 
-            result = await SarifLog.Post(postUri,
-                                         memoryStream,
-                                         new HttpClient(httpMock));
-            result.Should().BeTrue();
+            exception = await Record.ExceptionAsync(async () =>
+            {
+                await SarifLog.Post(postUri,
+                                    memoryStream,
+                                    new HttpClient(httpMock));
+            });
+            exception.Should().BeNull();
             httpMock.Clear();
         }
 

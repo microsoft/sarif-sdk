@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
@@ -73,43 +74,62 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Post the SARIF file to an URI that accepts it in a POST method.
         /// </summary>
+        /// <exception cref="ArgumentException">Thrown if filePath does not exist.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if postUri/filePath/stream/httpClient is null.</exception>
+        /// <exception cref="HttpRequestException">Throws an exception if the IsSuccessStatusCode property for the HTTP response is false.</exception>
         /// <param name="postUri"></param>
         /// <param name="filePath"></param>
         /// <param name="fileSystem"></param>
         /// <param name="httpClient"></param>
-        /// <returns></returns>
-        public static async Task<bool> Post(string postUri,
-                                            string filePath,
-                                            IFileSystem fileSystem,
-                                            HttpClient httpClient)
+        public static async Task Post(string postUri,
+                                      string filePath,
+                                      IFileSystem fileSystem,
+                                      HttpClient httpClient)
         {
-            if (!fileSystem.FileExists(filePath) || string.IsNullOrWhiteSpace(postUri))
+            if (string.IsNullOrWhiteSpace(filePath))
             {
-                return false;
+                throw new ArgumentNullException(nameof(filePath));
+            }
+
+            if (!fileSystem.FileExists(filePath))
+            {
+                throw new ArgumentException(nameof(filePath));
             }
 
             using Stream fileStream = fileSystem.FileOpenRead(filePath);
-            return await Post(postUri, fileStream, httpClient);
+            await Post(postUri, fileStream, httpClient);
         }
 
         /// <summary>
         /// Post the SARIF stream to an URI that accepts it in a POST method.
         /// </summary>
+        /// <exception cref="ArgumentNullException">Thrown if postUri/stream/httpClient is null.</exception>
+        /// <exception cref="HttpRequestException">Throws an exception if the IsSuccessStatusCode property for the HTTP response is false.</exception>
         /// <param name="postUri"></param>
         /// <param name="stream"></param>
         /// <param name="httpClient"></param>
-        public static async Task<bool> Post(string postUri, Stream stream, HttpClient httpClient)
+        public static async Task Post(string postUri, Stream stream, HttpClient httpClient)
         {
-            if (string.IsNullOrWhiteSpace(postUri) || stream == null || httpClient == null)
+            if (string.IsNullOrWhiteSpace(postUri))
             {
-                return false;
+                throw new ArgumentNullException(nameof(postUri));
+            }
+
+            if (stream == null)
+            {
+                throw new ArgumentNullException(nameof(stream));
+            }
+
+            if (httpClient == null)
+            {
+                throw new ArgumentNullException(nameof(httpClient));
             }
 
             using var streamContent = new StreamContent(stream);
             using HttpResponseMessage response = await httpClient
                 .PostAsync(postUri, streamContent);
 
-            return response.StatusCode == System.Net.HttpStatusCode.OK;
+            response.EnsureSuccessStatusCode();
         }
 
         /// <summary>
