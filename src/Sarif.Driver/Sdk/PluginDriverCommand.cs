@@ -189,6 +189,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         internal static async Task PostLogFile(string postUri, string outputFilePath, IFileSystem fileSystem, HttpClient httpClient)
         {
+            if (string.IsNullOrWhiteSpace(postUri))
+            {
+                return;
+            }
+
             try
             {
                 await SarifLog.Post(postUri, outputFilePath, fileSystem, httpClient);
