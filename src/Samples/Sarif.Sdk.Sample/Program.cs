@@ -331,7 +331,7 @@ namespace Sarif.Sdk.Sample
                     tool: null,
                     run: run,
                     kinds: new ResultKind[] { ResultKind.Fail, ResultKind.Pass },
-                    levels: new FailureLevel[] { FailureLevel.Error, FailureLevel.Warning, FailureLevel.Note },
+                    levels: new FailureLevel?[] { FailureLevel.Error, FailureLevel.Warning, FailureLevel.Note },
                     analysisTargets: null,
                     invocationTokensToRedact: null,
                     invocationPropertiesToLog: null,
