@@ -6,6 +6,7 @@
       "results": [
         {
           "ruleId": "10104",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/favicon.ico\nMethod: GET\nParam: Header User-Agent\nAttack: Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)\n."
           },
@@ -13,6 +14,7 @@
         },
         {
           "ruleId": "10104",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/bank/transfer-funds-verify.html\nMethod: GET\nParam: Header User-Agent\nAttack: Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)\n."
           },
@@ -20,6 +22,7 @@
         },
         {
           "ruleId": "10104",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/bank/account-activity-show-transactions.html\nMethod: GET\nParam: Header User-Agent\nAttack: Mozilla/5.0 (iPhone; U; CPU iPhone OS 3_0 like Mac OS X; en-us) AppleWebKit/528.18 (KHTML, like Gecko) Version/4.0 Mobile/7A341 Safari/528.16\n."
           },
@@ -27,6 +30,7 @@
         },
         {
           "ruleId": "10104",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/sendFeedback.html\nMethod: GET\nParam: Header User-Agent\nAttack: Mozilla/5.0 (iPhone; U; CPU iPhone OS 3_0 like Mac OS X; en-us) AppleWebKit/528.18 (KHTML, like Gecko) Version/4.0 Mobile/7A341 Safari/528.16\n."
           },
@@ -34,6 +38,7 @@
         },
         {
           "ruleId": "10104",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/help.html?topic=/help/topic2.html\nMethod: GET\nParam: Header User-Agent\nAttack: Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)\n."
           },
@@ -41,6 +46,7 @@
         },
         {
           "ruleId": "10104",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/robots.txt\nMethod: GET\nParam: Header User-Agent\nAttack: Mozilla/5.0 (iPhone; U; CPU iPhone OS 3_0 like Mac OS X; en-us) AppleWebKit/528.18 (KHTML, like Gecko) Version/4.0 Mobile/7A341 Safari/528.16\n."
           },
@@ -48,6 +54,7 @@
         },
         {
           "ruleId": "10104",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/auth\nMethod: GET\nParam: Header User-Agent\nAttack: Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)\n."
           },
@@ -55,6 +62,7 @@
         },
         {
           "ruleId": "10104",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/index.html\nMethod: GET\nParam: Header User-Agent\nAttack: Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1)\n."
           },
@@ -62,6 +70,7 @@
         },
         {
           "ruleId": "10104",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/signin.html\nMethod: GET\nParam: Header User-Agent\nAttack: Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)\n."
           },
@@ -69,6 +78,7 @@
         },
         {
           "ruleId": "10104",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/signin.html\nMethod: POST\nParam: Header User-Agent\nAttack: Mozilla/5.0 (iPhone; U; CPU iPhone OS 3_0 like Mac OS X; en-us) AppleWebKit/528.18 (KHTML, like Gecko) Version/4.0 Mobile/7A341 Safari/528.16\n."
           },
@@ -76,6 +86,7 @@
         },
         {
           "ruleId": "10104",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/bank/online-statements.html\nMethod: GET\nParam: Header User-Agent\nAttack: Mozilla/5.0 (iPhone; U; CPU iPhone OS 3_0 like Mac OS X; en-us) AppleWebKit/528.18 (KHTML, like Gecko) Version/4.0 Mobile/7A341 Safari/528.16\n."
           },
@@ -83,6 +94,7 @@
         },
         {
           "ruleId": "10104",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/bank\nMethod: GET\nParam: Header User-Agent\nAttack: Mozilla/5.0 (iPhone; U; CPU iPhone OS 3_0 like Mac OS X; en-us) AppleWebKit/528.18 (KHTML, like Gecko) Version/4.0 Mobile/7A341 Safari/528.16\n."
           },
@@ -90,6 +102,7 @@
         },
         {
           "ruleId": "10104",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/bank/money-map-get-spendings-by-type.html?_dc=1544043856896\nMethod: GET\nParam: Header User-Agent\nAttack: Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)\n."
           },
@@ -97,6 +110,7 @@
         },
         {
           "ruleId": "10104",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/auth/security-check.html?user_token=8c797e39-7ab3-41d2-a53a-2a6449f13866\nMethod: GET\nParam: Header User-Agent\nAttack: msnbot/1.1 (+http://search.msn.com/msnbot.htm)\n."
           },
@@ -104,6 +118,7 @@
         },
         {
           "ruleId": "10104",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/bank/account-summary.html\nMethod: GET\nParam: Header User-Agent\nAttack: Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)\n."
           },
@@ -111,6 +126,7 @@
         },
         {
           "ruleId": "10104",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/login.html?login_error=true\nMethod: GET\nParam: Header User-Agent\nAttack: Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)\n."
           },
@@ -118,6 +134,7 @@
         },
         {
           "ruleId": "10104",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/bank/online-statements-for-account.html\nMethod: POST\nParam: Header User-Agent\nAttack: Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)\n."
           },
@@ -125,6 +142,7 @@
         },
         {
           "ruleId": "10104",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/bank/pay-bills-new-payee.html\nMethod: GET\nParam: Header User-Agent\nAttack: msnbot/1.1 (+http://search.msn.com/msnbot.htm)\n."
           },
@@ -132,6 +150,7 @@
         },
         {
           "ruleId": "10104",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/bank/money-map-get-spendings-by-type.html?_dc=1544043856896\nMethod: GET\nParam: Header User-Agent\nAttack: Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)\n."
           },
@@ -139,6 +158,7 @@
         },
         {
           "ruleId": "10104",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/logout.html\nMethod: GET\nParam: Header User-Agent\nAttack: Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)\n."
           },
@@ -146,6 +166,7 @@
         },
         {
           "ruleId": "10016",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/resources/font/\nMethod: GET\nParam: X-XSS-Protection\n."
           },
@@ -153,6 +174,7 @@
         },
         {
           "ruleId": "10016",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/help.html\nMethod: GET\nParam: X-XSS-Protection\n."
           },
@@ -160,6 +182,7 @@
         },
         {
           "ruleId": "10016",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/resources/extjs/app/controller/\nMethod: GET\nParam: X-XSS-Protection\n."
           },
@@ -167,6 +190,7 @@
         },
         {
           "ruleId": "10016",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/bank/pay-bills-new-payee.html\nMethod: GET\nParam: X-XSS-Protection\n."
           },
@@ -174,6 +198,7 @@
         },
         {
           "ruleId": "10016",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/help.html?topic=/help/topic3.html\nMethod: GET\nParam: X-XSS-Protection\n."
           },
@@ -181,6 +206,7 @@
         },
         {
           "ruleId": "10016",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/\nMethod: GET\nParam: X-XSS-Protection\n."
           },
@@ -188,6 +214,7 @@
         },
         {
           "ruleId": "10016",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/resources/extjs/app/\nMethod: GET\nParam: X-XSS-Protection\n."
           },
@@ -195,6 +222,7 @@
         },
         {
           "ruleId": "10016",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/bank/account-activity.html\nMethod: GET\nParam: X-XSS-Protection\n."
           },
@@ -202,6 +230,7 @@
         },
         {
           "ruleId": "10016",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/resources/extjs/ext/\nMethod: GET\nParam: X-XSS-Protection\n."
           },
@@ -209,6 +238,7 @@
         },
         {
           "ruleId": "10016",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/bank/account-summary.html\nMethod: GET\nParam: X-XSS-Protection\n."
           },
@@ -216,6 +246,7 @@
         },
         {
           "ruleId": "10016",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/resources/themes/\nMethod: GET\nParam: X-XSS-Protection\n."
           },
@@ -223,6 +254,7 @@
         },
         {
           "ruleId": "10016",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/index.html\nMethod: GET\nParam: X-XSS-Protection\n."
           },
@@ -230,6 +262,7 @@
         },
         {
           "ruleId": "10016",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/bank/online-statements-for-account.html\nMethod: POST\nParam: X-XSS-Protection\n."
           },
@@ -237,6 +270,7 @@
         },
         {
           "ruleId": "10016",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/bank/account-activity.html?accountId=1\nMethod: GET\nParam: X-XSS-Protection\n."
           },
@@ -244,6 +278,7 @@
         },
         {
           "ruleId": "10016",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/online-banking.html\nMethod: GET\nParam: X-XSS-Protection\n."
           },
@@ -251,6 +286,7 @@
         },
         {
           "ruleId": "10016",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/resources/extjs/app/view/\nMethod: GET\nParam: X-XSS-Protection\n."
           },
@@ -258,6 +294,7 @@
         },
         {
           "ruleId": "10016",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/bank/transfer-funds-verify.html\nMethod: POST\nParam: X-XSS-Protection\n."
           },
@@ -265,6 +302,7 @@
         },
         {
           "ruleId": "10016",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/bank/account-activity.html?accountId=2\nMethod: GET\nParam: X-XSS-Protection\n."
           },
@@ -272,6 +310,7 @@
         },
         {
           "ruleId": "10016",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/resources/extjs/\nMethod: GET\nParam: X-XSS-Protection\n."
           },
@@ -279,6 +318,7 @@
         },
         {
           "ruleId": "10016",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/bank/account-activity.html?accountId=3\nMethod: GET\nParam: X-XSS-Protection\n."
           },
@@ -286,6 +326,7 @@
         },
         {
           "ruleId": "90027.1",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/bank/account-activity.html?accountId=4\nMethod: GET\n."
           },
@@ -293,6 +334,7 @@
         },
         {
           "ruleId": "90027.1",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/bank/pay-bills.html\nMethod: GET\n."
           },
@@ -300,6 +342,7 @@
         },
         {
           "ruleId": "90027.1",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/sitemap.xml\nMethod: GET\n."
           },
@@ -307,6 +350,7 @@
         },
         {
           "ruleId": "90027.1",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/login.html?login_error=true\nMethod: GET\n."
           },
@@ -314,6 +358,7 @@
         },
         {
           "ruleId": "90027.1",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/bank/account-activity-find-transactions.html\nMethod: GET\n."
           },
@@ -321,6 +366,7 @@
         },
         {
           "ruleId": "90027.1",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/bank/pay-bills-new-payee.html\nMethod: POST\n."
           },
@@ -328,6 +374,7 @@
         },
         {
           "ruleId": "90027.1",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/bank/account-activity-show-transactions.html\nMethod: GET\n."
           },
@@ -335,6 +382,7 @@
         },
         {
           "ruleId": "90027.1",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/help.html?topic=/help/topic2.html\nMethod: GET\n."
           },
@@ -342,6 +390,7 @@
         },
         {
           "ruleId": "90027.1",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/sendFeedback.html\nMethod: GET\n."
           },
@@ -349,6 +398,7 @@
         },
         {
           "ruleId": "90027.1",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/auth\nMethod: GET\n."
           },
@@ -356,6 +406,7 @@
         },
         {
           "ruleId": "90027.1",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/bank/online-statements.html\nMethod: GET\n."
           },
@@ -363,6 +414,7 @@
         },
         {
           "ruleId": "90027.1",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/forgotten-password-send.html\nMethod: POST\n."
           },
@@ -370,6 +422,7 @@
         },
         {
           "ruleId": "90027.1",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/logout.html\nMethod: GET\n."
           },
@@ -377,6 +430,7 @@
         },
         {
           "ruleId": "90027.1",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/signin.html\nMethod: GET\n."
           },
@@ -384,6 +438,7 @@
         },
         {
           "ruleId": "90027.1",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/signin.html\nMethod: POST\n."
           },
@@ -391,6 +446,7 @@
         },
         {
           "ruleId": "90027.1",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/help.html\nMethod: GET\n."
           },
@@ -398,6 +454,7 @@
         },
         {
           "ruleId": "90027.1",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/bank/pay-bills-purchase-currency.html\nMethod: GET\n."
           },
@@ -405,6 +462,7 @@
         },
         {
           "ruleId": "90027.1",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/forgot-password.html\nMethod: GET\n."
           },
@@ -412,6 +470,7 @@
         },
         {
           "ruleId": "90027.1",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/bank/account-summary.html\nMethod: GET\n."
           },
@@ -419,6 +478,7 @@
         },
         {
           "ruleId": "90027.1",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/bank/transfer-funds-verify.html\nMethod: GET\n."
           },
@@ -426,6 +486,7 @@
         },
         {
           "ruleId": "90027.2",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/bank/pay-bills-get-payee-details.html\nMethod: GET\n."
           },
@@ -433,6 +494,7 @@
         },
         {
           "ruleId": "90027.2",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/bank/pay-bills-conversion-rate-for-currency.html\nMethod: GET\n."
           },
@@ -440,6 +502,7 @@
         },
         {
           "ruleId": "90027.2",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/index.html\nMethod: GET\n."
           },
@@ -447,6 +510,7 @@
         },
         {
           "ruleId": "90027.2",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/bank/transfer-funds-verify.html\nMethod: GET\n."
           },
@@ -454,6 +518,7 @@
         },
         {
           "ruleId": "90027.2",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/auth/security-check.html?user_token=8c797e39-7ab3-41d2-a53a-2a6449f13866\nMethod: GET\n."
           },
@@ -461,6 +526,7 @@
         },
         {
           "ruleId": "90027.2",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/bank\nMethod: GET\n."
           },
@@ -468,6 +534,7 @@
         },
         {
           "ruleId": "90027.2",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/auth/accept-certs.html?user_token=8c797e39-7ab3-41d2-a53a-2a6449f13866\nMethod: GET\n."
           },
@@ -475,6 +542,7 @@
         },
         {
           "ruleId": "90027.2",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/bank/money-map-get-spendings-by-type.html?_dc=1544043856896\nMethod: GET\n."
           },
@@ -482,6 +550,7 @@
         },
         {
           "ruleId": "90027.2",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/bank/redirect.html?url=account-summary.html\nMethod: GET\n."
           },
@@ -489,6 +558,7 @@
         },
         {
           "ruleId": "90027.2",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/auth\nMethod: GET\n."
           },
@@ -496,6 +566,7 @@
         },
         {
           "ruleId": "90027.2",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/bank/online-statements-for-account.html\nMethod: GET\n."
           },
@@ -655,6 +726,7 @@
         },
         {
           "ruleId": "10021",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/bank/pay-bills-get-payee-details.html\nMethod: POST\nParam: X-Content-Type-Options\n."
           },
@@ -662,6 +734,7 @@
         },
         {
           "ruleId": "10021",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/bank/pay-bills-conversion-rate-for-currency.html\nMethod: POST\nParam: X-Content-Type-Options\n."
           },
@@ -669,6 +742,7 @@
         },
         {
           "ruleId": "10021",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/resources/js/jquery-1.6.4.min.js\nMethod: GET\nParam: X-Content-Type-Options\n."
           },
@@ -676,6 +750,7 @@
         },
         {
           "ruleId": "10021",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/resources/extjs/app/view/DetailedReport.js\nMethod: GET\nParam: X-Content-Type-Options\n."
           },
@@ -683,6 +758,7 @@
         },
         {
           "ruleId": "10021",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/bank/transfer-funds.html\nMethod: GET\nParam: X-Content-Type-Options\n."
           },
@@ -690,6 +766,7 @@
         },
         {
           "ruleId": "10021",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/feedback.html\nMethod: GET\nParam: X-Content-Type-Options\n."
           },
@@ -697,6 +774,7 @@
         },
         {
           "ruleId": "10021",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/index.html\nMethod: GET\nParam: X-Content-Type-Options\n."
           },
@@ -704,6 +782,7 @@
         },
         {
           "ruleId": "10021",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/resources/js/jquery-1.7.2.min.js\nMethod: GET\nParam: X-Content-Type-Options\n."
           },
@@ -711,6 +790,7 @@
         },
         {
           "ruleId": "10021",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/resources/themes/images/gray/tools/tool-sprites.gif\nMethod: GET\nParam: X-Content-Type-Options\n."
           },
@@ -718,6 +798,7 @@
         },
         {
           "ruleId": "10021",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/bank/account-activity.html\nMethod: GET\nParam: X-Content-Type-Options\n."
           },
@@ -725,6 +806,7 @@
         },
         {
           "ruleId": "10021",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/resources/extjs/app/store/ReportOutFlow.js\nMethod: GET\nParam: X-Content-Type-Options\n."
           },
@@ -732,6 +814,7 @@
         },
         {
           "ruleId": "10021",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/bank/pay-bills-new-payee.html\nMethod: GET\nParam: X-Content-Type-Options\n."
           },
@@ -739,6 +822,7 @@
         },
         {
           "ruleId": "10021",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/resources/extjs/app/view/Report.js\nMethod: GET\nParam: X-Content-Type-Options\n."
           },
@@ -746,6 +830,7 @@
         },
         {
           "ruleId": "10021",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/resources/css/ext-all-gray.css\nMethod: GET\nParam: X-Content-Type-Options\n."
           },
@@ -753,6 +838,7 @@
         },
         {
           "ruleId": "10021",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/online-banking.html\nMethod: GET\nParam: X-Content-Type-Options\n."
           },
@@ -760,6 +846,7 @@
         },
         {
           "ruleId": "10021",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/resources/extjs/app/model/DetailedReport.js\nMethod: GET\nParam: X-Content-Type-Options\n."
           },
@@ -767,6 +854,7 @@
         },
         {
           "ruleId": "10021",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/resources/extjs/app/view/SummaryReport.js\nMethod: GET\nParam: X-Content-Type-Options\n."
           },
@@ -774,6 +862,7 @@
         },
         {
           "ruleId": "10021",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/resources/extjs/app/model/Report.js\nMethod: GET\nParam: X-Content-Type-Options\n."
           },
@@ -781,6 +870,7 @@
         },
         {
           "ruleId": "10021",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/resources/extjs/app/view/Viewport.js\nMethod: GET\nParam: X-Content-Type-Options\n."
           },
@@ -788,6 +878,7 @@
         },
         {
           "ruleId": "10021",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/resources/css/jquery-ui-1.8.16.custom.css\nMethod: GET\nParam: X-Content-Type-Options\n."
           },
@@ -955,6 +1046,7 @@
         },
         {
           "ruleId": "10020",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/bank/money-map.html\nMethod: GET\nParam: X-Frame-Options\n."
           },
@@ -962,6 +1054,7 @@
         },
         {
           "ruleId": "10020",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/bank/account-activity.html?accountId=1\nMethod: GET\nParam: X-Frame-Options\n."
           },
@@ -969,6 +1062,7 @@
         },
         {
           "ruleId": "10020",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/bank/online-statements-for-account.html\nMethod: POST\nParam: X-Frame-Options\n."
           },
@@ -976,6 +1070,7 @@
         },
         {
           "ruleId": "10020",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/bank/account-summary.html\nMethod: GET\nParam: X-Frame-Options\n."
           },
@@ -983,6 +1078,7 @@
         },
         {
           "ruleId": "10020",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/bank/pay-bills-new-payee.html\nMethod: POST\nParam: X-Frame-Options\n."
           },
@@ -990,6 +1086,7 @@
         },
         {
           "ruleId": "10020",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/login.html?login_error=true\nMethod: GET\nParam: X-Frame-Options\n."
           },
@@ -997,6 +1094,7 @@
         },
         {
           "ruleId": "10020",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/help.html?topic=/help/topic2.html\nMethod: GET\nParam: X-Frame-Options\n."
           },
@@ -1004,6 +1102,7 @@
         },
         {
           "ruleId": "10020",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/bank/account-activity.html?accountId=6\nMethod: GET\nParam: X-Frame-Options\n."
           },
@@ -1011,6 +1110,7 @@
         },
         {
           "ruleId": "10020",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/bank/account-activity-find-transactions.html\nMethod: GET\nParam: X-Frame-Options\n."
           },
@@ -1018,6 +1118,7 @@
         },
         {
           "ruleId": "10020",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/help.html\nMethod: GET\nParam: X-Frame-Options\n."
           },
@@ -1025,6 +1126,7 @@
         },
         {
           "ruleId": "10020",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/bank/account-activity.html?accountId=2\nMethod: GET\nParam: X-Frame-Options\n."
           },
@@ -1032,6 +1134,7 @@
         },
         {
           "ruleId": "10020",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/bank/account-activity.html?accountId=3\nMethod: GET\nParam: X-Frame-Options\n."
           },
@@ -1039,6 +1142,7 @@
         },
         {
           "ruleId": "10020",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/bank/account-activity.html?accountId=4\nMethod: GET\nParam: X-Frame-Options\n."
           },
@@ -1046,6 +1150,7 @@
         },
         {
           "ruleId": "10020",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/forgotten-password-send.html\nMethod: POST\nParam: X-Frame-Options\n."
           },
@@ -1053,6 +1158,7 @@
         },
         {
           "ruleId": "10020",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/bank/account-activity.html?accountId=5\nMethod: GET\nParam: X-Frame-Options\n."
           },
@@ -1060,6 +1166,7 @@
         },
         {
           "ruleId": "10020",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/bank/online-statements.html\nMethod: GET\nParam: X-Frame-Options\n."
           },
@@ -1067,6 +1174,7 @@
         },
         {
           "ruleId": "10020",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/help.html?topic=/help/topic3.html\nMethod: GET\nParam: X-Frame-Options\n."
           },
@@ -1074,6 +1182,7 @@
         },
         {
           "ruleId": "10020",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/search.html?searchTerm=ZAP\nMethod: GET\nParam: X-Frame-Options\n."
           },
@@ -1081,6 +1190,7 @@
         },
         {
           "ruleId": "10020",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/bank/account-activity-show-transactions.html\nMethod: GET\nParam: X-Frame-Options\n."
           },
@@ -1088,6 +1198,7 @@
         },
         {
           "ruleId": "10020",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/bank/pay-bills-new-payee.html\nMethod: GET\nParam: X-Frame-Options\n."
           },
@@ -1095,6 +1206,7 @@
         },
         {
           "ruleId": "40025.2",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/bank/transfer-funds-verify.html\nMethod: POST\nAttack: TRACE, OPTIONS methods with 'Max-Forwards' header. TRACK method.\n."
           },
@@ -1102,6 +1214,7 @@
         },
         {
           "ruleId": "40025.2",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/bank/account-activity-show-transactions.html\nMethod: POST\nAttack: TRACE, OPTIONS methods with 'Max-Forwards' header. TRACK method.\n."
           },
@@ -1109,6 +1222,7 @@
         },
         {
           "ruleId": "40025.2",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/bank/pay-bills-conversion-rate-for-currency.html\nMethod: POST\nAttack: TRACE, OPTIONS methods with 'Max-Forwards' header. TRACK method.\n."
           },
@@ -1116,6 +1230,7 @@
         },
         {
           "ruleId": "40025.2",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/sendFeedback.html\nMethod: POST\nAttack: TRACE, OPTIONS methods with 'Max-Forwards' header. TRACK method.\n."
           },
@@ -1123,6 +1238,7 @@
         },
         {
           "ruleId": "40025.2",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/bank/account-activity-find-transactions.html\nMethod: POST\nAttack: TRACE, OPTIONS methods with 'Max-Forwards' header. TRACK method.\n."
           },
@@ -1130,6 +1246,7 @@
         },
         {
           "ruleId": "40025.2",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/signin.html\nMethod: POST\nAttack: TRACE, OPTIONS methods with 'Max-Forwards' header. TRACK method.\n."
           },
@@ -1137,6 +1254,7 @@
         },
         {
           "ruleId": "40025.2",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/bank/money-map-get-spendings-by-type.html?_dc=1544043856896\nMethod: POST\nAttack: TRACE, OPTIONS methods with 'Max-Forwards' header. TRACK method.\n."
           },
@@ -1144,6 +1262,7 @@
         },
         {
           "ruleId": "40025.2",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/bank/pay-bills-get-payee-details.html\nMethod: POST\nAttack: TRACE, OPTIONS methods with 'Max-Forwards' header. TRACK method.\n."
           },
@@ -1151,6 +1270,7 @@
         },
         {
           "ruleId": "40025.2",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/bank/online-statements-for-account.html\nMethod: POST\nAttack: TRACE, OPTIONS methods with 'Max-Forwards' header. TRACK method.\n."
           },
@@ -1158,6 +1278,7 @@
         },
         {
           "ruleId": "40025.2",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/forgotten-password-send.html\nMethod: POST\nAttack: TRACE, OPTIONS methods with 'Max-Forwards' header. TRACK method.\n."
           },
@@ -1165,6 +1286,7 @@
         },
         {
           "ruleId": "40025.2",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/bank/pay-bills-new-payee.html\nMethod: POST\nAttack: TRACE, OPTIONS methods with 'Max-Forwards' header. TRACK method.\n."
           },
@@ -1204,6 +1326,7 @@
         },
         {
           "ruleId": "30002",
+          "level": "warning",
           "message": {
             "text": "Uri: http://zero.webappsecurity.com/signin.html\nMethod: POST\nParam: user_token\nAttack: ZAP%n%s%n%s%n%s%n%s%n%s%n%s%n%s%n%s%n%s%n%s%n%s%n%s%n%s%n%s%n%s%n%s%n%s%n%s%n%s%n%s\n\n."
           },

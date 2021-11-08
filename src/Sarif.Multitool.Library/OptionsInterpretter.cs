@@ -181,26 +181,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             string[] items = _environmentVariableGetter
                 .GetEnvironmentVariable(FormEnvironmentVariableName(propertyName))?
                 .Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
-
-            if (items == null)
-            {
-                return null;
-            }
-
-            var list = new List<T>(items.Length);
-            foreach (string item in items)
-            {
-                if (!Enum.IsDefined(typeof(T), item))
-                {
-                    list.Add(default(T));
-                }
-                else
-                {
-                    list.Add((T)Enum.Parse(typeof(T), item, ignoreCase: true));
-                }
-            }
-
-            return list;
+            return NullableEnum.Parse<T>(items);
         }
 
         private static string FormEnvironmentVariableName(string propertyName)

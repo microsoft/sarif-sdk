@@ -11,8 +11,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
     [Verb("analyze", HelpText = "Analyze one or more binary files for security and correctness issues.")]
     public abstract class AnalyzeOptionsBase : CommonOptionsBase
     {
+        private IEnumerable<FailureLevel?> level;
+
         [Value(0,
-               HelpText = "One or more specifiers to a file, directory, or filter pattern that resolves to one or more binaries to analyze.")]
+HelpText = "One or more specifiers to a file, directory, or filter pattern that resolves to one or more binaries to analyze.")]
         public IEnumerable<string> TargetFileSpecifiers { get; set; }
 
         [Option(
@@ -94,9 +96,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         [Option(
             "level",
             Separator = ';',
-            Default = new FailureLevel[] { FailureLevel.Error, FailureLevel.Warning },
             HelpText = "A semicolon delimited list to filter output of scan results to one or more failure levels. Valid values: Error, Warning and Note.")]
-        public IEnumerable<FailureLevel?> Level { get; set; }
+        public IEnumerable<FailureLevel?> Level
+        {
+            get => this.level;
+            set => this.level = !value.HasAtLeastOneNonNullValue()
+                    ? (new FailureLevel?[] { FailureLevel.Error, FailureLevel.Warning })
+                    : value;
+        }
 
         [Option(
             "kind",
