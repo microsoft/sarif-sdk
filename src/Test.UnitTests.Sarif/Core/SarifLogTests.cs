@@ -321,6 +321,33 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
             });
             exception.Should().BeNull();
             httpMock.Clear();
+
+            string filePath = "SomeFile.txt";
+            var fileSystem = new Mock<IFileSystem>();
+            memoryStream = new MemoryStream();
+            sarifLog.Save(memoryStream);
+
+            fileSystem
+                .Setup(f => f.FileExists(It.IsAny<string>()))
+                .Returns(true);
+
+            fileSystem
+                .Setup(f => f.FileOpenRead(It.IsAny<string>()))
+                .Returns(memoryStream);
+
+            httpMock.Mock(
+                new HttpRequestMessage(HttpMethod.Post, postUri) { Content = new StreamContent(memoryStream) },
+                HttpMockHelper.OKResponse);
+
+            exception = await Record.ExceptionAsync(async () =>
+            {
+                await SarifLog.Post(postUri,
+                                    filePath,
+                                    fileSystem.Object,
+                                    new HttpClient(httpMock));
+            });
+            exception.Should().BeNull();
+            httpMock.Clear();
         }
 
         private Run SerializeAndDeserialize(Run run)
