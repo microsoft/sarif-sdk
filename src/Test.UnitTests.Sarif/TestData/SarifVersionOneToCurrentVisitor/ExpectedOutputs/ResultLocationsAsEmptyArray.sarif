@@ -24,9 +24,7 @@
           "executionSuccessful": true,
           "properties": {
             "scanConfigurationId": 102020,
-            "rootUrls": [
-  "https://example.com/"
-]
+            "rootUrls": ["https://example.com/"]
           }
         }
       ],

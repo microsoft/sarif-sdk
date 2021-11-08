@@ -49,6 +49,7 @@
         {
           "ruleId": "SARIF2005",
           "ruleIndex": 0,
+          "level": "warning",
           "message": {
             "id": "Warning_ProvideToolVersion",
             "arguments": [

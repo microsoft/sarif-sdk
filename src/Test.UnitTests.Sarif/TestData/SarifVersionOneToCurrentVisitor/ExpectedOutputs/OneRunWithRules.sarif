@@ -53,6 +53,7 @@
         {
           "ruleId": "C2001",
           "ruleIndex": 0,
+          "level": "warning",
           "message": {
             "id": "default",
             "arguments": [
@@ -63,6 +64,7 @@
         {
           "ruleId": "C2001",
           "ruleIndex": 0,
+          "level": "warning",
           "message": {
             "id": "default",
             "arguments": [
@@ -72,12 +74,14 @@
         },
         {
           "ruleId": "C2002",
+          "level": "warning",
           "message": {
             "text": "Some testing occurred."
           }
         },
         {
           "ruleIndex": 2,
+          "level": "warning",
           "message": {
             "text": "Some testing occurred."
           }

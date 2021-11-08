@@ -30,6 +30,7 @@
       "results": [
         {
           "ruleId": "TEST1001",
+          "level": "warning",
           "message": {
             "text": "A result fired against 'collections::list'."
           },
@@ -46,6 +47,7 @@
         },
         {
           "ruleId": "TEST1001",
+          "level": "warning",
           "message": {
             "text": "A result fired against 'collections'."
           },
@@ -62,6 +64,7 @@
         },
         {
           "ruleId": "TEST1001",
+          "level": "warning",
           "message": {
             "text": "A result fired against 'collections::list::add'."
           },
@@ -78,6 +81,7 @@
         },
         {
           "ruleId": "TEST1002",
+          "level": "warning",
           "message": {
             "text": "A second result fired against 'collections::list'."
           },

@@ -257,6 +257,7 @@
         {
           "ruleId": "SARIF2005",
           "ruleIndex": 3,
+          "level": "warning",
           "message": {
             "id": "Warning_ProvideToolnformationUri",
             "arguments": [
@@ -285,6 +286,7 @@
         {
           "ruleId": "SARIF2005",
           "ruleIndex": 3,
+          "level": "warning",
           "message": {
             "id": "Warning_ProvideToolVersion",
             "arguments": [

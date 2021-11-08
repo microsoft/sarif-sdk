@@ -43,6 +43,7 @@
         {
           "ruleId": "SARIF2007",
           "ruleIndex": 0,
+          "level": "warning",
           "message": {
             "id": "Warning_ExpressResultLocationsRelativeToMappedTo",
             "arguments": [

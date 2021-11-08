@@ -40,6 +40,7 @@
         {
           "ruleId": "SARIF2008",
           "ruleIndex": 0,
+          "level": "warning",
           "message": {
             "id": "Warning_Default",
             "arguments": [

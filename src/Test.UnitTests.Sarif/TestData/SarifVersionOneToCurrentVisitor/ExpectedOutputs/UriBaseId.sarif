@@ -34,6 +34,7 @@
       "results": [
         {
           "ruleId": "C1",
+          "level": "warning",
           "message": {
             "text": "a"
           },
@@ -52,6 +53,7 @@
         },
         {
           "ruleId": "C1",
+          "level": "warning",
           "message": {
             "text": "a"
           },
@@ -71,6 +73,7 @@
         },
         {
           "ruleId": "C1",
+          "level": "warning",
           "message": {
             "text": "a"
           },

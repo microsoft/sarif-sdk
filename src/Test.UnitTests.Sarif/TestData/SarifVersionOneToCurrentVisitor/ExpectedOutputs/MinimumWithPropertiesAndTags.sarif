@@ -9,10 +9,7 @@
           "semanticVersion": "2.1.0",
           "properties": {
             "foo": "bar",
-            "tags": [
-  "1",
-  "2"
-]
+            "tags": ["1","2"]
           }
         }
       },

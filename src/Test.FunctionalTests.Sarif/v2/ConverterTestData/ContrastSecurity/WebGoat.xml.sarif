@@ -1865,6 +1865,7 @@
         {
           "ruleId": "crypto-bad-mac",
           "ruleIndex": 18,
+          "level": "warning",
           "message": {
             "id": "default",
             "arguments": [
@@ -11461,6 +11462,7 @@
         {
           "ruleId": "authorization-missing-deny",
           "ruleIndex": 3,
+          "level": "warning",
           "message": {
             "id": "underLocation",
             "arguments": [
@@ -11490,6 +11492,7 @@
         {
           "ruleId": "authorization-missing-deny",
           "ruleIndex": 3,
+          "level": "warning",
           "message": {
             "id": "underLocation",
             "arguments": [
@@ -11519,6 +11522,7 @@
         {
           "ruleId": "authorization-missing-deny",
           "ruleIndex": 3,
+          "level": "warning",
           "message": {
             "id": "underLocation",
             "arguments": [
@@ -11548,6 +11552,7 @@
         {
           "ruleId": "authorization-missing-deny",
           "ruleIndex": 3,
+          "level": "warning",
           "message": {
             "id": "underLocation",
             "arguments": [
@@ -11577,6 +11582,7 @@
         {
           "ruleId": "authorization-missing-deny",
           "ruleIndex": 3,
+          "level": "warning",
           "message": {
             "id": "default",
             "arguments": [
@@ -11634,6 +11640,7 @@
         {
           "ruleId": "custom-errors-off",
           "ruleIndex": 6,
+          "level": "warning",
           "message": {
             "id": "default",
             "arguments": [
@@ -11662,6 +11669,7 @@
         {
           "ruleId": "event-validation-disabled",
           "ruleIndex": 7,
+          "level": "warning",
           "message": {
             "id": "default",
             "arguments": [
@@ -11689,6 +11697,7 @@
         {
           "ruleId": "forms-auth-ssl",
           "ruleIndex": 11,
+          "level": "warning",
           "message": {
             "id": "default",
             "arguments": [
@@ -11746,6 +11755,7 @@
         {
           "ruleId": "request-validation-disabled",
           "ruleIndex": 27,
+          "level": "warning",
           "message": {
             "id": "default",
             "arguments": [
@@ -11773,6 +11783,7 @@
         {
           "ruleId": "secure-flag-missing",
           "ruleIndex": 36,
+          "level": "warning",
           "message": {
             "id": "default",
             "arguments": [
@@ -11810,6 +11821,7 @@
         {
           "ruleId": "session-rewriting",
           "ruleIndex": 37,
+          "level": "warning",
           "message": {
             "id": "default",
             "arguments": [

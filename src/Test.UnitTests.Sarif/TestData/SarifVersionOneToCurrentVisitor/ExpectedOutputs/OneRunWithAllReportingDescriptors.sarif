@@ -43,6 +43,7 @@
         {
           "ruleId": "C2003",
           "ruleIndex": 0,
+          "level": "warning",
           "message": {
             "text": "Some testing occurred."
           }
@@ -50,6 +51,7 @@
         {
           "ruleId": "C2004",
           "ruleIndex": 1,
+          "level": "warning",
           "message": {
             "text": "Some testing occurred."
           }

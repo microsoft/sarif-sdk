@@ -6,6 +6,7 @@
       "results": [
         {
           "ruleId": "C0301(line-too-long)",
+          "level": "warning",
           "message": {
             "text": "Line too long (110/100)"
           },
@@ -25,6 +26,7 @@
         },
         {
           "ruleId": "C0330(bad-continuation)",
+          "level": "warning",
           "message": {
             "text": "Wrong continued indentation (add 2 spaces).\n        'jason', \"oof\", 'png', 'jeff', 'wdg', 'ryley', 'yossi', 'faucon', 'christopher', 'scott', 'riese']\r\n        ^ |"
           },
@@ -44,6 +46,7 @@
         },
         {
           "ruleId": "C0301(line-too-long)",
+          "level": "warning",
           "message": {
             "text": "Line too long (106/100)"
           },
@@ -63,6 +66,7 @@
         },
         {
           "ruleId": "C0325(superfluous-parens)",
+          "level": "warning",
           "message": {
             "text": "Unnecessary parens after 'return' keyword"
           },
@@ -82,6 +86,7 @@
         },
         {
           "ruleId": "C0303(trailing-whitespace)",
+          "level": "warning",
           "message": {
             "text": "Trailing whitespace"
           },
@@ -101,6 +106,7 @@
         },
         {
           "ruleId": "C0303(trailing-whitespace)",
+          "level": "warning",
           "message": {
             "text": "Trailing whitespace"
           },
@@ -120,6 +126,7 @@
         },
         {
           "ruleId": "C0303(trailing-whitespace)",
+          "level": "warning",
           "message": {
             "text": "Trailing whitespace"
           },
@@ -139,6 +146,7 @@
         },
         {
           "ruleId": "C0325(superfluous-parens)",
+          "level": "warning",
           "message": {
             "text": "Unnecessary parens after 'if' keyword"
           },
@@ -158,6 +166,7 @@
         },
         {
           "ruleId": "C0303(trailing-whitespace)",
+          "level": "warning",
           "message": {
             "text": "Trailing whitespace"
           },
@@ -177,6 +186,7 @@
         },
         {
           "ruleId": "C0330(bad-continuation)",
+          "level": "warning",
           "message": {
             "text": "Wrong continued indentation (remove 4 spaces).\n                                 min_df=2, stop_words= swords,\r\n                             |   ^"
           },
@@ -196,6 +206,7 @@
         },
         {
           "ruleId": "C0326(bad-whitespace)",
+          "level": "warning",
           "message": {
             "text": "No space allowed after keyword argument assignment\n                                 min_df=2, stop_words= swords,\r\n                                                     ^"
           },
@@ -215,6 +226,7 @@
         },
         {
           "ruleId": "C0330(bad-continuation)",
+          "level": "warning",
           "message": {
             "text": "Wrong continued indentation (remove 4 spaces).\n                                 use_idf=True)\r\n                             |   ^"
           },
@@ -234,6 +246,7 @@
         },
         {
           "ruleId": "C0330(bad-continuation)",
+          "level": "warning",
           "message": {
             "text": "Wrong continued indentation (remove 4 spaces).\n                         init_size=1000, batch_size=1000, verbose=True)\r\n                     |   ^"
           },
@@ -253,6 +266,7 @@
         },
         {
           "ruleId": "C0304(missing-final-newline)",
+          "level": "warning",
           "message": {
             "text": "Final newline missing"
           },
@@ -272,6 +286,7 @@
         },
         {
           "ruleId": "C0111(missing-docstring)",
+          "level": "warning",
           "message": {
             "text": "Missing module docstring"
           },
@@ -291,6 +306,7 @@
         },
         {
           "ruleId": "W0402(deprecated-module)",
+          "level": "warning",
           "message": {
             "text": "Uses of a deprecated module 'optparse'"
           },
@@ -310,6 +326,7 @@
         },
         {
           "ruleId": "C0103(invalid-name)",
+          "level": "warning",
           "message": {
             "text": "Constant name \"today\" doesn't conform to UPPER_CASE naming style"
           },
@@ -329,6 +346,7 @@
         },
         {
           "ruleId": "C0103(invalid-name)",
+          "level": "warning",
           "message": {
             "text": "Constant name \"clusters\" doesn't conform to UPPER_CASE naming style"
           },
@@ -348,6 +366,7 @@
         },
         {
           "ruleId": "C0103(invalid-name)",
+          "level": "warning",
           "message": {
             "text": "Constant name \"swords\" doesn't conform to UPPER_CASE naming style"
           },
@@ -367,6 +386,7 @@
         },
         {
           "ruleId": "C0103(invalid-name)",
+          "level": "warning",
           "message": {
             "text": "Function name \"getLast30daysMails\" doesn't conform to snake_case naming style"
           },
@@ -386,6 +406,7 @@
         },
         {
           "ruleId": "C0111(missing-docstring)",
+          "level": "warning",
           "message": {
             "text": "Missing function docstring"
           },
@@ -405,6 +426,7 @@
         },
         {
           "ruleId": "C0103(invalid-name)",
+          "level": "warning",
           "message": {
             "text": "Variable name \"sentOn\" doesn't conform to snake_case naming style"
           },
@@ -425,6 +447,7 @@
         },
         {
           "ruleId": "C0103(invalid-name)",
+          "level": "warning",
           "message": {
             "text": "Variable name \"mailTime\" doesn't conform to snake_case naming style"
           },
@@ -445,6 +468,7 @@
         },
         {
           "ruleId": "C0103(invalid-name)",
+          "level": "warning",
           "message": {
             "text": "Argument name \"X\" doesn't conform to snake_case naming style"
           },
@@ -464,6 +488,7 @@
         },
         {
           "ruleId": "C0111(missing-docstring)",
+          "level": "warning",
           "message": {
             "text": "Missing function docstring"
           },
@@ -483,6 +508,7 @@
         },
         {
           "ruleId": "W0621(redefined-outer-name)",
+          "level": "warning",
           "message": {
             "text": "Redefining name 'X' from outer scope (line 104)"
           },
@@ -503,6 +529,7 @@
         },
         {
           "ruleId": "W0621(redefined-outer-name)",
+          "level": "warning",
           "message": {
             "text": "Redefining name 't0' from outer scope (line 109)"
           },
@@ -523,6 +550,7 @@
         },
         {
           "ruleId": "W0621(redefined-outer-name)",
+          "level": "warning",
           "message": {
             "text": "Redefining name 'svd' from outer scope (line 105)"
           },
@@ -543,6 +571,7 @@
         },
         {
           "ruleId": "C0103(invalid-name)",
+          "level": "warning",
           "message": {
             "text": "Variable name \"t0\" doesn't conform to snake_case naming style"
           },
@@ -563,6 +592,7 @@
         },
         {
           "ruleId": "C0103(invalid-name)",
+          "level": "warning",
           "message": {
             "text": "Constant name \"hcorpus\" doesn't conform to UPPER_CASE naming style"
           },
@@ -582,6 +612,7 @@
         },
         {
           "ruleId": "C0103(invalid-name)",
+          "level": "warning",
           "message": {
             "text": "Function name \"getHash\" doesn't conform to snake_case naming style"
           },
@@ -601,6 +632,7 @@
         },
         {
           "ruleId": "C0111(missing-docstring)",
+          "level": "warning",
           "message": {
             "text": "Missing function docstring"
           },
@@ -620,6 +652,7 @@
         },
         {
           "ruleId": "C0111(missing-docstring)",
+          "level": "warning",
           "message": {
             "text": "Missing function docstring"
           },
@@ -639,6 +672,7 @@
         },
         {
           "ruleId": "W0621(redefined-outer-name)",
+          "level": "warning",
           "message": {
             "text": "Redefining name 'corpus' from outer scope (line 99)"
           },
@@ -659,6 +693,7 @@
         },
         {
           "ruleId": "C0103(invalid-name)",
+          "level": "warning",
           "message": {
             "text": "Constant name \"groups\" doesn't conform to UPPER_CASE naming style"
           },
@@ -678,6 +713,7 @@
         },
         {
           "ruleId": "C0103(invalid-name)",
+          "level": "warning",
           "message": {
             "text": "Function name \"getData\" doesn't conform to snake_case naming style"
           },
@@ -697,6 +733,7 @@
         },
         {
           "ruleId": "C0103(invalid-name)",
+          "level": "warning",
           "message": {
             "text": "Argument name \"km\" doesn't conform to snake_case naming style"
           },
@@ -716,6 +753,7 @@
         },
         {
           "ruleId": "C0111(missing-docstring)",
+          "level": "warning",
           "message": {
             "text": "Missing function docstring"
           },
@@ -735,6 +773,7 @@
         },
         {
           "ruleId": "W0621(redefined-outer-name)",
+          "level": "warning",
           "message": {
             "text": "Redefining name 'km' from outer scope (line 106)"
           },
@@ -755,6 +794,7 @@
         },
         {
           "ruleId": "W0621(redefined-outer-name)",
+          "level": "warning",
           "message": {
             "text": "Redefining name 'svd' from outer scope (line 105)"
           },
@@ -775,6 +815,7 @@
         },
         {
           "ruleId": "C0103(invalid-name)",
+          "level": "warning",
           "message": {
             "text": "Function name \"groupCluster\" doesn't conform to snake_case naming style"
           },
@@ -794,6 +835,7 @@
         },
         {
           "ruleId": "C0111(missing-docstring)",
+          "level": "warning",
           "message": {
             "text": "Missing function docstring"
           },
@@ -813,6 +855,7 @@
         },
         {
           "ruleId": "C0103(invalid-name)",
+          "level": "warning",
           "message": {
             "text": "Variable name \"hs\" doesn't conform to snake_case naming style"
           },
@@ -833,6 +876,7 @@
         },
         {
           "ruleId": "C0103(invalid-name)",
+          "level": "warning",
           "message": {
             "text": "Function name \"mapCluster\" doesn't conform to snake_case naming style"
           },
@@ -852,6 +896,7 @@
         },
         {
           "ruleId": "C0111(missing-docstring)",
+          "level": "warning",
           "message": {
             "text": "Missing function docstring"
           },
@@ -871,6 +916,7 @@
         },
         {
           "ruleId": "C0103(invalid-name)",
+          "level": "warning",
           "message": {
             "text": "Variable name \"cd\" doesn't conform to snake_case naming style"
           },
@@ -891,6 +937,7 @@
         },
         {
           "ruleId": "C0103(invalid-name)",
+          "level": "warning",
           "message": {
             "text": "Argument name \"km\" doesn't conform to snake_case naming style"
           },
@@ -910,6 +957,7 @@
         },
         {
           "ruleId": "C0111(missing-docstring)",
+          "level": "warning",
           "message": {
             "text": "Missing function docstring"
           },
@@ -929,6 +977,7 @@
         },
         {
           "ruleId": "W0621(redefined-outer-name)",
+          "level": "warning",
           "message": {
             "text": "Redefining name 'km' from outer scope (line 106)"
           },
@@ -949,6 +998,7 @@
         },
         {
           "ruleId": "W0621(redefined-outer-name)",
+          "level": "warning",
           "message": {
             "text": "Redefining name 'svd' from outer scope (line 105)"
           },
@@ -969,6 +1019,7 @@
         },
         {
           "ruleId": "C0103(invalid-name)",
+          "level": "warning",
           "message": {
             "text": "Constant name \"outlook\" doesn't conform to UPPER_CASE naming style"
           },
@@ -988,6 +1039,7 @@
         },
         {
           "ruleId": "C0103(invalid-name)",
+          "level": "warning",
           "message": {
             "text": "Constant name \"inbox\" doesn't conform to UPPER_CASE naming style"
           },
@@ -1007,6 +1059,7 @@
         },
         {
           "ruleId": "C0103(invalid-name)",
+          "level": "warning",
           "message": {
             "text": "Constant name \"messages\" doesn't conform to UPPER_CASE naming style"
           },
@@ -1026,6 +1079,7 @@
         },
         {
           "ruleId": "C0103(invalid-name)",
+          "level": "warning",
           "message": {
             "text": "Constant name \"filter_messages\" doesn't conform to UPPER_CASE naming style"
           },
@@ -1045,6 +1099,7 @@
         },
         {
           "ruleId": "C0103(invalid-name)",
+          "level": "warning",
           "message": {
             "text": "Constant name \"corpus\" doesn't conform to UPPER_CASE naming style"
           },
@@ -1064,6 +1119,7 @@
         },
         {
           "ruleId": "C0103(invalid-name)",
+          "level": "warning",
           "message": {
             "text": "Constant name \"vectorizer\" doesn't conform to UPPER_CASE naming style"
           },
@@ -1083,6 +1139,7 @@
         },
         {
           "ruleId": "C0103(invalid-name)",
+          "level": "warning",
           "message": {
             "text": "Constant name \"dx\" doesn't conform to UPPER_CASE naming style"
           },
@@ -1103,6 +1160,7 @@
         },
         {
           "ruleId": "C0103(invalid-name)",
+          "level": "warning",
           "message": {
             "text": "Constant name \"svd\" doesn't conform to UPPER_CASE naming style"
           },
@@ -1123,6 +1181,7 @@
         },
         {
           "ruleId": "C0103(invalid-name)",
+          "level": "warning",
           "message": {
             "text": "Constant name \"km\" doesn't conform to UPPER_CASE naming style"
           },
@@ -1142,6 +1201,7 @@
         },
         {
           "ruleId": "C0103(invalid-name)",
+          "level": "warning",
           "message": {
             "text": "Constant name \"t0\" doesn't conform to UPPER_CASE naming style"
           },
@@ -1161,6 +1221,7 @@
         },
         {
           "ruleId": "W0104(pointless-statement)",
+          "level": "warning",
           "message": {
             "text": "Statement seems to have no effect"
           },
@@ -1180,6 +1241,7 @@
         },
         {
           "ruleId": "W0611(unused-import)",
+          "level": "warning",
           "message": {
             "text": "Unused timedelta imported from datetime as td"
           },
@@ -1199,6 +1261,7 @@
         },
         {
           "ruleId": "W0611(unused-import)",
+          "level": "warning",
           "message": {
             "text": "Unused HashingVectorizer imported from sklearn.feature_extraction.text"
           },
@@ -1218,6 +1281,7 @@
         },
         {
           "ruleId": "W0611(unused-import)",
+          "level": "warning",
           "message": {
             "text": "Unused TfidfTransformer imported from sklearn.feature_extraction.text"
           },
@@ -1237,6 +1301,7 @@
         },
         {
           "ruleId": "W0611(unused-import)",
+          "level": "warning",
           "message": {
             "text": "Unused import sys"
           },
@@ -1256,6 +1321,7 @@
         },
         {
           "ruleId": "W0611(unused-import)",
+          "level": "warning",
           "message": {
             "text": "Unused OptionParser imported from optparse"
           },
@@ -1275,6 +1341,7 @@
         },
         {
           "ruleId": "W0611(unused-import)",
+          "level": "warning",
           "message": {
             "text": "Unused KMeans imported from sklearn.cluster"
           },
@@ -1294,6 +1361,7 @@
         },
         {
           "ruleId": "C0411(wrong-import-order)",
+          "level": "warning",
           "message": {
             "text": "standard import \"from time import time\" should be placed before \"from sklearn.decomposition import TruncatedSVD\""
           },
@@ -1313,6 +1381,7 @@
         },
         {
           "ruleId": "C0411(wrong-import-order)",
+          "level": "warning",
           "message": {
             "text": "standard import \"import sys\" should be placed before \"from sklearn.decomposition import TruncatedSVD\""
           },
@@ -1332,6 +1401,7 @@
         },
         {
           "ruleId": "C0411(wrong-import-order)",
+          "level": "warning",
           "message": {
             "text": "standard import \"import hashlib\" should be placed before \"from sklearn.decomposition import TruncatedSVD\""
           },
@@ -1351,6 +1421,7 @@
         },
         {
           "ruleId": "C0411(wrong-import-order)",
+          "level": "warning",
           "message": {
             "text": "standard import \"from optparse import OptionParser\" should be placed before \"from sklearn.decomposition import TruncatedSVD\""
           },
@@ -1370,6 +1441,7 @@
         },
         {
           "ruleId": "C0412(ungrouped-imports)",
+          "level": "warning",
           "message": {
             "text": "Imports from package sklearn are not grouped"
           },

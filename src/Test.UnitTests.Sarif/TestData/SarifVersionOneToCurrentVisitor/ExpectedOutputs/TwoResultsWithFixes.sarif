@@ -35,6 +35,7 @@
       "results": [
         {
           "ruleId": "WEB1079",
+          "level": "warning",
           "message": {
             "id": "default",
             "arguments": [
@@ -125,6 +126,7 @@
         },
         {
           "ruleId": "WEB1066",
+          "level": "warning",
           "message": {
             "id": "default",
             "arguments": [

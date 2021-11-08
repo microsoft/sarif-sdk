@@ -81,6 +81,7 @@
       "results": [
         {
           "ruleId": "C2005",
+          "level": "warning",
           "message": {
             "text": "Some testing occurred."
           },
@@ -103,6 +104,7 @@
         {
           "ruleId": "C2001",
           "ruleIndex": 0,
+          "level": "warning",
           "message": {
             "id": "default",
             "arguments": [

@@ -10,6 +10,7 @@
       },
       "results": [
         {
+          "level": "warning",
           "message": {
             "text": "Some testing occurred."
           },
