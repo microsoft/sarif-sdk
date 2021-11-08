@@ -1077,6 +1077,44 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             RunResultsCachingTestCase(testCase, multithreaded: true);
         }
 
+        [Fact]
+        public void AnalyzeCommandBase_ShouldEmitAutomationDetailsWhenIdOrGuidExists()
+        {
+            const string automationId = "automation-id";
+            const string automationGuid = "automation-guid";
+
+            TestAnalyzeOptions[] enhancedOptions = new[]
+            {
+                new TestAnalyzeOptions
+                {
+                    AutomationId = automationId
+                },
+                new TestAnalyzeOptions
+                {
+                    AutomationGuid = automationGuid
+                },
+                new TestAnalyzeOptions
+                {
+                    AutomationId = automationId,
+                    AutomationGuid = automationGuid
+                }
+            };
+
+            foreach (TestAnalyzeOptions enhancedOption in enhancedOptions)
+            {
+                var testCase = new ResultsCachingTestCase
+                {
+                    Files = ComprehensiveKindAndLevelsByFileName,
+                    PersistLogFileToDisk = true,
+                };
+
+                RunResultsCachingTestCase(testCase, enhancedOptions: enhancedOption);
+
+                testCase.Files = ComprehensiveKindAndLevelsByFilePath;
+                RunResultsCachingTestCase(testCase, multithreaded: true, enhancedOptions: enhancedOption);
+            }
+        }
+
         [Fact(Timeout = 5000)]
         public void AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread_CoyoteTest()
         {
@@ -1251,7 +1289,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             $@"{Environment.CurrentDirectory}\Review.2.of.2.dll"
         };
 
-        private static void RunResultsCachingTestCase(ResultsCachingTestCase testCase, bool multithreaded = false)
+        private static void RunResultsCachingTestCase(ResultsCachingTestCase testCase,
+                                                      bool multithreaded = false,
+                                                      TestAnalyzeOptions enhancedOptions = null)
         {
             // This makes sure that we will reinitialize the mock file system. This
             // allows callers to reuse test case instances, by adjusting specific
@@ -1267,6 +1307,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 Kind = new List<ResultKind> { ResultKind.Fail },
                 Level = new List<FailureLevel?> { FailureLevel.Warning, FailureLevel.Error }
             };
+
+            EnhanceOptions(options, enhancedOptions);
 
             if (testCase.Verbose)
             {
@@ -1301,6 +1343,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             if (testCase.PersistLogFileToDisk)
             {
                 runWithCaching.Artifacts.Should().NotBeEmpty();
+
+                if (!string.IsNullOrWhiteSpace(options.AutomationId))
+                {
+                    runWithCaching.AutomationDetails.Id.Should().Be(options.AutomationId);
+                }
+
+                if (!string.IsNullOrWhiteSpace(options.AutomationGuid))
+                {
+                    runWithCaching.AutomationDetails.Guid.Should().Be(options.AutomationGuid);
+                }
+
+                runWithCaching.AutomationDetails.Should().BeEquivalentTo(runWithoutCaching.AutomationDetails);
             }
             // Tool configuration errors, such as 'Could not locate scan target PDB.'
             runWithoutCaching.Invocations?[0].ToolConfigurationNotifications?.Should()
@@ -1309,6 +1363,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             // Not yet explicitly tested
             runWithoutCaching.Invocations?[0].ToolExecutionNotifications?.Should()
                 .BeEquivalentTo(runWithCaching.Invocations?[0].ToolExecutionNotifications);
+        }
+
+        private static void EnhanceOptions(TestAnalyzeOptions current, TestAnalyzeOptions enhancement)
+        {
+            current.AutomationId ??= enhancement?.AutomationId;
+            current.AutomationGuid ??= enhancement?.AutomationGuid;
         }
 
         private static IFileSystem CreateDefaultFileSystemForResultsCaching(IList<string> files, bool generateSameInput = false)

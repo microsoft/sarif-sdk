@@ -220,6 +220,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             return this.Graphs.HasAtLeastOneNonDefaultValue(Graph.ValueComparer);
         }
 
+        public bool ShouldSerializeAutomationDetails()
+        {
+            return this.AutomationDetails?.Description != null ||
+                !string.IsNullOrWhiteSpace(this.AutomationDetails?.Id) ||
+                !string.IsNullOrWhiteSpace(this.AutomationDetails?.Guid) ||
+                !string.IsNullOrWhiteSpace(this.AutomationDetails?.CorrelationGuid);
+        }
+
         public bool ShouldSerializeInvocations()
         {
             return this.Invocations.HasAtLeastOneNonNullValue();

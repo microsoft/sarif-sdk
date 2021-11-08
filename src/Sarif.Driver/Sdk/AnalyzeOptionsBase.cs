@@ -114,7 +114,7 @@ HelpText = "One or more specifiers to a file, directory, or filter pattern that 
 
         [Option(
             "baseline",
-            HelpText = "A Sarif file to be used as baseline")]
+            HelpText = "A SARIF file to be used as baseline.")]
         public string BaselineSarifFile { get; set; }
     }
 }
