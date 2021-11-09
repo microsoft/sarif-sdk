@@ -196,7 +196,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             try
             {
-                await SarifLog.Post(postUri, outputFilePath, fileSystem, httpClient);
+                await SarifLog.Post(new Uri(postUri), outputFilePath, fileSystem, httpClient);
             }
             catch (Exception ex)
             {

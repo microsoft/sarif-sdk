@@ -26,10 +26,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             var serializer = new JsonSerializer();
             serializer.ContractResolver = new SarifDeferredContractResolver();
 
-            using (var jsonPositionedTextReader = new JsonPositionedTextReader(sarifFilePath))
-            {
-                return serializer.Deserialize<SarifLog>(jsonPositionedTextReader);
-            }
+            using var jsonPositionedTextReader = new JsonPositionedTextReader(sarifFilePath);
+            return serializer.Deserialize<SarifLog>(jsonPositionedTextReader);
         }
 
         /// <summary>
@@ -40,10 +38,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <returns>SarifLog instance for file</returns>
         public static SarifLog Load(string sarifFilePath)
         {
-            using (Stream stream = File.OpenRead(sarifFilePath))
-            {
-                return Load(stream);
-            }
+            using Stream stream = File.OpenRead(sarifFilePath);
+            return Load(stream);
         }
 
         /// <summary>
@@ -63,16 +59,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return serializer.Deserialize<SarifLog>(jsonPositionedTextReader);
             }
 
-            using (var streamReader = new StreamReader(source))
-            using (var jsonTextReader = new JsonTextReader(streamReader))
-            {
-                // NOTE: Load with JsonSerializer.Deserialize, not JsonConvert.DeserializeObject, to avoid a string of the whole file in memory.
-                return serializer.Deserialize<SarifLog>(jsonTextReader);
-            }
+            using var streamReader = new StreamReader(source);
+            using var jsonTextReader = new JsonTextReader(streamReader);
+            // NOTE: Load with JsonSerializer.Deserialize, not JsonConvert.DeserializeObject, to avoid a string of the whole file in memory.
+            return serializer.Deserialize<SarifLog>(jsonTextReader);
         }
 
         /// <summary>
-        /// Post the SARIF file to an URI that accepts it in a POST method.
+        /// Post the SARIF log file to a URI.
         /// </summary>
         /// <exception cref="ArgumentException">Thrown if filePath does not exist.</exception>
         /// <exception cref="ArgumentNullException">Thrown if postUri/filePath/stream/httpClient is null.</exception>
@@ -81,7 +75,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="filePath"></param>
         /// <param name="fileSystem"></param>
         /// <param name="httpClient"></param>
-        public static async Task Post(string postUri,
+        public static async Task Post(Uri postUri,
                                       string filePath,
                                       IFileSystem fileSystem,
                                       HttpClient httpClient)
@@ -101,16 +95,16 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
-        /// Post the SARIF stream to an URI that accepts it in a POST method.
+        /// Post the SARIF stream to a URI.
         /// </summary>
         /// <exception cref="ArgumentNullException">Thrown if postUri/stream/httpClient is null.</exception>
         /// <exception cref="HttpRequestException">Throws an exception if the IsSuccessStatusCode property for the HTTP response is false.</exception>
         /// <param name="postUri"></param>
         /// <param name="stream"></param>
         /// <param name="httpClient"></param>
-        public static async Task Post(string postUri, Stream stream, HttpClient httpClient)
+        public static async Task Post(Uri postUri, Stream stream, HttpClient httpClient)
         {
-            if (string.IsNullOrWhiteSpace(postUri))
+            if (postUri == null)
             {
                 throw new ArgumentNullException(nameof(postUri));
             }
@@ -138,10 +132,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="sarifFilePath">File Path to Sarif file to write to</param>
         public void Save(string sarifFilePath)
         {
-            using (FileStream stream = File.Create(sarifFilePath))
-            {
-                this.Save(stream);
-            }
+            using FileStream stream = File.Create(sarifFilePath);
+            this.Save(stream);
         }
 
         /// <summary>
@@ -150,10 +142,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="stream">Stream to write SARIF to</param>
         public void Save(Stream stream)
         {
-            using (var streamWriter = new StreamWriter(stream))
-            {
-                this.Save(streamWriter);
-            }
+            using var streamWriter = new StreamWriter(stream);
+            this.Save(streamWriter);
         }
 
         /// <summary>
@@ -164,10 +154,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             var serializer = new JsonSerializer();
 
-            using (var writer = new JsonTextWriter(streamWriter))
-            {
-                serializer.Serialize(writer, this);
-            }
+            using var writer = new JsonTextWriter(streamWriter);
+            serializer.Serialize(writer, this);
         }
 
         /// <summary>

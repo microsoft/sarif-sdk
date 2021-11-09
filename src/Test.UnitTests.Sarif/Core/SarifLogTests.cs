@@ -212,21 +212,21 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
                 new
                 {
                     Title = "Empty 'postUri' parameter",
-                    PostUri = string.Empty,
+                    PostUri = (Uri)null,
                     Stream = (Stream)new MemoryStream(),
                     HttpClient = new HttpClient()
                 },
                 new
                 {
                     Title = "Null 'stream' parameter",
-                    PostUri = "https://github.com/microsoft/sarif-sdk",
+                    PostUri = new Uri("https://github.com/microsoft/sarif-sdk"),
                     Stream = (Stream)null,
                     HttpClient = new HttpClient()
                 },
                 new
                 {
                     Title = "Null 'httpClient' parameter",
-                    PostUri = "https://github.com/microsoft/sarif-sdk",
+                    PostUri = new Uri("https://github.com/microsoft/sarif-sdk"),
                     Stream = (Stream)new MemoryStream(),
                     HttpClient = (HttpClient)null
                 },
@@ -255,13 +255,12 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
         [Fact]
         public async Task SarifLog_PostFile_WithInvalidParameters_ShouldThrowException()
         {
-            string postUri = string.Empty;
             string filePath = string.Empty;
             var fileSystem = new Mock<IFileSystem>();
 
             Exception exception = await Record.ExceptionAsync(async () =>
             {
-                await SarifLog.Post(postUri,
+                await SarifLog.Post(postUri: null,
                                     filePath,
                                     fileSystem.Object,
                                     httpClient: null);
@@ -276,7 +275,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
 
             exception = await Record.ExceptionAsync(async () =>
             {
-                await SarifLog.Post(postUri,
+                await SarifLog.Post(postUri: null,
                                     filePath,
                                     fileSystem.Object,
                                     httpClient: null);
@@ -288,7 +287,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
         [Fact]
         public async Task SarifLog_Post_WithValidParameters_ShouldNotThrownAnExceptionWhenRequestIsValid()
         {
-            string postUri = "https://github.com/microsoft/sarif-sdk";
+            var postUri = new Uri("https://github.com/microsoft/sarif-sdk");
             var sarifLog = new SarifLog();
             var httpMock = new HttpMockHelper();
             var memoryStream = new MemoryStream();

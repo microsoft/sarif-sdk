@@ -32,7 +32,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         // for --rich-return-code can't be detected because it
         // fails to parse.
         InvalidCommandLineOption = 0x1,
-
         ExceptionInSkimmerInitialize = 0x2,
         ExceptionRaisedInSkimmerCanAnalyze = 0x4,
         ExceptionInSkimmerAnalyze = 0x8,
@@ -54,7 +53,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         // Non-fatal conditions
         UnassignedNonfatal = 0x01F00000,
-
         RuleWasExplicitlyDisabled = 0x02000000,
         RuleCannotRunOnPlatform = 0x04000000,
         RuleNotApplicableToTarget = 0x08000000,

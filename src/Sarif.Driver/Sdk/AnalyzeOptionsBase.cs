@@ -112,7 +112,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         [Option(
             "postUri",
-            HelpText = "An URI that accepts SARIF as content in a POST method.")]
+            HelpText = "A URI to which the SARIF log file will be posted.")]
         public string PostUri { get; set; }
     }
 }
