@@ -270,13 +270,12 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
                 new HttpRequestMessage(HttpMethod.Post, postUri) { Content = new StreamContent(memoryStream) },
                 HttpMockHelper.BadRequestResponse);
 
-            Exception exception = await Record.ExceptionAsync(async () =>
+            await Assert.ThrowsAsync<HttpRequestException>(async () =>
             {
                 await SarifLog.Post(postUri,
                                     memoryStream,
                                     new HttpClient(httpMock));
             });
-            exception.Should().BeOfType(typeof(HttpRequestException));
             httpMock.Clear();
 
             memoryStream = new MemoryStream();
@@ -285,13 +284,16 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
                 new HttpRequestMessage(HttpMethod.Post, postUri) { Content = new StreamContent(memoryStream) },
                 HttpMockHelper.OKResponse);
 
-            exception = await Record.ExceptionAsync(async () =>
+            try
             {
                 await SarifLog.Post(postUri,
                                     memoryStream,
                                     new HttpClient(httpMock));
-            });
-            exception.Should().BeNull();
+            }
+            catch (Exception ex)
+            {
+                Assert.True(false, "Expected no exception, but got: " + ex.Message);
+            }
             httpMock.Clear();
 
             string filePath = "SomeFile.txt";
@@ -311,14 +313,17 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
                 new HttpRequestMessage(HttpMethod.Post, postUri) { Content = new StreamContent(memoryStream) },
                 HttpMockHelper.OKResponse);
 
-            exception = await Record.ExceptionAsync(async () =>
+            try
             {
                 await SarifLog.Post(postUri,
                                     filePath,
                                     fileSystem.Object,
                                     new HttpClient(httpMock));
-            });
-            exception.Should().BeNull();
+            }
+            catch (Exception ex)
+            {
+                Assert.True(false, "Expected no exception, but got: " + ex.Message);
+            }
             httpMock.Clear();
         }
 
