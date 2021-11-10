@@ -24,52 +24,26 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Driver.Sdk
         [Fact]
         public void PluginDriverCommand_ValidateInvocationPropertiesToLog_ShouldValidateParameters()
         {
-            var testCases = new[]
-            {
-                new
-                {
-                    Title = "Null 'properties' should return true",
-                    Properties = (IEnumerable<string>)null,
-                    Expected = true
-                },
-                new
-                {
-                    Title = "Empty 'properties' should return true",
-                    Properties = (IEnumerable<string>)Array.Empty<string>(),
-                    Expected = true
-                },
-                new
-                {
-                    Title = "'Properties' with valid value should return true",
-                    Properties = (IEnumerable<string>)new List<string> { "Account" },
-                    Expected = true
-                },
-                new
-                {
-                    Title = "'Properties' with invalid value should return false",
-                    Properties = (IEnumerable<string>)new List<string> { "test" },
-                    Expected = false
-                },
-            };
-
             var sb = new StringBuilder();
             var mockContext = new Mock<IAnalysisContext>();
             var mockLogger = new Mock<IAnalysisLogger>();
 
             mockContext.SetupGet(context => context.Logger).Returns(mockLogger.Object);
+            bool current = PluginDriverCommand<string>.ValidateInvocationPropertiesToLog(mockContext.Object,
+                                                                                         null);
+            current.Should().BeTrue();
 
-            foreach (var testCase in testCases)
-            {
-                bool current = PluginDriverCommand<string>.ValidateInvocationPropertiesToLog(mockContext.Object,
-                                                                                             testCase.Properties);
+            current = PluginDriverCommand<string>.ValidateInvocationPropertiesToLog(mockContext.Object,
+                                                                                    Array.Empty<string>());
+            current.Should().BeTrue();
 
-                if (current != testCase.Expected)
-                {
-                    sb.AppendLine($"The test '{testCase.Title}' was expecting '{testCase.Expected}' but found '{current}'.");
-                }
-            }
+            current = PluginDriverCommand<string>.ValidateInvocationPropertiesToLog(mockContext.Object,
+                                                                                    new List<string> { "Account" });
+            current.Should().BeTrue();
 
-            sb.Length.Should().Be(0, sb.ToString());
+            current = PluginDriverCommand<string>.ValidateInvocationPropertiesToLog(mockContext.Object,
+                                                                                    new List<string> { "test" });
+            current.Should().BeFalse();
         }
 
         [Fact]

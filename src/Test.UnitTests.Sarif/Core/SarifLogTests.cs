@@ -207,49 +207,26 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
         [Fact]
         public async Task SarifLog_PostStream_WithInvalidParameters_ShouldThrowArgumentNullException()
         {
-            var testCases = new[]
+            await Assert.ThrowsAsync<ArgumentNullException>(async () =>
             {
-                new
-                {
-                    Title = "Empty 'postUri' parameter",
-                    PostUri = (Uri)null,
-                    Stream = (Stream)new MemoryStream(),
-                    HttpClient = new HttpClient()
-                },
-                new
-                {
-                    Title = "Null 'stream' parameter",
-                    PostUri = new Uri("https://github.com/microsoft/sarif-sdk"),
-                    Stream = (Stream)null,
-                    HttpClient = new HttpClient()
-                },
-                new
-                {
-                    Title = "Null 'httpClient' parameter",
-                    PostUri = new Uri("https://github.com/microsoft/sarif-sdk"),
-                    Stream = (Stream)new MemoryStream(),
-                    HttpClient = (HttpClient)null
-                },
-            };
+                await SarifLog.Post(postUri: null,
+                                    new MemoryStream(),
+                                    new HttpClient());
+            });
 
-            var sb = new StringBuilder();
-
-            foreach (var testCase in testCases)
+            await Assert.ThrowsAsync<ArgumentNullException>(async () =>
             {
-                Exception exception = await Record.ExceptionAsync(async () =>
-                {
-                    await SarifLog.Post(testCase.PostUri,
-                                        testCase.Stream,
-                                        testCase.HttpClient);
-                });
+                await SarifLog.Post(new Uri("https://github.com/microsoft/sarif-sdk"),
+                                    null,
+                                    new HttpClient());
+            });
 
-                if (exception == null || exception.GetType() != typeof(ArgumentNullException))
-                {
-                    sb.AppendLine($"The test '{testCase.Title}' was expecting 'false' value.");
-                }
-            }
-
-            sb.Length.Should().Be(0, sb.ToString());
+            await Assert.ThrowsAsync<ArgumentNullException>(async () =>
+            {
+                await SarifLog.Post(new Uri("https://github.com/microsoft/sarif-sdk"),
+                                    new MemoryStream(),
+                                    null);
+            });
         }
 
         [Fact]
@@ -258,30 +235,26 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
             string filePath = string.Empty;
             var fileSystem = new Mock<IFileSystem>();
 
-            Exception exception = await Record.ExceptionAsync(async () =>
+            await Assert.ThrowsAsync<ArgumentNullException>(async () =>
             {
                 await SarifLog.Post(postUri: null,
                                     filePath,
                                     fileSystem.Object,
                                     httpClient: null);
             });
-
-            exception.Should().BeOfType(typeof(ArgumentNullException));
 
             filePath = "SomeFile.txt";
             fileSystem
                 .Setup(f => f.FileExists(It.IsAny<string>()))
                 .Returns(false);
 
-            exception = await Record.ExceptionAsync(async () =>
+            await Assert.ThrowsAsync<ArgumentException>(async () =>
             {
                 await SarifLog.Post(postUri: null,
                                     filePath,
                                     fileSystem.Object,
                                     httpClient: null);
             });
-
-            exception.Should().BeOfType(typeof(ArgumentException));
         }
 
         [Fact]
