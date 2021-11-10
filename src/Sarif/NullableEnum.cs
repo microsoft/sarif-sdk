@@ -44,7 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return null;
             }
 
-            var list = new List<T>();
+            var list = new List<T>(values.Length);
 
             foreach (string item in values)
             {

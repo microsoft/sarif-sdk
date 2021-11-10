@@ -78,10 +78,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 case NotificationLevelVersionOne.Error:
                     return FailureLevel.Error;
-
                 case NotificationLevelVersionOne.Note:
                     return FailureLevel.Note;
-
                 default:
                     return FailureLevel.Warning;
             }
@@ -93,10 +91,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 case FailureLevel.Error:
                     return NotificationLevelVersionOne.Error;
-
                 case FailureLevel.Note:
                     return NotificationLevelVersionOne.Note;
-
                 default:
                     return NotificationLevelVersionOne.Warning;
             }
@@ -108,13 +104,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 case ResultLevelVersionOne.Error:
                     return FailureLevel.Error;
-
                 case ResultLevelVersionOne.Pass:
                     return FailureLevel.Note;
-
                 case ResultLevelVersionOne.Warning:
                     return FailureLevel.Warning;
-
                 default:
                     return FailureLevel.Warning;
             }
@@ -126,19 +119,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 case ResultLevelVersionOne.Error:
                     return FailureLevel.Error;
-
                 case ResultLevelVersionOne.Note:
                     return FailureLevel.Note;
-
                 case ResultLevelVersionOne.Pass:
                     return FailureLevel.None;
-
                 case ResultLevelVersionOne.Warning:
                     return FailureLevel.Warning;
-
                 case ResultLevelVersionOne.NotApplicable:
                     return FailureLevel.None;
-
                 default:
                     return FailureLevel.Warning;
             }
@@ -150,19 +138,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 case ResultLevelVersionOne.Error:
                     return ResultKind.Fail;
-
                 case ResultLevelVersionOne.Note:
                     return ResultKind.Fail;
-
                 case ResultLevelVersionOne.Pass:
                     return ResultKind.Pass;
-
                 case ResultLevelVersionOne.Warning:
                     return ResultKind.Fail;
-
                 case ResultLevelVersionOne.NotApplicable:
                     return ResultKind.NotApplicable;
-
                 default:
                     return ResultKind.Fail;
             }
@@ -174,13 +157,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 case FailureLevel.Error:
                     return ResultLevelVersionOne.Error;
-
                 case FailureLevel.Note:
                     return ResultLevelVersionOne.Pass;
-
                 case FailureLevel.Warning:
                     return ResultLevelVersionOne.Warning;
-
                 default:
                     return ResultLevelVersionOne.Warning;
             }
@@ -197,16 +177,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 case FailureLevel.Error:
                     return ResultLevelVersionOne.Error;
-
                 case FailureLevel.Note:
                     return ResultLevelVersionOne.Note;
-
                 case FailureLevel.Warning:
                     return ResultLevelVersionOne.Warning;
-
                 case FailureLevel.None:
                     return CreateResultLevelVersionOneFromResultKind(v2ResultKind);
-
                 case null:
                 default:
                     return ResultLevelVersionOne.Default;
@@ -219,7 +195,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 case ResultKind.Pass:
                     return ResultLevelVersionOne.Pass;
-
                 case ResultKind.NotApplicable:
                     return ResultLevelVersionOne.NotApplicable;
                 // no mapped values for review, open
@@ -266,7 +241,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     case SuppressionKind.External:
                         isSuppressedExternally = true;
                         break;
-
                     case SuppressionKind.InSource:
                         isSuppressedInSource = true;
                         break;
@@ -297,13 +271,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 case BaselineStateVersionOne.Absent:
                     return BaselineState.Absent;
-
                 case BaselineStateVersionOne.Existing:
                     return BaselineState.Unchanged;
-
                 case BaselineStateVersionOne.New:
                     return BaselineState.New;
-
                 default:
                     return BaselineState.None;
             }
@@ -315,14 +286,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 case BaselineState.Absent:
                     return BaselineStateVersionOne.Absent;
-
                 case BaselineState.Unchanged:
                 case BaselineState.Updated:
                     return BaselineStateVersionOne.Existing;
-
                 case BaselineState.New:
                     return BaselineStateVersionOne.New;
-
                 default:
                     return BaselineStateVersionOne.None;
             }
@@ -334,13 +302,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 case AnnotatedCodeLocationImportanceVersionOne.Essential:
                     return ThreadFlowLocationImportance.Essential;
-
                 case AnnotatedCodeLocationImportanceVersionOne.Important:
                     return ThreadFlowLocationImportance.Important;
-
                 case AnnotatedCodeLocationImportanceVersionOne.Unimportant:
                     return ThreadFlowLocationImportance.Unimportant;
-
                 default:
                     return ThreadFlowLocationImportance.Important;
             }
@@ -352,13 +317,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 case ThreadFlowLocationImportance.Essential:
                     return AnnotatedCodeLocationImportanceVersionOne.Essential;
-
                 case ThreadFlowLocationImportance.Important:
                     return AnnotatedCodeLocationImportanceVersionOne.Important;
-
                 case ThreadFlowLocationImportance.Unimportant:
                     return AnnotatedCodeLocationImportanceVersionOne.Unimportant;
-
                 default:
                     return AnnotatedCodeLocationImportanceVersionOne.Important;
             }
