@@ -57,8 +57,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         protected override string ConstructTestOutputFromInputResource(string inputResourceName, object parameter)
         {
             string InputFolderPath = Directory.GetCurrentDirectory();
-            string targetFileSpecifier = !inputResourceName.EndsWith("FileNameOnly.sarif") 
-                ? Path.Combine(InputFolderPath, inputResourceName) 
+            string targetFileSpecifier = !inputResourceName.EndsWith("FileNameOnly.sarif")
+                ? Path.Combine(InputFolderPath, inputResourceName)
                 : inputResourceName;
             string outputFileName = Guid.NewGuid().ToString() + SarifConstants.SarifFileExtension;
             string outputFilePath = Path.Combine(OutputFolderPath, outputFileName);
