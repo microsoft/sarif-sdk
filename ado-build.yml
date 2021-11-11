@@ -11,14 +11,14 @@ jobs:
         imageName: 'macOS-latest'
       windows:
         imageName: 'windows-latest'
-    pool: 
-      vmImage: $(imageName)
+  pool: 
+    vmImage: $(imageName)
 
 
 
 
 
-      
+
   steps:
   # Build and test
   - task: PowerShell@2
