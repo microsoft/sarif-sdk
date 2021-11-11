@@ -50,7 +50,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         protected override string ConstructTestOutputFromInputResource(string inputResourceName, object parameter)
         {
-            const string InputFolderPath = @"C:\input";
+            string InputFolderPath = Directory.GetCurrentDirectory();
             string targetFileSpecifier = Path.Combine(InputFolderPath, inputResourceName);
 
             string outputFileName = Guid.NewGuid().ToString() + SarifConstants.SarifFileExtension;

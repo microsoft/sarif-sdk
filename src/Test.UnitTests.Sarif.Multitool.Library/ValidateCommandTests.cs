@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public void ValidateCommand_AcceptsTargetFileWithSpaceInName()
         {
             // Here's the space:
-            const string LogFileDirectoryWithSpace = @"c:\Users\John Smith\logs";
+            string LogFileDirectoryWithSpace = Path.Combine(Directory.GetCurrentDirectory(), "logs");
 
             string logFilePath = Path.Combine(LogFileDirectoryWithSpace, LogFileName);
 

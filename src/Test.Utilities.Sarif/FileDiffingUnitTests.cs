@@ -34,7 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             string path = typeof(FileDiffingUnitTests).Assembly.Location;
             path = GitHelper.Default.GetTopLevel(path);
-            return Path.Combine(path, @"src\");
+            return Path.Combine(path, @"src");
         }
 
         public static string GetProductTestDataDirectory(string testBinaryName, string subdirectory = "")
