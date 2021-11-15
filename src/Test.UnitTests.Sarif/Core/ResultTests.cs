@@ -104,14 +104,14 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             ReportingConfiguration defaultConfiguration;
             ReportingConfiguration overrideConfiguration;
 
-            result = new Result() {};
+            result = new Result() { };
             Assert.True(WriteSarifThenReadLevelNode(result) == null);
 
-            result = new Result() {};
+            result = new Result() { };
             defaultConfiguration = new ReportingConfiguration() { Enabled = true, Level = FailureLevel.Error };
             Assert.True(WriteSarifThenReadLevelNode(result, defaultConfiguration) == null);
 
-            result = new Result() {};
+            result = new Result() { };
             defaultConfiguration = new ReportingConfiguration() { Enabled = true, Level = FailureLevel.Error };
             overrideConfiguration = new ReportingConfiguration() { Enabled = true, Level = FailureLevel.Note };
             Assert.True(WriteSarifThenReadLevelNode(result, defaultConfiguration, overrideConfiguration) == null);
