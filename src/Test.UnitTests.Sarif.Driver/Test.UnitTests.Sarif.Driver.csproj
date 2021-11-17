@@ -64,6 +64,6 @@
   </ItemGroup>
 
   <Target Name="CoyoteRewriting" AfterTargets="AfterBuild">
-    <Exec Command="$(PowershellExecutable) -executionpolicy bypass -command &quot;.\rewriteUnitTests.ps1 -Configuration $(Configuration) -CoyoteVersion $(CoyoteVersion) -TargetFramework $(TargetFramework)&quot;" />
+    <Exec Command="$(PowershellExecutable) -executionpolicy bypass -command &quot;./rewriteUnitTests.ps1 -Configuration $(Configuration) -CoyoteVersion $(CoyoteVersion) -TargetFramework $(TargetFramework)&quot;" />
   </Target>
 </Project>

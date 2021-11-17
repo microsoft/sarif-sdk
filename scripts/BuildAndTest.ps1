@@ -192,7 +192,7 @@ Install-VersionConstantsFile
 
 if (-not $NoRestore) {
     Write-Information "Restoring NuGet packages for $SampleSolutionFile..."
-        & $NuGetExePath restore -ConfigFile $NuGetConfigFile -Verbosity $NuGetVerbosity -OutputDirectory $NuGetSamplesPackageRoot $SourceRoot\$SampleSolutionFile
+        & $NuGetExePath restore -ConfigFile $NuGetConfigFile -Verbosity $NuGetVerbosity -OutputDirectory $NuGetSamplesPackageRoot (Join-Path $SourceRoot $SampleSolutionFile)
     if ($LASTEXITCODE -ne 0) {
         Exit-WithFailureMessage $ScriptName "NuGet restore failed for $SampleSolutionFile."
     }
@@ -212,7 +212,9 @@ if (-not $?) {
 
 if (-not $NoBuild) {
     Invoke-DotNetBuild $SolutionFile
-    Invoke-DotNetBuild $sampleSolutionFile
+    if ($IsWindows) {
+        Invoke-DotNetBuild $sampleSolutionFile
+    }
 }
 
 if (-not $NoTest) {
