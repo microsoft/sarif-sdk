@@ -273,7 +273,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 if (directory.Length == 0)
                 {
-                    directory = Directory.GetCurrentDirectory();
+                    directory = @".\";
+                    // directory = Directory.GetCurrentDirectory();
                 }
 
                 if (!FileSystem.DirectoryExists(directory))
