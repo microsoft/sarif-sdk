@@ -14,6 +14,9 @@ Import-Module $PSScriptRoot\ScriptUtilities.psm1
 Import-Module $PSScriptRoot\Projects.psm1
 
 $NugetExePath = "nuget"
+if ($IsWindows) {
+    $NugetExePath = "$RepoRoot\.nuget\NuGet.exe"
+}
 $NuGetPackageRoot = Join-Path $SourceRoot "packages"
 $NuGetSamplesPackageRoot = Join-Path $SourceRoot "Samples" "packages"
 $NuGetConfigFile = Join-Path $RepoRoot "NuGet.Config"
