@@ -212,7 +212,7 @@ if (-not $?) {
 
 if (-not $NoBuild) {
     Invoke-DotNetBuild $SolutionFile
-    if ($IsWindows) {
+    if ($IsWindows -or $ENV:OS) {
         Invoke-DotNetBuild $sampleSolutionFile
     }
 }

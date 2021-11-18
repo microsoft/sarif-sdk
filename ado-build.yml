@@ -18,7 +18,7 @@ jobs:
 
   steps:
   # Build and test
-  - task: PowerShell@3
+  - task: PowerShell@2
     displayName: Build and Test
     inputs:
       targetType: filePath
@@ -36,7 +36,7 @@ jobs:
     vmImage: 'windows-latest'
   steps:
   # Build Multitool for npm
-  - task: PowerShell@3
+  - task: PowerShell@2
     displayName: Build Multitool for npm
     inputs:
       targetType: filePath

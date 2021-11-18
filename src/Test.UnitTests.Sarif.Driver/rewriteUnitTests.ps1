@@ -5,7 +5,7 @@ param(
 )
 
 Write-Output "Rewrite Unit Tests with Coyote"
-if ($IsWindows) {
+if ($IsWindows -or $ENV:OS) {
     dotnet ../../packages/microsoft.coyote.test/$CoyoteVersion/lib/$TargetFramework/coyote.dll rewrite rewrite.coyote.Windows.$Configuration.json
 } else {
     dotnet ../../packages/microsoft.coyote.test/$CoyoteVersion/lib/$TargetFramework/coyote.dll rewrite rewrite.coyote.Linux.$Configuration.json
