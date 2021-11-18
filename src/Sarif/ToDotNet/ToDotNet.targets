@@ -13,14 +13,14 @@
 		<When Condition="$(OS) == 'Windows_NT'">
 			<PropertyGroup>
 				<JsonSchemaToDotNetPath>$(MSBuildProjectDirectory)\..\packages\Microsoft.Json.Schema.ToDotNet.1.1.0\tools\net461\Microsoft.Json.Schema.ToDotNet.Cli.exe</JsonSchemaToDotNetPath>
-				<JsonSchemaExecCommand>&quot;$(JsonSchemaToDotNetPath)&quot; --schema-name Sarif --schema-file-path &quot;%(JsonSchemaFile.FullPath)&quot; --output-directory &quot;$(_ObjectModelOutputDirectory)&quot; --force-overwrite --namespace-name %(JsonSchemaFile.Namespace) --root-class-name %(JsonSchemaFile.RootClassName) --copyright-file-path &quot;%(JsonSchemaFile.CopyrightFilePath)&quot; --hints-file-path &quot;%(JsonSchemaFile.HintsFilePath)&quot; --generate-cloning-code --protected-init-methods --virtual-members</JsonSchemaExecCommand>
+				<JsonSchemaExecCommand>&quot;$(JsonSchemaToDotNetPath)&quot; --schema-name Sarif --schema-file-path &quot;$(JsonSchemaFile.FullPath)&quot; --output-directory &quot;$(_ObjectModelOutputDirectory)&quot; --force-overwrite --namespace-name $(JsonSchemaFile.Namespace) --root-class-name $(JsonSchemaFile.RootClassName) --copyright-file-path &quot;$(JsonSchemaFile.CopyrightFilePath)&quot; --hints-file-path &quot;$(JsonSchemaFile.HintsFilePath)&quot; --generate-cloning-code --protected-init-methods --virtual-members</JsonSchemaExecCommand>
 				<ExecCommand>&quot;$(NuGetPath)\NuGet.exe&quot; restore &quot;$(MSBuildThisFileDirectory)packages.config&quot; -PackagesDirectory &quot;$(MSBuildThisFileDirectory)\..\..\packages&quot; -ConfigFile &quot;$(NuGetConfigPath)&quot; -Verbosity quiet</ExecCommand>
 			</PropertyGroup>
 		</When>
 		<Otherwise>
 			<PropertyGroup>
 				<JsonSchemaToDotNetPath>$(MSBuildProjectDirectory)\..\packages\Microsoft.Json.Schema.ToDotNet.1.1.0\tools\netcoreapp2.0\Microsoft.Json.Schema.ToDotNet.Cli.dll</JsonSchemaToDotNetPath>
-				<JsonSchemaExecCommand>dotnet &quot;$(JsonSchemaToDotNetPath)&quot; --schema-name Sarif --schema-file-path &quot;%(JsonSchemaFile.FullPath)&quot; --output-directory &quot;$(_ObjectModelOutputDirectory)&quot; --force-overwrite --namespace-name %(JsonSchemaFile.Namespace) --root-class-name %(JsonSchemaFile.RootClassName) --copyright-file-path &quot;%(JsonSchemaFile.CopyrightFilePath)&quot; --hints-file-path &quot;%(JsonSchemaFile.HintsFilePath)&quot; --generate-cloning-code --protected-init-methods --virtual-members</JsonSchemaExecCommand>
+				<JsonSchemaExecCommand>dotnet &quot;$(JsonSchemaToDotNetPath)&quot; --schema-name Sarif --schema-file-path &quot;$(JsonSchemaFile.FullPath)&quot; --output-directory &quot;$(_ObjectModelOutputDirectory)&quot; --force-overwrite --namespace-name $(JsonSchemaFile.Namespace) --root-class-name $(JsonSchemaFile.RootClassName) --copyright-file-path &quot;$(JsonSchemaFile.CopyrightFilePath)&quot; --hints-file-path &quot;$(JsonSchemaFile.HintsFilePath)&quot; --generate-cloning-code --protected-init-methods --virtual-members</JsonSchemaExecCommand>
 				<ExecCommand>nuget restore &quot;$(MSBuildThisFileDirectory)packages.config&quot; -PackagesDirectory &quot;$(MSBuildThisFileDirectory)\..\..\packages&quot; -ConfigFile &quot;$(NuGetConfigPath)&quot; -Verbosity quiet</ExecCommand>
 			</PropertyGroup>
 		</Otherwise>
