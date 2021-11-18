@@ -16,11 +16,11 @@
 				<ExecCommand>&quot;$(NuGetPath)\NuGet.exe&quot; restore &quot;$(MSBuildThisFileDirectory)packages.config&quot; -PackagesDirectory &quot;$(MSBuildThisFileDirectory)\..\..\packages&quot; -ConfigFile &quot;$(NuGetConfigPath)&quot; -Verbosity quiet</ExecCommand>
 			</PropertyGroup>
 		</When>
-		<When Condition="$(OS) != 'Windows_NT'">
+		<Otherwise>
 			<PropertyGroup>
 				<ExecCommand>nuget restore &quot;$(MSBuildThisFileDirectory)packages.config&quot; -PackagesDirectory &quot;$(MSBuildThisFileDirectory)\..\..\packages&quot; -ConfigFile &quot;$(NuGetConfigPath)&quot; -Verbosity quiet</ExecCommand>
 			</PropertyGroup>
-		</When>
+		</Otherwise>
 	</Choose>
 
 	<!-- This target runs only when we actually need to build the object model files, which should be
@@ -31,7 +31,7 @@
 		<ItemGroup>
 			<FileWrites Include="$(_ObjectModelOutputDirectory)" />
 		</ItemGroup>
-		<Exec Command="@(ExecCommand)" />
+		<Exec Command="$(ExecCommand)" />
 		<Message Importance="high" Text="Generating SARIF object model..." />
 		<Exec Command="&quot;$(JsonSchemaToDotNetPath)&quot; --schema-name Sarif --schema-file-path &quot;%(JsonSchemaFile.FullPath)&quot; --output-directory &quot;$(_ObjectModelOutputDirectory)&quot; --force-overwrite --namespace-name %(JsonSchemaFile.Namespace) --root-class-name %(JsonSchemaFile.RootClassName) --copyright-file-path &quot;%(JsonSchemaFile.CopyrightFilePath)&quot; --hints-file-path &quot;%(JsonSchemaFile.HintsFilePath)&quot; --generate-cloning-code --protected-init-methods --virtual-members" />
 		<Message Text="Generated classes from @(JsonSchemaFile) -> $(_ObjectModelOutputDirectory)"/>
