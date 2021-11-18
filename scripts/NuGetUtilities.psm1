@@ -18,7 +18,7 @@ if ($ENV:OS) {
     $NugetExePath = "$RepoRoot\.nuget\NuGet.exe"
 }
 $NuGetPackageRoot = Join-Path $SourceRoot "packages"
-$NuGetSamplesPackageRoot = Join-Path $SourceRoot "Samples" "packages"
+$NuGetSamplesPackageRoot = Join-Path (Join-Path $SourceRoot "Samples") "packages"
 $NuGetConfigFile = Join-Path $RepoRoot "NuGet.Config"
 
 $PackageSource = "https://nuget.org"
