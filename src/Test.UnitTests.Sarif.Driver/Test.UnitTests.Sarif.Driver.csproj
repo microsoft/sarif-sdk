@@ -16,6 +16,19 @@
 		<PowershellExecutable Condition="'$(PowershellExecutable)'==''">pwsh</PowershellExecutable>
 	</PropertyGroup>
 
+	<Choose>
+		<When Condition="$(OS) == 'Windows_NT'">
+			<PropertyGroup>
+				<ExecCommand>$(PowershellExecutable) -executionpolicy bypass -command &quot;.\rewriteUnitTests.ps1 -Configuration $(Configuration) -CoyoteVersion $(CoyoteVersion) -TargetFramework $(TargetFramework)&quot;</ExecCommand>
+			</PropertyGroup>
+		</When>
+		<Otherwise>
+			<PropertyGroup>
+				<ExecCommand>$(PowershellExecutable) -executionpolicy bypass -command &quot;./rewriteUnitTests.ps1 -Configuration $(Configuration) -CoyoteVersion $(CoyoteVersion) -TargetFramework $(TargetFramework)&quot;</ExecCommand>
+			</PropertyGroup>
+		</Otherwise>
+	</Choose>
+
 	<Target Name="CopyFunctionalTestsData" AfterTargets="Build">
 		<ItemGroup>
 			<TestFiles Include="$(SolutionDir)FunctionalTestsData\**\*" />
@@ -64,6 +77,6 @@
 	</ItemGroup>
 
 	<Target Name="CoyoteRewriting" AfterTargets="AfterBuild">
-		<Exec Command="$(PowershellExecutable) -executionpolicy bypass -command &quot;(Resolve-Path rewriteUnitTests.ps1) -Configuration $(Configuration) -CoyoteVersion $(CoyoteVersion) -TargetFramework $(TargetFramework)&quot;" />
+		<Exec Command="@(ExecCommand)" />
 	</Target>
 </Project>
