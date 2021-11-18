@@ -11,7 +11,7 @@ jobs:
         imageName: 'macOS-latest'
       windows:
         imageName: 'windows-latest'
-    maxParallel: 3
+    maxParallel: 4
 
   pool: 
     vmImage: $(imageName)
