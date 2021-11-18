@@ -16,11 +16,11 @@
 				<ExecCommand>&quot;$(NuGetPath)\NuGet.exe&quot; restore &quot;$(MSBuildThisFileDirectory)packages.config&quot; -PackagesDirectory &quot;$(MSBuildThisFileDirectory)\..\..\packages&quot; -ConfigFile &quot;$(NuGetConfigPath)&quot; -Verbosity quiet</ExecCommand>
 			</PropertyGroup>
 		</When>
-		<Otherwise>
+		<When Condition="$(OS) != 'Windows_NT'">
 			<PropertyGroup>
 				<ExecCommand>nuget restore &quot;$(MSBuildThisFileDirectory)packages.config&quot; -PackagesDirectory &quot;$(MSBuildThisFileDirectory)\..\..\packages&quot; -ConfigFile &quot;$(NuGetConfigPath)&quot; -Verbosity quiet</ExecCommand>
 			</PropertyGroup>
-		</Otherwise>
+		</When>
 	</Choose>
 
 	<!-- This target runs only when we actually need to build the object model files, which should be

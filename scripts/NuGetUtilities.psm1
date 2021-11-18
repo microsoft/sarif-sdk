@@ -22,7 +22,7 @@ $NuGetSamplesPackageRoot = Join-Path (Join-Path $SourceRoot "Samples") "packages
 $NuGetConfigFile = Join-Path $RepoRoot "NuGet.Config"
 
 $PackageSource = "https://nuget.org"
-$PackageOutputDirectoryRoot = Join-Path $BuildRoot "Publish" "NuGet"
+$PackageOutputDirectoryRoot = Join-Path (Join-Path $BuildRoot "Publish") "NuGet"
 
 function Get-PackageVersion([switch]$previous) {
     $versionPrefix, $schemaVersion, $stableSarifVersion = & $PSScriptRoot\Get-VersionConstants.ps1 -Previous:$previous
