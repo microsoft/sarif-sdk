@@ -13,14 +13,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             // If kind indicates a failure, but we have no explicit failure
             // level, we'll fall back to the default of Warning
-            FailureLevel level = (kind != ResultKind.Fail)
+            FailureLevel? level = (kind != ResultKind.Fail)
                 ? FailureLevel.None
-                : FailureLevel.Warning;
+                : (FailureLevel?)null;
 
             return BuildResult(level, kind, context, region, ruleMessageId, arguments);
         }
 
-        public static Result BuildResult(FailureLevel level, IAnalysisContext context, Region region, string ruleMessageId, params string[] arguments)
+        public static Result BuildResult(FailureLevel? level, IAnalysisContext context, Region region, string ruleMessageId, params string[] arguments)
         {
             // If we have a failure level, the kind is Fail, otherwise None.
             // A message of kind == debug and failure level == none is a trace
@@ -32,7 +32,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return BuildResult(level, kind, context, region, ruleMessageId, arguments);
         }
 
-        public static Result BuildResult(FailureLevel level, ResultKind kind, IAnalysisContext context, Region region, string ruleMessageId, params string[] arguments)
+        public static Result BuildResult(FailureLevel? level, ResultKind kind, IAnalysisContext context, Region region, string ruleMessageId, params string[] arguments)
         {
             if (context == null)
             {
@@ -76,12 +76,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 };
             }
 
-            if (level == FailureLevel.Warning)
+            if (result.Level == FailureLevel.Warning || !result.Level.HasValue)
             {
                 context.RuntimeErrors |= RuntimeConditions.OneOrMoreWarningsFired;
             }
 
-            if (level == FailureLevel.Error)
+            if (result.Level == FailureLevel.Error)
             {
                 context.RuntimeErrors |= RuntimeConditions.OneOrMoreErrorsFired;
             }

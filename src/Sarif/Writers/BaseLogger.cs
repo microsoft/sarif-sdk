@@ -59,7 +59,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 if (result.Kind == ResultKind.Fail)
                 {
-                    return _failureLevels.Contains(result.Level);
+                    return _failureLevels.Contains(result.Level) || (_failureLevels.Contains(FailureLevel.Warning) && !result.Level.HasValue);
                 }
 
                 return true;
