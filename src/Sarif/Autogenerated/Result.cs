@@ -94,7 +94,33 @@ namespace Microsoft.CodeAnalysis.Sarif
         [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter))]
         public FailureLevel? Level
         {
-            get { return _level; }
+            get
+            {
+                if (_level.HasValue || this.Run == null || this.Run.GetToolComponentFromReference(this.Rule?.ToolComponent)?.Rules == null)
+                {
+                    return _level;
+                }
+                else
+                {
+                    ReportingConfiguration currentDefaultConfiguration = this.GetRule()?.DefaultConfiguration;
+
+                    if (currentDefaultConfiguration == null)
+                    {
+                        // if defaultConfiguration is absent, it SHALL be taken to be present and default Warning
+                        return FailureLevel.Warning;
+                    }
+                    else if (!currentDefaultConfiguration.Enabled)
+                    {
+                        // if defaultConfiguration is present, but disabled
+                        return _level;
+                    }
+                    else
+                    {
+                        // if defaultConfiguration is present, and enabled
+                        return currentDefaultConfiguration.Level;
+                    }
+                }
+            }
             set
             {
                 _level = value;
@@ -393,7 +419,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.RuleId, other.RuleIndex, other.Rule, other.Kind, other.Level, other.Message, other.AnalysisTarget, other.Locations, other.Guid, other.CorrelationGuid, other.OccurrenceCount, other.PartialFingerprints, other.Fingerprints, other.Stacks, other.CodeFlows, other.Graphs, other.GraphTraversals, other.RelatedLocations, other.Suppressions, other.BaselineState, other.Rank, other.Attachments, other.HostedViewerUri, other.WorkItemUris, other.Provenance, other.Fixes, other.Taxa, other.WebRequest, other.WebResponse, other.Properties);
+            Init(other.RuleId, other.RuleIndex, other.Rule, other.Kind, other._level, other.Message, other.AnalysisTarget, other.Locations, other.Guid, other.CorrelationGuid, other.OccurrenceCount, other.PartialFingerprints, other.Fingerprints, other.Stacks, other.CodeFlows, other.Graphs, other.GraphTraversals, other.RelatedLocations, other.Suppressions, other.BaselineState, other.Rank, other.Attachments, other.HostedViewerUri, other.WorkItemUris, other.Provenance, other.Fixes, other.Taxa, other.WebRequest, other.WebResponse, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
