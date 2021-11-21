@@ -49,7 +49,6 @@
         {
           "ruleId": "SARIF2016",
           "ruleIndex": 0,
-          "level": "note",
           "message": {
             "id": "Note_Default",
             "arguments": [
@@ -74,7 +73,6 @@
         {
           "ruleId": "SARIF2016",
           "ruleIndex": 0,
-          "level": "note",
           "message": {
             "id": "Note_ShouldNotStartWithSlash",
             "arguments": [
@@ -99,7 +97,6 @@
         {
           "ruleId": "SARIF2016",
           "ruleIndex": 0,
-          "level": "note",
           "message": {
             "id": "Note_ShouldNotContainBackSlash",
             "arguments": [

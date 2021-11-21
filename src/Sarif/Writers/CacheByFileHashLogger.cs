@@ -60,7 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             if (!cacheLoggingData) { return; }
 
-            if (!ShouldLog(result))
+            if (!ShouldLog(result, rule))
             {
                 return;
             }

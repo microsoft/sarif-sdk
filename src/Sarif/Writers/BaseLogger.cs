@@ -53,13 +53,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             return _failureLevels.Contains(notification.Level);
         }
 
-        public bool ShouldLog(Result result)
+        public bool ShouldLog(Result result, ReportingDescriptor rule)
         {
+            FailureLevel? effectiveLevel = result.GetEffectiveLevel(rule);
             if (_resultKinds.Contains(result.Kind))
             {
                 if (result.Kind == ResultKind.Fail)
                 {
-                    return _failureLevels.Contains(result.Level) || (_failureLevels.Contains(FailureLevel.Warning) && !result.Level.HasValue);
+                    return _failureLevels.Contains(effectiveLevel);
                 }
 
                 return true;

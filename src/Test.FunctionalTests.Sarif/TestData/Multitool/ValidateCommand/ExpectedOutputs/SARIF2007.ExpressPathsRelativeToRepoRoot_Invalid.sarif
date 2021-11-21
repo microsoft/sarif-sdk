@@ -43,7 +43,6 @@
         {
           "ruleId": "SARIF2007",
           "ruleIndex": 0,
-          "level": "warning",
           "message": {
             "id": "Warning_ProvideUriBaseIdForMappedTo",
             "arguments": [
@@ -68,7 +67,6 @@
         {
           "ruleId": "SARIF2007",
           "ruleIndex": 0,
-          "level": "warning",
           "message": {
             "id": "Warning_ProvideUriBaseIdForMappedTo",
             "arguments": [
@@ -93,7 +91,6 @@
         {
           "ruleId": "SARIF2007",
           "ruleIndex": 0,
-          "level": "warning",
           "message": {
             "id": "Warning_ExpressResultLocationsRelativeToMappedTo",
             "arguments": [
@@ -118,7 +115,6 @@
         {
           "ruleId": "SARIF2007",
           "ruleIndex": 0,
-          "level": "warning",
           "message": {
             "id": "Warning_ExpressResultLocationsRelativeToMappedTo",
             "arguments": [

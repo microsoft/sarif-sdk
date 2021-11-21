@@ -43,7 +43,6 @@
         {
           "ruleId": "SARIF1011",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_Default",
             "arguments": [

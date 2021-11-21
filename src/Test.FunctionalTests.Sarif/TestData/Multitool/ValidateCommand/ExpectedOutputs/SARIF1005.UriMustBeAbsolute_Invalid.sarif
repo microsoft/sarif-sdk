@@ -43,7 +43,6 @@
         {
           "ruleId": "SARIF1005",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_Default",
             "arguments": [
@@ -68,7 +67,6 @@
         {
           "ruleId": "SARIF1005",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_Default",
             "arguments": [
@@ -93,7 +91,6 @@
         {
           "ruleId": "SARIF1005",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_Default",
             "arguments": [
@@ -118,7 +115,6 @@
         {
           "ruleId": "SARIF1005",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_Default",
             "arguments": [
@@ -143,7 +139,6 @@
         {
           "ruleId": "SARIF1005",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_Default",
             "arguments": [
@@ -168,7 +163,6 @@
         {
           "ruleId": "SARIF1005",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_Default",
             "arguments": [
@@ -193,7 +187,6 @@
         {
           "ruleId": "SARIF1005",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_Default",
             "arguments": [

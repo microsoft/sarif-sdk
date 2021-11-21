@@ -44,7 +44,6 @@
         {
           "ruleId": "GH1006",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_Default",
             "arguments": [
@@ -68,7 +67,6 @@
         {
           "ruleId": "GH1006",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_Default",
             "arguments": [

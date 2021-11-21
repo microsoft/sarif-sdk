@@ -46,7 +46,6 @@
         {
           "ruleId": "SARIF1008",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_ContextRegionRequiresRegion",
             "arguments": [
@@ -70,7 +69,6 @@
         {
           "ruleId": "SARIF1008",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_ContextRegionMustBeProperSupersetOfRegion",
             "arguments": [
@@ -94,7 +92,6 @@
         {
           "ruleId": "SARIF1008",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_ContextRegionMustBeProperSupersetOfRegion",
             "arguments": [
@@ -118,7 +115,6 @@
         {
           "ruleId": "SARIF1008",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_ContextRegionMustBeProperSupersetOfRegion",
             "arguments": [
@@ -142,7 +138,6 @@
         {
           "ruleId": "SARIF1008",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_ContextRegionMustBeProperSupersetOfRegion",
             "arguments": [
@@ -166,7 +161,6 @@
         {
           "ruleId": "SARIF1008",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_ContextRegionMustBeProperSupersetOfRegion",
             "arguments": [
@@ -190,7 +184,6 @@
         {
           "ruleId": "SARIF1008",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_ContextRegionMustBeProperSupersetOfRegion",
             "arguments": [
@@ -214,7 +207,6 @@
         {
           "ruleId": "SARIF1008",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_ContextRegionMustBeProperSupersetOfRegion",
             "arguments": [
@@ -238,7 +230,6 @@
         {
           "ruleId": "SARIF1008",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_ContextRegionMustBeProperSupersetOfRegion",
             "arguments": [
@@ -262,7 +253,6 @@
         {
           "ruleId": "SARIF1008",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_ContextRegionMustBeProperSupersetOfRegion",
             "arguments": [
@@ -286,7 +276,6 @@
         {
           "ruleId": "SARIF1008",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_ContextRegionMustBeProperSupersetOfRegion",
             "arguments": [
@@ -310,7 +299,6 @@
         {
           "ruleId": "SARIF1008",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_ContextRegionMustBeProperSupersetOfRegion",
             "arguments": [
@@ -334,7 +322,6 @@
         {
           "ruleId": "SARIF1008",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_ContextRegionMustBeProperSupersetOfRegion",
             "arguments": [
@@ -358,7 +345,6 @@
         {
           "ruleId": "SARIF1008",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_ContextRegionMustBeProperSupersetOfRegion",
             "arguments": [
@@ -382,7 +368,6 @@
         {
           "ruleId": "SARIF1008",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_ContextRegionMustBeProperSupersetOfRegion",
             "arguments": [
@@ -406,7 +391,6 @@
         {
           "ruleId": "SARIF1008",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_ContextRegionMustBeProperSupersetOfRegion",
             "arguments": [
@@ -430,7 +414,6 @@
         {
           "ruleId": "SARIF1008",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_ContextRegionMustBeProperSupersetOfRegion",
             "arguments": [

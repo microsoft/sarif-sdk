@@ -145,7 +145,6 @@
         {
           "ruleId": "SARIF2003",
           "ruleIndex": 1,
-          "level": "note",
           "message": {
             "id": "Note_Default",
             "arguments": [
@@ -173,7 +172,6 @@
         {
           "ruleId": "SARIF2002",
           "ruleIndex": 2,
-          "level": "note",
           "message": {
             "id": "Note_Default",
             "arguments": [
@@ -201,7 +199,6 @@
         {
           "ruleId": "SARIF2002",
           "ruleIndex": 2,
-          "level": "note",
           "message": {
             "id": "Note_Default",
             "arguments": [
@@ -229,7 +226,6 @@
         {
           "ruleId": "SARIF2002",
           "ruleIndex": 2,
-          "level": "note",
           "message": {
             "id": "Note_Default",
             "arguments": [
@@ -257,7 +253,6 @@
         {
           "ruleId": "SARIF2005",
           "ruleIndex": 3,
-          "level": "warning",
           "message": {
             "id": "Warning_ProvideToolnformationUri",
             "arguments": [
@@ -286,7 +281,6 @@
         {
           "ruleId": "SARIF2005",
           "ruleIndex": 3,
-          "level": "warning",
           "message": {
             "id": "Warning_ProvideToolVersion",
             "arguments": [
@@ -316,7 +310,6 @@
         {
           "ruleId": "SARIF2012",
           "ruleIndex": 0,
-          "level": "note",
           "message": {
             "id": "Note_ProvideMetadataForAllViolatedRules",
             "arguments": [

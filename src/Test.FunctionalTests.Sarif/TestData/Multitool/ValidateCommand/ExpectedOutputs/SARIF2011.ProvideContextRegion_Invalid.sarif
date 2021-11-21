@@ -43,7 +43,6 @@
         {
           "ruleId": "SARIF2011",
           "ruleIndex": 0,
-          "level": "note",
           "message": {
             "id": "Note_Default",
             "arguments": [

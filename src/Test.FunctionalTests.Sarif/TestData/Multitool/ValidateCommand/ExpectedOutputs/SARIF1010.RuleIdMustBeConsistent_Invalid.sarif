@@ -46,7 +46,6 @@
         {
           "ruleId": "SARIF1010",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_ResultMustSpecifyRuleId",
             "arguments": [
@@ -70,7 +69,6 @@
         {
           "ruleId": "SARIF1010",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_ResultRuleIdMustBeConsistent",
             "arguments": [

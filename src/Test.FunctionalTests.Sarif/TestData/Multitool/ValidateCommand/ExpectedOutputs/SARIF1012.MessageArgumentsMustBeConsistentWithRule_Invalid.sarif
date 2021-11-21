@@ -46,7 +46,6 @@
         {
           "ruleId": "SARIF1012",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_SupplyEnoughMessageArguments",
             "arguments": [
@@ -74,7 +73,6 @@
         {
           "ruleId": "SARIF1012",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_SupplyEnoughMessageArguments",
             "arguments": [
@@ -102,7 +100,6 @@
         {
           "ruleId": "SARIF1012",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_MessageIdMustExist",
             "arguments": [

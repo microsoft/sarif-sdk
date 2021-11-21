@@ -46,7 +46,6 @@
         {
           "ruleId": "SARIF1002",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_UrisMustConformToRfc3986",
             "arguments": [
@@ -71,7 +70,6 @@
         {
           "ruleId": "SARIF1002",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_UrisMustConformToRfc3986",
             "arguments": [
@@ -96,7 +94,6 @@
         {
           "ruleId": "SARIF1002",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_UrisMustConformToRfc3986",
             "arguments": [
@@ -121,7 +118,6 @@
         {
           "ruleId": "SARIF1002",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_FileUrisMustNotIncludeDotDotSegments",
             "arguments": [
@@ -146,7 +142,6 @@
         {
           "ruleId": "SARIF1002",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_UrisMustConformToRfc3986",
             "arguments": [
@@ -171,7 +166,6 @@
         {
           "ruleId": "SARIF1002",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_UrisMustConformToRfc3986",
             "arguments": [
@@ -196,7 +190,6 @@
         {
           "ruleId": "SARIF1002",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_UrisMustConformToRfc3986",
             "arguments": [
@@ -221,7 +214,6 @@
         {
           "ruleId": "SARIF1002",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_UrisMustConformToRfc3986",
             "arguments": [
@@ -246,7 +238,6 @@
         {
           "ruleId": "SARIF1002",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_UrisMustConformToRfc3986",
             "arguments": [
@@ -271,7 +262,6 @@
         {
           "ruleId": "SARIF1002",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_UrisMustConformToRfc3986",
             "arguments": [
@@ -296,7 +286,6 @@
         {
           "ruleId": "SARIF1002",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_UrisMustConformToRfc3986",
             "arguments": [

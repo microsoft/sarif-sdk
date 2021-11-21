@@ -47,7 +47,6 @@
         {
           "ruleId": "GH1003",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_MissingRegion",
             "arguments": [
@@ -71,7 +70,6 @@
         {
           "ruleId": "GH1003",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_MissingRegionProperty",
             "arguments": [
@@ -95,7 +93,6 @@
         {
           "ruleId": "GH1003",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_MissingRegionProperty",
             "arguments": [

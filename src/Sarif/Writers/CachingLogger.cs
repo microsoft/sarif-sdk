@@ -48,7 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 throw new ArgumentNullException(nameof(result));
             }
 
-            if (!ShouldLog(result))
+            if (!ShouldLog(result, rule))
             {
                 return;
             }

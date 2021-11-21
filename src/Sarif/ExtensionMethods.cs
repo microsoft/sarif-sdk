@@ -404,6 +404,39 @@ namespace Microsoft.CodeAnalysis.Sarif
             return text;
         }
 
+        public static FailureLevel? GetEffectiveLevel(this Result result, ReportingDescriptor rule)
+        {
+            return result.GetEffectiveLevel(rule?.DefaultConfiguration);
+        }
+
+        public static FailureLevel? GetEffectiveLevel(this Result result, ReportingConfiguration defaultConfiguration)
+        {
+            FailureLevel? rawLevel = result.GetRawLevel();
+
+            if (rawLevel.HasValue)
+            {
+                return rawLevel;
+            }
+            else
+            {
+                if (defaultConfiguration == null)
+                {
+                    // if defaultConfiguration is absent, it SHALL be taken to be present and default Warning
+                    return FailureLevel.Warning;
+                }
+                else if (!defaultConfiguration.Enabled)
+                {
+                    // if defaultConfiguration is present, but disabled, use Warning
+                    return FailureLevel.Warning;
+                }
+                else
+                {
+                    // if defaultConfiguration is present, and enabled, use the defaultConfiguration value
+                    return defaultConfiguration.Level;
+                }
+            }
+        }
+
         internal static string GetFormattedMessage(string formatString, string[] arguments)
         {
             string formattedMessage = string.Format(CultureInfo.InvariantCulture, formatString, arguments);

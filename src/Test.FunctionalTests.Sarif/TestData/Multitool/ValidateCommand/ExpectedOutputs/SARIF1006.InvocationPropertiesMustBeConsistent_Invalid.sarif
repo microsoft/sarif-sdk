@@ -43,7 +43,6 @@
         {
           "ruleId": "SARIF1006",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_EndTimeMustNotPrecedeStartTime",
             "arguments": [

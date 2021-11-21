@@ -1,4 +1,4 @@
-// Copyright (c) Microsoft.  All Rights Reserved.
+// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
@@ -96,29 +96,20 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             get
             {
-                if (_level.HasValue || this.Run == null || this.Run.GetToolComponentFromReference(this.Rule?.ToolComponent)?.Rules == null)
+                if (_level.HasValue)
                 {
                     return _level;
                 }
                 else
                 {
-                    ReportingConfiguration currentDefaultConfiguration = this.GetRule()?.DefaultConfiguration;
+                    ReportingDescriptor rule = null;
 
-                    if (currentDefaultConfiguration == null)
+                    if (this.Run?.GetToolComponentFromReference(this.Rule?.ToolComponent)?.Rules != null)
                     {
-                        // if defaultConfiguration is absent, it SHALL be taken to be present and default Warning
-                        return FailureLevel.Warning;
+                        rule = this.GetRule();
                     }
-                    else if (!currentDefaultConfiguration.Enabled)
-                    {
-                        // if defaultConfiguration is present, but disabled
-                        return _level;
-                    }
-                    else
-                    {
-                        // if defaultConfiguration is present, and enabled
-                        return currentDefaultConfiguration.Level;
-                    }
+
+                    return this.GetEffectiveLevel(rule);
                 }
             }
             set
@@ -129,6 +120,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                     _kind = ResultKind.Fail;
                 }
             }
+        }
+
+        public FailureLevel? GetRawLevel()
+        {
+            return _level;
         }
 
         /// <summary>

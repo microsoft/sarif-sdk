@@ -40,7 +40,6 @@
         {
           "ruleId": "SARIF1001",
           "ruleIndex": 0,
-          "level": "warning",
           "message": {
             "id": "Warning_Default",
             "arguments": [
@@ -65,7 +64,6 @@
         {
           "ruleId": "SARIF1001",
           "ruleIndex": 0,
-          "level": "warning",
           "message": {
             "id": "Warning_Default",
             "arguments": [

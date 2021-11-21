@@ -100,7 +100,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 throw new ArgumentNullException(nameof(result));
             }
 
-            if (!ShouldLog(result) || _quietConsole)
+            if (!ShouldLog(result, rule) || _quietConsole)
             {
                 return;
             }

@@ -76,12 +76,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                 };
             }
 
-            if (result.Level == FailureLevel.Warning || !result.Level.HasValue)
+            FailureLevel? effectiveLevel = result.GetEffectiveLevel(context.Rule);
+
+            if (effectiveLevel == FailureLevel.Warning)
             {
                 context.RuntimeErrors |= RuntimeConditions.OneOrMoreWarningsFired;
             }
 
-            if (result.Level == FailureLevel.Error)
+            if (effectiveLevel == FailureLevel.Error)
             {
                 context.RuntimeErrors |= RuntimeConditions.OneOrMoreErrorsFired;
             }

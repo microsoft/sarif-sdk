@@ -50,7 +50,6 @@
         {
           "ruleId": "GH1001",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_NoLocationsArray",
             "arguments": [
@@ -75,7 +74,6 @@
         {
           "ruleId": "GH1001",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_EmptyLocationsArray",
             "arguments": [
@@ -99,7 +97,6 @@
         {
           "ruleId": "GH1001",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_MissingLocationProperty",
             "arguments": [
@@ -124,7 +121,6 @@
         {
           "ruleId": "GH1001",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_MissingLocationProperty",
             "arguments": [
@@ -149,7 +145,6 @@
         {
           "ruleId": "GH1001",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_MissingLocationProperty",
             "arguments": [
@@ -174,7 +169,6 @@
         {
           "ruleId": "GH1001",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_MissingLocationProperty",
             "arguments": [

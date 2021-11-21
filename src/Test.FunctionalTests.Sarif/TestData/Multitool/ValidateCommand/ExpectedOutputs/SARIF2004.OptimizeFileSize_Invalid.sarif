@@ -52,7 +52,6 @@
         {
           "ruleId": "SARIF2004",
           "ruleIndex": 0,
-          "level": "warning",
           "message": {
             "id": "Warning_EliminateLocationOnlyArtifacts",
             "arguments": [
@@ -76,7 +75,6 @@
         {
           "ruleId": "SARIF2004",
           "ruleIndex": 0,
-          "level": "warning",
           "message": {
             "id": "Warning_EliminateIdOnlyRules",
             "arguments": [
@@ -100,7 +98,6 @@
         {
           "ruleId": "SARIF2004",
           "ruleIndex": 0,
-          "level": "warning",
           "message": {
             "id": "Warning_AvoidDuplicativeAnalysisTarget",
             "arguments": [
@@ -125,7 +122,6 @@
         {
           "ruleId": "SARIF2004",
           "ruleIndex": 0,
-          "level": "warning",
           "message": {
             "id": "Warning_PreferRuleId",
             "arguments": [
@@ -149,7 +145,6 @@
         {
           "ruleId": "SARIF2004",
           "ruleIndex": 0,
-          "level": "warning",
           "message": {
             "id": "Warning_AvoidDuplicativeResultRuleInformation",
             "arguments": [
@@ -173,7 +168,6 @@
         {
           "ruleId": "SARIF2004",
           "ruleIndex": 0,
-          "level": "warning",
           "message": {
             "id": "Warning_PreferRuleId",
             "arguments": [

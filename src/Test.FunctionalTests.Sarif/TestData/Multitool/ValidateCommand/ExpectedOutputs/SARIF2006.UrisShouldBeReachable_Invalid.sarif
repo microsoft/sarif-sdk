@@ -43,7 +43,6 @@
         {
           "ruleId": "SARIF2006",
           "ruleIndex": 0,
-          "level": "note",
           "message": {
             "id": "Note_Default",
             "arguments": [
@@ -68,7 +67,6 @@
         {
           "ruleId": "SARIF2006",
           "ruleIndex": 0,
-          "level": "note",
           "message": {
             "id": "Note_Default",
             "arguments": [
@@ -93,7 +91,6 @@
         {
           "ruleId": "SARIF2006",
           "ruleIndex": 0,
-          "level": "note",
           "message": {
             "id": "Note_Default",
             "arguments": [
@@ -118,7 +115,6 @@
         {
           "ruleId": "SARIF2006",
           "ruleIndex": 0,
-          "level": "note",
           "message": {
             "id": "Note_Default",
             "arguments": [

@@ -320,7 +320,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 throw new ArgumentException(message);
             }
 
-            if (!ShouldLog(result))
+            if (!ShouldLog(result, rule))
             {
                 return;
             }

@@ -58,7 +58,6 @@
         {
           "ruleId": "SARIF1004",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_TopLevelUriBaseIdMustBeAbsolute",
             "arguments": [
@@ -84,7 +83,6 @@
         {
           "ruleId": "SARIF1004",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_UriBaseIdValueMustEndWithSlash",
             "arguments": [
@@ -110,7 +108,6 @@
         {
           "ruleId": "SARIF1004",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_UriBaseIdValueMustEndWithSlash",
             "arguments": [
@@ -136,7 +133,6 @@
         {
           "ruleId": "SARIF1004",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_UriBaseIdValueMustNotContainDotDotSegment",
             "arguments": [
@@ -162,7 +158,6 @@
         {
           "ruleId": "SARIF1004",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_UriBaseIdValueMustEndWithSlash",
             "arguments": [
@@ -188,7 +183,6 @@
         {
           "ruleId": "SARIF1004",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_UriBaseIdValueMustNotContainQueryOrFragment",
             "arguments": [
@@ -214,7 +208,6 @@
         {
           "ruleId": "SARIF1004",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_UriBaseIdValueMustEndWithSlash",
             "arguments": [
@@ -240,7 +233,6 @@
         {
           "ruleId": "SARIF1004",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_UriBaseIdValueMustNotContainQueryOrFragment",
             "arguments": [
@@ -266,7 +258,6 @@
         {
           "ruleId": "SARIF1004",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_UriBaseIdRequiresRelativeUri",
             "arguments": [
@@ -292,7 +283,6 @@
         {
           "ruleId": "SARIF1004",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_UriBaseIdRequiresRelativeUri",
             "arguments": [
@@ -318,7 +308,6 @@
         {
           "ruleId": "SARIF1004",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_UriBaseIdRequiresRelativeUri",
             "arguments": [
@@ -344,7 +333,6 @@
         {
           "ruleId": "SARIF1004",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_UriBaseIdRequiresRelativeUri",
             "arguments": [
@@ -370,7 +358,6 @@
         {
           "ruleId": "SARIF1004",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_RelativeReferenceMustNotBeginWithSlash",
             "arguments": [
@@ -395,7 +382,6 @@
         {
           "ruleId": "SARIF1004",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_UriBaseIdRequiresRelativeUri",
             "arguments": [
@@ -421,7 +407,6 @@
         {
           "ruleId": "SARIF1004",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_UriBaseIdRequiresRelativeUri",
             "arguments": [
@@ -447,7 +432,6 @@
         {
           "ruleId": "SARIF1004",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_UriBaseIdRequiresRelativeUri",
             "arguments": [
@@ -473,7 +457,6 @@
         {
           "ruleId": "SARIF1004",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_UriBaseIdRequiresRelativeUri",
             "arguments": [
@@ -499,7 +482,6 @@
         {
           "ruleId": "SARIF1004",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_UriBaseIdRequiresRelativeUri",
             "arguments": [
@@ -525,7 +507,6 @@
         {
           "ruleId": "SARIF1004",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_UriBaseIdRequiresRelativeUri",
             "arguments": [
@@ -551,7 +532,6 @@
         {
           "ruleId": "SARIF1004",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_UriBaseIdRequiresRelativeUri",
             "arguments": [
@@ -577,7 +557,6 @@
         {
           "ruleId": "SARIF1004",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_UriBaseIdRequiresRelativeUri",
             "arguments": [
@@ -603,7 +582,6 @@
         {
           "ruleId": "SARIF1004",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_UriBaseIdRequiresRelativeUri",
             "arguments": [
@@ -629,7 +607,6 @@
         {
           "ruleId": "SARIF1004",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_UriBaseIdRequiresRelativeUri",
             "arguments": [
@@ -655,7 +632,6 @@
         {
           "ruleId": "SARIF1004",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_UriBaseIdRequiresRelativeUri",
             "arguments": [
@@ -681,7 +657,6 @@
         {
           "ruleId": "SARIF1004",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_UriBaseIdRequiresRelativeUri",
             "arguments": [
@@ -707,7 +682,6 @@
         {
           "ruleId": "SARIF1004",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_UriBaseIdRequiresRelativeUri",
             "arguments": [
@@ -733,7 +707,6 @@
         {
           "ruleId": "SARIF1004",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_UriBaseIdRequiresRelativeUri",
             "arguments": [
@@ -759,7 +732,6 @@
         {
           "ruleId": "SARIF1004",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_UriBaseIdRequiresRelativeUri",
             "arguments": [
@@ -785,7 +757,6 @@
         {
           "ruleId": "SARIF1004",
           "ruleIndex": 0,
-          "level": "error",
           "message": {
             "id": "Error_UriBaseIdRequiresRelativeUri",
             "arguments": [
