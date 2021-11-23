@@ -139,5 +139,30 @@ namespace Microsoft.CodeAnalysis.Sarif
             string actual = result.GetMessageText(rule, concise: true, maxLength);
             Assert.Equal(Expected, actual);
         }
+
+        [Fact]
+        public void SarifExtensions_Result_GetEffectiveLevel()
+        {
+            Result result;
+            ReportingConfiguration defaultConfiguration;
+
+            result = new Result() { Level = FailureLevel.Error };
+            Assert.True(result.GetEffectiveLevel(defaultConfiguration: null) == FailureLevel.Error);
+
+            result = new Result() { Level = FailureLevel.Warning };
+            Assert.True(result.GetEffectiveLevel(defaultConfiguration: null) == FailureLevel.Warning);
+
+            result = new Result() { Level = FailureLevel.None };
+            Assert.True(result.GetEffectiveLevel(defaultConfiguration: null) == FailureLevel.None);
+
+            result = new Result() { };
+            Assert.True(result.GetEffectiveLevel(defaultConfiguration: null) == FailureLevel.Warning);
+
+            defaultConfiguration = new ReportingConfiguration() { Enabled = true, Level = FailureLevel.Note };
+            Assert.True(result.GetEffectiveLevel(defaultConfiguration) == FailureLevel.Note);
+
+            defaultConfiguration = new ReportingConfiguration() { Enabled = false, Level = FailureLevel.Note };
+            Assert.True(result.GetEffectiveLevel(defaultConfiguration) == FailureLevel.Warning);
+        }
     }
 }
