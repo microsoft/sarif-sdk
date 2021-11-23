@@ -56,7 +56,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
             Context.Logger.Log(this,
                 RuleUtilities.BuildResult(
-                    null,
+                    level: null,
                     Context,
                     region,
                     formatId,

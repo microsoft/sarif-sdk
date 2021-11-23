@@ -14,7 +14,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             FailTargets = new HashSet<string>();
             PassTargets = new HashSet<string>();
             NotApplicableTargets = new HashSet<string>();
-            NullTargets = new HashSet<string>();
         }
 
         public RuntimeConditions RuntimeErrors { get; set; }
@@ -24,8 +23,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         public HashSet<string> FailTargets { get; set; }
 
         public HashSet<string> NotApplicableTargets { get; set; }
-
-        public HashSet<string> NullTargets { get; set; }
 
         public List<string> Messages { get; set; }
 

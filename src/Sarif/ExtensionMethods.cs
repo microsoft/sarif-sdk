@@ -404,12 +404,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             return text;
         }
 
-        public static FailureLevel? GetEffectiveLevel(this Result result, ReportingDescriptor rule)
+        internal static FailureLevel? GetEffectiveLevel(this Result result, ReportingDescriptor rule)
         {
             return result.GetEffectiveLevel(rule?.DefaultConfiguration);
         }
 
-        public static FailureLevel? GetEffectiveLevel(this Result result, ReportingConfiguration defaultConfiguration)
+        internal static FailureLevel? GetEffectiveLevel(this Result result, ReportingConfiguration defaultConfiguration)
         {
             FailureLevel? rawLevel = result.GetRawLevel();
 
@@ -417,23 +417,21 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 return rawLevel;
             }
+
+            if (defaultConfiguration == null)
+            {
+                // if defaultConfiguration is absent, it SHALL be taken to be present and default Warning
+                return FailureLevel.Warning;
+            }
+            else if (!defaultConfiguration.Enabled)
+            {
+                // if defaultConfiguration is present, but disabled, use Warning
+                return FailureLevel.Warning;
+            }
             else
             {
-                if (defaultConfiguration == null)
-                {
-                    // if defaultConfiguration is absent, it SHALL be taken to be present and default Warning
-                    return FailureLevel.Warning;
-                }
-                else if (!defaultConfiguration.Enabled)
-                {
-                    // if defaultConfiguration is present, but disabled, use Warning
-                    return FailureLevel.Warning;
-                }
-                else
-                {
-                    // if defaultConfiguration is present, and enabled, use the defaultConfiguration value
-                    return defaultConfiguration.Level;
-                }
+                // if defaultConfiguration is present, and enabled, use the defaultConfiguration value
+                return defaultConfiguration.Level;
             }
         }
 

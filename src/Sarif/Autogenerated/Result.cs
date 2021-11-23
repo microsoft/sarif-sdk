@@ -100,17 +100,15 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     return _level;
                 }
-                else
+
+                ReportingDescriptor rule = null;
+
+                if (this.Run?.GetToolComponentFromReference(this.Rule?.ToolComponent)?.Rules != null)
                 {
-                    ReportingDescriptor rule = null;
-
-                    if (this.Run?.GetToolComponentFromReference(this.Rule?.ToolComponent)?.Rules != null)
-                    {
-                        rule = this.GetRule();
-                    }
-
-                    return this.GetEffectiveLevel(rule);
+                    rule = this.GetRule();
                 }
+
+                return this.GetEffectiveLevel(rule);
             }
             set
             {
