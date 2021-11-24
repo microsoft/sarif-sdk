@@ -43,7 +43,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 }
 
                 FailureLevel? level = result.Level;
-                if (level.HasValue && !title.Contains(level.ToString()))
+                if (!title.Contains(level.ToString()))
                 {
                     sb.AppendLine($"[Test case '{tuple.Item1}']: Title did not contain expected failure level '{level}'.");
                 }

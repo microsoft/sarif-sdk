@@ -73,7 +73,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter))]
         public ResultKind Kind
         {
-            get { return _kind; }
+            get
+            {
+                if (Level != FailureLevel.None)
+                {
+                    return ResultKind.Fail;
+                }
+
+                return _kind;
+            }
             set
             {
                 _kind = value;
@@ -113,10 +121,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             set
             {
                 _level = value;
-                if (_level.HasValue && _level != FailureLevel.None)
-                {
-                    _kind = ResultKind.Fail;
-                }
             }
         }
 

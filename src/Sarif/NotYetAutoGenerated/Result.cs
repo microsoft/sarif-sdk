@@ -73,7 +73,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter))]
         public ResultKind Kind
         {
-            get { return _kind; }
+            get
+            {
+                if (Level != FailureLevel.None)
+                {
+                    return ResultKind.Fail;
+                }
+
+                return _kind;
+            }
             set
             {
                 _kind = value;
@@ -100,25 +108,19 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     return _level;
                 }
-                else
+
+                ReportingDescriptor rule = null;
+
+                if (this.Run?.GetToolComponentFromReference(this.Rule?.ToolComponent)?.Rules != null)
                 {
-                    ReportingDescriptor rule = null;
-
-                    if (this.Run?.GetToolComponentFromReference(this.Rule?.ToolComponent)?.Rules != null)
-                    {
-                        rule = this.GetRule();
-                    }
-
-                    return this.GetEffectiveLevel(rule);
+                    rule = this.GetRule();
                 }
+
+                return this.GetEffectiveLevel(rule);
             }
             set
             {
                 _level = value;
-                if (_level.HasValue && _level != FailureLevel.None)
-                {
-                    _kind = ResultKind.Fail;
-                }
             }
         }
 

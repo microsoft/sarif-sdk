@@ -46,10 +46,61 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             result.Kind.Should().Be(ResultKind.Fail); // Default value
 
             result.Kind = ResultKind.Pass;
-
             result.Level = FailureLevel.Error;
-
             result.Kind.Should().Be(ResultKind.Fail);
+
+            result.Kind = ResultKind.Pass;
+            result.Level = FailureLevel.Warning;
+            result.Kind.Should().Be(ResultKind.Fail);
+
+            result.Kind = ResultKind.Pass;
+            result.Level = FailureLevel.None;
+            result.Kind.Should().Be(ResultKind.Pass);
+
+            result.Kind = ResultKind.Pass;
+            result.Level = null;
+            result.Kind.Should().Be(ResultKind.Fail); // without default configuartion, effective is Warning.
+        }
+
+        [Fact]
+        public void Result_Level_ResetsKindValue_WithDefaultConfiguration()
+        {
+            const string sampleRuleId = "SampleRuleId";
+            ReportingConfiguration defaultConfiguration;
+            Result result;
+
+            result = new Result() { RuleId = sampleRuleId };
+            // default values
+            result.Level.Should().Be(FailureLevel.Warning);
+            result.Kind.Should().Be(ResultKind.Fail);
+
+            result.Kind = ResultKind.Pass;
+            // manually set Kind, reset Level
+            result.Level.Should().Be(FailureLevel.None);
+            result.Kind.Should().Be(ResultKind.Pass);
+
+            result.Level = null;
+            // manually set Level null, default is Warning without default configuration, reset Kind
+            result.Level.Should().Be(FailureLevel.Warning);
+            result.Kind.Should().Be(ResultKind.Fail);
+
+            defaultConfiguration = new ReportingConfiguration() { Enabled = true, Level = FailureLevel.None };
+            AssociateResultAndDefaultConfiguration(result, defaultConfiguration);
+            // now default configuration is set, Level not set default to whatever set in the default configuration (None)
+            result.Level.Should().Be(FailureLevel.None);
+            result.Kind.Should().Be(ResultKind.Pass);
+
+            defaultConfiguration = new ReportingConfiguration() { Enabled = true, Level = FailureLevel.Error };
+            AssociateResultAndDefaultConfiguration(result, defaultConfiguration);
+            // now default configuration is set, Level not set default to whatever set in the default configuration (Error)
+            result.Level.Should().Be(FailureLevel.Error);
+            result.Kind.Should().Be(ResultKind.Fail);
+
+            // continue above, now that user got the actual level and set it (None)
+            result.Level = FailureLevel.None;
+            // now both default configuration and actual result level is set, use actual value set
+            result.Level.Should().Be(FailureLevel.None);
+            result.Kind.Should().Be(ResultKind.Pass);
         }
 
         [Fact]
@@ -235,6 +286,33 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             string levelString = levelJson == null ? null : (string)levelJson;
             FailureLevel? level = levelString == null ? null : (FailureLevel?)Enum.Parse(typeof(FailureLevel), levelString, ignoreCase: true);
             return level;
+        }
+
+        private static void AssociateResultAndDefaultConfiguration(Result result,
+            ReportingConfiguration defaultConfiguration = null)
+        {
+            Run run = new Run()
+            {
+                Tool = new Tool()
+                {
+                    Driver = new ToolComponent()
+                    {
+                        Rules = new List<ReportingDescriptor>()
+                        {
+                            new ReportingDescriptor()
+                            {
+                                Id = result.RuleId,
+                                DefaultConfiguration = defaultConfiguration
+                            }
+                        }
+                    }
+                },
+                Results = new List<Result>()
+                {
+                    result
+                }
+            };
+            run.SetRunOnResults();
         }
     }
 }
