@@ -96,11 +96,17 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             result.Level.Should().Be(FailureLevel.Error);
             result.Kind.Should().Be(ResultKind.Fail);
 
-            // continue above, now that user got the actual level and set it (None)
-            result.Level = FailureLevel.None;
-            // now both default configuration and actual result level is set, use actual value set
+            // continue above, now user update the default configuration (to None)
+            defaultConfiguration.Level = FailureLevel.None;
+            // still, user did not set the result level, so default to whatever set in the default configuration (None)
             result.Level.Should().Be(FailureLevel.None);
             result.Kind.Should().Be(ResultKind.Pass);
+
+            // continue above, now user got the actual applicable result level and set it (Note)
+            result.Level = FailureLevel.Note;
+            // now both default configuration (None) and actual result level (Note) is set, use actual value set
+            result.Level.Should().Be(FailureLevel.Note);
+            result.Kind.Should().Be(ResultKind.Fail);
         }
 
         [Fact]
