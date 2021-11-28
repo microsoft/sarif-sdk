@@ -291,7 +291,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                         CultureInfo.InvariantCulture, "{0}{1}: {2} {3}: {4}",
                         path,
                         location.PhysicalLocation.Region.FormatForVisualStudio(),
-                        result.Kind == ResultKind.Fail ? result.Level.FormatForVisualStudio() : result.Kind.FormatForVisualStudio(),
+                        result.Kind == ResultKind.Fail
+                        ? result.GetEffectiveLevel(rule).FormatForVisualStudio()
+                        : result.Kind.FormatForVisualStudio(),
                         result.RuleId,
                         result.GetMessageText(rule)
                         ));
@@ -312,9 +314,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 case FailureLevel.Note:
                     return "note";
-
-                case null:
-                    return string.Empty;
 
                 default:
                     throw new InvalidOperationException();

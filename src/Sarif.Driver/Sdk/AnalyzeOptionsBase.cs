@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         private IEnumerable<FailureLevel?> level;
 
         [Value(0,
-HelpText = "One or more specifiers to a file, directory, or filter pattern that resolves to one or more binaries to analyze.")]
+            HelpText = "One or more specifiers to a file, directory, or filter pattern that resolves to one or more binaries to analyze.")]
         public IEnumerable<string> TargetFileSpecifiers { get; set; }
 
         [Option(
