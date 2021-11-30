@@ -15,6 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     public class GitHelperTests
     {
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void GetRepositoryRoot_WhenDotGitIsAbsent_ReturnsNull()
         {
             var mockFileSystem = new Mock<IFileSystem>();
@@ -30,6 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void GetRepositoryRoot_WhenDotGitIsPresent_ReturnsTheDirectortyContainingDotGit()
         {
             string productDirectory = Path.GetDirectoryName(FileDiffingUnitTests.GetProductDirectory());
@@ -41,6 +43,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void GetRepositoryRoot_ByDefault_PopulatesTheDirectoryToRepoRootCache()
         {
             // Returns '\src\' location within repo, e.g., 'c:\src\sarif-sdk\src'
@@ -62,6 +65,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void GetRepositoryRoot_WhenCachingIsDisabled_DoesNotPopulateTheDirectoryToRepoRootCache()
         {
             var mockFileSystem = new Mock<IFileSystem>();
@@ -89,6 +93,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void GetRepositoryRoot_WhenCalledOnTheDefaultInstanceWithNoParameters_Throws()
         {
             Action action = () => GitHelper.Default.GetRepositoryRoot(@"C:\dev");
@@ -97,6 +102,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void GetRepositoryRoot_WhenCalledOnTheDefaultInstanceWithCachingDisabled_DoesNotThrow()
         {
             // If you have a directory with this name on your machine and it does not contain a .git
@@ -115,6 +121,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void GetGitExePath_WhenPathExistsInProgramFiles()
         {
             var mockFileSystem = new Mock<IFileSystem>();
@@ -128,6 +135,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void GetGitExePath_WhenPathDoesNotExistInProgramFiles()
         {
             var mockFileSystem = new Mock<IFileSystem>();
@@ -141,12 +149,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void SearchForFileInEnvironmentVariable_WhenVariableDoesNotExist()
         {
             FileSearcherHelper.SearchForFileInEnvironmentVariable("PATH_THAT_DOES_NOT_EXIST", "filename.exe").Should().BeNull();
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void SearchForFileInEnvironmentVariable_WhenVariableExistsButFileDoesNot()
         {
             // The error in the ntdll name here is intentional.
@@ -154,12 +164,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void SearchForFileInEnvironmentVariable_WhenVariableAndFileExists()
         {
             FileSearcherHelper.SearchForFileInEnvironmentVariable("PATH", "ntdll.dll").Should().NotBeNull();
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void GitExePath_WhenPathDoesNotExist_SettingManuallyShouldWork()
         {
             var mockFileSystem = new Mock<IFileSystem>();
@@ -173,6 +185,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void GetTopLevel_WhenRepoPathIsToAFile()
         {
             string pathToFile = typeof(GitHelperTests).Assembly.Location;
@@ -182,6 +195,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void GetTopLevel_WhenRepoPathIsToADirectory()
         {
             string pathToDirectory = Path.GetDirectoryName(typeof(GitHelperTests).Assembly.Location);
@@ -191,6 +205,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void GetTopLevel_WhenRepoPathDoesNotExist()
         {
             string path = @"X:\DoesnotExistDirectory";
@@ -198,6 +213,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void GetTopLevel_WhenRepoPathHasInvalidChars()
         {
             string path = @"C:\Invalid:\fo/lder\sub?folder";
@@ -205,6 +221,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void GetTopLevel_WhenRepoPathIsNull()
         {
             string path = null;
@@ -212,6 +229,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void GetTopLevel_WhenGitDoesnotExist()
         {
             var mockFileSystem = new Mock<IFileSystem>();

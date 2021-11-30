@@ -218,7 +218,12 @@ if (-not $NoBuild) {
 }
 
 if (-not $NoTest) {
-    & dotnet test $SourceRoot\$SolutionFile --no-build --configuration $Configuration
+    if ($ENV:OS) {
+        & dotnet test $SourceRoot\$SolutionFile --no-build --configuration $Configuration
+    }
+    else {
+        & dotnet test $SourceRoot\$SolutionFile --no-build --configuration $Configuration --filter WindowsOnly!=true
+    }
     if ($LASTEXITCODE -ne 0) {
         Exit-WithFailureMessage $ScriptName "Tests failed."
     }
