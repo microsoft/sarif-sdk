@@ -243,8 +243,8 @@ if (-not $NoSigningDirectory) {
 
 if (-not $NoPackage) {
     & dotnet pack $SourceRoot\$SolutionFile --no-build --configuration $Configuration
-    if ($LASTEXITCODE -ne 0) {
-        Exit-WithFailureMessage $ScriptName "Tests failed."
+    if ($ENV:OS -and $LASTEXITCODE -ne 0) {
+        Exit-WithFailureMessage $ScriptName "Package failed."
     }
 }
 
