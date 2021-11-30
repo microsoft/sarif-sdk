@@ -290,6 +290,12 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             {
                 string logId = sarifLog.GetProperty<Guid>(LOGID_PROPERTY_NAME).ToString();
 
+                if (sarifLog.Runs?.Any(run => run.Results?.Any(result => result.ShouldBeFiled()) == true) == false)
+                {
+                    // If the sarifLog does not contain result which should be filed as a work item, return null.
+                    return null;
+                }
+
                 // The helper below will initialize the sarif work item model with a copy
                 // of the root pipeline filing context. This context will then be initialized
                 // based on the current sarif log file that we're processing.

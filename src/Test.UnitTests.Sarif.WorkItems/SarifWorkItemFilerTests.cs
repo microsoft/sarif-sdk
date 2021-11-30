@@ -13,6 +13,7 @@ using FluentAssertions;
 using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
 using Microsoft.CodeAnalysis.WorkItems;
 using Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models;
+using Microsoft.VisualStudio.Services.Common;
 using Microsoft.VisualStudio.Services.WebApi;
 using Microsoft.VisualStudio.Services.WebApi.Patch.Json;
 using Microsoft.WorkItems;
@@ -105,6 +106,25 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             action.Should().Throw<ArgumentNullException>();
         }
 
+        [Fact]
+        public void WorkItemFiler_SarifLogResultsShouldNotBeFiled()
+        {
+            SarifLog sarifLog = TestData.CreateSimpleLog();
+
+            // Set all results baseline state to 'Unchanged' so no work item should be filed.
+            sarifLog.Runs.SelectMany(run => run.Results).ForEach(result => result.BaselineState = BaselineState.Unchanged);
+
+            SarifWorkItemContext context = CreateAzureDevOpsTestContext();
+
+            context.SplittingStrategy = SplittingStrategy.PerResult;
+
+            int numberOfResults = 0;
+            context.SetProperty(ExpectedWorkItemsCount, numberOfResults);
+            context.SetProperty(ExpectedFilingResult, FilingResult.None);
+
+            TestWorkItemFiler(sarifLog, context, true);
+        }
+
         private void TestWorkItemFiler(SarifLog sarifLog, SarifWorkItemContext context, bool adoClient)
         {
             // ONE. Create test data that the low-level ADO client mocks
@@ -162,6 +182,9 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             CreateWorkItemCalled.Should().Be(expectedWorkItemsCount);
             CreateAttachmentCount.Should().Be(adoClient ? expectedWorkItemsCount : 0);
 
+            // default value is FilingResult.Succeeded
+            FilingResult expectedFilingResult = context.GetProperty(ExpectedFilingResult);
+
             // This property is a naive mechanism to ensure that the code
             // executed comprehensively (i.e., that execution was not limited
             // due to unhandled exceptions). This is required because we have
@@ -169,7 +192,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             // for exceptions and other negative conditions. I wouldn't expect this
             // little helper to survive but it closes the loop for the current
             // rudimentary in-flight implementation.
-            filer.FilingResult.Should().Be(FilingResult.Succeeded);
+            filer.FilingResult.Should().Be(expectedFilingResult);
 
             filer.FiledWorkItems.Count.Should().Be(expectedWorkItemsCount);
 
@@ -188,20 +211,23 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             // 
             updatedSarifLog.Should().NotBeEquivalentTo(sarifLog);
 
-            foreach (Run run in updatedSarifLog.Runs)
+            if (expectedWorkItemsCount > 0)
             {
-                foreach (Result result in run.Results)
+                foreach (Run run in updatedSarifLog.Runs)
                 {
-                    result.WorkItemUris.Should().NotBeNull();
-                    result.WorkItemUris.Count.Should().Be(1);
-                    result.WorkItemUris[0].Should().Be(bugHtmlUri);
+                    foreach (Result result in run.Results)
+                    {
+                        result.WorkItemUris.Should().NotBeNull();
+                        result.WorkItemUris.Count.Should().Be(1);
+                        result.WorkItemUris[0].Should().Be(bugHtmlUri);
 
-                    result.TryGetProperty(SarifWorkItemFiler.PROGRAMMABLE_URIS_PROPERTY_NAME, out List<Uri> programmableUris)
-                        .Should().BeTrue();
+                        result.TryGetProperty(SarifWorkItemFiler.PROGRAMMABLE_URIS_PROPERTY_NAME, out List<Uri> programmableUris)
+                            .Should().BeTrue();
 
-                    programmableUris.Should().NotBeNull();
-                    programmableUris.Count.Should().Be(1);
-                    programmableUris[0].Should().Be(bugUri);
+                        programmableUris.Should().NotBeNull();
+                        programmableUris.Count.Should().Be(1);
+                        programmableUris[0].Should().Be(bugUri);
+                    }
                 }
             }
         }
@@ -374,5 +400,10 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             new PerLanguageOption<int>(
                 "Extensibility", nameof(ExpectedWorkItemsCount),
                 defaultValue: () => { return 1; });
+
+        internal static PerLanguageOption<FilingResult> ExpectedFilingResult { get; } =
+            new PerLanguageOption<FilingResult>(
+                "Extensibility", nameof(ExpectedFilingResult),
+                defaultValue: () => { return FilingResult.Succeeded; });
     }
 }
