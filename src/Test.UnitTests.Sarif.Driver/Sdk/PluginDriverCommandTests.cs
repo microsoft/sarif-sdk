@@ -3,9 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 using FluentAssertions;
@@ -22,9 +19,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Driver.Sdk
     public class PluginDriverCommandTests
     {
         [Fact]
-        public void PluginDriverCommand_ValidateInvocationPropertiesToLog_ShouldValidateParameters()
+        public void PluginDriverCommand_ValidateInvocationPropertiesToLog_ShouldReturnTrueIfPropertiesAreNullOrEmpty()
         {
-            var sb = new StringBuilder();
             var mockContext = new Mock<IAnalysisContext>();
             var mockLogger = new Mock<IAnalysisLogger>();
 
@@ -36,13 +32,29 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Driver.Sdk
             current = PluginDriverCommand<string>.ValidateInvocationPropertiesToLog(mockContext.Object,
                                                                                     Array.Empty<string>());
             current.Should().BeTrue();
+        }
 
-            current = PluginDriverCommand<string>.ValidateInvocationPropertiesToLog(mockContext.Object,
-                                                                                    new List<string> { "Account" });
+        [Fact]
+        public void PluginDriverCommand_ValidateInvocationPropertiesToLog_ShouldReturnTrueIfPropertyIsValid()
+        {
+            var mockContext = new Mock<IAnalysisContext>();
+            var mockLogger = new Mock<IAnalysisLogger>();
+
+            mockContext.SetupGet(context => context.Logger).Returns(mockLogger.Object);
+            bool current = PluginDriverCommand<string>.ValidateInvocationPropertiesToLog(mockContext.Object,
+                                                                                         new List<string> { "Account" });
             current.Should().BeTrue();
+        }
 
-            current = PluginDriverCommand<string>.ValidateInvocationPropertiesToLog(mockContext.Object,
-                                                                                    new List<string> { "test" });
+        [Fact]
+        public void PluginDriverCommand_ValidateInvocationPropertiesToLog_ShouldReturnFalseIfPropertyIsInvalid()
+        {
+            var mockContext = new Mock<IAnalysisContext>();
+            var mockLogger = new Mock<IAnalysisLogger>();
+
+            mockContext.SetupGet(context => context.Logger).Returns(mockLogger.Object);
+            bool current = PluginDriverCommand<string>.ValidateInvocationPropertiesToLog(mockContext.Object,
+                                                                                         new List<string> { "test" });
             current.Should().BeFalse();
         }
 
@@ -66,6 +78,5 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Driver.Sdk
             });
             exception.Should().BeOfType(typeof(ExitApplicationException<ExitReason>));
         }
-
     }
 }
