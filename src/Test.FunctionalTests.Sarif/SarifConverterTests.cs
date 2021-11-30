@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     public class SarifConverterTests
     {
-        public const string TestDirectory = @"v2\ConverterTestData";
+        public string TestDirectory = Path.Combine("v2", "ConverterTestData");
 
         [Fact]
         public void AndroidStudioConverter_EndToEnd()

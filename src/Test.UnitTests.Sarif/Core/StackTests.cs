@@ -30,6 +30,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void Stack_CreateFromException()
         {
             bool caughtException = false;
@@ -50,6 +51,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void Stack_CreateFromExceptionWithInnerException()
         {
             bool caughtException = false;
@@ -74,6 +76,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void Stack_CreateFromAggregatedExceptionWithInnerException()
         {
             bool caughtException = false;

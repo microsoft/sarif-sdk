@@ -103,6 +103,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void SarifLogger_RedactedCommandLine()
         {
             var sb = new StringBuilder();

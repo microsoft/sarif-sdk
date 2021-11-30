@@ -169,6 +169,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void ValidatesAllTestFiles()
         {
             var validator = new Validator(_schema);

@@ -908,6 +908,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void AnalyzeCommandBase_GetFileNameFromUriWorks()
         {
             var sb = new StringBuilder();
@@ -942,6 +943,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         #region ResultsCachingTestsAndHelpers
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void AnalyzeCommandBase_CachesErrors()
         {
             // Produce two errors results
@@ -964,6 +966,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void AnalyzeCommandBase_CachesNotes()
         {
             // Produce three results in verbose runs only
@@ -987,6 +990,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void AnalyzeCommandBase_CachesNotificationsWithoutPersistingToLogFile()
         {
             var testCase = new ResultsCachingTestCase
@@ -1010,6 +1014,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void AnalyzeCommandBase_CachesNotificationsWhenPersistingToLogFile()
         {
             var testCase = new ResultsCachingTestCase
@@ -1034,6 +1039,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void AnalyzeCommandBase_CachesResultsWithoutPersistingToLogFile()
         {
             var testCase = new ResultsCachingTestCase
@@ -1056,6 +1062,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void AnalyzeCommandBase_CachesResultsWhenPersistingToLogFile()
         {
             var testCase = new ResultsCachingTestCase
@@ -1078,6 +1085,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void AnalyzeCommandBase_ShouldEmitAutomationDetailsWhenIdOrGuidExists()
         {
             const string automationId = "automation-id";
@@ -1116,6 +1124,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact(Timeout = 5000)]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread_CoyoteTest()
         {
             Configuration config = Configuration.Create().WithTestingIterations(100).WithConcurrencyFuzzingEnabled();

@@ -52,6 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void MimeType_Directory()
         {
             string directory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
@@ -59,6 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void MimeType_DirectoryUri()
         {
             string directory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);

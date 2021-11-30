@@ -84,6 +84,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void SarifWorkItemExtensions_CreateWorkItemTitle_LongTitleFromLogicalLocation()
         {
             Result result = new Result();

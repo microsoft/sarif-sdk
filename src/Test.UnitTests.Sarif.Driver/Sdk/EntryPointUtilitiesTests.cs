@@ -34,6 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void EnryPointUtilities_GenerateArguments_ExpandsResponseFileContents()
         {
             const string ResponseFileName = "test.rsp";
@@ -60,6 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void EnryPointUtilities_GenerateArguments_StripsQuotesFromAroundArgsWithSpacesInResponseFiles()
         {
             const string ResponseFileName = "test.rsp";
@@ -75,6 +77,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void EnryPointUtilities_GenerateArguments_ExpandsEnvironmentVariablesInResponseFilePathName()
         {
             const string DirectoryVariableName = "InstallationDirectory";

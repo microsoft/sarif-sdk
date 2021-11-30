@@ -155,24 +155,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void InsertOptionalDataVisitor_PersistsHashes()
         {
             RunTest("CoreTests-Relative.sarif", OptionallyEmittedData.Hashes);
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void InsertOptionalDataVisitor_PersistsTextFilesWithRelativeUris()
         {
             RunTest("CoreTests-Relative.sarif", OptionallyEmittedData.TextFiles);
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void InsertOptionalDataVisitor_PersistsTextFilesWithAbsoluteUris()
         {
             RunTest("CoreTests-Absolute.sarif", OptionallyEmittedData.TextFiles);
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void InsertOptionalDataVisitor_PersistsRegionSnippets()
         {
             RunTest("CoreTests-Relative.sarif", OptionallyEmittedData.RegionSnippets);
@@ -185,12 +189,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void InsertOptionalDataVisitor_PersistsContextRegionSnippets()
         {
             RunTest("CoreTests-Relative.sarif", OptionallyEmittedData.ContextRegionSnippets);
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void InsertOptionalDataVisitor_PersistsComprehensiveRegionProperties()
         {
             RunTest("CoreTests-Relative.sarif", OptionallyEmittedData.ComprehensiveRegionProperties);
@@ -204,6 +210,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void InsertOptionalDataVisitor_PersistsVersionControlInformation()
         {
             RunTest("CoreTests-Relative.sarif", OptionallyEmittedData.VersionControlDetails);
@@ -216,6 +223,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void InsertOptionalDataVisitor_PersistsHashesAndTextFiles()
         {
             RunTest("CoreTests-Relative.sarif",
@@ -224,6 +232,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void InsertOptionalDataVisitor_PersistsAll()
         {
             RunTest("CoreTests-Relative.sarif",
@@ -238,6 +247,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void InsertOptionalDataVisitor_SkipsExistingRepoRootSymbolsAndHandlesMultipleRoots()
         {
             const string ParentRepoRoot = @"C:\repo";
@@ -364,6 +374,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void InsertOptionalDataVisitor_CanVisitIndividualResultsInASuppliedRun()
         {
             const string TestFileContents =
@@ -672,6 +683,7 @@ Three";
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void InsertOptionalDataVisitor_ResolvesOriginalUriBaseIds()
         {
             string inputFileName = "InsertOptionalDataVisitor.txt";

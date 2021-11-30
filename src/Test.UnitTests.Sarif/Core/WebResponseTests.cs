@@ -14,6 +14,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
     public class WebResponseTests
     {
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void WebResponse_Parse_CreatesExpectedWebResponseObject()
         {
             // Example from RFC 7230.
@@ -50,6 +51,7 @@ Hello World!My payload includes a trailing CRLF.
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void WebResponse_Parse_CreatesExpectedWebResponseObjectWithoutBody()
         {
             const string ResponseString =

@@ -195,6 +195,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void RebaseUriVisitor_VisitFileData_RebasesAllTheThings()
         {
             string comprehensiveSarifPath = Path.Combine(Environment.CurrentDirectory, @"v2\SpecExamples\Comprehensive.sarif");

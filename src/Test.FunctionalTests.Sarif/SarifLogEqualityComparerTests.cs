@@ -20,6 +20,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         // failed because an incorrect code generation hint caused Rule objects to be compared
         // by reference rather than by invoking the RuleEqualityComparer.
         [Fact(DisplayName = nameof(ValueEquals_ReturnsTrueForTwoIdenticalLogObjects))]
+        [Trait(TestTraits.WindowsOnly, "true")]
         [Trait(TestTraits.Bug, "https://github.com/microsoft/sarif-sdk/issues/1046")]
         public void ValueEquals_ReturnsTrueForTwoIdenticalLogObjects()
         {
