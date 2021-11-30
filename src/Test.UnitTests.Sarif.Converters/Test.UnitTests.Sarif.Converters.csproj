@@ -78,11 +78,4 @@
     <ProjectReference Include="..\Sarif.Converters\Sarif.Converters.csproj" />
     <ProjectReference Include="..\Test.Utilities.Sarif\Test.Utilities.Sarif.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Update="Microsoft.CodeAnalysis.NetAnalyzers" Version="6.0.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
 </Project>
