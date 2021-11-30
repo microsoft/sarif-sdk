@@ -88,7 +88,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         private static int NumberOfExportedRules()
         {
             return typeof(ExportConfigurationCommandBaseTests).Assembly.GetTypes()
-                .Count(t => t.GetCustomAttributes(typeof(ExportAttribute)).Count() > 0);
+                .Count(t => t.GetCustomAttributes(typeof(ExportAttribute)).Any());
         }
     }
 }
