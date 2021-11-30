@@ -42,13 +42,13 @@
     <PackageReference Include="System.Composition" Version="5.0.0" />
     <PackageReference Include="System.Threading.Channels" Version="5.0.0" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Update="Microsoft.CodeAnalysis.NetAnalyzers" Version="6.0.0">
+    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="6.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Condition="'$(TargetFramework)' == 'net472'" Include="System.Net.Http" />
+  </ItemGroup>
 </Project>
