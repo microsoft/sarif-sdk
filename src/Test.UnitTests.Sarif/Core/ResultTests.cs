@@ -275,7 +275,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
                 dataToRemove: OptionallyEmittedData.NondeterministicProperties,
                 closeWriterOnDispose: false,
                 run: new Run() { Invocations = new List<Invocation> { new Invocation() { RuleConfigurationOverrides = ruleConfigurationOverrides } } },
-                levels: new List<FailureLevel?> { FailureLevel.Error, FailureLevel.Warning, FailureLevel.Note, FailureLevel.None },
+                levels: new List<FailureLevel> { FailureLevel.Error, FailureLevel.Warning, FailureLevel.Note, FailureLevel.None },
                 kinds: new List<ResultKind> { ResultKind.None, ResultKind.NotApplicable, ResultKind.Pass,
                     ResultKind.Fail, ResultKind.Review, ResultKind.Open, ResultKind.Informational }))
             {

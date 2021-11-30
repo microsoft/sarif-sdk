@@ -302,7 +302,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return string.Join(Environment.NewLine, messageLines);
         }
 
-        public static string FormatForVisualStudio(this FailureLevel? level)
+        public static string FormatForVisualStudio(this FailureLevel level)
         {
             switch (level)
             {
@@ -403,18 +403,18 @@ namespace Microsoft.CodeAnalysis.Sarif
             return text;
         }
 
-        internal static FailureLevel? GetEffectiveLevel(this Result result, ReportingDescriptor rule)
+        internal static FailureLevel GetEffectiveLevel(this Result result, ReportingDescriptor rule)
         {
             return result.GetEffectiveLevel(rule?.DefaultConfiguration);
         }
 
-        internal static FailureLevel? GetEffectiveLevel(this Result result, ReportingConfiguration defaultConfiguration)
+        internal static FailureLevel GetEffectiveLevel(this Result result, ReportingConfiguration defaultConfiguration)
         {
             FailureLevel? rawLevel = result.GetRawLevel();
 
             if (rawLevel.HasValue)
             {
-                return rawLevel;
+                return rawLevel.Value;
             }
 
             if (defaultConfiguration == null)

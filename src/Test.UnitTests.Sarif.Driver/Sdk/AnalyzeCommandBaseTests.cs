@@ -1192,7 +1192,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     OutputFilePath = testCase.PersistLogFileToDisk ? Guid.NewGuid().ToString() : null,
                     TargetFileSpecifiers = new string[] { Guid.NewGuid().ToString() },
                     Kind = new List<ResultKind> { ResultKind.Fail },
-                    Level = new List<FailureLevel?> { FailureLevel.Warning, FailureLevel.Error },
+                    Level = new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
                     DataToInsert = new OptionallyEmittedData[] { OptionallyEmittedData.Hashes },
                 };
 
@@ -1305,7 +1305,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 OutputFilePath = testCase.PersistLogFileToDisk ? Guid.NewGuid().ToString() : null,
                 TargetFileSpecifiers = new string[] { Guid.NewGuid().ToString() },
                 Kind = new List<ResultKind> { ResultKind.Fail },
-                Level = new List<FailureLevel?> { FailureLevel.Warning, FailureLevel.Error }
+                Level = new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
             };
 
             EnhanceOptions(options, enhancedOptions);
@@ -1313,7 +1313,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             if (testCase.Verbose)
             {
                 options.Kind = new List<ResultKind> { ResultKind.Informational, ResultKind.Open, ResultKind.Review, ResultKind.Fail, ResultKind.Pass, ResultKind.NotApplicable, ResultKind.None };
-                options.Level = new List<FailureLevel?> { FailureLevel.Error, FailureLevel.Warning, FailureLevel.Note, FailureLevel.None };
+                options.Level = new List<FailureLevel> { FailureLevel.Error, FailureLevel.Warning, FailureLevel.Note, FailureLevel.None };
             }
 
             Run runWithoutCaching = RunAnalyzeCommand(options, testCase, multithreaded);
@@ -1476,7 +1476,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 OutputFilePath = Guid.NewGuid().ToString(),
                 TargetFileSpecifiers = new string[] { Guid.NewGuid().ToString() },
                 Kind = new List<ResultKind> { ResultKind.Fail },
-                Level = new List<FailureLevel?> { FailureLevel.Warning, FailureLevel.Error },
+                Level = new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
                 DataToInsert = new OptionallyEmittedData[] { OptionallyEmittedData.Hashes }
             };
 

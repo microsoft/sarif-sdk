@@ -42,7 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             IEnumerable<string> invocationPropertiesToLog = null,
             string defaultFileEncoding = null,
             bool quiet = false,
-            IEnumerable<FailureLevel?> levels = null,
+            IEnumerable<FailureLevel> levels = null,
             IEnumerable<ResultKind> kinds = null,
             IEnumerable<string> insertProperties = null)
             : this(new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.None)),
@@ -75,7 +75,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             string defaultFileEncoding = null,
             bool closeWriterOnDispose = true,
             bool quiet = false,
-            IEnumerable<FailureLevel?> levels = null,
+            IEnumerable<FailureLevel> levels = null,
             IEnumerable<ResultKind> kinds = null,
             IEnumerable<string> insertProperties = null) : this(textWriter, logFilePersistenceOptions, closeWriterOnDispose, levels, kinds)
         {
@@ -127,7 +127,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             TextWriter textWriter,
             LogFilePersistenceOptions logFilePersistenceOptions,
             bool closeWriterOnDipose,
-            IEnumerable<FailureLevel?> levels,
+            IEnumerable<FailureLevel> levels,
             IEnumerable<ResultKind> kinds) : base(failureLevels: levels, resultKinds: kinds)
         {
             _textWriter = textWriter;

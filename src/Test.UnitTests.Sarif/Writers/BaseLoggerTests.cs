@@ -19,16 +19,16 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Writers
         {
             BaseLoggerTestConcrete baseLoggerTestConcrete = null;
 
-            Assert.Throws<ArgumentException>(() => new BaseLoggerTestConcrete(new List<FailureLevel?> { FailureLevel.Error },
+            Assert.Throws<ArgumentException>(() => new BaseLoggerTestConcrete(new List<FailureLevel> { FailureLevel.Error },
                                                                     new List<ResultKind> { ResultKind.Informational }));
             //  The rest are fine.
-            baseLoggerTestConcrete = new BaseLoggerTestConcrete(new List<FailureLevel?> { FailureLevel.Error },
+            baseLoggerTestConcrete = new BaseLoggerTestConcrete(new List<FailureLevel> { FailureLevel.Error },
                                                                 new List<ResultKind> { ResultKind.Informational, ResultKind.Fail });
 
-            baseLoggerTestConcrete = new BaseLoggerTestConcrete(new List<FailureLevel?> { FailureLevel.Note },
+            baseLoggerTestConcrete = new BaseLoggerTestConcrete(new List<FailureLevel> { FailureLevel.Note },
                                                                 new List<ResultKind> { ResultKind.Fail });
 
-            baseLoggerTestConcrete = new BaseLoggerTestConcrete(new List<FailureLevel?> { FailureLevel.None },
+            baseLoggerTestConcrete = new BaseLoggerTestConcrete(new List<FailureLevel> { FailureLevel.None },
                                                                 new List<ResultKind> { ResultKind.Informational });
 
             //  If there are no uncaught exceptions, the test passes.
@@ -40,7 +40,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Writers
             Result result;
             ReportingConfiguration defaultConfiguration;
 
-            var levels = new List<FailureLevel?> { FailureLevel.Error, FailureLevel.Warning };
+            var levels = new List<FailureLevel> { FailureLevel.Error, FailureLevel.Warning };
 
             result = new Result() { Level = FailureLevel.Error };
             Assert.True(ShouldLog(result, levels));
@@ -57,7 +57,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Writers
             result = new Result() { };
             Assert.True(ShouldLog(result, levels));
 
-            levels = new List<FailureLevel?> { FailureLevel.Error };
+            levels = new List<FailureLevel> { FailureLevel.Error };
             Assert.False(ShouldLog(result, levels));
 
             result = new Result() { Level = FailureLevel.Error };
@@ -82,7 +82,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Writers
             // Result.Level not set, Default Configuration not set, Log Level Error => defult to warning, do not log
             Assert.False(ShouldLog(result, levels));
 
-            levels = new List<FailureLevel?> { FailureLevel.Warning };
+            levels = new List<FailureLevel> { FailureLevel.Warning };
 
             // Result.Level not set, Default Configuration Error, Log Level Warning => do not log
             defaultConfiguration = new ReportingConfiguration() { Enabled = true, Level = FailureLevel.Error };
@@ -96,7 +96,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Writers
             Assert.True(ShouldLog(result, levels));
         }
 
-        private static bool ShouldLog(Result result, IEnumerable<FailureLevel?> levels,
+        private static bool ShouldLog(Result result, IEnumerable<FailureLevel> levels,
             ReportingConfiguration defaultConfiguration = null, ReportingConfiguration overrideConfiguration = null)
         {
             bool shouldLog = false;

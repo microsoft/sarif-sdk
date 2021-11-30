@@ -27,7 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 invocationTokensToRedact: null,
                 invocationPropertiesToLog: null,
                 kinds: new List<ResultKind> { ResultKind.Fail },
-                levels: new List<FailureLevel?> { FailureLevel.Warning, FailureLevel.Error });
+                levels: new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error });
 
             string result = textWriter.ToString();
 

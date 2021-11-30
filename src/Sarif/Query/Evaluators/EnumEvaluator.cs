@@ -22,11 +22,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
     /// <typeparam name="EnumType">Type of Enum of property being compared</typeparam>
     public class EnumEvaluator<T, EnumType> : IExpressionEvaluator<T> where EnumType : struct, Enum
     {
-        private readonly Func<T, EnumType?> _getter;
+        private readonly Func<T, EnumType> _getter;
         private readonly EnumType _value;
         private readonly Action<ICollection<T>, BitArray> _evaluateSet;
 
-        public EnumEvaluator(Func<T, EnumType?> getter, TermExpression term)
+        public EnumEvaluator(Func<T, EnumType> getter, TermExpression term)
         {
             _getter = getter;
 

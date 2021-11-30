@@ -9,13 +9,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
     public abstract class BaseLogger
     {
-        protected readonly List<FailureLevel?> _failureLevels;
+        protected readonly List<FailureLevel> _failureLevels;
         protected readonly List<ResultKind> _resultKinds;
 
-        protected BaseLogger(IEnumerable<FailureLevel?> failureLevels,
+        protected BaseLogger(IEnumerable<FailureLevel> failureLevels,
                              IEnumerable<ResultKind> resultKinds)
         {
-            _failureLevels = failureLevels?.ToList() ?? new List<FailureLevel?>();
+            _failureLevels = failureLevels?.ToList() ?? new List<FailureLevel>();
             _resultKinds = resultKinds?.ToList() ?? new List<ResultKind>();
 
             ValidateParameters();
@@ -55,7 +55,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public bool ShouldLog(Result result, ReportingDescriptor rule)
         {
-            FailureLevel? effectiveLevel = result.GetEffectiveLevel(rule);
+            FailureLevel effectiveLevel = result.GetEffectiveLevel(rule);
             if (_resultKinds.Contains(result.Kind))
             {
                 if (result.Kind == ResultKind.Fail)

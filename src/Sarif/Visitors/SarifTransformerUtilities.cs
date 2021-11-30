@@ -166,7 +166,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
         }
 
-        public static ResultLevelVersionOne CreateResultLevelVersionOne(FailureLevel? v2FailureLevel, ResultKind v2ResultKind)
+        public static ResultLevelVersionOne CreateResultLevelVersionOne(FailureLevel v2FailureLevel, ResultKind v2ResultKind)
         {
             if (v2ResultKind != ResultKind.Fail)
             {
@@ -183,7 +183,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     return ResultLevelVersionOne.Warning;
                 case FailureLevel.None:
                     return CreateResultLevelVersionOneFromResultKind(v2ResultKind);
-                case null:
                 default:
                     return ResultLevelVersionOne.Default;
             }
@@ -279,7 +278,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     return BaselineState.None;
             }
         }
-
         public static BaselineStateVersionOne CreateBaselineStateVersionOne(BaselineState v2BaselineState)
         {
             switch (v2BaselineState)

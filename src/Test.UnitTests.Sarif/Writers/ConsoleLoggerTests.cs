@@ -47,7 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             var logger = new ConsoleLogger(quietConsole: false,
                                             toolName: tool,
-                                            levels: new List<FailureLevel?> { FailureLevel.Warning, FailureLevel.Error },
+                                            levels: new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
                                             kinds: new List<ResultKind> { ResultKind.Fail })
             {
                 CaptureOutput = true
@@ -97,7 +97,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 }
             };
 
-            // If a notification has one or more locations, the first one should be
+            // If a notification has one or more locations, the first one should be 
             // present as part of the console out message.
             string output = ConsoleLogger.FormatNotificationMessage(notification, toolName);
             output.Should().Contain(uriGuid);
@@ -105,7 +105,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             output.Should().Contain(messageGuid);
             output.Should().Contain(exceptionMessage);
 
-            // In the absence of notification locations, the tool name should be
+            // In the absence of notification locations, the tool name should be 
             // present as part of the console out message.
             notification.Locations = null;
             output = ConsoleLogger.FormatNotificationMessage(notification, toolName);

@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public TestAnalyzeOptions()
         {
             Kind = new List<ResultKind> { ResultKind.Fail };
-            Level = new List<FailureLevel?> { FailureLevel.Warning, FailureLevel.Error };
+            Level = new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error };
         }
 
         public TestRuleBehaviors TestRuleBehaviors { get; set; }

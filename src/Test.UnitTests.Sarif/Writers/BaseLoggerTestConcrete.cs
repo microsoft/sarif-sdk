@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Writers
 {
     public class BaseLoggerTestConcrete : BaseLogger
     {
-        public BaseLoggerTestConcrete(IEnumerable<FailureLevel?> failureLevels,
-                                      IEnumerable<ResultKind> resultKinds) : base(failureLevels, resultKinds) { }
+        public BaseLoggerTestConcrete(IEnumerable<FailureLevel> failureLevels,
+                                        IEnumerable<ResultKind> resultKinds) : base(failureLevels, resultKinds) { }
     }
 }

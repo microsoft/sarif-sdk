@@ -76,7 +76,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 };
             }
 
-            FailureLevel? effectiveLevel = result.GetEffectiveLevel(context.Rule);
+            FailureLevel effectiveLevel = result.GetEffectiveLevel(context.Rule);
 
             if (effectiveLevel == FailureLevel.Warning)
             {

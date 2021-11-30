@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
                 case "kind":
                     return new EnumEvaluator<Result, ResultKind>(r => r.Kind, term);
                 case "level":
-                    return new EnumEvaluator<Result, FailureLevel>(r => r.Level, term);
+                    return new EnumEvaluator<Result, FailureLevel>(r => r.Level.Value, term);
                 case "message.text":
                     return new StringEvaluator<Result>(r => r.Message?.Text, term, StringComparison.OrdinalIgnoreCase);
                 case "occurrencecount":

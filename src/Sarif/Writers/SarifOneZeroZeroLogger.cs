@@ -31,7 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             IEnumerable<string> invocationTokensToRedact = null,
             IEnumerable<string> invocationPropertiesToLog = null,
             string defaultFileEncoding = null,
-            IEnumerable<FailureLevel?> levels = null,
+            IEnumerable<FailureLevel> levels = null,
             IEnumerable<ResultKind> kinds = null,
             IEnumerable<string> insertProperties = null)
             : base(new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.None)),
