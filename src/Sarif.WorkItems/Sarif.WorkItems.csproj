@@ -42,5 +42,4 @@
       <CustomToolNamespace>Microsoft.CodeAnalysis.Sarif.WorkItems</CustomToolNamespace>
     </EmbeddedResource>
   </ItemGroup>
-
 </Project>

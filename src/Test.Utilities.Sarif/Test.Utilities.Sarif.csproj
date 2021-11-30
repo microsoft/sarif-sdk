@@ -40,5 +40,4 @@
       <CustomToolNamespace>Microsoft.CodeAnalysis.Sarif.Test</CustomToolNamespace>
     </EmbeddedResource>
   </ItemGroup>
-
 </Project>

@@ -5,10 +5,14 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading.Tasks;
 
 using FluentAssertions;
+
+using Moq;
 
 using Newtonsoft.Json;
 
@@ -198,6 +202,129 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
             var newSarifLog = SarifLog.Load(stream, deferred: true);
             newSarifLog.Runs[0].Tool.Driver.Name.Should().Be(sarifLog.Runs[0].Tool.Driver.Name);
             newSarifLog.Runs[0].Results.Count.Should().Be(sarifLog.Runs[0].Results.Count);
+        }
+
+        [Fact]
+        public async Task SarifLog_PostStream_WithInvalidParameters_ShouldThrowArgumentNullException()
+        {
+            await Assert.ThrowsAsync<ArgumentNullException>(async () =>
+            {
+                await SarifLog.Post(postUri: null,
+                                    new MemoryStream(),
+                                    new HttpClient());
+            });
+
+            await Assert.ThrowsAsync<ArgumentNullException>(async () =>
+            {
+                await SarifLog.Post(new Uri("https://github.com/microsoft/sarif-sdk"),
+                                    null,
+                                    new HttpClient());
+            });
+
+            await Assert.ThrowsAsync<ArgumentNullException>(async () =>
+            {
+                await SarifLog.Post(new Uri("https://github.com/microsoft/sarif-sdk"),
+                                    new MemoryStream(),
+                                    null);
+            });
+        }
+
+        [Fact]
+        public async Task SarifLog_PostFile_WithInvalidParameters_ShouldThrowException()
+        {
+            string filePath = string.Empty;
+            var fileSystem = new Mock<IFileSystem>();
+
+            await Assert.ThrowsAsync<ArgumentNullException>(async () =>
+            {
+                await SarifLog.Post(postUri: null,
+                                    filePath,
+                                    fileSystem.Object,
+                                    httpClient: null);
+            });
+
+            filePath = "SomeFile.txt";
+            fileSystem
+                .Setup(f => f.FileExists(It.IsAny<string>()))
+                .Returns(false);
+
+            await Assert.ThrowsAsync<ArgumentException>(async () =>
+            {
+                await SarifLog.Post(postUri: null,
+                                    filePath,
+                                    fileSystem.Object,
+                                    httpClient: null);
+            });
+        }
+
+        [Fact]
+        public async Task SarifLog_Post_WithValidParameters_ShouldNotThrownAnExceptionWhenRequestIsValid()
+        {
+            var postUri = new Uri("https://github.com/microsoft/sarif-sdk");
+            var sarifLog = new SarifLog();
+            var httpMock = new HttpMockHelper();
+            var memoryStream = new MemoryStream();
+            sarifLog.Save(memoryStream);
+
+            httpMock.Mock(
+                new HttpRequestMessage(HttpMethod.Post, postUri) { Content = new StreamContent(memoryStream) },
+                HttpMockHelper.BadRequestResponse);
+
+            await Assert.ThrowsAsync<HttpRequestException>(async () =>
+            {
+                await SarifLog.Post(postUri,
+                                    memoryStream,
+                                    new HttpClient(httpMock));
+            });
+            httpMock.Clear();
+
+            memoryStream = new MemoryStream();
+            sarifLog.Save(memoryStream);
+            httpMock.Mock(
+                new HttpRequestMessage(HttpMethod.Post, postUri) { Content = new StreamContent(memoryStream) },
+                HttpMockHelper.OKResponse);
+
+            try
+            {
+                await SarifLog.Post(postUri,
+                                    memoryStream,
+                                    new HttpClient(httpMock));
+            }
+            catch (Exception ex)
+            {
+                Assert.True(false, "Expected no exception, but got: " + ex.Message);
+            }
+            httpMock.Clear();
+
+            string filePath = "SomeFile.txt";
+            var fileSystem = new Mock<IFileSystem>();
+            memoryStream = new MemoryStream();
+            sarifLog.Save(memoryStream);
+
+            fileSystem
+                .Setup(f => f.FileExists(It.IsAny<string>()))
+                .Returns(true);
+
+            fileSystem
+                .Setup(f => f.FileOpenRead(It.IsAny<string>()))
+                .Returns(memoryStream);
+
+            httpMock.Mock(
+                new HttpRequestMessage(HttpMethod.Post, postUri) { Content = new StreamContent(memoryStream) },
+                HttpMockHelper.OKResponse);
+
+            try
+            {
+                await SarifLog.Post(postUri,
+                                    filePath,
+                                    fileSystem.Object,
+                                    new HttpClient(httpMock));
+            }
+            catch (Exception ex)
+            {
+                Assert.True(false, "Expected no exception, but got: " + ex.Message);
+            }
+            httpMock.Clear();
         }
 
         private Run SerializeAndDeserialize(Run run)

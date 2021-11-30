@@ -40,6 +40,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         // Assume one or more options are invalid
         RegardOptionsAsInvalid = 0x4000,
 
-        RaiseExceptionProcessingBaseline = 0x8000
+        RaiseExceptionProcessingBaseline = 0x8000,
+        RaiseExceptionPostingLogFile = 0x10000
     }
 }
