@@ -1144,6 +1144,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread()
         {
             int[] scenarios = SetupScenarios();

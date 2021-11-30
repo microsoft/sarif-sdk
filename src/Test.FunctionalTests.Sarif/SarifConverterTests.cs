@@ -22,6 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         public string TestDirectory = Path.Combine("v2", "ConverterTestData");
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void AndroidStudioConverter_EndToEnd()
         {
             BatchRunConverter(ToolFormat.AndroidStudio);
@@ -34,6 +35,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void ContrastSecurityConverter_EndToEnd()
         {
             BatchRunConverter(ToolFormat.ContrastSecurity);
@@ -64,6 +66,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void SemmleConverter_EndToEnd()
         {
             BatchRunConverter(ToolFormat.SemmleQL, "*.csv");
