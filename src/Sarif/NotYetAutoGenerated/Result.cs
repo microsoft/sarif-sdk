@@ -100,13 +100,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         [DataMember(Name = "level", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter))]
-        public FailureLevel? Level
+        public FailureLevel Level
         {
             get
             {
                 if (_level.HasValue)
                 {
-                    return _level;
+                    return _level.Value;
                 }
 
                 ReportingDescriptor rule = null;
@@ -448,7 +448,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             Kind = kind;
-            Level = level;
+
+            if (level.HasValue)
+            {
+                Level = level.Value;
+            }
+
             if (message != null)
             {
                 Message = new Message(message);

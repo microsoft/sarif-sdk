@@ -56,10 +56,6 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             result.Kind = ResultKind.Pass;
             result.Level = FailureLevel.None;
             result.Kind.Should().Be(ResultKind.Pass);
-
-            result.Kind = ResultKind.Pass;
-            result.Level = null;
-            result.Kind.Should().Be(ResultKind.Fail); // without default configuartion, effective is Warning.
         }
 
         [Fact]
@@ -79,20 +75,16 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             result.Level.Should().Be(FailureLevel.None);
             result.Kind.Should().Be(ResultKind.Pass);
 
-            result.Level = null;
-            // manually set Level null, default is Warning without default configuration, reset Kind
-            result.Level.Should().Be(FailureLevel.Warning);
-            result.Kind.Should().Be(ResultKind.Fail);
-
+            result = new Result() { RuleId = sampleRuleId };
             defaultConfiguration = new ReportingConfiguration() { Enabled = true, Level = FailureLevel.None };
             AssociateResultAndDefaultConfiguration(result, defaultConfiguration);
-            // now default configuration is set, Level not set default to whatever set in the default configuration (None)
+            // now default configuration is set, Level not set, default to whatever set in the default configuration (None)
             result.Level.Should().Be(FailureLevel.None);
             result.Kind.Should().Be(ResultKind.Pass);
 
             defaultConfiguration = new ReportingConfiguration() { Enabled = true, Level = FailureLevel.Error };
             AssociateResultAndDefaultConfiguration(result, defaultConfiguration);
-            // now default configuration is set, Level not set default to whatever set in the default configuration (Error)
+            // now default configuration is set, Level not set, default to whatever set in the default configuration (Error)
             result.Level.Should().Be(FailureLevel.Error);
             result.Kind.Should().Be(ResultKind.Fail);
 
@@ -173,26 +165,6 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             Assert.True(WriteSarifThenReadLevelNode(result, defaultConfiguration) == null);
 
             result = new Result() { };
-            defaultConfiguration = new ReportingConfiguration() { Enabled = true, Level = FailureLevel.Error };
-            overrideConfiguration = new ReportingConfiguration() { Enabled = true, Level = FailureLevel.Note };
-            Assert.True(WriteSarifThenReadLevelNode(result, defaultConfiguration, overrideConfiguration) == null);
-        }
-
-        [Fact]
-        public void Result_Level_WriteCorrectValue_Null()
-        {
-            Result result;
-            ReportingConfiguration defaultConfiguration;
-            ReportingConfiguration overrideConfiguration;
-
-            result = new Result() { Level = null };
-            Assert.True(WriteSarifThenReadLevelNode(result) == null);
-
-            result = new Result() { Level = null };
-            defaultConfiguration = new ReportingConfiguration() { Enabled = true, Level = FailureLevel.Error };
-            Assert.True(WriteSarifThenReadLevelNode(result, defaultConfiguration) == null);
-
-            result = new Result() { Level = null };
             defaultConfiguration = new ReportingConfiguration() { Enabled = true, Level = FailureLevel.Error };
             overrideConfiguration = new ReportingConfiguration() { Enabled = true, Level = FailureLevel.Note };
             Assert.True(WriteSarifThenReadLevelNode(result, defaultConfiguration, overrideConfiguration) == null);

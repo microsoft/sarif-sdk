@@ -56,9 +56,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                     Arguments = arguments
                 },
 
-                Level = level,
                 Kind = kind
             };
+
+            if(level.HasValue)
+            {
+                result.Level = level.Value;
+            }
 
             if (context.TargetUri != null)
             {

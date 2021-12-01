@@ -111,7 +111,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             // Note that we can potentially emit many messages from a single result.
             PhysicalLocation physicalLocation = result.Locations?.First().PhysicalLocation;
 
-            WriteLineToConsole(GetMessageText(_toolName, physicalLocation?.ArtifactLocation?.Uri, physicalLocation?.Region, result.RuleId, message, result.Kind, result.Level.Value));
+            WriteLineToConsole(GetMessageText(_toolName, physicalLocation?.ArtifactLocation?.Uri, physicalLocation?.Region, result.RuleId, message, result.Kind, result.Level));
         }
 
         private static string GetMessageText(

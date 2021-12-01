@@ -1148,7 +1148,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 desiredResultKinds.Should().Contain(result.Kind);
 
                 result.Level.Should().NotBeNull();
-                Assert.True(result.Level == FailureLevel.None || desiredFailureLevels.Contains(result.Level.Value));
+                Assert.True(result.Level == FailureLevel.None || desiredFailureLevels.Contains(result.Level));
             }
         }
 
