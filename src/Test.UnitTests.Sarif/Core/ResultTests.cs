@@ -80,25 +80,33 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             AssociateResultAndDefaultConfiguration(result, defaultConfiguration);
             // now default configuration is set, Level not set, default to whatever set in the default configuration (None)
             result.Level.Should().Be(FailureLevel.None);
-            result.Kind.Should().Be(ResultKind.Pass);
+            result.Kind.Should().Be(ResultKind.Fail); // If kind is absent, it SHALL default to "fail"
 
+            result = new Result() { RuleId = sampleRuleId };
             defaultConfiguration = new ReportingConfiguration() { Enabled = true, Level = FailureLevel.Error };
             AssociateResultAndDefaultConfiguration(result, defaultConfiguration);
             // now default configuration is set, Level not set, default to whatever set in the default configuration (Error)
             result.Level.Should().Be(FailureLevel.Error);
-            result.Kind.Should().Be(ResultKind.Fail);
+            result.Kind.Should().Be(ResultKind.Fail); // If kind is absent, it SHALL default to "fail"
 
             // continue above, now user update the default configuration (to None)
             defaultConfiguration.Level = FailureLevel.None;
             // still, user did not set the result level, so default to whatever set in the default configuration (None)
             result.Level.Should().Be(FailureLevel.None);
-            result.Kind.Should().Be(ResultKind.Pass);
+            result.Kind.Should().Be(ResultKind.Fail); // If kind is absent, it SHALL default to "fail"
 
             // continue above, now user got the actual applicable result level and set it (Note)
             result.Level = FailureLevel.Note;
             // now both default configuration (None) and actual result level (Note) is set, use actual value set
             result.Level.Should().Be(FailureLevel.Note);
-            result.Kind.Should().Be(ResultKind.Fail);
+            result.Kind.Should().Be(ResultKind.Fail); // If kind is absent, it SHALL default to "fail"
+
+            // continue above, now user set the kind to review
+            result.Kind = ResultKind.Review;
+            // If kind (§3.27.9) has any value other than "fail", then if level is absent, it SHALL default to "none",
+            // and if it is present, it SHALL have the value "none".
+            result.Level.Should().Be(FailureLevel.None);
+            result.Kind.Should().Be(ResultKind.Review); // Kind is present
         }
 
         [Fact]
@@ -115,6 +123,14 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             Assert.True(WriteSarifThenReadLevelNode(result) == FailureLevel.Note);
 
             result = new Result() { Level = FailureLevel.None };
+            Assert.True(WriteSarifThenReadLevelNode(result) == FailureLevel.None);
+
+            result = new Result() { Kind = ResultKind.Review };
+            // If kind (§3.27.9) has any value other than "fail", then if level is absent, it SHALL default to "none",
+            // and if it is present, it SHALL have the value "none".
+            Assert.True(WriteSarifThenReadLevelNode(result) == FailureLevel.None);
+
+            result = new Result() { Kind = ResultKind.Fail, Level = FailureLevel.None };
             Assert.True(WriteSarifThenReadLevelNode(result) == FailureLevel.None);
 
             result = new Result() { };
