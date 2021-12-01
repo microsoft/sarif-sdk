@@ -164,10 +164,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             bool valid = true;
 
-            valid &= !(options.Quiet && string.IsNullOrWhiteSpace(options.OutputFilePath));
+            if (options.Quiet && string.IsNullOrWhiteSpace(options.OutputFilePath))
+            {
+                valid = false;
+            }
 
-            // baseline process now depends on output file
-            valid &= !(string.IsNullOrWhiteSpace(options.OutputFilePath) && !string.IsNullOrWhiteSpace(options.BaselineSarifFile));
+            if (string.IsNullOrWhiteSpace(options.OutputFilePath) && !string.IsNullOrWhiteSpace(options.BaselineSarifFile))
+            {
+                valid = false;
+            }
+
+            if (string.IsNullOrWhiteSpace(options.OutputFilePath) && !string.IsNullOrWhiteSpace(options.PostUri))
+            {
+                valid = false;
+            }
+
+            if (!string.IsNullOrWhiteSpace(options.PostUri) && !Uri.IsWellFormedUriString(options.PostUri, UriKind.Absolute))
+            {
+                valid = false;
+            }
 
             if (!valid)
             {
