@@ -59,7 +59,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Kind = kind
             };
 
-            if(level.HasValue)
+            if (level.HasValue)
             {
                 result.Level = level.Value;
             }
