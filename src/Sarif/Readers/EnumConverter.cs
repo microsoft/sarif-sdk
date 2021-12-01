@@ -25,16 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                 throw new ArgumentNullException(nameof(reader));
             }
             string value = (string)reader.Value;
-
-            bool isNullable = IsNullableType(objectType);
-            Type enumType = isNullable ? Nullable.GetUnderlyingType(objectType) : objectType;
-
-            return Enum.Parse(enumType, ConvertToPascalCase(value));
-        }
-
-        private static bool IsNullableType(Type t)
-        {
-            return (t.IsGenericType && t.GetGenericTypeDefinition() == typeof(Nullable<>));
+            return Enum.Parse(objectType, ConvertToPascalCase(value));
         }
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)

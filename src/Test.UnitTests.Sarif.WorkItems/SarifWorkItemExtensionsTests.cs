@@ -73,7 +73,6 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             result.Locations = new List<Location>();
             result.Locations.Add(location);
             result.RuleId = ruleId;
-            result.Level = FailureLevel.Warning;
             SarifLog sarifLog = CreateLogWithEmptyRun();
 
             Run run = sarifLog.Runs[0];
@@ -93,7 +92,6 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             result.Locations = new List<Location>();
             result.Locations.Add(location);
             result.RuleId = "TestRuleId";
-            result.Level = FailureLevel.Warning;
 
             SarifLog sarifLog = CreateLogWithEmptyRun();
             Run run = sarifLog.Runs[0];

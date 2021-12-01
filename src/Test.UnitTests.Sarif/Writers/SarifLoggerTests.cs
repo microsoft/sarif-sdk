@@ -107,9 +107,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             var sb = new StringBuilder();
 
-            // On a developer's machine, the script BuildAndTest.cmd runs the tests with a particular command line.
-            // Under AppVeyor, the appveyor.yml file simply specifies the names of the test assemblies, and AppVeyor
-            // constructs and executes its own, different command line. So, based on our knowledge of each of those
+            // On a developer's machine, the script BuildAndTest.cmd runs the tests with a particular command line. 
+            // Under AppVeyor, the appveyor.yml file simply specifies the names of the test assemblies, and AppVeyor 
+            // constructs and executes its own, different command line. So, based on our knowledge of each of those 
             // command lines, we select a different token to redact in each of those cases.
             //
             //
@@ -121,10 +121,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             //
             // Sample test execution from command-line when running test script. Will redact hostProcessId
             //
-            // "C:\Program Files (x86\\Microsoft Visual Studio 14.0\Common7\IDE\QTAgent32_40.exe\"
-            // /agentKey a144e450-ac06-46d0-8365-c21ea7872d23 /hostProcessId 8024 /hostIpcPortName
+            // "C:\Program Files (x86\\Microsoft Visual Studio 14.0\Common7\IDE\QTAgent32_40.exe\" 
+            // /agentKey a144e450-ac06-46d0-8365-c21ea7872d23 /hostProcessId 8024 /hostIpcPortName 
             // eqt -60284c64-6bc1-3ecc-fb5f-a484bb1a2475"
-            //
+            // 
             // Sample test execution from Appveyor will redact 'Appveyor'
             //
             // pathToExe   = C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\CommonExtensions\Microsoft\TestWindow\Extensions
@@ -439,7 +439,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 var result = new Result
                 {
                     RuleId = rule.Id,
-                    Level = FailureLevel.Warning,
                     Message = new Message { Text = "Testing." },
                     Locations = new List<Location>
                     {
@@ -536,7 +535,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     var result = new Result
                     {
                         RuleId = ruleId,
-                        Level = FailureLevel.Warning,
                         Message = new Message { Text = "Some testing occurred." },
                         AnalysisTarget = new ArtifactLocation { Uri = new Uri(@"file:///file0.cpp") },
                         Locations = new[]
@@ -1018,7 +1016,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     ValidateLoggerForExclusiveOption(logger, loggingOption);
                 };
 
-                // Validates overload that accepts any
+                // Validates overload that accepts any 
                 // TextWriter (for example, one instantiated over a
                 // StringBuilder instance).
                 var sb = new StringBuilder();
@@ -1144,10 +1142,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             foreach (Result result in results)
             {
-                result.Kind.Should().NotBeNull();
                 desiredResultKinds.Should().Contain(result.Kind);
 
-                result.Level.Should().NotBeNull();
                 Assert.True(result.Level == FailureLevel.None || desiredFailureLevels.Contains(result.Level));
             }
         }

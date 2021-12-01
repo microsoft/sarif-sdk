@@ -254,32 +254,33 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
                 ruleConfigurationOverrides = new List<ConfigurationOverride>() { ruleConfigurationOverride };
             }
 
-            var memoryStream = new MemoryStream();
-            var streamWriter = new StreamWriter(memoryStream);
-
-            using (var logger = new SarifLogger(
-                streamWriter,
-                logFilePersistenceOptions: LogFilePersistenceOptions.PrettyPrint,
-                dataToRemove: OptionallyEmittedData.NondeterministicProperties,
-                closeWriterOnDispose: false,
-                run: new Run() { Invocations = new List<Invocation> { new Invocation() { RuleConfigurationOverrides = ruleConfigurationOverrides } } },
-                levels: new List<FailureLevel> { FailureLevel.Error, FailureLevel.Warning, FailureLevel.Note, FailureLevel.None },
-                kinds: new List<ResultKind> { ResultKind.None, ResultKind.NotApplicable, ResultKind.Pass,
-                    ResultKind.Fail, ResultKind.Review, ResultKind.Open, ResultKind.Informational }))
+            using (var memoryStream = new MemoryStream())
+            using (var streamWriter = new StreamWriter(memoryStream))
             {
-                logger.Log(new ReportingDescriptor { Id = sampleRuleId, DefaultConfiguration = defaultConfiguration }, result);
+                using (var logger = new SarifLogger(
+                    streamWriter,
+                    logFilePersistenceOptions: LogFilePersistenceOptions.PrettyPrint,
+                    dataToRemove: OptionallyEmittedData.NondeterministicProperties,
+                    closeWriterOnDispose: false,
+                    run: new Run() { Invocations = new List<Invocation> { new Invocation() { RuleConfigurationOverrides = ruleConfigurationOverrides } } },
+                    levels: new List<FailureLevel> { FailureLevel.Error, FailureLevel.Warning, FailureLevel.Note, FailureLevel.None },
+                    kinds: new List<ResultKind> { ResultKind.None, ResultKind.NotApplicable, ResultKind.Pass,
+                    ResultKind.Fail, ResultKind.Review, ResultKind.Open, ResultKind.Informational }))
+                {
+                    logger.Log(new ReportingDescriptor { Id = sampleRuleId, DefaultConfiguration = defaultConfiguration }, result);
+                }
+
+                // Important. Force streamwriter to commit everything.
+                streamWriter.Flush();
+                memoryStream.Seek(0, SeekOrigin.Begin);
+
+                string memoryStreamText = streamWriter.Encoding.GetString(memoryStream.ToArray());
+                var jObject = JObject.Parse(memoryStreamText);
+                JToken levelJson = jObject["runs"][0]["results"][0]["level"];
+                string levelString = levelJson == null ? null : (string)levelJson;
+                FailureLevel? level = levelString == null ? null : (FailureLevel?)Enum.Parse(typeof(FailureLevel), levelString, ignoreCase: true);
+                return level;
             }
-
-            // Important. Force streamwriter to commit everything.
-            streamWriter.Flush();
-            memoryStream.Seek(0, SeekOrigin.Begin);
-
-            string memoryStreamText = streamWriter.Encoding.GetString(memoryStream.ToArray());
-            var jObject = JObject.Parse(memoryStreamText);
-            JToken levelJson = jObject["runs"][0]["results"][0]["level"];
-            string levelString = levelJson == null ? null : (string)levelJson;
-            FailureLevel? level = levelString == null ? null : (FailureLevel?)Enum.Parse(typeof(FailureLevel), levelString, ignoreCase: true);
-            return level;
         }
 
         private static void AssociateResultAndDefaultConfiguration(Result result,

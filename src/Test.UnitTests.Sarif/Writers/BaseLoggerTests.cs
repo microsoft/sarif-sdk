@@ -121,25 +121,26 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Writers
                 ruleConfigurationOverrides = new List<ConfigurationOverride>() { ruleConfigurationOverride };
             }
 
-            var memoryStream = new MemoryStream();
-            var streamWriter = new StreamWriter(memoryStream);
-
-            using (var logger = new SarifLogger(
-                streamWriter,
-                logFilePersistenceOptions: LogFilePersistenceOptions.PrettyPrint,
-                dataToRemove: OptionallyEmittedData.NondeterministicProperties,
-                closeWriterOnDispose: false,
-                run: new Run() { Invocations = new List<Invocation> { new Invocation() { RuleConfigurationOverrides = ruleConfigurationOverrides } } },
-                levels: levels,
-                kinds: new List<ResultKind> { ResultKind.None, ResultKind.NotApplicable, ResultKind.Pass,
-                    ResultKind.Fail, ResultKind.Review, ResultKind.Open, ResultKind.Informational }))
+            using (var memoryStream = new MemoryStream())
+            using (var streamWriter = new StreamWriter(memoryStream))
             {
-                shouldLog = logger.ShouldLog(result, new ReportingDescriptor { Id = sampleRuleId, DefaultConfiguration = defaultConfiguration });
-            }
+                using (var logger = new SarifLogger(
+                    streamWriter,
+                    logFilePersistenceOptions: LogFilePersistenceOptions.PrettyPrint,
+                    dataToRemove: OptionallyEmittedData.NondeterministicProperties,
+                    closeWriterOnDispose: false,
+                    run: new Run() { Invocations = new List<Invocation> { new Invocation() { RuleConfigurationOverrides = ruleConfigurationOverrides } } },
+                    levels: levels,
+                    kinds: new List<ResultKind> { ResultKind.None, ResultKind.NotApplicable, ResultKind.Pass,
+                    ResultKind.Fail, ResultKind.Review, ResultKind.Open, ResultKind.Informational }))
+                {
+                    shouldLog = logger.ShouldLog(result, new ReportingDescriptor { Id = sampleRuleId, DefaultConfiguration = defaultConfiguration });
+                }
 
-            // Important. Force streamwriter to commit everything.
-            streamWriter.Flush();
-            memoryStream.Seek(0, SeekOrigin.Begin);
+                // Important. Force streamwriter to commit everything.
+                streamWriter.Flush();
+                memoryStream.Seek(0, SeekOrigin.Begin);
+            }
 
             return shouldLog;
         }
