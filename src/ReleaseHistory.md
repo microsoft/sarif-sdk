@@ -1,7 +1,7 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
 ## **To be released** 
-* BUGFIX: Fix issue when filing work item for SARIF file with baseline state. [#2412](https://github.com/microsoft/sarif-sdk/pull/2412)
+* BUGFIX: Fix NullReferenceException when filing work item using a SARIF file contains results with baseline state. [#2412](https://github.com/microsoft/sarif-sdk/pull/2412)
 
 ## **v2.4.12** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.4.12) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.4.12) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.4.12) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.4.12) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.4.12)
 
