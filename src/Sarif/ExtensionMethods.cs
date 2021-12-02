@@ -189,10 +189,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 const string baseUri = "https://example.com";
                 var newAbsoluteUri = new Uri(new Uri(baseUri), uri.OriginalString);
-                return Path.GetFileName(newAbsoluteUri.LocalPath);
+                return newAbsoluteUri.AbsolutePath.Split('/').Last();
             }
 
-            return Path.GetFileName(uri.LocalPath);
+            return uri.AbsolutePath.Split('/').Last();
         }
 
         public static string GetFilePath(this Uri uri)

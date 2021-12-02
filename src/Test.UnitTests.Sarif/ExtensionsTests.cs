@@ -419,9 +419,28 @@ namespace Microsoft.CodeAnalysis.Sarif
             var tuples = new List<Tuple<Uri, string>>
             {
                 new Tuple<Uri, string>(new Uri("file.a", UriKind.Relative), "file.a"),
-                new Tuple<Uri, string>(new Uri("\\file.a", UriKind.Relative), "file.a"),
                 new Tuple<Uri, string>(new Uri("/file.a", UriKind.Relative), "file.a"),
+                new Tuple<Uri, string>(new Uri("\\file.a", UriKind.Relative), "file.a"),
+
+                new Tuple<Uri, string>(new Uri("path/file.a", UriKind.Relative), "file.a"),
+                new Tuple<Uri, string>(new Uri("/path/file.a", UriKind.Relative), "file.a"),
+                new Tuple<Uri, string>(new Uri("path\\file.a", UriKind.Relative), "file.a"),
+                new Tuple<Uri, string>(new Uri("\\path\\file.a", UriKind.Relative), "file.a"),
+
                 new Tuple<Uri, string>(new Uri("file.a?some-query-string", UriKind.Relative), "file.a"),
+                new Tuple<Uri, string>(new Uri("/file.a?some-query-string", UriKind.Relative), "file.a"),
+                new Tuple<Uri, string>(new Uri("\\file.a?some-query-string", UriKind.Relative), "file.a"),
+
+                new Tuple<Uri, string>(new Uri("path/file.a?some-query-string", UriKind.Relative), "file.a"),
+                new Tuple<Uri, string>(new Uri("/path/file.a?some-query-string", UriKind.Relative), "file.a"),
+                new Tuple<Uri, string>(new Uri("path\\file.a?some-query-string", UriKind.Relative), "file.a"),
+                new Tuple<Uri, string>(new Uri("\\path\\file.a?some-query-string", UriKind.Relative), "file.a"),
+
+                new Tuple<Uri, string>(new Uri("C:\\path\\file.a", UriKind.Absolute), "file.a"),
+                new Tuple<Uri, string>(new Uri("file:///C:/path/file.a", UriKind.Absolute), "file.a"),
+                new Tuple<Uri, string>(new Uri("/home/username/path/file.a", UriKind.Relative), "file.a"),
+                new Tuple<Uri, string>(new Uri("file:///home/username/path/file.a", UriKind.Absolute), "file.a"),
+
                 new Tuple<Uri, string>(new Uri("https://github.com/microsoft/sarif-sdk/NuGet.Config", UriKind.Absolute), "NuGet.Config"),
                 new Tuple<Uri, string>(new Uri("https://github.com/microsoft/sarif-sdk/NuGet.Config?some-query-string", UriKind.Absolute), "NuGet.Config"),
             };
