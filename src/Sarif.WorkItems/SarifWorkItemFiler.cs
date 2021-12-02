@@ -290,7 +290,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             {
                 string logId = sarifLog.GetProperty<Guid>(LOGID_PROPERTY_NAME).ToString();
 
-                if (sarifLog.Runs?.Any(run => run.Results?.Any(result => result.ShouldBeFiled()) == true) == false)
+                if (sarifLog.Runs?.Any(run => run.Results?.Any(result => result.ShouldBeFiled()) == true) != true)
                 {
                     // If the sarifLog does not contain result which should be filed as a work item, return null.
                     return null;

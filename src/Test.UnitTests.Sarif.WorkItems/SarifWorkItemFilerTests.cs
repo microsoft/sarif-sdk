@@ -116,7 +116,23 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
             SarifWorkItemContext context = CreateAzureDevOpsTestContext();
 
-            context.SplittingStrategy = SplittingStrategy.PerResult;
+            context.SplittingStrategy = SplittingStrategy.None;
+
+            int numberOfResults = 0;
+            context.SetProperty(ExpectedWorkItemsCount, numberOfResults);
+            context.SetProperty(ExpectedFilingResult, FilingResult.None);
+
+            TestWorkItemFiler(sarifLog, context, true);
+        }
+
+        [Fact]
+        public void WorkItemFiler_SarifLogResultsAreEmpty()
+        {
+            SarifLog sarifLog = TestData.CreateEmptyRun();
+
+            SarifWorkItemContext context = CreateAzureDevOpsTestContext();
+
+            context.SplittingStrategy = SplittingStrategy.None;
 
             int numberOfResults = 0;
             context.SetProperty(ExpectedWorkItemsCount, numberOfResults);
