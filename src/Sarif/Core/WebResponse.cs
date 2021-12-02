@@ -53,7 +53,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             (?<statusCode>\d\d\d)                                           # a 3-digit status code,
             \x20                                                            # another space,
             (?<reasonPhrase>.*?)                                            # and the 'reason phrase', which we match non-greedy (.*?)
-            \r\n                                                            # so that it doesn't include the trailing CRLF.
+            (\r\n|\n)                                                       # so that it doesn't include the trailing CRLF.
             ";
 
         private static readonly Regex s_statusLineRegex = SarifUtilities.RegexFromPattern(StatusLinePattern);

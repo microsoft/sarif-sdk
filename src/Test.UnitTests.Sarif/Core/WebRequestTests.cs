@@ -15,7 +15,6 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
     public class WebRequestTests
     {
         [Fact]
-        [Trait(TestTraits.WindowsOnly, "true")]
         public void WebRequest_Parse_CreatesExpectedWebRequestObject()
         {
             // Example from RFC 7230.
@@ -42,7 +41,6 @@ Accept-Language: en, mi
         }
 
         [Fact]
-        [Trait(TestTraits.WindowsOnly, "true")]
         public void WebRequest_Parse_ExtractsBody()
         {
             // Example from RFC 7230.
@@ -71,7 +69,6 @@ Line 2.
         }
 
         [Fact]
-        [Trait(TestTraits.WindowsOnly, "true")]
         public void WebRequest_Parse_ExtractsParameters()
         {
             // Example from RFC 7230.
@@ -96,7 +93,6 @@ User-Agent: my-agent
         }
 
         [Fact]
-        [Trait(TestTraits.WindowsOnly, "true")]
         public void WebRequest_Parse_HandlesQueriesWithParametersWithoutValue()
         {
             // RFC 3986 does not require the query portion of a URI to consist
@@ -157,7 +153,6 @@ User-Agent: my-agent
         }
 
         [Fact]
-        [Trait(TestTraits.WindowsOnly, "true")]
         public void WebRequest_TryParse_ReturnsTrueOnValidRequest()
         {
             const string RequestString =
@@ -180,7 +175,6 @@ User-Agent: my-agent
         }
 
         [Fact]
-        [Trait(TestTraits.WindowsOnly, "true")]
         public void WebRequest_TryParse_ReturnsFalseOnInvalidRequest()
         {
             const string RequestString =
