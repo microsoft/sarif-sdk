@@ -48,10 +48,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         private const string StatusLinePattern =
             @"^
             (?<httpVersion>" + WebMessageUtilities.HttpVersionPattern + @") # The HTTP version, e.g., 'HTTP/1.1',
-            \x20                                                            # followed by a single space (which we must write this way
+            \s                                                              # followed by a single space (which we must write this way
                                                                             # because we're using RegexOptions.IgnorePatternWhitespace),
             (?<statusCode>\d\d\d)                                           # a 3-digit status code,
-            \x20                                                            # another space,
+            \s                                                              # another space,
             (?<reasonPhrase>.*?)                                            # and the 'reason phrase', which we match non-greedy (.*?)
             (\r\n|\n)                                                       # so that it doesn't include the trailing CRLF.
             ";

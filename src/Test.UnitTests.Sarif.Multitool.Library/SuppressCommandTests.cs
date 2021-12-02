@@ -170,7 +170,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             if (options.ExpiryInDays > 0 && suppression.TryGetProperty("expiryUtc", out DateTime expiryUtc))
             {
-                expiryUtc.Should().BeCloseTo(DateTime.UtcNow.AddDays(options.ExpiryInDays));
+                expiryUtc.Should().BeCloseTo(DateTime.UtcNow.AddDays(options.ExpiryInDays), 500);
             }
         }
     }
