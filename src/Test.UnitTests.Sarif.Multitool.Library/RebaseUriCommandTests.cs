@@ -27,7 +27,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public RebaseUriCommandTests(ITestOutputHelper outputHelper) : base(outputHelper) { }
 
         [Fact]
-        [Trait(TestTraits.WindowsOnly, "true")]
         public void RebaseUriCommand_InjectsRegions()
         {
             string productDirectory = FileDiffingFunctionalTests.GetProductDirectory();
@@ -98,7 +97,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
-        [Trait(TestTraits.WindowsOnly, "true")]
         public void RebaseUriCommand_RebaseRunWithArtifacts()
         {
             string testFilePath = "RunWithArtifacts.sarif";
