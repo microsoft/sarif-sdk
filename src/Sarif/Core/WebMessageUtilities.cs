@@ -31,7 +31,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         // "target" field on the request line is a valid URI. Nor do we verify that the request body or response
         // body contains only "VCHAR"s (visible characters as opposed to control characters), as required by
         // the RFC.
-        internal static string NewLine = Environment.NewLine;
+        internal static string NewLineForWindows = "\r\n";
+        internal static string NewLineForNonWindows = "\n";
         internal const string TokenPattern = "[!#$%&'*+._`|~0-9a-zA-Z^-]+";
         internal const string HttpVersionPattern = @"(?<protocol>HTTP)/(?<version>[0-9]\.[0-9])";
 
@@ -54,7 +55,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             var headers = new Dictionary<string, string>();
             totalLength = 0;
 
-            while (!requestString.StartsWith(NewLine))     // An empty line signals the end of the headers.
+            while (!requestString.StartsWith(NewLineForWindows) && !requestString.StartsWith(NewLineForNonWindows))
+            // An empty line signals the end of the headers.
             {
                 ParseHeaderLine(requestString, out string fieldName, out string fieldValue, out int length);
                 if (headers.ContainsKey(fieldName))
@@ -67,7 +69,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                 totalLength += length;
             }
 
-            totalLength += NewLine.Length;                 // Skip past the empty line;
+            totalLength += requestString.StartsWith(NewLineForWindows)
+                ? NewLineForWindows.Length : NewLineForNonWindows.Length; // Skip past the empty line;
 
             return headers;
         }
