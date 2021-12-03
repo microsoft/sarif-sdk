@@ -16,18 +16,12 @@
     <PowershellExecutable Condition="'$(PowershellExecutable)'==''">pwsh</PowershellExecutable>
   </PropertyGroup>
 
-  <Choose>
-    <When Condition="$(OS) == 'Windows_NT'">
-      <PropertyGroup>
-        <ExecCommand>$(PowershellExecutable) -executionpolicy bypass -command &quot;.\rewriteUnitTests.ps1 -Configuration $(Configuration) -CoyoteVersion $(CoyoteVersion) -TargetFramework $(TargetFramework)&quot;</ExecCommand>
-      </PropertyGroup>
-    </When>
-    <Otherwise>
-      <PropertyGroup>
-        <ExecCommand>$(PowershellExecutable) -executionpolicy bypass -command &quot;./rewriteUnitTests.ps1 -Configuration $(Configuration) -CoyoteVersion $(CoyoteVersion) -TargetFramework $(TargetFramework)&quot;</ExecCommand>
-      </PropertyGroup>
-    </Otherwise>
-  </Choose>
+  <PropertyGroup Condition="$(OS) == 'Windows_NT'">
+    <ExecCommand>$(PowershellExecutable) -executionpolicy bypass -command &quot;.\rewriteUnitTests.ps1 -Configuration $(Configuration) -CoyoteVersion $(CoyoteVersion) -TargetFramework $(TargetFramework)&quot;</ExecCommand>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(OS) != 'Windows_NT'">
+    <ExecCommand>$(PowershellExecutable) -executionpolicy bypass -command &quot;./rewriteUnitTests.ps1 -Configuration $(Configuration) -CoyoteVersion $(CoyoteVersion) -TargetFramework $(TargetFramework)&quot;</ExecCommand>
+  </PropertyGroup>
 
   <Target Name="CopyFunctionalTestsData" AfterTargets="Build">
     <ItemGroup>
