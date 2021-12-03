@@ -51,13 +51,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         [Fact]
         public void MergeCommand_WhenPassNoFolderOnlyFile_ProducesCorrectResults()
         {
-            RunTest("FileNameOnly.sarif");
+            RunTest("FileNameOnlyWithoutPath.sarif");
         }
 
         protected override string ConstructTestOutputFromInputResource(string inputResourceName, object parameter)
         {
             string InputFolderPath = Directory.GetCurrentDirectory();
-            string targetFileSpecifier = !inputResourceName.EndsWith("FileNameOnly.sarif")
+            string targetFileSpecifier = !inputResourceName.EndsWith("FileNameOnlyWithoutPath.sarif")
                 ? Path.Combine(InputFolderPath, inputResourceName)
                 : inputResourceName;
             string outputFileName = Guid.NewGuid().ToString() + SarifConstants.SarifFileExtension;
@@ -101,7 +101,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 return;
             }
 
-            if (inputResourceName.EndsWith("DuplicatedResults.sarif") || inputResourceName.EndsWith("FileNameOnly.sarif"))
+            if (inputResourceName.EndsWith("DuplicatedResults.sarif") || inputResourceName.EndsWith("FileNameOnlyWithoutPath.sarif"))
             {
                 // We mock the file system to fake out the read operations.
                 mockFileSystem.Setup(x => x.FileExists(outputFilePath)).Returns(true);
