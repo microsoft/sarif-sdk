@@ -30,7 +30,6 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
         }
 
         [Fact]
-        [Trait(TestTraits.WindowsOnly, "true")]
         public void Stack_CreateFromException()
         {
             bool caughtException = false;
