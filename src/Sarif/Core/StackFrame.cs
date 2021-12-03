@@ -103,7 +103,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (this.Location?.PhysicalLocation?.ArtifactLocation?.Uri != null)
             {
-                string fileName = this.Location.PhysicalLocation.ArtifactLocation.Uri.OriginalString.Split('/').Last();
+                string fileName = this.Location.PhysicalLocation.ArtifactLocation.Uri.OriginalString;
                 result += IN + fileName;
 
                 if (this.Location?.PhysicalLocation?.Region != null)
