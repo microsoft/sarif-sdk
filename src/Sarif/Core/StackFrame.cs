@@ -3,6 +3,7 @@
 
 using System;
 using System.Globalization;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 
@@ -102,7 +103,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (this.Location?.PhysicalLocation?.ArtifactLocation?.Uri != null)
             {
-                string fileName = this.Location.PhysicalLocation.ArtifactLocation.Uri.LocalPath;
+                string fileName = this.Location.PhysicalLocation.ArtifactLocation.Uri.OriginalString.Split('/').Last();
                 result += IN + fileName;
 
                 if (this.Location?.PhysicalLocation?.Region != null)

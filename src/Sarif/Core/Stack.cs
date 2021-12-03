@@ -102,7 +102,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             stack.Frames = new List<StackFrame>();
 
-            var regex = new Regex(StackFrame.AT + @"([^)]+\))(" + StackFrame.IN + "(.*)" + StackFrame.LINE + " (.*))?", RegexOptions.Compiled);
+            var regex = new Regex(StackFrame.AT + @"([^)]+\))(" + StackFrame.IN + @"([^:]+:[^:]+|\/.+)" + StackFrame.LINE + " (.*))?", RegexOptions.Compiled);
 
             foreach (string line in stackTrace.Split(new string[] { Environment.NewLine }, StringSplitOptions.None))
             {
@@ -124,13 +124,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                     if (!string.IsNullOrEmpty(match.Groups[2].Value))
                     {
                         string fileName = match.Groups[3].Value;
+                        Uri.TryCreate(fileName, UriKind.RelativeOrAbsolute, out Uri fileNameUri);
                         int lineNumber = int.Parse(match.Groups[4].Value);
 
                         stackFrame.Location.PhysicalLocation = new PhysicalLocation
                         {
                             ArtifactLocation = new ArtifactLocation
                             {
-                                Uri = new Uri(fileName)
+                                Uri = fileNameUri
                             },
                             Region = new Region
                             {
