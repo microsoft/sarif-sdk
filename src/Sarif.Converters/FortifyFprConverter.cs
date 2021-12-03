@@ -243,10 +243,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             if (!string.IsNullOrWhiteSpace(originalUriBasePath))
             {
-                if (originalUriBasePath.StartsWith("/") &&
-                     platform == "Linux")
+                if (originalUriBasePath.StartsWith("/"))
                 {
-                    originalUriBasePath = "file://" + originalUriBasePath;
+                    if (platform == "Linux")
+                    {
+                        originalUriBasePath = "file://" + originalUriBasePath;
+                    }
+                    else
+                    {
+                        return null;
+                    }
                 }
 
                 if (!originalUriBasePath.EndsWith("/"))
