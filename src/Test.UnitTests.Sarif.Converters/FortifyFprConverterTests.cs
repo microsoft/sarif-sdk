@@ -73,7 +73,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void FortifyFprConverter_GetOriginalUriBaseIdsDictionary_sourceIsAbsolutePathWithoutTrailingSlash()
         {
-            Dictionary<string, ArtifactLocation> originalUriBaseIdsDictionary = FortifyFprConverter.GetOriginalUriBaseIdsDictionary("C:\\test\\123", "Windows 10");
+            Dictionary<string, ArtifactLocation> originalUriBaseIdsDictionary = FortifyFprConverter.GetOriginalUriBaseIdsDictionary("C:/test/123", "Windows 10");
 
             originalUriBaseIdsDictionary.Count.Should().Be(1);
             originalUriBaseIdsDictionary.ContainsKey(FortifyFprConverter.FileLocationUriBaseId).Should().BeTrue();
