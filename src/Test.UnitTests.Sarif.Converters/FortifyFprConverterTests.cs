@@ -59,7 +59,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         }
 
         [Fact]
-        [Trait(TestTraits.WindowsOnly, "true")]
         public void FortifyFprConverter_GetOriginalUriBaseIdsDictionary_sourceIsDriveLetter()
         {
             Dictionary<string, ArtifactLocation> originalUriBaseIdsDictionary = FortifyFprConverter.GetOriginalUriBaseIdsDictionary("C:", "Windows Server 2016");
@@ -72,7 +71,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         }
 
         [Fact]
-        [Trait(TestTraits.WindowsOnly, "true")]
         public void FortifyFprConverter_GetOriginalUriBaseIdsDictionary_sourceIsAbsolutePathWithoutTrailingSlash()
         {
             Dictionary<string, ArtifactLocation> originalUriBaseIdsDictionary = FortifyFprConverter.GetOriginalUriBaseIdsDictionary("C:/test/123", "Windows 10");
