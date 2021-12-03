@@ -102,7 +102,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             stack.Frames = new List<StackFrame>();
 
-            var regex = new Regex(StackFrame.AT + @"([^)]+\))(" + StackFrame.IN + "([^:]+:[^:]+)" + StackFrame.LINE + " (.*))?", RegexOptions.Compiled);
+            var regex = new Regex(StackFrame.AT + @"([^)]+\))(" + StackFrame.IN + "(.*)" + StackFrame.LINE + " (.*))?", RegexOptions.Compiled);
 
             foreach (string line in stackTrace.Split(new string[] { Environment.NewLine }, StringSplitOptions.None))
             {

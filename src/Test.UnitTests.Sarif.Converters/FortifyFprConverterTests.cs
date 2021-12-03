@@ -93,7 +93,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         }
 
         [Fact]
-        [Trait(TestTraits.WindowsOnly, "true")]
         public void FortifyFprConverter_GetOriginalUriBaseIdsDictionary_sourceIsRelativeWithTrailingSlash()
         {
             Dictionary<string, ArtifactLocation> originalUriBaseIdsDictionary = FortifyFprConverter.GetOriginalUriBaseIdsDictionary("/some/relative/path/", "Windows Server 2016");
@@ -102,7 +101,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         }
 
         [Fact]
-        [Trait(TestTraits.WindowsOnly, "true")]
         public void FortifyFprConverter_GetOriginalUriBaseIdsDictionary_sourceIsRelativeWithoutTrailingSlash()
         {
             Dictionary<string, ArtifactLocation> originalUriBaseIdsDictionary = FortifyFprConverter.GetOriginalUriBaseIdsDictionary("another/relative/path", "Windows Server 2016");
