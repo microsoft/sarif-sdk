@@ -125,12 +125,12 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
 
                 if (timestamps && suppression.TryGetProperty("timeUtc", out DateTime timeUtc))
                 {
-                    timeUtc.Should().BeCloseTo(DateTime.UtcNow);
+                    timeUtc.Should().BeCloseTo(DateTime.UtcNow, 500);
                 }
 
                 if (expiryInDays > 0 && suppression.TryGetProperty("expiryUtc", out DateTime expiryUtc))
                 {
-                    expiryUtc.Should().BeCloseTo(DateTime.UtcNow.AddDays(expiryInDays));
+                    expiryUtc.Should().BeCloseTo(DateTime.UtcNow.AddDays(expiryInDays), 500);
                 }
             }
         }
