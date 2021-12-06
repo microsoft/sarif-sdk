@@ -34,6 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void ContrastSecurityConverter_EndToEnd()
         {
             BatchRunConverter(ToolFormat.ContrastSecurity);
@@ -64,6 +65,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void SemmleConverter_EndToEnd()
         {
             BatchRunConverter(ToolFormat.SemmleQL, "*.csv");
@@ -163,10 +165,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 return generatedFileName;
             }
 
-            string expectedSarif = File.ReadAllText(expectedFileName);
+            string expectedSarif = File.ReadAllText(expectedFileName).Replace(@"\r\n", @"\n");
             PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(expectedSarif, formatting: Formatting.Indented, out expectedSarif);
 
-            string actualSarif = File.ReadAllText(generatedFileName);
+            string actualSarif = File.ReadAllText(generatedFileName).Replace(@"\r\n", @"\n");
 
             if (!FileDiffingUnitTests.AreEquivalent<SarifLog>(actualSarif,
                                                               expectedSarif,
