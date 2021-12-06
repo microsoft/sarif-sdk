@@ -18,6 +18,7 @@ using Xunit.Abstractions;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
+    [Trait(TestTraits.WindowsOnly, "true")]
     public class BaselineOptionTests : FileDiffingFunctionalTests
     {
         private bool IsInline = false;
@@ -28,53 +29,45 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
-        [Trait(TestTraits.WindowsOnly, "true")]
         public void TEST1001_ValidateWithBaseline() =>
             RunBaselineOptionTest("TEST1001.ValidateWithBaseline.sarif", "TEST1001");
 
         [Fact]
-        [Trait(TestTraits.WindowsOnly, "true")]
         public void TEST1002_ValidateBaseline_NoResults() =>
             // baseline doesn't have results
             // all new result shoule be in new baseline status
             RunBaselineOptionTest("TEST1002.ValidateBaseline.NoResults.sarif", "TEST1002");
 
         [Fact]
-        [Trait(TestTraits.WindowsOnly, "true")]
         public void TEST1003_ValidateBaseline_AbsentResults() =>
             // all results of baseline are in absent baseline status.
             // New results should be in New status.
             RunBaselineOptionTest("TEST1003.ValidateBaseline.AbsentResults.sarif", "TEST1003");
 
         [Fact]
-        [Trait(TestTraits.WindowsOnly, "true")]
         public void TEST1004_ValidateBaseline_NewResults() =>
             // all results of baseline are in new baseline status.
             // New results should be in unchange status.
             RunBaselineOptionTest("TEST1004.ValidateBaseline.NewResults.sarif", "TEST1004");
 
         [Fact]
-        [Trait(TestTraits.WindowsOnly, "true")]
         public void TEST1005_ValidateBaseline_UnchangedResults() =>
             // all results of baseline are in unchanged baseline status.
             // New results should be in unchanged status.
             RunBaselineOptionTest("TEST1005.ValidateBaseline.UnchangedResults.sarif", "TEST1005");
 
         [Fact]
-        [Trait(TestTraits.WindowsOnly, "true")]
         public void TEST1006_ValidateBaseline_UpdatedResults() =>
             // New results are different than baseline results, should be in updated status.
             RunBaselineOptionTest("TEST1006.ValidateBaseline.UpdatedResults.sarif", "TEST1006");
 
         [Fact]
-        [Trait(TestTraits.WindowsOnly, "true")]
         public void TEST1007_ValidateBaseline_LessResultsThanBaseline() =>
             // New results are less than baseline results (means issue resolved).
             RunBaselineOptionTest("TEST1007.ValidateBaseline.LessResultsThanBaseline.sarif", "TEST1007");
 
 
         [Fact]
-        [Trait(TestTraits.WindowsOnly, "true")]
         public void TEST1008_ValidateBaseline_InlineUpdate() =>
             // Work with inline otpion, will update baseline sarif result with the new results.
             RunBaselineOptionTest("TEST1008.ValidateBaseline.InlineUpdate.sarif", "TEST1008", true);
